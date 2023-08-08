@@ -2,9 +2,11 @@
   <template if:true={isPicklist}>
     <lightning-combobox
       class="slds-size_12-of-12"
-      name="knownIssues"
+      name={omniJsonDef.name}
       label={omniJsonDef.propSetMap.label}
       value={value}
+      placeholder=""
+      required={isRequired}
       options={options}
       onchange={handleChange}
     >

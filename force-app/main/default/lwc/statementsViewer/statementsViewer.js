@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from "lwc";
-import { getRecord } from "lightning/uiRecordApi";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 
 import hasViewStatementsPermission from "@salesforce/customPermission/ANZx_View_Statements";
 import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
@@ -10,7 +10,10 @@ import FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__F
 import FINANCIAL_ACCOUNT_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Id";
 import PRODUCT_NAME_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Product_Name__c";
 import OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
-import TYPE_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
+import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
+
+import { BANK_ACCOUNT_RT_APINAME } from "c/financialAccountParent";
+
 const DEFAULT_PAGE_SIZE = 10;
 
 const FIELDS = [
@@ -19,7 +22,7 @@ const FIELDS = [
   FINANCIAL_ACCOUNT_ID_FIELD,
   PRODUCT_NAME_FIELD,
   OCV_ID_FIELD,
-  TYPE_FIELD
+  FIN_ACCOUNT_RT_APINAME
 ];
 
 const columns = [
@@ -84,9 +87,8 @@ export default class StatementsViewer extends LightningElement {
       this.accountId = data.fields.FinServ__PrimaryOwner__c.value;
       this.financialAccountId = data.fields.Id.value;
       this.ocvId = data.fields.OCV_ID__c.value;
-      if (
-        data.fields?.FinServ__FinancialAccountType__c?.value === "Home Loan"
-      ) {
+      this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
+      if (this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME) {
         this.productName = "ANZ Plus Home Loan";
       } else {
         this.productName = data.fields.Product_Name__c.value;

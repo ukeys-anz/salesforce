@@ -243,6 +243,10 @@
                 <behavior>Edit</behavior>
                 <field>ExpiryDateOCRServer__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ExpiryDateOCRMatch__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

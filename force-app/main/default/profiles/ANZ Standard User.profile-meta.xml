@@ -1682,6 +1682,10 @@
         <recordType>Case.Systemic_Issue</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>CollaborationGroup-All Active CMOS Group Layout</layout>
+        <recordType>CollaborationGroup.CMOS</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -2169,15 +2173,6 @@
         <allowEdit>false</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>SkyhighNetworks__SHNEvent__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>false</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
         <object>trailheadapp__Trail__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -2283,6 +2278,11 @@
         <default>false</default>
         <recordType>Case.Systemic_Issue</recordType>
         <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>CollaborationGroup.CMOS</recordType>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>

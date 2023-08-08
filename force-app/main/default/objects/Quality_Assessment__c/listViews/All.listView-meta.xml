@@ -10,5 +10,6 @@
     <label>All</label>
     <sharedTo>
         <role>ANZx</role>
+        <role>ANZ_Plus_Operations_Read_Only</role>
     </sharedTo>
 </ListView>

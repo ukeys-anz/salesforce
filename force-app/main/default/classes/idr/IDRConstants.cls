@@ -107,6 +107,7 @@ public with sharing class IDRConstants {
 
   //To auto assign cases checking for Subsequent Issue Type Set
   public static final Set<String> SUB_ISSUE_TYPE_HARDSHIP = new Set<String>{
+    '20',
     '21',
     '22',
     '23',
@@ -271,6 +272,7 @@ public with sharing class IDRConstants {
           'IDR_ANZ_Plus',
           'EDR_Hardship',
           'EDR_Wealth',
+          'IDR_Satellite',
           'IDR_Spare' //IDR Disputes & Scams
         };
       }
@@ -320,10 +322,48 @@ public with sharing class IDRConstants {
     '9',
     '10',
     '11',
-    '12',
-    '14',
-    '15',
     'Chat',
     'ANZ Plus App'
+  };
+
+  public static final List<String> IDR_TYPE_VALUES = new List<String>{
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    'Chat',
+    'ANZ Plus App'
+  };
+
+  public static final List<String> IDR_ESCALATION_VALUES = new List<String>{
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '20'
   };
 }

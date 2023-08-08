@@ -10,6 +10,9 @@ Id savingsRTId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeIn
 Id checkingRTId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
   .get('CheckingAccount')
   .getRecordTypeId();
+Id bankingRTId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
+  .get('BankingAccount')
+  .getRecordTypeId();
 
 Faker faker = new Faker('AU');
 Integer personAccount_count = 3;
@@ -84,6 +87,15 @@ for (Account acc : personAccounts) {
     RecordTypeId = checkingRTId
   );
   finAccList.add(fin_acc_checking);
+
+  FinServ__FinancialAccount__c fin_acc_homeloan = new FinServ__FinancialAccount__c(
+    Name = acc.FirstName + ' ' + acc.LastName,
+    FinServ__PrimaryOwner__c = acc.Id,
+    FinServ__FinancialAccountNumber__c = String.valueOf(faker.randomInteger(9)),
+    Account_Key__c = acc.OCV_ID__c + faker.randomString(6),
+    RecordTypeId = bankingRTId
+  );
+  finAccList.add(fin_acc_homeloan);
 }
 
 insert caseList;

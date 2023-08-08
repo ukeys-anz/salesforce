@@ -219,7 +219,6 @@
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
     "ResidentialLoanApplication": "General information and identifiers to describe type of loan",
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
-    "SkyhighNetworks__SHNEvent__c": "A monitoring event used to record Salesforce system access",
     "Task": "A task to remind a user to follow up on something",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
@@ -468,6 +467,7 @@
         "External_System__c",
         "FinServ__FinancialAccount__c",
         "Fraud_COR_Event_ID__c",
+        "Fraud_Onboarding_Customer_Name__c",
         "IsOwnerCoachOrCoachLead__c",
         "OwnerId",
         "ParentId",
@@ -558,6 +558,7 @@
         "Fraud_Customer_Provided_Selfie__c",
         "Fraud_Customer_Resolution_Provided__c",
         "Fraud_Defects_Rectified__c",
+        "Fraud_Detection_Case_Reference__c",
         "Fraud_Device_Status__c",
         "Fraud_EV_Match__c",
         "Fraud_Failed_Verification_Reason__c",
@@ -569,6 +570,7 @@
         "Fraud_Funds_to_Geography__c",
         "Fraud_Funds_to_Institution_Other__c",
         "Fraud_Funds_to_Institution__c",
+        "Fraud_Funds_to_OFI_Account__c",
         "Fraud_ID_Legible__c",
         "Fraud_ID_Not_Picture__c",
         "Fraud_ID_True_Document__c",
@@ -603,6 +605,12 @@
         "Fraud_Analytics_Change_Type__c",
         "Fraud_Analytics_Rule_Name__c",
         "Fraud_Analytics_Date_Complete__c",
+        "Fraud_ID_Compromise_Type__c",
+        "Fraud_Onboarding_Selfie_Of__c",
+        "Fraud_ANZX_Fraud_Confirm__c",
+        "Fraud_ARC_Profile_Exist__c",
+        "Fraud_ARC_Profile_Status__c",
+        "Fraud_Prevented__c",
         "Has_The_Card_Been_Stopped__c",
         "IDR_AFCA_Date__c",
         "IDR_AFCA_Due_Date__c",
@@ -872,7 +880,8 @@
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
         "PersonaId__c",
-        "PersonID__c"
+        "PersonID__c",
+        "Fraud_PersonID__c"
       ]
     },
     "CFaaS_File__c": {
@@ -1065,7 +1074,8 @@
         "PassportNumberOCRMatch__c",
         "PassportNumberOCRServer__c",
         "PassportNumberOCRServerTransform__c",
-        "PassportNumberTransform__c"
+        "PassportNumberTransform__c",
+        "ExpiryDateOCRMatch__c"
       ]
     },
     "COBTaxResidency__c": {
@@ -1153,6 +1163,7 @@
         "Created_By__c",
         "Created_Date__c",
         "Customer_Name__c",
+        "External_Id__c",
         "Last_Modified_By__c",
         "Last_Modified_Date__c",
         "Previous_Related_Account__c"
@@ -1165,7 +1176,11 @@
       ]
     },
     "ContactPointPhone": {
-      "IA-2530753": ["Customer_Name__c", "Previous_Related_Account__c"],
+      "IA-2530753": [
+        "Customer_Name__c",
+        "External_Id__c",
+        "Previous_Related_Account__c"
+      ],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
         "Verification_Status__c",
@@ -2295,19 +2310,6 @@
         "LogMessage__c",
         "SpanId__c",
         "RecordsJson__c"
-      ]
-    },
-    "SkyhighNetworks__SHNEvent__c": {
-      "IA-2468710": [
-        "SkyhighNetworks__EventDetail__c",
-        "SkyhighNetworks__SourceObjectId__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
       ]
     },
     "Task": {

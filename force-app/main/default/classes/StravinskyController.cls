@@ -41,11 +41,7 @@ public with sharing class StravinskyController {
     }
 
     List<FinServ__FinancialAccount__c> financialAccounts = [
-      SELECT
-        Id,
-        FinServ__FinancialAccountNumber__c,
-        FinServ__FinancialAccountType__c,
-        RecordType.DeveloperName
+      SELECT Id, FinServ__FinancialAccountNumber__c, RecordType.DeveloperName
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__PrimaryOwner__c = :caseRecord.AccountId
     ];
@@ -61,13 +57,16 @@ public with sharing class StravinskyController {
     String checkingAccountNumber;
 
     for (FinServ__FinancialAccount__c finAccount : financialAccounts) {
-      switch on finAccount.FinServ__FinancialAccountType__c {
-        when 'Savings' {
-          savingsAccountNumber = finAccount.FinServ__FinancialAccountNumber__c;
-        }
-        when 'Checking' {
-          checkingAccountNumber = finAccount.FinServ__FinancialAccountNumber__c;
-        }
+      if (
+        finAccount.RecordType.DeveloperName ==
+        GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
+      ) {
+        savingsAccountNumber = finAccount.FinServ__FinancialAccountNumber__c;
+      } else if (
+        finAccount.RecordType.DeveloperName ==
+        GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME
+      ) {
+        checkingAccountNumber = finAccount.FinServ__FinancialAccountNumber__c;
       }
     }
 

@@ -6,20 +6,20 @@ const KNOWN_ISSUES = [
   {
     IDR_Channel_Received__c: " ",
     IDR_Priority__c: " ",
-    IDR_Issue_Type__c: " ",
+    IDR_Issue_Type__c: "",
     IDR_Sub_Issue_Type__c: "",
     IDR_Description_of_Issue__c: "",
     IDR_Customer_Desired_Outcome__c: "",
-    IDR_Written_Response_Required__c: "",
+    IDR_Written_Response_Required__c: null,
     IDR_Is_there_another_issue__c: "",
     IDR_REAL_Form_Required__c: "",
     IDR_Possible_Systemic_Issue__c: "",
-    IDR_Status__c: "",
+    IDR_Status__c: "Open",
     IDR_Complaint_Outcome__c: "",
     IDR_Description_of_Outcome__c: "",
     IDR_Complaint_Remedy__c: "",
     IDR_Non_Financial_Remedy__c: "",
-    IDR_Written_Response_Requested__c: "",
+    IDR_Written_Response_Requested__c: null,
     Product__c: true,
     Product__r: { Name: "" }
   }
@@ -33,7 +33,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
   render() {
     if (this.omniJsonData && this.omniJsonData.KnownIssue) {
       this.omniJsonData.KnownIssue.forEach((issue) => {
-        this.options.push({ label: issue.Name, value: issue.Name });
+        this.options.push({ label: issue.Name, value: issue.Id });
       });
     }
     if (
@@ -54,6 +54,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
         let caseObj = JSON.parse(JSON.stringify(this.omniJsonData.Case));
         this.value = "";
         this.populateIssues(caseObj, issue);
+        this.omniUpdateDataJson("");
       }
     }
     return tmp;
@@ -64,7 +65,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
     this.value = event.target.value;
     this.omniUpdateDataJson(this.value);
     let issue = this.omniJsonData.KnownIssue.filter(
-      (ele) => ele.Name === this.value
+      (ele) => ele.Id === this.value
     );
     let Case = JSON.parse(JSON.stringify(this.omniJsonData.Case));
     this.populateIssues(Case, issue);
@@ -84,6 +85,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
     ComplaintDetails.ChannelReceived = issue[0].IDR_Channel_Received__c;
     ComplaintDetails.Priority = issue[0].IDR_Priority__c;
     ComplaintDetails.IssueType = issue[0].IDR_Issue_Type__c;
+    ComplaintDetails.AccountPolicyNumber = "N/A";
     ComplaintDetails.SubSequentIssueType = issue[0].IDR_Sub_Issue_Type__c;
     ComplaintDetails.DescriptionOfIssue = issue[0].IDR_Description_of_Issue__c;
     ComplaintDetails.CustomerDesiredOutcome =
@@ -108,6 +110,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
       issue[0].IDR_Non_Financial_Remedy__c;
     ResolutionInformation.custWrittenResponse =
       issue[0].IDR_Written_Response_Requested__c;
+    ResolutionInformation.secondComplaintRemedyCheckbox = "No";
     Case.ComplaintDetails = ComplaintDetails;
     Case.ResolutionInformation = ResolutionInformation;
     this.omniApplyCallResp({ Case });
