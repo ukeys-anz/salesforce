@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -61,7 +62,7 @@
                         <valueListItems>
                             <value>Case.Close_Complaint</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
+                                <booleanFilter>(1 OR 2) AND 3 AND 4 AND 5</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
@@ -81,6 +82,42 @@
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>Closed</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Disable_CMOS_Omni__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Case.Close_Complaint_Omni</value>
+                            <visibilityRule>
+                                <booleanFilter>(1 OR 2) AND 3 AND 4 AND 5</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.Name}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Customer_Complaint</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Non_Customer_Complaint</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Withdrawn</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Closed</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Disable_CMOS_Omni__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -165,10 +202,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>detailTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
@@ -176,10 +213,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>detailTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-5ee2c6a9-2f12-4d98-b09b-b734416b6619</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -198,10 +235,10 @@
                 <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-5ee2c6a9-2f12-4d98-b09b-b734416b6619</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-1a7aad35-5631-48e7-b8d5-d4041114f2d7</name>
         <itemInstances>
             <componentInstance>
                 <componentName>idrFilesRelatedList</componentName>
@@ -234,10 +271,10 @@
                 <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-1a7aad35-5631-48e7-b8d5-d4041114f2d7</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-36e6d156-b418-4036-99ae-b01ded837d53</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -288,10 +325,10 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
-        <name>Facet-36e6d156-b418-4036-99ae-b01ded837d53</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-7fb1ce69-1196-4983-9c2a-acd7466e68a1</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -341,10 +378,10 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
-        <name>Facet-7fb1ce69-1196-4983-9c2a-acd7466e68a1</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebartabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -420,10 +457,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebartabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -435,10 +472,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -587,7 +624,6 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Complaint Record Page</masterLabel>
