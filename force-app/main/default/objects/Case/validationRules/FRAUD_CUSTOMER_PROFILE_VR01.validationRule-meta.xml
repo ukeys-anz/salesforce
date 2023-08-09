@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FRAUD_CUSTOMER_PROFILE_VR01</fullName>
+    <active>true</active>
+    <description>The user of closed case should not be the generic user.</description>
+    <errorConditionFormula>RecordType.DeveloperName = &apos;False_Customer_Profile&apos; &amp;&amp; ISPICKVAL(Status,&quot;Closed&quot;)  &amp;&amp;  Fraud_Onboarding_Customer_Name__c = &quot;Fraud Entitlement Account&quot;</errorConditionFormula>
+    <errorMessage>Onboarding Customer Name should be actual customer name and not Generic account name.</errorMessage>
+</ValidationRule>

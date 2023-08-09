@@ -51,7 +51,9 @@ global without sharing class FetchRecordFromURL implements omnistudio.VlocityOpe
         String extractedRecordId = patternMatcher.group(1);
         Schema.SObjectType sobjectType = Id.valueOf(extractedRecordId)
           .getSobjectType();
-        String sObjectName = String.valueOf(sobjectType);
+        String sObjectName = String.escapeSingleQuotes(
+          String.valueOf(sobjectType)
+        );
         SObject recordFromDB = Database.query(
           'Select Id, Name From ' +
           sObjectName +

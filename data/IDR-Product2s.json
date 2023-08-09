@@ -1745,7 +1745,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "127",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "24",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "177",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1759,7 +1759,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "128",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "28",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "172",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1773,7 +1773,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "129",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "28",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "177",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -2299,7 +2299,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref166"
+        "referenceId": "Product2Ref165"
       },
       "Name": "Self Managed Super Fund (SMSF)",
       "IsActive": true,
@@ -2313,7 +2313,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref173"
+        "referenceId": "Product2Ref167"
       },
       "Name": "Open Banking/Data Sharing",
       "IsActive": true,
@@ -2327,7 +2327,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref174"
+        "referenceId": "Product2Ref168"
       },
       "Name": "ANZ Shield",
       "IsActive": true,
@@ -2341,7 +2341,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref170"
+        "referenceId": "Product2Ref169"
       },
       "Name": "Phone Banking",
       "IsActive": true,
@@ -2355,7 +2355,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref171"
+        "referenceId": "Product2Ref170"
       },
       "Name": "Deceased Estates",
       "IsActive": true,
@@ -2369,7 +2369,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref172"
+        "referenceId": "Product2Ref171"
       },
       "Name": "IVR",
       "IsActive": true,
@@ -2383,7 +2383,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref178"
+        "referenceId": "Product2Ref172"
       },
       "Name": "Business One",
       "IsActive": true,
@@ -2397,7 +2397,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref174"
+        "referenceId": "Product2Ref173"
       },
       "Name": "Salary Packaging Card",
       "IsActive": true,
@@ -2411,7 +2411,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref175"
+        "referenceId": "Product2Ref174"
       },
       "Name": "Business Overdraft",
       "IsActive": true,
@@ -2425,7 +2425,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref176"
+        "referenceId": "Product2Ref175"
       },
       "Name": "Business Select Package",
       "IsActive": true,
@@ -2439,7 +2439,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref177"
+        "referenceId": "Product2Ref176"
       },
       "Name": "Residential Investment Property Loan (Commercial Regulated Loan)",
       "IsActive": true,
@@ -2453,7 +2453,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref178"
+        "referenceId": "Product2Ref177"
       },
       "Name": "Documentary Credit Facility",
       "IsActive": true,
@@ -2467,7 +2467,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref179"
+        "referenceId": "Product2Ref178"
       },
       "Name": "Import Credit & Trade Facility",
       "IsActive": true,
@@ -2481,7 +2481,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref180"
+        "referenceId": "Product2Ref179"
       },
       "Name": "Trade Finance Loan",
       "IsActive": true,
@@ -2495,7 +2495,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref181"
+        "referenceId": "Product2Ref180"
       },
       "Name": "Export Trade Facility",
       "IsActive": true,
@@ -2509,7 +2509,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref182"
+        "referenceId": "Product2Ref181"
       },
       "Name": "Encashment Facility",
       "IsActive": true,
@@ -2523,7 +2523,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref183"
+        "referenceId": "Product2Ref182"
       },
       "Name": "Commercial Bills",
       "IsActive": true,
@@ -2537,7 +2537,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref184"
+        "referenceId": "Product2Ref183"
       },
       "Name": "Asset Finance - Car Loans",
       "IsActive": true,
@@ -2551,7 +2551,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref185"
+        "referenceId": "Product2Ref184"
       },
       "Name": "Asset Finance - Esanda Business Equipment finance",
       "IsActive": true,
@@ -2565,7 +2565,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref186"
+        "referenceId": "Product2Ref185"
       },
       "Name": "Asset Finance - Hire purchase",
       "IsActive": true,
@@ -2579,7 +2579,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref187"
+        "referenceId": "Product2Ref186"
       },
       "Name": "Letter of Credit",
       "IsActive": true,
@@ -2593,7 +2593,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref188"
+        "referenceId": "Product2Ref187"
       },
       "Name": "Standby Letter of Credit",
       "IsActive": true,
@@ -2607,7 +2607,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref189"
+        "referenceId": "Product2Ref188"
       },
       "Name": "ANZ Frequent Flyer Visa Gold",
       "IsActive": true,
@@ -2621,7 +2621,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref190"
+        "referenceId": "Product2Ref189"
       },
       "Name": "ANZ Prepaid Card",
       "IsActive": true,
@@ -2635,7 +2635,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref191"
+        "referenceId": "Product2Ref190"
       },
       "Name": "ANZ Rewards Visa Gold",
       "IsActive": true,
@@ -2649,7 +2649,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref192"
+        "referenceId": "Product2Ref191"
       },
       "Name": "Aussie Mastercard",
       "IsActive": true,
@@ -2663,7 +2663,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref193"
+        "referenceId": "Product2Ref192"
       },
       "Name": "ANZ Balance Visa",
       "IsActive": true,
@@ -2677,7 +2677,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref194"
+        "referenceId": "Product2Ref193"
       },
       "Name": "Verified by Visa",
       "IsActive": true,
@@ -2691,7 +2691,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref195"
+        "referenceId": "Product2Ref194"
       },
       "Name": "ANZ Easy Start Residential Investment Loan",
       "IsActive": true,
@@ -2705,7 +2705,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref196"
+        "referenceId": "Product2Ref195"
       },
       "Name": "ANZ Easy Start Home Loan",
       "IsActive": true,
@@ -2719,7 +2719,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref197"
+        "referenceId": "Product2Ref196"
       },
       "Name": "Equity Release Fixed Rate Loan",
       "IsActive": true,
@@ -2733,7 +2733,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref198"
+        "referenceId": "Product2Ref197"
       },
       "Name": "Equity Release Variable Rate Loan",
       "IsActive": true,
@@ -2747,7 +2747,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref199"
+        "referenceId": "Product2Ref198"
       },
       "Name": "Fixed Rate",
       "IsActive": true,

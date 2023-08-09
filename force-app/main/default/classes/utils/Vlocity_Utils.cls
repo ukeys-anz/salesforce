@@ -80,4 +80,13 @@ global with sharing class Vlocity_Utils implements Callable {
     List<Known_Issues__c> knownIssuesList = IDRExpressComplaintController.getAllKnownIssues();
     output.put('KnownIssue', knownIssuesList);
   }
+
+  /**
+   * @return boolean setting
+   * @description to get custom setting value
+   */
+  @AuraEnabled(cacheable=true)
+  public static Boolean getDisableOmni() {
+    return IDRConstants.DISABLE_OMNI_FOR_CMOS;
+  }
 }

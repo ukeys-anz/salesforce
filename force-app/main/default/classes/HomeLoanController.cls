@@ -43,6 +43,7 @@ public with sharing class HomeLoanController {
       WHERE
         FinServ__PrimaryOwner__c = :customerId
         AND RecordTypeId = :homeLoanRTId
+        AND Marketing_Code__c IN :GetHelpConstants.HOME_LOAN_MARKETING_CODES
       LIMIT 1
     ];
     return homeLoanFinancialAccount.Id;

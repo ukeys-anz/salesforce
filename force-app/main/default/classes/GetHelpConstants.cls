@@ -70,6 +70,40 @@ public with sharing class GetHelpConstants {
     .get('Fraud_Check')
     .getRecordTypeId();
 
+  public static final Id FALSE_CUSTOMER_PROFILE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('False_Customer_Profile')
+    .getRecordTypeId();
+
+  //Financial Account Record types
+
+  public static final String CHECKING_ACCOUNT_RT_APINAME = 'CheckingAccount';
+  public static final Id CHECKING_ACCOUNT_RT_ID = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
+    .get(GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME)
+    .getRecordTypeId();
+
+  public static final String SAVINGS_ACCOUNT_RT_APINAME = 'SavingsAccount';
+  public static final Id SAVINGS_ACCOUNT_RT_ID = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
+    .get(GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME)
+    .getRecordTypeId();
+
+  public static final String BANK_ACCOUNT_RT_APINAME = 'BankingAccount';
+  public static final Id BANK_ACCOUNT_RT_ID = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
+    .get(GetHelpConstants.BANK_ACCOUNT_RT_APINAME)
+    .getRecordTypeId();
+
+  //Financial Account marketing code values
+  public static final List<String> ANZX_MARKETING_CODES = new List<String>{
+    'TRANSACT01',
+    'SAVING01',
+    'HLVAR01',
+    'HLFXD01'
+  };
+
+  public static final List<String> HOME_LOAN_MARKETING_CODES = new List<String>{
+    'HLVAR01',
+    'HLFXD01'
+  };
+
   //Quality Assessment - General RT Id
   public static final Id QUALITY_ASSESSMENT_GENERAL_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
     .get('General')
@@ -218,4 +252,6 @@ public with sharing class GetHelpConstants {
 
   // Basic Subscription Entitlment Process Name
   public static final String BASIC_SUBSCRIPTION_ENTITLEMENT_NAME = 'Basic Subscription';
+  public static final String ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME = 'anz plus - basic subscription';
+  public static final String COMPLAINTS_SLA_PROCESS_NAME = 'complaints';
 }

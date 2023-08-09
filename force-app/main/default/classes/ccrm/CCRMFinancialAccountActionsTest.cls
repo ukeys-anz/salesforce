@@ -56,10 +56,17 @@ private class CCRMFinancialAccountActionsTest {
       FinServ__FinancialAccountNumber__c = '001'
     );
 
+    FinServ__FinancialAccount__c anzxFa = new FinServ__FinancialAccount__c(
+      Name = 'Firstname Lastname',
+      Marketing_Code__c = 'TRANSACT01',
+      FinServ__FinancialAccountType__c = 'CAP-CIS:DDA',
+      FinServ__FinancialAccountNumber__c = '001'
+    );
+
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
       CCRMFinancialAccountActions.populateName(
-        new List<FinServ__FinancialAccount__c>{ fa }
+        new List<FinServ__FinancialAccount__c>{ fa, anzxFa }
       );
     }
     Test.stopTest();
@@ -68,6 +75,12 @@ private class CCRMFinancialAccountActionsTest {
       'DDA-001',
       fa.Name,
       'Name should be a concated string of Account Type and Account Number'
+    );
+
+    Assert.areEqual(
+      'Firstname Lastname',
+      anzxFa.Name,
+      'ANZx FA name should not be modified'
     );
   }
 }
