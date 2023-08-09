@@ -24,14 +24,17 @@ public class SOPDebt {
   public String sourceType {
     get {
       if (!sources.isEmpty()) {
-        if (sources[0] == 'LIABILITY_SOURCE_TYPE_ANZ') {
-          return 'ANZ';
+        if (sources[0] == ResidentialLoanApplicationModel.LIABILITY_ANZ) {
+          return ResidentialLoanApplicationModel.SAVINGS_ANZ;
         }
-        if (sources[0] == 'LIABILITY_SOURCE_TYPE_BUREAU') {
-          return 'Bureau';
+        if (sources[0] == ResidentialLoanApplicationModel.LIABILITY_BUREAU) {
+          return ResidentialLoanApplicationModel.CREDIT_BUREAU;
+        }
+        if (sources[0] == ResidentialLoanApplicationModel.LIABILITY_MANUAL) {
+          return ResidentialLoanApplicationModel.MANUAL;
         }
       }
-      return 'Other';
+      return ResidentialLoanApplicationModel.OTHER;
     }
   }
 
@@ -62,11 +65,20 @@ public class SOPDebt {
   public SOPAccounts account;
   public List<SOPOwnership> ownership;
   public String createTime;
-  public String updateTime;
+  public Datetime updateTime;
+  /**
+   * @description return update time in the expected format
+   */
+  public String updateTimeStr {
+    get {
+      return BOHService.getFormatedDate(updateTime);
+    }
+  }
   public String updatedBy;
   public SOPMoney originalOutstandingBalance;
   public SOPMoney outstandingBalance;
   public SOPStudentLoan studentLoan;
+  public SOPMoney verifiedOutstandingBalance;
 
   /**
    * @description return the owner name of the debt

@@ -16,6 +16,7 @@ public class SOPInstitutionalLiability {
   public SOPMoney redrawAmount;
   public String paymentMethod;
   public String financialInstitution;
+  public String verifiedPrincipalInterestRemainingTerm;
   /**
    * @description return a readable frequency
    */

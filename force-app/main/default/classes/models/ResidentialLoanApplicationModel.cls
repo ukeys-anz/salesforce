@@ -33,6 +33,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String ASSET_TYPE_SUPER = 'ASSET_TYPE_SUPER';
   public static final String ASSET_TYPE_BANK_ACCOUNT = 'ASSET_TYPE_BANK_ACCOUNT';
   public static final String SAVINGS_ANZ = 'ANZ';
+  public static final String LIABILITY_ANZ = 'LIABILITY_SOURCE_TYPE_ANZ';
   public static final String SAVINGS_ANZ_PLUS = 'ANZ Plus';
   public static final String ASSET_TYPE_CASH = 'ASSET_TYPE_CASH';
   public static final String ASSET_TYPE_PROPERTY = 'ASSET_TYPE_PROPERTY';
@@ -43,6 +44,11 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String N = 'No';
   public static final String BEFORE_TAX = 'Before Tax';
   public static final String AFTER_TAX = 'After Tax';
+  public static final String CREDIT_BUREAU = 'Credit Bureau';
+  public static final String LIABILITY_BUREAU = 'LIABILITY_SOURCE_TYPE_BUREAU';
+  public static final String MANUAL = 'Manual';
+  public static final String LIABILITY_MANUAL = 'LIABILITY_SOURCE_TYPE_MANUAL';
+  public static final String OTHER = 'Other';
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
