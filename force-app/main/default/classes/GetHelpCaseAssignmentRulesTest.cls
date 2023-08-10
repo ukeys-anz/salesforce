@@ -154,7 +154,9 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     List<Id> disputeCaseTypes = new List<Id>{
       GetHelpConstants.ATM_DISPUTE_RT_ID,
       GetHelpConstants.CARD_DISPUTE_RT_ID,
-      GetHelpConstants.NPP_DISPUTE_RT_ID
+      GetHelpConstants.NPP_DISPUTE_RT_ID,
+      GetHelpConstants.ATM_DISPUTE_RT_ID,
+      GetHelpConstants.ATM_DISPUTE_RT_ID
     };
     Faker faker = new Faker('AU');
     Case[] cases = new List<Case>();
@@ -188,6 +190,8 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     cases[0].Dispute_Reason__c = 'Cash Dispensing Error';
     cases[1].Dispute_Reason__c = 'Charged Incorrect Amount';
     cases[2].Dispute_Reason__c = 'Incorrect Account Details';
+    cases[3].Dispute_Reason__c = 'Cash Deposit Error';
+    cases[4].Dispute_Reason__c = 'Cheque Deposit Error';
     update cases;
     Test.stopTest();
 
@@ -214,6 +218,16 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     System.assertEquals(
       GetHelpConstants.SUPPORT_COACH_QUEUE,
       queueNameById.get(caseMap.get(cases[2].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
+    );
+    System.assertEquals(
+      GetHelpConstants.SUPPORT_COACH_QUEUE,
+      queueNameById.get(caseMap.get(cases[3].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
+    );
+    System.assertEquals(
+      GetHelpConstants.SUPPORT_COACH_QUEUE,
+      queueNameById.get(caseMap.get(cases[4].Id).OwnerId).developerName,
       'Should return the developer name of expected queue.'
     );
   }

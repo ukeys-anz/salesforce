@@ -46,8 +46,8 @@
     toastEvent.fire();
   },
   // Handle navigating user to case edit form
-  handleNavig: function (component, result) {
-    if (result) {
+  handleNavig: function (component, aemCaseFlag) {
+    if (aemCaseFlag) {
       component.set("v.showLWC", true);
       component.set("v.showRTs", false);
     } else {
@@ -61,7 +61,8 @@
           actionName: "edit"
         },
         state: {
-          recordTypeId: component.get("v.selectedRecordTypeId")
+          recordTypeId: component.get("v.selectedRecordTypeId"),
+          defaultFieldValues: component.get("v.autoFillFieldsString")
         }
       };
       navService.navigate(pageReference);

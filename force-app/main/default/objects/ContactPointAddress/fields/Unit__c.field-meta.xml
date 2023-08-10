@@ -6,7 +6,7 @@
     <description>Unit/Flat/Level number</description>
     <externalId>false</externalId>
     <label>Unit/Flat/Level</label>
-    <length>10</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>

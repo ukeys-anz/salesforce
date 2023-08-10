@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Statutory Compliance Agent</name>
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>None</contactAccessLevel>
+    <description>Statutory Compliance Agent</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>ANZx</parentRole>
+</Role>

@@ -5,14 +5,10 @@
     <description>Validation rule to enforce sequential OCV event versions.</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-NOT(ISNULL(PRIORVALUE(OCV_Event_Version__c))),
-OR(
-OCV_Event_Version__c &lt; PRIORVALUE(OCV_Event_Version__c),
+ISCHANGED(OCV_Event_Version__c),
 OCV_Event_Version__c &gt; PRIORVALUE(OCV_Event_Version__c) + 1,
-ISNULL(OCV_Event_Version__c)
-),
-NOT(IsSnapshotInProgress__c)
-)</errorConditionFormula>
+NOT(ISNULL(OCV_Event_Version__c)),
+NOT(IsSnapshotInProgress__c))</errorConditionFormula>
     <errorDisplayField>OCV_Event_Version__c</errorDisplayField>
-    <errorMessage>Invalid version update. Version number should be sequential.</errorMessage>
+    <errorMessage>HIGH VERSION: Event Version should be incremental.</errorMessage>
 </ValidationRule>

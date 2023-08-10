@@ -10,6 +10,7 @@
   <aura:attribute name="caseRecordTypes" type="List" />
   <aura:attribute name="caseRecordError" type="String" />
   <aura:attribute name="selectedRecordTypeId" type="String" default="" />
+  <aura:attribute name="autoFillFieldsString" type="String" default="" />
   <aura:attribute name="defaultFieldsValueString" type="String" default="" />
   <aura:attribute name="selectedRecordTypeName" type="String" default="" />
   <aura:attribute name="showError" type="Boolean" default="false" />
@@ -21,7 +22,7 @@
     aura:id="caseRecordLoader"
     recordId="{!v.recordId}"
     targetFields="{!v.caseRecord}"
-    fields="CaseNumber"
+    fields="CaseNumber,ANZx_Customer__c"
     targetError="{!v.caseRecordError}"
   />
   <aura:if isTrue="{!not(empty(v.caseRecordError))}">
@@ -113,16 +114,17 @@
       <div>
         <div class="slds-card__header slds-grid">
           <h2 class="title slds-text-heading--medium slds-hyphenate">
-            Update Field Values
+            Edit {!v.caseRecord.CaseNumber}
           </h2>
         </div>
         <div class="slds-card__body slds-card__body_inner">
           <c:changeRecordTypeDefaultValue
             recordId="{!v.recordId}"
             aura:id="changeRTDefaultValue"
-            oncanceldefaultvalue="{!c.cancelUpdateFieldValues}"
+            oncanceldefaultvalue="{!c.handleClose}"
             updatedRT="{!v.selectedRecordTypeId}"
             defaultValues="{!v.defaultFieldsValueString}"
+            updatedRTName="{!v.selectedRecordTypeName}"
           ></c:changeRecordTypeDefaultValue>
         </div>
       </div>

@@ -56,8 +56,19 @@
             "Error!"
           );
         } else {
+          var autoFillFieldsString = "";
+          for (var i in parsedResult) {
+            autoFillFieldsString =
+              autoFillFieldsString + "," + i + "=" + parsedResult[i];
+          }
+          if (autoFillFieldsString.startsWith(",")) {
+            // drop the leading ','
+            autoFillFieldsString = autoFillFieldsString.substring(1);
+          }
+          component.set("v.autoFillFieldsString", autoFillFieldsString);
           component.set("v.defaultFieldsValueString", result);
-          helper.handleNavig(component, result);
+          var aemCaseFlag = component.get("v.caseRecord.ANZx_Customer__c");
+          helper.handleNavig(component, aemCaseFlag);
         }
       } else {
         helper.showToast(
@@ -68,9 +79,5 @@
       }
     });
     $A.enqueueAction(action);
-  },
-
-  cancelUpdateFieldValues: function (component, event, helper) {
-    $A.get("e.force:closeQuickAction").fire();
   }
 });

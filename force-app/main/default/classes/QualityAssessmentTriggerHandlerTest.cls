@@ -675,7 +675,9 @@ private class QualityAssessmentTriggerHandlerTest {
       Email = faker.randomString(6) + '@testtest.com',
       MobilePhone = faker.person.phone()
     );
-    insert testLead;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      insert testLead;
+    }
 
     Interaction interaction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,

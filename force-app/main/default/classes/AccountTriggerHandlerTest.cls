@@ -2,51 +2,19 @@
 private class AccountTriggerHandlerTest {
   private final static Faker TESTFAKER = new Faker('AU');
   private final static string TEST_MOBILE = '123456789';
-  private final static string TEST_OVC_ID_1 = '123456789';
-  private final static string TEST_OVC_ID_2 = TESTFAKER.randomString(10);
-  private final static string TEST_OVC_ID_3 = TESTFAKER.randomString(10);
 
   @TestSetup
   static void makeData() {
-    Lead l = new Lead();
-    l.Firstname = 'John';
-    l.Lastname = 'Something';
-    l.Email = 'john.something@gmail.com';
-    l.MobilePhone = '0401123123';
-    l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      Lead l = new Lead();
+      l.Firstname = 'John';
+      l.Lastname = 'Something';
+      l.Email = 'john.something@gmail.com';
+      l.MobilePhone = '0401123123';
+      l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
 
-    insert l;
-
-    createCases();
-  }
-
-  static void createCases() {
-    CustomerOnboardingApplication__c coa = new CustomerOnboardingApplication__c(
-      SecurityMobile__c = TEST_MOBILE
-    );
-    insert coa;
-
-    List<Case> cases = new List<Case>();
-    Case case1 = new Case(
-      Status = 'Open',
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      OCV_Id__c = TEST_OVC_ID_1
-    );
-    cases.add(case1);
-    Case case2 = new Case(
-      Status = 'Open',
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      OCV_Id__c = TEST_OVC_ID_2,
-      CustomerOnboardingApplication__c = coa.id
-    );
-    cases.add(case2);
-    Case case3 = new Case(
-      Status = 'Open',
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      OCV_Id__c = TEST_OVC_ID_3
-    );
-    cases.add(case3);
-    insert cases;
+      insert l;
+    }
   }
 
   @isTest
@@ -351,8 +319,9 @@ private class AccountTriggerHandlerTest {
       l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
       matchingLeads.add(l);
     }
-
-    insert matchingLeads;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      insert matchingLeads;
+    }
 
     Account testAccount = new Account(
       FirstName = firstName,
@@ -390,65 +359,85 @@ private class AccountTriggerHandlerTest {
   }
 
   @isTest
-  static void testLinkCasestoAccountByOCVIdWithFoundOCVId() {
-    // GIVEN an existing KYC QA case exists with a matching OCV ID with an account
+  static void testInsertAccountWithoutBankruptField() {
     Account acc = new Account(
-      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
-      FirstName = TESTFAKER.randomString(5),
-      LastName = TESTFAKER.randomString(5),
-      OCV_ID__c = TEST_OVC_ID_1,
-      ANZx_Customer__c = true,
-      External_Id__c = TESTFAKER.randomString(15)
+      Name = 'Test Account',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = false
     );
 
-    // WHEN the account is created
     Test.startTest();
     insert acc;
     Test.stopTest();
 
-    // THEN the KYC QA case should be linked to the account
-    List<Case> cases = [
-      SELECT Id
-      FROM Case
-      WHERE OCV_ID__c = :TEST_OVC_ID_1 AND AccountId = :acc.Id
-    ];
-    Assert.areEqual(
-      1,
-      cases.size(),
-      'LinkCasestoAccountByOCVId found case and link by OCVId'
-    );
+    System.assert(!acc.BankruptCheckBox__c, 'Bankrupt flag should be false');
   }
 
   @isTest
-  static void testLinkCasestoAccountByOCVIdWithFoundMobile() {
-    // GIVEN an existing KYC QA case exists with a matching mobile number with an account
+  static void testInsertAccountWithBankruptField() {
     Account acc = new Account(
-      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
-      FirstName = TESTFAKER.randomString(5),
-      LastName = TESTFAKER.randomString(5),
-      ANZx_Customer__c = true,
-      External_Id__c = TESTFAKER.randomString(15),
-      PersonMobilePhone = TEST_MOBILE,
-      OCV_ID__c = TESTFAKER.randomString(10)
+      Name = 'Test Account',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = false,
+      Bankrupt_Date__c = Date.today()
     );
 
-    // WHEN the account is created
     Test.startTest();
     insert acc;
     Test.stopTest();
 
-    // THEN the KYC QA case should be linked to the account
-    List<Case> cases = [
-      SELECT Id
-      FROM Case
-      WHERE
-        AccountId = :acc.Id
-        AND CustomerOnboardingApplication__r.SecurityMobile__c = :TEST_MOBILE
+    acc = [
+      SELECT BankruptCheckBox__c, Name
+      FROM Account
+      WHERE Name = 'Test Account'
     ];
-    Assert.areEqual(
-      1,
-      cases.size(),
-      'LinkCasestoAccountByOCVId found case and link by Mobile Number'
+    System.assert(acc.BankruptCheckBox__c, 'Bankrupt flag should be true');
+  }
+
+  @isTest
+  static void testUpdateAccountWithNullBankruptField() {
+    Account acc = new Account(
+      Name = 'Test Account',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = false,
+      Bankrupt_Date__c = Date.today()
     );
+
+    Test.startTest();
+    insert acc;
+
+    acc.Bankrupt_Date__c = null;
+    update acc;
+    Test.stopTest();
+
+    acc = [
+      SELECT BankruptCheckBox__c, Name
+      FROM Account
+      WHERE Name = 'Test Account'
+    ];
+    System.assert(!acc.BankruptCheckBox__c, 'Bankrupt flag should be false');
+  }
+
+  @isTest
+  static void testUpdateAccountWithBankruptField() {
+    Account acc = new Account(
+      Name = 'Test Account',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = false
+    );
+
+    Test.startTest();
+    insert acc;
+
+    acc.Bankrupt_Date__c = Date.today();
+    update acc;
+    Test.stopTest();
+
+    acc = [
+      SELECT BankruptCheckBox__c, Name
+      FROM Account
+      WHERE Name = 'Test Account'
+    ];
+    System.assert(acc.BankruptCheckBox__c, 'Bankrupt flag should be true');
   }
 }

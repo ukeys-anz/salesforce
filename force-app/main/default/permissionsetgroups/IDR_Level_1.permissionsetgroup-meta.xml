@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>This permission set group is for IDR Level 1 users</description>
+    <hasActivationRequired>false</hasActivationRequired>
     <label>IDR Level 1</label>
+    <permissionSets>Chatter_User_with_License</permissionSets>
     <permissionSets>Email_Based_Identity_Verification_Option</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>

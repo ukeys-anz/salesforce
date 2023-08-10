@@ -39,7 +39,11 @@ public with sharing class CCRMAPIRepositoryTest {
     CCRMSearchPartyModel searchPartyInfo = apiRepo.searchPartyInfo(record);
 
     // Verify response received contains fake values
-    System.assertEquals('123456789', searchPartyInfo.certifiedResults[0].ocvId);
+    System.assertEquals(
+      '123456789',
+      searchPartyInfo.certifiedResults[0].ocvId,
+      'Expected ocvId to be 123456789'
+    );
   }
 
   @isTest
@@ -49,6 +53,10 @@ public with sharing class CCRMAPIRepositoryTest {
     CCRMCreatePartyModel createPartyInfo = apiRepo.createParty(record);
 
     // Verify response received contains fake values
-    System.assertEquals('1234567891', createPartyInfo.capcisId);
+    System.assertEquals(
+      '1234567891',
+      createPartyInfo.capcisId,
+      'The returned capcisId does not match'
+    );
   }
 }

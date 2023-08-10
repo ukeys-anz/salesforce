@@ -666,11 +666,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>AR_C_Customer__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>FinServ__TotalOutstandingCredit__c</field>
             <table>Account</table>
         </columns>

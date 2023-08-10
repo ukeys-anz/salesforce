@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisableDocumentDeletionTrigger__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <defaultValue>false</defaultValue>
+    <description>When Documents are deleted from a Case LastModifiedDate is updated to cause EDW to pick up the new information. This flag disables that to allow for bulk deletion without EDW alerting.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When Documents are deleted from a Case LastModifiedDate is updated to cause EDW to pick up the new information. This flag disables that to allow for bulk deletion without EDW alerting.</inlineHelpText>
+    <label>Disable Document Deletion Trigger</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

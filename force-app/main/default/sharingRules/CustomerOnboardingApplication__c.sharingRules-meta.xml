@@ -13,6 +13,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>CardDispute_Agent_RO_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with CardDispute Agent with Read Only access.</description>
+        <label>CardDispute Agent RO All</label>
+        <sharedTo>
+            <role>Card_Dispute_Agent</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>FinCrime_Agent_RO_All</fullName>
         <accessLevel>Read</accessLevel>
         <description>Share all Customer Onboarding Application records with FinCrime Agent with Read Only access.</description>
@@ -43,6 +55,18 @@
         <label>Join Lead RO All</label>
         <sharedTo>
             <role>Join_Lead</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Stat_Comp_Agent_RO_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with Statutory Compliance Agent with Read Only access.</description>
+        <label>Stat Comp Agent RO All</label>
+        <sharedTo>
+            <role>Statutory_Compliance_Agent</role>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers/>

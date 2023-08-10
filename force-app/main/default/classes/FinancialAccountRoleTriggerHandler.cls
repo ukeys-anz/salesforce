@@ -1,9 +1,10 @@
 /**
- * @author Jasmine Nguyen
- * @since 2/2021
- * @description  FinancialAccountRoleTriggerHandler is the handler class for Financial Account Role Trigger which extends Lib_TriggerHandler the trigger framework used.
+ *
+ * @author Tan Phan
+ * @since 05/2023
+ * @description the handler class for {@link FinancialAccountRoleTrigger.trigger} which extends Lib_TriggerHandler the trigger framework used.
+ * @runTests FinancialAccountRoleTriggerHandlerTest
  */
-
 public with sharing class FinancialAccountRoleTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to call the trigger framework
@@ -14,9 +15,33 @@ public with sharing class FinancialAccountRoleTriggerHandler extends Lib_Trigger
   }
 
   /**
-   * @description onBeforeInsert to update the list of records which were identified in onValidate() method
+   * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
-    FinancialAccountRoleCommonActions.populateData(records);
+    CCRMFinancialAccountRoleActions.setRecordType(records);
+    CCRMFinancialAccountRoleActions.mapRoleTypeToRole(records);
+  }
+
+  /**
+   * @description onAfterInsert to handle after insert trigger actions.
+   */
+  public override void onAfterInsert() {
+    CCRMFinancialAccountRoleActions.updateFinancialAccountOwner(records);
+  }
+
+  /**
+   * @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    CCRMFinancialAccountRoleActions.deactivateEndDatedRecords(
+      records,
+      (Map<Id, FinServ__FinancialAccountRole__c>) oldMap
+    );
+    CCRMFinancialAccountRoleActions.setRecordType(records);
+    CCRMFinancialAccountRoleActions.checkLastPrimaryOwnerDeactivated(
+      records,
+      (Map<Id, FinServ__FinancialAccountRole__c>) oldMap
+    );
   }
 }

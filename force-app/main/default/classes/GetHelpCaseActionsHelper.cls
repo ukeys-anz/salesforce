@@ -29,6 +29,29 @@ public with sharing class GetHelpCaseActionsHelper {
   private static final String MORE_THAN_TWO_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select more than two Additional Types.';
   private static final String SAME_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select a value in Additional Type that is already selected as the Primary Type.';
   private static final String NO_ENTITLEMENT_ERROR_MSG = 'No entitlement found for account.';
+
+  @TestVisible
+  private static final Group PENDING_KYC_QA_WO_CUSTOMER = CommonUtil.getQueueByName(
+    'Pending_KYC_QA_No_Customer'
+  );
+
+  private static Id falseEntitlementAccountId {
+    get {
+      if (falseEntitlementAccountId != null) {
+        return falseEntitlementAccountId;
+      }
+      falseEntitlementAccountId = [
+        SELECT Id
+        FROM Account
+        WHERE Name = :FRAUD_GENERIC_CUSTOMER_NAME
+        LIMIT 1
+      ]
+      .Id;
+      return falseEntitlementAccountId;
+    }
+    private set;
+  }
+
   /**
    * @description  This method checks if Additional_Type__c has more than 2 values selected or
    * if the Type value is same as one of the additional values
@@ -137,8 +160,8 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param caseList a list of cases that we need to get account ids from
    * @return list of account ids
    */
-  public static List<Id> getEntitlementAccountIds(List<Case> caseList) {
-    List<Id> accountIds = new List<Id>();
+  public static Set<Id> getEntitlementAccountIds(List<Case> caseList) {
+    Set<Id> accountIds = new Set<Id>();
 
     for (Case c : caseList) {
       if (
@@ -159,15 +182,13 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param name name of the entitilement
    * @return Map of account Ids and their entitlement Ids
    */
-  public static Map<Id, Id> getEntitlements(List<Id> accountIds, String name) {
-    if (accountIds.isEmpty()) {
-      new Map<Id, Id>();
-    }
-    if (PermissionUtils.canQuery('Entitlement') == false) {
-      new Map<Id, Id>();
-    }
-
+  public static Map<Id, Id> getEntitlements(Set<Id> accountIds, String name) {
     Map<Id, Id> entMap = new Map<Id, Id>();
+    if (
+      accountIds.isEmpty() || PermissionUtils.canQuery('Entitlement') == false
+    ) {
+      return entMap;
+    }
 
     for (Entitlement en : [
       SELECT Id, AccountId
@@ -193,7 +214,6 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -370,14 +390,57 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Check if the case is a false customer profile, then make the onboarding customer name value -
-   * - to be customer name
-   * @param records New record instances to process
+   * @description will find all the cobs related to accounts.
+   * Each COB has a SecurityMobile__c required, and that is matched with customer.PersonMobilePhone
+   * There might be a difference between number format on customer and cob. exp : +61440000000 :: 61440000000
+   * We use PhoneUtils.cleanupMobile to have same key for creating a map<clean mobile number , cob id>
+   * @param accountList List<Account> list of accounts which is assigned to a False Customer Profile case.
+   * @return Map<string,Id> Map < mobile number, cob id>
    */
-  public static void setFraudCustomerProfileCase(List<Case> records) {
+
+  public static Map<string, Id> findCOBByCustomerMobileNumber(
+    List<Account> accountList
+  ) {
+    List<String> accountMobileList = new List<String>();
+    Map<String, Id> result = new Map<String, Id>();
+    for (Account acc : accountList) {
+      if (acc.PersonMobilePhone != null) {
+        accountMobileList.add(PhoneUtils.cleanupMobile(acc.PersonMobilePhone));
+      }
+    }
+
+    if (
+      accountMobileList.size() == 0 ||
+      !Schema.sObjectType.CustomerOnboardingApplication__c.isQueryable()
+    ) {
+      return result;
+    }
+
+    List<CustomerOnboardingApplication__c> cobs = [
+      SELECT Id, SecurityMobile__c
+      FROM CustomerOnboardingApplication__c
+      WHERE SecurityMobile__c IN :accountMobileList
+    ];
+
+    for (CustomerOnboardingApplication__c cob : cobs) {
+      result.put(cob.SecurityMobile__c, cob.Id);
+    }
+    return result;
+  }
+
+  /**
+   * @description Check if the case is a false customer profile, then:
+   * - make the onboarding customer name value to be customer name
+   * - if real customer has been chosen, auto populate the cob
+   * @param records New record instances to process
+   * @param oldCaseMap old case map
+   */
+  public static void setFraudCustomerProfileCase(
+    List<Case> records,
+    Map<Id, Case> oldCaseMap
+  ) {
     Map<Id, Case> caseList = new Map<Id, Case>();
     set<Id> accountIds = new Set<Id>();
-
     for (Case record : records) {
       if (
         record.RecordTypeId == GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID
@@ -386,21 +449,37 @@ public with sharing class GetHelpCaseActionsHelper {
         caseList.put(record.AccountId, record);
       }
     }
-    if (accountIds.Size() > 0 && Schema.sObjectType.Account.isQueryable()) {
-      List<Account> accs = [
-        SELECT Id, Name
-        FROM Account
-        WHERE Id IN :accountIds
-      ];
-      for (Account acc : accs) {
-        Case c = caseList.get(acc.Id);
-        if (
-          String.isBlank(c.Fraud_Onboarding_Customer_Name__c) ||
-          (c.Fraud_Onboarding_Customer_Name__c != FRAUD_GENERIC_CUSTOMER_NAME &&
-          acc.Name != FRAUD_GENERIC_CUSTOMER_NAME)
-        ) {
-          c.Fraud_Onboarding_Customer_Name__c = acc.Name;
-        }
+
+    if (accountIds.size() == 0 || !Schema.sObjectType.Account.isQueryable()) {
+      return;
+    }
+
+    List<Account> accs = [
+      SELECT Id, Name, PersonMobilePhone
+      FROM Account
+      WHERE Id IN :accountIds
+    ];
+
+    Map<String, Id> accountPhoneNumbers = findCOBByCustomerMobileNumber(accs);
+    for (Account acc : accs) {
+      Case c = caseList.get(acc.Id);
+      if (
+        String.isBlank(c.Fraud_Onboarding_Customer_Name__c) ||
+        (c.Fraud_Onboarding_Customer_Name__c != FRAUD_GENERIC_CUSTOMER_NAME &&
+        acc.Name != FRAUD_GENERIC_CUSTOMER_NAME)
+      ) {
+        c.Fraud_Onboarding_Customer_Name__c = acc.Name;
+      }
+
+      if (acc.Name != FRAUD_GENERIC_CUSTOMER_NAME) {
+        c.CustomerOnboardingApplication__c = accountPhoneNumbers.get(
+          PhoneUtils.cleanupMobile(acc.PersonMobilePhone)
+        );
+      } else if (
+        oldCaseMap != null &&
+        oldCaseMap.get(c.Id).AccountId != falseEntitlementAccountId
+      ) {
+        c.CustomerOnboardingApplication__c = null;
       }
     }
   }
@@ -642,5 +721,91 @@ public with sharing class GetHelpCaseActionsHelper {
       )
       .date();
     return newTask;
+  }
+
+  /**
+   * @description Get Mobile Number and Case map
+   * @param oldCaseIds Set of old KYC QA Case Ids trigger.oldMap
+   * @return Mobile Number and Case Id map
+   */
+  public static Map<String, String> getMobileByCaseId(Set<Id> oldCaseIds) {
+    if (oldCaseIds.isEmpty() || PermissionUtils.canQuery('Case') == false) {
+      return new Map<String, String>();
+    }
+
+    Map<String, String> mobileByCaseIdMap = new Map<String, String>();
+    for (Case c : [
+      SELECT Id, CustomerOnboardingApplication__r.SecurityMobile__c
+      FROM Case
+      WHERE Id IN :oldCaseIds AND RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+    ]) {
+      if (
+        String.isNotBlank(c.CustomerOnboardingApplication__r.SecurityMobile__c)
+      ) {
+        mobileByCaseIdMap.put(
+          c.Id,
+          '+' + c.CustomerOnboardingApplication__r.SecurityMobile__c
+        );
+      }
+    }
+    return mobileByCaseIdMap;
+  }
+
+  /**
+   * @description Get Mobile Phones and Account map
+   * @param mobileNumbers List of mobiles from COB Applications
+   * @return Mobile Phones and Account map
+   */
+  public static Map<String, Account> getAccountsByMobile(
+    List<String> mobileNumbers
+  ) {
+    if (
+      mobileNumbers.isEmpty() || PermissionUtils.canQuery('Account') == false
+    ) {
+      return new Map<String, Account>();
+    }
+
+    Map<String, Account> accountByMobileMap = new Map<String, Account>();
+    for (Account acc : [
+      SELECT Id, PersonMobilePhone, PersonContactId
+      FROM Account
+      WHERE PersonMobilePhone IN :mobileNumbers AND ANZx_Customer__c = TRUE
+    ]) {
+      accountByMobileMap.put(acc.PersonMobilePhone, acc);
+    }
+    return accountByMobileMap;
+  }
+
+  /**
+   * @description Set case fileds with matching Account
+   * @param c Case
+   * @param matchingAcc Matched Account
+   * @param accountEntitlmentId Matched Account Entitlment Id
+   */
+  public static void setMatchingAccountFields(
+    Case c,
+    Account matchingAcc,
+    Id accountEntitlmentId
+  ) {
+    c.AccountId = matchingAcc.Id;
+    c.ContactId = matchingAcc.PersonContactId;
+    c.EntitlementId = accountEntitlmentId;
+  }
+
+  /**
+   * @description Handle KYC QA Case in the situatuon there is still no MAtched Account:
+   * Either move to "Pending KYC QA - No Customer" queue in the event the case is not closed yet or
+   * remain in the "Pending KYC QA - No Customer" queue untill there is a Matched Account
+   * @param c Case
+   * @param oldCase Old case
+   */
+  public static void handleKYCQACaseNoCustomer(Case c, Case oldCase) {
+    if (
+      (oldCase.Status != GetHelpConstants.CLOSED_STATUS &&
+      c.Status == GetHelpConstants.CLOSED_STATUS) ||
+      oldCase.OwnerId == PENDING_KYC_QA_WO_CUSTOMER.Id
+    ) {
+      c.OwnerId = PENDING_KYC_QA_WO_CUSTOMER.Id;
+    }
   }
 }

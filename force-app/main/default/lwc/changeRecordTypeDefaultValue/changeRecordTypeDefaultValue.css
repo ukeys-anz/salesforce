@@ -8,3 +8,7 @@
 .cancelBTN {
   margin-right: 4px;
 }
+
+.slds-card__footer {
+  z-index: 10 !important;
+}

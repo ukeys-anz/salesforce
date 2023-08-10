@@ -11,7 +11,6 @@ public with sharing class CCRMCampaignActions {
    * @param records List of leads to process
    */
   public static void setDefaultCampaign(List<Lead> records) {
-    List<Lead> leadsToUpdate = new List<Lead>();
     if (!Campaign.SObjectType.getDescribe().isAccessible()) {
       return;
     }
@@ -51,10 +50,15 @@ public with sharing class CCRMCampaignActions {
       }
     }
 
+    if (campaignCodes.isEmpty()) {
+      return mapCampaignCodeRecord;
+    }
+
     for (Campaign campaignRecord : [
       SELECT Id, Code__c, Priority__c, Description, Description__c
       FROM Campaign
       WHERE Code__c IN :campaignCodes AND EndDate >= TODAY
+      WITH USER_MODE
     ]) {
       mapCampaignCodeRecord.put(campaignRecord.Code__c, campaignRecord);
     }
@@ -86,16 +90,8 @@ public with sharing class CCRMCampaignActions {
         return new Campaign();
       }
     } catch (System.QueryException qe) {
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadActions.class.getName(),
-        'getDefaultCampaign'
-      );
-      log.error(
-        'InsufficientAccessException',
-        qe.getMessage(),
-        qe.getTypeName()
-      );
-      log.publishEvent();
+      Logger.error('InsufficientAccessException', qe);
+      Logger.saveLog();
     }
     return defaultCampaign[0];
   }
