@@ -10,8 +10,14 @@
     <label>Product or Service Name 2</label>
     <lookupFilter>
         <active>true</active>
+        <booleanFilter>(1 OR 2)</booleanFilter>
         <filterItems>
             <field>Product2.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.IsClosed</field>
             <operation>equals</operation>
             <value>True</value>
         </filterItems>

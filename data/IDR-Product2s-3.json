@@ -2397,6 +2397,20 @@
     {
       "attributes": {
         "type": "Product2",
+        "referenceId": "Product2Ref577"
+      },
+      "Name": "Tailored Commercial Facility (TCF) - CACHE",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "577",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "3",
+      "IDR_Workbasket__c": "IDR_Business_Owners",
+      "IDR_Product_Family__c": "@Product_Family__cRef5"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
         "referenceId": "Product2Ref559"
       },
       "Name": "N/A",
