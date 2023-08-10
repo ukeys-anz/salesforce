@@ -49,6 +49,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String MANUAL = 'Manual';
   public static final String LIABILITY_MANUAL = 'LIABILITY_SOURCE_TYPE_MANUAL';
   public static final String OTHER = 'Other';
+  public static final String LEASE_HIRE_PURCHASE_TYPE = 'Lease Hire Purchase';
+  public static final String LEASE_HIRE_PURCHASE_LABEL = 'Lease/Hire Purchase';
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.

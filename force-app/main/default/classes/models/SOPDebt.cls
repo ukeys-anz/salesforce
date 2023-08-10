@@ -13,7 +13,11 @@ public class SOPDebt {
    */
   public String debtType {
     get {
-      return getReadableType(type);
+      String readableType = getReadableType(type);
+      if (readableType == ResidentialLoanApplicationModel.LEASE_HIRE_PURCHASE_TYPE) {
+        readableType = ResidentialLoanApplicationModel.LEASE_HIRE_PURCHASE_LABEL;
+      }
+      return readableType;
     }
   }
 

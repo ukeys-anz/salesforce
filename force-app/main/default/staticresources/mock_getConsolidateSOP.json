@@ -312,6 +312,454 @@
         }
       },
       {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_PERSONAL_LOAN",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_PERSONAL_LOAN",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 40
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_PERSONAL_LOAN",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_WEEKLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_OTHER_LOAN",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_OTHER_LOAN",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 40
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_LEASE_HIRE_PURCHASE",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_LEASE_HIRE_PURCHASE",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 40
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_VEHICLE_LOAN",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_WEEKLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/f33aafb9-7a49-4848-8032-e03fb5af5627",
         "uid": "f33aafb9-7a49-4848-8032-e03fb5af5627",
         "type": "LIABILITY_TYPE_OVERDRAFT",

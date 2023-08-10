@@ -16,7 +16,7 @@ public class SOPInstitutionalLiability {
   public SOPMoney redrawAmount;
   public String paymentMethod;
   public String financialInstitution;
-  public String verifiedPrincipalInterestRemainingTerm;
+  public Integer verifiedPrincipalInterestRemainingTerm;
   /**
    * @description return a readable frequency
    */
@@ -54,33 +54,51 @@ public class SOPInstitutionalLiability {
   /**
    * @description return a readable P&I Terms in years and months
    */
-  public string readablePIRemainingTerm {
+  public String readablePIRemainingTerm {
     get {
-      if (
-        principalInterestRemainingTerm == null ||
-        principalInterestRemainingTerm == 0
-      ) {
-        return '0';
-      }
-      Integer years = principalInterestRemainingTerm / 12;
-      Integer months = Math.mod(principalInterestRemainingTerm, 12);
-      String result = '';
-      if (years > 0) {
-        result += years + ' year';
-        if (years > 1) {
-          result += 's';
-        }
-        if (months > 0) {
-          result += ', ';
-        }
+      return fetchReadableTerm(principalInterestRemainingTerm); 
+    }
+  }
+
+  /**
+   * @description return a readable verified P&I Terms in years and months
+   */
+  public String readableVerifiedPIRemainingTerm {
+    get {
+      return fetchReadableTerm(verifiedPrincipalInterestRemainingTerm);
+    }
+  }
+
+  /**
+   * @description transform total number of months into a string of years and months
+   * @param totalMonths number of months from the payload
+   * @return String formatted years and months to display in the card
+   */
+  private String fetchReadableTerm(Integer totalMonths) {
+    if (
+      totalMonths == null ||
+      totalMonths == 0
+    ) {
+      return '0';
+    }
+    Integer years = totalMonths / 12;
+    Integer months = Math.mod(totalMonths, 12);
+    String result = '';
+    if (years > 0) {
+      result += years + ' year';
+      if (years > 1) {
+        result += 's';
       }
       if (months > 0) {
-        result += months + ' month';
-        if (months > 1) {
-          result += 's';
-        }
+        result += ', ';
       }
-      return result;
     }
+    if (months > 0) {
+      result += months + ' month';
+      if (months > 1) {
+        result += 's';
+      }
+    }
+    return result;
   }
 }
