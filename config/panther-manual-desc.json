@@ -674,6 +674,7 @@
         "IDR_Is_Written_Resp_Required__c",
         "IDR_Issue_Type_2__c",
         "IDR_Issue_Type_3__c",
+        "IDR_Masked_CFMS__c",
         "IDR_Milestone_Sla__c",
         "IDR_NC_Business_Name__c",
         "IDR_NC_Is_Consent_Obtained__c",

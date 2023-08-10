@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Masked_CFMS__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Salesforce;Privacy_Non_Personal_Information;Integrity_Trusted</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>Tells if CFMS case has been masked or not</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Tells if CFMS case has been masked or not</inlineHelpText>
+    <label>IDR Masked CFMS</label>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
