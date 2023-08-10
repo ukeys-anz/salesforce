@@ -22,6 +22,9 @@
     <columns>
         <field>field_key</field>
     </columns>
+    <columns>
+        <field>Case.Case_Age_in_Days__c</field>
+    </columns>
     <filter>
         <criteriaItems>
             <column>RECORDTYPE</column>
