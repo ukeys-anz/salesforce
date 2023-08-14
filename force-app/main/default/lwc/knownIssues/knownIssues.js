@@ -94,9 +94,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
     ComplaintDetails["ProductServiceName-Block"] = product;
     ResolutionInformation.complaintRelatedHardship =
       issue[0].IDR_Written_Response_Required__c;
-    ResolutionInformation.realFormRequired = issue[0].IDR_REAL_Form_Required__c
-      ? "true"
-      : "false";
+    ResolutionInformation.realFormRequired = "No";
     ResolutionInformation.systemicIssue = issue[0]
       .IDR_Possible_Systemic_Issue__c
       ? issue[0].IDR_Possible_Systemic_Issue__c

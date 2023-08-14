@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>IDR level 3 users such as AU Merchant Servicing - Operator, AU Contact Centres - Retail Agent etc</description>
+    <hasActivationRequired>false</hasActivationRequired>
     <label>IDR Level 3</label>
+    <permissionSets>Chatter_User_with_License</permissionSets>
     <permissionSets>Email_Based_Identity_Verification_Option</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>IDR_User</permissionSets>
