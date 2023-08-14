@@ -137,11 +137,10 @@
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef13"
       },
-      "OCV_Role__c": "Subsidiary Organisation",
       "Name": "Subsidiary Organisation",
       "FinServ__InverseRole__c": "Subsidiary Organisation Owner",
-      "Role_Description__c": "CAP Rel Code - SBI / SBO",
-      "FinServ__CreateInverseRole__c": false
+      "Role_Description__c": "CAP Rel Code - SBI-SBO",
+      "FinServ__CreateInverseRole__c": true
     },
     {
       "attributes": {
@@ -206,7 +205,7 @@
       "OCV_Role__c": "Unknown",
       "Name": "Unknown",
       "FinServ__InverseRole__c": "Unknown",
-      "Role_Description__c": "",
+      "Role_Description__c": "When source value cannot be mapped to any other value in this table",
       "FinServ__CreateInverseRole__c": false
     },
     {
@@ -219,6 +218,16 @@
       "FinServ__InverseRole__c": "Authorised User",
       "Role_Description__c": "Party is an authorised user of systems on behalf of another Party",
       "FinServ__CreateInverseRole__c": false
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef22"
+      },
+      "Name": "SUB AGGREGATOR TO",
+      "FinServ__InverseRole__c": "AGGREGATOR",
+      "Role_Description__c": "Relationship between an Originator and a Sub-Originator in the context of brokers",
+      "FinServ__CreateInverseRole__c": true
     }
   ]
 }
