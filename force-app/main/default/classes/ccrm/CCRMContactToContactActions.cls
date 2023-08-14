@@ -213,7 +213,7 @@ public with sharing class CCRMContactToContactActions {
       '_' +
       contactExtIdMap.get(record.FinServ__Contact__c) +
       '_' +
-      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name;
+      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name.replace(' ', '');
   }
 
   /**
@@ -231,6 +231,6 @@ public with sharing class CCRMContactToContactActions {
       '_' +
       contactExtIdMap.get(record.FinServ__RelatedContact__c) +
       '_' +
-      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name;
+      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name.replace(' ', '');
   }
 }
