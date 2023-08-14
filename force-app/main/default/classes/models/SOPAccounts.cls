@@ -9,6 +9,14 @@ public class SOPAccounts {
   public string bsb;
   public string accountNumber;
   /**
+   * @description returns the last 4 digits of account number to display cardNumber UI in flexcard
+   */
+  public string cardNumber {
+    get {
+      return accountNumber?.right(4);
+    }
+  }
+  /**
    * @description returns the product name from an account number
    */
   public string productName {

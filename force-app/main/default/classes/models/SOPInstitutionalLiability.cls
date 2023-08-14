@@ -8,11 +8,35 @@ public class SOPInstitutionalLiability {
   public SOPMoney limitAmount;
   public Integer interestRate;
   public SOPMoney minimumPayment;
+  /**
+   * @description return the transformed value of minimumPayment based on its value from payload
+   */
+  public String actualMinimumPayment {
+    get {
+      if (minimumPayment != null && minimumPayment.units != null) {
+        return String.valueOf(minimumPayment.minusValue);
+      } else {
+        return ResidentialLoanApplicationModel.CREDIT_CARD_UI_MESSAGE;
+      }
+    }
+  }
   public SOPMoney repaymentAmount;
   public String repaymentFrequency;
   public Integer principalInterestRemainingTerm;
   public Integer interestOnlyRemainingTerm;
   public Boolean liabilityDuePaidInFull;
+  /**
+   * @description return the transformed value of liabilityDuePaidInFull for flexcard UI
+   */
+  public String liabilityDueValue {
+    get {
+      if (liabilityDuePaidInFull == false) {
+        return ResidentialLoanApplicationModel.N;
+      } else {
+        return ResidentialLoanApplicationModel.Y;
+      }
+    }
+  }
   public SOPMoney redrawAmount;
   public String paymentMethod;
   public String financialInstitution;
@@ -56,7 +80,7 @@ public class SOPInstitutionalLiability {
    */
   public String readablePIRemainingTerm {
     get {
-      return fetchReadableTerm(principalInterestRemainingTerm); 
+      return fetchReadableTerm(principalInterestRemainingTerm);
     }
   }
 
@@ -75,10 +99,7 @@ public class SOPInstitutionalLiability {
    * @return String formatted years and months to display in the card
    */
   private String fetchReadableTerm(Integer totalMonths) {
-    if (
-      totalMonths == null ||
-      totalMonths == 0
-    ) {
+    if (totalMonths == null || totalMonths == 0) {
       return '0';
     }
     Integer years = totalMonths / 12;

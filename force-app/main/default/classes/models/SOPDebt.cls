@@ -14,7 +14,9 @@ public class SOPDebt {
   public String debtType {
     get {
       String readableType = getReadableType(type);
-      if (readableType == ResidentialLoanApplicationModel.LEASE_HIRE_PURCHASE_TYPE) {
+      if (
+        readableType == ResidentialLoanApplicationModel.LEASE_HIRE_PURCHASE_TYPE
+      ) {
         readableType = ResidentialLoanApplicationModel.LEASE_HIRE_PURCHASE_LABEL;
       }
       return readableType;
@@ -81,6 +83,18 @@ public class SOPDebt {
   public String updatedBy;
   public SOPMoney originalOutstandingBalance;
   public SOPMoney outstandingBalance;
+  /**
+   * @description return the transformed value of outstandingbalance based on its value from payload
+   */
+  public String actualOutstandingBalance {
+    get {
+      if (outstandingBalance != null && outstandingBalance.units != null) {
+        return String.valueOf(outstandingBalance.minusValue);
+      } else {
+        return ResidentialLoanApplicationModel.CREDIT_CARD_UI_MESSAGE;
+      }
+    }
+  }
   public SOPStudentLoan studentLoan;
   public SOPMoney verifiedOutstandingBalance;
 

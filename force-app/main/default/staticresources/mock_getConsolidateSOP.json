@@ -206,11 +206,7 @@
         "institutionalLiability": {
           "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
           "interestRate": 550,
-          "repaymentAmount": {
-            "currencyCode": "AUD",
-            "units": "3850",
-            "nanos": 0
-          },
+          "repaymentAmount": null,
           "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
           "principalInterestRemainingTerm": 30,
           "redrawAmount": {
@@ -844,6 +840,148 @@
         "updatedBy": "1000991493",
         "etag": "1689247550337387000",
         "verifiedOutstandingBalance": null
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "type": "LIABILITY_TYPE_CREDIT_CARD",
+        "institutionalLiability": {
+          "limit": null,
+          "interestRate": 550,
+          "minimumPayment": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 80000000
+          },
+          "repaymentAmount": null,
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "liabilityDuePaidInFull": false,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": null,
+        "account": {
+          "id": "f05c4f51-f7e8-4449-a311-5cc84b507a63",
+          "bsb": "014111",
+          "accountNumber": "210418632",
+          "accountName": "ANZ Save",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "ANZX",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T00:28:57.072579Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690244937072579000",
+        "verifiedOutstandingBalance": null
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "type": "LIABILITY_TYPE_CREDIT_CARD",
+        "institutionalLiability": {
+          "limit": null,
+          "interestRate": 660,
+          "minimumPayment": {},
+          "repaymentAmount": null,
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "liabilityDuePaidInFull": false,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "2000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "f05c4f51-f7e8-4449-a311-5cc84b507a63",
+          "bsb": "014111",
+          "accountNumber": "210418632",
+          "accountName": "ANZ Save",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "ANZX",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T00:28:57.072579Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690244937072579000",
+        "verifiedOutstandingBalance": null
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "type": "LIABILITY_TYPE_CREDIT_CARD",
+        "institutionalLiability": {
+          "limit": null,
+          "interestRate": 401,
+          "minimumPayment": null,
+          "repaymentAmount": null,
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "liabilityDuePaidInFull": false,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "account": {
+          "id": "f05c4f51-f7e8-4449-a311-5cc84b507a63",
+          "bsb": "014111",
+          "accountNumber": "210418632",
+          "accountName": "ANZ Save",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "ANZX",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T00:28:57.072579Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690244937072579000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5500",
+          "nanos": 0
+        }
       }
     ],
     "liabilitiesTotalAmount": {
