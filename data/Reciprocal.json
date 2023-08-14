@@ -5,200 +5,220 @@
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef1"
       },
-      "OCV_Role__c": "100001",
+      "OCV_Role__c": "Also Known As",
       "Name": "Also Known As",
       "FinServ__InverseRole__c": "Also Known As",
-      "Role_Description__c": "CAP Rel Code - AKA"
+      "Role_Description__c": "CAP Rel Code - AKA",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef2"
       },
-      "OCV_Role__c": "100002",
+      "OCV_Role__c": "Customer Group",
       "Name": "Customer Group",
       "FinServ__InverseRole__c": "Customer Group",
-      "Role_Description__c": "CAP Rel Code - CGP"
+      "Role_Description__c": "CAP Rel Code - CGP",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef3"
       },
-      "OCV_Role__c": "100003",
+      "OCV_Role__c": "Chairman",
       "Name": "Chairman",
       "FinServ__InverseRole__c": "Chairman",
-      "Role_Description__c": "CAP Rel Code - CHR"
+      "Role_Description__c": "CAP Rel Code - CHR",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef4"
       },
-      "OCV_Role__c": "100004",
+      "OCV_Role__c": "Customer Lending Group",
       "Name": "Customer Lending Group",
       "FinServ__InverseRole__c": "Customer Lending Group",
-      "Role_Description__c": "CAP Rel Code - CLG"
+      "Role_Description__c": "CAP Rel Code - CLG",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef5"
       },
-      "OCV_Role__c": "100005",
+      "OCV_Role__c": "Director",
       "Name": "Director",
       "FinServ__InverseRole__c": "Director",
-      "Role_Description__c": "CAP Rel Code - DIR"
+      "Role_Description__c": "CAP Rel Code - DIR",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef6"
       },
-      "OCV_Role__c": "100006",
+      "OCV_Role__c": "CLG Contact All",
       "Name": "CLG Contact All",
       "FinServ__InverseRole__c": "CLG Contact All",
-      "Role_Description__c": "CAP Rel Code - KCA"
+      "Role_Description__c": "CAP Rel Code - KCA",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef7"
       },
-      "OCV_Role__c": "100007",
+      "OCV_Role__c": "CLG Contact Business",
       "Name": "CLG Contact Business",
       "FinServ__InverseRole__c": "CLG Contact Business",
-      "Role_Description__c": "CAP Rel Code - KCB"
+      "Role_Description__c": "CAP Rel Code - KCB",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef8"
       },
-      "OCV_Role__c": "100008",
+      "OCV_Role__c": "CLG Contact Consumer",
       "Name": "CLG Contact Consumer",
       "FinServ__InverseRole__c": "CLG Contact Consumer",
-      "Role_Description__c": "CAP Rel Code - KCC"
+      "Role_Description__c": "CAP Rel Code - KCC",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef9"
       },
-      "OCV_Role__c": "100009",
+      "OCV_Role__c": "Managing Director",
       "Name": "Managing Director",
       "FinServ__InverseRole__c": "Managing Director",
-      "Role_Description__c": "CAP Rel Code - MAN"
+      "Role_Description__c": "CAP Rel Code - MAN",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef10"
       },
-      "OCV_Role__c": "100010",
+      "OCV_Role__c": "Manager",
       "Name": "Manager",
       "FinServ__InverseRole__c": "Manager",
-      "Role_Description__c": "CAP Rel Code - MGR"
+      "Role_Description__c": "CAP Rel Code - MGR",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef11"
       },
-      "OCV_Role__c": "100011",
+      "OCV_Role__c": "Partner",
       "Name": "Partner",
       "FinServ__InverseRole__c": "Partner",
-      "Role_Description__c": "CAP Rel Code - PTR"
+      "Role_Description__c": "CAP Rel Code - PTR",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef12"
       },
-      "OCV_Role__c": "100012",
+      "OCV_Role__c": "Related Customer",
       "Name": "Related Customer",
       "FinServ__InverseRole__c": "Related Customer",
-      "Role_Description__c": "CAP Rel Code - REL"
+      "Role_Description__c": "CAP Rel Code - REL",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef13"
       },
-      "OCV_Role__c": "100013",
+      "OCV_Role__c": "Subsidiary Organisation",
       "Name": "Subsidiary Organisation",
       "FinServ__InverseRole__c": "Subsidiary Organisation Owner",
-      "Role_Description__c": "CAP Rel Code - SBI / SBO"
+      "Role_Description__c": "CAP Rel Code - SBI / SBO",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef15"
       },
-      "OCV_Role__c": "100015",
+      "OCV_Role__c": "Secretary",
       "Name": "Secretary",
       "FinServ__InverseRole__c": "Secretary",
-      "Role_Description__c": "CAP Rel Code - SEC"
+      "Role_Description__c": "CAP Rel Code - SEC",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef16"
       },
-      "OCV_Role__c": "100016",
+      "OCV_Role__c": "Spouse",
       "Name": "Spouse",
       "FinServ__InverseRole__c": "Spouse",
-      "Role_Description__c": "CAP Rel Code - SPS"
+      "Role_Description__c": "CAP Rel Code - SPS",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef17"
       },
-      "OCV_Role__c": "100017",
+      "OCV_Role__c": "Trading As",
       "Name": "Trading As",
       "FinServ__InverseRole__c": "Trading As",
-      "Role_Description__c": "CAP Rel Code - T/A"
+      "Role_Description__c": "CAP Rel Code - T/A",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef18"
       },
-      "OCV_Role__c": "100018",
+      "OCV_Role__c": "Treasurer",
       "Name": "Treasurer",
       "FinServ__InverseRole__c": "Treasurer",
-      "Role_Description__c": "CAP Rel Code - TSR"
+      "Role_Description__c": "CAP Rel Code - TSR",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef19"
       },
-      "OCV_Role__c": "100019",
+      "OCV_Role__c": "Business Card Billing Group",
       "Name": "Business Card Billing Group",
       "FinServ__InverseRole__c": "Business Card Billing Group",
-      "Role_Description__c": "CAP REL CODE - BCG"
+      "Role_Description__c": "CAP REL CODE - BCG",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef20"
       },
-      "OCV_Role__c": "999999",
+      "OCV_Role__c": "Unknown",
       "Name": "Unknown",
       "FinServ__InverseRole__c": "Unknown",
-      "Role_Description__c": ""
+      "Role_Description__c": "",
+      "FinServ__CreateInverseRole__c": false
     },
     {
       "attributes": {
         "type": "FinServ__ReciprocalRole__c",
         "referenceId": "ReciprocalRoleRef21"
       },
-      "OCV_Role__c": "100021",
+      "OCV_Role__c": "Authorised User",
       "Name": "Authorised User",
       "FinServ__InverseRole__c": "Authorised User",
-      "Role_Description__c": "Party is an authorised user of systems on behalf of another Party"
+      "Role_Description__c": "Party is an authorised user of systems on behalf of another Party",
+      "FinServ__CreateInverseRole__c": false
     }
   ]
 }
