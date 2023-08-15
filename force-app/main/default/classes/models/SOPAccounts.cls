@@ -13,7 +13,7 @@ public class SOPAccounts {
    */
   public string cardNumber {
     get {
-      return accountNumber?.right(4);
+      return 'xxxx xxxx xxxx ' + accountNumber?.right(4);
     }
   }
   /**
