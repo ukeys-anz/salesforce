@@ -10,20 +10,32 @@
                         <valueListItems>
                             <value>COBPrimaryIDDocument__c.View</value>
                             <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Onboarding_Support_Read_Only</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>COBPrimaryIDDocument__c.Edit</value>
                             <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Onboarding_Support_Read_Only</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
