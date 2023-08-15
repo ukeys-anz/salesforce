@@ -54,6 +54,17 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         loanRec[0]?.Account?.OCV_ID__c,
         loanRec[0]?.SOP_Id__c
       );
+
+      //Remove Closed status values. Need to loop backwards so next item isn't missed
+      for (Integer i = sopAssets.assetsSummary.assets.size() - 1; i >= 0; i--) {
+        if (
+          sopAssets.assetsSummary.assets[i]?.account?.status ==
+          'ACCOUNT_STATE_CLOSED'
+        ) {
+          sopAssets.assetsSummary.assets.remove(i);
+        }
+      }
+
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       return true;
     } catch (Exception e) {
