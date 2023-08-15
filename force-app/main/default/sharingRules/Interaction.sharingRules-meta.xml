@@ -136,6 +136,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Interaction_Stat_Comp_Agent_Read_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides read access to users with Statutory Compliance Agent Role for Interaction object.</description>
+        <label>Interaction Stat Comp Agent Read Sharing Rule</label>
+        <sharedTo>
+            <role>Statutory_Compliance_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Interaction_ANZx_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule shares all Interaction records with Read/Write access to ANZx.</description>
