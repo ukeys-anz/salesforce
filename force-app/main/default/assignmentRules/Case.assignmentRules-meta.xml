@@ -61,6 +61,24 @@
             </formula>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>Support_Coach_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>
+            AND(
+                OR(
+                    ISNEW(),
+                    ISCHANGED(Submitted__c)
+                    )
+                &amp;&amp; Submitted__c = true,
+                RecordType.DeveloperName = &quot;ATM_Dispute&quot;,
+                OR( 
+                    (ISPICKVAL(Dispute_Reason__c, &quot;Cash Deposit Error&quot;)),
+                    (ISPICKVAL(Dispute_Reason__c, &quot;Cheque Deposit Error&quot;))
+                    )
+            )
+            </formula>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>Card_Dispute_General_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>

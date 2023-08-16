@@ -451,6 +451,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Disable_CMOS_Omni__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Milestone_Sla__c</field>
         <readable>true</readable>
     </fieldPermissions>

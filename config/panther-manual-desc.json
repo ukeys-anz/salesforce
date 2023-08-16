@@ -497,6 +497,7 @@
         "Bank_ATM__c",
         "Card_In_Possession_During_Transaction__c",
         "Date_Closed__c",
+        "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",
         "RAG_Comments__c",
