@@ -66,9 +66,11 @@ public class SOPInstitutionalLiability {
   public string readableInterestRate {
     get {
       try {
+        if (interestRate == null) {
+          return '';
+        }
         Decimal givenValue = Decimal.valueOf(interestRate);
-        String result = (givenValue / 100).setScale(2) + '%';
-        return result;
+        return (givenValue / 100).setScale(2) + '%';
       } catch (Exception e) {
         return 'Not Provided';
       }
