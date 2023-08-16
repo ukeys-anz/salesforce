@@ -40,64 +40,13 @@
             &quot;Name&quot;: &quot;null Store&quot;,
             &quot;AuthenticationMethod&quot;: &quot;Not Required&quot;,
             &quot;OwnerName&quot;: &quot;Nilesh Kalal&quot;,
-            &quot;JunctionObject&quot;: [
-                {
-                    &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cS9IAI&quot;,
-                    &quot;Id&quot;: &quot;a1zBo000000DP5RIAW&quot;,
-                    &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
-                    &quot;TagName&quot;: &quot;Product2&quot;,
-                    &quot;Type&quot;: &quot;Product&quot;
-                },
-                {
-                    &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cGrIAI&quot;,
-                    &quot;Id&quot;: &quot;a1zBo000000DP5SIAW&quot;,
-                    &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
-                    &quot;TagName&quot;: &quot;1:1 Appointment&quot;,
-                    &quot;Type&quot;: &quot;Reason&quot;
-                },
-                {
-                    &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cITIAY&quot;,
-                    &quot;Id&quot;: &quot;a1zBo000000DP5TIAW&quot;,
-                    &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
-                    &quot;TagName&quot;: &quot;ANZ Query&quot;,
-                    &quot;Type&quot;: &quot;Topic&quot;
-                },
-                {
-                    &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cNJIAY&quot;,
-                    &quot;Id&quot;: &quot;a1zBo000000DYDcIAO&quot;,
-                    &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
-                    &quot;TagName&quot;: &quot;Join Anz 4&quot;,
-                    &quot;Type&quot;: &quot;Reason&quot;
-                },
-                {
-                    &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cS9IAI&quot;,
-                    &quot;Id&quot;: &quot;a1zBo000000DYFBIA4&quot;,
-                    &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
-                    &quot;TagName&quot;: &quot;Product2&quot;,
-                    &quot;Type&quot;: &quot;Product&quot;
-                },
-                {
-                    &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cK5IAI&quot;,
-                    &quot;Id&quot;: &quot;a1zBo000000DYGnIAO&quot;,
-                    &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
-                    &quot;TagName&quot;: &quot;Join ANZ 2&quot;,
-                    &quot;Type&quot;: &quot;Reason&quot;
-                },
-                {
-                    &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cS9IAI&quot;,
-                    &quot;Id&quot;: &quot;a1zBo000000DYIPIA4&quot;,
-                    &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
-                    &quot;TagName&quot;: &quot;Product2&quot;,
-                    &quot;Type&quot;: &quot;Product&quot;
-                },
-                {
-                    &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cNJIAY&quot;,
-                    &quot;Id&quot;: &quot;a1zBo000000DYK1IAO&quot;,
-                    &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
-                    &quot;TagName&quot;: &quot;Join Anz 4&quot;,
-                    &quot;Type&quot;: &quot;Reason&quot;
-                }
-            ],
+            &quot;JunctionObject&quot;: {
+                &quot;Interaction_Tag&quot;: &quot;a1yBo0000003cS9IAI&quot;,
+                &quot;Id&quot;: &quot;a1zBo000000DP5RIAW&quot;,
+                &quot;Interaction&quot;: &quot;0kzBo00000001CDIAY&quot;,
+                &quot;TagName&quot;: &quot;Product2&quot;,
+                &quot;Type&quot;: &quot;Product&quot;
+            },
             &quot;CreatedByName&quot;: &quot;Nilesh Kalal&quot;,
             &quot;InteractionType&quot;: &quot;Store&quot;
         }
@@ -121,12 +70,12 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:Type%==&apos;Product&apos;&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:Type%==&apos;Product&apos;&quot;,
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
   &quot;elementValueMap&quot; : {
-    &quot;value&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:Interaction_Tag%&quot;,
-    &quot;label&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:TagName%&quot;,
+    &quot;value&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:Interaction_Tag%&quot;,
+    &quot;label&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:TagName%&quot;,
     &quot;selected&quot; : true
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
@@ -147,12 +96,12 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:Type%==&apos;Reason&apos;&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:Type%==&apos;Reason&apos;&quot;,
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
   &quot;elementValueMap&quot; : {
-    &quot;value&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:Interaction_Tag%&quot;,
-    &quot;label&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:TagName%&quot;,
+    &quot;value&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:Interaction_Tag%&quot;,
+    &quot;label&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:TagName%&quot;,
     &quot;selected&quot; : true,
     &quot;type&quot; : &quot;Reason&quot;
   },
@@ -174,12 +123,12 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:Type%==&apos;Topic&apos;&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:Type%==&apos;Topic&apos;&quot;,
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
   &quot;elementValueMap&quot; : {
-    &quot;value&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:Interaction_Tag%&quot;,
-    &quot;label&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject:TagName%&quot;,
+    &quot;value&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:Interaction_Tag%&quot;,
+    &quot;label&quot; : &quot;%SetListOfJunctionObject:listOfJunctionObject:TagName%&quot;,
     &quot;selected&quot; : true
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
@@ -198,8 +147,8 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;loopList&quot; : &quot;InteractionsDetails:Interactions:JunctionObject&quot;,
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;loopList&quot; : &quot;SetListOfJunctionObject:listOfJunctionObject&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;\n&quot;,
   &quot;loopOutput&quot; : {
     &quot;&quot; : &quot;&quot;
   },
@@ -207,7 +156,7 @@
   &quot;label&quot; : &quot;LoopBlock1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
+        <sequenceNumber>3.0</sequenceNumber>
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -237,8 +186,32 @@
   &quot;label&quot; : &quot;ResponseAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>Response Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>SetListOfJunctionObject</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;listOfJunctionObject&quot; : &quot;=LIST(InteractionsDetails:Interactions:JunctionObject)&quot;
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues6&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
         <name>SetValues1</name>
@@ -298,5 +271,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_ConvertDataNode_Procedure_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>3001b964-55ad-6451-cbd1-565136638b1f</webComponentKey>
+    <webComponentKey>e8015885-3c55-763f-a7a1-99c603f6b348</webComponentKey>
 </OmniIntegrationProcedure>
