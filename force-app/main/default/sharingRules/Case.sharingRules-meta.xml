@@ -58,7 +58,7 @@
         <sharedTo>
             <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
-        <booleanFilter>(1 AND 2) OR (1 AND 3 AND 4)</booleanFilter>
+        <booleanFilter>(1 AND 2 AND 5) OR (1 AND 3 AND 4 AND 5)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -78,6 +78,11 @@
             <field>Origin</field>
             <operation>equals</operation>
             <value>ANZ Plus Web</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>equals</operation>
+            <value>false</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
