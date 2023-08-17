@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission Set Group has access to the to COB custom objects, ID Ops Assistance, Fraud Check cases, Detokenised TIN.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Statutory Compliance Agent</label>
+    <permissionSets>Accounts_Goals_Read_Only</permissionSets>
+    <permissionSets>Case_Read_Only_Customer_Onboarding</permissionSets>
+    <permissionSets>Case_Read_Only_Dispute</permissionSets>
+    <permissionSets>Chat_Read_Only</permissionSets>
+    <permissionSets>Coaches_Workbench</permissionSets>
+    <permissionSets>COB_Tax_Residency_TIN_Read</permissionSets>
+    <permissionSets>Customer_Feedback_Read_Only</permissionSets>
+    <permissionSets>Customer_Onboarding_Read_Only</permissionSets>
+    <permissionSets>Customer_Read_Only</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <permissionSets>Interaction_Read_Only</permissionSets>
+    <permissionSets>Store_Interaction_Read_Only</permissionSets>
+    <permissionSets>View_All_Files</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

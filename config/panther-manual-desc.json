@@ -534,6 +534,7 @@
         "IDR_Knowledge_Keyword_1__c",
         "IDR_Knowledge_Keyword_2__c",
         "IDR_Known_Issues__c",
+        "Disable_CMOS_Omni__c",
         "CaseNumber__c",
         "Case_Hour_Duration__c",
         "Closed_Once__c",
