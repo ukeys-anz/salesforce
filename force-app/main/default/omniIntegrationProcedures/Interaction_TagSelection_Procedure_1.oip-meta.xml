@@ -4,25 +4,22 @@
     &quot;JunctionData&quot;: [
         {
             &quot;selected&quot;: true,
-            &quot;value&quot;: &quot;a2BBn000001FfiDMAS&quot;,
-            &quot;label&quot;: &quot;Booked FWB appointment&quot;
-        },
-        {
-            &quot;selected&quot;: true,
-            &quot;value&quot;: &quot;a2BBn000001FOW5MAO&quot;,
-            &quot;label&quot;: &quot;ANZ Product&quot;
+            &quot;value&quot;: &quot;a2L8r000003OkhdEAC&quot;,
+            &quot;label&quot;: &quot;ANZ Plus Home Loan - Variable&quot;
         }
     ],
-    &quot;RecordTypeName&quot;: &quot;Call&quot;,
-    &quot;ActualTopicsData&quot;: [
+    &quot;JunctionDataFromDatabase&quot;: [
         {
             &quot;selected&quot;: true,
             &quot;value&quot;: &quot;a2BBn000001FfiDMAS&quot;,
             &quot;label&quot;: &quot;Booked FWB appointment&quot;
         }
     ],
-    &quot;ReasonForVisitData&quot;: &quot;&quot;,
-    &quot;JunctionDataFromDatabase&quot;: &quot;&quot;
+    &quot;ActualTopicsData&quot;: &quot;&quot;,
+    &quot;RecordTypeName&quot;: &quot;Message&quot;,
+    &quot;SupportTopicFromOs&quot;: &quot;Test&quot;,
+    &quot;omniScriptId&quot;: &quot;0jN8r00000083bqEAA&quot;,
+    &quot;elementName&quot;: &quot;SeparateTagsBasedOnSelected&quot;
 }</customJavaScript>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
@@ -33,6 +30,36 @@
     <isWebCompEnabled>false</isWebCompEnabled>
     <language>Procedure</language>
     <name>SeparateTagsBasedOnSelected</name>
+    <omniProcessElements>
+        <name>CallResponse</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName==&apos;Call&apos;,true,false)&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;tagsToBeInserted&quot; : &quot;%NewTagsToBeInserted:tagsToBeInserted%&quot;,
+    &quot;tagsToBeDeleted&quot; : &quot;%SetValues1:tagsToBeDeleted%&quot;,
+    &quot;updatedNameValue&quot; : &quot;%FilteredTrueActualTopics|1:label%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>10.0</sequenceNumber>
+        <type>Response Action</type>
+    </omniProcessElements>
     <omniProcessElements>
         <name>FilterSelectedActualTopics</name>
         <isActive>true</isActive>
@@ -73,7 +100,7 @@
   &quot;label&quot; : &quot;ListAction3&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>List Merge Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -118,6 +145,36 @@
 }</propertySetConfig>
         <sequenceNumber>5.0</sequenceNumber>
         <type>List Merge Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>InPersonResponse</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName==&apos;In Person&apos;,true,false)&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;tagsToBeInserted&quot; : &quot;%NewTagsToBeInserted:tagsToBeInserted%&quot;,
+    &quot;tagsToBeDeleted&quot; : &quot;%SetValues1:tagsToBeDeleted%&quot;,
+    &quot;updatedNameValue&quot; : &quot;%FilteredTrueReasonForVisit|1:label%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>9.0</sequenceNumber>
+        <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <name>LoopOnTagsToBeInserted</name>
@@ -183,8 +240,38 @@
   &quot;label&quot; : &quot;LoopBlock1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Loop Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>MessageResponseActualTopic</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName==&apos;Message&apos;,true,false)\n&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;tagsToBeInserted&quot; : &quot;%NewTagsToBeInserted:tagsToBeInserted%&quot;,
+    &quot;tagsToBeDeleted&quot; : &quot;%SetValues1:tagsToBeDeleted%&quot;,
+    &quot;updatedNameValue&quot; : &quot;%FilteredTrueActualTopics|1:label%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>11.0</sequenceNumber>
+        <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <name>NewTagsToBeInserted</name>
@@ -297,64 +384,28 @@
         <type>List Merge Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ResponseAction1</name>
+        <name>SetNullInActulTopicList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName==&apos;In Person&apos;,true,false)&quot;,
-  &quot;useFormulas&quot; : true,
-  &quot;additionalOutput&quot; : {
-    &quot;tagsToBeInserted&quot; : &quot;%NewTagsToBeInserted:tagsToBeInserted%&quot;,
-    &quot;tagsToBeDeleted&quot; : &quot;%SetValues1:tagsToBeDeleted%&quot;,
-    &quot;updatedNameValue&quot; : &quot;%FilteredTrueReasonForVisit|1:label%&quot;
+  &quot;executionConditionalFormula&quot; : &quot;IF(ISBLANK(ActualTopicsData),true,false)&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;emptyListForActualTopic&quot; : [ ]
   },
-  &quot;returnOnlyAdditionalOutput&quot; : true,
-  &quot;returnFullDataJSON&quot; : false,
-  &quot;responseFormat&quot; : &quot;JSON&quot;,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;responseDefaultData&quot; : { },
-  &quot;vlcResponseHeaders&quot; : { },
+  &quot;responseJSONPath&quot; : &quot;emptyListForActualTopic&quot;,
+  &quot;responseJSONNode&quot; : &quot;ActualTopicsData&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
   &quot;show&quot; : null,
-  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;label&quot; : &quot;SetValues6&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
-        <type>Response Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <name>ResponseAction2</name>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName!=&apos;In Person&apos;,true,false)&quot;,
-  &quot;useFormulas&quot; : true,
-  &quot;additionalOutput&quot; : {
-    &quot;tagsToBeInserted&quot; : &quot;%NewTagsToBeInserted:tagsToBeInserted%&quot;,
-    &quot;tagsToBeDeleted&quot; : &quot;%SetValues1:tagsToBeDeleted%&quot;,
-    &quot;updatedNameValue&quot; : &quot;%FilteredTrueActualTopics|1:label%&quot;
-  },
-  &quot;returnOnlyAdditionalOutput&quot; : true,
-  &quot;returnFullDataJSON&quot; : false,
-  &quot;responseFormat&quot; : &quot;JSON&quot;,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;responseDefaultData&quot; : { },
-  &quot;vlcResponseHeaders&quot; : { },
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;ResponseAction1&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
-        <type>Response Action</type>
+        <sequenceNumber>6.0</sequenceNumber>
+        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
         <name>SetValues1</name>
@@ -413,5 +464,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_TagSelection_Procedure_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>db05f332-c643-26f4-8bcc-d317a5e9d93b</webComponentKey>
+    <webComponentKey>3686f2ef-5d04-9423-7078-97729fed7759</webComponentKey>
 </OmniIntegrationProcedure>

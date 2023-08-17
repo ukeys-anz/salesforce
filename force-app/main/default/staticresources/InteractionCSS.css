@@ -39,7 +39,8 @@ runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="reason"]
   margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
 }
 
-omnistudio-omniscript-typeahead[data-omni-key*="topic"]
+c-interaction-create-and-edit-flow-english
+  omnistudio-omniscript-typeahead[data-omni-key*="topic"]
   label[omnistudio-typeahead_typeahead_slds]:before {
   content: "*";
   color: var(
@@ -50,7 +51,31 @@ omnistudio-omniscript-typeahead[data-omni-key*="topic"]
 }
 
 /* runtime css */
-runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
+c-interaction-create-and-edit-flow-english
+  runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
+  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
+c-interaction-create-and-edit-flow-for-call-english
+  omnistudio-omniscript-typeahead[data-omni-key*="topic"]
+  label[omnistudio-typeahead_typeahead_slds]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
+/* runtime css */
+c-interaction-create-and-edit-flow-for-call-english
+  runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
   label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
   content: "*";
   color: var(
