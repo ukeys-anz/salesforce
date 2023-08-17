@@ -14,14 +14,6 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
   public static final String TIMEZONE = 'Australia/Sydney'; // According to AZNX-1314, all transactions to be aligned to Melbourne (AEST/AEDT) time as opposed to the coach’s local geographic time
   // Salesforce only supports 'Australia/Sydney' which is the same timezone with Melbourne timezone
 
-  public static final Map<String, String> NODE_MAPPING_DATA = null;
-
-  static {
-    NODE_MAPPING_DATA = APIResponseParser.fetchResponseToModalMapping(
-      TransactionHistoryModel.class.getName()
-    );
-  }
-
   @AuraEnabled
   public String count;
   @AuraEnabled
@@ -454,18 +446,9 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
   public static TransactionHistoryModel parse(String json) {
-    if (Label.TransactionAPIUpliftedToV1 == 'True') {
-      TransactionHistoryModel model = (TransactionHistoryModel) APIResponseParser.parseAPIReponseToModel(
-        json,
-        TransactionHistoryModel.class,
-        NODE_MAPPING_DATA
-      );
-      return model;
-    } else {
-      return (TransactionHistoryModel) deserialize(
-        json,
-        TransactionHistoryModel.class
-      );
-    }
+    return (TransactionHistoryModel) deserialize(
+      json,
+      TransactionHistoryModel.class
+    );
   }
 }
