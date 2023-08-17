@@ -1,0 +1,289 @@
+{
+  "accounts": [
+    {
+      "name": "accounts/390860718",
+      "account_number": "390860718",
+      "bsb": "014111",
+      "account_name": "M R Pfannerstill",
+      "state": "ACCOUNT_STATE_ACTIVE",
+      "product_details": {
+        "marketing_code": "SAVING01",
+        "name": "ANZ Save",
+        "transact_options": [
+          "TRANSFER_FROM",
+          "TRANSFER_TO",
+          "DIRECT_DEBIT",
+          "ROUNDUP_TO",
+          "PAYTO"
+        ],
+        "product_code": "CAP-CIS:DDA",
+        "sub_product_code": "CAP-CIS:DDAXD"
+      },
+      "balances": {
+        "balance": {
+          "currency_code": "AUD",
+          "units": "1711423",
+          "nanos": 540000000
+        },
+        "current_balance": {
+          "currency_code": "AUD",
+          "units": "1711423",
+          "nanos": 540000000
+        },
+        "ledger_balance": {
+          "currency_code": "AUD",
+          "units": "1711423",
+          "nanos": 540000000
+        },
+        "balance_update_time": "2023-08-08T05:16:27.620831Z",
+        "balance_up_to_date": true,
+        "available_limit": {
+          "currency_code": "AUD",
+          "units": "1711423",
+          "nanos": 540000000
+        },
+        "account_limit": {
+          "currency_code": "AUD"
+        }
+      },
+      "open_date": {
+        "year": 2016,
+        "month": 11,
+        "day": 22
+      },
+      "deposit_details": {
+        "deposit_rate": 0.05,
+        "tiered_rates": [
+          {
+            "unit": "PERCENTAGE",
+            "from_operator": ">=",
+            "to_operator": "<",
+            "tiers": [
+              {
+                "min": {
+                  "currency_code": "AUD",
+                  "units": "-999999999",
+                  "nanos": -990000000
+                },
+                "max": {
+                  "currency_code": "AUD"
+                }
+              },
+              {
+                "min": {
+                  "currency_code": "AUD"
+                },
+                "max": {
+                  "currency_code": "AUD",
+                  "units": "250000"
+                },
+                "rate": 3
+              },
+              {
+                "min": {
+                  "currency_code": "AUD",
+                  "units": "250000"
+                },
+                "max": {
+                  "currency_code": "AUD",
+                  "units": "999999999",
+                  "nanos": 990000000
+                },
+                "rate": 0.05
+              }
+            ]
+          }
+        ],
+        "bucket_count": 14,
+        "debit_interest_details": {
+          "interest_rate": {
+            "rate_with_margin": 0.5,
+            "rate_with_excess_points": 0
+          }
+        },
+        "valid_at": "2023-08-08T05:16:27.542607Z",
+        "details_up_to_date": true
+      },
+      "ownership": {
+        "type": "OWNERSHIP_TYPE_SINGLEPARTY"
+      },
+      "operations": [
+        "OPERATION_TYPE_TRANSFER_FROM",
+        "OPERATION_TYPE_TRANSFER_TO"
+      ]
+    },
+    {
+      "name": "accounts/390885827",
+      "account_number": "390885827",
+      "bsb": "014111",
+      "account_name": "Maggie Roset Pfannerstill",
+      "state": "ACCOUNT_STATE_ACTIVE",
+      "product_details": {
+        "marketing_code": "HLVAR01",
+        "name": "ANZ Plus Home Loan Variable",
+        "transact_options": ["DIRECT_CREDIT", "TRANSFER_TO", "TRANSFER_FROM"],
+        "product_code": "CAP-CIS:ILS",
+        "sub_product_code": "CAP-CIS:ILSXL1"
+      },
+      "balances": {
+        "balance": {
+          "currency_code": "AUD",
+          "units": "-459378",
+          "nanos": -120000000
+        },
+        "current_balance": {
+          "currency_code": "AUD",
+          "units": "-459378",
+          "nanos": -120000000
+        },
+        "ledger_balance": {
+          "currency_code": "AUD",
+          "units": "-459378",
+          "nanos": -120000000
+        },
+        "balance_update_time": "2023-08-08T05:16:27.620831Z",
+        "balance_up_to_date": true,
+        "available_limit": {
+          "currency_code": "AUD",
+          "units": "-459378",
+          "nanos": -120000000
+        },
+        "account_limit": {
+          "currency_code": "AUD"
+        }
+      },
+      "open_date": {
+        "year": 2016,
+        "month": 12,
+        "day": 7
+      },
+      "loan_details": {
+        "loan_amount": {
+          "currency_code": "AUD",
+          "units": "500000"
+        },
+        "loan_start_date": {
+          "year": 2016,
+          "month": 12,
+          "day": 7
+        },
+        "loan_end_date": {
+          "year": 2017,
+          "month": 12,
+          "day": 7
+        },
+        "loan_term": 12,
+        "interests": {
+          "rate": 4.64,
+          "interest_only_term": 0,
+          "remaining_principle_interest_term": 0,
+          "remaining_loan_term": 0
+        },
+        "repayment_type": "REPAYMENT_TYPE_PRINCIPAL_INTEREST",
+        "repayment_amount": {
+          "currency_code": "AUD",
+          "units": "42233",
+          "nanos": 190000000
+        },
+        "repayment_frequency": "REPAYMENT_FREQUENCY_MONTHLY",
+        "next_payment_date": {
+          "year": 2017,
+          "month": 2,
+          "day": 7
+        },
+        "valid_at": "2023-08-08T05:16:28.744879Z",
+        "details_up_to_date": true,
+        "rate_type": "RATE_TYPE_VARIABLE",
+        "loan_payment_details": {
+          "direct_loan_payments": [
+            {
+              "item_number": "1",
+              "debit_account_number": "390860697",
+              "start_date": {
+                "year": 2016,
+                "month": 12,
+                "day": 7
+              },
+              "frequency": "REPAYMENT_FREQUENCY_MONTHLY",
+              "payment_amount": {
+                "currency_code": "AUD",
+                "units": "42233",
+                "nanos": 190000000
+              }
+            }
+          ],
+          "loan_billing_schedules": [
+            {
+              "item_number": "1",
+              "schedule_type": "BILLING_SCHEDULE_TYPE_INTEREST",
+              "state": "BILLING_SCHEDULE_STATE_CURRENT",
+              "start_date": {
+                "year": 2016,
+                "month": 12,
+                "day": 7
+              },
+              "billing_method": "BILLING_METHOD_CAPITALISE_INTEREST",
+              "current_due_date": {
+                "year": 2017,
+                "month": 1,
+                "day": 7
+              },
+              "cycle_code": "07",
+              "frequency": "REPAYMENT_FREQUENCY_MONTHLY"
+            },
+            {
+              "item_number": "2",
+              "schedule_type": "BILLING_SCHEDULE_TYPE_PRINCIPAL",
+              "state": "BILLING_SCHEDULE_STATE_CURRENT",
+              "start_date": {
+                "year": 2016,
+                "month": 12,
+                "day": 7
+              },
+              "billing_method": "BILLING_METHOD_APDLP",
+              "current_due_date": {
+                "year": 2017,
+                "month": 1,
+                "day": 7
+              },
+              "cycle_code": "07",
+              "frequency": "REPAYMENT_FREQUENCY_MONTHLY"
+            },
+            {
+              "item_number": "3",
+              "schedule_type": "BILLING_SCHEDULE_TYPE_MATURITY",
+              "state": "BILLING_SCHEDULE_STATE_PENDING",
+              "start_date": {
+                "year": 2017,
+                "month": 11,
+                "day": 8
+              },
+              "billing_method": "BILLING_METHOD_APDLP",
+              "current_due_date": {
+                "year": 2017,
+                "month": 12,
+                "day": 7
+              },
+              "cycle_code": "07",
+              "frequency": "REPAYMENT_FREQUENCY_MONTHLY"
+            }
+          ],
+          "next_payment_date": {
+            "year": 2017,
+            "month": 2,
+            "day": 7
+          },
+          "valid_at": "2023-08-08T05:16:28.422479Z",
+          "details_up_to_date": true
+        }
+      },
+      "ownership": {
+        "type": "OWNERSHIP_TYPE_SINGLEPARTY"
+      },
+      "operations": [
+        "OPERATION_TYPE_TRANSFER_FROM",
+        "OPERATION_TYPE_TRANSFER_TO"
+      ]
+    }
+  ]
+}

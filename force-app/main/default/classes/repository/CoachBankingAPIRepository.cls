@@ -27,7 +27,11 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       );
       if (response.successful) {
         try {
-          result = FinancialAccountModel.parse(response.body);
+          if (Label.AccountAPIUpliftedToV1 == 'True') {
+            result = FinancialAccountModelV1.parse(response.body);
+          } else {
+            result = FinancialAccountModel.parse(response.body);
+          }
         } catch (Exception e) {
           handleErrors(null, e, CoachBankingAPIRepository.class);
         }
