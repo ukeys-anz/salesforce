@@ -9,7 +9,7 @@ public class TransactionHistoryModelTest {
   static void testParse() {
     String staticResourceName;
     if (Label.TransactionAPIUpliftedToV1 == 'True') {
-      staticResourceName = 'MockMapping';
+      staticResourceName = 'mock_transactionHistoryV1';
     } else {
       staticResourceName = 'mock_transactionHistory';
     }
