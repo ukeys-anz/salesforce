@@ -24,15 +24,15 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
   public class Accounts {
     public String account_name;
     public String account_number;
-    public Balances balances;
     public String bsb;
-    public Deposit_details deposit_details;
     public String name;
+    public String state;
+    public List<String> operations;
+    public Balances balances;
+    public Deposit_details deposit_details;
     public Open_date open_date;
     public Close_date close_date;
-    public List<String> operations;
     public Ownership ownership;
-    public String state;
     public Product_details product_details;
   }
 
@@ -40,8 +40,8 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
    * @description Available Limit information related to the account
    */
   public class Available_limit {
-    public String currency_code;
     public Integer nanos;
+    public String currency_code;
     public String units;
   }
 
@@ -49,8 +49,8 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
    * @description Balance information related to the account
    */
   public class Balance {
-    public String currency_code;
     public Integer nanos;
+    public String currency_code;
     public String units;
   }
 
@@ -58,11 +58,11 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
    * @description Balances information related to the account
    */
   public class Balances {
+    public Boolean balance_up_to_date;
+    public String balance_update_time;
     public Account_limit account_limit;
     public Available_limit available_limit;
     public Balance balance;
-    public Boolean balance_up_to_date;
-    public String balance_update_time;
     public Current_balance current_balance;
     public Ledger_balance ledger_balance;
   }
@@ -71,8 +71,8 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
    * @description Current Balance information related to the account
    */
   public class Current_balance {
-    public String currency_code;
     public Integer nanos;
+    public String currency_code;
     public String units;
   }
 
@@ -87,12 +87,12 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
    * @description Deposit Details information related to the account
    */
   public class Deposit_details {
-    public Debit_interest_details debit_interest_details;
-    public String deposit_rate;
     public Boolean details_up_to_date;
-    public List<TieredRates> tiered_rates;
     public DateTime valid_at;
     public Integer bucket_count;
+    public String deposit_rate;
+    public Debit_interest_details debit_interest_details;
+    public List<TieredRates> tiered_rates;
   }
 
   /**
@@ -107,8 +107,8 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
    * @description Ledger balance information related to the account
    */
   public class Ledger_balance {
-    public String currency_code;
     public Integer nanos;
+    public String currency_code;
     public String units;
   }
 
@@ -116,18 +116,18 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
    * @description Max information related to the account
    */
   public class Max {
+    public Integer nanos;
     public String currency_code;
     public String units;
-    public Integer nanos;
   }
 
   /**
    * @description Min information related to the account
    */
   public class Min {
+    public Integer nanos;
     public String currency_code;
     public String units;
-    public Integer nanos;
   }
 
   /**
@@ -171,18 +171,18 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
    */
   public class TieredRates {
     public String from_operator;
-    public List<Tiers> tiers;
     public String to_operator;
     public String units;
+    public List<Tiers> tiers;
   }
 
   /**
    * @description tiers information related to the account
    */
   public class Tiers {
+    public Double rate;
     public Max max;
     public Min min;
-    public Double rate;
   }
 
   /**
