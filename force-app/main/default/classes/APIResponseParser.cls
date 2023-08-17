@@ -21,8 +21,6 @@ public with sharing class APIResponseParser extends CalloutModel {
     );
     updateNodeNames(responseMap, '', responseNodeToModelNode);
     String finalResponse = JSON.serialize(responseMap);
-    String modifiedJson = JSON.serializePretty(responseMap);
-    System.debug('Modified JSON:\n' + modifiedJson);
     return deserialize(finalResponse, className);
   }
   private static void updateNodeNames(

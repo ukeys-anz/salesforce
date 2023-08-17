@@ -67,9 +67,7 @@
     "trailheadapp__Trailmix_Assignment__c",
     "trailheadapp__User_Badge__c",
     "trailheadapp__User_Trailmix__c",
-    "User",
-    "API_Response_To_Modal_Mapping__mdt",
-    "ResponseToModel__mdt"
+    "User"
   ],
   "usermap": [
     {
