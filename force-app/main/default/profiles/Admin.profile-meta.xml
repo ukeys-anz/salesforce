@@ -4691,6 +4691,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ContactPointPhone.ParentId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContactPointPhone.Preferred_Indicator__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8743,6 +8748,30 @@
         <recordType>CollaborationGroup.CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>ContactPointPhone-ANZX Contact Point Phone Layout</layout>
+        <recordType>ContactPointPhone.Hidden</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointPhone-ANZX Contact Point Phone Layout</layout>
+        <recordType>ContactPointPhone.Individual</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointPhone-ANZX Contact Point Phone Layout</layout>
+        <recordType>ContactPointPhone.Organisation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointEmail-ANZX Contact Point Email Layout</layout>
+        <recordType>ContactPointEmail.Hidden</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointEmail-ANZX Contact Point Email Layout</layout>
+        <recordType>ContactPointEmail.Individual</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointEmail-ANZX Contact Point Email Layout</layout>
+        <recordType>ContactPointEmail.Organisation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>ContentVersion-Content Version</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -9144,24 +9173,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Contact</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>ContactPointPhone</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>ContactPointEmail</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
