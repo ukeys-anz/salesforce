@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>payment</label>
+    <protected>false</protected>
+    <values>
+        <field>API_Response_To_Modal_Mapping__c</field>
+        <value xsi:type="xsd:string">TransactionHistoryModel</value>
+    </values>
+    <values>
+        <field>ConversionType__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ModelNode__c</field>
+        <value xsi:type="xsd:string">embedded.transactions.payment</value>
+    </values>
+    <values>
+        <field>ReponseNode__c</field>
+        <value xsi:type="xsd:string">pay_anyone</value>
+    </values>
+</CustomMetadata>
