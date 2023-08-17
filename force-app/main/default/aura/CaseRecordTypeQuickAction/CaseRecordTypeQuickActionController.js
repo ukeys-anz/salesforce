@@ -43,9 +43,10 @@
     action.setCallback(this, function (response) {
       var state = response.getState();
       if (state === "SUCCESS") {
-        var result = JSON.parse(response.getReturnValue());
+        var parsedResult = JSON.parse(response.getReturnValue());
+        var result = response.getReturnValue();
         if (
-          !result.IDR_Product_Category__c &&
+          !parsedResult.IDR_Product_Category__c &&
           (selectedRecordTypeName == "Customer_Complaint" ||
             selectedRecordTypeName == "Non_Customer_Complaint")
         ) {
@@ -55,18 +56,19 @@
             "Error!"
           );
         } else {
-          $A.get("e.force:closeQuickAction").fire();
           var autoFillFieldsString = "";
-          for (var i in result) {
+          for (var i in parsedResult) {
             autoFillFieldsString =
-              autoFillFieldsString + "," + i + "=" + result[i];
+              autoFillFieldsString + "," + i + "=" + parsedResult[i];
           }
           if (autoFillFieldsString.startsWith(",")) {
             // drop the leading ','
             autoFillFieldsString = autoFillFieldsString.substring(1);
           }
           component.set("v.autoFillFieldsString", autoFillFieldsString);
-          helper.handleNavig(component);
+          component.set("v.defaultFieldsValueString", result);
+          var aemCaseFlag = component.get("v.caseRecord.ANZx_Customer__c");
+          helper.handleNavig(component, aemCaseFlag);
         }
       } else {
         helper.showToast(

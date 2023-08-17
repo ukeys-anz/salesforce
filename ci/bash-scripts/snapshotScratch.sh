@@ -27,6 +27,7 @@ echo -e "\nforce-app/main/default/sharingRules" >> .forceignore
 echo -e "\nforce-app/main/default/objects/Lead/fields/Id.field-meta.xml" >> .forceignore
 echo -e "\nforce-app/main/default/permissionsetgroups/Shared_Admin.permissionsetgroup-meta.xml" >> .forceignore
 echo -e "\nforce-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionsetgroup-meta.xml" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Lead/fields/Id.field-meta.xml" >> .forceignore
 echoMessageCreator "" $stepNo false
 ########################
 

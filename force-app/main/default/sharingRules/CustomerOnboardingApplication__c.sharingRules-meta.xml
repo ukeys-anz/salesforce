@@ -60,4 +60,16 @@
             <allInternalUsers/>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Stat_Comp_Agent_RO_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with Statutory Compliance Agent with Read Only access.</description>
+        <label>Stat Comp Agent RO All</label>
+        <sharedTo>
+            <role>Statutory_Compliance_Agent</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

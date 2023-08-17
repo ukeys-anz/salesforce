@@ -648,7 +648,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <fullName>PEGA_Dispute_Status_Resolved_CreditTransaction</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved–CreditTransaction</shortDescription>
+        <shortDescription>PEGA Dispute Status Resolved-CreditTransaction</shortDescription>
         <value>Unfortunately, the dispute hasn’t been found in your favour as it was raised on the credit or refund. If you would still like to dispute the transaction, please lodge a new dispute on the initial charge.
 Feel free to send us a message from the Support tab if you have any questions, or would like to raise any issues or escalate any concerns.</value>
     </labels>
