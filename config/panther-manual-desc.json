@@ -218,6 +218,7 @@
     "Release__c": "System documentation on a given Salesforce release of features",
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
     "ResidentialLoanApplication": "General information and identifiers to describe type of loan",
+    "ResponseToModel__mdt": "This object hold the parsing information",
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
     "Task": "A task to remind a user to follow up on something",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
