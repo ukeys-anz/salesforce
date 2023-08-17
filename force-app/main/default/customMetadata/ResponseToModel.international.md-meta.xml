@@ -7,10 +7,6 @@
         <value xsi:type="xsd:string">TransactionHistoryModel</value>
     </values>
     <values>
-        <field>ConversionType__c</field>
-        <value xsi:nil="true"/>
-    </values>
-    <values>
         <field>ModelNode__c</field>
         <value xsi:type="xsd:string">embedded.transactions.international</value>
     </values>
