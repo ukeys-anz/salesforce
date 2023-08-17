@@ -31,7 +31,10 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
           boolShowError = true;
         }
         errorFromValidation.topicerror = false;
-        if (actualTopics.length === 0 || actualTopics.length > 5) {
+        if (
+          (actualTopics.length === 0 || actualTopics.length > 5) &&
+          recordTypeName !== "Message"
+        ) {
           errorFromValidation.topicerror = true;
           boolShowError = true;
         }
