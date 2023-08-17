@@ -101,7 +101,10 @@ public with sharing class IDREmailServiceHelper {
       emailMessage.HtmlBody = email
         ?.htmlBody
         ?.replaceAll('<a.*<.{1}a>', 'REMOVED');
-      if (emailMessage.HtmlBody.length() > 32000) {
+      if (
+        emailMessage.HtmlBody == null ||
+        emailMessage.HtmlBody.length() > 32000
+      ) {
         // New Complaint with a long email body. Just rely on the plain text email.
         emailMessage.HtmlBody = '';
       }
