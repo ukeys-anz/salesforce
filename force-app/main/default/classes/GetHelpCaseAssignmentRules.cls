@@ -11,6 +11,13 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final String DO_NOT_RECOGNISE_TRANSACTION = 'Don\'t recognise the transaction';
   public static final String CASH_DEPOSIT_ERROR = 'Cash Deposit Error';
   public static final String CHEQUE_DEPOSIT_ERROR = 'Cheque Deposit Error';
+  public static final String HOME_LOANS_PRODUCT_CATEGORY = 'Home loans';
+  public static final Group COACH_QUEUE = CommonUtil.getQueueByName(
+    'Coach_Queue'
+  );
+  public static final Group BOH_COACH_QUEUE = CommonUtil.getQueueByName(
+    'BOH_Coach_Queue'
+  );
   /**
    * @description method to call the Case assignment rules for Disputes
    * @param cases Records in the current context
@@ -128,12 +135,16 @@ public with sharing class GetHelpCaseAssignmentRules {
    * @param records List<Case> to be checked.
    */
   public static void assignUnauthenticatedEnquiryCases(List<Case> records) {
-    Id coachQueueId = [SELECT Id FROM Group WHERE Name = 'Coach Queue' LIMIT 1]
-    .Id;
     for (Case record : records) {
-      if (CheckCaseRecordType.isAEM(record)) {
-        record.OwnerId = coachQueueId;
-        record.Queue__c = 'Coach Queue';
+      if (CheckCaseRecordType.isAEM(record) == false) {
+        continue;
+      }
+      if (record.IDR_Product_Category__c == HOME_LOANS_PRODUCT_CATEGORY) {
+        record.OwnerId = BOH_COACH_QUEUE.Id;
+        record.Queue__c = BOH_COACH_QUEUE.Name;
+      } else {
+        record.OwnerId = COACH_QUEUE.Id;
+        record.Queue__c = COACH_QUEUE.Name;
       }
     }
   }

@@ -127,7 +127,24 @@
                 AND(
                     ISNEW(),
                     RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
-                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),  
+                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),
+                    OR(
+                        ISPICKVAL(IDR_Product_Category__c, &quot;Cheque/savings accounts&quot;),
+                        ISPICKVAL(IDR_Product_Category__c, &quot;Not product related&quot;)
+                    ),
+                    ANZx_Customer__c = true
+                )
+            </formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>BOH_Coach_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>
+                AND(
+                    ISNEW(),
+                    RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
+                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),
+                    ISPICKVAL(IDR_Product_Category__c, &quot;Home loans&quot;),
                     ANZx_Customer__c = true
                 )
             </formula>

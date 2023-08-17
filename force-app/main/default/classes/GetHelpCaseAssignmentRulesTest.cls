@@ -73,6 +73,69 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     );
   }
 
+  @isTest
+  static void testAssignAEMToBOHQueueCases() {
+    Faker faker = new Faker('AU');
+    Case testCase = new Case(
+      RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID,
+      Status = GetHelpConstants.OPEN_STATUS,
+      Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN,
+      Priority = 'Standard',
+      Description = 'Test',
+      Type = '11',
+      IDR_Product_Category__c = 'Home loans',
+      ANZx_Customer__c = true
+    );
+
+    Test.startTest();
+    insert testCase;
+    Case c = [SELECT Id, OwnerId, Queue__c FROM Case WHERE Id = :testCase.Id];
+    Test.stopTest();
+
+    Group bohCoachQueue = CommonUtil.getQueueByName('BOH_Coach_Queue');
+    System.assertEquals(
+      c.OwnerId,
+      bohCoachQueue.Id,
+      'Should return the Id of expected queue.'
+    );
+    System.assertEquals(
+      c.Queue__c,
+      bohCoachQueue.Name,
+      'Should return the Name of expected queue.'
+    );
+  }
+
+  @isTest
+  static void testAssignAEMToCoachQueueCases() {
+    Faker faker = new Faker('AU');
+    Case testCase = new Case(
+      RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID,
+      Status = GetHelpConstants.OPEN_STATUS,
+      Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN,
+      Priority = 'Standard',
+      Description = 'Test',
+      Type = '11',
+      IDR_Product_Category__c = 'Not product related',
+      ANZx_Customer__c = true
+    );
+
+    Test.startTest();
+    insert testCase;
+    Case c = [SELECT Id, OwnerId, Queue__c FROM Case WHERE Id = :testCase.Id];
+    Test.stopTest();
+
+    Group coachQueue = CommonUtil.getQueueByName('Coach_Queue');
+    System.assertEquals(
+      c.OwnerId,
+      coachQueue.Id,
+      'Should return the Id of expected queue.'
+    );
+    System.assertEquals(
+      c.Queue__c,
+      coachQueue.Name,
+      'Should return the Name of expected queue.'
+    );
+  }
   /**
    * @description : This is to test for ATM/Card/NPP dispute types, when update in unauthorised transaction situation
    * case is assigned correctly
