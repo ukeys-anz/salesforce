@@ -129,7 +129,7 @@
                     RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
                     ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),
                     OR(
-                        ISPICKVAL(IDR_Product_Category__c, &quot;Cheque/savings accounts&quot;),
+                        ISPICKVAL(IDR_Product_Category__c, &quot;Cheque/Savings accounts&quot;),
                         ISPICKVAL(IDR_Product_Category__c, &quot;Not product related&quot;)
                     ),
                     ANZx_Customer__c = true
