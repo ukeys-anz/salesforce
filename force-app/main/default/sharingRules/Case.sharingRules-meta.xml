@@ -661,6 +661,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>RTs_OnboardingSupport_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read access to General Enquiry, Account Closure, Dispute, ANZ Plus Complaints, Non-Customer Complaints, Customer Feedback, ID Ops Assistance and Fraud Check record type for Onboarding Support.</description>
+        <label>RTs_OnboardingSupport_RO</label>
+        <sharedTo>
+            <role>Onboarding_Support_Read_Only</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,ID Ops Assistance,Customer Feedback,Direct Entry,General Enquiry,Fraud Check,Card,NPP,Direct Debit,BPAY,Non-Customer Complaint,ATM,ANZ Plus Complaint</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_FinCrimeAgents_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>All Cases having Fraud record types, disputes, General Enquiry, Customer Feedback are to be shared with FinCrime Agents with Read only access.</description>
