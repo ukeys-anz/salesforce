@@ -12,6 +12,7 @@
         NOT(ISPICKVAL(IDR_Product_Category__c, &quot;Home loans&quot;)),
         NOT(ISPICKVAL(IDR_Product_Category__c, &quot;Cheque/Savings accounts&quot;)),
         NOT(ISPICKVAL(IDR_Product_Category__c, &quot;Not product related&quot;)),
+        NOT(ISPICKVAL(IDR_Product_Category__c, &quot;ANZ Plus&quot;)),
         ANZx_Customer__c = true
     )
 </errorConditionFormula>
