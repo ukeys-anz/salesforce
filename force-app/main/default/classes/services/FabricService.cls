@@ -15,18 +15,34 @@ public with sharing class FabricService extends Service {
     String ocvId,
     List<String> accountNumbers
   ) {
+    String financialAccountApiEndpoint;
     String urlParam = '';
     if (!accountNumbers.isEmpty()) {
       for (String accountNumber : accountNumbers) {
-        urlParam += 'account_numbers=' + accountNumber + '&';
+        if (Label.AccountAPIUpliftedToV1 == 'True') {
+          String accountFilter = 'accounts/' + accountNumber;
+          urlParam +=
+            'filter.accounts=' +
+            EncodingUtil.urlEncode(accountFilter, 'UTF-8') +
+            '&';
+        } else {
+          urlParam += 'account_numbers=' + accountNumber + '&';
+        }
       }
     }
+
+    if (Label.AccountAPIUpliftedToV1 == 'True') {
+      financialAccountApiEndpoint = Label.MS_Get_Financial_AccountsV1;
+    } else {
+      financialAccountApiEndpoint = Label.MS_Get_Financial_Accounts;
+    }
+
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      Label.MS_Get_Financial_Accounts +
+      financialAccountApiEndpoint +
       '?' +
       urlParam,
       HTTP_METHOD.HTTP_GET,
@@ -46,12 +62,20 @@ public with sharing class FabricService extends Service {
     String ocvId,
     String paramUrl
   ) {
+    String transactionApiEndpoint;
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
+
+    if (Label.TransactionAPIUpliftedToV1 == 'True') {
+      transactionApiEndpoint = Label.MS_Get_TransactionsV1;
+    } else {
+      transactionApiEndpoint = Label.MS_Get_Transactions;
+    }
+
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      Label.MS_Get_Transactions +
+      transactionApiEndpoint +
       paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,

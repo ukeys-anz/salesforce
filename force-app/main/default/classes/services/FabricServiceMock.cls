@@ -19,14 +19,26 @@ public with sharing class FabricServiceMock extends Service {
   );
 
   @TestVisible
-  private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE = getStaticResource(
-    'mock_financialAccounts'
-  );
+  private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE = getFinancialAccountSuccessResponse();
+
+  private static String getFinancialAccountSuccessResponse() {
+    if (Label.AccountAPIUpliftedToV1 == 'True') {
+      return getStaticResource('mock_FinancialAccountMappingv1');
+    } else {
+      return getStaticResource('mock_financialAccounts');
+    }
+  }
 
   @TestVisible
-  private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE = getStaticResource(
-    'mock_transactionHistory'
-  );
+  private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE = getTransactionHistorySuccessResponse();
+
+  private static String getTransactionHistorySuccessResponse() {
+    if (Label.TransactionAPIUpliftedToV1 == 'True') {
+      return getStaticResource('mock_transactionHistoryV1');
+    } else {
+      return getStaticResource('mock_transactionHistory');
+    }
+  }
 
   @TestVisible
   private static final String CARD_LIST_SUCCESS_RESPONSE = getStaticResource(
