@@ -15,12 +15,16 @@ public with sharing class FabricService extends Service {
     String ocvId,
     List<String> accountNumbers
   ) {
-    String financialAccountApiVersion;
+    String financialAccountApiEndpoint;
     String urlParam = '';
     if (!accountNumbers.isEmpty()) {
       for (String accountNumber : accountNumbers) {
         if (Label.AccountAPIUpliftedToV1 == 'True') {
-          urlParam += 'filter.accounts=accounts/' + accountNumber + '&';
+          String accountFilter = 'accounts/' + accountNumber;
+          urlParam +=
+            'filter.accounts=' +
+            EncodingUtil.urlEncode(accountFilter, 'UTF-8') +
+            '&';
         } else {
           urlParam += 'account_numbers=' + accountNumber + '&';
         }
@@ -28,9 +32,9 @@ public with sharing class FabricService extends Service {
     }
 
     if (Label.AccountAPIUpliftedToV1 == 'True') {
-      financialAccountApiVersion = Label.MS_Get_Financial_AccountsV1;
+      financialAccountApiEndpoint = Label.MS_Get_Financial_AccountsV1;
     } else {
-      financialAccountApiVersion = Label.MS_Get_Financial_Accounts;
+      financialAccountApiEndpoint = Label.MS_Get_Financial_Accounts;
     }
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
@@ -38,7 +42,7 @@ public with sharing class FabricService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      financialAccountApiVersion +
+      financialAccountApiEndpoint +
       '?' +
       urlParam,
       HTTP_METHOD.HTTP_GET,
@@ -58,20 +62,20 @@ public with sharing class FabricService extends Service {
     String ocvId,
     String paramUrl
   ) {
-    String transactionApiVersion;
+    String transactionApiEndpoint;
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
 
     if (Label.TransactionAPIUpliftedToV1 == 'True') {
-      transactionApiVersion = Label.MS_Get_TransactionsV1;
+      transactionApiEndpoint = Label.MS_Get_TransactionsV1;
     } else {
-      transactionApiVersion = Label.MS_Get_Transactions;
+      transactionApiEndpoint = Label.MS_Get_Transactions;
     }
 
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      transactionApiVersion +
+      transactionApiEndpoint +
       paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
