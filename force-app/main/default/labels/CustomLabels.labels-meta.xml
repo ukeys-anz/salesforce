@@ -336,6 +336,14 @@
         <value>/coach-banking/v1beta1/transactions</value>
     </labels>
     <labels>
+        <fullName>MS_Get_TransactionsV1</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_TransactionsV1</shortDescription>
+        <value>/coach-banking/v1/transactions</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Qas_Address</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -406,6 +414,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_Financial_Accounts</shortDescription>
         <value>/coach-banking/v1beta1/accounts</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Financial_AccountsV1</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Financial_AccountsV1</shortDescription>
+        <value>/coach-banking/v1/accounts</value>
     </labels>
     <labels>
         <fullName>MS_Get_Tokenized_Card</fullName>
