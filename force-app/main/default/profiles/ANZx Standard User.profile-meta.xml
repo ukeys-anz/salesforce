@@ -8056,6 +8056,30 @@
         <layout>COBPrimaryIDDocument__c-COB Primary ID Document Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>ContactPointPhone-ANZX Contact Point Phone Layout</layout>
+        <recordType>ContactPointPhone.Hidden</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointPhone-ANZX Contact Point Phone Layout</layout>
+        <recordType>ContactPointPhone.Individual</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointPhone-ANZX Contact Point Phone Layout</layout>
+        <recordType>ContactPointPhone.Organisation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointEmail-ANZX Contact Point Email Layout</layout>
+        <recordType>ContactPointEmail.Hidden</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointEmail-ANZX Contact Point Email Layout</layout>
+        <recordType>ContactPointEmail.Individual</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointEmail-ANZX Contact Point Email Layout</layout>
+        <recordType>ContactPointEmail.Organisation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

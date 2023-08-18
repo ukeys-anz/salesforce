@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hidden</fullName>
     <active>true</active>
+    <compactLayoutAssignment>Phone</compactLayoutAssignment>
     <label>Hidden</label>
     <picklistValues>
         <picklist>UsageType</picklist>

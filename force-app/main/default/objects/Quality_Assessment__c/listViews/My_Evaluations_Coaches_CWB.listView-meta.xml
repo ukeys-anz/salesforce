@@ -13,7 +13,7 @@
     <columns>Advice_Outcome__c</columns>
     <columns>Compliance_Outcome__c</columns>
     <columns>Context_and_General_Comments__c</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <label>My Evaluations</label>
     <sharedTo>
         <role>Coach</role>

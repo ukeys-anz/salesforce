@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AEM_VR1</fullName>
+    <active>true</active>
+    <description>Prevents users from picking up a product category for AEM Unauthenticated Enquiry Cases other than Home loans, Cheque/Savings accounts, or Not product related.</description>
+    <errorConditionFormula>
+    AND(
+        NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
+        ISNEW(),
+        RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
+        ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),
+        NOT(ISPICKVAL(IDR_Product_Category__c, &quot;Home loans&quot;)),
+        NOT(ISPICKVAL(IDR_Product_Category__c, &quot;Cheque/Savings accounts&quot;)),
+        NOT(ISPICKVAL(IDR_Product_Category__c, &quot;Not product related&quot;)),
+        ANZx_Customer__c = true
+    )
+</errorConditionFormula>
+    <errorMessage>The product category of an AEM Unauthenticated Enquiry Case should be either Home loans, Cheque/Savings accounts, or Not product related.</errorMessage>
+</ValidationRule>
