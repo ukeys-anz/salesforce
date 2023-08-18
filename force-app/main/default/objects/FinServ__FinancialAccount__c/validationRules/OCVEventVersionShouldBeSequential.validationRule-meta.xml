@@ -6,9 +6,10 @@
     <errorConditionFormula>
 AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    Force_Update__c = false,
     OR(
         ISNULL(PRIORVALUE(OCV_Event_Version__c)),
-        AND(Force_Update__c = false, OCV_Event_Version__c - PRIORVALUE(OCV_Event_Version__c) &gt; 1)
+        OCV_Event_Version__c - PRIORVALUE(OCV_Event_Version__c) &gt; 1
     )
 )
 </errorConditionFormula>
