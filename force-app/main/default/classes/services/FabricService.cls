@@ -17,15 +17,20 @@ public with sharing class FabricService extends Service {
   ) {
     String financialAccountApiVersion;
     String urlParam = '';
+    String urlParamV1 = '';
+    String urlParamV1beta1 = '';
     if (!accountNumbers.isEmpty()) {
       for (String accountNumber : accountNumbers) {
-        urlParam += 'account_numbers=' + accountNumber + '&';
+        urlParamV1 += 'filter.accounts=accounts/' + accountNumber + '&';
+        urlParamV1beta1 += 'account_numbers=' + accountNumber + '&';
       }
     }
 
     if (Label.AccountAPIUpliftedToV1 == 'True') {
+      urlParam = urlParamV1;
       financialAccountApiVersion = Label.MS_Get_Financial_AccountsV1;
     } else {
+      urlParam = urlParamV1beta1;
       financialAccountApiVersion = Label.MS_Get_Financial_Accounts;
     }
 
