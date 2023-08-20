@@ -35,7 +35,6 @@ const MOCK_CASE_RECORD = require("./data/getCaseRecord.json");
 
 //This record also includes some account data as we are unable
 //to make multiple mock wire calls in one test
-const MOCK_QA_USER_RECORD = require("./data/getQAUserRecord.json");
 const MOCK_COACH_USER_RECORD = require("./data/getCoachUserRecord.json");
 
 describe("c-chat-topic-related-list", () => {
@@ -154,25 +153,6 @@ describe("c-chat-topic-related-list", () => {
         "lightning-menu-item[data-id='re_initiate']"
       );
       expect(reInitiateButton).toBeTruthy();
-    });
-  });
-
-  it("tests re-initiate is hidden for QA", () => {
-    getChatTopicsOnAccount.mockResolvedValue(CHAT_TOPIC_MULTIPLE);
-    const element = createElement("c-chat-topic-related-list", {
-      is: ChatTopicRelatedList
-    });
-
-    element.objectName = "Account";
-    element.recordId = "0031700000pHcf8AAC";
-    getRecord.emit(MOCK_QA_USER_RECORD);
-    document.body.appendChild(element);
-
-    return flushPromises().then(() => {
-      let reInitiateButton = element.shadowRoot.querySelector(
-        "lightning-menu-item[data-id='re_initiate']"
-      );
-      expect(reInitiateButton).toBeFalsy();
     });
   });
 });

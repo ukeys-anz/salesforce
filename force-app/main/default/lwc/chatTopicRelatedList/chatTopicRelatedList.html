@@ -104,12 +104,14 @@
                       data-id={chatTopic.id}
                       onselect={handleOnselect}
                     >
-                      <template lwc:if={chatTopic.enableReinitiate}>
-                        <lightning-menu-item
-                          label="Reply"
-                          value="re_initiate"
-                          data-id="re_initiate"
-                        ></lightning-menu-item>
+                      <template lwc:if={displayReinitiateChat}>
+                        <template lwc:if={chatTopic.enableReinitiate}>
+                          <lightning-menu-item
+                            label="Reply"
+                            value="re_initiate"
+                            data-id="re_initiate"
+                          ></lightning-menu-item>
+                        </template>
                       </template>
                       <lightning-menu-item
                         label="Chat History"

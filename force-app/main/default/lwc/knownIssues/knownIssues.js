@@ -4,7 +4,7 @@ import tmp from "./knownIssues.html";
 
 const KNOWN_ISSUES = [
   {
-    IDR_Channel_Received__c: " ",
+    IDR_Channel_Received__c: "Phone",
     IDR_Priority__c: " ",
     IDR_Issue_Type__c: "",
     IDR_Sub_Issue_Type__c: "",
