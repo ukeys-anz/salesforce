@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Temporal</complianceGroup>
     <description>The OCVID supplied by OCV, which initially refers to the shadow profile and eventually the full customer profile</description>
-    <externalId>false</externalId>
+    <externalId>true</externalId>
     <label>OCV Id</label>
     <length>255</length>
     <required>false</required>

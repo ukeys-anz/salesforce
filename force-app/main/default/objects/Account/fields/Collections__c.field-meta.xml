@@ -6,7 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>This Flag indicates if Customer is undergoing Hardship or not.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Customer is in collections (one or more of their ANZx or AR&amp;C accounts are currently in Collections)</inlineHelpText>
+    <inlineHelpText>This flag indicates that the customer has one/more of their account/s (Existing ANZ or ANZ Plus account/s) currently being managed by the collections team.</inlineHelpText>
     <label>Collections</label>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

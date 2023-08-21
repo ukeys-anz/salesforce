@@ -3,11 +3,9 @@
  * @author Afreen
  * @since 11/2020
  * @description Responsible to trigger the Notification for banker.
- * StdCyclomaticComplexity Suppressed : contains a method that uses structured if/else but complexity measure is more than limit.
  * @runTests IDRCaseNotificationManagerTest, CaseTriggerHandlerTest, IDREmailServiceTest
  *
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDRCaseNotificationManager {
   /**
    * @description Assesses whether or not to generate a banker notification
@@ -163,12 +161,13 @@ public with sharing class IDRCaseNotificationManager {
       customerName
     };
     subjectStr = mpFieldLabel2Subject.get(fieldLabel);
-    if ( subjectStr == null &&
-        fieldLabel != 'Parent Updated' &&
-        fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
-        (!(String.valueOf(c.OwnerId).startsWith('00G')))
+    if (
+      subjectStr == null &&
+      fieldLabel != 'Parent Updated' &&
+      fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
+      (!(String.valueOf(c.OwnerId).startsWith('00G')))
     ) {
-        subjectStr =
+      subjectStr =
         'A Case has been assigned to you ' +
         caseNumber +
         ' ' +
