@@ -4,7 +4,8 @@
  * @description ContactToContactTrigger to handle FinServ__ContactContactRelation__c trigger actions.
  */
 trigger ContactToContactTrigger on FinServ__ContactContactRelation__c(
-  before insert
+  before insert,
+  after update
 ) {
   ContactToContactTriggerHandler handler = new ContactToContactTriggerHandler();
 }
