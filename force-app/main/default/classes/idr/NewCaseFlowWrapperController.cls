@@ -312,7 +312,13 @@ public with sharing class NewCaseFlowWrapperController {
           !isShellCaseCRTB &&
           CommonUtil.userPermissionCheck(
             (Id) userInfo.getUserId(),
-            new Set<String>{ 'IDR_Level_1', 'IDR_Level_2', 'IDR_Level_3' }
+            new Set<String>{
+              'IDR_Level_1',
+              'IDR_Level_2',
+              'IDR_Level_3',
+              'IDR_CRP_Team_Leaders',
+              'IDR_CRP_LT'
+            }
           )
         ) {
           //Fetching 'Customer-Complaint' recodtype Id
