@@ -589,9 +589,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           this.verification != null &&
           this.verification.method == ASSET_TYPE_VERIFICATION
         ) {
-          return 'Y';
+          return Y;
         } else {
-          return 'N';
+          return N;
         }
       }
     }
