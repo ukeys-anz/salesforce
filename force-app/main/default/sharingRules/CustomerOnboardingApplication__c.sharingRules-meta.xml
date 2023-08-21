@@ -72,4 +72,16 @@
             <allInternalUsers/>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Onboarding_Support_RO_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with Onboarding Support with Read Only access.</description>
+        <label>Stat Comp Agent RO All</label>
+        <sharedTo>
+            <role>Onboarding_Support_Read_Only</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>
