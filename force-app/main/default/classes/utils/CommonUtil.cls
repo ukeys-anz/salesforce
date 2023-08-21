@@ -272,7 +272,7 @@ public with sharing class CommonUtil {
    */
   public static Group getQueueByName(String name) {
     Group queue = [
-      SELECT Id, Name
+      SELECT Id
       FROM Group
       WHERE DeveloperName = :name AND Type = 'Queue'
       WITH SECURITY_ENFORCED

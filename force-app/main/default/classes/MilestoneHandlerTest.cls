@@ -10,7 +10,6 @@ public with sharing class MilestoneHandlerTest {
     oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
-    oldRecord.IDR_Product_Category__c = 'Not product related';
     oldRecord.Type = '11';
     insert oldRecord;
 
@@ -34,7 +33,6 @@ public with sharing class MilestoneHandlerTest {
     oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
-    oldRecord.IDR_Product_Category__c = 'Not product related';
     oldRecord.Type = '11';
     insert oldRecord;
 
@@ -100,7 +98,6 @@ public with sharing class MilestoneHandlerTest {
     oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
-    oldRecord.IDR_Product_Category__c = 'Not product related';
     oldRecord.Type = '11';
     insert oldRecord;
 
@@ -124,7 +121,6 @@ public with sharing class MilestoneHandlerTest {
     oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
-    oldRecord.IDR_Product_Category__c = 'Not product related';
     oldRecord.Type = '11';
     insert oldRecord;
 
@@ -236,7 +232,6 @@ public with sharing class MilestoneHandlerTest {
     oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
-    oldRecord.IDR_Product_Category__c = 'Not product related';
     oldRecord.Type = '11';
     insert oldRecord;
 
@@ -260,7 +255,6 @@ public with sharing class MilestoneHandlerTest {
     oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
-    oldRecord.IDR_Product_Category__c = 'Not product related';
     oldRecord.Type = '11';
     insert oldRecord;
 
