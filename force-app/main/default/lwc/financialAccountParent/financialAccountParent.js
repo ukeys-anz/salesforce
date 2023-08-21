@@ -270,7 +270,6 @@ export default class FinancialAccountParent extends LightningElement {
       });
 
       if (this.transactionData?.embedded?.transactions) {
-        this.prevTransactionData = this.transactionData;
         if (this.isSavings && this.emojiMap && this.imageMap) {
           this.transactionData = handleTransactionGoals(
             this.transactionData,
@@ -289,8 +288,11 @@ export default class FinancialAccountParent extends LightningElement {
             );
           }
         }
+        this.prevTransactionData = this.transactionData;
       } else {
-        this.transactionData = this.prevTransactionData;
+        if (this.prevTransactionData) {
+          this.transactionData = this.prevTransactionData;
+        }
         this.transactionLoadMore = false;
         this.moreData = false;
       }
