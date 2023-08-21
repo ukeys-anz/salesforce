@@ -162,3 +162,9 @@ force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
 #AR-90796 - Uninstall mvision
 force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
 force-app/main/default/tabs/SkyhighNetworks__SHNEvent__c.tab-meta.xml
+
+#Ignore omnistudio files
+force-app/main/default/omniDataTransforms
+force-app/main/default/omniIntegrationProcedures
+force-app/main/default/omniScripts
+force-app/main/default/omniUiCard
