@@ -75,6 +75,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   links;
   @api loading;
   @api showRaiseDispute;
+  @api moreData;
   @api disputeRecordTypesFromParent;
   @api transactionTypeDisputeIdMapFromParent;
   personAccount;
@@ -112,7 +113,9 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   get showLoadMore() {
-    return this.links && this.links.next && this.links.next.uri ? true : false;
+    return (
+      this.moreData && this.links && this.links.next && this.links.next.uri
+    );
   }
 
   @api

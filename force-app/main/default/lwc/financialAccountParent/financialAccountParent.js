@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from "lwc";
+import { LightningElement, api, wire, track } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { handleErrorShowToast } from "c/utils";
 
@@ -65,6 +65,8 @@ export default class FinancialAccountParent extends LightningElement {
   loading;
   ocvId;
   transactionData;
+  prevTransactionData;
+  @track moreData = true;
   transactionError;
   savingsJar;
   preselectedGoal;
@@ -76,7 +78,7 @@ export default class FinancialAccountParent extends LightningElement {
   transactionLoading = false;
   //Triggers the bottom of transactions to load for
   //appending new transactions
-  transactionLoadMore = false;
+  @track transactionLoadMore = false;
   //triggers the transactions to clear, used for
   //goal filtering
   clearTransactions = false;
@@ -267,28 +269,30 @@ export default class FinancialAccountParent extends LightningElement {
         bucketIds: this.transactionBucketIds
       });
 
-      if (
-        this.isSavings &&
-        this.transactionData?.embedded?.transactions &&
-        this.emojiMap &&
-        this.imageMap
-      ) {
-        this.transactionData = handleTransactionGoals(
-          this.transactionData,
-          this.imageMap,
-          this.emojiMap
-        );
-
-        //If theres no goals filtered, reset transaction title
-        //otherwise append filtered goals
-        if (this.transactionBucketIds.length === 0) {
-          this.componentTitle = "All Savings Transaction History";
-        } else {
-          this.componentTitle = handleComponentTitle(
-            this.transactionBucketIds,
-            this.goalMap
+      if (this.transactionData?.embedded?.transactions) {
+        this.prevTransactionData = this.transactionData;
+        if (this.isSavings && this.emojiMap && this.imageMap) {
+          this.transactionData = handleTransactionGoals(
+            this.transactionData,
+            this.imageMap,
+            this.emojiMap
           );
+
+          //If theres no goals filtered, reset transaction title
+          //otherwise append filtered goals
+          if (this.transactionBucketIds.length === 0) {
+            this.componentTitle = "All Savings Transaction History";
+          } else {
+            this.componentTitle = handleComponentTitle(
+              this.transactionBucketIds,
+              this.goalMap
+            );
+          }
         }
+      } else {
+        this.transactionData = this.prevTransactionData;
+        this.transactionLoadMore = false;
+        this.moreData = false;
       }
     } catch (error) {
       this.hasTransactionError = true;
