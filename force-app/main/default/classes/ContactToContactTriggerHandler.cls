@@ -9,4 +9,15 @@ public with sharing class ContactToContactTriggerHandler extends Lib_TriggerHand
   public override void onBeforeInsert() {
     CCRMContactToContactActions.setExternalId(records);
   }
+
+  /**
+   * @description onAfterUpdate to handle After update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    CCRMContactToContactActions.checkRelationshipEndDate(
+      records,
+      (Map<Id, FinServ__ContactContactRelation__c>) oldMap
+    );
+  }
 }
