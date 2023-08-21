@@ -165,6 +165,21 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Interaction_ANZx_Operations_Read_Only_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides read access to users with ANZx Operation Read Only Role for Interaction object.</description>
+        <label>Interaction ANZx Operations Read Only Sharing Rule</label>
+        <sharedTo>
+            <role>ANZ_Plus_Operations_Read_Only</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>ANZ_Plus_Operations_Interactions_RO</fullName>
         <accessLevel>Read</accessLevel>

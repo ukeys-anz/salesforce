@@ -6,7 +6,7 @@
     <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     OR(
-        RecordType.DeveloperName = &quot;ATM_Dispute&quot;,
+        RecordType.DeveloperName = &quot;ATM_Dispute&quot; &amp;&amp; NOT(ISPICKVAL(Dispute_Reason__c,&quot;Cash Deposit Error&quot;)),
         RecordType.DeveloperName = &quot;Card_Dispute&quot;,
         RecordType.DeveloperName = &quot;Direct_Debit_Dispute&quot;,
         RecordType.DeveloperName = &quot;Direct_Entry_Dispute&quot;,
