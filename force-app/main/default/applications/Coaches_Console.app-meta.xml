@@ -2,41 +2,6 @@
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override updated by Lightning App Builder during activation.</comment>
-        <content>ANZx_Account_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>ANZx_Account_Record_Page</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Case_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Case</pageOrSobjectType>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <content>Coach_Home_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>standard-home</pageOrSobjectType>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>External_Case_Status_Record_Page</content>
         <formFactor>Large</formFactor>
@@ -71,6 +36,41 @@
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
     </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override updated by Lightning App Builder during activation.</comment>
+        <content>ANZx_Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>ANZx_Account_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Case_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>Coach_Home_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
         <logo>ANZx</logo>
@@ -82,6 +82,7 @@
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <label>Coaches Workbench</label>
     <navType>Console</navType>
     <profileActionOverrides>
@@ -611,6 +612,60 @@
         <recordType>Interaction.Message</recordType>
         <type>Flexipage</type>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Case</tabs>
@@ -624,7 +679,6 @@
     <tabs>standard-ContactRequest</tabs>
     <tabs>standard-ResidentialLoanApplication</tabs>
     <tabs>Interaction_Tag__c</tabs>
-    <tabs>Quality_Assessment__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -636,6 +690,9 @@
         </mappings>
         <mappings>
             <tab>Interaction_List_View</tab>
+        </mappings>
+        <mappings>
+            <tab>Interaction_Tag__c</tab>
         </mappings>
         <mappings>
             <tab>Knowledge__kav</tab>
@@ -664,12 +721,6 @@
         </mappings>
         <mappings>
             <tab>standard-report</tab>
-        </mappings>
-        <mappings>
-            <tab>Interaction_Tag__c</tab>
-        </mappings>
-        <mappings>
-            <tab>Quality_Assessment__c</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>
