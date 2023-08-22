@@ -27,7 +27,8 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
   }
 
   /**
-   * Get the last modified details of the interaction record
+   * Get the last modified details of the interaction record.
+   * @description This wire method basically compare the lastmodified date on load and the lastmodified date changed during the edit session.
    */
   @wire(getRecord, {
     recordId: "$uiRecordId",
