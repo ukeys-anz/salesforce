@@ -417,19 +417,54 @@
                 <label>Reimbursement process/policy</label>
             </value>
             <value>
-                <fullName>84</fullName>
-                <default>false</default>
-                <label>Fraud not detected</label>
-            </value>
-            <value>
                 <fullName>85</fullName>
                 <default>false</default>
                 <label>Fraud / Falcon block placed</label>
             </value>
             <value>
+                <fullName>102</fullName>
+                <default>false</default>
+                <label>Branch to load placed on customers profile</label>
+            </value>
+            <value>
                 <fullName>86</fullName>
                 <default>false</default>
                 <label>Phishing/hoax contact</label>
+            </value>
+            <value>
+                <fullName>84</fullName>
+                <default>false</default>
+                <label>Fraud not detected</label>
+            </value>
+            <value>
+                <fullName>107</fullName>
+                <default>false</default>
+                <label>Scam not detected/not blocked by ANZ</label>
+            </value>
+            <value>
+                <fullName>108</fullName>
+                <default>false</default>
+                <label>Scammer using ANZ account to receive scam funds</label>
+            </value>
+            <value>
+                <fullName>103</fullName>
+                <default>false</default>
+                <label>Dissatisfied with process, policies</label>
+            </value>
+            <value>
+                <fullName>104</fullName>
+                <default>false</default>
+                <label>Incorrect information provided to customer about the process or timeframes</label>
+            </value>
+            <value>
+                <fullName>105</fullName>
+                <default>false</default>
+                <label>Customer waiting for a response or update</label>
+            </value>
+            <value>
+                <fullName>106</fullName>
+                <default>false</default>
+                <label>Tasks not actioned by ANZ as agreed</label>
             </value>
             <value>
                 <fullName>87</fullName>
@@ -555,6 +590,46 @@
             <valueName>81</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <valueName>102</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>86</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>84</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>103</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>104</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>105</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>106</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>87</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>21</controllingFieldValue>
             <controllingFieldValue>6</controllingFieldValue>
             <valueName>36</valueName>
@@ -566,6 +641,14 @@
         <valueSettings>
             <controllingFieldValue>21</controllingFieldValue>
             <valueName>94</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>107</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>108</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
@@ -602,18 +685,6 @@
         <valueSettings>
             <controllingFieldValue>14</controllingFieldValue>
             <valueName>83</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>84</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>85</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>86</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>14</controllingFieldValue>
