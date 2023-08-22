@@ -28,6 +28,7 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
 
   /**
    * Get the last modified details of the interaction record.
+   * This is added as part of ANZX-112847 to handle the concurrent changes in the same interaction record.
    * @description This wire method basically compare the lastmodified date on load and the lastmodified date changed during the edit session.
    */
   @wire(getRecord, {
