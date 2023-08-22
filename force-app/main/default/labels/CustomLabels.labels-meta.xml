@@ -314,6 +314,14 @@
         <value>/contact-centre/v1/chat/users/</value>
     </labels>
     <labels>
+        <fullName>MS_Get_SOP</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_SOP</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/sop/</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Transactions</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -840,5 +848,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Customer Onboarding UpdatePrimaryIdDocument API</shortDescription>
         <value>/customer-onboarding/v1/updatePrimaryIdDocument</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_View_UMI</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Get View Umi API</shortDescription>
+        <value>callout:SF_MS_Fabric/</value>
     </labels>
 </CustomLabels>

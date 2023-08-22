@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SOP_Id__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <caseSensitive>false</caseSensitive>
+    <complianceGroup>Integrity - Trusted;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Application Statement of Position ID</description>
+    <encryptionScheme>None</encryptionScheme>
+    <externalId>true</externalId>
+    <label>SOP Id</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
