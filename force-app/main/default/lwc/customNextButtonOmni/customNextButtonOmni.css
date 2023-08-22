@@ -6,10 +6,10 @@
 .lockerror {
   position: absolute;
   z-index: 1;
-  border: 1rem solid red;
-  padding: 5rem;
-  border-radius: 3rem;
-  box-shadow: 0rem 0rem 5rem rgba(0, 0, 0, 0.2);
+  border: 0.063rem solid red;
+  padding: 0.313rem;
+  border-radius: 0.188rem;
+  box-shadow: 0rem 0rem 0.313rem rgba(0, 0, 0, 0.2);
   white-space: normal;
   max-width: 15rem;
   bottom: 4%;
