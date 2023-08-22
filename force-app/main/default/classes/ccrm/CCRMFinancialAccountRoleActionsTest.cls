@@ -89,6 +89,10 @@ private class CCRMFinancialAccountRoleActionsTest {
       farWithSystemRelatedCustomer.RecordTypeId,
       'FAR Record Type should be System Role if related customer is System'
     );
+    Assert.isNull(
+      farWithSystemRelatedCustomer.External_Id__c,
+      'FAR External ID should be null when Record Type is updated to System Role'
+    );
     Assert.areEqual(
       CCRMConstants.FAR_SYSTEM_RT_ID,
       farWithNullExternalId.RecordTypeId,
