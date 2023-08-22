@@ -62,7 +62,7 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
           }
         }
       }
-    } else {
+    } else if (error) {
       console.error(
         "Error in Fetching Interaction LastModified Details -> " +
           JSON.stringify(error)
