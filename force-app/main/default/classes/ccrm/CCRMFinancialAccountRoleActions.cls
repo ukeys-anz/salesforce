@@ -26,6 +26,7 @@ public with sharing class CCRMFinancialAccountRoleActions {
         !record.FinServ__Active__c
       ) {
         record.RecordTypeId = CCRMConstants.FAR_SYSTEM_RT_ID;
+        record.External_Id__c = null;
       } else {
         record.RecordTypeId = CCRMConstants.FAR_CONTACT_RT_ID;
       }
