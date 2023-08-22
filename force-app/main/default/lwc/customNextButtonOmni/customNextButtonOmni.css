@@ -1,3 +1,18 @@
 .buttonWidth {
   width: 8rem;
+  position: relative;
+}
+
+.lockerror {
+  position: absolute;
+  z-index: 1;
+  border: 1px solid red;
+  padding: 5px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  white-space: normal;
+  max-width: 15rem;
+  bottom: 4%;
+  left: 50%;
+  background: #ffffff;
 }
