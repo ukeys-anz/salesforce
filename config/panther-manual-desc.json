@@ -379,6 +379,14 @@
         "Type__c"
       ]
     },
+    "Assessment": {
+      "IA-2530753": ["Last_Updated_Date__c"],
+      "IA-2415840": ["Unsuitability_Reasons__c"]
+    },
+    "AssessmentQuestionResponse": {
+      "IA-2594111": ["Completed_By__c"],
+      "IA-2415987": ["Assessment_Response__c"]
+    },
     "Campaign": {
       "IA-2415860": [
         "Channel__c",
@@ -1768,6 +1776,9 @@
       "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"],
       "IA-2415840": ["Living_Status__c", "Persona_Id__c"]
     },
+    "LoanApplicationFinancial": {
+      "IA-2415987": ["Product_Name__c"]
+    },
     "LoanApplicantLiability": {
       "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
@@ -2280,9 +2291,17 @@
         "Package_Code__c",
         "Package_Version__c",
         "Settlement_ID__c",
-        "Status"
+        "Status",
+        "Loan_Term__c"
       ],
-      "IA-2530753": ["CreatedDate", "LastModifiedDate", "Version__c"],
+      "IA-2530753": [
+        "CreatedDate",
+        "LastModifiedDate",
+        "Version__c",
+        "Last_Updated_Date",
+        "Expiry_Date__c",
+        "Loan_Purpose_Updated_Date__c"
+      ],
       "IA-2594111": [
         "ApplicationExtIdentifier",
         "Credit_ID__c",
@@ -2295,7 +2314,8 @@
         "Collateral_Assessment_Outcome__c",
         "Max_Allowable_LVR_Basis_Points__c"
       ],
-      "IA-2594113": ["State__c"]
+      "IA-2594113": ["State__c"],
+      "IA-2415840": ["E_Tag"]
     },
     "Response_Type__c": {
       "IA-2415860": [
