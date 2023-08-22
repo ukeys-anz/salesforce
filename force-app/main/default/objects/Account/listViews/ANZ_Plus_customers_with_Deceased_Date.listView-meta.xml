@@ -7,9 +7,23 @@
     <columns>Source_System_ID__c</columns>
     <columns>FinServ__PrimaryAddressIsMailing__pc</columns>
     <columns>PC_BIRTHDATE</columns>
+    <filters>
+        <field>Deceased_Date__c</field>
+        <operation>notEqual</operation>
+    </filters>
     <filterScope>Everything</filterScope>
     <label>ANZ Plus customers with Deceased Date</label>
     <sharedTo>
-        <role>Engineer</role>
+        <role>BOH_Coach</role>
+        <role>Business_Admin</role>
+        <role>Card_Dispute_Agent</role>
+        <role>Coach</role>
+        <role>Coach_Lead</role>
+        <role>FinCrime_Agent</role>
+        <role>FraudX_Agent</role>
+        <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
+        <role>Support_Coach</role>
+        <role>X3rd_Party_Mobile_Support_Team</role>
     </sharedTo>
 </ListView>

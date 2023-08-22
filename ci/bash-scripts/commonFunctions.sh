@@ -54,7 +54,6 @@ function echoMessageCreator(){
 function changeMetadata(){
     echo $1
     context=$(<"$1")
-
     if [[ $2 == 'TrackHistoryOff' || $2 == 'IDR3rdParty' || $2 == 'SIWorkflow' || $2 == 'IDRNCState' || $2 == 'OnboardingVerificationFailedReason' ]];then
         replace=$( sed 's+<trackFeedHistory>false</trackFeedHistory>+<!--<trackFeedHistory>false</trackFeedHistory>-->+g' "$1" )
         echo $replace > "$1"
@@ -69,34 +68,15 @@ function changeMetadata(){
         echo $replace > "$1"
     elif [[ $2 == 'DashboardSourceLink' ]];then
         replace=''
-        if [[ "$context" == *'"dataSourceLinks": []'* ]];then
-            replace=$( sed 's+\"dataSourceLinks\": \[\]+\"dataSourceLinksInfo\": {\"links\": \[\],\"enableAutomaticLinking\": true,\"excludeRelationships\": \[\]}+g' "$1")
+        if [[ "$context" == *'"dataSourceLinks":[]'* || "$context" == *'"dataSourceLinks":[]'* ]];then
+            replace=$( sed 's+\"dataSourceLinks\":\[\]+\"dataSourceLinksInfo\": {\"links\": \[\],\"enableAutomaticLinking\": true,\"excludeRelationships\": \[\]}+g' "$1")
             echo $replace > "$1"
         else
             replace=$( sed 's+\"dataSourceLinks\": \[+\"dataSourceLinksInfo\": {\"links\": \[+g' "$1" )
             echo $replace > "$1"
-            replace=$( sed 's+\], \"filters\"+\"enableAutomaticLinking\": true,\"excludeRelationships\": \[\]},\"filters\"+g')
+            replace=$( sed 's+\], \"filters\"+\], \"enableAutomaticLinking\": true,\"excludeRelationships\": \[\]},\"filters\"+g' "$1" )
             echo $replace > "$1"
         fi
-    elif [[ $2 == 'AddressSettings' ]]; then
-        replace=$( sed "s+<label>Czech Republic</label>+<label>Czechia</label>+g" "$1" )
-        echo $replace > "$1"
-        replace=$( sed "s+<label>Macedonia, the former Yugoslav Republic of</label>+<label>North Macedonia</label>+g" "$1" )
-        echo $replace > "$1"
-        replace=$( sed "s+<label>Swaziland</label>+<label>Eswatini</label>+g" "$1" )
-        echo $replace > "$1"
-        replace=$( sed "s+<label>Turkey</label>+<label>Türkiye</label>+g" "$1" )
-        echo $replace > "$1"
-        replace=$( sed "s+<countries> <active>false</active> <integrationValue>Cuba</integrationValue> <isoCode>CU</isoCode> <label>Cuba</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible>  </countries>+g" "$1")
-        echo $replace > "$1"
-        replace=$( sed "s+<countries> <active>false</active> <integrationValue>Iran, Islamic Republic of</integrationValue> <isoCode>IR</isoCode> <label>Iran, Islamic Republic of</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible>  </countries>+g" "$1")
-        echo $replace > "$1"
-        replace=$( sed "s+<countries> <active>false</active> <integrationValue>Korea, Democratic People&apos;s Republic of</integrationValue> <isoCode>KP</isoCode> <label>Korea, Democratic People&apos;s Republic of</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible>  </countries>+g" "$1")
-        echo $replace > "$1"
-        replace=$( sed "s+<countries> <active>false</active> <integrationValue>Sudan</integrationValue> <isoCode>SD</isoCode> <label>Sudan</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible>  </countries>+g" "$1")
-        echo $replace > "$1"
-        replace=$( sed "s+<countries> <active>false</active> <integrationValue>Syrian Arab Republic</integrationValue> <isoCode>SY</isoCode> <label>Syrian Arab Republic</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible>  </countries>+g" "$1")
-        echo $replace > "$1"
     else
         f=$(echo $context | sed 's/\n//g')
         echo $f > "$1"
@@ -119,6 +99,25 @@ function changeMetadata(){
             echo $replace > "$1"
         elif [[ $2 == 'bugEnquiry' ]];then
             replace=$( sed 's+<values> <fullName>Closed - Resolved</fullName> <default>false</default> </values>++g' "$1")
+            echo $replace > "$1"
+        elif [[ $2 == 'AddressSettings' ]]; then
+            replace=$( sed "s+<label>Czech Republic</label>+<label>Czechia</label>+g" "$1" )
+            echo $replace > "$1"
+            replace=$( sed "s+<label>Macedonia, the former Yugoslav Republic of</label>+<label>North Macedonia</label>+g" "$1" )
+            echo $replace > "$1"
+            replace=$( sed "s+<label>Swaziland</label>+<label>Eswatini</label>+g" "$1" )
+            echo $replace > "$1"
+            replace=$( sed "s+<label>Turkey</label>+<label>Türkiye</label>+g" "$1" )
+            echo $replace > "$1"
+            replace=$( sed "s+<countries> <active>false</active> <integrationValue>Cuba</integrationValue> <isoCode>CU</isoCode> <label>Cuba</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible> </countries>++g" "$1")
+            echo $replace > "$1"
+            replace=$( sed "s+<countries> <active>false</active> <integrationValue>Iran, Islamic Republic of</integrationValue> <isoCode>IR</isoCode> <label>Iran, Islamic Republic of</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible> </countries>++g" "$1")
+            echo $replace > "$1"
+            replace=$( sed "s+<countries> <active>false</active> <integrationValue>Korea, Democratic People&apos;s Republic of</integrationValue> <isoCode>KP</isoCode> <label>Korea, Democratic People&apos;s Republic of</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible> </countries>++g" "$1")
+            echo $replace > "$1"
+            replace=$( sed "s+<countries> <active>false</active> <integrationValue>Sudan</integrationValue> <isoCode>SD</isoCode> <label>Sudan</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible> </countries>++g" "$1")
+            echo $replace > "$1"
+            replace=$( sed "s+<countries> <active>false</active> <integrationValue>Syrian Arab Republic</integrationValue> <isoCode>SY</isoCode> <label>Syrian Arab Republic</label> <orgDefault>false</orgDefault> <standard>true</standard> <visible>false</visible> </countries>++g" "$1")
             echo $replace > "$1"
         else
             replace=$( sed 's+<objectPermissions> <allowCreate>true</allowCreate> <allowDelete>true</allowDelete> <allowEdit>true</allowEdit> <allowRead>true</allowRead> <modifyAllRecords>true</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>true</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )

@@ -440,7 +440,7 @@ global with sharing class ChatContextService {
     List<ChatContextResponse> responseList,
     Map<String, Boolean> responseStatusByOCVId
   ) {
-    Map<String, List<String>> picklistDependencies = PicklistUtil.getCachedPicklistDependencyMap(
+    Map<String, List<String>> picklistDependencies = PicklistUtil.getCachedPicklistParentMap(
       'Case',
       'Sub_Type__c'
     );

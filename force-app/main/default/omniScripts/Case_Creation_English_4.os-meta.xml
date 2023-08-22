@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-    <elementTypeComponentMapping>{
-  &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
-}</elementTypeComponentMapping>
+    <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
@@ -13,13 +11,12 @@
     <language>English</language>
     <name>CaseCreation</name>
     <omniProcessElements>
-        <name>Case</name>
         <childElements>
-            <name>ChatImageLWC</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ChatImageLWC</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;customAttributes&quot; : [ ],
@@ -28,7 +25,7 @@
   &quot;hide&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;label&quot; : &quot;&quot;,
-  &quot;controlWidth&quot; : 1,
+  &quot;controlWidth&quot; : 1.0,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -44,14 +41,14 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
-            <name>ChatImageLWC2</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ChatImageLWC2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 1,
+  &quot;controlWidth&quot; : 1.0,
   &quot;label&quot; : &quot;&quot;,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;hide&quot; : false,
@@ -73,16 +70,15 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
-            <name>ComplaintDetails</name>
             <childElements>
-                <name>AccountPolicyNumber</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>AccountPolicyNumber</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Account/Policy Number&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -104,14 +100,14 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>AccountPolicyNumber2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>AccountPolicyNumber2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Account/Policy Number 2&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -137,14 +133,14 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>AccountPolicyNumber3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>AccountPolicyNumber3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Account/Policy Number 3&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -170,11 +166,11 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>ChannelReceived</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ChannelReceived</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -208,11 +204,11 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>CustomerDesiredOutcome</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>CustomerDesiredOutcome</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -232,7 +228,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Customer Desired Outcome&quot;,
@@ -242,18 +238,18 @@
                 <type>Text Area</type>
             </childElements>
             <childElements>
-                <name>DescriptionOfIssue</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>DescriptionOfIssue</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;Description of Issue&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -276,19 +272,18 @@
                 <type>Text Area</type>
             </childElements>
             <childElements>
-                <name>Issue2Checkbox</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Issue2Checkbox</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;Is there a second Issue?&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;defaultValue&quot; : &quot;No&quot;,
@@ -297,14 +292,10 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;No&quot;
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -315,14 +306,13 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
@@ -330,18 +320,18 @@
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>Issue3Checkbox</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Issue3Checkbox</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;imageCountInRow&quot; : 3,
-  &quot;optionHeight&quot; : 100,
-  &quot;optionWidth&quot; : 100,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;optionWidth&quot; : 100.0,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -367,14 +357,10 @@
   },
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;No&quot;
   } ],
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
@@ -382,34 +368,31 @@
   &quot;defaultValue&quot; : &quot;No&quot;,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
   &quot;label&quot; : &quot;Is there a third Issue?&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
                 <sequenceNumber>17.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>IssueType</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>IssueType</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;Issue Type&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -423,7 +406,6 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -434,18 +416,18 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>IssueType2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>IssueType2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;Issue Type 2&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -482,11 +464,11 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>IssueType3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>IssueType3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -530,11 +512,11 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>LineBreak10</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak10</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak10&quot;,
@@ -545,11 +527,11 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak11</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak11</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak11&quot;,
@@ -560,59 +542,56 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak20</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak20</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 0,
+  &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak19&quot;
 }</propertySetConfig>
                 <sequenceNumber>3.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak21</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak21</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak19&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>7.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak29</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak29</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak29&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>23.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak3&quot;,
@@ -623,27 +602,26 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak32</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak32</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 0,
+  &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak29&quot;
 }</propertySetConfig>
                 <sequenceNumber>24.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>Priority</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Priority</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
@@ -678,16 +656,15 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ProductServiceName</name>
                 <childElements>
-                    <name>fetchProducts</name>
                     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                     <isActive>true</isActive>
                     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                     <level>3.0</level>
+                    <name>fetchProducts</name>
                     <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                     <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;&quot;,
   &quot;hide&quot; : &quot;true&quot;,
   &quot;bundle&quot; : &quot;DRFetchProductService&quot;,
@@ -696,7 +673,7 @@
     &quot;element&quot; : &quot;ProductServiceName&quot;,
     &quot;inputParam&quot; : &quot;Prod&quot;
   } ],
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
@@ -709,9 +686,9 @@
   &quot;redirectPageName&quot; : &quot;&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectNextWidth&quot; : 3.0,
   &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;redirectPreviousWidth&quot; : 3.0,
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;wpm&quot; : false,
@@ -733,6 +710,7 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ProductServiceName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
@@ -747,7 +725,7 @@
     &quot;country&quot; : &quot;&quot;,
     &quot;postal_code&quot; : &quot;&quot;
   },
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Start typing the ANZ product or Service the complaint relates to for available options to appear&quot;,
@@ -777,13 +755,12 @@
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
-                <name>ProductServiceName2</name>
                 <childElements>
-                    <name>fetchProducts2</name>
                     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                     <isActive>true</isActive>
                     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                     <level>3.0</level>
+                    <name>fetchProducts2</name>
                     <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                     <propertySetConfig>{
   &quot;controlWidth&quot; : 3.0,
@@ -831,6 +808,7 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ProductServiceName2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -885,13 +863,12 @@
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
-                <name>ProductServiceName3</name>
                 <childElements>
-                    <name>fetchProducts3</name>
                     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                     <isActive>true</isActive>
                     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                     <level>3.0</level>
+                    <name>fetchProducts3</name>
                     <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                     <propertySetConfig>{
   &quot;controlWidth&quot; : 3.0,
@@ -939,6 +916,7 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ProductServiceName3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
@@ -993,11 +971,11 @@
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
-                <name>SubSequentIssueType</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>SubSequentIssueType</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -1021,7 +999,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Subsequent Issue Type&quot;,
@@ -1031,11 +1009,11 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>SubsequentIssueType2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>SubsequentIssueType2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -1069,7 +1047,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Subsequent Issue Type 2&quot;,
@@ -1079,18 +1057,18 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>SubsequentIssueType3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>SubsequentIssueType3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;Subsequent Issue Type 3&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -1130,6 +1108,7 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintDetails</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
@@ -1146,11 +1125,11 @@
             <type>Block</type>
         </childElements>
         <childElements>
-            <name>CustomerDecision</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CustomerDecision</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -1203,19 +1182,18 @@
             <type>Radio</type>
         </childElements>
         <childElements>
-            <name>CustomerDetails</name>
             <childElements>
-                <name>Age</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Age</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;label&quot; : &quot;Age&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -1253,17 +1231,17 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>BusinessName</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>BusinessName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -1277,8 +1255,8 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
@@ -1289,23 +1267,23 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 8,
+  &quot;inputWidth&quot; : 8.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Business Name (if Bus account)&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>13.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>complaintAbout</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>complaintAbout</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;This complaint is about&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1327,10 +1305,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>Country</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Country</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;customAttributes&quot; : [ ],
@@ -1349,20 +1327,20 @@
     }
   },
   &quot;label&quot; : &quot;Country&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>26.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>custInfoCPID</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>custInfoCPID</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;CPID: %Response:profile:cpId%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;OCV ID: %Response:profile:ocvId%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;DOB: %Response:profile:dob%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
@@ -1384,11 +1362,11 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>custInfoMName</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>custInfoMName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -1407,20 +1385,20 @@
   },
   &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Middle Names: %Response:profile:middleName%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Gender: %Response:profile:gender%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Age: %Response:profile:age%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
                 <sequenceNumber>6.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>CustInformation</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>CustInformation</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&lt;p class=\&quot;slds-border_bottom\&quot;&gt;&lt;strong&gt;Customer Information&lt;/strong&gt;&lt;/p&gt;\n&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium slds-p-top_small\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Customer Type: %Response:profile:complainantType%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;First Name: %Response:profile:firstName%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Last Name: %Response:profile:lastName%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
@@ -1442,31 +1420,29 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>Customer</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Customer</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Customer Number&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;^[0-9]{10}|^[0-9]{9}|^[0-9]{7}&quot;,
   &quot;ptrnErrText&quot; : &quot;Customer number must be numbers and at least 10 digits long&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1480,31 +1456,29 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>1.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>CustomerIdentifier</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>CustomerIdentifier</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Customer Identifier&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : &quot;Customer/Business CAP ID&quot;,
   &quot;help&quot; : false,
@@ -1512,12 +1486,10 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Customer/Business CAP ID&quot;,
-    &quot;value&quot; : &quot;Customer/Business CAP ID&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Customer/Business CAP ID&quot;
   }, {
     &quot;name&quot; : &quot;CACHE ID&quot;,
-    &quot;value&quot; : &quot;CACHE ID&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;CACHE ID&quot;
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -1548,11 +1520,11 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>CustomerType</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>CustomerType</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -1560,7 +1532,6 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
   &quot;controllingField&quot; : {
     &quot;source&quot; : &quot;&quot;,
     &quot;type&quot; : &quot;&quot;,
@@ -1581,26 +1552,26 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 8,
+  &quot;inputWidth&quot; : 8.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Customer Type&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>12.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>Email</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Email</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;label&quot; : &quot;Email&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -1623,7 +1594,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -1632,14 +1603,14 @@
                 <type>Email</type>
             </childElements>
             <childElements>
-                <name>expPhone</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>expPhone</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock10&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;ex: 6147496523&lt;/p&gt;&quot;,
   &quot;show&quot; : {
@@ -1661,23 +1632,22 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>expressCaseCreationCheckbox</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>expressCaseCreationCheckbox</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;imageCountInRow&quot; : 3,
-  &quot;optionHeight&quot; : 100,
-  &quot;optionWidth&quot; : 100,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;optionWidth&quot; : 100.0,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
   &quot;controllingField&quot; : {
     &quot;source&quot; : &quot;&quot;,
     &quot;type&quot; : &quot;&quot;,
@@ -1689,14 +1659,10 @@
   },
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;No&quot;
   } ],
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
@@ -1704,25 +1670,24 @@
   &quot;defaultValue&quot; : &quot;No&quot;,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
   &quot;label&quot; : &quot;Express Case creation&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>29.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>firstName</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>firstName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;label&quot; : &quot;First Name&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1744,11 +1709,11 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>Gender</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Gender</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -1783,23 +1748,23 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Gender&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>18.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>IntegrationProcedureAction1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>IntegrationProcedureAction1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 1,
+  &quot;controlWidth&quot; : 1.0,
   &quot;label&quot; : &quot;Search&quot;,
   &quot;integrationProcedureKey&quot; : &quot;Case_getInfo&quot;,
   &quot;useContinuation&quot; : false,
@@ -1809,7 +1774,7 @@
     &quot;useFuture&quot; : false,
     &quot;chainable&quot; : true
   },
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;preTransformBundle&quot; : &quot;&quot;,
   &quot;postTransformBundle&quot; : &quot;&quot;,
   &quot;sendJSONPath&quot; : &quot;&quot;,
@@ -1830,9 +1795,9 @@
   &quot;redirectPageName&quot; : &quot;&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectNextWidth&quot; : 3.0,
   &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;redirectPreviousWidth&quot; : 3.0,
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1866,11 +1831,11 @@
                 <type>Integration Procedure Action</type>
             </childElements>
             <childElements>
-                <name>invalidCustNumberMsg</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>false</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>invalidCustNumberMsg</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -1889,20 +1854,20 @@
   },
   &quot;text&quot; : &quot;&lt;div class=\&quot;class=\&quot;&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Customer number must be numbers and atleast 10 digits long.&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
                 <sequenceNumber>3.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>invalidCustomerMsg</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>invalidCustomerMsg</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Couldn&apos;t Retrieve Customer Data&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
@@ -1928,11 +1893,11 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>LastName</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LastName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;customAttributes&quot; : [ ],
@@ -1951,17 +1916,17 @@
     }
   },
   &quot;label&quot; : &quot;Last Name&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>16.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>LineBreak1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -1972,33 +1937,32 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak19</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak19</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak19&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>36.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>MiddleName</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>MiddleName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -2012,8 +1976,8 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
@@ -2024,26 +1988,26 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 8,
+  &quot;inputWidth&quot; : 8.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Middle Names&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>15.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>Mobile</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Mobile</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;label&quot; : &quot;Mobile e.g. 61474977148&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2051,11 +2015,9 @@
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;(999) 999-9999&quot;,
+  &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 10,
-  &quot;maxLength&quot; : 10,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2069,7 +2031,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -2078,17 +2040,17 @@
                 <type>Telephone</type>
             </childElements>
             <childElements>
-                <name>Phone</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Phone</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -2102,11 +2064,9 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 10,
-  &quot;minLength&quot; : 10,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;(614) 999-99999&quot;,
+  &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-right&quot;,
   &quot;helpText&quot; : &quot;Capture this if only Mobile is unavailable&quot;,
   &quot;help&quot; : true,
@@ -2114,26 +2074,26 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Phone&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>21.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
-                <name>Postcode</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Postcode</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -2147,10 +2107,10 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;Postcode must be a 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;, if the postcode is unknown, enter &apos;Not Applicable&apos;.&quot;,
-  &quot;pattern&quot; : &quot;Overseas|Not Applicable|overseas|not applicable|^[0-9]{4}&quot;,
+  &quot;pattern&quot; : &quot;Overseas|Not Applicable|overseas|not applicable|Not applicable|not Applicable|^[0-9]{4}&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;Enter the Customer&apos;s 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;. if the postcode is unknown, enter &apos;Not Applicable&apos;.&quot;,
@@ -2159,23 +2119,23 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Postcode&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>24.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>RelationshipManagerDetails</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>RelationshipManagerDetails</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Relationship Manager Details&lt;/strong&gt;&lt;/p&gt;\n&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium slds-p-top_small\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Name : %Response:relationshipManager:details:name%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Phone : %Response:relationshipManager:details:phoneNumber%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Office Address : %Response:relationshipManager:details:address|1:addressLine1%, %Response:relationshipManager:details:address|1:addressLine2%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
@@ -2197,13 +2157,13 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>State</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>State</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;label&quot; : &quot;State&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2225,13 +2185,13 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>Street</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Street</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;label&quot; : &quot;Street&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2253,10 +2213,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>Suburb</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Suburb</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;customAttributes&quot; : [ ],
@@ -2275,41 +2235,35 @@
     }
   },
   &quot;label&quot; : &quot;Suburb&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>23.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>switchOff3rdPartyNotCheckbox</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>switchOff3rdPartyNotCheckbox</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;Switch off 3rd Party Notifications?&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;true&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;false&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;No&quot;
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -2334,9 +2288,9 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false,
   &quot;lwcComponentOverride&quot; : &quot;&quot;
@@ -2345,19 +2299,18 @@
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>switchOffCustNotification</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>switchOffCustNotification</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;Switch off Customer Notifications?&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;defaultValue&quot; : &quot;No&quot;,
@@ -2366,14 +2319,10 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;No&quot;
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -2384,14 +2333,13 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
@@ -2399,11 +2347,11 @@
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>TextBlock3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>TextBlock3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -2422,20 +2370,20 @@
   },
   &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Email: %Response:profile:email%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Mobile: %Response:profile:mobile%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Street: %Response:profile:street%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
                 <sequenceNumber>8.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>TextBlock4</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>TextBlock4</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Suburb: %Response:profile:suburb%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;State: %Response:profile:state%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Postcode: %Response:profile:postCode%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
@@ -2457,11 +2405,11 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>TextBlock5</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>TextBlock5</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -2480,17 +2428,17 @@
   },
   &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_3-of-3 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Country: %Response:profile:country%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
                 <sequenceNumber>10.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>thirdPartyCountry</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyCountry</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -2525,26 +2473,26 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Nominated 3rd party country&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
                 <sequenceNumber>42.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>thirdPartyEmail</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyEmail</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Nominated 3rd party email address&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2567,7 +2515,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -2576,17 +2524,17 @@
                 <type>Email</type>
             </childElements>
             <childElements>
-                <name>thirdPartyMobile</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyMobile</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Nominated 3rd party mobile&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2594,11 +2542,10 @@
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;(999) 999-9999&quot;,
+  &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 10,
+  &quot;minLength&quot; : 0.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2612,7 +2559,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -2621,17 +2568,17 @@
                 <type>Telephone</type>
             </childElements>
             <childElements>
-                <name>thirdPartyName</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Nominated 3rd party name&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2642,8 +2589,8 @@
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2657,7 +2604,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -2666,17 +2613,17 @@
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>thirdPartyPhone</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyPhone</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -2690,11 +2637,10 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 10,
-  &quot;minLength&quot; : 0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;(999) 999-9999&quot;,
+  &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
@@ -2702,26 +2648,26 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Nominated 3rd party phone&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
                 <sequenceNumber>38.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
-                <name>thirdPartyPostCode</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyPostCode</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Nominated 3rd party postcode&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2732,8 +2678,8 @@
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;Overseas|Not Applicable|^[0-9]{4}&quot;,
   &quot;ptrnErrText&quot; : &quot;Postcode must be a 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;, if the postcode is unknown, enter &apos;Not Applicable&apos;.&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2747,7 +2693,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -2756,17 +2702,17 @@
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>thirdPartyRel</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyRel</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Relationship to complaint&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2804,18 +2750,18 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>thirdPartyRepCheckbox</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyRepCheckbox</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;imageCountInRow&quot; : 3,
-  &quot;optionHeight&quot; : 100,
-  &quot;optionWidth&quot; : 100,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;optionWidth&quot; : 100.0,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -2845,14 +2791,10 @@
   },
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;No&quot;
   } ],
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
@@ -2860,28 +2802,27 @@
   &quot;defaultValue&quot; : &quot;No&quot;,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
   &quot;label&quot; : &quot;Does Customer wish to be represented by third party?&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
                 <sequenceNumber>31.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>thirdPartyState</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyState</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Nominated 3rd party state&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2919,17 +2860,17 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>thirdPartyStreet</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdPartyStreet</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -2943,8 +2884,8 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
@@ -2955,10 +2896,10 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Nominated 3rd party street&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
                 <sequenceNumber>39.0</sequenceNumber>
                 <type>Text</type>
@@ -2967,6 +2908,7 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CustomerDetails</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
@@ -2983,22 +2925,19 @@
             <type>Block</type>
         </childElements>
         <childElements>
-            <name>CustomerNumber</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CustomerNumber</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 0,
+  &quot;controlWidth&quot; : 0.0,
   &quot;label&quot; : &quot;&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;expression&quot; : &quot;%Case:CustomerDetails:Customer-Block:Customer%&quot;,
   &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
   &quot;hideGroupSep&quot; : false,
   &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -3008,11 +2947,11 @@
             <type>Formula</type>
         </childElements>
         <childElements>
-            <name>CustomLWC</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CustomLWC</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
@@ -3027,11 +2966,11 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
-            <name>DisagreesImage</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>DisagreesImage</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -3056,11 +2995,11 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>DisagreesTextBlock</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>DisagreesTextBlock</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -3079,52 +3018,46 @@
   },
   &quot;text&quot; : &quot;&lt;p c-createcomplaintlwc_createcomplaintlwc=\&quot;\&quot;&gt;ANZ supports your decision to remain anonymous and appreciates your feedback.&lt;/p&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;p c-createcomplaintlwc_createcomplaintlwc=\&quot;\&quot;&gt;Complaints made anonymously or using a pseudonym may limit our ability to manage some complaints effectively and may mean we can only provide a generic response.&lt;/p&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;controlWidth&quot; : 11
+  &quot;controlWidth&quot; : 11.0
 }</propertySetConfig>
             <sequenceNumber>13.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>displayNAOption</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>displayNAOption</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
   &quot;hideGroupSep&quot; : false,
-  &quot;dataType&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;show&quot; : null,
   &quot;hide&quot; : true,
   &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType%==\&quot;17\&quot;||%Case:ComplaintDetails:IssueType%==\&quot;4\&quot;||(%Case:ComplaintDetails:IssueType%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;42\&quot;)),false,true)&quot;,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;&quot;,
-  &quot;controlWidth&quot; : 0
+  &quot;controlWidth&quot; : 0.0
 }</propertySetConfig>
             <sequenceNumber>1.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
-            <name>displayNAOption2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>displayNAOption2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 0,
+  &quot;controlWidth&quot; : 0.0,
   &quot;label&quot; : &quot;&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName2-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType2%==\&quot;17\&quot;||%Case:ComplaintDetails:IssueType2%==\&quot;4\&quot;||(%Case:ComplaintDetails:IssueType2%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType2%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType2%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType2%==\&quot;42\&quot;)),false,true)&quot;,
   &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
   &quot;hideGroupSep&quot; : false,
   &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -3134,38 +3067,35 @@
             <type>Formula</type>
         </childElements>
         <childElements>
-            <name>displayNAOption3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>displayNAOption3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
   &quot;hideGroupSep&quot; : false,
-  &quot;dataType&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;show&quot; : null,
   &quot;hide&quot; : true,
   &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName3-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType3%==\&quot;17\&quot;||%Case:ComplaintDetails:IssueType3%==\&quot;4\&quot;||(%Case:ComplaintDetails:IssueType3%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType3%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType3%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType3%==\&quot;42\&quot;)),false,true)&quot;,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;&quot;,
-  &quot;controlWidth&quot; : 0
+  &quot;controlWidth&quot; : 0.0
 }</propertySetConfig>
             <sequenceNumber>3.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
-            <name>isThisCustomerComplaint</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>isThisCustomerComplaint</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;Is this an ANZ Customer complaint?&quot;,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
@@ -3196,9 +3126,9 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
@@ -3206,27 +3136,26 @@
             <type>Radio</type>
         </childElements>
         <childElements>
-            <name>LineBreak2</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak2&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
             <sequenceNumber>4.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak24</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak24</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -3237,30 +3166,29 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak4</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak4&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
             <sequenceNumber>5.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>NoTextBlock</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>NoTextBlock</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 11,
+  &quot;controlWidth&quot; : 11.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&lt;div style=\&quot;border-style: solid; border-width: 2px; border-radius: 5px;\&quot;&gt;&lt;br /&gt;\n&lt;p c-createcomplaintlwc_createcomplaintlwc=\&quot;\&quot;&gt;In order to assist you further, we need to collect some personal details such as your name and contact details from you. ANZ uses the information provided by you to respond to your query which may not be possible without these details.&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;p c-createcomplaintlwc_createcomplaintlwc=\&quot;\&quot;&gt;Your personal information will not be disclosed outside the ANZ group, which may include our contact centres located overseas.&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;p c-createcomplaintlwc_createcomplaintlwc=\&quot;\&quot;&gt;ANZ&apos;s Privacy Policy explains how ANZ handles personal information and explains how you may access and seek correction of the information ANZ holds about you or raise a concern about how ANZ has handled your information.&lt;/p&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;br /&gt;\n&lt;p c-createcomplaintlwc_createcomplaintlwc=\&quot;\&quot;&gt;For a copy of ANZ&amp;rsquo;s privacy policy please visit www.anz.com/privacy&lt;/p&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;br /&gt;\n&lt;p c-createcomplaintlwc_createcomplaintlwc=\&quot;\&quot;&gt;Do you provide permission for ANZ to record these details?&lt;/p&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
@@ -3282,11 +3210,11 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>NoTextBlockImage</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>NoTextBlockImage</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 1.0,
@@ -3311,24 +3239,20 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>ResolutionInformation</name>
             <childElements>
-                <name>additionalissues</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>additionalissues</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
   &quot;label&quot; : &quot;Which additional issues are systemic?&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -3360,9 +3284,9 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
@@ -3370,11 +3294,11 @@
                 <type>Multi-select</type>
             </childElements>
             <childElements>
-                <name>CAC</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>CAC</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;Is this a complaint about a complaint?&quot;,
@@ -3469,9 +3393,9 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
@@ -3479,17 +3403,17 @@
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>CACSubCat</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>CACSubCat</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;CAC Sub Category&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3527,14 +3451,14 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>caseEscalateText</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>caseEscalateText</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock11&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;If Yes, Case must be escalated.&lt;/p&gt;&quot;,
   &quot;show&quot; : {
@@ -3560,17 +3484,17 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>ComplaintDescription</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintDescription</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Description of Outcome&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3580,8 +3504,8 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -3599,7 +3523,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -3608,11 +3532,11 @@
                 <type>Text Area</type>
             </childElements>
             <childElements>
-                <name>ComplaintEscalationReason</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintEscalationReason</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -3636,8 +3560,8 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateEscalationPicklist&quot;,
-    &quot;type&quot; : &quot;Custom&quot;
+    &quot;source&quot; : &quot;Case.IDR_Escalation_Reason__c&quot;,
+    &quot;type&quot; : &quot;SObject&quot;
   },
   &quot;options&quot; : [ {
     &quot;value&quot; : &quot;Open&quot;,
@@ -3663,20 +3587,20 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Complaint Escalation Reason&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>5.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ComplaintOutcome</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintOutcome</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -3731,20 +3655,20 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Complaint Outcome&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>8.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>complaintRelatedHardship</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>complaintRelatedHardship</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -3779,7 +3703,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;label&quot; : &quot;Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?&quot;,
   &quot;controlWidth&quot; : 6,
   &quot;show&quot; : {
@@ -3797,17 +3721,17 @@
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>ComplaintRemedy1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintRemedy1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Complaint Remedy 1&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3865,11 +3789,11 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ComplaintRemedy2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintRemedy2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -3920,26 +3844,26 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Complaint Remedy 2&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>29.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ComplaintRemedy3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintRemedy3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Complaint Remedy 3&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -3994,17 +3918,17 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ComplaintStatus</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintStatus</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Complaint Status&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -4048,23 +3972,21 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ComplaintSubRemedy1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintSubRemedy1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 5,
   &quot;label&quot; : &quot;Complaint Sub Remedy1&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -4102,11 +4024,11 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ComplaintSubRemedy2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintSubRemedy2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -4137,38 +4059,34 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Complaint Sub Remedy 2&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>31.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ComplaintSubRemedy3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplaintSubRemedy3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Complaint Sub Remedy 3&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -4202,14 +4120,14 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ComplianceChecks</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ComplianceChecks</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock11&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;Compliance Checks&lt;/p&gt;&quot;,
   &quot;dataJSON&quot; : false,
@@ -4231,16 +4149,16 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-                <name>custWrittenResponse</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>custWrittenResponse</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
   &quot;label&quot; : &quot;Has the customer requested a written response? (Do not ask the customer, only record yes if customer has specifically requested a response in writing)&quot;,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -4288,18 +4206,17 @@
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>detailsOfComplaint1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>detailsOfComplaint1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 6,
+  &quot;controlWidth&quot; : 6.0,
   &quot;label&quot; : &quot;Checkbox1&quot;,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;required&quot; : true,
   &quot;defaultValue&quot; : false,
@@ -4327,18 +4244,17 @@
                 <type>Checkbox</type>
             </childElements>
             <childElements>
-                <name>detailsOfComplaint2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>detailsOfComplaint2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 6,
+  &quot;controlWidth&quot; : 6.0,
   &quot;label&quot; : &quot;Checkbox2&quot;,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : false,
   &quot;help&quot; : true,
@@ -4365,18 +4281,17 @@
                 <type>Checkbox</type>
             </childElements>
             <childElements>
-                <name>detailsOfComplaint3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>detailsOfComplaint3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 6,
+  &quot;controlWidth&quot; : 6.0,
   &quot;label&quot; : &quot;Checkbox3&quot;,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : false,
   &quot;help&quot; : true,
@@ -4403,31 +4318,29 @@
                 <type>Checkbox</type>
             </childElements>
             <childElements>
-                <name>durationOfRemedy1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>durationOfRemedy1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Duration of Remedy (months) 1&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Maximum of 3 digits&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -4449,28 +4362,26 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>16.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>durationOfRemedy2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>durationOfRemedy2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;autocomplete&quot; : null,
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -4492,54 +4403,50 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
   &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;Maximum of 3 digits&quot;,
   &quot;help&quot; : true,
-  &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Duration of Remedy (months) 2&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>33.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>durationOfRemedy3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>durationOfRemedy3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Duration of Remedy (months) 3&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Maximum of 3 digits&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -4561,21 +4468,20 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>50.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>LineBreak12</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak12</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak12&quot;,
@@ -4586,11 +4492,11 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak13</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak13</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -4601,11 +4507,11 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak14</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak14</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -4616,11 +4522,11 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak15</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak15</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak12&quot;,
@@ -4631,43 +4537,42 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak16</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak16</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 0,
+  &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak36&quot;
 }</propertySetConfig>
                 <sequenceNumber>32.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak17</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak17</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;padding&quot; : 0,
+  &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak5&quot;
 }</propertySetConfig>
                 <sequenceNumber>49.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak18</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak18</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -4678,11 +4583,11 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak22</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak22</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -4693,11 +4598,11 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak23</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak23</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -4708,27 +4613,27 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak25</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak25</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak5&quot;,
-  &quot;padding&quot; : 0,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>47.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak26</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak26</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -4739,171 +4644,161 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak27</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak27</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak27&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>7.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak28</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak28</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak28&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>23.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak30</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak30</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak30&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>38.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak31</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak31</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak31&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>55.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak33</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak33</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak33&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>57.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak34</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak34</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak34&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>26.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak35</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak35</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak35&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>28.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak36</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak36</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak36&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>30.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak37</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak37</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak37&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>42.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak38</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak38</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak38&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>45.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak39</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak39</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -4914,43 +4809,42 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak40</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak40</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak36&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>34.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak41</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak41</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak5&quot;,
-  &quot;padding&quot; : 0,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;controlWidth&quot; : 4
+  &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
                 <sequenceNumber>51.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak42</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak42</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -4961,75 +4855,72 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak43</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak43</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 0,
+  &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak36&quot;
 }</propertySetConfig>
                 <sequenceNumber>36.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak44</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak44</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;padding&quot; : 0,
+  &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak5&quot;
 }</propertySetConfig>
                 <sequenceNumber>53.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak5</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak5</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak5&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>21.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak6</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak6</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak6&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
+  &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>40.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak7</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak7</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak7&quot;,
@@ -5040,11 +4931,11 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak8</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak8</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak8&quot;,
@@ -5055,11 +4946,11 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>LineBreak9</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>LineBreak9</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak9&quot;,
@@ -5070,141 +4961,121 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
-                <name>Number1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>false</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Number1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
   &quot;label&quot; : &quot;Number1&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;mask&quot; : null,
-  &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>25.0</sequenceNumber>
                 <type>Number</type>
             </childElements>
             <childElements>
-                <name>Number2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>false</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Number2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
   &quot;label&quot; : &quot;Number2&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;mask&quot; : null,
-  &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>44.0</sequenceNumber>
                 <type>Number</type>
             </childElements>
             <childElements>
-                <name>Number3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>false</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Number3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
   &quot;label&quot; : &quot;Number3&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;mask&quot; : null,
-  &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>59.0</sequenceNumber>
                 <type>Number</type>
             </childElements>
             <childElements>
-                <name>otherRemedy1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>otherRemedy1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Other Remedy 1&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Enter a brief, high level description of the remedy provided&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -5218,28 +5089,26 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>18.0</sequenceNumber>
                 <type>Text Area</type>
             </childElements>
             <childElements>
-                <name>otherRemedy2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>otherRemedy2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;autocomplete&quot; : null,
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -5253,52 +5122,48 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;Enter a brief, high level description of the remedy provided&quot;,
   &quot;help&quot; : true,
-  &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Other Remedy 2&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>35.0</sequenceNumber>
                 <type>Text Area</type>
             </childElements>
             <childElements>
-                <name>otherRemedy3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>otherRemedy3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Other Remedy 3&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Enter a brief, high level description of the remedy provided&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -5312,26 +5177,24 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>52.0</sequenceNumber>
                 <type>Text Area</type>
             </childElements>
             <childElements>
-                <name>ParentCase</name>
                 <childElements>
-                    <name>DRFetchCase</name>
                     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                     <isActive>true</isActive>
                     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                     <level>3.0</level>
+                    <name>DRFetchCase</name>
                     <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                     <propertySetConfig>{
-  &quot;controlWidth&quot; : 2,
+  &quot;controlWidth&quot; : 2.0,
   &quot;label&quot; : &quot;&quot;,
   &quot;bundle&quot; : &quot;DRFetchParentCase&quot;,
   &quot;ignoreCache&quot; : false,
@@ -5339,7 +5202,7 @@
     &quot;element&quot; : &quot;ParentCase&quot;,
     &quot;inputParam&quot; : &quot;caseNumber&quot;
   } ],
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
@@ -5352,19 +5215,17 @@
   &quot;redirectPageName&quot; : &quot;&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectNextWidth&quot; : 3.0,
   &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;redirectPreviousWidth&quot; : 3.0,
   &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;wpm&quot; : false,
   &quot;ssm&quot; : false,
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false,
   &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
+    &quot;custom&quot; : [ ]
   },
   &quot;enableDefaultAbort&quot; : false,
   &quot;enableActionMessage&quot; : false,
@@ -5378,12 +5239,13 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ParentCase</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Parent Case&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;googleTransformation&quot; : {
     &quot;street&quot; : &quot;&quot;,
     &quot;locality&quot; : &quot;&quot;,
@@ -5397,8 +5259,8 @@
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -5411,10 +5273,10 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;typeAheadKey&quot; : &quot;CaseNumber&quot;,
   &quot;dataProcessorFunction&quot; : &quot;&quot;,
-  &quot;callFrequency&quot; : 300,
+  &quot;callFrequency&quot; : 300.0,
   &quot;editMode&quot; : true,
   &quot;newItemLabel&quot; : &quot;New&quot;,
   &quot;hideEditButton&quot; : true,
@@ -5432,29 +5294,24 @@
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
-                <name>PaymentAmountProvided1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>PaymentAmountProvided1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Payment Amount Provided 1&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 3,
+  &quot;inputWidth&quot; : 3.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Refers to the actual amount that was paid to the customer or net loss incurred by ANZ. Ensure the exact dollar amount is entered. Evidence of any approvals obtained can be uploaded in the ‘files’ tab of the complaint record.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : null,
-  &quot;min&quot; : null,
-  &quot;max&quot; : null,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;allowNegative&quot; : false,
   &quot;hideGroupSep&quot; : false,
@@ -5478,7 +5335,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
@@ -5488,29 +5345,24 @@
                 <type>Currency</type>
             </childElements>
             <childElements>
-                <name>PaymentAmountProvided2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>PaymentAmountProvided2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Payment Amount Provided 2&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 3,
+  &quot;inputWidth&quot; : 3.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Refers to the actual amount that was paid to the customer or net loss incurred by ANZ. Ensure the exact dollar amount is entered. Evidence of any approvals obtained can be uploaded in the ‘files’ tab of the complaint record.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : null,
-  &quot;min&quot; : null,
-  &quot;max&quot; : null,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;allowNegative&quot; : false,
   &quot;hideGroupSep&quot; : false,
@@ -5534,7 +5386,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
@@ -5544,29 +5396,24 @@
                 <type>Currency</type>
             </childElements>
             <childElements>
-                <name>PaymentAmountProvided3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>PaymentAmountProvided3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Payment Amount Provided 3&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 3,
+  &quot;inputWidth&quot; : 3.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Refers to the actual amount that was paid to the customer or net loss incurred by ANZ. Ensure the exact dollar amount is entered. Evidence of any approvals obtained can be uploaded in the ‘files’ tab of the complaint record.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : null,
-  &quot;min&quot; : null,
-  &quot;max&quot; : null,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;allowNegative&quot; : false,
   &quot;hideGroupSep&quot; : false,
@@ -5590,7 +5437,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
@@ -5600,17 +5447,17 @@
                 <type>Currency</type>
             </childElements>
             <childElements>
-                <name>realFormMAXId</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>realFormMAXId</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;REAL Form MAX ID/ServiceNow ID&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;controlWidth&quot; : 4,
+  &quot;inputWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 4.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -5621,8 +5468,8 @@
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -5636,7 +5483,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -5645,11 +5492,11 @@
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>realFormRequired</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>realFormRequired</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -5664,9 +5511,7 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;No&quot;,
     &quot;developerName&quot; : null,
@@ -5705,23 +5550,23 @@
   &quot;imageCountInRow&quot; : 3,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false,
-  &quot;defaultValue&quot; : &quot;No&quot;
+  &quot;defaultValue&quot; : null
 }</propertySetConfig>
                 <sequenceNumber>61.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>RestrictionLevel</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>RestrictionLevel</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;label&quot; : &quot;Restriction Level&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -5775,17 +5620,17 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>ReviewOutcome</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>ReviewOutcome</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Review Outcome of Original Complaint&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -5823,18 +5668,17 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>rewardPoints1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>rewardPoints1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;autocomplete&quot; : null,
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -5848,54 +5692,50 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
   &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Reward Points 1&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>20.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>rewardPoints2</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>rewardPoints2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Reward Points 2&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -5909,28 +5749,26 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>37.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>rewardPoints3</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>rewardPoints3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;autocomplete&quot; : null,
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -5944,42 +5782,39 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
   &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
-  &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Reward Points 3&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>54.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
-                <name>secondComplaintRemedyCheckbox</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>secondComplaintRemedyCheckbox</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Second Complaint Remedy Provided?&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;defaultValue&quot; : &quot;No&quot;,
@@ -5988,14 +5823,10 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;No&quot;
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -6024,9 +5855,9 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
@@ -6034,18 +5865,18 @@
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>systemicIssue</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>systemicIssue</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;imageCountInRow&quot; : 3,
-  &quot;optionHeight&quot; : 100,
-  &quot;optionWidth&quot; : 100,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;optionWidth&quot; : 100.0,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -6089,23 +5920,23 @@
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
   &quot;label&quot; : &quot;Is this a possible systemic issue?&quot;,
-  &quot;controlWidth&quot; : 6
+  &quot;controlWidth&quot; : 6.0
 }</propertySetConfig>
                 <sequenceNumber>64.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
-                <name>systemicIssueCat</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>systemicIssueCat</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Possible Systemic Issue Category&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 3,
+  &quot;inputWidth&quot; : 3.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -6143,17 +5974,17 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>systemicIssueReason</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>systemicIssueReason</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 4.0,
   &quot;label&quot; : &quot;Why is this a possible systemic issue?&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -6163,8 +5994,7 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : null,
+  &quot;minLength&quot; : 0.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -6178,7 +6008,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -6187,18 +6017,18 @@
                 <type>Text Area</type>
             </childElements>
             <childElements>
-                <name>thirdComplaintRemedyCheckbox</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>thirdComplaintRemedyCheckbox</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;imageCountInRow&quot; : 3,
-  &quot;optionHeight&quot; : 100,
-  &quot;optionWidth&quot; : 100,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;optionWidth&quot; : 100.0,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -6223,15 +6053,11 @@
     &quot;type&quot; : &quot;&quot;
   },
   &quot;options&quot; : [ {
-    &quot;autoAdv&quot; : null,
     &quot;value&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : null,
     &quot;name&quot; : &quot;Yes&quot;
   }, {
     &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;autoAdv&quot; : null
+    &quot;value&quot; : &quot;No&quot;
   } ],
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
@@ -6239,12 +6065,11 @@
   &quot;defaultValue&quot; : &quot;No&quot;,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
   &quot;label&quot; : &quot;Third Complaint Remedy Provided?&quot;,
-  &quot;controlWidth&quot; : 5
+  &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
                 <sequenceNumber>43.0</sequenceNumber>
                 <type>Radio</type>
@@ -6253,6 +6078,7 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ResolutionInformation</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
@@ -6269,17 +6095,16 @@
             <type>Block</type>
         </childElements>
         <childElements>
-            <name>thinLine1</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>thinLine1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&lt;div class=\&quot;slds-p-bottom_small slds-p-top_medium slds-border_top\&quot;&gt;&amp;nbsp;&lt;/div&gt;&quot;,
-  &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;textKey&quot; : &quot;&quot;,
@@ -6289,17 +6114,16 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>thinLine2</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>thinLine2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&lt;div class=\&quot;slds-p-bottom_small slds-p-top_medium slds-border_top\&quot;&gt;&amp;nbsp;&lt;/div&gt;&quot;,
-  &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;textKey&quot; : &quot;&quot;,
@@ -6312,6 +6136,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>Case</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;&quot;,
@@ -6358,14 +6183,14 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>fetchKnownIssue</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>fetchKnownIssue</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;&quot;,
   &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
   &quot;remoteMethod&quot; : &quot;getKnownIssues&quot;,
@@ -6373,7 +6198,7 @@
     &quot;preTransformBundle&quot; : &quot;&quot;,
     &quot;postTransformBundle&quot; : &quot;&quot;
   },
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;preTransformBundle&quot; : &quot;&quot;,
   &quot;postTransformBundle&quot; : &quot;&quot;,
   &quot;sendJSONPath&quot; : &quot;&quot;,
@@ -6391,11 +6216,10 @@
   &quot;redirectPageName&quot; : &quot;&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectNextWidth&quot; : 3.0,
   &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;redirectPreviousWidth&quot; : 3.0,
   &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;wpm&quot; : false,
   &quot;ssm&quot; : false,
@@ -6404,8 +6228,7 @@
   &quot;svgSprite&quot; : &quot;&quot;,
   &quot;svgIcon&quot; : &quot;&quot;,
   &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
+    &quot;custom&quot; : [ ]
   },
   &quot;enableDefaultAbort&quot; : false,
   &quot;enableActionMessage&quot; : false,
@@ -6417,14 +6240,14 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SetValues</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>SetValues</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;&quot;,
   &quot;elementValueMap&quot; : {
     &quot;custMap&quot; : [ {
@@ -6534,7 +6357,6 @@
     &quot;Country&quot; : &quot;Australia&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;wpm&quot; : false,
   &quot;ssm&quot; : false,
@@ -6545,104 +6367,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
-    <propertySetConfig>{
-  &quot;persistentComponent&quot; : [ {
-    &quot;render&quot; : false,
-    &quot;label&quot; : &quot;&quot;,
-    &quot;remoteClass&quot; : &quot;&quot;,
-    &quot;remoteMethod&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
-    &quot;remoteOptions&quot; : {
-      &quot;preTransformBundle&quot; : &quot;&quot;,
-      &quot;postTransformBundle&quot; : &quot;&quot;
-    },
-    &quot;preTransformBundle&quot; : &quot;&quot;,
-    &quot;postTransformBundle&quot; : &quot;&quot;,
-    &quot;sendJSONPath&quot; : &quot;&quot;,
-    &quot;sendJSONNode&quot; : &quot;&quot;,
-    &quot;responseJSONPath&quot; : &quot;&quot;,
-    &quot;responseJSONNode&quot; : &quot;&quot;,
-    &quot;id&quot; : &quot;vlcCart&quot;,
-    &quot;itemsKey&quot; : &quot;cartItems&quot;,
-    &quot;modalConfigurationSetting&quot; : {
-      &quot;modalHTMLTemplateId&quot; : &quot;vlcProductConfig.html&quot;,
-      &quot;modalController&quot; : &quot;ModalProductCtrl&quot;,
-      &quot;modalSize&quot; : &quot;lg&quot;
-    }
-  }, {
-    &quot;render&quot; : false,
-    &quot;dispOutsideOmni&quot; : false,
-    &quot;label&quot; : &quot;&quot;,
-    &quot;remoteClass&quot; : &quot;&quot;,
-    &quot;remoteMethod&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
-    &quot;remoteOptions&quot; : {
-      &quot;preTransformBundle&quot; : &quot;&quot;,
-      &quot;postTransformBundle&quot; : &quot;&quot;
-    },
-    &quot;preTransformBundle&quot; : &quot;&quot;,
-    &quot;postTransformBundle&quot; : &quot;&quot;,
-    &quot;id&quot; : &quot;vlcKnowledge&quot;,
-    &quot;itemsKey&quot; : &quot;knowledgeItems&quot;,
-    &quot;modalConfigurationSetting&quot; : {
-      &quot;modalHTMLTemplateId&quot; : &quot;&quot;,
-      &quot;modalController&quot; : &quot;&quot;,
-      &quot;modalSize&quot; : &quot;lg&quot;
-    }
-  } ],
-  &quot;allowSaveForLater&quot; : false,
-  &quot;saveNameTemplate&quot; : null,
-  &quot;saveExpireInDays&quot; : null,
-  &quot;saveForLaterRedirectPageName&quot; : &quot;sflRedirect&quot;,
-  &quot;saveForLaterRedirectTemplateUrl&quot; : &quot;vlcSaveForLaterAcknowledge.html&quot;,
-  &quot;saveContentEncoded&quot; : false,
-  &quot;saveObjectId&quot; : &quot;%ContextId%&quot;,
-  &quot;saveURLPatterns&quot; : { },
-  &quot;autoSaveOnStepNext&quot; : false,
-  &quot;elementTypeToHTMLTemplateMapping&quot; : { },
-  &quot;seedDataJSON&quot; : { },
-  &quot;trackingCustomData&quot; : { },
-  &quot;enableKnowledge&quot; : false,
-  &quot;bLK&quot; : false,
-  &quot;lkObjName&quot; : null,
-  &quot;knowledgeArticleTypeQueryFieldsMap&quot; : { },
-  &quot;timeTracking&quot; : false,
-  &quot;hideStepChart&quot; : true,
-  &quot;mergeSavedData&quot; : false,
-  &quot;visualforcePagesAvailableInPreview&quot; : { },
-  &quot;cancelType&quot; : &quot;SObject&quot;,
-  &quot;allowCancel&quot; : true,
-  &quot;cancelSource&quot; : &quot;%ContextId%&quot;,
-  &quot;cancelRedirectPageName&quot; : &quot;OmniScriptCancelled&quot;,
-  &quot;cancelRedirectTemplateUrl&quot; : &quot;vlcCancelled.html&quot;,
-  &quot;consoleTabLabel&quot; : &quot;New&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;autoFocus&quot; : false,
-  &quot;currencyCode&quot; : &quot;&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;rtpSeed&quot; : false,
-  &quot;consoleTabTitle&quot; : null,
-  &quot;consoleTabIcon&quot; : &quot;custom:custom18&quot;,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ]
-  },
-  &quot;stylesheet&quot; : {
-    &quot;newport&quot; : &quot;&quot;,
-    &quot;lightning&quot; : &quot;omniCustomCSS&quot;,
-    &quot;newportRtl&quot; : &quot;&quot;,
-    &quot;lightningRtl&quot; : &quot;&quot;
-  },
-  &quot;stepChartPlacement&quot; : &quot;right&quot;,
-  &quot;disableUnloadWarn&quot; : true,
-  &quot;scrollBehavior&quot; : &quot;auto&quot;,
-  &quot;currentLanguage&quot; : &quot;en_US&quot;
-}</propertySetConfig>
+    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:false,&quot;saveNameTemplate&quot;:null,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%ContextId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:true,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;right&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;}</propertySetConfig>
     <subType>Creation</subType>
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>3c8407e6-ee27-b586-c768-910a1ac13d59</webComponentKey>
+    <webComponentKey>bdf91c28-6ab3-19be-e661-691070607619</webComponentKey>
 </OmniScript>
