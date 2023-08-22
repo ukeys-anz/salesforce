@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loan_Repayment_Frequency__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Frequency of loan repayments</description>
+    <externalId>false</externalId>
+    <label>Loan Repayment Frequency</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>Unspecified</label>
+            </value>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_WEEKLY</fullName>
+                <default>false</default>
+                <label>Weekly</label>
+            </value>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_FORTNIGHTLY</fullName>
+                <default>false</default>
+                <label>Fortnightly</label>
+            </value>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_MONTHLY</fullName>
+                <default>false</default>
+                <label>Monthly</label>
+            </value>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_QUARTERLY</fullName>
+                <default>false</default>
+                <label>Quarterly</label>
+            </value>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_BI_ANNUAL</fullName>
+                <default>false</default>
+                <label>Bi-Annual</label>
+            </value>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_ANNUAL</fullName>
+                <default>false</default>
+                <label>Annual</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

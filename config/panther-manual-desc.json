@@ -1748,9 +1748,16 @@
         "Primary_Borrower__c",
         "Sole_Applicant_Selected__c",
         "Sole_Income_Earner__c",
-        "Eligibility_Accepted__c"
+        "Eligibility_Accepted__c",
+        "Applicant_Type__c",
+        "Privacy_Version_Accepted__c"
       ],
-      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2530753": [
+        "CreatedDate",
+        "LastModifiedDate",
+        "Last_Updated_Date__c",
+        "Application_Submit_Time__c"
+      ],
       "IA-2594111": [
         "ApplicantExtIdentifier",
         "Loan_Applicant_Group__c",
@@ -1758,7 +1765,8 @@
         "Name"
       ],
       "IA-2415720": ["Customer_Number__c"],
-      "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"]
+      "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"],
+      "IA-2415840": ["Living_Status__c", "Persona_Id__c"]
     },
     "LoanApplicantLiability": {
       "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
@@ -1768,6 +1776,19 @@
         "Loan_Applicant_Liability_ID__c",
         "Name"
       ]
+    },
+    "LoanApplicationFinancial": {
+      "IA-2530753": ["Last_Updated_Date__c"],
+      "IA-2415983": [
+        "Offset__c",
+        "Interest_Rate_Type__c",
+        "Loan_Term_in_Months__c",
+        "Loan_Term__c",
+        "Loan_Repayment_Type__c",
+        "Loan_Margin__c",
+        "Loan_Repayment_Frequency__c"
+      ],
+      "IA-2415840": ["Property_Valuation_Id__c"]
     },
     "LoanApplicationLiability": {
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
