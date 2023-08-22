@@ -198,6 +198,25 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public class SOPDebtSummary {
     public List<SOPDebt> liabilities;
+    /**
+     * @description returns liabilities with closed filtered out
+     */
+    public List<SOPDebt> openLiabilities {
+      get {
+        if (openLiabilities != null) {
+          return openLiabilities;
+        }
+        openLiabilities = new List<SOPDebt>();
+        for (SOPDebt liability : liabilities) {
+          if (liability.account.status != 'ACCOUNT_STATE_CLOSED') {
+            openLiabilities.add(liability);
+          }
+        }
+        return openLiabilities;
+      }
+      private set;
+    }
+
     public SOPMoney liabilitiesTotalAmount;
   }
 
@@ -381,6 +400,25 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
     public List<SOPAsset> assets;
+    /**
+     * @description returns assets with closed filtered out
+     */
+    public List<SOPAsset> openAssets {
+      get {
+        if (openAssets != null) {
+          return openAssets;
+        }
+        openAssets = new List<SOPAsset>();
+        for (SOPAsset asset : assets) {
+          if (asset.account.status != 'ACCOUNT_STATE_CLOSED') {
+            openAssets.add(asset);
+          }
+        }
+        return openAssets;
+      }
+      private set;
+    }
+
     public SOPMoney assetsTotalAmount;
     public SOPMoney savingsTotalAmount;
   }
