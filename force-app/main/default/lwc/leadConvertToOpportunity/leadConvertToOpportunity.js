@@ -1,11 +1,29 @@
 import { LightningElement, api, track } from "lwc";
-import { CloseActionScreenEvent } from "lightning/actions";
 import { NavigationMixin } from "lightning/navigation";
 import searchPartyInfo from "@salesforce/apex/CCRMLeadConversionActions.searchPartyInfoLWC";
 import createParty from "@salesforce/apex/CCRMLeadConversionActions.createPartyLWC";
+import maintainParty from "@salesforce/apex/CCRMLeadConversionActions.maintainPartyLWC";
+import updateConversionStatus from "@salesforce/apex/CCRMLeadConversionActions.updateConversionStatus";
 import getLeadRecordForConversion from "@salesforce/apex/CCRMLeadConversion.getLeadRecordForConversion";
-import convertLead from "@salesforce/apex/CCRMLeadConversion.convertLead";
+import convertCCRMLead from "@salesforce/apex/CCRMLeadConversionActions.convertCCRMLead";
+import convertLeadWithMatchedParty from "@salesforce/apex/CCRMLeadConversionActions.convertLeadWithMatchedParty";
 import { handleErrorShowToast, showToast, handleErrors } from "c/utils";
+
+// import labels
+import CCRM_LeadConversionValidationSubText from "@salesforce/label/c.CCRM_LeadConversionValidationSubText";
+import CCRM_LeadConversionValidationHeading from "@salesforce/label/c.CCRM_LeadConversionValidationHeading";
+import CCRM_LeadConversionSearchPartySubText from "@salesforce/label/c.CCRM_LeadConversionSearchPartySubText";
+import MLCRM_LeadConversionMaintainPartySubText from "@salesforce/label/c.MLCRM_LeadConversionMaintainPartySubText";
+import CCRM_LeadDetailsSubText from "@salesforce/label/c.CCRM_LeadDetailsSubText";
+import MLCRM_LeadDetailsSubText from "@salesforce/label/c.MLCRM_LeadDetailsSubText";
+import MLCRM_AmountValidationError from "@salesforce/label/c.MLCRM_AmountValidationError";
+import MLCRM_CustomerNeedsError from "@salesforce/label/c.MLCRM_CustomerNeedsError";
+import MLCRM_LeadSourceError from "@salesforce/label/c.MLCRM_LeadSourceError";
+import MLCRM_ConversionStatusValidationError from "@salesforce/label/c.MLCRM_ConversionStatusValidationError";
+import CCRM_AddressError from "@salesforce/label/c.CCRM_AddressError";
+import CCRM_RegisteredCompanyError from "@salesforce/label/c.CCRM_RegisteredCompanyError";
+import CCRM_ExistingCustomerError from "@salesforce/label/c.CCRM_ExistingCustomerError";
+import CCRM_CustomerNeedsError from "@salesforce/label/c.CCRM_CustomerNeedsError";
 
 const columns = [
   {
@@ -30,6 +48,43 @@ const columns = [
   {
     label: "KYC status",
     fieldName: "kycStatus"
+  },
+  {
+    label: "Match",
+    fieldName: "match"
+  }
+];
+const columnsIndividual = [
+  {
+    label: "Customer Name",
+    fieldName: "accountName",
+    sortable: true,
+    type: "url",
+    typeAttributes: { label: { fieldName: "name" }, target: "_self" }
+  },
+  {
+    label: "Address",
+    fieldName: "address"
+  },
+  {
+    label: "CLG ID",
+    fieldName: "clgId"
+  },
+  {
+    label: "CPID",
+    fieldName: "cpid"
+  },
+  {
+    label: "KYC status",
+    fieldName: "kycStatus"
+  },
+  {
+    label: "Source System",
+    fieldName: "sourceSystem"
+  },
+  {
+    label: "OCV ID",
+    fieldName: "ocvId"
   }
 ];
 export default class LeadConversion extends NavigationMixin(LightningElement) {
@@ -37,27 +92,55 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   @api recordId;
   @track leadConvertData;
   @track leadTitle = null;
+  @track modalBodySubText = null;
   @track isConverted = false;
   @track isModalOpen = false;
+  @track enableCreatePartAndConvertButton = false;
   @track validLead = false;
   @track validationMessage = [];
   @track progress = 0;
   @track processStatus = "";
   @track errorMessage;
+  @track noMatchSelected = "";
   columns = columns;
-  certifiedResults = [];
-  probableResults = [];
+  columnsIndividual = columnsIndividual;
+  searchResults = [];
+  leadSearchResultRows = [];
   isLoading = false;
   searchParty = false;
+  createPartyRequired = false;
+  maintainPartyExist = false;
   leadDetails = false;
+  isCCRMlead = false;
+  isMLCRMlead = false;
   isConvertLead = false;
-  noDataCertified = false;
-  noDataProbable = false;
-  setCertifiedSelectedRow = [];
-  setProbableSelectedRow = [];
+  noDataFound = false;
+  setSelectedRow = [];
   isConvertLeadButton = false;
-  setCertifiedTableHeight = "height: 200px";
-  setProbableTableHeight = "height: 200px";
+  setTableHeight = "height: 100%";
+  cpId = "";
+  accountId = "";
+
+  get noMatchOption() {
+    return [{ label: "No Match Available", value: "createParty" }];
+  }
+
+  label = {
+    CCRM_LeadConversionValidationSubText,
+    CCRM_LeadConversionValidationHeading,
+    CCRM_LeadConversionSearchPartySubText,
+    MLCRM_LeadDetailsSubText,
+    MLCRM_AmountValidationError,
+    MLCRM_CustomerNeedsError,
+    MLCRM_LeadSourceError,
+    CCRM_CustomerNeedsError,
+    MLCRM_LeadConversionMaintainPartySubText,
+    MLCRM_ConversionStatusValidationError,
+    CCRM_AddressError,
+    CCRM_RegisteredCompanyError,
+    CCRM_ExistingCustomerError,
+    CCRM_LeadDetailsSubText
+  };
 
   fields = [
     "FirstName",
@@ -68,6 +151,16 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     "Home_Phone__c",
     "Email",
     "Address"
+  ];
+
+  fieldsML = [
+    "Name",
+    "FinServ__RelatedAccount__c",
+    "MobilePhone",
+    "Email",
+    "Home_Phone__c",
+    "Address",
+    "Work_Phone__c"
   ];
 
   connectedCallback() {
@@ -92,25 +185,38 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.processStatus = "Completed";
       }
     }, 400);
+    window.addEventListener("beforeunload", this.updateLeadStatus.bind(this));
+    this.invokeOnReady();
   }
 
   disconnectedCallback() {
     clearInterval(this._interval);
   }
 
-  @api async invoke() {
+  async invokeOnReady() {
     this.isLoading = true;
     try {
       const leadConvertDataResult = await getLeadRecordForConversion({
         recordId: this.recordId
       });
+
       this.isLoading = false;
       this.leadConvertData = leadConvertDataResult;
       const validationResult = await this.validateLead();
+      if (validationResult) {
+        //remove close icon
+        this.removeCloseIcon();
+        await updateConversionStatus({
+          record: this.leadConvertData.leadRecord,
+          status: "In Progress"
+        });
+      }
       if (validationResult && !this.searchParty) {
-        if (this.leadConvertData.leadRecord.Not_Registered__c) {
+        if (this.createPartyRequired) {
+          this.leadDetails = false;
           this.createParty();
-        } else if (!this.leadDetails) {
+          this.createPartyRequired = false;
+        } else if (!this.leadDetails && !this.isConvertLead) {
           this.initiateLeadConversion();
         }
       }
@@ -119,19 +225,29 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     }
   }
 
+  removeCloseIcon() {
+    //remove close icon
+    let style = document.createElement("style");
+    style.innerText =
+      ".slds-modal__header .slds-modal__close {display : none;}";
+    this.template.querySelector(".slds-modal__container").appendChild(style);
+  }
+
   initiateLeadConversion() {
     this.searchParty = false;
     this.isConvertLead = true;
+    this.maintainPartyExist = false;
     this.isModalOpen = true;
     this.progress = 0;
-    convertLead({
-      recordId: this.recordId,
-      accountId: this.leadConvertData.leadRecord.FinServ__RelatedAccount__c
+    convertCCRMLead({
+      accId: this.leadConvertData.leadRecord.FinServ__RelatedAccount__c,
+      leadRec: this.leadConvertData.leadRecord
     })
       .then((result) => {
         this.isConverted = true;
         this.progress = 98;
-        if (result === null) {
+        if (result === null || result === "undefined" || result === "") {
+          this.updateLeadStatus();
           this.closeAction();
           handleErrorShowToast(
             this,
@@ -161,6 +277,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         }
       })
       .catch((error) => {
+        this.updateLeadStatus();
         this.handleError(error);
       });
   }
@@ -171,27 +288,81 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     this.validLead = true;
 
     //# Setting Modal Title
+    //CC-4587 ML Showcase Observations - Lead Conversion - company is not needed for ML
     if (
-      this.leadConvertData.leadRecord.Company === null ||
-      this.leadConvertData.leadRecord.Company === undefined
+      this.leadConvertData.leadRecord.RecordType.DeveloperName ===
+        "CCRM_Lead" &&
+      this.leadConvertData.leadRecord.Company !== null &&
+      this.leadConvertData.leadRecord.Company !== undefined
     ) {
       this.leadTitle =
-        "Converting Lead - " +
-        this.leadConvertData.leadRecord.Name +
+        "Converting " +
+        this.leadConvertData.leadRecord.Company +
         " into an Opportunity.";
     } else {
       this.leadTitle =
-        "Converting Lead - " +
-        this.leadConvertData.leadRecord.Company +
+        "Converting " +
+        this.leadConvertData.leadRecord.Name +
         " into an Opportunity.";
     }
+    if (
+      this.leadConvertData.leadRecord.FinServ__RelatedAccount__c === null ||
+      this.leadConvertData.leadRecord.FinServ__RelatedAccount__c === undefined
+    ) {
+      if (
+        this.leadConvertData.leadRecord.RecordType.DeveloperName === "CCRM_Lead"
+      ) {
+        this.modalBodySubText = this.label.CCRM_LeadDetailsSubText;
+      } else {
+        this.modalBodySubText = this.label.MLCRM_LeadDetailsSubText;
+      }
+    }
+    this.validateLeadCommon();
+    if (
+      this.leadConvertData.leadRecord.RecordType.DeveloperName === "CCRM_Lead"
+    ) {
+      this.validateLeadCCRM();
+      this.isCCRMlead = true;
+      if (
+        (this.leadConvertData.leadRecord.Registered_Company__c === undefined ||
+          this.leadConvertData.leadRecord.Registered_Company__c === "No") &&
+        (this.leadConvertData.leadRecord.FinServ__RelatedAccount__c === null ||
+          this.leadConvertData.leadRecord.FinServ__RelatedAccount__c ===
+            undefined)
+      ) {
+        this.createPartyRequired = true;
+        this.leadDetails = false;
+      }
+    } else if (
+      this.leadConvertData.leadRecord.RecordType.DeveloperName === "MLCRM_Lead"
+    ) {
+      this.validateLeadMLCRM();
+      this.isMLCRMlead = true;
+      this.leadDetails = true;
+    }
+    return this.validLead;
+  }
+
+  validateLeadCommon() {
     //# Criteria #1
-    if (!this.leadConvertData.leadRecord.FinServ__ExpressedInterest__c) {
-      this.validLead = false;
+    if (
+      this.leadConvertData.leadRecord.Conversion_Status__c === "In Progress"
+    ) {
+      this.setInvalidLead();
       this.validationMessage.push({
         id: this.validationMessage.length + 1,
-        body:
-          "Expressed Interest - Please select a product category from Expressed Interest field."
+        body: this.label.MLCRM_ConversionStatusValidationError
+      });
+    }
+  }
+
+  validateLeadCCRM() {
+    //# Criteria #1
+    if (!this.leadConvertData.leadRecord.FinServ__ExpressedInterest__c) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: this.label.CCRM_CustomerNeedsError
       });
     }
     //# Criteria #2
@@ -205,15 +376,14 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         let street = this.leadConvertData.leadRecord.Street;
         let result = /P\.?\s?O\.?\sB[Oo][Xx]./.exec(street);
         if (result) {
-          this.validLead = false;
+          this.setInvalidLead();
           this.validationMessage.push({
             id: this.validationMessage.length + 1,
-            body:
-              "Please enter a valid address. A PO Box address cannot be entered."
+            body: this.label.CCRM_AddressError
           });
           //# Criteria #4
         } else if (!this.leadConvertData.leadRecord.Is_Valid_Address__c) {
-          this.validLead = false;
+          this.setInvalidLead();
           this.validationMessage.push({
             id: this.validationMessage.length + 1,
             body: "Please enter a valid address."
@@ -225,7 +395,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.leadConvertData.leadRecord.Industry__c === undefined ||
         this.leadConvertData.leadRecord.Industry__c === null
       ) {
-        this.validLead = false;
+        this.setInvalidLead();
         this.validationMessage.push({
           id: this.validationMessage.length + 1,
           body: "Please select a valid Industry Code."
@@ -236,7 +406,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.leadConvertData.leadRecord.Entity_Type__c === undefined ||
         this.leadConvertData.leadRecord.Entity_Type__c === null
       ) {
-        this.validLead = false;
+        this.setInvalidLead();
         this.validationMessage.push({
           id: this.validationMessage.length + 1,
           body: "Please select a valid Entity Type."
@@ -247,7 +417,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.leadConvertData.leadRecord.New_to_Bank__c === undefined ||
         this.leadConvertData.leadRecord.New_to_Bank__c === null
       ) {
-        this.validLead = false;
+        this.setInvalidLead();
         this.validationMessage.push({
           id: this.validationMessage.length + 1,
           body: "New to Bank field cannot be blank."
@@ -255,14 +425,14 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       }
       //# Criteria #8
       if (
-        !this.leadConvertData.leadRecord.Not_Registered__c &&
+        this.leadConvertData.leadRecord.Registered_Company__c === "Yes" &&
         this.leadConvertData.leadRecord.Entity_Type__c !== "Individual" &&
         this.leadConvertData.leadRecord.ABN__c &&
         this.leadConvertData.leadRecord.ABN_Validation_Status__c !== "Active" &&
         this.leadConvertData.leadRecord.ACN__c &&
         this.leadConvertData.leadRecord.ACN_Validation_Status__c !== "Active"
       ) {
-        this.validLead = false;
+        this.setInvalidLead();
         this.validationMessage.push({
           id: this.validationMessage.length + 1,
           body: "Capture valid ABN and ACN details."
@@ -283,17 +453,16 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           this.leadConvertData.leadRecord.ACN_Validation_Status__c !==
             "Active"))
     ) {
-      this.validLead = false;
+      this.setInvalidLead();
       this.validationMessage.push({
         id: this.validationMessage.length + 1,
         body: "Capture valid ABN / ACN details."
       });
     } else if (this.leadConvertData.relatedAccountType === "isInvalid") {
-      this.validLead = false;
+      this.setInvalidLead();
       this.validationMessage.push({
         id: this.validationMessage.length + 1,
-        body:
-          "Related Party - Please select a valid Party for Conversion. This includes Organisation, Individual, CLG, Prospect Customers."
+        body: this.label.CCRM_ExistingCustomerError
       });
     }
 
@@ -302,21 +471,233 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       (this.leadConvertData.leadRecord.ABN_Validation_Status__c === "Active" ||
         this.leadConvertData.leadRecord.ACN_Validation_Status__c ===
           "Active") &&
-      this.leadConvertData.leadRecord.Not_Registered__c
+      (this.leadConvertData.leadRecord.Registered_Company__c === undefined ||
+        this.leadConvertData.leadRecord.Registered_Company__c === "No")
     ) {
-      this.validLead = false;
+      this.setInvalidLead();
       this.validationMessage.push({
         id: this.validationMessage.length + 1,
-        body:
-          "Not Registered - Valid ABN or ACN exist, please uncheck Not Registered box."
+        body: this.label.CCRM_RegisteredCompanyError
       });
     }
-    return this.validLead;
+  }
+
+  validateLeadMLCRM() {
+    //# Criteria #1
+    if (!this.leadConvertData.leadRecord.FinServ__ExpressedInterest__c) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: this.label.MLCRM_CustomerNeedsError
+      });
+    }
+    //# Criteria #2
+    if (
+      this.leadConvertData.leadRecord.FinServ__PotentialValue__c === null ||
+      this.leadConvertData.leadRecord.FinServ__PotentialValue__c === undefined
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: this.label.MLCRM_AmountValidationError
+      });
+    }
+    //# Criteria #3
+    if (
+      this.leadConvertData.leadRecord.LeadSource === null ||
+      this.leadConvertData.leadRecord.LeadSource === undefined
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: this.label.MLCRM_LeadSourceError
+      });
+    }
+  }
+
+  cancelAction() {
+    updateConversionStatus({
+      record: this.leadConvertData.leadRecord,
+      status: ""
+    }).catch((error) => {
+      this.handleError(error);
+    });
+    this.initialise();
+    this.dispatchEvent(new CustomEvent("closeconvertmodal"));
+  }
+
+  updateLeadStatus() {
+    updateConversionStatus({
+      record: this.leadConvertData.leadRecord,
+      status: "Error"
+    }).catch((error) => {
+      this.handleError(error);
+    });
   }
 
   closeAction() {
-    this.dispatchEvent(new CloseActionScreenEvent());
     this.initialise();
+    this.dispatchEvent(new CustomEvent("closeconvertmodal"));
+  }
+
+  convertLeadMLCRM() {
+    if (
+      this.leadConvertData.leadRecord.FinServ__RelatedAccount__c === null ||
+      this.leadConvertData.leadRecord.FinServ__RelatedAccount__c === undefined
+    ) {
+      this.maintainPartyAction();
+    } else {
+      this.leadDetails = false;
+      this.initiateLeadConversion();
+    }
+  }
+
+  maintainPartyAction() {
+    this.isLoading = true;
+    this.searchParty = false;
+    this.maintainPartyExist = false;
+    this.isConvertLead = true;
+    this.isModalOpen = true;
+    this.progress = 0;
+    this.leadDetails = false;
+    this.leadTitle =
+      "Converting Lead " +
+      this.leadConvertData.leadRecord.Name +
+      " into an Opportunity.";
+    maintainParty({
+      record: this.leadConvertData.leadRecord
+    })
+      .then((result) => {
+        this.isLoading = false;
+        this.leadDetails = false;
+        if (result.isNewCustomer === false) {
+          this.maintainPartyExist = true;
+          this.isConvertLead = false;
+          this.progress = 0;
+          if (result.matchedResults.length === 0) {
+            this.noDataFound = true;
+            this.setTableHeight = "";
+          } else {
+            result.matchedResults.forEach((record) => {
+              let tempRec = Object.assign({}, record);
+              tempRec.accountName = "/" + tempRec.id;
+              this.accountId = tempRec.id;
+              this.cpId = tempRec.cpid;
+              this.searchResults.push(tempRec);
+            });
+            //this.leadConvertData.leadRecord.FinServ__RelatedAccount__c = this.searchResults[0].id;
+            //remove grey background from data table
+            let style = document.createElement("style");
+            style.innerText =
+              ".resultTable2 .slds-table_header-fixed_container {background : white;}";
+            this.template
+              .querySelector(".convertLeadContianer")
+              .appendChild(style);
+          }
+          this.leadTitle = "Lead Conversion - Add a Customer to this Lead";
+          this.modalBodySubText = this.label.MLCRM_LeadConversionMaintainPartySubText;
+        } else {
+          this.isConverted = true;
+          this.progress = 98;
+          if (
+            result.oppID === null ||
+            result.oppID === "undefined" ||
+            result.oppID === ""
+          ) {
+            this.updateLeadStatus();
+            this.closeAction();
+            handleErrorShowToast(
+              this,
+              "ERROR!",
+              "",
+              "Empty result. Lead Conversion Failed!",
+              "pester"
+            );
+          } else if (result.oppID !== "") {
+            this.closeAction();
+            showToast(
+              this,
+              "SUCCESS!",
+              "Lead Conversion Completed successfully.",
+              "",
+              "Success",
+              ""
+            );
+            this[NavigationMixin.Navigate]({
+              type: "standard__recordPage",
+              attributes: {
+                recordId: result.oppID,
+                objectApiName: "Opportunity",
+                actionName: "view"
+              }
+            });
+          }
+        }
+      })
+      .catch((error) => {
+        this.isLoading = false;
+        this.handleError(error);
+        this.updateLeadStatus();
+        //this.closeAction();
+      });
+  }
+
+  convertLeadWithMatchedParty() {
+    this.isLoading = true;
+    this.maintainPartyExist = false;
+    this.isConvertLead = true;
+    this.isModalOpen = true;
+    this.progress = 0;
+    this.leadDetails = false;
+    this.leadTitle =
+      "Converting Lead " +
+      this.leadConvertData.leadRecord.Name +
+      " into an Opportunity.";
+    convertLeadWithMatchedParty({
+      accId: this.accountId,
+      cpId: this.cpId,
+      leadRec: this.leadConvertData.leadRecord
+    })
+      .then((result) => {
+        this.isLoading = false;
+        this.isConverted = true;
+        this.progress = 98;
+        if (result === null || result === "undefined" || result === "") {
+          this.updateLeadStatus();
+          this.closeAction();
+          handleErrorShowToast(
+            this,
+            "ERROR!",
+            "",
+            "Empty result. Lead Conversion Failed!",
+            "pester"
+          );
+        } else {
+          this.closeAction();
+          showToast(
+            this,
+            "SUCCESS!",
+            "Lead Conversion Completed successfully.",
+            "",
+            "Success",
+            ""
+          );
+          this[NavigationMixin.Navigate]({
+            type: "standard__recordPage",
+            attributes: {
+              recordId: result,
+              objectApiName: "Opportunity",
+              actionName: "view"
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        this.isLoading = false;
+        this.updateLeadStatus();
+        this.handleError(error);
+        //this.closeAction();
+      });
   }
 
   createParty() {
@@ -329,46 +710,81 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         "pester"
       );
     } else {
-      this.isLoading = true;
+      this.searchParty = false;
+      this.isConvertLead = true;
+      this.isModalOpen = true;
+      this.progress = 0;
+      //this.isLoading = true;
+      this.leadTitle =
+        "Converting Lead " +
+        this.leadConvertData.leadRecord.Name +
+        " into an Opportunity.";
       createParty({
         record: this.leadConvertData.leadRecord
       })
-        .then(() => {
-          this.isLoading = false;
-          showToast(
-            this,
-            "SUCCESS!",
-            "Lead Updated Successfully with CAPCIS ID",
-            "",
-            "Success",
-            ""
-          );
+        .then((result) => {
+          this.isConverted = true;
+          this.progress = 98;
+          if (result === null || result === "undefined" || result === "") {
+            this.updateLeadStatus();
+            this.closeAction();
+            handleErrorShowToast(
+              this,
+              "ERROR!",
+              "",
+              "Empty result. Lead Conversion Failed!",
+              "pester"
+            );
+          } else {
+            this.closeAction();
+            showToast(
+              this,
+              "SUCCESS!",
+              "Lead Conversion Completed successfully.",
+              "",
+              "Success",
+              ""
+            );
+            this[NavigationMixin.Navigate]({
+              type: "standard__recordPage",
+              attributes: {
+                recordId: result,
+                objectApiName: "Opportunity",
+                actionName: "view"
+              }
+            });
+          }
         })
         .catch((error) => {
-          this.isLoading = false;
-          handleErrorShowToast(
-            this,
-            "An error has occurred. Please try again later or contact your system administrator.",
-            error,
-            "",
-            "pester"
-          );
+          this.updateLeadStatus();
+          this.handleError(error);
         });
     }
-    this.closeAction();
+  }
+
+  setInvalidLead() {
+    this.validLead = false;
+    this.leadTitle = this.label.CCRM_LeadConversionValidationHeading;
+    this.modalBodySubText = this.label.CCRM_LeadConversionValidationSubText;
   }
 
   initialise() {
     this.validLead = false;
     this.leadTitle = "";
+    this.modalBodySubText = "";
     this.isModalOpen = false;
     this.validationMessage = [];
+    this.isConvertLead = false;
     this.progress = 0;
     this.processStatus = "";
     this.leadDetails = false;
     this.searchParty = false;
-    this.certifiedResults = [];
-    this.probableResults = [];
+    this.maintainPartyExist = false;
+    this.searchResults = [];
+    this.leadSearchResultRows = [];
+    this.enableCreatePartAndConvertButton = false;
+    this.cpId = "";
+    this.accountId = "";
   }
 
   handleError(error) {
@@ -386,26 +802,26 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.isLoading = false;
         this.searchParty = true;
         this.leadDetails = false;
-        if (result.certifiedResults.length === 0) {
-          this.noDataCertified = true;
-          this.setCertifiedTableHeight = "";
+        if (result.probableAndCertifiedResults.length === 0) {
+          this.noDataFound = true;
+          this.setTableHeight = "";
         } else {
-          result.certifiedResults.forEach((record) => {
+          result.probableAndCertifiedResults.forEach((record) => {
             let tempRec = Object.assign({}, record);
             tempRec.accountName = "/" + tempRec.id;
-            this.certifiedResults.push(tempRec);
+            this.searchResults.push(tempRec);
           });
+
+          //remove grey background from data table
+          let style = document.createElement("style");
+          style.innerText =
+            ".resultTable .slds-table_header-fixed_container {background : white;}";
+          this.template
+            .querySelector(".convertLeadContianer")
+            .appendChild(style);
         }
-        if (result.probableResults.length === 0) {
-          this.noDataProbable = true;
-          this.setProbableTableHeight = "";
-        } else {
-          result.probableResults.forEach((record) => {
-            let tempRec = Object.assign({}, record);
-            tempRec.accountName = "/" + tempRec.id;
-            this.probableResults.push(tempRec);
-          });
-        }
+        this.leadTitle = "Lead Conversion - Add a Customer to this Lead";
+        this.modalBodySubText = this.label.CCRM_LeadConversionSearchPartySubText;
       })
       .catch((error) => {
         this.isLoading = false;
@@ -416,23 +832,24 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           "",
           "pester"
         );
+        this.updateLeadStatus();
         this.closeAction();
       });
   }
 
-  getCertifiedSelectedRow(event) {
+  getSelectedRow(event) {
     const selectedRows = event.detail.selectedRows;
     this.leadConvertData.leadRecord.FinServ__RelatedAccount__c =
       selectedRows[0].id;
     this.isConvertLeadButton = true;
-    this.setProbableSelectedRow = []; // empty selection.
+    this.noMatchSelected = undefined;
+    this.enableCreatePartAndConvertButton = false;
   }
 
-  getProbableSelectedRow(event) {
-    const selectedRows = event.detail.selectedRows;
-    this.leadConvertData.leadRecord.FinServ__RelatedAccount__c =
-      selectedRows[0].id;
-    this.isConvertLeadButton = true;
-    this.setCertifiedSelectedRow = []; // empty selection.
+  enableCreateNewCustomerConvertButton(event) {
+    this.enableCreatePartAndConvertButton = true;
+    this.isConvertLeadButton = false;
+    this.setSelectedRow = [];
+    this.noMatchSelected = event.target.value;
   }
 }

@@ -1,0 +1,365 @@
+/**
+ * @author Ashish Kumar
+ * @since  04/2023
+ * @description This class is to provide generic test data setups CCRM test classes.
+ * @group Utils
+ */
+@IsTest
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
+public with sharing class MLCRMTestDataFactory {
+  public static Id adminProfileId = CommonUtil.getProfileByName(
+      'System Administrator'
+    )
+    .Id;
+  public static Id anzStandardProfileId = CommonUtil.getProfileByName(
+      'ANZ ML Standard User'
+    )
+    .Id;
+  private static User adminUser;
+  private static User mlcrmBaseUser;
+  public static UserRole bankerRole = CommonUtil.getUserRoleByDevName('Banker');
+  /**
+   * @description Create a MLCRM Base User
+   * @name createCCRMBaseUser
+   * @return ANZ Standard User with MLCRM Base User Permission Set.
+   */
+  public static User createMLCRMBaseUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    mlcrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
+    mlcrmBaseUser.FirstName = 'BaseUser' + staticNumber;
+    mlcrmBaseUser.LastName = 'MLCRM';
+    mlcrmBaseUser.UserRoleId = bankerRole.Id;
+    mlcrmBaseUser.ProfileId = anzStandardProfileId;
+    mlcrmBaseUser.IsActive = true;
+    mlcrmBaseUser.Lan_Id__c = 'testMLBaseUL' + (Math.random() * 10);
+    insert mlcrmBaseUser;
+    addMLCRMUserPS(mlcrmBaseUser.id, 'MLCRM_Base');
+    return mlcrmBaseUser;
+  }
+  /**
+   * @description Create a MLCRM System Admin User
+   * @name createAdminUser
+   * @return System Administrator User
+   */
+  public static User createAdminUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    adminUser = (User) FakerFactory.make(new FakerUserFactory());
+    adminUser.FirstName = 'TestUser' + staticNumber;
+    adminUser.LastName = 'Admin';
+    adminUser.UserRoleId = bankerRole.Id;
+    adminUser.ProfileId = adminProfileId;
+    adminUser.IsActive = true;
+    adminUser.Lan_Id__c = 'testMLAdminUL' + (Math.random() * 10);
+    insert adminUser;
+    addMLCRMUserPS(adminUser.id, 'MLCRM_Base');
+    return adminUser;
+  }
+
+  /**
+   * @description Get a MLCRM Base User, if such user not exists yet then create one
+   * @name getMLCRMBaseUser
+   * @return ANZ ML Standard User with MLCRM Base User Permission Set.
+   */
+  public static User getMLCRMBaseUser() {
+    if (mlcrmBaseUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE ProfileId = :anzStandardProfileId AND LastName = 'MLCRM'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        mlcrmBaseUser = createMLCRMBaseUser();
+      } else {
+        mlcrmBaseUser = users[0];
+      }
+    }
+    return mlcrmBaseUser;
+  }
+
+  /**
+   * @description Get a MLCRM System Admin User, if such user not exists yet then create one
+   * @name getAdminUser
+   * @return System Administrator User
+   */
+  public static User getAdminUser() {
+    if (adminUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE ProfileId = :adminProfileId AND LastName = 'Admin'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        adminUser = createAdminUser();
+      } else {
+        adminUser = users[0];
+      }
+    }
+    return adminUser;
+  }
+
+  /**
+   * @description Create Lead Records for CCRM Testing
+   * @name createLeadRecords
+   * @param count Count of Lead records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @return `List<Lead>` New lead records
+   */
+  public static List<Lead> createLeadRecords(Integer count, User ownerUser) {
+    return createLeadRecords(count, ownerUser, true);
+  }
+
+  /**
+   * @description Create Lead Records for CCRM Testing
+   * @name createManualLeadRecords
+   * @param count Count of Lead records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @return `List<Lead>` New lead records
+   */
+  public static List<Lead> createManualLeadRecords(
+    Integer count,
+    User ownerUser
+  ) {
+    return createManualLeadRecords(count, ownerUser, true);
+  }
+
+  /**
+   * @description Create Lead Records for MLCRM Testing
+   * @name createLeadRecords
+   * @param count Count of Lead records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param doInsert Whether or not to insert the records.
+   * @return `List<Lead>` New lead records
+   */
+  public static List<Lead> createLeadRecords(
+    Integer count,
+    User ownerUser,
+    Boolean doInsert
+  ) {
+    count = count == null || count == 0 ? 1 : count;
+
+    List<Lead> newLeads = new List<Lead>();
+    for (Integer i = 1; i <= count; i++) {
+      String staticNumber = Datetime.now().format('MMddHHmmss') + i;
+      Lead leadRecord = new Lead();
+      leadRecord.Email = 'sam' + staticNumber + '@test.com';
+      leadRecord.RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID;
+      leadRecord.Description = 'Need a new Credit Card';
+      leadRecord.Expiry_Date__c = System.today() + 10;
+      leadRecord.FinServ__ExpressedInterest__c = 'Personal Loan';
+      leadRecord.FinServ__PotentialValue__c = 12000;
+      leadRecord.FirstName = 'Sam' + staticNumber;
+      leadRecord.LastName = 'Jacob';
+      leadRecord.LeadSource = 'Partner';
+      leadRecord.New_to_Bank__c = 'Yes';
+      leadRecord.Campaign_Code__c = staticNumber;
+      leadRecord.Lead_Originator__c = 'Adobe';
+      leadRecord.Business_ID__c = '012345';
+      leadRecord.Status = CCRMConstants.STATUS_NEW;
+      leadRecord.OwnerId = ownerUser.Id == null
+        ? UserInfo.getUserId()
+        : ownerUser.Id;
+
+      newLeads.add(leadRecord);
+    }
+    if (doInsert) {
+      Database.insert(newLeads);
+    }
+
+    return newLeads;
+  }
+
+  /**
+   * @description Create Lead Records for MLCRM Testing
+   * @name createManualLeadRecords
+   * @param count Count of Lead records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param doInsert Whether or not to insert the records.
+   * @return `List<Lead>` New lead records
+   */
+  public static List<Lead> createManualLeadRecords(
+    Integer count,
+    User ownerUser,
+    Boolean doInsert
+  ) {
+    count = count == null || count == 0 ? 1 : count;
+
+    List<Lead> newLeads = new List<Lead>();
+    for (Integer i = 1; i <= count; i++) {
+      String staticNumber = Datetime.now().format('MMddHHmmss') + i;
+      Lead leadRecord = new Lead();
+      leadRecord.Email = 'sam' + staticNumber + '@test.com';
+      leadRecord.RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID;
+      leadRecord.Description = 'Need a new Credit Card';
+      leadRecord.Expiry_Date__c = System.today() + 10;
+      leadRecord.FinServ__ExpressedInterest__c = 'Personal Loan';
+      leadRecord.FinServ__PotentialValue__c = 12000;
+      leadRecord.FirstName = 'Sam' + staticNumber;
+      leadRecord.LastName = 'Jacob';
+      leadRecord.LeadSource = 'Partner';
+      leadRecord.New_to_Bank__c = 'Yes';
+      leadRecord.Campaign_Code__c = staticNumber;
+      leadRecord.Lead_Originator__c = 'MLCRM';
+      leadRecord.Business_ID__c = '012345';
+      leadRecord.Status = CCRMConstants.STATUS_NEW;
+      leadRecord.OwnerId = ownerUser.Id == null
+        ? UserInfo.getUserId()
+        : ownerUser.Id;
+
+      newLeads.add(leadRecord);
+    }
+    if (doInsert) {
+      Database.insert(newLeads);
+    }
+
+    return newLeads;
+  }
+
+  /**
+   * @description Add required PermissionSet - MLCRM Base
+   * @name addMLCRMUserPS
+   * @param userId of User to which MLCRM_Base Permission Set needed to be assigned.
+   * @param permissionSet Permission Set needed to be assigned.
+   */
+  public static void addMLCRMUserPS(Id userId, String permissionSet) {
+    PermissionSet ps = CommonUtil.getPermissionSetByName(permissionSet);
+    PermissionSetAssignment psa = TestUtil.createPSAssignment(userId, ps.Id);
+    insert psa;
+  }
+
+  /**
+   * @description Create Territory Records for MLCRM Testing
+   * @name createTerritoryRecords
+   * @param count Count of Territory records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param doInsert Whether or not to insert the records.
+   * @return `List<Territory__c>` New territory records
+   */
+  public static List<Territory__c> createTerritoryRecords(
+    Integer count,
+    User ownerUser,
+    Boolean doInsert
+  ) {
+    count = count == null || count == 0 ? 1 : count;
+
+    List<Territory__c> lstOfNewTerritory = new List<Territory__c>();
+    for (Integer i = 1; i <= count; i++) {
+      Territory__c objTerritory = new Territory__c();
+      objTerritory.Access_Scope__c = 'Restricted';
+      objTerritory.Name = 'Melbourne';
+      objTerritory.OwnerId = ownerUser.Id == null
+        ? UserInfo.getUserId()
+        : ownerUser.Id;
+
+      lstOfNewTerritory.add(objTerritory);
+    }
+    if (doInsert) {
+      Database.insert(lstOfNewTerritory);
+    }
+    return lstOfNewTerritory;
+  }
+
+  /**
+   * @description Create User Territory Records for MLCRM Testing
+   * @name createUserTerritoryRecords
+   * @param count Count of User Territory records needed to be created
+   * @param userId territory user.
+   * @param idTerritory territory Id.
+   * @return `List<User_Territory__c>` New user territory records
+   */
+  public static List<User_Territory__c> createUserTerritoryRecords(
+    Integer count,
+    Id userId,
+    Id idTerritory
+  ) {
+    count = count == null || count == 0 ? 1 : count;
+
+    List<User_Territory__c> lstOfNewUserTerritory = new List<User_Territory__c>();
+    for (Integer i = 1; i <= count; i++) {
+      User_Territory__c objUserTerritory = new User_Territory__c();
+      objUserTerritory.ML_Role__c = 'Franchise Owner';
+      objUserTerritory.Status__c = 'Active';
+      objUserTerritory.Territory__c = idTerritory;
+      objUserTerritory.User__c = userId;
+      lstOfNewUserTerritory.add(objUserTerritory);
+    }
+    Database.insert(lstOfNewUserTerritory);
+    return lstOfNewUserTerritory;
+  }
+
+  /**
+   * @description Create Opportunity Records for MLCRM Testing
+   * @name createOpportunityRecords
+   * @param count Count of Opportunity records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param accId Account id for which Opportunity needs to be created
+   * @param doInsert Whether or not to insert the records
+   * @return `List<Opportunity>`
+   */
+  public static List<Opportunity> createOpportunityRecords(
+    Integer count,
+    User ownerUser,
+    Id accId,
+    Boolean doInsert
+  ) {
+    Faker faker = new Faker('AU');
+    //Default Count to 200 when in excess.
+    count = count == null || count == 0 ? 1 : count;
+    List<Opportunity> newOpps = new List<Opportunity>();
+    for (Integer i = 1; i <= count; i++) {
+      Opportunity objOpportunity = new Opportunity();
+      objOpportunity.Name = 'Test Opp ' + i;
+      objOpportunity.Accountid = accId;
+      objOpportunity.StageName = 'Need Analysis';
+      objOpportunity.Customer_Needs__c = 'Asset Finance';
+      objOpportunity.Amount = 200;
+      objOpportunity.CloseDate = system.Today() + 10;
+      objOpportunity.Description = 'Test Opportunity';
+      objOpportunity.RecordTypeId = MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID;
+      newOpps.add(objOpportunity);
+    }
+    if (doInsert) {
+      Database.insert(newOpps);
+    }
+
+    return newOpps;
+  }
+
+  /**
+   * @description Create Task Records for MLCRM Testing
+   * @name createTaskRecords
+   * @param count Count of Task records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param whatId What id for which Opportunity needs to be created
+   * @param whoId What id for which Opportunity needs to be created
+   * @return `List<Task>`
+   */
+  public static List<Task> createTaskRecords(
+    Integer count,
+    User ownerUser,
+    Id whatId,
+    Id whoId
+  ) {
+    //Default Count to 1 if null
+    count = count == null || count == 0 ? 1 : count;
+    List<Task> newTaskList = new List<Task>();
+    for (Integer i = 1; i <= count; i++) {
+      Task task = new Task(
+        recordtypeId = MLCRMConstants.MLCRM_TASK_RT_ID,
+        Status = MLCRMConstants.STATUS_OPEN,
+        Priority = MLCRMConstants.PRIORITY_NORMAL,
+        Subject = 'Test Subject',
+        WhatId = whatId,
+        WhoId = whoId,
+        OwnerId = ownerUser.Id,
+        ActivityDate = null,
+        Description = 'Test Description'
+      );
+      newTaskList.add(task);
+    }
+    return newTaskList;
+  }
+}

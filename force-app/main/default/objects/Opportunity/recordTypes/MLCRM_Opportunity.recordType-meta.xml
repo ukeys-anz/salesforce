@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_Opportunity</fullName>
+    <active>true</active>
+    <businessProcess>MLCRM Opportunity Process</businessProcess>
+    <compactLayoutAssignment>MLCRM_Opportunity_CL</compactLayoutAssignment>
+    <label>Mobile Lending Opportunity</label>
+    <picklistValues>
+        <picklist>Customer_Needs__c</picklist>
+        <values>
+            <fullName>Asset Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan %E2%80%93 Construction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Bridging Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Increase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Maintenance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Refinance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Refinance %2B Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ForecastCategoryName</picklist>
+        <values>
+            <fullName>Best Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Omitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pipeline</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>Advertising</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>External Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lost_Reason__c</picklist>
+        <values>
+            <fullName>Accessibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Convenience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Needs Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined by Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined by Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Proceeding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Package</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Simplicity</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Existing Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Associated_Source_Detail__c</picklist>
+        <values>
+            <fullName>ANZ Car</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus Coach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Billboards %26 Posters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Campaign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Bank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Database %26 Telemarketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Mail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flyer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newsletter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other source detail</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referral Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sponsorships</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Webpage</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

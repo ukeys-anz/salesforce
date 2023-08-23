@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>ANZ Standard User-SBB</label>
+    <protected>false</protected>
+    <values>
+        <field>Campaign_Lead_URL__c</field>
+        <value xsi:type="xsd:string">https://anz.sharepoint.com/teams/ConversationsHUB/SitePages/Small%20Business%20Banking%20Leads.aspx</value>
+    </values>
+    <values>
+        <field>Conversation_Guide_URL__c</field>
+        <value xsi:type="xsd:string">https://anz.sharepoint.com/teams/ConversationsHUB/Shared%20Documents/Forms/AllItems.aspx?id=%2Fteams%2FConversationsHUB%2FShared%20Documents%2FConversation%20Guides%2FANZ%20Business%20Banker%20Conversation%20Guide%2Epdf&amp;parent=%2Fteams%2FConversationsHUB%2FShared%20Documents%2FConversation%20Guides</value>
+    </values>
+    <values>
+        <field>Profile__c</field>
+        <value xsi:type="xsd:string">ANZ CCRM Standard User</value>
+    </values>
+    <values>
+        <field>User_Role__c</field>
+        <value xsi:type="xsd:string">Small Business Specialist,Business Banking Manager,Area Manager,Small Business Banking State Head,Small Business Banking</value>
+    </values>
+</CustomMetadata>

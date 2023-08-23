@@ -38,6 +38,7 @@ public with sharing class CCRMValidateAddressService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
+    headers.put('Content-Type', 'application/json');
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     String endPoint =
@@ -60,6 +61,7 @@ public with sharing class CCRMValidateAddressService extends Service {
   public override HttpCalloutResponse getAddressesV2(String lookupString) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
+    headers.put('Content-Type', 'application/json');
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     String endPoint = 'callout:SF_MS_CCRM' + Label.MS_Get_Qas_Address_V2;
@@ -100,6 +102,7 @@ public with sharing class CCRMValidateAddressService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
+    headers.put('Content-Type', 'application/json');
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     String endPoint =
