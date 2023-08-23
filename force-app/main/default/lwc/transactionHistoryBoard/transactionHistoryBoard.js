@@ -10,52 +10,16 @@ import { getOptionalFieldValue, processTransaction } from "./helpers/util";
 import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
 
 import {
-  TRANSACTION_STATUSES,
+  transactionStatusMapping,
+  transactionTypeMapping,
+  cardMapping,
+  dateOptions,
+  timeOptions,
   TRANSACTION_TYPES,
-  CARD_TYPES,
   PERSON_ACCOUNT_ID_RETRIEVE_ERROR,
   PAYMENT_TYPES,
   PAYMENT_SUB_TYPES
 } from "c/transactionHistoryService";
-
-//Remapping the status and types returned from the API so they
-//are more readable on the UI
-const transactionStatusMapping = {
-  TRANSACTION_STATUS_UNSPECIFIED: TRANSACTION_STATUSES.Unspecified,
-  TRANSACTION_STATUS_PENDING: TRANSACTION_STATUSES.Pending,
-  TRANSACTION_STATUS_POSTED: TRANSACTION_STATUSES.Posted
-};
-const transactionTypeMapping = {
-  TRANSACTION_TYPE_UNSPECIFIED: TRANSACTION_TYPES.Unknown,
-  TRANSACTION_TYPE_CARD: TRANSACTION_TYPES.Card,
-  TRANSACTION_TYPE_DIRECT_DEBIT: TRANSACTION_TYPES.Direct_Debit,
-  TRANSACTION_TYPE_FEE: TRANSACTION_TYPES.Fee,
-  TRANSACTION_TYPE_INTEREST: TRANSACTION_TYPES.Interest,
-  TRANSACTION_TYPE_DEPOSIT_WITHDRAWL: TRANSACTION_TYPES.Deposit_Withdrawal, // TRANSACTION_TYPE_DEPOSIT_WITHDRAWL with typo as this is what Fabric sends, confirmed with their team
-  TRANSACTION_TYPE_TRANSFER: TRANSACTION_TYPES.Transfer,
-  TRANSACTION_TYPE_PAYID: TRANSACTION_TYPES.PAYID,
-  TRANSACTION_TYPE_BSB_ACC_NUM: TRANSACTION_TYPES.BSB_ACC,
-  TRANSACTION_TYPE_BPAY: TRANSACTION_TYPES.BPAY,
-  TRANSACTION_TYPE_OTHER: TRANSACTION_TYPES.Other,
-  TRANSACTION_TYPE_SALARY: TRANSACTION_TYPES.Salary,
-  TRANSACTION_TYPE_PAYMENT: TRANSACTION_TYPES.Payment
-};
-const cardMapping = {
-  CARD_SCHEME_UNSPECIFIED: CARD_TYPES.Unknown,
-  CARD_SCHEME_VISA: CARD_TYPES.Visa,
-  CARD_SCHEME_MASTERCARD: CARD_TYPES.Mastercard,
-  CARD_SCHEME_EFTPOS: CARD_TYPES.EFTPOS,
-  CARD_SCHEME_AMERICAN_EXPRESS: CARD_TYPES.American_Express
-};
-
-const dateOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric"
-};
-
-const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;

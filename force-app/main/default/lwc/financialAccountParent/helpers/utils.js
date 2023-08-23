@@ -67,10 +67,19 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
       }
       // if there is a transfer with no source bucket id and has a destination bucket id
       // note: you can only transfer w/ no source bucket from everyday > goal
+      // for v1b1
       if (
         !t?.transfer?.source_account?.bucket_id &&
         t?.transfer?.destination_account?.bucket_id?.value &&
         t?.type === "TRANSACTION_TYPE_TRANSFER"
+      ) {
+        t.source_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
+      }
+      // for v1
+      if (
+        !t?.transfer?.source_account?.bucket_id &&
+        t?.transfer?.destination_account?.bucket_id?.value &&
+        t?.type === "TRANSFER"
       ) {
         t.source_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
       }
@@ -110,10 +119,19 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
       }
       // if there is a transfer with no source bucket id and has a source bucket id
       // note: you can only transfer w/ no destiantion bucket from goal > everyday
+      // for v1b1
       if (
         !t?.transfer?.destination_account?.bucket_id &&
         t?.transfer?.source_account?.bucket_id?.value &&
         t?.type === "TRANSACTION_TYPE_TRANSFER"
+      ) {
+        t.destination_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
+      }
+      // for v1
+      if (
+        !t?.transfer?.destination_account?.bucket_id &&
+        t?.transfer?.source_account?.bucket_id?.value &&
+        t?.type === "TRANSFER"
       ) {
         t.destination_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
       }
@@ -129,10 +147,19 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
       }
     }
     // if there is interest and the account type is savings
+    // for v1b1
     if (
       !t?.transfer &&
       t?.type === "TRANSACTION_TYPE_INTEREST" &&
       t?.interest?.sub_type === "INTEREST_SUB_TYPE_CREDIT_PAID"
+    ) {
+      t.logo = `${goal_themes}/SAVINGS_JAR.png`;
+    }
+    // for v1
+    if (
+      !t?.transfer &&
+      t?.type === "INTEREST" &&
+      t?.interest?.sub_type === "CREDIT_PAID"
     ) {
       t.logo = `${goal_themes}/SAVINGS_JAR.png`;
     }
