@@ -3051,7 +3051,8 @@
   &quot;extraPayload&quot; : {
     &quot;JunctionDataFromDatabase&quot; : &quot;%InteractionsDetails:Interactions:JunctionObject%&quot;,
     &quot;ActualTopicsData&quot; : &quot;%basenodeForReasonForCV%&quot;,
-    &quot;RecordTypeName&quot; : &quot;%RecordTypeName%&quot;
+    &quot;RecordTypeName&quot; : &quot;%RecordTypeName%&quot;,
+    &quot;SupportTopicFromOs&quot; : &quot;%SupportTopic%&quot;
   },
   &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
   &quot;postMessage&quot; : &quot;Done&quot;,
@@ -3444,5 +3445,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForMessage_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>deec0248-0086-902a-ce4d-0db5076b59cc</webComponentKey>
+    <webComponentKey>c530ba2e-2fb2-cebb-f671-d350f65d9333</webComponentKey>
 </OmniScript>
