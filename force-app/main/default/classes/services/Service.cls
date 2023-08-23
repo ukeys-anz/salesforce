@@ -11,7 +11,8 @@ public with sharing virtual class Service {
   protected Boolean preset = false;
   public enum IdType {
     OCVID,
-    PERSONAID
+    PERSONAID,
+    SOPID
   }
 
   /**
@@ -59,6 +60,16 @@ public with sharing virtual class Service {
     String redirectURL,
     String code
   ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
+   * @return `HttpCalloutResponse` api response
+   * @description virtual sop list asset callout
+   */
+  public virtual HttpCalloutResponse getListAssets(String ocvId, String sopId) {
     return null;
   }
 
@@ -509,6 +520,54 @@ public with sharing virtual class Service {
     String url,
     String otp,
     String contentType
+  ) {
+    return null;
+  }
+
+  /**
+   * @param creditId to receive credit assessment list
+   * @return HttpCalloutResponse api response
+   * @description virtual fetches list of credit assessments
+   */
+  public virtual HttpCalloutResponse getCreditAssessments(String creditId) {
+    return null;
+  }
+
+  /**
+   * @param creditId credit id from credit assessment
+   * @return HttpCalloutResponse api response
+   * @description submits credit assessment for reassessment
+   */
+  public virtual HttpCalloutResponse creditReassessment(String creditId) {
+    return null;
+  }
+
+  /**
+   * @param creditId credit id from credit assessment
+   * @param assessmentId id of assessment submitted for finalisation
+   * @return HttpCalloutResponse api response
+   * @description submits credit assessment for reassessment
+   */
+  public virtual HttpCalloutResponse finaliseAssessment(
+    String creditId,
+    String assessmentId
+  ) {
+    return null;
+  }
+  /**
+   * @param sopIds sop id
+   * @param creditId credit id
+   * @param loanId loan id
+   * @param ocvId ocv id of the primary loan application
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches UMI assessments from sop and gearbox api through mule
+   */
+  //
+  public virtual HttpCalloutResponse getUMIAssessments(
+    List<String> sopIds,
+    String creditId,
+    String loanId,
+    String ocvId
   ) {
     return null;
   }
