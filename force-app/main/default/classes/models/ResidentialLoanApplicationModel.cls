@@ -208,6 +208,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
         openLiabilities = new List<SOPDebt>();
         for (SOPDebt liability : liabilities) {
+          if (liability.account == null) {
+            continue;
+          }
           if (liability.account.status != 'ACCOUNT_STATE_CLOSED') {
             openLiabilities.add(liability);
           }
@@ -410,6 +413,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
         openAssets = new List<SOPAsset>();
         for (SOPAsset asset : assets) {
+          if (asset.account == null) {
+            continue;
+          }
           if (asset.account.status != 'ACCOUNT_STATE_CLOSED') {
             openAssets.add(asset);
           }
