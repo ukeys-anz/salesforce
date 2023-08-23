@@ -42,12 +42,12 @@
             <value>
                 <fullName>REPAYMENT_FREQUENCY_BI_ANNUAL</fullName>
                 <default>false</default>
-                <label>Bi-Annual</label>
+                <label>Bi-Annually</label>
             </value>
             <value>
                 <fullName>REPAYMENT_FREQUENCY_ANNUAL</fullName>
                 <default>false</default>
-                <label>Annual</label>
+                <label>Annually</label>
             </value>
         </valueSetDefinition>
     </valueSet>
