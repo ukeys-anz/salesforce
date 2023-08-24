@@ -39,11 +39,19 @@ public with sharing class TwilioServiceUtil {
         intCount
       );
       Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
-      twilioDetailRecord.Twilio_ID__c = res.twilioId;
-      twilioDetailRecord.Chat_or_Call_SID__c = res.chatOrCallId;
-      twilioDetailRecord.Call_Recording_Id__c = res.callRecordingId;
-      twilioDetailRecord.ANZ_Queue__c = res.queueName;
-      if (res.agentEmail != null) {
+      if (String.isNotBlank(res.twilioId)) {
+        twilioDetailRecord.Twilio_ID__c = res.twilioId;
+      }
+      if (String.isNotBlank(res.chatOrCallId)) {
+        twilioDetailRecord.Chat_or_Call_SID__c = res.chatOrCallId;
+      }
+      if (String.isNotBlank(res.callRecordingId)) {
+        twilioDetailRecord.Call_Recording_Id__c = res.callRecordingId;
+      }
+      if (String.isNotBlank(res.queueName)) {
+        twilioDetailRecord.ANZ_Queue__c = res.queueName;
+      }
+      if (String.isNotBlank(res.agentEmail)) {
         agentEmailList.add(res.agentEmail);
       }
       twilioDetailRecordToInsertOrUpdate.add(twilioDetailRecord);
@@ -102,27 +110,9 @@ public with sharing class TwilioServiceUtil {
         responseList.add(generateErrorResponse(errorvalues));
       }
     }
-
     if (!interactionToBeUpdated.isEmpty()) {
-      List<Database.SaveResult> results = Database.update(
-        interactionToBeUpdated,
-        false
-      );
-      Logger.error('Error in Updating Interaction', results);
-      Logger.saveLog();
-
-      for (Integer i = 0; i < interactionToBeUpdated.size(); i++) {
-        Database.SaveResult sr = results[i];
-        if (sr.isSuccess()) {
-          responseList.add(generateResponse());
-        } else {
-          List<Database.Error> err = sr.getErrors();
-          String errorvalues = String.join(err, '/n');
-          responseList.add(generateErrorResponse(errorvalues));
-        }
-      }
+      responseList.addAll(updateInteraction(interactionToBeUpdated));
     }
-
     return responseList;
   }
 
@@ -163,5 +153,34 @@ public with sharing class TwilioServiceUtil {
       interactionTwilioStatusMap.containsKey(statusFromTwilio.toLowerCase()))
       ? interactionTwilioStatusMap.get(statusFromTwilio.toLowerCase())
       : statusFromTwilio;
+  }
+
+  /**
+   * @description Method to generate a response instance for interaction update.
+   * @param interactionToBeUpdatedList list of interaction
+   * @return It will return the response list.
+   */
+  public static List<InteractionContextServiceUpdate.TwilioContextResponse> updateInteraction(
+    List<Interaction> interactionToBeUpdatedList
+  ) {
+    List<InteractionContextServiceUpdate.TwilioContextResponse> responseList = new List<InteractionContextServiceUpdate.TwilioContextResponse>();
+    List<Database.SaveResult> results = Database.update(
+      interactionToBeUpdatedList,
+      false
+    );
+    Logger.error('Error in Updating Interaction', results);
+    Logger.saveLog();
+
+    for (Integer i = 0; i < interactionToBeUpdatedList.size(); i++) {
+      Database.SaveResult sr = results[i];
+      if (sr.isSuccess()) {
+        responseList.add(generateResponse());
+      } else {
+        List<Database.Error> err = sr.getErrors();
+        String errorvalues = String.join(err, '/n');
+        responseList.add(generateErrorResponse(errorvalues));
+      }
+    }
+    return responseList;
   }
 }
