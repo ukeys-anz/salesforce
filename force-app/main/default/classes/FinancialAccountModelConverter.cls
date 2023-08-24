@@ -66,12 +66,12 @@ public with sharing class FinancialAccountModelConverter {
           sourceAccount.close_date.day;
       }
 
-      // Interest rate - Assuming 'rate_with_margin' represents the interest rate
+      // Interest rate - deposit_rate represents the interest rate
       if (
         sourceAccount.deposit_details != null &&
-        sourceAccount.deposit_details.debit_interest_details != null
+        sourceAccount.deposit_details.deposit_rate != null
       ) {
-        destAccount.interest_rate = (Double) sourceAccount.deposit_details.debit_interest_details.interest_rate.rate_with_margin;
+        destAccount.interest_rate = sourceAccount.deposit_details.deposit_rate;
       }
 
       // Bucket count mapping

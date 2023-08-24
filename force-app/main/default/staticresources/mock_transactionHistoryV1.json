@@ -10,7 +10,7 @@
         },
         "origin_time": "2021-11-12T02:57:58Z",
         "update_time": "2021-08-23T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Payment with card at some place",
         "short_description": "Card payment somewhere",
         "amount": {
@@ -32,12 +32,12 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_CARD",
+        "type": "CARD",
         "card": {
           "last_four_digits": "7265",
-          "scheme": "CARD_SCHEME_EFTPOS",
+          "scheme": "EFTPOS",
           "method": "CARD_METHOD_SWIPE",
-          "wallet": "CARD_WALLET_EFTPOS_MTR"
+          "wallet": "EFTPOS_MTR"
         },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "post_time": "2021-08-22T00:00:00Z",
@@ -72,7 +72,7 @@
         },
         "origin_time": "2021-11-12T03:21:58Z",
         "update_time": "2021-08-23T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_PENDING",
+        "status": "PENDING",
         "long_description": "Card payment of location unknown",
         "short_description": "Card purchase",
         "amount": {
@@ -94,12 +94,12 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_CARD",
+        "type": "CARD",
         "card": {
           "last_four_digits": "7265",
-          "scheme": "CARD_SCHEME_EFTPOS",
+          "scheme": "EFTPOS",
           "method": "CARD_METHOD_SWIPE",
-          "wallet": "CARD_WALLET_EFTPOS_MTR"
+          "wallet": "EFTPOS_MTR"
         },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "post_time": "2021-08-22T00:00:00Z",
@@ -134,7 +134,7 @@
         },
         "origin_time": "2021-11-12T03:27:58Z",
         "update_time": "2021-08-23T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "This is the cash purchase",
         "short_description": "Cash purpose",
         "amount": {
@@ -156,12 +156,12 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_DEPOSIT_WITHDRAWL",
+        "type": "DEPOSIT_WITHDRAWAL",
         "cash": {
-          "card_scheme": "CARD_SCHEME_MASTERCARD",
+          "card_scheme": "MASTERCARD",
           "card_last_four_digits": "7265",
           "method": "CARD_METHOD_SWIPE",
-          "wallet": "CARD_WALLET_OTHER_NFC_WALLET"
+          "wallet": "OTHER_NFC_WALLET"
         },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "post_time": "2021-08-22T00:00:00Z",
@@ -196,7 +196,7 @@
         },
         "origin_time": "2021-11-12T04:07:58Z",
         "update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Pay Anyone purchase",
         "short_description": "Pay Anyone payment",
         "amount": {
@@ -218,7 +218,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_BSB_ACC_NUM",
+        "type": "BSB_ACC_NUM",
         "payment": {
           "puid": "AX13273458188920",
           "platform": "PAYMENT_PLATFORM_OSKO",
@@ -238,7 +238,7 @@
             "value": "npp-customer-reference-number"
           },
           "clearing_method": "PAYMENT_TYPE_SLOW",
-          "clearing_sub_method": "PAYMENT_SUB_TYPE_SOLICITED",
+          "clearing_sub_method": "SOLICITED",
           "payment_receipt_number": {
             "value": "082278"
           },
@@ -279,7 +279,7 @@
         },
         "origin_time": "2021-11-12T05:37:58Z",
         "update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Pay Anyone purchase",
         "short_description": "Pay Anyone payment",
         "amount": {
@@ -301,7 +301,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_PAYID",
+        "type": "PAYID",
         "payment": {
           "puid": "AX13273458188920",
           "platform": "PAYMENT_PLATFORM_OSKO",
@@ -324,8 +324,8 @@
           "npp_customer_reference": {
             "value": "npp-customer-reference-number"
           },
-          "clearing_method": "PAYMENT_TYPE_FAST",
-          "clearing_sub_method": "PAYMENT_SUB_TYPE_ONUS",
+          "clearing_method": "FAST",
+          "clearing_sub_method": "ONUS",
           "payment_receipt_number": {
             "value": "082278"
           },
@@ -366,7 +366,7 @@
         },
         "origin_time": "2021-11-12T01:17:58Z",
         "update_time": "2021-08-23T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "BPAY payment somewhere",
         "short_description": "BPAY payment",
         "amount": {
@@ -388,7 +388,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_DIRECT_DEBIT",
+        "type": "DIRECT_DEBIT",
         "empty": {},
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "post_time": "2021-08-22T00:00:00Z",
@@ -423,7 +423,7 @@
         },
         "origin_time": "2021-11-12T05:46:58Z",
         "update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Pay Anyone purchase",
         "short_description": "Pay Anyone payment",
         "amount": {
@@ -479,7 +479,7 @@
         },
         "origin_time": "2021-11-12T02:57:58Z",
         "update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Pay Anyone purchase",
         "short_description": "Pay Anyone payment",
         "amount": {
@@ -501,7 +501,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_PAYMENT",
+        "type": "PAYMENT",
         "payment": {
           "puid": "AX13273458188920",
           "platform": "PAYMENT_PLATFORM_OSKO",
@@ -524,8 +524,8 @@
           "npp_customer_reference": {
             "value": "npp-customer-reference-number"
           },
-          "clearing_method": "PAYMENT_TYPE_FAST",
-          "clearing_sub_method": "PAYMENT_SUB_TYPE_ONUS",
+          "clearing_method": "FAST",
+          "clearing_sub_method": "ONUS",
           "payment_receipt_number": {
             "value": "082278"
           },
@@ -566,7 +566,7 @@
         },
         "origin_time": "2021-11-12T01:12:58Z",
         "update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Pay Anyone purchase",
         "short_description": "Pay Anyone payment",
         "amount": {
@@ -588,9 +588,9 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_INTEREST",
+        "type": "INTEREST",
         "interest": {
-          "sub_type": "INTEREST_SUB_TYPE_DEBIT_CHARGED"
+          "sub_type": "DEBIT_CHARGED"
         },
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "post_time": "2021-08-22T00:00:00Z",
@@ -625,7 +625,7 @@
         },
         "origin_time": "2021-11-12T06:27:58Z",
         "update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Transfer to some place",
         "short_description": "Transfer payment",
         "amount": {
@@ -647,7 +647,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_SALARY",
+        "type": "SALARY",
         "empty": {},
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "post_time": "2021-08-22T00:00:00Z",
@@ -682,7 +682,7 @@
         },
         "origin_time": "2021-11-12T06:37:58Z",
         "update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Transfer within 014111-210433904",
         "short_description": "Transfer to a goal",
         "amount": {
@@ -701,7 +701,7 @@
           }
         },
         "enrichment": "Transfer between goals",
-        "type": "TRANSACTION_TYPE_TRANSFER",
+        "type": "TRANSFER",
         "transfer": {
           "puid": "1234",
           "message": {
@@ -762,7 +762,7 @@
         },
         "origin_time": "2021-11-12T05:23:58Z",
         "update_time": "2021-08-23T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "BPAY payment somewhere",
         "short_description": "BPAY payment",
         "amount": {
@@ -784,7 +784,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_BPAY",
+        "type": "BPAY",
         "bpay": {
           "biller_name": {
             "value": "Peter Charalambous"
@@ -831,7 +831,7 @@
         },
         "origin_time": "2021-11-12T01:19:58Z",
         "update_time": "2021-08-24T11:49:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Pay Anyone purchase",
         "short_description": "Pay Anyone payment",
         "amount": {
@@ -853,7 +853,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_BSB_ACC_NUM",
+        "type": "BSB_ACC_NUM",
         "payment": {
           "puid": "AX13273458188920",
           "platform": "PAYMENT_PLATFORM_OSKO",
@@ -876,8 +876,8 @@
           "npp_customer_reference": {
             "value": "npp-customer-reference-number"
           },
-          "clearing_method": "PAYMENT_TYPE_FAST",
-          "clearing_sub_method": "PAYMENT_SUB_TYPE_ICS1",
+          "clearing_method": "FAST",
+          "clearing_sub_method": "ICS1",
           "payment_receipt_number": {
             "value": "082278"
           },
@@ -918,7 +918,7 @@
         },
         "origin_time": "2021-11-12T04:23:58Z",
         "update_time": "2021-11-11T04:58:14.025984Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "BPAY payment somewhere",
         "short_description": "BPAY payment",
         "amount": {
@@ -940,7 +940,7 @@
         "categories": ["329db79d-9093-5ce4-b9f2-dc533bc559d3"],
         "merchant": { "value": "M12345" },
         "tags": ["T12345"],
-        "type": "TRANSACTION_TYPE_DIRECT_DEBIT",
+        "type": "DIRECT_DEBIT",
         "empty": {},
         "primary_anzx_category": "329db79d-9093-5ce4-b9f2-dc533bc559d3",
         "post_time": "2021-08-22T00:00:00Z",
@@ -975,7 +975,7 @@
         },
         "origin_time": "2021-10-29T01:06:30Z",
         "update_time": "2021-11-02T23:18:42.291480Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Transfer within 014111-210456129 #554866",
         "short_description": "Transfer within 014111-210456129 #554866",
         "amount": {
@@ -993,7 +993,7 @@
           }
         },
         "enrichment": "Transfer between goals",
-        "type": "TRANSACTION_TYPE_TRANSFER",
+        "type": "TRANSFER",
         "transfer": {
           "puid": "AX13568579972353",
           "message": {
@@ -1031,7 +1031,7 @@
         },
         "origin_time": "2021-10-29T01:09:30Z",
         "update_time": "2021-11-02T23:23:42.291480Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Transfer to savings from everyday",
         "short_description": "Transfer to savings",
         "amount": {
@@ -1049,7 +1049,7 @@
           }
         },
         "enrichment": "Transfer to savings",
-        "type": "TRANSACTION_TYPE_TRANSFER",
+        "type": "TRANSFER",
         "transfer": {
           "puid": "AX13568579972354",
           "message": {
@@ -1084,7 +1084,7 @@
         },
         "origin_time": "2021-10-29T01:12:30Z",
         "update_time": "2021-11-02T23:26:42.291480Z",
-        "status": "TRANSACTION_STATUS_POSTED",
+        "status": "POSTED_INTRADAY",
         "long_description": "Interest accrued on 014111-210456129",
         "short_description": "Interest accrued on 014111-210456129",
         "amount": {
@@ -1102,9 +1102,9 @@
           }
         },
         "enrichment": "Interest on savings",
-        "type": "TRANSACTION_TYPE_INTEREST",
+        "type": "INTEREST",
         "interest": {
-          "sub_type": "INTEREST_SUB_TYPE_CREDIT_PAID"
+          "sub_type": "CREDIT_PAID"
         },
         "title": "Interest on savings"
       }

@@ -90,7 +90,7 @@ public with sharing class FinancialAccountModelV1 extends CalloutModel {
     public Boolean details_up_to_date;
     public DateTime valid_at;
     public Integer bucket_count;
-    public String deposit_rate;
+    public Double deposit_rate;
     public Debit_interest_details debit_interest_details;
     public List<TieredRates> tiered_rates;
   }

@@ -1,8 +1,8 @@
 {
   "accounts": [
     {
-      "name": "accounts/390860718",
-      "account_number": "390860718",
+      "name": "accounts/000000000",
+      "account_number": "000000000",
       "bsb": "014111",
       "account_name": "M R Pfannerstill",
       "state": "ACCOUNT_STATE_ACTIVE",
@@ -22,25 +22,25 @@
       "balances": {
         "balance": {
           "currency_code": "AUD",
-          "units": "1711423",
-          "nanos": 540000000
+          "units": "18",
+          "nanos": 1200000
         },
         "current_balance": {
           "currency_code": "AUD",
-          "units": "1711423",
-          "nanos": 540000000
+          "units": "18",
+          "nanos": 1200000
         },
         "ledger_balance": {
           "currency_code": "AUD",
-          "units": "1711423",
-          "nanos": 540000000
+          "units": "18",
+          "nanos": 1200000
         },
         "balance_update_time": "2023-08-08T05:16:27.620831Z",
         "balance_up_to_date": true,
         "available_limit": {
           "currency_code": "AUD",
-          "units": "1711423",
-          "nanos": 540000000
+          "units": "18",
+          "nanos": 1200000
         },
         "account_limit": {
           "currency_code": "AUD"
