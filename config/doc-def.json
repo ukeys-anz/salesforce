@@ -151,7 +151,9 @@
         "API_Only",
         "Customer_Onboarding_Integration",
         "Case_Read_Write_Customer_Onboarding_Integration",
-        "Disable_MFA"
+        "Case_Read_Write_KYC_QA",
+        "Disable_MFA",
+        "Bypass_Chatter_Feed_Item_URL_Validation"
       ],
       "type": "system"
     },
@@ -673,6 +675,7 @@
         "API_Only",
         "Enforce_mTLS",
         "Case_Read_Write_KYC_QA",
+        "Case_View_All",
         "Customer_Onboarding_View_All",
         "Customer_Read_Only",
         "Disable_MFA"

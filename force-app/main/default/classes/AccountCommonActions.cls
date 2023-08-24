@@ -367,4 +367,14 @@ public with sharing class AccountCommonActions {
       );
     }
   }
+  /**
+   * @description populateFieldsValue to update field values
+   * exp: if Bankrupt_Date__c is not null, it will make BankruptCheckBox__c to be true
+   * @param records All the account records
+   */
+  public static void populateFieldsValue(List<Account> records) {
+    for (Account record : records) {
+      record.BankruptCheckBox__c = record.Bankrupt_Date__c != null;
+    }
+  }
 }

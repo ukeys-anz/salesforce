@@ -6,6 +6,8 @@
     <errorConditionFormula>AND(
 NOT(ISNEW()),
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+!OR(ISPICKVAL( Status ,&apos;Closed&apos;),
+ISPICKVAL( Status ,&apos;Withdrawn&apos;)),
 OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;

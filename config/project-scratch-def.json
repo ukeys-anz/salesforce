@@ -22,7 +22,12 @@
     "DocumentChecklist",
     "WorkThanksPref",
     "CaseClassification",
-    "InsuranceCalculationUser"
+    "InsuranceCalculationUser",
+    "OmniStudioDesigner",
+    "StandardOmniStudioRuntime",
+    "OmniStudioMetadata",
+    "OmniStudioRuntime",
+    "SustainabilityApp"
   ],
   "settings": {
     "chatterSettings": {
@@ -60,7 +65,9 @@
     "industriesSettings": {
       "enableInteractionSummaryPref": true,
       "enableInteractionSummaryRoleHierarchy": true,
-      "enableInteractionRoleHierarchy": true
+      "enableInteractionRoleHierarchy": true,
+      "enableSustainabilityCloud": true,
+      "enableSCCarbonAccounting": true
     },
     "languageSettings": {
       "enableTranslationWorkbench": true
@@ -68,6 +75,9 @@
     "workDotComSettings": {
       "enableWorkThanksPref": true,
       "enableProfileSkills": true
+    },
+    "emailAdministrationSettings": {
+      "enableEnhancedEmailEnabled": true
     }
   }
 }

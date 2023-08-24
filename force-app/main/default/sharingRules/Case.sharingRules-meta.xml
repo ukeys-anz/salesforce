@@ -729,6 +729,21 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RTs_StatCompAgent_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All Cases having Fraud record types, disputes, General Enquiry, Customer Feedback are to be shared with Statutory Compliance Agents with Read only access</description>
+        <label>RTs Stat Comp Agent RO</label>
+        <sharedTo>
+            <role>Statutory_Compliance_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,Direct Debit,Recipient/Mule,BPAY,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Fraud_FraudXAgent_RW</fullName>
         <accessLevel>Edit</accessLevel>

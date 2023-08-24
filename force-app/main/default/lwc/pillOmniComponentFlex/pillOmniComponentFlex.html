@@ -5,27 +5,54 @@
 <!-- Pill Omni Component Flex -->
 <template>
   <template lwc:if={isCallOrChatRecordType}>
-    <div class="slds-var-p-bottom_small">
-      <label class="slds-form-element__label">
-        <abbr class="slds-required" title="required">* </abbr>Actual Topic
-        <span class="helpTextCustomCss">
-          <lightning-helptext
-            content="Select each topic they raised."
-          ></lightning-helptext>
-        </span>
-      </label>
-      <div
-        class="slds-form-element__control slds-var-p-top_small underlineCustom"
-      >
-        <template for:each={_allValuesTopic} for:item="eachValue">
-          <lightning-badge
-            key={eachValue.value}
-            label={eachValue.label}
-            class="slds-var-p-around_xx-small textblue pillcss"
-          ></lightning-badge>
-        </template>
+    <!-- Actual Topics -->
+    <template lwc:if={isMessageRecordType}>
+      <div class="slds-var-p-bottom_small">
+        <label class="slds-form-element__label">
+          Actual Topic
+          <span class="helpTextCustomCss">
+            <lightning-helptext
+              content="Select each topic they raised."
+            ></lightning-helptext>
+          </span>
+        </label>
+        <div
+          class="slds-form-element__control slds-var-p-top_small underlineCustom"
+        >
+          <template for:each={_allValuesTopic} for:item="eachValue">
+            <lightning-badge
+              key={eachValue.value}
+              label={eachValue.label}
+              class="slds-var-p-around_xx-small textblue pillcss"
+            ></lightning-badge>
+          </template>
+        </div>
       </div>
-    </div>
+    </template>
+    <template lwc:else>
+      <div class="slds-var-p-bottom_small">
+        <label class="slds-form-element__label">
+          <abbr class="slds-required" title="required">* </abbr>Actual Topic
+          <span class="helpTextCustomCss">
+            <lightning-helptext
+              content="Select each topic they raised."
+            ></lightning-helptext>
+          </span>
+        </label>
+        <div
+          class="slds-form-element__control slds-var-p-top_small underlineCustom"
+        >
+          <template for:each={_allValuesTopic} for:item="eachValue">
+            <lightning-badge
+              key={eachValue.value}
+              label={eachValue.label}
+              class="slds-var-p-around_xx-small textblue pillcss"
+            ></lightning-badge>
+          </template>
+        </div>
+      </div>
+    </template>
+    <!-- Products -->
     <div class="slds-var-p-bottom_small">
       <label class="slds-form-element__label">
         <abbr class="slds-required" title="required">* </abbr>Products
@@ -50,6 +77,7 @@
   </template>
 
   <template lwc:elseif={isStoreRecordType}>
+    <!-- Reason For Visit -->
     <div class="slds-var-p-bottom_small">
       <label class="slds-form-element__label">
         <abbr class="slds-required" title="required">* </abbr>Reason For Visit
@@ -71,7 +99,7 @@
         </template>
       </div>
     </div>
-
+    <!-- Actual Topic -->
     <div class="slds-var-p-bottom_small">
       <label class="slds-form-element__label">
         <abbr class="slds-required" title="required">* </abbr>Actual Topic
@@ -93,6 +121,7 @@
         </template>
       </div>
     </div>
+    <!-- Products -->
     <div class="slds-var-p-bottom_small">
       <label class="slds-form-element__label">
         <abbr class="slds-required" title="required">* </abbr>Products

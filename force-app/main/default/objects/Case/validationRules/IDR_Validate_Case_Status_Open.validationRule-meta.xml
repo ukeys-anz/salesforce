@@ -8,7 +8,9 @@
 NOT(
 OR(ISPICKVAL( Status , &quot;Closed&quot;),
    ISPICKVAL( Status , &quot;Withdrawn&quot;),
-   ISPICKVAL( Status , &quot;Resolved&quot;))),  IDR_Additional_Correspondence_reviewed__c = True
+   ISPICKVAL( Status , &quot;Resolved&quot;))),
+ISCHANGED(IDR_Additional_Correspondence_reviewed__c),
+IDR_Additional_Correspondence_reviewed__c = True
 )</errorConditionFormula>
     <errorDisplayField>IDR_Additional_Correspondence_reviewed__c</errorDisplayField>
     <errorMessage>Additional Correspondence Reviewed field can only be ticked on Closed, Withdrawn and Resolved complaints</errorMessage>

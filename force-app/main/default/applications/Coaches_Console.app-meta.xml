@@ -611,6 +611,60 @@
         <recordType>Interaction.Message</recordType>
         <type>Flexipage</type>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Appointment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
+        <recordType>Interaction.Appointment</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Case</tabs>
@@ -624,6 +678,7 @@
     <tabs>standard-ContactRequest</tabs>
     <tabs>standard-ResidentialLoanApplication</tabs>
     <tabs>Interaction_Tag__c</tabs>
+    <tabs>Quality_Assessment__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -666,6 +721,9 @@
         </mappings>
         <mappings>
             <tab>Interaction_Tag__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Quality_Assessment__c</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>

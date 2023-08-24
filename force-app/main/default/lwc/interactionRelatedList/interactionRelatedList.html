@@ -3,11 +3,14 @@
     <div class="slds-card__header slds-grid">
       <header class="slds-media slds-media_center slds-has-flexi-truncate">
         <div class="slds-tabs_scoped">
-          <ul class="slds-tabs_scoped__nav slds-grid slds-wrap" role="tablist">
+          <ul
+            class="slds-tabs_scoped__nav slds-grid slds-wrap lightningScope"
+            role="tablist"
+          >
             <template lwc:if={showCaseChatTabHead}>
               <li class={chatTab} title="Dial" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link"
+                  class="slds-tabs_scoped__link lightningScopeLink"
                   role="tab"
                   onclick={handleShowChatTab}
                 >
@@ -18,7 +21,7 @@
             <template lwc:if={showAppTab}>
               <li class={appointmentTab} title="Contact" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link"
+                  class="slds-tabs_scoped__link lightningScopeLink"
                   role="tab"
                   onclick={handleShowAppointmentTab}
                 >
@@ -29,7 +32,7 @@
             <template lwc:if={showMsgTab}>
               <li class={messageTab} title="Message" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link"
+                  class="slds-tabs_scoped__link lightningScopeLink"
                   role="tab"
                   onclick={handleShowMessageTab}
                 >
@@ -40,7 +43,7 @@
             <template if:true={showCallIntTab}>
               <li class={callTab} title="Call" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link"
+                  class="slds-tabs_scoped__link lightningScopeLink"
                   role="tab"
                   onclick={handleShowCallTab}
                 >
@@ -51,7 +54,7 @@
             <template lwc:if={showStoreIntTab}>
               <li class={storeTab} title="Store" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link"
+                  class="slds-tabs_scoped__link lightningScopeLink"
                   role="tab"
                   onclick={handleShowStoreTab}
                 >
@@ -62,7 +65,7 @@
             <template lwc:if={showAccChatTabHead}>
               <li class={chatTab} title="Dial" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link"
+                  class="slds-tabs_scoped__link lightningScopeLink"
                   role="tab"
                   onclick={handleShowChatTab}
                 >
