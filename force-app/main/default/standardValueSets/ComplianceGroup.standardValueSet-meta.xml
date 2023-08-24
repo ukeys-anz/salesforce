@@ -37,6 +37,11 @@
         <label>Privacy - Sensitive Personal Information</label>
     </standardValue>
     <standardValue>
+        <fullName>Privacy_Non-Sensitive_Personal_Information</fullName>
+        <default>false</default>
+        <label>Privacy - Non-Sensitive Personal Information</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_Azure</fullName>
         <default>false</default>
         <label>Source - Azure</label>

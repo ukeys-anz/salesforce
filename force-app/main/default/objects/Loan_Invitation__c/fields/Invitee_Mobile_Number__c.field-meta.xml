@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invitee_Mobile_Number__c</fullName>
+    <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>A mobile number so that we can invite this customer to join the application. Format will be stored and returned as &apos;00614xxxxxxxx&apos;</description>
+    <externalId>false</externalId>
+    <label>Invitee Mobile Number</label>
+    <length>15</length>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
