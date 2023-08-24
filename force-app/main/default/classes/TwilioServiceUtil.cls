@@ -39,11 +39,19 @@ public with sharing class TwilioServiceUtil {
         intCount
       );
       Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
-      twilioDetailRecord.Twilio_ID__c = res.twilioId;
-      twilioDetailRecord.Chat_or_Call_SID__c = res.chatOrCallId;
-      twilioDetailRecord.Call_Recording_Id__c = res.callRecordingId;
-      twilioDetailRecord.ANZ_Queue__c = res.queueName;
-      if (res.agentEmail != null) {
+      if (String.isNotBlank(res.twilioId)) {
+        twilioDetailRecord.Twilio_ID__c = res.twilioId;
+      }
+      if (String.isNotBlank(res.chatOrCallId)) {
+        twilioDetailRecord.Chat_or_Call_SID__c = res.chatOrCallId;
+      }
+      if (String.isNotBlank(res.callRecordingId)) {
+        twilioDetailRecord.Call_Recording_Id__c = res.callRecordingId;
+      }
+      if (String.isNotBlank(res.queueName)) {
+        twilioDetailRecord.ANZ_Queue__c = res.queueName;
+      }
+      if (String.isNotBlank(res.agentEmail)) {
         agentEmailList.add(res.agentEmail);
       }
       twilioDetailRecordToInsertOrUpdate.add(twilioDetailRecord);
