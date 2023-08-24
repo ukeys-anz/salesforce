@@ -110,27 +110,9 @@ public with sharing class TwilioServiceUtil {
         responseList.add(generateErrorResponse(errorvalues));
       }
     }
-
     if (!interactionToBeUpdated.isEmpty()) {
-      List<Database.SaveResult> results = Database.update(
-        interactionToBeUpdated,
-        false
-      );
-      Logger.error('Error in Updating Interaction', results);
-      Logger.saveLog();
-
-      for (Integer i = 0; i < interactionToBeUpdated.size(); i++) {
-        Database.SaveResult sr = results[i];
-        if (sr.isSuccess()) {
-          responseList.add(generateResponse());
-        } else {
-          List<Database.Error> err = sr.getErrors();
-          String errorvalues = String.join(err, '/n');
-          responseList.add(generateErrorResponse(errorvalues));
-        }
-      }
+      responseList.addAll(updateInteraction(interactionToBeUpdated));
     }
-
     return responseList;
   }
 
@@ -171,5 +153,34 @@ public with sharing class TwilioServiceUtil {
       interactionTwilioStatusMap.containsKey(statusFromTwilio.toLowerCase()))
       ? interactionTwilioStatusMap.get(statusFromTwilio.toLowerCase())
       : statusFromTwilio;
+  }
+
+  /**
+   * @description Method to generate a response instance for interaction update.
+   * @param interactionToBeUpdatedList list of interaction
+   * @return It will return the response list.
+   */
+  public static List<InteractionContextServiceUpdate.TwilioContextResponse> updateInteraction(
+    List<Interaction> interactionToBeUpdatedList
+  ) {
+    List<InteractionContextServiceUpdate.TwilioContextResponse> responseList = new List<InteractionContextServiceUpdate.TwilioContextResponse>();
+    List<Database.SaveResult> results = Database.update(
+      interactionToBeUpdatedList,
+      false
+    );
+    Logger.error('Error in Updating Interaction', results);
+    Logger.saveLog();
+
+    for (Integer i = 0; i < interactionToBeUpdatedList.size(); i++) {
+      Database.SaveResult sr = results[i];
+      if (sr.isSuccess()) {
+        responseList.add(generateResponse());
+      } else {
+        List<Database.Error> err = sr.getErrors();
+        String errorvalues = String.join(err, '/n');
+        responseList.add(generateErrorResponse(errorvalues));
+      }
+    }
+    return responseList;
   }
 }
