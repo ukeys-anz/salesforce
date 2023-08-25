@@ -1742,7 +1742,7 @@
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
       "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"],
-      "IA-2425399": ["Referrer_Email__c","Referrer_Phone__c"],
+      "IA-2425399": ["Referrer_Email__c", "Referrer_Phone__c"],
       "IA-2460507": ["Referrer_Name__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
       "IA-2618706": [
@@ -2429,8 +2429,6 @@
         "Loan_Term__c"
       ],
       "IA-2415997": ["SOP_Id__c"],
-      "IA-2530753": ["CreatedDate", "LastModifiedDate", "Version__c"],
-      ],
       "IA-2530753": [
         "CreatedDate",
         "LastModifiedDate",
