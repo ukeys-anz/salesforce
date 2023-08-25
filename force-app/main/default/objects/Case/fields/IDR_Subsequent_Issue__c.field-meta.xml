@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Subsequent_Issue__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Trusted</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Sub categorisation of issue</description>
     <externalId>false</externalId>
     <label>Subsequent Issue Type</label>
@@ -417,19 +417,59 @@
                 <label>Reimbursement process/policy</label>
             </value>
             <value>
-                <fullName>84</fullName>
-                <default>false</default>
-                <label>Fraud not detected</label>
-            </value>
-            <value>
                 <fullName>85</fullName>
                 <default>false</default>
                 <label>Fraud / Falcon block placed</label>
             </value>
             <value>
+                <fullName>109</fullName>
+                <default>false</default>
+                <label>Blocks placed on customers account/profile</label>
+            </value>
+            <value>
+                <fullName>102</fullName>
+                <default>false</default>
+                <label>Branch to load placed on customers profile</label>
+            </value>
+            <value>
                 <fullName>86</fullName>
                 <default>false</default>
                 <label>Phishing/hoax contact</label>
+            </value>
+            <value>
+                <fullName>84</fullName>
+                <default>false</default>
+                <label>Fraud not detected</label>
+            </value>
+            <value>
+                <fullName>107</fullName>
+                <default>false</default>
+                <label>Scam not detected/not blocked by ANZ</label>
+            </value>
+            <value>
+                <fullName>108</fullName>
+                <default>false</default>
+                <label>Scammer using ANZ account to receive scam funds</label>
+            </value>
+            <value>
+                <fullName>103</fullName>
+                <default>false</default>
+                <label>Dissatisfied with process, policies</label>
+            </value>
+            <value>
+                <fullName>104</fullName>
+                <default>false</default>
+                <label>Incorrect information provided to customer about the process or timeframes</label>
+            </value>
+            <value>
+                <fullName>105</fullName>
+                <default>false</default>
+                <label>Customer waiting for a response or update</label>
+            </value>
+            <value>
+                <fullName>106</fullName>
+                <default>false</default>
+                <label>Tasks not actioned by ANZ as agreed</label>
             </value>
             <value>
                 <fullName>87</fullName>
@@ -497,6 +537,11 @@
                 <label>No direct phone line</label>
             </value>
             <value>
+                <fullName>Stores are cashless</fullName>
+                <default>false</default>
+                <label>Stores are cashless</label>
+            </value>
+            <value>
                 <fullName>Not enough stores</fullName>
                 <default>false</default>
                 <label>Not enough stores</label>
@@ -542,6 +587,51 @@
                 <label>Fees and Charges</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>109</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <valueName>102</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>86</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>84</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>103</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>104</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>105</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>106</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>87</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>9</controllingFieldValue>
             <valueName>57</valueName>
@@ -840,6 +930,11 @@
             <valueName>81</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
+            <valueName>10</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
             <valueName>46</valueName>
         </valueSettings>
@@ -866,30 +961,6 @@
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
             <valueName>47</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>82</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>83</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>84</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>85</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>86</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>87</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>20</controllingFieldValue>
@@ -957,17 +1028,20 @@
             <valueName>56</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>12</controllingFieldValue>
-            <controllingFieldValue>11</controllingFieldValue>
-            <valueName>10</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>21</controllingFieldValue>
             <valueName>93</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>21</controllingFieldValue>
             <valueName>94</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>107</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>108</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

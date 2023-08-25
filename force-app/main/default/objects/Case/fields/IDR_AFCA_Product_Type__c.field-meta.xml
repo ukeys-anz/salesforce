@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_AFCA_Product_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>sub categorisation of AFCA Product Line</description>
+    <externalId>false</externalId>
+    <label>AFCA Product Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_AFCA_Product_Line__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Business Finance</fullName>
+                <default>false</default>
+                <label>Business Finance</label>
+            </value>
+            <value>
+                <fullName>Consumer Credit</fullName>
+                <default>false</default>
+                <label>Consumer Credit</label>
+            </value>
+            <value>
+                <fullName>Guarantees</fullName>
+                <default>false</default>
+                <label>Guarantees</label>
+            </value>
+            <value>
+                <fullName>Margin Loans</fullName>
+                <default>false</default>
+                <label>Margin Loans</label>
+            </value>
+            <value>
+                <fullName>Current Accounts</fullName>
+                <default>false</default>
+                <label>Current Accounts</label>
+            </value>
+            <value>
+                <fullName>Safe Custody</fullName>
+                <default>false</default>
+                <label>Safe Custody</label>
+            </value>
+            <value>
+                <fullName>Savings Accounts</fullName>
+                <default>false</default>
+                <label>Savings Accounts</label>
+            </value>
+            <value>
+                <fullName>Direct Transfer</fullName>
+                <default>false</default>
+                <label>Direct Transfer</label>
+            </value>
+            <value>
+                <fullName>Non-Cash</fullName>
+                <default>false</default>
+                <label>Non-Cash</label>
+            </value>
+            <value>
+                <fullName>Derivatives/Hedging</fullName>
+                <default>false</default>
+                <label>Derivatives/Hedging</label>
+            </value>
+            <value>
+                <fullName>Managed Investments Real Property</fullName>
+                <default>false</default>
+                <label>Managed Investments Real Property</label>
+            </value>
+            <value>
+                <fullName>Securities</fullName>
+                <default>false</default>
+                <label>Securities</label>
+            </value>
+            <value>
+                <fullName>Superannuation-Non-Trustee Related</fullName>
+                <default>false</default>
+                <label>Superannuation-Non-Trustee Related</label>
+            </value>
+            <value>
+                <fullName>Income Stream Risk</fullName>
+                <default>false</default>
+                <label>Income Stream Risk</label>
+            </value>
+            <value>
+                <fullName>Non-Income Stream Risk</fullName>
+                <default>false</default>
+                <label>Non-Income Stream Risk</label>
+            </value>
+            <value>
+                <fullName>Domestic Insurance</fullName>
+                <default>false</default>
+                <label>Domestic Insurance</label>
+            </value>
+            <value>
+                <fullName>Small Business/Farm Insurance</fullName>
+                <default>false</default>
+                <label>Small Business/Farm Insurance</label>
+            </value>
+            <value>
+                <fullName>Extended Warranty</fullName>
+                <default>false</default>
+                <label>Extended Warranty</label>
+            </value>
+            <value>
+                <fullName>Professional Indemnity Insurance</fullName>
+                <default>false</default>
+                <label>Professional Indemnity Insurance</label>
+            </value>
+            <value>
+                <fullName>Estate Management</fullName>
+                <default>false</default>
+                <label>Estate Management</label>
+            </value>
+            <value>
+                <fullName>Estate Planning</fullName>
+                <default>false</default>
+                <label>Estate Planning</label>
+            </value>
+            <value>
+                <fullName>Trusts</fullName>
+                <default>false</default>
+                <label>Trusts</label>
+            </value>
+            <value>
+                <fullName>Non Rules</fullName>
+                <default>false</default>
+                <label>Non Rules</label>
+            </value>
+            <value>
+                <fullName>Annuity Policy</fullName>
+                <default>false</default>
+                <label>Annuity Policy</label>
+            </value>
+            <value>
+                <fullName>Approved Deposit Fund</fullName>
+                <default>false</default>
+                <label>Approved Deposit Fund</label>
+            </value>
+            <value>
+                <fullName>Life policy Fund</fullName>
+                <default>false</default>
+                <label>Life policy Fund</label>
+            </value>
+            <value>
+                <fullName>Retirement Savings Account</fullName>
+                <default>false</default>
+                <label>Retirement Savings Account</label>
+            </value>
+            <value>
+                <fullName>Small APRA Fund</fullName>
+                <default>false</default>
+                <label>Small APRA Fund</label>
+            </value>
+            <value>
+                <fullName>Superannuation Fund</fullName>
+                <default>false</default>
+                <label>Superannuation Fund</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Credit</controllingFieldValue>
+            <valueName>Business Finance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit</controllingFieldValue>
+            <valueName>Consumer Credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit</controllingFieldValue>
+            <valueName>Guarantees</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit</controllingFieldValue>
+            <valueName>Margin Loans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Deposit Taking</controllingFieldValue>
+            <valueName>Current Accounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Deposit Taking</controllingFieldValue>
+            <valueName>Safe Custody</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Deposit Taking</controllingFieldValue>
+            <valueName>Savings Accounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Systems</controllingFieldValue>
+            <valueName>Direct Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payment Systems</controllingFieldValue>
+            <valueName>Non-Cash</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Investments</controllingFieldValue>
+            <valueName>Derivatives/Hedging</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Investments</controllingFieldValue>
+            <valueName>Managed Investments Real Property</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Investments</controllingFieldValue>
+            <valueName>Securities</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Investments</controllingFieldValue>
+            <valueName>Superannuation-Non-Trustee Related</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Life Insurance</controllingFieldValue>
+            <valueName>Income Stream Risk</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Life Insurance</controllingFieldValue>
+            <valueName>Non-Income Stream Risk</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Insurance</controllingFieldValue>
+            <valueName>Domestic Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Insurance</controllingFieldValue>
+            <valueName>Small Business/Farm Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Insurance</controllingFieldValue>
+            <valueName>Extended Warranty</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>General Insurance</controllingFieldValue>
+            <valueName>Professional Indemnity Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Traditional Trustee Services</controllingFieldValue>
+            <valueName>Estate Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Traditional Trustee Services</controllingFieldValue>
+            <valueName>Estate Planning</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Traditional Trustee Services</controllingFieldValue>
+            <valueName>Trusts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Non Rules</controllingFieldValue>
+            <valueName>Non Rules</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Superannuation</controllingFieldValue>
+            <valueName>Annuity Policy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Superannuation</controllingFieldValue>
+            <valueName>Approved Deposit Fund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Superannuation</controllingFieldValue>
+            <valueName>Life policy Fund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Superannuation</controllingFieldValue>
+            <valueName>Retirement Savings Account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Superannuation</controllingFieldValue>
+            <valueName>Small APRA Fund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Superannuation</controllingFieldValue>
+            <valueName>Superannuation Fund</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

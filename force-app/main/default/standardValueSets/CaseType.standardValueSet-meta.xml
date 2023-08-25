@@ -406,4 +406,9 @@
         <default>false</default>
         <label>Account/Card Abuse</label>
     </standardValue>
+    <standardValue>
+        <fullName>Scam</fullName>
+        <default>false</default>
+        <label>Scam</label>
+    </standardValue>
 </StandardValueSet>
