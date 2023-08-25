@@ -267,7 +267,6 @@ private class CCRMFinancialAccountRoleActionsTest {
         WHERE FinServ__FinancialAccount__c = :fa.Id
       ];
 
-      far.FinServ__Editable__c = true;
       far.FinServ__EndDate__c = System.today();
       update far;
     }
