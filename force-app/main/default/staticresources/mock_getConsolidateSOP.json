@@ -846,20 +846,28 @@
         "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
-          "limit": null,
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 80000000
+          },
           "interestRate": 550,
           "minimumPayment": {
             "currencyCode": "AUD",
             "units": "6000",
             "nanos": 80000000
           },
-          "repaymentAmount": null,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "4000",
+            "nanos": 70000000
+          },
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
           "principalInterestRemainingTerm": 0,
           "liabilityDuePaidInFull": false,
           "redrawAmount": null,
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-          "financialInstitution": "",
+          "financialInstitution": "NAB",
           "verifiedPrincipalInterestRemainingTerm": 0
         },
         "outstandingBalance": null,
@@ -892,16 +900,20 @@
         "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
-          "limit": null,
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "5000",
+            "nanos": 0
+          },
           "interestRate": 660,
           "minimumPayment": {},
-          "repaymentAmount": null,
+          "repaymentAmount": {},
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
           "principalInterestRemainingTerm": 0,
           "liabilityDuePaidInFull": false,
           "redrawAmount": null,
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-          "financialInstitution": "",
+          "financialInstitution": "Westpac",
           "verifiedPrincipalInterestRemainingTerm": 0
         },
         "outstandingBalance": {
@@ -938,16 +950,24 @@
         "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
-          "limit": null,
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "5000",
+            "nanos": 90000000
+          },
           "interestRate": 401,
           "minimumPayment": null,
-          "repaymentAmount": null,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "15000",
+            "nanos": 80000000
+          },
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
           "principalInterestRemainingTerm": 0,
           "liabilityDuePaidInFull": false,
           "redrawAmount": null,
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-          "financialInstitution": "",
+          "financialInstitution": "Westpac",
           "verifiedPrincipalInterestRemainingTerm": 0
         },
         "outstandingBalance": {
