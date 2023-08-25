@@ -276,7 +276,8 @@ public with sharing class IDRConstants {
           'EDR_Hardship',
           'EDR_Wealth',
           'IDR_Satellite',
-          'IDR_Spare' //IDR Disputes & Scams
+          'IDR_Spare', //IDR Disputes & Scams
+          'EDR_CM_Everyday_Banking_Wealth'  // EDR Scams
         };
       }
       return workBasketNames;
