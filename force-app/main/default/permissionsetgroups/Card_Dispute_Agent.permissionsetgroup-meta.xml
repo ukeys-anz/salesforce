@@ -47,5 +47,6 @@
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_and_Edit_Tasks</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
+    <permissionSets>View_Transaction_History</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
