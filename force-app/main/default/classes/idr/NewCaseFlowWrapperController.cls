@@ -317,7 +317,8 @@ public with sharing class NewCaseFlowWrapperController {
               'IDR_Level_2',
               'IDR_Level_3',
               'IDR_CRP_Team_Leaders',
-              'IDR_CRP_LT'
+              'IDR_CRP_LT',
+              'IDR_SI_Business_Contact'
             }
           )
         ) {
