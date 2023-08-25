@@ -1863,18 +1863,13 @@
       "IA-2530753": ["Confirmation_Date__c"]
     },
     "LoanApplicantLiability": {
-      "IA-2415983": [
-        "LoanApplicationLiabilityId",
-        "Proportion_Percent__c",
-        "Remaining_Term__c"
-      ],
+      "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
       "IA-2594111": [
         "LoanApplicantId",
         "Loan_Applicant_Liability_ID__c",
         "Name"
-      ],
-      "IA-2415840": ["Break_Costs__c"]
+      ]
     },
     "LoanApplicationFinancial": {
       "IA-2530753": ["Last_Updated_Date__c"],
@@ -1897,10 +1892,12 @@
         "Interest_Rate_Percent__c",
         "Months_Remaining__c",
         "Repayment_Amount__c",
-        "Repayment_Frequency__c"
+        "Repayment_Frequency__c",
+        "Remaining_Term__c"
       ],
       "IA-2594111": ["LiabilityExtIdentifier", "Name", "Lender__c"],
-      "IA-2415999": ["Liability_Id__c"]
+      "IA-2415999": ["Liability_Id__c"],
+      "IA-2415840": ["Break_Costs__c"]
     },
     "LoanApplicationProperty": {
       "IA-2594113": [
@@ -2433,7 +2430,7 @@
         "CreatedDate",
         "LastModifiedDate",
         "Version__c",
-        "Last_Updated_Date",
+        "Last_Updated_Date__c",
         "Expiry_Date__c",
         "Loan_Purpose_Updated_Date__c"
       ],
@@ -2450,7 +2447,7 @@
         "Max_Allowable_LVR_Basis_Points__c"
       ],
       "IA-2594113": ["State__c"],
-      "IA-2415840": ["E_Tag"]
+      "IA-2415840": ["E_Tag__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [
