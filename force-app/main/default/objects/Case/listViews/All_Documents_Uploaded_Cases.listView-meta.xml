@@ -12,10 +12,13 @@
         <operation>equals</operation>
         <value>Documents Uploaded</value>
     </filters>
-    <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.KYC_QA</value>
+    </filters>
+    <filterScope>Everything</filterScope>
     <label>All Documents Uploaded Cases</label>
-    <language>en_US</language>
-    <queue>Pending_KYC_QA</queue>
     <sharedTo>
         <role>Card_Dispute_Agent</role>
         <role>FraudX_Agent</role>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_Existing_Customer_Read_only_fields</fullName>
+    <active>true</active>
+    <description>Validation rule to make certain fields non-editable for Existing customers</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,
+NOT(CONTAINS( $User.Username,$Label.UnicaIntegrationUserName)),
+    NOT(ISNEW()),
+    NOT(ISBLANK(PRIORVALUE(FinServ__RelatedAccount__c))), 
+    NOT(ISBLANK(FinServ__RelatedAccount__c)),
+    OR(
+        ISCHANGED(Salutation),
+        ISCHANGED(FirstName),
+        ISCHANGED(MiddleName),
+        ISCHANGED(LastName),
+        ISCHANGED(Suffix),
+        ISCHANGED(PreferredName__c),
+        ISCHANGED(MobilePhone),
+        ISCHANGED(Work_Phone__c),
+        ISCHANGED(Email),
+        ISCHANGED(Home_Phone__c),
+        ISCHANGED(Address),
+        ISCHANGED(AdvertisingIndicator__c),
+        ISCHANGED(PreferredName__c),
+        ISCHANGED(FinServ__RelatedAccount__c)
+    )
+    
+)</errorConditionFormula>
+    <errorMessage>Unable to update fields in the customer information section when the lead is associated to an existing customer.</errorMessage>
+</ValidationRule>

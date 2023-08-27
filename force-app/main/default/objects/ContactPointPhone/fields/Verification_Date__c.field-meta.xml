@@ -9,6 +9,6 @@
     <label>Verification Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
-    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <type>Date</type>
 </CustomField>

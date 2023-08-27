@@ -7,7 +7,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
     <securityClassification>Internal</securityClassification>
-    <label>CLG Name</label>
+    <label>CLG</label>
     <lookupFilter>
         <active>true</active>
         <filterItems>

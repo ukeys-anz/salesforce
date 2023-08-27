@@ -6,6 +6,9 @@
 public with sharing class CCRMConstants {
   //Constant Values
   public static final String STATUS_NEW = 'New';
+  public static final String STATUS_ASSIGNED = 'Assigned';
+  public static final String STATUS_OUTCOME = 'Outcome';
+  public static final String OPP_IDENTIFIED = 'Opportunity Identified';
   public static final String STATUS_IN_PROGRESS = 'In progress';
   public static final String STATUS_REFERRED = 'Referred';
   public static final String STATUS_EXPIRED = 'Expired';
@@ -18,6 +21,7 @@ public with sharing class CCRMConstants {
   public static final String INTEGRATION_USER_ADOBE = 'adobe.integration@anzx.com';
   public static final String LEAD_SUBSTATUS_NEW = 'New';
   public static final String STATUS_COMPLETED = 'Completed';
+  public static final String STATUS_NOT_REQUIRED = 'Not required';
   public static final String ACCOUNT_TYPE_BUSINESS = 'Business';
   public static final String ACCOUNT_TYPE_CUSTOMER = 'Customer';
   public static final String ACCOUNT_TYPE_CLG = 'CLG';
@@ -33,6 +37,30 @@ public with sharing class CCRMConstants {
   public static final String IS_INDIVIDUAL = 'isIndividual';
   public static final String IS_INVALID = 'isInvalid';
   public static final string INVALID_OCV_ROLE_ERROR_MESSAGE = 'OCV Role Id is not found in the Reciprocal Role table';
+  public static final String PROSPECT = 'Prospect';
+  public static final String SOURCE_SYSTEM_NAME = 'CAP-CIS';
+  public static final String BB_SEGMENT = 'BB';
+  public static final String SBB_SEGMENT = 'SBB';
+  public static final String NEED_ANALYSIS = 'Needs Analysis';
+  public static final String SOL_DEV = 'Solution Development';
+  public static final String APPROVED_OFFERED = 'Approved & Offered';
+  public static final String CUST_ACCEPT = 'Customer Acceptance';
+  public static final String OPP_WON = 'Opportunity Won';
+  public static final String OPP_LOST = 'Opportunity Lost';
+  public static final String STAGE_CAN_BE_OPP_IDENTIFIED = 'Stage can only be set to Opportunity Identified.';
+  public static final String OTHER_SOURCE_DETAIL_MANDATORY = 'Other Source Detail is mandatory if Lead Source is Other.';
+  public static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip or re-open closed stages.';
+  public static final String BBD_CLP_MANDATORY = 'BBD Application Number & CLP Credit Case Number is mandatory to proceed to Approved and offered.';
+  public static final String LOST_REASON = 'Please select a valid Lost Reason.';
+  public static final String WON_LOST_MANDATORY = 'Won From/Lost To is mandatory to Proceed to Opportunity Won/Lost.';
+  public static final String NEEDS_ANALYSIS_ACTION_PLAN_TEMP = 'Needs Analysis Action Plan Template';
+  public static final String NOT_STARTED = 'Not Started';
+  public static final String PLAN_TYPE = 'Industries';
+  public static final String PUBLISHED_TEMPLATE_STATUS = 'Final';
+  public static final String ERROR = 'Error';
+  public static final String OPPORTUNITY_OBJ_PREFIX = '006';
+  public static final String STATUS_OPEN = 'Open';
+
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
     'Business_Account'
   };
@@ -47,6 +75,11 @@ public with sharing class CCRMConstants {
     .get('CCRM_Lead')
     .getRecordTypeId();
 
+  //MLCRM Lead Record Type Id
+  public static final Id MLCRM_LEAD_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
+    .get('MLCRM_Lead')
+    .getRecordTypeId();
+
   //CCRM Opportunity record type Ids
   public static final Id CCRM_OPP_RT_ID = Schema.SObjectType.Opportunity.getRecordTypeInfosByDeveloperName()
     .get('Commercial_Opportunity')
@@ -55,6 +88,11 @@ public with sharing class CCRMConstants {
   //Lead Response Record Type Ids
   public static final Id LEAD_RESPONSE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Lead_Response')
+    .getRecordTypeId();
+
+  //CCRM Task Record Type Id
+  public static final Id CCRM_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('CCRM_Task')
     .getRecordTypeId();
 
   //Account Record Type Ids

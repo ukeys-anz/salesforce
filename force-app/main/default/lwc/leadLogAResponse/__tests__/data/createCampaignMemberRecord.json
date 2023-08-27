@@ -1,0 +1,17 @@
+{
+  "Call back": [
+    {
+      "attributes": {
+        "type": "CampaignMember",
+        "url": "/services/data/v55.0/sobjects/CampaignMember/00v2N000001XbgcQAC"
+      },
+      "apiName": "CampaignMember",
+      "CampaignId": "7012O000000XAMLQA4",
+      "LeadId": "00Q2O000001k2JpUAI",
+      "id": "00v2N000001XbgcQAC",
+      "lastModifiedById": "0052O000003OE4mQAG",
+      "lastModifiedDate": "2022-08-03T23:28:52.000Z",
+      "systemModstamp": "2022-08-03T23:28:52.000Z"
+    }
+  ]
+}

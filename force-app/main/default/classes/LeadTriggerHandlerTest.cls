@@ -108,7 +108,7 @@ private class LeadTriggerHandlerTest {
       SELECT Id
       FROM Lead
       WHERE
-        Status = :CCRMConstants.STATUS_NEW
+        Status = :CCRMConstants.STATUS_ASSIGNED
         AND createdById = :ccrmIntegrationUser.Id
     ];
     System.assertEquals(

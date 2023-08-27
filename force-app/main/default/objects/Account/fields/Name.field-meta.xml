@@ -6,4 +6,5 @@
     <description>Captures first and last name of the customer</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
+    <trackHistory>true</trackHistory>
 </CustomField>

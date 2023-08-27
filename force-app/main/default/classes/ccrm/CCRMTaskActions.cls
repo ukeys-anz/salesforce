@@ -52,7 +52,9 @@ public with sharing class CCRMTaskActions {
             Next_Lead_Status__c,
             Response_Status__c,
             Response_Type_CreateOpportunity__c,
-            isActive__c
+            isActive__c,
+            Outcome_Type__c,
+            Lead_Record_Type__c
           FROM Lead_Stage_Automation__mdt
           WHERE
             isActive__c = TRUE
@@ -70,17 +72,28 @@ public with sharing class CCRMTaskActions {
           }
         }
         for (Lead leadRecord : [
-          SELECT Id, Status, SubStatus__c, Followup_Date__c, Skip_Validations__c
+          SELECT
+            Id,
+            Status,
+            SubStatus__c,
+            recordType.developerName,
+            Lead_Quality__c,
+            Lead_Outcome__c,
+            Followup_Date__c,
+            Skip_Validations__c
           FROM Lead
           WHERE
             Id IN :mapLeadResponses.keySet()
             AND Status IN :selectedLeadStatus
-            AND RecordTypeId = :CCRMConstants.CCRM_LEAD_RT_ID
+            AND (RecordTypeId = :CCRMConstants.CCRM_LEAD_RT_ID
+            OR RecordTypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID)
         ]) {
           for (
             Lead_Stage_Automation__mdt checkAutoStages : mapLeadStageMetadata
           ) {
             if (
+              leadRecord.recordType.developerName ==
+              checkAutoStages.Lead_Record_Type__c &&
               checkAutoStages.Lead_Status__c.contains(leadRecord.Status) &&
               mapLeadResponses.get(leadRecord.Id).Response_Status__c ==
               checkAutoStages.Response_Status__c
@@ -97,12 +110,14 @@ public with sharing class CCRMTaskActions {
                 )
               ) {
                 leadRecord.Status = checkAutoStages.Next_Lead_Status__c;
+                leadRecord.Lead_Outcome__c = checkAutoStages.Outcome_Type__c;
               } else if (
                 String.isBlank(
                   checkAutoStages.Response_Type_CreateOpportunity__c
                 )
               ) {
                 leadRecord.Status = checkAutoStages.Next_Lead_Status__c;
+                leadRecord.Lead_Outcome__c = checkAutoStages.Outcome_Type__c;
               }
               if (!updatedLeads.contains(leadRecord)) {
                 leadRecord.Skip_Validations__c = leadRecord.Skip_Validations__c !=

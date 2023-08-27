@@ -4,7 +4,7 @@
  * @description Test class for {@link PicklistUtilTest}
  * @group Utility
  */
-@isTest
+@IsTest
 public class PicklistUtilTest {
   /**
    * Two fields have been set up on Release__c object for testing this utility;
@@ -21,7 +21,7 @@ public class PicklistUtilTest {
   /**
    * @description
    */
-  @isTest
+  @IsTest
   static void testFieldWithOneParent() {
     // GIVEN
     // a picklist field in salesforce has only one parent value
@@ -29,7 +29,7 @@ public class PicklistUtilTest {
     // WHEN
     // 'getPicklistDependencyMap()' method is called
     Test.startTest();
-    Map<String, List<String>> resultMap = PicklistUtil.getPicklistDependencyMap(
+    Map<String, List<String>> resultMap = PicklistUtil.getCachedPicklistParentMap(
       'Release__c',
       'Dependent_Picklist__c'
     );
@@ -50,7 +50,7 @@ public class PicklistUtilTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testFieldWithTwoParents() {
     // GIVEN
     // a picklist field in salesforce has two parent values
@@ -58,7 +58,7 @@ public class PicklistUtilTest {
     // WHEN
     // 'getPicklistDependencyMap()' method is called
     Test.startTest();
-    Map<String, List<String>> resultMap = PicklistUtil.getPicklistDependencyMap(
+    Map<String, List<String>> resultMap = PicklistUtil.getCachedPicklistParentMap(
       'Release__c',
       'Dependent_Picklist__c'
     );
@@ -80,7 +80,7 @@ public class PicklistUtilTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testFieldWithNoParents() {
     // GIVEN
     // a picklist field in salesforce has no parent values
@@ -88,7 +88,7 @@ public class PicklistUtilTest {
     // WHEN
     // 'getPicklistDependencyMap()' method is called
     Test.startTest();
-    Map<String, List<String>> resultMap = PicklistUtil.getPicklistDependencyMap(
+    Map<String, List<String>> resultMap = PicklistUtil.getCachedPicklistParentMap(
       'Release__c',
       'Dependent_Picklist__c'
     );
@@ -102,7 +102,7 @@ public class PicklistUtilTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testFieldWithOneSibling() {
     // GIVEN
     // a parent picklist field in salesforce has multiple children values, we can return the correct parent values
@@ -110,7 +110,7 @@ public class PicklistUtilTest {
     // WHEN
     // 'getPicklistDependencyMap()' method is called
     Test.startTest();
-    Map<String, List<String>> resultMap = PicklistUtil.getPicklistDependencyMap(
+    Map<String, List<String>> resultMap = PicklistUtil.getCachedPicklistParentMap(
       'Release__c',
       'Dependent_Picklist__c'
     );

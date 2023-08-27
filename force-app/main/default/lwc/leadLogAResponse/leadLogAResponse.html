@@ -3,121 +3,206 @@
   <template lwc:if={hasError}>
     <c-error message={errorMessage}></c-error>
   </template>
-  <template lwc:else>
-    <lightning-card title="Response" icon-name="action:new_task">
-      <lightning-layout multiple-rows>
-        <lightning-layout-item size="6" padding="around-small">
-          <lightning-combobox
-            name="Response Status"
-            class="responseStatus"
-            label="Response Status"
-            placeholder="Select Response Status"
-            options={responseStatusOptions}
-            onchange={handleResponseStatusChange}
-            value={selectedResponseStatusValue}
-            required
-            message-when-value-missing="Please select a Response Status."
-          >
-          </lightning-combobox>
-        </lightning-layout-item>
-        <template lwc:if={resetValidationError}></template>
-        <template lwc:else>
-          <lightning-layout-item size="6" padding="around-small">
-            <lightning-combobox
-              name="Outcome Reason"
-              class="outcomeReason"
-              label="Outcome Reason"
-              placeholder="Select Outcome Reason"
-              options={outcomeReasonOptions}
-              onchange={handleOutcomeResponseChange}
-              value={selectedOutcomeResponseValue}
-              required
-              message-when-value-missing="Please select an Outcome Reason."
-            >
-            </lightning-combobox>
-          </lightning-layout-item>
-          <lightning-layout-item size="6" padding="around-small">
-            <lightning-combobox
-              name="Lead Quality"
-              class="leadQuality"
-              label="Lead Quality"
-              placeholder="Select Lead Quality"
-              options={leadQualityOptions}
-              onchange={handleLeadQualityChange}
-              value={selectedLeadQualityValue}
-              disabled={isLeadQualityDisabled}
-              required={isLeadQualityRequired}
-              message-when-value-missing="Lead Quality is mandatory for the selected Response Status"
-            >
-            </lightning-combobox>
-          </lightning-layout-item>
-          <lightning-layout-item size="6" padding="around-small">
-            <lightning-input
-              name="followUpDate"
-              class="followUpDate"
-              label="Follow-Up Date"
-              type="date"
-              placeholder="Select Follow-Up Date"
-              value={selectedFollowUpDateValue}
-              onchange={handleFollowUpDateChange}
-              disabled={followUpDateDisable}
-              required={isFollowUpDateRequired}
-              message-when-value-missing="Follow-Up date is mandatory for the selected Outcome Reason."
-              min={minFollowUpDate}
-              message-when-range-underflow="Follow-Up Date value should be in future."
-            >
-            </lightning-input>
-          </lightning-layout-item>
-        </template>
+  <template if:false={hasError}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-modal="true"
+      aria-labelledby="modal-heading-01"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container logAresponseContainer">
+        <button
+          class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+          title="Close"
+          onclick={closeQuickAction}
+        >
+          <lightning-icon
+            icon-name="utility:close"
+            alternative-text="close"
+            variant="inverse"
+            size="small"
+          ></lightning-icon>
+          <span class="slds-assistive-text">Close</span>
+        </button>
+        <div class="slds-modal__header">
+          <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+            Log a Response to Progress Lead
+          </h1>
+        </div>
 
-        <template lwc:if={displayDueDate}>
-          <template lwc:if={resetValidationError}></template>
-          <template lwc:else>
-            <lightning-layout-item size="6" padding="around-small">
-              <lightning-input
-                name="dueDate"
-                class="dueDate"
-                label="Due Date"
-                type="date"
-                placeholder="Select Due Date"
-                value={selectedDueDateValue}
-                onchange={handleDueDateChange}
-                data-id="get-due-date"
-                required="true"
-                message-when-value-missing="Due date is required."
-                min={minFollowUpDate}
-                message-when-range-underflow="Due date should be in future."
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+          <!--Guidance for Logging Response-->
+          <lightning-card>
+            <lightning-layout multiple-rows>
+              <!--<div class="slds-m-top_medium">-->
+              <lightning-layout-item
+                size="12"
+                padding="around-small slds-p-top_none"
               >
-              </lightning-input>
-            </lightning-layout-item>
-          </template>
-        </template>
-        <lightning-layout-item size="12" padding="around-small">
-          <lightning-textarea
-            class="comment"
-            placeholder="Comment"
-            value={commentValue}
-            label="Comment"
-            onchange={handleCommentChange}
-            max-length="300"
-          >
-          </lightning-textarea>
-        </lightning-layout-item>
-        <lightning-layout-item padding="around-small">
-          <lightning-button label="Cancel" onclick={handleCancel}>
-          </lightning-button>
-        </lightning-layout-item>
-        <lightning-layout-item padding="around-small">
+                <p class="addSpace">
+                  <lightning-formatted-rich-text
+                    value={label.CCRM_SelectResponsePrompt}
+                  >
+                  </lightning-formatted-rich-text>
+                </p>
+                <p class="addSpace">
+                  <lightning-formatted-rich-text
+                    value={label.CCRM_ConversationGuideHeading}
+                  >
+                  </lightning-formatted-rich-text>
+                </p>
+                <p>
+                  <lightning-formatted-rich-text
+                    value={conversationGuidanceURL}
+                  >
+                  </lightning-formatted-rich-text>
+                </p>
+              </lightning-layout-item>
+              <!--End of Guidance for Logging Response-->
+              <lightning-layout-item size="6" padding="around-small">
+                <lightning-combobox
+                  name="Response Status"
+                  class="responseStatus"
+                  label="Response Status"
+                  placeholder="Select Response Status"
+                  options={responseStatusOptions}
+                  onchange={handleResponseStatusChange}
+                  value={selectedResponseStatusValue}
+                  required
+                  message-when-value-missing="Please select a Response Status."
+                >
+                </lightning-combobox>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="around-small">
+                <lightning-combobox
+                  if:false={resetValidationError}
+                  name="Outcome Reason"
+                  class="outcomeReason"
+                  label="Outcome Reason"
+                  placeholder="Select Outcome Reason"
+                  options={outcomeReasonOptions}
+                  onchange={handleOutcomeResponseChange}
+                  value={selectedOutcomeResponseValue}
+                  required
+                  message-when-value-missing="Please select an Outcome Reason."
+                >
+                </lightning-combobox>
+              </lightning-layout-item>
+              <lightning-layout-item size="6" padding="around-small">
+                <lightning-combobox
+                  if:false={resetValidationError}
+                  name="Lead Quality"
+                  class="leadQuality"
+                  label="Lead Quality"
+                  placeholder="Select Lead Quality"
+                  options={leadQualityOptions}
+                  onchange={handleLeadQualityChange}
+                  value={selectedLeadQualityValue}
+                  required={isLeadQualityRequired}
+                  message-when-value-missing="Lead Quality is mandatory for the selected Response Status"
+                >
+                </lightning-combobox>
+              </lightning-layout-item>
+              <template if:false={followUpDateDisable}>
+                <lightning-layout-item size="6" padding="around-small">
+                  <lightning-input
+                    if:false={resetValidationError}
+                    name="followUpDate"
+                    data-id="followUpDate"
+                    class="followUpDate"
+                    label="Follow-Up Date"
+                    type="date"
+                    placeholder="Select Follow-Up Date"
+                    value={selectedFollowUpDateValue}
+                    onchange={handleFollowUpDateChange}
+                    required={isFollowUpDateRequired}
+                    message-when-value-missing="Follow-Up date is mandatory for the selected Outcome Reason."
+                    min={minFollowUpDate}
+                    message-when-range-underflow="Follow-Up Date value should be in future."
+                  >
+                  </lightning-input>
+                </lightning-layout-item>
+              </template>
+              <template if:true={displayDueDate}>
+                <lightning-layout-item size="6" padding="around-small">
+                  <lightning-input
+                    if:false={resetValidationError}
+                    name="dueDate"
+                    class="dueDate"
+                    data-id="get-due-date"
+                    label="Due Date"
+                    type="date"
+                    placeholder="Select Due Date"
+                    value={selectedDueDateValue}
+                    onchange={handleDueDateChange}
+                    required={displayDueDate}
+                    message-when-value-missing="Due date is required."
+                    min={minFollowUpDate}
+                    message-when-range-underflow="Due date should be in future."
+                  >
+                  </lightning-input>
+                </lightning-layout-item>
+              </template>
+              <lightning-layout-item size="12" padding="around-small">
+                <lightning-textarea
+                  class="comment"
+                  placeholder="Comment"
+                  value={commentValue}
+                  label="Comment"
+                  onchange={handleCommentChange}
+                  max-length="300"
+                >
+                </lightning-textarea>
+              </lightning-layout-item>
+              <!--Show what happens next-->
+              <template if:true={showWhatHappensNext}>
+                <lightning-layout-item
+                  size="12"
+                  padding="around-small"
+                  class="whatsNextDiv"
+                >
+                  <!--<div class="slds-p-around_medium lgc-bg whatsNextDiv">-->
+                  <lightning-icon
+                    icon-name="action:question_post_action"
+                    class="slds-col whatsNextIcon"
+                    title="What happens next?"
+                    size="x-small"
+                  >
+                  </lightning-icon>
+                  <b>{label.CCRM_WhatHappensNextHeading}</b>
+                  <p>
+                    <lightning-formatted-rich-text
+                      value={whatHappensNextInfo}
+                    ></lightning-formatted-rich-text>
+                  </p>
+                </lightning-layout-item> </template
+              ><!--End of show what happens next-->
+            </lightning-layout>
+          </lightning-card>
+        </div>
+        <div class="slds-modal__footer">
           <lightning-button
+            class="slds-button"
+            label="Cancel"
+            onclick={closeQuickAction}
+          ></lightning-button>
+          <lightning-button
+            class="slds-button"
             variant="brand"
             label="Log Response"
             data-id="get-submit-button"
             onclick={submitResponse}
             disabled={isDisable}
+            type="submit"
           >
           </lightning-button>
-        </lightning-layout-item>
-      </lightning-layout>
-    </lightning-card>
+        </div>
+      </div>
+    </section>
+    <!--<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>-->
   </template>
 </template>

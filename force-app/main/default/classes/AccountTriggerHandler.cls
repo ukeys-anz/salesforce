@@ -15,9 +15,10 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
-   * @description onAfterInsert to update the list of records which were identified in onValidate() method
+   * @description onBeforeInsert to update the list of records which were identified in onValidate() method
    */
   public override void onBeforeInsert() {
+    AccountCommonActions.populateFieldsValue(records);
     CCRMAccountActions.setControllingPost(records, null);
   }
 
@@ -26,7 +27,9 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     AccountCommonActions.createEntitlement(records);
-    AccountCommonActions.findAndConvertLead(records);
+    if (!CCRMLeadConversionActions.manualLeadConversionInitiated) {
+      AccountCommonActions.findAndConvertLead(records);
+    }
   }
 
   /**
@@ -35,6 +38,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    AccountCommonActions.populateFieldsValue(records);
     List<Account> prospects = CCRMAccountActions.extractProspectAccounts(
       records
     );
