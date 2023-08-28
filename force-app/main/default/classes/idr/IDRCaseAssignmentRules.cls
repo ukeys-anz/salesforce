@@ -6,7 +6,7 @@
  * @runTests IDRCaseAssignmentRulesTest
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.StdCyclomaticComplexity,PMD.CyclomaticComplexity')
 public with sharing class IDRCaseAssignmentRules {
   private static final Map<String, Id> QUEUE_MAP = getWorkbaskets();
   /**
@@ -111,7 +111,7 @@ public with sharing class IDRCaseAssignmentRules {
    * NcssMethodCount Suppressed : To have all the code lines together in one place. Code is a series of rules applied in order.
    * @return Queue Id
    */
-  @SuppressWarnings('PMD.NcssMethodCount')
+  @SuppressWarnings('PMD.NcssMethodCount,PMD.StdCyclomaticComplexity,PMD.CyclomaticComplexity')
   private static Id getOwnerId(
     Case rec,
     Product_Family__c oProductFamily,
@@ -160,6 +160,9 @@ public with sharing class IDRCaseAssignmentRules {
           strProductFamily == 'Insurance/wealth products'
         ) {
           return QUEUE_MAP.get('EDR_Wealth');
+        }
+        if ( rec.Type == 'Scam') {
+          return QUEUE_MAP.get('EDR_CM_Everyday_Banking_Wealth');   // EDR Scams
         }
         return QUEUE_MAP.get('EDR_Early_Resolution');
       }
