@@ -52,6 +52,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String LEASE_HIRE_PURCHASE_TYPE = 'Lease Hire Purchase';
   public static final String LEASE_HIRE_PURCHASE_LABEL = 'Lease/Hire Purchase';
   public static final String CREDIT_CARD_UI_MESSAGE = 'To be provided';
+  public static final String OVERDRAFT = 'LIABILITY_TYPE_OVERDRAFT';
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
