@@ -7,13 +7,7 @@
 public class TransactionHistoryModelTest {
   @isTest
   static void testParse() {
-    String staticResourceName;
-    if (Label.TransactionAPIUpliftedToV1 == 'True') {
-      staticResourceName = 'mock_transactionHistoryV1';
-    } else {
-      staticResourceName = 'mock_transactionHistory';
-    }
-
+    String staticResourceName = 'mock_transactionHistory';
     StaticResource sr = [
       SELECT body
       FROM StaticResource
