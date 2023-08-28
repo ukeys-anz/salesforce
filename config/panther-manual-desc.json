@@ -170,6 +170,7 @@
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
+    "Case_Product__c": "Many to Many relationship between Case and Product2",
     "CFaaS_File__c": "Custom object that will hold metadata of the files retrieved from CFaaS",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
     "Coaching_Summary__c": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
@@ -889,6 +890,11 @@
         "PersonaId__c",
         "PersonID__c",
         "Fraud_PersonID__c"
+      ]
+    },
+    "Case_Product__c": {
+      "IA-2468715": [
+        "Product__c"
       ]
     },
     "CFaaS_File__c": {
