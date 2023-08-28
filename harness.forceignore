@@ -188,3 +188,13 @@ force-app/main/default/omniUiCard
 mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
 force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
 force-app/main/default/tabs/SkyhighNetworks__SHNEvent__c.tab-meta.xml
+
+#ignoring credit referral roles and permission sets as they would be deployed later
+force-app/main/default/roles/Credit_Assessment_Officer.role-meta.xml
+force-app/main/default/roles/Credit_Assessor_Lead.role-meta.xml
+force-app/main/default/permissionsetgroups/Credit_Assessment_Officer.permissionsetgroup-meta.xml
+force-app/main/default/permissionsetgroups/Credit_Assessor_Lead.permissionsetgroup-meta.xml
+force-app/main/default/permissionsets/Case_Credit_Referral.permissionset-meta.xml
+force-app/main/default/permissionsets/Case_Credit_Referral_Ownership_Transfer.permissionset-meta.xml
+force-app/main/default/permissionsets/Reason_Outcome_Read_Only.permissionset-meta.xml
+force-app/main/default/permissionsets/Referral_Reason_Read_Only.permissionset-meta.xml
