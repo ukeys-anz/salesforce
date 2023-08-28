@@ -70,7 +70,11 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     HttpCalloutResponse response = s.getTransactionHistory(ocvId, paramUrl);
     if (response.successful) {
       try {
-        result = TransactionHistoryModel.parse(response.body);
+        if (Label.TransactionAPIUpliftedToV1 == 'True') {
+          result = TransactionHistoryModelV1.parse(response.body);
+        } else {
+          result = TransactionHistoryModel.parse(response.body);
+        }
       } catch (Exception e) {
         handleErrors(null, e, CoachBankingAPIRepository.class);
       }
