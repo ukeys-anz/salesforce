@@ -61,7 +61,10 @@ public with sharing class TwilioServiceUtil {
     for (User agent : [
       SELECT Id, FederationIdentifier, Email
       FROM User
-      WHERE Email IN :agentEmailList OR FederationIdentifier IN :agentEmailList
+      WHERE
+        (Email IN :agentEmailList
+        OR FederationIdentifier IN :agentEmailList)
+        AND IsActive = TRUE
     ]) {
       agentOwnerIdMap.put(agent.FederationIdentifier, agent.Id);
     }
