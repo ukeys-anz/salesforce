@@ -153,23 +153,27 @@
           <div class="slds-grid">{transactionRecord.amount.currency_code}</div>
         </div>
       </div>
-      <template lwc:if={transactionRecord.pay_anyone}>
-        <div class="slds-grid slds-m-bottom_small">
-          <div class="slds-col slds-size--1-of-7"></div>
-          <div class="slds-col slds-size--1-of-7">
-            <div class="slds-grid slds-form-element__label">Message</div>
-            <div class="slds-grid">
-              {transactionRecord.pay_anyone.message.value}
-            </div>
-          </div>
-          <div class="slds-col slds-size--1-of-7">
-            <div class="slds-grid slds-form-element__label">Reference</div>
-            <div class="slds-grid">
-              {transactionRecord.pay_anyone.npp_customer_reference_number.value}
-            </div>
+      <!-- 2nd row of showTransaction Details -->
+      <div class="slds-grid slds-m-bottom_small">
+        <div class="slds-col slds-size--1-of-7"></div>
+        <div class="slds-col slds-size--1-of-7">
+          <div class="slds-grid slds-form-element__label">Message</div>
+          <div class="slds-grid">
+            <template lwc:if={showPayAnyoneMsgTransactionDetails}>
+              {transactionRecord.pay_anyone.message}
+            </template>
           </div>
         </div>
-      </template>
+        <div class="slds-col slds-size--1-of-7">
+          <div class="slds-grid slds-form-element__label">Reference</div>
+          <div class="slds-grid">
+            <template lwc:if={showPayAnyoneReferenceTransactionDetails}>
+              {transactionRecord.pay_anyone.npp_customer_reference_number}
+            </template>
+          </div>
+        </div>
+      </div>
+
       <template lwc:if={transactionRecord.merchantDetails}>
         <div class="transaction-section">
           <h3 class="section-title">Merchant Details</h3>

@@ -89,6 +89,14 @@ export default class TransactionHistoryRecord extends NavigationMixin(
         : this.disputeRecordTypesFromParent;
   }
 
+  get showPayAnyoneMsgTransactionDetails() {
+    return this.transactionRecord.pay_anyone?.message;
+  }
+
+  get showPayAnyoneReferenceTransactionDetails() {
+    return this.transactionRecord.pay_anyone?.npp_customer_reference_number;
+  }
+
   // Tooltip for Raise Dispute button if disabled
   get disputeButtonTooltip() {
     switch (true) {
