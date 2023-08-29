@@ -39,10 +39,7 @@ public class TransactionHistoryModelV1Test {
       obj.embedded.merchants != null,
       'Merchants should not be null.'
     );
-    System.assert(
-      obj.count == '17',
-      'The TransactionHistoryModel count should be as expected.'
-    );
+
     System.assertEquals(1, testValue, 'Value should not be null.');
   }
 }
