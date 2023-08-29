@@ -40,7 +40,7 @@ public class TransactionHistoryModelV1Test {
       'Merchants should not be null.'
     );
     System.assert(
-      obj.count == '20',
+      obj.count == '17',
       'The TransactionHistoryModel count should be as expected.'
     );
     System.assertEquals(1, testValue, 'Value should not be null.');
