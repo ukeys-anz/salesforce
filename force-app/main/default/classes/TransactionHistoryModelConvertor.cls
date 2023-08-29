@@ -1,9 +1,4 @@
 /**
- * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
- * ExcessivePublicCount Surpressed : TransactionHistoryModel to have all the public methods and attributes together.
- */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity,')
-/**
  * @author Shivam Swaraj ,Kopal Goswami
  * @since August 2023
  * @description Model for transaction history API Uplift to V1
@@ -165,16 +160,18 @@ public class TransactionHistoryModelConvertor {
       if (sourceTransaction.Cash != null) {
         destTransaction.cash = convertCash(sourceTransaction.cash);
       }
+
       //Mapping Bpay
       if (sourceTransaction.Bpay != null) {
-        destTransaction.bpay = convertBpay(sourceTransaction.Bpay);
+        destTransaction.bpay = TransactionHistoryModelConvertorHelper.convertBpay(
+          sourceTransaction.Bpay
+        );
       }
       //Mapping Transfer
-      System.debug(
-        'sourceTransaction.transfer --> ' + sourceTransaction.transfer
-      );
       if (sourceTransaction.transfer != null) {
-        destTransaction.transfer = convertTransfer(sourceTransaction.transfer);
+        destTransaction.transfer = TransactionHistoryModelConvertorHelper.convertTransfer(
+          sourceTransaction.transfer
+        );
       }
 
       //Mapping Tags
@@ -187,7 +184,9 @@ public class TransactionHistoryModelConvertor {
       }
       //Mapping Interest
       if (sourceTransaction.Interest != null) {
-        destTransaction.interest = convertInterest(sourceTransaction.Interest);
+        destTransaction.interest = TransactionHistoryModelConvertorHelper.convertInterest(
+          sourceTransaction.Interest
+        );
       }
       destTransactions.add(destTransaction);
     }
@@ -260,16 +259,6 @@ public class TransactionHistoryModelConvertor {
     return destOtherEntity;
   }
 
-  private static TransactionHistoryModel.Interest convertInterest(
-    TransactionHistoryModelV1.Interest sourceInterest
-  ) {
-    TransactionHistoryModel.Interest destInterest = new TransactionHistoryModel.Interest();
-    if (sourceInterest != null) {
-      destInterest.sub_type = sourceInterest.sub_type;
-    }
-    return destInterest;
-  }
-
   private static TransactionHistoryModel.international_amount convertInternationalAmount(
     TransactionHistoryModelV1.International sourceInternationalAmount
   ) {
@@ -319,54 +308,6 @@ public class TransactionHistoryModelConvertor {
       destCash.wallet = sourceCash.wallet;
     }
     return destCash;
-  }
-
-  private static TransactionHistoryModel.Bpay convertBpay(
-    TransactionHistoryModelV1.Bpay sourceBpay
-  ) {
-    TransactionHistoryModel.Bpay destBpay = new TransactionHistoryModel.Bpay();
-    if (sourceBpay != null) {
-      destBpay.biller_code = convertFieldValue(sourceBpay.biller_code);
-      destBpay.biller_name = convertFieldValue(sourceBpay.biller_name);
-      destBpay.customer_reference_number = convertFieldValue(sourceBpay.crn);
-    }
-    return destBpay;
-  }
-
-  private static TransactionHistoryModel.Transfer convertTransfer(
-    TransactionHistoryModelV1.Transfer sourceTransfer
-  ) {
-    TransactionHistoryModel.Transfer destTransfer = new TransactionHistoryModel.Transfer();
-    if (sourceTransfer != null) {
-      destTransfer.payment_id = sourceTransfer.puid;
-      destTransfer.message = convertFieldValue(sourceTransfer.message);
-      destTransfer.payment_receipt_number = convertFieldValue(
-        sourceTransfer.payment_reference
-      );
-      destTransfer.source_account = convertSourceAccount(
-        sourceTransfer.source_account
-      );
-      destTransfer.destination_account = convertSourceAccount(
-        sourceTransfer.destination_account
-      );
-    }
-    return destTransfer;
-  }
-
-  private static TransactionHistoryModel.Source_account convertSourceAccount(
-    TransactionHistoryModelV1.Source_account sourceTransferAccount
-  ) {
-    TransactionHistoryModel.Source_account destSourceAccount = new TransactionHistoryModel.Source_account();
-    TransactionHistoryModel.Account destAccount = new TransactionHistoryModel.Account();
-    destAccount.bsb = sourceTransferAccount.bsb;
-    destAccount.transactionAccountNumber = sourceTransferAccount.account_number;
-    if (sourceTransferAccount != null) {
-      destSourceAccount.account = destAccount;
-      destSourceAccount.bucket_id = convertFieldValue(
-        sourceTransferAccount.bucket
-      );
-    }
-    return destSourceAccount;
   }
 
   private static TransactionHistoryModel.Address convertAddress(
