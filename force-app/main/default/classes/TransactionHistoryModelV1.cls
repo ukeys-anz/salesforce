@@ -1,6 +1,6 @@
 /**
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
- * ExcessivePublicCount Surpressed : TransactionHistoryModel to have all the public methods and attributes together.
+ * ExcessivePublicCount Surpressed : TransactionHistoryModelV1 to have all the public methods and attributes together.
  */
 @SuppressWarnings(
   'PMD.ExcessivePublicCount, PMD.FieldNamingConventions, PMD.VariableNamingConventions, PMD.TooManyFields, PMD.PropertyNamingConventions'
@@ -11,13 +11,13 @@
  * @description Model for transaction history API V1
  */
 public class TransactionHistoryModelV1 extends CalloutModel {
+  public String total;
   public String count;
   public List<Enrichments> enrichments;
-  public Links links;
   public List<Merchants> merchants;
   public List<Tags> tags;
-  public String total;
   public List<Transactions> transactions;
+  public Links links;
 
   /**
    * @description the bsb and account number of the transaction
@@ -102,11 +102,11 @@ public class TransactionHistoryModelV1 extends CalloutModel {
    * @description Enrichments associated with the transactions
    */
   public class Enrichments {
-    public Criteria criteria;
-    public String merchant;
     public Integer merchant_match_confidence;
     public String name;
     public String uid;
+    public String merchant;
+    public Criteria criteria;
   }
 
   /**
@@ -121,9 +121,9 @@ public class TransactionHistoryModelV1 extends CalloutModel {
    * @description the internation amount details
    */
   public class International {
-    public Amount amount;
     public String country_code;
     public Double exchange_rate;
+    public Amount amount;
   }
 
   /**
@@ -140,10 +140,8 @@ public class TransactionHistoryModelV1 extends CalloutModel {
    * @description details of the merchant involved in the transaction
    */
   public class Merchants {
-    public Address address;
     public String chain_name;
     public String chain_id;
-    public Images images;
     public String name;
     public String phone_number;
     public String presence;
@@ -152,8 +150,9 @@ public class TransactionHistoryModelV1 extends CalloutModel {
     public String update_time;
     public String website_uri;
     public String email;
-    @AuraEnabled
     public String alternate_name;
+    public Address address;
+    public Images images;
   }
 
   /**
@@ -221,8 +220,8 @@ public class TransactionHistoryModelV1 extends CalloutModel {
    * @description details of OpenBanking invovled in transaction
    */
   public class OpenBanking {
-    public String type;
     public Boolean detail_available;
+    public String type;
     public String extension_u_type;
     public String purpose_code;
   }
@@ -231,37 +230,37 @@ public class TransactionHistoryModelV1 extends CalloutModel {
    * @description transactions is the parent containing all information of the transaction
    */
   public class Transactions {
-    public Account account;
-    public Amount amount;
+    public Boolean reportable;
     public String aux_dom;
-    public Card card;
-    public Cash cash;
-    public List<String> categories;
     public String cheque_serial_number;
     public String country_code;
     public String enrichment;
-    public International international;
     public String long_description;
     public String merchant;
     public String merchant_category_code;
     public String name;
-    public DateTime origin_time;
     public String original_anzx_category;
     public String origination_system_id;
-    public DateTime post_time;
     public String primary_anzx_category;
-    public Boolean reportable;
     public String short_description;
     public String status;
-    public List<String> tags;
     public String title;
     public String type;
     public String uid;
     public String update_time;
     public String value_time;
     public String direct_entry_user_id;
-    public Bpay bpay;
     public String trace_id;
+    public DateTime origin_time;
+    public DateTime post_time;
+    public List<String> categories;
+    public List<String> tags;
+    public Account account;
+    public Amount amount;
+    public Bpay bpay;
+    public Card card;
+    public Cash cash;
+    public International international;
     public Payment payment;
     public Interest interest;
     public Transfer transfer;
