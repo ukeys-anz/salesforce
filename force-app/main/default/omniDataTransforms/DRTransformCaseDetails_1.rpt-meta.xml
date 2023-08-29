@@ -992,6 +992,20 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7390</globalKey>
+        <inputFieldName>thirdPartyNotification</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyNotification</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom7413</globalKey>
         <inputFieldName>Case:CustomerDetails:thirdPartyMobile</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -1493,6 +1507,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:CustomerDetails:Age</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:CustomerDetails:switchOff3rdPartyNotCheckbox &quot;true&quot; == true false IF</formulaConverted>
+        <formulaExpression>IF(Case:CustomerDetails:switchOff3rdPartyNotCheckbox==&quot;true&quot;,true,false)</formulaExpression>
+        <formulaResultPath>thirdPartyNotification</formulaResultPath>
+        <formulaSequence>10.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom4876</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
