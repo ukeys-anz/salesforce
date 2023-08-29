@@ -3,7 +3,7 @@
     <fullName>Priority__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
-    <defaultValue>VALUE($Label.CCRM_LeadDefaultPriorityValue)</defaultValue>
+    <defaultValue>IF($RecordType.DeveloperName == &quot;ML_CRM&quot;,VALUE($Label.ML_LeadDefaultPriorityValue),VALUE($Label.CCRM_LeadDefaultPriorityValue))</defaultValue>
     <description>Priority of Lead</description>
     <externalId>false</externalId>
     <label>Priority</label>

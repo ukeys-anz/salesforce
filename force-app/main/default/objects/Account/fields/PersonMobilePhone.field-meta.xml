@@ -8,4 +8,5 @@
     <inlineHelpText>Customer&apos;s Registered mobile number</inlineHelpText>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
 </CustomField>

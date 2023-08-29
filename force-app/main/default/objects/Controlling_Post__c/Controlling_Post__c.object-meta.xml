@@ -159,7 +159,7 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Controlling Posts</pluralLabel>
-    <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <searchLayouts/>
+    <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

@@ -7,12 +7,13 @@
     <columns>Multiple_Products__c</columns>
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>Progress_Indicator__c</columns>
     <columns>CORE.USERS.FULL_NAME</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>
         <value>Opportunity Won,Opportunity Lost</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Opportunities</label>
 </ListView>

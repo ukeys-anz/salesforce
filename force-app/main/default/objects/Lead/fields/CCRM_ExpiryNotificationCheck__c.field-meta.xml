@@ -2,27 +2,59 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CCRM_ExpiryNotificationCheck__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>To check if record is eligible to have notification generated that it is about to expire</description>
     <externalId>false</externalId>
-    <formula>( UPPER(TEXT(Lead_Originator__c)) = &quot;CCRM&quot;  ||
-  UPPER(TEXT(Lead_Originator__c)) = &quot;ADOBE&quot; ||
-  UPPER(TEXT(Lead_Originator__c)) = &quot;UNICA&quot; ) &amp;&amp;
-( RecordType.Name = &quot;Commercial CRM Lead&quot; ) &amp;&amp;  
-( 
-    IF(  Expiry_Date__c  &gt;=  TODAY(), 
-        CASE(
-            WEEKDAY(TODAY()), 
-            1, IF(  Expiry_Date__c =  TODAY(), 1, 0),
-            7, IF(  Expiry_Date__c =  TODAY(), 1, 0),
-            6, IF(  Expiry_Date__c &lt;=  TODAY() + 3, 1, 0),
-            IF( Expiry_Date__c &lt;=  TODAY() + 1, 1, 0)) = 1,
-        CASE(
-            WEEKDAY(TODAY()),
-            1, IF(  Expiry_Date__c + 2 &lt;=  TODAY(), 1, 0),
-            7, IF(  Expiry_Date__c + 2 &lt;=  TODAY(), 1, 0),
-            0) = 1
-    )   
+    <formula>(
+UPPER(TEXT(Lead_Originator__c)) = &quot;CCRM&quot; ||
+UPPER(TEXT(Lead_Originator__c)) = &quot;ADOBE&quot; ||
+UPPER(TEXT(Lead_Originator__c)) = &quot;UNICA&quot; ||
+UPPER(TEXT(Lead_Originator__c)) = &quot;MLCRM&quot;) &amp;&amp;
+OR(
+    AND(
+        (RecordType.Name = &quot;Commercial CRM Lead&quot; ),
+        (
+            IF(
+                Expiry_Date__c &gt;= TODAY(),
+                CASE(
+                    WEEKDAY(TODAY()),
+                    1, IF(Expiry_Date__c = TODAY(), 1, 0),
+                    7, IF(Expiry_Date__c = TODAY(), 1, 0),
+                    6, IF(Expiry_Date__c &lt;= TODAY() + 3, 1, 0),
+                    IF( OR(ISPICKVAL(Status,&quot;Assigned&quot;), ISPICKVAL(Status,&quot;In progress&quot;))
+                        , IF(Expiry_Date__c = TODAY() + 2
+                            , 1
+                            , IF(
+                                AND(
+                                    (Expiry_Date__c = TODAY() + 1),
+                                    (ISPICKVAL(Lead_Originator__c, &quot;ADOBE&quot;))
+                                )
+                                , 1, 0)
+                        )
+                        , IF( 
+                            OR(
+                                ISPICKVAL(Status,&quot;Outcome&quot;)
+                                , ISPICKVAL(Lead_Outcome__c,&quot;Opportunity Identified&quot;)
+                            )
+                            , IF(Expiry_Date__c = TODAY() + 2
+                                , 1
+                                , IF(Expiry_Date__c = TODAY() + 1
+                                    , 1, 0))
+                            , 0)
+                    )
+                ) = 1
+                , false
+            )
+        )
+    ),
+    AND(
+        (RecordType.DeveloperName = &quot;MLCRM_Lead&quot;),
+        IF(OR(Text(Status) == &quot;New&quot;,Text(Status) == &quot;In progress&quot;,Text(Status) == &quot;Opportunity Identified&quot;),
+        CASE(Lead_Originator__c, &quot;Adobe&quot;, 
+        IF(Expiry_Date__c = TODAY()+ VALUE($Label.ML_AdobeLeadExpiryRemainder),1,0), &quot;UNICA&quot;, 
+        IF(Expiry_Date__c = TODAY()+ VALUE($Label.ML_UnicaOrManualLeadExpiryRemainder),1,0),&quot;MLCRM&quot;, 
+        IF(Expiry_Date__c =TODAY()+VALUE($Label.ML_UnicaOrManualLeadExpiryRemainder), 1, 0),0)=1 ,false)
+    )
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Expiry Notification Check</label>
