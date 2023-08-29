@@ -213,3 +213,7 @@ img {
   position: relative;
   left: 12%;
 }
+
+.short-desc {
+  word-break: break-all;
+}
