@@ -390,14 +390,15 @@
       ]
     },
     "Assessment": {
-      "IA-2530753": ["Last_Updated_Date__c"],
+      "IA-2530753": ["Last_Updated_Date__c", "Created_Date__c"],
       "IA-2415840": ["Unsuitability_Reasons__c"],
       "IA-2415983": ["Loan_Application__c"]
     },
     "AssessmentQuestionResponse": {
       "IA-2594111": ["Completed_By__c"],
       "IA-2415987": ["Assessment_Response__c"],
-      "IA-2415983": ["Application_Id__c"]
+      "IA-2415983": ["Application_Id__c"],
+      "IA-2530753": ["Created_Date__c"]
     },
     "Campaign": {
       "IA-2415860": [
@@ -1881,7 +1882,8 @@
       ],
       "IA-2530753": [
         "Invitation_Last_Updated_Date__c",
-        "Invitation_Expiry_Date__c"
+        "Invitation_Expiry_Date__c",
+        "Created_Date__c"
       ],
       "IA-2415984": ["Invitee_Mobile_Number__c", "Inviter_Legal_name__c"]
     },
@@ -1899,7 +1901,8 @@
         "CreatedDate",
         "LastModifiedDate",
         "Last_Updated_Date__c",
-        "Application_Submit_Time__c"
+        "Application_Submit_Time__c",
+        "Created_Date__c"
       ],
       "IA-2594111": [
         "ApplicantExtIdentifier",
@@ -2496,7 +2499,8 @@
         "Version__c",
         "Last_Updated_Date__c",
         "Expiry_Date__c",
-        "Loan_Purpose_Updated_Date__c"
+        "Loan_Purpose_Updated_Date__c",
+        "Created_Date__c"
       ],
       "IA-2594111": [
         "ApplicationExtIdentifier",
