@@ -103,11 +103,11 @@ public with sharing class InteractionRecordServiceController {
         this.interactTime = record.CreatedDate.format('dd/MM/yyyy h:mm a');
       }
       if (record.Status__c != null) {
-        this.enableReinitiate = record.Status__c.equals(
+        this.enableReinitiate = !(record.Status__c.equals(
           InteractionConstants.CLOSED_AND_ARCHIVED
-        );
+        ) || record.Status__c.equals(InteractionConstants.ACTIVE));
       } else {
-        this.enableReinitiate = false;
+        this.enableReinitiate = true;
       }
     }
   }
