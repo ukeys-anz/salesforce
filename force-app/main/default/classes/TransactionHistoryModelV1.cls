@@ -166,11 +166,11 @@ public class TransactionHistoryModelV1 extends CalloutModel {
    * @description tags associated with the transaction
    */
   public class Tags {
-    public DateTime create_time;
     public String name;
     public String title;
     public String uid;
     public DateTime update_time;
+    public DateTime create_time;
   }
 
   /**
