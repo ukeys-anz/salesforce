@@ -12,7 +12,12 @@ public with sharing class CCRMLeadExpiryHandler {
   public static void updateExpiredLeads(List<Lead> leadList) {
     List<Lead> updatedLeads = new List<Lead>();
     for (Lead leadRecord : leadList) {
-      leadRecord.Status = CCRMConstants.STATUS_EXPIRED;
+      if (CCRMLeadUtil.isMLCRMLeadType(leadRecord)) {
+        leadRecord.Status = CCRMConstants.STATUS_EXPIRED;
+      } else if (CCRMLeadUtil.isCCRMLeadType(leadRecord)) {
+        leadRecord.Status = CCRMConstants.STATUS_OUTCOME;
+        leadRecord.Lead_Outcome__c = CCRMConstants.STATUS_EXPIRED;
+      }
       updatedLeads.add(leadRecord);
     }
 

@@ -167,6 +167,8 @@ public with sharing class IDRConstants {
   public static final String TASK_TYPE_COLLECTION = 'Collections';
   public static final String TASK_TYPE_COMPLIANTS_FLAG = 'Complaints Flag';
   public static final String TASK_TYPE_NOTIFICATION = 'Notification';
+  public static final String TASK_CORRESPONDENCE_SUBJECT = 'New Correspondence received on a Closed Complaint added by';
+  public static final String TASK_CORRESPONDENCE_DESCRIPTION = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';

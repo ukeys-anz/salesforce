@@ -115,6 +115,10 @@ public with sharing class NewCaseFlowWrapperController {
       caseDetails.put('Customer_Notification_Consent__c', 'Yes');
     }
 
+    if (newRecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID) {
+      caseDetails.put('IDR_NC_Is_Consent_Obtained__c', 'true');
+    }
+
     caseDetails.put(
       'IDR_Product_Category__c',
       (caseRecord.IDR_Product_Category__c != null)

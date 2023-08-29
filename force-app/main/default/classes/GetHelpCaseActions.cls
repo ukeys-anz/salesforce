@@ -5,11 +5,13 @@
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  * StdCyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+ * ExcessiveClassLength Surpressed : To handle extra lines on this class
  */
 @SuppressWarnings(
-  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount'
+  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class GetHelpCaseActions {
+  public static final String FALSE_CUSTOMER_PROFILE_CASE_SUBJECT = 'False Onboarding';
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
   public static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
 
@@ -187,6 +189,11 @@ public with sharing class GetHelpCaseActions {
         populateANZxNonCustomerComplaintCaseSubject(record);
       }
 
+      // Check for False Customer Profile Cases
+      if (CheckCaseRecordType.isFalseCustomerProfile(record)) {
+        populateFalseCustomerProfileCaseSubject(record);
+      }
+
       // Check for Account Closure Cases
       if (CheckCaseRecordType.isAccountClosure(record, oldRecord)) {
         accountClosureCases.add(record);
@@ -292,6 +299,14 @@ public with sharing class GetHelpCaseActions {
       record.Type
     );
     record.Subject = 'Non-Customer Complaint - ' + typeLabel;
+  }
+
+  /**
+   * @description  This method populates False Customer Profile Case subject based on Case record type
+   * @param record Case record from trigger
+   */
+  public static void populateFalseCustomerProfileCaseSubject(Case record) {
+    record.Subject = FALSE_CUSTOMER_PROFILE_CASE_SUBJECT;
   }
 
   /**
@@ -954,30 +969,28 @@ public with sharing class GetHelpCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    List<Case> kycQACases = CommonUtil.filterCasesByRecordTypeId(
-      records,
-      GetHelpConstants.KYCQA_RT_ID
+    //get all the cases with no customer from filtered kycQACases
+    List<Case> kycQACasesWithNoCustomer = GetHelpCaseActionsHelper.getKYCQACasesWithoutCustomer(
+      records
     );
-    if (kycQACases.isEmpty()) {
+
+    if (kycQACasesWithNoCustomer.isEmpty()) {
       return;
     }
 
     Map<String, String> mobileByCaseIdMap = GetHelpCaseActionsHelper.getMobileByCaseId(
-      oldMap.keySet()
+      new Map<Id, Case>(kycQACasesWithNoCustomer).keySet()
     );
 
     Map<String, Account> accountByMobileMap = GetHelpCaseActionsHelper.getAccountsByMobile(
       mobileByCaseIdMap.values()
     );
-    Set<Id> accIds = (new Map<Id, SObject>(accountByMobileMap.values()))
-      .keySet();
     // Get matched Accounts Entitelments
-    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getEntitlements(
-      accIds,
-      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getAccountIdEntitlmentMap(
+      accountByMobileMap.values()
     );
 
-    for (Case c : kycQACases) {
+    for (Case c : kycQACasesWithNoCustomer) {
       Account matchingAcc = accountByMobileMap.get(mobileByCaseIdMap.get(c.Id));
       if (matchingAcc != null) {
         Id accountEntitlmentId = accountIdEntitlmentMap.get(matchingAcc.Id);

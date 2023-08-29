@@ -103,6 +103,7 @@ force-app/main/default/flows/Knowledge_Process.flow-meta.xml
 #ignore pushing harness stuffs for making a scratchOrg
 force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
+
 # Now that entitlementProcesses are versioned we no longer need to ignore them.
 #force-app/main/default/entitlementProcesses/
 force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
@@ -174,7 +175,6 @@ force-app/main/default/objects/FinServ__FinancialAccount__c/fields/IsPrimaryOwne
 force-app/main/default/objects/FinServ__FinancialAccount__c/fields/Role_Type__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialAccount__c/fields/Primary_Owner_Start_Date__c.field-meta.xml
 
-
 #CC-2512 - Queue needs to be manually deleted so don't attempt to deploy this destructive change.
 force-app/main/default/queues/EDR_Responsible_Lending.queue-meta.xml
 
@@ -184,6 +184,9 @@ force-app/main/default/omniIntegrationProcedures
 force-app/main/default/omniScripts
 force-app/main/default/omniUiCard
 
+force-app/main/default/objects/Lead/fields/Not_Registered__c.field-meta.xml
+
 #AR-90796 - Uninstall mvision
 mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
 force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
+force-app/main/default/tabs/SkyhighNetworks__SHNEvent__c.tab-meta.xml

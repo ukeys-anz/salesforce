@@ -5,6 +5,20 @@
     "Lead_Quality__c": {
       "displayValue": "Good",
       "value": "Good"
+    },
+    "Status": {
+      "displayValue": "Assigned",
+      "value": "Assigned"
+    },
+    "RecordType": {
+      "value": {
+        "fields": {
+          "DeveloperName": {
+            "displayValue": "Commercial CRM Lead",
+            "value": "CCRM_Lead"
+          }
+        }
+      }
     }
   },
   "id": "00Q2O000001k2JpUAI",

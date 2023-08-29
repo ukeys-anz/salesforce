@@ -7,14 +7,6 @@
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class CCRMLeadActions {
   @TestVisible
-  static final String CAMPAIGN_NOT_FOUND_ERROR_MESSAGE = 'CAMPAIGN DOES NOT EXIST OR NOT ACTIVE';
-  @TestVisible
-  static final String BUSINESS_NUMBER_NOT_FOUND_ERROR_MESSAGE = 'BUSINESS NUMBER NOT FOUND';
-  @TestVisible
-  static final String CUSTOMER_NUMBER_NOT_FOUND_ERROR_MESSAGE = 'CUSTOMER NUMBER NOT FOUND';
-  @TestVisible
-  static final String CLG_NOT_FOUND_ERROR_MESSAGE = 'CLG NOT FOUND';
-  @TestVisible
   static final String EXPIRY_DATE_MISSING_ERROR_MESSAGE = 'EXPIRY DATE IS MISSING';
 
   /**
@@ -29,9 +21,11 @@ public with sharing class CCRMLeadActions {
   ) {
     for (Lead record : records) {
       if (
-        CCRMLeadUtil.isCCRMLeadType(record) &&
-        CCRMLeadUtil.isLeadStatusChanged(record, oldMap?.get(record.Id)) &&
-        record.Status == CCRMConstants.STATUS_COMPLETED
+        ((CCRMLeadUtil.isCCRMLeadType(record) &&
+        record.Status == CCRMConstants.STATUS_CONVERTED) ||
+        (CCRMLeadUtil.isMLCRMLeadType(record) &&
+        record.Status == CCRMConstants.STATUS_COMPLETED)) &&
+        CCRMLeadUtil.isLeadStatusChanged(record, oldMap?.get(record.Id))
       ) {
         record.Followup_Date__c = null;
       }
@@ -58,9 +52,10 @@ public with sharing class CCRMLeadActions {
         oldRec
       );
       if (
-        CCRMLeadUtil.isCCRMLeadType(record) &&
+        ((CCRMLeadUtil.isCCRMLeadType(record) &&
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) ||
+        CCRMLeadUtil.isMLCRMLeadType(record)) &&
         record.OwnerID.getsobjecttype() == User.sobjecttype &&
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE &&
         (isAdobeNewLead || isLeadOwnerUpdated)
       ) {
         createChatterPostLeads.add(record);
@@ -86,12 +81,14 @@ public with sharing class CCRMLeadActions {
 
     for (Lead record : records) {
       if (
-        CCRMLeadUtil.isCCRMLeadType(record) &&
+        (CCRMLeadUtil.isCCRMLeadType(record) ||
+        CCRMLeadUtil.isMLCRMLeadType(record)) &&
         (String.isBlank(record.Lead_Id__c) ||
         record.Lead_Id__c.contains('null'))
       ) {
         Lead updateLead = new Lead(Id = record.id);
         updateLead.Lead_Id__c = record.Lead_Auto_Number__c;
+        updateLead.Skip_Validations__c = MLCRMConstants.COPY_LEAD_ID;
         updateLeads.add(updateLead);
       }
     }
@@ -111,65 +108,15 @@ public with sharing class CCRMLeadActions {
    *  - Priority__c: updated from campaign, or default value if not available
    *  - Description: updated from campaign if available
    *  - FinServ__RelatedAccount__c: updated by search for account matching Customer_ID__c/CLG_ID__c/Business_ID__c
+   *  - LeadSource: updated based on Lead_Originator for UNICA/Adobe
    * @name populateFields
    * @param records List of lead records.
    */
   public static void populateFields(List<Lead> records) {
-    Map<String, Account> mapAccountRecord = new Map<String, Account>();
-    Map<String, Campaign> mapCampaignCodeRecord = CCRMCampaignActions.getCCRMLeadCampaigns(
-      records
-    );
-    mapAccountRecord = new CCRMLeadMappingEngine()
-      .getAccountsBySourceSystemId(records);
-
-    for (Lead record : records) {
-      if (CCRMLeadUtil.isCCRMLeadType(record)) {
-        if (mapCampaignCodeRecord.containsKey(record.Campaign_Code__c)) {
-          Decimal priorityValue = mapCampaignCodeRecord.get(
-                record.Campaign_Code__c
-              )
-              .Priority__c !=
-            Decimal.ValueOf(LABEL.CCRM_LeadDefaultPriorityValue)
-            ? mapCampaignCodeRecord.get(record.Campaign_Code__c).Priority__c
-            : Decimal.ValueOf(LABEL.CCRM_LeadDefaultPriorityValue);
-          record.Priority__c = priorityValue;
-          record.Description = String.isBlank(record.Description)
-            ? mapCampaignCodeRecord.get(record.Campaign_Code__c).Description
-            : record.Description;
-        } else if (CCRMLeadUtil.isUnicaLead(record)) {
-          record.addError(CAMPAIGN_NOT_FOUND_ERROR_MESSAGE);
-        }
-
-        if (!String.isBlank(record.Business_ID__c)) {
-          if (mapAccountRecord.containsKey(record.Business_ID__c)) {
-            record.FinServ__RelatedAccount__c = mapAccountRecord.get(
-                record.Business_ID__c
-              )
-              .Id;
-          } else if (CCRMLeadUtil.isUnicaLead(record)) {
-            record.addError(BUSINESS_NUMBER_NOT_FOUND_ERROR_MESSAGE);
-          }
-        } else if (!String.isBlank(record.Customer_ID__c)) {
-          if (mapAccountRecord.containsKey(record.Customer_ID__c)) {
-            record.FinServ__RelatedAccount__c = mapAccountRecord.get(
-                record.Customer_ID__c
-              )
-              .Id;
-          } else if (CCRMLeadUtil.isUnicaLead(record)) {
-            record.addError(CUSTOMER_NUMBER_NOT_FOUND_ERROR_MESSAGE);
-          }
-        } else if (!String.isBlank(record.CLG_ID__c)) {
-          if (mapAccountRecord.containsKey(record.CLG_ID__c)) {
-            record.FinServ__RelatedAccount__c = mapAccountRecord.get(
-                record.CLG_ID__c
-              )
-              .Id;
-          } else if (CCRMLeadUtil.isUnicaLead(record)) {
-            record.addError(CLG_NOT_FOUND_ERROR_MESSAGE);
-          }
-        }
-      }
-    }
+    //CC-3941 moved logic to helper class to resolve  ExcessiveClassLength and NcssMethodCount PMD issues
+    CCRMLeadActionsHelper.populateFieldsFromCampaign(records);
+    CCRMLeadActionsHelper.populateRelatedAccount(records);
+    CCRMLeadActionsHelper.populateLeadSource(records);
   }
 
   /**
@@ -186,7 +133,8 @@ public with sharing class CCRMLeadActions {
 
     for (Lead selectLead : records) {
       if (
-        CCRMLeadUtil.isCCRMLeadType(selectLead) &&
+        (CCRMLeadUtil.isCCRMLeadType(selectLead) ||
+        CCRMLeadUtil.isMLCRMLeadType(selectLead)) &&
         !String.isBlank(selectLead.Campaign_Code__c) &&
         mapCampaignCodeRecord.containsKey(selectLead.Campaign_Code__c)
       ) {
@@ -244,11 +192,15 @@ public with sharing class CCRMLeadActions {
         //If expiry date is today and weekday is from Mon-Thu then just add 1 day
         if (
           CCRMLeadUtil.isLeadOwnerChanged(record, oldRec) &&
-          CCRMLeadUtil.isCCRMLeadType(record)
+          (CCRMLeadUtil.isCCRMLeadType(record) ||
+          CCRMLeadUtil.isMLCRMLeadType(record))
         ) {
           if (
-            record.Expiry_Date__c ==
-            Date.today().addDays(Integer.valueOf(System.Label.CCRM_Today_Date))
+            (record.Expiry_Date__c ==
+            Date.today()
+              .addDays(Integer.valueOf(System.Label.CCRM_Today_Date))) ||
+            (Date.today().daysBetween(record.Expiry_Date__c) == 1 &&
+            CCRMLeadUtil.isMLCRMLeadType(record))
           ) {
             string dayName = DateTimeUtils.getDay(record.Expiry_Date__c);
             switch on dayName {
@@ -264,7 +216,7 @@ public with sharing class CCRMLeadActions {
                 includeFriday = false;
               }
             }
-          } else {
+          } else if (CCRMLeadUtil.isCCRMLeadType(record)) {
             newExpiryDate = record.Expiry_Date__c;
             includeFriday = true;
           }
@@ -286,6 +238,31 @@ public with sharing class CCRMLeadActions {
             false
           );
         }
+
+        //Set Lead follow up date when follow up date is greater than campaign expiry date
+        if (
+          mapCampaigns.size() > 0 &&
+          record.Followup_Date__c > mapCampaigns.get(record.Id) &&
+          System.today()
+            .addDays(integer.valueOf(System.Label.ML_FollowUpDateExtends)) <=
+          record.Expiry_Date__c &&
+          CCRMLeadUtil.isMLCRMLeadType(record)
+        ) {
+          record.Followup_Date__c =
+            record.Expiry_Date__c -
+            (integer.valueOf(System.Label.ML_FollowUpDateExtends));
+        } else if (
+          mapCampaigns.size() > 0 &&
+          record.Followup_Date__c > mapCampaigns.get(record.Id) &&
+          System.today()
+            .addDays(integer.valueOf(System.Label.ML_FollowUpDateExtends)) >
+          record.Expiry_Date__c &&
+          CCRMLeadUtil.isMLCRMLeadType(record)
+        ) {
+          record.Followup_Date__c =
+            record.Expiry_Date__c -
+            (integer.valueOf(System.Label.ML_FollowUpDateLessThanToday));
+        }
       }
     }
   }
@@ -306,19 +283,18 @@ public with sharing class CCRMLeadActions {
   ) {
     Task task = mapTask.get(record.Id);
 
+    Integer minDays = CCRMLeadUtil.isCCRMLeadType(record)
+      ? integer.valueOf(System.Label.CCRM_MinDaysExpiryDateExtends)
+      : integer.valueOf(System.Label.ML_MinDaysExpiryDateExtends);
+    Integer maxdays = CCRMLeadUtil.isCCRMLeadType(record)
+      ? integer.valueOf(System.Label.CCRM_MinDaysExpiryDateExtends)
+      : integer.valueOf(System.Label.ML_MinDaysExpiryDateExtends);
+
     if (task != null && task.ActivityDate != null) {
-      newExpiryDate = task.ActivityDate.addDays(
-          integer.valueOf(System.Label.CCRM_MinDaysExpiryDateExtends)
-        ) >
-        record.Expiry_Date__c.addDays(
-          integer.valueOf(System.Label.CCRM_MaxDaysExpiryDateExtends)
-        )
-        ? record.Expiry_Date__c.addDays(
-            integer.valueOf(System.Label.CCRM_MaxDaysExpiryDateExtends)
-          )
-        : task.ActivityDate.addDays(
-            integer.valueOf(System.Label.CCRM_MinDaysExpiryDateExtends)
-          );
+      newExpiryDate = task.ActivityDate.addDays(minDays) >
+        record.Expiry_Date__c.addDays(maxdays)
+        ? record.Expiry_Date__c.addDays(maxdays)
+        : task.ActivityDate.addDays(minDays);
     }
     return newExpiryDate;
   }
@@ -372,7 +348,13 @@ public with sharing class CCRMLeadActions {
       //Followup date is changed on Lead
       if (
         selectLead.Followup_Date__c != oldRec.Followup_Date__c &&
-        selectLead.Expiry_Date__c >= Date.today()
+        selectLead.Expiry_Date__c >= Date.today() &&
+        (CCRMLeadUtil.isCCRMLeadType(selectLead) ||
+        (CCRMLeadUtil.isMLCRMLeadType(selectLead) &&
+        selectLead.Followup_Date__c != null &&
+        selectLead.Followup_Date__c.addDays(
+          Integer.valueOf(System.Label.ML_DefaultLeadExpiryDate)
+        ) > selectLead.Expiry_Date__c))
       ) {
         leadIds.add(selectLead.Id);
       }
@@ -403,7 +385,8 @@ public with sharing class CCRMLeadActions {
     List<Lead> selectedLeads = new List<Lead>();
     for (Lead record : records) {
       if (
-        CCRMLeadUtil.isCCRMLeadType(record) &&
+        (CCRMLeadUtil.isCCRMLeadType(record) ||
+        CCRMLeadUtil.isMLCRMLeadType(record)) &&
         String.isNotBlank(record.Previous_Lead__c) &&
         record.Lead_Originator__c == 'Adobe'
       ) {
@@ -466,8 +449,11 @@ public with sharing class CCRMLeadActions {
     Set<String> relatedPartyIds = new Set<String>();
     for (Lead record : records) {
       if (
-        CCRMLeadUtil.isCCRMLeadType(record) &&
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM &&
+        (CCRMLeadUtil.isCCRMLeadType(record) ||
+        CCRMLeadUtil.isMLCRMLeadType(record)) &&
+        (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM ||
+        record.Lead_Originator__c == MLCRMConstants.ORIGINATOR_MLCRM ||
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) &&
         String.isNotBlank(record.FinServ__RelatedAccount__c)
       ) {
         Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
@@ -494,8 +480,10 @@ public with sharing class CCRMLeadActions {
     Set<String> relatedPartyIds = new Set<String>();
     for (Lead record : records) {
       if (
-        CCRMLeadUtil.isCCRMLeadType(record) &&
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM &&
+        (CCRMLeadUtil.isCCRMLeadType(record) ||
+        CCRMLeadUtil.isMLCRMLeadType(record)) &&
+        (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM ||
+        record.Lead_Originator__c == MLCRMConstants.ORIGINATOR_MLCRM) &&
         String.isNotBlank(record.FinServ__RelatedAccount__c)
       ) {
         relatedPartyIds.add(record.FinServ__RelatedAccount__c);
@@ -643,7 +631,7 @@ public with sharing class CCRMLeadActions {
    * @param oldRec lead record with previous values from the trigger
    */
   public static void addValidationStatus(Lead record, Lead oldRec) {
-    if (!record.Not_Registered__c) {
+    if (record.Registered_Company__c == 'Yes') {
       if (AbnAcnUtil.isABNValueEntered(record, oldRec)) {
         record.ABN_Validation_Status__c = CCRMConstants.ABN_ACN_STATUS_INPROGRESS;
       }
@@ -679,7 +667,7 @@ public with sharing class CCRMLeadActions {
     if (records.size() == 1) {
       for (Lead record : records) {
         Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
-        if (!record.Not_Registered__c) {
+        if (record.Registered_Company__c == 'Yes') {
           if (AbnAcnUtil.isABNValueEntered(record, oldRec)) {
             makeAbnCallout(record.ABN__c.deleteWhitespace(), record.Id);
           }
@@ -762,7 +750,10 @@ public with sharing class CCRMLeadActions {
    * @param oldRec old record
    */
   private static void setDuplicateBlock(Lead record, Lead oldRec) {
-    if (!CCRMLeadUtil.isCCRMLeadType(record)) {
+    if (
+      !CCRMLeadUtil.isCCRMLeadType(record) &&
+      !CCRMLeadUtil.isMLCRMLeadType(record)
+    ) {
       return;
     }
     if (oldRec != null && !CCRMLeadUtil.isLeadStatusChanged(record, oldRec)) {
@@ -783,5 +774,198 @@ public with sharing class CCRMLeadActions {
       CCRMLeadPlatformEventHelper.getLeadData(leadIds),
       null
     );
+  }
+
+  /**
+   * @description This method prefill Referrer when Referrer Email is populated or changed
+   * @name referrerPrefill
+   * @param records List of lead records
+   * @param oldMap Mao of old lead records
+   * author Ankit Garg
+   * @US CC-1882
+   */
+  public static void referrerPrefill(List<Lead> records, Map<Id, Lead> oldMap) {
+    Set<String> referrerEmails = new Set<String>();
+    Set<Id> referrerIds = new Set<Id>();
+    List<Lead> referredEmailLeads = new List<Lead>();
+    List<Lead> referredLeads = new List<Lead>();
+    Map<String, User> userEmailMap = new Map<String, User>();
+    Map<Id, User> userMap = new Map<Id, User>();
+
+    //filter all the ML leads for which Internal Referral or Referrer Email is changed
+    for (Lead record : records) {
+      if (
+        CCRMLeadUtil.isMLCRMLeadType(record) &&
+        String.isNotBlank(record.FinServ__ReferredByUser__c) &&
+        (oldMap == null ||
+        record.FinServ__ReferredByUser__c !=
+        oldMap.get(record.id).FinServ__ReferredByUser__c)
+      ) {
+        referrerIds.add(record.FinServ__ReferredByUser__c);
+        referredLeads.add(record);
+      } else if (
+        CCRMLeadUtil.isMLCRMLeadType(record) &&
+        String.isNotBlank(record.Referrer_Email__c) &&
+        record.LeadSource.equals(MLCRMConstants.INTERNAL_REFERRAL) &&
+        (oldMap == null ||
+        record.Referrer_Email__c != oldMap.get(record.id).Referrer_Email__c)
+      ) {
+        referrerEmails.add(record.Referrer_Email__c);
+        referredEmailLeads.add(record);
+      }
+    }
+
+    if (!referrerEmails.isEmpty() && Schema.sObjectType.User.isQueryable()) {
+      userEmailMap = getReferrerUsers(referrerEmails);
+    }
+    if (!referrerIds.isEmpty() && Schema.sObjectType.User.isQueryable()) {
+      userMap = getReferrerUsers(referrerIds);
+    }
+    if (
+      !referredLeads.isEmpty() &&
+      Schema.sObjectType.Lead.fields.Referrer_Email__c.isUpdateable()
+    ) {
+      populateReferrerDetails(referredLeads, userMap);
+    }
+    if (
+      !referredEmailLeads.isEmpty() &&
+      Schema.sObjectType.Lead.fields.FinServ__ReferredByUser__c.isUpdateable()
+    ) {
+      populateReferrer(referredEmailLeads, userEmailMap);
+    }
+  }
+
+  /**
+   * @description This method to query users matching with Referrer Emails
+   * @name getReferrerUsers
+   * @param referrerEmails Set of Email Ids
+   * @return userEmailMap Map<String,User>()
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static Map<String, User> getReferrerUsers(
+    Set<String> referrerEmails
+  ) {
+    Map<String, User> userEmailMap = new Map<String, User>();
+    //query users matching with Referrer Emails
+    for (User rUser : [
+      SELECT Id, Name, Email
+      FROM User
+      WHERE Email = :referrerEmails AND isActive = TRUE
+      LIMIT 10000
+    ]) {
+      if (!userEmailMap.containsKey(rUser.Email)) {
+        userEmailMap.put(rUser.Email, rUser);
+      }
+    }
+    return userEmailMap;
+  }
+
+  /**
+   * @description This method to query users matching with Referrer Emails
+   * @name getReferrerUsers
+   * @param referrerIds Set of User Ids
+   * @return userMap Map<Id,User>()
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static Map<Id, User> getReferrerUsers(Set<Id> referrerIds) {
+    //query users matching with Internal Referrer Ids
+    Map<Id, User> userMap = new Map<Id, User>(
+      [
+        SELECT Id, Name, Email
+        FROM User
+        WHERE Id = :referrerIds AND isActive = TRUE
+        LIMIT 10000
+      ]
+    );
+    return userMap;
+  }
+
+  /**
+   * @description This method to populate Referrer Email and Referrer Name
+   * @name populateReferrerDetails
+   * @param referredLeads List of Lead records
+   * @param userMap Map of users
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static void populateReferrerDetails(
+    List<Lead> referredLeads,
+    Map<Id, User> userMap
+  ) {
+    for (Lead record : referredLeads) {
+      if (
+        record.FinServ__ReferredByUser__c != null &&
+        !userMap.isEmpty() &&
+        userMap.containsKey(record.FinServ__ReferredByUser__c)
+      ) {
+        record.Referrer_Email__c = userMap.get(
+            record.FinServ__ReferredByUser__c
+          )
+          .Email;
+        record.Referrer_Name__c = userMap.get(record.FinServ__ReferredByUser__c)
+          .Name;
+      }
+    }
+  }
+  /**
+   * @description This method to populate Internal Referrer and Referrer Name
+   * @name populateReferrer
+   * @param referredLeads List of Lead records
+   * @param userEmailMap Map of email with users
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static void populateReferrer(
+    List<Lead> referredLeads,
+    Map<String, User> userEmailMap
+  ) {
+    for (Lead record : referredLeads) {
+      if (
+        record.Referrer_Email__c != null &&
+        !userEmailMap.isEmpty() &&
+        userEmailMap.containsKey(record.Referrer_Email__c)
+      ) {
+        record.FinServ__ReferredByUser__c = userEmailMap.get(
+            record.Referrer_Email__c
+          )
+          .Id;
+        record.Referrer_Name__c = userEmailMap.get(record.Referrer_Email__c)
+          .Name;
+      } else {
+        record.FinServ__ReferredByUser__c = null;
+      }
+    }
+  }
+
+  /**
+   * @description This method to update lead status when response is logged.
+   * @name updateLeadStatus
+   * @param records List of Lead records
+   * @param oldMap Map of old map
+   * @author Ashish Kumar
+   * @US CC-1609
+   */
+  public static void updateLeadStatus(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    for (Lead record : records) {
+      //CC-1069 Auto Update Lead status to In Progrees for MLCRM Manual lead update
+      // Added CreatedDate and LastModifiedDate check due to existing code's insert trigger immediately invokes update trigger. This check ensures it happen only on update from UI.
+      if (
+        CCRMLeadUtil.isMLCRMLeadType(record) &&
+        oldMap != null &&
+        oldMap.get(record.Id).OwnerId == record.OwnerId &&
+        record.Status == MLCRMConstants.STATUS_NEW &&
+        record.Skip_Validations__c ==
+        oldMap.get(record.Id).Skip_Validations__c &&
+        !record.isNewLead__c
+      ) {
+        record.Status = MLCRMConstants.STATUS_IN_PROGRESS;
+        record.Skip_Validations__c = MLCRMConstants.LEAD_NEW_TO_INPROGRESS;
+      }
+    }
   }
 }

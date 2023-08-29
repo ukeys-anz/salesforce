@@ -8,9 +8,19 @@
     NOT($Permission.CCRM_Skip_Validation),
     TEXT(Lead_Originator__c) != &apos;Adobe&apos;,
     RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
-    OR(AND(ISBLANK(Company) ,
-    NOT(Not_Registered__c)), AND(NOT(ISBLANK(Company)) ,
-    Not_Registered__c))
+	OR(
+		AND(
+			ISBLANK(Company), 
+			ISPICKVAL(Registered_Company__c, &apos;Yes&apos;)
+		),
+		AND(
+			NOT(ISBLANK(Company)),
+			OR(
+				ISPICKVAL(Registered_Company__c, &apos;No&apos;),
+				ISPICKVAL(Registered_Company__c, &apos;&apos;)
+			)
+		)
+	)
 )</errorConditionFormula>
-    <errorMessage>Please enter a Company Name OR Check Not Registered, but not both.</errorMessage>
+    <errorMessage>Please enter a Company Name OR Registered Company, but not both.</errorMessage>
 </ValidationRule>

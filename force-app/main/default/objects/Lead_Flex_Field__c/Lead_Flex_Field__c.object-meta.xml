@@ -154,12 +154,12 @@
     <enableSharing>false</enableSharing>
     <enableStreamingApi>false</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Lead Flex Field</label>
+    <label>Additional Lead Field</label>
     <nameField>
-        <label>Sequence</label>
+        <label>Reference</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Lead Flex Fields</pluralLabel>
+    <pluralLabel>Additional Lead Fields</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
         <excludedStandardButtons>Accept</excludedStandardButtons>

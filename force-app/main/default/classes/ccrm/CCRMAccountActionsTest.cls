@@ -154,6 +154,7 @@ private class CCRMAccountActionsTest {
       l.Firstname = 'John';
       l.Lastname = 'Something';
       l.Company = 'Test Company';
+      l.Registered_Company__c = 'Yes';
       l.Email = 'john.something@gmail.com';
       l.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
       l.CAPCIS_ID__c = '123456789';
@@ -188,9 +189,9 @@ private class CCRMAccountActionsTest {
       LIMIT 1
     ];
     System.assertEquals(
-      'Converted',
+      CCRMConstants.STATUS_ASSIGNED,
       le.Status,
-      'Lead should have been converted.'
+      'Lead should not convert from CCRM account creation.'
     );
   }
 
@@ -235,5 +236,31 @@ private class CCRMAccountActionsTest {
       ],
       'Customer_Profile_Updates__c with TriggeredFrom__c = "Account.TaxDetails" should be created when prospect ABN/ACN/ARBN are updated'
     );
+  }
+
+  @IsTest
+  static void findAndConvertLeadCCRMTest() {
+    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+      Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
+        .Id;
+      USER usr = (USER) FakerFactory.make(new FakerUserFactory());
+      usr.Email = 'test@mltest.anz.com';
+      usr.ProfileId = adminProfileId;
+      usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
+      insert usr;
+
+      Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
+      insert leadRec;
+      Faker faker = new Faker('AU');
+      Account testAccount = new Account(
+        Name = 'Test Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = false
+      );
+      insert testAccount;
+      Test.startTest();
+      AccountCommonActions.findAndConvertCCRMLead(testAccount.id, leadRec);
+      Test.stopTest();
+    }
   }
 }

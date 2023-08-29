@@ -162,7 +162,7 @@ public with sharing class CCRMLegalEntityActionsTest {
       Opportunity objOpportunity = new Opportunity();
       objOpportunity.Name = faker.person.firstName();
       objOpportunity.Accountid = firstAccount.id;
-      objOpportunity.StageName = 'Prospecting';
+      objOpportunity.StageName = 'Opportunity Identified';
       objOpportunity.CloseDate = system.Today() + 3;
       objOpportunity.Description = faker.text.realText(10, 20);
       objOpportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
