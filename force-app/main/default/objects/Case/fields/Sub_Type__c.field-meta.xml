@@ -601,7 +601,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>EOFY</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Withholding tax refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Withholding Tax and TFN enquiry</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>

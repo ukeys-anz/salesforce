@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Lead</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>ML Lead Path</masterLabel>
+    <pathAssistantSteps>
+        <picklistValueName>Converted</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Ensure customer contact details are up to date (update customer contact details if needed) &lt;/li&gt;&lt;li&gt;Make contact with customer &lt;/li&gt;&lt;li&gt;Log response activities to capture interactions and avoid escalation or expiry &lt;/li&gt;&lt;li&gt;Set a reasonable follow up date if required &lt;/li&gt;&lt;li&gt;Capture customer consent for advertising and contact preferences &lt;/li&gt;&lt;li&gt;Send emails to the customers on the conversation had for this particular lead&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>In progress</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Review additional Lead information from the Additional Campaign details section (flex fields). &lt;/li&gt;&lt;li&gt;Ensure contact details are on record. &lt;/li&gt;&lt;li&gt;For self sourced leads ensure that the contact is a &amp;quot;New to Bank&amp;quot; or a prospective customer.&lt;/li&gt;&lt;li&gt;Access Max for additional assistance on progressing with leads.&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>New</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>FinServ__ExpressedInterest__c</fieldNames>
+        <fieldNames>FinServ__PotentialValue__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Prepare for booking an appointment with the customer &lt;/li&gt;&lt;li&gt;Prepare to convert the lead - ensure required fields are completed &lt;/li&gt;&lt;li&gt;If customer has a future need, ensure to create a reminder to make contact in future&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Opportunity Identified</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>MLCRM_Lead</recordTypeName>
+</PathAssistant>

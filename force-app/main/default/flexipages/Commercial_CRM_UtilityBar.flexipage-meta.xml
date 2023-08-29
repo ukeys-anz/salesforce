@@ -2,16 +2,54 @@
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
         <name>utilityItems</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>eager</name>
+                    <type>decorator</type>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>height</name>
+                    <type>decorator</type>
+                    <value>480</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>icon</name>
+                    <type>decorator</type>
+                    <value>fallback</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <type>decorator</type>
+                    <value>Quick Links</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 0, 0);&quot;&gt;Links for Opportunity Management&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://portal.knowhow.service.anz/Content/Dashboard&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(29, 116, 208); font-size: 12px;&quot;&gt;KnowHow&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://www.vedacheck.com/&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(29, 116, 208); font-size: 12px;&quot;&gt;Equifax&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://portal.docs.anz.com/&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(29, 116, 208); font-size: 12px;&quot;&gt;Document Exchange (DocX)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://max.global.anz.com/Work/applications%20and%20tools/Pages/anz/sites/Commercial%20Pricing%20Tool.aspx&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(29, 116, 208); font-size: 12px;&quot;&gt;Commercial Pricing&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://vx.valex.com.au&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(29, 116, 208); font-size: 12px;&quot;&gt;Core Logic&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://clp.business.service.anz/FenergoMMO.Web/app/LandingPage&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(29, 116, 208); font-size: 12px;&quot;&gt;Commercial Lending Platform (CLP)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://bbd.csp.service.anz/#/&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(29, 116, 208); font-size: 12px;&quot;&gt;Business Banker Desktop (BBD)&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://anz.sc.fxdms.net/sc/&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(29, 116, 208); font-size: 12px;&quot;&gt;File Digi&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 0, 0);&quot;&gt;Links for Lead Management&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://anz.sharepoint.com/teams/ConversationsHUB/SitePages/Customer-Conversations-Hub.aspx?xsdata=MDV8MDF8fDNhNzc0NWY1OGQ2NDQ0MjNlNTUyMDhkYjI0NDAxMzM3fDFmNGY3ZWRhNmU1MTQyNWVhMGY5NGMyZmNlZjU4YTUyfDB8MHw2MzgxNDM2Mjk4MjE5OTQzMjJ8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazkwYUdWeUlpd2lWMVFpT2pFeGZRPT18MXxNVFkzT0RjMk5qRTRNRGt5TnpzeE5qYzROelkyTVRnd09USTNPekU1T2pkbU5USTJNak0yTFRaalpHRXROR1JtTlMxaFpURTFMV1ppTVRVNU5tVTJNR0k1T1Y5allUZGtObUZsTXkwNFlqbGpMVFEyWWpFdE9URTBPQzFsWWpKak5qVXlNRFUwTUdKQWRXNXhMbWRpYkM1emNHRmpaWE09fDM4YWIyZWQwMzAyOTRjYTBlNTUyMDhkYjI0NDAxMzM3fDAxZDE1M2MyYmRlNzQ4NWFhZTY1NTc1NTk5ZGZkOTkx&amp;amp;sdata=Zzc5YXhQajlPa1lYa3NWL2E1V0VUaldUZnUvRHNrM0pKMmxKNkt6Qy9pTT0%3D&amp;amp;ovuser=1f4f7eda-6e51-425e-a0f9-4c2fcef58a52%2CJosh.Wang%40anz.com&amp;amp;cid=2c561220-3718-4045-843a-c26a38fcdac0&amp;amp;SafelinksUrl=https%3A%2F%2Fanz.sharepoint.com%2Fteams%2FConversationsHUB%2FSitePages%2FCustomer-Conversations-Hub.aspx&amp;amp;OR=Teams-HL&amp;amp;CT=1686013277027&amp;amp;clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMzA1MDEwMDQyMiIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;&gt;Conversation Hub&lt;/a&gt;&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>scrollable</name>
+                    <type>decorator</type>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>width</name>
+                    <type>decorator</type>
+                    <value>340</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText</identifier>
+            </componentInstance>
+        </itemInstances>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <name>backgroundComponents</name>
-        <itemInstances>
-            <componentInstance>
-                <componentName>prospectUpdateNotifications</componentName>
-                <identifier>prospectUpdateNotifications</identifier>
-            </componentInstance>
-        </itemInstances>
         <type>Background</type>
     </flexiPageRegions>
     <masterLabel>Commercial CRM UtilityBar</masterLabel>

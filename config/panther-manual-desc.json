@@ -281,6 +281,9 @@
         "PersonBirthdate",
         "PersonEmail",
         "PersonMobilePhone",
+        "PersonHomePhone",
+        "PersonOtherAddress",
+        "PersonMailingAddress",
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
@@ -300,7 +303,11 @@
         "IsSnapshotError__c",
         "IsSnapshotInProgress__c"
       ],
-      "IA-2415860": ["FinServ__CustomerType__c", "IsTruncated__c"]
+      "IA-2415860": [
+        "FinServ__CustomerType__c",
+        "Principal_Place_of_Business_Formula__c",
+        "IsTruncated__c"
+      ]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -1702,7 +1709,6 @@
         "Name",
         "New_to_Bank__c",
         "Note__c",
-        "Not_Registered__c",
         "OwnerId",
         "Previous_Lead__c",
         "Priority__c",
@@ -1711,13 +1717,32 @@
         "Prospect_Id__c",
         "Record_Id__c",
         "Skip_Validations__c",
+        "Soft_Delete__c",
         "Status",
         "SubStatus__c",
-        "UNICA_Treatment_Code__c"
+        "UNICA_Treatment_Code__c",
+        "Other_Source_Detail__c",
+        "Associated_Source_Detail__c",
+        "Lead_Outcome__c",
+        "Lead_Outcome_Formula__c",
+        "Registered_Company__c",
+        "Primary_Contact_Method__c",
+        "SourceSystemId__c",
+        "IsNewLead__c",
+        "Territory__c"
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
-      "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"]
+      "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"],
+      "IA-2425399": ["Referrer_Email__c","Referrer_Phone__c"],
+      "IA-2460507": ["Referrer_Name__c"],
+      "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
+      "IA-2618706": [
+        "PreferredName__c",
+        "AdvertisingIndicator__c",
+        "SourceSystem__c"
+      ],
+      "IA-2415986": ["Campaign_Name__c"]
     },
     "Lead_Flex_Field__c": {
       "IA-2415860": [
@@ -1736,6 +1761,33 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Lead_Stage_Automation__mdt": {
+      "IA-2415860": [
+        "Next_Lead_Status__c",
+        "Outcome_Type__c",
+        "Lead_Record_Type__c"
+      ],
+      "IA-2530753": ["What_happens_next__c"]
+    },
+    "DCRM_Lead_Response_Conversation_Guide__mdt": {
+      "IA-2530753": ["User_Role__c", "Profile__c"],
+      "IA-2415993": ["Conversation_Guide_URL__c", "Campaign_Lead_URL__c"]
+    },
+    "Lead_Status_Transformation__mdt": {
+      "IA-2415860": [
+        "Lead_Status__c",
+        "Outcome_Type__c",
+        "UNICA_Lead_Status__c"
+      ]
+    },
+    "CCRM_Action_Plan_Template_Selection__mdt": {
+      "IA-2415860": [
+        "Commercial_Segment__c",
+        "Opportunity_Record_Type__c",
+        "Template_Name__c",
+        "Opportunity_Stage_Name__c"
       ]
     },
     "Loan_Applicant_Group__c": {
@@ -1922,7 +1974,27 @@
         "StageName",
         "TotalOpportunityQuantity",
         "Opp_Id__c",
-        "Type"
+        "Type",
+        "Territory__c"
+      ],
+      "IA-2415860": [
+        "Associated_Source_Detail__c",
+        "BBD_Application_Number__c",
+        "BCOP_Email_sent__c",
+        "Broker_Involved__c",
+        "CLP_Credit_Case_Number__c",
+        "Customer_Needs__c",
+        "Lost_Reason_Detail__c",
+        "Other_Source_Detail__c",
+        "Won_from_Lost_to__c",
+        "Referrer_Name__c",
+        "Referrer_Email__c",
+        "Referrer_Phone__c",
+        "Referrer_Business_Name__c",
+        "Referrer_Industry_Type__c",
+        "Lead_Id__c",
+        "Source_Lead_Id__c",
+        "Source_Lead_Link__c"
       ],
       "IA-2415984": [
         "Contact__c",
@@ -1972,7 +2044,8 @@
         "Quantity",
         "UnitPrice",
         "ServiceDate"
-      ]
+      ],
+      "IA-2415860": ["Funding_purpose__c"]
     },
     "Process_Effectiveness__c": {
       "IA-2415840": [
@@ -2045,6 +2118,7 @@
         "IsActive",
         "Name",
         "ProductCode",
+        "Sub_Product_Code__c",
         "Product_Classification__c",
         "Product_End_Date__c",
         "Product_Start_Date__c",
@@ -2612,6 +2686,39 @@
       "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
       "IA-2415855": ["FinServ__ReferrerScore__c"],
       "IA-2432460": ["Refresh_Token__c"]
+    },
+    "Territory__c": {
+      "IA-2415860": [
+        "Access_Scope__c",
+        "Territory_Code__c",
+        "Primary_Franchise_Owner__c",
+        "OwnerId"
+      ]
+    },
+    "User_Territory__c": {
+      "IA-2415860": [
+        "Default_Territory__c",
+        "ML_Role__c",
+        "Status__c",
+        "Territory__c",
+        "User__c",
+        "Skip_Validation__c"
+      ]
+    },
+    "Territory_Based_Sharing_Config__mdt": {
+      "IA-2415860": [
+        "Active__c",
+        "Eligible_Record_Types__c",
+        "Excluded_Users__c",
+        "Recalculation_Timeframe__c",
+        "Excluded_Users__c",
+        "Object_Name__c",
+        "Sharing_Object__c",
+        "Territory_Field__c"
+      ]
+    },
+    "Territory_Base_Sharing_Event__e": {
+      "IA-2415860": ["Change_Context__c", "Record_Ids__c", "Trigger_Object__c"]
     }
   }
 }

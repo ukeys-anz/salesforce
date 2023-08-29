@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>SBB Needs Analysis</label>
+    <protected>false</protected>
+    <values>
+        <field>Commercial_Segment__c</field>
+        <value xsi:type="xsd:string">SBB</value>
+    </values>
+    <values>
+        <field>Opportunity_Record_Type__c</field>
+        <value xsi:type="xsd:string">Commercial_Opportunity</value>
+    </values>
+    <values>
+        <field>Opportunity_Stage_Name__c</field>
+        <value xsi:type="xsd:string">Needs Analysis</value>
+    </values>
+    <values>
+        <field>Template_Name__c</field>
+        <value xsi:type="xsd:string">Needs Analysis SBB Action Plan Template;Needs Analysis Action Plan Template</value>
+    </values>
+</CustomMetadata>

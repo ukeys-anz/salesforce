@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Existing_Customer_Manual</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+	NOT(CONTAINS($User.Username,&apos;unica.integration@anzx.com&apos;)),
+	NOT(CONTAINS($User.Username,&apos;adobe.integration@anzx.com&apos;)),
+	NOT($Profile.Name = &apos;System Administrator&apos;),
+	ISPICKVAL(Lead_Originator__c, &apos;CCRM&apos;),
+	ISCHANGED(FinServ__RelatedAccount__c),
+	NOT(ISBLANK(FinServ__RelatedAccount__c)),
+	NOT(ISPICKVAL(FinServ__RelatedAccount__r.FinServ__Status__c, &apos;Prospect&apos;))
+)</errorConditionFormula>
+    <errorDisplayField>FinServ__RelatedAccount__c</errorDisplayField>
+    <errorMessage>Only Customers with a Status of Prospect can be linked as an Existing Customer.</errorMessage>
+</ValidationRule>
