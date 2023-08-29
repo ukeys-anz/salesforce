@@ -425,7 +425,9 @@ export default class TransactionHistoryBoard extends LightningElement {
   getMerchantDetails(merchant_id) {
     return this.allMerchants.filter((merchant) => {
       return (
+        //Added For V1Beta1
         merchant_id === merchant.merchant_id ||
+        //Added For V1
         merchant_id === "merchants/" + merchant.merchant_id
       );
     });
@@ -437,7 +439,9 @@ export default class TransactionHistoryBoard extends LightningElement {
   getTagDetails(tagIds) {
     return this.allTags.filter((tag) => {
       return (
+        //Added For V1Beta1
         tagIds.indexOf(tag.tag_id) > -1 ||
+        //Added For V1
         tagIds.indexOf("tags/" + tag.tag_id) > -1
       );
     });
