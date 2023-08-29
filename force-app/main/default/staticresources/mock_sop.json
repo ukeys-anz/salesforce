@@ -1,0 +1,54 @@
+{
+  "sop": {
+    "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
+    "uid": "25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
+    "createTime": "2023-07-06T01:52:06.165083Z",
+    "updateTime": "2023-07-06T01:52:06.165083Z",
+    "snapshotTime": null,
+    "status": "SOP_STATUS_IN_PROGRESS",
+    "type": "SOP_TYPE_HOMELOAN",
+    "components": [
+      {
+        "type": "COMPONENT_TYPE_EXPENSES",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_INCOMES",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_LIABILITIES",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_SAVINGS",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_ASSETS",
+        "confirmed": false,
+        "partyConfirmations": []
+      }
+    ],
+    "parties": [
+      {
+        "id": "1000991493",
+        "ocvId": "1000991493",
+        "spouseEarnsIncome": false,
+        "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
+        "confirmedAccountsTime": null,
+        "multipleProfiles": false,
+        "personaId": ""
+      }
+    ],
+    "expenseConfigVersion": "",
+    "dependantsCount": 0,
+    "liabilitySources": [],
+    "etag": "1688608326165083000",
+    "ineligibleReasons": []
+  }
+}

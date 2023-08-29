@@ -11,7 +11,10 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @return `ResidentialLoanApplicationModel` model class constructed from api response
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
-  public ResidentialLoanApplicationModel getListAssets(String ocvId, String sopId) {
+  public ResidentialLoanApplicationModel getListAssets(
+    String ocvId,
+    String sopId
+  ) {
     Service s = ServiceProvider.getService(BOHService.class);
     HttpCalloutResponse response = s.getListAssets(ocvId, sopId);
     if (response.successful == false) {
@@ -21,6 +24,26 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
       return ResidentialLoanApplicationModel.parse(response.body);
     } catch (Exception e) {
       handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
+    }
+    return null;
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
+   * @return `SOPModel` model class constructed from api response
+   * @description fetches a list of assets from flex for a sop, deserialized to a model
+   */
+  public SOPModel getSOP(String ocvId, String sopId) {
+    Service s = ServiceProvider.getService(BOHService.class);
+    HttpCalloutResponse response = s.getSOP(ocvId, sopId);
+    if (response.successful == false) {
+      throw response.error;
+    }
+    try {
+      return SOPModel.parse(response.body);
+    } catch (Exception e) {
+      handleErrors(response, e, SOPModel.class);
     }
     return null;
   }

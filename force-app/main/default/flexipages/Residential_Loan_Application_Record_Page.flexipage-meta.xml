@@ -42,6 +42,20 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-86631e2f-b31e-4f19-a61d-dcd7e9ee124f</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>SOP_About_You</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <name>Facet-88412bd3-6030-47f6-b683-1dff8c71ce20</name>
         <itemInstances>
             <componentInstance>
@@ -83,6 +97,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-86631e2f-b31e-4f19-a61d-dcd7e9ee124f</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>About You</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab8</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
