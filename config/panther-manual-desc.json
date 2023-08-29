@@ -1918,8 +1918,7 @@
       "IA-2415840": [
         "Component_Type__c",
         "Is_Confirmable__c",
-        "Is_Confirmed__c",
-        "Loan_Applicant__c"
+        "Is_Confirmed__c"
       ],
       "IA-2530753": ["Confirmation_Date__c"]
     },
