@@ -216,4 +216,5 @@ img {
 
 .short-desc {
   word-break: break-all;
+  padding-right: 1rem;
 }
