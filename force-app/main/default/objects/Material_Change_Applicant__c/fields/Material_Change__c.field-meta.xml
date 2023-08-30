@@ -14,5 +14,5 @@
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>MasterDetail</type>
-    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
 </CustomField>
