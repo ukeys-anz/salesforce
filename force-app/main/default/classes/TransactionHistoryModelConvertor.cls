@@ -110,6 +110,7 @@ public class TransactionHistoryModelConvertor {
       destTransaction.primary_anzx_category = sourceTransaction.primary_anzx_category;
       destTransaction.transaction_posted_time = sourceTransaction.post_time;
       destTransaction.transaction_value_time = sourceTransaction.value_time;
+      destTransaction.is_npp_details_available = sourceTransaction.reportable;
       destTransaction.original_anzx_category = sourceTransaction.original_anzx_category;
       destTransaction.title = sourceTransaction.title;
       destTransaction.traceId = sourceTransaction.trace_id;
@@ -126,11 +127,10 @@ public class TransactionHistoryModelConvertor {
         destTransaction.ob_extension_u_type = convertFieldValue(
           sourceTransaction.open_banking.extension_u_type
         );
-        destTransaction.is_npp_details_available = sourceTransaction.open_banking.detail_available;
       }
       //Amount Mapping
-      if (sourceTransaction.Amount != null) {
-        destTransaction.amount = convertAmount(sourceTransaction.Amount);
+      if (sourceTransaction.amount != null) {
+        destTransaction.amount = convertAmount(sourceTransaction.amount);
       }
       //InternationalAmount Mapping
       if (sourceTransaction.international != null) {
@@ -155,16 +155,12 @@ public class TransactionHistoryModelConvertor {
       //Mapping Card
       if (sourceTransaction.card != null) {
         destTransaction.card = convertCard(sourceTransaction.card);
+        destTransaction.cash = convertCash(sourceTransaction.card);
       }
-      //Mapping Cash
-      if (sourceTransaction.Cash != null) {
-        destTransaction.cash = convertCash(sourceTransaction.cash);
-      }
-
       //Mapping Bpay
-      if (sourceTransaction.Bpay != null) {
+      if (sourceTransaction.bpay != null) {
         destTransaction.bpay = TransactionHistoryModelConvertorHelper.convertBpay(
-          sourceTransaction.Bpay
+          sourceTransaction.bpay
         );
       }
       //Mapping Transfer
@@ -179,13 +175,13 @@ public class TransactionHistoryModelConvertor {
         destTransaction.tags = convertTags(sourceTransaction.Tags);
       }
       //Mapping Payment
-      if (sourceTransaction.Payment != null) {
-        destTransaction.pay_anyone = convertPayment(sourceTransaction.Payment);
+      if (sourceTransaction.payment != null) {
+        destTransaction.pay_anyone = convertPayment(sourceTransaction.payment);
       }
       //Mapping Interest
-      if (sourceTransaction.Interest != null) {
+      if (sourceTransaction.interest != null) {
         destTransaction.interest = TransactionHistoryModelConvertorHelper.convertInterest(
-          sourceTransaction.Interest
+          sourceTransaction.interest
         );
       }
       destTransactions.add(destTransaction);
@@ -301,13 +297,13 @@ public class TransactionHistoryModelConvertor {
   }
 
   private static TransactionHistoryModel.Cash convertCash(
-    TransactionHistoryModelV1.Cash sourceCash
+    TransactionHistoryModelV1.Card sourceCash
   ) {
     TransactionHistoryModel.Cash destCash = new TransactionHistoryModel.Cash();
     if (sourceCash != null) {
-      destCash.card_last_four_digits = sourceCash.card_last_four_digits;
+      destCash.card_last_four_digits = sourceCash.last_four_digits;
       destCash.method = sourceCash.method;
-      destCash.card_scheme = sourceCash.card_scheme;
+      destCash.card_scheme = sourceCash.scheme;
       destCash.wallet = sourceCash.wallet;
     }
     return destCash;
