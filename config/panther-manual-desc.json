@@ -390,12 +390,16 @@
       ]
     },
     "Assessment": {
-      "IA-2530753": ["Last_Updated_Date__c"],
-      "IA-2415840": ["Unsuitability_Reasons__c"]
+      "IA-2530753": ["Last_Updated_Date__c", "Created_Date__c"],
+      "IA-2415840": ["Unsuitability_Reasons__c", "External_Id__c"],
+      "IA-2415983": ["Loan_Application__c"]
     },
     "AssessmentQuestionResponse": {
       "IA-2594111": ["Completed_By__c"],
-      "IA-2415987": ["Assessment_Response__c"]
+      "IA-2415987": ["Assessment_Response__c"],
+      "IA-2415983": ["Application_Id__c", "AssessmentId"],
+      "IA-2530753": ["Created_Date__c"],
+      "IA-2415840": ["External_Id__c"]
     },
     "Campaign": {
       "IA-2415860": [
@@ -1874,11 +1878,13 @@
         "Invitation_External_Id__c",
         "Invitation_Status__c",
         "Applicant_Type__c",
-        "Loan_Applicant__c"
+        "Loan_Applicant__c",
+        "Loan_Application__c"
       ],
       "IA-2530753": [
         "Invitation_Last_Updated_Date__c",
-        "Invitation_Expiry_Date__c"
+        "Invitation_Expiry_Date__c",
+        "Created_Date__c"
       ],
       "IA-2415984": ["Invitee_Mobile_Number__c", "Inviter_Legal_name__c"]
     },
@@ -1896,7 +1902,8 @@
         "CreatedDate",
         "LastModifiedDate",
         "Last_Updated_Date__c",
-        "Application_Submit_Time__c"
+        "Application_Submit_Time__c",
+        "Created_Date__c"
       ],
       "IA-2594111": [
         "ApplicantExtIdentifier",
@@ -1912,8 +1919,7 @@
       "IA-2415840": [
         "Component_Type__c",
         "Is_Confirmable__c",
-        "Is_Confirmed__c",
-        "Loan_Applicant__c"
+        "Is_Confirmed__c"
       ],
       "IA-2530753": ["Confirmation_Date__c"]
     },
@@ -2064,6 +2070,13 @@
         "User__c"
       ],
       "IA-2468715": ["CreatedById", "CreatedDate", "Id"]
+    },
+    "Material_Change__c": {
+      "IA-2415840": ["Loan_Application__c", "External_Id__c", "Change_Type__c"]
+    },
+    "Material_Change_Applicant__c": {
+      "IA-2415983": ["Material_Change__c", "Applicant__c"],
+      "IA-2415840": ["External_Id__c"]
     },
     "Opportunity": {
       "IA-2415840": [
@@ -2487,7 +2500,8 @@
         "Version__c",
         "Last_Updated_Date__c",
         "Expiry_Date__c",
-        "Loan_Purpose_Updated_Date__c"
+        "Loan_Purpose_Updated_Date__c",
+        "Created_Date__c"
       ],
       "IA-2594111": [
         "ApplicationExtIdentifier",

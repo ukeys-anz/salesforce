@@ -153,13 +153,13 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Loan Invitation</label>
+    <label>Material Change</label>
     <nameField>
-        <displayFormat>LI-{00000}</displayFormat>
-        <label>Loan Invitation Number</label>
+        <displayFormat>MC-{00000}</displayFormat>
+        <label>Material Change Number</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Loan Invitations</pluralLabel>
+    <pluralLabel>Material Changes</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

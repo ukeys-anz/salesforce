@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
-        <actionName>Accept</actionName>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <formFactor>Large</formFactor>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>Accept</actionName>
-        <formFactor>Small</formFactor>
-        <type>Default</type>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>CancelEdit</actionName>
         <type>Default</type>
     </actionOverrides>
@@ -140,27 +126,39 @@
         <formFactor>Small</formFactor>
         <type>Default</type>
     </actionOverrides>
-    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
-    <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
-    <enableHistory>false</enableHistory>
-    <enableLicensing>false</enableLicensing>
-    <enableReports>false</enableReports>
-    <enableSearch>false</enableSearch>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Loan Invitation</label>
-    <nameField>
-        <displayFormat>LI-{00000}</displayFormat>
-        <label>Loan Invitation Number</label>
-        <type>AutoNumber</type>
-    </nameField>
-    <pluralLabel>Loan Invitations</pluralLabel>
-    <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
-    <visibility>Public</visibility>
+    <externalSharingModel>Private</externalSharingModel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <searchLayouts>
+        <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LastModifiedBy</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Account</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Case</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Parent</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Contact</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OmniProcess</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>LastModifiedDate</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>LastModifiedBy</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Account</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Case</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Parent</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Contact</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>OmniProcess</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LastModifiedDate</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>LastModifiedBy</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Account</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Case</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Parent</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Contact</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>OmniProcess</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>LastModifiedDate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LastModifiedBy</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Case</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Parent</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Contact</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OmniProcess</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
 </CustomObject>
