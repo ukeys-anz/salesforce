@@ -126,6 +126,7 @@ public class TransactionHistoryModelConvertor {
         destTransaction.ob_extension_u_type = convertFieldValue(
           sourceTransaction.open_banking.extension_u_type
         );
+        destTransaction.is_npp_details_available = sourceTransaction.open_banking.detail_available;
       }
       //Amount Mapping
       if (sourceTransaction.amount != null) {
