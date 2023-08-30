@@ -56,15 +56,29 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
   ) {
     String paramUrlString = '';
 
+    String startTime = Label.TransactionAPIUpliftedToV1 == 'True'
+      ? 'origin_time.after'
+      : 'start_time';
+    String endTime = Label.TransactionAPIUpliftedToV1 == 'True'
+      ? 'origin_time.before'
+      : 'end_time';
+    String bucketIdsList = Label.TransactionAPIUpliftedToV1 == 'True'
+      ? 'buckets'
+      : 'bucket_ids';
+    String precedingBucketValue = 'accounts/' + accountNumber + '/buckets/';
+
     ParameterBuilder builder = new ParameterBuilder();
 
     builder.append('account_numbers', accountNumber)
-      .append('start_time', DateTimeUtils.getUTCTimeFromString(startDate))
-      .append('end_time', DateTimeUtils.getUTCTimeFromString(endDate));
+      .append(startTime, DateTimeUtils.getUTCTimeFromString(startDate))
+      .append(endTime, DateTimeUtils.getUTCTimeFromString(endDate));
 
     if (!bucketIds.isEmpty()) {
       for (String bucketId : bucketIds) {
-        builder.append('bucket_ids', bucketId);
+        String bucketValue = Label.TransactionAPIUpliftedToV1 == 'True'
+          ? precedingBucketValue + bucketId
+          : bucketId;
+        builder.append(bucketIdsList, bucketValue);
       }
     }
 
