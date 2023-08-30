@@ -47,24 +47,20 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
       // if there is a bucket value for source account prioritise image
       if (t?.transfer?.source_account?.bucket_id?.value) {
         let bucketValue = t.transfer.source_account.bucket_id.value;
-        if(bucketValue.includes('/')){
-          let bucketValueParts = bucketValue.split('/')
+        if (bucketValue.includes("/")) {
+          let bucketValueParts = bucketValue.split("/");
           bucketValue = bucketValueParts[bucketValueParts.length - 1];
         }
-        t.source_image = imageMap.get(
-          bucketValue
-        );
+        t.source_image = imageMap.get(bucketValue);
       }
       // if there is a bucket value for source account and no image, check for emoji
       if (t?.transfer?.source_account?.bucket_id?.value && !t?.source_image) {
         let bucketValue = t.transfer.source_account.bucket_id.value;
-        if(bucketValue.includes('/')){
-          let bucketValueParts = bucketValue.split('/')
+        if (bucketValue.includes("/")) {
+          let bucketValueParts = bucketValue.split("/");
           bucketValue = bucketValueParts[bucketValueParts.length - 1];
         }
-        t.source_emoji = emojiMap.get(
-          bucketValue
-        );
+        t.source_emoji = emojiMap.get(bucketValue);
       }
       // if there is a bucket value for source account
       // but nothing is mapped for image and emoji, use the default image
@@ -79,9 +75,9 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
       // note: you can only transfer w/ no source bucket from everyday > goal
       // for v1b1 type will come as TRANSACTION_TYPE_TRANSFER and for v1 type will come as TRANSFER
       if (
-        (!t?.transfer?.source_account?.bucket_id &&
-          t?.transfer?.destination_account?.bucket_id?.value &&
-          (t?.type === "TRANSACTION_TYPE_TRANSFER" || t?.type === "TRANSFER"))
+        !t?.transfer?.source_account?.bucket_id &&
+        t?.transfer?.destination_account?.bucket_id?.value &&
+        (t?.type === "TRANSACTION_TYPE_TRANSFER" || t?.type === "TRANSFER")
       ) {
         t.source_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
       }
@@ -98,18 +94,24 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
       }
       // if there is a bucket value for destination account prioritise image
       if (t?.transfer?.destination_account?.bucket_id?.value) {
-        t.destination_image = imageMap.get(
-          t.transfer.destination_account.bucket_id.value
-        );
+        let bucketValue = t.transfer.destination_account.bucket_id.value;
+        if (bucketValue.includes("/")) {
+          let bucketValueParts = bucketValue.split("/");
+          bucketValue = bucketValueParts[bucketValueParts.length - 1];
+        }
+        t.destination_image = imageMap.get(bucketValue);
       }
       // if there is a bucket value for destination account and no image, check for emoji
       if (
         t?.transfer?.destination_account?.bucket_id?.value &&
         !t?.destination_image
       ) {
-        t.destination_emoji = emojiMap.get(
-          t.transfer.destination_account.bucket_id.value
-        );
+        let bucketValue = t.transfer.destination_account.bucket_id.value;
+        if (bucketValue.includes("/")) {
+          let bucketValueParts = bucketValue.split("/");
+          bucketValue = bucketValueParts[bucketValueParts.length - 1];
+        }
+        t.destination_emoji = emojiMap.get(bucketValue);
       }
       // if there is a bucket value for destination account
       // but nothing is mapped for image and emoji, use the default image
@@ -124,9 +126,9 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
       // note: you can only transfer w/ no destiantion bucket from goal > everyday
       // for v1b1 type will come as TRANSACTION_TYPE_TRANSFER and for v1 type will come as TRANSFER
       if (
-        (!t?.transfer?.destination_account?.bucket_id &&
-          t?.transfer?.source_account?.bucket_id?.value &&
-          (t?.type === "TRANSACTION_TYPE_TRANSFER" || t?.type === "TRANSFER"))
+        !t?.transfer?.destination_account?.bucket_id &&
+        t?.transfer?.source_account?.bucket_id?.value &&
+        (t?.type === "TRANSACTION_TYPE_TRANSFER" || t?.type === "TRANSFER")
       ) {
         t.destination_image = `${transaction_logos}/EVERYDAY_ACCOUNT.png`;
       }
@@ -146,9 +148,9 @@ export function handleTransactionGoals(transactions, imageMap, emojiMap) {
     // for v1 type will come as INTEREST, and subtype will come as CREDIT_PAID
     if (
       (!t?.transfer &&
-        (t?.type === "TRANSACTION_TYPE_INTEREST" &&
-        t?.interest?.sub_type === "INTEREST_SUB_TYPE_CREDIT_PAID") || 
-        (t?.type === "INTEREST" && t?.interest?.sub_type === "CREDIT_PAID"))
+        t?.type === "TRANSACTION_TYPE_INTEREST" &&
+        t?.interest?.sub_type === "INTEREST_SUB_TYPE_CREDIT_PAID") ||
+      (t?.type === "INTEREST" && t?.interest?.sub_type === "CREDIT_PAID")
     ) {
       t.logo = `${goal_themes}/SAVINGS_JAR.png`;
     }

@@ -65,6 +65,8 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     String bucketIdsList = Label.TransactionAPIUpliftedToV1 == 'True'
       ? 'buckets'
       : 'bucket_ids';
+    String precedingBucketValue = 'accounts/' + accountNumber + '/buckets/';
+
     ParameterBuilder builder = new ParameterBuilder();
 
     builder.append('account_numbers', accountNumber)
@@ -74,7 +76,7 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     if (!bucketIds.isEmpty()) {
       for (String bucketId : bucketIds) {
         String bucketValue = Label.TransactionAPIUpliftedToV1 == 'True'
-          ? 'accounts/' + accountNumber + '/buckets/' + bucketId
+          ? precedingBucketValue + bucketId
           : bucketId;
         builder.append(bucketIdsList, bucketValue);
       }
