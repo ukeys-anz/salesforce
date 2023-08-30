@@ -203,6 +203,7 @@ public class TransactionHistoryModelV1 extends CalloutModel {
     public String clearing_method;
     public String clearing_sub_method;
     public String platform;
+    public String payment_reference;
     public Other_entity other_entity;
   }
 
