@@ -63,8 +63,8 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
       ? 'origin_time.before'
       : 'end_time';
     String bucketIdsList = Label.TransactionAPIUpliftedToV1 == 'True'
-      ? buckets
-      : bucket_ids;
+      ? 'buckets'
+      : 'bucket_ids';
     ParameterBuilder builder = new ParameterBuilder();
 
     builder.append('account_numbers', accountNumber)
