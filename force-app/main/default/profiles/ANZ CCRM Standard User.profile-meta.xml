@@ -23843,9 +23843,6 @@
         <layout>Financial_Account_Role_Type_Mapping__mdt-Financial Account Role Type Mapping Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>FlowOrchestrationWorkItem-Orchestration Work Item Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Forgerock_Auth__mdt-Forgerock Auth Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
