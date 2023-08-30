@@ -22,6 +22,11 @@
                 <label>Fraud</label>
             </value>
             <value>
+                <fullName>Scam</fullName>
+                <default>false</default>
+                <label>Scam</label>
+            </value>
+            <value>
                 <fullName>9</fullName>
                 <default>false</default>
                 <label>Service quality</label>
@@ -85,11 +90,6 @@
                 <fullName>10</fullName>
                 <default>false</default>
                 <label>Transactions &amp; payments</label>
-            </value>
-            <value>
-                <fullName>Scam</fullName>
-                <default>false</default>
-                <label>Scam</label>
             </value>
             <value>
                 <fullName>20</fullName>

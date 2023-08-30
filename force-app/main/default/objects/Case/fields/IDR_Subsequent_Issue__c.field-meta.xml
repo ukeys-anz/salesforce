@@ -444,7 +444,7 @@
             <value>
                 <fullName>107</fullName>
                 <default>false</default>
-                <label>Scam not detected/not blocked by ANZ</label>
+                <label>Not detected/not blocked by ANZ</label>
             </value>
             <value>
                 <fullName>108</fullName>
@@ -598,13 +598,12 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
-            <controllingFieldValue>14</controllingFieldValue>
             <valueName>86</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>84</valueName>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>107</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
@@ -628,7 +627,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
-            <controllingFieldValue>14</controllingFieldValue>
             <controllingFieldValue>Scam</controllingFieldValue>
             <valueName>87</valueName>
         </valueSettings>
