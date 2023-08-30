@@ -22,11 +22,6 @@
                 <label>ACT</label>
             </value>
             <value>
-                <fullName>Branch</fullName>
-                <default>false</default>
-                <label>Branch</label>
-            </value>
-            <value>
                 <fullName>NSW</fullName>
                 <default>false</default>
                 <label>NSW</label>
