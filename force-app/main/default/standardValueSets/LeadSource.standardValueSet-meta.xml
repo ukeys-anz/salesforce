@@ -131,4 +131,19 @@
         <default>false</default>
         <label>Unknown</label>
     </standardValue>
+    <standardValue>
+        <fullName>ANZ Campaigns</fullName>
+        <default>false</default>
+        <label>ANZ Campaigns</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Events</fullName>
+        <default>false</default>
+        <label>Events</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Advertising</fullName>
+        <default>false</default>
+        <label>Advertising</label>
+    </standardValue>
 </StandardValueSet>

@@ -55,6 +55,106 @@
         <default>false</default>
         <label>Insurance</label>
     </customValue>
+    <customValue>
+        <fullName>Home Loan - Bridging Finance</fullName>
+        <default>false</default>
+        <label>Home Loan - Bridging Finance</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loan – Construction</fullName>
+        <default>false</default>
+        <label>Home Loan – Construction</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loan - Refinance + Purchase</fullName>
+        <default>false</default>
+        <label>Home Loan - Refinance + Purchase</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loan - Purchase</fullName>
+        <default>false</default>
+        <label>Home Loan - Purchase</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loan - Refinance</fullName>
+        <default>false</default>
+        <label>Home Loan - Refinance</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loan - Maintenance</fullName>
+        <default>false</default>
+        <label>Home Loan - Maintenance</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loan - Increase</fullName>
+        <default>false</default>
+        <label>Home Loan - Increase</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loan - Other</fullName>
+        <default>false</default>
+        <label>Home Loan - Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Personal Loan</fullName>
+        <default>false</default>
+        <label>Personal Loan</label>
+    </customValue>
+    <customValue>
+        <fullName>Other Loans</fullName>
+        <default>false</default>
+        <label>Other Loans</label>
+    </customValue>
+    <customValue>
+        <fullName>Purchasing Property</fullName>
+        <default>false</default>
+        <label>Purchasing Property</label>
+    </customValue>
+    <customValue>
+        <fullName>Purchasing an existing Business</fullName>
+        <default>false</default>
+        <label>Purchasing an existing Business</label>
+    </customValue>
+    <customValue>
+        <fullName>Purchasing a new Business</fullName>
+        <default>false</default>
+        <label>Purchasing a new Business</label>
+    </customValue>
+    <customValue>
+        <fullName>Purchasing equipment (inc. vehicles and fit out)</fullName>
+        <default>false</default>
+        <label>Purchasing equipment (inc. vehicles and fit out)</label>
+    </customValue>
+    <customValue>
+        <fullName>Set up a new Business (Start Up)</fullName>
+        <default>false</default>
+        <label>Set up a new Business (Start Up)</label>
+    </customValue>
+    <customValue>
+        <fullName>Assist with Business Cashflow</fullName>
+        <default>false</default>
+        <label>Assist with Business Cashflow</label>
+    </customValue>
+    <customValue>
+        <fullName>Refinance</fullName>
+        <default>false</default>
+        <label>Refinance</label>
+    </customValue>
+    <customValue>
+        <fullName>Purchase Vacant Land</fullName>
+        <default>false</default>
+        <label>Purchase Vacant Land</label>
+    </customValue>
+    <customValue>
+        <fullName>Development and Renovation</fullName>
+        <default>false</default>
+        <label>Development and Renovation</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
     <masterLabel>Product List</masterLabel>
     <sorted>false</sorted>
 </GlobalValueSet>

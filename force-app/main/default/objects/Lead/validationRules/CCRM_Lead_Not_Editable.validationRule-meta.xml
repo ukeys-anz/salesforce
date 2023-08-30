@@ -9,8 +9,23 @@
             ISPICKVAL(PRIORVALUE(Status), &quot;Completed&quot;),
             ISPICKVAL(PRIORVALUE(Status), &quot;Converted&quot;),
             ISPICKVAL(PRIORVALUE(Status), &quot;Referred&quot;),
-            ISPICKVAL(PRIORVALUE(Status), &quot;Expired&quot;)
-        )
-    )</errorConditionFormula>
+            ISPICKVAL(PRIORVALUE(Status), &quot;Expired&quot;),
+												OR(
+																AND(
+												       ISPICKVAL(PRIORVALUE(Status), &quot;Outcome&quot;),
+									          ISPICKVAL(Lead_Outcome__c, &quot;Expired&quot;)
+															),
+									      AND(
+												       ISPICKVAL(PRIORVALUE(Status), &quot;Outcome&quot;),
+									          ISPICKVAL(Lead_Outcome__c, &quot;Referred&quot;)
+															),
+																AND(
+												       ISPICKVAL(PRIORVALUE(Status), &quot;Outcome&quot;),
+									          ISPICKVAL(Lead_Outcome__c, &quot;No Opportunity&quot;)
+															)
+										)
+
+     )
+)</errorConditionFormula>
     <errorMessage>Lead cannot be updated at this stage.</errorMessage>
 </ValidationRule>

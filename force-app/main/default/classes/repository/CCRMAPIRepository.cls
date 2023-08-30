@@ -248,4 +248,25 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
     }
     return result;
   }
+
+  /**
+   * @param record Lead record
+   * @return DCRMMaintainPartyModel result
+   * @description calls the service class methods for integration/callout
+   */
+  public DCRMMaintainPartyModel maintainParty(Lead record) {
+    DCRMMaintainPartyModel result;
+    Service s = ServiceProvider.getService(DCRMMaintainPartyService.class);
+    HttpCalloutResponse response = s.maintainParty(record);
+    if (response.successful) {
+      try {
+        result = DCRMMaintainPartyModel.parse(response.body);
+      } catch (Exception e) {
+        handleErrors(null, e, CCRMAPIRepository.class);
+      }
+    } else {
+      handleErrors(response, null, CCRMAPIRepository.class);
+    }
+    return result;
+  }
 }

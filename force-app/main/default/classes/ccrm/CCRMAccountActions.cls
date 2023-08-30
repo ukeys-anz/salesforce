@@ -100,12 +100,15 @@ public with sharing class CCRMAccountActions {
     List<Account> records,
     Map<Id, SObject> oldMap
   ) {
+    if (
+      UserInfo.getProfileId() !=
+      CommonUtil.getProfileByName('ANZ CCRM Standard User').Id
+    ) {
+      return;
+    }
+
     for (Account rec : records) {
-      if (
-        !rec.Is_Prospect__c &&
-        UserInfo.getProfileId() ==
-        CommonUtil.getProfileByName('ANZ Standard User').Id
-      ) {
+      if (!rec.Is_Prospect__c) {
         Account oldRec = (Account) oldMap.get(rec.Id);
         AccountCommonActionsHelper.revertAccountFieldChanges(rec, oldRec);
       }

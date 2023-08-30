@@ -2,12 +2,30 @@ import { LightningElement, api, wire, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import responseStatusDependentValues from "@salesforce/apex/CCRMLogAResponseController.responseStatusDependentValues";
 import createResponseRecord from "@salesforce/apex/CCRMLogAResponseController.createResponseRecord";
-import { updateRecord, getRecord } from "lightning/uiRecordApi";
+import getLeadResponseGuidanceMapping from "@salesforce/apex/CCRMLogAResponseController.getLeadResponseGuidanceMapping";
+import {
+  updateRecord,
+  getRecord,
+  getRecordNotifyChange
+} from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import LEAD_LEAD_QUALITY from "@salesforce/schema/Lead.Lead_Quality__c";
+import STATUS from "@salesforce/schema/Lead.Status";
+import RECORDTYPE_DEVELOPERNAME from "@salesforce/schema/Lead.RecordType.DeveloperName";
 import TASK_LEAD_QUALITY from "@salesforce/schema/Task.Lead_Quality__c";
 // Util methods
 import { handleErrors } from "c/utils";
+// import labels
+import CCRM_SelectResponsePrompt from "@salesforce/label/c.CCRM_SelectResponsePrompt";
+import CCRM_ConversationGuideHeading from "@salesforce/label/c.CCRM_ConversationGuideHeading";
+import CCRM_WhatHappensNextHeading from "@salesforce/label/c.CCRM_WhatHappensNextHeading";
+import CCRM_ConversationGuideBody from "@salesforce/label/c.CCRM_ConversationGuideBody";
+import ML_MaxExpiryDateErrorMessage from "@salesforce/label/c.ML_MaxExpiryDateErrorMessage";
+import ML_LeadQualityRequiredValues from "@salesforce/label/c.ML_LeadQualityRequiredValues";
+import CCRM_LeadQualityRequiredValues from "@salesforce/label/c.CCRM_LeadQualityRequiredValues";
+
+const MOBILE_LENDING_RECORDTYPE = "MLCRM_Leadd";
+const CCRM_RECORDTYPE = "CCRM_Lead";
 
 export default class LeadLogAResponse extends LightningElement {
   @api recordId;
@@ -24,21 +42,73 @@ export default class LeadLogAResponse extends LightningElement {
   @track followUpDateDisable = true;
   @track followUpDateState;
   @track commentValue;
+  recordTypeName;
   selectedResponseStatusValue;
   selectedOutcomeResponseValue;
   selectedLeadQualityValue;
+  leadStatus;
   leadRecord;
   resetValidationError = false;
   isLoading = false;
   minFollowUpDate = new Date().toISOString();
   displayDueDate = false;
   autoCreateActivities = false;
+  leadResponseGuidanceMapping;
+  conversationGuidanceURL = "";
+  label = {
+    CCRM_SelectResponsePrompt,
+    CCRM_ConversationGuideHeading,
+    CCRM_WhatHappensNextHeading,
+    CCRM_ConversationGuideBody,
+    ML_MaxExpiryDateErrorMessage,
+    ML_LeadQualityRequiredValues,
+    CCRM_LeadQualityRequiredValues
+  };
 
-  @wire(getRecord, { recordId: "$recordId", fields: [LEAD_LEAD_QUALITY] })
+  connectedCallback() {
+    this.setConversationGuidanceUrl();
+  }
+  setConversationGuidanceUrl() {
+    getLeadResponseGuidanceMapping({
+      leadId: this.recordId
+    })
+      .then((result) => {
+        this.leadResponseGuidanceMapping = JSON.parse(result);
+        this.conversationGuidanceURL = this.label.CCRM_ConversationGuideBody;
+        if (
+          this.leadResponseGuidanceMapping.campaignLeadsLink !== undefined &&
+          this.leadResponseGuidanceMapping.campaignLeadsLink !== ""
+        ) {
+          this.conversationGuidanceURL = this.label.CCRM_ConversationGuideBody.replace(
+            "Campaign Leads",
+            "<a href=" +
+              this.leadResponseGuidanceMapping.campaignLeadsLink +
+              ' target="_blank">Campaign Leads</a>'
+          ).replace(
+            "Customer Conversation Guides.",
+            "<a href=" +
+              this.leadResponseGuidanceMapping.customerConversationGuideLink +
+              ' target="_blank">Customer Conversation Guides.</a>'
+          );
+        }
+      })
+      .catch((error) => {
+        this.isLoading = false;
+        this.handleError(error);
+        this.resetFields();
+      });
+  }
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [LEAD_LEAD_QUALITY, STATUS, RECORDTYPE_DEVELOPERNAME]
+  })
   getLeadRecord({ data, error }) {
     if (data) {
       this.leadRecord = data;
       this.selectedLeadQualityValue = data.fields.Lead_Quality__c.value;
+      this.leadStatus = data.fields.Status.value;
+      this.recordTypeName =
+        data.fields.RecordType.value.fields.DeveloperName.value;
     }
     if (error) {
       this.handleError(error);
@@ -92,20 +162,25 @@ export default class LeadLogAResponse extends LightningElement {
   }
 
   get isLeadQualityRequired() {
-    return [
-      "Accepted",
-      "Customer Declined",
-      "Customer Not Contacted",
-      "Referral Made"
-    ].includes(this.selectedResponseStatusValue);
-  }
-
-  get isLeadQualityDisabled() {
-    return !this.isLeadQualityRequired;
+    let isRequired;
+    if (this.recordTypeName === MOBILE_LENDING_RECORDTYPE) {
+      isRequired = this.label.ML_LeadQualityRequiredValues.includes(
+        this.selectedResponseStatusValue
+      );
+    } else if (this.recordTypeName === CCRM_RECORDTYPE) {
+      isRequired = this.label.CCRM_LeadQualityRequiredValues.includes(
+        this.selectedResponseStatusValue
+      );
+    }
+    return isRequired;
   }
 
   get isFollowUpDateRequired() {
-    return !this.followUpDateDisable && this.followUpDateState === "M";
+    return (
+      !this.followUpDateDisable &&
+      this.followUpDateState === "M" &&
+      !this.displayDueDate
+    );
   }
 
   handleLeadQualityChange(e) {
@@ -124,7 +199,10 @@ export default class LeadLogAResponse extends LightningElement {
       this.selectedFollowUpDateValue = undefined;
       this.selectedDueDateValue = undefined;
       this.followUpDateDisable = true;
+      this.displayDueDate = false;
       this.outcomeReasonOptions = undefined;
+      this.whatHappensNextInfo = "";
+      this.showWhatHappensNext = false;
       this.selectedResponseStatusValue = event.detail.value;
       if (this.dependentPicklistWrapper) {
         for (key in this.dependentPicklistWrapper) {
@@ -146,7 +224,9 @@ export default class LeadLogAResponse extends LightningElement {
                     .Follow_Up_State__c,
                   ResponseTypeId: this.dependentPicklistWrapper[key][subkey].Id,
                   CreateActivities: this.dependentPicklistWrapper[key][subkey]
-                    .Create_To_Do_Activities__c
+                    .Create_To_Do_Activities__c,
+                  CreateOpportunity: this.dependentPicklistWrapper[key][subkey]
+                    .Create_Opportunity__c
                 });
               }
             }
@@ -162,6 +242,8 @@ export default class LeadLogAResponse extends LightningElement {
 
   handleOutcomeResponseChange(event) {
     var key;
+    var whatsNextKey;
+    var createOpportunity;
 
     try {
       this.selectedOutcomeResponseValue = undefined;
@@ -172,6 +254,12 @@ export default class LeadLogAResponse extends LightningElement {
             this.outcomeReasonDetailMap[key].OutcomeReasonKey ===
             this.selectedOutcomeResponseValue
           ) {
+            createOpportunity =
+              this.outcomeReasonDetailMap[key].CreateOpportunity !==
+                undefined &&
+              this.outcomeReasonDetailMap[key].CreateOpportunity !== null
+                ? this.outcomeReasonDetailMap[key].CreateOpportunity
+                : "";
             if (this.outcomeReasonDetailMap[key].FollowUpState === "R") {
               this.followUpDateDisable = true;
               this.selectedFollowUpDateValue = undefined;
@@ -196,6 +284,32 @@ export default class LeadLogAResponse extends LightningElement {
             this.selectedResponseTypeId = this.outcomeReasonDetailMap[
               key
             ].ResponseTypeId;
+            whatsNextKey = this.selectedResponseStatusValue + createOpportunity;
+            if (
+              this.leadResponseGuidanceMapping
+                .mapOfLeadStatusReasonAndNextDetail[whatsNextKey] !==
+                undefined &&
+              this.leadResponseGuidanceMapping
+                .mapOfLeadStatusReasonAndNextDetail[whatsNextKey]
+            ) {
+              this.whatHappensNextInfo = this.leadResponseGuidanceMapping.mapOfLeadStatusReasonAndNextDetail[
+                whatsNextKey
+              ];
+              if (this.whatHappensNextInfo === "") {
+                return;
+              }
+              if (this.whatHappensNextInfo.includes(this.leadStatus + ":")) {
+                this.whatHappensNextInfo = this.whatHappensNextInfo.split(
+                  this.leadStatus + ":"
+                )[1];
+                this.whatHappensNextInfo = this.whatHappensNextInfo.includes(
+                  ";"
+                )
+                  ? this.whatHappensNextInfo.split(";")[0]
+                  : this.whatHappensNextInfo;
+              }
+              this.showWhatHappensNext = true;
+            }
           }
         }
       }
@@ -223,9 +337,11 @@ export default class LeadLogAResponse extends LightningElement {
       this.template.querySelector(".leadQuality").reportValidity() &&
       this.template.querySelector(".outcomeReason").reportValidity() &&
       this.template.querySelector(".comment").reportValidity() &&
-      this.template.querySelector(".followUpDate").reportValidity() &&
-      this.autoCreateActivities
+      this.autoCreateActivities &&
+      this.selectedResponseStatusValue === "Accepted"
       ? this.template.querySelector(".dueDate").reportValidity()
+      : this.template.querySelector(".followUpDate") != null
+      ? this.template.querySelector(".followUpDate").reportValidity()
       : true;
   }
 
@@ -248,15 +364,30 @@ export default class LeadLogAResponse extends LightningElement {
       })
         .then((result) => {
           this.isLoading = false;
-          if (result.includes("Warning Message:")) {
-            this.sendToastMessage("warning", result);
-          } else if (result.includes("Error Message:")) {
+          // CC-1057 to set the default value of expiry date for Manually created ML Lead
+          let strResponse = JSON.parse(result);
+          if (strResponse.responseData.includes("Warning Message:")) {
+            this.sendToastMessage("warning", result, "dismissable");
+          } else if (strResponse.responseData.includes("Error Message:")) {
             this.handleError(result);
           } else {
-            this.sendToastMessage("success", "Response Logged Successfully.");
+            if (strResponse.isCampaignEndDateMax) {
+              this.sendToastMessage(
+                "info",
+                this.label.ML_MaxExpiryDateErrorMessage,
+                "sticky"
+              );
+            }
+            this.sendToastMessage(
+              "success",
+              "Response Logged Successfully.",
+              "dismissable"
+            );
             updateRecord({ fields: { Id: this.recordId } });
           }
-          this.resetFields();
+          getRecordNotifyChange([{ recordId: this.recordId }]);
+          this.dispatchEvent(new CustomEvent("handleSaveRecord"));
+          this.closeQuickAction();
         })
         .catch((error) => {
           this.isLoading = false;
@@ -278,26 +409,24 @@ export default class LeadLogAResponse extends LightningElement {
     this.resetLeadQuality();
   }
 
-  handleCancel() {
-    this.resetFields();
-  }
-
   handleError(error) {
     var handledError = handleErrors(error);
-    this.sendToastMessage("error", handledError);
+    this.sendToastMessage("error", handledError, "dismissable");
     this.resetFields();
   }
 
-  sendToastMessage(varriant, message) {
+  sendToastMessage(varriant, message, mode) {
     let ERRORTYPE = {
       error: "ERROR!",
       warning: "WARNING!",
-      success: "SUCCESS!"
+      success: "SUCCESS!",
+      info: "Info"
     };
     const toastEvent = new ShowToastEvent({
       title: ERRORTYPE[varriant],
       message: message,
-      variant: varriant
+      variant: varriant,
+      mode: mode
     });
     this.dispatchEvent(toastEvent);
   }
@@ -314,6 +443,10 @@ export default class LeadLogAResponse extends LightningElement {
     this.selectedLeadQualityValue = this.leadRecord
       ? this.leadRecord.fields.Lead_Quality__c.value
       : null;
+  }
+
+  closeQuickAction() {
+    this.dispatchEvent(new CustomEvent("closemodal"));
   }
 
   renderedCallback() {
