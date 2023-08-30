@@ -54,7 +54,7 @@ public class TransactionHistoryModelConvertor {
         TransactionHistoryModel.Merchants destMerchant = new TransactionHistoryModel.Merchants();
         //Direct Mapping
         destMerchant.merchant_id = sourceMerchant.uid;
-        destMerchant.name = sourceMerchant.name;
+        destMerchant.name = sourceMerchant.title;
         destMerchant.lastUpdateTime = sourceMerchant.update_time;
         destMerchant.presence = sourceMerchant.presence;
         destMerchant.website_url = convertFieldValue(
