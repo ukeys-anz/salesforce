@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FlexFieldValue__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Uncontrolled;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Uncontrolled;Privacy - Personal Information;Source - Salesforce</complianceGroup>
     <description>Flex Field Value</description>
     <externalId>false</externalId>
-    <label>Flex Field Value</label>
+    <label>Field Value</label>
     <length>32000</length>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>

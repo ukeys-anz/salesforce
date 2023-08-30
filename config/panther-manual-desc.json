@@ -179,6 +179,9 @@
     "COBPrimaryIDDocument__c": "The details submitted for a primary document (licence or passport), including the original OCR extractions which may have been edited",
     "COBTaxResidency__c": "The details of a single tax residency in a country/region",
     "Contact": "Contact details of an individual person. Forms part of a person account",
+    "ContactPointAddress": "Represents a contact’s Address, which is associated with customer.",
+    "ContactPointEmail": "Represents a contact’s email, which is associated with customer.",
+    "ContactPointPhone": "Represents a contact’s phone number, which is associated with customer.",
     "ContactRequest": "Represents a request made by the customer to connect with the coach",
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -281,6 +284,9 @@
         "PersonBirthdate",
         "PersonEmail",
         "PersonMobilePhone",
+        "PersonHomePhone",
+        "PersonOtherAddress",
+        "PersonMailingAddress",
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
@@ -300,7 +306,11 @@
         "IsSnapshotError__c",
         "IsSnapshotInProgress__c"
       ],
-      "IA-2415860": ["FinServ__CustomerType__c", "IsTruncated__c"]
+      "IA-2415860": [
+        "FinServ__CustomerType__c",
+        "Principal_Place_of_Business_Formula__c",
+        "IsTruncated__c"
+      ]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -505,6 +515,7 @@
         "Bank_ATM__c",
         "Card_In_Possession_During_Transaction__c",
         "Date_Closed__c",
+        "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",
         "RAG_Comments__c",
@@ -883,9 +894,20 @@
         "IDR_Additional_Correspondence_reviewed__c",
         "IDR_Avoidable_Escalation__c",
         "IDR_Avoidable_Escalation_Reason__c",
-        "Closure_Reason__c"
+        "Closure_Reason__c",
+        "Credit_Id__c",
+        "Loan_Application__c",
+        "Case_Authority_Level__c",
+        "Loan_Purpose__c",
+        "Application_Status__c",
+        "Assessment_Outcome__c",
+        "Assessment_Id__c"
       ],
-      "IA-2415860": ["Package_Id__c", "Status_Update_Error__c"],
+      "IA-2415860": [
+        "Package_Id__c",
+        "Status_Update_Error__c",
+        "System_Action__c"
+      ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
         "PersonaId__c",
@@ -1014,6 +1036,13 @@
         "SearchName__c",
         "SearchResultDetail__c",
         "CustomerOnboardingApplication__c"
+      ],
+      "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "COBPrimaryIDDocument__c": {
@@ -1169,13 +1198,20 @@
     "ContactPointEmail": {
       "IA-2415860": ["Occurrence_Number__c"],
       "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
         "Created_By__c",
         "Created_Date__c",
         "Customer_Name__c",
         "External_Id__c",
         "Last_Modified_By__c",
         "Last_Modified_Date__c",
-        "Previous_Related_Account__c"
+        "Previous_Related_Account__c",
+        "UsageType"
       ],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
@@ -1186,16 +1222,24 @@
     },
     "ContactPointPhone": {
       "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
         "Customer_Name__c",
         "External_Id__c",
-        "Previous_Related_Account__c"
+        "Previous_Related_Account__c",
+        "RecordTypeId",
+        "UsageType"
       ],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
         "Verification_Status__c",
         "Verification_Date__c",
         "Verification_Method__c"
-      ]
+      ],
+      "IA-2415860": ["Occurrence_Number__c"]
     },
     "ContactRequest": {
       "IA-2453595": [
@@ -1419,7 +1463,14 @@
     },
     "FinServ__ContactContactRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
-      "IA-2453350": ["External_Id__c"]
+      "IA-2453350": ["External_Id__c"],
+      "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
@@ -1484,7 +1535,16 @@
       "IA-2530753": ["Role_Type__c"]
     },
     "FinServ__ReciprocalRole__c": {
-      "IA-2530753": ["OCV_Role__c", "Role_Description__c"]
+      "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "OCV_Role__c",
+        "Role_Description__c",
+        "RecordTypeId"
+      ]
     },
     "IDR_Omni_Settings__c": {
       "IA-2415860": ["Disable_CMOS_Omni__c"]
@@ -1557,7 +1617,14 @@
       "IA-2468715": ["Loan_Application__c"]
     },
     "Interaction_Tag__c": {
-      "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"]
+      "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
+      "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Interaction_Context_Tag__c": {
       "IA-2415840": [
@@ -1566,6 +1633,13 @@
         "Interaction_Tag__c",
         "Type__c",
         "Tag_Name__c"
+      ],
+      "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "InteractionSummary": {
@@ -1698,7 +1772,6 @@
         "Name",
         "New_to_Bank__c",
         "Note__c",
-        "Not_Registered__c",
         "OwnerId",
         "Previous_Lead__c",
         "Priority__c",
@@ -1707,13 +1780,32 @@
         "Prospect_Id__c",
         "Record_Id__c",
         "Skip_Validations__c",
+        "Soft_Delete__c",
         "Status",
         "SubStatus__c",
-        "UNICA_Treatment_Code__c"
+        "UNICA_Treatment_Code__c",
+        "Other_Source_Detail__c",
+        "Associated_Source_Detail__c",
+        "Lead_Outcome__c",
+        "Lead_Outcome_Formula__c",
+        "Registered_Company__c",
+        "Primary_Contact_Method__c",
+        "SourceSystemId__c",
+        "IsNewLead__c",
+        "Territory__c"
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
-      "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"]
+      "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"],
+      "IA-2425399": ["Referrer_Email__c", "Referrer_Phone__c"],
+      "IA-2460507": ["Referrer_Name__c"],
+      "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
+      "IA-2618706": [
+        "PreferredName__c",
+        "AdvertisingIndicator__c",
+        "SourceSystem__c"
+      ],
+      "IA-2415986": ["Campaign_Name__c"]
     },
     "Lead_Flex_Field__c": {
       "IA-2415860": [
@@ -1732,6 +1824,33 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Lead_Stage_Automation__mdt": {
+      "IA-2415860": [
+        "Next_Lead_Status__c",
+        "Outcome_Type__c",
+        "Lead_Record_Type__c"
+      ],
+      "IA-2530753": ["What_happens_next__c"]
+    },
+    "DCRM_Lead_Response_Conversation_Guide__mdt": {
+      "IA-2530753": ["User_Role__c", "Profile__c"],
+      "IA-2415993": ["Conversation_Guide_URL__c", "Campaign_Lead_URL__c"]
+    },
+    "Lead_Status_Transformation__mdt": {
+      "IA-2415860": [
+        "Lead_Status__c",
+        "Outcome_Type__c",
+        "UNICA_Lead_Status__c"
+      ]
+    },
+    "CCRM_Action_Plan_Template_Selection__mdt": {
+      "IA-2415860": [
+        "Commercial_Segment__c",
+        "Opportunity_Record_Type__c",
+        "Template_Name__c",
+        "Opportunity_Stage_Name__c"
       ]
     },
     "Loan_Applicant_Group__c": {
@@ -1799,18 +1918,13 @@
       "IA-2530753": ["Confirmation_Date__c"]
     },
     "LoanApplicantLiability": {
-      "IA-2415983": [
-        "LoanApplicationLiabilityId",
-        "Proportion_Percent__c",
-        "Remaining_Term__c"
-      ],
+      "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
       "IA-2594111": [
         "LoanApplicantId",
         "Loan_Applicant_Liability_ID__c",
         "Name"
-      ],
-      "IA-2415840": ["Break_Costs__c"]
+      ]
     },
     "LoanApplicationFinancial": {
       "IA-2530753": ["Last_Updated_Date__c"],
@@ -1833,10 +1947,12 @@
         "Interest_Rate_Percent__c",
         "Months_Remaining__c",
         "Repayment_Amount__c",
-        "Repayment_Frequency__c"
+        "Repayment_Frequency__c",
+        "Remaining_Term__c"
       ],
       "IA-2594111": ["LiabilityExtIdentifier", "Name", "Lender__c"],
-      "IA-2415999": ["Liability_Id__c"]
+      "IA-2415999": ["Liability_Id__c"],
+      "IA-2415840": ["Break_Costs__c"]
     },
     "LoanApplicationProperty": {
       "IA-2594113": [
@@ -1967,7 +2083,27 @@
         "StageName",
         "TotalOpportunityQuantity",
         "Opp_Id__c",
-        "Type"
+        "Type",
+        "Territory__c"
+      ],
+      "IA-2415860": [
+        "Associated_Source_Detail__c",
+        "BBD_Application_Number__c",
+        "BCOP_Email_sent__c",
+        "Broker_Involved__c",
+        "CLP_Credit_Case_Number__c",
+        "Customer_Needs__c",
+        "Lost_Reason_Detail__c",
+        "Other_Source_Detail__c",
+        "Won_from_Lost_to__c",
+        "Referrer_Name__c",
+        "Referrer_Email__c",
+        "Referrer_Phone__c",
+        "Referrer_Business_Name__c",
+        "Referrer_Industry_Type__c",
+        "Lead_Id__c",
+        "Source_Lead_Id__c",
+        "Source_Lead_Link__c"
       ],
       "IA-2415984": [
         "Contact__c",
@@ -2017,7 +2153,8 @@
         "Quantity",
         "UnitPrice",
         "ServiceDate"
-      ]
+      ],
+      "IA-2415860": ["Funding_purpose__c"]
     },
     "Process_Effectiveness__c": {
       "IA-2415840": [
@@ -2090,6 +2227,7 @@
         "IsActive",
         "Name",
         "ProductCode",
+        "Sub_Product_Code__c",
         "Product_Classification__c",
         "Product_End_Date__c",
         "Product_Start_Date__c",
@@ -2263,6 +2401,28 @@
         "RecordTypeId"
       ]
     },
+
+    "Reason_Outcome__c": {
+      "IA-2415840": [
+        "External_ID__c",
+        "Name",
+        "Outcome_Code__c",
+        "Outcome_Description__c",
+        "Referral_Reason__c"
+      ]
+    },
+
+    "Referral_Reason__c": {
+      "IA-2415840": [
+        "Assessment_Category__c",
+        "Authority_Level__c",
+        "Authority_Level_Code__c",
+        "Guidance_Code__c",
+        "Name",
+        "Reason_Code__c",
+        "Reason_Description__c"
+      ]
+    },
     "Release__c": {
       "IA-2468708": [
         "Additions__c",
@@ -2317,13 +2477,15 @@
         "Package_Version__c",
         "Settlement_ID__c",
         "Status",
+        "Credit_Reassess_Required__c",
         "Loan_Term__c"
       ],
+      "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
         "CreatedDate",
         "LastModifiedDate",
         "Version__c",
-        "Last_Updated_Date",
+        "Last_Updated_Date__c",
         "Expiry_Date__c",
         "Loan_Purpose_Updated_Date__c"
       ],
@@ -2340,7 +2502,7 @@
         "Max_Allowable_LVR_Basis_Points__c"
       ],
       "IA-2594113": ["State__c"],
-      "IA-2415840": ["E_Tag"]
+      "IA-2415840": ["E_Tag__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [
@@ -2418,7 +2580,9 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Case_Number__c",
+        "PEGA_Case_Id__c"
       ],
       "IA-2415860": [
         "Lead_Quality__c",
@@ -2431,7 +2595,9 @@
         "Case_Owner__c",
         "Cases_Related_To_Team__c"
       ],
-      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"]
+      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
+      "IA-2415984": ["Customer_Name__c"],
+      "IA-2415999": ["PEGA_Case_Status__c"]
     },
     "Traced_Application_Log__b": {
       "IA-2468710": [
@@ -2642,6 +2808,39 @@
       "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
       "IA-2415855": ["FinServ__ReferrerScore__c"],
       "IA-2432460": ["Refresh_Token__c"]
+    },
+    "Territory__c": {
+      "IA-2415860": [
+        "Access_Scope__c",
+        "Territory_Code__c",
+        "Primary_Franchise_Owner__c",
+        "OwnerId"
+      ]
+    },
+    "User_Territory__c": {
+      "IA-2415860": [
+        "Default_Territory__c",
+        "ML_Role__c",
+        "Status__c",
+        "Territory__c",
+        "User__c",
+        "Skip_Validation__c"
+      ]
+    },
+    "Territory_Based_Sharing_Config__mdt": {
+      "IA-2415860": [
+        "Active__c",
+        "Eligible_Record_Types__c",
+        "Excluded_Users__c",
+        "Recalculation_Timeframe__c",
+        "Excluded_Users__c",
+        "Object_Name__c",
+        "Sharing_Object__c",
+        "Territory_Field__c"
+      ]
+    },
+    "Territory_Base_Sharing_Event__e": {
+      "IA-2415860": ["Change_Context__c", "Record_Ids__c", "Trigger_Object__c"]
     }
   }
 }

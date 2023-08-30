@@ -5,6 +5,8 @@
  * @description CCRMLeadPlatformEventHelper is a class to construct data for LEAD Platform Event sent to UNICA/ADOBE
  */
 public with sharing class CCRMLeadPlatformEventHelper {
+  
+  public static Map<String, Lead_Status_Transformation__mdt> leadStatusTransMap = new Map<String, Lead_Status_Transformation__mdt>();
   public static List<Task> leadTask;
 
   /**
@@ -21,6 +23,22 @@ public with sharing class CCRMLeadPlatformEventHelper {
 
     List<CCRM_Lead_Response_Event_Mapping__mdt> responseEventMapping = CCRM_Lead_Response_Event_Mapping__mdt.getall()
       .Values();
+
+    for (
+      Lead_Status_Transformation__mdt lstRec : Lead_Status_Transformation__mdt.getall()
+        .values()
+    ) {
+      if (String.isNotBlank(lstRec.Outcome_Type__c)) {
+        leadStatusTransMap.put(
+          lstRec.Lead_Status__c +
+          '-' +
+          lstRec.Outcome_Type__c,
+          lstRec
+        );
+      } else {
+        leadStatusTransMap.put(lstRec.Lead_Status__c, lstRec);
+      }
+    }
 
     //Get Map of Source System Ids for UNICA & ADOBE Leads
     Map<Id, Account> mapOfSourceSystemIds = CCRMAccountActions.getMapOfSourceSystemIdsByRelatedParties(
@@ -65,6 +83,18 @@ public with sharing class CCRMLeadPlatformEventHelper {
         );
         //Don't send follow up date for Adobe leads
         responseEvent.put('Followup_Date__c', null);
+      }
+      //CC-3957 Add Lead_Record_Type__c to differentiate between an ML lead and a CCRM lead
+      if (CCRMLeadUtil.isMLCRMLeadType(record)) {
+        responseEvent.put(
+          'Lead_Record_Type__c',
+          MLCRMConstants.MLCRM_LEAD_RECORDTYPE_NAME
+        );
+      } else if (CCRMLeadUtil.isCCRMLeadType(record)) {
+        responseEvent.put(
+          'Lead_Record_Type__c',
+          MLCRMConstants.CCRM_LEAD_RECORDTYPE_NAME
+        );
       }
 
       leadResponseEventList.add(responseEvent);
@@ -135,10 +165,41 @@ public with sharing class CCRMLeadPlatformEventHelper {
         (mapping.Destination_System__c == record.Lead_Originator__c ||
         mapping.Destination_System__c == 'All')
       ) {
-        leadResponseEvent.put(
-          mapping.Platform_Event_Field_API_Name__c,
-          record.get(mapping.Task_or_Lead_Field_API_Name__c)
-        );
+        if (
+          mapping.Platform_Event_Field_API_Name__c == 'Status__c' &&
+          record.recordTypeId == CCRMConstants.CCRM_LEAD_RT_ID
+        ) {
+          if (
+            !leadStatusTransMap.isEmpty() &&
+            String.isNotBlank(record.Status) &&
+            leadStatusTransMap.containsKey(record.Status) &&
+            String.isNotBlank(record.Lead_Outcome__c)
+          ) {
+            leadResponseEvent.put(
+              mapping.Platform_Event_Field_API_Name__c,
+              leadStatusTransMap.get(
+                  record.Status +
+                  '-' +
+                  record.Lead_Outcome__c
+                )
+                .UNICA_Lead_Status__c
+            );
+          } else if (
+            !leadStatusTransMap.isEmpty() &&
+            leadStatusTransMap.containsKey(record.Status) &&
+            String.isNotBlank(record.Status)
+          ) {
+            leadResponseEvent.put(
+              mapping.Platform_Event_Field_API_Name__c,
+              leadStatusTransMap.get(record.Status).UNICA_Lead_Status__c
+            );
+          }
+        } else {
+          leadResponseEvent.put(
+            mapping.Platform_Event_Field_API_Name__c,
+            record.get(mapping.Task_or_Lead_Field_API_Name__c)
+          );
+        }
       }
     }
     return leadResponseEvent;
@@ -162,7 +223,7 @@ public with sharing class CCRMLeadPlatformEventHelper {
     string query =
       'SELECT ' +
       leadFields +
-      ' OwnerId, FinServ__RelatedAccount__c, LastModifiedById FROM Lead WHERE Id IN :leadIds';
+      ' OwnerId, FinServ__RelatedAccount__c, Lead_Outcome__c, recordTypeId, LastModifiedById FROM Lead WHERE Id IN :leadIds';
     List<Lead> leads = Database.query(query);
     return leads;
   }
@@ -225,9 +286,8 @@ public with sharing class CCRMLeadPlatformEventHelper {
 
       mapLeadSubStatus.put(
         task.WhoId,
-        task.Response_Type__r.Unica_Lead_SubStatus__c = !String.isEmpty(
-            task.Response_Type__r.Unica_Lead_SubStatus__c
-          )
+        task.Response_Type__r != null &&
+          task.Response_Type__r.Unica_Lead_SubStatus__c != null
           ? task.Response_Type__r.Unica_Lead_SubStatus__c
           : CCRMConstants.LEAD_SUBSTATUS_NEW
       );

@@ -11,6 +11,7 @@ public class CCRMLeadExpiryHandlerTest {
   static void setup() {
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
     User adminUser = CCRMTestDataFactory.createAdminUser();
+    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
 
     System.runAs(adminUser) {
       insert new Salesforce_Library_Settings__c(
@@ -21,6 +22,12 @@ public class CCRMLeadExpiryHandlerTest {
     // CCRM Test Data Setup
     System.runAs(ccrmUser) {
       CCRMTestDataFactory.createLeadRecords(10, ccrmUser);
+    }
+    // MLCRM Test Data Setup
+    System.runAs(mlUser) {
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(10,mlUser,true);
+      MLCRMTestDataFactory.createUserTerritoryRecords(10,mlUser.Id,lstOfTerritory[0].Id);
+      MLCRMTestDataFactory.createLeadRecords(10, mlUser);
     }
   }
 
@@ -50,7 +57,10 @@ public class CCRMLeadExpiryHandlerTest {
       Integer expiredLeadsCount = [
         SELECT COUNT()
         FROM Lead
-        WHERE Status = :CCRMConstants.STATUS_EXPIRED
+        WHERE
+          (Status = :CCRMConstants.STATUS_OUTCOME
+          AND Lead_Outcome__c = :CCRMConstants.STATUS_EXPIRED)
+          OR Status = :CCRMConstants.STATUS_EXPIRED
       ];
 
       System.assertEquals(

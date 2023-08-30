@@ -4,8 +4,10 @@
  * @group CCRM (Commercial CRM)
  * @description CCRMLeadPlatformEventActions is an action class for sending platform events for CCRM/UNICA/ADOBE Leads
  */
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class CCRMLeadPlatformEventActions {
   private static List<CCRM_Lead_to_Platform_Event_Mapping__mdt> mappingsInCustomMetadata = new List<CCRM_Lead_to_Platform_Event_Mapping__mdt>();
+  private static Map<String, Lead_Status_Transformation__mdt> leadStatusTransMap = new Map<String, Lead_Status_Transformation__mdt>();
   private static Map<Id, User> mapOfLastModifiedUserLanIds = new Map<Id, User>();
   private static Map<String, String> mapOfResponseLogLeadSubStatus = new Map<String, String>();
   private static Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
@@ -87,6 +89,22 @@ public with sharing class CCRMLeadPlatformEventActions {
 
     mappingsInCustomMetadata = CCRM_Lead_to_Platform_Event_Mapping__mdt.getall()
       .Values();
+
+    for (
+      Lead_Status_Transformation__mdt lstRec : Lead_Status_Transformation__mdt.getall()
+        .values()
+    ) {
+      if (String.isNotBlank(lstRec.Outcome_Type__c)) {
+        leadStatusTransMap.put(
+          lstRec.Lead_Status__c +
+          '-' +
+          lstRec.Outcome_Type__c,
+          lstRec
+        );
+      } else {
+        leadStatusTransMap.put(lstRec.Lead_Status__c, lstRec);
+      }
+    }
 
     //Get Map of Lan Ids for UNICA & ADOBE Leads
     Map<Id, User> mapOfLanIds = CCRMUserActions.getMapOfLanIds(records, false);
@@ -180,6 +198,22 @@ public with sharing class CCRMLeadPlatformEventActions {
     mappingsInCustomMetadata = CCRM_Lead_to_Platform_Event_Mapping__mdt.getall()
       .Values();
 
+    for (
+      Lead_Status_Transformation__mdt lstRec : Lead_Status_Transformation__mdt.getall()
+        .values()
+    ) {
+      if (String.isNotBlank(lstRec.Outcome_Type__c)) {
+        leadStatusTransMap.put(
+          lstRec.Lead_Status__c +
+          '-' +
+          lstRec.Outcome_Type__c,
+          lstRec
+        );
+      } else {
+        leadStatusTransMap.put(lstRec.Lead_Status__c, lstRec);
+      }
+    }
+
     //Get Map of Lan Ids for UNICA
     Map<Id, User> mapOfLanIds = CCRMUserActions.getMapOfLanIds(records, false);
     //Get Map of Source System Ids for UNICA
@@ -242,10 +276,45 @@ public with sharing class CCRMLeadPlatformEventActions {
         (mapping.Destination_System__c == CCRMConstants.ORIGINATOR_UNICA ||
         mapping.Destination_System__c == 'All')
       ) {
-        leadEvent.put(
-          mapping.Platform_Event_Field_API_Name__c,
-          record.get(mapping.Lead_Field_API_Name__c)
-        );
+        if (
+          mapping.Platform_Event_Field_API_Name__c == 'Status__c' &&
+          record.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID
+        ) {
+          if (
+            !leadStatusTransMap.isEmpty() &&
+            String.isNotBlank(record.Status) &&
+            leadStatusTransMap.containsKey(
+              record.Status +
+              '-' +
+              record.Lead_Outcome__c
+            ) &&
+            String.isNotBlank(record.Lead_Outcome__c)
+          ) {
+            leadEvent.put(
+              mapping.Platform_Event_Field_API_Name__c,
+              leadStatusTransMap.get(
+                  record.Status +
+                  '-' +
+                  record.Lead_Outcome__c
+                )
+                .UNICA_Lead_Status__c
+            );
+          } else if (
+            !leadStatusTransMap.isEmpty() &&
+            String.isNotBlank(record.Status) &&
+            leadStatusTransMap.containsKey(record.Status)
+          ) {
+            leadEvent.put(
+              mapping.Platform_Event_Field_API_Name__c,
+              leadStatusTransMap.get(record.Status).UNICA_Lead_Status__c
+            );
+          }
+        } else {
+          leadEvent.put(
+            mapping.Platform_Event_Field_API_Name__c,
+            record.get(mapping.Lead_Field_API_Name__c)
+          );
+        }
       }
     }
   }
@@ -279,14 +348,50 @@ public with sharing class CCRMLeadPlatformEventActions {
       );
     }
 
+    if (CCRMLeadUtil.isMLCRMLeadType(record)) {
+      leadEvent.put(
+        'Lead_Record_Type__c',
+        MLCRMConstants.MLCRM_LEAD_RECORDTYPE_NAME
+      );
+    } else if (CCRMLeadUtil.isCCRMLeadType(record)) {
+      leadEvent.put(
+        'Lead_Record_Type__c',
+        MLCRMConstants.CCRM_LEAD_RECORDTYPE_NAME
+      );
+    }
+
     for (
       CCRM_Lead_to_Platform_Event_Mapping__mdt mapping : mappingsInCustomMetadata
     ) {
       if (mapping.Destination_System__c == 'All') {
-        leadEvent.put(
-          mapping.Platform_Event_Field_API_Name__c,
-          record.get(mapping.Lead_Field_API_Name__c)
-        );
+          if(mapping.Platform_Event_Field_API_Name__c == 'Status__c' && (record.recordTypeId == CCRMConstants.CCRM_LEAD_RT_ID || record.recordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID)) {
+              // CC-1090 to include ML lead to send platform event when status,expiry date or owner is changed
+          if(!leadStatusTransMap.isEmpty() && String.isNotBlank(record.Status) && leadStatusTransMap.containsKey(record.Status) && String.IsNotBlank(record.Lead_Outcome__c) && leadStatusTransMap.containsKey(record.Status + '-' + record.Lead_Outcome__c)){
+            leadEvent.put(
+              mapping.Platform_Event_Field_API_Name__c,
+              leadStatusTransMap.get(
+                  record.Status +
+                  '-' +
+                  record.Lead_Outcome__c
+                )
+                .UNICA_Lead_Status__c
+            );
+          } else if (
+            !leadStatusTransMap.isEmpty() &&
+            String.isNotBlank(record.Status) &&
+            leadStatusTransMap.containsKey(record.Status)
+          ) {
+            leadEvent.put(
+              mapping.Platform_Event_Field_API_Name__c,
+              leadStatusTransMap.get(record.Status).UNICA_Lead_Status__c
+            );
+          }
+        } else {
+          leadEvent.put(
+            mapping.Platform_Event_Field_API_Name__c,
+            record.get(mapping.Lead_Field_API_Name__c)
+          );
+        }
       }
     }
   }

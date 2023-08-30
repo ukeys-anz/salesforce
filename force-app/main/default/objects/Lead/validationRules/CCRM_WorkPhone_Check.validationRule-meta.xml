@@ -4,11 +4,14 @@
     <active>true</active>
     <description>Validation to check Work Phone is entered in a correct format.</description>
     <errorConditionFormula>AND(
-        $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    OR(
         RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
-        NOT ISBLANK(  Work_Phone__c  ) ,
-        NOT REGEX( Work_Phone__c , &quot;^\\+?61[0-9]{9}+$&quot; )
-    )</errorConditionFormula>
+        RecordType.DeveloperName = &apos;MLCRM_Lead&apos;
+    ),
+    NOT ISBLANK(Work_Phone__c) ,
+    NOT REGEX(Work_Phone__c , &quot;^\\+61[0-9]{9}+$&quot; )
+)</errorConditionFormula>
     <errorDisplayField>Work_Phone__c</errorDisplayField>
-    <errorMessage>Please enter Work Phone Number in +61212345678 format.</errorMessage>
+    <errorMessage>The Work Phone entered is not in the correct format. Refer to help text.</errorMessage>
 </ValidationRule>
