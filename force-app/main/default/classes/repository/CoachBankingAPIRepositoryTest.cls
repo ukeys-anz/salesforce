@@ -512,7 +512,9 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
     Test.stopTest();
 
-    String expectedString = '?account_numbers=000000000&start_time=2018-07-02T14:00:00.000Z&end_time=2018-07-26T13:59:59.000Z';
+    String expectedString = Label.TransactionAPIUpliftedToV1 == 'True'
+      ? '?account_numbers=000000000&origin_time.after=2018-07-02T14:00:00.000Z&origin_time.before=2018-07-26T13:59:59.000Z'
+      : '?account_numbers=000000000&start_time=2018-07-02T14:00:00.000Z&end_time=2018-07-26T13:59:59.000Z';
 
     System.assertEquals(
       expectedString,
