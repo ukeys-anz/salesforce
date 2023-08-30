@@ -418,7 +418,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetails502832643784511</globalKey>
-        <inputFieldName>Case:CustomerDetails:Customer</inputFieldName>
+        <inputFieldName>customerNumber</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRTransformCaseDetails</name>
@@ -1653,6 +1653,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:CustomerDetails:thirdPartyCountry</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:Case:CustomerDetails:Customer ISNOTBLANK var:Case:CustomerDetails:Customer var:Case:CustomerDetails:Customer1 IF</formulaConverted>
+        <formulaExpression>IF(ISNOTBLANK(Case:CustomerDetails:Customer),%Case:CustomerDetails:Customer%,%Case:CustomerDetails:Customer1%)</formulaExpression>
+        <formulaResultPath>customerNumber</formulaResultPath>
+        <formulaSequence>11.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom668</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
