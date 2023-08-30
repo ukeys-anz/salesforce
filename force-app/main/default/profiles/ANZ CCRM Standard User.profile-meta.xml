@@ -24022,9 +24022,6 @@
         <layout>Notification_Handler__c-Notification Handler Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>OmniUiCard-Omni UI Card Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>OperatingHours-Operating Hours Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
