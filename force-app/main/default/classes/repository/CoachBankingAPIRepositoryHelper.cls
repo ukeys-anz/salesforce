@@ -65,7 +65,13 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     String bucketIdsList = Label.TransactionAPIUpliftedToV1 == 'True'
       ? 'buckets'
       : 'bucket_ids';
-    String precedingBucketValue = 'accounts/' + accountNumber + '/buckets/';
+
+    String precedingBucketValue = EncodingUtil.urlEncode(
+      'accounts/' +
+      accountNumber +
+      '/buckets/',
+      'UTF-8'
+    );
 
     ParameterBuilder builder = new ParameterBuilder();
 
