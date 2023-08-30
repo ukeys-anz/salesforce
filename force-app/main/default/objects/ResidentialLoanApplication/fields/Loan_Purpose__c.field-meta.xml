@@ -17,32 +17,32 @@ Many downstream systems such as Reporting, Risk, CAP and Credit utilize this fie
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>GOAL_UNSPECIFIED</fullName>
+                <fullName>REFINANCING_REASON_UNSPECIFIED</fullName>
                 <default>false</default>
                 <label>Unspecified</label>
             </value>
             <value>
-                <fullName>GOAL_PAY_LESS</fullName>
+                <fullName>REFINANCING_REASON_PAY_LESS	</fullName>
                 <default>false</default>
                 <label>Pay Less</label>
             </value>
             <value>
-                <fullName>GOAL_PAY_OFF_SOONER</fullName>
+                <fullName>REFINANCING_REASON_PAY_OFF_SOONER</fullName>
                 <default>false</default>
                 <label>Pay Off Sooner</label>
             </value>
             <value>
-                <fullName>GOAL_CONSOLIDATE_LOANS</fullName>
+                <fullName>REFINANCING_REASON_CONSOLIDATE_LOANS</fullName>
                 <default>false</default>
                 <label>Consolidate Loans</label>
             </value>
             <value>
-                <fullName>GOAL_TOPUP_EXISTING_LOAN</fullName>
+                <fullName>REFINANCING_REASON_TOPUP_EXISTING_LOAN</fullName>
                 <default>false</default>
                 <label>Top Up</label>
             </value>
             <value>
-                <fullName>GOAL_REFI_CURRENT_BALANCE</fullName>
+                <fullName>REFINANCING_REASON_REFI_CURRENT_BALANCE</fullName>
                 <default>false</default>
                 <label>Refinance</label>
             </value>
