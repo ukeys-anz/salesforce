@@ -58,27 +58,27 @@
     <picklistValues>
         <picklist>Loan_Purpose__c</picklist>
         <values>
-            <fullName>GOAL_CONSOLIDATE_LOANS</fullName>
+            <fullName>REFINANCING_REASON_CONSOLIDATE_LOANS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>GOAL_PAY_LESS</fullName>
+            <fullName>REFINANCING_REASON_PAY_LESS</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>GOAL_PAY_OFF_SOONER</fullName>
+            <fullName>REFINANCING_REASON_PAY_OFF_SOONER</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>GOAL_REFI_CURRENT_BALANCE</fullName>
+            <fullName>REFINANCING_REASON_REFI_CURRENT_BALANCE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>GOAL_TOPUP_EXISTING_LOAN</fullName>
+            <fullName>REFINANCING_REASON_TOPUP_EXISTING_LOAN</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>GOAL_UNSPECIFIED</fullName>
+            <fullName>REFINANCING_REASON_UNSPECIFIED</fullName>
             <default>false</default>
         </values>
     </picklistValues>
