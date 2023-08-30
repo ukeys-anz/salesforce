@@ -110,7 +110,6 @@ public class TransactionHistoryModelConvertor {
       destTransaction.primary_anzx_category = sourceTransaction.primary_anzx_category;
       destTransaction.transaction_posted_time = sourceTransaction.post_time;
       destTransaction.transaction_value_time = sourceTransaction.value_time;
-      destTransaction.is_npp_details_available = sourceTransaction.reportable;
       destTransaction.original_anzx_category = sourceTransaction.original_anzx_category;
       destTransaction.title = sourceTransaction.title;
       destTransaction.traceId = sourceTransaction.trace_id;
