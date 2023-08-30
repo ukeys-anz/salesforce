@@ -235,6 +235,9 @@ public class TransactionHistoryModelConvertor {
         sourcePayment.npp_customer_reference
       );
       destPayanyone.message = convertFieldValue(sourcePayment.message);
+      destPayanyone.payment_receipt_number = convertFieldValue(
+        sourcePayment.payment_reference
+      );
       destPayanyone.clearing_method = sourcePayment.clearing_method;
       destPayanyone.clearing_sub_method = sourcePayment.clearing_sub_method;
       destPayanyone.other_entity = convertOtherEntity(
