@@ -717,6 +717,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Is_this_a_complaint_about_a_complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Name_of_product_manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
