@@ -82,12 +82,12 @@ private class CCRMLeadTriggerHandlerTest {
     }
     Test.stopTest();
     //Asserts
-    //Checking by searching records with Status 'New'.
+    //Checking by searching records with Status 'Assigned'.
     List<Lead> createdLeads = [
       SELECT Id
       FROM Lead
       WHERE
-        Status = :CCRMConstants.STATUS_NEW
+        Status = :CCRMConstants.STATUS_ASSIGNED
         AND createdById = :ccrmIntegrationUser.Id
     ];
     System.assertEquals(

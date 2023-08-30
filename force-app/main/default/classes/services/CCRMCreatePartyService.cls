@@ -19,7 +19,7 @@ public with sharing class CCRMCreatePartyService extends Service {
     String operatorId = mapOfLanId.containsKey(record.OwnerId)
       ? mapOfLanId.get(record.OwnerId).Lan_Id__c
       : '';
-
+    String body = getBody(record);
     headers.put('Content-Type', 'application/json');
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
@@ -30,7 +30,11 @@ public with sharing class CCRMCreatePartyService extends Service {
       'X-Originating-App',
       System.Label.CCRM_CreatePartyOriginatingApp
     );
-    String body = getBody(record);
+    headers.put(
+      'X-Idempotency-Key',
+      CommonUtil.generateUUID(Blob.valueOf(body))
+    );
+    headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     String endPoint = 'callout:SF_MS_Party' + Label.MS_Create_Party;
     return calloutService.makeRestCallout(
       endPoint,

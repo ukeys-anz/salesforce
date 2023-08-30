@@ -9,7 +9,7 @@
       "Campaign__c": "7012O000000XAMLQA4",
       "Close_To_Do_Activities__c": false,
       "Create_Activities_From_Template__c": false,
-      "Create_Opportunity__c": false,
+      "Create_Opportunity__c": true,
       "Create_To_Do_Activities__c": true,
       "Display_Order__c": 1,
       "Follow_Up_State__c": "M",

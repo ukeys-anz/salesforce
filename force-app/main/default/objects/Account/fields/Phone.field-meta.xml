@@ -7,4 +7,5 @@
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
 </CustomField>

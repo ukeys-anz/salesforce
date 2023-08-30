@@ -1,0 +1,9 @@
+<aura:component
+  implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader"
+  access="global"
+>
+  <c:leadConvertToOpportunity
+    recordId="{!v.recordId}"
+    oncloseconvertmodal="{!c.closeModalPopUp}"
+  ></c:leadConvertToOpportunity>
+</aura:component>

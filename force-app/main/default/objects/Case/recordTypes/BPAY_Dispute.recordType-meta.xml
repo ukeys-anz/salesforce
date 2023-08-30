@@ -200,15 +200,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Incorrect Customer Reference Number</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Payment not received by biller</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Unauthorised Transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unintended Payment</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -5,4 +5,5 @@
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_OCV</complianceGroup>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
+    <trackHistory>true</trackHistory>
 </CustomField>

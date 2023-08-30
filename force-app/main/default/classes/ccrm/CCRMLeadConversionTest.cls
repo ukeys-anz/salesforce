@@ -145,7 +145,11 @@ public class CCRMLeadConversionTest {
     leadResponseData1.leadId = leads[0].Id;
 
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      update new Lead(Id = leads[0].Id, Status = CCRMConstants.STATUS_EXPIRED);
+      update new Lead(
+        Id = leads[0].Id,
+        Status = CCRMConstants.STATUS_OUTCOME,
+        Lead_Outcome__c = CCRMConstants.STATUS_EXPIRED
+      );
     }
 
     String result;
@@ -200,5 +204,31 @@ public class CCRMLeadConversionTest {
       !result.contains('Error Message'),
       'Should not show error message'
     );
+  }
+
+  @IsTest
+  static void findAndConvertLeadCCRMTest() {
+    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+      Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
+        .Id;
+      USER usr = (USER) FakerFactory.make(new FakerUserFactory());
+      usr.Email = 'test@mltest.anz.com';
+      usr.ProfileId = adminProfileId;
+      usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
+      insert usr;
+
+      Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
+      insert leadRec;
+      Faker faker = new Faker('AU');
+      Account testAccount = new Account(
+        Name = 'Test Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = false
+      );
+      insert testAccount;
+      Test.startTest();
+      AccountCommonActions.findAndConvertCCRMLead(testAccount.id, leadRec);
+      Test.stopTest();
+    }
   }
 }

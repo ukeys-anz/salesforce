@@ -179,6 +179,17 @@ public with sharing class CommonUtil {
       record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }
   }
+  /**
+   * @description Generates a standard UUID (Universally Unique Identifier)
+   * @param hashKey send request body as blob
+   * @return A UUID, e.g. 874ddf01-552c-dc25-821b-33c57946632e
+   */
+  public static String generateUUID(Blob hashKey) {
+    String uuid = EncodingUtil.ConvertTohex(
+      Crypto.generateDigest('SHA-256', hashKey)
+    );
+    return uuid.Substring(0, 31);
+  }
 
   /**
    * @description Generates a standard UUID (Universally Unique Identifier)

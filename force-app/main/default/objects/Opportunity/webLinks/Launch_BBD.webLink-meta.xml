@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Launch_BBD</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Launch BBD</masterLabel>
+    <openType>noSidebar</openType>
+    <protected>false</protected>
+    <url>https://bbd.csp.service.anz/#/customers/{!Account.Source_System_ID__c}?source=iKnow&amp;opportunityId={!Opportunity.Opp_Id__c}</url>
+</WebLink>

@@ -32,6 +32,12 @@
         <converted>false</converted>
     </standardValue>
     <standardValue>
+        <fullName>Assigned</fullName>
+        <default>false</default>
+        <label>Assigned</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
         <fullName>Nurturing</fullName>
         <default>false</default>
         <label>Nurturing</label>
@@ -71,6 +77,24 @@
         <fullName>Declined</fullName>
         <default>false</default>
         <label>Declined</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Opportunity Identified</fullName>
+        <default>false</default>
+        <label>Opportunity Identified</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>No Opportunity</fullName>
+        <default>false</default>
+        <label>No Opportunity</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Outcome</fullName>
+        <default>false</default>
+        <label>Outcome</label>
         <converted>false</converted>
     </standardValue>
 </StandardValueSet>

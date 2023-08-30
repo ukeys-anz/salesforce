@@ -262,6 +262,17 @@
     <enableFeeds>true</enableFeeds>
     <enableHistory>true</enableHistory>
     <externalSharingModel>Private</externalSharingModel>
+    <profileSearchLayouts>
+        <fields>FULL_NAME</fields>
+        <fields>Priority__c</fields>
+        <fields>LEAD.STATUS</fields>
+        <fields>Followup_Date__c</fields>
+        <fields>LEAD.CREATED_DATE</fields>
+        <fields>Expiry_Date__c</fields>
+        <fields>Expiry_Indicator__c</fields>
+        <fields>Lead_Owner_Link__c</fields>
+        <profileName>ANZ ML Standard User</profileName>
+    </profileSearchLayouts>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <recordTypeTrackHistory>false</recordTypeTrackHistory>
     <searchLayouts>

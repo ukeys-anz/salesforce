@@ -79,10 +79,9 @@ public with sharing class CFaasFilesCleanupTest {
         AND CreatedDate < :now
     ];
 
-    // WHEN the cleanup is processed to delete files created today a second ago
+    // WHEN the cleanup is processed to delete files created today before the test running time
     Test.startTest();
-    Datetime dt = now.addSeconds(-1);
-    CFaasFilesCleanup.processCleanup(dt);
+    CFaasFilesCleanup.processCleanup(now);
     Test.stopTest();
 
     listContentVersion = [

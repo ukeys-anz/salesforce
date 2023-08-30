@@ -8,7 +8,7 @@
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public with sharing class CCRMTestDataFactory {
   public static Id anzStandardProfileId = CommonUtil.getProfileByName(
-      'ANZ Standard User'
+      'ANZ CCRM Standard User'
     )
     .Id;
   public static Id adminProfileId = CommonUtil.getProfileByName(
@@ -21,6 +21,13 @@ public with sharing class CCRMTestDataFactory {
     .Id;
   public static UserRole commercialBankerRole = CommonUtil.getUserRoleByDevName(
     'Commercial_Banking'
+  );
+  public static UserRole relationshipManager = CommonUtil.getUserRoleByDevName(
+    'Relationship_Manager'
+  );
+
+  public static UserRole smallBBRole = CommonUtil.getUserRoleByDevName(
+    'Small_Business_Banking'
   );
 
   private static User adminUser;
@@ -45,6 +52,7 @@ public with sharing class CCRMTestDataFactory {
     insert adminUser;
 
     addCCRMUserPS(adminUser.id, 'Read_Write_Customer_Details');
+    addCCRMUserPS(adminUser.id, 'CCRM_User_Base');
 
     return adminUser;
   }
@@ -83,6 +91,42 @@ public with sharing class CCRMTestDataFactory {
     ccrmBaseUser.FirstName = 'BaseUser' + staticNumber;
     ccrmBaseUser.LastName = 'CCRM';
     ccrmBaseUser.UserRoleId = commercialBankerRole.Id;
+    ccrmBaseUser.ProfileId = anzStandardProfileId;
+    insert ccrmBaseUser;
+    addCCRMUserPS(ccrmBaseUser.id, 'CCRM_User_Base');
+    return ccrmBaseUser;
+  }
+
+  /**
+   * @description Create a CCRM Base User
+   * @name createCCRMRelManagerUser
+   * @return ANZ Standard User with CCRM Relationship_ManagerUser User Permission Set.
+   */
+  public static User createCCRMRelManagerUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
+    ccrmBaseUser.FirstName = 'BaseUser' + staticNumber;
+    ccrmBaseUser.LastName = 'CCRM';
+    ccrmBaseUser.UserRoleId = relationshipManager.Id;
+    ccrmBaseUser.ProfileId = anzStandardProfileId;
+    insert ccrmBaseUser;
+    addCCRMUserPS(ccrmBaseUser.id, 'CCRM_User_Base');
+    return ccrmBaseUser;
+  }
+
+  /**
+   * @description Create a CCRM Base User
+   * @name createCCRMSmallBusinessBankingUser
+   * @return ANZ Standard User with CCRM Permission Set.
+   */
+  public static User createCCRMSmallBusinessBankingUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
+    ccrmBaseUser.FirstName = 'BaseUser' + staticNumber;
+    ccrmBaseUser.LastName = 'CCRM';
+    ccrmBaseUser.UserRoleId = smallBBRole.Id;
     ccrmBaseUser.ProfileId = anzStandardProfileId;
     insert ccrmBaseUser;
     addCCRMUserPS(ccrmBaseUser.id, 'CCRM_User_Base');
@@ -244,6 +288,8 @@ public with sharing class CCRMTestDataFactory {
     unicaUser.ProfileId = integrationProfileId;
     insert unicaUser;
     addCCRMUserPS(unicaUser.id, 'CCRM_User_Base');
+    addCCRMUserPS(unicaUser.id, 'CCRM_Marketing_Integration_User');
+    addCCRMUserPS(unicaUser.id, 'MLCRM_Marketing_Integration_User');
     addCCRMUserPS(unicaUser.id, 'API_Only');
     return unicaUser;
   }
@@ -327,7 +373,8 @@ public with sharing class CCRMTestDataFactory {
       OpportunityId = opp.Id,
       PricebookEntryId = pbEntry.Id,
       Quantity = 1,
-      TotalPrice = 1000.00
+      TotalPrice = 1000.00,
+      Funding_purpose__c = 'Property Purchase or Construction'
     );
     return oli;
   }
@@ -438,6 +485,7 @@ public with sharing class CCRMTestDataFactory {
       accnt.BillingPostalCode = '3008';
       accnt.BillingState = 'Victoria';
       accnt.BillingCountry = 'Australia';
+      accnt.FinServ__Status__c = 'Prospect';
       accountList.add(accnt);
     }
     insert accountList;
@@ -472,9 +520,9 @@ public with sharing class CCRMTestDataFactory {
     leadRecord.Email = 'sam' + staticNumber + '@test.com';
     leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
     leadRecord.Description = 'Need a new Credit Card';
-    leadRecord.Not_Registered__c = true;
+    leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Sam' + staticNumber;
     leadRecord.LastName = 'Jacob';
@@ -483,7 +531,7 @@ public with sharing class CCRMTestDataFactory {
     leadRecord.Campaign_Code__c = staticNumber;
     leadRecord.Lead_Originator__c = 'Adobe';
     leadRecord.Business_ID__c = '012345';
-    leadRecord.Status = CCRMConstants.STATUS_NEW;
+    leadRecord.Status = CCRMConstants.STATUS_ASSIGNED;
     leadRecord.FinServ__RelatedAccount__c = accnt.id;
     leadRecord.OwnerId = ownerUser.Id == null
       ? UserInfo.getUserId()
@@ -518,6 +566,9 @@ public with sharing class CCRMTestDataFactory {
     insert accnt;
 
     Contact contact = new Contact();
+    contact.recordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByDevelopername()
+      .get('IndustriesBusiness')
+      .getRecordTypeId();
     contact.FirstName = 'conFname';
     contact.LastName = 'conLname';
     contact.Email = 'con@test.com';
@@ -652,9 +703,9 @@ public with sharing class CCRMTestDataFactory {
       leadRecord.Email = 'sam' + staticNumber + '@test.com';
       leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
       leadRecord.Description = 'Need a new Credit Card';
-      leadRecord.Not_Registered__c = true;
+      leadRecord.Registered_Company__c = 'No';
       leadRecord.Expiry_Date__c = System.today() + 10;
-      leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+      leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
       leadRecord.FinServ__PotentialValue__c = 12000;
       leadRecord.FirstName = 'Sam' + staticNumber;
       leadRecord.LastName = 'Jacob';
@@ -663,7 +714,7 @@ public with sharing class CCRMTestDataFactory {
       leadRecord.Campaign_Code__c = staticNumber;
       leadRecord.Lead_Originator__c = 'Adobe';
       leadRecord.Business_ID__c = '012345';
-      leadRecord.Status = CCRMConstants.STATUS_NEW;
+      leadRecord.Status = CCRMConstants.STATUS_ASSIGNED;
       leadRecord.OwnerId = ownerUser.Id == null
         ? UserInfo.getUserId()
         : ownerUser.Id;
@@ -873,7 +924,7 @@ public with sharing class CCRMTestDataFactory {
       Opportunity objOpportunity = new Opportunity();
       objOpportunity.Name = 'Test Opp ' + i;
       objOpportunity.Accountid = objAccount.id;
-      objOpportunity.StageName = 'Prospecting';
+      objOpportunity.StageName = 'Opportunity Identified';
       objOpportunity.CloseDate = system.Today() + 3;
       objOpportunity.Description = '987654321';
       objOpportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
@@ -969,5 +1020,43 @@ public with sharing class CCRMTestDataFactory {
     }
     insert conList;
     return conList;
+  }
+
+  /**
+   * @description Create actionPlan
+   * @name createActionPlans
+   */
+  public static void createActionPlans() {
+    ActionPlanTemplate apTemp = new ActionPlanTemplate();
+    apTemp.Name = CCRMConstants.NEEDS_ANALYSIS_ACTION_PLAN_TEMP;
+    apTemp.TargetEntityType = 'Opportunity';
+    apTemp.ActionPlanType = 'Industries';
+    insert apTemp;
+
+    ActionPlanTemplateVersion apTempVer = [
+      SELECT Id, Status
+      FROM ActionPlanTemplateVersion
+      WHERE Name = :CCRMConstants.NEEDS_ANALYSIS_ACTION_PLAN_TEMP
+      LIMIT 1
+    ];
+
+    ActionPlanTemplateItem apTempItems = new ActionPlanTemplateItem();
+    apTempItems.ActionPlanTemplateVersionId = apTempVer.Id;
+    apTempItems.Name = 'Google';
+    apTempItems.IsActive = true;
+    apTempItems.IsRequired = false;
+    apTempItems.ItemEntityType = 'Task';
+
+    insert apTempItems;
+
+    ActionPlanTemplateItemValue apTempItemValue = new ActionPlanTemplateItemValue();
+    apTempItemValue.ActionPlanTemplateItemId = apTempItems.Id;
+    apTempItemValue.ItemEntityFieldName = 'Task.Subject';
+    apTempItemValue.Name = 'Test Name';
+    apTempItemValue.ValueLiteral = 'Sample';
+    insert apTempItemValue;
+
+    apTempVer.Status = 'Final';
+    update apTempVer;
   }
 }
