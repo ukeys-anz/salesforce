@@ -42,7 +42,11 @@ public with sharing class SOPModel extends CalloutModel {
     /**
      * @description soleIncomeEarner value for flex card reference
      */
-    public String soleIncomeEarner;
+    public String soleIncomeEarner {
+      get {
+        return this.spouseEarnsIncome == false ? 'Yes' : 'No';
+      }
+    }
 
     /**
      * @description relationshipState transform to retain actual status

@@ -36,11 +36,20 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    */
   public SOPModel getSOP(String ocvId, String sopId) {
     Service s = ServiceProvider.getService(BOHService.class);
+    SOPModel sopCache = DataPartitionUtil.getSOPDetailsCache(sopId);
+    if (sopCache != null) {
+      return sopCache;
+    }
+
     HttpCalloutResponse response = s.getSOP(ocvId, sopId);
     if (response.successful == false) {
       throw response.error;
     }
     try {
+      DataPartitionUtil.storeSOPDetailsCache(
+        sopId,
+        SOPModel.parse(response.body)
+      );
       return SOPModel.parse(response.body);
     } catch (Exception e) {
       handleErrors(response, e, SOPModel.class);

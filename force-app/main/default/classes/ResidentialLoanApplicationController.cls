@@ -105,10 +105,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       Map<String, Object> obj = (Map<String, Object>) JSON.deserializeUntyped(
         JSON.serialize(row)
       );
-      obj.put(
-        'soleIncomeEarner',
-        (Boolean) obj.get('spouseEarnsIncome') == false ? 'Yes' : 'No'
-      );
       obj.put('partyDependantsCount', response.sop.dependantsCount);
 
       transformedParties.add(
