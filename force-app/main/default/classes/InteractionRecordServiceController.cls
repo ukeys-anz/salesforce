@@ -89,7 +89,9 @@ public with sharing class InteractionRecordServiceController {
       this.interactId = record.Id;
       this.interactName = record.Name;
       this.ownerName = record.Owner.Name;
-      this.actualTopic = record.Actual_Topics__c;
+      this.actualTopic = String.isNotBlank(record.Actual_Topics__c)
+        ? record.Actual_Topics__c
+        : record.Support_Topics__c;
       this.videoCall = record.Video_Call__c;
       this.status = record.Status__c;
       this.attendees = record.Attendees__c;
