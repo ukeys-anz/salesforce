@@ -242,9 +242,7 @@ public without sharing class TestDataFactory {
       'ATM_Dispute' => new List<String>{
         'Duplicate Transaction',
         'Unauthorised Transaction',
-        'Cash Dispensing Error',
-        'Cash Deposit Error',
-        'Cheque Deposit Error'
+        'Cash Dispensing Error'
       },
       'BPAY_Dispute' => new List<String>{
         'Duplicate Transaction',
