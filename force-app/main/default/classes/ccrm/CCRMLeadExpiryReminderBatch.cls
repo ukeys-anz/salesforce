@@ -12,16 +12,21 @@ public with sharing class CCRMLeadExpiryReminderBatch implements Database.Batcha
    */
   public Database.QueryLocator start(Database.BatchableContext bc) {
     string ccrmLeadRtId = CCRMConstants.CCRM_LEAD_RT_ID;
+    String mlcrmLeadRtId = MLCRMConstants.MLCRM_LEAD_RT_ID;
     Set<String> leadStatuses = new Set<String>{
       CCRMConstants.STATUS_NEW,
-      CCRMConstants.STATUS_IN_PROGRESS
+      CCRMConstants.STATUS_IN_PROGRESS,
+      MLCRMConstants.STATUS_OPPORTUNITY_INDENTIFIED,
+      CCRMConstants.STATUS_ASSIGNED,
+      CCRMConstants.STATUS_OUTCOME
     };
     return Database.getQueryLocator(
-      'SELECT Id, Status, Expiry_Date__c, OwnerId, Owner.Name, Name ' +
+      'SELECT Id, Status, Expiry_Date__c, OwnerId, Owner.Name, Name, RecordTypeId, Lead_Originator__c, Lead_Outcome__c ' +
       'FROM Lead ' +
       'WHERE Status IN :leadStatuses' +
       ' AND CCRM_ExpiryNotificationCheck__c = true' +
-      ' AND RecordTypeId = :ccrmLeadRtId'
+      ' AND (RecordTypeId = :ccrmLeadRtId OR ' +
+      ' RecordTypeId = :mlcrmLeadRtId)'
     );
   }
 

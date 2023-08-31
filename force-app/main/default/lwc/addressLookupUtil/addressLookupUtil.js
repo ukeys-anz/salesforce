@@ -107,7 +107,7 @@ export default class AddressLookupUtil extends LightningElement {
     getAddresses: async (searchString) => {
       try {
         const response = await getValidAddresses({
-          lookupString: encodeURIComponent(searchString)
+          lookupString: searchString
         });
 
         this.addressList = response.result.suggestions;
@@ -141,7 +141,6 @@ export default class AddressLookupUtil extends LightningElement {
         });
         this.selectedAddress = {
           ...response.result.address,
-          dpid: response.metadata.address_info.identifier.dpid,
           street: [
             response.result.address.address_line_1,
             response.result.address.address_line_2,
@@ -150,7 +149,20 @@ export default class AddressLookupUtil extends LightningElement {
             .filter((x) => x)
             .join(", ")
         };
-        if (!this.useCountryFullName) {
+        if (
+          response.metadata !== undefined &&
+          response.metadata !== null &&
+          response.metadata.address_info.identifier.dpid
+        ) {
+          this.selectedAddress.dpid =
+            response.metadata.address_info.identifier.dpid;
+          this.currentAddress.dpid = this.selectedAddress.dpid;
+        }
+        if (
+          !this.useCountryFullName &&
+          response.result.components !== undefined &&
+          response.result.components !== null
+        ) {
           this.selectedAddress.country =
             response.result.components.country_iso_2;
         }
@@ -160,7 +172,6 @@ export default class AddressLookupUtil extends LightningElement {
         this.currentAddress.country = this.selectedAddress.country;
         this.currentAddress.postalCode = this.selectedAddress.postal_code;
         this.currentAddress.globalAddressKey = globalAddressKey;
-        this.currentAddress.dpid = this.selectedAddress.dpid;
         this.currentAddress.isValidAddress = true;
         this.eventDispatchers.addressChange();
       } catch (error) {

@@ -6,6 +6,122 @@
     <compactLayoutAssignment>Commercial_Opportunity</compactLayoutAssignment>
     <label>Commercial Opportunity</label>
     <picklistValues>
+        <picklist>Associated_Source_Detail__c</picklist>
+        <values>
+            <fullName>ANZ - BBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Product Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - RM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - SBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - SBS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accountant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>External Seminar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Seminar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-ANZ Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>BCOP_Email_sent__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Broker_Involved__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_Needs__c</picklist>
+        <values>
+            <fullName>Assist with Business Cashflow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Development and Renovation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing Vacant Land</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing a new Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing an existing Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing equipment %28inc%2E vehicles and fit out%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refinance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Set up a new Business %28Start Up%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>ForecastCategoryName</picklist>
         <values>
             <fullName>Best Case</fullName>
@@ -31,27 +147,7 @@
     <picklistValues>
         <picklist>LeadSource</picklist>
         <values>
-            <fullName>ANZ%2Ecom</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Accountant</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Broker</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Referral</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>External Referral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>External Seminar</fullName>
             <default>false</default>
         </values>
         <values>
@@ -60,10 +156,6 @@
         </values>
         <values>
             <fullName>Internal Referral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Internal Seminar</fullName>
             <default>false</default>
         </values>
         <values>
@@ -126,6 +218,269 @@
         </values>
         <values>
             <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Won_from_Lost_to__c</picklist>
+        <values>
+            <fullName>AAMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ACCU - Australian Credit CU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AIG Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AMP Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Adelaide Bank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Allianz Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>American Express International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aussie Group</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australian Unity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BUPA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank of China %28Australia%29 Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank of Melbourne</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank of Queensland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank of Sydney Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank of Tokyo-Mitsubishi UFJ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bankwest</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bendigo Bank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bluestone Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Citibank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comminsure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commonwealth Bank of Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Union Australia Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Union SA Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Defence Bank Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diners Club</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Elders</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Esanda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GIO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greater Building Society Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HBF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HCF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HSBC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Heritage Bank Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IAG Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ING Bank Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Industrial Comm%2E Bank China</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberty Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Macquaire Bank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Macquarie</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medibank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Members Equity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NRMA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Australia Bank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newcastle Permanent Build Soc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nib</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Peer to Peer Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Police Credit Union Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RAA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RAC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RACQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RACV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rabobank Australia Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rural Bank Limited</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SGIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SGIO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SUNCORP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>St George</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Teachers Credit Union</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Westlawn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Westpac</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
             <default>false</default>
         </values>
     </picklistValues>

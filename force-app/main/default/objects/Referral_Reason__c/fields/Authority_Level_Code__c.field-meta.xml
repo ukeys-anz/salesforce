@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Authority_Level_Code__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Code corresponding to authority level</description>
+    <externalId>false</externalId>
+    <formula>IF( UPPER(Authority_Level__c)  = &quot;NO_CAD&quot;, 1,
+IF( UPPER(Authority_Level__c)  = &quot;CAD_A&quot;, 2,
+IF( UPPER(Authority_Level__c)  = &quot;CAD_B&quot;, 3,
+IF( UPPER(Authority_Level__c)  = &quot;CAD_C&quot;, 4,
+IF( UPPER(Authority_Level__c)  = &quot;CAD_D&quot;, 5, NULL)))))</formula>
+    <label>Authority Level Code</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -29,6 +29,11 @@
                 <default>false</default>
                 <label>UNICA</label>
             </value>
+            <value>
+                <fullName>MLCRM</fullName>
+                <default>false</default>
+                <label>MLCRM</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

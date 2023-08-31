@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Record_Ids__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Semi-colon delimited list of record ids in trigger scope for sharing
+
+18-char for Id + delimiter supports up to 6898 Id values.</description>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Record Ids</label>
+    <length>131072</length>
+    <securityClassification>Internal</securityClassification>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>
