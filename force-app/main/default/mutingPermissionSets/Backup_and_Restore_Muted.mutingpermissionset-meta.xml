@@ -8,6 +8,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>Access_Request__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>Account</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -44,6 +53,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>COBIDVSearchResult__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>COBPrimaryIDDocument__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -72,6 +90,24 @@
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>CustomerOnboardingApplication__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>FeedComment</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>FeedItem</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -190,6 +226,15 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>RecordAlert</object>
         <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Record_Access_Log__b</object>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -377,6 +422,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>Task</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>User_Provisioning_Request__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -549,6 +603,105 @@
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>trailheadapp__User_Trailmix__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>CFaaS_File__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>CFMS_Migrated_Document__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Event</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Log_Record_Access__b</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Traced_Application_Log__b</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Loan_Applicant_Group__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>LoanApplicant</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Product_Preference__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>LoanApplicationLiability</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>LoanApplicationProperty</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>User</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <userPermissions>
