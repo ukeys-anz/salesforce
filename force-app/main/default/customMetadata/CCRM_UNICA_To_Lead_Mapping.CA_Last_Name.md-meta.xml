@@ -15,6 +15,10 @@
         <value xsi:type="xsd:string">LastName</value>
     </values>
     <values>
+        <field>Lead_Record_Types__c</field>
+        <value xsi:type="xsd:string">CCRM_Lead;MLCRM_Lead</value>
+    </values>
+    <values>
         <field>Object__c</field>
         <value xsi:type="xsd:string">Contact</value>
     </values>

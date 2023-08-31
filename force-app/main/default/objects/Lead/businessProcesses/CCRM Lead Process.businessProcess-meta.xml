@@ -4,15 +4,11 @@
     <description>Lead process for the Commercial CRM app</description>
     <isActive>true</isActive>
     <values>
-        <fullName>Completed</fullName>
-        <default>false</default>
+        <fullName>Assigned</fullName>
+        <default>true</default>
     </values>
     <values>
         <fullName>Converted</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Expired</fullName>
         <default>false</default>
     </values>
     <values>
@@ -20,11 +16,7 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>New</fullName>
-        <default>true</default>
-    </values>
-    <values>
-        <fullName>Referred</fullName>
+        <fullName>Outcome</fullName>
         <default>false</default>
     </values>
 </BusinessProcess>

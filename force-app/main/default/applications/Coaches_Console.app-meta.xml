@@ -71,6 +71,24 @@
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
     </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Contact_Point_Phone_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ContactPointPhone</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Contact_Point_Phone_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ContactPointPhone</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
         <logo>ANZx</logo>

@@ -24,7 +24,10 @@ public without sharing class CCRMRegionSharingUtil {
     for (Group g : [
       SELECT Id, DeveloperName
       FROM Group
-      WHERE Type = 'Regular' AND DeveloperName LIKE 'Region_%'
+      WHERE
+        Type = 'Regular'
+        AND (DeveloperName LIKE :CCRMConstants.BB_SEGMENT + '_%'
+        OR DeveloperName LIKE :CCRMConstants.SBB_SEGMENT + '_%')
     ]) {
       mapRegions.put(g.DeveloperName, g.Id);
     }
@@ -85,6 +88,136 @@ public without sharing class CCRMRegionSharingUtil {
   }
 
   /**
+   * @description Trigger handler to share lead records to owner's region
+   * @param newLeadList Updated lead record list
+   * @param oldLeadMap old lead map
+   */
+  public static void shareLeadsToUpdatedOwnerRegion(
+    List<Lead> newLeadList,
+    Map<Id, Lead> oldLeadMap
+  ) {
+    LeadOpportunityAccessWrapper leadOpportunityAccessWrapperInst = new LeadOpportunityAccessWrapper();
+    leadOpportunityAccessWrapperInst.transferRecordsAsync = new TransferRecordsQueueable();
+    leadOpportunityAccessWrapperInst.usersToRemoveFromRegion = new List<User>();
+    leadOpportunityAccessWrapperInst.usersToAddToRegion = new List<User>();
+    leadOpportunityAccessWrapperInst.leadsToTransfer = new List<Lead>();
+    Set<String> oldOwnerIdSet = new Set<String>();
+    Set<String> newOwnerIdSet = new Set<String>();
+    for (Lead leadIterator : newLeadList) {
+      String oldOwnerId = oldLeadMap.get(leadIterator.Id).OwnerId;
+      if (
+        leadIterator.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID &&
+        leadIterator.OwnerId != oldOwnerId
+      ) {
+        leadOpportunityAccessWrapperInst.leadsToTransfer.add(leadIterator);
+        oldOwnerIdSet.add(oldOwnerId);
+        newOwnerIdSet.add(leadIterator.OwnerId);
+      }
+    }
+    if (oldOwnerIdSet.isEmpty() && newOwnerIdSet.isEmpty()) {
+      return;
+    }
+    for (User userIterator : [
+      SELECT Id, Area_Code__c, Commercial_Segment__c
+      FROM User
+      WHERE
+        IsActive = TRUE
+        AND Area_Code__c != NULL
+        AND (Id IN :oldOwnerIdSet
+        OR Id IN :newOwnerIdSet)
+    ]) {
+      if (oldOwnerIdSet.contains(userIterator.Id)) {
+        leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.add(
+          userIterator
+        );
+      } else if (newOwnerIdSet.contains(userIterator.Id)) {
+        leadOpportunityAccessWrapperInst.usersToAddToRegion.add(userIterator);
+      }
+    }
+    if (!leadOpportunityAccessWrapperInst.leadsToTransfer.isEmpty()) {
+      if (!leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.isEmpty()) {
+        removeAndUpdateLeadAndOppoAccess(leadOpportunityAccessWrapperInst);
+      }
+      if (!leadOpportunityAccessWrapperInst.usersToAddToRegion.isEmpty()) {
+        addLeadAndOpportunityAccessFromRegion(leadOpportunityAccessWrapperInst);
+      }
+      if (
+        !leadOpportunityAccessWrapperInst.transferRecordsAsync.actions.isEmpty()
+      ) {
+        System.enqueueJob(
+          leadOpportunityAccessWrapperInst.transferRecordsAsync
+        );
+      }
+    }
+  }
+
+  /**
+   * @description Trigger handler to share opportunity records to owner's region
+   * @param newOppoList Updated Opportunity record list
+   * @param oldOppoMap old Opportunity map
+   */
+  public static void shareOpportunityToUpdatedOwnerRegion(
+    List<Opportunity> newOppoList,
+    Map<Id, Opportunity> oldOppoMap
+  ) {
+    LeadOpportunityAccessWrapper leadOpportunityAccessWrapperInst = new LeadOpportunityAccessWrapper();
+    leadOpportunityAccessWrapperInst.transferRecordsAsync = new TransferRecordsQueueable();
+    leadOpportunityAccessWrapperInst.usersToRemoveFromRegion = new List<User>();
+    leadOpportunityAccessWrapperInst.usersToAddToRegion = new List<User>();
+    leadOpportunityAccessWrapperInst.opportunitiesToTransfer = new List<Opportunity>();
+    Set<String> oldOwnerIdSet = new Set<String>();
+    Set<String> newOwnerIdSet = new Set<String>();
+    for (Opportunity oppoIterator : newOppoList) {
+      String oldOwnerId = oldOppoMap.get(oppoIterator.Id).OwnerId;
+      if (
+        oppoIterator.RecordTypeId == CCRMConstants.CCRM_OPP_RT_ID &&
+        oppoIterator.OwnerId != oldOwnerId
+      ) {
+        leadOpportunityAccessWrapperInst.opportunitiesToTransfer.add(
+          oppoIterator
+        );
+        oldOwnerIdSet.add(oldOwnerId);
+        newOwnerIdSet.add(oppoIterator.OwnerId);
+      }
+    }
+    if (oldOwnerIdSet.isEmpty() && newOwnerIdSet.isEmpty()) {
+      return;
+    }
+    for (User userIterator : [
+      SELECT Id, Area_Code__c, Commercial_Segment__c
+      FROM User
+      WHERE
+        IsActive = TRUE
+        AND Area_Code__c != NULL
+        AND (Id IN :oldOwnerIdSet
+        OR Id IN :newOwnerIdSet)
+    ]) {
+      if (oldOwnerIdSet.contains(userIterator.Id)) {
+        leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.add(
+          userIterator
+        );
+      } else if (newOwnerIdSet.contains(userIterator.Id)) {
+        leadOpportunityAccessWrapperInst.usersToAddToRegion.add(userIterator);
+      }
+    }
+    if (!leadOpportunityAccessWrapperInst.opportunitiesToTransfer.isEmpty()) {
+      if (!leadOpportunityAccessWrapperInst.usersToAddToRegion.isEmpty()) {
+        addLeadAndOpportunityAccessFromRegion(leadOpportunityAccessWrapperInst);
+      }
+      if (!leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.isEmpty()) {
+        removeAndUpdateLeadAndOppoAccess(leadOpportunityAccessWrapperInst);
+      }
+      if (
+        !leadOpportunityAccessWrapperInst.transferRecordsAsync.actions.isEmpty()
+      ) {
+        System.enqueueJob(
+          leadOpportunityAccessWrapperInst.transferRecordsAsync
+        );
+      }
+    }
+  }
+
+  /**
    * @description Check if user is switching to a different region. Then move active, owned leads/opps from old to new regions. Also move user region public group.
    * @param users User records to check for updated region.
    * @param mapOldUsers Old user records before updated. Grouped by user ID.
@@ -93,29 +226,38 @@ public without sharing class CCRMRegionSharingUtil {
     List<User> users,
     Map<Id, User> mapOldUsers
   ) {
-    List<User> usersToRemoveFromRegion = new List<User>();
-    List<User> usersToAddToRegion = new List<User>();
+    LeadOpportunityAccessWrapper leadOpportunityAccessWrapperInst = new LeadOpportunityAccessWrapper();
+    leadOpportunityAccessWrapperInst.usersToRemoveFromRegion = new List<User>();
+    leadOpportunityAccessWrapperInst.usersToAddToRegion = new List<User>();
     Set<Id> ownerIdsToTransferRecords = new Set<Id>();
     for (User newUser : users) {
       User oldUser = mapOldUsers.get(newUser.Id);
-      if (newUser.IsActive && newUser.Area_Code__c != oldUser.Area_Code__c) {
+      if (
+        newUser.IsActive &&
+        (newUser.Area_Code__c != oldUser.Area_Code__c ||
+        newUser.Commercial_Segment__c != oldUser.Commercial_Segment__c)
+      ) {
         ownerIdsToTransferRecords.add(newUser.ID);
         if (!String.isBlank(newUser.Area_Code__c)) {
-          usersToAddToRegion.add(newUser);
+          leadOpportunityAccessWrapperInst.usersToAddToRegion.add(newUser);
         }
         if (
           !String.isBlank(oldUser.Area_Code__c) &&
-          getRegionId(oldUser.Area_Code__c) != null
+          getRegionId(oldUser.Commercial_Segment__c, oldUser.Area_Code__c) !=
+          null
         ) {
-          usersToRemoveFromRegion.add(oldUser);
+          leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.add(oldUser);
         }
       }
     }
-    if (usersToAddToRegion.isEmpty() && usersToRemoveFromRegion.isEmpty()) {
+    if (
+      leadOpportunityAccessWrapperInst.usersToAddToRegion.isEmpty() &&
+      leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.isEmpty()
+    ) {
       return;
     }
 
-    List<Lead> leadsToTransfer = [
+    leadOpportunityAccessWrapperInst.leadsToTransfer = [
       SELECT Id, OwnerId
       FROM Lead
       WHERE
@@ -123,7 +265,7 @@ public without sharing class CCRMRegionSharingUtil {
         AND RecordTypeId = :CCRMConstants.CCRM_LEAD_RT_ID
         AND OwnerId IN :ownerIdsToTransferRecords
     ];
-    List<Opportunity> opportunitiesToTransfer = [
+    leadOpportunityAccessWrapperInst.opportunitiesToTransfer = [
       SELECT Id, OwnerId
       FROM Opportunity
       WHERE
@@ -131,51 +273,95 @@ public without sharing class CCRMRegionSharingUtil {
         AND RecordTypeId = :CCRMConstants.CCRM_OPP_RT_ID
         AND OwnerId IN :ownerIdsToTransferRecords
     ];
-    TransferRecordsQueueable transferRecordsAsync = new TransferRecordsQueueable();
 
-    if (!usersToRemoveFromRegion.isEmpty()) {
-      removeUsersFromRegion(usersToRemoveFromRegion);
+    leadOpportunityAccessWrapperInst.transferRecordsAsync = new TransferRecordsQueueable();
 
-      if (!leadsToTransfer.isEmpty()) {
-        transferRecordsAsync.appendAction(
-          false,
-          Lead.getSObjectType(),
-          groupRecordsByOwnerRegion(leadsToTransfer, usersToRemoveFromRegion)
-        );
-      }
-      if (!opportunitiesToTransfer.isEmpty()) {
-        transferRecordsAsync.appendAction(
-          false,
-          Opportunity.getSObjectType(),
-          groupRecordsByOwnerRegion(
-            opportunitiesToTransfer,
-            usersToRemoveFromRegion
-          )
-        );
-      }
+    if (!leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.isEmpty()) {
+      removeUsersFromRegion(
+        leadOpportunityAccessWrapperInst.usersToRemoveFromRegion
+      );
+      removeAndUpdateLeadAndOppoAccess(leadOpportunityAccessWrapperInst);
     }
 
-    if (!usersToAddToRegion.isEmpty()) {
-      addUsersToRegion(usersToAddToRegion);
-
-      if (!leadsToTransfer.isEmpty()) {
-        transferRecordsAsync.appendAction(
-          true,
-          Lead.getSObjectType(),
-          groupRecordsByOwnerRegion(leadsToTransfer, usersToAddToRegion)
-        );
-      }
-      if (!opportunitiesToTransfer.isEmpty()) {
-        transferRecordsAsync.appendAction(
-          true,
-          Opportunity.getSObjectType(),
-          groupRecordsByOwnerRegion(opportunitiesToTransfer, usersToAddToRegion)
-        );
-      }
+    if (!leadOpportunityAccessWrapperInst.usersToAddToRegion.isEmpty()) {
+      addUsersToRegion(leadOpportunityAccessWrapperInst.usersToAddToRegion);
+      addLeadAndOpportunityAccessFromRegion(leadOpportunityAccessWrapperInst);
     }
 
-    if (!transferRecordsAsync.actions.isEmpty()) {
-      System.enqueueJob(transferRecordsAsync);
+    if (
+      !leadOpportunityAccessWrapperInst.transferRecordsAsync.actions.isEmpty()
+    ) {
+      System.enqueueJob(leadOpportunityAccessWrapperInst.transferRecordsAsync);
+    }
+  }
+
+  /**
+   * @description Remove access record for lead and Opportunity when users moves to a new region or on ownership change
+   * * @param leadOpportunityAccessWrapperInst LeadOpportunityAccessWrapper isnatnce to pass lead, opportunity and user list to update
+   */
+  private static void removeAndUpdateLeadAndOppoAccess(
+    LeadOpportunityAccessWrapper leadOpportunityAccessWrapperInst
+  ) {
+    if (
+      leadOpportunityAccessWrapperInst.leadsToTransfer != null &&
+      !leadOpportunityAccessWrapperInst.leadsToTransfer.isEmpty()
+    ) {
+      leadOpportunityAccessWrapperInst.transferRecordsAsync.appendAction(
+        false,
+        Lead.getSObjectType(),
+        groupRecordsByOwnerRegion(
+          leadOpportunityAccessWrapperInst.leadsToTransfer,
+          leadOpportunityAccessWrapperInst.usersToRemoveFromRegion
+        )
+      );
+    }
+    if (
+      leadOpportunityAccessWrapperInst.opportunitiesToTransfer != null &&
+      !leadOpportunityAccessWrapperInst.opportunitiesToTransfer.isEmpty()
+    ) {
+      leadOpportunityAccessWrapperInst.transferRecordsAsync.appendAction(
+        false,
+        Opportunity.getSObjectType(),
+        groupRecordsByOwnerRegion(
+          leadOpportunityAccessWrapperInst.opportunitiesToTransfer,
+          leadOpportunityAccessWrapperInst.usersToRemoveFromRegion
+        )
+      );
+    }
+  }
+
+  /**
+   * @description Remove access record for lead and Opportunity when users moves to a new region or on ownership change
+   * * @param leadOpportunityAccessWrapperInst LeadOpportunityAccessWrapper isnatnce to pass lead, opportunity and user list to update
+   */
+  private static void addLeadAndOpportunityAccessFromRegion(
+    LeadOpportunityAccessWrapper leadOpportunityAccessWrapperInst
+  ) {
+    if (
+      leadOpportunityAccessWrapperInst.leadsToTransfer != null &&
+      !leadOpportunityAccessWrapperInst.leadsToTransfer.isEmpty()
+    ) {
+      leadOpportunityAccessWrapperInst.transferRecordsAsync.appendAction(
+        true,
+        Lead.getSObjectType(),
+        groupRecordsByOwnerRegion(
+          leadOpportunityAccessWrapperInst.leadsToTransfer,
+          leadOpportunityAccessWrapperInst.usersToAddToRegion
+        )
+      );
+    }
+    if (
+      leadOpportunityAccessWrapperInst.opportunitiesToTransfer != null &&
+      !leadOpportunityAccessWrapperInst.opportunitiesToTransfer.isEmpty()
+    ) {
+      leadOpportunityAccessWrapperInst.transferRecordsAsync.appendAction(
+        true,
+        Opportunity.getSObjectType(),
+        groupRecordsByOwnerRegion(
+          leadOpportunityAccessWrapperInst.opportunitiesToTransfer,
+          leadOpportunityAccessWrapperInst.usersToAddToRegion
+        )
+      );
     }
   }
 
@@ -201,7 +387,7 @@ public without sharing class CCRMRegionSharingUtil {
       }
       mapOwners = new Map<Id, User>(
         [
-          SELECT Id, Area_Code__c
+          SELECT Id, Area_Code__c, Commercial_Segment__c
           FROM User
           WHERE IsActive = TRUE AND Area_Code__c != NULL AND Id IN :ownerIds
         ]
@@ -212,13 +398,19 @@ public without sharing class CCRMRegionSharingUtil {
     for (SObject record : records) {
       Id ownerId = (Id) record.get('OwnerId');
       String areaCode = mapOwners.get(ownerId)?.Area_Code__c;
-      if (String.isBlank(areaCode)) {
+      String segment = mapOwners.get(ownerId)?.Commercial_Segment__c;
+      if (String.isBlank(areaCode) || String.isBlank(segment)) {
         continue;
       }
-      if (mapAreaCodeToRecordIds.containsKey(areaCode)) {
-        mapAreaCodeToRecordIds.get(areaCode).add(record.Id);
+      if (mapAreaCodeToRecordIds.containsKey(segment + '_' + areaCode)) {
+        mapAreaCodeToRecordIds.get(segment + '_' + areaCode).add(record.Id);
       } else {
-        mapAreaCodeToRecordIds.put(areaCode, new Set<Id>{ record.Id });
+        mapAreaCodeToRecordIds.put(
+          segment +
+          '_' +
+          areaCode,
+          new Set<Id>{ record.Id }
+        );
       }
     }
 
@@ -237,17 +429,16 @@ public without sharing class CCRMRegionSharingUtil {
   ) {
     ShareObjectInfo shareObjectInfo = new ShareObjectInfo(objectType);
     List<SObject> shareRecords = new List<SObject>();
-    Set<String> newAreaCodes = new Set<String>();
     Map<String, Set<Id>> newMapAreaCodeToRecordIds = new Map<String, Set<Id>>();
-
+    Set<String> newAreaCodes = new Set<String>();
     for (String areaCode : mapAreaCodeToRecordIds.keySet()) {
-      Id regionId = getRegionId(areaCode);
+      Id regionId = getRegionId(areaCode.split('_')[0], areaCode.split('_')[1]);
       //if regionId isn't available, need to create new region public group from the Area Codes and add users/owner and the record to the new public group
       if (regionId == null) {
-        newAreaCodes.add(areaCode);
+        newAreaCodes.add(areaCode.split('_')[1]);
         newMapAreaCodeToRecordIds.put(
           areaCode,
-          mapAreaCodeToRecordIds.get(areaCode)
+          new Set<Id>(mapAreaCodeToRecordIds.get(areaCode))
         );
         continue;
       }
@@ -263,8 +454,8 @@ public without sharing class CCRMRegionSharingUtil {
       Logger.saveLog();
     }
 
-    if (!newAreaCodes.isEmpty()) {
-      createRegions(newAreaCodes);
+    if (!newMapAreaCodeToRecordIds.isEmpty()) {
+      createRegions(newMapAreaCodeToRecordIds.keySet());
       addRecordsToRegion(objectType, newMapAreaCodeToRecordIds);
     }
   }
@@ -282,7 +473,7 @@ public without sharing class CCRMRegionSharingUtil {
     Set<Id> regionIds = new Set<Id>();
     Set<Id> recordIds = new Set<Id>();
     for (String areaCode : mapAreaCodeToRecordIds.keySet()) {
-      Id regionId = getRegionId(areaCode);
+      Id regionId = getRegionId(areaCode.split('_')[0], areaCode.split('_')[1]);
       if (regionId != null) {
         regionIds.add(regionId);
         recordIds.addAll(mapAreaCodeToRecordIds.get(areaCode));
@@ -324,16 +515,32 @@ public without sharing class CCRMRegionSharingUtil {
     List<GroupMember> groupMembers = new List<GroupMember>();
     Set<String> newAreaCodes = new Set<String>();
     for (User record : records) {
-      if (String.isBlank(record.Area_Code__c)) {
+      if (
+        String.isBlank(record.Area_Code__c) ||
+        String.isBlank(record.Commercial_Segment__c) ||
+        (!record.Commercial_Segment__c.equalsIgnoreCase(
+          CCRMConstants.BB_SEGMENT
+        ) &&
+        !record.Commercial_Segment__c.equalsIgnoreCase(
+          CCRMConstants.SBB_SEGMENT
+        ))
+      ) {
         continue;
       }
-      Id regionId = getRegionId(record.Area_Code__c);
+      Id regionId = getRegionId(
+        record.Commercial_Segment__c,
+        record.Area_Code__c
+      );
       if (regionId != null) {
         groupMembers.add(
           new GroupMember(UserOrGroupId = record.Id, GroupId = regionId)
         );
       } else {
-        newAreaCodes.add(record.Area_Code__c);
+        newAreaCodes.add(
+          record.Commercial_Segment__c +
+          '_' +
+          record.Area_Code__c
+        );
       }
     }
 
@@ -358,10 +565,16 @@ public without sharing class CCRMRegionSharingUtil {
     Set<Id> regionIds = new Set<Id>();
     Map<Id, Id> mapUserIdToRegionId = new Map<Id, Id>();
     for (User record : records) {
-      if (String.isBlank(record.Area_Code__c)) {
+      if (
+        String.isBlank(record.Area_Code__c) ||
+        String.isBlank(record.Commercial_Segment__c)
+      ) {
         continue;
       }
-      Id regionId = getRegionId(record.Area_Code__c);
+      Id regionId = getRegionId(
+        record.Commercial_Segment__c,
+        record.Area_Code__c
+      );
       if (regionId != null) {
         regionIds.add(regionId);
         mapUserIdToRegionId.put(record.Id, regionId);
@@ -391,11 +604,12 @@ public without sharing class CCRMRegionSharingUtil {
 
   /**
    * @description Find region public group ID based on an area code value
+   * @param segment The segment to find public group ID
    * @param areaCode The area code to find region public group ID
    * @return `Id` ID of the public group matched with the provided are code
    */
-  private static Id getRegionId(String areaCode) {
-    return mapRegions.get(getRegionKeyFromAreaCode(areaCode));
+  private static Id getRegionId(String segment, String areaCode) {
+    return mapRegions.get(segment + '_' + getRegionKeyFromAreaCode(areaCode));
   }
 
   /**
@@ -404,21 +618,34 @@ public without sharing class CCRMRegionSharingUtil {
    * @return `String` Get/generate public group DeveloperName from provided area code
    */
   private static String getRegionKeyFromAreaCode(String areaCode) {
-    return 'Region_' + areaCode.replaceAll('[^a-zA-Z0-9]', '');
+    String areaCodeFormatted = areaCode.replaceAll('[^a-zA-Z0-9]', '');
+    return areaCodeFormatted.length() > 80
+      ? areaCodeFormatted.substring(0, 79)
+      : areaCodeFormatted;
   }
 
   /**
    * @description Create region Public Group using area code as name, then find all users with matched area code and add as group members
-   * @param areaCodes Area codes to create new public groups
+   * @param segmentAreaCodes Segment and Area codes to create new public groups
    */
-  private static void createRegions(Set<String> areaCodes) {
+  private static void createRegions(Set<String> segmentAreaCodes) {
     //build list of new public group to create
     List<Group> regions = new List<Group>();
-    for (String areaCode : areaCodes) {
+    Set<String> areaCodeSet = new Set<String>();
+    String areaCode = '';
+    for (String segmentAreaCodeIterator : segmentAreaCodes) {
+      areaCode = getRegionKeyFromAreaCode(
+        segmentAreaCodeIterator.split('_')[1]
+      );
+      areaCodeSet.add(segmentAreaCodeIterator.split('_')[1]);
       regions.add(
         new Group(
-          Name = 'Region ' + areaCode,
-          DeveloperName = getRegionKeyFromAreaCode(areaCode),
+          Name = segmentAreaCodeIterator.split('_')[0] +
+            ' ' +
+            (areaCode.length() > 36 ? areaCode.substring(0, 35) : areaCode),
+          DeveloperName = segmentAreaCodeIterator.split('_')[0] +
+            '_' +
+            areaCode,
           Type = 'Regular',
           DoesIncludeBosses = false
         )
@@ -437,9 +664,13 @@ public without sharing class CCRMRegionSharingUtil {
 
     //find existing users that have same area codes and add to the new public groups
     List<User> usersOfNewRegion = [
-      SELECT Id, Area_Code__c
+      SELECT Id, Area_Code__c, Commercial_Segment__c
       FROM User
-      WHERE IsActive = TRUE AND Area_Code__c IN :areaCodes
+      WHERE
+        IsActive = TRUE
+        AND Area_Code__c IN :areaCodeSet
+        AND (Commercial_Segment__c = :CCRMConstants.SBB_SEGMENT
+        OR Commercial_Segment__c = :CCRMConstants.BB_SEGMENT)
     ];
     if (!usersOfNewRegion.isEmpty()) {
       System.enqueueJob(new AddUsersToRegionQueueable(usersOfNewRegion));
@@ -550,16 +781,27 @@ public without sharing class CCRMRegionSharingUtil {
      */
     public void execute(QueueableContext context) {
       for (TransferRecordActionWrapper action : this.actions) {
-        if (action.isSharing) {
-          addRecordsToRegion(action.objectType, action.mapAreaCodeToRecordIds);
-        } else {
+        if (!action.isSharing) {
           removeRecordsFromRegion(
             action.objectType,
             action.mapAreaCodeToRecordIds
           );
+        } else {
+          addRecordsToRegion(action.objectType, action.mapAreaCodeToRecordIds);
         }
       }
     }
+  }
+
+  /**
+   * @description Wrapper class for queueing actions in AddRemoveUsersToRegionQueueable
+   */
+  private class LeadOpportunityAccessWrapper {
+    private List<Lead> leadsToTransfer;
+    private List<User> usersToAddToRegion;
+    private List<User> usersToRemoveFromRegion;
+    private List<Opportunity> opportunitiesToTransfer;
+    private TransferRecordsQueueable transferRecordsAsync;
   }
 
   /**

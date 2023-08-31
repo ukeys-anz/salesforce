@@ -124,7 +124,15 @@
     <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
+            <fullName>Cash Deposit Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Cash Dispensing Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cheque Deposit Error</fullName>
             <default>false</default>
         </values>
         <values>

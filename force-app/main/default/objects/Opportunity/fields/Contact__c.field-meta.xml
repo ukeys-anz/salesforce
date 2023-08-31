@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Composite field of lead contact&apos;s first name, last name, contact number, email id, contact role / title</description>
     <externalId>false</externalId>
-    <inlineHelpText>The Lead Contact</inlineHelpText>
+    <inlineHelpText>The Lead contact or main customer contact for this Opportunity.</inlineHelpText>
     <label>Contact</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>

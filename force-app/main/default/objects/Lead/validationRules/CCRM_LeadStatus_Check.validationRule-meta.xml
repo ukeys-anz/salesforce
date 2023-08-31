@@ -6,7 +6,8 @@
 Manual update of Leads are not allowed.</description>
     <errorConditionFormula>AND(
         $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-        RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+        OR(RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+        RecordType.DeveloperName = &apos;MLCRM_Lead&apos;),
         !ISNEW(),
         ISCHANGED(Status),
         NOT(ISCHANGED(Skip_Validations__c)),

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Associated_Source_Detail__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Dependent Picklist on Lead Source. If Lead Source = Internal Referral , External Referral or Self-Sourced, then this field is mandatory.</description>
+    <externalId>false</externalId>
+    <label>Associated Source Detail</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>LeadSource</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ANZ - SBS</fullName>
+                <default>false</default>
+                <label>ANZ - SBS</label>
+            </value>
+            <value>
+                <fullName>ANZ - BBM</fullName>
+                <default>false</default>
+                <label>ANZ - BBM</label>
+            </value>
+            <value>
+                <fullName>ANZ - SBM</fullName>
+                <default>false</default>
+                <label>ANZ - SBM</label>
+            </value>
+            <value>
+                <fullName>ANZ - RM</fullName>
+                <default>false</default>
+                <label>ANZ - RM</label>
+            </value>
+            <value>
+                <fullName>ANZ - Product Partner</fullName>
+                <default>false</default>
+                <label>ANZ - Product Partner</label>
+            </value>
+            <value>
+                <fullName>ANZ - Branch</fullName>
+                <default>false</default>
+                <label>ANZ - Branch</label>
+            </value>
+            <value>
+                <fullName>Broker</fullName>
+                <default>false</default>
+                <label>Broker</label>
+            </value>
+            <value>
+                <fullName>Accountant</fullName>
+                <default>false</default>
+                <label>Accountant</label>
+            </value>
+            <value>
+                <fullName>ANZ Customer</fullName>
+                <default>false</default>
+                <label>ANZ Customer</label>
+            </value>
+            <value>
+                <fullName>Internal Seminar</fullName>
+                <default>false</default>
+                <label>Internal Seminar</label>
+            </value>
+            <value>
+                <fullName>External Seminar</fullName>
+                <default>false</default>
+                <label>External Seminar</label>
+            </value>
+            <value>
+                <fullName>Non-ANZ Customer</fullName>
+                <default>false</default>
+                <label>Non-ANZ Customer</label>
+            </value>
+            <value>
+                <fullName>Other source detail</fullName>
+                <default>false</default>
+                <label>Other source detail</label>
+            </value>
+            <value>
+                <fullName>Flyer</fullName>
+                <default>false</default>
+                <label>Flyer</label>
+            </value>
+            <value>
+                <fullName>ANZ Car</fullName>
+                <default>false</default>
+                <label>ANZ Car</label>
+            </value>
+            <value>
+                <fullName>Campaign</fullName>
+                <default>false</default>
+                <label>Campaign</label>
+            </value>
+            <value>
+                <fullName>Database &amp; Telemarketing</fullName>
+                <default>false</default>
+                <label>Database &amp; Telemarketing</label>
+            </value>
+            <value>
+                <fullName>Webpage</fullName>
+                <default>false</default>
+                <label>Webpage</label>
+            </value>
+            <value>
+                <fullName>Internet</fullName>
+                <default>false</default>
+                <label>Internet</label>
+            </value>
+            <value>
+                <fullName>Billboards &amp; Posters</fullName>
+                <default>false</default>
+                <label>Billboards &amp; Posters</label>
+            </value>
+            <value>
+                <fullName>Direct Mail</fullName>
+                <default>false</default>
+                <label>Direct Mail</label>
+            </value>
+            <value>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <label>Email</label>
+            </value>
+            <value>
+                <fullName>Sponsorships</fullName>
+                <default>false</default>
+                <label>Sponsorships</label>
+            </value>
+            <value>
+                <fullName>Newsletter</fullName>
+                <default>false</default>
+                <label>Newsletter</label>
+            </value>
+            <value>
+                <fullName>Referral Partner</fullName>
+                <default>false</default>
+                <label>Referral Partner</label>
+            </value>
+            <value>
+                <fullName>Home Loan Introducer Program (HLIP)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Home Loan Introducer Program (HLIP)</label>
+            </value>
+            <value>
+                <fullName>Client Referral</fullName>
+                <default>false</default>
+                <label>Client Referral</label>
+            </value>
+            <value>
+                <fullName>Contact Centre</fullName>
+                <default>false</default>
+                <label>Contact Centre</label>
+            </value>
+            <value>
+                <fullName>Retail Branch</fullName>
+                <default>false</default>
+                <label>Retail Branch</label>
+            </value>
+            <value>
+                <fullName>Commercial Bank</fullName>
+                <default>false</default>
+                <label>Commercial Bank</label>
+            </value>
+            <value>
+                <fullName>ANZ Plus Coach</fullName>
+                <default>false</default>
+                <label>ANZ Plus Coach</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Events</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Other source detail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Flyer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>ANZ Car</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Campaign</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Database &amp; Telemarketing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Webpage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Internet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Billboards &amp; Posters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Direct Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Email</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Sponsorships</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advertising</controllingFieldValue>
+            <valueName>Newsletter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>Contact Centre</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>Retail Branch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>Commercial Bank</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ Plus Coach</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - SBS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - BBM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - SBM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - RM</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - Product Partner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - Branch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Self-Sourced</controllingFieldValue>
+            <valueName>Internal Seminar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Self-Sourced</controllingFieldValue>
+            <valueName>External Seminar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Self-Sourced</controllingFieldValue>
+            <valueName>Non-ANZ Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External Referral</controllingFieldValue>
+            <valueName>Referral Partner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External Referral</controllingFieldValue>
+            <valueName>Client Referral</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External Referral</controllingFieldValue>
+            <valueName>Broker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External Referral</controllingFieldValue>
+            <valueName>Accountant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External Referral</controllingFieldValue>
+            <valueName>ANZ Customer</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

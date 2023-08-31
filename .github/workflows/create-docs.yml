@@ -115,10 +115,7 @@ jobs:
       - if: "${{ github.event.inputs.DOC == 'sysl' }}"
         name: Copy sysl files
         run: |
-          rm -rf salesforce-docs/sysl/salesforce.business.sysl
           rm -rf salesforce-docs/sysl/salesforce.edg.sysl
-
-          cp -r salesforce/docs/sysl/salesforce.business.sysl salesforce-docs/sysl/
           cp -r salesforce/docs/sysl/salesforce.edg.sysl salesforce-docs/sysl/
 
       - if: "${{ github.event.inputs.DOC == 'sysl' }}"

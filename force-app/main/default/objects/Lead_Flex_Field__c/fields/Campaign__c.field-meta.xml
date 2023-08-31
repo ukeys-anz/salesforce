@@ -3,7 +3,7 @@
     <fullName>Campaign__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Master-Detail Relation on Campaign Record.</description>
+    <description>Master-Detail Relation on Campaign Record. </description>
     <externalId>false</externalId>
     <label>Campaign</label>
     <referenceTo>Campaign</referenceTo>

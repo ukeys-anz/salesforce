@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Outcome_Formula__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Lead Outcome Formula field to show image of Lead Outcome from Static Resource.</description>
+    <externalId>false</externalId>
+    <formula>IF( TEXT(Lead_Outcome__c) = &apos;Opportunity Identified&apos;, IMAGE(&quot;/resource/CCRM_Opportunity_Identified&quot;, TEXT(Lead_Outcome__c),30,150),
+IF( TEXT(Lead_Outcome__c) = &apos;No Opportunity&apos;, IMAGE(&quot;/resource/CCRM_No_Opportunity&quot;, TEXT(Lead_Outcome__c),30,110),
+IF( TEXT(Lead_Outcome__c) = &apos;Expired&apos;, IMAGE(&quot;/resource/CCRM_Opportunity_Expired&quot;,  TEXT(Lead_Outcome__c),30,70),
+IF( TEXT(Lead_Outcome__c) = &apos;Referred&apos; ,IMAGE(&quot;/resource/CCRM_Opportunity_Referred&quot;,  TEXT(Lead_Outcome__c),30,80), &quot;None&quot;))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Lead Outcome</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

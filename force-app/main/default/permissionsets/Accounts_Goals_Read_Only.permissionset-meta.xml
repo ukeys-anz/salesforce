@@ -9,14 +9,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CoachBankingAPIRepository</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CoachBankingAPIRepositoryHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>    
-    <classAccesses>
         <apexClass>FinancialAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -29,8 +21,8 @@
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
-        <enabled>true</enabled>
         <name>ANZx_Accounts_and_Goals</name>
+        <enabled>true</enabled>
     </customPermissions>
     <description>Provides read only access to Accounts and Goals</description>
     <fieldPermissions>

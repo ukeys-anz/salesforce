@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Account</fullName>
     <active>true</active>
-    <compactLayoutAssignment>Business_Compact_Layout</compactLayoutAssignment>
+    <compactLayoutAssignment>DCRM_Organisation_Compact_Layout</compactLayoutAssignment>
     <label>Organisation</label>
     <picklistValues>
         <picklist>AccountSource</picklist>

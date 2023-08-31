@@ -38,7 +38,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Not_Registered__c</field>
+                <field>Registered_Company__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -281,11 +281,9 @@
         <relatedList>Lead.Previous_Lead__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>AddCampaign</excludeButtons>
         <fields>CAMPAIGN.NAME</fields>
         <fields>Code__c</fields>
-        <fields>CAMPAIGN.CAMPAIGN_TYPE</fields>
-        <fields>Priority__c</fields>
-        <fields>Description__c</fields>
         <relatedList>RelatedCampaignList</relatedList>
     </relatedLists>
     <runAssignmentRulesDefault>false</runAssignmentRulesDefault>
