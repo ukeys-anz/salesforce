@@ -107,7 +107,9 @@ public with sharing class InteractionRecordServiceController {
       if (record.Status__c != null) {
         this.enableReinitiate = !(record.Status__c.equals(
           InteractionConstants.CLOSED_AND_ARCHIVED
-        ) || record.Status__c.equals(InteractionConstants.ACTIVE));
+        ) ||
+        record.Status__c.equals(InteractionConstants.ACTIVE) ||
+        record.Status__c.equals(InteractionConstants.RESOLVED));
       } else {
         this.enableReinitiate = true;
       }

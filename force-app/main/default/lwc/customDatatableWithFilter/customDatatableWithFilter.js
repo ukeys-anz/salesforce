@@ -304,7 +304,11 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
 
   getRowActions(row, doneCallback) {
     let actions;
-    if (row.Status__c !== "Closed & Archived" && row.Status__c !== "Active") {
+    if (
+      row.Status__c !== "Closed & Archived" &&
+      row.Status__c !== "Active" &&
+      row.Status__c !== "Resolved"
+    ) {
       actions = [
         { label: "Reply To Customer", name: "ReplyToCustomer" },
         { label: "View Transcript", name: "ViewTranscript" }
