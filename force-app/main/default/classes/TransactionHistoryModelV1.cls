@@ -82,16 +82,6 @@ public class TransactionHistoryModelV1 extends CalloutModel {
   }
 
   /**
-   * @description information related to the type of cash transaction
-   */
-  public class Cash {
-    public String card_scheme;
-    public String method;
-    public String wallet;
-    public String card_last_four_digits;
-  }
-
-  /**
    * @description Criteria associated with the Enrichments
    */
   public class Criteria {
@@ -260,7 +250,6 @@ public class TransactionHistoryModelV1 extends CalloutModel {
     public Amount amount;
     public Bpay bpay;
     public Card card;
-    public Cash cash;
     public International international;
     public Payment payment;
     public Interest interest;
