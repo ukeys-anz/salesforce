@@ -177,16 +177,6 @@
                 <default>false</default>
                 <label>Payment not received by biller</label>
             </value>
-            <value>
-                <fullName>Cash Deposit Error</fullName>
-                <default>false</default>
-                <label>Cash Deposit Error</label>
-            </value>
-            <value>
-                <fullName>Cheque Deposit Error</fullName>
-                <default>false</default>
-                <label>Cheque Deposit Error</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
