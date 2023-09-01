@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <name>WM_Client_RelatedContacts</name>
+        <label/>
+    </fieldSets>
+    <fieldSets>
+        <name>WM_Household_RelatedContacts</name>
+        <label/>
+    </fieldSets>
+    <validationRules>
+        <name>FinServ__CCRCanOnlyBeDeactivated</name>
+        <errorMessage/>
+    </validationRules>
+    <validationRules>
+        <name>FinServ__CannotCreateInactiveRecord</name>
+        <errorMessage/>
+    </validationRules>
+    <validationRules>
+        <name>FinServ__ContactAndRelatedContactCannotBeSame</name>
+        <errorMessage/>
+    </validationRules>
+    <validationRules>
+        <name>FinServ__InactiveCCRCannotBeEdited</name>
+        <errorMessage/>
+    </validationRules>
+</CustomObjectTranslation>

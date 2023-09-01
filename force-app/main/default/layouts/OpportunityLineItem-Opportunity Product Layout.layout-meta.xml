@@ -30,6 +30,10 @@
                 <behavior>Edit</behavior>
                 <field>Reference_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Funding_purpose__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -95,6 +99,7 @@
     <multilineLayoutFields>Quantity</multilineLayoutFields>
     <multilineLayoutFields>UnitPrice</multilineLayoutFields>
     <multilineLayoutFields>ServiceDate</multilineLayoutFields>
+    <multilineLayoutFields>Funding_purpose__c</multilineLayoutFields>
     <multilineLayoutFields>OpportunityId</multilineLayoutFields>
     <relatedLists>
         <fields>Account__c</fields>

@@ -5,62 +5,87 @@
         <enabled>true</enabled>
     </classAccesses>
     <description>Permission set for Azure AD to manage users in salesforce.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Area_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Lan_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Commercial_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Industry_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.State_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>User Provisioning</label>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AssignPermissionSets</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>DelegatedTwoFactor</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageInternalUsers</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageIpAddresses</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageLoginAccessPolicies</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManagePasswordPolicies</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageProfilesPermissionsets</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageRoles</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageSharing</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageUsers</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ResetPasswords</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewAllUsers</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewRoles</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewSetup</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

@@ -14,4 +14,12 @@
         <field>Lead_Field_API_Name__c</field>
         <value xsi:type="xsd:string">Company</value>
     </values>
+    <values>
+        <field>Lead_Record_Types__c</field>
+        <value xsi:type="xsd:string">CCRM_Lead</value>
+    </values>
+    <values>
+        <field>Source_System__c</field>
+        <value xsi:type="xsd:string">Unica</value>
+    </values>
 </CustomMetadata>

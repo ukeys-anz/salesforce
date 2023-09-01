@@ -71,6 +71,11 @@
                 <default>false</default>
                 <label>Branch</label>
             </value>
+            <value>
+                <fullName>Martin Place</fullName>
+                <default>false</default>
+                <label>Martin Place</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>
@@ -79,6 +84,10 @@
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>
             <valueName>Richmond</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Martin Place</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Pop up</controllingFieldValue>

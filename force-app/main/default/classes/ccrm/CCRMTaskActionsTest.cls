@@ -10,6 +10,7 @@ public with sharing class CCRMTaskActionsTest {
   @TestSetup
   static void setup() {
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
+    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
     // CCRM Test Data Setup
     System.runAs(ccrmUser) {
       CCRMTestDataFactory.createLeadRecords(
@@ -21,6 +22,12 @@ public with sharing class CCRMTaskActionsTest {
         1
       );
       CCRMTestDataFactory.createResponseTypeRecords(campaignRecord[0]);
+    }
+
+    System.runAs(mlUser) {
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(10,mlUser,true);
+      MLCRMTestDataFactory.createUserTerritoryRecords(10,mlUser.Id,lstOfTerritory[0].Id); 
+      MLCRMTestDataFactory.createLeadRecords(10, mlUser);
     }
   }
 
@@ -44,7 +51,7 @@ public with sharing class CCRMTaskActionsTest {
     List<Lead> updatedLeads = [
       SELECT Id, Name, Status
       FROM Lead
-      WHERE Status IN ('New', 'In progress')
+      WHERE Status IN ('Assigned', 'In progress')
     ];
 
     CCRMLogAResponseController.LeadResponseWrapper leadResponseData1 = new CCRMLogAResponseController.LeadResponseWrapper();
@@ -107,7 +114,7 @@ public with sharing class CCRMTaskActionsTest {
     List<Lead> updatedLeads = [
       SELECT Id, Name, Status
       FROM Lead
-      WHERE Status IN ('New', 'In progress')
+      WHERE Status IN ('Assigned', 'In progress')
     ];
 
     CCRMLogAResponseController.LeadResponseWrapper leadResponseData1 = new CCRMLogAResponseController.LeadResponseWrapper();
@@ -171,7 +178,7 @@ public with sharing class CCRMTaskActionsTest {
       for (Lead leadRecord : [
         SELECT Id, Name, Status
         FROM Lead
-        WHERE Status IN ('New', 'In progress')
+        WHERE Status IN ('Assigned', 'In progress')
       ]) {
         updatedLeads.add(leadRecord);
       }
@@ -241,7 +248,11 @@ public with sharing class CCRMTaskActionsTest {
         false,
         true
       );
-      Lead[] updatedlead = [SELECT Id, Expiry_Date__c FROM Lead where Id=:leads];
+      Lead[] updatedlead = [
+        SELECT Id, Expiry_Date__c
+        FROM Lead
+        WHERE Id = :leads
+      ];
       System.assertEquals(
         updatedlead[0].Expiry_Date__c,
         newExpiryDate,
@@ -263,7 +274,7 @@ public with sharing class CCRMTaskActionsTest {
         WHERE Response_Status__c = 'Accepted'
         LIMIT 1
       ];
-
+      Test.startTest();
       task = new Task();
       task.Response_Status__c = 'Accepted';
       task.Status = CCRMConstants.STATUS_COMPLETED;
@@ -275,7 +286,6 @@ public with sharing class CCRMTaskActionsTest {
       task.Response_Type__c = rtAccepted.Id;
       insert task;
 
-      Test.startTest();
       //WHEN the response is deleted
       CCRMTaskActions.preventDelete(new List<Task>{ task });
       Test.stopTest();
@@ -289,5 +299,44 @@ public with sharing class CCRMTaskActionsTest {
         .contains(CCRMTaskActions.RESPONSE_DELETE_ERROR_MESSAGE),
       'Must not be able to delete response'
     );
+  }
+
+  @IsTest
+  static void testMLStatusLogResponse() {
+    User objUser = [SELECT Id FROM User WHERE LastName = 'MLCRM' LIMIT 1];
+    System.runAs(ObjUser) {
+      List<Lead> lstOfLead = [
+        SELECT Id
+        FROM Lead
+        WHERE RecordTypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
+        LIMIT 1
+      ];
+
+      Response_Type__c rtAccepted = [
+        SELECT Id, Name, Campaign__c, Response_Status__c, Create_Opportunity__c
+        FROM Response_Type__c
+        WHERE Response_Status__c = 'Accepted'
+        LIMIT 1
+      ];
+      Test.startTest();
+      Task task = new Task();
+      task.Response_Status__c = 'Accepted';
+      task.Status = CCRMConstants.STATUS_COMPLETED;
+      task.Outcome_Reason__c = 'Happy with the offer';
+      task.Subject = 'Accepted' + ': ' + 'Happy with the offer';
+      task.Description = 'Test delete response';
+      task.recordTypeId = CCRMConstants.LEAD_RESPONSE_RT_ID;
+      task.WhoId = lstOfLead[0].Id;
+      task.Response_Type__c = rtAccepted.Id;
+      insert task;
+      Test.stopTest();
+      List<Lead> lstOfUpdatedLead = [
+        SELECT Id, Status
+        FROM Lead
+        WHERE RecordTypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
+        LIMIT 1
+      ];
+      System.assertEquals('Opportunity Identified', lstOfUpdatedLead[0].status);
+    }
   }
 }

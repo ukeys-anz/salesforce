@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DivCRM_Cannot_Modify_Referrer_Details</fullName>
+    <active>true</active>
+    <description>CC-1882: Restrict Modify Referrer Email/Name when the Status is Not as In Progress.</description>
+    <errorConditionFormula>AND(
+        $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+        RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,  
+        NOT(ISPICKVAL(Status, &apos;In progress&apos;)),
+        NOT(ISPICKVAL(Status, &apos;New&apos;)),
+        NOT(ISPICKVAL(Status, &apos;Opportunity Identified&apos;)),
+        OR(
+            ISCHANGED( Referrer_Email__c),
+            ISCHANGED( Referrer_Name__c)
+        )
+    )</errorConditionFormula>
+    <errorDisplayField>Referrer_Email__c</errorDisplayField>
+    <errorMessage>Referrer Details cannot be change</errorMessage>
+</ValidationRule>

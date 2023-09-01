@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DCRM_TargetValue_Check</fullName>
+    <active>true</active>
+    <description>CC-1099: Target Value cannot be leave blank if Lead Field is blank</description>
+    <errorConditionFormula>AND(ISBLANK(Lead_Field__c),ISBLANK(Target_Value__c))</errorConditionFormula>
+    <errorDisplayField>Target_Value__c</errorDisplayField>
+    <errorMessage>Populate either Target Value or Lead Field.</errorMessage>
+</ValidationRule>

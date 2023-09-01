@@ -291,10 +291,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Incorrect Customer Reference Number</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Payee has not received funds</fullName>
             <default>false</default>
         </values>
@@ -336,6 +332,10 @@
         </values>
         <values>
             <fullName>Unauthorised Transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unintended Payment</fullName>
             <default>false</default>
         </values>
         <values>

@@ -3,7 +3,15 @@
  * @since  10/2022
  * @description CCRM lead conversion actions which includes calling search and create party api, deleting auto created contacts post conversion
  */
-public with sharing class CCRMLeadConversionActions {
+
+ public with sharing class CCRMLeadConversionActions {
+  /**
+   * @description Define custom exceptions
+   */
+  public class CustomException extends Exception {
+  }
+  public static Boolean manualLeadConversionInitiated = false;
+  public static Boolean leadConverionFlow = false;
   /**
    * @description Clear Task, OpportunityContactRole, and Contact of the newly converted Opportunity.
    * @name deleteContact
@@ -79,10 +87,12 @@ public with sharing class CCRMLeadConversionActions {
    * @description called from lead conversion lwc component
    */
   @AuraEnabled(cacheable=false)
-  public static CCRMSearchPartyInfoWrapper searchPartyInfoLWC(Lead record) {
+  public static CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfoWrapper searchPartyInfoLWC(
+    Lead record
+  ) {
     CCRMSearchPartyModel result;
     CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
-    CCRMSearchPartyInfoWrapper searchPartyWrapper;
+    CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfoWrapper searchPartyWrapper;
     Set<String> externalIds = new Set<String>();
     try {
       result = ccrmapi.searchPartyInfo(record);
@@ -101,13 +111,12 @@ public with sharing class CCRMLeadConversionActions {
    * @return CCRMSearchPartyInfoWrapper for lwc
    * @description populate party details and return to lwc component
    */
-  public static CCRMSearchPartyInfoWrapper populatePartyDetails(
+  public static CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfoWrapper populatePartyDetails(
     Set<String> externalIds,
     CCRMSearchPartyModel result
   ) {
-    CCRMSearchPartyInfoWrapper searchPartyWrapper = new CCRMSearchPartyInfoWrapper();
-    searchPartyWrapper.certifiedResults = new List<CCRMSearchPartyInfo>();
-    searchPartyWrapper.probableResults = new List<CCRMSearchPartyInfo>();
+    CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfoWrapper searchPartyWrapper = new CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfoWrapper();
+    searchPartyWrapper.probableAndCertifiedResults = new List<CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo>();
     Map<String, Account> accountIdMap = new Map<String, Account>();
     for (Account acc : [
       SELECT Id, External_Id__c, Name
@@ -121,8 +130,8 @@ public with sharing class CCRMLeadConversionActions {
       CCRMSearchPartyModel.CustomerDetails certResult : result.certifiedResults
     ) {
       if (accountIdMap.containsKey(generateExternalId(certResult))) {
-        searchPartyWrapper.certifiedResults.add(
-          populateSearchPartyWrapper(certResult, accountIdMap)
+        searchPartyWrapper.probableAndCertifiedResults.add(
+          populateSearchPartyWrapper(certResult, accountIdMap, 'certified')
         );
       }
     }
@@ -131,8 +140,8 @@ public with sharing class CCRMLeadConversionActions {
       CCRMSearchPartyModel.CustomerDetails probResult : result.probableResults
     ) {
       if (accountIdMap.containsKey(generateExternalId(probResult))) {
-        searchPartyWrapper.probableResults.add(
-          populateSearchPartyWrapper(probResult, accountIdMap)
+        searchPartyWrapper.probableAndCertifiedResults.add(
+          populateSearchPartyWrapper(probResult, accountIdMap, 'probable')
         );
       }
     }
@@ -143,14 +152,16 @@ public with sharing class CCRMLeadConversionActions {
   /**
    * @param searchPartyResult search party result from the API, either certified or probable result
    * @param accountIdMap map of accounts with key as external id
+   * @param resultType type of result - cer
    * @return CCRMSearchPartyInfo returns search party wrapper for lwc component
    * @description populates search party wrapper used in lwc component
    */
-  private static CCRMSearchPartyInfo populateSearchPartyWrapper(
+  private static CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo populateSearchPartyWrapper(
     CCRMSearchPartyModel.CustomerDetails searchPartyResult,
-    Map<String, Account> accountIdMap
+    Map<String, Account> accountIdMap,
+    String resultType
   ) {
-    CCRMSearchPartyInfo rec = new CCRMSearchPartyInfo();
+    CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo rec = new CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo();
     String externalId = generateExternalId(searchPartyResult);
     rec.id = accountIdMap.get(externalId).Id;
     rec.ocvId = searchPartyResult.ocvId;
@@ -159,6 +170,7 @@ public with sharing class CCRMLeadConversionActions {
     rec.postCode = searchPartyResult.addresses[0]?.postalCode;
     rec.cpid = searchPartyResult.cpId;
     rec.kycStatus = searchPartyResult.kycDetails.status;
+    rec.match = resultType;
     return rec;
   }
 
@@ -196,71 +208,155 @@ public with sharing class CCRMLeadConversionActions {
    * @description called from lead conversion lwc component
    * @name createPartyLWC
    * @param record Lead record from lwc component.
+   * @return new oportunity id
    */
   @AuraEnabled(cacheable=false)
-  public static void createPartyLWC(Lead record) {
+  public static String createPartyLWC(Lead record) {
     CCRMCreatePartyModel result;
     CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
     try {
       result = ccrmapi.createParty(record);
-      updateLeadWithCapcisId(record, result.capcisId);
+      return CCRMLeadConversionActionsHelper.updateLeadWithCapcisIdOrg(
+        record,
+        result
+      );
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
   }
 
   /**
-   * @description Updates lead with capcis id which will be used in Account trigger handler
-   * @name updateLeadWithCapcisId
+   * @description called from lead conversion lwc component
+   * @name maintainPartyLWC
    * @param record Lead record from lwc component.
-   * @param capcisId capcis id from cap api response
+   * @return MaintainPartyInfoWrapper new oportunity id
    */
-  private static void updateLeadWithCapcisId(Lead record, String capcisId) {
+  @AuraEnabled(cacheable=false)
+  public static MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainPartyLWC(
+    Lead record
+  ) {
+    DCRMMaintainPartyModel result;
+    CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
+    MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainResult;
+    try {
+      result = ccrmapi.maintainParty(record);
+      if (result.ocvId != null) {
+        maintainResult = CCRMLeadConversionActionsHelper.updateLeadWithCapcisIdIndividual(
+          record,
+          result
+        );
+      }
+      return maintainResult;
+    } catch (CustomException e) {
+      Logger.error(e.getMessage() + record.Id);
+      Logger.saveLog();
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  /**
+   * @description Convert CCRM Lead
+   * @name convertCCRMLead
+   * @param accId get account id created/matched for lead conversion
+   * @param leadRec The Lead records created/matched for lead conversion
+   * @return string  opportunity id created/matched for lead conversion
+   */
+  @AuraEnabled(cacheable=false)
+  public static String convertCCRMLead(String accId, Lead leadRec) {
+    if (String.isBlank(accId)) {
+      throw new AuraHandledException(
+        Label.MLCRM_AccountBlank_LeadConversionError
+      );
+    }
+    try {
+      CCRMLeadConversionActions.leadConverionFlow = true;
+      return AccountCommonActions.findAndConvertCCRMLead(accId, leadRec);
+    } catch (Exception ex) {
+      Logger.error('Error occured during lead conversion', leadRec.Id, ex);
+      Logger.saveLog();
+      throw new AuraHandledException(ex.getMessage());
+    }
+  }
+
+  /**
+   * @description Update Conversion Status of lead call from lwc
+   * @name updateConversionStatus
+   * @param record Lead record from lwc component.
+   * @param status conversion status
+   * @return Boolean
+   */
+  @AuraEnabled(cacheable=false)
+  public static Boolean updateConversionStatus(Lead record, String status) {
+    Boolean isStatusUpdated = false;
+    /*if (record.Conversion_Status__c != MLCRMConstants.STATUS_IN_PROGRESS) {
+      record.Conversion_Status__c = MLCRMConstants.STATUS_IN_PROGRESS;
+    }*/
+    Lead leadRec = new Lead(id = record.Id);
+    if (
+      leadRec.id != null &&
+      record.Conversion_Status__c != CCRMConstants.STATUS_COMPLETED
+    ) {
+      leadRec.Conversion_Status__c = status;
+    }
     if (
       Schema.sObjectType.Lead.isUpdateable() &&
-      Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable() &&
-      Schema.sObjectType.Lead.fields.CAPCIS_ID__c.isUpdateable()
+      Schema.sObjectType.Lead.fields.Conversion_Status__c.isUpdateable()
     ) {
-      record.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
-      record.CAPCIS_ID__c = capcisId;
-      Database.SaveResult result = Database.update(record, false);
-      if (!result.isSuccess()) {
+      Database.saveResult result = Database.update(leadRec, true);
+      if (result.isSuccess()) {
+        isStatusUpdated = true;
+        return isStatusUpdated;
+      } else {
         Logger.error(
-          'Error occured while updating lead record during conversion.',
+          'Error in updating Conversion Status on Lead ' + record.Id,
           result
         );
         Logger.saveLog();
       }
     }
+    return isStatusUpdated;
   }
 
   /**
-   * @description Wrapper class to store only the required search party information
+   * @description Convert MLCRM Lead for matched maintain party Existing Customer
+   * @name convertLeadWithMatchedParty
+   * @param accId get account id matched for lead conversion
+   * @param cpId get cpid from ocv reponse
+   * @param leadRec The Lead record to convert
+   * @return string  opportunity id created from lead conversion
    */
-  public class CCRMSearchPartyInfo {
-    @AuraEnabled
-    public string id;
-    @AuraEnabled
-    public string ocvId;
-    @AuraEnabled
-    public string name;
-    @AuraEnabled
-    public string suburb;
-    @AuraEnabled
-    public string postCode;
-    @AuraEnabled
-    public string cpid;
-    @AuraEnabled
-    public string kycStatus;
-  }
-
-  /**
-   * @description Wrapper class to send required and certified results seperately.
-   */
-  public class CCRMSearchPartyInfoWrapper {
-    @AuraEnabled
-    public List<CCRMSearchPartyInfo> certifiedResults;
-    @AuraEnabled
-    public List<CCRMSearchPartyInfo> probableResults;
+  @AuraEnabled(cacheable=false)
+  public static String convertLeadWithMatchedParty(
+    String accId,
+    String cpId,
+    Lead leadRec
+  ) {
+    if (String.isBlank(accId)) {
+      throw new AuraHandledException(
+        Label.MLCRM_AccountBlank_LeadConversionError
+      );
+    }
+    if (String.isBlank(cpId)) {
+      throw new AuraHandledException(
+        Label.MLCRM_CAPCISIdBlank_LeadConversionError
+      );
+    }
+    try {
+      CCRMLeadConversionActions.leadConverionFlow = true;
+      Boolean isLeadUpdated = CCRMLeadConversionActionsHelper.updateLeadWithMaintainPartyInfo(
+        accId,
+        cpId,
+        leadRec
+      );
+      if (isLeadUpdated) {
+        return AccountCommonActions.findAndConvertCCRMLead(accId, leadRec);
+      } else {
+        return null;
+      }
+    } catch (Exception ex) {
+      Logger.error(eX.getMessage() + leadRec.Id);
+      Logger.saveLog();
+      throw new AuraHandledException(ex.getMessage());
+    }
   }
 }

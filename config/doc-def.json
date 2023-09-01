@@ -29,6 +29,8 @@
     "Controlling_Post__c",
     "CustomerOnboardingApplication__c",
     "EmailMessage",
+    "Entitlement",
+    "Event",
     "External_Case_Status__c",
     "FinServ__ContactContactRelation__c",
     "FinServ__FinancialAccount__c",
@@ -45,6 +47,7 @@
     "Lead",
     "Lead_Flex_Field__c",
     "Legal_Entity__c",
+    "Location",
     "Log_Record_Access__b",
     "Opportunity",
     "OpportunityLineItem",
@@ -151,7 +154,7 @@
         "Case_Read_Write_Customer_Onboarding_Integration",
         "Case_Read_Write_KYC_QA",
         "Disable_MFA",
-        "Bypass_Chatter_Feed_Item_URL_Validation"
+        "Customer_Read_Only"
       ],
       "type": "system"
     },
@@ -676,7 +679,8 @@
         "Case_View_All",
         "Customer_Onboarding_View_All",
         "Customer_Read_Only",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_Chatter_Feed_Item_URL_Validation"
       ],
       "type": "system"
     }

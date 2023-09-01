@@ -7,7 +7,7 @@
     <description>Retains value from Lead_Auto_Number__C field for backup and Restoration purpose.</description>
     <externalId>true</externalId>
     <label>Lead Id</label>
-    <length>10</length>
+    <length>30</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

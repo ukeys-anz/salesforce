@@ -145,6 +145,10 @@
                 <behavior>Edit</behavior>
                 <field>KYC_Verification_Level__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>KYCVerificationDate__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -296,6 +300,20 @@
         <fields>LEAD.COMPANY</fields>
         <fields>LEAD.PHONE</fields>
         <relatedList>Lead.FinServ__RelatedAccount__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>TelephoneNumber</fields>
+        <fields>UsageType</fields>
+        <fields>Verification_Date__c</fields>
+        <fields>Verification_Status__c</fields>
+        <relatedList>ContactPointPhones</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>EmailAddress</fields>
+        <fields>UsageType</fields>
+        <fields>Verification_Date__c</fields>
+        <fields>Verification_Status__c</fields>
+        <relatedList>ContactPointEmails</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
