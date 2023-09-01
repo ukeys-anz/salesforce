@@ -16,9 +16,6 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
   isExecuting = false;
 
   @api invoke() {
-    if (this.chatOrCallSid && this.accountId && this.isExecuting) {
-      this.reinitiateChat();
-    }
     this.isExecuting = true;
   }
 
@@ -43,8 +40,9 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
         this.chatOrCallSid = data.fields.Chat_or_Call_SID__c.value;
         this.accountId = data.fields.AccountId.value;
         this.isExecuting = true;
+        this.reinitiateChat();
       }
-    } else {
+    } else if (error) {
       console.error(
         "Error in Fetching ChatOrCallSid -> " + JSON.stringify(error)
       );
