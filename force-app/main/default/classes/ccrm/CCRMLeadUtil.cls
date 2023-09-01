@@ -24,13 +24,26 @@ public with sharing class CCRMLeadUtil {
   };
 
   /**
-   * @description Check if record type is of CCRM Lead type.
+   * @description Check if record type is of CCRM Lead type for Commercial.
    * @name isCCRMLeadType
    * @param record The record for which the recordType needs to be checked
    * @return `Boolean` True if the the record type is of CCRM Lead type otherwise false.
    */
   public static Boolean isCCRMLeadType(Lead record) {
     if (record.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @description Check if record type is of MLCRM Lead type for Mobile Lending.
+   * @name isMLCRMLeadType
+   * @param record The record for which the recordType needs to be checked
+   * @return `Boolean` True if the the record type is of MLCRM Lead type otherwise false.
+   */
+  public static Boolean isMLCRMLeadType(Lead record) {
+    if (record.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID) {
       return true;
     }
     return false;

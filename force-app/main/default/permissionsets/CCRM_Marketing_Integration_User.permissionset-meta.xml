@@ -777,7 +777,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Lead.Not_Registered__c</field>
+        <field>Lead.Registered_Company__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

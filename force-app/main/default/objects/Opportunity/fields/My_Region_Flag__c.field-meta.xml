@@ -5,7 +5,12 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>If opportunity is located in User&apos;s region</description>
     <externalId>false</externalId>
-    <formula>$User.Area_Code__c ==  Owner.Area_Code__c</formula>
+    <formula>
+    AND(
+        $User.Area_Code__c ==  Owner.Area_Code__c,
+        TEXT($User.Commercial_Segment__c) ==  TEXT(Owner.Commercial_Segment__c)
+    )
+    </formula>
     <label>My Region Flag</label>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>

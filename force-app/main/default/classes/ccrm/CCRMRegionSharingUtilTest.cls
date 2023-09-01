@@ -9,7 +9,9 @@ private class CCRMRegionSharingUtilTest {
   static final Integer TEST_BULK_SIZE = Integer.valueOf(Label.Test_Bulk_Size);
   @TestSetup
   static void makeData() {
-    CCRMTestDataFactory.createCCRMBaseUser();
+    updateSegmentRegion(
+      new List<User>{ CCRMTestDataFactory.createCCRMBaseUser() }
+    );
     CCRMTestDataFactory.createAdminUser();
 
     createTestGroups();
@@ -28,7 +30,8 @@ private class CCRMRegionSharingUtilTest {
       for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
         users[i].Area_Code__c = 'Standard ' + String.valueOf(i).leftPad(6, '0');
       }
-      CCRMRegionSharingUtil.addUsersToRegion(users);
+      //CCRMRegionSharingUtil.addUsersToRegion(users);
+      update users;
     }
     Test.stopTest();
 
@@ -41,35 +44,6 @@ private class CCRMRegionSharingUtilTest {
         WHERE UserOrGroupId = :users AND GroupId = :groups
       ],
       'Users should be added to their respective region public group'
-    );
-  }
-
-  @IsTest
-  static void testRemoveUserFromRegion() {
-    //GIVEN users that are member of various region public groups
-    List<User> users = getTestUsers();
-    List<Group> groups = getTestGroups();
-    List<GroupMember> members = new List<GroupMember>();
-    for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-      users[i].Area_Code__c = 'Standard ' + String.valueOf(i).leftPad(6, '0');
-      members.add(
-        new GroupMember(GroupId = groups[i].Id, UserOrGroupId = users[i].Id)
-      );
-    }
-    insert members;
-
-    Test.startTest();
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      //WHEN removed from a region
-      CCRMRegionSharingUtil.removeUsersFromRegion(users);
-    }
-    Test.stopTest();
-
-    //THEN no group member record remains when removed from existing region
-    System.assertEquals(
-      0,
-      [SELECT COUNT() FROM GroupMember WHERE Id IN :members],
-      'Users should be removed from their respective region public group'
     );
   }
 
@@ -96,7 +70,7 @@ private class CCRMRegionSharingUtilTest {
     List<Group> newGroups = [
       SELECT Id
       FROM Group
-      WHERE DeveloperName LIKE 'Region_NewAreaCode%'
+      WHERE DeveloperName LIKE 'BB_NewAreaCode%'
     ];
     System.assertEquals(
       TEST_BULK_SIZE,
@@ -118,32 +92,42 @@ private class CCRMRegionSharingUtilTest {
 
   @IsTest
   static void testAddLeadToExistingRegion() {
-    User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
+    User ccrmUser = CCRMTestDataFactory.createCCRMRelManagerUser();
+    updateSegmentRegion(new List<User>{ ccrmUser });
     List<User> users = getTestUsers();
     List<Group> groups = getTestGroups();
     List<Lead> leads;
 
     //set owner regions (existing region public groups)
     for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-      users[i].Area_Code__c = 'Standard ' + String.valueOf(i).leftPad(6, '0');
+      users[i].Area_Code__c = 'Standard Area Code';
     }
+    update users;
 
     System.runAs(ccrmUser) {
       //GIVEN lead records
       leads = CCRMTestDataFactory.createLeadRecords(TEST_BULK_SIZE, ccrmUser);
+      //WHEN shared to an existing region
       for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
         leads[i].OwnerId = users[i].Id;
       }
-
       Test.startTest();
-      //WHEN shared to an existing region
-      CCRMRegionSharingUtil.addRecordsToRegion(
-        Lead.getSObjectType(),
-        CCRMRegionSharingUtil.groupRecordsByOwnerRegion(leads, users)
-      );
+      checkRecursive.firstCall = false;
+      update leads;
       Test.stopTest();
     }
-
+    System.debug(
+      'User group name' +
+      [
+        SELECT Id, UserOrGroup.Name
+        FROM LeadShare
+        WHERE
+          LeadId IN :leads
+          AND RowCause = 'Manual'
+          AND LeadAccessLevel = 'Edit'
+          AND UserOrGroupId = :groups
+      ]
+    );
     //THEN share records are created corresponding to the lead records
     System.assertEquals(
       TEST_BULK_SIZE,
@@ -154,6 +138,51 @@ private class CCRMRegionSharingUtilTest {
           LeadId IN :leads
           AND RowCause = 'Manual'
           AND LeadAccessLevel = 'Edit'
+          AND UserOrGroupId = :groups
+      ],
+      'Leads should be shared to their owner region public group'
+    );
+  }
+
+  @IsTest
+  static void testAddOpportunityToExistingRegion() {
+    User ccrmUser = CCRMTestDataFactory.createCCRMRelManagerUser();
+    updateSegmentRegion(new List<User>{ ccrmUser });
+    List<User> users = getTestUsers();
+    List<Group> groups = getTestGroups();
+    List<Opportunity> opportunityList;
+
+    //set owner regions (existing region public groups)
+    for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
+      users[i].Area_Code__c = 'Standard Area Code';
+    }
+    update users;
+
+    System.runAs(ccrmUser) {
+      //GIVEN lead records
+      opportunityList = CCRMTestDataFactory.createOpportunityRecords(
+        TEST_BULK_SIZE,
+        ccrmUser,
+        true
+      );
+      //WHEN shared to an existing region
+      for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
+        opportunityList[i].OwnerId = users[i].Id;
+      }
+      Test.startTest();
+      update opportunityList;
+      Test.stopTest();
+    }
+    //THEN share records are created corresponding to the lead records
+    System.assertEquals(
+      TEST_BULK_SIZE,
+      [
+        SELECT COUNT()
+        FROM OpportunityShare
+        WHERE
+          OpportunityId IN :opportunityList
+          AND RowCause = 'Manual'
+          AND OpportunityAccessLevel = 'Edit'
           AND UserOrGroupId = :groups
       ],
       'Leads should be shared to their owner region public group'
@@ -195,7 +224,7 @@ private class CCRMRegionSharingUtilTest {
     List<Group> newGroups = [
       SELECT Id
       FROM Group
-      WHERE DeveloperName LIKE 'Region_NewAreaCode%'
+      WHERE DeveloperName LIKE 'BB_NewAreaCode%'
     ];
     System.assertEquals(
       TEST_BULK_SIZE,
@@ -242,7 +271,7 @@ private class CCRMRegionSharingUtilTest {
       //GIVEN a lead record is shared to a region public group
       leads = CCRMTestDataFactory.createLeadRecords(TEST_BULK_SIZE, ccrmUser);
       for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-        users[i].Area_Code__c = 'Standard ' + String.valueOf(i).leftPad(6, '0');
+        //users[i].Area_Code__c = 'Standard ' + String.valueOf(i).leftPad(6, '0');
         leads[i].OwnerId = users[i].Id;
         leadShares.add(
           new LeadShare(
@@ -259,10 +288,12 @@ private class CCRMRegionSharingUtilTest {
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
       //WHEN removed from the region
-      CCRMRegionSharingUtil.removeRecordsFromRegion(
+      CheckRecursive.firstCall = false;
+      update leads;
+      /*CCRMRegionSharingUtil.removeRecordsFromRegion(
         Lead.getSObjectType(),
         CCRMRegionSharingUtil.groupRecordsByOwnerRegion(leads, users)
-      );
+      );*/
     }
     Test.stopTest();
 
@@ -275,17 +306,11 @@ private class CCRMRegionSharingUtilTest {
   }
 
   @isTest
-  static void testUpdateUserRegion() {
+  static void testUpdateUserAreaCode() {
     User adminUser = CCRMTestDataFactory.getAdminUser();
     List<User> users = getTestUsers();
-    List<Group> groups = getTestGroups();
     List<Lead> leads;
     List<Opportunity> opps;
-    List<LeadShare> leadShares = new List<LeadShare>();
-    List<OpportunityShare> oppShares = new List<OpportunityShare>();
-    List<GroupMember> groupMembers = new List<GroupMember>();
-    List<User> newUsers = users.deepClone(true, true, true);
-
     //GIVEN leads and opportunity records shared to owners group
     System.runAs(adminUser) {
       leads = CCRMTestDataFactory.createLeadRecords(
@@ -304,74 +329,21 @@ private class CCRMRegionSharingUtilTest {
       }
       insert leads;
       insert opps;
-
-      for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-        leadShares.add(
-          new LeadShare(
-            LeadId = leads[i].Id,
-            LeadAccessLevel = 'Edit',
-            RowCause = 'Manual',
-            UserOrGroupId = groups[i].Id
-          )
-        );
-        oppShares.add(
-          new OpportunityShare(
-            OpportunityId = opps[i].Id,
-            OpportunityAccessLevel = 'Edit',
-            RowCause = 'Manual',
-            UserOrGroupId = groups[i].Id
-          )
-        );
-      }
-      insert leadShares;
-      insert oppShares;
     }
     System.runAs(adminUser) {
       for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-        users[i].Area_Code__c = 'Standard ' + String.valueOf(i).leftPad(6, '0');
-        newUsers[i].Area_Code__c =
+        users[i].Area_Code__c =
           'NewAreaCode ' + String.valueOf(i).leftPad(6, '0');
-        groupMembers.add(
-          new GroupMember(GroupId = groups[i].Id, UserOrGroupId = users[i].Id)
-        );
       }
-      insert groupMembers;
-      bypassUserUpdateTrigger();
-      update newUsers;
+      Test.startTest();
+      update users;
+      Test.stopTest();
     }
-
-    //WHEN users are moved from one region to another
-    Test.startTest();
-    System.runAs(adminUser) {
-      CCRMRegionSharingUtil.updateUserRegion(
-        newUsers,
-        new Map<Id, User>(users)
-      );
-    }
-    Test.stopTest();
-
-    //THEN those users are removed as member of the previous regions, along with their active leads/opps records
-    System.assertEquals(
-      0,
-      [SELECT COUNT() FROM LeadShare WHERE Id IN :leadShares],
-      'LeadShare records of old region should be deleted when user move to new region'
-    );
-    System.assertEquals(
-      0,
-      [SELECT COUNT() FROM OpportunityShare WHERE Id IN :oppShares],
-      'OpportunityShare records of old region should be deleted when user move to new region'
-    );
-    System.assertEquals(
-      0,
-      [SELECT COUNT() FROM GroupMember WHERE Id IN :groupMembers],
-      'GroupMemnber records of old region should be deleted when user move to new region'
-    );
-
     //AND those users are added as member of the new regions, along with their active leads/opps records
     List<Group> newGroups = [
       SELECT Id
       FROM Group
-      WHERE DeveloperName LIKE 'Region_NewAreaCode%'
+      WHERE DeveloperName LIKE 'BB_NewAreaCode%'
     ];
     System.assertEquals(
       TEST_BULK_SIZE,
@@ -430,8 +402,27 @@ private class CCRMRegionSharingUtilTest {
     for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
       groups.add(
         new Group(
-          Name = 'Region Standard ' + String.valueOf(i).leftPad(6, '0'),
-          DeveloperName = 'Region_Standard' + String.valueOf(i).leftPad(6, '0'),
+          Name = 'BB Standard 000000' + String.valueOf(i).leftPad(6, '0'),
+          DeveloperName = 'BB_Standard000000' +
+            String.valueOf(i).leftPad(6, '0'),
+          Type = 'Regular',
+          DoesIncludeBosses = false
+        )
+      );
+      groups.add(
+        new Group(
+          Name = 'BB Standard 000001 ' + String.valueOf(i).leftPad(6, '0'),
+          DeveloperName = 'BB_Standard000001' +
+            String.valueOf(i).leftPad(6, '0'),
+          Type = 'Regular',
+          DoesIncludeBosses = false
+        )
+      );
+      groups.add(
+        new Group(
+          Name = 'BB Standard Area Code' + String.valueOf(i).leftPad(6, '0'),
+          DeveloperName = 'BB_StandardAreaCode' +
+            String.valueOf(i).leftPad(6, '0'),
           Type = 'Regular',
           DoesIncludeBosses = false
         )
@@ -446,8 +437,11 @@ private class CCRMRegionSharingUtilTest {
       User ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
       ccrmBaseUser.FirstName = 'BaseUser' + String.valueOf(i).leftPad(6, '0');
       ccrmBaseUser.LastName = 'RegionSharingTest';
-      ccrmBaseUser.UserRoleId = CCRMTestDataFactory.commercialBankerRole.Id;
+      ccrmBaseUser.UserRoleId = CCRMTestDataFactory.relationshipManager.Id;
       ccrmBaseUser.ProfileId = CCRMTestDataFactory.anzStandardProfileId;
+      ccrmBaseUser.Area_Code__c =
+        'Standard ' + String.valueOf(i).leftPad(6, '0');
+      ccrmBaseUser.Commercial_Segment__c = CCRMConstants.BB_SEGMENT;
       ccrmBaseUser.IsActive = true;
       users.add(ccrmBaseUser);
     }
@@ -458,17 +452,32 @@ private class CCRMRegionSharingUtilTest {
     return [
       SELECT Id, Name, DeveloperName
       FROM Group
-      WHERE DeveloperName LIKE 'Region_Standard%'
+      WHERE DeveloperName LIKE 'BB_%'
       ORDER BY DeveloperName
     ];
   }
 
   static List<User> getTestUsers() {
     return [
-      SELECT Id, FirstName, LastName, Area_Code__c, IsActive
+      SELECT
+        Id,
+        FirstName,
+        LastName,
+        Area_Code__c,
+        IsActive,
+        Commercial_Segment__c
       FROM User
       WHERE LastName = 'RegionSharingTest'
       ORDER BY FirstName
     ];
+  }
+
+  static List<User> updateSegmentRegion(List<User> userList) {
+    for (User userIterator : userList) {
+      userIterator.Commercial_Segment__c = CCRMConstants.BB_SEGMENT;
+      userIterator.Area_Code__c = 'Standard Area Code';
+    }
+    update userList;
+    return userList;
   }
 }

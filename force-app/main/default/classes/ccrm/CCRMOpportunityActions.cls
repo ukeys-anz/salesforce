@@ -11,6 +11,11 @@ public with sharing class CCRMOpportunityActions {
   public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
   public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
   public static final String RECIPROCAL_ROLE_FOR_CLG = 'CG';
+  /**
+   * @description Define custom exceptions
+   */
+  public class CustomException extends Exception {
+  }
 
   /**
    * @description This method will update Controlling Post field depending on the CPID provided in Account.
@@ -281,5 +286,323 @@ public with sharing class CCRMOpportunityActions {
     if (record.Description != null) {
       record.Description = TextUtils.maskData(record.Description);
     }
+  }
+
+  /**
+   * @description Validate Mandatory field when move to next stage and can't skip stage.
+   * @name mandatoryFieldAndSkipStageCheck
+   * @param newOppList list of new records
+   * @param oldOppMap map of old records
+   * @param isInsert when record is insert
+   * @param isUpdate when record is update
+   */
+
+  public static void mandatoryFieldAndSkipStageCheck(
+    List<Opportunity> newOppList,
+    Map<Id, Opportunity> oldOppMap,
+    Boolean isInsert,
+    Boolean isUpdate
+  ) {
+    Map<Id, Opportunity> closingOppoIdMap = new Map<Id, Opportunity>();
+    Map<Id, Opportunity> oppoIdMap = new Map<Id, Opportunity>();
+
+    for (Opportunity oppIterator : newOppList) {
+      if (oppIterator.RecordTypeId != CCRMConstants.CCRM_OPP_RT_ID) {
+        continue;
+      }
+      if (oldOppMap == null && isInsert) {
+        if (oppIterator.StageName != CCRMConstants.OPP_IDENTIFIED) {
+          oppIterator.addError(CCRMConstants.STAGE_CAN_BE_OPP_IDENTIFIED);
+        }
+      } else if (
+        oldOppMap != null &&
+        isUpdate &&
+        oppIterator.StageName != oldOppMap.get(oppIterator.Id).StageName
+      ) {
+        if (oppIterator.StageName.equalsIgnoreCase(CCRMConstants.OPP_WON)) {
+          closingOppoIdMap.put(oppIterator.Id, oppIterator);
+        } else {
+          oppoIdMap.put(oppIterator.Id, oppIterator);
+        }
+        if (
+          (oldOppMap.get(oppIterator.Id).StageName ==
+          CCRMConstants.OPP_IDENTIFIED &&
+          oppIterator.StageName != CCRMConstants.NEED_ANALYSIS) ||
+          (oldOppMap.get(oppIterator.Id).StageName ==
+          CCRMConstants.NEED_ANALYSIS &&
+          oppIterator.StageName != CCRMConstants.SOL_DEV) ||
+          (oldOppMap.get(oppIterator.Id).StageName == CCRMConstants.SOL_DEV &&
+          oppIterator.StageName != CCRMConstants.APPROVED_OFFERED) ||
+          (oldOppMap.get(oppIterator.Id).StageName ==
+          CCRMConstants.APPROVED_OFFERED &&
+          oppIterator.StageName != CCRMConstants.CUST_ACCEPT) ||
+          (oldOppMap.get(oppIterator.Id).StageName ==
+          CCRMConstants.CUST_ACCEPT &&
+          oppIterator.StageName != CCRMConstants.OPP_WON &&
+          oppIterator.StageName != CCRMConstants.OPP_LOST) ||
+          (oldOppMap.get(oppIterator.Id).StageName == CCRMConstants.OPP_WON) ||
+          (oldOppMap.get(oppIterator.Id).StageName == CCRMConstants.OPP_LOST)
+        ) {
+          oppIterator.addError(CCRMConstants.SKIP_STAGE);
+        } else if (
+          oppIterator.StageName == CCRMConstants.APPROVED_OFFERED &&
+          (String.isBlank(oppIterator.BBD_Application_Number__c) ||
+          String.isBlank(oppIterator.CLP_Credit_Case_Number__c))
+        ) {
+          oppIterator.addError(CCRMConstants.BBD_CLP_MANDATORY);
+        } else if (
+          oppIterator.StageName == CCRMConstants.OPP_LOST &&
+          String.isBlank(oppIterator.Lost_Reason__c)
+        ) {
+          oppIterator.addError(CCRMConstants.LOST_REASON);
+        } else if (
+          (oppIterator.StageName == CCRMConstants.OPP_LOST ||
+          oppIterator.StageName == CCRMConstants.OPP_WON) &&
+          String.isBlank(oppIterator.Won_from_Lost_to__c)
+        ) {
+          oppIterator.addError(CCRMConstants.WON_LOST_MANDATORY);
+        }
+      }
+      if (
+        oppIterator.recordTypeId == CCRMConstants.CCRM_OPP_RT_ID &&
+        oppIterator.LeadSource == 'Other' &&
+        String.isBlank(oppIterator.Other_Source_Detail__c)
+      ) {
+        oppIterator.addError(CCRMConstants.OTHER_SOURCE_DETAIL_MANDATORY);
+      }
+    }
+    checkOpportunityHasOpenTaskBeforeStageChange(closingOppoIdMap, oppoIdMap);
+  }
+
+  /**
+   * @description Validate open task when moving to next stage.
+   * @name checkOpportunityHasOpenTaskBeforeStageChange
+   * @param closingOppoIdMap map of id and closing opportunity id
+   * @param oppoIdMap map of id and stage change opportunity id
+   */
+  public static void checkOpportunityHasOpenTaskBeforeStageChange(
+    Map<Id, Opportunity> closingOppoIdMap,
+    Map<Id, Opportunity> oppoIdMap
+  ) {
+    if (!closingOppoIdMap.isEmpty()) {
+      //get open tasks on opportunity being closed
+      for (AggregateResult iterator : [
+        SELECT WhatId
+        FROM Task
+        WHERE
+          WhatId IN :closingOppoIdMap.keySet()
+          AND Status != :CCRMConstants.STATUS_COMPLETED
+          AND Status != :CCRMConstants.STATUS_NOT_REQUIRED
+        GROUP BY WhatId
+      ]) {
+        closingOppoIdMap.get(String.valueOf(iterator.get('WhatId')))
+          .addError(System.Label.CCRM_OpenTasksOnOpportunityCloseError);
+      }
+    }
+
+    if (!oppoIdMap.isEmpty()) {
+      //get open tasks on opportunity stage change
+      for (AggregateResult iterator : [
+        SELECT ActionPlan.TargetId whatId
+        FROM ActionPlanItem
+        WHERE
+          ActionPlan.TargetId IN :oppoIdMap.keySet()
+          AND Item.Status != :CCRMConstants.STATUS_COMPLETED
+          AND Item.Status != :CCRMConstants.STATUS_NOT_REQUIRED
+          AND IsRequired = TRUE
+        GROUP BY ActionPlan.TargetId
+      ]) {
+        oppoIdMap.get(String.valueOf(iterator.get('whatId')))
+          .addError(System.Label.CCRM_OpenTasksOnOpportunityError);
+      }
+    }
+  }
+
+  /**
+   * @description populate opportunity name with auto number + Customer need value
+   * @name populateOppNameOnInsert
+   * @param oppList list of new records
+   * @param oldOppMap map of old records
+   * @param isInsert to check if it is insert operation
+   * @param isUpdate to check if it is update operation
+   */
+
+  public static void populateOppName(
+    List<Opportunity> oppList,
+    Map<Id, Opportunity> oldOppMap,
+    Boolean isInsert,
+    Boolean isUpdate
+  ) {
+    try {
+      if (isInsert && oldOppMap == null) {
+        List<Opportunity> opptoUpdate = new List<Opportunity>();
+        for (Opportunity oppIter : oppList) {
+          if (oppIter.recordTypeId == CCRMConstants.CCRM_OPP_RT_ID) {
+            Opportunity opp = new Opportunity();
+            opp.Id = oppIter.Id;
+            opp.Name = oppIter.Opp_Id__c + ' ' + oppIter.Customer_Needs__c;
+            opptoUpdate.add(opp);
+          }
+        }
+        if (!opptoUpdate.isEmpty()) {
+          List<Database.saveResult> results = Database.update(
+            opptoUpdate,
+            false
+          );
+        }
+      } else if (isUpdate) {
+        for (Opportunity oppIter : oppList) {
+          if (
+            oppIter.recordTypeId == CCRMConstants.CCRM_OPP_RT_ID &&
+            oppIter.Customer_Needs__c !=
+            oldOppMap.get(oppIter.Id).Customer_Needs__c
+          ) {
+            oppIter.Name = oppIter.Opp_Id__c + ' ' + oppIter.Customer_Needs__c;
+          }
+        }
+      }
+    } catch (Exception ex) {
+      Logger.error(
+        'Error occured during updating opportunity name from lead',
+        ex
+      );
+      Logger.saveLog();
+      throw new CustomException(ex.getMessage());
+    }
+  }
+
+  /**
+   * @description Add Action plan to Opportunity when Opportunity moved to 'Need Analysis' stage.
+   * @name insertActionPlans
+   * @param newOppList list of new records
+   * @param oldOppMap map of old records
+   */
+  public static void insertActionPlans(
+    List<Opportunity> newOppList,
+    Map<Id, Opportunity> oldOppMap
+  ) {
+    Map<String, List<String>> actionPlanTemplateMap = new Map<String, List<String>>();
+    List<ActionPlan> actionPlanToInsert = new List<ActionPlan>();
+    Set<String> oppIdsList = new Set<String>();
+    Set<String> actionPlanTempSet = new Set<String>();
+    String actionPlanName = '';
+
+    for (Opportunity opp : newOppList) {
+      if (
+        opp.recordTypeId == CCRMConstants.CCRM_OPP_RT_ID &&
+        opp.StageName != oldOppMap.get(opp.Id).StageName &&
+        (opp.StageName.equalsIgnoreCase(CCRMConstants.NEED_ANALYSIS) ||
+        opp.StageName.equalsIgnoreCase(CCRMConstants.CUST_ACCEPT))
+      ) {
+        oppIdsList.add(opp.Id);
+      }
+    }
+
+    if (oppIdsList.isEmpty()) {
+      return;
+    }
+
+    for (
+      CCRM_Action_Plan_Template_Selection__mdt iterator : CCRM_Action_Plan_Template_Selection__mdt.getAll()
+        .values()
+    ) {
+      if (iterator.Template_Name__c.contains(';')) {
+        actionPlanTemplateMap.put(
+          (iterator.Opportunity_Record_Type__c +
+            iterator.Commercial_Segment__c +
+            iterator.Opportunity_Stage_Name__c)
+            .deleteWhitespace()
+            .toLowerCase(),
+          new List<String>(iterator.Template_Name__c.split(';'))
+        );
+        actionPlanTempSet.addAll(iterator.Template_Name__c.split(';'));
+      } else {
+        actionPlanTemplateMap.put(
+          (iterator.Opportunity_Record_Type__c +
+            iterator.Commercial_Segment__c +
+            iterator.Opportunity_Stage_Name__c)
+            .deleteWhitespace()
+            .toLowerCase(),
+          new List<String>{ iterator.Template_Name__c }
+        );
+        actionPlanTempSet.add(iterator.Template_Name__c);
+      }
+    }
+
+    Map<String, String> apTempMap = new Map<String, String>();
+    for (ActionPlanTemplateVersion apIterator : [
+      SELECT Id, Name
+      FROM ActionPlanTemplateVersion
+      WHERE
+        Name IN :actionPlanTempSet
+        AND Status = :CCRMConstants.PUBLISHED_TEMPLATE_STATUS
+    ]) {
+      apTempMap.put(apIterator.Name, apIterator.Id);
+    }
+
+    for (Opportunity oppIter : [
+      SELECT
+        Id,
+        Owner.Commercial_Segment__c,
+        StageName,
+        OwnerId,
+        RecordType.DeveloperName
+      FROM Opportunity
+      WHERE Id IN :oppIdsList
+    ]) {
+      actionPlanName = (oppIter.RecordType.DeveloperName +
+        oppIter.Owner.Commercial_Segment__c +
+        oppIter.StageName)
+        .deleteWhitespace()
+        .toLowerCase();
+      if (
+        actionPlanTemplateMap.containsKey(actionPlanName) &&
+        !actionPlanTemplateMap.get(actionPlanName).isEmpty()
+      ) {
+        for (
+          String tempNameIterator : actionPlanTemplateMap.get(actionPlanName)
+        ) {
+          if (apTempMap.containsKey(tempNameIterator)) {
+            actionPlanToInsert.add(
+              createActionPlan(
+                oppIter.Id,
+                tempNameIterator,
+                apTempMap.get(tempNameIterator),
+                oppIter.OwnerId
+              )
+            );
+          }
+        }
+      }
+    }
+    if (!actionPlanToInsert.isEmpty()) {
+      insert actionPlanToInsert;
+    }
+  }
+
+  /**
+   * @description create action Plan
+   * @name createActionPlan
+   * @param oppId Id of opportunity to link action plan with
+   * @param actionPlanName name of the action plan
+   * @param actionPlanTempId Id of Action Plan Template Version
+   * @param ownerId opportunity owner id
+   * @return ActionPlan instance
+   */
+  public static ActionPlan createActionPlan(
+    Id oppId,
+    String actionPlanName,
+    String actionPlanTempId,
+    String ownerId
+  ) {
+    ActionPlan apRec = new ActionPlan();
+    apRec.ActionPlanType = CCRMConstants.PLAN_TYPE;
+    apRec.TargetId = oppId;
+    apRec.ActionPlanState = CCRMConstants.NOT_STARTED;
+    apRec.StartDate = System.today();
+    apRec.OwnerId = ownerId;
+    apRec.Name = actionPlanName;
+    apRec.ActionPlanTemplateVersionId = actionPlanTempId;
+    return apRec;
   }
 }

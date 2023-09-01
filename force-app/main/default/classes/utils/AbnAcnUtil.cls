@@ -102,7 +102,8 @@ public with sharing class AbnAcnUtil {
       String.isNotBlank(record.ABN__c) &&
       (oldRec == null ||
       record.ABN__c != oldRec.ABN__c ||
-      oldRec.Not_Registered__c)
+      (oldRec.Registered_Company__c == 'No' ||
+      oldRec.Registered_Company__c == ''))
     ) {
       return true;
     }
@@ -120,7 +121,8 @@ public with sharing class AbnAcnUtil {
       String.isNotBlank(record.ACN__c) &&
       (oldRec == null ||
       record.ACN__c != oldRec.ACN__c ||
-      oldRec.Not_Registered__c)
+      (oldRec.Registered_Company__c == 'No' ||
+      oldRec.Registered_Company__c == ''))
     ) {
       return true;
     }

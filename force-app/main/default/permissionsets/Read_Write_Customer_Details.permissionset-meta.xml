@@ -715,6 +715,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ContactPointPhone.AreaCode</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContactPointPhone.External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>

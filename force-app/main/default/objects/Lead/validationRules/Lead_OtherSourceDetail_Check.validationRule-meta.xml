@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_OtherSourceDetail_Check</fullName>
+    <active>true</active>
+    <description>This validation rule is used to make other source detail mandatory when leadsource is other</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,
+ISBLANK(Other_Source_Detail__c),
+NOT(ISCHANGED(Skip_Validations__c)),
+NOT($Profile.Name = &quot;System Administrator&quot;),
+Text(Lead_Originator__c) = &apos;MLCRM&apos;,
+TEXT(LeadSource) = &apos;Other&apos;
+)</errorConditionFormula>
+    <errorDisplayField>Other_Source_Detail__c</errorDisplayField>
+    <errorMessage>Other source detail is mandatory when LeadSource is other</errorMessage>
+</ValidationRule>

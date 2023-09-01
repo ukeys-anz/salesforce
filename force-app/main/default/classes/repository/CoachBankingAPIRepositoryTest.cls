@@ -12,7 +12,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   @testSetup
   public static void setup() {
     TestUtil.addPermissionSets(
-      new List<String>{ 'Accounts_Goals_Read_Only', 'View_Card_Details' }
+      new List<String>{
+        'Accounts_Goals_Read_Only',
+        'View_Card_Details',
+        'View_Transaction_History'
+      }
     );
   }
   /**
@@ -78,22 +82,25 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
    */
   @isTest
   static void transactionHistoryValidResponse() {
-    Test.startTest();
-    TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAura(
-      '',
-      '1111',
-      '000000000',
-      '2018-07-03 00:00:00',
-      '2018-07-26 23:59:59',
-      new List<String>()
-    );
-    Test.stopTest();
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAura(
+        '',
+        '1111',
+        '000000000',
+        '2018-07-03 00:00:00',
+        '2018-07-26 23:59:59',
+        new List<String>()
+      );
+      Test.stopTest();
 
-    System.assertEquals(
-      17,
-      transactionModel.embedded.transactions.size(),
-      'Transactions size should be as expected.'
-    );
+      System.assertEquals(
+        17,
+        transactionModel.embedded.transactions.size(),
+        'Transactions size should be as expected.'
+      );
+    }
   }
 
   /**
@@ -127,22 +134,25 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
    */
   @isTest
   static void transactionHistoryAuraResponse() {
-    Test.startTest();
-    TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAura(
-      '',
-      '1111',
-      '000000000',
-      '2018-07-03 00:00:00',
-      '2018-07-26 23:59:59',
-      new List<String>()
-    );
-    Test.stopTest();
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAura(
+        '',
+        '1111',
+        '000000000',
+        '2018-07-03 00:00:00',
+        '2018-07-26 23:59:59',
+        new List<String>()
+      );
+      Test.stopTest();
 
-    System.assertEquals(
-      17,
-      transactionModel.embedded.transactions.size(),
-      'Transactions size should be as expected.'
-    );
+      System.assertEquals(
+        17,
+        transactionModel.embedded.transactions.size(),
+        'Transactions size should be as expected.'
+      );
+    }
   }
 
   /**

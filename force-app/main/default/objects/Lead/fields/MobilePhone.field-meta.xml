@@ -5,6 +5,7 @@
     <complianceGroup>Source_Qualtrics;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Captures the prospects Mobile</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
+    <inlineHelpText>Mobile Phone number needs to be in the format of +614 or +615 followed by 8 digits. Eg. +61412345678 or +61512345678</inlineHelpText>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>

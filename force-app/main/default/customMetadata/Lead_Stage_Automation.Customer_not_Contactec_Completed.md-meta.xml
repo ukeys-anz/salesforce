@@ -22,4 +22,8 @@
         <field>isActive__c</field>
         <value xsi:type="xsd:boolean">true</value>
     </values>
+    <values>
+        <field>What_happens_next__c</field>
+        <value xsi:nil="true"/>
+    </values>
 </CustomMetadata>

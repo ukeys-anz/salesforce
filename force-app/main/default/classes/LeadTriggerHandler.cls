@@ -32,6 +32,8 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     AbnAcnUtil.validateABN(records, null);
     AbnAcnUtil.validateACN(records, null);
     CCRMLeadActions.populateFields(records);
+    CCRMLeadActions.referrerPrefill(records, null);
+    MLCRMLeadActions.externalReferrerPrefill(records, null);
     CCRMLeadActions.populateFromPreviousLead(records);
     CCRMControllingPostActions.retrieveControllingPost(records, null);
     CCRMLeadActions.prefillManualLeadsFromAccountOnInsert(records);
@@ -39,6 +41,12 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     CCRMCampaignActions.setDefaultCampaign(records);
     CCRMLeadActions.setValidationStatus(records, null);
     CCRMLeadActions.validateIngestedLeads(records);
+    // CC-1057 to set the default value of expiry date for Manually created ML Lead
+    MLCRMLeadActions.setDefaultValue(records);
+    //CC-1054 to set the territory for ML Records based on matching user territory default record.
+    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
+    //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
+    MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
   }
 
   /**
@@ -47,6 +55,10 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    CCRMLeadActionsHelper.transferLeadOwnership(
+      (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
     //Check ABN and ACN
     AbnAcnUtil.validateABN(records, (Map<Id, Lead>) oldMap);
     AbnAcnUtil.validateACN(records, (Map<Id, Lead>) oldMap);
@@ -54,10 +66,20 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       ((List<Lead>) records),
       ((Map<Id, Lead>) oldMap)
     );
-    CCRMLeadActions.prefillManualLeadsFromAccountOnUpdate(
+    CCRMLeadActions.referrerPrefill(
       ((List<Lead>) records),
       ((Map<Id, Lead>) oldMap)
     );
+    MLCRMLeadActions.externalReferrerPrefill(
+      ((List<Lead>) records),
+      ((Map<Id, Lead>) oldMap)
+    );
+    if (!CCRMLeadConversionActions.leadConverionFlow) {
+      CCRMLeadActions.prefillManualLeadsFromAccountOnUpdate(
+        ((List<Lead>) records),
+        ((Map<Id, Lead>) oldMap)
+      );
+    }
     CCRMLeadActions.setValidationStatus(records, (Map<Id, Lead>) oldMap);
     //Mask Lead Description where applicable
     TextUtils.maskSObjectData(records, 'Description');
@@ -66,6 +88,15 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       records
     );
     CCRMControllingPostActions.retrieveControllingPost(records, oldMap);
+    //CC-1609 Auto Update Lead status to In Progrees for MLCRM Manual lead update
+    CCRMLeadActions.updateLeadStatus(records, (Map<Id, Lead>) oldMap);
+    //CC-1609 This method is used to update new flag checkbox to false during implicit update while lead creation
+    MLCRMLeadActions.noLongerNewLeads((Map<Id, Lead>) oldMap, records);
+    //CC-1054 to set the territory for ML Records based on matching user territory default record.
+    MLCRMCommonUtils.assignTerritoryForMLRecord(records);
+    //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
+    MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
+    MLCRMLeadActions.populatePrimaryFranchise(records, (Map<Id, Lead>) oldMap);
   }
 
   /**
@@ -85,13 +116,14 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    * @name onAfterInsert
    */
   public override void onAfterInsert() {
-    CCRMLeadActions.notifyLeadOwners(null, records);
     CCRMLeadActions.createCampaignMember(records);
     CCRMLeadActions.validateAbnAcnForCallout(records, null);
     //Keep these methods at end
     CCRMLeadActions.sendManualLeadsToUnica(records, null);
     CCRMLeadActions.copyLeadId(records);
     CCRMRegionSharingUtil.shareLeadsToOwnerRegion(records);
+    MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Lead');
+    CCRMLeadActions.notifyLeadOwners(null, records);
   }
 
   /**
@@ -102,8 +134,11 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     if (!checkRecursive.firstCall) {
       CheckRecursive.run();
-      CCRMLeadActions.notifyLeadOwners((Map<Id, Lead>) oldMap, records);
       CCRMLeadActions.validateAbnAcnForCallout(records, (Map<Id, Lead>) oldMap);
+      CCRMRegionSharingUtil.shareLeadsToUpdatedOwnerRegion(
+        records,
+        (Map<Id, Lead>) oldMap
+      );
       //Keep this at end
       if (!System.isFuture()) {
         CCRMLeadActions.publishLeadResponseUpdateToAdobeOrUnica(
@@ -117,5 +152,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       }
     }
     LeadChatterMigrationHelper.migrateChatterPostsOnConversion(records, oldMap);
+    MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Lead');
+    CCRMLeadActions.notifyLeadOwners((Map<Id, Lead>) oldMap, records);
   }
 }
