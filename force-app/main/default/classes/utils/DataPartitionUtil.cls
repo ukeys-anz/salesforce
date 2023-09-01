@@ -58,7 +58,7 @@ public with sharing class DataPartitionUtil {
     String sessionCacheKey,
     SOPModel value
   ) {
-    dataPartition.put(sessionCacheKey, value, ttlSecs);
+    dataPartition.put(sessionCacheKey?.replace('-', ''), value, ttlSecs);
   }
 
   /**
@@ -68,7 +68,7 @@ public with sharing class DataPartitionUtil {
    *
    */
   public static SOPModel getSOPDetailsCache(String sopId) {
-    SOPModel sop = (SOPModel) DataPartition.get(sopId);
+    SOPModel sop = (SOPModel) DataPartition.get(sopId?.replace('-', ''));
     if (sop != null) {
       Logger.debug('SOP Caching hit: ').setPayload(json.serialize(sop));
       Logger.saveLog();
