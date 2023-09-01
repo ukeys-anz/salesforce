@@ -18,14 +18,6 @@ export default class ViewTranscriptForInteraction extends LightningElement {
   isExecuting = false;
 
   @api invoke() {
-    if (this.chatOrCallSid && this.isExecuting) {
-      const message = { channelSID: this.chatOrCallSid };
-      this.publishLightningMessage(
-        chatHistoryChannel,
-        message,
-        "Error occurred while displaying related Chat History"
-      );
-    }
     this.isExecuting = true;
   }
 
@@ -51,8 +43,14 @@ export default class ViewTranscriptForInteraction extends LightningElement {
       if (data.fields && data.fields.Chat_or_Call_SID__c.value) {
         this.chatOrCallSid = data.fields.Chat_or_Call_SID__c.value;
         this.isExecuting = true;
+        const message = { channelSID: this.chatOrCallSid };
+        this.publishLightningMessage(
+          chatHistoryChannel,
+          message,
+          "Error occurred while displaying related Chat History"
+        );
       }
-    } else {
+    } else if (error) {
       console.error(
         "Error in Fetching ChatOrCallSid -> " + JSON.stringify(error)
       );
