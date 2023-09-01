@@ -70,7 +70,8 @@ public with sharing class InitiateInteractionController {
         InteractionType = fields.get('interactionType'),
         Contact_Mobile__c = fields.get('contactNumber'),
         Direction__c = fields.get('direction'),
-        Interaction_Purpose__c = fields.get('reason')
+        Interaction_Purpose__c = fields.get('reason'),
+        StartTime = System.now()
       );
       insert newInteraction;
       Interaction intToReturn = [
