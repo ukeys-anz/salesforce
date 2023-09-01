@@ -7,12 +7,20 @@
 public with sharing class FinancialAccountController {
   //Map of fabric statuses and user friendly names to map them to
   private static final Map<String, String> FABRIC_STATUSES = new Map<String, String>{
+    //Status Mapping of v1beta1
     'ACCOUNT_STATUS_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
     'ACCOUNT_STATUS_OPEN' => 'Open', // the account is open
     'ACCOUNT_STATUS_ACTIVE' => 'Active', // the account is active
     'ACCOUNT_STATUS_SUSPENDED' => 'Suspended', // the account is suspended
     'ACCOUNT_STATUS_DORMANT' => 'Dormant', // the account is dormant
-    'ACCOUNT_STATUS_CLOSED' => 'Closed' // the account is closed
+    'ACCOUNT_STATUS_CLOSED' => 'Closed', // the account is closed
+    //State Mapping for v1
+    'ACCOUNT_STATE_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
+    'ACCOUNT_STATE_OPEN' => 'Open', // the account is open
+    'ACCOUNT_STATE_ACTIVE' => 'Active', // the account is active
+    'ACCOUNT_STATE_SUSPENDED' => 'Suspended', // the account is suspended
+    'ACCOUNT_STATE_DORMANT' => 'Dormant', // the account is dormant
+    'ACCOUNT_STATE_CLOSED' => 'Closed' // the account is closed
   };
 
   /**
