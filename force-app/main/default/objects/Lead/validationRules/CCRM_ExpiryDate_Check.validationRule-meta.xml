@@ -5,7 +5,10 @@
     <description>Expiry Date should not be a past date</description>
     <errorConditionFormula>AND(
         $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+        OR(
         RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+        RecordType.DeveloperName = &apos;MLCRM_Lead&apos;
+        ),
         Expiry_Date__c &lt;  TODAY(),
         (ISCHANGED( Expiry_Date__c ) || ISNEW())
     )</errorConditionFormula>

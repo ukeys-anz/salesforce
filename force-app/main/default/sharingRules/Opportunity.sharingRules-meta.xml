@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>CCRM_Opportunity_Sharing_Rule</fullName>
+        <fullName>CCRM_Opportunity_Read_Only_Sharing_Rule</fullName>
         <accessLevel>Read</accessLevel>
-        <label>CCRM Opportunity Sharing Rule</label>
+        <label>CCRM Opportunity Read Only Sharing Rule</label>
         <sharedTo>
-            <group>BB_SBB_Users</group>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -14,15 +14,18 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingOwnerRules>
-        <fullName>Opportunity_Sharing_for_ANZ_User_Role</fullName>
+    <sharingCriteriaRules>
+        <fullName>CCRM_Opportunity_CLO_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Opportunity Sharing for ANZ User Role</label>
+        <label>CCRM Opportunity CLO Sharing Rule</label>
         <sharedTo>
-            <role>ANZ</role>
+            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
         </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
-        </sharedFrom>
-    </sharingOwnerRules>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Commercial Opportunity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

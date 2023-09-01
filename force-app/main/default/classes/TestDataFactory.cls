@@ -249,7 +249,7 @@ public without sharing class TestDataFactory {
         'Unauthorised Transaction',
         'Incorrect Amount',
         'Incorrect Biller Code',
-        'Incorrect Customer Reference Number',
+        'Unintended Payment',
         'Payment not received by biller'
       },
       'Card_Dispute' => new List<String>{

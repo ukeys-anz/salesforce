@@ -29,11 +29,26 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>CCRM_Lead_Sharing_Rule</fullName>
+        <fullName>CCRM_Lead_Read_Only_Sharing_Rule</fullName>
         <accessLevel>Read</accessLevel>
-        <label>CCRM Lead Sharing Rule</label>
+        <label>CCRM Lead Read Only Sharing Rule</label>
         <sharedTo>
-            <group>BB_SBB_Users</group>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Commercial CRM Lead</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CCRM_LeadEditAccessToCLO</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All CCRM Leads will be accessible to CLO in Edit Mode</description>
+        <label>CCRM_LeadEditAccessToCLO</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

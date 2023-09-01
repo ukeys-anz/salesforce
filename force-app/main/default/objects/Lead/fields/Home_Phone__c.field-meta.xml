@@ -5,6 +5,7 @@
     <complianceGroup>Source_Salesforce;Privacy_Personal_Information;Integrity_Accurate</complianceGroup>
     <description>Home Phone Number</description>
     <externalId>false</externalId>
+    <inlineHelpText>Home Phone number needs to be in the format of +61 followed by 9 digits. Eg. +61312345678</inlineHelpText>
     <label>Home Phone</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

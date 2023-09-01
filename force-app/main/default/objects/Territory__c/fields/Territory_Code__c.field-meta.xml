@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Territory_Code__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Code of the Territory</description>
+    <displayFormat>T-{0000}</displayFormat>
+    <externalId>false</externalId>
+    <label>Territory Code</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>
