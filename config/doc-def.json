@@ -482,7 +482,8 @@
         "Enforce_mTLS",
         "Interaction_Integration",
         "Password_Never_Expires",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Twilio_Details_Read_Write"
       ],
       "type": "system"
     },
