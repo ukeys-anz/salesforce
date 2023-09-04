@@ -15,34 +15,39 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>COMPONENT_UNSPECIFIED</fullName>
+                <fullName>COMPONENT_TYPE_UNSPECIFIED</fullName>
                 <default>false</default>
                 <label>Unspecified</label>
             </value>
             <value>
-                <fullName>COMPONENT_NEEDS</fullName>
+                <fullName>COMPONENT_TYPE_NEEDS</fullName>
                 <default>false</default>
                 <label>Needs Analysis</label>
             </value>
             <value>
-                <fullName>COMPONENT_LOAN_PREFERENCES</fullName>
+                <fullName>COMPONENT_TYPE_LOAN_PREFERENCES</fullName>
                 <default>false</default>
                 <label>Loan Preferences</label>
             </value>
             <value>
-                <fullName>COMPONENT_REFINANCE_LIABILITIES</fullName>
+                <fullName>COMPONENT_TYPE_REFINANCE_LIABILITIES</fullName>
                 <default>false</default>
                 <label>Refinance Liabilities</label>
             </value>
             <value>
-                <fullName>COMPONENT_PROPERTIES</fullName>
+                <fullName>COMPONENT_TYPE_PROPERTIES</fullName>
                 <default>false</default>
                 <label>Properties</label>
             </value>
             <value>
-                <fullName>COMPONENT_APPLICANTS</fullName>
+                <fullName>COMPONENT_TYPE_APPLICANTS</fullName>
                 <default>false</default>
                 <label>Applicant</label>
+            </value>
+            <value>
+                <fullName>COMPONENT_TYPE_SIGNIFICANT_CHANGE</fullName>
+                <default>false</default>
+                <label>Material Change</label>
             </value>
         </valueSetDefinition>
     </valueSet>

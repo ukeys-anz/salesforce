@@ -20,12 +20,12 @@
                 <label>Unspecified</label>
             </value>
             <value>
-                <fullName>INTEREST_RATE_TYPE_FIX</fullName>
+                <fullName>INTEREST_RATE_TYPE_FIXED</fullName>
                 <default>false</default>
                 <label>Fixed</label>
             </value>
             <value>
-                <fullName>INTEREST_RATE_TYPE_VAR</fullName>
+                <fullName>INTEREST_RATE_TYPE_VARIABLE</fullName>
                 <default>false</default>
                 <label>Variable</label>
             </value>

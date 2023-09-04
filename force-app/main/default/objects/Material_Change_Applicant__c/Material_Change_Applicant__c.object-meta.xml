@@ -152,11 +152,11 @@
     <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Material Change Applicant</label>
     <nameField>
-        <label>Material Change Applicant Name</label>
-        <type>Text</type>
+        <displayFormat>MCA-{00000}</displayFormat>
+        <label>Material Change Applicant Number</label>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Material Change Applicants</pluralLabel>
     <searchLayouts/>

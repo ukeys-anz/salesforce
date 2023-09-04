@@ -155,9 +155,8 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Loan Invitation</label>
     <nameField>
-        <displayFormat>LI-{00000}</displayFormat>
-        <label>Loan Invitation Number</label>
-        <type>AutoNumber</type>
+        <label>Loan Invitation Name</label>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Loan Invitations</pluralLabel>
     <searchLayouts/>
