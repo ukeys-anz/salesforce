@@ -7100,6 +7100,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>LogEntry__c.Severity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>LogEntry__c.SpanId__c</field>
         <readable>true</readable>
     </fieldPermissions>

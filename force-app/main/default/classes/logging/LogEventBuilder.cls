@@ -493,6 +493,20 @@ public without sharing class LogEventBuilder {
   }
 
   /**
+   * @description Sets the severty on log event
+   * @param severity The severity
+   * @return The same instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public LogEventBuilder setSeverity(Logger.Severity severity) {
+    if (this.shouldSave == true) {
+      this.logEvent.Severity__c = severity == null
+        ? Logger.Severity.MEDIUM.name()
+        : severity.name();
+    }
+    return this;
+  }
+
+  /**
    * @description Set transaction details on log event
    */
   private void setTransactionDetails() {

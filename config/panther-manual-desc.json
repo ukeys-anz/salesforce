@@ -893,9 +893,7 @@
       ]
     },
     "Case_Product__c": {
-      "IA-2468715": [
-        "Product__c"
-      ]
+      "IA-2468715": ["Product__c"]
     },
     "CFaaS_File__c": {
       "IA-2415997": [
@@ -1873,6 +1871,7 @@
         "Origin__c",
         "RecordId__c",
         "RecordObjectName__c",
+        "Severity__c",
         "SpanId__c",
         "StackTrace__c",
         "UsedCallouts__c",
