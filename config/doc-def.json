@@ -76,6 +76,15 @@
   ],
   "usermap": [
     {
+      "name": "Api Enabled User",
+      "profile": "Integration User",
+      "permissionsets": [
+        "Interaction_Read_Only",
+        "FinServ__FinancialServicesCloudExtension"
+      ],
+      "type": "user"
+    },
+    {
       "name": "ANZ Plus Operations - Read Only",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["ANZ_Plus_Operations_Read_Only"],
