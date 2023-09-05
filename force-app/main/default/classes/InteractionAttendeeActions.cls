@@ -223,6 +223,7 @@ public with sharing class InteractionAttendeeActions {
       WHERE id = :UserInfo.getUserId()
     ];
 
+    // Default attendee should be added for Coach users
     if (profilenames.contains(userDetail.profile.name)) {
       for (Interaction interact : interactions) {
         if (recordtypes.contains(interact.RecordTypeId)) {
