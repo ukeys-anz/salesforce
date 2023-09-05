@@ -42,8 +42,8 @@ public without sharing class TestDataFactory {
 
   /**
    * @description Create Person Account record
-   * @param doInsert Insert record or just initialise
    * @param ocvId OCV Id of the customer
+   * @param doInsert Insert record or just initialise
    * @return Person Account
    */
   public static Account createPersonAccount(String ocvId, Boolean doInsert) {
@@ -59,9 +59,8 @@ public without sharing class TestDataFactory {
       : TESTFAKER.randomString(10);
     personAcc.ANZx_Customer__c = true;
     personAcc.External_Id__c = TESTFAKER.randomString(15);
-
-    if (withMobile == true) {
-      personAcc.PersonMobilePhone = TEST_MOBILE;
+    if (doInsert) {
+      insert accnt;
     }
 
     return personAcc;
