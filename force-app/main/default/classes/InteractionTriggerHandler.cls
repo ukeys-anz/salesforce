@@ -18,21 +18,37 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
-    List<Interaction> apptInteractions = mapOfInteractionsByRecordType.get(
-      GetHelpConstants.INTERACTION_APPT_RT_ID
-    );
+    List<Interaction> apptInteractions = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_APPT_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_APPT_RT_ID
+        )
+      : new List<Interaction>();
 
-    List<Interaction> storeInteractions = mapOfInteractionsByRecordType.get(
-      GetHelpConstants.INTERACTION_STORE_RT_ID
-    );
+    List<Interaction> storeInteractions = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_STORE_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_APPT_RT_ID
+        )
+      : new List<Interaction>();
 
-    List<Interaction> chatInteractions = mapOfInteractionsByRecordType.get(
-      GetHelpConstants.INTERACTION_MESSAGE_RT_ID
-    );
+    List<Interaction> chatInteractions = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_APPT_RT_ID
+        )
+      : new List<Interaction>();
 
-    List<Interaction> generalInteractions = mapOfInteractionsByRecordType.get(
-      GetHelpConstants.INTERACTION_GENERAL_RT_ID
-    );
+    List<Interaction> generalInteractions = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_GENERAL_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_APPT_RT_ID
+        )
+      : new List<Interaction>();
 
     Map<Id, SObject> apptMap = new Map<Id, SObject>(apptInteractions);
     Set<Id> apptIds = new Set<Id>(apptMap.keyset());
