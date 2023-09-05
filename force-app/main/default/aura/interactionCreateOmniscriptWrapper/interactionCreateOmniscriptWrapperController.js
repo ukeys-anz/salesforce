@@ -66,6 +66,12 @@
       if (rtDeveloperName === "Store") {
         component.set("v.boolIsStore", true);
         component.set("v.spinner", false);
+      } else if (rtDeveloperName === "General") {
+        component.set("v.boolIsGeneral", true);
+        component.set("v.spinner", false);
+      } else if (rtDeveloperName === "Message") {
+        component.set("v.boolIsChat", true);
+        component.set("v.spinner", false);
       } else {
         component.set("v.spinner", false);
         navService.navigate(pageReference, true);

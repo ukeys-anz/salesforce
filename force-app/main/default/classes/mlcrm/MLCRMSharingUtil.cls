@@ -159,7 +159,7 @@ public without sharing class MLCRMSharingUtil {
     Map<Id, List<User_Territory__c>> mapOfTerritoryToUsers = new Map<Id, List<User_Territory__c>>();
     Map<Id, Id> mapOfRecordToOwnerId = new Map<Id, Id>();
     Set<Id> idsOfTerritory = new Set<Id>();
-    Map<String,String> mapOfUserToRole = new Map<String,String>();
+    Map<String, String> mapOfUserToRole = new Map<String, String>();
     if (!lstOfSobject.isEmpty()) {
       for (sObject objSobject : lstOfSobject) {
         idsOfTerritory.add((Id) objSobject.get('Territory__c'));
@@ -210,9 +210,9 @@ public without sharing class MLCRMSharingUtil {
         )
       ) {
         Sobject objShareObject = getNewSObject(strShareObject);
-        // Condition to handle sharing of record for standard share object. Logic to make sure Loan writer are not able to see FO, FM and 
-        // Admin records. However FO, FM and Admin are able to see LW's records. LWs can see other LWs' records in unrestricted territories. 
-        // In restricted territories, no records are shared with LWs. 
+        // Condition to handle sharing of record for standard share object. Logic to make sure Loan writer are not able to see FO, FM and
+        // Admin records. However FO, FM and Admin are able to see LW's records. LWs can see other LWs' records in unrestricted territories.
+        // In restricted territories, no records are shared with LWs.
         if (
           mapOfUserToRole.containsKey(strUserRoleKey) &&
           ((mapOfUserToRole.get(strUserRoleKey) != MLCRMConstants.LOAN_WRITER &&
@@ -229,11 +229,7 @@ public without sharing class MLCRMSharingUtil {
           objShareObject.put(strObject + 'AccessLevel', 'Edit');
           objShareObject.put('UserOrGroupId', objUT.User__c);
           lstOfLeadShare.add(objShareObject);
-        } 
-        // Condition to handle sharing of record for custom share object. Logic to make sure Loan writer are not able to see FO, FM and 
-        // Admin records. However FO, FM and Admin are able to see LW's records. LWs can see other LWs' records in unrestricted territories. 
-        // In restricted territories, no records are shared with LWs. 
-        else if (
+        } else if (
           mapOfUserToRole.containsKey(strUserRoleKey) &&
           ((mapOfUserToRole.get(strUserRoleKey) != MLCRMConstants.LOAN_WRITER &&
           objUT.ML_Role__c != MLCRMConstants.LOAN_WRITER) ||
@@ -245,6 +241,9 @@ public without sharing class MLCRMSharingUtil {
           strObject.contains(MLCRMConstants.UNDERSCORE_C) &&
           (Id) objSobject.get('OwnerId') != objUT.User__c
         ) {
+          // Condition to handle sharing of record for custom share object. Logic to make sure Loan writer are not able to see FO, FM and
+          // Admin records. However FO, FM and Admin are able to see LW's records. LWs can see other LWs' records in unrestricted territories.
+          // In restricted territories, no records are shared with LWs.
           objShareObject.put('ParentId', (Id) objSobject.get('Id'));
           objShareObject.put('AccessLevel', 'Edit');
           objShareObject.put('UserOrGroupId', objUT.User__c);
@@ -262,7 +261,7 @@ public without sharing class MLCRMSharingUtil {
     }
 
     if (!lstOfLeadShare.isEmpty()) {
-      insertShareRecord(lstOfLeadShare,strShareObject,strObject);
+      insertShareRecord(lstOfLeadShare, strShareObject, strObject);
     }
   }
 
@@ -275,36 +274,39 @@ public without sharing class MLCRMSharingUtil {
    * @author Ashish Kumar
    * @US CC-4418
    */
-  private static void insertShareRecord(List<Sobject> lstOfSobject,String strShareObject,String strObject) {
+  private static void insertShareRecord(
+    List<Sobject> lstOfSobject,
+    String strShareObject,
+    String strObject
+  ) {
     String strFieldColumn = strObject.contains(MLCRMConstants.UNDERSCORE_SHARE)
       ? 'ParentId'
       : strObject + 'Id';
     Set<Id> idsOfCreatedRecord = new Set<Id>();
-      Database.SaveResult[] lstOfResults = Database.insert(
-        lstOfSobject,
-        false
+    Database.SaveResult[] lstOfResults = Database.insert(lstOfSobject, false);
+    List<WrapSharingError> lstOfSharingError = new List<WrapSharingError>();
+    for (integer i = 0; i < lstOfResults.size(); i++) {
+      if (!lstOfResults.get(i).isSuccess()) {
+        Database.Error error = lstOfResults.get(i).getErrors().get(0);
+        lstOfSharingError.add(
+          new WrapSharingError(
+            (String) lstOfSobject[i].get(strFieldColumn),
+            (String) lstOfSobject[i].get('UserOrGroupId'),
+            error.getMessage()
+          )
+        );
+      }
+    }
+
+    if (!lstOfSharingError.isEmpty()) {
+      Logger.error(
+        'Error occured while creating ' +
+        strShareObject +
+        ' record',
+        processSharingException(lstOfSharingError)
       );
-      List<WrapSharingError> lstOfSharingError = new List<WrapSharingError>();
-      for (integer i = 0; i < lstOfResults.size(); i++) {
-        if (!lstOfResults.get(i).isSuccess()) {
-          Database.Error error = lstOfResults.get(i).getErrors().get(0);
-          lstOfSharingError.add(
-            new WrapSharingError(
-              (String) lstOfSobject[i].get(strFieldColumn),
-              (String) lstOfSobject[i].get('UserOrGroupId'),
-              error.getMessage()
-            )
-          );
-        }
-      }
-      
-      if (!lstOfSharingError.isEmpty()) {
-          Logger.error(
-              'Error occured while creating ' + strShareObject + ' record',
-              processSharingException(lstOfSharingError)
-          );
-          Logger.saveLog();
-      }
+      Logger.saveLog();
+    }
   }
 
   /**
@@ -378,13 +380,15 @@ public without sharing class MLCRMSharingUtil {
           );
         }
       }
-      
+
       if (!lstOfSharingError.isEmpty()) {
-          Logger.error(
-              'Error occured while deleting ' + strShareObject + ' record',
-              processSharingException(lstOfSharingError)
-          );
-          Logger.saveLog();
+        Logger.error(
+          'Error occured while deleting ' +
+          strShareObject +
+          ' record',
+          processSharingException(lstOfSharingError)
+        );
+        Logger.saveLog();
       }
     }
   }
@@ -429,11 +433,7 @@ public without sharing class MLCRMSharingUtil {
      * @author Ashish Kumar
      * @US CC-4418
      */
-    public WrapSharingError(
-      String recordId,
-      String userId,
-      String errMsg
-    ) {
+    public WrapSharingError(String recordId, String userId, String errMsg) {
       this.recordId = recordId;
       this.userId = userId;
       this.errMsg = errMsg;

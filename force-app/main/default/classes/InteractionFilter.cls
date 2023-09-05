@@ -153,4 +153,22 @@ public with sharing class InteractionFilter {
     }
     return interactionList;
   }
+
+  /**
+   * @description Returns the list of chat interactions
+   * @param interactions List<Interaction> list of new interaction records.
+   * @return List<Interaction> list of chat interactions.
+   */
+  public static List<Interaction> getChatInteractions(
+    List<Interaction> interactions
+  ) {
+    Id chatRTID = GetHelpConstants.INTERACTION_MESSAGE_RT_ID;
+    List<Interaction> interactionList = new List<Interaction>();
+    for (Interaction interact : interactions) {
+      if (interact.RecordTypeId == chatRTID) {
+        interactionList.add(interact);
+      }
+    }
+    return interactionList;
+  }
 }

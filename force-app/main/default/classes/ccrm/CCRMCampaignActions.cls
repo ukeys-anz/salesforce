@@ -5,8 +5,7 @@
  * @description CCRMCampaignActions is class to handle all the Campaign Actions
  */
 public with sharing class CCRMCampaignActions {
-
-   //Constant Values
+  //Constant Values
   public static final String CCRM_DEFAULT_CAMPAIGN = Label.CCRM_DefaultCampaign;
   public static final String ML_DEFAULT_CAMPAIGN = Label.MLCRM_DefaultCampaign;
 
@@ -19,27 +18,37 @@ public with sharing class CCRMCampaignActions {
     if (!Campaign.SObjectType.getDescribe().isAccessible()) {
       return;
     }
-    Map<String,Campaign> defaultCampaignMap = getDefaultCampaign();
+    Map<String, Campaign> defaultCampaignMap = getDefaultCampaign();
 
     for (Lead record : records) {
       if (
-        !defaultCampaignMap.isEmpty() &&
-        String.isBlank(record.Campaign_Code__c)
+        !defaultCampaignMap.isEmpty() && String.isBlank(record.Campaign_Code__c)
       ) {
-        if (CCRMLeadUtil.isCCRMLeadType(record) && defaultCampaignMap.containsKey(CCRM_DEFAULT_CAMPAIGN)) {
-          record.Campaign_Code__c = defaultCampaignMap.get(CCRM_DEFAULT_CAMPAIGN).Code__c;
-        } else if (CCRMLeadUtil.isMLCRMLeadType(record) && defaultCampaignMap.containsKey(ML_DEFAULT_CAMPAIGN)) {
-          record.Campaign_Code__c = defaultCampaignMap.get(ML_DEFAULT_CAMPAIGN).Code__c;
-        } 
+        if (
+          CCRMLeadUtil.isCCRMLeadType(record) &&
+          defaultCampaignMap.containsKey(CCRM_DEFAULT_CAMPAIGN)
+        ) {
+          record.Campaign_Code__c = defaultCampaignMap.get(
+              CCRM_DEFAULT_CAMPAIGN
+            )
+            .Code__c;
+        } else if (
+          CCRMLeadUtil.isMLCRMLeadType(record) &&
+          defaultCampaignMap.containsKey(ML_DEFAULT_CAMPAIGN)
+        ) {
+          record.Campaign_Code__c = defaultCampaignMap.get(ML_DEFAULT_CAMPAIGN)
+            .Code__c;
+        }
       }
       //CC-4179 populate campaign Name from Campaign for ML
       if (
         CCRMLeadUtil.isMLCRMLeadType(record) &&
-        defaultCampaignMap != null  &&
+        defaultCampaignMap != null &&
         defaultCampaignMap.containsKey(ML_DEFAULT_CAMPAIGN) &&
         String.isBlank(record.Campaign_Name__c)
       ) {
-        record.Campaign_Name__c = defaultCampaignMap.get(ML_DEFAULT_CAMPAIGN).Name;
+        record.Campaign_Name__c = defaultCampaignMap.get(ML_DEFAULT_CAMPAIGN)
+          .Name;
       }
     }
   }
@@ -89,12 +98,12 @@ public with sharing class CCRMCampaignActions {
    * @name getDefaultCampaign
    * @return `defaultCampaignMap`
    */
-  public static Map<String,Campaign> getDefaultCampaign() {
+  public static Map<String, Campaign> getDefaultCampaign() {
     Set<String> defaultCampaignCodes = new Set<String>();
     defaultCampaignCodes.add(CCRM_DEFAULT_CAMPAIGN);
     defaultCampaignCodes.add(ML_DEFAULT_CAMPAIGN);
     List<Campaign> defaultCampaign = new List<Campaign>();
-    Map<String,Campaign> defaultCampaignMap = new Map<String,Campaign>();
+    Map<String, Campaign> defaultCampaignMap = new Map<String, Campaign>();
     try {
       defaultCampaign = [
         SELECT Id, Code__c, Name
@@ -110,8 +119,8 @@ public with sharing class CCRMCampaignActions {
         Logger.saveLog();
         return defaultCampaignMap;
       } else {
-        for(Campaign camp: defaultCampaign ){
-          defaultCampaignMap.put(camp.Code__c,camp);
+        for (Campaign camp : defaultCampaign) {
+          defaultCampaignMap.put(camp.Code__c, camp);
         }
       }
     } catch (System.QueryException qe) {

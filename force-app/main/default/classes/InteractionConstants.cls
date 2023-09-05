@@ -26,7 +26,12 @@ public with sharing class InteractionConstants {
   public static final String CANCELLED = 'Cancelled';
   public static final String INTERNAL = 'Internal';
   public static final String CUSTOMER = 'Customer';
+  public static final String NONCUSTOMER = 'Non-Customer';
   public static final String INBOUND = 'Inbound';
+  public static final String GENERAL = 'General';
+  public static final String CLOSED_AND_ARCHIVED = 'Closed & Archived';
+  public static final String ACTIVE = 'Active';
+  public static final String RESOLVED = 'Resolved';
   public static final Id APPOINTMENT_RECORD_TYPE_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
     .getRecordTypeId();

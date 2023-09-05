@@ -125,7 +125,13 @@ public with sharing class InteractionSetters {
         continue;
       }
       if (interact.RecordTypeId != appointmentRTID) {
-        interact.Name = interact.Direction__c + ' ' + interact.InteractionType;
+        // Added the blank check for the Interaction Name population to differentiate from where Interaction got created -Shivam 30/06/2023
+        if (String.isBlank(interact.Name)) {
+          interact.Name =
+            interact.Direction__c +
+            ' ' +
+            interact.InteractionType;
+        }
       } else if (
         AutomatedRequestMetadataProvider.getInstance()
           .getMap()

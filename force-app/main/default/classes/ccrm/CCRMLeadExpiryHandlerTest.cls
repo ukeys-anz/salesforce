@@ -25,8 +25,16 @@ public class CCRMLeadExpiryHandlerTest {
     }
     // MLCRM Test Data Setup
     System.runAs(mlUser) {
-      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(10,mlUser,true);
-      MLCRMTestDataFactory.createUserTerritoryRecords(10,mlUser.Id,lstOfTerritory[0].Id);
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+        10,
+        mlUser,
+        true
+      );
+      MLCRMTestDataFactory.createUserTerritoryRecords(
+        10,
+        mlUser.Id,
+        lstOfTerritory[0].Id
+      );
       MLCRMTestDataFactory.createLeadRecords(10, mlUser);
     }
   }

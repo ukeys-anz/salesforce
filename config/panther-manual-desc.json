@@ -199,6 +199,7 @@
     "Interaction": "Represents the interaction details between the coach and the customer",
     "Interaction_Tag__c": "Master data to store all Tag values to be displayed on Custom LWCs",
     "Interaction_Context_Tag__c": "Junction Object between Interaction and Interaction Tag",
+    "InteractionStatusMappingForTwilio": "Custom Meta Data to store the mappings of Twilio and Interaction Status",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -227,6 +228,7 @@
     "ResidentialLoanApplication": "General information and identifiers to describe type of loan",
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
     "Task": "A task to remind a user to follow up on something",
+    "Twilio_Details__c": "To capture details from Twilio as part of Call and Chat Interaction",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
     "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
@@ -1672,6 +1674,7 @@
         "Appointment__c",
         "AppointmentId__c",
         "Attendees__c",
+        "Assisted__c",
         "Attendees_and_Roles__c",
         "Authentication_Method__c",
         "Call_Recording_ID__c",
@@ -1707,6 +1710,7 @@
         "Name",
         "Optional_Notes__c",
         "OwnerId",
+        "Place__c",
         "Record_Type__c",
         "RecordTypeId",
         "ReferenceIdentifier",
@@ -1714,12 +1718,18 @@
         "Resolution__c",
         "StartTime",
         "Status__c",
-        "Twilio_ID__c",
-        "Assisted__c",
+        "Support_Topics__c",
         "Self_Service__c",
-        "Place__c"
+        "Twilio_ID__c",
+        "TwilioDetailsID__c",
+        "Video_Call__c"
       ],
-      "IA-2468715": ["Loan_Application__c"]
+      "IA-2468715": [
+        "Loan_Application__c",
+        "Actual_Topics__c",
+        "Products__c",
+        "Reason_for_Visit__c"
+      ]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
@@ -1759,6 +1769,9 @@
     },
     "Interaction_Attendee": {
       "IA-2468715": ["AttendeeType", "UserId", "Time__c"]
+    },
+    "InteractionStatusMappingForTwilio__mdt": {
+      "IA-2530753": ["Interaction_Status__c", "Type__c", "Twilio_Status__c"]
     },
     "Known_Issues__c": {
       "IA-2468715": [
@@ -2833,6 +2846,16 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Twilio_Details__c": {
+      "IA-2415840": [
+        "ANZ_Queue__c",
+        "Call_Recording_Id__c",
+        "Chat_or_Call_SID__c",
+        "Status__c",
+        "Twilio_ID__c",
+        "NLP_Topic__c"
       ]
     },
     "User": {

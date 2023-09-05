@@ -61,6 +61,7 @@
     "Response_Type__c",
     "Reported_Bug__c",
     "Task",
+    "Twilio_Details__c",
     "Traced_Application_Log__b",
     "trailheadapp__Badge__c",
     "trailheadapp__Debug_Log__c",
@@ -70,9 +71,19 @@
     "trailheadapp__Trailmix_Assignment__c",
     "trailheadapp__User_Badge__c",
     "trailheadapp__User_Trailmix__c",
-    "User"
+    "User",
+    "InteractionStatusMappingForTwilio__mdt"
   ],
   "usermap": [
+    {
+      "name": "Api Enabled User",
+      "profile": "Integration User",
+      "permissionsets": [
+        "Interaction_Read_Only",
+        "FinServ__FinancialServicesCloudExtension"
+      ],
+      "type": "user"
+    },
     {
       "name": "ANZ Plus Operations - Read Only",
       "profile": "ANZx Standard User",
@@ -471,7 +482,8 @@
         "Enforce_mTLS",
         "Interaction_Integration",
         "Password_Never_Expires",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Twilio_Details_Read_Write"
       ],
       "type": "system"
     },

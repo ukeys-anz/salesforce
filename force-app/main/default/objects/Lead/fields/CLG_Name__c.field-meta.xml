@@ -3,10 +3,9 @@
     <fullName>CLG_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Customer Lending Group Account Name</description>
     <deleteConstraint>SetNull</deleteConstraint>
+    <description>Customer Lending Group Account Name</description>
     <externalId>false</externalId>
-    <securityClassification>Internal</securityClassification>
     <label>CLG</label>
     <lookupFilter>
         <active>true</active>
@@ -21,6 +20,7 @@
     <relationshipLabel>Leads (CLG Name)</relationshipLabel>
     <relationshipName>Leads</relationshipName>
     <required>false</required>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

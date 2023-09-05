@@ -56,7 +56,8 @@ public with sharing class InteractionRelatedListControllerTest {
       CaseId__c = newCase.Id,
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
-      InteractionType = STORE_LOCATION,
+      InteractionType = 'Call',
+      Direction__c = 'Inbound',
       LocationId = testLocation.Id
     );
     List<Interaction> intList = new List<Interaction>{
@@ -114,7 +115,8 @@ public with sharing class InteractionRelatedListControllerTest {
       AccountId = testAcc.Id,
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
-      InteractionType = STORE_LOCATION,
+      InteractionType = 'Call',
+      Direction__c = 'Inbound',
       LocationId = testLocation.Id
     );
 

@@ -349,7 +349,7 @@ private class CCRMLeadActionsTest {
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leads[0].Id);
     Test.startTest();
-      CCRMLeadPlatformEventActions.resendManualLeadPlatformEvent(leadIds);
+    CCRMLeadPlatformEventActions.resendManualLeadPlatformEvent(leadIds);
     Test.stopTest();
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage

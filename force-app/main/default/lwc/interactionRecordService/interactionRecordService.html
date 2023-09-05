@@ -1,0 +1,130 @@
+<template>
+  <template if:true={showMessage}>
+    <div class="slds-m-around_medium">
+      <template if:true={showInteractionRecords}>
+        <template for:each={interactionrecords.data} for:item="record">
+          <div class="slds-m-top_small" key={record.interactId}>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col">
+                <div class="ellipsis">
+                  <a
+                    href="javascript:void(0);"
+                    onclick={handleViewRecord}
+                    data-id={record.interactId}
+                  >
+                    {record.actualTopic}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_5-of-12">Date and Time:</div>
+              <div class="slds-col slds-size_6-of-12">
+                {record.interactTime}
+              </div>
+              <div class="slds-col slds-size_1-of-12">
+                <div style="float: right">
+                  <lightning-button-menu
+                    alternative-text="Show menu"
+                    variant="border-filled"
+                    menu-alignment="right"
+                    icon-size="x-small"
+                    data-id={record.chatOrCallSid}
+                    onselect={handleOnselect}
+                  >
+                    <template if:true={record.enableReinitiate}>
+                      <lightning-menu-item
+                        label="Reply to Customer"
+                        value="re_initiate"
+                        data-id={record.accountId}
+                        onclick={handleActionSelect}
+                      >
+                      </lightning-menu-item>
+                    </template>
+                    <lightning-menu-item
+                      label="View transcript"
+                      value="chat_history"
+                      onclick={handleActionSelect}
+                    ></lightning-menu-item>
+                  </lightning-button-menu>
+                </div>
+              </div>
+            </div>
+            <template if:true={record.videoCall}>
+              <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_5-of-12">Video Call:</div>
+                <div class="slds-col slds-size_7-of-12">Yes</div>
+              </div>
+            </template>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_5-of-12">Status:</div>
+              <div class="slds-col slds-size_7-of-12">{record.status}</div>
+            </div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </template>
+  <template if:true={showCall}>
+    <div class="slds-m-around_medium">
+      <template if:true={showInteractionRecords}>
+        <template for:each={interactionrecords.data} for:item="record">
+          <div class="slds-m-top_small" key={record.interactId}>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col">
+                <div class="ellipsis">
+                  <a
+                    href="javascript:void(0);"
+                    onclick={handleViewRecord}
+                    data-id={record.interactId}
+                  >
+                    {record.actualTopic}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_1-of-2">Date and Time:</div>
+              <div class="slds-col slds-size_1-of-2">{record.interactTime}</div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_1-of-2">Attendee:</div>
+              <div class="slds-col slds-size_1-of-2">{record.attendees}</div>
+            </div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </template>
+  <template if:true={showStore}>
+    <div class="slds-m-around_medium">
+      <template if:true={showInteractionRecords}>
+        <template for:each={interactionrecords.data} for:item="record">
+          <div class="slds-m-top_small" key={record.interactId}>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col">
+                <div class="ellipsis">
+                  <a
+                    href="javascript:void(0);"
+                    onclick={handleViewRecord}
+                    data-id={record.interactId}
+                  >
+                    {record.reasonOfVisit}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_1-of-2">Date and Time:</div>
+              <div class="slds-col slds-size_1-of-2">{record.interactTime}</div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_1-of-2">Place:</div>
+              <div class="slds-col slds-size_1-of-2">{record.place}</div>
+            </div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </template>
+</template>

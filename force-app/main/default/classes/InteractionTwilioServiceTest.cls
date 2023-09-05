@@ -2,10 +2,11 @@
  * @author
  * @since August 2022
  * @description InteractionTwilioServiceTest is the test class for InteractionTwilioService Class.
+ * Deprecated Class as Twilio Team will be using Rest Context InteractionContextServiceUpdate for updating interaction. This class will not be used anymore -Shivam July 2023 ANZX-103285
  */
 @isTest
 private class InteractionTwilioServiceTest {
-  @isTest
+  /*@isTest
   static void updateInteractionFail() {
     Test.startTest();
     try {
@@ -21,9 +22,9 @@ private class InteractionTwilioServiceTest {
       );
     }
     Test.stopTest();
-  }
+  }*/
 
-  @isTest
+  /*@isTest
   static void updateInteractionSuccess() {
     Faker faker = new Faker('AU');
     Interaction interactionRecord = new Interaction(
@@ -32,24 +33,34 @@ private class InteractionTwilioServiceTest {
     );
     insert interactionRecord;
 
-    InteractionTwilioService.UpdateInteractionPayload payload1 = new InteractionTwilioService.UpdateInteractionPayload();
-    payload1.interactionId = interactionRecord.Id;
-    payload1.twilioId = 'TWILIO_ID';
-
-    InteractionTwilioService.UpdateInteractionPayload payload2 = new InteractionTwilioService.UpdateInteractionPayload();
-    payload2.interactionId = interactionRecord.Id;
-    payload2.chatOrCallId = 'CHAT_OR_CALL_ID';
+    InteractionTwilioService.UpdateInteractionPayload payload = new InteractionTwilioService.UpdateInteractionPayload();
+    payload.interactionId = interactionRecord.Id;
+    payload.twilioId = 'TWILIO_ID';
+    payload.chatOrCallId = 'CHAT_OR_CALL_ID';
+    payload.chatOrCallStatus = 'CHAT_OR_CALL_STATUS';
+    payload.callRecordingId = 'CALL_RECORDING_ID';
+    payload.queueName = 'QUEUE_NAME';
 
     Test.startTest();
-    InteractionTwilioService.updateInteraction(JSON.serialize(payload1));
-    InteractionTwilioService.updateInteraction(JSON.serialize(payload2));
+    InteractionTwilioService.updateInteraction(JSON.serialize(payload));
     Test.stopTest();
 
     Interaction updatedRecord = [
-      SELECT Id, Twilio_ID__c, Chat_or_Call_SID__c
+      SELECT Id, Twilio_ID__c, Chat_or_Call_SID__c, TwilioDetailsID__c
       FROM Interaction
       WHERE Id = :interactionRecord.Id
     ];
+    Twilio_Details__c insertedTwilioDetailRecord = [
+      SELECT
+        Id,
+        Twilio_ID__c,
+        Chat_or_Call_SID__c,
+        Call_Recording_Id__c,
+        ANZ_Queue__c
+      FROM Twilio_Details__c
+      WHERE Id = :updatedRecord.TwilioDetailsID__c
+    ];
+
     System.assertEquals(
       'TWILIO_ID',
       updatedRecord.Twilio_ID__c,
@@ -60,5 +71,15 @@ private class InteractionTwilioServiceTest {
       updatedRecord.Chat_or_Call_SID__c,
       'Updated Record Chat or Call SID does not match'
     );
-  }
+    System.assertEquals(
+      'CALL_RECORDING_ID',
+      insertedTwilioDetailRecord.Call_Recording_Id__c,
+      'Inserted Twilio Record Call Recording Id does not match'
+    );
+    System.assertEquals(
+      'QUEUE_NAME',
+      insertedTwilioDetailRecord.ANZ_Queue__c,
+      'Inserted Twilio ANZ Queue does not match'
+    );
+  }*/
 }

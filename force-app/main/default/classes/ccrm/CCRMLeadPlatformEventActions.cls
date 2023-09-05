@@ -364,9 +364,23 @@ public with sharing class CCRMLeadPlatformEventActions {
       CCRM_Lead_to_Platform_Event_Mapping__mdt mapping : mappingsInCustomMetadata
     ) {
       if (mapping.Destination_System__c == 'All') {
-          if(mapping.Platform_Event_Field_API_Name__c == 'Status__c' && (record.recordTypeId == CCRMConstants.CCRM_LEAD_RT_ID || record.recordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID)) {
-              // CC-1090 to include ML lead to send platform event when status,expiry date or owner is changed
-          if(!leadStatusTransMap.isEmpty() && String.isNotBlank(record.Status) && leadStatusTransMap.containsKey(record.Status) && String.IsNotBlank(record.Lead_Outcome__c) && leadStatusTransMap.containsKey(record.Status + '-' + record.Lead_Outcome__c)){
+        if (
+          mapping.Platform_Event_Field_API_Name__c == 'Status__c' &&
+          (record.recordTypeId == CCRMConstants.CCRM_LEAD_RT_ID ||
+          record.recordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID)
+        ) {
+          // CC-1090 to include ML lead to send platform event when status,expiry date or owner is changed
+          if (
+            !leadStatusTransMap.isEmpty() &&
+            String.isNotBlank(record.Status) &&
+            leadStatusTransMap.containsKey(record.Status) &&
+            String.IsNotBlank(record.Lead_Outcome__c) &&
+            leadStatusTransMap.containsKey(
+              record.Status +
+              '-' +
+              record.Lead_Outcome__c
+            )
+          ) {
             leadEvent.put(
               mapping.Platform_Event_Field_API_Name__c,
               leadStatusTransMap.get(

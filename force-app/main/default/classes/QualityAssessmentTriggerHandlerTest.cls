@@ -685,7 +685,8 @@ private class QualityAssessmentTriggerHandlerTest {
       Name = faker.randomString(10),
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
-      InteractionType = STORE_LOCATION
+      InteractionType = 'Call',
+      Direction__c = 'Inbound'
     );
     insert interaction;
 

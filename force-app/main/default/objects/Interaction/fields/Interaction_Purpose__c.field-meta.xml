@@ -15,7 +15,17 @@
         <controllingField>InteractionType</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
+            <value>
+                <fullName>ANZ Customer</fullName>
+                <default>false</default>
+                <label>ANZ Customer</label>
+            </value>
+            <value>
+                <fullName>ANZ Plus Customer</fullName>
+                <default>false</default>
+                <label>ANZ Plus Customer</label>
+            </value>
             <value>
                 <fullName>Customer</fullName>
                 <default>false</default>
@@ -25,6 +35,11 @@
                 <fullName>Digital Support</fullName>
                 <default>false</default>
                 <label>Digital Support</label>
+            </value>
+            <value>
+                <fullName>Existing ANZ Customer</fullName>
+                <default>false</default>
+                <label>Existing ANZ Customer</label>
             </value>
             <value>
                 <fullName>Financial Wellbeing</fullName>
@@ -51,18 +66,35 @@
                 <default>false</default>
                 <label>Wrong Number</label>
             </value>
-            <value>
-                <fullName>Existing ANZ Customer</fullName>
-                <default>false</default>
-                <label>Existing ANZ Customer</label>
-            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <valueName>Existing ANZ Customer</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
-            <valueName>Customer</valueName>
+            <valueName>Non-Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Testing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Wrong Number</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
@@ -83,31 +115,15 @@
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
-            <valueName>Non-Customer</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Call</controllingFieldValue>
-            <controllingFieldValue>Chat</controllingFieldValue>
-            <controllingFieldValue>Store</controllingFieldValue>
-            <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Other</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Call</controllingFieldValue>
-            <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>
-            <controllingFieldValue>Video</controllingFieldValue>
-            <valueName>Testing</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Call</controllingFieldValue>
-            <controllingFieldValue>Chat</controllingFieldValue>
-            <controllingFieldValue>Video</controllingFieldValue>
-            <valueName>Wrong Number</valueName>
+            <valueName>ANZ Customer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>
-            <valueName>Existing ANZ Customer</valueName>
+            <valueName>ANZ Plus Customer</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
