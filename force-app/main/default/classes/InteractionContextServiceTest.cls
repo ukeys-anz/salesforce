@@ -286,7 +286,6 @@ public with sharing class InteractionContextServiceTest {
    * @param ocvId the OCVId
    * @param userId the OCVId
    * @param phoneNumber the OCVId
-   * @param externalId the OCVId
    * @return Account a Person Account with Name and OCV as provided
    */
   static Account createTestAccount(
