@@ -120,6 +120,6 @@ public with sharing class InteractionFilter {
       }
       mapOfInteractionsByRecordType.get(interact.RecordTypeId).add(interact);
     }
-    return interactionList;
+    return mapOfInteractionsByRecordType;
   }
 }
