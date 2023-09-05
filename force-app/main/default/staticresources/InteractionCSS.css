@@ -19,7 +19,7 @@ section .slds-accordion__summary {
 
 /* Show required tag on typeahead */
 omnistudio-omniscript-typeahead[data-omni-key*="reason"]
-  label[omnistudio-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -30,7 +30,7 @@ omnistudio-omniscript-typeahead[data-omni-key*="reason"]
 
 /* runtime css */
 runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="reason"]
-  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -41,7 +41,7 @@ runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="reason"]
 
 c-interaction-create-and-edit-flow-english
   omnistudio-omniscript-typeahead[data-omni-key*="topic"]
-  label[omnistudio-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -53,7 +53,7 @@ c-interaction-create-and-edit-flow-english
 /* runtime css */
 c-interaction-create-and-edit-flow-english
   runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
-  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -64,7 +64,7 @@ c-interaction-create-and-edit-flow-english
 
 c-interaction-create-and-edit-flow-for-call-english
   omnistudio-omniscript-typeahead[data-omni-key*="topic"]
-  label[omnistudio-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -76,7 +76,7 @@ c-interaction-create-and-edit-flow-for-call-english
 /* runtime css */
 c-interaction-create-and-edit-flow-for-call-english
   runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
-  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -86,7 +86,7 @@ c-interaction-create-and-edit-flow-for-call-english
 }
 
 omnistudio-omniscript-typeahead[data-omni-key*="product"]
-  label[omnistudio-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -97,7 +97,7 @@ omnistudio-omniscript-typeahead[data-omni-key*="product"]
 
 /* runtime css */
 runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="product"]
-  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
