@@ -199,6 +199,7 @@
     "Interaction": "Represents the interaction details between the coach and the customer",
     "Interaction_Tag__c": "Master data to store all Tag values to be displayed on Custom LWCs",
     "Interaction_Context_Tag__c": "Junction Object between Interaction and Interaction Tag",
+    "InteractionStatusMappingForTwilio": "Custom Meta Data to store the mappings of Twilio and Interaction Status",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -237,8 +238,7 @@
     "trailheadapp__Trailmix_Assignment__c": "Junction object representing that a user has been assigned some learning content",
     "trailheadapp__User_Badge__c": "Junction object for badges and users.",
     "trailheadapp__User_Trailmix__c": "Maintains user assignments and follows for trailmixes.",
-    "User": "A Salesforce user (ANZ employee)",
-    "InteractionStatusMappingForTwilio": "Custom Meta Data to store the mappings of Twilio and Interaction Status"
+    "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
     "Account": {
@@ -622,6 +622,7 @@
         "Fraud_ID_Not_Picture__c",
         "Fraud_ID_True_Document__c",
         "Fraud_Loss_Reason_Code__c",
+        "Fraud_MiddleNameCheck__c",
         "Fraud_Middle_Name__c",
         "Fraud_Middle_Initial__c",
         "Fraud_PIN_Status__c",
@@ -1105,31 +1106,37 @@
         "DateOfBirthOCRServer__c",
         "DateOfBirthOCRClient__c"
       ],
-      "IA-2415992": [
-        "LicenceNumber__c",
-        "LicenceNumberOCRServer__c",
-        "LicenceNumberOCRClient__c",
-        "LicenceCardNumber__c",
-        "LicenceCardNumberOCRServer__c",
-        "LicenceCardNumberOCRClient__c",
-        "PassportNumber__c",
-        "PassportNumberOCRServer__c",
-        "PassportNumberOCRClient__c"
-      ],
       "IA-2530753": [
-        "Id",
         "CreatedById",
         "CreatedDate",
+        "Id",
+        "DateOfBirthOCRMatch__c",
+        "FirstNameOCRMatch__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Name",
+        "LastNameOCRMatch__c",
+        "LicenceCardNumber__c",
+        "LicenceCardNumberOCRClient__c",
         "LicenceCardNumberOCRClientTransform__c",
+        "LicenceCardNumberOCRMatch__c",
+        "LicenceCardNumberOCRServer__c",
         "LicenceCardNumberOCRServerTransform__c",
         "LicenceCardNumberTransform__c",
+        "LicenceNumber__c",
+        "LicenceNumberOCRClient__c",
         "LicenceNumberOCRClientTransform__c",
+        "LicenceNumberOCRMatch__c",
+        "LicenceNumberOCRServer__c",
         "LicenceNumberOCRServerTransform__c",
         "LicenceNumberTransform__c",
+        "MiddleNamesInitialsOCRMatch__c",
+        "MiddleNamesOCRMatch__c",
+        "Name",
+        "PassportNumber__c",
+        "PassportNumberOCRClient__c",
         "PassportNumberOCRClientTransform__c",
+        "PassportNumberOCRMatch__c",
+        "PassportNumberOCRServer__c",
         "PassportNumberOCRServerTransform__c",
         "PassportNumberTransform__c",
         "ExpiryDateOCRMatch__c"
@@ -1667,6 +1674,7 @@
         "Appointment__c",
         "AppointmentId__c",
         "Attendees__c",
+        "Assisted__c",
         "Attendees_and_Roles__c",
         "Authentication_Method__c",
         "Call_Recording_ID__c",
@@ -1702,6 +1710,7 @@
         "Name",
         "Optional_Notes__c",
         "OwnerId",
+        "Place__c",
         "Record_Type__c",
         "RecordTypeId",
         "ReferenceIdentifier",
@@ -1709,12 +1718,10 @@
         "Resolution__c",
         "StartTime",
         "Status__c",
-        "Twilio_ID__c",
-        "Assisted__c",
-        "Self_Service__c",
-        "Place__c",
-        "TwilioDetailsID__c",
         "Support_Topics__c",
+        "Self_Service__c",
+        "Twilio_ID__c",
+        "TwilioDetailsID__c",
         "Video_Call__c"
       ],
       "IA-2468715": [
@@ -1762,6 +1769,9 @@
     },
     "Interaction_Attendee": {
       "IA-2468715": ["AttendeeType", "UserId", "Time__c"]
+    },
+    "InteractionStatusMappingForTwilio__mdt": {
+      "IA-2530753": ["Interaction_Status__c", "Type__c", "Twilio_Status__c"]
     },
     "Known_Issues__c": {
       "IA-2468715": [
@@ -2600,6 +2610,7 @@
         "ApexClassName__c",
         "ApexMethodName__c",
         "Log__c",
+        "LogMessage__c",
         "SpanId__c",
         "RecordsJson__c"
       ]
@@ -2916,9 +2927,6 @@
     },
     "Territory_Base_Sharing_Event__e": {
       "IA-2415860": ["Change_Context__c", "Record_Ids__c", "Trigger_Object__c"]
-    },
-    "InteractionStatusMappingForTwilio__mdt": {
-      "IA-2530753": ["Interaction_Status__c", "Type__c", "Twilio_Status__c"]
     }
   },
   "systemObjects": {
