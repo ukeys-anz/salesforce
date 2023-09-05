@@ -30,7 +30,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
         GetHelpConstants.INTERACTION_STORE_RT_ID
       )
       ? mapOfInteractionsByRecordType.get(
-          GetHelpConstants.INTERACTION_APPT_RT_ID
+          GetHelpConstants.INTERACTION_STORE_RT_ID
         )
       : new List<Interaction>();
 
@@ -38,7 +38,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
         GetHelpConstants.INTERACTION_MESSAGE_RT_ID
       )
       ? mapOfInteractionsByRecordType.get(
-          GetHelpConstants.INTERACTION_APPT_RT_ID
+          GetHelpConstants.INTERACTION_MESSAGE_RT_ID
         )
       : new List<Interaction>();
 
@@ -46,7 +46,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
         GetHelpConstants.INTERACTION_GENERAL_RT_ID
       )
       ? mapOfInteractionsByRecordType.get(
-          GetHelpConstants.INTERACTION_APPT_RT_ID
+          GetHelpConstants.INTERACTION_GENERAL_RT_ID
         )
       : new List<Interaction>();
 
@@ -57,8 +57,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     InteractionAttendeeActions.insertDefaultAttendee(records);
 
     //Add Interaction Number for Store too.
+
     generalInteractions.addAll(storeInteractions);
 
+    System.debug('generalInteractions ' + generalInteractions);
+    System.debug('storeInteractions ' + storeInteractions);
     //Add Interaction Number for Chat too
     generalInteractions.addAll(chatInteractions);
 
