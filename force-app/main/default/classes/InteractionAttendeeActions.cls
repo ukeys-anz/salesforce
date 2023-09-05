@@ -223,18 +223,18 @@ public with sharing class InteractionAttendeeActions {
       WHERE id = :UserInfo.getUserId()
     ];
 
-    for (Interaction interact : interactions) {
-      if (
-        profilenames.contains(userDetail.profile.name) &&
-        recordtypes.contains(interact.RecordTypeId)
-      ) {
-        InteractionAttendee intattendee = new InteractionAttendee();
-        intattendee.AttendeeType = InteractionConstants.INTERNAL;
-        intattendee.UserId = UserInfo.getUserId();
-        intattendee.InteractionId = interact.id;
-        lstInteractAttend.add(intattendee);
+    if (profilenames.contains(userDetail.profile.name)) {
+      for (Interaction interact : interactions) {
+        if (recordtypes.contains(interact.RecordTypeId)) {
+          InteractionAttendee intattendee = new InteractionAttendee();
+          intattendee.AttendeeType = InteractionConstants.INTERNAL;
+          intattendee.UserId = UserInfo.getUserId();
+          intattendee.InteractionId = interact.id;
+          lstInteractAttend.add(intattendee);
+        }
       }
     }
+
     DMLUtil.insertRecords(lstInteractAttend, false, true);
   }
 
