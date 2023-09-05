@@ -49,20 +49,18 @@ public with sharing class InteractionContextServiceTest {
 
       // Insert Account (Customer) record
       List<Account> testAccountList = new List<Account>();
-      Account testAccount1 = createTestAccount(
+      Account testAccountFirst = createTestAccount(
         'OCVID887766',
         apiUser.Id,
-        '123457',
-        'OCVID887766CAPSYSID123'
+        '123457'
       );
-      testAccountList.add(testAccount1);
-      Account testAccount2 = createTestAccount(
+      testAccountList.add(testAccountFirst);
+      Account testAccountSecond = createTestAccount(
         'OCVID887767',
         apiUser.Id,
-        '123456',
-        'OCVID887766CAPSYSID124'
+        '123456'
       );
-      testAccountList.add(testAccount2);
+      testAccountList.add(testAccountSecond);
       insert testAccountList;
     }
   }
@@ -297,20 +295,9 @@ public with sharing class InteractionContextServiceTest {
     String phoneNumber,
     String externalId
   ) {
-    Account testAccount = TestDataFactory.createAccount(false);
-    Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('PersonAccount')
-      .getRecordTypeId();
-    testAccount.FirstName = 'Joe';
-    testAccount.Name = null; // As name cannot be inserted while creating Person Account hence making it null.
-    testAccount.LastName = 'Bloggs';
-    testAccount.OCV_ID__c = ocvId;
+    Account testAccount = TestDataFactory.createPersonAccount(ocvId, false);
     testAccount.PersonMobilePhone = phoneNumber;
-    testAccount.RecordTypeId = personAccountRecordTypeId;
     testAccount.OwnerId = userId;
-    testAccount.External_Id__c = externalId;
-    testAccount.ANZx_Customer__c = true;
-
     return testAccount;
   }
 }

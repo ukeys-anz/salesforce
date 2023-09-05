@@ -41,6 +41,33 @@ public without sharing class TestDataFactory {
   }
 
   /**
+   * @description Create Person Account record
+   * @param doInsert Insert record or just initialise
+   * @param ocvId OCV Id of the customer
+   * @return Person Account
+   */
+  public static Account createPersonAccount(String ocvId, Boolean doInsert) {
+    Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('PersonAccount')
+      .getRecordTypeId();
+    Account personAcc = new Account();
+    personAcc.RecordTypeId = personAccountRecordTypeId;
+    personAcc.FirstName = TESTFAKER.randomString(5);
+    personAcc.LastName = TESTFAKER.randomString(5);
+    personAcc.OCV_ID__c = String.isNotBlank(ocvId)
+      ? ocvId
+      : TESTFAKER.randomString(10);
+    personAcc.ANZx_Customer__c = true;
+    personAcc.External_Id__c = TESTFAKER.randomString(15);
+
+    if (withMobile == true) {
+      personAcc.PersonMobilePhone = TEST_MOBILE;
+    }
+
+    return personAcc;
+  }
+
+  /**
    * @description Create Financial Account record
    * @param count Number of records to create
    * @param doInsert Insert record or just initialise
