@@ -64,6 +64,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   }
 
   /**
+   * @description return the liability source size attribute to display finance and savings flexcard.
+   */
+  public Integer liabilitySourceSize {
+    get {
+      return sop.liabilitySources.size();
+    }
+  }
+  /**
    * @description initialize the maps
    */
   public void initMaps() {
@@ -443,6 +451,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public class SOPModel {
     public List<SOPParty> parties;
+    public List<SOPLiabilitySources> liabilitySources;
   }
 
   /**
@@ -451,6 +460,17 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPParty {
     public String id;
     public String ocvId;
+  }
+
+  /**
+   * @description model for liabilitySources
+   */
+  public class SOPLiabilitySources {
+    public String type;
+    public String subType;
+    public Datetime retrievedTime;
+    public Boolean success;
+    public String partyId;
   }
 
   /**

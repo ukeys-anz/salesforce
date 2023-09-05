@@ -11,6 +11,9 @@
  */
 public with sharing class SOPModel extends CalloutModel {
   public Sop sop;
+  public static final String EQUIFAX = 'EQUIFAX';
+  public static final String EXPERIAN = 'EXPERIAN';
+  public static final String ILLION = 'ILLION';
 
   /**
    * @description main sop wrapper
@@ -20,6 +23,21 @@ public with sharing class SOPModel extends CalloutModel {
     public Components[] components;
     public Parties[] parties;
     public Integer dependantsCount;
+    public LiabilitySource[] liabilitySources;
+    public List<PartyLiability> partyLiabilities;
+    /**
+     * @description flag to hide Credit Bureau section if no confirmation received from all parties
+     */
+    public boolean confirmationFlag {
+      get {
+        for (Parties party : parties) {
+          if (party.confirmedAccounts == null) {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
   }
 
   /**
@@ -37,6 +55,7 @@ public with sharing class SOPModel extends CalloutModel {
   public class Parties {
     public String id;
     public String ocvId;
+    public String ownerName;
     public boolean spouseEarnsIncome;
 
     /**
@@ -66,7 +85,17 @@ public with sharing class SOPModel extends CalloutModel {
         return relationship;
       }
     }
-    public confirmedAccountsTime confirmedAccountsTime;
+    public Datetime confirmedAccounts;
+    /**
+     * @param confirmedAccounts input in dateTime format
+     * @return returns the formatted value for date and time
+     * @description formats the value for date and time
+     */
+    public String confirmedAccountsTimeStr {
+      get {
+        return BOHService.getFormatedDate(confirmedAccounts);
+      }
+    }
     public boolean multipleProfiles;
     public String personaId;
 
@@ -89,11 +118,54 @@ public with sharing class SOPModel extends CalloutModel {
   }
 
   /**
+   * @description Owner Name wrapper
+   */
+
+  public class OwnerDetails {
+    public string ocvId;
+    public string firstName;
+  }
+
+  /**
+   * @description Liability Sources wrapper
+   */
+  public class LiabilitySource {
+    public String partyId;
+    public String type;
+    public String subType;
+    public Datetime retrievedTime;
+    /**
+     * @description return update time in the expected format
+     */
+    public String updateRetrievedTimeStr {
+      get {
+        return BOHService.getFormatedDate(retrievedTime);
+      }
+    }
+    public boolean success;
+  }
+
+  /**
+   * @description group
+   */
+  /**
+   * @description Liability Sources wrapper
+   */
+  public class PartyLiability {
+    public String partyId;
+    public String ownerName;
+    public LiabilitySource liabilitySourceEquifax;
+    public LiabilitySource liabilitySourceExperian;
+    public LiabilitySource liabilitySourceIllion;
+  }
+
+  /**
    * @param json input string to deserialize
    * @return `SOPModel`
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
   public static SOPModel parse(String json) {
-    return (SOPModel) System.JSON.deserialize(json, SOPModel.class);
+    SOPMOdel model = (SOPModel) System.JSON.deserialize(json, SOPModel.class);
+    return model;
   }
 }

@@ -40,14 +40,66 @@
         "ocvId": "1000991493",
         "spouseEarnsIncome": false,
         "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
-        "confirmedAccountsTime": null,
+        "confirmedAccounts": "2023-05-04T07:31:38.700353Z",
+        "multipleProfiles": false,
+        "personaId": ""
+      },
+      {
+        "id": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+        "ocvId": "1000990282",
+        "spouseEarnsIncome": false,
+        "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
+        "confirmedAccounts": "2023-05-04T07:31:38.700353Z",
         "multipleProfiles": false,
         "personaId": ""
       }
     ],
     "expenseConfigVersion": "",
     "dependantsCount": 0,
-    "liabilitySources": [],
+    "liabilitySources": [
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "EQUIFAX",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": true,
+        "partyId": "1000991493"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "EXPERIAN",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": false,
+        "partyId": "1000991493"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "ILLION",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": true,
+        "partyId": "1000991493"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "EQUIFAX",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": false,
+        "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "EXPERIAN",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": true,
+        "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "ILLION",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": true,
+        "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067"
+      }
+    ],
     "etag": "1688608326165083000",
     "ineligibleReasons": []
   }
