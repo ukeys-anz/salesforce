@@ -302,6 +302,7 @@ public with sharing class InteractionContextServiceTest {
       .get('PersonAccount')
       .getRecordTypeId();
     testAccount.FirstName = 'Joe';
+    testAccount.Name = null; // As name cannot be inserted while creating Person Account hence making it null.
     testAccount.LastName = 'Bloggs';
     testAccount.OCV_ID__c = ocvId;
     testAccount.PersonMobilePhone = phoneNumber;

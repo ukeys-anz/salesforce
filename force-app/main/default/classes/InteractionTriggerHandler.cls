@@ -13,16 +13,25 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
-    List<Interaction> apptInteractions = InteractionFilter.getApptInteractions(
+    //Creating a map of all interactions by record type, to be used later. This reduces number of loops.
+    Map<String, List<Interaction>> mapOfInteractionsByRecordType = InteractionFilter.getInteractionsByRecordType(
       records
     );
 
-    List<Interaction> storeInteractions = InteractionFilter.getStoreInteractions(
-      records
+    List<Interaction> apptInteractions = mapOfInteractionsByRecordType.get(
+      GetHelpConstants.INTERACTION_APPT_RT_ID
     );
 
-    List<Interaction> chatInteractions = InteractionFilter.getChatInteractions(
-      records
+    List<Interaction> storeInteractions = mapOfInteractionsByRecordType.get(
+      GetHelpConstants.INTERACTION_STORE_RT_ID
+    );
+
+    List<Interaction> chatInteractions = mapOfInteractionsByRecordType.get(
+      GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+    );
+
+    List<Interaction> generalInteractions = mapOfInteractionsByRecordType.get(
+      GetHelpConstants.INTERACTION_GENERAL_RT_ID
     );
 
     Map<Id, SObject> apptMap = new Map<Id, SObject>(apptInteractions);
@@ -31,10 +40,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     InteractionSetters.setExternalIds(apptIds);
     InteractionAttendeeActions.insertDefaultAttendee(records);
 
-    List<Interaction> generalInteractions = InteractionFilter.getGeneralInteractions(
-      records
-    );
-
     //Add Interaction Number for Store too.
     generalInteractions.addAll(storeInteractions);
 
@@ -42,8 +47,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     generalInteractions.addAll(chatInteractions);
 
     Map<Id, SObject> generalMap = new Map<Id, SObject>(generalInteractions);
-    Set<Id> generalIds = new Set<Id>(generalMap.keyset());
-    InteractionSetters.setGeneralExternalIds(generalIds);
+    InteractionSetters.setGeneralExternalIds(generalMap.keyset());
 
     AppointmentNotificationEventCreator.getInstance()
       .addInteractions(interactions);
