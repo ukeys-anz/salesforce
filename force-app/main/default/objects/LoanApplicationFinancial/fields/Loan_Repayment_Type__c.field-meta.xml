@@ -20,12 +20,12 @@
                 <label>Unspecified</label>
             </value>
             <value>
-                <fullName>REPAYMENT_TYPE_PI</fullName>
+                <fullName>REPAYMENT_TYPE_PRINCIPAL_INTEREST</fullName>
                 <default>false</default>
                 <label>Principal and Interest</label>
             </value>
             <value>
-                <fullName>REPAYMENT_TYPE_IO</fullName>
+                <fullName>REPAYMENT_TYPE_INTEREST_ONLY</fullName>
                 <default>false</default>
                 <label>Interest Only</label>
             </value>

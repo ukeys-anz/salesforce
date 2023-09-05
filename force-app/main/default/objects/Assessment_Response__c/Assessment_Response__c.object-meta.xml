@@ -152,13 +152,13 @@
     <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Loan Invitation</label>
+    <label>Assessment Response</label>
     <nameField>
-        <label>Loan Invitation Name</label>
-        <type>Text</type>
+        <displayFormat>AR-{000000}</displayFormat>
+        <label>Assessment Response Number</label>
+        <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Loan Invitations</pluralLabel>
+    <pluralLabel>Assessment Responses</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

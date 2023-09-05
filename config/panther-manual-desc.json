@@ -167,6 +167,7 @@
     "Access_Request__c": "Holds information related to Privileged Access Management request submissions by users",
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
+    "Assessment_Response__c": "Needs Assessment response completed by the loan applicant",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
@@ -389,15 +390,10 @@
         "Type__c"
       ]
     },
-    "Assessment": {
-      "IA-2530753": ["Last_Updated_Date__c", "Created_Date__c"],
-      "IA-2415840": ["Unsuitability_Reasons__c", "External_Id__c"],
-      "IA-2415983": ["Loan_Application__c"]
-    },
-    "AssessmentQuestionResponse": {
+    "Assessment_Response__c": {
       "IA-2594111": ["Completed_By__c"],
       "IA-2415987": ["Assessment_Response__c"],
-      "IA-2415983": ["Application_Id__c", "AssessmentId"],
+      "IA-2415983": ["Loan_Application__c"],
       "IA-2530753": ["Created_Date__c"],
       "IA-2415840": ["External_Id__c"]
     },
@@ -1943,11 +1939,11 @@
         "Loan_Margin__c",
         "Loan_Repayment_Frequency__c"
       ],
-      "IA-2415840": ["Property_Valuation_Id__c"],
+      "IA-2415840": ["Property_Valuation_Id__c", "E_Tag__c"],
       "IA-2415987": ["Product_Name__c"]
     },
     "LoanApplicationLiability": {
-      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate", "Last_Updated_Date__c"],
       "IA-2415983": [
         "Balance__c",
         "Interest_Rate_Percent__c",
@@ -1981,7 +1977,8 @@
         "Risk_Description__c",
         "Risk_Type__c",
         "Supporting_Valuation_Type__c"
-      ]
+      ],
+      "IA-2415983": ["PropertyValue"]
     },
     "Location": {
       "IA-2468715": [
@@ -2501,7 +2498,9 @@
         "Last_Updated_Date__c",
         "Expiry_Date__c",
         "Loan_Purpose_Updated_Date__c",
-        "Created_Date__c"
+        "Created_Date__c",
+        "Needs_Assessment_Last_Updated_Date__c",
+        "Needs_Assessment_Created_Date__c"
       ],
       "IA-2594111": [
         "ApplicationExtIdentifier",
@@ -2516,7 +2515,7 @@
         "Max_Allowable_LVR_Basis_Points__c"
       ],
       "IA-2594113": ["State__c"],
-      "IA-2415840": ["E_Tag__c"]
+      "IA-2415840": ["E_Tag__c", "Needs_Assessment_Unsuitability_Reasons__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [

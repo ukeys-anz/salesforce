@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Loan_Applicant__c</fullName>
+    <fullName>Completed_By__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
-    <description>Invitation Sender</description>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Loan Domain</complianceGroup>
+    <description>Associated applicant</description>
     <externalId>false</externalId>
-    <label>Loan Applicant</label>
+    <label>Completed By</label>
     <referenceTo>LoanApplicant</referenceTo>
-    <relationshipLabel>Loan Invitations</relationshipLabel>
-    <relationshipName>Loan_Invitations</relationshipName>
+    <relationshipLabel>Assessment Responses</relationshipLabel>
+    <relationshipName>Assessment_Responses</relationshipName>
     <relationshipOrder>0</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>MasterDetail</type>
-    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
 </CustomField>

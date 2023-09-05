@@ -3,19 +3,4 @@
     <fullName>Needs_Assessment</fullName>
     <active>true</active>
     <label>Needs Assessment</label>
-    <picklistValues>
-        <picklist>Unsuitability_Reasons__c</picklist>
-        <values>
-            <fullName>UNSUITABILITY_REASON_BREAK_FEES</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>UNSUITABILITY_REASON_RATE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>UNSUITABILITY_REASON_UNSPECIFIED</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
 </RecordType>
