@@ -29,6 +29,8 @@
     "Controlling_Post__c",
     "CustomerOnboardingApplication__c",
     "EmailMessage",
+    "Entitlement",
+    "Event",
     "External_Case_Status__c",
     "FinServ__ContactContactRelation__c",
     "FinServ__FinancialAccount__c",
@@ -45,6 +47,7 @@
     "Lead",
     "Lead_Flex_Field__c",
     "Legal_Entity__c",
+    "Location",
     "Log_Record_Access__b",
     "Opportunity",
     "OpportunityLineItem",
@@ -72,6 +75,15 @@
     "InteractionStatusMappingForTwilio__mdt"
   ],
   "usermap": [
+    {
+      "name": "Api Enabled User",
+      "profile": "Integration User",
+      "permissionsets": [
+        "Interaction_Read_Only",
+        "FinServ__FinancialServicesCloudExtension"
+      ],
+      "type": "user"
+    },
     {
       "name": "ANZ Plus Operations - Read Only",
       "profile": "ANZx Standard User",
@@ -470,7 +482,8 @@
         "Enforce_mTLS",
         "Interaction_Integration",
         "Password_Never_Expires",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Twilio_Details_Read_Write"
       ],
       "type": "system"
     },
