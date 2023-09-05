@@ -42,23 +42,24 @@ public without sharing class TestDataFactory {
 
   /**
    * @description Create Person Account record
-   * @param ocvId OCV Id of the customer
+   *    * @param ocvId OCV Id of the customer
    * @param doInsert Insert record or just initialise
    * @return Person Account
    */
   public static Account createPersonAccount(String ocvId, Boolean doInsert) {
+    Faker faker = new Faker('AU');
     Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('PersonAccount')
       .getRecordTypeId();
     Account personAcc = new Account();
     personAcc.RecordTypeId = personAccountRecordTypeId;
-    personAcc.FirstName = TESTFAKER.randomString(5);
-    personAcc.LastName = TESTFAKER.randomString(5);
+    personAcc.FirstName = faker.randomString(5);
+    personAcc.LastName = faker.randomString(5);
     personAcc.OCV_ID__c = String.isNotBlank(ocvId)
       ? ocvId
-      : TESTFAKER.randomString(10);
+      : faker.randomString(10);
     personAcc.ANZx_Customer__c = true;
-    personAcc.External_Id__c = TESTFAKER.randomString(15);
+    personAcc.External_Id__c = faker.randomString(15);
     if (doInsert) {
       insert accnt;
     }
