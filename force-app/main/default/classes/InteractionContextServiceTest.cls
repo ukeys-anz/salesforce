@@ -292,8 +292,7 @@ public with sharing class InteractionContextServiceTest {
   static Account createTestAccount(
     String ocvId,
     Id userId,
-    String phoneNumber,
-    String externalId
+    String phoneNumber
   ) {
     Account testAccount = TestDataFactory.createPersonAccount(ocvId, false);
     testAccount.PersonMobilePhone = phoneNumber;

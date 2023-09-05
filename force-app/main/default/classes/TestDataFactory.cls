@@ -61,7 +61,7 @@ public without sharing class TestDataFactory {
     personAcc.ANZx_Customer__c = true;
     personAcc.External_Id__c = faker.randomString(15);
     if (doInsert) {
-      insert accnt;
+      insert personAcc;
     }
 
     return personAcc;
