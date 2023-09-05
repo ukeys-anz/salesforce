@@ -223,7 +223,7 @@ public with sharing class InteractionAttendeeActions {
       WHERE id = :UserInfo.getUserId()
     ];
 
-    // Default attendee should be added for Coach users
+    // Automatically create attendee only if the created user is of Profile "ANZx Standard User"
     if (profilenames.contains(userDetail.profile.name)) {
       for (Interaction interact : interactions) {
         if (recordtypes.contains(interact.RecordTypeId)) {
