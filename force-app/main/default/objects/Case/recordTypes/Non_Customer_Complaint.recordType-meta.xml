@@ -6288,6 +6288,10 @@
     <picklistValues>
         <picklist>IDR_Product_Category__c</picklist>
         <values>
+            <fullName>ANZ Internet Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>ANZ Plus</fullName>
             <default>false</default>
         </values>
@@ -6325,10 +6329,6 @@
         </values>
         <values>
             <fullName>Insurance%2Fwealth products</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ANZ Internet Banking</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6453,6 +6453,10 @@
         </values>
         <values>
             <fullName>108</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>109</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6904,6 +6908,10 @@
         </values>
         <values>
             <fullName>108</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>109</fullName>
             <default>false</default>
         </values>
         <values>
