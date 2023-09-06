@@ -28,7 +28,7 @@ public with sharing class InteractionContextTagAction {
       Map<Id, Map<String, List<String>>> mapOfInteractionIdWithTopicDetails = getMapOfInteractionIdWithTopicDetails(
         listOfAllInteractionContextFromDb
       );
-      listOfInteractionsToUpdate = concatinatinationOfTopicFieldValues(
+      listOfInteractionsToUpdate = concatenationOfTopicFieldValues(
         setOfInteractionsId,
         mapOfInteractionIdWithTopicDetails
       );
@@ -56,44 +56,18 @@ public with sharing class InteractionContextTagAction {
           contextTag.Interaction__c
         )
       ) {
-        Map<String, List<String>> mapOfTopicAndDetails = new Map<String, List<String>>();
-        if (!mapOfTopicAndDetails.containsKey(contextTag.Type__c)) {
-          mapOfTopicAndDetails.put(
-            contextTag.Type__c,
-            new List<String>{ contextTag.Tag_Name__c }
-          );
-        } else {
-          List<String> topicDetailsList = mapOfTopicAndDetails.get(
-            contextTag.Type__c
-          );
-          topicDetailsList.add(contextTag.Tag_Name__c);
-          mapOfTopicAndDetails.put(contextTag.Type__c, topicDetailsList);
-        }
         mapOfInteractionIdWithTopicDetails.put(
           contextTag.Interaction__c,
-          mapOfTopicAndDetails
-        );
-      } else {
-        Map<String, List<String>> mapOfTopicDetails = mapOfInteractionIdWithTopicDetails.get(
-          contextTag.Interaction__c
-        );
-        if (!mapOfTopicDetails.containsKey(contextTag.Type__c)) {
-          mapOfTopicDetails.put(
-            contextTag.Type__c,
-            new List<String>{ contextTag.Tag_Name__c }
-          );
-        } else {
-          List<String> topicDetailsList = mapOfTopicDetails.get(
-            contextTag.Type__c
-          );
-          topicDetailsList.add(contextTag.Tag_Name__c);
-          mapOfTopicDetails.put(contextTag.Type__c, topicDetailsList);
-        }
-        mapOfInteractionIdWithTopicDetails.put(
-          contextTag.Interaction__c,
-          mapOfTopicDetails
+          new Map<String, List<String>>()
         );
       }
+      Map<String, List<String>> mapOfTopicDetails = mapOfInteractionIdWithTopicDetails.get(
+        contextTag.Interaction__c
+      );
+      if (!mapOfTopicDetails.containsKey(contextTag.Type__c)) {
+        mapOfTopicDetails.put(contextTag.Type__c, new List<String>());
+      }
+      mapOfTopicDetails.get(contextTag.Type__c).add(contextTag.Tag_Name__c);
     }
     return mapOfInteractionIdWithTopicDetails;
   }
@@ -104,7 +78,7 @@ public with sharing class InteractionContextTagAction {
    * @param mapOfInteractionIdWithTopicDetails
    * @return List<Interaction> list of interactions to update
    */
-  private static List<Interaction> concatinatinationOfTopicFieldValues(
+  private static List<Interaction> concatenationOfTopicFieldValues(
     Set<Id> setOfInteractionsId,
     Map<Id, Map<String, List<String>>> mapOfInteractionIdWithTopicDetails
   ) {
@@ -113,27 +87,26 @@ public with sharing class InteractionContextTagAction {
       Map<String, List<String>> mapOfTopicDetails = mapOfInteractionIdWithTopicDetails.get(
         eachInteraction
       );
-      List<String> listOfProduct = mapOfTopicDetails.get('Product') == null
-        ? new List<String>{}
-        : mapOfTopicDetails.get('Product');
-      List<String> listOfReasonForVisit = mapOfTopicDetails.get('Reason') ==
-        null
-        ? new List<String>{}
-        : mapOfTopicDetails.get('Reason');
-      List<String> listOfActualTopic = mapOfTopicDetails.get('Topic') == null
-        ? new List<String>{}
-        : mapOfTopicDetails.get('Topic');
       String truncatedValueForProduct = LogEventBuilderHelper.truncateFieldValue(
         Interaction.Products__c,
-        String.join(listOfProduct, ',')
+        String.join(
+          extractListOfValuesBasedOnKey('Product', mapOfTopicDetails),
+          ','
+        )
       );
       String truncatedValueForReasonForVisit = LogEventBuilderHelper.truncateFieldValue(
         Interaction.Reason_for_Visit__c,
-        String.join(listOfReasonForVisit, ',')
+        String.join(
+          extractListOfValuesBasedOnKey('Reason', mapOfTopicDetails),
+          ','
+        )
       );
       String truncatedValueForActualTopic = LogEventBuilderHelper.truncateFieldValue(
         Interaction.Actual_Topics__c,
-        String.join(listOfActualTopic, ',')
+        String.join(
+          extractListOfValuesBasedOnKey('Topic', mapOfTopicDetails),
+          ','
+        )
       );
       listOfInteractionsToUpdate.add(
         new Interaction(
@@ -145,5 +118,19 @@ public with sharing class InteractionContextTagAction {
       );
     }
     return listOfInteractionsToUpdate;
+  }
+  /**
+   * @description extract list of topic field values (Product, Actual Topic, Reason)
+   * @param key as topic field
+   * @param mapOfTopicDetails as topic field Vs list of values
+   * @return List<String> list of field values
+   */
+  private static List<String> extractListOfValuesBasedOnKey(
+    String key,
+    Map<String, List<String>> mapOfTopicDetails
+  ) {
+    return mapOfTopicDetails.get(key) == null
+      ? new List<String>{}
+      : mapOfTopicDetails.get(key);
   }
 }

@@ -3,7 +3,7 @@
  * @since June 2022
  * @description used for fetching recordtypename from interactionCreateOmniscriptWrapper
  */
-public with sharing class FetchRecordTypeName {
+public with sharing class InteractionFetchRecordTypeName {
   /**
    * @description Retrieves the existing values present in the Interaction Record on Load
    * @param recordTypeId
@@ -15,22 +15,5 @@ public with sharing class FetchRecordTypeName {
       [SELECT DeveloperName, Id FROM RecordType WHERE Id = :recordTypeId]
     );
     return JSON.serialize(recordTypeRecord);
-  }
-
-  /**
-   * @description Retrieves the existing values present in the Interaction Record on Load
-   * @param recordId
-   * @return Returns a map of key and values of the interaction id and recordtype.
-   */
-  @AuraEnabled(cacheable=true)
-  public static String getRecordTypeDeveloperNameEdit(String recordId) {
-    Map<Id, Interaction> interactionRecord = new Map<Id, Interaction>(
-      [
-        SELECT Id, RecordType.DeveloperName
-        FROM Interaction
-        WHERE Id = :recordId
-      ]
-    );
-    return JSON.serialize(interactionRecord);
   }
 }

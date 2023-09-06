@@ -199,7 +199,6 @@
     "Interaction": "Represents the interaction details between the coach and the customer",
     "Interaction_Tag__c": "Master data to store all Tag values to be displayed on Custom LWCs",
     "Interaction_Context_Tag__c": "Junction Object between Interaction and Interaction Tag",
-    "InteractionStatusMappingForTwilio": "Custom Meta Data to store the mappings of Twilio and Interaction Status",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -1769,9 +1768,6 @@
     },
     "Interaction_Attendee": {
       "IA-2468715": ["AttendeeType", "UserId", "Time__c"]
-    },
-    "InteractionStatusMappingForTwilio__mdt": {
-      "IA-2530753": ["Interaction_Status__c", "Type__c", "Twilio_Status__c"]
     },
     "Known_Issues__c": {
       "IA-2468715": [
