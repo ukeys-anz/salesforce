@@ -70,6 +70,10 @@
                 <field>Priority</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ProductId</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>SLA_Status__c</field>
             </layoutItems>
