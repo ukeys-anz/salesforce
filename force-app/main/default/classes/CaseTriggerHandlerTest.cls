@@ -2902,7 +2902,7 @@ private class CaseTriggerHandlerTest {
       atmDisputeCaseCloudEventModel.ce_subject,
       'ce_subject should match'
     );
-    DisputeCaseCloudEventModel.AccountModel customer = atmDisputeCaseCloudEventDataModel.customer;
+    CaseCloudEventModel.AccountModel customer = atmDisputeCaseCloudEventDataModel.customer;
     System.assertEquals(
       theCase.Account.OCV_ID__c,
       customer.ocvId,
@@ -2957,7 +2957,7 @@ private class CaseTriggerHandlerTest {
       cardDisputeCaseCloudEventModel.ce_subject,
       'ce_subject should match'
     );
-    DisputeCaseCloudEventModel.AccountModel customer = cardDisputeCaseCloudEventDataModel.customer;
+    CaseCloudEventModel.AccountModel customer = cardDisputeCaseCloudEventDataModel.customer;
     System.assertEquals(
       theCase.Account.OCV_ID__c,
       customer.ocvId,
