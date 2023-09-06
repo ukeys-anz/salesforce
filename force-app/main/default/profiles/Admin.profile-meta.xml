@@ -2442,6 +2442,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Disable_CMOS_Omni__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_Detection_Case_Reference__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2852,6 +2857,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_AFCA_Issue_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_AFCA_Sub_issue_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_AFCA_Product_Line__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_AFCA_Product_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_AFCA_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3112,7 +3137,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Disable_CMOS_Omni__c</field>
+        <field>Case.IDR_Masked_CFMS__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6095,6 +6120,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Force_Update__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Interest_Accrued__c</field>
         <readable>true</readable>
@@ -6107,6 +6137,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.Marketing_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Number_Of_Signatures__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7156,6 +7191,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LogEntry__c.RecordObjectName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LogEntry__c.Severity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9376,6 +9416,24 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Contact</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ContactPointPhone</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>ContactPointEmail</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

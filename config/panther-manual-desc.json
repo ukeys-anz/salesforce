@@ -167,9 +167,11 @@
     "Access_Request__c": "Holds information related to Privileged Access Management request submissions by users",
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
+    "BusinessHours": "Specifies the business hours of your support organization.",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
+    "Case_Product__c": "Many to Many relationship between Case and Product2",
     "CFaaS_File__c": "Custom object that will hold metadata of the files retrieved from CFaaS",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
     "Coaching_Summary__c": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
@@ -188,10 +190,12 @@
     "CustomerOnboardingApplication__c": "The main record maintaining Salesforce's copy of the state of a prospect's onboarding journey",
     "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
     "EmailMessage": "Represents an email in Salesforce.",
+    "Entitlement": "Represents the customer support an account or contact is eligible to receive.",
     "Event": "Represents a calendar entry in Salesforce",
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
+    "Group": "A set of User records.",
     "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
     "Interaction_Tag__c": "Master data to store all Tag values to be displayed on Custom LWCs",
@@ -218,6 +222,7 @@
     "Product Family": "Custom object that holds work basket details for cases",
     "Quality_Assessment__c": "An object that holds all the relative fields and it’s values for a quality analyst to conduct end to end quality assessment.",
     "qualtrics__Survey_Response__c": "Customers answers to a given Qualtrics Survey",
+    "RecordType": "Represents a record type.",
     "Release__c": "System documentation on a given Salesforce release of features",
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
     "ResidentialLoanApplication": "General information and identifiers to describe type of loan",
@@ -233,8 +238,7 @@
     "trailheadapp__Trailmix_Assignment__c": "Junction object representing that a user has been assigned some learning content",
     "trailheadapp__User_Badge__c": "Junction object for badges and users.",
     "trailheadapp__User_Trailmix__c": "Maintains user assignments and follows for trailmixes.",
-    "User": "A Salesforce user (ANZ employee)",
-    "InteractionStatusMappingForTwilio": "Custom Meta Data to store the mappings of Twilio and Interaction Status"
+    "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
     "Account": {
@@ -390,6 +394,35 @@
         "Slot_Available__c",
         "Type__c"
       ]
+    },
+    "BusinessHours": {
+      "IA-2468715": [
+        "IsActive",
+        "IsDefault",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2530753": [
+        "MondayStartTime",
+        "MondayEndTime",
+        "TuesdayStartTime",
+        "TuesdayEndTime",
+        "WednesdayStartTime",
+        "WednesdayEndTime",
+        "ThursdayStartTime",
+        "ThursdayEndTime",
+        "FridayStartTime",
+        "FridayEndTime",
+        "SaturdayStartTime",
+        "SaturdayEndTime",
+        "SundayStartTime",
+        "SundayEndTime",
+        "TimeZoneSidKey"
+      ],
+      "IA-2415840": ["Name"]
     },
     "Campaign": {
       "IA-2415860": [
@@ -589,6 +622,7 @@
         "Fraud_ID_Not_Picture__c",
         "Fraud_ID_True_Document__c",
         "Fraud_Loss_Reason_Code__c",
+        "Fraud_MiddleNameCheck__c",
         "Fraud_Middle_Name__c",
         "Fraud_Middle_Initial__c",
         "Fraud_PIN_Status__c",
@@ -628,9 +662,13 @@
         "IDR_AFCA_Date__c",
         "IDR_AFCA_Due_Date__c",
         "IDR_AFCA_EDR_impact__c",
+        "IDR_AFCA_Issue_Type__c",
         "IDR_AFCA_Number__c",
+        "IDR_AFCA_Product_Line__c",
+        "IDR_AFCA_Product_Type__c",
         "IDR_AFCA_Reference_Number__c",
         "IDR_AFCA_Status__c",
+        "IDR_AFCA_Sub_issue_Type__c",
         "IDR_Account_Card_Policy_Number__c",
         "IDR_Account_Card_Policy_Number_2__c",
         "IDR_Account_Card_Policy_Number_3__c",
@@ -683,6 +721,7 @@
         "IDR_Is_Written_Resp_Required__c",
         "IDR_Issue_Type_2__c",
         "IDR_Issue_Type_3__c",
+        "IDR_Masked_CFMS__c",
         "IDR_Milestone_Sla__c",
         "IDR_NC_Business_Name__c",
         "IDR_NC_Is_Consent_Obtained__c",
@@ -908,6 +947,9 @@
         "Fraud_PersonID__c"
       ]
     },
+    "Case_Product__c": {
+      "IA-2468715": ["Product__c"]
+    },
     "CFaaS_File__c": {
       "IA-2415997": [
         "Customer__c",
@@ -965,7 +1007,6 @@
         "LastModifiedDate"
       ]
     },
-
     "COBAddress__c": {
       "IA-2415860": ["SubmittedAt__c"],
       "IA-2415984": [
@@ -1073,31 +1114,37 @@
         "DateOfBirthOCRServer__c",
         "DateOfBirthOCRClient__c"
       ],
-      "IA-2415992": [
-        "LicenceNumber__c",
-        "LicenceNumberOCRServer__c",
-        "LicenceNumberOCRClient__c",
-        "LicenceCardNumber__c",
-        "LicenceCardNumberOCRServer__c",
-        "LicenceCardNumberOCRClient__c",
-        "PassportNumber__c",
-        "PassportNumberOCRServer__c",
-        "PassportNumberOCRClient__c"
-      ],
       "IA-2530753": [
-        "Id",
         "CreatedById",
         "CreatedDate",
+        "Id",
+        "DateOfBirthOCRMatch__c",
+        "FirstNameOCRMatch__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Name",
+        "LastNameOCRMatch__c",
+        "LicenceCardNumber__c",
+        "LicenceCardNumberOCRClient__c",
         "LicenceCardNumberOCRClientTransform__c",
+        "LicenceCardNumberOCRMatch__c",
+        "LicenceCardNumberOCRServer__c",
         "LicenceCardNumberOCRServerTransform__c",
         "LicenceCardNumberTransform__c",
+        "LicenceNumber__c",
+        "LicenceNumberOCRClient__c",
         "LicenceNumberOCRClientTransform__c",
+        "LicenceNumberOCRMatch__c",
+        "LicenceNumberOCRServer__c",
         "LicenceNumberOCRServerTransform__c",
         "LicenceNumberTransform__c",
+        "MiddleNamesInitialsOCRMatch__c",
+        "MiddleNamesOCRMatch__c",
+        "Name",
+        "PassportNumber__c",
+        "PassportNumberOCRClient__c",
         "PassportNumberOCRClientTransform__c",
+        "PassportNumberOCRMatch__c",
+        "PassportNumberOCRServer__c",
         "PassportNumberOCRServerTransform__c",
         "PassportNumberTransform__c",
         "ExpiryDateOCRMatch__c"
@@ -1366,7 +1413,6 @@
         "VerificationType__c"
       ]
     },
-
     "Customer_Profile_Updates__c": {
       "IA-2415828": [
         "AsIsValue__c",
@@ -1401,7 +1447,64 @@
         "Id"
       ]
     },
+    "Entitlement": {
+      "IA-2468715": [
+        "BusinessHoursId",
+        "LocationId",
+        "Name",
+        "Type",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2415860": [
+        "CasesPerEntitlement",
+        "IsPerIncident",
+        "RemainingCases",
+        "StartDate",
+        "EndDate"
+      ],
+      "IA-2453595": ["Status"]
+    },
     "Event": {
+      "IA-2415999": ["PEGA_Case_Status__c"],
+      "IA-2415984": ["Customer_Name__c"],
+      "IA-2453595": [
+        "Action__c",
+        "Authentication_Method__c",
+        "Completed_Date__c",
+        "Due_in_Days__c",
+        "IDR_Collection_Number__c",
+        "IDR_COR_ID__c",
+        "IDR_Internal_or_External_Party__c",
+        "IDR_Is_Task_Completed_Within_Due_Dt__c",
+        "IDR_Key_Contact_Name__c",
+        "IDR_Pend_Reason__c",
+        "IDR_Pended_To__c",
+        "IDR_Portfolio_or_Business_Unit__c",
+        "IDR_Team__c",
+        "IDR_Tribe__c",
+        "Last_Assigned_Owner__c",
+        "PSI_or_DSI__c",
+        "Queue__c",
+        "SI_Other_Tribe_BU__c",
+        "SI_Tribe_BU__c",
+        "Task_Sub_Type__c"
+      ],
+      "IA-2415860": [
+        "Case_Owner__c",
+        "Cases_Related_To_Team__c",
+        "Lead_Quality__c",
+        "Lead__c",
+        "Outcome_Reason__c",
+        "Response_Status__c",
+        "Response_Type__c",
+        "Skip_Validations__c",
+        "Team_Manager__c"
+      ],
+      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
       "IA-2468715": [
         "ActivityDate",
         "ActivityDateTime",
@@ -1422,9 +1525,18 @@
         "Subject",
         "Type",
         "WhatId",
-        "WhoId"
+        "WhoId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "Voice_Call_SID__c",
+        "Case_Number__c",
+        "PEGA_Case_Id__c"
       ],
-      "IA-2460507": ["Email", "Phone"]
+      "IA-2460507": ["Email", "Phone", "Interaction_Owner__c"]
     },
     "External_Case_Status__c": {
       "IA-2468715": [
@@ -1484,6 +1596,7 @@
         "FinServ__InterestRate__c",
         "FinServ__OpenDate__c",
         "FinServ__Status__c",
+        "Number_Of_Signatures__c",
         "Interest_Accrued__c",
         "Total_Number_of_Cards__c",
         "lastUpdatedDateTime__c",
@@ -1497,7 +1610,8 @@
         "Source_System_Status_Display__c",
         "Source_System_Status__c",
         "System_Record_Status__c"
-      ]
+      ],
+      "IA-2468715": ["Force_Update__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -1533,6 +1647,20 @@
         "RecordTypeId"
       ]
     },
+    "Group": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "OwnerId",
+        "RelatedId",
+        "Type"
+      ],
+      "IA-2415840": ["Name", "DeveloperName"],
+      "IA-2460507": ["Email"]
+    },
     "IDR_Omni_Settings__c": {
       "IA-2415860": ["Disable_CMOS_Omni__c"]
     },
@@ -1554,6 +1682,7 @@
         "Appointment__c",
         "AppointmentId__c",
         "Attendees__c",
+        "Assisted__c",
         "Attendees_and_Roles__c",
         "Authentication_Method__c",
         "Call_Recording_ID__c",
@@ -1589,6 +1718,7 @@
         "Name",
         "Optional_Notes__c",
         "OwnerId",
+        "Place__c",
         "Record_Type__c",
         "RecordTypeId",
         "ReferenceIdentifier",
@@ -1596,12 +1726,10 @@
         "Resolution__c",
         "StartTime",
         "Status__c",
-        "Twilio_ID__c",
-        "Assisted__c",
-        "Self_Service__c",
-        "Place__c",
-        "TwilioDetailsID__c",
         "Support_Topics__c",
+        "Self_Service__c",
+        "Twilio_ID__c",
+        "TwilioDetailsID__c",
         "Video_Call__c"
       ],
       "IA-2468715": [
@@ -1933,8 +2061,11 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "Location_External_Id__c",
-        "LocationType"
+        "Location_External_ID__c",
+        "LocationType",
+        "ExternalReference",
+        "IsMobile",
+        "Name"
       ]
     },
     "Legal_Entity__c": {
@@ -1983,6 +2114,7 @@
         "Origin__c",
         "RecordId__c",
         "RecordObjectName__c",
+        "Severity__c",
         "SpanId__c",
         "StackTrace__c",
         "UsedCallouts__c",
@@ -2350,7 +2482,6 @@
         "RecordTypeId"
       ]
     },
-
     "Reason_Outcome__c": {
       "IA-2415840": [
         "External_ID__c",
@@ -2360,7 +2491,18 @@
         "Referral_Reason__c"
       ]
     },
-
+    "RecordType": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Description",
+        "IsActive"
+      ],
+      "IA-2415840": ["Name"]
+    },
     "Referral_Reason__c": {
       "IA-2415840": [
         "Assessment_Category__c",
@@ -2474,6 +2616,7 @@
         "ApexClassName__c",
         "ApexMethodName__c",
         "Log__c",
+        "LogMessage__c",
         "SpanId__c",
         "RecordsJson__c"
       ]
@@ -2790,9 +2933,260 @@
     },
     "Territory_Base_Sharing_Event__e": {
       "IA-2415860": ["Change_Context__c", "Record_Ids__c", "Trigger_Object__c"]
+    }
+  },
+  "systemObjects": {
+    "BusinessHours": {
+      "fields": [
+        {
+          "fullName": "IsActive",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Indicates whether the business hours is active (true) or not active (false).",
+          "securityClassification": "Internal",
+          "type": "Checkbox"
+        },
+        {
+          "fullName": "IsDefault",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Indicates whether the business hours are set as the default business hours (true) or not (false).",
+          "securityClassification": "Internal",
+          "type": "Checkbox"
+        },
+        {
+          "fullName": "MondayStartTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business opens on Mondays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "MondayEndTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business closes on Mondays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "TuesdayStartTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business opens on Tuesdays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "TuesdayEndTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business closes on Tuesdays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "WednesdayStartTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business opens on Wednesdays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "WednesdayEndTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business closes on Wednesdays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "ThursdayStartTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business opens on Thursdays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "ThursdayEndTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business closes on Thursdays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "FridayStartTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business opens on Fridays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "FridayEndTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business closes on Fridays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "SaturdayStartTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business opens on Saturdays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "SaturdayEndTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business closes on Saturdays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "SundayStartTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business opens on Sundays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "SundayEndTime",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Time that business closes on Sundays.",
+          "securityClassification": "Internal",
+          "type": "Time"
+        },
+        {
+          "fullName": "Name",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The name of the business hours.",
+          "securityClassification": "Internal",
+          "type": "Text"
+        },
+        {
+          "fullName": "TimeZoneSidKey",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The time zone of the business hours.",
+          "securityClassification": "Internal",
+          "type": "Picklist"
+        },
+        {
+          "fullName": "CreatedById"
+        },
+        {
+          "fullName": "CreatedDate"
+        },
+        {
+          "fullName": "Id"
+        },
+        {
+          "fullName": "LastModifiedById"
+        },
+        {
+          "fullName": "LastModifiedDate"
+        }
+      ]
     },
-    "InteractionStatusMappingForTwilio__mdt": {
-      "IA-2530753": ["Interaction_Status__c", "Type__c", "Twilio_Status__c"]
+    "Group": {
+      "fields": [
+        {
+          "fullName": "DeveloperName",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "The API name of the group.",
+          "securityClassification": "Internal",
+          "type": "Text",
+          "unique": "true"
+        },
+        {
+          "fullName": "Email",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Email address for a group of type Case. Applies only for a case queue.",
+          "securityClassification": "Internal",
+          "type": "Email"
+        },
+        {
+          "fullName": "Name",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Name of the group. Corresponds to Label on the user interface.",
+          "securityClassification": "Internal",
+          "type": "Text",
+          "required": "true"
+        },
+        {
+          "fullName": "OwnerId",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "ID of the user who owns the group.",
+          "securityClassification": "Internal",
+          "type": "Lookup"
+        },
+        {
+          "fullName": "RelatedId",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Represents the ID of the associated groups.",
+          "securityClassification": "Internal",
+          "type": "Lookup"
+        },
+        {
+          "fullName": "Type",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Represents the ID of the associated groups.",
+          "securityClassification": "Internal",
+          "type": "Picklist",
+          "required": "true"
+        },
+        {
+          "fullName": "CreatedById"
+        },
+        {
+          "fullName": "CreatedDate"
+        },
+        {
+          "fullName": "Id"
+        },
+        {
+          "fullName": "LastModifiedById"
+        },
+        {
+          "fullName": "LastModifiedDate"
+        }
+      ]
+    },
+    "RecordType": {
+      "fields": [
+        {
+          "fullName": "Name",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Label of the record type in the user interface.",
+          "securityClassification": "Internal",
+          "type": "Text",
+          "required": "true",
+          "length": "80"
+        },
+        {
+          "fullName": "Description",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "A description of this record.",
+          "securityClassification": "Internal",
+          "type": "Text",
+          "length": "255"
+        },
+        {
+          "fullName": "IsActive",
+          "complianceGroup": "Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce",
+          "description": "Indicates whether this record is active (true) or not (false).",
+          "securityClassification": "Internal",
+          "type": "Checkbox"
+        },
+        {
+          "fullName": "CreatedById"
+        },
+        {
+          "fullName": "CreatedDate"
+        },
+        {
+          "fullName": "Id"
+        },
+        {
+          "fullName": "LastModifiedById"
+        },
+        {
+          "fullName": "LastModifiedDate"
+        }
+      ]
     }
   }
 }

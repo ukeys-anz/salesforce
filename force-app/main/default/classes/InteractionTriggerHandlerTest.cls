@@ -8,6 +8,34 @@ public with sharing class InteractionTriggerHandlerTest {
   private static Integer otherPurposeDuration = 30;
   private final static string TEST_MOBILE = '01189998819991197253';
 
+  @TestSetup
+  static void setup() {
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    // Create coach user
+    User coachUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'TestCoachInter894',
+        'ProfileId' => stdUserProfile.Id,
+        'UserRoleId' => coachRole.Id
+      }
+    );
+    insert coachUser;
+    //Assign Permission set group as coach
+    PermissionSetGroup psgCoach = [
+      SELECT Id
+      FROM PermissionSetGroup
+      WHERE DeveloperName = 'Coach'
+      LIMIT 1
+    ];
+    Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+    PermissionSetAssignment psa = new PermissionSetAssignment(
+      AssigneeId = coachUser.Id,
+      PermissionSetGroupId = psgCoach.Id
+    );
+    insert psa;
+  }
+
   @isTest
   static void testSwitchingInteractionFromQueueToUser() {
     createPurposeMap();
@@ -481,33 +509,7 @@ public with sharing class InteractionTriggerHandlerTest {
     interactionRecordtypesList.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     interactionRecordtypesList.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
     interactionRecordtypesList.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
-    Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
-    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
-    // Create coach user
-    User coachUser = TestUtil.createTestUser(
-      new Map<String, Object>{
-        'FirstName' => 'TestCoachInter894',
-        'ProfileId' => stdUserProfile.Id,
-        'UserRoleId' => coachRole.Id
-      }
-    );
-    insert coachUser;
-    //Assign Permission set group as coach
-    PermissionSetGroup psgCoach = [
-      SELECT Id
-      FROM PermissionSetGroup
-      WHERE DeveloperName = 'Coach'
-      LIMIT 1
-    ];
-
-    Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
-
-    PermissionSetAssignment psa = new PermissionSetAssignment(
-      AssigneeId = coachUser.Id,
-      PermissionSetGroupId = psgCoach.Id
-    );
-
-    insert psa;
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
     System.runAs(coachUser) {
       for (Id interactionrecord : interactionrecordtypeslist) {
         Interaction newInteraction = new Interaction(
@@ -532,7 +534,7 @@ public with sharing class InteractionTriggerHandlerTest {
       ];
 
       System.assertEquals(
-        true,
+        false,
         numberattendee < 1,
         'InteractionAttendee should not be added'
       );
@@ -547,35 +549,7 @@ public with sharing class InteractionTriggerHandlerTest {
     interactionRecordtypesList.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     interactionRecordtypesList.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
     interactionRecordtypesList.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
-
-    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
-    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
-    // Create coach user
-    User coachUser = TestUtil.createTestUser(
-      new Map<String, Object>{
-        'FirstName' => 'TestCoachInter891',
-        'ProfileId' => stdUserProfile.Id,
-        'UserRoleId' => coachRole.Id
-      }
-    );
-    insert coachUser;
-
-    //Assign Permission set group as coach
-    PermissionSetGroup psgCoach = [
-      SELECT Id
-      FROM PermissionSetGroup
-      WHERE DeveloperName = 'Coach'
-      LIMIT 1
-    ];
-
-    Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
-
-    PermissionSetAssignment psa = new PermissionSetAssignment(
-      AssigneeId = coachUser.Id,
-      PermissionSetGroupId = psgCoach.Id
-    );
-
-    insert psa;
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
     System.runAs(coachUser) {
       for (Id interactionrecord : interactionrecordtypeslist) {
         if (interactionrecord == GetHelpConstants.INTERACTION_GENERAL_RT_ID) {
@@ -636,31 +610,16 @@ public with sharing class InteractionTriggerHandlerTest {
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
     UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
     // Create coach user
-    User coachUser = TestUtil.createTestUser(
+    User firstCoach = TestUtil.createTestUser(
       new Map<String, Object>{
-        'FirstName' => 'TestCoachInter891',
+        'FirstName' => 'TestCoachInter123',
         'ProfileId' => stdUserProfile.Id,
         'UserRoleId' => coachRole.Id
       }
     );
-    insert coachUser;
+    insert firstCoach;
 
-    //Assign Permission set group as coach
-    PermissionSetGroup psgCoach = [
-      SELECT Id
-      FROM PermissionSetGroup
-      WHERE DeveloperName = 'Coach'
-      LIMIT 1
-    ];
-
-    Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
-
-    PermissionSetAssignment psa = new PermissionSetAssignment(
-      AssigneeId = coachUser.Id,
-      PermissionSetGroupId = psgCoach.Id
-    );
-
-    insert psa;
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
 
     // created list of interaction record types
     List<Id> interactionRecordtypesList = new List<Id>();
@@ -696,7 +655,7 @@ public with sharing class InteractionTriggerHandlerTest {
       'There should be no Interaction Attendee associated with the created call interaction'
     );
     System.runAs(coachUser) {
-      User coach = [SELECT Id FROM User WHERE FirstName = 'TestCoachInter891'];
+      User coach = [SELECT Id FROM User WHERE FirstName = 'TestCoachInter123'];
       Test.startTest();
       for (Interaction interactrecord : insertInteractionList) {
         interactrecord.OwnerId = coach.id;

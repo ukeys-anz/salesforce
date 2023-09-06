@@ -91,6 +91,7 @@ public without sharing class LogEventBuilder {
       );
     }
     this.logEvent.ExceptionType__c = apexException.getTypeName();
+    this.parseStackTrace(apexException.getStackTraceString());
 
     return this;
   }
@@ -332,7 +333,7 @@ public without sharing class LogEventBuilder {
     }
 
     this.logEvent.RecordId__c = recordId;
-    this.logEvent.RecordObjectName__c = recordId.getSObjectType()
+    this.logEvent.RecordObjectName__c = recordId.getSobjectType()
       .getDescribe()
       .getName();
     return this;
@@ -492,13 +493,27 @@ public without sharing class LogEventBuilder {
   }
 
   /**
+   * @description Sets the severty on log event
+   * @param severity The severity
+   * @return The same instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public LogEventBuilder setSeverity(Logger.Severity severity) {
+    if (this.shouldSave == true) {
+      this.logEvent.Severity__c = severity == null
+        ? Logger.Severity.MEDIUM.name()
+        : severity.name();
+    }
+    return this;
+  }
+
+  /**
    * @description Set transaction details on log event
    */
   private void setTransactionDetails() {
     this.logEvent.APIVersion__c = API_VERSION;
     this.logEvent.EnvironmentType__c = LogEventBuilderHelper.CACHED_ORGANIZATION_ENVIRONMENT_TYPE;
     this.logEvent.InstanceName__c = LogEventBuilderHelper.CACHED_ORGANIZATION.InstanceName;
-    this.logEvent.LoggingLevel__c = entryLoggingLevel.NAME();
+    this.logEvent.LoggingLevel__c = entryLoggingLevel.name();
     this.logEvent.Origin__c = 'Apex';
     this.logEvent.StartTime__c = System.now();
     this.logEvent.TransactionContext__c = LogEventBuilderHelper.getTransactionContext();
