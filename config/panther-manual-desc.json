@@ -1564,7 +1564,13 @@
         "Case_Number__c",
         "PEGA_Case_Id__c"
       ],
-      "IA-2460507": ["Email", "Phone", "Interaction_Owner__c"]
+      "IA-2460507": ["Email", "Phone", "Interaction_Owner__c"],
+      "IA-2415720": [
+        "FinServ__Expectations__c",
+        "FinServ__Household__c",
+        "FinServ__NextSteps__c",
+        "FinServ__Regarding__c"
+      ]
     },
     "External_Case_Status__c": {
       "IA-2468715": [
@@ -2924,6 +2930,13 @@
         "Status__c",
         "Twilio_ID__c",
         "NLP_Topic__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "User": {
