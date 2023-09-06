@@ -17,14 +17,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Failure to active in the client&apos;s best interest</fullName>
+                <fullName>Failure to active in the clients best interest</fullName>
                 <default>false</default>
-                <label>Failure to active in the client&apos;s best interest</label>
+                <label>Failure to active in the clients best interest</label>
             </value>
             <value>
-                <fullName>Failure to prioritise client’s interests</fullName>
+                <fullName>Failure to prioritise clients interests</fullName>
                 <default>false</default>
-                <label>Failure to prioritise client’s interests</label>
+                <label>Failure to prioritise clients interests</label>
             </value>
             <value>
                 <fullName>Failure to provide advice</fullName>
@@ -445,11 +445,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Advice</controllingFieldValue>
-            <valueName>Failure to active in the client&apos;s best interest</valueName>
+            <valueName>Failure to active in the clients best interest</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Advice</controllingFieldValue>
-            <valueName>Failure to prioritise client’s interests</valueName>
+            <valueName>Failure to prioritise clients interests</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Advice</controllingFieldValue>
