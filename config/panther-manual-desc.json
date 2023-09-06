@@ -776,6 +776,7 @@
         "IDR_Total_Financial_Compensation__c",
         "IsClosedOnCreate",
         "IsEscalated",
+        "IsStopped",
         "IsOwner__c",
         "Is_Owner_s_Line_Manager_Me__c",
         "Is_The_Card_Lost_Stolen__c",
