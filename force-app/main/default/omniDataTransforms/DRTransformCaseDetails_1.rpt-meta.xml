@@ -991,13 +991,27 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
+        <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom7390</globalKey>
         <inputFieldName>thirdPartyNotification</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyNotification</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7390</globalKey>
+        <inputFieldName>thirdPartyNotification</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:CustomerDetails:thirdPartyNotification</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -1512,6 +1526,7 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
+        <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:CustomerDetails:switchOff3rdPartyNotCheckbox &quot;true&quot; == true false IF</formulaConverted>
@@ -1521,7 +1536,23 @@
         <globalKey>DRTransformCaseDetailsCustom4876</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:CustomerDetails:switchOff3rdPartyNotCheckbox &quot;true&quot; == true false IF</formulaConverted>
+        <formulaExpression>IF(Case:CustomerDetails:switchOff3rdPartyNotCheckbox==&quot;true&quot;,true,false)</formulaExpression>
+        <formulaResultPath>thirdPartyNotification</formulaResultPath>
+        <formulaSequence>10.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom4876</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -1657,6 +1688,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:CustomerDetails:Customer ISNOTBLANK var:Case:CustomerDetails:Customer var:Case:CustomerDetails:Customer1 IF</formulaConverted>
@@ -1666,7 +1698,6 @@
         <globalKey>DRTransformCaseDetailsCustom668</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCaseDetails</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>

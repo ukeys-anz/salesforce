@@ -18,8 +18,9 @@ public inherited sharing class DMLUtil {
    * @param records List of records to update
    * @param allowPartialUpdate Boolean value to validate if records should be updated if there are failures
    * @param userLevel Boolean value to run the DML operation in System Mode or User Mode
+   * @return List<Database.SaveResult> Results of update operation
    */
-  public static void updateRecords(
+  public static List<Database.SaveResult> updateRecords(
     List<SObject> records,
     Boolean allowPartialUpdate,
     Boolean userLevel
@@ -27,16 +28,16 @@ public inherited sharing class DMLUtil {
     System.AccessLevel accessLevel = userLevel
       ? AccessLevel.USER_MODE
       : AccessLevel.SYSTEM_MODE;
+
+    List<Database.SaveResult> results = new List<Database.SaveResult>();
     try {
-      List<Database.SaveResult> results = Database.update(
-        records,
-        allowPartialUpdate,
-        accessLevel
-      );
+      results = Database.update(records, allowPartialUpdate, accessLevel);
       DMLUtilHelper.processResults(results);
     } catch (Exception e) {
       DMLUtilHelper.logException(e);
     }
+
+    return results;
   }
 
   /**
@@ -44,8 +45,9 @@ public inherited sharing class DMLUtil {
    * @param records List of records to insert/update
    * @param allowPartialUpdate Boolean value to validate if records should be updated if there are failures
    * @param userLevel Boolean value to run the DML operation in System Mode or User Mode
+   * @return List<Database.UpsertResult> Results of upsert operation
    */
-  public static void upsertRecords(
+  public static List<Database.UpsertResult> upsertRecords(
     List<SObject> records,
     Boolean allowPartialUpdate,
     Boolean userLevel
@@ -53,16 +55,16 @@ public inherited sharing class DMLUtil {
     System.AccessLevel accessLevel = userLevel
       ? AccessLevel.USER_MODE
       : AccessLevel.SYSTEM_MODE;
+
+    List<Database.UpsertResult> results = new List<Database.UpsertResult>();
     try {
-      List<Database.UpsertResult> results = Database.upsert(
-        records,
-        allowPartialUpdate,
-        accessLevel
-      );
+      results = Database.upsert(records, allowPartialUpdate, accessLevel);
       DMLUtilHelper.processUpsertResults(results);
     } catch (Exception e) {
       DMLUtilHelper.logException(e);
     }
+
+    return results;
   }
 
   /**
@@ -70,9 +72,10 @@ public inherited sharing class DMLUtil {
    * @param records List of records to insert
    * @param allowPartialUpdate Boolean value to validate if records should be inserted if there are failures
    * @param userLevel Boolean value to run the DML operation in System Mode or User Mode
+   *  @return List<Database.SaveResult> Results of insert operation
    */
 
-  public static void insertRecords(
+  public static List<Database.SaveResult> insertRecords(
     List<SObject> records,
     Boolean allowPartialUpdate,
     Boolean userLevel
@@ -80,16 +83,16 @@ public inherited sharing class DMLUtil {
     System.AccessLevel accessLevel = userLevel
       ? AccessLevel.USER_MODE
       : AccessLevel.SYSTEM_MODE;
+
+    List<Database.SaveResult> results = new List<Database.SaveResult>();
     try {
-      List<Database.SaveResult> results = Database.insert(
-        records,
-        allowPartialUpdate,
-        accessLevel
-      );
+      results = Database.insert(records, allowPartialUpdate, accessLevel);
       DMLUtilHelper.processResults(results);
     } catch (Exception e) {
       DMLUtilHelper.logException(e);
     }
+
+    return results;
   }
 
   /**
@@ -97,9 +100,10 @@ public inherited sharing class DMLUtil {
    * @param records List of records to delete
    * @param allowPartialUpdate Boolean value to validate if records should be deleted if there are failures
    * @param userLevel Boolean value to run the DML operation in System Mode or User Mode
+   * @return List<Database.DeleteResult> Results of delete operation
    */
 
-  public static void deleteRecords(
+  public static List<Database.DeleteResult> deleteRecords(
     List<SObject> records,
     Boolean allowPartialUpdate,
     Boolean userLevel
@@ -107,16 +111,16 @@ public inherited sharing class DMLUtil {
     System.AccessLevel accessLevel = userLevel
       ? AccessLevel.USER_MODE
       : AccessLevel.SYSTEM_MODE;
+
+    List<Database.DeleteResult> results = new List<Database.DeleteResult>();
     try {
-      List<Database.DeleteResult> results = Database.delete(
-        records,
-        allowPartialUpdate,
-        accessLevel
-      );
+      results = Database.delete(records, allowPartialUpdate, accessLevel);
       DMLUtilHelper.processDeleteResults(results);
     } catch (Exception e) {
       DMLUtilHelper.logException(e);
     }
+
+    return results;
   }
 
   /**
@@ -124,9 +128,10 @@ public inherited sharing class DMLUtil {
    * @param records List of records to undelete
    * @param allowPartialUpdate Boolean value to validate if records should be undeleted if there are failures
    * @param userLevel Boolean value to run the DML operation in System Mode or User Mode
+   * @return List<Database.UndeleteResult> Results of undelete operation
    */
 
-  public static void undeleteRecords(
+  public static List<Database.UndeleteResult> undeleteRecords(
     List<SObject> records,
     Boolean allowPartialUpdate,
     Boolean userLevel
@@ -134,15 +139,15 @@ public inherited sharing class DMLUtil {
     System.AccessLevel accessLevel = userLevel
       ? AccessLevel.USER_MODE
       : AccessLevel.SYSTEM_MODE;
+
+    List<Database.UndeleteResult> results = new List<Database.UndeleteResult>();
     try {
-      List<Database.UndeleteResult> results = Database.undelete(
-        records,
-        allowPartialUpdate,
-        accessLevel
-      );
+      results = Database.undelete(records, allowPartialUpdate, accessLevel);
       DMLUtilHelper.processUndeleteResults(results);
     } catch (Exception e) {
       DMLUtilHelper.logException(e);
     }
+
+    return results;
   }
 }

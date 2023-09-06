@@ -202,7 +202,7 @@
         "referenceId": "Product2Ref15"
       },
       "Name": "Tailored Commercial Facility (TCF) - VARIABLE INT",
-      "IsActive": true,
+      "IsActive": false,
       "ANZ_Product_Code__c": "15",
       "IDR_Product_or_Service_Line__c": "1",
       "IDR_Product_or_Service_Category__c": "1",
@@ -216,7 +216,7 @@
         "referenceId": "Product2Ref16"
       },
       "Name": "Tailored Commercial Facility (TCF) - RANGE INT",
-      "IsActive": true,
+      "IsActive": false,
       "ANZ_Product_Code__c": "16",
       "IDR_Product_or_Service_Line__c": "1",
       "IDR_Product_or_Service_Category__c": "1",
@@ -230,7 +230,7 @@
         "referenceId": "Product2Ref17"
       },
       "Name": "Tailored Commercial Facility (TCF) - FIXED INT",
-      "IsActive": true,
+      "IsActive": false,
       "ANZ_Product_Code__c": "17",
       "IDR_Product_or_Service_Line__c": "1",
       "IDR_Product_or_Service_Category__c": "1",
@@ -244,7 +244,7 @@
         "referenceId": "Product2Ref18"
       },
       "Name": "Tailored Commercial Facility (TCF) - FIX INT IN ADV",
-      "IsActive": true,
+      "IsActive": false,
       "ANZ_Product_Code__c": "18",
       "IDR_Product_or_Service_Line__c": "1",
       "IDR_Product_or_Service_Category__c": "1",
@@ -258,7 +258,7 @@
         "referenceId": "Product2Ref19"
       },
       "Name": "Tailored Commercial Facility (TCF) - CAPPED INT",
-      "IsActive": true,
+      "IsActive": false,
       "ANZ_Product_Code__c": "19",
       "IDR_Product_or_Service_Line__c": "1",
       "IDR_Product_or_Service_Category__c": "1",
@@ -271,7 +271,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref20"
       },
-      "Name": "Tailored Commercial Facility (TCF)",
+      "Name": "Tailored Commercial Facility (TCF) - CAP",
       "IsActive": true,
       "ANZ_Product_Code__c": "20",
       "IDR_Product_or_Service_Line__c": "1",
