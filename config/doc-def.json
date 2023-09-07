@@ -77,10 +77,7 @@
     {
       "name": "Api Enabled User",
       "profile": "Integration User",
-      "permissionsets": [
-        "Interaction_Read_Only",
-        "FinServ__FinancialServicesCloudExtension"
-      ],
+      "permissionsets": ["Interaction_Read_Only", "Disable_MFA"],
       "type": "user"
     },
     {
