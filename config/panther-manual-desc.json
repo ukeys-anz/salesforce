@@ -1023,7 +1023,8 @@
         "Lead__c",
         "OwnerId",
         "Reason__c",
-        "Status__c"
+        "Status__c",
+        "Display_Name__c"
       ],
       "IA-2530753": [
         "Id",
@@ -1316,7 +1317,8 @@
         "RequestDescription",
         "RequestReason",
         "Status",
-        "WhoId"
+        "WhoId",
+        "Focus_Area__c"
       ],
       "IA-2468715": [
         "Id",
@@ -1763,6 +1765,8 @@
         "Status__c",
         "Support_Topics__c",
         "Self_Service__c",
+        "Place__c",
+        "Focus_Area__c",
         "Twilio_ID__c",
         "TwilioDetailsID__c",
         "Video_Call__c"
@@ -1790,7 +1794,8 @@
         "Interaction__c",
         "Interaction_Tag__c",
         "Type__c",
-        "Tag_Name__c"
+        "Tag_Name__c",
+        "Focus_Area__c"
       ],
       "IA-2530753": [
         "CreatedById",

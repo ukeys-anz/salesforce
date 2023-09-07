@@ -694,6 +694,18 @@
         "Bypass_Chatter_Feed_Item_URL_Validation"
       ],
       "type": "system"
+    },
+    {
+      "name": "Appointment Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Appointment_Booking_Integration",
+        "FinancialServicesCloudExtension",
+        "Disable_MFA"
+      ],
+      "type": "system"
     }
   ]
 }

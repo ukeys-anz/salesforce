@@ -73,6 +73,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ContactRequest.Focus_Area__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContactRequest.Interaction__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -134,6 +139,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Event_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Focus_Area__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -314,7 +324,7 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditEvent</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

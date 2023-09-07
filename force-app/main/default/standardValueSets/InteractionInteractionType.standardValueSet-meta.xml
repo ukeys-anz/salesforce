@@ -31,4 +31,9 @@
         <default>false</default>
         <label>Branch</label>
     </standardValue>
+    <standardValue>
+        <fullName>In Person</fullName>
+        <default>false</default>
+        <label>In-Person</label>
+    </standardValue>
 </StandardValueSet>

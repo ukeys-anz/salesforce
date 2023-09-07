@@ -33,6 +33,7 @@ export default class InteractionRelatedList extends NavigationMixin(
   messageRecord = "Message";
   generalRecord = "General";
   storeRecord = "Store";
+  appointmentRecord = "Appointment";
   showViewAll = false;
   showAppointmentRecords = false;
 
@@ -138,6 +139,7 @@ export default class InteractionRelatedList extends NavigationMixin(
         this.sObjectType = result;
         if (result === "Account") {
           this.showAccChatTabHead = true;
+          this.handleShowAppointmentTab();
         }
         if (result === "Case") {
           this.showCaseChatTabHead = true;
@@ -225,23 +227,6 @@ export default class InteractionRelatedList extends NavigationMixin(
         },
         state: stateValue
       });
-    });
-  }
-
-  //This method is only for appointment tab View all
-  handleViewAll() {
-    let relationshiptName = "Interactions__r";
-    if (this.sObjectType === "Account") {
-      relationshiptName = "Interactions";
-    }
-    this[NavigationMixin.Navigate]({
-      type: "standard__recordRelationshipPage",
-      attributes: {
-        recordId: this.recordId,
-        objectApiName: this.sObjectType,
-        relationshipApiName: relationshiptName,
-        actionName: "view"
-      }
     });
   }
 

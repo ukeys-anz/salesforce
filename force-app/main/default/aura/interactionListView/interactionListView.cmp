@@ -2,6 +2,11 @@
   <lightning:workspaceAPI aura:id="interactionWorkspaceAPI" />
   <aura:attribute name="anyRecordId" type="String" default="false" />
   <aura:attribute
+    name="tabNames"
+    type="Map"
+    default="{ General: 'Call', Store: 'In Person', Appointment: 'Appointment' }"
+  />
+  <aura:attribute
     name="recordTypeDeveloperName"
     type="String"
     default="false"

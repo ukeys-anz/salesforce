@@ -2,10 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Interaction_Purpose__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Reason for Interaction</description>
     <externalId>false</externalId>
-    <label>Who</label>
+    <inlineHelpText>For Interaction records - select whom the engagement is with, eg customer. For Appointment booking - select the main topic of the appointment, eg financial wellbeing.</inlineHelpText>
+    <label>For</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -50,6 +51,11 @@
                 <fullName>Non-Customer</fullName>
                 <default>false</default>
                 <label>Non-Customer</label>
+            </value>
+            <value>
+                <fullName>Home Loan</fullName>
+                <default>false</default>
+                <label>Home Loan</label>
             </value>
             <value>
                 <fullName>Other</fullName>
@@ -98,12 +104,21 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Home Loan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Digital Support</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>
@@ -111,6 +126,7 @@
             <valueName>Financial Wellbeing</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>

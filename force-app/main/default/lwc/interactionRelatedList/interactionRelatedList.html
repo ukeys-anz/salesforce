@@ -85,44 +85,29 @@
         </div>
       </header>
     </div>
-    <div class="slds-card__body slds-card__body_inner">
-      <template lwc:if={showAppointmentTab}>
-        <template lwc:if={showAppointmentRecords}>
-          <template for:each={appointmentList} for:item="appt">
-            <div class="slds-m-top_small" key={appt.interactId}>
-              <div class="slds-grid slds-gutters">
-                <div class="slds-col">
-                  <a
-                    href="#"
-                    onclick={handleViewRecord}
-                    data-id={appt.interactId}
-                  >
-                    {appt.interactName}
-                  </a>
-                </div>
-              </div>
-              <div class="slds-grid slds-gutters">
-                <div class="slds-col slds-size_1-of-2">Date and Time:</div>
-                <div class="slds-col slds-size_1-of-2">{appt.interactTime}</div>
-              </div>
-              <div class="slds-grid slds-gutters">
-                <div class="slds-col slds-size_1-of-2">Owner Name:</div>
-                <div class="slds-col slds-size_1-of-2">{appt.ownerName}</div>
-              </div>
-            </div>
-          </template>
-          <footer class="slds-card__footer">
-            <a
-              class="slds-card__footer-action"
-              href="javascript:void(0);"
-              onclick={handleViewAll}
-              >View All
-              <span class="slds-assistive-text">Interactions</span>
-            </a>
-          </footer>
-        </template>
+
+    <!-- Appointments Tab Section Starts -->
+    <template lwc:if={showAppointmentTab}>
+      <c-interaction-record-service
+        str-parent-id={recordId}
+        str-record-type-name="Appointment"
+        max-number={maxRecords}
+        lightning-page-name={lightningPageName}
+        appointment-record={appointmentRecord}
+        onshowviewall={fetchViewValue}
+      ></c-interaction-record-service>
+      <template lwc:if={showViewAll}>
+        <footer class="slds-card__footer">
+          <c-view-all-generic
+            any-record-id={recordId}
+            record-type-developer-name={appointmentRecord}
+            lightning-page-name={lightningPageName}
+          >
+          </c-view-all-generic>
+        </footer>
       </template>
-    </div>
+    </template>
+    <!-- Appointments Tab Section Ends -->
     <template lwc:if={showMessageTab}>
       <c-interaction-record-service
         str-parent-id={recordId}

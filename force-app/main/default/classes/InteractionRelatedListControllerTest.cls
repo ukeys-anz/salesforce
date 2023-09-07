@@ -44,7 +44,7 @@ public with sharing class InteractionRelatedListControllerTest {
     Interaction testAppt = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAcc.Id,
-      StartTime = Datetime.now(),
+      StartTime = DateTime.newInstance(DateTime.now().year() + 1, 1, 1),
       Interaction_Purpose__c = DIGITAL_PURPOSE,
       InteractionType = STORE_LOCATION,
       LocationId = testLocation.Id
@@ -54,7 +54,8 @@ public with sharing class InteractionRelatedListControllerTest {
       RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
       AccountId = testAcc.Id,
       CaseId__c = newCase.Id,
-      StartTime = Datetime.now(),
+      StartTime = DateTime.newInstance(DateTime.now().year() + 1, 1, 1)
+        .addDays(1),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
       InteractionType = 'Call',
       Direction__c = 'Inbound',
@@ -113,7 +114,7 @@ public with sharing class InteractionRelatedListControllerTest {
     Interaction testInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
       AccountId = testAcc.Id,
-      StartTime = Datetime.now(),
+      StartTime = DateTime.newInstance(DateTime.now().year() + 1, 1, 1),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
       InteractionType = 'Call',
       Direction__c = 'Inbound',

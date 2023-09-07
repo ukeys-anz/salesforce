@@ -5,6 +5,7 @@
  */
 global with sharing class InteractionListViewFetchData implements omnistudio.VlocityOpenInterface, Callable {
   private final static Integer MAXLIMIT = 5000;
+  private final static String FETCH_DATABASED_ON_RECORD_ID_METHOD = 'fetchDataBasedOnRecordId';
   /**
    * @description invokeMethod to handle insertion of logs from omnistudio.
    * @param methodName Method named to be called.
@@ -22,7 +23,7 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
     Boolean success = true;
     String error = '';
     try {
-      if (methodName == 'fetchDataBasedOnRecordId') {
+      if (methodName == FETCH_DATABASED_ON_RECORD_ID_METHOD) {
         fetchDataBasedOnRecordId(inputMap, outMap, options);
       }
     } catch (Exception e) {

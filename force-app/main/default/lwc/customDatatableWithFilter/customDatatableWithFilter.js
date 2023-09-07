@@ -7,6 +7,7 @@ import { publish, MessageContext } from "lightning/messageService";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import TIME_ZONE from "@salesforce/i18n/timeZone";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -18,6 +19,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   LightningElement
 ) {
   ampm = true;
+  timeZone = TIME_ZONE;
 
   //Params to build and show page numbers
   @api perpage = 15;
@@ -41,6 +43,12 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   boolIsMessage = false;
   page = 1;
   filterClass = "slds-hide";
+  recordTypeNameDeveloperNameMap = {
+    General: "Call",
+    Store: "In Person",
+    Message: "Message",
+    Appointment: "Appointment"
+  };
   // Fields to be shown on the custom list view for call record type
   fieldsforcall = [
     { label: "Name", fieldName: "Name", sortable: true },
@@ -158,6 +166,35 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     },
     { label: "Attendees", fieldName: "Attendees__c", sortable: true }
   ];
+
+  // Fields to be shown on the custom list view for Appointment record type
+  fieldsForAppointment = [
+    {
+      label: "Appointment Number",
+      fieldName: "Interaction_Auto_Number__c",
+      type: "datatableColumnClickHandler",
+      typeAttributes: {
+        recordId: {
+          fieldName: "Id"
+        },
+        cellValue: {
+          fieldName: "Interaction_Auto_Number__c"
+        },
+        sObjectApiName: "Interaction"
+      },
+      sortable: true
+    },
+    { label: "Appointment Name", fieldName: "Name", sortable: true },
+    {
+      label: "Appointment Date and Time",
+      fieldName: "LocaleStartTime",
+      sortable: true
+    },
+    { label: "Owner", fieldName: "OwnerName", sortable: true },
+    { label: "Status", fieldName: "Status__c", sortable: true },
+    { label: "Appointment Type", fieldName: "InteractionType", sortable: true }
+  ];
+
   @track pages = [];
 
   @wire(MessageContext)
@@ -168,13 +205,10 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     if (data) {
       const recordTypeIds = data.recordTypeInfos;
 
-      if (this.recordTypeDeveloperName === "General") {
-        this.recordTypeName = "Call";
-      } else if (this.recordTypeDeveloperName === "Store") {
-        this.recordTypeName = "In Person";
-      } else if (this.recordTypeDeveloperName === "Message") {
-        this.recordTypeName = "Message";
-      }
+      this.recordTypeName = this.recordTypeNameDeveloperNameMap[
+        this.recordTypeDeveloperName
+      ];
+
       this.recordTypeId = Object.keys(recordTypeIds).find(
         (rti) => recordTypeIds[rti].name === this.recordTypeName
       );
@@ -215,6 +249,13 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       return this.pages.slice(this.page - mid, this.page + mid - 1);
     }
     return this.pages.slice(0, this.setsize);
+  }
+
+  get showFilter() {
+    return (
+      this.recordTypeDeveloperName === "Message" ||
+      this.recordTypeDeveloperName === "Appointment"
+    );
   }
 
   connectedCallback() {
@@ -290,6 +331,22 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       statusSearch: this.statusValue
     })
       .then((data) => {
+        data.forEach((element) => {
+          element.OwnerName = element.Owner.Name;
+          const options = {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: this.ampm,
+            timeZone: this.timeZone
+          };
+          element.LocaleStartTime = new Date(element.StartTime).toLocaleString(
+            "en-AU",
+            options
+          );
+        });
         this._originalRecords = this._localOriginalRecords = data;
         this.sortData(this._sortedBy, this._defaultSortDirection);
         this.setPagination();
@@ -418,6 +475,8 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
         return this.fieldsforcall;
       case "Store":
         return this.fieldsforstore;
+      case "Appointment":
+        return this.fieldsForAppointment;
       default:
         return [];
     }

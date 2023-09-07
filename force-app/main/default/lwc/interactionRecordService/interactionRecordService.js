@@ -19,6 +19,7 @@ export default class InteractionRecordService extends NavigationMixin(
   @api messageRecord;
   @api generalRecord;
   @api storeRecord;
+  @api appointmentRecord;
   chatOrCallSid;
   showInteractionRecords = false;
   totalInteractionRecords;
@@ -37,6 +38,10 @@ export default class InteractionRecordService extends NavigationMixin(
 
   get showStore() {
     return this.strRecordTypeName === this.storeRecord;
+  }
+
+  get showAppointment() {
+    return this.strRecordTypeName === this.appointmentRecord;
   }
 
   @wire(MessageContext)
