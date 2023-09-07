@@ -689,6 +689,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Joint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Needs_Assessment_Last_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
