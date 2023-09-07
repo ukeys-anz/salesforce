@@ -482,7 +482,15 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public List<SOPIncomeDetail> details;
     public SOPEmployment employment;
     public string employmentId;
-    public string updateTime;
+    public Datetime updateTime;
+    /**
+     * @description return update time in the expected format
+     */
+    public String updateTimeStr {
+      get {
+        return BOHService.getFormatedDate(updateTime);
+      }
+    }
     public SOPverification verification;
     /**
      * @description ownerName for the income card

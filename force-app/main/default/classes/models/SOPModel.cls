@@ -12,8 +12,13 @@
 public with sharing class SOPModel extends CalloutModel {
   public Sop sop;
   public static final String EQUIFAX = 'EQUIFAX';
+  public static final String EQUIFAX_LC = 'Equifax';
   public static final String EXPERIAN = 'EXPERIAN';
+  public static final String EXPERIAN_LC = 'Experian';
   public static final String ILLION = 'ILLION';
+  public static final String ILLION_LC = 'Illion';
+  public static final String CONFIRMED = 'Confirmed on ';
+  public static final String NOT_CONFIRMED = 'Confirmation not yet provided';
 
   /**
    * @description main sop wrapper
@@ -93,7 +98,11 @@ public with sharing class SOPModel extends CalloutModel {
      */
     public String confirmedAccountsTimeStr {
       get {
-        return BOHService.getFormatedDate(confirmedAccounts);
+        if (confirmedAccounts == null) {
+          return NOT_CONFIRMED;
+        } else {
+          return CONFIRMED + BOHService.getFormatedDate(confirmedAccounts);
+        }
       }
     }
     public boolean multipleProfiles;
@@ -139,7 +148,11 @@ public with sharing class SOPModel extends CalloutModel {
      */
     public String updateRetrievedTimeStr {
       get {
-        return BOHService.getFormatedDate(retrievedTime);
+        if (success == false) {
+          return NOT_CONFIRMED;
+        } else {
+          return CONFIRMED + BOHService.getFormatedDate(retrievedTime);
+        }
       }
     }
     public boolean success;

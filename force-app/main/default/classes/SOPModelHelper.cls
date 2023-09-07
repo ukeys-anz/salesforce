@@ -55,10 +55,13 @@ public with sharing class SOPModelHelper {
       }
       if (source.subType == SOPModel.EQUIFAX) {
         partyLiability.liabilitySourceEquifax = source;
+        partyLiability.liabilitySourceEquifax.subType = SOPModel.EQUIFAX_LC;
       } else if (source.subType == SOPModel.EXPERIAN) {
         partyLiability.liabilitySourceExperian = source;
+        partyLiability.liabilitySourceExperian.subType = SOPModel.EXPERIAN_LC;
       } else if (source.subType == SOPModel.ILLION) {
         partyLiability.liabilitySourceIllion = source;
+        partyLiability.liabilitySourceIllion.subType = SOPModel.ILLION_LC;
       }
       sop.partyLiabilities = partyLiabilityMap.values();
     }
