@@ -26,7 +26,8 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
         fetchDataBasedOnRecordId(inputMap, outMap, options);
       }
     } catch (Exception e) {
-      error = e.getMessage() + ' StackTrace -> ' + e.getStackTraceString();
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
       success = false;
     }
     return success;

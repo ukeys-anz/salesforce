@@ -23,10 +23,11 @@ public with sharing class IDRCaseCommentsNotificationManager {
           IDRCaseActions.isIDRComplaintType(caseRec)
         ) {
           if (
-            (!(caseRec.Status == 'Closed' ||
+            ((!(caseRec.Status == 'Closed' ||
             caseRec.Status == 'Withdrawn' ||
             caseRec.Status == 'Resolved')) ||
-            (!((record.CommentBody).startsWith('New attachment added; ')))
+            (!((record.CommentBody).startsWith('New attachment added; ')))) &&
+            !String.valueOf(caseRec.OwnerId).startsWith('00G')
           ) {
             wrapperList.add(createNotification(caseRec));
           }

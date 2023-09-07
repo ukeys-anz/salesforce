@@ -12,7 +12,6 @@
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -51,9 +50,9 @@
                 <label>NON RESIDENT - The party is a NON RESIDENT of the given jurisdiction</label>
             </value>
             <value>
-                <fullName>ABN LODGD</fullName>
+                <fullName>ABN LODGED</fullName>
                 <default>false</default>
-                <label>ABN LODGD - The party lodged an Australian Business Number (ABN) in lieu of a TFN/TIN</label>
+                <label>ABN LODGED - The party lodged an Australian Business Number (ABN) in lieu of a TFN/TIN</label>
             </value>
         </valueSetDefinition>
     </valueSet>

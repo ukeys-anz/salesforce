@@ -40,9 +40,12 @@ export default class ViewTranscriptForInteraction extends LightningElement {
   @wire(getRecord, { recordId: "$_recordId", fields })
   interactionRecord({ data, error }) {
     if (data) {
-      if (data.fields && data.fields.Chat_or_Call_SID__c.value) {
+      if (
+        data.fields &&
+        data.fields.Chat_or_Call_SID__c.value &&
+        this.isExecuting
+      ) {
         this.chatOrCallSid = data.fields.Chat_or_Call_SID__c.value;
-        this.isExecuting = true;
         const message = { channelSID: this.chatOrCallSid };
         this.publishLightningMessage(
           chatHistoryChannel,

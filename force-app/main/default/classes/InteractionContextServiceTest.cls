@@ -49,24 +49,18 @@ public with sharing class InteractionContextServiceTest {
 
       // Insert Account (Customer) record
       List<Account> testAccountList = new List<Account>();
-      Account testAccount1 = createTestAccount(
-        'Joe',
-        'Bloggs',
+      Account testAccountFirst = createTestAccount(
         'OCVID887766',
         apiUser.Id,
-        '123457',
-        'OCVID887766CAPSYSID123'
+        '123457'
       );
-      testAccountList.add(testAccount1);
-      Account testAccount2 = createTestAccount(
-        'Joe',
-        'Bloggs',
+      testAccountList.add(testAccountFirst);
+      Account testAccountSecond = createTestAccount(
         'OCVID887767',
         apiUser.Id,
-        '123456',
-        'OCVID887766CAPSYSID124'
+        '123456'
       );
-      testAccountList.add(testAccount2);
+      testAccountList.add(testAccountSecond);
       insert testAccountList;
     }
   }
@@ -81,17 +75,20 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
+    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    contextReq.ocvId = 'OCVID887766';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = 'Fraud';
+    contextReq.ppid = '1231';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = '123457';
+    contextReq.type = 'Chat';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = 'assigned';
+
     InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
-      'OCVID887766',
-      'CH' + faker.randomString(32),
-      'Fraud',
-      '1231',
-      'Inbound',
-      '123457',
-      'Chat',
-      'TW' + faker.randomString(10),
-      'CR' + faker.randomString(10),
-      'assigned'
+      contextReq
     );
 
     Test.startTest();
@@ -127,19 +124,22 @@ public with sharing class InteractionContextServiceTest {
     // Query for API User
     User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
 
-    // WHEN Twilio API user send a request with valid OCV ID
+    // WHEN Twilio API user send a request with valid OCV ID and invalid Direction
     // Prepare request test data
+    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    contextReq.ocvId = 'OCVID887766';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = 'Fraud';
+    contextReq.ppid = '1231';
+    contextReq.direction = '';
+    contextReq.phoneNumber = '123457';
+    contextReq.type = 'Chat';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = 'Created';
+
     InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
-      'OCVID887766',
-      'CH' + faker.randomString(32),
-      'Fraud',
-      '1231',
-      '',
-      '123457',
-      'Chat',
-      'TW' + faker.randomString(10),
-      'CR' + faker.randomString(10),
-      'Created'
+      contextReq
     );
 
     Test.startTest();
@@ -172,17 +172,20 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request with phoneNumber
     // Prepare request test data
+    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    contextReq.ocvId = '';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = '';
+    contextReq.ppid = '';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = '123456';
+    contextReq.type = 'Voice';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = '';
+
     InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
-      '',
-      'CH' + faker.randomString(32),
-      '',
-      '',
-      'Inbound',
-      '123456',
-      'Voice',
-      'TW' + faker.randomString(10),
-      'CR' + faker.randomString(10),
-      ''
+      contextReq
     );
 
     Test.startTest();
@@ -219,17 +222,20 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request without valid OCV ID
     // Prepare request test data
+    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    contextReq.ocvId = '';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = '';
+    contextReq.ppid = '';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = '';
+    contextReq.type = 'Voice';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = '';
+
     InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
-      '',
-      'CH' + faker.randomString(32),
-      '',
-      '',
-      'Inbound',
-      '',
-      'Voice',
-      'TW' + faker.randomString(10),
-      'CR' + faker.randomString(10),
-      ''
+      contextReq
     );
 
     Test.startTest();
@@ -254,44 +260,12 @@ public with sharing class InteractionContextServiceTest {
 
   /**
    * @description Method to prepare REST requests for test scenarios.
-   * @param ocvId OCV Id
-   * @param chatOrCallId Twilio Channel SID
-   * @param issueSubtype Support Topics for inbount chat
-   * @param ppid PPID
-   * @param direction Direction
-   * @param phoneNumber For Phone Number
-   * @param type to identify type of interaction
-   * @param twilioId twilio id from twilio
-   * @param callRecordingId call recording id
-   * @param chatOrCallStatus chat or call status from Twilio
-   * @return `List<InteractionContextService.InteractionContextRequest>` List of 'InteractionContextService.InteractionContextRequest'
+   * @param interactionContextService InteractionContextService.InteractionContextRequest
+   * @return 'InteractionContextService.InteractionContextRequest'
    */
-  //Suppress warnings for parameters to prepare request
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static InteractionContextService.InteractionContextRequest prepareRequest(
-    String ocvId,
-    String chatOrCallId,
-    String issueSubtype,
-    String ppid,
-    String direction,
-    String phoneNumber,
-    String type,
-    String twilioId,
-    String callRecordingId,
-    String chatOrCallStatus
+    InteractionContextService.InteractionContextRequest interactionContextService
   ) {
-    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
-    contextReq.ocvId = ocvId;
-    contextReq.chatOrCallId = chatOrCallId;
-    contextReq.issueSubtype = issueSubtype;
-    contextReq.ppid = ppid;
-    contextReq.direction = direction;
-    contextReq.phoneNumber = phoneNumber;
-    contextReq.type = type;
-    contextReq.twilioId = twilioId;
-    contextReq.callRecordingId = callRecordingId;
-    contextReq.chatOrCallStatus = chatOrCallStatus;
-
     //Setup request
     RestRequest req = new RestRequest();
     req.requestURI = '/InteractionContextRequests/';
@@ -304,41 +278,24 @@ public with sharing class InteractionContextServiceTest {
     RestContext.request = req;
     RestContext.response = res;
 
-    return contextReq;
+    return interactionContextService;
   }
 
   /**
    * @description helper method to create a person account
-   * @param firstName String the first name of the person
-   * @param lastName String the last name of the person
    * @param ocvId the OCVId
    * @param userId the OCVId
    * @param phoneNumber the OCVId
-   * @param externalId the OCVId
    * @return Account a Person Account with Name and OCV as provided
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   static Account createTestAccount(
-    String firstName,
-    String lastName,
     String ocvId,
     Id userId,
-    String phoneNumber,
-    String externalId
+    String phoneNumber
   ) {
-    Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('PersonAccount')
-      .getRecordTypeId();
-    Account testAccount = new Account();
-    testAccount.FirstName = firstName;
-    testAccount.LastName = lastName;
-    testAccount.OCV_ID__c = ocvId;
+    Account testAccount = TestDataFactory.createPersonAccount(ocvId, false);
     testAccount.PersonMobilePhone = phoneNumber;
-    testAccount.RecordTypeId = personAccountRecordTypeId;
     testAccount.OwnerId = userId;
-    testAccount.External_Id__c = externalId;
-    testAccount.ANZx_Customer__c = true;
-
     return testAccount;
   }
 }
