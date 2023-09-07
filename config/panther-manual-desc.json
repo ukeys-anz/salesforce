@@ -2515,7 +2515,11 @@
         "Max_Allowable_LVR_Basis_Points__c"
       ],
       "IA-2594113": ["State__c"],
-      "IA-2415840": ["E_Tag__c", "Needs_Assessment_Unsuitability_Reasons__c"]
+      "IA-2415840": [
+        "E_Tag__c",
+        "Needs_Assessment_Unsuitability_Reasons__c",
+        "Joint__c"
+      ]
     },
     "Response_Type__c": {
       "IA-2415860": [

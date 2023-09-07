@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>Invitation Sender</description>
     <externalId>false</externalId>
-    <label>Loan Applicant</label>
+    <label>Inviter</label>
     <referenceTo>LoanApplicant</referenceTo>
     <relationshipLabel>Loan Invitations</relationshipLabel>
     <relationshipName>Loan_Invitations</relationshipName>
