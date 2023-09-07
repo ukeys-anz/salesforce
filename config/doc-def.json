@@ -78,7 +78,7 @@
       "name": "Api Enabled User",
       "profile": "Integration User",
       "permissionsets": ["Interaction_Read_Only", "Disable_MFA"],
-      "type": "user"
+      "type": "system"
     },
     {
       "name": "ANZ Plus Operations - Read Only",
