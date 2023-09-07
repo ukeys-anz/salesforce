@@ -50,18 +50,16 @@ export default class ViewTranscriptForInteraction extends LightningElement {
   @wire(getRecord, { recordId: "$_recordId", fields })
   interactionRecord({ data, error }) {
     if (data) {
-      if (
-        data.fields &&
-        data.fields.Chat_or_Call_SID__c.value &&
-        this.isExecuting
-      ) {
+      if (data.fields && data.fields.Chat_or_Call_SID__c.value) {
         this.chatOrCallSid = data.fields.Chat_or_Call_SID__c.value;
-        const message = { channelSID: this.chatOrCallSid };
-        this.publishLightningMessage(
-          chatHistoryChannel,
-          message,
-          "Error occurred while displaying related Chat History"
-        );
+        if (this.isExecuting) {
+          const message = { channelSID: this.chatOrCallSid };
+          this.publishLightningMessage(
+            chatHistoryChannel,
+            message,
+            "Error occurred while displaying related Chat History"
+          );
+        }
       }
     } else if (error) {
       console.error(

@@ -40,12 +40,13 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
       if (
         data.fields &&
         data.fields.Chat_or_Call_SID__c.value &&
-        data.fields.AccountId.value &&
-        this.isExecuting
+        data.fields.AccountId.value
       ) {
         this.chatOrCallSid = data.fields.Chat_or_Call_SID__c.value;
         this.accountId = data.fields.AccountId.value;
-        this.reinitiateChat();
+        if (this.isExecuting) {
+          this.reinitiateChat();
+        }
       }
     } else if (error) {
       console.error(
