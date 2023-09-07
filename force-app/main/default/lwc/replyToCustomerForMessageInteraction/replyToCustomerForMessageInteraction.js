@@ -17,6 +17,11 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
 
   @api invoke() {
     this.isExecuting = true;
+
+    // It has been observed that in some org, the wire method gets called when we click
+    // quick action, but in some org it never gets called. Hence a workaround to call this method
+    // from invoke to.
+    this.reinitiateChat();
   }
 
   @api set recordId(recordId) {

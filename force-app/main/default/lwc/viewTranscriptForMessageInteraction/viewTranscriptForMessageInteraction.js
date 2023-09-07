@@ -19,6 +19,16 @@ export default class ViewTranscriptForInteraction extends LightningElement {
 
   @api invoke() {
     this.isExecuting = true;
+
+    // It has been observed that in some org, the wire method gets called when we click
+    // quick action, but in some org it never gets called. Hence a workaround to call this method
+    // from invoke to.
+    const message = { channelSID: this.chatOrCallSid };
+    this.publishLightningMessage(
+      chatHistoryChannel,
+      message,
+      "Error occurred while displaying related Chat History"
+    );
   }
 
   @api set recordId(recordId) {
