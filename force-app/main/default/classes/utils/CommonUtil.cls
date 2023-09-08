@@ -788,10 +788,10 @@ public with sharing class CommonUtil {
 
   /**
    * @description This method returns a RecordType instance based on RecordTypeId
-   * @param recordTypeId String
+   * @param recordTypeId Id of the record type
    * @return RecordType instance based on RecordTypeId
    */
-  public static RecordType getRecordTypeDeveloperName(String recordTypeId) {
+  public static RecordType getRecordTypeDeveloperName(Id recordTypeId) {
     if (String.isNotBlank(recordTypeId)) {
       return [
         SELECT DeveloperName, Id
