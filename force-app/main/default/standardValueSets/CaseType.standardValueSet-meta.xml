@@ -202,6 +202,11 @@
         <label>Transaction &amp; Savings enquiry</label>
     </standardValue>
     <standardValue>
+        <fullName>Potential Scam</fullName>
+        <default>false</default>
+        <label>Potential Scam</label>
+    </standardValue>
+    <standardValue>
         <fullName>Dating &amp; Romance</fullName>
         <default>false</default>
         <label>Dating &amp; Romance</label>
@@ -405,10 +410,5 @@
         <fullName>Account/Card Abuse</fullName>
         <default>false</default>
         <label>Account/Card Abuse</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Potential Scam</fullName>
-        <default>false</default>
-        <label>Potential Scam</label>
     </standardValue>
 </StandardValueSet>
