@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM6_Q1__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 6 Q1 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>In any of the calls, we did not warn the caller/call recipient the call may be recorded.</fullName>
+                <default>false</default>
+                <label>In any of the calls, we did not warn the caller/call recipient the call may be recorded.</label>
+            </value>
+            <value>
+                <fullName>In any of the calls, we did not provide the required warning as early as practical and before disclosing or receiving personal information.</fullName>
+                <default>false</default>
+                <label>In any of the calls, we did not provide the required warning as early as practical and before disclosing or receiving personal information.</label>
+            </value>
+            <value>
+                <fullName>In any of the calls we failed to terminate the call and call back from an unmonitored and unrecorded line if the caller/call recipient did not consent to the call being monitored or recorded.</fullName>
+                <default>false</default>
+                <label>in any of the calls we failed to terminate the call and call back from an unmonitored and unrecorded line if the caller/call recipient did not consent to the call being monitored or recorded.</label>
+            </value>
+            <value>
+                <fullName>CM receiving the review was not the CM responsible for the ‘not met’.</fullName>
+                <default>false</default>
+                <label>CM receiving the review was not the CM responsible for the ‘not met’.</label>
+            </value>
+            <value>
+                <fullName>incorrect knowledge base (raise a CIP).</fullName>
+                <default>false</default>
+                <label>incorrect knowledge base (raise a CIP).</label>
+            </value>
+            <value>
+                <fullName>There were no calls with the customer.</fullName>
+                <default>false</default>
+                <label>There were no calls with the customer.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Status__c</fullName>
+    <fullName>Assessment_Outcome_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>The different status the QA progresses through</description>
+    <description>Assessment Outcome Status</description>
     <externalId>false</externalId>
-    <inlineHelpText>Status of Quality Evaluation</inlineHelpText>
-    <label>Status</label>
+    <label>Assessment Outcome Status</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -18,34 +17,34 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Unassigned</fullName>
-                <default>true</default>
-                <label>Unassigned</label>
+                <fullName>Awaiting Response</fullName>
+                <default>false</default>
+                <label>Awaiting Response</label>
             </value>
             <value>
-                <fullName>In Progress</fullName>
+                <fullName>Accepted</fullName>
                 <default>false</default>
-                <label>In Progress</label>
+                <label>Accepted</label>
             </value>
             <value>
-                <fullName>Referred</fullName>
+                <fullName>Disputed</fullName>
                 <default>false</default>
-                <label>Referred</label>
+                <label>Disputed</label>
             </value>
             <value>
-                <fullName>Complete</fullName>
+                <fullName>Disputed - C&amp;Q review overturned</fullName>
                 <default>false</default>
-                <label>Complete</label>
+                <label>Disputed - C&amp;Q review overturned</label>
             </value>
             <value>
-                <fullName>Withdrawn</fullName>
+                <fullName>Disputed - C&amp;Q review upheld</fullName>
                 <default>false</default>
-                <label>Withdrawn</label>
+                <label>Disputed - C&amp;Q review upheld</label>
             </value>
             <value>
-                <fullName>Pending</fullName>
+                <fullName>Disputed - C&amp;Q review final&quot;</fullName>
                 <default>false</default>
-                <label>Pending</label>
+                <label>Disputed - C&amp;Q review final&quot;</label>
             </value>
         </valueSetDefinition>
     </valueSet>

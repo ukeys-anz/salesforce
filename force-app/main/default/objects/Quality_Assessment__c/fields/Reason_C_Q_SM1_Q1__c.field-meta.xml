@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM1_Q1__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 1 Q1 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Not enough information to understand the cause of the issue/s raised and if the issue/fault/error had been rectified or was not ongoing.</fullName>
+                <default>false</default>
+                <label>Not enough information to understand the cause of the issue/s raised and if the issue/fault/error had been rectified or was not ongoing.</label>
+            </value>
+            <value>
+                <fullName>There were red flags requiring referral to an IDR/Specialist team.</fullName>
+                <default>false</default>
+                <label>There were red flags requiring referral to an IDR/Specialist team.</label>
+            </value>
+            <value>
+                <fullName>we made a goodwill payment, but we did not make it clear there was no error and the payment was goodwill.</fullName>
+                <default>false</default>
+                <label>we made a goodwill payment, but we did not make it clear there was no error and the payment was goodwill.</label>
+            </value>
+            <value>
+                <fullName>we sent a Confirming Resolution (CR003) letter and it did not set out the substantive issues and/or terms of the resolution reached.</fullName>
+                <default>false</default>
+                <label>we sent a Confirming Resolution (CR003) letter and it did not set out the substantive issues and/or terms of the resolution reached.</label>
+            </value>
+            <value>
+                <fullName>&apos;Not met’ directed and/or approved by SME.</fullName>
+                <default>false</default>
+                <label>&apos;Not met’ directed and/or approved by SME.</label>
+            </value>
+            <value>
+                <fullName>Case involved a final written response or detailed investigation (excluding Confirming Resolution (CR003) letters containing goodwill or commercial offers).</fullName>
+                <default>false</default>
+                <label>Case involved a final written response or detailed investigation (excluding Confirming Resolution (CR003) letters containing goodwill or commercial offers).</label>
+            </value>
+            <value>
+                <fullName>No goodwill or commercial offer made to customer.</fullName>
+                <default>false</default>
+                <label>No goodwill or commercial offer made to customer.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

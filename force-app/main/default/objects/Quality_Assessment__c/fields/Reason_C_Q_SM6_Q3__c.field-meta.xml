@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM6_Q3__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 6 Q3 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>We did not obtain, or hold, an appropriate written authority from customer for the third party to represent them and/or make changes to their personal or account information.</fullName>
+                <default>false</default>
+                <label>We did not obtain, or hold, an appropriate written authority from customer for the third party to represent them and/or make changes to their personal or account information.</label>
+            </value>
+            <value>
+                <fullName>for a phone authority, we disclosed information about our customer to a third party, but we did not obtain our customer’s consent by giving enough to understand we were disclosing and/or why a third party needed it.</fullName>
+                <default>false</default>
+                <label>for a phone authority, we disclosed information about our customer to a third party, but we did not obtain our customer’s consent by giving enough to understand we were disclosing and/or why a third party needed it.</label>
+            </value>
+            <value>
+                <fullName>if we disclosed information to a third party without customer consent, we did not escalate to an SME and/or this was not set out in CMOS.</fullName>
+                <default>false</default>
+                <label>if we disclosed information to a third party without customer consent, we did not escalate to an SME and/or this was not set out in CMOS.</label>
+            </value>
+            <value>
+                <fullName>there was not a valid reason for disclosing without consent, but this decision was made by an SME.</fullName>
+                <default>false</default>
+                <label>there was not a valid reason for disclosing without consent, but this decision was made by an SME.</label>
+            </value>
+            <value>
+                <fullName>incorrect knowledge base (raise a CIP).</fullName>
+                <default>false</default>
+                <label>incorrect knowledge base (raise a CIP).</label>
+            </value>
+            <value>
+                <fullName>No third party involved</fullName>
+                <default>false</default>
+                <label>No third party involved</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

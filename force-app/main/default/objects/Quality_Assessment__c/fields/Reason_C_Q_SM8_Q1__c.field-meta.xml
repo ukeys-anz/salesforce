@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM8_Q1__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 8 Q1 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Our written communication with the customer was not professional.</fullName>
+                <default>false</default>
+                <label>Our written communication with the customer was not professional.</label>
+            </value>
+            <value>
+                <fullName>Our written communication with the customer was not empathetic or courteous.</fullName>
+                <default>false</default>
+                <label>Our written communication with the customer was not empathetic or courteous.</label>
+            </value>
+            <value>
+                <fullName>CM did not use or appropriately adapt the most appropriate IDR/EDR template.</fullName>
+                <default>false</default>
+                <label>CM did not use or appropriately adapt the most appropriate IDR/EDR template.</label>
+            </value>
+            <value>
+                <fullName>CM receiving the review did not draft the communication/s which resulted in the ‘not met’.</fullName>
+                <default>false</default>
+                <label>CM receiving the review did not draft the communication/s which resulted in the ‘not met’.</label>
+            </value>
+            <value>
+                <fullName>There was no written response or communication (case resolved over the phone and within 5 days etc).</fullName>
+                <default>false</default>
+                <label>There was no written response or communication (case resolved over the phone and within 5 days etc).</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

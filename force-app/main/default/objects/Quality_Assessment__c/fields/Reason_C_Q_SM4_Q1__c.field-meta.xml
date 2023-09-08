@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM4_Q1__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 4 Q1 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>the customer’s issues were not correctly recorded in Case Information.</fullName>
+                <default>false</default>
+                <label>the customer’s issues were not correctly recorded in Case Information.</label>
+            </value>
+            <value>
+                <fullName>the description of issue field was not accurate.</fullName>
+                <default>false</default>
+                <label>the description of issue field was not accurate.</label>
+            </value>
+            <value>
+                <fullName>the correct product or service name was not selected.</fullName>
+                <default>false</default>
+                <label>the correct product or service name was not selected.</label>
+            </value>
+            <value>
+                <fullName>the correct product category was not correct.</fullName>
+                <default>false</default>
+                <label>the correct product category was not correct.</label>
+            </value>
+            <value>
+                <fullName>incorrect knowledge base.</fullName>
+                <default>false</default>
+                <label>incorrect knowledge base.</label>
+            </value>
+            <value>
+                <fullName>technology issue.</fullName>
+                <default>false</default>
+                <label>technology issue.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

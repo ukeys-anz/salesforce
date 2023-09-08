@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Insights_and_Focus_Comments__c</fullName>
+    <fullName>TM_Attestation_feedback_provided_to_CM__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>A field for the analyst to capture the Insights and Focus Comments</description>
+    <defaultValue>false</defaultValue>
+    <description>Team Manager Attestation that feedback has been provided to Case Manager</description>
     <externalId>false</externalId>
-    <label>Insights and Focus Comments</label>
-    <length>32768</length>
+    <inlineHelpText>Team Manager Attestation that feedback has been provided to Case Manager</inlineHelpText>
+    <label>TM Attestation- feedback provided to CM</label>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>LongTextArea</type>
-    <visibleLines>3</visibleLines>
+    <type>Checkbox</type>
 </CustomField>

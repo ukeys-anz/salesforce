@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM7_Q2__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 7 Q2 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>We did not critically analyse and obtain some or any relevant information from the ANZ systems.</fullName>
+                <default>false</default>
+                <label>We did not critically analyse and obtain some or any relevant information from the ANZ systems.</label>
+            </value>
+            <value>
+                <fullName>We did not critically analyse and obtain some or any relevant information from ANZ business units.</fullName>
+                <default>false</default>
+                <label>We did not critically analyse and obtain some or any relevant information from ANZ business units.</label>
+            </value>
+            <value>
+                <fullName>CM escalated information request and was directed not to obtain information by SME.</fullName>
+                <default>false</default>
+                <label>CM escalated information request and was directed not to obtain information by SME.</label>
+            </value>
+            <value>
+                <fullName>CM had no access to an ANZ system and the case ought to have been referred to a specialist business unit for assistance (e.g. ANZ Shield).</fullName>
+                <default>false</default>
+                <label>CM had no access to an ANZ system and the case ought to have been referred to a specialist business unit for assistance (e.g. ANZ Shield).</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Insights_and_Focus_Comments__c</fullName>
+    <fullName>Duration_of_calls_retrieved_minutes__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>A field for the analyst to capture the Insights and Focus Comments</description>
+    <description>Duration of calls retrieved (minutes)</description>
     <externalId>false</externalId>
-    <label>Insights and Focus Comments</label>
-    <length>32768</length>
+    <label>Duration of calls retrieved (minutes)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>LongTextArea</type>
-    <visibleLines>3</visibleLines>
+    <type>Number</type>
+    <unique>false</unique>
 </CustomField>

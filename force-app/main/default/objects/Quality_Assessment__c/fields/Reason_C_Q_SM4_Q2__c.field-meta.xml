@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM4_Q2__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 4 Q2 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer Desired Outcome did not contain enough detail and was not accurate.</fullName>
+                <default>false</default>
+                <label>Customer Desired Outcome did not contain enough detail and was not accurate.</label>
+            </value>
+            <value>
+                <fullName>Resolution Information was not correct/did not match the resolution or outcome on issue(s) raised.</fullName>
+                <default>false</default>
+                <label>Resolution Information was not correct/did not match the resolution or outcome on issue(s) raised.</label>
+            </value>
+            <value>
+                <fullName>Description of Outcome was not accurate/did not provide a complete description of the complaint resolution or outcome.</fullName>
+                <default>false</default>
+                <label>Description of Outcome was not accurate/did not provide a complete description of the complaint resolution or outcome.</label>
+            </value>
+            <value>
+                <fullName>incorrect knowledge base.</fullName>
+                <default>false</default>
+                <label>incorrect knowledge base.</label>
+            </value>
+            <value>
+                <fullName>technology issue.</fullName>
+                <default>false</default>
+                <label>technology issue.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

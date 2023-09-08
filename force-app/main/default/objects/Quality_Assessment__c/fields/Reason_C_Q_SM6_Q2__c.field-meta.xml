@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM6_Q2__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 6 Q2 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>For any inbound calls (if any), we did not take some or any of the applicable steps under the CR inbound customer call authentication guide.</fullName>
+                <default>false</default>
+                <label>For any inbound calls (if any), we did not take some or any of the applicable steps under the CR inbound customer call authentication guide.</label>
+            </value>
+            <value>
+                <fullName>For all outbound calls (if any), we did not take some or any of the applicable steps under the CR outbound customer call authentication guide.</fullName>
+                <default>false</default>
+                <label>For all outbound calls (if any), we did not take some or any of the applicable steps under the CR outbound customer call authentication guide.</label>
+            </value>
+            <value>
+                <fullName>CM receiving the review was not the CM responsible for the ‘not met’.</fullName>
+                <default>false</default>
+                <label>CM receiving the review was not the CM responsible for the ‘not met’.</label>
+            </value>
+            <value>
+                <fullName>incorrect knowledge base (raise a CIP).</fullName>
+                <default>false</default>
+                <label>incorrect knowledge base (raise a CIP).</label>
+            </value>
+            <value>
+                <fullName>If customer has been transferred and already authenticated (must have been confirmed).</fullName>
+                <default>false</default>
+                <label>If customer has been transferred and already authenticated (must have been confirmed).</label>
+            </value>
+            <value>
+                <fullName>No calls with customer or representative.</fullName>
+                <default>false</default>
+                <label>No calls with customer or representative.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

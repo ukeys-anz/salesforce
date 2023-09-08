@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Insights_and_Focus_Comments__c</fullName>
+    <fullName>Has_a_REaL_form_been_raised__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>A field for the analyst to capture the Insights and Focus Comments</description>
+    <defaultValue>false</defaultValue>
+    <description>Has a REaL form been raised?</description>
     <externalId>false</externalId>
-    <label>Insights and Focus Comments</label>
-    <length>32768</length>
+    <label>Has a REaL form been raised?</label>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>LongTextArea</type>
-    <visibleLines>3</visibleLines>
+    <type>Checkbox</type>
 </CustomField>
