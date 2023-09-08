@@ -55,27 +55,21 @@
       component.set("v.pageReference", pageReferenceWhenNoRecordTypeExists);
     }
 
-    //Fetch developer name of the record type and verify if it is store.
-    //If Store then open omniscript flow ,if not open the standard new page.
+    //Fetch developer name of the record type and verify if it is store / General / Message.
+    //If store / General / Message then open omniscript flow ,if not open the standard new page.
     fetchRTs.setCallback(this, function (response) {
       const returnValue = response.getReturnValue();
-      const mapOfDeveloperNameAndIds = JSON.parse(returnValue);
-      const rtDeveloperName =
-        mapOfDeveloperNameAndIds[component.get("v.recordTypeIdFromParam")]
-          .DeveloperName;
-      if (rtDeveloperName === "Store") {
+      const recordTypeDeveloperName = returnValue.DeveloperName;
+      if (recordTypeDeveloperName === "Store") {
         component.set("v.boolIsStore", true);
-        component.set("v.spinner", false);
-      } else if (rtDeveloperName === "General") {
+      } else if (recordTypeDeveloperName === "General") {
         component.set("v.boolIsGeneral", true);
-        component.set("v.spinner", false);
-      } else if (rtDeveloperName === "Message") {
+      } else if (recordTypeDeveloperName === "Message") {
         component.set("v.boolIsChat", true);
-        component.set("v.spinner", false);
       } else {
-        component.set("v.spinner", false);
         navService.navigate(pageReference, true);
       }
+      component.set("v.spinner", false);
     });
     component.set("v.spinner", false);
     if (recordTypeId) {

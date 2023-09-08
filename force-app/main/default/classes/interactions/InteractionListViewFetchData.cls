@@ -45,9 +45,11 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    String anyRecordId = (String) inputMap.get('anyRecordId');
-    String recordTypeDeveloperName = (String) inputMap.get(
-      'recordTypeDeveloperName'
+    String anyRecordId = String.escapeSingleQuotes(
+      (String) inputMap.get('anyRecordId')
+    );
+    String recordTypeDeveloperName = String.escapeSingleQuotes(
+      (String) inputMap.get('recordTypeDeveloperName')
     );
     List<String> statusSearch = (List<String>) inputMap.get('statusSearch');
     Integer maxNumber = (inputMap.get('maxNumber') == null)
