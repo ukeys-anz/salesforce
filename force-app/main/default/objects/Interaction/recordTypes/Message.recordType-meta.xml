@@ -172,6 +172,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Open</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Resolved</fullName>
             <default>false</default>
         </values>
