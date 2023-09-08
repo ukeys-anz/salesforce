@@ -205,3 +205,9 @@ force-app/main/default/permissionsets/Referral_Reason_Read_Only.permissionset-me
 #named credential to make the build pass and we do the manual deployment later
 force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-meta.xml
 
+#AR-90796 - Uninstall mvision
+mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
+force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
+
+#ANZX-110254-delete unused resource file
+force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
