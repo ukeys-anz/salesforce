@@ -57,30 +57,25 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     );
 
     result.isSubmitted = (String.isNotBlank(loanRec?.Assessment_Outcome__c));
-    if (!result.isSubmitted) {
-      output.put('result', JSON.deserializeUntyped(JSON.serialize(result)));
-      return true;
-    }
-
-    result.hasError = (String.isBlank(loanRec?.Credit_ID__c) ||
-    String.isBlank(loanRec?.SOP_Id__c));
-    if (result.hasError) {
-      output.put('result', JSON.deserializeUntyped(JSON.serialize(result)));
-      return true;
-    }
-    try {
-      ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
-      ViewServiceabilityModel apiResponse = api.getUMIAssessments(
-        new List<String>{ loanRec?.SOP_Id__c },
-        loanRec?.Credit_ID__c,
-        loanRec?.Name,
-        loanRec?.Account?.OCV_ID__c
-      );
-      transformAPIToUIResponse(result, apiResponse);
-    } catch (Exception ex) {
-      result.hasError = true;
-      Logger.error(ex.getMessage(), ex);
-      Logger.saveLog();
+    if (result.isSubmitted) {
+      result.hasError = (String.isBlank(loanRec?.Credit_ID__c) ||
+      String.isBlank(loanRec?.SOP_Id__c));
+      if (!result.hasError) {
+        try {
+          ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
+          ViewServiceabilityModel apiResponse = api.getUMIAssessments(
+            new List<String>{ loanRec?.SOP_Id__c },
+            loanRec?.Credit_ID__c,
+            loanRec?.Name,
+            loanRec?.Account?.OCV_ID__c
+          );
+          transformAPIToUIResponse(result, apiResponse);
+        } catch (Exception ex) {
+          result.hasError = true;
+          Logger.error(ex.getMessage(), ex);
+          Logger.saveLog();
+        }
+      }
     }
 
     output.put('result', JSON.deserializeUntyped(JSON.serialize(result)));
@@ -213,8 +208,14 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
         return 1;
       } else if (compare.assessedAmount == null) {
         return -1;
+      } else if (this.assessedAmount > compare.assessedAmount) {
+        return -1;
+      } else if (this.assessedAmount < compare.assessedAmount) {
+        return 1;
+      } else if (this.assessedAmount == compare.assessedAmount) {
+        return 0;
       } else {
-        return Integer.valueOf(compare.assessedAmount - this.assessedAmount);
+        return 1;
       }
     }
   }

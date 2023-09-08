@@ -52,6 +52,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String LEASE_HIRE_PURCHASE_TYPE = 'Lease Hire Purchase';
   public static final String LEASE_HIRE_PURCHASE_LABEL = 'Lease/Hire Purchase';
   public static final String CREDIT_CARD_UI_MESSAGE = 'To be provided';
+  public static final String OVERDRAFT = 'LIABILITY_TYPE_OVERDRAFT';
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
@@ -62,6 +63,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
   }
 
+  /**
+   * @description return the liability source size attribute to display finance and savings flexcard.
+   */
+  public Integer liabilitySourceSize {
+    get {
+      return sop.liabilitySources.size();
+    }
+  }
   /**
    * @description initialize the maps
    */
@@ -208,6 +217,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
         openLiabilities = new List<SOPDebt>();
         for (SOPDebt liability : liabilities) {
+          if (liability.account == null) {
+            continue;
+          }
           if (liability.account.status != 'ACCOUNT_STATE_CLOSED') {
             openLiabilities.add(liability);
           }
@@ -410,6 +422,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
         openAssets = new List<SOPAsset>();
         for (SOPAsset asset : assets) {
+          if (asset.account == null) {
+            continue;
+          }
           if (asset.account.status != 'ACCOUNT_STATE_CLOSED') {
             openAssets.add(asset);
           }
@@ -436,6 +451,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public class SOPModel {
     public List<SOPParty> parties;
+    public List<SOPLiabilitySources> liabilitySources;
   }
 
   /**
@@ -447,6 +463,17 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   }
 
   /**
+   * @description model for liabilitySources
+   */
+  public class SOPLiabilitySources {
+    public String type;
+    public String subType;
+    public Datetime retrievedTime;
+    public Boolean success;
+    public String partyId;
+  }
+
+  /**
    * @description Income class for the income node
    */
   public class SOPIncome implements Comparable {
@@ -455,7 +482,15 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public List<SOPIncomeDetail> details;
     public SOPEmployment employment;
     public string employmentId;
-    public string updateTime;
+    public Datetime updateTime;
+    /**
+     * @description return update time in the expected format
+     */
+    public String updateTimeStr {
+      get {
+        return BOHService.getFormatedDate(updateTime);
+      }
+    }
     public SOPverification verification;
     /**
      * @description ownerName for the income card
@@ -627,9 +662,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           this.verification != null &&
           this.verification.method == ASSET_TYPE_VERIFICATION
         ) {
-          return 'Y';
+          return Y;
         } else {
-          return 'N';
+          return N;
         }
       }
     }

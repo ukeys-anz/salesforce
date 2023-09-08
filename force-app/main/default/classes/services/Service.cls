@@ -580,4 +580,14 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
+   * @return `HttpCalloutResponse` api response
+   * @description virtual sop list asset callout
+   */
+  public virtual HttpCalloutResponse getSOP(String ocvId, String sopId) {
+    return null;
+  }
 }

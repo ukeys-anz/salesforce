@@ -18,12 +18,12 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   }
 
   /**
-   * @description method to invoke getListAssets method
+   * @description method to invoke controller methods
    * @param methodName
    * @param inputMap
    * @param outMap
    * @param options
-   * @return getListAssets
+   * @return Boolean for successful exection
    */
   global Boolean invokeMethod(
     String methodName,
@@ -34,10 +34,19 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     // check methodName
     if (methodName == 'getListAssets') {
       return getListAssets(inputMap, outMap, options);
+    } else if (methodName == 'getSOP') {
+      return getSOP(inputMap, outMap, options);
     }
     return false;
   }
 
+  /**
+   * @description method to invoke getListAssets method
+   * @param inputMap
+   * @param outMap
+   * @param options
+   * @return Boolean for successful getListAssets exection
+   */
   private Boolean getListAssets(
     Map<String, Object> inputMap,
     Map<String, Object> outMap,
@@ -64,5 +73,53 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     } catch (Exception e) {
       return false;
     }
+  }
+
+  /**
+   * @description method to invoke getSOP method
+   * @param inputMap
+   * @param outMap
+   * @param options
+   * @return Boolean for successful getSOP exection
+   */
+  private Boolean getSOP(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+    String loanId = (String) inputMap.get('loanId');
+    List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(loanId);
+
+    SOPModel response = rlaRepo.getSOP(
+      loanRec[0]?.Account?.OCV_ID__c,
+      loanRec[0]?.SOP_Id__c
+    );
+    SOPModel.Parties[] transformedParties = new List<SOPModel.Parties>();
+
+    if (response.sop == null) {
+      return false;
+    }
+
+    for (Object row : response.sop.parties) {
+      Map<String, Object> obj = (Map<String, Object>) JSON.deserializeUntyped(
+        JSON.serialize(row)
+      );
+      obj.put('partyDependantsCount', response.sop.dependantsCount);
+
+      transformedParties.add(
+        (SOPModel.Parties) System.JSON.deserialize(
+          JSON.serialize(obj),
+          SOPModel.Parties.class
+        )
+      );
+    }
+    response.sop.parties = transformedParties;
+
+    SOPModelHelper.initPartyLiability(response.sop);
+    SOPModelHelper.enrichOwnerName(response.sop);
+
+    outMap.put('object', JSON.deserializeUntyped(JSON.serialize(response)));
+    return true;
   }
 }

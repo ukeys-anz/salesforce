@@ -17,4 +17,5 @@
     </filters>
     <filterScope>Everything</filterScope>
     <label>All Message Interactions</label>
+    <label>All General Interactions</label>
 </ListView>

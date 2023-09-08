@@ -137,4 +137,25 @@ public with sharing class BOHService extends Service {
       LIMIT 1
     ];
   }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches customer information of sop from lex api through mule
+   */
+  public override HttpCalloutResponse getSOP(String ocvId, String sopId) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_' + sopId,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+
+    return response;
+  }
 }
