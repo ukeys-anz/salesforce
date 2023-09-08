@@ -11,6 +11,6 @@ public with sharing class FetchRecordTypeName {
    */
   @AuraEnabled(cacheable=true)
   public static RecordType getRecordTypeDeveloperName(String recordTypeId) {
-    return [SELECT DeveloperName, Id FROM RecordType WHERE Id = :recordTypeId];
+    return CommonUtil.getRecordTypeDeveloperName(recordTypeId);
   }
 }
