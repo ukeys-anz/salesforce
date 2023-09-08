@@ -42,6 +42,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicant.Application_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicant.Application_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>LoanApplicant.Application_Submit_Time__c</field>
         <readable>true</readable>
@@ -79,6 +89,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LoanApplicant.Loan_Applicant_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicant.OCV_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -619,11 +634,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.First_Home__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>ResidentialLoanApplication.Joint__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

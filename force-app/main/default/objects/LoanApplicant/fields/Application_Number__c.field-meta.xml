@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Account__c</fullName>
+    <fullName>Application_Number__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
-    <deleteConstraint>SetNull</deleteConstraint>
-    <description>Lookup to account</description>
+    <description>Application number on the loan app</description>
     <externalId>false</externalId>
-    <label>Customer</label>
-    <referenceTo>Account</referenceTo>
-    <relationshipLabel>Loan Application</relationshipLabel>
-    <relationshipName>Loan_Applicants</relationshipName>
+    <formula>LoanApplication.ApplicationExtIdentifier</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Application Number</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
-    <type>Lookup</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
