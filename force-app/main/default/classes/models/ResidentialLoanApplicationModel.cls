@@ -54,6 +54,12 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String CREDIT_CARD_UI_MESSAGE = 'To be provided';
   public static final String OVERDRAFT = 'LIABILITY_TYPE_OVERDRAFT';
 
+  //BNPL
+  public static final String BNPL_FACILITY = 'Bpl Facility';
+  public static final String BNPL_FACILITY_TYPE = 'Spend Limit';
+  public static final String BNPL_LOAN = 'Bpl Loan';
+  public static final String BNPL_LOAN_TYPE = 'Fixed Amount';
+
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
    */

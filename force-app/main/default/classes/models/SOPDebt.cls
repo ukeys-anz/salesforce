@@ -125,4 +125,18 @@ public class SOPDebt {
       return ResidentialLoanApplicationModel.JOINT_ACCOUNT;
     }
   }
+
+  /**
+   * @description return the paymentType
+   */
+  public string paymentType {
+    get {
+      if (this.debtType == ResidentialLoanApplicationModel.BNPL_FACILITY) {
+        return ResidentialLoanApplicationModel.BNPL_FACILITY_TYPE;
+      } else if (this.debtType == ResidentialLoanApplicationModel.BNPL_LOAN) {
+        return ResidentialLoanApplicationModel.BNPL_LOAN_TYPE;
+      }
+      return '';
+    }
+  }
 }
