@@ -855,6 +855,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Get View Umi API</shortDescription>
-        <value>callout:SF_MS_Fabric/</value>
+        <value>/credit-assessment/v1/umi</value>
     </labels>
 </CustomLabels>

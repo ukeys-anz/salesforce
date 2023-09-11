@@ -66,8 +66,9 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
           ViewServiceabilityModel apiResponse = api.getUMIAssessments(
             new List<String>{ loanRec?.SOP_Id__c },
             loanRec?.Credit_ID__c,
-            loanRec?.Name,
-            loanRec?.Account?.OCV_ID__c
+            loanRec?.Account?.OCV_ID__c,
+            Integer.valueOf(loanRec?.AmortizationTerm),
+            loanRec?.LotOriginalCost
           );
           transformAPIToUIResponse(result, apiResponse);
         } catch (Exception ex) {
@@ -338,7 +339,9 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
         Credit_ID__c,
         SOP_Id__c,
         Name,
-        Account.OCV_ID__c
+        Account.OCV_ID__c,
+        AmortizationTerm,
+        LotOriginalCost
       FROM ResidentialLoanApplication
       WHERE Id = :loanId
       LIMIT 1
