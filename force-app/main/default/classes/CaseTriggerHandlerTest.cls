@@ -1840,6 +1840,7 @@ private class CaseTriggerHandlerTest {
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     oldRecord.Type = '11';
+    oldRecord.IDR_Product_Category__c = 'Not product related';
     insert oldRecord;
 
     Test.startTest();
@@ -1863,6 +1864,7 @@ private class CaseTriggerHandlerTest {
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     oldRecord.Type = '11';
+    oldRecord.IDR_Product_Category__c = 'Not product related';
     insert oldRecord;
 
     Test.startTest();
@@ -1894,6 +1896,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
     caseRecord.Type = '11';
     insert caseRecord;
@@ -1940,6 +1943,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
     caseRecord.Type = '11';
     insert caseRecord;
@@ -1979,6 +1983,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
     caseRecord.Type = '11';
     insert caseRecord;
