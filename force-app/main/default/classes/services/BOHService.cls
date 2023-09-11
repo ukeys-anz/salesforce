@@ -66,25 +66,33 @@ public with sharing class BOHService extends Service {
   /**
    * @param sopIds sop id
    * @param creditId credit id
-   * @param loanId loan id
    * @param ocvId ocv id of the primary loan application
+   * @param termMonths Loan term in months
+   * @param loanAmount Loan amount
    * @return `HttpCalloutResponse` the api response
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
   public override HttpCalloutResponse getUMIAssessments(
     List<String> sopIds,
     String creditId,
-    String loanId,
-    String ocvId
+    String ocvId,
+    Integer termMonths,
+    Decimal loanAmount
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
 
-    ViewUMIRequest requestBody = new ViewUMIRequest(sopIds, creditId, loanId);
+    ViewUMIRequest requestBody = new ViewUMIRequest(
+      sopIds,
+      creditId,
+      termMonths,
+      loanAmount
+    );
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_View_UMI,
+      'callout:SF_MS_Fabric' + System.Label.MS_Get_View_UMI,
       HTTP_METHOD.HTTP_POST,
       headers,
       Json.serialize(requestBody, true)
@@ -98,17 +106,25 @@ public with sharing class BOHService extends Service {
   public class ViewUMIRequest {
     public List<String> sopIds;
     public String creditEnquiryId;
-    public String loanAppId;
+    public Integer termMonths;
+    public FabricType.FabricMoney loanAmount;
     /**
      * @description Constructor to set the fabric money
      * @param sopIds multiple sop ids related to Residential loan application.
      * @param creditId credit assessment id related to Residential loan application.
-     * @param loanId Loan Id of the Residential loan application.
+     * @param termMonths Loan term in months
+     * @param loanAmount Loan amount
      */
-    public ViewUMIRequest(List<String> sopIds, String creditId, String loanId) {
+    public ViewUMIRequest(
+      List<String> sopIds,
+      String creditId,
+      Integer termMonths,
+      Decimal loanAmount
+    ) {
       this.sopIds = sopIds;
       this.creditEnquiryId = creditId;
-      this.loanAppId = loanAppId;
+      this.termMonths = termMonths;
+      this.loanAmount = new FabricType.FabricMoney('AUD', loanAmount);
     }
   }
 

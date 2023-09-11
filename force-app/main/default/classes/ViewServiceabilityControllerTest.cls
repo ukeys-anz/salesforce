@@ -170,8 +170,9 @@ private class ViewServiceabilityControllerTest {
     HttpCalloutResponse res = serv.getUMIAssessments(
       new List<String>{ loanId },
       loanId,
-      loanId,
-      ocvId
+      ocvId,
+      360,
+      34560.55
     );
     Test.stopTest();
     System.assertEquals(res.statusCode, 200, 'api call unsucessfully');
