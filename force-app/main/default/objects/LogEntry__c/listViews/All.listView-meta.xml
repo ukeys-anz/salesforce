@@ -3,6 +3,7 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>LoggingLevel__c</columns>
+    <columns>Severity__c</columns>
     <columns>LogMessage__c</columns>
     <columns>SpanId__c</columns>
     <columns>ApexClassName__c</columns>

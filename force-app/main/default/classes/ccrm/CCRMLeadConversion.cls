@@ -36,13 +36,20 @@ public without sharing class CCRMLeadConversion {
           FinServ__ExpressedInterest__c,
           New_to_Bank__c,
           FinServ__RelatedAccount__c,
-          Not_Registered__c,
+          FinServ__PotentialValue__c,
+          Registered_Company__c,
           ABN__c,
           ABN_Validation_Status__c,
           ACN__c,
           ACN_Validation_Status__c,
           FinServ__RelatedAccount__r.RecordType.DeveloperName,
           RecordType.DeveloperName,
+          RecordTypeId,
+          LeadSource,
+          Conversion_Status__c,
+          OwnerId,
+          Salutation,
+          Gender__c,
           Address,
           Street,
           City,
@@ -89,7 +96,6 @@ public without sharing class CCRMLeadConversion {
   @AuraEnabled
   public static Id convertLead(Id recordId, Id accountId) {
     Database.LeadConvert lc = new Database.LeadConvert();
-
     lc.setLeadId(recordId);
     if (accountId != null) {
       lc.setAccountId(accountId);
@@ -148,10 +154,9 @@ public without sharing class CCRMLeadConversion {
     lc.setDoNotCreateOpportunity(true);
 
     Database.LeadConvertResult lcr = Database.convertLead(lc);
-
     if (lcr.isSuccess()) {
       Id conid = lcr.getContactId();
-      Id oppId = createOpportunity(recordId);
+      Id oppId = createOpportunity(new Map<Id, Lead>(leads));
 
       if (oppId != null) {
         sendUpdateToUnicaOrAdobeOnLeadConversion(recordId, oppId, task);
@@ -169,23 +174,23 @@ public without sharing class CCRMLeadConversion {
   /**
    * @description This method creates an opportunity when lead is converted
    * @name createOpportunity
-   * @param leadId The record id of Lead.
+   * @param leadMap map of lead record.
    * @return Id Opportunity Id
    */
-  private static Id createOpportunity(Id leadId) {
-    Set<Id> leadIds = new Set<Id>();
-    leadIds.add(leadId);
+  private static Id createOpportunity(Map<Id, Lead> leadMap) {
     Map<Id, Opportunity> mapOfLeadsWithOpportunities = new CCRMLeadMappingEngine()
-      .mapLeadToOpportunityFields(leadIds, new Map<Id, Id>());
+      .mapLeadToOpportunityFields(leadMap, new Map<Id, Id>());
     Id oppId = null;
     if (
-      mapOfLeadsWithOpportunities.size() > 0 &&
+      !mapOfLeadsWithOpportunities.isEmpty() &&
       Schema.sObjectType.Opportunity.isCreateable()
     ) {
       insert mapOfLeadsWithOpportunities.values();
     }
-    if (mapOfLeadsWithOpportunities.containsKey(leadId)) {
-      oppId = mapOfLeadsWithOpportunities.get(leadId).Id;
+    for (Id leadId : leadMap.keySet()) {
+      if (mapOfLeadsWithOpportunities.containsKey(leadId)) {
+        oppId = mapOfLeadsWithOpportunities.get(leadId).Id;
+      }
     }
     return oppId;
   }
@@ -271,20 +276,28 @@ public without sharing class CCRMLeadConversion {
    * @name checkSkipValidation
    * @param leads List of Leads to update Skip Validation
    */
-  private static void checkSkipValidation(List<Lead> leads) {
+  public static void checkSkipValidation(List<Lead> leads) {
     List<Id> leadIds = new List<Id>();
+    List<Lead> leadList = new List<Lead>();
+    Boolean conversionStatusAccess = Schema.sObjectType.Lead.fields.Conversion_Status__c.isUpdateable();
+    Boolean skipValidationAccess = Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable();
+
     for (Lead lead : leads) {
-      lead.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
+      if (conversionStatusAccess || skipValidationAccess) {
+        lead.Skip_Validations__c = skipValidationAccess
+          ? CCRMConstants.CONVERT_LEAD
+          : lead.Skip_Validations__c;
+        lead.Conversion_Status__c = conversionStatusAccess
+          ? CCRMConstants.STATUS_COMPLETED
+          : lead.Conversion_Status__c;
+        leadList.add(lead);
+      }
       leadIds.add(lead.id);
     }
 
-    if (
-      !leads.isEmpty() &&
-      Schema.sObjectType.Lead.isUpdateable() &&
-      Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable()
-    ) {
-      List<Database.saveResult> results = Database.update(leads, false);
-      Logger.error('', results);
+    if (!leadList.isEmpty() && Schema.sObjectType.Lead.isUpdateable()) {
+      List<Database.saveResult> results = Database.update(leadList, false);
+      Logger.error('Errors while skip validating Lead records', results);
       Logger.saveLog();
     }
     checkTaskSkipValidations(leadIds);
@@ -301,10 +314,11 @@ public without sharing class CCRMLeadConversion {
       SELECT subject, whoid, Skip_Validations__c
       FROM Task
       WHERE WhoId IN :leadIds
-      WITH SECURITY_ENFORCED
     ]) {
-      task.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
-      newTasks.add(task);
+      if (task.Skip_Validations__c != CCRMConstants.CONVERT_LEAD) {
+        task.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
+        newTasks.add(task);
+      }
     }
     if (
       !newTasks.isEmpty() &&
@@ -312,190 +326,8 @@ public without sharing class CCRMLeadConversion {
       Schema.sObjectType.Task.fields.Skip_Validations__c.isUpdateable()
     ) {
       List<Database.SaveResult> results = Database.update(newTasks, false);
-      Logger.error('', results);
+      Logger.error('Errors while skip validating Task records', results);
       Logger.saveLog();
-    }
-  }
-
-  /**
-   * @description Wrapper class to store only the required search party information
-   */
-  public class CCRMSearchPartyInfo {
-    @AuraEnabled
-    public string id;
-    @AuraEnabled
-    public string ocvId;
-    @AuraEnabled
-    public string name;
-    @AuraEnabled
-    public string suburb;
-    @AuraEnabled
-    public string postCode;
-    @AuraEnabled
-    public string cpid;
-    @AuraEnabled
-    public string kycStatus;
-  }
-
-  /**
-   * @description Wrapper class to send required and certified results seperately.
-   */
-  public class CCRMSearchPartyInfoWrapper {
-    @AuraEnabled
-    public List<CCRMSearchPartyInfo> certifiedResults;
-    @AuraEnabled
-    public List<CCRMSearchPartyInfo> probableResults;
-  }
-
-  /**
-   * @param record Lead record from lwc component.
-   * @return CCRMSearchPartyInfo for lwc
-   * @description called from lead conversion lwc component
-   */
-  @AuraEnabled(cacheable=false)
-  public static CCRMSearchPartyInfoWrapper searchPartyInfoLWC(Lead record) {
-    CCRMSearchPartyModel result;
-    CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
-    CCRMSearchPartyInfoWrapper searchPartyWrapper;
-    Set<String> externalIds = new Set<String>();
-    try {
-      result = ccrmapi.searchPartyInfo(record);
-      for (
-        CCRMSearchPartyModel.CustomerDetails certResult : result.certifiedResults
-      ) {
-        externalIds.add(
-          certResult.sourceSystems[0].sourceSystemName +
-          '_' +
-          certResult.sourceSystems[0].sourceSystemId
-        );
-      }
-      for (
-        CCRMSearchPartyModel.CustomerDetails probResult : result.probableResults
-      ) {
-        externalIds.add(
-          probResult.sourceSystems[0].sourceSystemName +
-          '_' +
-          probResult.sourceSystems[0].sourceSystemId
-        );
-      }
-
-      searchPartyWrapper = populatePartyDetails(externalIds, result);
-    } catch (Exception e) {
-      throw new AuraHandledException(e.getMessage());
-    }
-    return searchPartyWrapper;
-  }
-
-  /**
-   * @param externalIds set of unique ids to query from salesforce database
-   * @param result response data from callout
-   * @return CCRMSearchPartyInfoWrapper for lwc
-   * @description populate party details and return to lwc component
-   */
-  public static CCRMSearchPartyInfoWrapper populatePartyDetails(
-    Set<String> externalIds,
-    CCRMSearchPartyModel result
-  ) {
-    CCRMSearchPartyInfoWrapper searchPartyWrapper = new CCRMSearchPartyInfoWrapper();
-    searchPartyWrapper.certifiedResults = new List<CCRMSearchPartyInfo>();
-    searchPartyWrapper.probableResults = new List<CCRMSearchPartyInfo>();
-    Map<String, String> accountIdMap = new Map<String, String>();
-    for (Account acc : [
-      SELECT Id, External_Id__c
-      FROM Account
-      WHERE External_Id__c IN :externalIds
-      WITH SECURITY_ENFORCED
-    ]) {
-      accountIdMap.put(acc.External_Id__c, acc.Id);
-    }
-    for (
-      CCRMSearchPartyModel.CustomerDetails certResult : result.certifiedResults
-    ) {
-      String externalId =
-        certResult.sourceSystems[0].sourceSystemName +
-        '_' +
-        certResult.sourceSystems[0].sourceSystemId;
-      if (accountIdMap.containsKey(externalId)) {
-        CCRMSearchPartyInfo rec = new CCRMSearchPartyInfo();
-        rec.id = accountIdMap.get(externalId);
-        rec.ocvId = certResult.ocvId;
-        String firstName = String.isNotBlank(certResult.names[0].firstName)
-          ? certResult.names[0].firstName
-          : '';
-        rec.name = firstName + ' ' + certResult.names[0]?.lastName;
-        rec.suburb = certResult.addresses[0]?.city;
-        rec.postCode = certResult.addresses[0]?.postalCode;
-        rec.cpid = certResult.cpId;
-        rec.kycStatus = certResult.kycDetails.status;
-        searchPartyWrapper.certifiedResults.add(rec);
-      }
-    }
-    for (
-      CCRMSearchPartyModel.CustomerDetails probResult : result.probableResults
-    ) {
-      String externalId =
-        probResult.sourceSystems[0].sourceSystemName +
-        '_' +
-        probResult.sourceSystems[0].sourceSystemId;
-      if (accountIdMap.containsKey(externalId)) {
-        CCRMSearchPartyInfo rec = new CCRMSearchPartyInfo();
-        rec.id = accountIdMap.get(externalId);
-        rec.ocvId = probResult.ocvId;
-        String firstName = String.isNotBlank(probResult.names[0].firstName)
-          ? probResult.names[0].firstName
-          : '';
-        rec.name = firstName + ' ' + probResult.names[0]?.lastName;
-        rec.suburb = probResult.addresses[0]?.city;
-        rec.postCode = probResult.addresses[0]?.postalCode;
-        rec.cpid = probResult.cpId;
-        rec.kycStatus = probResult.kycDetails.status;
-        searchPartyWrapper.probableResults.add(rec);
-      }
-    }
-    return searchPartyWrapper;
-  }
-
-  /**
-   * @description called from lead conversion lwc component
-   * @name createPartyLWC
-   * @param record Lead record from lwc component.
-   */
-  @AuraEnabled(cacheable=false)
-  public static void createPartyLWC(Lead record) {
-    CCRMCreatePartyModel result;
-    CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
-    try {
-      result = ccrmapi.createParty(record);
-      updateLeadWithCapcisId(record, result.capcisId);
-    } catch (Exception e) {
-      throw new AuraHandledException(e.getMessage());
-    }
-  }
-
-  /**
-   * @description Updates lead with capcis id which will be used in Account trigger handler
-   * @name updateLeadWithCapcisId
-   * @param record Lead record from lwc component.
-   * @param capcisId capcis id from cap api response
-   */
-  private static void updateLeadWithCapcisId(Lead record, String capcisId) {
-    if (
-      Schema.sObjectType.Lead.isUpdateable() &&
-      Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable() &&
-      Schema.sObjectType.Lead.fields.CAPCIS_ID__c.isUpdateable()
-    ) {
-      record.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
-      record.CAPCIS_ID__c = capcisId;
-      try {
-        update record;
-      } catch (Exception e) {
-        //log errors to application log
-        CommonUtil.logAndThrowIAE(
-          CCRMLeadConversion.class.getName(),
-          'updateLeadWithCapcisId',
-          'Not enough permissions to update Lead record.'
-        );
-      }
     }
   }
 }

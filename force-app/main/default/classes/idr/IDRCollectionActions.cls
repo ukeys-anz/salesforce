@@ -134,7 +134,10 @@ public with sharing class IDRCollectionActions {
     }
     if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
       //AR-15023 Using IDRTaskActions.insertSystemTasks as it has without sharing, as task creation is failing due to user access
-      IDRTaskActions.insertSystemTasks(stopCollectionTaskList, 'Case Ids: ' + String.join(caseIds, ', '));
+      IDRTaskActions.insertSystemTasks(
+        stopCollectionTaskList,
+        'Case Ids: ' + String.join(caseIds, ', ')
+      );
       stopCollectionTaskList.clear();
     }
   }
@@ -144,7 +147,10 @@ public with sharing class IDRCollectionActions {
    * @param oldRec old record from trigger
    * @return List<IDRCollectionsAccounts> collection account list
    */
-  private static List<IDRCollectionsAccounts> validateRecordForStopCollection(Case rec, Case oldRec) {
+  private static List<IDRCollectionsAccounts> validateRecordForStopCollection(
+    Case rec,
+    Case oldRec
+  ) {
     List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
     if (checkIssueOne(rec, oldRec)) {
       stopCollectionAccList.addAll(stopCollectionForIssueOne(rec));
@@ -163,7 +169,9 @@ public with sharing class IDRCollectionActions {
    * @param rec Case record from the trigger
    * @return List<IDRCollectionsAccounts> collection account list
    */
-  private static List<IDRCollectionsAccounts> stopCollectionForIssueOne(Case rec) {
+  private static List<IDRCollectionsAccounts> stopCollectionForIssueOne(
+    Case rec
+  ) {
     List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
     for (
       String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
@@ -187,7 +195,9 @@ public with sharing class IDRCollectionActions {
    * @param rec Case record from the trigger
    * @return List<IDRCollectionsAccounts> collection account list
    */
-  private static List<IDRCollectionsAccounts> stopCollectionForIssueTwo(Case rec) {
+  private static List<IDRCollectionsAccounts> stopCollectionForIssueTwo(
+    Case rec
+  ) {
     List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
     for (
       String accNumber2 : String.valueOf(rec.IDR_Collection_Number_2__c)
@@ -212,7 +222,9 @@ public with sharing class IDRCollectionActions {
    * @param rec Case record from the trigger
    * @return List<IDRCollectionsAccounts> collection account list
    */
-  private static List<IDRCollectionsAccounts> stopCollectionForIssueThree(Case rec) {
+  private static List<IDRCollectionsAccounts> stopCollectionForIssueThree(
+    Case rec
+  ) {
     List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
     for (
       String accNumber3 : String.valueOf(rec.IDR_Collection_Number_3__c)
@@ -393,7 +405,7 @@ public with sharing class IDRCollectionActions {
   ) {
     List<Database.SaveResult> publishResults = EventBus.publish(
       collectionsEventList
-      );
+    );
     for (Integer i = 0; i < publishResults.size(); i++) {
       if (!publishResults[i].isSuccess()) {
         isCollectionEventFailed = true;
@@ -408,7 +420,10 @@ public with sharing class IDRCollectionActions {
    * @param collectionTaskList List of collection tasks
    * @param strFailureMessage Message for Logger if Database.insert fails
    */
-  public static void insertSystemTasks(List<Task> collectionTaskList, String strFailureMessage) {
+  public static void insertSystemTasks(
+    List<Task> collectionTaskList,
+    String strFailureMessage
+  ) {
     List<Database.SaveResult> results = Database.insert(
       collectionTaskList,
       false
@@ -467,7 +482,10 @@ public with sharing class IDRCollectionActions {
     List<IDRCollectionsAccounts> startCollectionAccList;
     //validate all closed records whether the stop collection is already triggered or not
     for (Case rec : finalList) {
-      startCollectionAccList = validateRecordForStartCollection(rec, startCollecMap);
+      startCollectionAccList = validateRecordForStartCollection(
+        rec,
+        startCollecMap
+      );
       if (!startCollectionAccList.isEmpty()) {
         collectionsStartEventList.add(
           buildCollectionEvent(rec, startCollectionAccList)
@@ -479,7 +497,10 @@ public with sharing class IDRCollectionActions {
       publishCollectionEvent(collectionsStartEventList);
     }
     if (!isCollectionEventFailed && !startCollectionTaskList.isEmpty()) {
-      insertSystemTasks(startCollectionTaskList, 'Case Ids: ' + String.join(caseIds, ', '));
+      insertSystemTasks(
+        startCollectionTaskList,
+        'Case Ids: ' + String.join(caseIds, ', ')
+      );
       startCollectionTaskList.clear();
     }
   }
@@ -504,7 +525,10 @@ public with sharing class IDRCollectionActions {
     }
 
     //query all stop collections task and put it in map with key as account number
-    if (Task.SObjectType.getDescribe().isQueryable() && (!collectionAcctsList.isEmpty())) {
+    if (
+      Task.SObjectType.getDescribe().isQueryable() &&
+      (!collectionAcctsList.isEmpty())
+    ) {
       for (Task taskRec : [
         SELECT WhatId, IDR_Collection_Number__c
         FROM Task
@@ -517,25 +541,24 @@ public with sharing class IDRCollectionActions {
           )
       ]) {
         // Only build startCollectionMap on trimmed Account Numbers.
-        if(taskRec.IDR_Collection_Number__c !=null){
-        String strAccountNumber = taskRec.IDR_Collection_Number__c.replaceFirst(
-          '^0+',
-          ''
-        );
-        if (!startCollectionMap.containsKey(strAccountNumber)) {
-          startCollectionMap.put(
-            strAccountNumber,
-            new Set<Id>{ taskRec.WhatId }
+        if (taskRec.IDR_Collection_Number__c != null) {
+          String strAccountNumber = taskRec.IDR_Collection_Number__c.replaceFirst(
+            '^0+',
+            ''
           );
-        } else {
-          startCollectionMap.get(strAccountNumber).add(taskRec.WhatId);
+          if (!startCollectionMap.containsKey(strAccountNumber)) {
+            startCollectionMap.put(
+              strAccountNumber,
+              new Set<Id>{ taskRec.WhatId }
+            );
+          } else {
+            startCollectionMap.get(strAccountNumber).add(taskRec.WhatId);
+          }
         }
       }
     }
+    return startCollectionMap;
   }
-  return startCollectionMap;
-}
-
 
   /**
    * @description method to validate whether the complaint issues are eligible for start collections
@@ -555,7 +578,9 @@ public with sharing class IDRCollectionActions {
         rec.IDR_Subsequent_Issue__c
       )
     ) {
-      startCollectionAccList.addAll(startCollectionForIssueOne(rec, startCollecMap));
+      startCollectionAccList.addAll(
+        startCollectionForIssueOne(rec, startCollecMap)
+      );
     }
     if (
       String.isNotBlank(rec.IDR_Collection_Number_2__c) &&
@@ -564,7 +589,9 @@ public with sharing class IDRCollectionActions {
         rec.IDR_Subsequent_Issue_2__c
       )
     ) {
-      startCollectionAccList.addAll(startCollectionForIssueTwo(rec, startCollecMap));
+      startCollectionAccList.addAll(
+        startCollectionForIssueTwo(rec, startCollecMap)
+      );
     }
     if (
       String.isNotBlank(rec.IDR_Collection_Number_3__c) &&
@@ -573,7 +600,9 @@ public with sharing class IDRCollectionActions {
         rec.IDR_Subsequent_Issue_3__c
       )
     ) {
-      startCollectionAccList.addAll(startCollectionForIssueThree(rec, startCollecMap));
+      startCollectionAccList.addAll(
+        startCollectionForIssueThree(rec, startCollecMap)
+      );
     }
     return startCollectionAccList;
   }
@@ -588,7 +617,6 @@ public with sharing class IDRCollectionActions {
     Case rec,
     Map<String, Set<Id>> startCollecMap
   ) {
-
     List<IDRCollectionsAccounts> startCollectionAccList = new List<IDRCollectionsAccounts>();
 
     for (
@@ -629,7 +657,6 @@ public with sharing class IDRCollectionActions {
     Case rec,
     Map<String, Set<Id>> startCollecMap
   ) {
-
     List<IDRCollectionsAccounts> startCollectionAccList = new List<IDRCollectionsAccounts>();
 
     for (
@@ -674,7 +701,6 @@ public with sharing class IDRCollectionActions {
     Case rec,
     Map<String, Set<Id>> startCollecMap
   ) {
-
     List<IDRCollectionsAccounts> startCollectionAccList = new List<IDRCollectionsAccounts>();
 
     for (

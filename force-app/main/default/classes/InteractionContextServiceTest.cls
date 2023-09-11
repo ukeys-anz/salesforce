@@ -2,12 +2,14 @@
  * @author Lance Shi
  * @since  June 2022
  * @description Test class to cover tests for {@link InteractionContextService}
+ * Added call and chat interaction logic to handle automatic creation of Interaction from Twilio - Shivam,July 2023 as part of ANZX-103285
  */
 
 @isTest
 public with sharing class InteractionContextServiceTest {
   @testSetup
   static void testSetup() {
+    Faker faker = new Faker('AU');
     Profile p = CommonUtil.getProfileByName('Minimum Access - External Apps');
     UserRole role = CommonUtil.getUserRoleByDevName('ANZx');
 
@@ -24,13 +26,15 @@ public with sharing class InteractionContextServiceTest {
       );
       insert apiUser;
 
-      // Assign Case related PS on API User
+      // Assign Interaction related PS on API User
       List<String> psNames = new List<String>{
         'Chat_Read_Write',
         'Interaction_Read_Write',
         'API_Access_Twilio',
         'API_Only',
-        'Enforce_mTLS'
+        'Enforce_mTLS',
+        'Twilio_Detail_Read_Write',
+        'Interaction_Integration'
       };
       List<PermissionSet> psList = [
         SELECT Id
@@ -42,18 +46,64 @@ public with sharing class InteractionContextServiceTest {
         psaList.add(TestUtil.createPSAssignment(apiUser.id, ps.Id));
       }
       insert psaList;
+
+      // Insert Account (Customer) record
+      List<Account> testAccountList = new List<Account>();
+      Account testAccountFirst = createTestAccount(
+        'OCVID887766',
+        apiUser.Id,
+        '123457'
+      );
+      testAccountList.add(testAccountFirst);
+      Account testAccountSecond = createTestAccount(
+        'OCVID887767',
+        apiUser.Id,
+        '123456'
+      );
+      testAccountList.add(testAccountSecond);
+      insert testAccountList;
     }
   }
 
   @isTest
-  static void testValidInput() {
-    InteractionContextService.InteractionContextRequest intContext = prepareContext();
+  static void testValidChatInput() {
+    Faker faker = new Faker('AU');
+
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+
+    // WHEN Twilio API user send a request with valid OCV ID
+    // Prepare request test data
+    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    contextReq.ocvId = 'OCVID887766';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = 'Fraud';
+    contextReq.ppid = '1231';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = '123457';
+    contextReq.type = 'Chat';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = 'assigned';
+
+    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
+      contextReq
+    );
 
     Test.startTest();
-    InteractionContextService.doPost(intContext);
+    System.runAs(usr) {
+      InteractionContextService.doPost(intContexts);
+    }
     Test.stopTest();
 
-    List<Interaction> intList = [SELECT Id, Direction__c FROM Interaction];
+    // THEN the request must succeed, and a new Interaction should be created against the customer.
+    List<Interaction> intList = [
+      SELECT Id, Direction__c, Account.OCV_ID__c, Account.PersonMobilePhone
+      FROM Interaction
+      WHERE Account.OCV_ID__c = 'OCVID887766'
+      LIMIT 1
+    ];
     System.assertEquals(
       1,
       intList.size(),
@@ -67,19 +117,44 @@ public with sharing class InteractionContextServiceTest {
   }
 
   @isTest
-  static void testInvalidDirection() {
+  static void testInvalidChatInput() {
     Faker faker = new Faker('AU');
+
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
     User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
-    InteractionContextService.InteractionContextRequest intContext = prepareContext();
-    intContext.direction = faker.randomString(10);
+
+    // WHEN Twilio API user send a request with valid OCV ID and invalid Direction
+    // Prepare request test data
+    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    contextReq.ocvId = 'OCVID887766';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = 'Fraud';
+    contextReq.ppid = '1231';
+    contextReq.direction = '';
+    contextReq.phoneNumber = '123457';
+    contextReq.type = 'Chat';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = 'Created';
+
+    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
+      contextReq
+    );
 
     Test.startTest();
     System.runAs(usr) {
-      InteractionContextService.doPost(intContext);
+      InteractionContextService.doPost(intContexts);
     }
     Test.stopTest();
 
-    List<Interaction> intList = [SELECT Id, Direction__c FROM Interaction];
+    // THEN the request must succeed, and a new Interaction should not be created against the customer.
+    List<Interaction> intList = [
+      SELECT Id, Direction__c, Account.OCV_ID__c, Account.PersonMobilePhone
+      FROM Interaction
+      WHERE Account.OCV_ID__c = 'OCVID887766'
+      LIMIT 1
+    ];
     System.assertEquals(
       0,
       intList.size(),
@@ -87,13 +162,111 @@ public with sharing class InteractionContextServiceTest {
     );
   }
 
-  static InteractionContextService.InteractionContextRequest prepareContext() {
+  @isTest
+  static void testValidCallInput() {
     Faker faker = new Faker('AU');
-    InteractionContextService.InteractionContextRequest intContext = new InteractionContextService.InteractionContextRequest();
 
-    intContext.phoneNumber = String.valueOf(faker.randomDecimal(10, 0));
-    intContext.direction = InteractionContextService.INBOUND_DIRECTION;
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
 
+    // WHEN Twilio API user send a request with phoneNumber
+    // Prepare request test data
+    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    contextReq.ocvId = '';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = '';
+    contextReq.ppid = '';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = '123456';
+    contextReq.type = 'Voice';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = '';
+
+    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
+      contextReq
+    );
+
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextService.doPost(intContexts);
+    }
+    Test.stopTest();
+
+    // THEN the request must succeed, and a new Interaction should be created against the customer related to the Call
+    List<Interaction> intList = [
+      SELECT Id, Direction__c, InteractionType
+      FROM Interaction
+      WHERE InteractionType = 'Call'
+      LIMIT 1
+    ];
+    System.assertEquals(
+      1,
+      intList.size(),
+      'Interaction list size should be as expected'
+    );
+    System.assertEquals(
+      InteractionContextService.INBOUND_DIRECTION,
+      intList[0].Direction__c,
+      'Interaction direction should match'
+    );
+  }
+  @isTest
+  static void testInvalidCallInput() {
+    Faker faker = new Faker('AU');
+
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+
+    // WHEN Twilio API user send a request without valid OCV ID
+    // Prepare request test data
+    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    contextReq.ocvId = '';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = '';
+    contextReq.ppid = '';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = '';
+    contextReq.type = 'Voice';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = '';
+
+    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
+      contextReq
+    );
+
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextService.doPost(intContexts);
+    }
+    Test.stopTest();
+
+    // THEN the request must succeed, and a new interaction should not be created
+    List<Interaction> intList = [
+      SELECT Id, Direction__c, InteractionType
+      FROM Interaction
+      WHERE InteractionType = 'Call'
+      LIMIT 1
+    ];
+    System.assertEquals(
+      0,
+      intList.size(),
+      'Interaction list should be empty if both OCV ID and Phone Number Blank'
+    );
+  }
+
+  /**
+   * @description Method to prepare REST requests for test scenarios.
+   * @param interactionContextService InteractionContextService.InteractionContextRequest
+   * @return 'InteractionContextService.InteractionContextRequest'
+   */
+  public static InteractionContextService.InteractionContextRequest prepareRequest(
+    InteractionContextService.InteractionContextRequest interactionContextService
+  ) {
+    //Setup request
     RestRequest req = new RestRequest();
     req.requestURI = '/InteractionContextRequests/';
     req.httpMethod = 'POST';
@@ -105,6 +278,24 @@ public with sharing class InteractionContextServiceTest {
     RestContext.request = req;
     RestContext.response = res;
 
-    return intContext;
+    return interactionContextService;
+  }
+
+  /**
+   * @description helper method to create a person account
+   * @param ocvId the OCVId
+   * @param userId the OCVId
+   * @param phoneNumber the OCVId
+   * @return Account a Person Account with Name and OCV as provided
+   */
+  static Account createTestAccount(
+    String ocvId,
+    Id userId,
+    String phoneNumber
+  ) {
+    Account testAccount = TestDataFactory.createPersonAccount(ocvId, false);
+    testAccount.PersonMobilePhone = phoneNumber;
+    testAccount.OwnerId = userId;
+    return testAccount;
   }
 }

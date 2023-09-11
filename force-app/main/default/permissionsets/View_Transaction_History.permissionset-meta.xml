@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>CoachBankingAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CoachBankingAPIRepositoryHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customPermissions>
+        <name>ANZx_View_Transaction_History</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Provides access to the apex classes required for calling the Transaction History API. Also provides access to the custom setting for viewing Transaction History.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View Transaction History</label>
+</PermissionSet>

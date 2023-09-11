@@ -679,13 +679,19 @@ private class QualityAssessmentTriggerHandlerTest {
       insert testLead;
     }
 
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location';
+    loc.LocationType = 'Store1';
+    insert loc;
+
     Interaction interaction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
       Lead__c = testLead.Id,
       Name = faker.randomString(10),
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
-      InteractionType = STORE_LOCATION
+      InteractionType = 'Call',
+      Direction__c = 'Inbound'
     );
     insert interaction;
 
@@ -707,7 +713,6 @@ private class QualityAssessmentTriggerHandlerTest {
       qa.Interaction_Date_Time__c.date(),
       'interaction date not populated'
     );
-
     Test.stopTest();
   }
 }

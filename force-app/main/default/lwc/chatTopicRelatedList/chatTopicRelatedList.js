@@ -4,11 +4,10 @@ import getChatTopicsOnAccount from "@salesforce/apex/ChatTopicRelatedListControl
 import getChatTopicInfoOnCase from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicInfoOnCase";
 import { publish, MessageContext } from "lightning/messageService";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
-import UserId from "@salesforce/user/Id";
-import USERROLE_FIELD from "@salesforce/schema/User.UserRole.DeveloperName";
 import ACCOUNT_PPID_FIELD from "@salesforce/schema/Account.PPID__c";
 import CASE_CHANNEL_SID_FIELD from "@salesforce/schema/Case.Twilio_Channel_SID__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
+import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import ACCOUNT_ID from "@salesforce/schema/Case.AccountId";
 
 // Util methods
@@ -42,36 +41,16 @@ export default class ChatTopicRelatedList extends LightningElement {
   @track data = []; //data to be displayed in the table
   @track totalRecordCount = 0; //total record count received from all retrieved records
   @track loading = true;
-  @track isPrivilegedRole = true; // show button by default
   links;
   objectFields = [];
   accountId;
 
+  get displayReinitiateChat() {
+    return hasOutboundChatPermission;
+  }
+
   @wire(MessageContext)
   messageContext;
-  // get current user and role field
-  @wire(getRecord, { recordId: UserId, fields: [USERROLE_FIELD] })
-  wireuser({ error, data }) {
-    if (data && data.fields.UserRole) {
-      if (
-        // if the user role is QA
-        data.fields.UserRole.value.fields.DeveloperName.value ===
-        "Quality_Analyst"
-      ) {
-        // make this variable false
-        this.isPrivilegedRole = false;
-      } else if (error) {
-        // error handling
-        handleErrorShowToast(
-          this,
-          "Unable to resolve role privileges",
-          error,
-          error.body.message,
-          "pester"
-        );
-      }
-    }
-  }
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -178,7 +157,6 @@ export default class ChatTopicRelatedList extends LightningElement {
   generateRowData(row) {
     row.topicStatus = this.resolveStatuses(row);
     if (
-      this.isPrivilegedRole === true &&
       row.status &&
       row.status !== STATUS_CLOSED &&
       (row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD ||

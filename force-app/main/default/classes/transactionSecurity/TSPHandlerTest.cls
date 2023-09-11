@@ -68,7 +68,9 @@ public with sharing class TSPHandlerTest {
   @isTest
   static void reportEventCondtionANZUserTest() {
     //GIVEN the user with `ANZx Standard User` profile
-    User thisUser = TestUtil.createTestUserWithProfile('ANZ Standard User');
+    User thisUser = TestUtil.createTestUserWithProfile(
+      'ANZ CCRM Standard User'
+    );
     insert thisUser;
 
     System.runAs(thisUser) {

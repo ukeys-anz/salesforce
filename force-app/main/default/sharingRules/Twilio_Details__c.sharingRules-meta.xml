@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>ANZx_Read_Only</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read only for ANZx</description>
+        <label>ANZx Read Only</label>
+        <sharedTo>
+            <role>ANZx</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>BOH_Coach_Read</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>BOH Coach Read Only</description>
+        <label>BOH Coach Read Only</label>
+        <sharedTo>
+            <role>BOH_Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Business_Admin_Read_Only</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Business Admin Read Only</description>
+        <label>Business Admin Read Only</label>
+        <sharedTo>
+            <role>Business_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Card_Dispute_Agent_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Card Dispute Agent Only</description>
+        <label>Card Dispute Agent Read</label>
+        <sharedTo>
+            <role>Card_Dispute_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Coach_Lead_Read_Only</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Coach Lead Read only</description>
+        <label>Coach Lead Read Only</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Coach_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Coach Read Write</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>FraudX_Agent_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>FraudX Agent Read Only</description>
+        <label>FraudX Agent Read Only</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Join_Lead_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Join Lead Read Only</description>
+        <label>Join Lead Read Only</label>
+        <sharedTo>
+            <role>Join_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Quality_Analyst_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Quality Analyst Read Only</description>
+        <label>Quality Analyst Read Only</label>
+        <sharedTo>
+            <role>Quality_Analyst</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Support_Coach_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Support Coach Read Only</description>
+        <label>Support Coach Read Only</label>
+        <sharedTo>
+            <role>Support_Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

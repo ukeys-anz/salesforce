@@ -48,20 +48,41 @@ global without sharing class FetchRecordFromURL implements omnistudio.VlocityOpe
     if (String.isNotBlank(wsParam)) {
       Matcher patternMatcher = patternCompile.matcher(wsParam);
       if (patternMatcher.find()) {
+        String recordIdFromDB = null;
+        String recordNameFromDB = null;
         String extractedRecordId = patternMatcher.group(1);
+
         Schema.SObjectType sobjectType = Id.valueOf(extractedRecordId)
           .getSobjectType();
         String sObjectName = String.escapeSingleQuotes(
           String.valueOf(sobjectType)
         );
-        SObject recordFromDB = Database.query(
-          'Select Id, Name From ' +
-          sObjectName +
-          ' WHERE Id = :extractedRecordId'
-        );
+
+        if (sObjectName.equals('Account')) {
+          SObject recordFromDB = Database.query(
+            'Select Id, Name From ' +
+            sObjectName +
+            ' WHERE Id = :extractedRecordId'
+          );
+          recordIdFromDB = String.valueOf(recordFromDB.get('Id'));
+          recordNameFromDB = String.valueOf(recordFromDB.get('Name'));
+        } else if (
+          sObjectName.equals('Interaction') || sObjectName.equals('Case')
+        ) {
+          SObject recordFromDB = Database.query(
+            'Select AccountId, Account.Name From ' +
+            sObjectName +
+            ' WHERE Id = :extractedRecordId'
+          );
+          recordIdFromDB = String.valueOf(recordFromDB.get('AccountId'));
+          recordNameFromDB = String.valueOf(
+            recordFromDB.getSObject('Account').get('Name')
+          );
+        }
+
         Map<String, String> idByName = new Map<String, String>();
-        idByName.put('Id', String.valueOf(recordFromDB.get('Id')));
-        idByName.put('Name', String.valueOf(recordFromDB.get('Name')));
+        idByName.put('Id', recordIdFromDB);
+        idByName.put('Name', recordNameFromDB);
         outMap.put('returnedRecordFromURL', idByName);
       }
     }

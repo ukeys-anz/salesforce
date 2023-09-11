@@ -6,7 +6,7 @@
     <description>Date when Customer&apos;s KYC Verified.</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <inlineHelpText>Date the customer passed away</inlineHelpText>
+    <inlineHelpText>The date the customer was last verified for KYC</inlineHelpText>
     <label>KYC Verification Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

@@ -99,7 +99,7 @@ public with sharing class InteractionComparisonHelper {
   }
 
   /**
-   * @description Get the list of updated Interactions where a Coach has taken ownership from the queue
+   * @description Get the list of updated Interactions where a Coach has taken ownership
    * @param oldMap The oldValues before the update.
    * @param interactions The new values of the interaction after update.
    * @return List<Interaction> The list of interactions where the owner has been updated
@@ -117,7 +117,7 @@ public with sharing class InteractionComparisonHelper {
       Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
       if (
         oldInteraction.OwnerId != interact.OwnerId &&
-        oldInteraction.OwnerId == InteractionConstants.APPOINTMENT_QUEUE_ID
+        interact.OwnerId != InteractionConstants.APPOINTMENT_QUEUE_ID
       ) {
         acceptedInteractions.add(interact);
       }
@@ -167,6 +167,7 @@ public with sharing class InteractionComparisonHelper {
     recordtypes.add(GetHelpConstants.INTERACTION_APPT_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
 
     for (Interaction currentInteraction : records) {
       if (!recordtypes.contains(currentInteraction.RecordTypeId)) {

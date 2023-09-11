@@ -6,18 +6,20 @@
 @isTest
 public with sharing class FetchRecordTypeNameTest {
   /**
-   * @description getOptionsValues tests successful response of visitdetails lwc component
+   * @description This test just tests that the Store Record Type exists in salesforce
    */
   @isTest
   static void getRecordTypeDeveloperNameTest() {
     String recordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
       .get('Store')
       .getRecordTypeId();
-    String recordTypeNameJson = FetchRecordTypeName.getRecordTypeDeveloperName(
+    RecordType storeRecordType = FetchRecordTypeName.getRecordTypeDeveloperName(
       recordTypeId
     );
-    String expectedJsonString = 'Store';
-    Boolean isStoreExist = recordTypeNameJson.contains(expectedJsonString);
-    System.assertEquals(true, isStoreExist, 'Store record type should exist');
+    System.assertNotEquals(
+      null,
+      storeRecordType,
+      'Store record type should exist'
+    );
   }
 }

@@ -125,7 +125,18 @@ public with sharing class InteractionSetters {
         continue;
       }
       if (interact.RecordTypeId != appointmentRTID) {
-        interact.Name = interact.Direction__c + ' ' + interact.InteractionType;
+        // If interaction Name is blank then populate name as per below logic.
+        if (String.isBlank(interact.Name)) {
+          String supportTopic = interact.Support_Topics__c;
+          // If supportTopic is blank then populate with only Direction__c and InteractionType, if not then populate with Direction__c, InteractionType and supportTopic.
+          interact.Name = String.isBlank(supportTopic)
+            ? interact.Direction__c + ' ' + interact.InteractionType
+            : interact.Direction__c +
+              ' ' +
+              interact.InteractionType +
+              ' - ' +
+              supportTopic;
+        }
       } else if (
         AutomatedRequestMetadataProvider.getInstance()
           .getMap()

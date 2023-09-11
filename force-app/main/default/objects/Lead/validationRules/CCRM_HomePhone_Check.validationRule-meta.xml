@@ -4,11 +4,14 @@
     <active>true</active>
     <description>Validation to check Home Phone is entered in a correct format.</description>
     <errorConditionFormula>AND(
-        $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    OR(
         RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
-        NOT ISBLANK(  Home_Phone__c  ) ,
-        NOT REGEX( Home_Phone__c , &quot;^\\+?61[0-9]{9}+$&quot; )
-    )</errorConditionFormula>
+        RecordType.DeveloperName = &apos;MLCRM_Lead&apos;
+    ),
+    NOT ISBLANK(  Home_Phone__c  ) ,
+    NOT REGEX( Home_Phone__c , &quot;^\\+61[0-9]{9}+$&quot; )
+)</errorConditionFormula>
     <errorDisplayField>Home_Phone__c</errorDisplayField>
-    <errorMessage>Please enter Home Phone Number in +61212345678 format.</errorMessage>
+    <errorMessage>The Home Phone entered is not in the correct format. Refer to help text.</errorMessage>
 </ValidationRule>

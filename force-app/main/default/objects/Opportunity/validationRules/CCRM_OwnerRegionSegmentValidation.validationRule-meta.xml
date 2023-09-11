@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_OwnerRegionSegmentValidation</fullName>
+    <active>true</active>
+    <description>Prevent users from editing leads which are not from their region</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;Commercial_Opportunity&apos;,
+    OR($UserRole.DeveloperName = &apos;Relationship_Manager&apos;,  
+        $UserRole.DeveloperName = &apos;Regional_Executive&apos;,
+        $UserRole.DeveloperName = &apos;Area_Manager&apos;),
+    NOT(My_Region_Flag__c)
+)</errorConditionFormula>
+    <errorMessage>You can only update Opportunities within your region and segment.</errorMessage>
+</ValidationRule>

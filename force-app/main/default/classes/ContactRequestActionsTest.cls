@@ -6,6 +6,9 @@ public with sharing class ContactRequestActionsTest {
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
 
+  private static TimeZone tz = UserInfo.getTimeZone();
+  private static DateTime currentTime = Datetime.now()
+    .addSeconds((tz.getOffset(Datetime.now()) / 1000));
   @testSetup
   static void loadAutomatedPurposes() {
     setup();
@@ -27,6 +30,7 @@ public with sharing class ContactRequestActionsTest {
     );
 
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+    TestDataFactory.createAccount(true);
   }
 
   @isTest
@@ -52,9 +56,11 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testInteractionExternalIdNotFromCR() {
     Faker faker = new Faker('AU');
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
     Interaction testInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       InteractionType = InteractionConstants.CALL,
+      AccountId = acc.Id,
       Name = faker.randomString(15)
     );
     test.startTest();
@@ -88,7 +94,7 @@ public with sharing class ContactRequestActionsTest {
 
     Integer duration = financialWellbeingPurposeDuration;
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = currentTime;
     DateTime expectedEndDate = appointmentDate.addMinutes(duration);
 
     Id appointmentRecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByName()
@@ -285,7 +291,7 @@ public with sharing class ContactRequestActionsTest {
 
     Integer duration = financialWellbeingPurposeDuration;
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = currentTime;
     DateTime expectedEndDate = appointmentDate.addMinutes(duration);
 
     ContactRequest request = new ContactRequest();
@@ -414,13 +420,13 @@ public with sharing class ContactRequestActionsTest {
 
     ContactRequest autoRequest = new ContactRequest();
     autoRequest.RequestReason = automatedPurposeName;
-    autoRequest.Appointment_date_and_Time__c = DateTime.now();
+    autoRequest.Appointment_date_and_Time__c = currentTime;
     autoRequest.PreferredChannel = InteractionConstants.CALL;
     autoRequest.WhoId = testAccount.PersonContactId;
 
     ContactRequest notAutoRequest = new ContactRequest();
     notAutoRequest.RequestReason = nonAutomatedPurposeName;
-    notAutoRequest.Appointment_date_and_Time__c = DateTime.now();
+    notAutoRequest.Appointment_date_and_Time__c = currentTime;
     notAutoRequest.PreferredChannel = InteractionConstants.CALL;
     notAutoRequest.WhoId = testAccount.PersonContactId;
 
@@ -464,7 +470,7 @@ public with sharing class ContactRequestActionsTest {
     string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     ContactRequest request = new ContactRequest();
-    request.Appointment_date_and_Time__c = DateTime.now();
+    request.Appointment_date_and_Time__c = currentTime;
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
     request.PreferredChannel = InteractionConstants.CALL;
@@ -497,7 +503,7 @@ public with sharing class ContactRequestActionsTest {
   static void testCreateInteractionSummaryForLead() {
     setup();
 
-    DateTime appointmentDateTime = DateTime.Now();
+    DateTime appointmentDateTime = currentTime;
     DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
 
     Lead testLead;

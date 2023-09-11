@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Reach your savings goals</fullName>
+        <default>false</default>
+        <label>Reach your savings goals</label>
+    </customValue>
+    <customValue>
+        <fullName>Improve your habits</fullName>
+        <default>false</default>
+        <label>Improve your habits</label>
+    </customValue>
+    <customValue>
+        <fullName>Plan upcoming expenses</fullName>
+        <default>false</default>
+        <label>Plan upcoming expenses</label>
+    </customValue>
+    <customValue>
+        <fullName>Find new ways to save</fullName>
+        <default>false</default>
+        <label>Find new ways to save</label>
+    </customValue>
+    <customValue>
+        <fullName>Explore refinancing</fullName>
+        <default>false</default>
+        <label>Explore refinancing</label>
+    </customValue>
+    <customValue>
+        <fullName>Help with my application</fullName>
+        <default>false</default>
+        <label>Help with my application</label>
+    </customValue>
+    <customValue>
+        <fullName>Pay my loan down sooner</fullName>
+        <default>false</default>
+        <label>Pay my loan down sooner</label>
+    </customValue>
+    <customValue>
+        <fullName>Unpack spending &amp; saving</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Unpack spending &amp; saving</label>
+    </customValue>
+    <customValue>
+        <fullName>Something Else?</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Something Else?</label>
+    </customValue>
+    <masterLabel>Focus Area</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

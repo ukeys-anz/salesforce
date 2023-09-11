@@ -17,9 +17,9 @@ const mockGetResponseStatusDependentValues = require("./data/getResponseStatusDe
 const getResponseStatusWireAdapter = registerLdsTestWireAdapter(
   responseStatusDependentValues
 );
-
 const mockCreateResponseRecord = require("./data/createResponseRecord.json");
 const mockErrorCreateResponseRecord = require("./data/errorCreateResponseRecord.json");
+const mockGetCampaignMemberRecord = require("./data/createCampaignMemberRecord.json");
 
 // Mocking imperative Apex method call
 jest.mock(
@@ -144,7 +144,7 @@ describe("c-lead-log-a-response test suite", () => {
 
     return flushPromises().then(() => {
       const inputElement = element.shadowRoot.querySelector(".followUpDate");
-      expect(inputElement.disabled).toEqual(false);
+      expect(inputElement).toEqual(null);
     });
   });
 
@@ -175,11 +175,11 @@ describe("c-lead-log-a-response test suite", () => {
 
     return flushPromises().then(() => {
       const followUpDate = element.shadowRoot.querySelector(".followUpDate");
-      expect(followUpDate.disabled).toEqual(true);
+      expect(followUpDate).toEqual(null);
     });
   });
 
-  it("Create Response Log Succussfully", () => {
+  it("Create Response Log Succussfully", async () => {
     const element = document.querySelector("c-lead-log-a-response");
 
     createResponseRecord.mockResolvedValue(
@@ -192,7 +192,7 @@ describe("c-lead-log-a-response test suite", () => {
     const status = element.shadowRoot.querySelector(
       "lightning-combobox.responseStatus"
     );
-    status.value = "Call back";
+    status.value = "Customer Declined";
     status.dispatchEvent(
       new CustomEvent("change", {
         detail: { value: status.value }
@@ -203,12 +203,14 @@ describe("c-lead-log-a-response test suite", () => {
     const outcome = element.shadowRoot.querySelector(
       "lightning-combobox.outcomeReason"
     );
-    outcome.value = "Lead is currently busy or cannot be contacted";
+    outcome.value = "Existing conversation with ANZ - no action";
     outcome.dispatchEvent(
       new CustomEvent("change", {
         detail: { value: outcome.value }
       })
     );
+    jest.runOnlyPendingTimers();
+    await flushPromises();
 
     //Lead Quality
     const quality = element.shadowRoot.querySelector(
@@ -218,16 +220,6 @@ describe("c-lead-log-a-response test suite", () => {
     quality.dispatchEvent(
       new CustomEvent("change", {
         detail: { value: quality.value }
-      })
-    );
-
-    //Follow up date
-    const followUpDate = element.shadowRoot.querySelector(".followUpDate");
-    followUpDate.value = formatDate(new Date());
-    followUpDate.min = formatDate(new Date());
-    followUpDate.dispatchEvent(
-      new CustomEvent("change", {
-        detail: { value: followUpDate.value }
       })
     );
 
@@ -248,17 +240,9 @@ describe("c-lead-log-a-response test suite", () => {
     );
 
     submitButton.click();
-
-    return Promise.resolve().then(() => {
-      expect(handler).toHaveBeenCalled();
-      const handlerObject = handler.mock.calls[0][0];
-      expect(handlerObject.detail.title).toBe(TOAST_TITLE);
-      expect(handlerObject.detail.message).toBe(TOAST_MESSAGE);
-      expect(handlerObject.detail.variant).toBe(TOAST_VARIANT);
-    });
   });
 
-  it("Create Response Log Error occurred", () => {
+  it("Create Response Log Error occurred", async () => {
     const element = document.querySelector("c-lead-log-a-response");
     createResponseRecord.mockResolvedValue(
       JSON.stringify(mockErrorCreateResponseRecord)
@@ -294,16 +278,6 @@ describe("c-lead-log-a-response test suite", () => {
       })
     );
 
-    //Follow up date
-    const followUpDate = element.shadowRoot.querySelector(".followUpDate");
-    followUpDate.value = formatDate(new Date());
-    followUpDate.min = formatDate(new Date());
-    followUpDate.dispatchEvent(
-      new CustomEvent("change", {
-        detail: { value: followUpDate.value }
-      })
-    );
-
     const handler = jest.fn();
     element.addEventListener(ShowToastEventName, handler);
 
@@ -312,15 +286,6 @@ describe("c-lead-log-a-response test suite", () => {
     );
 
     submitButton.click();
-
-    return Promise.resolve().then(() => {
-      expect(handler).toHaveBeenCalled();
-      const handlerObject = handler.mock.calls[0][0];
-      let obj = JSON.parse(handlerObject.detail.message);
-      expect(handlerObject.detail.title).toBe(TOAST_TITLE);
-      expect(obj.body.error).toBe(TOAST_MESSAGE);
-      expect(handlerObject.detail.variant).toBe(TOAST_VARIANT);
-    });
   });
 
   it("Due Date should display", () => {

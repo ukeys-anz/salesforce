@@ -67,9 +67,14 @@
                 <label>Derivatives/Hedging</label>
             </value>
             <value>
-                <fullName>Managed Investments Real Property</fullName>
+                <fullName>Managed Investments</fullName>
                 <default>false</default>
-                <label>Managed Investments Real Property</label>
+                <label>Managed Investments</label>
+            </value>
+            <value>
+                <fullName>Real Property</fullName>
+                <default>false</default>
+                <label>Real Property</label>
             </value>
             <value>
                 <fullName>Securities</fullName>
@@ -204,7 +209,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Investments</controllingFieldValue>
-            <valueName>Managed Investments Real Property</valueName>
+            <valueName>Managed Investments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Investments</controllingFieldValue>
+            <valueName>Real Property</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Investments</controllingFieldValue>

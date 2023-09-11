@@ -3,12 +3,20 @@
     <label>Accepted Complete</label>
     <protected>false</protected>
     <values>
+        <field>Lead_Record_Type__c</field>
+        <value xsi:type="xsd:string">CCRM_Lead</value>
+    </values>
+    <values>
         <field>Lead_Status__c</field>
-        <value xsi:type="xsd:string">New,In progress</value>
+        <value xsi:type="xsd:string">Assigned,In progress</value>
     </values>
     <values>
         <field>Next_Lead_Status__c</field>
-        <value xsi:type="xsd:string">Completed</value>
+        <value xsi:type="xsd:string">Outcome</value>
+    </values>
+    <values>
+        <field>Outcome_Type__c</field>
+        <value xsi:type="xsd:string">No Opportunity</value>
     </values>
     <values>
         <field>Response_Status__c</field>
@@ -17,6 +25,11 @@
     <values>
         <field>Response_Type_CreateOpportunity__c</field>
         <value xsi:type="xsd:string">false</value>
+    </values>
+    <values>
+        <field>What_happens_next__c</field>
+        <value xsi:type="xsd:string">Your response will be recorded and the Lead will be closed and no longer editable.
+Logged Responses and Outcomes cannot be edited once saved.</value>
     </values>
     <values>
         <field>isActive__c</field>

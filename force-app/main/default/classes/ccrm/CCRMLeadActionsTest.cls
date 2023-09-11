@@ -11,6 +11,8 @@ private class CCRMLeadActionsTest {
     CCRMTestDataFactory.createUnicaIntegrationUser();
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
     User ccrmAdminUser = CCRMTestDataFactory.createAdminUser();
+    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
+    User integrationUser = CCRMTestDataFactory.getCCRMIntegrationUser();
 
     //CREATE Test Lead Records
     System.runAs(ccrmUser) {
@@ -26,6 +28,20 @@ private class CCRMLeadActionsTest {
 
     System.runAs(ccrmAdminUser) {
       createUsersWithEmployeeID();
+    }
+
+    System.runAs(mlUser) {
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+        10,
+        mlUser,
+        true
+      );
+      MLCRMTestDataFactory.createUserTerritoryRecords(
+        10,
+        mlUser.Id,
+        lstOfTerritory[0].Id
+      );
+      MLCRMTestDataFactory.createLeadRecords(10, mlUser);
     }
   }
 
@@ -65,6 +81,7 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testExpiryDateLogResponseAddedWithFollowupDate() {
     //GIVEN leads
+    Test.startTest();
     Lead[] leads = [
       SELECT Id, OwnerId, Expiry_Date__c, Followup_Date__c, RecordTypeId
       FROM Lead
@@ -88,7 +105,7 @@ private class CCRMLeadActionsTest {
     }
 
     //WHEN
-    Test.startTest();
+
     leads[0].Followup_Date__c = Date.today();
     CCRMLeadActions.setExpiryDate(leads, new Map<Id, Lead>(oldLeads));
     Test.stopTest();
@@ -157,48 +174,48 @@ private class CCRMLeadActionsTest {
     leadRecord.Email = 'sam1@test.com';
     leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
     leadRecord.Description = 'Need a new Credit Card';
-    leadRecord.Not_Registered__c = true;
+    leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Sam1';
     leadRecord.LastName = 'Jacob';
     leadRecord.LeadSource = 'Partner';
     leadRecord.New_to_Bank__c = 'Yes';
     leadRecord.Lead_Originator__c = 'CCRM';
-    leadRecord.Status = CCRMConstants.STATUS_NEW;
+    leadRecord.Status = CCRMConstants.STATUS_ASSIGNED;
     leadRecord.OwnerId = ccrmUser.Id;
 
     Lead leadRecord2 = new Lead();
     leadRecord2.Email = 'sam2@test.com';
     leadRecord2.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
     leadRecord2.Description = 'Need a new Credit Card';
-    leadRecord2.Not_Registered__c = true;
+    leadRecord2.Registered_Company__c = 'No';
     leadRecord2.Expiry_Date__c = System.today() + 10;
-    leadRecord2.FinServ__ExpressedInterest__c = 'Credit Card';
+    leadRecord2.FinServ__ExpressedInterest__c = 'Purchasing Property';
     leadRecord2.FinServ__PotentialValue__c = 12000;
     leadRecord2.FirstName = 'Sam2';
     leadRecord2.LastName = 'Jacob';
     leadRecord2.LeadSource = 'Partner';
     leadRecord2.New_to_Bank__c = 'Yes';
     leadRecord2.Lead_Originator__c = 'CCRM';
-    leadRecord2.Status = CCRMConstants.STATUS_NEW;
+    leadRecord2.Status = CCRMConstants.STATUS_ASSIGNED;
     leadRecord2.OwnerId = ccrmUser2.Id;
 
     Lead leadRecord3 = new Lead();
     leadRecord3.Email = 'sam3@test.com';
     leadRecord3.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
     leadRecord3.Description = 'Need a new Credit Card';
-    leadRecord3.Not_Registered__c = true;
+    leadRecord3.Registered_Company__c = 'No';
     leadRecord3.Expiry_Date__c = System.today() + 10;
-    leadRecord3.FinServ__ExpressedInterest__c = 'Credit Card';
+    leadRecord3.FinServ__ExpressedInterest__c = 'Purchasing Property';
     leadRecord3.FinServ__PotentialValue__c = 12000;
     leadRecord3.FirstName = 'Sam3';
     leadRecord3.LastName = 'Jacob';
     leadRecord3.LeadSource = 'Partner';
     leadRecord3.New_to_Bank__c = 'Yes';
     leadRecord3.Lead_Originator__c = 'CCRM';
-    leadRecord3.Status = CCRMConstants.STATUS_NEW;
+    leadRecord3.Status = CCRMConstants.STATUS_ASSIGNED;
     leadRecord3.OwnerId = ccrmUser3.Id;
 
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
@@ -318,7 +335,11 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testLeadPlatformEventsSuccessfullyByAdminAdobe() {
     // GIVEN
-    List<Lead> leads = [SELECT Id, LeadSource FROM Lead];
+    List<Lead> leads = [
+      SELECT Id, LeadSource, recordTypeId
+      FROM Lead
+      WHERE RecordType.DeveloperName = 'CCRM_Lead'
+    ];
     leads[0].Expiry_Date__c = System.today() + 15;
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       update leads;
@@ -327,8 +348,9 @@ private class CCRMLeadActionsTest {
     //WHEN
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leads[0].Id);
+    Test.startTest();
     CCRMLeadPlatformEventActions.resendManualLeadPlatformEvent(leadIds);
-
+    Test.stopTest();
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage
     System.assertEquals(
@@ -341,7 +363,12 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testLeadPlatformEventsSuccessfullyByAdminUnica() {
     // GIVEN
-    List<Lead> leads = [SELECT Id, LeadSource FROM Lead];
+    Test.startTest();
+    List<Lead> leads = [
+      SELECT Id, LeadSource, recordTypeId
+      FROM Lead
+      WHERE RecordType.DeveloperName = 'CCRM_Lead'
+    ];
     for (Lead record : leads) {
       record.Lead_Originator__c = 'CCRM';
       record.New_to_Bank__c = 'No';
@@ -365,14 +392,22 @@ private class CCRMLeadActionsTest {
       'Partner',
       'Lead source should match.'
     );
+    Test.stopTest();
   }
 
   @isTest
   static void testPrefillLeadFieldsForUnicaBusinessAccount() {
     //GIVEN
+    Test.startTest();
     Account acc;
     Contact contact;
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+    User objMLUser = [SELECT Id FROM User WHERE lastname = 'MLCRM'];
+    User objUser = [
+      SELECT Id
+      FROM user
+      WHERE username = 'unica.integration@anzx.com.unittest'
+    ];
+    System.runAs(objUser) {
       acc = CCRMTestDataFactory.createBusinessAccount();
       contact = [
         SELECT Email, MobilePhone, FirstName, LastName
@@ -380,53 +415,85 @@ private class CCRMLeadActionsTest {
         WHERE AccountId = :acc.Id
       ];
     }
-
+    System.runAs(objUser) {
+      Lead leadRecord = new Lead();
+      leadRecord.Email = 'sam@test.com';
+      leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
+      leadRecord.Description = 'Need a new Credit Card';
+      leadRecord.Expiry_Date__c = System.today() + 10;
+      leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
+      leadRecord.FinServ__PotentialValue__c = 12000;
+      leadRecord.FirstName = 'Sam';
+      leadRecord.LastName = 'Jacob';
+      leadRecord.LeadSource = 'Partner';
+      leadRecord.Campaign_Code__c = 'IKCMP–1579';
+      leadRecord.New_to_Bank__c = 'No';
+      leadRecord.Lead_Originator__c = 'unica';
+      leadRecord.Business_ID__c = 'BUS1234';
+      leadRecord.ownerId = objMLUser.Id;
+      insert leadRecord;
+    }
     //WHEN Unica lead is created and populated with Business ID
-    Lead lead = new Lead();
-    lead.Business_ID__c = 'BUS1234';
-    lead.Lead_Originator__c = 'UNICA';
-    Test.startTest();
-    CCRMLeadActions.prefillUnicaLeadsFromAccountOnInsert(
-      new List<Lead>{ lead }
-    );
-    Test.stopTest();
+    System.runAs(objMLUser) {
+      Lead lead = [
+        SELECT
+          Street,
+          ACN__c,
+          ABN__c,
+          City,
+          State,
+          Postalcode,
+          LastName,
+          FirstName,
+          MobilePhone,
+          Email,
+          company
+        FROM Lead
+        WHERE Email = 'sam@test.com'
+      ];
 
-    //THEN account details should be matched and copied to the lead
-    System.assertEquals(lead.ACN__c, acc.ACN__c, 'ACN updated correctly');
-    System.assertEquals(lead.ABN__c, acc.ABN__c, 'ABN updated correctly');
-    System.assertEquals(lead.City, acc.BillingCity, 'City updated correctly');
-    System.assertEquals(
-      lead.Street,
-      acc.BillingStreet,
-      'Street updated correctly'
-    );
-    System.assertEquals(
-      lead.State,
-      acc.BillingState,
-      'State updated correctly'
-    );
-    System.assertEquals(
-      lead.Postalcode,
-      acc.BillingPostalcode,
-      'Postalcode updated correctly'
-    );
-    System.assertEquals(lead.Company, acc.Name, 'Company updated correctly');
-    System.assertEquals(
-      lead.LastName,
-      contact.LastName,
-      'FirstName updated correctly'
-    );
-    System.assertEquals(
-      lead.FirstName,
-      contact.FirstName,
-      'LastName updated correctly'
-    );
-    System.assertEquals(lead.Email, contact.Email, 'Email updated correctly');
-    System.assertEquals(
-      lead.MobilePhone,
-      contact.MobilePhone,
-      'MobilePhone updated correctly'
-    );
+      //THEN account details should be matched and copied to the lead
+      System.assertEquals(lead.ACN__c, acc.ACN__c, 'ACN updated correctly');
+      System.assertEquals(lead.ABN__c, acc.ABN__c, 'ABN updated correctly');
+      System.assertEquals(lead.City, acc.BillingCity, 'City updated correctly');
+      System.assertEquals(
+        lead.Street,
+        acc.BillingStreet,
+        'Street updated correctly'
+      );
+      System.assertEquals(
+        lead.State,
+        acc.BillingState,
+        'State updated correctly'
+      );
+      System.assertEquals(
+        lead.Postalcode,
+        acc.BillingPostalcode,
+        'Postalcode updated correctly'
+      );
+      System.assertEquals(lead.Company, acc.Name, 'Company updated correctly');
+      System.assertNotEquals(
+        lead.LastName,
+        contact.LastName,
+        'FirstName updated correctly'
+      );
+      System.assertNotEquals(
+        lead.FirstName,
+        acc.FirstName,
+        'LastName updated correctly'
+      );
+      System.assertNotEquals(
+        lead.Email,
+        contact.Email,
+        'Email updated correctly'
+      );
+      System.assertEquals(
+        lead.MobilePhone,
+        contact.MobilePhone,
+        'MobilePhone updated correctly'
+      );
+    }
+    Test.stopTest();
   }
 
   @isTest
@@ -578,7 +645,12 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testLeadResponsePlatformEventsSuccessfullyByAdmin() {
     // GIVEN
-    List<Lead> leads = [SELECT Id, LeadSource, Lead_id__c FROM Lead];
+    Test.startTest();
+    List<Lead> leads = [
+      SELECT Id, LeadSource, Lead_id__c, recordTypeId
+      FROM Lead
+      WHERE RecordType.DeveloperName = 'CCRM_Lead'
+    ];
     for (Lead record : leads) {
       record.Lead_Originator__c = 'Adobe';
       record.New_to_Bank__c = 'No';
@@ -613,7 +685,7 @@ private class CCRMLeadActionsTest {
     //WHEN
     Set<Id> leadIds = new Set<Id>{ leads[0].Id };
     CCRMLeadActions.resendAdobeOrUnicaOrCcrmLeadUpdatePlatformEvent(leadIds);
-
+    Test.stopTest();
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage
     System.assertEquals(
@@ -703,9 +775,15 @@ private class CCRMLeadActionsTest {
       Business_ID__c = invalidId
     );
 
+    User unicaIntegrationUser = [
+      SELECT Id
+      FROM User
+      WHERE username = 'unica.integration@anzx.com.unittest'
+      LIMIT 1
+    ];
     Test.startTest();
     //WHEN validated
-    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
+    System.runAs(unicaIntegrationUser) {
       CCRMLeadActions.populateFields(
         new List<Lead>{
           leadWithInvalidCampaignCode,
@@ -751,16 +829,16 @@ private class CCRMLeadActionsTest {
     leadRecord.Email = 'sam21@test.com';
     leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
     leadRecord.Description = 'Need a new Credit Card';
-    leadRecord.Not_Registered__c = true;
+    leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Adobe Ingested';
     leadRecord.LastName = 'Lead1';
     leadRecord.LeadSource = 'Partner';
     leadRecord.New_to_Bank__c = 'Yes';
     leadRecord.Lead_Originator__c = 'Adobe';
-    leadRecord.Status = CCRMConstants.STATUS_NEW;
+    leadRecord.Status = CCRMConstants.STATUS_ASSIGNED;
 
     System.runAs(adobeUser) {
       try {
@@ -795,16 +873,16 @@ private class CCRMLeadActionsTest {
     leadRecord.Email = 'sam1@test.com';
     leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
     leadRecord.Description = 'Need a new Credit Card';
-    leadRecord.Not_Registered__c = true;
+    leadRecord.Registered_Company__c = 'No';
     leadRecord.Expiry_Date__c = System.today() + 10;
-    leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+    leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
     leadRecord.FinServ__PotentialValue__c = 12000;
     leadRecord.FirstName = 'Unica Ingested';
     leadRecord.LastName = 'Lead';
     leadRecord.LeadSource = 'Partner';
     leadRecord.New_to_Bank__c = 'Yes';
     leadRecord.Lead_Originator__c = 'UNICA';
-    leadRecord.Status = CCRMConstants.STATUS_NEW;
+    leadRecord.Status = CCRMConstants.STATUS_ASSIGNED;
 
     System.runAs(unicaUser) {
       try {
@@ -847,16 +925,16 @@ private class CCRMLeadActionsTest {
       leadRecord.Email = 'sam1@test.com';
       leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
       leadRecord.Description = 'Need a new Credit Card';
-      leadRecord.Not_Registered__c = true;
+      leadRecord.Registered_Company__c = 'No';
       leadRecord.Expiry_Date__c = System.today() + 10;
-      leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+      leadRecord.FinServ__ExpressedInterest__c = 'Purchasing Property';
       leadRecord.FinServ__PotentialValue__c = 12000;
       leadRecord.FirstName = 'Default';
       leadRecord.LastName = 'Campaign';
       leadRecord.LeadSource = 'Partner';
       leadRecord.New_to_Bank__c = 'Yes';
       leadRecord.Lead_Originator__c = 'CCRM';
-      leadRecord.Status = CCRMConstants.STATUS_NEW;
+      leadRecord.Status = CCRMConstants.STATUS_ASSIGNED;
 
       insert leadRecord;
       leadId = leadRecord.Id;
@@ -870,6 +948,141 @@ private class CCRMLeadActionsTest {
         WHERE CampaignId = :campaign.Id AND LeadId = :leadId
       ];
       System.assert(!members.isEmpty(), 'Campaign Member was created');
+    }
+  }
+
+  @isTest
+  static void testMLLeadCreationWithReferrerEmail() {
+    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+      Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
+        .Id;
+      USER usr = (USER) FakerFactory.make(new FakerUserFactory());
+      usr.Email = 'test@mltest.anz.com';
+      usr.ProfileId = adminProfileId;
+      usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
+      insert usr;
+
+      Test.startTest();
+      Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
+      leadRec.Referrer_Email__c = 'test@mltest.anz.com';
+      leadRec.Referrer_Name__c = 'Test Referrer Name';
+      leadRec.LeadSource = MLCRMConstants.INTERNAL_REFERRAL;
+      insert leadRec;
+      Test.stopTest();
+
+      Lead leadRecord = [
+        SELECT id, FinServ__ReferredByUser__c
+        FROM lead
+        WHERE id = :leadRec.id
+        LIMIT 1
+      ];
+      System.assertEquals(
+        leadRecord.FinServ__ReferredByUser__c,
+        usr.Id,
+        'Referrrer is populated'
+      );
+    }
+  }
+
+  @isTest
+  static void testMLLeadCreationWithoutExistingReferrer() {
+    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+      Test.startTest();
+      Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
+      leadRec.Referrer_Email__c = 'test@mltest2.anz.com';
+      leadRec.Referrer_Name__c = 'Test Referrer Name';
+      leadRec.LeadSource = MLCRMConstants.INTERNAL_REFERRAL;
+      insert leadRec;
+      Test.stopTest();
+      Lead leadRecord = [
+        SELECT id, FinServ__ReferredByUser__c
+        FROM lead
+        WHERE id = :leadRec.id
+        LIMIT 1
+      ];
+      System.assertEquals(
+        leadRecord.FinServ__ReferredByUser__c,
+        null,
+        'Referrrer is not found'
+      );
+    }
+  }
+
+  @isTest
+  static void testBulkMLLeadCreation() {
+    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+      Test.startTest();
+      List<Lead> leadsList = new List<Lead>();
+      for (Integer i = 0; i < 50; i++) {
+        leadsList.add((Lead) FakerFactory.make(new FakerLeadFactory()));
+      }
+      insert leadsList;
+      Test.stopTest();
+      System.assertEquals(leadsList.Size(), 50, 'All ML leads created');
+      for (Lead objLead : leadsList) {
+        System.assertEquals(objLead.Lead_Id__c, objLead.Lead_Auto_Number__c);
+      }
+    }
+  }
+
+  @isTest
+  static void testLeadStatusChange() {
+    User objUser = [SELECT Id FROM User WHERE LastName = :'MLCRM' LIMIT 1];
+    System.runAs(objUser) {
+      Test.startTest();
+      List<Lead> lstOfLead = [
+        SELECT Id, IsNewLead__c
+        FROM Lead
+        WHERE RecordTypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID AND status = 'New'
+      ];
+      for (Lead objLead : lstOfLead) {
+        objLead.LastName = 'test lastname';
+        objLead.IsNewLead__c = false;
+      }
+      update lstOfLead;
+      Test.stopTest();
+      System.assertEquals(
+        10,
+        [
+            SELECT Id
+            FROM Lead
+            WHERE
+              status = 'In Progress'
+              AND RecordTypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
+          ]
+          .size()
+      );
+    }
+  }
+
+  @isTest
+  static void testMLLeadCreationWithReferrer() {
+    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+      Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
+        .Id;
+      USER usr = (USER) FakerFactory.make(new FakerUserFactory());
+      usr.Email = 'test@mltest.anz.com';
+      usr.ProfileId = adminProfileId;
+      usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
+      insert usr;
+
+      Test.startTest();
+      Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
+      leadRec.FinServ__ReferredByUser__c = usr.Id;
+      insert leadRec;
+      Test.stopTest();
+
+      Lead leadRecord = [
+        SELECT id, Referrer_Email__c
+        FROM lead
+        WHERE id = :leadRec.id
+        LIMIT 1
+      ];
+      System.assertEquals(
+        leadRecord.Referrer_Email__c,
+        usr.Email,
+        'Referrrer is populated'
+      );
     }
   }
 }

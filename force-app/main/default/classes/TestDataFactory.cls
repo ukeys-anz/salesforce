@@ -41,6 +41,33 @@ public without sharing class TestDataFactory {
   }
 
   /**
+   * @description Create Person Account record
+   *    * @param ocvId OCV Id of the customer
+   * @param doInsert Insert record or just initialise
+   * @return Person Account
+   */
+  public static Account createPersonAccount(String ocvId, Boolean doInsert) {
+    Faker faker = new Faker('AU');
+    Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('PersonAccount')
+      .getRecordTypeId();
+    Account personAcc = new Account();
+    personAcc.RecordTypeId = personAccountRecordTypeId;
+    personAcc.FirstName = faker.randomString(5);
+    personAcc.LastName = faker.randomString(5);
+    personAcc.OCV_ID__c = String.isNotBlank(ocvId)
+      ? ocvId
+      : faker.randomString(10);
+    personAcc.ANZx_Customer__c = true;
+    personAcc.External_Id__c = faker.randomString(15);
+    if (doInsert) {
+      insert personAcc;
+    }
+
+    return personAcc;
+  }
+
+  /**
    * @description Create Financial Account record
    * @param count Number of records to create
    * @param doInsert Insert record or just initialise
@@ -249,7 +276,7 @@ public without sharing class TestDataFactory {
         'Unauthorised Transaction',
         'Incorrect Amount',
         'Incorrect Biller Code',
-        'Incorrect Customer Reference Number',
+        'Unintended Payment',
         'Payment not received by biller'
       },
       'Card_Dispute' => new List<String>{
