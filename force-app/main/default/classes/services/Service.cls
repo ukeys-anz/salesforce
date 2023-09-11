@@ -74,6 +74,21 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param sopId sop id of the customer account
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description create income 
+   */
+  public virtual HttpCalloutResponse createIncome(
+    String sopId,
+    String ocvId,
+    String incomeBody
+  ) {
+    return null;
+  }
+
+  /**
    * @param existingRefreshToken existing refresh token id
    * @return `HttpCalloutResponse` api response
    * @description virtual azure refresh id token callout

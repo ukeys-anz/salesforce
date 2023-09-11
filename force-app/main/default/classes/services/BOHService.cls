@@ -26,7 +26,9 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_SOP + sopId +'/consolidate',
+      System.Label.MS_Get_SOP +
+      sopId +
+      '/consolidate',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -34,6 +36,33 @@ public with sharing class BOHService extends Service {
 
     return response;
   }
+
+  /**
+   * @param sopId sop id of the customer account
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description create income
+   */
+  public override HttpCalloutResponse createIncome(
+    String sopId,
+    String ocvId,
+    String incomeBody
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Get_SOP + sopId,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      incomeBody
+    );
+    return response;
+  }
+
   /**
    * @param sopIds sop id
    * @param creditId credit id
