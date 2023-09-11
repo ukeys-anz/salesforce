@@ -2077,7 +2077,7 @@
     },
     "Material_Change_Applicant__c": {
       "IA-2415983": ["Material_Change__c", "Applicant__c"],
-      "IA-2415840": ["External_Id__c"]
+      "IA-2415840": ["External_Id__c", "Loan_Application__c"]
     },
     "Opportunity": {
       "IA-2415840": [

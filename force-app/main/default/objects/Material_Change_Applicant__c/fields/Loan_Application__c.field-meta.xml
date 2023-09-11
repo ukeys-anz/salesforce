@@ -3,16 +3,14 @@
     <fullName>Loan_Application__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
-    <description>Associated Application.</description>
+    <description>Link to loan app</description>
     <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/&quot; &amp;  Material_Change__r.Loan_Application__c ,   Material_Change__r.Loan_Application__r.Name, &quot;_self&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Loan Application</label>
-    <referenceTo>ResidentialLoanApplication</referenceTo>
-    <relationshipLabel>Material Changes</relationshipLabel>
-    <relationshipName>Material_Changes</relationshipName>
-    <relationshipOrder>0</relationshipOrder>
-    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>MasterDetail</type>
-    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

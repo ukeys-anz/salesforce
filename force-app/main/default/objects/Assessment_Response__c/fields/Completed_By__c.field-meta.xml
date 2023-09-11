@@ -3,7 +3,7 @@
     <fullName>Completed_By__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Loan Domain</complianceGroup>
-    <description>Associated applicant</description>
+    <description>Associated applicant.</description>
     <externalId>false</externalId>
     <label>Completed By</label>
     <referenceTo>LoanApplicant</referenceTo>

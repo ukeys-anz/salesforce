@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Compact_Layout</fullName>
+    <fullName>Loan_Applicant_Group_Layout</fullName>
     <fields>Name</fields>
-    <fields>UnpaidBalanceAmount</fields>
-    <label>Compact Layout</label>
+    <fields>SOP_ID__c</fields>
+    <label>Loan Applicant Group Layout</label>
 </CompactLayout>
