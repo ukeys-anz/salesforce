@@ -92,11 +92,6 @@
                 <label>Transactions &amp; payments</label>
             </value>
             <value>
-                <fullName>14</fullName>
-                <default>false</default>
-                <label>Fraud &amp; Scams</label>
-            </value>
-            <value>
                 <fullName>20</fullName>
                 <default>false</default>
                 <label>Transaction Disputes</label>

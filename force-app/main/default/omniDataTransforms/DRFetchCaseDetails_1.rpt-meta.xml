@@ -95,6 +95,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>String</outputFieldFormat>
         <outputFieldName>Case:durationOfRemedy2</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -154,6 +155,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>String</outputFieldFormat>
         <outputFieldName>Case:rewardPoints3</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -168,6 +170,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>String</outputFieldFormat>
         <outputFieldName>Case:durationOfRemedy3</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -614,6 +617,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>String</outputFieldFormat>
         <outputFieldName>Case:rewardPoints2</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -746,6 +750,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>String</outputFieldFormat>
         <outputFieldName>Case:durationOfRemedy1</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -900,6 +905,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>String</outputFieldFormat>
         <outputFieldName>Case:rewardPoints1</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -969,7 +975,7 @@
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;CaseId&quot; : &quot;5009n000007BLebAAG&quot;
+  &quot;CaseId&quot; : &quot;5009n000007hIk1AAE&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
