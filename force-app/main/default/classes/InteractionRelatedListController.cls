@@ -123,7 +123,7 @@ public with sharing class InteractionRelatedListController {
    * @return query string to be used in appointments and interactions query
    */
   private static String buildQueryStr(Id sId) {
-    String interactionQuery = 'SELECT Id, Name, Owner.Name, StartTime, CreatedDate FROM Interaction WHERE ';
+    String interactionQuery = 'SELECT Id, Name, Owner.Name, StartTime, CreatedDate, Status__c FROM Interaction WHERE ';
     String sobjectType = sId.getSObjectType().getDescribe().getName();
     switch on sobjectType {
       when 'Account' {
@@ -157,6 +157,8 @@ public with sharing class InteractionRelatedListController {
     public String interactTime;
     @AuraEnabled
     public String ownerName;
+    @AuraEnabled
+    public String status;
 
     /**
      * @description constructor of wrapper class to turn an interaction sobject into wrapper record
@@ -166,6 +168,7 @@ public with sharing class InteractionRelatedListController {
       this.interactId = record.Id;
       this.interactName = record.Name;
       this.ownerName = record.Owner.Name;
+      this.status = record.Status__c;
       if (record.StartTime != null) {
         this.interactTime = record.StartTime.format('dd/MM/yyyy h:mm a');
       } else {

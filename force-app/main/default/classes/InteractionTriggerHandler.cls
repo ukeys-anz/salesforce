@@ -259,5 +259,22 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       InteractionActions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
     }
     InteractionActions.unassignInteractions(oldMap, records);
+    //Creating a map of all interactions by record type, to be used later. This reduces number of loops.
+    Map<String, List<Interaction>> mapOfInteractionsByRecordType = InteractionFilter.getInteractionsByRecordType(
+      records
+    );
+
+    List<Interaction> apptInteraction = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_APPT_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_APPT_RT_ID
+        )
+      : new List<Interaction>();
+
+    if (!apptInteraction.isEmpty()) {
+      InteractionValidations.validateInteractions(apptInteraction);
+      InteractionSetters.setNameOfInteractions(apptInteraction);
+    }
   }
 }

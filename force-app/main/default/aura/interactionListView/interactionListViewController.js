@@ -8,17 +8,15 @@
       .c__recordTypeDeveloperName;
 
     // Variable declared to show tab label
-    let tabname = "Message";
+    var tabNameMap = component.get("v.tabNames");
+    let tabname = tabNameMap[recordTypeDeveloperName]
+      ? tabNameMap[recordTypeDeveloperName]
+      : "Message";
 
     // fetch the recordId from URL, this can be anything Account, Lead, Case, Coaching Summary etc
     const anyRecordId = component.get("v.pageReference").state.c__anyRecordId;
     component.set("v.anyRecordId", anyRecordId);
     component.set("v.recordTypeDeveloperName", recordTypeDeveloperName);
-    if (recordTypeDeveloperName === "General") {
-      tabname = "Call";
-    } else if (recordTypeDeveloperName === "Store") {
-      tabname = "In Person";
-    }
     workspaceAPI
       .getEnclosingTabId()
       .then(function (enclosedTabId) {

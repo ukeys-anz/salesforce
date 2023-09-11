@@ -66,7 +66,13 @@ public with sharing class InteractionEventHelper {
     }
 
     if (!eventsToUpdate.isEmpty()) {
-      EventHelper.updateEvents(eventsToUpdate);
+      try {
+        EventHelper.updateEvents(eventsToUpdate);
+      } catch (Exception e) {
+        Logger.error('Error - ' + e.getMessage(), e);
+        Logger.saveLog();
+        interactions[0].AddError('Unable to update the related Events.');
+      }
     }
   }
 }

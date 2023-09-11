@@ -1,4 +1,37 @@
 <template>
+  <template if:true={showAppointment}>
+    <div class="slds-m-around_medium">
+      <template if:true={showInteractionRecords}>
+        <template for:each={interactionrecords.data} for:item="appt">
+          <div class="slds-m-top_small" key={appt.interactId}>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col">
+                <a
+                  href="#"
+                  onclick={handleViewRecord}
+                  data-id={appt.interactId}
+                >
+                  {appt.interactName}
+                </a>
+              </div>
+            </div>
+            <div class="slds-grid slds-gutters slds-var-p-vertical_xx-small">
+              <div class="slds-col slds-size_1-of-2">Date and Time:</div>
+              <div class="slds-col slds-size_1-of-2">{appt.interactTime}</div>
+            </div>
+            <div class="slds-grid slds-gutters slds-var-p-vertical_xx-small">
+              <div class="slds-col slds-size_1-of-2">Owner Name:</div>
+              <div class="slds-col slds-size_1-of-2">{appt.ownerName}</div>
+            </div>
+            <div class="slds-grid slds-gutters slds-var-p-vertical_xx-small">
+              <div class="slds-col slds-size_1-of-2">Status:</div>
+              <div class="slds-col slds-size_1-of-2">{appt.status}</div>
+            </div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </template>
   <template if:true={showMessage}>
     <div class="slds-m-around_medium">
       <template if:true={showInteractionRecords}>

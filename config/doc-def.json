@@ -77,11 +77,9 @@
     {
       "name": "Api Enabled User",
       "profile": "Integration User",
-      "permissionsets": [
-        "Interaction_Read_Only",
-        "FinServ__FinancialServicesCloudExtension"
-      ],
-      "type": "user"
+      "permissionsetgroups": [],
+      "permissionsets": ["Interaction_Read_Only", "Disable_MFA"],
+      "type": "system"
     },
     {
       "name": "ANZ Plus Operations - Read Only",
@@ -692,6 +690,18 @@
         "Customer_Read_Only",
         "Disable_MFA",
         "Bypass_Chatter_Feed_Item_URL_Validation"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Appointment Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Appointment_Booking_Integration",
+        "FinancialServicesCloudExtension",
+        "Disable_MFA"
       ],
       "type": "system"
     }

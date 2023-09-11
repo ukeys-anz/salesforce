@@ -21,8 +21,10 @@ public with sharing class InteractionConstants {
   public static final string FINANCIAL_WELLBEING_PURPOSE_NAME = 'Financial Wellbeing';
   public static final string APPOINTMENT_RECORD_TYPE_NAME = 'Appointment';
   public static final String CALL = 'Call';
+  public static final String VIDEO = 'Video';
   public static final String CHAT = 'Chat';
   public static final String STORE = 'Store';
+  public static final String IN_PERSON = 'In Person';
   public static final String CANCELLED = 'Cancelled';
   public static final String INTERNAL = 'Internal';
   public static final String CUSTOMER = 'Customer';

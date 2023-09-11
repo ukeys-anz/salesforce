@@ -58,7 +58,14 @@
     "Lead": {
       "FinServ__ExpressedInterest__c": "The type of needs customer require",
       "FinServ__PotentialValue__c": "Dollar amount for a lead",
-      "FinServ__RelatedAccount__c": "Look up field for financial account, relates a lead to customer's financial account"
+      "FinServ__RelatedAccount__c": "Look up field for financial account, relates a lead to customer's financial account",
+      "FinServ__CreatedFromLead__c": "Indicates whether a contact converted from a lead (true) or not (false).",
+      "FinServ__Employer__c": "Employer information that will be captured in contact record upon lead conversion.",
+      "FinServ__ReferredByContact__c": "External contact who made the referral.",
+      "FinServ__ReferredByUser__c": "Internal Salesforce user who made the referral.",
+      "FinServ__ReferrerScore__c": "A value of 0 to 100. A high score reflects a high rate of referral conversion.",
+      "qualtrics__Last_Survey_Response__c": "Last Survey Response Date.",
+      "qualtrics__Last_Survey_Invitation__c": "Last Survey Invitation Date."
     },
     "Opportunity": {
       "FinServ__FinancialAccount__c": "Financial account associated with this opportunity",
@@ -85,7 +92,8 @@
       "Case_Number__c": "To Display the Case Number for which email needs to be send out",
       "PEGA_Case_Status__c": "To Display the last PEGA SMARTS Status for Resolved",
       "Customer_Name__c": "To Display the Customer Name",
-      "PEGA_Case_Id__c": "Show the PEGA case number against the email task is created"
+      "PEGA_Case_Id__c": "Pega case number that is required for sending email to customer on dispute closure.",
+      "FinServ__Expectations__c": "Notes about client's expectations"
     },
     "trailheadapp__Badge__c": {
       "trailheadapp__Archived__c": "Boolean to reflect whether the module has been archived",
@@ -168,6 +176,7 @@
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
     "BusinessHours": "Specifies the business hours of your support organization.",
+    "Campaign": "Represents and tracks a marketing campaign.",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
@@ -375,7 +384,13 @@
         "Skip_Validations__c",
         "Team_Manager__c"
       ],
-      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"]
+      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
+      "IA-2415720": [
+        "FinServ__Expectations__c",
+        "FinServ__Household__c",
+        "FinServ__NextSteps__c",
+        "FinServ__Regarding__c"
+      ]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -393,7 +408,8 @@
         "OwnerId",
         "Slot_Available__c",
         "Type__c"
-      ]
+      ],
+      "IA-2468715": ["Name", "OwnerId"]
     },
     "BusinessHours": {
       "IA-2468715": [
@@ -442,7 +458,9 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2468715": ["Description", "IsActive", "OwnerId", "ParentId"],
+      "IA-2453595": ["Status"]
     },
     "Campaign_Document__c": {
       "IA-2415860": [
@@ -758,6 +776,7 @@
         "IDR_Total_Financial_Compensation__c",
         "IsClosedOnCreate",
         "IsEscalated",
+        "IsStopped",
         "IsOwner__c",
         "Is_Owner_s_Line_Manager_Me__c",
         "Is_The_Card_Lost_Stolen__c",
@@ -782,6 +801,9 @@
         "Receipt__c",
         "Regular_Payment_Cancellation_Date__c",
         "Relationship_Managed_Complaint__c",
+        "SlaStartDate",
+        "StopStartDate",
+        "SLA_Status__c",
         "SRE_Team__c",
         "Signed_Instructions_Supplied__c",
         "Status",
@@ -794,8 +816,12 @@
         "Type",
         "What_Customer_was_Trying_to_Do__c",
         "Goods_Or_Services_Returned__c",
+        "Name_of_product_manufacturer__c",
+        "Provided_details_to_Product_Manufacturer__c",
         "Provided_details_to_Prod_Manufacturer_2__c",
-        "Provided_details_to_Prod_Manufacturer_3__c"
+        "Provided_details_to_Prod_Manufacturer_3__c",
+        "Has_complaint_met_RG_271_delay_criteria__c",
+        "How_has_delay_criteria_been_met_not_met__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -997,7 +1023,8 @@
         "Lead__c",
         "OwnerId",
         "Reason__c",
-        "Status__c"
+        "Status__c",
+        "Display_Name__c"
       ],
       "IA-2530753": [
         "Id",
@@ -1285,11 +1312,13 @@
         "Duration__c",
         "Interaction__c",
         "Location__c",
+        "Name",
         "OwnerId",
         "RequestDescription",
         "RequestReason",
         "Status",
-        "WhoId"
+        "WhoId",
+        "Focus_Area__c"
       ],
       "IA-2468715": [
         "Id",
@@ -1341,6 +1370,7 @@
         "LastModifiedById",
         "LastModifiedDate",
         "Name",
+        "OwnerId",
         "Responsible_Employee_Id__c",
         "Responsible_Employee_Name__c",
         "Responsible_Employee__c",
@@ -1536,7 +1566,13 @@
         "Case_Number__c",
         "PEGA_Case_Id__c"
       ],
-      "IA-2460507": ["Email", "Phone", "Interaction_Owner__c"]
+      "IA-2460507": ["Email", "Phone", "Interaction_Owner__c"],
+      "IA-2415720": [
+        "FinServ__Expectations__c",
+        "FinServ__Household__c",
+        "FinServ__NextSteps__c",
+        "FinServ__Regarding__c"
+      ]
     },
     "External_Case_Status__c": {
       "IA-2468715": [
@@ -1585,7 +1621,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Force_Update__c"
       ],
       "IA-2415720": [
         "BSB__c",
@@ -1610,8 +1647,7 @@
         "Source_System_Status_Display__c",
         "Source_System_Status__c",
         "System_Record_Status__c"
-      ],
-      "IA-2468715": ["Force_Update__c"]
+      ]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -1672,7 +1708,8 @@
         "Id",
         "IsActive__c",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "OwnerId"
       ]
     },
     "Interaction": {
@@ -1728,6 +1765,8 @@
         "Status__c",
         "Support_Topics__c",
         "Self_Service__c",
+        "Place__c",
+        "Focus_Area__c",
         "Twilio_ID__c",
         "TwilioDetailsID__c",
         "Video_Call__c"
@@ -1755,7 +1794,8 @@
         "Interaction__c",
         "Interaction_Tag__c",
         "Type__c",
-        "Tag_Name__c"
+        "Tag_Name__c",
+        "Focus_Area__c"
       ],
       "IA-2530753": [
         "CreatedById",
@@ -1786,7 +1826,9 @@
         "Is_Active__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Product__c"
+        "Product__c",
+        "Name",
+        "OwnerId"
       ],
       "IA-2453595": [
         "IDR_Complaint_Outcome__c",
@@ -1846,6 +1888,7 @@
         "ACN__c",
         "ACN_Status__c",
         "ACN_Validation_Status__c",
+        "AnnualRevenue",
         "City",
         "Company",
         "Country",
@@ -1853,15 +1896,20 @@
         "FirstName",
         "Gender__c",
         "Home_Phone__c",
+        "HasOptedOutOfEmail",
         "Industry",
         "Industry__c",
         "LastName",
         "MobilePhone",
         "Name",
+        "NumberOfEmployees",
+        "Phone",
         "PostalCode",
         "State",
         "Street",
+        "Title",
         "Title__c",
+        "Website",
         "Work_Phone__c"
       ],
       "IA-2415860": [
@@ -1877,11 +1925,17 @@
         "CPID_Owner__c",
         "CPID__c",
         "Customer_ID__c",
+        "DoNotCall",
         "Entity_Type__c",
         "Expiry_Date__c",
         "Expiry_Indicator__c",
         "FinServ__PotentialValue__c",
         "FinServ__RelatedAccount__c",
+        "FinServ__CreatedFromLead__c",
+        "FinServ__Employer__c",
+        "FinServ__ReferredByContact__c",
+        "FinServ__ReferredByUser__c",
+        "FinServ__ReferrerScore__c",
         "Followup_Date__c",
         "Is_Valid_Address__c",
         "LeadSource",
@@ -1919,7 +1973,13 @@
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
-      "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"],
+      "IA-2415840": [
+        "CCRM_ExpiryNotificationCheck__c",
+        "Description",
+        "qualtrics__Last_Survey_Invitation__c",
+        "qualtrics__Last_Survey_Response__c",
+        "Rating"
+      ],
       "IA-2425399": ["Referrer_Email__c", "Referrer_Phone__c"],
       "IA-2460507": ["Referrer_Name__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
@@ -2312,6 +2372,8 @@
         "Product_Classification__c",
         "Product_End_Date__c",
         "Product_Start_Date__c",
+        "QuantityUnitOfMeasure",
+        "StockKeepingUnit",
         "IDR_Workbasket__c"
       ],
       "IA-2468715": [
@@ -2324,8 +2386,10 @@
       ],
       "IA-2530753": [
         "IDR_Product_Family__c",
-        "IDR_Allow_Account_Policy_Number__c"
-      ]
+        "IDR_Allow_Account_Policy_Number__c",
+        "Family"
+      ],
+      "IA-2415840": ["ExternalId"]
     },
     "Product_Family__c": {
       "IA-2530753": [
@@ -2628,6 +2692,7 @@
         "Authentication_Method__c",
         "CallType",
         "Completed_Date__c",
+        "CompletedDateTime",
         "Description",
         "Due_in_Days__c",
         "IDR_COR_ID__c",
@@ -2649,6 +2714,7 @@
         "SI_Tribe_BU__c",
         "Subject",
         "Task_Sub_Type__c",
+        "TaskSubtype",
         "Type"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
@@ -2660,6 +2726,7 @@
         "CreatedById",
         "CreatedDate",
         "Id",
+        "IsReminderSet",
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId",
@@ -2679,7 +2746,13 @@
       ],
       "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
       "IA-2415984": ["Customer_Name__c"],
-      "IA-2415999": ["PEGA_Case_Status__c"]
+      "IA-2415999": ["PEGA_Case_Status__c"],
+      "IA-2415720": [
+        "FinServ__Expectations__c",
+        "FinServ__Household__c",
+        "FinServ__NextSteps__c",
+        "FinServ__Regarding__c"
+      ]
     },
     "Traced_Application_Log__b": {
       "IA-2468710": [
@@ -2862,6 +2935,13 @@
         "Status__c",
         "Twilio_ID__c",
         "NLP_Topic__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "User": {

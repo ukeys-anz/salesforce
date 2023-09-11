@@ -72,6 +72,11 @@
                 <label>On Hold (By Customer)</label>
             </value>
             <value>
+                <fullName>Open</fullName>
+                <default>false</default>
+                <label>Open</label>
+            </value>
+            <value>
                 <fullName>Rescheduled</fullName>
                 <default>false</default>
                 <label>Rescheduled</label>

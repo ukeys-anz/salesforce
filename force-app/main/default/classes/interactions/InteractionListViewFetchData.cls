@@ -5,6 +5,7 @@
  */
 global with sharing class InteractionListViewFetchData implements omnistudio.VlocityOpenInterface, Callable {
   private final static Integer MAXLIMIT = 5000;
+  private final static String FETCH_DATABASED_ON_RECORD_ID_METHOD = 'fetchDataBasedOnRecordId';
   /**
    * @description invokeMethod to handle insertion of logs from omnistudio.
    * @param methodName Method named to be called.
@@ -22,7 +23,7 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
     Boolean success = true;
     String error = '';
     try {
-      if (methodName == 'fetchDataBasedOnRecordId') {
+      if (methodName == FETCH_DATABASED_ON_RECORD_ID_METHOD) {
         fetchDataBasedOnRecordId(inputMap, outMap, options);
       }
     } catch (Exception e) {
@@ -44,9 +45,11 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    String anyRecordId = (String) inputMap.get('anyRecordId');
-    String recordTypeDeveloperName = (String) inputMap.get(
-      'recordTypeDeveloperName'
+    String anyRecordId = String.escapeSingleQuotes(
+      (String) inputMap.get('anyRecordId')
+    );
+    String recordTypeDeveloperName = String.escapeSingleQuotes(
+      (String) inputMap.get('recordTypeDeveloperName')
     );
     List<String> statusSearch = (List<String>) inputMap.get('statusSearch');
     Integer maxNumber = (inputMap.get('maxNumber') == null)

@@ -52,7 +52,7 @@ public with sharing class InteractionTriggerHandlerTest {
       WHERE Id = :testAccount.Id
     ];
 
-    DateTime startTime = DateTime.newInstance(DateTime.now().year(), 1, 1);
+    DateTime startTime = DateTime.newInstance(DateTime.now().year() + 1, 1, 1);
 
     Interaction testInteraction = new Interaction(
       Status__c = InteractionConstants.UNASSIGNED_STATUS,
@@ -102,7 +102,11 @@ public with sharing class InteractionTriggerHandlerTest {
       WHERE Id = :testAccount.Id
     ];
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
@@ -160,7 +164,14 @@ public with sharing class InteractionTriggerHandlerTest {
     apptCommt.Confirmed__c = 2;
     apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
-    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    apptCommt.Date_and_Time__c = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
     apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
@@ -175,7 +186,11 @@ public with sharing class InteractionTriggerHandlerTest {
 
     createPurposeMap();
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
@@ -291,7 +306,11 @@ public with sharing class InteractionTriggerHandlerTest {
 
     createPurposeMap();
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
@@ -366,7 +385,14 @@ public with sharing class InteractionTriggerHandlerTest {
     apptCommt.Confirmed__c = 0;
     apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
-    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    apptCommt.Date_and_Time__c = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
     apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
@@ -384,6 +410,16 @@ public with sharing class InteractionTriggerHandlerTest {
       request.WhoId = testAccount.PersonContactId;
       request.Appointment_Commitment__c = apptCommt.Id;
       request.PreferredChannel = 'Call';
+      request.RequestReason = InteractionConstants.OTHER_PURPOSE_NAME;
+      request.Appointment_date_and_Time__c = DateTime.newInstance(
+          DateTime.now().year() + 1,
+          6,
+          20,
+          1,
+          20,
+          0
+        )
+        .addDays(i + 1);
       crList.add(request);
     }
 
@@ -393,7 +429,17 @@ public with sharing class InteractionTriggerHandlerTest {
       SELECT Id, Status__c, OwnerId, ContactRequestId__c, Interaction_Purpose__c
       FROM Interaction
     ];
-
+    for (Integer i = 0; i < 100; i++) {
+      testInteraction[i].StartTime = DateTime.newInstance(
+          DateTime.now().year() + 1,
+          6,
+          20,
+          1,
+          20,
+          0
+        )
+        .addDays(i + 1);
+    }
     System.assertEquals(
       100,
       testInteraction.size(),
@@ -480,12 +526,14 @@ public with sharing class InteractionTriggerHandlerTest {
 
   @isTest
   static void testEndTimePopulationOnInsert() {
+    Account acc = TestDataFactory.createAccount(true);
     Interaction newInteractionWithoutEndtime = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'New Interaction',
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       InteractionType = InteractionConstants.CALL,
-      StartTime = System.now()
+      StartTime = DateTime.newInstance(DateTime.now().year() + 1, 1, 1),
+      AccountId = acc.Id
     );
 
     insert newInteractionWithoutEndtime;
@@ -682,12 +730,14 @@ public with sharing class InteractionTriggerHandlerTest {
 
   @isTest
   static void testEndTimePopulationOnUpdate() {
+    Account acc = TestDataFactory.createAccount(true);
     Interaction newInteractionWithoutEndtime = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'New Interaction',
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       InteractionType = InteractionConstants.CALL,
-      StartTime = System.now()
+      StartTime = DateTime.newInstance(DateTime.now().year() + 1, 1, 1),
+      AccountId = acc.Id
     );
 
     insert newInteractionWithoutEndtime;
