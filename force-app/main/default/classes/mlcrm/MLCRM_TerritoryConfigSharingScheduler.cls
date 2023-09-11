@@ -5,7 +5,7 @@
  * @description MLCRM_TerritoryConfigSharingScheduler is schedular class to schedule batch class for sharing sobject record when any update happens to territory or user territory records.
  */
 global class MLCRM_TerritoryConfigSharingScheduler implements Schedulable {
-	/**
+  /**
    * @description This method is used for sharing sobject record when any update happens to territory or user territory records.
    * @name execute
    * @param objSchedule standard SchedulableContext variable
@@ -13,13 +13,21 @@ global class MLCRM_TerritoryConfigSharingScheduler implements Schedulable {
    * @US CC-4493
    */
   global void execute(SchedulableContext objSchedule) {
-    Territory_Based_Sharing_Config__mdt objUTRecalculationtime = Territory_Based_Sharing_Config__mdt.getInstance('Territory_Recalculation_TImeFrame');
+    Territory_Based_Sharing_Config__mdt objUTRecalculationtime = Territory_Based_Sharing_Config__mdt.getInstance(
+      'Territory_Recalculation_TImeFrame'
+    );
     DateTime objDateTime;
-    if(objUTRecalculationtime != null && objUTRecalculationtime.Recalculation_Timeframe__c != null) {
-        objDateTime = System.Now().addHours(-1*Integer.valueOf(objUTRecalculationtime.Recalculation_Timeframe__c));
-    }
-    else {
-        return;
+    if (
+      objUTRecalculationtime != null &&
+      objUTRecalculationtime.Recalculation_Timeframe__c != null
+    ) {
+      objDateTime = System.Now()
+        .addHours(
+          -1 *
+          Integer.valueOf(objUTRecalculationtime.Recalculation_Timeframe__c)
+        );
+    } else {
+      return;
     }
     Set<Id> idsOfTerritory = new Set<Id>();
     String strTerritoryQuery;

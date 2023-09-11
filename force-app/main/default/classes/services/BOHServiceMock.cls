@@ -27,7 +27,10 @@ public with sharing class BOHServiceMock extends Service {
    * @description fetches fake response for sop api
    */
 
-  public override HttpCalloutResponse getListAssets(String ocvId, String sopId) {
+  public override HttpCalloutResponse getListAssets(
+    String ocvId,
+    String sopId
+  ) {
     if (!preset) {
       response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
     }

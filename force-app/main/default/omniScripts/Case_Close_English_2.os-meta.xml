@@ -644,7 +644,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;maxLength&quot; : 32000,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
@@ -1568,7 +1568,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;maxLength&quot; : 32000,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1616,7 +1616,7 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
+  &quot;maxLength&quot; : 32000,
   &quot;minLength&quot; : 0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
@@ -1660,7 +1660,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;maxLength&quot; : 32000,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2521,7 +2521,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;maxLength&quot; : 32000,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2650,23 +2650,23 @@
     <omniProcessElements>
         <name>ProductServiceError</name>
         <childElements>
-            <name>ProductError</name>
+            <name>prodServiceErrorMsg</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p class=\&quot;slds-align_absolute-center\&quot;&gt;Please update Product or Service Name before closing the case.&lt;/p&gt;&quot;,
+  &quot;label&quot; : &quot;&quot;,
   &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;prodServiceError&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
             <sequenceNumber>0.0</sequenceNumber>
-            <type>Text Block</type>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2889,5 +2889,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>155658b1-15df-8e2b-e968-be294cf7591f</webComponentKey>
+    <webComponentKey>e257b6b4-8b48-8b72-cd1e-899dd71f8002</webComponentKey>
 </OmniScript>

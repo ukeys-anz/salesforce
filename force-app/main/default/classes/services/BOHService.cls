@@ -18,7 +18,7 @@ public with sharing class BOHService extends Service {
    */
   //
   public override HttpCalloutResponse getListAssets(
-    String ocvId, 
+    String ocvId,
     String sopId
   ) {
     Map<String, String> headers = new Map<String, String>();

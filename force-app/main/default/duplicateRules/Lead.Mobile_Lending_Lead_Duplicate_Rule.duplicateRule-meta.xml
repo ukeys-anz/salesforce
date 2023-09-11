@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<DuplicateRule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Allow</actionOnUpdate>
     <alertText>Use one of these records?</alertText>
@@ -9,28 +9,28 @@
         <duplicateRuleFilterItems>
             <field>RecordType</field>
             <operation>equals</operation>
-            <value>Mobile Lending CRM Lead</value>
             <sortOrder>1</sortOrder>
             <table>Lead</table>
+            <value>Mobile Lending CRM Lead</value>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Status</field>
             <operation>equals</operation>
-            <value>New, In progress, Opportunity Identified</value>
             <sortOrder>2</sortOrder>
             <table>Lead</table>
+            <value>New, In progress, Opportunity Identified</value>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Profile_Name__c</field>
             <operation>equals</operation>
-            <value>ANZ ML Standard User</value>
             <sortOrder>3</sortOrder>
             <table>User</table>
+            <value>ANZ ML Standard User</value>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
-        <matchRuleSObjectType>Lead</matchRuleSObjectType>
         <matchingRule>Mobile_Lending_Lead_Matching_Rule</matchingRule>
+        <matchRuleSObjectType>Lead</matchRuleSObjectType>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>

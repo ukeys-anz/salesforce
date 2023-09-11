@@ -32,6 +32,11 @@
         <label>Fraud</label>
     </standardValue>
     <standardValue>
+        <fullName>Scam</fullName>
+        <default>false</default>
+        <label>Scam</label>
+    </standardValue>
+    <standardValue>
         <fullName>Financial Wellbeing</fullName>
         <default>false</default>
         <label>Financial Wellbeing</label>

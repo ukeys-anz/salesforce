@@ -1913,14 +1913,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>InteractionTwilioService</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>InteractionTwilioServiceTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>InteractionValidationTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>

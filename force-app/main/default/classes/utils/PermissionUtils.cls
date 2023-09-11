@@ -104,4 +104,25 @@ public with sharing class PermissionUtils {
 
     return queryable;
   }
+
+  /**
+   * @description Checks whether the PermissionSetGroup is assigned to User or not
+   * @param permissionSetGroupName Name of the permission set group
+   * @return Boolean - True if user has the given permission set group assigned
+   */
+  public static Boolean hasPermissionSetGroupAssigned(
+    String permissionSetGroupName
+  ) {
+    if (Schema.sObjectType.PermissionSetAssignment.isQueryable()) {
+      List<PermissionSetAssignment> permissionAssignedList = [
+        SELECT Id
+        FROM PermissionSetAssignment
+        WHERE
+          AssigneeId = :UserInfo.getUserId()
+          AND PermissionSetGroup.DeveloperName = :permissionSetGroupName
+      ];
+      return !permissionAssignedList.isEmpty();
+    }
+    return false;
+  }
 }

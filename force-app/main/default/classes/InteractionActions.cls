@@ -211,4 +211,66 @@ public with sharing class InteractionActions {
   ) {
     return InteractionValidations.getCoachExistingInteractions(coachIds);
   }
+
+  /**
+   * @description gets locations related to an list of interactions in a map.
+   * @param interactions List<Interaction> interactions for which to get the location
+   * @return Map<Id,Schema.Location> map of locations.
+   */
+  public static Map<Id, Schema.Location> getLocationMapFromInteractions(
+    List<Interaction> interactions
+  ) {
+    Map<Id, Schema.Location> result = new Map<Id, Schema.Location>();
+    if (interactions.isEmpty()) {
+      return result;
+    }
+    Set<Id> locationIds = new Set<Id>();
+
+    for (Interaction currentInteraction : interactions) {
+      if (currentInteraction.LocationId != null) {
+        locationIds.add(currentInteraction.LocationId);
+      }
+    }
+
+    if (!locationIds.isEmpty()) {
+      return new Map<Id, Schema.Location>(
+        findLocationByLocationIds(locationIds)
+      );
+    }
+    return result;
+  }
+
+  /**
+   * @description find locations based on a set of Ids
+   * @param locationIds Set of account ids to search
+   * @return List<Schema.Location> the result of locations
+   */
+  public static List<Schema.Location> findLocationByLocationIds(
+    Set<Id> locationIds
+  ) {
+    List<Schema.Location> result = new List<Schema.Location>();
+    if (
+      Schema.Location.SObjectType.getDescribe().isQueryable() &&
+      Schema.sObjectType.Location.fields.Name.isAccessible()
+    ) {
+      return [
+        SELECT
+          Id,
+          Name,
+          VisitorAddress.Street,
+          VisitorAddress.City,
+          VisitorAddress.State,
+          VisitorAddress.PostalCode
+        FROM Location
+        WHERE Id IN :locationIds
+      ];
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'findLocationByLocationIds ',
+        'Not enough permissions to query Location.'
+      );
+    }
+    return null;
+  }
 }

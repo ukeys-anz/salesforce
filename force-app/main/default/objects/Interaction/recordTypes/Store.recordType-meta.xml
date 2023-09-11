@@ -92,35 +92,15 @@
     <picklistValues>
         <picklist>Interaction_Purpose__c</picklist>
         <values>
-            <fullName>Customer</fullName>
+            <fullName>ANZ Customer</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Existing ANZ Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Financial Wellbeing</fullName>
+            <fullName>ANZ Plus Customer</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Non-Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Testing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wrong Number</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -201,18 +181,6 @@
     <picklistValues>
         <picklist>Resolution__c</picklist>
         <values>
-            <fullName>Assisted App download</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Did not Answer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Follow-up Required</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>No Action</fullName>
             <default>false</default>
         </values>
@@ -222,10 +190,6 @@
         </values>
         <values>
             <fullName>Resolved</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Voice Mail</fullName>
             <default>false</default>
         </values>
     </picklistValues>
