@@ -64,6 +64,11 @@ public with sharing class FinancialAccountController {
           ? null
           : Date.valueOf(finAccount.opened_at);
 
+        //Format closed date from string to date
+        Date closedDate = finAccount.closed_at == null
+          ? null
+          : Date.valueOf(finAccount.closed_at);
+
         financialAccounts.add(
           new FinServ__FinancialAccount__c(
             Id = finAccNumberToIdMap.get(finAccount.account_number),
@@ -73,6 +78,7 @@ public with sharing class FinancialAccountController {
             FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
             BSB__c = finAccount.bsb,
             FinServ__OpenDate__c = openedDate,
+            FinServ__CloseDate__c = closedDate,
             FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
             RecordType = getAccountRecordType(finAccount.marketing_product.code)
           )
@@ -85,6 +91,7 @@ public with sharing class FinancialAccountController {
               Name = finAccount.name,
               FinServ__Balance__c = finAccount.balance.value,
               FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
+              FinServ__CloseDate__c = closedDate,
               FinServ__OpenDate__c = openedDate
             )
           );

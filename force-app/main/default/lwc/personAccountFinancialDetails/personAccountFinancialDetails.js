@@ -164,12 +164,16 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   handleAccountInformation(finAccounts) {
     if (finAccounts) {
       finAccounts.forEach((account) => {
-        //Set the badge class based on the status
+        // As per story ANZX-113310 Colour of status “Active”, “Dormant“, “Closed” is changed .Hence,changing the badge class
         account.badgeClass =
           account.FinServ__Status__c === "Active" ||
           account.FinServ__Status__c === "Open"
             ? "slds-badge slds-theme_success"
-            : "slds-badge slds-theme_error";
+            : account.FinServ__Status__c === "Closed"
+            ? "slds-badge closedBadgeClass"
+            : account.FinServ__Status__c === "Dormant"
+            ? "slds-badge dormantBadgeClass"
+            : "slds-badge";
         //Determine the type of financial account
         if (account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME) {
           this.accountData.checking.push(account);
