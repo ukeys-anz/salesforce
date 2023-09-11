@@ -140,7 +140,7 @@ describe("c-transactionHistoryBoard", () => {
     document.body.appendChild(element);
     element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
     element.transactionData = APEX_TRANSACTIONS_SUCCESS;
-
+    element.moreData = true;
     // Emit data from @wire
     getRecord.emit(mockGetRecord);
 

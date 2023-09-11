@@ -9,6 +9,9 @@
       <targetConfig targets="lightning__RecordPage">
         <property label="Show Appointment Tab" name="showAppTab" type="Boolean" default="true"/>
         <property label="Show Interaction Tab" name="showIntTab" type="Boolean" default="true"/>
+        <property label="Show Message Tab" name="showMsgTab" type="Boolean" default="true"/>
+        <property label="Show Call Tab" name="showCallIntTab" type="Boolean" default="true"/>
+        <property label="Show Store Tab" name="showStoreIntTab" type="Boolean" default="true"/>
         <property label="Max Records on Page" name="maxRecords" type="Integer" default="3"/>
       </targetConfig>
     </targetConfigs>

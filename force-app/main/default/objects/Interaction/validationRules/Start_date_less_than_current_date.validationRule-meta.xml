@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Start_date_less_than_current_date</fullName>
+    <active>true</active>
+    <description>Please make sure that interaction start date and time is in the future</description>
+    <errorConditionFormula>AND(RecordType.Name = &apos;Appointment&apos;, StartTime &lt; NOW(), OR(ISCHANGED( StartTime ), ISNEW()))</errorConditionFormula>
+    <errorMessage>Please make sure that interaction start date and time is in the future</errorMessage>
+</ValidationRule>

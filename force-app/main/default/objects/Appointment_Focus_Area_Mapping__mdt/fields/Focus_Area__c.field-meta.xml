@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Focus_Area__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Focus Area picklist values to be picked from InteractionFocus_Area__c</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Focus Area</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Reach your savings goals</fullName>
+                <default>true</default>
+                <label>Reach your savings goals</label>
+            </value>
+            <value>
+                <fullName>Improve your habits</fullName>
+                <default>false</default>
+                <label>Improve your habits</label>
+            </value>
+            <value>
+                <fullName>Plan upcoming expenses</fullName>
+                <default>false</default>
+                <label>Plan upcoming expenses</label>
+            </value>
+            <value>
+                <fullName>Find new ways to save</fullName>
+                <default>false</default>
+                <label>Find new ways to save</label>
+            </value>
+            <value>
+                <fullName>Explore refinancing</fullName>
+                <default>false</default>
+                <label>Explore refinancing</label>
+            </value>
+            <value>
+                <fullName>Help with my application</fullName>
+                <default>false</default>
+                <label>Help with my application</label>
+            </value>
+            <value>
+                <fullName>Pay my loan down sooner</fullName>
+                <default>false</default>
+                <label>Pay my loan down sooner</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

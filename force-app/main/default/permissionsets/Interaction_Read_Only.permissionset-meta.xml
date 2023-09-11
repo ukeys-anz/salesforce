@@ -37,6 +37,18 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>InteractionListViewFetchData</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionSearchStringController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionRecordServiceController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>InteractionRelatedListController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -57,6 +69,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.AccountId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Actual_Topics__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -225,6 +242,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Products__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.ReferenceIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -245,12 +267,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Reason_for_Visit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.StartTime</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Support_Topics__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Video_Call__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -320,6 +357,10 @@
     </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Interaction.General</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Interaction.Message</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

@@ -9,7 +9,7 @@ public with sharing class InteractionInterceptTest {
   @isTest
   static void isInterceptInteractions() {
     DateTime startDate = DateTime.newInstance(
-      DateTime.now().year(),
+      DateTime.now().year() + 1,
       1,
       1,
       12,

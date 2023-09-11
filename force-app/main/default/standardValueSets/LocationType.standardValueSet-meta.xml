@@ -4,6 +4,11 @@
     <standardValue>
         <fullName>Store</fullName>
         <default>false</default>
-        <label>Store</label>
+        <label>Coaching Lab</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Branch</fullName>
+        <default>false</default>
+        <label>Branch</label>
     </standardValue>
 </StandardValueSet>

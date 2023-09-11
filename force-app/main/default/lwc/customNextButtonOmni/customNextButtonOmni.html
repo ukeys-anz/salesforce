@@ -1,5 +1,12 @@
 <!-- sldsValidatorIgnore -->
 <template>
+  <template if:true={showLockRecordError}>
+    <div class="lockerror">
+      This record was modified by {lastModifiedBy} during your edit session.
+      Make a note of the data you entered, then reload the record and enter your
+      updates again.
+    </div>
+  </template>
   <button
     class="slds-button slds-button_brand slds-m-top_xx-small buttonWidth"
     onclick={saveData}

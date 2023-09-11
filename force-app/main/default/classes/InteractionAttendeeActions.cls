@@ -206,18 +206,36 @@ public with sharing class InteractionAttendeeActions {
   }
 
   /**
-   * @description Create interaction creator as interaction attendee for the newly created interactions.
+   * @description Create interaction attendee for the newly created interactions.
    * @param interactions List of newly created interactions.
    */
   public static void insertDefaultAttendee(List<Interaction> interactions) {
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
-    for (interaction interact : interactions) {
-      InteractionAttendee intattendee = new InteractionAttendee();
-      intattendee.AttendeeType = InteractionConstants.INTERNAL;
-      intattendee.UserId = UserInfo.getUserId();
-      intattendee.InteractionId = interact.id;
-      lstInteractAttend.add(intattendee);
+    Set<String> profilenames = new Set<String>();
+    Set<Id> recordtypes = new Set<Id>();
+    profilenames.add('ANZx Standard User');
+    recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
+    User userDetail = [
+      SELECT id, profile.name
+      FROM user
+      WHERE id = :UserInfo.getUserId()
+    ];
+
+    // Automatically create attendee only if the created user is of Profile "ANZx Standard User"
+    if (profilenames.contains(userDetail.profile.name)) {
+      for (Interaction interact : interactions) {
+        if (recordtypes.contains(interact.RecordTypeId)) {
+          InteractionAttendee intattendee = new InteractionAttendee();
+          intattendee.AttendeeType = InteractionConstants.INTERNAL;
+          intattendee.UserId = UserInfo.getUserId();
+          intattendee.InteractionId = interact.id;
+          lstInteractAttend.add(intattendee);
+        }
+      }
     }
+
     DMLUtil.insertRecords(lstInteractAttend, false, true);
   }
 
@@ -228,14 +246,14 @@ public with sharing class InteractionAttendeeActions {
   public static void insertOwnerChangeAttendee(List<Interaction> interactions) {
     Map<Id, Set<Id>> interActionWithAttendee = new Map<Id, Set<Id>>();
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
-    List<Id> storeOwnerId = new List<Id>();
+    List<Id> interactionOwnerId = new List<Id>();
     Set<Id> recordtypes = new Set<Id>();
     recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
-
+    recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
     //Loop in interaction and filter out all owner ids
     for (Interaction interact : interactions) {
-      storeOwnerId.add(interact.OwnerId);
+      interactionOwnerId.add(interact.OwnerId);
       interActionWithAttendee.put(interact.Id, new Set<Id>{});
     }
 
@@ -243,7 +261,7 @@ public with sharing class InteractionAttendeeActions {
     List<InteractionAttendee> lstattendee = [
       SELECT UserId, InteractionId
       FROM InteractionAttendee
-      WHERE InteractionId IN :interactions AND UserId IN :storeOwnerId
+      WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerId
     ];
 
     //Lopp in and create a Map of Interaction Id and list of attendees.
@@ -283,6 +301,7 @@ public with sharing class InteractionAttendeeActions {
       }
     }
 
-    DMLUtil.insertRecords(lstInteractAttend, false, true);
+    //This code creates interaction attendee in system mode using Twilio API user with limited access
+    DMLUtil.insertRecords(lstInteractAttend, false, false);
   }
 }
