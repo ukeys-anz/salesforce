@@ -39,6 +39,24 @@ public with sharing class BOHServiceMock extends Service {
   }
 
   /**
+   * @param sopId sop id of the customer account
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description create income
+   */
+  public override HttpCalloutResponse createIncome(
+    String sopId,
+    String ocvId,
+    String incomeBody
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
    * @param sopIds sop id
    * @param creditId credit id
    * @param loanId loan id

@@ -457,6 +457,81 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public class SOPModel {
     public List<SOPParty> parties;
+    public String id;
+
+    /**
+     * @description sop id of the whole payload
+     */
+    public String sopId {
+      get {
+        return this.id;
+      }
+    }
+
+    /**
+     * @description returns party's size
+     */
+    public Integer partySize {
+      get {
+        return this.parties.size();
+      }
+    }
+
+    /**
+     * @description returns first user first name
+     */
+    public String firstUser {
+      get {
+        Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          parties[0].id
+        );
+        if (act != null) {
+          return act.FirstName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description returns first user's party id
+     */
+    public String firstUserPartyId {
+      get {
+        return parties[0].id;
+      }
+    }
+
+    /**
+     * @description returns second user's first name
+     */
+    public String secondUser {
+      get {
+        if (partySize < 2) {
+          return null;
+        }
+        Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          parties[1].id
+        );
+        if (act != null) {
+          return act.FirstName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description returns second user's party id
+     */
+    public String secondUserPartyId {
+      get {
+        if (partySize < 2) {
+          return null;
+        }
+        return parties[1].id;
+      }
+    }
     public List<SOPLiabilitySources> liabilitySources;
   }
 
