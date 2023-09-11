@@ -100,57 +100,26 @@ public with sharing class InteractionFilter {
     }
     return result;
   }
-  /**
-   * @description Returns the list of appointment interactions
-   * @param interactions List<Interaction> list of new interaction records.
-   * @return List<Interaction> list of appointment interactions.
-   */
-  public static List<Interaction> getApptInteractions(
-    List<Interaction> interactions
-  ) {
-    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
-    List<Interaction> interactionList = new List<Interaction>();
-    for (Interaction interact : interactions) {
-      if (interact.RecordTypeId == appointmentRTID) {
-        interactionList.add(interact);
-      }
-    }
-    return interactionList;
-  }
 
   /**
-   * @description Returns the list of Store interactions
+   * @description Returns the Map of interactions by record type name
    * @param interactions List<Interaction> list of new interaction records.
-   * @return List<Interaction> list of Store interactions.
+   * @return List<Interaction> Map of interactions by record type name
    */
-  public static List<Interaction> getStoreInteractions(
+  public static Map<String, List<Interaction>> getInteractionsByRecordType(
     List<Interaction> interactions
   ) {
-    Id storeRTID = GetHelpConstants.INTERACTION_STORE_RT_ID;
+    Map<String, List<Interaction>> mapOfInteractionsByRecordType = new Map<String, List<Interaction>>();
     List<Interaction> interactionList = new List<Interaction>();
     for (Interaction interact : interactions) {
-      if (interact.RecordTypeId == storeRTID) {
-        interactionList.add(interact);
+      if (!mapOfInteractionsByRecordType.containsKey(interact.RecordTypeId)) {
+        mapOfInteractionsByRecordType.put(
+          interact.RecordTypeId,
+          new List<Interaction>()
+        );
       }
+      mapOfInteractionsByRecordType.get(interact.RecordTypeId).add(interact);
     }
-    return interactionList;
-  }
-
-  /**
-   * @description Returns the list of general interactions
-   * @param interactions List<Interaction> list of new interaction records.
-   * @return List<Interaction> list of general interactions.
-   */
-  public static List<Interaction> getGeneralInteractions(
-    List<Interaction> interactions
-  ) {
-    Id generalRTID = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
-    List<Interaction> interactionList = new List<Interaction>();
-    for (Interaction interact : interactions) {
-      if (interact.RecordTypeId == generalRTID) {
-        interactionList.add(interact);
-      }
-    }
-    return interactionList;
+    return mapOfInteractionsByRecordType;
   }
 }

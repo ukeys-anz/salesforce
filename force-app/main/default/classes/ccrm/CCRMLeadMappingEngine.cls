@@ -14,8 +14,8 @@ public with sharing class CCRMLeadMappingEngine {
   private Map<String, Industry__c> mapIndustries = new Map<String, Industry__c>();
   private List<Lead> leadList = new List<Lead>();
   private Map<string, string> mappedField = new Map<string, string>();
-  //CC-1056 
-  private Map<Id,Schema.RecordTypeInfo> mapOfLeadRecordTypes;
+  //CC-1056
+  private Map<Id, Schema.RecordTypeInfo> mapOfLeadRecordTypes;
   private List<DCRM_Lead_Conversion_Mapping__mdt> mappingsInCustomMetadata;
 
   /**
@@ -35,9 +35,10 @@ public with sharing class CCRMLeadMappingEngine {
     //Get accounts by related party Ids
     mapAccountsRecordTypeId = getAccountsByRelatedPartyIds(relatedPartyIds);
     //CC-1056-On Lead, pre-populate customer-related fields
-    if(mapOfLeadRecordTypes == null || mapOfLeadRecordTypes.isEmpty()) {
-          mapOfLeadRecordTypes = Lead.sobjectType.getDescribe().getRecordTypeInfosById();
-      }
+    if (mapOfLeadRecordTypes == null || mapOfLeadRecordTypes.isEmpty()) {
+      mapOfLeadRecordTypes = Lead.sobjectType.getDescribe()
+        .getRecordTypeInfosById();
+    }
 
     //Get mapping from custom metadata
     List<CCRM_Account_To_Lead_Mapping__mdt> mappingsInCustomMetadata = CCRM_Account_To_Lead_Mapping__mdt.getall()
@@ -58,8 +59,12 @@ public with sharing class CCRMLeadMappingEngine {
             mapping.Account_Field_API_Name__c != null &&
             mapping.Lead_Field_API_Name__c != null &&
             mapping.Account_Type__c == accountType &&
-            mapping.Lead_Record_Types__c.containsIgnoreCase(mapOfLeadRecordTypes.get(record.RecordTypeId).developername) &&
-            mapping.Source_System__c.containsIgnoreCase(record.Lead_Originator__c) 
+            mapping.Lead_Record_Types__c.containsIgnoreCase(
+              mapOfLeadRecordTypes.get(record.RecordTypeId).developername
+            ) &&
+            mapping.Source_System__c.containsIgnoreCase(
+              record.Lead_Originator__c
+            )
           ) {
             if (
               !accountToLeadMapping.containsKey(
@@ -127,7 +132,8 @@ public with sharing class CCRMLeadMappingEngine {
     String contactFields = '';
 
     //CC-1056 Getting all the recordtype developername of lead object.
-    mapOfLeadRecordTypes = Lead.sobjectType.getDescribe().getRecordTypeInfosById();
+    mapOfLeadRecordTypes = Lead.sobjectType.getDescribe()
+      .getRecordTypeInfosById();
 
     //Get accounts by related party Ids
     //mapAccountsRecordTypeId = getAccountsByRelatedPartyIds(relatedPartyIds);
@@ -164,8 +170,10 @@ public with sharing class CCRMLeadMappingEngine {
             mapping.Object__c == 'Account' &&
             mapping.Account_or_Contact_Field_API_Name__c != null &&
             mapping.Lead_Field_API_Name__c != null &&
-            mapping.Account_Type__c == accountType && 
-            mapping.Lead_Record_Types__c.containsIgnoreCase(mapOfLeadRecordTypes.get(record.RecordTypeId).developername)
+            mapping.Account_Type__c == accountType &&
+            mapping.Lead_Record_Types__c.containsIgnoreCase(
+              mapOfLeadRecordTypes.get(record.RecordTypeId).developername
+            )
           ) {
             if (
               !accountToLeadMapping.containsKey(
@@ -193,7 +201,9 @@ public with sharing class CCRMLeadMappingEngine {
             mapping.Account_or_Contact_Field_API_Name__c != null &&
             mapping.Lead_Field_API_Name__c != null &&
             mapping.Account_Type__c == accountType &&
-            mapping.Lead_Record_Types__c.containsIgnoreCase(mapOfLeadRecordTypes.get(record.RecordTypeId).developername)
+            mapping.Lead_Record_Types__c.containsIgnoreCase(
+              mapOfLeadRecordTypes.get(record.RecordTypeId).developername
+            )
           ) {
             if (
               !contactToLeadMapping.containsKey(
@@ -310,59 +320,74 @@ public with sharing class CCRMLeadMappingEngine {
    * @return Map<Id, Opportunity> Map of lead and opportunities
    */
   public Map<Id, Opportunity> mapLeadToOpportunityFields(
-    Map<Id,Lead> leadMap,
+    Map<Id, Lead> leadMap,
     Map<Id, Id> mapofAccountId
   ) {
-    
     Map<Id, Opportunity> mapOfLeadsWithOpportunities = new Map<Id, Opportunity>();
-    String mdLeadFields='';
+    String mdLeadFields = '';
     String defaultleadFields = System.Label.Lead_Conversion_Default_Fields;
     String leadQuery = '';
     Set<String> leadRecordTypes = new Set<String>();
 
     //Get Lead to Opportunity mapping from custom metadata
-    if (mappingsInCustomMetadata == null || mappingsInCustomMetadata.isEmpty()) {
-      mappingsInCustomMetadata = DCRM_Lead_Conversion_Mapping__mdt.getall().Values();
+    if (
+      mappingsInCustomMetadata == null || mappingsInCustomMetadata.isEmpty()
+    ) {
+      mappingsInCustomMetadata = DCRM_Lead_Conversion_Mapping__mdt.getall()
+        .Values();
     }
     //Getting all the recordtype developername of lead object.
-    if(mapOfLeadRecordTypes == null || mapOfLeadRecordTypes.isEmpty()) {
-      mapOfLeadRecordTypes = Lead.sobjectType.getDescribe().getRecordTypeInfosById();
+    if (mapOfLeadRecordTypes == null || mapOfLeadRecordTypes.isEmpty()) {
+      mapOfLeadRecordTypes = Lead.sobjectType.getDescribe()
+        .getRecordTypeInfosById();
     }
-    for (Lead leadRec: leadMap.values()) {
-      leadRecordTypes.add(mapOfLeadRecordTypes.get(leadRec.RecordTypeId).developername);
+    for (Lead leadRec : leadMap.values()) {
+      leadRecordTypes.add(
+        mapOfLeadRecordTypes.get(leadRec.RecordTypeId).developername
+      );
     }
-    for (String leadRecType: leadRecordTypes) {
-      for (DCRM_Lead_Conversion_Mapping__mdt mdRecord: mappingsInCustomMetadata) {
+    for (String leadRecType : leadRecordTypes) {
+      for (
+        DCRM_Lead_Conversion_Mapping__mdt mdRecord : mappingsInCustomMetadata
+      ) {
         if (
           mdRecord.Lead_Field__c != null &&
           !defaultleadFields.Contains(mdRecord.Lead_Field__c) &&
           !mdLeadFields.Contains(mdRecord.Lead_Field__c) &&
           mdRecord.Lead_Record_Types__c.contains(leadRecType)
         ) {
-          mdLeadFields = mdLeadFields +', '+ mdRecord.Lead_Field__c;
+          mdLeadFields = mdLeadFields + ', ' + mdRecord.Lead_Field__c;
         }
       }
     }
 
     Set<Id> leadIds = leadMap.keySet();
     if (Schema.sObjectType.Lead.isQueryable()) {
-      leadQuery = 'Select ' + String.escapeSingleQuotes(defaultleadFields) +String.escapeSingleQuotes(mdLeadFields) + ' From Lead WHERE Id IN :leadIds WITH SECURITY_ENFORCED';
+      leadQuery =
+        'Select ' +
+        String.escapeSingleQuotes(defaultleadFields) +
+        String.escapeSingleQuotes(mdLeadFields) +
+        ' From Lead WHERE Id IN :leadIds WITH SECURITY_ENFORCED';
       List<Lead> records = database.query(leadQuery);
 
       //CC-1099 made the method as generic as per CLD to reusably fetch any conversionRecord from Leads.
       String strTargetObject = MLCRMConstants.SOBJECT_OPPORTUNITY;
-      Map<Id, SObject> mapOfLeadsWithSObject = new Map<Id,SObject>();
-      mapOfLeadsWithSObject = prefillConversionRecords(records, strTargetObject,mapofAccountId);
-      if(!mapOfLeadsWithSObject.isEmpty()){
-        for(Id key :mapOfLeadsWithSObject.KeySet() ){
-          Opportunity opp = (Opportunity)mapOfLeadsWithSObject.get(key);      
-          mapOfLeadsWithOpportunities.put(key,opp);
+      Map<Id, SObject> mapOfLeadsWithSObject = new Map<Id, SObject>();
+      mapOfLeadsWithSObject = prefillConversionRecords(
+        records,
+        strTargetObject,
+        mapofAccountId
+      );
+      if (!mapOfLeadsWithSObject.isEmpty()) {
+        for (Id key : mapOfLeadsWithSObject.KeySet()) {
+          Opportunity opp = (Opportunity) mapOfLeadsWithSObject.get(key);
+          mapOfLeadsWithOpportunities.put(key, opp);
         }
       }
     }
     return mapOfLeadsWithOpportunities;
   }
-  
+
   /**
    * @description CC-1099 This method prefill data from Account to Leads for UNICA leads
    * @name prefillConversionRecords
@@ -371,82 +396,131 @@ public with sharing class CCRMLeadMappingEngine {
    * @param mapofAccountId map of lead id and account id from lead conversion result
    * @return Map<Id, SObject> Map of lead and opportunities
    */
-  public Map<Id, SObject>  prefillConversionRecords(List<Lead> records, String strTargetObject, Map<Id, Id> mapofAccountId){
-    Schema.SObjectType oObjectType = Schema.getGlobalDescribe().get(strTargetObject);
+  public Map<Id, SObject> prefillConversionRecords(
+    List<Lead> records,
+    String strTargetObject,
+    Map<Id, Id> mapofAccountId
+  ) {
+    Schema.SObjectType oObjectType = Schema.getGlobalDescribe()
+      .get(strTargetObject);
     SObject targetObject = oObjectType.newSObject();
-    List<SObject> targetObjectList = new List<SObject> ();
+    List<SObject> targetObjectList = new List<SObject>();
     Map<Id, SObject> mapOfRecordsWithTargets = new Map<Id, SObject>();
     String contactField = '';
-    Map<String, Schema.SObjectField> mapSchema = ((SObject) Type.forName(strTargetObject).newInstance()).getSObjectType().getDescribe().fields.getMap();
-    
+    Map<String, Schema.SObjectField> mapSchema = ((SObject) Type.forName(
+          strTargetObject
+        )
+        .newInstance())
+      .getSObjectType()
+      .getDescribe()
+      .fields.getMap();
+
     //Get Lead to Opportunity mapping from custom metadata
-    if(mappingsInCustomMetadata == null || mappingsInCustomMetadata.isEmpty()) {
-      mappingsInCustomMetadata = DCRM_Lead_Conversion_Mapping__mdt.getall().Values();
+    if (
+      mappingsInCustomMetadata == null || mappingsInCustomMetadata.isEmpty()
+    ) {
+      mappingsInCustomMetadata = DCRM_Lead_Conversion_Mapping__mdt.getall()
+        .Values();
     }
 
     //Getting all the recordtype developername of lead object.
-    if(mapOfLeadRecordTypes == null || mapOfLeadRecordTypes.isEmpty()) {
-      mapOfLeadRecordTypes = Lead.sobjectType.getDescribe().getRecordTypeInfosById();
+    if (mapOfLeadRecordTypes == null || mapOfLeadRecordTypes.isEmpty()) {
+      mapOfLeadRecordTypes = Lead.sobjectType.getDescribe()
+        .getRecordTypeInfosById();
     }
-    
+
     for (Lead leadRecord : records) {
-        targetObject = oObjectType.newSObject();
-        //prefill Target Object from CustomMetadata
-        for (DCRM_Lead_Conversion_Mapping__mdt mapping :mappingsInCustomMetadata) {
+      targetObject = oObjectType.newSObject();
+      //prefill Target Object from CustomMetadata
+      for (
+        DCRM_Lead_Conversion_Mapping__mdt mapping : mappingsInCustomMetadata
+      ) {
+        if (
+          mapping.Target_Object__c == strTargetObject &&
+          mapping.Active__c &&
+          mapping.Target_Field__c != null &&
+          mapping.Lead_Record_Types__c.contains(
+            mapOfLeadRecordTypes.get(leadRecord.RecordTypeId).developername
+          )
+        ) {
           if (
-              mapping.Target_Object__c == strTargetObject &&
-              mapping.Active__c && 
-              mapping.Target_Field__c != null &&
-              mapping.Lead_Record_Types__c.contains(mapOfLeadRecordTypes.get(leadRecord.RecordTypeId).developername)
+            mapping.Mapping_Type__c == MLCRMConstants.MAPPING_TYPE_FIELD &&
+            mapping.Lead_Field__c != null
           ) {
-            if (
-                mapping.Mapping_Type__c == MLCRMConstants.MAPPING_TYPE_FIELD && 
-                mapping.Lead_Field__c != null
-            ) {
-              targetObject.put(mapping.Target_Field__c,leadRecord.get(mapping.Lead_Field__c));
-            }
-            else if (
-              mapping.Mapping_Type__c == MLCRMConstants.MAPPING_TYPE_RT &&
-              mapping.Target_Value__c != null
-            ) {
-              targetObject.put(mapping.Target_Field__c,getRecordTypeId(mapping.Target_Value__c,strTargetObject));
-            }
-            else if (
-              mapping.Mapping_Type__c == MLCRMConstants.MAPPING_TYPE_FIELD &&
-              mapping.Lead_Field__c == null  &&
-              mapping.Target_Value__c  != null
-            ) {
-              Schema.DisplayType fieldDataType = mapSchema.get(mapping.Target_Field__c).getDescribe().getType();
-              switch on fielddataType {
-                when BOOLEAN {
-                  targetObject.put(mapping.Target_Field__c,Boolean.valueOf(mapping.Target_Value__c));
-                }
-                when INTEGER {
-                  targetObject.put(mapping.Target_Field__c,Integer.valueOf(mapping.Target_Value__c));
-                }
-                when DOUBLE {
-                  targetObject.put(mapping.Target_Field__c,Double.valueOf(mapping.Target_Value__c));
-                }
-                when else {
-                   targetObject.put(mapping.Target_Field__c,mapping.Target_Value__c);
-                }              
+            targetObject.put(
+              mapping.Target_Field__c,
+              leadRecord.get(mapping.Lead_Field__c)
+            );
+          } else if (
+            mapping.Mapping_Type__c == MLCRMConstants.MAPPING_TYPE_RT &&
+            mapping.Target_Value__c != null
+          ) {
+            targetObject.put(
+              mapping.Target_Field__c,
+              getRecordTypeId(mapping.Target_Value__c, strTargetObject)
+            );
+          } else if (
+            mapping.Mapping_Type__c == MLCRMConstants.MAPPING_TYPE_FIELD &&
+            mapping.Lead_Field__c == null &&
+            mapping.Target_Value__c != null
+          ) {
+            Schema.DisplayType fieldDataType = mapSchema.get(
+                mapping.Target_Field__c
+              )
+              .getDescribe()
+              .getType();
+            switch on fielddataType {
+              when BOOLEAN {
+                targetObject.put(
+                  mapping.Target_Field__c,
+                  Boolean.valueOf(mapping.Target_Value__c)
+                );
+              }
+              when INTEGER {
+                targetObject.put(
+                  mapping.Target_Field__c,
+                  Integer.valueOf(mapping.Target_Value__c)
+                );
+              }
+              when DOUBLE {
+                targetObject.put(
+                  mapping.Target_Field__c,
+                  Double.valueOf(mapping.Target_Value__c)
+                );
+              }
+              when else {
+                targetObject.put(
+                  mapping.Target_Field__c,
+                  mapping.Target_Value__c
+                );
               }
             }
           }
         }
-        //prefill Target Object with Constants OR conditional
-        if(strTargetObject == MLCRMConstants.SOBJECT_OPPORTUNITY){
-          if (String.isBlank(leadRecord.FinServ__RelatedAccount__c)) {
-            targetObject.put('AccountId', mapofAccountId.containsKey(leadRecord.Id) ? mapofAccountId.get(leadRecord.Id): null);
-          }
-          targetObject.put('CampaignId',leadRecord.CampaignMembers.isEmpty() ? null : leadRecord.CampaignMembers[0].CampaignId);
-          contactField = getContact(leadRecord);          
-          targetObject.put('Contact__c',contactField);
-          targetObject.put('CloseDate',system.today().addDays(90));
-        }  
-        if(targetObject != null){
-          mapOfRecordsWithTargets.put(leadRecord.id,targetObject);
+      }
+      //prefill Target Object with Constants OR conditional
+      if (strTargetObject == MLCRMConstants.SOBJECT_OPPORTUNITY) {
+        if (String.isBlank(leadRecord.FinServ__RelatedAccount__c)) {
+          targetObject.put(
+            'AccountId',
+            mapofAccountId.containsKey(leadRecord.Id)
+              ? mapofAccountId.get(leadRecord.Id)
+              : null
+          );
         }
+        targetObject.put(
+          'CampaignId',
+          leadRecord.CampaignMembers.isEmpty()
+            ? null
+            : leadRecord.CampaignMembers[0].CampaignId
+        );
+        contactField = getContact(leadRecord);
+        targetObject.put('Contact__c', contactField);
+        targetObject.put('CloseDate', system.today().addDays(90));
+      }
+      if (targetObject != null) {
+        mapOfRecordsWithTargets.put(leadRecord.id, targetObject);
+      }
     }
     return mapOfRecordsWithTargets;
   }
@@ -457,7 +531,7 @@ public with sharing class CCRMLeadMappingEngine {
    * @param record lead record
    * @return String Contact details
    */
-  private String getContact(Lead record){
+  private String getContact(Lead record) {
     String contactField = '';
     if (String.isNotBlank(record.FirstName)) {
       contactField = record.FirstName;
@@ -482,23 +556,26 @@ public with sharing class CCRMLeadMappingEngine {
     }
     return contactField;
   }
- /**
+  /**
    * @description This method used to fetch Record Type id of Opportunity by use of Developer Name from the custom metadata
    * @name getOppRecordType
    * @param targetRTDeveloperName RecordType Developer Name
    * @param strTargetObject Object Name
    * @return ID objRecordTypeID id of the record type
    */
-  public ID getRecordTypeId(String targetRTDeveloperName, String strTargetObject){
+  public ID getRecordTypeId(
+    String targetRTDeveloperName,
+    String strTargetObject
+  ) {
     ID objRecordTypeID;
-    if(strTargetObject == MLCRMConstants.SOBJECT_OPPORTUNITY){
+    if (strTargetObject == MLCRMConstants.SOBJECT_OPPORTUNITY) {
       objRecordTypeID = Schema.SObjectType.Opportunity.getRecordTypeInfosByDeveloperName()
-      .get(targetRTDeveloperName)
-      .getRecordTypeId();
+        .get(targetRTDeveloperName)
+        .getRecordTypeId();
     }
     return objRecordTypeID;
   }
-  
+
   /**
    * @description This method map account fields to lead fields using custom metadata
    * @name mapAccountFieldsToLead

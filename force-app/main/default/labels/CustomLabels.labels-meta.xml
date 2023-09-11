@@ -582,6 +582,20 @@
         <value>You already have an appointment at this date and time. Please select another date and time.</value>
     </labels>
     <labels>
+        <fullName>Other_Coach_Existing_Interaction_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Other_Coach_Existing_Interaction_Error_Message</shortDescription>
+        <value>already have an appointment at this date and time. Please select another date and time.</value>
+    </labels>
+    <labels>
+        <fullName>Appointment_Call_Channel_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment_Call_Channel_Message</shortDescription>
+        <value>We’ll give you a call on your mobile number.</value>
+    </labels>
+    <labels>
         <fullName>Appointment_Commitment_Full</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -589,11 +603,32 @@
         <value>This appointment slot is no longer available, please choose a different date and time.</value>
     </labels>
     <labels>
+        <fullName>Appointment_Video_Channel_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment_Video_Channel_Message</shortDescription>
+        <value>Join the video call using the invite in your in-app messages.</value>
+    </labels>
+    <labels>
+        <fullName>Appointment_Reschedule_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment Reschedule Error Message</shortDescription>
+        <value>Please note, the Customer has an existing appointment for the selected time</value>
+    </labels>
+    <labels>
         <fullName>Interaction_Store_Required</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Interaction_Store_Required</shortDescription>
-        <value>Please select store location.</value>
+        <value>Location is mandatory as channel is set to store.</value>
+    </labels>
+    <labels>
+        <fullName>Interaction_In_Person_Location_Required</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction_In_Person_Location_Required</shortDescription>
+        <value>Location is mandatory as channel is set to In-Person.</value>
     </labels>
     <labels>
         <fullName>MS_Initiate_Chat</fullName>

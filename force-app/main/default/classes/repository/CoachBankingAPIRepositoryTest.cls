@@ -77,7 +77,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   }
 
   /**
-   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory.json
+   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory1.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
    */
   @isTest
@@ -96,7 +96,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
 
       System.assertEquals(
-        17,
+        20,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );
@@ -129,7 +129,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   }
 
   /**
-   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory.json
+   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory1.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
    */
   @isTest
@@ -148,7 +148,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
 
       System.assertEquals(
-        17,
+        20,
         transactionModel.embedded.transactions.size(),
         'Transactions size should be as expected.'
       );

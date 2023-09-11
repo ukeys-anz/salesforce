@@ -223,7 +223,8 @@ public with sharing class IDRConstants {
           'Credit assessment' => '5',
           'Credit reporting' => '19',
           'Transactions & payments' => '10',
-          'Fraud & Scams' => '14',
+          'Fraud & Scams' => 'Fraud',
+          'Fraud' => 'Fraud',
           'Transaction Disputes' => '20',
           'Privacy and Confidentiality' => '8',
           'Advice' => '1',
@@ -275,7 +276,8 @@ public with sharing class IDRConstants {
           'EDR_Hardship',
           'EDR_Wealth',
           'IDR_Satellite',
-          'IDR_Spare' //IDR Disputes & Scams
+          'IDR_Spare', //IDR Disputes & Scams
+          'EDR_CM_Everyday_Banking_Wealth' // EDR Scams
         };
       }
       return workBasketNames;
@@ -341,7 +343,8 @@ public with sharing class IDRConstants {
     '10',
     '12',
     '13',
-    '14',
+    'Fraud',
+    'Scam',
     '15',
     '16',
     '17',

@@ -97,9 +97,6 @@ public with sharing class CCRMTestDataFactory {
     return ccrmBaseUser;
   }
 
-  
-  
-
   /**
    * @description Create a CCRM Base User
    * @name createCCRMRelManagerUser

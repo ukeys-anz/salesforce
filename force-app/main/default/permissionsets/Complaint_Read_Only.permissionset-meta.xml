@@ -13,12 +13,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.CPID__c</field>
+        <field>Case.CAC_Sub_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.CaseNumber__c</field>
+        <field>Case.CPID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -38,12 +38,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Description</field>
+        <field>Case.Date_Closed__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Date_Closed__c</field>
+        <field>Case.Description</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -133,7 +133,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_AFCA_Issue_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_AFCA_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_AFCA_Product_Line__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_AFCA_Product_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -144,6 +159,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_AFCA_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_AFCA_Sub_issue_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -344,11 +364,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_EDW_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IDR_Description_of_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -578,20 +593,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.IDR_Parent_Systemic_Issue__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IDR_Product_Family__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IDR_Product_Manufacturer__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <field>Case.IDR_Possible_Systemic_Issues__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -613,6 +614,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Product_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Product_Family__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -717,6 +723,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Is_this_a_complaint_about_a_complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Name_of_product_manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -773,6 +784,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Relationship_Managed_Complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Review_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

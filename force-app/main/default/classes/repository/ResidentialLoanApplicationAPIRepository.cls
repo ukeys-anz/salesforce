@@ -11,7 +11,10 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @return `ResidentialLoanApplicationModel` model class constructed from api response
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
-  public ResidentialLoanApplicationModel getListAssets(String ocvId, String sopId) {
+  public ResidentialLoanApplicationModel getListAssets(
+    String ocvId,
+    String sopId
+  ) {
     Service s = ServiceProvider.getService(BOHService.class);
     HttpCalloutResponse response = s.getListAssets(ocvId, sopId);
     if (response.successful == false) {

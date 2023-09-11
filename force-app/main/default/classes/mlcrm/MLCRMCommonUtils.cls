@@ -45,9 +45,7 @@ public with sharing class MLCRMCommonUtils {
         // validate if territory remains blank for any record then add error.
         if (objSobject.get('Territory__c') == null) {
           objSobject.addError(LABEL.ML_ValidateTerritory);
-        }
-        // validate if record's territory is changed and user is ML profile and having franchise role
-        else if (
+        } else if (
           objSobject.get('Territory__c') != null &&
           (oldMapSobject == null ||
           (oldMapSobject != null &&
@@ -56,11 +54,10 @@ public with sharing class MLCRMCommonUtils {
           userInfo.getProfileId() == strMLProfileId &&
           UserInfo.getUserRoleId() == strFranchiseRole
         ) {
+          // validate if record's territory is changed and user is ML profile and having franchise role
           idsOfOwnerId.add((Id) objSobject.get('OwnerId'));
           idsOfOwnerId.add(UserInfo.getUserId());
-        }
-        // validate if record's territory is changed and user is not ML profile then add error
-        else if (
+        } else if (
           objSobject.get('Territory__c') != null &&
           (oldMapSobject == null ||
           (oldMapSobject != null &&
@@ -68,10 +65,9 @@ public with sharing class MLCRMCommonUtils {
           oldMapSobject.get((Id) objSobject.get('Id')).get('Territory__c'))) &&
           userInfo.getProfileId() != strMLProfileId
         ) {
+          // validate if record's territory is changed and user is not ML profile then add error
           objSobject.addError(LABEL.ML_ValidateTerritoryChangeByNonMLUser);
-        }
-        // validate if record's owner is changed and user is ML profile
-        else if (
+        } else if (
           objSobject.get('OwnerId') != null &&
           (oldMapSobject == null ||
           (oldMapSobject != null &&
@@ -79,10 +75,9 @@ public with sharing class MLCRMCommonUtils {
           oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId'))) &&
           userInfo.getProfileId() == strMLProfileId
         ) {
+          // validate if record's owner is changed and user is ML profile
           idsOfOwnerId.add((Id) objSobject.get('OwnerId'));
-        }
-        // validate if record's owner is changed and user is not ML profile then add error
-        else if (
+        } else if (
           objSobject.get('OwnerId') != null &&
           (oldMapSobject == null ||
           (oldMapSobject != null &&
@@ -90,6 +85,7 @@ public with sharing class MLCRMCommonUtils {
           oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId'))) &&
           userInfo.getProfileId() != strMLProfileId
         ) {
+          // validate if record's owner is changed and user is not ML profile then add error
           objSobject.addError(LABEL.ML_ValidateOwnerChangeByNonMLUser);
         }
       }
@@ -256,19 +252,21 @@ public with sharing class MLCRMCommonUtils {
   }
 
   /**
-    * @description This method is used to get record type API name of any object dynamically
-    * @name getUserIdFromUsername
-    * @param lstOfuserName list of username
-    * @return Set<Id> Set of users
-    * @author Ashish Kumar
-    * @US CC-4493
-    */
-    public static Set<Id> getUserIdFromUsername(List<String> lstOfuserName) {
-        Set<Id> setOfRecordTypeIds = new Set<Id>();
-        if (!lstOfuserName.isEmpty()) {
-            Map<Id, User> mapOfUsers = new Map<Id, User>([SELECT Id FROM User WHERE userName IN: lstOfuserName]);
-            return mapOfUsers.keySet();
-        }
-        return null;
+   * @description This method is used to get record type API name of any object dynamically
+   * @name getUserIdFromUsername
+   * @param lstOfuserName list of username
+   * @return Set<Id> Set of users
+   * @author Ashish Kumar
+   * @US CC-4493
+   */
+  public static Set<Id> getUserIdFromUsername(List<String> lstOfuserName) {
+    Set<Id> setOfRecordTypeIds = new Set<Id>();
+    if (!lstOfuserName.isEmpty()) {
+      Map<Id, User> mapOfUsers = new Map<Id, User>(
+        [SELECT Id FROM User WHERE userName IN :lstOfuserName]
+      );
+      return mapOfUsers.keySet();
     }
+    return null;
+  }
 }

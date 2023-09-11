@@ -5,7 +5,6 @@
  * @description CCRMLeadPlatformEventHelper is a class to construct data for LEAD Platform Event sent to UNICA/ADOBE
  */
 public with sharing class CCRMLeadPlatformEventHelper {
-  
   public static Map<String, Lead_Status_Transformation__mdt> leadStatusTransMap = new Map<String, Lead_Status_Transformation__mdt>();
   public static List<Task> leadTask;
 

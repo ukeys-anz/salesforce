@@ -19,8 +19,16 @@ public class CCRMLeadExpiryReminderTest {
       );
     }
     System.runAs(mlUser) {
-      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(10,mlUser,true);
-      MLCRMTestDataFactory.createUserTerritoryRecords(10,mlUser.Id,lstOfTerritory[0].Id);
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+        10,
+        mlUser,
+        true
+      );
+      MLCRMTestDataFactory.createUserTerritoryRecords(
+        10,
+        mlUser.Id,
+        lstOfTerritory[0].Id
+      );
       MLCRMTestDataFactory.createLeadRecords(
         Integer.valueOf(Label.Test_Bulk_Size),
         new User()

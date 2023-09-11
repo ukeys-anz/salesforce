@@ -7,6 +7,10 @@
 public with sharing class ContactRequestTriggerActions {
   public static final String STATUS_CANCELLED = 'Cancelled';
   private static final String MISSING_APPT_DATE_ERROR = 'Please select a date for the Contact Request';
+  public static final Map<String, String> PREFERRED_CHANNEL_TYPE_ERRORS = new Map<String, String>{
+    InteractionConstants.STORE => System.Label.Interaction_Store_Required,
+    InteractionConstants.IN_PERSON => System.Label.Interaction_In_Person_Location_Required
+  };
 
   /**
    * @description Method which updates the confirmed count on the appointment commitment record
@@ -259,10 +263,12 @@ public with sharing class ContactRequestTriggerActions {
    */
   private void validateStore(ContactRequest currentRequest) {
     if (
-      currentRequest.PreferredChannel == 'Store' &&
-      currentRequest.Location__c == null
+      currentRequest.Location__c == null &&
+      PREFERRED_CHANNEL_TYPE_ERRORS.containsKey(currentRequest.PreferredChannel)
     ) {
-      currentRequest.addError(System.Label.Interaction_Store_Required);
+      currentRequest.addError(
+        PREFERRED_CHANNEL_TYPE_ERRORS.get(currentRequest.PreferredChannel)
+      );
     }
   }
 

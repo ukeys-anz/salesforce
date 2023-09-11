@@ -19,26 +19,22 @@ public with sharing class FabricServiceMock extends Service {
   );
 
   @TestVisible
-  private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE = getFinancialAccountSuccessResponse();
-
-  private static String getFinancialAccountSuccessResponse() {
-    if (Label.AccountAPIUpliftedToV1 == 'True') {
-      return getStaticResource('mock_FinancialAccountMappingv1');
-    } else {
-      return getStaticResource('mock_financialAccounts');
-    }
-  }
+  private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE = getStaticResource(
+    'mock_financialAccounts'
+  );
 
   @TestVisible
-  private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE = getTransactionHistorySuccessResponse();
-
-  private static String getTransactionHistorySuccessResponse() {
-    if (Label.TransactionAPIUpliftedToV1 == 'True') {
-      return getStaticResource('mock_transactionHistoryV1');
-    } else {
-      return getStaticResource('mock_transactionHistory');
-    }
-  }
+  private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE_1 = getStaticResource(
+    'mock_transactionHistory1'
+  );
+  @TestVisible
+  private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE_2 = getStaticResource(
+    'mock_transactionHistory2'
+  );
+  @TestVisible
+  private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE_3 = getStaticResource(
+    'mock_transactionHistory3'
+  );
 
   @TestVisible
   private static final String CARD_LIST_SUCCESS_RESPONSE = getStaticResource(
@@ -96,7 +92,19 @@ public with sharing class FabricServiceMock extends Service {
     String paramUrl
   ) {
     if (!preset) {
-      response.body = FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE;
+      Map<String, String> mappedMockData = new Map<String, String>{
+        'account_numbers' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_1,
+        '&cursor.value=ddd' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_2,
+        '&cursor.value=hhh' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_3
+      };
+      String mockData = '{}';
+      for (String key : mappedMockData.keySet()) {
+        if (paramUrl.contains(key)) {
+          mockData = mappedMockData.get(key);
+          break;
+        }
+      }
+      response.body = mockData;
     }
     return response;
   }
