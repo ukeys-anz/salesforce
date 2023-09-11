@@ -85,6 +85,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Date_Victim_Merged__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Deceased_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -321,6 +326,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Temporary_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Victim_External_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Victim_Record_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

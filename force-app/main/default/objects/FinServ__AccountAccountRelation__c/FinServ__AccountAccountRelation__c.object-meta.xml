@@ -144,25 +144,26 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
-    <description>Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.</description>
+    <description>A relationship between two accounts, such as a household and a business account.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>false</enableReports>
-    <enableSearch>true</enableSearch>
+    <enableSearch>false</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Financial Account Role</label>
+    <externalSharingModel>Private</externalSharingModel>
+    <label>Account-Account Relationship</label>
     <nameField>
-        <displayFormat>FAR-{000000000}</displayFormat>
-        <label>Role Number</label>
+        <displayFormat>R-{000000000}</displayFormat>
+        <label>Account Relation Name</label>
+        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Financial Account Roles</pluralLabel>
+    <pluralLabel>Account Account Relations</pluralLabel>
     <searchLayouts/>
-    <sharingModel>ControlledByParent</sharingModel>
+    <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
