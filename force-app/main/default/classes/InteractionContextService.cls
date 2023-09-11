@@ -3,31 +3,30 @@
  * @since  April 2022
  * @description APEX REST API class to handle incoming requests from Twilio.
  * Added Chat Interaction and Twilio Details Creation Logic and updated Call Interaction Creation Logic as part of ANZX-103285 by Shivam , July 2023
+ * Note ExcessivePublicCount Surpressed : The count of the public count here is 24, but still the rule set is failing. That's why added this. Refer this pr: https://github.com/anzx/salesforce/pull/8062
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity,PMD.ExcessivePublicCount')
+@SuppressWarnings('PMD.ExcessivePublicCount')
 @RestResource(urlMapping='/InteractionContextRequests/*')
 global with sharing class InteractionContextService {
-  global static final String CALL_INTERACTION_TYPE = 'voice';
-  global static final String CHAT_INTERACTION_TYPE = 'chat';
-  global static final String INBOUND_DIRECTION = 'Inbound';
-  global static final String OUTBOUND_DIRECTION = 'Outbound';
-  global static final String DEFAULT_CHAT_FOR = 'Customer';
-  global static final String DEFAULT_CHAT_AUTHENTICATED_METHOD = 'Authenticated';
-  public static Map<String, String> supportTopicMap = new Map<String, String>();
+  public static final String CALL_INTERACTION_TYPE = 'voice';
+  public static final String CHAT_INTERACTION_TYPE = 'chat';
+  public static final String INBOUND_DIRECTION = 'Inbound';
+  public static final String OUTBOUND_DIRECTION = 'Outbound';
+  public static final String DEFAULT_CHAT_FOR = 'Customer';
+  public static final String DEFAULT_CHAT_AUTHENTICATED_METHOD = 'Authenticated';
+  private static Map<String, String> supportTopicMap = new Map<String, String>();
 
   /**
    * @description HTTP POST method passing incoming interaction context in to Salesforce.
    * Salesforce would then return a interaction id created
-   * @param contextRequest interact context request
+   * @param contextRequest InteractionContextRequest from Twilio
    */
-  @SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssMethodCount')
   @HttpPost
   global static void doPost(InteractionContextRequest contextRequest) {
     List<InteractionContextRequest> contextRequests = new List<InteractionContextRequest>{
       contextRequest
     };
     Integer finalStatusCode = 400;
-
     Map<String, Id> accountsByOCVId = new Map<String, Id>();
     Map<String, InteractionContextRequest> requestByOCVId = new Map<String, InteractionContextRequest>();
     Map<String, InteractionContextRequest> requestByPhoneNumber = new Map<String, InteractionContextRequest>();
@@ -38,71 +37,34 @@ global with sharing class InteractionContextService {
     List<InteractionContextResponse> responseList = new List<InteractionContextResponse>();
     List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList = new List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>();
 
-    //Validating the response recived from Twilio
-    if (!contextRequests.isEmpty()) {
-      for (
-        Integer intCount = 0; intCount < contextRequests.size(); intCount++
-      ) {
-        InteractionContextRequest req = contextRequests.get(intCount);
-        if (
-          isValidRequest(req).isEmpty() &&
-          req.type.toLowerCase() == CHAT_INTERACTION_TYPE
-        ) {
-          requestByOCVId.put(req.ocvId, req);
-          callOrChatSidList.add(req.chatOrCallId);
-        } else if (
-          isValidRequest(req).isEmpty() &&
-          req.type.toLowerCase() == CALL_INTERACTION_TYPE
-        ) {
-          requestByPhoneNumber.put(req.phoneNumber, req);
-          callOrChatSidList.add(req.chatOrCallId);
-        } else {
-          responseList.addAll(isValidRequest(req));
-        }
-      }
-    }
+    //Validating the response received from Twilio in order to proceed
+    validateIncomingRequestFromTwilio(
+      contextRequests,
+      requestByOCVId,
+      callOrChatSidList,
+      requestByPhoneNumber,
+      responseList
+    );
 
-    //Fetching valid support topic values and creating the map.
-    Schema.DescribeFieldResult fieldSupportTopicPicklistValues = Interaction.Support_Topics__c.getDescribe();
-    for (
-      Schema.PicklistEntry supTop : fieldSupportTopicPicklistValues.getPicklistValues()
-    ) {
-      supportTopicMap.put(supTop.getValue().toLowerCase(), supTop.getValue());
-    }
+    //Fetching Valid Support Topic Values and Create the map to verify the callOrChatStatus received from Twilio
+    populateSupportTopicMap();
 
-    //Finding available accounts based on OCV Id received for Chat
-    if (!requestByOCVId.isEmpty()) {
-      for (Account acc : [
-        SELECT Id, External_Id__c, OCV_ID__c, PPID__c
-        FROM Account
-        WHERE OCV_ID__c IN :requestByOCVId.keySet() AND ANZx_Customer__c = TRUE
-      ]) {
-        accountsByOCVId.put(acc.OCV_ID__c, acc.Id);
-        // Only update PPID once or if its changed
-        if (
-          String.isNotBlank(requestByOCVId.get(acc.OCV_ID__c).PPID) &&
-          (String.isBlank(acc.PPID__C) ||
-          acc.PPID__C != requestByOCVId.get(acc.OCV_ID__c).PPID)
-        ) {
-          acc.PPID__C = requestByOCVId.get(acc.OCV_ID__c).PPID;
-          accountsToUpdate.add(acc);
-        }
-      }
-    }
-
-    //For Creating List of Existing Interactions with ChatOrCallId
+    //For Creating List of Existing Interactions By callOrChatSID for checking Duplication of the Interaction Context.
     if (!callOrChatSidList.isEmpty()) {
-      for (Interaction interact : [
-        SELECT
-          Id,
-          Interaction_External_Id__c,
-          Account.OCV_ID__c,
-          Chat_or_Call_SID__c
-        FROM Interaction
-        WHERE Chat_or_Call_SID__c IN :callOrChatSidList
-      ]) {
-        existingInteractionsBySID.put(interact.Chat_or_Call_SID__c, interact);
-      }
+      queryExistingInteractionFromCallOrChatSID(
+        callOrChatSidList,
+        existingInteractionsBySID
+      );
+    }
+
+    //Finding available accounts based on OCV Id received from Twilio to populate in Interaction
+    if (!requestByOCVId.isEmpty()) {
+      fetchAvailableAccountsByOCVId(
+        requestByOCVId,
+        accountsByOCVId,
+        accountsToUpdate,
+        responseList
+      );
     }
 
     //Creation of New Interaction Record To Be Created and Checking Existing Interations to avoid creation of new interaction
@@ -155,83 +117,19 @@ global with sharing class InteractionContextService {
       Logger.error('Error in Creating Interaction', results);
       Logger.saveLog();
 
-      Map<Id, Interaction> newInteractionMap = new Map<Id, Interaction>(
-        [
-          SELECT
-            Id,
-            Interaction_External_Id__c,
-            Account.OCV_ID__c,
-            Account.PersonMobilePhone,
-            Support_Topics__c,
-            InteractionType
-          FROM Interaction
-          WHERE Id IN :interactionToBeCreated
-        ]
-      );
-      for (Integer i = 0; i < interactionToBeCreated.size(); i++) {
-        Database.SaveResult sr = results[i];
-        if (sr.isSuccess()) {
-          InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContext = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
-
-          twilioContext.interactionId = interactionToBeCreated[i].Id;
-          twilioContext.callRecordingId = contextRequests[i].callRecordingId;
-          twilioContext.chatOrCallId = contextRequests[i].chatOrCallId;
-          twilioContext.chatOrCallStatus = contextRequests[i].chatOrCallStatus;
-          twilioContext.twilioId = contextRequests[i].twilioId;
-          twilioDetailsByInteractionList.add(twilioContext);
-
-          responseList.add(
-            generateResponse(
-              interactionToBeCreated[i].Id,
-              newInteractionMap.get(interactionToBeCreated[i].Id)
-                .Interaction_External_Id__c,
-              contextRequests[i].ocvId,
-              contextRequests[i].issueSubtype
-            )
-          );
-        } else {
-          List<Database.Error> err = sr.getErrors();
-          String errorvalues = String.join(err, '/n');
-          responseList.add(
-            generateErrorResponse(
-              contextRequests[i].ocvId,
-              errorvalues,
-              contextRequests[i].issueSubtype
-            )
-          );
-        }
-      }
-    }
-
-    if (!twilioDetailsByInteractionList.isEmpty()) {
-      TwilioServiceUtil.upsertTwilioDetailsRecord(
-        twilioDetailsByInteractionList
+      // Twilio Record Creation
+      createTwilioRecordAfterInteractionCreation(
+        interactionToBeCreated,
+        results,
+        contextRequests,
+        twilioDetailsByInteractionList,
+        responseList
       );
     }
 
-    //Update PPID on Account
-    if (
-      !accountsToUpdate.isEmpty() &&
-      Account.sObjectType.getDescribe().isUpdateable()
-    ) {
-      List<Database.SaveResult> results = Database.Update(
-        accountsToUpdate,
-        false
-      );
-
-      Logger.error('Error in Updating Account', results);
-      Logger.saveLog();
-    }
-
-    // Handling responses against requests with invalid OCV Ids
-    for (String ocvId : requestByOCVId.keySet()) {
-      if (!accountsByOCVId.keySet().contains(ocvId)) {
-        String errorMessage =
-          'Could not find a matching ANZx customer record based on OCV ID: ' +
-          ocvId;
-
-        responseList.add(generateErrorResponse(ocvId, errorMessage, ''));
-      }
+    //Update PPID on Account if missed
+    if (!accountsToUpdate.isEmpty()) {
+      updatePPIDOnAccount(accountsToUpdate);
     }
 
     // At least one request was successful
@@ -247,6 +145,87 @@ global with sharing class InteractionContextService {
     RestContext.response.addHeader('Content-Type', 'application/json');
     RestContext.response.responseBody = Blob.valueOf(jsonRes);
     RestContext.response.statusCode = finalStatusCode;
+  }
+
+  /**
+   * @description This method will validate the response received from Twilio and create the list required for further process.
+   * @param contextRequests List<InteractionContextRequest>
+   * @param requestByOCVId  Map<String, InteractionContextRequest>
+   * @param callOrChatSidList   Set<String>
+   * @param requestByPhoneNumber Map<String, InteractionContextRequest>
+   * @param responseList List<InteractionContextResponse>
+   */
+  private static void validateIncomingRequestFromTwilio(
+    List<InteractionContextRequest> contextRequests,
+    Map<String, InteractionContextRequest> requestByOCVId,
+    Set<String> callOrChatSidList,
+    Map<String, InteractionContextRequest> requestByPhoneNumber,
+    List<InteractionContextResponse> responseList
+  ) {
+    if (!contextRequests.isEmpty()) {
+      for (
+        Integer intCount = 0; intCount < contextRequests.size(); intCount++
+      ) {
+        InteractionContextRequest req = contextRequests.get(intCount);
+        if (
+          isValidRequest(req).isEmpty() &&
+          req.type.toLowerCase() == CHAT_INTERACTION_TYPE
+        ) {
+          requestByOCVId.put(req.ocvId, req);
+          callOrChatSidList.add(req.chatOrCallId);
+        } else if (
+          isValidRequest(req).isEmpty() &&
+          req.type.toLowerCase() == CALL_INTERACTION_TYPE
+        ) {
+          requestByPhoneNumber.put(req.phoneNumber, req);
+          callOrChatSidList.add(req.chatOrCallId);
+        } else {
+          responseList.addAll(isValidRequest(req));
+        }
+      }
+    }
+  }
+
+  /**
+   * @description This method will fetch the available accounts based on the ocv id received to set in the Interaction to be created.
+   * @param requestByOCVId Map<String, InteractionContextRequest>
+   * @param accountsByOCVId Map<String, Id> It will contains string and id of an account.
+   * @param accountsToUpdate List<Account> contains list of account to update the ppid.
+   * @param responseList List<InteractionContextResponse>
+   */
+  private static void fetchAvailableAccountsByOCVId(
+    Map<String, InteractionContextRequest> requestByOCVId,
+    Map<String, Id> accountsByOCVId,
+    List<Account> accountsToUpdate,
+    List<InteractionContextResponse> responseList
+  ) {
+    for (Account acc : [
+      SELECT Id, External_Id__c, OCV_ID__c, PPID__c
+      FROM Account
+      WHERE OCV_ID__c IN :requestByOCVId.keySet() AND ANZx_Customer__c = TRUE
+    ]) {
+      accountsByOCVId.put(acc.OCV_ID__c, acc.Id);
+      // Only update PPID once or if its changed
+      if (
+        String.isNotBlank(requestByOCVId.get(acc.OCV_ID__c).PPID) &&
+        (String.isBlank(acc.PPID__C) ||
+        acc.PPID__C != requestByOCVId.get(acc.OCV_ID__c).PPID)
+      ) {
+        acc.PPID__C = requestByOCVId.get(acc.OCV_ID__c).PPID;
+        accountsToUpdate.add(acc);
+      }
+    }
+
+    // Handling responses against requests with invalid OCV Ids
+    for (String ocvId : requestByOCVId.keySet()) {
+      if (!accountsByOCVId.keySet().contains(ocvId)) {
+        String errorMessage =
+          'Could not find a matching ANZx customer record based on OCV ID: ' +
+          ocvId;
+
+        responseList.add(generateErrorResponse(ocvId, errorMessage, ''));
+      }
+    }
   }
 
   /**
@@ -372,7 +351,7 @@ global with sharing class InteractionContextService {
      */
     public String ppid { get; set; }
     /**
-     * @description PPID from Twilio
+     * @description Type from Twilio
      */
     public String type { get; set; }
     /**
@@ -424,8 +403,8 @@ global with sharing class InteractionContextService {
   }
 
   /**
-   * @description Method to check if the request record is valid or not.
-   * @param interactContextRequest Chat Context instance
+   * @description Method to create Interaction List to be created.
+   * @param interactContextRequest Interaction Context Request from Twilio
    * @param accountsMap accountsByOCVId
    * @return InteractionContextRequest which contains error messages if any
    */
@@ -434,16 +413,16 @@ global with sharing class InteractionContextService {
     Map<String, Id> accountsMap
   ) {
     List<Interaction> listOfInteractionsToCreate = new List<Interaction>();
+    Interaction intToInsert = new Interaction();
+    intToInsert.Direction__c = interactContextRequest.direction;
+    intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
+    intToInsert.StartTime = System.now();
+    intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
     if (interactContextRequest.type.toLowerCase() == CHAT_INTERACTION_TYPE) {
-      Interaction intToInsert = new Interaction();
-      intToInsert.Direction__c = interactContextRequest.direction;
       intToInsert.InteractionType = 'Chat';
-      intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
-      intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
       intToInsert.Status__c = TwilioServiceUtil.getStatus(
         interactContextRequest.chatOrCallStatus
       );
-      intToInsert.StartTime = System.now();
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_MESSAGE_RT_ID;
       intToInsert.Support_Topics__c = validateSupportTopic(
         interactContextRequest.issueSubtype
@@ -451,21 +430,95 @@ global with sharing class InteractionContextService {
       intToInsert.AccountId = accountsMap.get(interactContextRequest.ocvId);
       intToInsert.Authentication_Method__c = DEFAULT_CHAT_AUTHENTICATED_METHOD;
       intToInsert.Interaction_Purpose__c = DEFAULT_CHAT_FOR;
-
       listOfInteractionsToCreate.add(intToInsert);
-    } else if (
-      interactContextRequest.type.toLowerCase() == CALL_INTERACTION_TYPE
-    ) {
-      Interaction intToInsert = new Interaction();
-      intToInsert.Direction__c = interactContextRequest.direction;
+    } else {
       intToInsert.InteractionType = 'Call';
-      intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
-      intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
-      intToInsert.StartTime = System.now();
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
       listOfInteractionsToCreate.add(intToInsert);
     }
     return listOfInteractionsToCreate;
+  }
+
+  /**
+   * @description Method to create the Twilio Details record for the Interaction To be Created.
+   * @param interactionToBeCreated List<Interaction> To Be Created
+   * @param results List<Database.SaveResult> for Interaction Created
+   * @param contextRequests Interaction Context Request From Twilio
+   * @param twilioDetailsByInteractionList List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>
+   * @param responseList  List<InteractionContextResponse>
+   */
+  private static void createTwilioRecordAfterInteractionCreation(
+    List<Interaction> interactionToBeCreated,
+    List<Database.SaveResult> results,
+    List<InteractionContextRequest> contextRequests,
+    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList,
+    List<InteractionContextResponse> responseList
+  ) {
+    Map<Id, Interaction> newInteractionMap = new Map<Id, Interaction>(
+      [
+        SELECT
+          Id,
+          Interaction_External_Id__c,
+          Account.OCV_ID__c,
+          Account.PersonMobilePhone,
+          Support_Topics__c,
+          InteractionType
+        FROM Interaction
+        WHERE Id IN :interactionToBeCreated
+      ]
+    );
+    for (Integer i = 0; i < interactionToBeCreated.size(); i++) {
+      Database.SaveResult sr = results[i];
+      if (sr.isSuccess()) {
+        InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContext = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
+
+        twilioContext.interactionId = interactionToBeCreated[i].Id;
+        twilioContext.callRecordingId = contextRequests[i].callRecordingId;
+        twilioContext.chatOrCallId = contextRequests[i].chatOrCallId;
+        twilioContext.chatOrCallStatus = contextRequests[i].chatOrCallStatus;
+        twilioContext.twilioId = contextRequests[i].twilioId;
+        twilioDetailsByInteractionList.add(twilioContext);
+
+        responseList.add(
+          generateResponse(
+            interactionToBeCreated[i].Id,
+            newInteractionMap.get(interactionToBeCreated[i].Id)
+              .Interaction_External_Id__c,
+            contextRequests[i].ocvId,
+            contextRequests[i].issueSubtype
+          )
+        );
+      } else {
+        List<Database.Error> err = sr.getErrors();
+        String errorvalues = String.join(err, '/n');
+        responseList.add(
+          generateErrorResponse(
+            contextRequests[i].ocvId,
+            errorvalues,
+            contextRequests[i].issueSubtype
+          )
+        );
+      }
+    }
+
+    if (!twilioDetailsByInteractionList.isEmpty()) {
+      TwilioServiceUtil.upsertTwilioDetailsRecord(
+        twilioDetailsByInteractionList
+      );
+    }
+  }
+
+  /**
+   * @description this method will populate support topic map with Valid Values from Database.
+   */
+  private static void populateSupportTopicMap() {
+    //Fetching valid support topic values and creating the map.
+    Schema.DescribeFieldResult fieldSupportTopicPicklistValues = Interaction.Support_Topics__c.getDescribe();
+    for (
+      Schema.PicklistEntry supTop : fieldSupportTopicPicklistValues.getPicklistValues()
+    ) {
+      supportTopicMap.put(supTop.getValue().toLowerCase(), supTop.getValue());
+    }
   }
 
   /**
@@ -478,6 +531,44 @@ global with sharing class InteractionContextService {
       return supportTopicMap.get(issueSubType.toLowerCase());
     } else {
       return 'Support Enquiry';
+    }
+  }
+
+  /**
+   * @description query existing Interaction Record
+   * @param callOrChatSidList Set<String> containing callOrChatSid from Interaction
+   * @param existingInteractionsBySID Map<String, Interaction>
+   */
+  private static void queryExistingInteractionFromCallOrChatSID(
+    Set<String> callOrChatSidList,
+    Map<String, Interaction> existingInteractionsBySID
+  ) {
+    for (Interaction interact : [
+      SELECT
+        Id,
+        Interaction_External_Id__c,
+        Account.OCV_ID__c,
+        Chat_or_Call_SID__c
+      FROM Interaction
+      WHERE Chat_or_Call_SID__c IN :callOrChatSidList
+    ]) {
+      existingInteractionsBySID.put(interact.Chat_or_Call_SID__c, interact);
+    }
+  }
+
+  /**
+   * @description this method will update the ppid of the accounts
+   * @param accountsToUpdate List<Account> containing account which needs to be updated for PPID.
+   */
+  private static void updatePPIDOnAccount(List<Account> accountsToUpdate) {
+    if (Account.sObjectType.getDescribe().isUpdateable()) {
+      List<Database.SaveResult> results = Database.Update(
+        accountsToUpdate,
+        false
+      );
+
+      Logger.error('Error in Updating Account', results);
+      Logger.saveLog();
     }
   }
 }
