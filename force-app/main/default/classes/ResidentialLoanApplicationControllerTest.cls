@@ -38,15 +38,15 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     SOPModel model = SOPModel.parse(json.serialize(objectMap.get('object')));
 
     System.assert(
-      model.sop.parties[0].partyDependantsCount != null,
+      model.parties[0].partyDependantsCount != null,
       'SOP not transformed'
     );
     System.assert(
-      model.sop.parties[0].soleIncomeEarner != null,
+      model.parties[0].soleIncomeEarner != null,
       'SOP not transformed'
     );
     System.assert(
-      !model.sop.parties[0].relationshipState.contains('_'),
+      !model.parties[0].relationshipState.contains('_'),
       'SOP not transformed'
     );
   }

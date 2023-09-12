@@ -10,7 +10,6 @@
  * @description Model for SOP
  */
 public with sharing class SOPModel extends CalloutModel {
-  public Sop sop;
   public static final String EQUIFAX = 'EQUIFAX';
   public static final String EQUIFAX_LC = 'Equifax';
   public static final String EXPERIAN = 'EXPERIAN';
@@ -20,28 +19,23 @@ public with sharing class SOPModel extends CalloutModel {
   public static final String CONFIRMED = 'Confirmed on ';
   public static final String NOT_CONFIRMED = 'Confirmation not yet provided';
 
+  public String name;
+  public Components[] components;
+  public Parties[] parties;
+  public Integer dependantsCount;
+  public LiabilitySource[] liabilitySources;
+  public List<PartyLiability> partyLiabilities;
   /**
-   * @description main sop wrapper
+   * @description flag to hide Credit Bureau section if no confirmation received from all parties
    */
-  public class Sop {
-    public String name;
-    public Components[] components;
-    public Parties[] parties;
-    public Integer dependantsCount;
-    public LiabilitySource[] liabilitySources;
-    public List<PartyLiability> partyLiabilities;
-    /**
-     * @description flag to hide Credit Bureau section if no confirmation received from all parties
-     */
-    public boolean confirmationFlag {
-      get {
-        for (Parties party : parties) {
-          if (party.confirmedAccounts == null) {
-            return false;
-          }
+  public boolean confirmationFlag {
+    get {
+      for (Parties party : parties) {
+        if (party.confirmedAccounts == null) {
+          return false;
         }
-        return true;
       }
+      return true;
     }
   }
 

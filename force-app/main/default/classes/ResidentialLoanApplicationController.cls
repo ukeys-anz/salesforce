@@ -99,15 +99,15 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     );
     SOPModel.Parties[] transformedParties = new List<SOPModel.Parties>();
 
-    if (response.sop == null) {
+    if (response == null) {
       return false;
     }
 
-    for (Object row : response.sop.parties) {
+    for (Object row : response.parties) {
       Map<String, Object> obj = (Map<String, Object>) JSON.deserializeUntyped(
         JSON.serialize(row)
       );
-      obj.put('partyDependantsCount', response.sop.dependantsCount);
+      obj.put('partyDependantsCount', response.dependantsCount);
 
       transformedParties.add(
         (SOPModel.Parties) System.JSON.deserialize(
@@ -116,10 +116,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         )
       );
     }
-    response.sop.parties = transformedParties;
+    response.parties = transformedParties;
 
-    SOPModelHelper.initPartyLiability(response.sop);
-    SOPModelHelper.enrichOwnerName(response.sop);
+    SOPModelHelper.initPartyLiability(response);
+    SOPModelHelper.enrichOwnerName(response);
 
     outMap.put('object', JSON.deserializeUntyped(JSON.serialize(response)));
     return true;

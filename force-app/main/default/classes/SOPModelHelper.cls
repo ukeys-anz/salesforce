@@ -9,7 +9,7 @@ public with sharing class SOPModelHelper {
    * @description returns the owner Name for Credit Bureau section of Connect Data flexcard
    * @param sop
    */
-  public static void enrichOwnerName(SOPModel.Sop sop) {
+  public static void enrichOwnerName(SOPModel sop) {
     Map<String, String> partyIdToOcvIdMap = new Map<String, String>();
     Set<String> ocvIdSet = new Set<String>();
     Map<String, String> ocvIdToNameMap = new Map<String, String>();
@@ -42,7 +42,7 @@ public with sharing class SOPModelHelper {
    * @description init method
    * @param sop
    */
-  public static void initPartyLiability(SOPModel.Sop sop) {
+  public static void initPartyLiability(SOPModel sop) {
     Map<String, SOPModel.PartyLiability> partyLiabilityMap = new Map<String, SOPModel.PartyLiability>();
     for (SOPModel.LiabilitySource source : sop.liabilitySources) {
       SOPModel.PartyLiability partyLiability = partyLiabilityMap.get(

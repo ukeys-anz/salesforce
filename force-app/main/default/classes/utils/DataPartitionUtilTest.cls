@@ -60,7 +60,7 @@ public with sharing class DataPartitionUtilTest {
     SOPModel cachedSOPData = DataPartitionUtil.getSOPDetailsCache(
       SOP_SESSION_KEY
     );
-    String cachedSOP = JSON.serialize(cachedSOPData.sop);
+    String cachedSOP = JSON.serialize(cachedSOPData);
     Test.stopTest();
 
     //THEN
@@ -77,7 +77,7 @@ public with sharing class DataPartitionUtilTest {
     );
 
     SOPModel retrievedSOPData = (SOPModel) dataPartition.get(SOP_SESSION_KEY);
-    String retrievedSOP = JSON.serialize(retrievedSOPData.sop);
+    String retrievedSOP = JSON.serialize(retrievedSOPData);
 
     System.assertEquals(
       cachedSOP,
