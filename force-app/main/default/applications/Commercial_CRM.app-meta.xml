@@ -44,6 +44,24 @@
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
     </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>CCRM_Opportunity_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>CCRM_Opportunity_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
     <brand>
         <headerColor>#0070D2</headerColor>
         <logo>ANZLogoRGBANZBLUE</logo>
@@ -62,7 +80,79 @@
         <content>CCRM_Account_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
-        <profile>ANZ Standard User</profile>
+        <profile>ANZ CCRM Standard User</profile>
+        <recordType>Account.CLG</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Account.CLG</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <profile>ANZ CCRM Standard User</profile>
+        <recordType>Account.CLG</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Account_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Account.CLG</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Account_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <profile>ANZ CCRM Standard User</profile>
+        <recordType>PersonAccount.PersonAccount</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <profile>ANZ CCRM Standard User</profile>
+        <recordType>PersonAccount.PersonAccount</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Account_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>PersonAccount.PersonAccount</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Account_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>PersonAccount.PersonAccount</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Account_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+        <profile>ANZ CCRM Standard User</profile>
         <recordType>Account.Business_Account</recordType>
         <type>Flexipage</type>
     </profileActionOverrides>
@@ -71,7 +161,7 @@
         <content>CCRM_Account_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
-        <profile>ANZ Standard User</profile>
+        <profile>ANZ CCRM Standard User</profile>
         <recordType>Account.Business_Account</recordType>
         <type>Flexipage</type>
     </profileActionOverrides>

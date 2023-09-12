@@ -42,6 +42,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Coaching_Summary__c.Display_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Coaching_Summary__c.Lead__c</field>
         <readable>true</readable>
@@ -139,6 +144,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Event_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Focus_Area__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -254,7 +264,7 @@
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
+        <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
@@ -281,5 +291,4 @@
         <tab>standard-Interaction</tab>
         <visibility>Available</visibility>
     </tabSettings>
-
 </PermissionSet>

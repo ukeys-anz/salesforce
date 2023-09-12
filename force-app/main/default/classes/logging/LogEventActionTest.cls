@@ -169,6 +169,7 @@ public with sharing class LogEventActionTest {
       Origin__c = 'Apex',
       RecordId__c = '0012N00000ABCDEQA',
       RecordObjectName__c = 'Case',
+      Severity__c = 'Medium',
       SpanId__c = 'abc123def',
       StackTrace__c = 'Test stack trace',
       UsedCallouts__c = 100,
@@ -244,6 +245,11 @@ public with sharing class LogEventActionTest {
       logEntry.RecordObjectName__c,
       logEvent.RecordObjectName__c,
       'Record object name should match'
+    );
+    System.assertEquals(
+      logEntry.Severity__c,
+      logEvent.severity__c,
+      'Severity should match'
     );
     System.assertEquals(
       logEntry.SpanId__c,

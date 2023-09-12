@@ -9,6 +9,114 @@ public with sharing class CCRMLogAResponseController {
   private static final String TASK_SUBJECT = 'Customer Meeting';
 
   /**
+   * @description Fetch the list of DCRM Lead Response Conversation Guide metadata and Lead Stage Automation records
+   * @name getLeadResponseGuidanceMapping
+   * @param leadId
+   * @return String serialized Map<String, List<Response_Type__C>>.
+   */
+  @AuraEnabled(cacheable=true)
+  public static String getLeadResponseGuidanceMapping(String leadId) {
+    Map<String, String> mapOfLeadStatusResponseAndNextStep = new Map<String, String>();
+    Set<String> userRoleSet;
+    Lead leadInstance = new Lead();
+    LeadGuidance leadGuidanceInstance;
+
+    if (Schema.sObjectType.Lead.isQueryable()) {
+      //get lead profile and role name
+      leadInstance = [
+        SELECT
+          Id,
+          Owner.Profile.Name,
+          Owner.UserRole.Name,
+          RecordType.DeveloperName,
+          Status
+        FROM Lead
+        WHERE OwnerId != NULL AND Id = :leadId
+      ];
+    }
+
+    //get Load stage automation metadata to get what's next info for the current lead response status.
+    for (Lead_Stage_Automation__mdt iterator : [
+      SELECT
+        Id,
+        Response_Status__c,
+        Response_Type_CreateOpportunity__c,
+        isActive__c,
+        What_happens_next__c,
+        Lead_Record_Type__c,
+        Lead_Status__c
+      FROM Lead_Stage_Automation__mdt
+      WHERE
+        isActive__c = TRUE
+        AND Lead_Record_Type__c = :leadInstance.RecordType.DeveloperName
+    ]) {
+      if (
+        !mapOfLeadStatusResponseAndNextStep.containsKey(
+          iterator.Response_Status__c +
+          iterator.Response_Type_CreateOpportunity__c
+        )
+      ) {
+        mapOfLeadStatusResponseAndNextStep.put(
+          iterator.Response_Status__c +
+          (iterator.Response_Type_CreateOpportunity__c != null
+            ? iterator.Response_Type_CreateOpportunity__c
+            : 'false'),
+          iterator.What_happens_next__c
+        );
+      }
+    }
+
+    //get lead response conversation guide metadata for guidance urls
+    List<DCRM_Lead_Response_Conversation_Guide__mdt> dcrmLeadResponseConverstaionGuidList = new List<DCRM_Lead_Response_Conversation_Guide__mdt>(
+      [
+        SELECT
+          Id,
+          Profile__c,
+          User_Role__c,
+          Campaign_Lead_URL__c,
+          Conversation_Guide_URL__c
+        FROM DCRM_Lead_Response_Conversation_Guide__mdt
+        WHERE Profile__c = :leadInstance.Owner.Profile.Name
+      ]
+    );
+
+    //get LeadGuidance class instance values to return to the calling method
+    if (!dcrmLeadResponseConverstaionGuidList.isEmpty()) {
+      if (dcrmLeadResponseConverstaionGuidList.size() > 1) {
+        for (
+          DCRM_Lead_Response_Conversation_Guide__mdt iterator : dcrmLeadResponseConverstaionGuidList
+        ) {
+          userRoleSet = iterator.User_Role__c.contains(',')
+            ? new Set<String>(iterator.User_Role__c.split(','))
+            : new Set<String>{ iterator.User_Role__c };
+          if (userRoleSet.contains(leadInstance.Owner.UserRole.Name)) {
+            leadGuidanceInstance = new LeadGuidance(
+              iterator.Campaign_Lead_URL__c,
+              iterator.Conversation_Guide_URL__c,
+              mapOfLeadStatusResponseAndNextStep
+            );
+            break;
+          }
+        }
+      } else {
+        leadGuidanceInstance = new LeadGuidance(
+          dcrmLeadResponseConverstaionGuidList[0].Campaign_Lead_URL__c,
+          dcrmLeadResponseConverstaionGuidList[0].Conversation_Guide_URL__c,
+          mapOfLeadStatusResponseAndNextStep
+        );
+      }
+    }
+    if (leadGuidanceInstance == null) {
+      leadGuidanceInstance = new LeadGuidance(
+        '',
+        '',
+        mapOfLeadStatusResponseAndNextStep
+      );
+    }
+    return JSON.serialize(leadGuidanceInstance);
+  }
+
+  /**
    * @description Fetch the list of Response Status and Outcome Reason dependent picklist..
    * @name responseStatusDependentValues
    * @param leadRecordId
@@ -67,7 +175,6 @@ public with sharing class CCRMLogAResponseController {
         );
       }
     }
-
     return JSON.serialize(responseStatusOutcomeReasonMap);
   }
 
@@ -165,10 +272,42 @@ public with sharing class CCRMLogAResponseController {
         leadRespWrapper.responseTypeValue
       );
       Database.insert(responseRecord);
-      return responseRecord.Id;
+      return JSON.serialize(
+        new ResponseCapturedDataWrapper(
+          responseRecord.Id,
+          validateCampaignDateMaxExpiry(leadRespWrapper.leadId)
+        )
+      );
     } else {
-      return LOG_RESPONSE_ERROR_MESSAGE;
+      return JSON.serialize(
+        new ResponseCapturedDataWrapper(LOG_RESPONSE_ERROR_MESSAGE, null)
+      );
     }
+  }
+
+  /**
+   * @description This method is used to validate if campaign End Date is maximun than final expiry date
+   * @name validateCampaignDateMaxExpiry
+   * @param leadRecordId
+   * @return Boolean true if campaign End Date is maximun than final expiry date
+   * @US CC-1057
+   */
+  @AuraEnabled
+  public static Boolean validateCampaignDateMaxExpiry(String leadRecordId) {
+    List<CampaignMember> lstOfCampignMember = [
+      SELECT LeadId, Campaign.EndDate, Lead.Expiry_Date__c
+      FROM CampaignMember
+      WHERE LeadId = :leadRecordId
+      LIMIT 1
+    ];
+    if (
+      !lstOfCampignMember.isEmpty() &&
+      lstOfCampignMember[0].Lead.Expiry_Date__c ==
+      lstOfCampignMember[0].Campaign.EndDate
+    ) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -222,5 +361,31 @@ public with sharing class CCRMLogAResponseController {
      */
     @AuraEnabled
     public Date dueDate { get; set; }
+  }
+
+  /**
+   * @description wrapper class to store lead guidance details
+   */
+  private class LeadGuidance {
+    String campaignLeadsLink;
+    String customerConversationGuideLink;
+    Map<String, String> mapOfLeadStatusReasonAndNextDetail;
+
+    /**
+     * @description Constructor.
+     * @name LeadGuidance
+     * @param campaignLeadsLink get campaign leads link
+     * @param customerConversationGuideLink get customer converstaion huide link
+     * @param mapOfLeadStatusReasonAndNextDetail get map of lead status and next detail
+     */
+    private LeadGuidance(
+      String campaignLeadsLink,
+      String customerConversationGuideLink,
+      Map<String, String> mapOfLeadStatusReasonAndNextDetail
+    ) {
+      this.campaignLeadsLink = campaignLeadsLink;
+      this.customerConversationGuideLink = customerConversationGuideLink;
+      this.mapOfLeadStatusReasonAndNextDetail = mapOfLeadStatusReasonAndNextDetail;
+    }
   }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Total_Financial_Compensation__c</fullName>
+    <businessStatus>Hidden</businessStatus>
     <externalId>false</externalId>
     <formula>IDR_Financial_Compensation__c +  IDR_Financial_Compensation_2__c + IDR_Financial_Compensation_3__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

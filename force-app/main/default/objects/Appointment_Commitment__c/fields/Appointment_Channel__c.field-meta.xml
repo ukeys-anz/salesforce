@@ -25,6 +25,16 @@
                 <default>false</default>
                 <label>Store</label>
             </value>
+            <value>
+                <fullName>Video</fullName>
+                <default>false</default>
+                <label>Video</label>
+            </value>
+            <value>
+                <fullName>In Person</fullName>
+                <default>false</default>
+                <label>In-Person</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

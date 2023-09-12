@@ -127,6 +127,7 @@ public with sharing class LogEventActions {
       Origin__c = eventRecord.Origin__c,
       RecordId__c = eventRecord.RecordId__c,
       RecordObjectName__c = eventRecord.RecordObjectName__c,
+      Severity__c = eventRecord.Severity__c,
       SpanId__c = eventRecord.SpanId__c,
       StackTrace__c = eventRecord.StackTrace__c,
       UsedCallouts__c = eventRecord.UsedCallouts__c,

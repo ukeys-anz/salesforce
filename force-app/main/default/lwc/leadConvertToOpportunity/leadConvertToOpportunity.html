@@ -1,110 +1,235 @@
 <template>
-  <lightning-spinner lwc:if={isLoading}></lightning-spinner>
-  <template lwc:if={isModalOpen}>
+  <lightning-spinner if:true={isLoading}></lightning-spinner>
+  <template if:true={hasError}>
+    <c-error message={errorMessage}></c-error>
+  </template>
+  <template if:true={isModalOpen}>
     <section
       role="dialog"
       tabindex="-1"
-      class="slds-modal slds-fade-in-open slds-modal_medium"
-      aria-labelledby="modal-heading-01"
       aria-modal="true"
+      aria-labelledby="modal-heading-01"
+      class="slds-modal slds-fade-in-open"
     >
-      <div class="slds-modal__container">
-        <lightning-card title={leadTitle}>
-          <template lwc:if={validLead}>
-            <template lwc:if={leadDetails}>
-              <lightning-card title="Lead Details" icon-name="standard:lead">
-                <div class="slds-var-m-around_medium">
-                  <lightning-record-form
-                    object-api-name="Lead"
-                    record-id={recordId}
-                    fields={fields}
-                    mode="readonly"
-                    columns="2"
-                  ></lightning-record-form>
-                </div>
-                <footer class="slds-modal__footer">
-                  <lightning-button
-                    variant="neutral"
-                    label="Cancel"
-                    title="Cancel"
-                    onclick={closeAction}
-                  ></lightning-button>
-                  <lightning-button
-                    variant="neutral"
-                    label="Search Party"
-                    title="Search Party"
-                    onclick={searchForParty}
-                  ></lightning-button>
-                </footer>
-              </lightning-card>
-            </template>
-            <template lwc:if={searchParty}>
-              <lightning-card title="Certified Results">
-                <div style={setCertifiedTableHeight}>
-                  <lightning-datatable
-                    key-field="certifiedDataId"
-                    data={certifiedResults}
-                    columns={columns}
-                    max-row-selection="1"
-                    onrowselection={getCertifiedSelectedRow}
-                    selected-rows={setCertifiedSelectedRow}
-                  >
-                  </lightning-datatable>
-                </div>
-                <template lwc:if={noDataCertified}>
-                  <div style="height: 100px">
-                    <br />
-                    <h1 class="slds-align_absolute-center">
-                      <span>No Records Found!</span>
-                    </h1>
+      <div class="slds-modal__container convertLeadContianer">
+        <div class="slds-modal__header">
+          <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+            {leadTitle}
+          </h1>
+        </div>
+        <template if:false={validLead}>
+          <div class="slds-modal__content slds-p-around_medium contentDiv">
+            <lightning-card>
+              <p class="modalSubText">{modalBodySubText}</p>
+              <div>
+                <ul class="slds-m-around_medium">
+                  <template for:each={validationMessage} for:item="message">
+                    <li key={message.Id}>{message.id}. {message.body}</li>
+                  </template>
+                </ul>
+                <br />
+              </div>
+            </lightning-card>
+          </div>
+          <div class="slds-modal__footer">
+            <lightning-button
+              class="slds-button slds-var-p-around_x-small"
+              variant="neutral"
+              label="OK"
+              title="Close"
+              onclick={closeAction}
+              >OK
+            </lightning-button>
+          </div>
+        </template>
+        <template if:true={validLead}>
+          <template if:true={isMLCRMlead}>
+            <template if:true={leadDetails}>
+              <div class="slds-modal__content slds-p-around_medium contentDiv">
+                <lightning-card title="Lead Details" icon-name="standard:lead">
+                  {modalBodySubText}
+                  <div class="slds-var-m-around_medium">
+                    <lightning-record-form
+                      object-api-name="Lead"
+                      record-id={recordId}
+                      fields={fieldsML}
+                      mode="readonly"
+                      columns="2"
+                    ></lightning-record-form>
                   </div>
-                </template>
-              </lightning-card>
-              <lightning-card title="Probable Results">
-                <div style={setProbableTableHeight}>
-                  <lightning-datatable
-                    key-field="probableDataId"
-                    data={probableResults}
-                    columns={columns}
-                    max-row-selection="1"
-                    onrowselection={getProbableSelectedRow}
-                    selected-rows={setProbableSelectedRow}
-                  >
-                  </lightning-datatable>
-                </div>
-                <template lwc:if={noDataProbable}>
-                  <div style="height: 100px">
-                    <br />
-                    <h1 class="slds-align_absolute-center">
-                      <span>No Records Found!</span>
-                    </h1>
-                  </div>
-                </template>
-              </lightning-card>
-              <footer class="slds-modal__footer">
+                </lightning-card>
+              </div>
+              <div class="slds-modal__footer">
                 <lightning-button
+                  class="slds-button"
                   variant="neutral"
                   label="Cancel"
                   title="Cancel"
-                  onclick={closeAction}
+                  onclick={cancelAction}
                 ></lightning-button>
                 <lightning-button
+                  class="slds-button"
                   variant="neutral"
-                  label="No Match"
-                  title="No Match"
+                  label="Continue"
+                  title="Continue"
+                  onclick={convertLeadMLCRM}
+                ></lightning-button>
+              </div>
+            </template>
+          </template>
+          <template if:true={isCCRMlead}>
+            <template if:true={leadDetails}>
+              <div class="slds-modal__content slds-p-around_medium contentDiv">
+                <lightning-card title="Lead Details" icon-name="standard:lead">
+                  {modalBodySubText}
+                  <div class="slds-var-m-around_medium">
+                    <lightning-record-form
+                      object-api-name="Lead"
+                      record-id={recordId}
+                      fields={fields}
+                      mode="readonly"
+                      columns="2"
+                    ></lightning-record-form>
+                  </div>
+                </lightning-card>
+              </div>
+              <div class="slds-modal__footer">
+                <lightning-button
+                  class="slds-button"
+                  variant="neutral"
+                  label="Cancel"
+                  title="Cancel"
+                  onclick={cancelAction}
+                ></lightning-button>
+                <lightning-button
+                  class="slds-button"
+                  variant="neutral"
+                  label="Search Party"
+                  title="Search Party"
+                  onclick={searchForParty}
+                ></lightning-button>
+              </div>
+            </template>
+          </template>
+          <template if:true={searchParty}>
+            <div
+              class="slds-modal__content slds-p-around_medium contentDiv slds-border_bottom"
+            >
+              <lightning-card>
+                <p class="modalSubText">{modalBodySubText}</p>
+                <div style={setTableHeight}>
+                  <lightning-datatable
+                    class="resultTable"
+                    key-field="resultsTableId"
+                    data={searchResults}
+                    columns={columns}
+                    max-row-selection="1"
+                    onrowselection={getSelectedRow}
+                    selected-rows={setSelectedRow}
+                  >
+                  </lightning-datatable>
+                </div>
+                <template if:true={noDataFound}>
+                  <div style="height: 100px">
+                    <br />
+                    <h1 class="slds-align_absolute-center">
+                      <span>No Records Found!</span>
+                    </h1>
+                  </div>
+                </template>
+                <lightning-radio-group
+                  name="radioGroup"
+                  label=""
+                  options={noMatchOption}
+                  value={noMatchSelected}
+                  onchange={enableCreateNewCustomerConvertButton}
+                  type="radio"
+                ></lightning-radio-group>
+              </lightning-card>
+            </div>
+            <div class="slds-modal__footer">
+              <lightning-button
+                class="slds-button"
+                variant="neutral"
+                label="Cancel"
+                title="Cancel"
+                onclick={cancelAction}
+              ></lightning-button>
+              <template if:true={enableCreatePartAndConvertButton}>
+                <lightning-button
+                  class="slds-button"
+                  variant="brand"
+                  label="Create new Customer & Convert"
+                  title="Create new Customer & Convert"
                   onclick={createParty}
                 ></lightning-button>
-                <template lwc:if={isConvertLeadButton}>
-                  <lightning-button
-                    variant="neutral"
-                    label="Convert Lead"
-                    title="Convert Lead"
-                    onclick={initiateLeadConversion}
-                  ></lightning-button>
+              </template>
+              <template if:true={isConvertLeadButton}>
+                <lightning-button
+                  class="slds-button"
+                  variant="brand"
+                  label="Convert"
+                  title="Convert"
+                  onclick={initiateLeadConversion}
+                ></lightning-button>
+              </template>
+            </div>
+          </template>
+          <template if:true={maintainPartyExist}>
+            <div
+              class="slds-modal__content slds-p-around_medium contentDiv slds-border_bottom"
+            >
+              <lightning-card>
+                <p class="modalSubText">{modalBodySubText}</p>
+                <div style="height: 50px">
+                  <br />
+                  <h1 class="slds-align_left">
+                    <span>Match Found</span>
+                  </h1>
+                  <br />
+                </div>
+                <div style={setTableHeight}>
+                  <lightning-datatable
+                    class="resultTable2"
+                    key-field="resultsTable2Id"
+                    data={searchResults}
+                    columns={columnsIndividual}
+                    hide-checkbox-column="true"
+                  >
+                  </lightning-datatable>
+                </div>
+                <template if:true={noDataFound}>
+                  <div style="height: 100px">
+                    <br />
+                    <h1 class="slds-align_absolute-center">
+                      <span>No Records Found!</span>
+                    </h1>
+                  </div>
                 </template>
-              </footer>
-            </template>
-            <template lwc:if={isConvertLead}>
+              </lightning-card>
+            </div>
+            <div class="slds-modal__footer">
+              <lightning-button
+                class="slds-button"
+                variant="neutral"
+                label="Cancel"
+                title="Cancel"
+                onclick={cancelAction}
+              ></lightning-button>
+              <template if:false={noDataFound}>
+                <lightning-button
+                  class="slds-button"
+                  variant="brand"
+                  label="Continue"
+                  title="Continue"
+                  onclick={convertLeadWithMatchedParty}
+                ></lightning-button>
+              </template>
+            </div>
+          </template>
+
+          <template if:true={isConvertLead}>
+            <div class="slds-modal__content slds-p-around_medium contentDiv">
               <div
                 class="slds-modal__content slds-p-around_medium"
                 id="modal-content-id-2"
@@ -126,32 +251,10 @@
               >
                 {processStatus} ({progress}/100)
               </div>
-            </template>
-          </template>
-          <template lwc:else>
-            <div>
-              <ul class="slds-m-around_medium">
-                Please resolve below list of errors in order to proceed for Lead
-                Conversion.
-                <template for:each={validationMessage} for:item="message">
-                  <li key={message.Id}>{message.id}) {message.body}</li>
-                </template>
-              </ul>
-              <br />
-            </div>
-            <div class="slds-modal__footer">
-              <lightning-button
-                variant="neutral"
-                class="slds-var-p-around_x-small"
-                label="OK"
-                onclick={closeAction}
-                >OK
-              </lightning-button>
             </div>
           </template>
-        </lightning-card>
+        </template>
       </div>
     </section>
-    <div class="slds-backdrop slds-backdrop_open"></div>
   </template>
 </template>

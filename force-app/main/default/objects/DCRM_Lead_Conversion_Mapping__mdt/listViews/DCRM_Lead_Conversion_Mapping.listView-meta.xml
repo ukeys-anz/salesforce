@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DCRM_Lead_Conversion_Mapping</fullName>
+    <columns>MasterLabel</columns>
+    <columns>DeveloperName</columns>
+    <columns>Lead_Record_Types__c</columns>
+    <columns>Mapping_Type__c</columns>
+    <columns>Lead_Field__c</columns>
+    <columns>Target_Object__c</columns>
+    <columns>Target_Field__c</columns>
+    <columns>Target_Value__c</columns>
+    <columns>Active__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>DCRM Lead Conversion Mapping</label>
+    <language>en_US</language>
+</ListView>

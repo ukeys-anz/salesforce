@@ -14,6 +14,10 @@ public with sharing class InteractionTimeValidations {
     Map<Id, List<Interaction>> leadInteractionMap,
     List<Interaction> interactions
   ) {
+    Boolean isUpdatedByCoach =
+      (PermissionUtils.hasPermissionSetGroupAssigned('Coach') ||
+      PermissionUtils.hasPermissionSetGroupAssigned('Coach_Lead')) &&
+      Trigger.isUpdate;
     for (Interaction interact : interactions) {
       List<Interaction> customersInteractions = new List<Interaction>();
 
@@ -32,7 +36,11 @@ public with sharing class InteractionTimeValidations {
         );
         Boolean existingInteractionAvailable = existingInteraction != null;
         if (existingInteractionAvailable) {
-          if (!String.isEmpty(interact.ContactRequestId__c)) {
+          if (isUpdatedByCoach) {
+            interact.addError(
+              System.Label.Appointment_Reschedule_Error_Message
+            );
+          } else if (!String.isEmpty(interact.ContactRequestId__c)) {
             interact.addError(
               System.Label.Interaction_User_Created_Error_Message +
               existingInteraction.Interaction_External_Id__c
@@ -98,14 +106,25 @@ public with sharing class InteractionTimeValidations {
         interact.OwnerId
       );
       if (hasOwnerExistingInteractions) {
+        List<Interaction> existingUniqueInteractions = existingCoachInteractions.get(
+          interact.OwnerId
+        );
         Boolean existingInteractionAvailable = InteractionTimeValidations.verifyTimeSlots(
           interact,
-          existingCoachInteractions.get(interact.OwnerId)
+          existingUniqueInteractions
         );
         if (existingInteractionAvailable) {
-          interact.addError(
-            System.Label.Coach_Existing_Interaction_Error_Message
-          );
+          if (interact.OwnerId == UserInfo.getUserId()) {
+            interact.addError(
+              System.Label.Coach_Existing_Interaction_Error_Message
+            );
+          } else {
+            interact.addError(
+              existingUniqueInteractions[0].Owner.Name +
+              ' ' +
+              System.Label.Other_Coach_Existing_Interaction_Error_Message
+            );
+          }
         }
       }
     }

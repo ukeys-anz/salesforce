@@ -494,6 +494,18 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>IDR_AFCA_Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>IDR_AFCA_Issue_Type__c</field>
             </layoutItems>
             <layoutItems>
@@ -507,18 +519,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Product_Type__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IDR_AFCA_Status__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IDR_AFCA_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IDR_AFCA_Number__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

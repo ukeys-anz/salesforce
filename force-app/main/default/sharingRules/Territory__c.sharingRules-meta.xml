@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>ANZ_Mobile_Lending_Support_Team_Territory_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule is used to share territory (Edit Access) records with ANZ Mobile Lending Support Team members</description>
+        <label>ANZ Mobile Lending Support Team Territory Sharing</label>
+        <sharedTo>
+            <group>ANZ_Mobile_Lending_Support_Team</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CreatedById</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZ_Mobile_Lending_Team_Territory_Sharing</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule is used to share territory records (Read access) with ANZ Mobile Lending Team members</description>
+        <label>ANZ Mobile Lending Team Territory Sharing</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>CreatedById</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Mobile_Lending_Franchise_Users_Territory_Share</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule is used to share territory records (Read access) with Mobile Lending Team members</description>
+        <label>Mobile Lending Franchise Users Territory Share</label>
+        <sharedTo>
+            <role>Mobile_Lending_Franchise_Users</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>CreatedById</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

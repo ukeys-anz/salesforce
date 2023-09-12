@@ -10,5 +10,6 @@
     <label>ANZ Plus Customer</label>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <type>Checkbox</type>
 </CustomField>

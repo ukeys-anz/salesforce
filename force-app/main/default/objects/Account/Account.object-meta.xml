@@ -232,7 +232,7 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>true</enableFeeds>
-    <enableHistory>false</enableHistory>
+    <enableHistory>true</enableHistory>
     <externalSharingModel>Private</externalSharingModel>
     <profileSearchLayouts>
         <fields>ACCOUNT.NAME</fields>
@@ -256,7 +256,27 @@
         <fields>FinServ__KYCStatus__c</fields>
         <profileName>ANZ Standard User</profileName>
     </profileSearchLayouts>
-    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <profileSearchLayouts>
+        <fields>ACCOUNT.NAME</fields>
+        <fields>ACCOUNT.RECORDTYPE</fields>
+        <fields>CLG__c</fields>
+        <fields>CPID_Link__c</fields>
+        <fields>Source_System_Name__c</fields>
+        <fields>OCV_ID__c</fields>
+        <fields>FinServ__Status__c</fields>
+        <fields>Principal_Place_of_Business_Formula__c</fields>
+        <profileName>ANZ CCRM Standard User</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>ACCOUNT.NAME</fields>
+        <fields>FinServ__OtherAddress__pc</fields>
+        <fields>PC_BIRTHDATE</fields>
+        <fields>PC_EMAIL</fields>
+        <fields>PC_PHONE3</fields>
+        <fields>FinServ__KYCStatus__c</fields>
+        <profileName>ANZ ML Standard User</profileName>
+    </profileSearchLayouts>
+    <recordTypeTrackFeedHistory>true</recordTypeTrackFeedHistory>
     <searchLayouts>
         <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>ACCOUNT.ADDRESS1_CITY</customTabListAdditionalFields>

@@ -10,11 +10,11 @@
     <columns>Resolution__c</columns>
     <columns>StartTime</columns>
     <columns>Attendees__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
-        <field>InteractionType</field>
+        <field>RecordType</field>
         <operation>equals</operation>
-        <value>Call</value>
+        <value>Interaction.General</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Call Interactions</label>
 </ListView>

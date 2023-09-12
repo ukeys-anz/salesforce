@@ -111,7 +111,9 @@ public with sharing class IDRCaseAssignmentRules {
    * NcssMethodCount Suppressed : To have all the code lines together in one place. Code is a series of rules applied in order.
    * @return Queue Id
    */
-  @SuppressWarnings('PMD.NcssMethodCount,PMD.StdCyclomaticComplexity,PMD.CyclomaticComplexity')
+  @SuppressWarnings(
+    'PMD.NcssMethodCount,PMD.StdCyclomaticComplexity,PMD.CyclomaticComplexity'
+  )
   private static Id getOwnerId(
     Case rec,
     Product_Family__c oProductFamily,
@@ -161,8 +163,8 @@ public with sharing class IDRCaseAssignmentRules {
         ) {
           return QUEUE_MAP.get('EDR_Wealth');
         }
-        if ( rec.Type == 'Scam') {
-          return QUEUE_MAP.get('EDR_CM_Everyday_Banking_Wealth');   // EDR Scams
+        if (rec.Type == 'Scam') {
+          return QUEUE_MAP.get('EDR_CM_Everyday_Banking_Wealth'); // EDR Scams
         }
         return QUEUE_MAP.get('EDR_Early_Resolution');
       }

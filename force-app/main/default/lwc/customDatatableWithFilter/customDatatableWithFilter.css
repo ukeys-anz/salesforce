@@ -1,0 +1,8 @@
+.flyout-panel {
+  position: absolute;
+  right: var(--lwc-spacingMedium, 1rem);
+  background-color: #ffffff;
+  width: var(--lwc-sizeMedium, 20rem);
+  border: var(--lwc-borderWidthThin, 1px) solid #ddd;
+  z-index: 2;
+}

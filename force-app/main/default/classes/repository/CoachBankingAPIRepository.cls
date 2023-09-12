@@ -7,6 +7,7 @@
 public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   private static final String VIEW_CARD_PERMISSION_ERROR = 'User does not have the view cards permission';
   private static final String ACCOUNTS_AND_GOALS_PERMISSION_ERROR = 'User does not have the ANZx Accounts and Goals permission';
+  private static final String VIEW_TRANSACTION_HISTORY_ERROR = 'User does not have the transaction history permission';
 
   /**
    * @param ocvId customer id
@@ -99,24 +100,32 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     String endDate,
     List<String> bucketIds
   ) {
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    paramUrl = String.isBlank(paramUrl)
-      ? CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
-          startDate,
-          endDate,
-          accountNumber,
-          bucketIds
-        )
-      : paramUrl;
-    try {
-      TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
-        ocvId,
-        paramUrl
+    if (FeatureManagement.checkPermission('ANZx_View_Transaction_History')) {
+      CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+      paramUrl = String.isBlank(paramUrl)
+        ? CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
+            startDate,
+            endDate,
+            accountNumber,
+            bucketIds
+          )
+        : paramUrl;
+      try {
+        TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
+          ocvId,
+          paramUrl
+        );
+        return responseModel;
+      } catch (Exception e) {
+        AuraHandledException ahe = new AuraHandledException(e.getMessage());
+        ahe.setMessage(e.getMessage());
+        throw ahe;
+      }
+    } else {
+      AuraHandledException ahe = new AuraHandledException(
+        VIEW_TRANSACTION_HISTORY_ERROR
       );
-      return responseModel;
-    } catch (Exception e) {
-      AuraHandledException ahe = new AuraHandledException(e.getMessage());
-      ahe.setMessage(e.getMessage());
+      ahe.setMessage(VIEW_TRANSACTION_HISTORY_ERROR);
       throw ahe;
     }
   }

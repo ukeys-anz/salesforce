@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ML_Role__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>The Role of the user within the ML Franchise</description>
+    <externalId>false</externalId>
+    <label>ML Role</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Franchise Owner</fullName>
+                <default>false</default>
+                <label>Franchise Owner</label>
+            </value>
+            <value>
+                <fullName>Franchise Manager</fullName>
+                <default>false</default>
+                <label>Franchise Manager</label>
+            </value>
+            <value>
+                <fullName>Loan Writer</fullName>
+                <default>false</default>
+                <label>Loan Writer</label>
+            </value>
+            <value>
+                <fullName>Admin</fullName>
+                <default>false</default>
+                <label>Admin</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

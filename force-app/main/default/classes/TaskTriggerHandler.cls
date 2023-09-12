@@ -44,6 +44,10 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     IDRTaskActions.afterUpdateActions(records);
+    CCRMActionplanActions.updateActionPlanStatus(
+      records,
+      (Map<Id, Task>) oldMap
+    );
   }
   /**
    * @description onBeforeDelete to handle before delete trigger actions.

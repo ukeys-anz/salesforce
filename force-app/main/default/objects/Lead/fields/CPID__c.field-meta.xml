@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Control Post name where the Leads assigned to a dedicated banker. Required for queue assisgnment if this field carries CPID</description>
     <externalId>false</externalId>
-    <label>Controlling Post ID</label>
+    <label>CPID</label>
     <length>5</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

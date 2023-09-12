@@ -2,89 +2,345 @@
  * @author Rebecca Jan
  * @since  April 2022
  * @description APEX REST API class to handle incoming requests from Twilio.
+ * Added Chat Interaction and Twilio Details Creation Logic and updated Call Interaction Creation Logic as part of ANZX-103285 by Shivam , July 2023
  */
+@SuppressWarnings('PMD.StdCyclomaticComplexity,PMD.ExcessivePublicCount')
 @RestResource(urlMapping='/InteractionContextRequests/*')
 global with sharing class InteractionContextService {
-  global static final String INTERACTION_TYPE = 'Call';
+  global static final String CALL_INTERACTION_TYPE = 'voice';
+  global static final String CHAT_INTERACTION_TYPE = 'chat';
   global static final String INBOUND_DIRECTION = 'Inbound';
   global static final String OUTBOUND_DIRECTION = 'Outbound';
+  global static final String DEFAULT_CHAT_FOR = 'Customer';
+  global static final String DEFAULT_CHAT_AUTHENTICATED_METHOD = 'Authenticated';
+  public static Map<String, String> supportTopicMap = new Map<String, String>();
+
   /**
    * @description HTTP POST method passing incoming interaction context in to Salesforce.
    * Salesforce would then return a interaction id created
    * @param contextRequest interact context request
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssMethodCount')
   @HttpPost
   global static void doPost(InteractionContextRequest contextRequest) {
-    Integer finalStatus = 200;
-    InteractionContextResponse resp;
+    List<InteractionContextRequest> contextRequests = new List<InteractionContextRequest>{
+      contextRequest
+    };
+    Integer finalStatusCode = 400;
 
-    if (
-      contextRequest.direction != INBOUND_DIRECTION &&
-      contextRequest.direction != OUTBOUND_DIRECTION
+    Map<String, Id> accountsByOCVId = new Map<String, Id>();
+    Map<String, InteractionContextRequest> requestByOCVId = new Map<String, InteractionContextRequest>();
+    Map<String, InteractionContextRequest> requestByPhoneNumber = new Map<String, InteractionContextRequest>();
+    Map<String, Interaction> existingInteractionsBySID = new Map<String, Interaction>();
+    Set<String> callOrChatSidList = new Set<String>();
+    List<Account> accountsToUpdate = new List<Account>();
+    List<Interaction> interactionToBeCreated = new List<Interaction>();
+    List<InteractionContextResponse> responseList = new List<InteractionContextResponse>();
+    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList = new List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>();
+
+    //Validating the response recived from Twilio
+    if (!contextRequests.isEmpty()) {
+      for (
+        Integer intCount = 0; intCount < contextRequests.size(); intCount++
+      ) {
+        InteractionContextRequest req = contextRequests.get(intCount);
+        if (
+          isValidRequest(req).isEmpty() &&
+          req.type.toLowerCase() == CHAT_INTERACTION_TYPE
+        ) {
+          requestByOCVId.put(req.ocvId, req);
+          callOrChatSidList.add(req.chatOrCallId);
+        } else if (
+          isValidRequest(req).isEmpty() &&
+          req.type.toLowerCase() == CALL_INTERACTION_TYPE
+        ) {
+          requestByPhoneNumber.put(req.phoneNumber, req);
+          callOrChatSidList.add(req.chatOrCallId);
+        } else {
+          responseList.addAll(isValidRequest(req));
+        }
+      }
+    }
+
+    //Fetching valid support topic values and creating the map.
+    Schema.DescribeFieldResult fieldSupportTopicPicklistValues = Interaction.Support_Topics__c.getDescribe();
+    for (
+      Schema.PicklistEntry supTop : fieldSupportTopicPicklistValues.getPicklistValues()
     ) {
-      resp = generateErrorResponse('Direction should be inbound or outbound');
-      finalStatus = 400;
-    } else {
-      Interaction intToInsert = new Interaction();
+      supportTopicMap.put(supTop.getValue().toLowerCase(), supTop.getValue());
+    }
 
-      intToInsert.Direction__c = contextRequest.direction;
-      intToInsert.InteractionType = INTERACTION_TYPE;
-      intToInsert.Contact_Mobile__c = contextRequest.phoneNumber;
-      intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
+    //Finding available accounts based on OCV Id received for Chat
+    if (!requestByOCVId.isEmpty()) {
+      for (Account acc : [
+        SELECT Id, External_Id__c, OCV_ID__c, PPID__c
+        FROM Account
+        WHERE OCV_ID__c IN :requestByOCVId.keySet() AND ANZx_Customer__c = TRUE
+      ]) {
+        accountsByOCVId.put(acc.OCV_ID__c, acc.Id);
+        // Only update PPID once or if its changed
+        if (
+          String.isNotBlank(requestByOCVId.get(acc.OCV_ID__c).PPID) &&
+          (String.isBlank(acc.PPID__C) ||
+          acc.PPID__C != requestByOCVId.get(acc.OCV_ID__c).PPID)
+        ) {
+          acc.PPID__C = requestByOCVId.get(acc.OCV_ID__c).PPID;
+          accountsToUpdate.add(acc);
+        }
+      }
+    }
 
-      //not doing permission checks as the integration user fails on POST
-      //this is the same issue faced in ChatContextService and test classes
-      //for the integration user
-      insert intToInsert;
-      Interaction newInt;
-      newInt = [
-        SELECT Id, Interaction_External_Id__c
+    //For Creating List of Existing Interactions with ChatOrCallId
+    if (!callOrChatSidList.isEmpty()) {
+      for (Interaction interact : [
+        SELECT
+          Id,
+          Interaction_External_Id__c,
+          Account.OCV_ID__c,
+          Chat_or_Call_SID__c
         FROM Interaction
-        WHERE Id = :intToInsert.Id
-      ];
-      resp = generateResponse(
-        intToInsert.Id,
-        newInt.Interaction_External_Id__c
+        WHERE Chat_or_Call_SID__c IN :callOrChatSidList
+      ]) {
+        existingInteractionsBySID.put(interact.Chat_or_Call_SID__c, interact);
+      }
+    }
+
+    //Creation of New Interaction Record To Be Created and Checking Existing Interations to avoid creation of new interaction
+    if (!contextRequests.isEmpty()) {
+      for (
+        Integer intCount = 0; intCount < contextRequests.size(); intCount++
+      ) {
+        InteractionContextRequest interactContext = contextRequests.get(
+          intCount
+        );
+        if (
+          !existingInteractionsBySID.isEmpty() &&
+          existingInteractionsBySID.containsKey(interactContext.chatOrCallId)
+        ) {
+          responseList.add(
+            generateResponse(
+              existingInteractionsBySID.get(interactContext.chatOrCallId).Id,
+              existingInteractionsBySID.get(interactContext.chatOrCallId)
+                .Interaction_External_Id__c,
+              interactContext.ocvId,
+              interactContext.issueSubtype
+            )
+          );
+        } else {
+          if (
+            requestByOCVId.containsKey(interactContext.ocvId) &&
+            (!accountsByOCVId.isEmpty() &&
+            String.isNotBlank(accountsByOCVId.get(interactContext.ocvId)))
+          ) {
+            interactionToBeCreated.addAll(
+              createInteraction(interactContext, accountsByOCVId)
+            );
+          } else if (
+            requestByPhoneNumber.containsKey(interactContext.phoneNumber)
+          ) {
+            interactionToBeCreated.addAll(
+              createInteraction(interactContext, accountsByOCVId)
+            );
+          }
+        }
+      }
+    }
+
+    //Creation of Twilio Details and response to be send to Twilio
+    if (!interactionToBeCreated.isEmpty()) {
+      List<Database.SaveResult> results = Database.insert(
+        interactionToBeCreated,
+        false
+      );
+      Logger.error('Error in Creating Interaction', results);
+      Logger.saveLog();
+
+      Map<Id, Interaction> newInteractionMap = new Map<Id, Interaction>(
+        [
+          SELECT
+            Id,
+            Interaction_External_Id__c,
+            Account.OCV_ID__c,
+            Account.PersonMobilePhone,
+            Support_Topics__c,
+            InteractionType
+          FROM Interaction
+          WHERE Id IN :interactionToBeCreated
+        ]
+      );
+      for (Integer i = 0; i < interactionToBeCreated.size(); i++) {
+        Database.SaveResult sr = results[i];
+        if (sr.isSuccess()) {
+          InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContext = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
+
+          twilioContext.interactionId = interactionToBeCreated[i].Id;
+          twilioContext.callRecordingId = contextRequests[i].callRecordingId;
+          twilioContext.chatOrCallId = contextRequests[i].chatOrCallId;
+          twilioContext.chatOrCallStatus = contextRequests[i].chatOrCallStatus;
+          twilioContext.twilioId = contextRequests[i].twilioId;
+          twilioDetailsByInteractionList.add(twilioContext);
+
+          responseList.add(
+            generateResponse(
+              interactionToBeCreated[i].Id,
+              newInteractionMap.get(interactionToBeCreated[i].Id)
+                .Interaction_External_Id__c,
+              contextRequests[i].ocvId,
+              contextRequests[i].issueSubtype
+            )
+          );
+        } else {
+          List<Database.Error> err = sr.getErrors();
+          String errorvalues = String.join(err, '/n');
+          responseList.add(
+            generateErrorResponse(
+              contextRequests[i].ocvId,
+              errorvalues,
+              contextRequests[i].issueSubtype
+            )
+          );
+        }
+      }
+    }
+
+    if (!twilioDetailsByInteractionList.isEmpty()) {
+      TwilioServiceUtil.upsertTwilioDetailsRecord(
+        twilioDetailsByInteractionList
       );
     }
 
-    String jsonRes = JSON.serialize(resp);
+    //Update PPID on Account
+    if (
+      !accountsToUpdate.isEmpty() &&
+      Account.sObjectType.getDescribe().isUpdateable()
+    ) {
+      List<Database.SaveResult> results = Database.Update(
+        accountsToUpdate,
+        false
+      );
+
+      Logger.error('Error in Updating Account', results);
+      Logger.saveLog();
+    }
+
+    // Handling responses against requests with invalid OCV Ids
+    for (String ocvId : requestByOCVId.keySet()) {
+      if (!accountsByOCVId.keySet().contains(ocvId)) {
+        String errorMessage =
+          'Could not find a matching ANZx customer record based on OCV ID: ' +
+          ocvId;
+
+        responseList.add(generateErrorResponse(ocvId, errorMessage, ''));
+      }
+    }
+
+    // At least one request was successful
+    for (InteractionContextResponse res : responseList) {
+      if (res.statusCode == 200) {
+        finalStatusCode = 200;
+        break;
+      }
+    }
+
+    //Creating the json response to be send to Twilio
+    String jsonRes = JSON.serialize(responseList.get(0));
     RestContext.response.addHeader('Content-Type', 'application/json');
     RestContext.response.responseBody = Blob.valueOf(jsonRes);
-    RestContext.response.statusCode = finalStatus;
+    RestContext.response.statusCode = finalStatusCode;
   }
 
   /**
    * @description Method to generate a response instance
    * @param recordId interaction ID of the newly generated interaction.
    * @param externalId external id of the newly generated interaction.
+   * @param ocvId ocvId for inbound chat
+   * @param chatLabel chatLabel for inbound chat
    * @return `InteractionContextResponse`
    */
   private static InteractionContextResponse generateResponse(
     String recordId,
-    String externalId
+    String externalId,
+    String ocvId,
+    String chatLabel
   ) {
     InteractionContextResponse response = new InteractionContextResponse();
     response.recordId = recordId;
     response.externalId = externalId;
     response.success = true;
     response.statusCode = 200;
+    response.ocvId = ocvId;
+    response.chatLabel = chatLabel;
     return response;
   }
 
   /**
    * @description Method to generate a response instance
+   * @param ocvId ocvId for inbound chat
    * @param errMsg error message for interaction response
+   * @param chatLabel chatLabel for inbound chat
    * @return `InteractionContextResponse`
    */
   private static InteractionContextResponse generateErrorResponse(
-    String errMsg
+    String ocvId,
+    String errMsg,
+    String chatLabel
   ) {
     InteractionContextResponse response = new InteractionContextResponse();
     response.errorMessage = errMsg;
     response.success = false;
     response.statusCode = 400;
+    response.ocvId = ocvId;
+    response.chatLabel = chatLabel;
     return response;
+  }
+
+  /**
+   * @description Method to check if the request record is valid or not.
+   * @param validateContextRequest Chat Context instance
+   * @return `list<InteractionContextResponse>` which contains error messages if any
+   */
+  private static List<InteractionContextResponse> isValidRequest(
+    InteractionContextRequest validateContextRequest
+  ) {
+    List<InteractionContextResponse> responseValidation = new List<InteractionContextResponse>();
+    if (!String.isBlank(validateContextRequest.Type)) {
+      if (
+        validateContextRequest.direction == INBOUND_DIRECTION ||
+        validateContextRequest.direction == OUTBOUND_DIRECTION
+      ) {
+        //Check to make sure OCV ID
+        if (
+          String.isBlank(validateContextRequest.ocvId) &&
+          String.isBlank(validateContextRequest.phoneNumber)
+        ) {
+          responseValidation.add(
+            generateErrorResponse(
+              validateContextRequest.ocvId,
+              'OCVid and Phonenumber cannot be null',
+              validateContextRequest.issueSubtype
+            )
+          );
+        }
+      } else {
+        responseValidation.add(
+          generateErrorResponse(
+            validateContextRequest.ocvId,
+            'Direction should be inbound or outbound',
+            validateContextRequest.issueSubtype
+          )
+        );
+      }
+    } else {
+      responseValidation.add(
+        generateErrorResponse(
+          validateContextRequest.ocvId,
+          'Type value is blank',
+          validateContextRequest.issueSubtype
+        )
+      );
+    }
+
+    return responseValidation;
   }
 
   /**
@@ -92,13 +348,45 @@ global with sharing class InteractionContextService {
    */
   global class InteractionContextRequest {
     /**
-     * @description phone number from Twilio
+     * @description chatOrCallId to identify the Twilio details
      */
-    public String phoneNumber { get; set; }
+    public String chatOrCallId { get; set; }
+    /**
+     * @description Issue Subtype as a String based on Chat context passed from App in to Twilio
+     */
+    public String issueSubtype { get; set; }
     /**
      * @description Direction from Twillio
      */
     public String direction { get; set; }
+    /**
+     * @description Customer OCV ID
+     */
+    public String ocvId { get; set; }
+    /**
+     * @description phone number from Twilio
+     */
+    public String phoneNumber { get; set; }
+    /**
+     * @description PPID from Twilio
+     */
+    public String ppid { get; set; }
+    /**
+     * @description PPID from Twilio
+     */
+    public String type { get; set; }
+    /**
+     * @description Twilio Id from Twilio
+     */
+    public String twilioId { get; set; }
+    /**
+     * @description Call Recording Id from Twilio for inbound calls
+     */
+    public String callRecordingId { get; set; }
+    /**
+     * @description chatOrCallStatus from Twilio
+     */
+    public String chatOrCallStatus { get; set; }
   }
 
   /**
@@ -125,5 +413,71 @@ global with sharing class InteractionContextService {
      * @description Error Message for failure response
      */
     public String errorMessage { get; set; }
+    /**
+     * @description Customer OCV ID
+     */
+    public String ocvId { get; set; }
+    /**
+     * @description Label for chat to display
+     */
+    public String chatLabel { get; set; }
+  }
+
+  /**
+   * @description Method to check if the request record is valid or not.
+   * @param interactContextRequest Chat Context instance
+   * @param accountsMap accountsByOCVId
+   * @return InteractionContextRequest which contains error messages if any
+   */
+  private static List<Interaction> createInteraction(
+    InteractionContextRequest interactContextRequest,
+    Map<String, Id> accountsMap
+  ) {
+    List<Interaction> listOfInteractionsToCreate = new List<Interaction>();
+    if (interactContextRequest.type.toLowerCase() == CHAT_INTERACTION_TYPE) {
+      Interaction intToInsert = new Interaction();
+      intToInsert.Direction__c = interactContextRequest.direction;
+      intToInsert.InteractionType = 'Chat';
+      intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
+      intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
+      intToInsert.Status__c = TwilioServiceUtil.getStatus(
+        interactContextRequest.chatOrCallStatus
+      );
+      intToInsert.StartTime = System.now();
+      intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_MESSAGE_RT_ID;
+      intToInsert.Support_Topics__c = validateSupportTopic(
+        interactContextRequest.issueSubtype
+      );
+      intToInsert.AccountId = accountsMap.get(interactContextRequest.ocvId);
+      intToInsert.Authentication_Method__c = DEFAULT_CHAT_AUTHENTICATED_METHOD;
+      intToInsert.Interaction_Purpose__c = DEFAULT_CHAT_FOR;
+
+      listOfInteractionsToCreate.add(intToInsert);
+    } else if (
+      interactContextRequest.type.toLowerCase() == CALL_INTERACTION_TYPE
+    ) {
+      Interaction intToInsert = new Interaction();
+      intToInsert.Direction__c = interactContextRequest.direction;
+      intToInsert.InteractionType = 'Call';
+      intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
+      intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
+      intToInsert.StartTime = System.now();
+      intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
+      listOfInteractionsToCreate.add(intToInsert);
+    }
+    return listOfInteractionsToCreate;
+  }
+
+  /**
+   * @description validatedSupportTopic validates supportTopics in requests regardless of case sensitvity
+   * @param issueSubType the Subtype received in request to validate
+   * @return subtype the validated Subtype taking into account case sensitivity
+   */
+  private static String validateSupportTopic(String issueSubType) {
+    if (String.isNotBlank(supportTopicMap.get(issueSubType.toLowerCase()))) {
+      return supportTopicMap.get(issueSubType.toLowerCase());
+    } else {
+      return 'Support Enquiry';
+    }
   }
 }

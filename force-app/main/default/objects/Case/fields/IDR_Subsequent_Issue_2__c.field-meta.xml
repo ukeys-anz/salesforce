@@ -422,6 +422,11 @@
                 <label>Fraud / Falcon block placed</label>
             </value>
             <value>
+                <fullName>109</fullName>
+                <default>false</default>
+                <label>Blocks placed on customers account/profile</label>
+            </value>
+            <value>
                 <fullName>102</fullName>
                 <default>false</default>
                 <label>Branch to load placed on customers profile</label>
@@ -439,7 +444,7 @@
             <value>
                 <fullName>107</fullName>
                 <default>false</default>
-                <label>Scam not detected/not blocked by ANZ</label>
+                <label>Not detected/not blocked by ANZ</label>
             </value>
             <value>
                 <fullName>108</fullName>
@@ -591,17 +596,21 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>109</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
             <valueName>102</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
-            <controllingFieldValue>14</controllingFieldValue>
             <valueName>86</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>84</valueName>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>107</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
@@ -625,7 +634,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
-            <controllingFieldValue>14</controllingFieldValue>
             <controllingFieldValue>Scam</controllingFieldValue>
             <valueName>87</valueName>
         </valueSettings>
@@ -641,10 +649,6 @@
         <valueSettings>
             <controllingFieldValue>21</controllingFieldValue>
             <valueName>94</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Scam</controllingFieldValue>
-            <valueName>107</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Scam</controllingFieldValue>
@@ -677,18 +681,6 @@
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
             <valueName>47</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>82</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>83</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>14</controllingFieldValue>
-            <valueName>87</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>20</controllingFieldValue>

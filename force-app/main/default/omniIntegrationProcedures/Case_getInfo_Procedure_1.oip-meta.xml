@@ -2,7 +2,7 @@
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
     <customJavaScript>{
     &quot;customerIdentifier&quot;: &quot;Customer/Business CAP ID&quot;,
-    &quot;customerId&quot;: &quot;&quot;
+    &quot;customerId&quot;: &quot;345345&quot;
 }</customJavaScript>
     <description>This IP is used to get customer information from OCV callout</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
@@ -16,7 +16,6 @@
     <name>getCustomerInfo</name>
     <omniProcessElements>
         <name>getCustomerInfo</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -28,7 +27,7 @@
   &quot;useFormulas&quot; : true,
   &quot;additionalInput&quot; : {
     &quot;CustomerIdentifier&quot; : &quot;%customerIdentifier%&quot;,
-    &quot;CustomerId&quot; : &quot;%customerId%&quot;
+    &quot;CustomerId&quot; : &quot;=IF(ISNOTBLANK(customerId),%customerId%,%cacheId%)&quot;
   },
   &quot;additionalOutput&quot; : { },
   &quot;failureResponse&quot; : { },
@@ -54,7 +53,6 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>ResponseAction</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -113,5 +111,5 @@
     <type>Case</type>
     <uniqueName>Case_getInfo_Procedure_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>9f545a02-5f04-050a-9334-dcf0b6dd7503</webComponentKey>
+    <webComponentKey>88ed1ca7-1cb4-8c64-aad2-6df18f9c62aa</webComponentKey>
 </OmniIntegrationProcedure>
