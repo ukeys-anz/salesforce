@@ -24,6 +24,11 @@ public with sharing class FabricServiceMock extends Service {
   );
 
   @TestVisible
+  private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSEV1 = getStaticResource(
+    'mock_FinancialAccountMappingv1'
+  );
+
+  @TestVisible
   private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE_1 = getStaticResource(
     'mock_transactionHistory1'
   );
@@ -34,6 +39,11 @@ public with sharing class FabricServiceMock extends Service {
   @TestVisible
   private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE_3 = getStaticResource(
     'mock_transactionHistory3'
+  );
+
+  @TestVisible
+  private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSEV1 = getStaticResource(
+    'mock_transactionHistoryV1'
   );
 
   @TestVisible
@@ -82,7 +92,11 @@ public with sharing class FabricServiceMock extends Service {
     List<String> accountNumbers
   ) {
     if (!preset) {
-      response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE;
+      if (Label.AccountAPIUpliftedToV1 == 'True') {
+        response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSEV1;
+      } else {
+        response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE;
+      }
     }
     return response;
   }
@@ -92,19 +106,23 @@ public with sharing class FabricServiceMock extends Service {
     String paramUrl
   ) {
     if (!preset) {
-      Map<String, String> mappedMockData = new Map<String, String>{
-        'account_numbers' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_1,
-        '&cursor.value=ddd' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_2,
-        '&cursor.value=hhh' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_3
-      };
-      String mockData = '{}';
-      for (String key : mappedMockData.keySet()) {
-        if (paramUrl.contains(key)) {
-          mockData = mappedMockData.get(key);
-          break;
+      if (Label.TransactionAPIUpliftedToV1 == 'False') {
+        Map<String, String> mappedMockData = new Map<String, String>{
+          'account_numbers' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_1,
+          '&cursor.value=ddd' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_2,
+          '&cursor.value=hhh' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_3
+        };
+        String mockData = '{}';
+        for (String key : mappedMockData.keySet()) {
+          if (paramUrl.contains(key)) {
+            mockData = mappedMockData.get(key);
+            break;
+          }
         }
+        response.body = mockData;
+      } else {
+        response.body = FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSEV1;
       }
-      response.body = mockData;
     }
     return response;
   }
