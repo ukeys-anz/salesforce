@@ -74,10 +74,11 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     );
 
     ParameterBuilder builder = new ParameterBuilder();
-
+    //It an issue in Transaction API where if page_size parameter is not found then the "next_uri" node does not come in response.
     builder.append('account_numbers', accountNumber)
       .append(startTime, DateTimeUtils.getUTCTimeFromString(startDate))
-      .append(endTime, DateTimeUtils.getUTCTimeFromString(endDate));
+      .append(endTime, DateTimeUtils.getUTCTimeFromString(endDate))
+      .append('page_size', Label.TransactionPageSize);
 
     if (!bucketIds.isEmpty()) {
       for (String bucketId : bucketIds) {
