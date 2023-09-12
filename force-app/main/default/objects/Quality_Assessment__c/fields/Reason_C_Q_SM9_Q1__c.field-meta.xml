@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reason_C_Q_SM9_Q1__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>SUCCESS MEASURE 9 Q1 reason</description>
     <externalId>false</externalId>
     <label>Reason</label>
@@ -13,6 +13,7 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
+        <controllingField>Stakeholder_comms_clear_relevant_etc__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -57,6 +58,38 @@
                 <label>there were no records of our internal/external stakeholder engagement in CMOS at the time of review.&quot;</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>our requests to stakeholders for relevant information were not clear.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>we did not provide all relevant information to our stakeholder/s to enable them to provide an informed response to our request or recommendation.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>where we requested CAD approval we did not provide some or all relevant information to the CAD holder to enable them to make an informed decision.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>some or all of our communications with internal stakeholders were not professional and/or respectful.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM receiving the review was not the CM responsible for the ‘not met’.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>there were no dealings with internal or external stakeholders.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>all engagement with internal or external stakeholders was over the phone and recordings were unable to be retrieved or were not recorded.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>there were no records of our internal/external stakeholder engagement in CMOS at the time of review.&quot;</valueName>
+        </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>

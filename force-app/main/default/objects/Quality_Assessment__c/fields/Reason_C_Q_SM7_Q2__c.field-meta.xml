@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reason_C_Q_SM7_Q2__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>SUCCESS MEASURE 7 Q2 reason</description>
     <externalId>false</externalId>
     <label>Reason</label>
@@ -13,6 +13,7 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
+        <controllingField>Relevant_internal_information_obtained__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -37,6 +38,22 @@
                 <label>CM had no access to an ANZ system and the case ought to have been referred to a specialist business unit for assistance (e.g. ANZ Shield).</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not critically analyse and obtain some or any relevant information from the ANZ systems.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not critically analyse and obtain some or any relevant information from ANZ business units.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM escalated information request and was directed not to obtain information by SME.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>CM had no access to an ANZ system and the case ought to have been referred to a specialist business unit for assistance (e.g. ANZ Shield).</valueName>
+        </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>

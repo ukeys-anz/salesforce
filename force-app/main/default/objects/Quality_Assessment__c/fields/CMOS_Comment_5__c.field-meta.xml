@@ -6,7 +6,7 @@
     <description>More details provided when No is selected in any Success Measure question.</description>
     <externalId>false</externalId>
     <label>Comments</label>
-    <length>32768</length>
+    <length>5000</length>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

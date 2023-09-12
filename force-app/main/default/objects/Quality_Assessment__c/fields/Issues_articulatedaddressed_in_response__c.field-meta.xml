@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Issues_articulatedaddressed_in_response__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Letter Question 2</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Have we clearly articulated the customer&apos;s issues and addressed all the issues  in the response?
+
+Does the response correctly identify the issues raised in the complaint? Ie: What is/are the error/s the customer says that ANZ has made? 
+
+For each issue raised by the customer, does the response address our findings/decision on the material questions of fact with enough detail for the customer to understand the basis of that decision and be fully informed in deciding what their next step is?</inlineHelpText>
+    <label>Issues articulated/addressed in response</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

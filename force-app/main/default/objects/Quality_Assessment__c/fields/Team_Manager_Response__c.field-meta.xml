@@ -17,9 +17,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>&quot;Awaiting response from TM</fullName>
+                <fullName>Awaiting response from TM</fullName>
                 <default>false</default>
-                <label>&quot;Awaiting response from TM</label>
+                <label>Awaiting response from TM</label>
             </value>
             <value>
                 <fullName>Accepted by TM</fullName>
@@ -27,9 +27,9 @@
                 <label>Accepted by TM</label>
             </value>
             <value>
-                <fullName>Rejected by TM&quot;</fullName>
+                <fullName>Rejected by TM</fullName>
                 <default>false</default>
-                <label>Rejected by TM&quot;</label>
+                <label>Rejected by TM</label>
             </value>
         </valueSetDefinition>
     </valueSet>

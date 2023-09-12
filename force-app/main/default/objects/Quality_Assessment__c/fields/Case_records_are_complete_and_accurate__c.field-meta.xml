@@ -18,9 +18,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>&quot;Met</fullName>
+                <fullName>Met</fullName>
                 <default>false</default>
-                <label>&quot;Met</label>
+                <label>Met</label>
             </value>
             <value>
                 <fullName>Not met</fullName>
@@ -28,9 +28,9 @@
                 <label>Not met</label>
             </value>
             <value>
-                <fullName>Not met (outside CM control)&quot;</fullName>
+                <fullName>Not met (outside CM control)</fullName>
                 <default>false</default>
-                <label>Not met (outside CM control)&quot;</label>
+                <label>Not met (outside CM control)</label>
             </value>
         </valueSetDefinition>
     </valueSet>
