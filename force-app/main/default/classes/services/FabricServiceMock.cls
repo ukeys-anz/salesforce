@@ -91,10 +91,12 @@ public with sharing class FabricServiceMock extends Service {
     String ocvId,
     List<String> accountNumbers
   ) {
-    if (!preset && Label.AccountAPIUpliftedToV1 == 'True') {
-      response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSEV1;
-    } else {
-      response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE;
+    if (!preset) {
+      if (Label.AccountAPIUpliftedToV1 == 'True') {
+        response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSEV1;
+      } else {
+        response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE;
+      }
     }
     return response;
   }
@@ -103,22 +105,24 @@ public with sharing class FabricServiceMock extends Service {
     String ocvId,
     String paramUrl
   ) {
-    if (!preset && Label.TransactionAPIUpliftedToV1 == 'False') {
-      Map<String, String> mappedMockData = new Map<String, String>{
-        'account_numbers' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_1,
-        '&cursor.value=ddd' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_2,
-        '&cursor.value=hhh' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_3
-      };
-      String mockData = '{}';
-      for (String key : mappedMockData.keySet()) {
-        if (paramUrl.contains(key)) {
-          mockData = mappedMockData.get(key);
-          break;
+    if (!preset) {
+      if (Label.TransactionAPIUpliftedToV1 == 'False') {
+        Map<String, String> mappedMockData = new Map<String, String>{
+          'account_numbers' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_1,
+          '&cursor.value=ddd' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_2,
+          '&cursor.value=hhh' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_3
+        };
+        String mockData = '{}';
+        for (String key : mappedMockData.keySet()) {
+          if (paramUrl.contains(key)) {
+            mockData = mappedMockData.get(key);
+            break;
+          }
         }
+        response.body = mockData;
+      } else {
+        response.body = FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSEV1;
       }
-      response.body = mockData;
-    } else {
-      response.body = FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSEV1;
     }
     return response;
   }
