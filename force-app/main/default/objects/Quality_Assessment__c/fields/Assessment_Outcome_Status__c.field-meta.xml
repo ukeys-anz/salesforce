@@ -42,9 +42,9 @@
                 <label>Disputed - C&amp;Q review upheld</label>
             </value>
             <value>
-                <fullName>Disputed - C&amp;Q review final&quot;</fullName>
+                <fullName>Disputed - C&amp;Q review final</fullName>
                 <default>false</default>
-                <label>Disputed - C&amp;Q review final&quot;</label>
+                <label>Disputed - C&amp;Q review final</label>
             </value>
         </valueSetDefinition>
     </valueSet>

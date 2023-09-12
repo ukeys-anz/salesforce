@@ -17,14 +17,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>&quot;C&amp;Q Team Lead accepts TM&apos;s view</fullName>
+                <fullName>C&amp;Q Team Lead accepts TM&apos;s view</fullName>
                 <default>false</default>
-                <label>&quot;C&amp;Q Team Lead accepts TM&apos;s view</label>
+                <label>C&amp;Q Team Lead accepts TM&apos;s view</label>
             </value>
             <value>
-                <fullName>C&amp;Q Team Lead rejects TM&apos;s view&quot;</fullName>
+                <fullName>C&amp;Q Team Lead rejects TM&apos;s view</fullName>
                 <default>false</default>
-                <label>C&amp;Q Team Lead rejects TM&apos;s view&quot;</label>
+                <label>C&amp;Q Team Lead rejects TM&apos;s view</label>
             </value>
         </valueSetDefinition>
     </valueSet>

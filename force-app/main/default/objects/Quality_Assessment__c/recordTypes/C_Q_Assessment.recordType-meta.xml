@@ -326,7 +326,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Disputed - C%26Q review final%22</fullName>
+            <fullName>Disputed - C%26Q review final</fullName>
             <default>false</default>
         </values>
         <values>
@@ -335,6 +335,81 @@
         </values>
         <values>
             <fullName>Disputed - C%26Q review upheld</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_asked_customer_for_resolution_sought__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_asked_for_further_information__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_confirmed_complaint_identified_issue__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_proposed_appropriate_resolution__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_used_LEAP_call_control__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -474,29 +549,29 @@
     <picklistValues>
         <picklist>C_Q_Lead_Response__c</picklist>
         <values>
-            <fullName>%22TM rejects C%26Q Team Lead</fullName>
+            <fullName>C%26Q Lead provides final outcome</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>C%26Q Lead provides final outcome%22</fullName>
+            <fullName>TM rejects C%26Q Team Lead</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>C_Q_Manager_Response__c</picklist>
         <values>
-            <fullName>%22C%26Q Team Lead accepts TM%27s view</fullName>
+            <fullName>C%26Q Team Lead accepts TM%27s view</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>C%26Q Team Lead rejects TM%27s view%22</fullName>
+            <fullName>C%26Q Team Lead rejects TM%27s view</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>Case_records_are_complete_and_accurate__c</picklist>
         <values>
-            <fullName>%22Met</fullName>
+            <fullName>Met</fullName>
             <default>false</default>
         </values>
         <values>
@@ -504,7 +579,22 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Not met %28outside CM control%29%22</fullName>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Clear_actions_for_acceptance_provided__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -581,13 +671,43 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Corrective_actions_for_TM_CM__c</picklist>
+        <picklist>Correct_financial_remedy_approach__c</picklist>
         <values>
-            <fullName>%22Coaching recommended</fullName>
+            <fullName>N%2FA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Further action recommended%22</fullName>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Correct_template_used_tailored_to_case__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Corrective_actions_for_TM_CM__c</picklist>
+        <values>
+            <fullName>Coaching recommended</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Further action recommended</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -630,6 +750,32 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Customer_correctly_identified__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_information_correct__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Discover_and_Align__c</picklist>
         <values>
             <fullName>Almost There</fullName>
@@ -657,6 +803,21 @@
         </values>
         <values>
             <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EDR_CM_explained_role_in_AFCA_process__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -787,6 +948,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Has_a_REaL_form_been_raised__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Has_a_complaint_LOA_been_loaded_to_PCC__c</picklist>
         <values>
             <fullName>N%2FA - No POA</fullName>
@@ -798,17 +970,6 @@
         </values>
         <values>
             <fullName>Yes - POA loaded</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Have_we_clearly_articulated_the_custo__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1036,17 +1197,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Is_the_customer_information_correct__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Issue_products_correctly_recorded__c</picklist>
         <values>
             <fullName>Met</fullName>
@@ -1077,6 +1227,17 @@
         </values>
         <values>
             <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Issues_articulatedaddressed_in_response__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1410,6 +1571,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Letter_flows_headings_relevant_clear__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Loss_offer_correctly_considered__c</picklist>
         <values>
             <fullName>Met</fullName>
@@ -1543,6 +1719,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Professionalism_of_response__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Prompt_response_to_customer_in_hardship__c</picklist>
         <values>
             <fullName>Met</fullName>
@@ -1558,6 +1749,21 @@
         </values>
         <values>
             <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Proposed_resolution_is_fair_reasonable__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1688,22 +1894,7 @@
     <picklistValues>
         <picklist>Reason_C_Q_SM1_Q2__c</picklist>
         <values>
-            <fullName>A written IDR response was issued %28final response or confirmation of resolution letter%29 %28QC assess%29%2E</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No reference to AFCA was required%2E</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>The customer expressed dissatisfaction with our phone-based offer of resolution and we did not tell them about AFCA as an alternative%2E</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Reason_C_Q_SM1_Q3__c</picklist>
-        <values>
-            <fullName>Not met %28outside CM control%29%3A CM sought specialist assistance but options not supported%2Fprovided%2E</fullName>
+            <fullName>CM sought specialist assistance but options not supported%2Fprovided%2E</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1724,6 +1915,33 @@
         </values>
         <values>
             <fullName>Where we could not contact the customer%2C we did not look for a suitable option based on information available%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM1_Q3__c</picklist>
+        <values>
+            <fullName>%E2%80%98not met%E2%80%99 directed by SME%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer did not request compensation and there was no basis to provide any%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not apply relevant loss principles and correctly calculate the customer%E2%80%99s financial loss%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not correctly distinguish compensation for financial and non-financial loss and a goodwill gesture or commercial payment in our written or verbal final response%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not obtain sufficient information to determine if we made an error warranting compensation%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not obtain sufficient information to reasonably estimate the customer%E2%80%99s loss%2E</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2319,57 +2537,160 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Review_period__c</picklist>
+        <picklist>Resolution_declined_next_steps_advised__c</picklist>
         <values>
-            <fullName>%222023-06</fullName>
+            <fullName>N%2FA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2023-07</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2023-08</fullName>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Response_has_customer_s_desired_outcome__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2023-09</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2023-10</fullName>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Response_has_investigation_info_reason__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2023-11</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2023-12</fullName>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Response_uses_correct_grammar_spelling__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2024-01</fullName>
+            <fullName>No</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2024-02</fullName>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_Period_Month__c</picklist>
+        <values>
+            <fullName>Apr</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2024-03</fullName>
+            <fullName>Aug</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2024-04</fullName>
+            <fullName>Dec</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2024-05</fullName>
+            <fullName>Feb</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2024-06</fullName>
+            <fullName>Jan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jul</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jun</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>May</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nov</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sep</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_Period_Year__c</picklist>
+        <values>
+            <fullName>2023</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2024</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2025</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2026</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2027</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2028</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2029</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2030</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2031</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2032</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2033</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2566,15 +2887,15 @@
     <picklistValues>
         <picklist>Team_Manager_Response__c</picklist>
         <values>
-            <fullName>%22Awaiting response from TM</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Accepted by TM</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Rejected by TM%22</fullName>
+            <fullName>Awaiting response from TM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected by TM</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2664,11 +2985,11 @@
     <picklistValues>
         <picklist>What_corrective_actions_are_required__c</picklist>
         <values>
-            <fullName>%22Feedback only - no active action required</fullName>
+            <fullName>Feedback only - no active action required</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Further review recommended %28action for MMM%29%22</fullName>
+            <fullName>Further review recommended %28action for MMM%29</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2677,6 +2998,21 @@
         </values>
         <values>
             <fullName>Raise REaL form %28action for C%26Q team to take%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_how_the_issues_arose_explainedHave__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
