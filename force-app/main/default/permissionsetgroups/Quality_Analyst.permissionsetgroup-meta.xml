@@ -26,7 +26,6 @@
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Write</permissionSets>
-    <permissionSets>Quality_Assessment_View_All</permissionSets>
     <permissionSets>Quality_Workbench</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Release_Read_Only</permissionSets>
