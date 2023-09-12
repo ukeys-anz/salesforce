@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reason_C_Q_SM6_Q2__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>SUCCESS MEASURE 6 Q2 reason</description>
     <externalId>false</externalId>
     <label>Reason</label>
@@ -13,6 +13,7 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
+        <controllingField>Followed_call_authentication_process__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -47,6 +48,30 @@
                 <label>No calls with customer or representative.</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>For any inbound calls (if any), we did not take some or any of the applicable steps under the CR inbound customer call authentication guide.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>For all outbound calls (if any), we did not take some or any of the applicable steps under the CR outbound customer call authentication guide.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM receiving the review was not the CM responsible for the ‘not met’.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>incorrect knowledge base (raise a CIP).</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>If customer has been transferred and already authenticated (must have been confirmed).</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>No calls with customer or representative.</valueName>
+        </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>

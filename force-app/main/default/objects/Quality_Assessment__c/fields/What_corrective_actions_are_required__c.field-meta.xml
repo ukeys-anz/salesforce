@@ -17,9 +17,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>&quot;Feedback only - no active action required</fullName>
+                <fullName>Feedback only - no active action required</fullName>
                 <default>false</default>
-                <label>&quot;Feedback only - no active action required</label>
+                <label>Feedback only - no active action required</label>
             </value>
             <value>
                 <fullName>Raise REaL form (action for C&amp;Q team to take)</fullName>
@@ -32,9 +32,9 @@
                 <label>Raise PSI (action for C&amp;Q team to take)</label>
             </value>
             <value>
-                <fullName>Further review recommended (action for MMM)&quot;</fullName>
+                <fullName>Further review recommended (action for MMM)</fullName>
                 <default>false</default>
-                <label>Further review recommended (action for MMM)&quot;</label>
+                <label>Further review recommended (action for MMM)</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reason_C_Q_SM7_Q3__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>SUCCESS MEASURE 7 Q3 reason</description>
     <externalId>false</externalId>
     <label>Reason</label>
@@ -13,6 +13,7 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
+        <controllingField>Relevant_info_obtained_from_customer__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -47,6 +48,30 @@
                 <label>customer does not reply to telephone calls and/or correspondence despite our attempts to contact them.</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>we asked for, or obtained, irrelevant information from our customer.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>we asked for or obtained information from our customer, ANZ already had.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>we did not ask for, or we did not give the customer sufficient opportunity to provide additional information needed to enable us to objectively determine what happened.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM receiving the review did not make the request for information the subject of the not met.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>No additional information was required to address key issues.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>customer does not reply to telephone calls and/or correspondence despite our attempts to contact them.</valueName>
+        </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>

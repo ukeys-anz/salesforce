@@ -12,7 +12,7 @@
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>MultiselectPicklist</type>
+    <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
@@ -34,5 +34,4 @@
             </value>
         </valueSetDefinition>
     </valueSet>
-    <visibleLines>4</visibleLines>
 </CustomField>

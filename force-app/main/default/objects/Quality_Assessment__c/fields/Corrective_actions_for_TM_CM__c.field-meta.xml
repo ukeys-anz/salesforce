@@ -16,14 +16,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>&quot;Coaching recommended</fullName>
+                <fullName>Coaching recommended</fullName>
                 <default>false</default>
-                <label>&quot;Coaching recommended</label>
+                <label>Coaching recommended</label>
             </value>
             <value>
-                <fullName>Further action recommended&quot;</fullName>
+                <fullName>Further action recommended</fullName>
                 <default>false</default>
-                <label>Further action recommended&quot;</label>
+                <label>Further action recommended</label>
             </value>
         </valueSetDefinition>
     </valueSet>

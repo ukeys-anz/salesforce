@@ -13,6 +13,7 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
+        <controllingField>Accurate_information_in_final_response__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -22,6 +23,10 @@
                 <label>Our final response was not factually accurate.</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>Our final response was not factually accurate.</valueName>
+        </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>

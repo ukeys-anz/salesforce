@@ -2,8 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Reason_C_Q_SM1_Q3__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>SUCCESS MEASURE 1 Q4 reason</description>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 1 Q3 reason</description>
     <externalId>false</externalId>
     <label>Reason</label>
     <required>false</required>
@@ -13,40 +13,65 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
+        <controllingField>Loss_offer_correctly_considered__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>There were other practical options available to resolve/achieve an outcome for the customer, but we did not explore this/these.</fullName>
+                <fullName>We did not obtain sufficient information to determine if we made an error warranting compensation.</fullName>
                 <default>false</default>
-                <label>There were other practical options available to resolve/achieve an outcome for the customer, but we did not explore this/these.</label>
+                <label>We did not obtain sufficient information to determine if we made an error warranting compensation.</label>
             </value>
             <value>
-                <fullName>Where we could not contact the customer, we did not look for a suitable option based on information available.</fullName>
+                <fullName>We did not obtain sufficient information to reasonably estimate the customer’s loss.</fullName>
                 <default>false</default>
-                <label>Where we could not contact the customer, we did not look for a suitable option based on information available.</label>
+                <label>We did not obtain sufficient information to reasonably estimate the customer’s loss.</label>
             </value>
             <value>
-                <fullName>Specialist assistance from an SME was not obtained to assist with an outcome for the customer.</fullName>
+                <fullName>We did not apply relevant loss principles and correctly calculate the customer’s financial loss.</fullName>
                 <default>false</default>
-                <label>Specialist assistance from an SME was not obtained to assist with an outcome for the customer.</label>
+                <label>We did not apply relevant loss principles and correctly calculate the customer’s financial loss.</label>
             </value>
             <value>
-                <fullName>Not met (outside CM control): CM sought specialist assistance but options not supported/provided.</fullName>
+                <fullName>We did not correctly distinguish compensation for financial and non-financial loss and a goodwill gesture or commercial payment in our written or verbal final response.</fullName>
                 <default>false</default>
-                <label>Not met (outside CM control): CM sought specialist assistance but options not supported/provided.</label>
+                <label>We did not correctly distinguish compensation for financial and non-financial loss and a goodwill gesture or commercial payment in our written or verbal final response.</label>
             </value>
             <value>
-                <fullName>Option exploration was not required as we offered the customer what they wanted.</fullName>
+                <fullName>‘not met’ directed by SME.</fullName>
                 <default>false</default>
-                <label>Option exploration was not required as we offered the customer what they wanted.</label>
+                <label>‘not met’ directed by SME.</label>
             </value>
             <value>
-                <fullName>Option exploration was not required. what the customer wanted was not possible and there were no other options available.</fullName>
+                <fullName>Customer did not request compensation and there was no basis to provide any.</fullName>
                 <default>false</default>
-                <label>Option exploration was not required. what the customer wanted was not possible and there were no other options available.</label>
+                <label>Customer did not request compensation and there was no basis to provide any.</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not obtain sufficient information to determine if we made an error warranting compensation.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not obtain sufficient information to reasonably estimate the customer’s loss.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not apply relevant loss principles and correctly calculate the customer’s financial loss.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not correctly distinguish compensation for financial and non-financial loss and a goodwill gesture or commercial payment in our written or verbal final response.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>‘not met’ directed by SME.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>Customer did not request compensation and there was no basis to provide any.</valueName>
+        </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>
 </CustomField>

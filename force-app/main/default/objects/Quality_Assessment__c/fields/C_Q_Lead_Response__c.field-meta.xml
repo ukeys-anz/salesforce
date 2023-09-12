@@ -17,14 +17,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>&quot;TM rejects C&amp;Q Team Lead</fullName>
+                <fullName>TM rejects C&amp;Q Team Lead</fullName>
                 <default>false</default>
-                <label>&quot;TM rejects C&amp;Q Team Lead</label>
+                <label>TM rejects C&amp;Q Team Lead</label>
             </value>
             <value>
-                <fullName>C&amp;Q Lead provides final outcome&quot;</fullName>
+                <fullName>C&amp;Q Lead provides final outcome</fullName>
                 <default>false</default>
-                <label>C&amp;Q Lead provides final outcome&quot;</label>
+                <label>C&amp;Q Lead provides final outcome</label>
             </value>
         </valueSetDefinition>
     </valueSet>
