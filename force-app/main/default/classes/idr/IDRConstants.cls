@@ -72,26 +72,32 @@ public with sharing class IDRConstants {
     .get('CFaaS_File')
     .getRecordTypeId();
 
-  public static final Id CQ_QUALITY_ASSESSMENT_RT_ID {
+  /**
+   * @description get Quality_Assessment__c.C_Q_Assessment record on demand
+   */
+  public static final Id idrtCQ_QUALITY_ASSESSMENT {
     get {
-      if ( CQ_QUALITY_ASSESSMENT_RT_ID == null ) {
-        CQ_QUALITY_ASSESSMENT_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+      if ( idrtCQ_QUALITY_ASSESSMENT == null ) {
+        idrtCQ_QUALITY_ASSESSMENT = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
         .get('C_Q_Assessment')
         .getRecordTypeId();
       }
-      return CQ_QUALITY_ASSESSMENT_RT_ID;
+      return idrtCQ_QUALITY_ASSESSMENT;
     }
     private set;
   }
 
-  public static final Id CALL_LETTER_REVIEW_QUALITY_ASSESSMENT_RT_ID {
+  /**
+   * @description get Quality_Assessment__c.Call_Letter_Review_Assessment record on demand
+   */
+  public static final Id idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT {
     get {
-      if ( CALL_LETTER_REVIEW_QUALITY_ASSESSMENT_RT_ID == null ) {
-        CALL_LETTER_REVIEW_QUALITY_ASSESSMENT_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+      if ( idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT == null ) {
+        idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
         .get('Call_Letter_Review_Assessment')
         .getRecordTypeId();
       }
-      return CALL_LETTER_REVIEW_QUALITY_ASSESSMENT_RT_ID;
+      return idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT;
     }
     private set;
   }
@@ -194,7 +200,7 @@ public with sharing class IDRConstants {
   public static final String TASK_CORRESPONDENCE_SUBJECT = 'New Correspondence received on a Closed Complaint added by';
   public static final String TASK_CORRESPONDENCE_DESCRIPTION = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
   public static final String TASK_QA_COMPLIANCE_SUBJECT = 'Review Required: Quality Assessment Completed for ';
-  public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment ';
+  public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
