@@ -129,4 +129,76 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
       );
     }
   }
+
+  /**
+   * @description filter the card list based on the financial account status. This is created as part of ANZX-112715 By Shivam, September 2023
+   * @param ocvId String containing ocvId of the customer
+   * @param cardListResponse Response received from Fabric after parsing
+   * @return CardListModel
+   */
+  public static CardListModel filterCardsBasedOnAccountStatus(
+    String ocvId,
+    CardListModel cardListResponse
+  ) {
+    List<String> statusList = new List<String>{
+      GetHelpConstants.CLOSED_STATUS
+    };
+    List<String> accountNumbersAvailable = new List<String>();
+    List<CardListModel.CardCls> cardsToBeRemovedList = new List<CardListModel.CardCls>();
+
+    //Fetch the financial account list whose status is closed in order to filter the card list.
+    List<FinServ__FinancialAccount__c> finacialAccountListByStatus = FinancialAccountService.fetchFinancialAccountsByStatus(
+      ocvId,
+      statusList
+    );
+
+    //Fetch the map of financial account numbers based on the list of financial accounts in order to filter out card response.
+    Map<String, List<String>> accountNumbersList = FinancialAccountService.getFilteredFinancialAccountNumbers(
+      finacialAccountListByStatus
+    );
+
+    //Return CardListModel after filtering the card list
+    CardListModel filteredCardListResponse;
+
+    //Get the account numbers from the Map based on the status passed.
+    if (!accountNumbersList.isEmpty()) {
+      accountNumbersAvailable = accountNumbersList.get(
+        GetHelpConstants.CLOSED_STATUS
+      );
+    }
+
+    //list of cards which is to be removed
+    if (!accountNumbersAvailable.isEmpty()) {
+      for (CardListModel.CardCls card : cardListResponse.cards) {
+        Boolean foundClosedCard = true;
+        if (!card.account_numbers.isEmpty()) {
+          for (String acc : card.account_numbers) {
+            if (accountNumbersAvailable.contains(acc)) {
+              foundClosedCard = false;
+              break;
+            }
+          }
+        }
+        if (!foundClosedCard) {
+          cardsToBeRemovedList.add(card);
+        }
+      }
+
+      if (!cardsToBeRemovedList.isEmpty()) {
+        Integer cardIndex = 0;
+        while (cardIndex < cardListResponse.cards.size()) {
+          if (
+            cardsToBeRemovedList.contains(cardListResponse.cards[cardIndex])
+          ) {
+            cardListResponse.cards.remove(cardIndex);
+          } else {
+            cardIndex++;
+          }
+        }
+      }
+    }
+
+    filteredCardListResponse = cardListResponse;
+    return filteredCardListResponse;
+  }
 }
