@@ -77,6 +77,11 @@
         <label>Source - Fabric</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_Gearbox</fullName>
+        <default>false</default>
+        <label>Source - Gearbox</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_myTrailhead</fullName>
         <default>false</default>
         <label>Source - myTrailhead</label>

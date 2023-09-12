@@ -1,0 +1,314 @@
+<template>
+  <div class="slds-grid slds-wrap slds-is-relative">
+    <div style="position: fixed; z-index: 999999; top: 0; right: 0">
+      <omnistudio-toast
+        class="flexcard-toast-element"
+        theme="slds"
+        title=""
+        message=""
+        styletype=""
+      >
+      </omnistudio-toast>
+    </div>
+    <div
+      if:true={showLoader}
+      class="slds-is-absolute vloc-loader_override"
+      style="
+        height: 100%;
+        width: 100%;
+        min-height: 50px;
+        background: transparent;
+        z-index: 99;
+      "
+    >
+      <div>
+        <omnistudio-spinner
+          variant="brand"
+          alternative-text="Loading content..."
+          size="medium"
+          theme="slds"
+        ></omnistudio-spinner>
+      </div>
+    </div>
+    <template if:false={hasPermission}>
+      You don't have required permissions to view this card.
+    </template>
+    <template if:true={hasPermission}>
+      <template if:true={hasRecords}>
+        <template for:each={_records} for:item="record" for:index="rindex">
+          <omnistudio-flex-card-state
+            if:true={record}
+            key={record._flex.uniqueKey}
+            data-recordid={record.Id}
+            record={record}
+            data-statue="true"
+            data-index="0"
+            data-rindex={rindex}
+            class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"
+            tracking-obj={_childCardTrackingObj}
+          >
+            <div
+              if:true={cardLoaded}
+              class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small"
+              style=""
+            >
+              <div
+                data-style-id="state0element0"
+                class="slds-col slds-text-align_center slds-size_1-of-12"
+                data-rindex={rindex}
+                style=""
+              >
+                <omnistudio-flex-action
+                  data-style-id="state0element0_child"
+                  tracking-obj={_childCardTrackingObj}
+                  class="state0element0_child flexActionElement"
+                  data-action-element-class="state0element0_child"
+                  data-action-key="state0element0"
+                  onexecuteaction={performAction}
+                  data-show-spinner="false"
+                  data-element-label="action0"
+                  state-obj={record}
+                  card={card}
+                  record={record}
+                  label="Current"
+                  icon-name="standard-default"
+                  action-list='\[{"stateAction":{"id":"flex-action-1684735224448","type":"cardAction","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"},"eventName":"setValues","fieldValues":[{"fieldName":"Session.selectedTab","fieldValue":"Current"}]},"key":"1684734948232-xytnyes9j","label":"Current Tab Change","draggable":false,"isOpen":true,"actionIndex":0,"isTrackingDisabled":true}]'
+                  hide-action-icon="true"
+                  flyout-details="\{}"
+                  styles='\{"label":{"fontSize":"20px"}}'
+                  theme="slds"
+                ></omnistudio-flex-action>
+              </div>
+              <div
+                data-style-id="state0element1"
+                class="slds-col slds-text-align_center slds-size_1-of-12"
+                data-rindex={rindex}
+                style=""
+              >
+                <omnistudio-flex-action
+                  data-style-id="state0element1_child"
+                  tracking-obj={_childCardTrackingObj}
+                  class="state0element1_child flexActionElement"
+                  data-action-element-class="state0element1_child"
+                  data-action-key="state0element1"
+                  onexecuteaction={performAction}
+                  data-show-spinner="false"
+                  data-element-label="action1"
+                  state-obj={record}
+                  card={card}
+                  record={record}
+                  label="History"
+                  icon-name="standard-default"
+                  action-list='\[{"stateAction":{"id":"flex-action-1684735216065","type":"cardAction","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"},"eventName":"setValues","fieldValues":[{"fieldName":"Session.selectedTab","fieldValue":"History"}]},"key":"1684734948232-xytnyes9j","label":"History Tab Change","draggable":true,"isOpen":false,"actionIndex":0,"isTrackingDisabled":true}]'
+                  hide-action-icon="true"
+                  flyout-details="\{}"
+                  styles='\{"label":{"fontSize":"20px"}}'
+                  flyout-channel="close_modal"
+                  theme="slds"
+                ></omnistudio-flex-action>
+              </div>
+              <div
+                data-style-id="state0element2"
+                class="slds-col slds-size_12-of-12 condition-element"
+                data-rindex={rindex}
+                style=""
+                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-7","field":"Session.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false}]}'
+              >
+                <c-cf-credit-assessment-child-container
+                  data-style-id="state0element2_child"
+                  tracking-obj={_childCardTrackingObj}
+                  is-inside-parent={insideParent}
+                  parent-uniquekey={uniqueKey}
+                  card-node="\{record.current}"
+                  parent-record={record}
+                  records={_records}
+                  parent-mergefields={card}
+                  record-id={recordId}
+                  is-child-card-tracking-enabled="false"
+                  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-7","field":"Session.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false}]}'
+                  parent-attribute='\{"selectedTab":"Current"}'
+                  object-api-name={objectApiName}
+                  theme="slds"
+                  onupdateparent={updateParentData}
+                ></c-cf-credit-assessment-child-container>
+              </div>
+              <div
+                data-style-id="state0element3"
+                class="slds-col slds-size_12-of-12 condition-element"
+                data-rindex={rindex}
+                style=""
+                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-239","field":"Session.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false}]}'
+              >
+                <c-cf-credit-assessment-child-container
+                  data-style-id="state0element3_child"
+                  tracking-obj={_childCardTrackingObj}
+                  is-inside-parent={insideParent}
+                  parent-uniquekey={uniqueKey}
+                  card-node="\{record.history}"
+                  parent-record={record}
+                  records={_records}
+                  parent-mergefields={card}
+                  record-id={recordId}
+                  is-child-card-tracking-enabled="false"
+                  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-239","field":"Session.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false}]}'
+                  data-preload-conditional-element="false"
+                  parent-attribute='\{"selectedTab":"History"}'
+                  object-api-name={objectApiName}
+                  theme="slds"
+                  if:true={record._flex.state0element3_child}
+                  onupdateparent={updateParentData}
+                ></c-cf-credit-assessment-child-container>
+              </div>
+            </div>
+          </omnistudio-flex-card-state>
+        </template>
+      </template>
+      <template if:false={hasRecords}>
+        <omnistudio-flex-card-state
+          record={record}
+          data-statue="false"
+          data-index="0"
+          data-rindex={rindex}
+          class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"
+          tracking-obj={_childCardTrackingObj}
+        >
+          <div
+            if:true={cardLoaded}
+            class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small"
+            style=""
+          >
+            <div
+              data-style-id="state0element0"
+              class="slds-col slds-text-align_center slds-size_1-of-12"
+              data-rindex={rindex}
+              style=""
+            >
+              <omnistudio-flex-action
+                data-style-id="state0element0_child"
+                tracking-obj={_childCardTrackingObj}
+                class="state0element0_child flexActionElement"
+                data-action-element-class="state0element0_child"
+                data-action-key="state0element0"
+                onexecuteaction={performAction}
+                data-show-spinner="false"
+                data-element-label="action0"
+                state-obj={record}
+                card={card}
+                record={record}
+                label="Current"
+                icon-name="standard-default"
+                action-list='\[{"stateAction":{"id":"flex-action-1684735224448","type":"cardAction","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"},"eventName":"setValues","fieldValues":[{"fieldName":"Session.selectedTab","fieldValue":"Current"}]},"key":"1684734948232-xytnyes9j","label":"Current Tab Change","draggable":false,"isOpen":true,"actionIndex":0,"isTrackingDisabled":true}]'
+                hide-action-icon="true"
+                flyout-details="\{}"
+                styles='\{"label":{"fontSize":"20px"}}'
+                theme="slds"
+              ></omnistudio-flex-action>
+            </div>
+            <div
+              data-style-id="state0element1"
+              class="slds-col slds-text-align_center slds-size_1-of-12"
+              data-rindex={rindex}
+              style=""
+            >
+              <omnistudio-flex-action
+                data-style-id="state0element1_child"
+                tracking-obj={_childCardTrackingObj}
+                class="state0element1_child flexActionElement"
+                data-action-element-class="state0element1_child"
+                data-action-key="state0element1"
+                onexecuteaction={performAction}
+                data-show-spinner="false"
+                data-element-label="action1"
+                state-obj={record}
+                card={card}
+                record={record}
+                label="History"
+                icon-name="standard-default"
+                action-list='\[{"stateAction":{"id":"flex-action-1684735216065","type":"cardAction","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"},"eventName":"setValues","fieldValues":[{"fieldName":"Session.selectedTab","fieldValue":"History"}]},"key":"1684734948232-xytnyes9j","label":"History Tab Change","draggable":true,"isOpen":false,"actionIndex":0,"isTrackingDisabled":true}]'
+                hide-action-icon="true"
+                flyout-details="\{}"
+                styles='\{"label":{"fontSize":"20px"}}'
+                flyout-channel="close_modal"
+                theme="slds"
+              ></omnistudio-flex-action>
+            </div>
+            <div
+              data-style-id="state0element2"
+              class="slds-col slds-size_12-of-12 condition-element"
+              data-rindex={rindex}
+              style=""
+              data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-7","field":"Session.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false}]}'
+            >
+              <c-cf-credit-assessment-child-container
+                data-style-id="state0element2_child"
+                tracking-obj={_childCardTrackingObj}
+                is-inside-parent={insideParent}
+                parent-uniquekey={uniqueKey}
+                card-node="\{record.current}"
+                parent-record={record}
+                records={_records}
+                parent-mergefields={card}
+                record-id={recordId}
+                is-child-card-tracking-enabled="false"
+                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-7","field":"Session.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false}]}'
+                parent-attribute='\{"selectedTab":"Current"}'
+                object-api-name={objectApiName}
+                theme="slds"
+                onupdateparent={updateParentData}
+              ></c-cf-credit-assessment-child-container>
+            </div>
+            <div
+              data-style-id="state0element3"
+              class="slds-col slds-size_12-of-12 condition-element"
+              data-rindex={rindex}
+              style=""
+              data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-239","field":"Session.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false}]}'
+            >
+              <c-cf-credit-assessment-child-container
+                data-style-id="state0element3_child"
+                tracking-obj={_childCardTrackingObj}
+                is-inside-parent={insideParent}
+                parent-uniquekey={uniqueKey}
+                card-node="\{record.history}"
+                parent-record={record}
+                records={_records}
+                parent-mergefields={card}
+                record-id={recordId}
+                is-child-card-tracking-enabled="false"
+                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-239","field":"Session.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false}]}'
+                data-preload-conditional-element="false"
+                parent-attribute='\{"selectedTab":"History"}'
+                object-api-name={objectApiName}
+                theme="slds"
+                onupdateparent={updateParentData}
+              ></c-cf-credit-assessment-child-container>
+            </div>
+          </div>
+        </omnistudio-flex-card-state>
+      </template>
+    </template>
+    <template if:true={hasError}> {error} </template>
+
+    <omnistudio-action
+      action-wrapperclass="slds-hide"
+      re-render-flyout
+      class="action-trigger slds-col"
+      onupdateos={updateOmniscript}
+      onselectcards={updateSelectedCards}
+      onsetvalue={updateAction}
+      onfireactionevent={actionEvtHandler}
+    >
+    </omnistudio-action>
+
+    <omnistudio-action
+      class="execute-action"
+      re-render-flyout
+      action-wrapperclass="slds-hide"
+      onupdateos={updateOmniscript}
+      onselectcards={updateSelectedCards}
+      onsetvalue={updateAction}
+      onfireactionevent={actionEvtHandler}
+    >
+    </omnistudio-action>
+  </div>
+</template>

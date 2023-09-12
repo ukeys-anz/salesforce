@@ -2,286 +2,290 @@
 <DataCategoryGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <active>true</active>
     <dataCategory>
+        <name>All</name>
         <dataCategory>
+            <name>Loans</name>
             <dataCategory>
-                <label>All</label>
+                <name>Credit_assessment</name>
+                <label>Credit assessment</label>
+            </dataCategory>
+            <label>Loans</label>
+        </dataCategory>
+        <dataCategory>
+            <name>Audience</name>
+            <dataCategory>
                 <name>All_Audience</name>
+                <label>All</label>
             </dataCategory>
             <dataCategory>
-                <label>Coach</label>
                 <name>Coach</name>
+                <label>Coach</label>
             </dataCategory>
             <dataCategory>
-                <label>Fraud</label>
                 <name>Fraud1</name>
+                <label>Fraud</label>
             </dataCategory>
             <dataCategory>
-                <label>Support Coach</label>
                 <name>Support_Coach</name>
+                <label>Support Coach</label>
             </dataCategory>
             <label>Audience</label>
-            <name>Audience</name>
         </dataCategory>
         <dataCategory>
+            <name>General_Enquiry</name>
             <dataCategory>
+                <name>About_Us</name>
                 <dataCategory>
-                    <label>About ANZ Plus</label>
                     <name>About_ANZ_Plus</name>
+                    <label>About ANZ Plus</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Privacy</label>
                     <name>Privacy</name>
+                    <label>Privacy</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>ANZ branches</label>
                     <name>ANZ_branches</name>
+                    <label>ANZ branches</label>
                 </dataCategory>
                 <label>About Us</label>
-                <name>About_Us</name>
             </dataCategory>
             <dataCategory>
+                <name>Cards</name>
                 <dataCategory>
-                    <label>Lost or stolen card</label>
                     <name>Lost_or_stolen_card</name>
+                    <label>Lost or stolen card</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Damaged card</label>
                     <name>Damaged_card</name>
+                    <label>Damaged card</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Using card</label>
                     <name>Using_card</name>
+                    <label>Using card</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Digital wallet provisioning</label>
                     <name>Digital_wallet_provisioning</name>
+                    <label>Digital wallet provisioning</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Digital wallet issue</label>
                     <name>Digital_wallet_issue</name>
+                    <label>Digital wallet issue</label>
                 </dataCategory>
                 <label>Cards</label>
-                <name>Cards</name>
             </dataCategory>
             <dataCategory>
+                <name>Money</name>
                 <dataCategory>
-                    <label>Using account</label>
                     <name>Using_account</name>
+                    <label>Using account</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Savings and goals</label>
                     <name>Savings_and_goals</name>
+                    <label>Savings and goals</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Using tiles</label>
                     <name>Using_tiles</name>
+                    <label>Using tiles</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Account closure</label>
                     <name>Account_closure</name>
+                    <label>Account closure</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Statements</label>
                     <name>Statements</name>
+                    <label>Statements</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Transaction Disputes</label>
-                    <name>Transaction_Disputes</name>
+                    <name>Transaction_disputes</name>
+                    <label>Transaction disputes</label>
                 </dataCategory>
                 <label>Money</label>
-                <name>Money</name>
             </dataCategory>
             <dataCategory>
+                <name>Payments</name>
                 <dataCategory>
-                    <label>Making payments</label>
                     <name>Making_payments</name>
+                    <label>Making payments</label>
                 </dataCategory>
                 <label>Payments</label>
-                <name>Payments</name>
             </dataCategory>
             <dataCategory>
+                <name>Profile</name>
                 <dataCategory>
-                    <label>Updating details</label>
                     <name>Updating_details</name>
+                    <label>Updating details</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Lost or new phone</label>
                     <name>Lost_or_new_phone</name>
+                    <label>Lost or new phone</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Power of attorney</label>
                     <name>Power_of_attorney</name>
+                    <label>Power of attorney</label>
                 </dataCategory>
                 <label>Profile</label>
-                <name>Profile</name>
             </dataCategory>
             <dataCategory>
+                <name>Fraud</name>
                 <dataCategory>
-                    <label>Card/Device Block Enquiry</label>
                     <name>Card_Device_Block_Enquiry</name>
+                    <label>Card/Device Block Enquiry</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Falcon Transaction Confirmation</label>
                     <name>Falcon_Transaction_Confirmation</name>
+                    <label>Falcon Transaction Confirmation</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>General Fraud Enquiry</label>
                     <name>General_Fraud_Enquiry</name>
+                    <label>General Fraud Enquiry</label>
                 </dataCategory>
                 <label>Fraud</label>
-                <name>Fraud</name>
             </dataCategory>
             <dataCategory>
+                <name>Financial_Wellbeing</name>
                 <dataCategory>
-                    <label>Hardship</label>
                     <name>Hardship</name>
+                    <label>Hardship</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Coaching</label>
                     <name>Coaching</name>
+                    <label>Coaching</label>
                 </dataCategory>
                 <dataCategory>
-                    <label>Extra Care</label>
                     <name>Extra_Care</name>
+                    <label>Extra Care</label>
                 </dataCategory>
                 <label>Financial Wellbeing</label>
-                <name>Financial_Wellbeing</name>
             </dataCategory>
             <dataCategory>
+                <name>Other_Enquiries</name>
                 <dataCategory>
-                    <label>Raising a concern</label>
                     <name>Raising_a_concern</name>
+                    <label>Raising a concern</label>
                 </dataCategory>
                 <label>Other Enquiries</label>
-                <name>Other_Enquiries</name>
             </dataCategory>
             <dataCategory>
-                <label>Deceased Estate</label>
-                <name>Deceased_Estate</name>
+                <name>Deceased_estate</name>
+                <label>Deceased estate</label>
             </dataCategory>
             <label>General Enquiry</label>
-            <name>General_Enquiry</name>
         </dataCategory>
         <dataCategory>
+            <name>ANZ_Plus_Complaint</name>
             <dataCategory>
-                <label>Service quality</label>
                 <name>Service_quality</name>
+                <label>Service quality</label>
             </dataCategory>
             <dataCategory>
-                <label>Channel accessibility</label>
                 <name>Channel_accessibility</name>
+                <label>Channel accessibility</label>
             </dataCategory>
             <dataCategory>
-                <label>Account set-up &amp; maintenance</label>
                 <name>Account_set_up_maintenance</name>
+                <label>Account set-up &amp; maintenance</label>
             </dataCategory>
             <dataCategory>
-                <label>Fees, interest, rewards</label>
                 <name>Fees_interest_rewards</name>
+                <label>Fees, interest, rewards</label>
             </dataCategory>
             <dataCategory>
-                <label>Financial difficulty &amp; hardship</label>
                 <name>Financial_difficulty_hardship</name>
+                <label>Financial difficulty &amp; hardship</label>
             </dataCategory>
             <dataCategory>
-                <label>Collections</label>
                 <name>Collections</name>
+                <label>Collections</label>
             </dataCategory>
             <dataCategory>
-                <label>Lending fulfilment</label>
                 <name>Lending_fulfilment</name>
+                <label>Lending fulfilment</label>
             </dataCategory>
             <dataCategory>
-                <label>Product features, offers, sales</label>
                 <name>Product_features_offers_sales</name>
+                <label>Product features, offers, sales</label>
             </dataCategory>
             <dataCategory>
-                <label>Closure process</label>
                 <name>Closure_process</name>
+                <label>Closure process</label>
             </dataCategory>
             <dataCategory>
-                <label>Credit assessment</label>
-                <name>Credit_assessment</name>
-            </dataCategory>
-            <dataCategory>
-                <label>Credit reporting</label>
                 <name>Credit_reporting</name>
+                <label>Credit reporting</label>
             </dataCategory>
             <dataCategory>
-                <label>Transactions &amp; payments</label>
                 <name>Transactions_payments</name>
+                <label>Transactions &amp; payments</label>
             </dataCategory>
             <dataCategory>
-                <label>Fraud &amp; Scams</label>
                 <name>Fraud_Scams</name>
+                <label>Fraud &amp; Scams</label>
             </dataCategory>
             <dataCategory>
-                <label>Transaction Disputes</label>
                 <name>Transaction_Disputes1</name>
+                <label>Transaction Disputes</label>
             </dataCategory>
             <label>ANZ Plus Complaint</label>
-            <name>ANZ_Plus_Complaint</name>
         </dataCategory>
         <dataCategory>
+            <name>ANZ_Plus_Fraud</name>
             <dataCategory>
-                <label>Malware</label>
                 <name>Malware</name>
+                <label>Malware</label>
             </dataCategory>
             <dataCategory>
-                <label>Phishing</label>
                 <name>Phishing</name>
+                <label>Phishing</label>
             </dataCategory>
             <dataCategory>
-                <label>Account Takeover</label>
                 <name>Account_Takeover</name>
+                <label>Account Takeover</label>
             </dataCategory>
             <dataCategory>
-                <label>Phone Porting</label>
                 <name>Phone_Porting</name>
+                <label>Phone Porting</label>
             </dataCategory>
             <dataCategory>
-                <label>Civil</label>
                 <name>Civil</name>
+                <label>Civil</label>
             </dataCategory>
             <dataCategory>
-                <label>Not Fraud</label>
                 <name>Not_Fraud</name>
+                <label>Not Fraud</label>
             </dataCategory>
             <dataCategory>
-                <label>Awaiting Details</label>
                 <name>Awaiting_Details</name>
+                <label>Awaiting Details</label>
             </dataCategory>
             <label>Fraud</label>
-            <name>ANZ_Plus_Fraud</name>
         </dataCategory>
         <dataCategory>
+            <name>Dispute</name>
             <dataCategory>
-                <label>ATM</label>
                 <name>ATM</name>
+                <label>ATM</label>
             </dataCategory>
             <dataCategory>
-                <label>Card</label>
                 <name>Card</name>
+                <label>Card</label>
             </dataCategory>
             <dataCategory>
-                <label>Direct Debit</label>
                 <name>Direct_Debit</name>
+                <label>Direct Debit</label>
             </dataCategory>
             <dataCategory>
-                <label>Direct Entry</label>
                 <name>Direct_Entry</name>
+                <label>Direct Entry</label>
             </dataCategory>
             <dataCategory>
-                <label>NPP</label>
                 <name>NPP</name>
+                <label>NPP</label>
             </dataCategory>
             <label>Dispute</label>
-            <name>Dispute</name>
         </dataCategory>
         <label>All</label>
-        <name>All</name>
     </dataCategory>
-    <description>Data Category Group for Get Help.</description>
+    <description>Data Category Group for Get Help</description>
     <label>Get Help</label>
     <objectUsage>
         <object>KnowledgeArticleVersion</object>
