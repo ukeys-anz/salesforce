@@ -5,6 +5,11 @@
  */
 
 public with sharing class IDRQualityAssessmentTaskActions {
+  /**
+   * @description method to create Compliance Task if Quality Assessment record's sub status is changed to Completed
+   * @param lstAssessments new Trigger values
+   * @param mpOldAssessments old Trigger values
+   */
   public static void createComplianceTasks(
     List<Quality_Assessment__c> lstAssessments,
     Map<Id, Quality_Assessment__c> mpOldAssessments
@@ -13,9 +18,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
     Set<Id> stCompletedIds = new Set<Id>();
     for (Quality_Assessment__c oAssessment : lstAssessments) {
       if (
-        (oAssessment.RecordTypeId == IDRConstants.idrtCQ_QUALITY_ASSESSMENT ||
+        (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment ||
         oAssessment.RecordTypeId ==
-        IDRConstants.idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT) &&
+        IDRConstants.idrtCallLetterReviewQualityAssessment) &&
         oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
         oAssessment.Sub_Status__c ==
         QualityAssessmentActions.SUB_STATUS_EVALUATION_COMPLETED &&

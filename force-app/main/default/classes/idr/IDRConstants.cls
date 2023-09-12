@@ -75,14 +75,14 @@ public with sharing class IDRConstants {
   /**
    * @description get Quality_Assessment__c.C_Q_Assessment record on demand
    */
-  public static final Id idrtCQ_QUALITY_ASSESSMENT {
+  public static final Id idrtCQQualityAssessment {
     get {
-      if ( idrtCQ_QUALITY_ASSESSMENT == null ) {
-        idrtCQ_QUALITY_ASSESSMENT = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+      if ( idrtCQQualityAssessment == null ) {
+        idrtCQQualityAssessment = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
         .get('C_Q_Assessment')
         .getRecordTypeId();
       }
-      return idrtCQ_QUALITY_ASSESSMENT;
+      return idrtCQQualityAssessment;
     }
     private set;
   }
@@ -90,14 +90,14 @@ public with sharing class IDRConstants {
   /**
    * @description get Quality_Assessment__c.Call_Letter_Review_Assessment record on demand
    */
-  public static final Id idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT {
+  public static final Id idrtCallLetterReviewQualityAssessment {
     get {
-      if ( idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT == null ) {
-        idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+      if ( idrtCallLetterReviewQualityAssessment == null ) {
+        idrtCallLetterReviewQualityAssessment = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
         .get('Call_Letter_Review_Assessment')
         .getRecordTypeId();
       }
-      return idrtCALL_LETTER_REVIEW_QUALITY_ASSESSMENT;
+      return idrtCallLetterReviewQualityAssessment;
     }
     private set;
   }
