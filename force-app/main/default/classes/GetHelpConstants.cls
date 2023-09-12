@@ -174,6 +174,11 @@ public with sharing class GetHelpConstants {
     .get('Account_Closure')
     .getRecordTypeId();
 
+  // Residential Loan App - Loan Application
+  public static final Id LOAN_APPLICATION_RT_ID = Schema.SObjectType.ResidentialLoanApplication.getRecordTypeInfosByDeveloperName()
+    .get('Loan_Application')
+    .getRecordTypeId();
+
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
   public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';

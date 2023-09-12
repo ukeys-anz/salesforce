@@ -175,6 +175,7 @@
     "Access_Request__c": "Holds information related to Privileged Access Management request submissions by users",
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
+    "Assessment_Response__c": "Needs Assessment response completed by the loan applicant",
     "BusinessHours": "Specifies the business hours of your support organization.",
     "Campaign": "Represents and tracks a marketing campaign.",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
@@ -439,6 +440,13 @@
         "TimeZoneSidKey"
       ],
       "IA-2415840": ["Name"]
+    },
+    "Assessment_Response__c": {
+      "IA-2594111": ["Completed_By__c"],
+      "IA-2415987": ["Assessment_Response__c"],
+      "IA-2415983": ["Loan_Application__c"],
+      "IA-2530753": ["Created_Date__c"],
+      "IA-2415840": ["External_Id__c"]
     },
     "Campaign": {
       "IA-2415860": [
@@ -2052,23 +2060,59 @@
         "SOP_Version__c"
       ]
     },
+    "Loan_Invitation__c": {
+      "IA-2415840": [
+        "Invitation_External_Id__c",
+        "Invitation_Status__c",
+        "Applicant_Type__c",
+        "Loan_Applicant__c",
+        "Loan_Application__c"
+      ],
+      "IA-2530753": [
+        "Invitation_Last_Updated_Date__c",
+        "Invitation_Expiry_Date__c",
+        "Created_Date__c"
+      ],
+      "IA-2415984": ["Invitee_Mobile_Number__c", "Inviter_Legal_name__c"]
+    },
     "LoanApplicant": {
       "IA-2415983": [
         "Living_Arrangement__c",
         "Primary_Borrower__c",
         "Sole_Applicant_Selected__c",
         "Sole_Income_Earner__c",
-        "Eligibility_Accepted__c"
+        "Eligibility_Accepted__c",
+        "Applicant_Type__c",
+        "Privacy_Version_Accepted__c",
+        "Application_Status__c"
       ],
-      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2530753": [
+        "CreatedDate",
+        "LastModifiedDate",
+        "Last_Updated_Date__c",
+        "Application_Submit_Time__c",
+        "Created_Date__c"
+      ],
       "IA-2594111": [
         "ApplicantExtIdentifier",
         "Loan_Applicant_Group__c",
         "Party_ID__c",
-        "Name"
+        "Name",
+        "Application_Number__c"
       ],
       "IA-2415720": ["Customer_Number__c"],
-      "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"]
+      "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"],
+      "IA-2415840": ["Living_Status__c", "Persona_Id__c"],
+      "IA-2468715": ["OCV_Id__c"],
+      "IA-2415987": ["Account__c"]
+    },
+    "LoanApplicantDeclaration": {
+      "IA-2415840": [
+        "Component_Type__c",
+        "Is_Confirmable__c",
+        "Is_Confirmed__c"
+      ],
+      "IA-2530753": ["Confirmation_Date__c"]
     },
     "LoanApplicantLiability": {
       "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
@@ -2079,17 +2123,33 @@
         "Name"
       ]
     },
+    "LoanApplicationFinancial": {
+      "IA-2530753": ["Last_Updated_Date__c"],
+      "IA-2415983": [
+        "Offset__c",
+        "Interest_Rate_Type__c",
+        "Loan_Term_in_Months__c",
+        "Loan_Term__c",
+        "Loan_Repayment_Type__c",
+        "Loan_Margin__c",
+        "Loan_Repayment_Frequency__c"
+      ],
+      "IA-2415840": ["Property_Valuation_Id__c", "E_Tag__c"],
+      "IA-2415987": ["Product_Name__c"]
+    },
     "LoanApplicationLiability": {
-      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate", "Last_Updated_Date__c"],
       "IA-2415983": [
         "Balance__c",
         "Interest_Rate_Percent__c",
         "Months_Remaining__c",
         "Repayment_Amount__c",
-        "Repayment_Frequency__c"
+        "Repayment_Frequency__c",
+        "Remaining_Term__c"
       ],
       "IA-2594111": ["LiabilityExtIdentifier", "Name", "Lender__c"],
-      "IA-2415999": ["Liability_Id__c"]
+      "IA-2415999": ["Liability_Id__c"],
+      "IA-2415840": ["Break_Costs__c"]
     },
     "LoanApplicationProperty": {
       "IA-2594113": [
@@ -2105,14 +2165,15 @@
         "Property_Type__c",
         "Year_Built__c"
       ],
-      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate", "Last_Updated_Date__c"],
       "IA-2594111": ["LoanApplicationId", "PropertyExtIdentifier"],
       "IA-2594114": [
         "Primary_Valuation_Type__c",
         "Risk_Description__c",
         "Risk_Type__c",
         "Supporting_Valuation_Type__c"
-      ]
+      ],
+      "IA-2415983": ["PropertyValue"]
     },
     "Location": {
       "IA-2468715": [
@@ -2205,6 +2266,13 @@
         "User__c"
       ],
       "IA-2468715": ["CreatedById", "CreatedDate", "Id"]
+    },
+    "Material_Change__c": {
+      "IA-2415840": ["Loan_Application__c", "External_Id__c", "Change_Type__c"]
+    },
+    "Material_Change_Applicant__c": {
+      "IA-2415983": ["Material_Change__c", "Applicant__c"],
+      "IA-2415840": ["External_Id__c", "Loan_Application__c"]
     },
     "Opportunity": {
       "IA-2415840": [
@@ -2632,10 +2700,21 @@
         "Package_Version__c",
         "Settlement_ID__c",
         "Status",
-        "Credit_Reassess_Required__c"
+        "Credit_Reassess_Required__c",
+        "Loan_Term__c"
       ],
       "IA-2415997": ["SOP_Id__c"],
-      "IA-2530753": ["CreatedDate", "LastModifiedDate", "Version__c"],
+      "IA-2530753": [
+        "CreatedDate",
+        "LastModifiedDate",
+        "Version__c",
+        "Last_Updated_Date__c",
+        "Expiry_Date__c",
+        "Loan_Purpose_Updated_Date__c",
+        "Created_Date__c",
+        "Needs_Assessment_Last_Updated_Date__c",
+        "Needs_Assessment_Created_Date__c"
+      ],
       "IA-2594111": [
         "ApplicationExtIdentifier",
         "Credit_ID__c",
@@ -2648,7 +2727,12 @@
         "Collateral_Assessment_Outcome__c",
         "Max_Allowable_LVR_Basis_Points__c"
       ],
-      "IA-2594113": ["State__c"]
+      "IA-2594113": ["State__c"],
+      "IA-2415840": [
+        "E_Tag__c",
+        "Needs_Assessment_Unsuitability_Reasons__c",
+        "Joint__c"
+      ]
     },
     "Response_Type__c": {
       "IA-2415860": [

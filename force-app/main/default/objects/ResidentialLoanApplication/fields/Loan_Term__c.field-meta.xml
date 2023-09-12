@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loan_Term__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Loan Domain</complianceGroup>
+    <description>Formula to display loan duration in years and months format</description>
+    <externalId>false</externalId>
+    <formula>TEXT(FLOOR(AmortizationTerm/12)) &amp; &apos; Years&apos; &amp; &apos; &apos; &amp; 
+ IF(FLOOR(MOD(AmortizationTerm,12)) = 0, &apos;&apos;, TEXT(FLOOR(MOD(AmortizationTerm,12))) &amp; IF(FLOOR(MOD(AmortizationTerm,12)) = 1, &apos; Month &apos;, &apos; Months &apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Loan Term</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

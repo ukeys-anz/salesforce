@@ -704,6 +704,19 @@
         "Disable_MFA"
       ],
       "type": "system"
+    },
+    {
+      "name": "Loan App Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Mortgage",
+        "Loan_app_Integration",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
     }
   ]
 }
