@@ -72,6 +72,30 @@ public with sharing class IDRConstants {
     .get('CFaaS_File')
     .getRecordTypeId();
 
+  public static final Id CQ_QUALITY_ASSESSMENT_RT_ID {
+    get {
+      if ( CQ_QUALITY_ASSESSMENT_RT_ID == null ) {
+        CQ_QUALITY_ASSESSMENT_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+        .get('C_Q_Assessment')
+        .getRecordTypeId();
+      }
+      return CQ_QUALITY_ASSESSMENT_RT_ID;
+    }
+    private set;
+  }
+
+  public static final Id CALL_LETTER_REVIEW_QUALITY_ASSESSMENT_RT_ID {
+    get {
+      if ( CALL_LETTER_REVIEW_QUALITY_ASSESSMENT_RT_ID == null ) {
+        CALL_LETTER_REVIEW_QUALITY_ASSESSMENT_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+        .get('Call_Letter_Review_Assessment')
+        .getRecordTypeId();
+      }
+      return CALL_LETTER_REVIEW_QUALITY_ASSESSMENT_RT_ID;
+    }
+    private set;
+  }
+
   //Complaint Status' for STOP collection
   public static final Set<String> STATUS_STOP_COLLECTIONS = new Set<String>{
     OPEN_STATUS,
