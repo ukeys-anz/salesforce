@@ -8,6 +8,10 @@
         <apexClass>ChatterMigrationServiceController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>FarOwnersRemovalService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <name>CCRM_System_Role_Access</name>
         <enabled>true</enabled>

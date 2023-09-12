@@ -97,9 +97,6 @@ public with sharing class CCRMTestDataFactory {
     return ccrmBaseUser;
   }
 
-  
-  
-
   /**
    * @description Create a CCRM Base User
    * @name createCCRMRelManagerUser
@@ -554,6 +551,7 @@ public with sharing class CCRMTestDataFactory {
     Account accnt = new Account();
     accnt.Name = 'Test Pty Ltd';
     accnt.OCV_ID__c = faker.randomString(10);
+    accnt.External_Id__c = faker.randomString(10);
     accnt.Industry = createIndustries[0].Code__c;
     accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
     accnt.ABN__c = '50 110 219 460';
