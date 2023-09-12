@@ -66,9 +66,29 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         loanRec[0]?.SOP_Id__c
       );
 
-      //Reassign assets and liabilities to not show any closed
-      sopAssets.assetsSummary.assets = sopAssets.assetsSummary.openAssets;
-      sopAssets.liabilitiesSummary.liabilities = sopAssets.liabilitiesSummary.openLiabilities;
+      //Remove Closed status values from assets and debts.
+      //Need to loop backwards so next item isn't missed
+      for (Integer i = sopAssets.assetsSummary.assets.size() - 1; i >= 0; i--) {
+        if (
+          sopAssets.assetsSummary.assets[i]?.account?.status ==
+          'ACCOUNT_STATE_CLOSED'
+        ) {
+          sopAssets.assetsSummary.assets.remove(i);
+        }
+      }
+
+      for (
+        Integer i = sopAssets.liabilitiesSummary.liabilities.size() - 1;
+        i >= 0;
+        i--
+      ) {
+        if (
+          sopAssets.liabilitiesSummary.liabilities[i]?.account?.status ==
+          'ACCOUNT_STATE_CLOSED'
+        ) {
+          sopAssets.liabilitiesSummary.liabilities.remove(i);
+        }
+      }
 
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       return true;
