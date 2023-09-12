@@ -664,6 +664,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Created_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Credit_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -690,6 +695,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.First_Home__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Joint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Last_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -213,6 +213,14 @@
         <name>Facet-5ddbffea-17a0-4b8e-8ca3-683ef20ffe75</name>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>maxEARContainerHeight</name>
+                    <value>500</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>shouldDisplayFiltersOnRight</name>
+                    <value>false</value>
+                </componentInstanceProperties>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop2</identifier>
             </componentInstance>
@@ -279,6 +287,16 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectApiName</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
+                <componentName>cfaasFilesRelatedList</componentName>
+                <identifier>c_cfaasFilesRelatedList</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -428,18 +446,7 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>objectApiName</name>
-                    <value>Account</value>
-                </componentInstanceProperties>
-                <componentName>cfaasFilesRelatedList</componentName>
-                <identifier>c_cfaasFilesRelatedList</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>toastFields</name>
-                    <value/>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>toastMessage</name>
