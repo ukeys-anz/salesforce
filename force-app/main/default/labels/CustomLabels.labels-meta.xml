@@ -16,6 +16,13 @@
         <value>False</value>
     </labels>
     <labels>
+        <fullName>TransactionPageSize</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of transactions dispalyed on a single page of transaction history.</shortDescription>
+        <value>20</value>
+    </labels>
+    <labels>
         <fullName>TransactionAPIUpliftedToV1</fullName>
         <language>en_US</language>
         <protected>false</protected>
