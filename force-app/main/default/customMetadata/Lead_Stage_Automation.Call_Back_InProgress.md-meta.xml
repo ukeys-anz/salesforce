@@ -3,12 +3,20 @@
     <label>Call Back InProgress</label>
     <protected>false</protected>
     <values>
+        <field>Lead_Record_Type__c</field>
+        <value xsi:type="xsd:string">CCRM_Lead</value>
+    </values>
+    <values>
         <field>Lead_Status__c</field>
-        <value xsi:type="xsd:string">New,In progress</value>
+        <value xsi:type="xsd:string">Assigned, In progress</value>
     </values>
     <values>
         <field>Next_Lead_Status__c</field>
         <value xsi:type="xsd:string">In progress</value>
+    </values>
+    <values>
+        <field>Outcome_Type__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Response_Status__c</field>
@@ -16,7 +24,11 @@
     </values>
     <values>
         <field>Response_Type_CreateOpportunity__c</field>
-        <value xsi:nil="true" />
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>What_happens_next__c</field>
+        <value xsi:type="xsd:string">Assigned:Your response will be recorded and the Lead will progress to the next stage.;In progress: Your response will be recorded and the Lead will not progress to the next stage.</value>
     </values>
     <values>
         <field>isActive__c</field>

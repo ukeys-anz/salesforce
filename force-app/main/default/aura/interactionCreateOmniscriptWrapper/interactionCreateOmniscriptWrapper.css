@@ -1,5 +1,6 @@
-.THIS {
-  display: table;
+.THIS.maxHeightCustomAura {
   width: 60%;
-  margin: 0px auto;
+  margin: 0 auto;
+  height: 100%;
+  overflow-y: scroll;
 }

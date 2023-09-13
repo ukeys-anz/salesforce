@@ -70,7 +70,8 @@ public with sharing class InitiateInteractionController {
         InteractionType = fields.get('interactionType'),
         Contact_Mobile__c = fields.get('contactNumber'),
         Direction__c = fields.get('direction'),
-        Interaction_Purpose__c = fields.get('reason')
+        Interaction_Purpose__c = fields.get('reason'),
+        StartTime = System.now()
       );
       insert newInteraction;
       Interaction intToReturn = [
@@ -141,9 +142,18 @@ public with sharing class InitiateInteractionController {
     String conversationSid
   ) {
     CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
+    ReinitiateChatModel reinitiateChatModal = null;
     try {
       Account acc = getAccountDetails(accountId, 'reinitiateChat');
-      return callCenterAPI.reinitiateChat(acc.OCV_ID__c, conversationSid);
+      reinitiateChatModal = callCenterAPI.reinitiateChat(
+        acc.OCV_ID__c,
+        conversationSid
+      );
+      //Update Interaction Owner if new agent reinitiate chat
+      if (reinitiateChatModal != null && String.isNotBlank(conversationSid)) {
+        updateInteractionOwner(conversationSid);
+      }
+      return reinitiateChatModal;
     } catch (CallCenterAPIRepository.CustomException e) {
       throw new AuraHandledException(e.getMessage());
     } catch (Exception e) {
@@ -172,5 +182,31 @@ public with sharing class InitiateInteractionController {
       LIMIT 1
     ];
     return accountRecord;
+  }
+
+  /**
+   * @description Fetches Interaction details based on chatOrCallSid and update the owner on click
+   * @param chatOrCallSid the chatOrCallSid present in the interaction
+   */
+  private static void updateInteractionOwner(String chatOrCallSid) {
+    List<Interaction> interactionToUpdate = [
+      SELECT Id, OwnerId, Chat_or_Call_SID__c
+      FROM Interaction
+      WHERE Chat_or_Call_SID__c = :chatOrCallSid
+      LIMIT 1
+    ];
+    Id currentUserId = UserInfo.getUserId();
+    if (
+      !interactionToUpdate.isEmpty() &&
+      interactionToUpdate[0].OwnerId != currentUserId
+    ) {
+      interactionToUpdate[0].OwnerId = currentUserId;
+      Database.SaveResult result = Database.update(
+        interactionToUpdate[0],
+        false
+      );
+      Logger.error('Error occured while updating Interaction Owner', result);
+      Logger.saveLog();
+    }
   }
 }

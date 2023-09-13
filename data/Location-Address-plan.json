@@ -1,0 +1,14 @@
+[
+  {
+    "sobject": "Location",
+    "saveRefs": true,
+    "resolveRefs": false,
+    "files": ["Locations.json"]
+  },
+  {
+    "sobject": "Address",
+    "saveRefs": false,
+    "resolveRefs": true,
+    "files": ["Address.json"]
+  }
+]

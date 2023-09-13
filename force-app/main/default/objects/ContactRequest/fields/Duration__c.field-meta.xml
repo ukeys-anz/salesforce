@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Duration__c</fullName>
+    <businessStatus>Hidden</businessStatus>
     <externalId>false</externalId>
     <formula>TEXT(
   IF( ISPICKVAL( RequestReason , &apos;Other&apos;) , $CustomMetadata.Automated_Request_Purpose__mdt.Other.Duration__c , 

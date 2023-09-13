@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Link_Appointment_to_Account_Or_Lead</fullName>
+    <active>true</active>
+    <description>Appointment record must be linked with either Account or Lead and both of them should not be blank</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &quot;Appointment&quot;, ISBLANK( AccountId ), ISBLANK( Lead__c ))</errorConditionFormula>
+    <errorMessage>Please make sure that interaction is linked to an account or a lead and not blank</errorMessage>
+</ValidationRule>

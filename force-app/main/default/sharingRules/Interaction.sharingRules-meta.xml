@@ -91,6 +91,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Interaction_Onboarding_Support_Read_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides read access to users with Onboarding Support Role for Interaction object.</description>
+        <label>Interaction Onboarding Support Read Sharing Rule</label>
+        <sharedTo>
+            <role>Onboarding_Support_Read_Only</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Interaction_FraudX_Agent_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule shares all Interaction records with Read/Write access to Fraudx Agent Users.</description>

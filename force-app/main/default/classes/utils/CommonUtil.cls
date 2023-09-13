@@ -179,6 +179,17 @@ public with sharing class CommonUtil {
       record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }
   }
+  /**
+   * @description Generates a standard UUID (Universally Unique Identifier)
+   * @param hashKey send request body as blob
+   * @return A UUID, e.g. 874ddf01-552c-dc25-821b-33c57946632e
+   */
+  public static String generateUUID(Blob hashKey) {
+    String uuid = EncodingUtil.ConvertTohex(
+      Crypto.generateDigest('SHA-256', hashKey)
+    );
+    return uuid.Substring(0, 31);
+  }
 
   /**
    * @description Generates a standard UUID (Universally Unique Identifier)
@@ -773,6 +784,22 @@ public with sharing class CommonUtil {
     }
 
     return entitlements;
+  }
+
+  /**
+   * @description This method returns a RecordType instance based on RecordTypeId
+   * @param recordTypeId Id of the record type
+   * @return RecordType instance based on RecordTypeId
+   */
+  public static RecordType getRecordTypeDeveloperName(Id recordTypeId) {
+    if (String.isNotBlank(recordTypeId)) {
+      return [
+        SELECT DeveloperName, Id
+        FROM RecordType
+        WHERE Id = :recordTypeId
+      ];
+    }
+    return null;
   }
 
   /**

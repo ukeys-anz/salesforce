@@ -8,8 +8,8 @@
     <columns>Multiple_Products__c</columns>
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>Progress_Indicator__c</columns>
     <columns>CORE.USERS.FULL_NAME</columns>
-    <filterScope>Team</filterScope>
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>equals</operation>
@@ -25,5 +25,6 @@
         <operation>equals</operation>
         <value>LAST_N_MONTHS:11</value>
     </filters>
+    <filterScope>Team</filterScope>
     <label>My Closed Opportunities</label>
 </ListView>

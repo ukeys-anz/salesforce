@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission Set Group having Permission Sets related to CCRM Banker.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>CCRM Banker</label>
+    <permissionSets>CCRM_Opportunity_Access</permissionSets>
+    <permissionSets>CCRM_User_Base</permissionSets>
+    <permissionSets>force__ActionPlans</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

@@ -422,6 +422,11 @@
                 <label>Fraud / Falcon block placed</label>
             </value>
             <value>
+                <fullName>109</fullName>
+                <default>false</default>
+                <label>Blocks placed on customers account/profile</label>
+            </value>
+            <value>
                 <fullName>102</fullName>
                 <default>false</default>
                 <label>Branch to load placed on customers profile</label>
@@ -588,6 +593,11 @@
         <valueSettings>
             <controllingFieldValue>19</controllingFieldValue>
             <valueName>81</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>109</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>

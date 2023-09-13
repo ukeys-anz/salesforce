@@ -3,14 +3,17 @@
     <fullName>CCRM_MobilePhone_Check</fullName>
     <active>true</active>
     <description>Validation to check Mobile is entered in correct format.</description>
-    <errorConditionFormula>
-    AND(
-        $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    OR(
         RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
-        NOT ISBLANK( MobilePhone ) ,
-        NOT REGEX( MobilePhone , &quot;^\\+?614[0-9]{8}+$&quot; )
+        RecordType.DeveloperName = &apos;MLCRM_Lead&apos;
+    ), 
+    NOT ISBLANK( MobilePhone ) ,
+        AND(NOT REGEX( MobilePhone , &quot;^\\+614[0-9]{8}+$&quot; ),
+        NOT REGEX( MobilePhone , &quot;^\\+615[0-9]{8}+$&quot; )
     )
-</errorConditionFormula>
+)</errorConditionFormula>
     <errorDisplayField>MobilePhone</errorDisplayField>
-    <errorMessage>Please enter Mobile Number in +61412345678 format.</errorMessage>
+    <errorMessage>The Mobile Phone entered is not in the correct format. Refer to help text.</errorMessage>
 </ValidationRule>

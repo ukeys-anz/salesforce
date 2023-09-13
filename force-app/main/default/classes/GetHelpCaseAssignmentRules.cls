@@ -9,8 +9,6 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final String UNAUTHORISED_TRANSACTION = 'Unauthorised Transaction';
   public static final String DID_NOT_AUTHORISE_TRANSACTION = 'Didn\'t authorise transaction';
   public static final String DO_NOT_RECOGNISE_TRANSACTION = 'Don\'t recognise the transaction';
-  public static final String CASH_DEPOSIT_ERROR = 'Cash Deposit Error';
-  public static final String CHEQUE_DEPOSIT_ERROR = 'Cheque Deposit Error';
   public static final String HOME_LOANS_PRODUCT_CATEGORY = 'Home loans';
   public static final Group COACH_QUEUE = CommonUtil.getQueueByName(
     'Coach_Queue'
@@ -93,12 +91,6 @@ public with sharing class GetHelpCaseAssignmentRules {
         rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION
       ) {
         return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE);
-      }
-      if (
-        rec.Dispute_Reason__c == CASH_DEPOSIT_ERROR ||
-        rec.Dispute_Reason__c == CHEQUE_DEPOSIT_ERROR
-      ) {
-        return QUEUE_MAP.get(GetHelpConstants.SUPPORT_COACH_QUEUE);
       } else {
         return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
       }

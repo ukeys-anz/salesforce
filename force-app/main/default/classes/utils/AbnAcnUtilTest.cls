@@ -17,6 +17,7 @@ private class AbnAcnUtilTest {
           FirstName = 'First',
           LastName = 'Name',
           Company = 'Company',
+          Registered_Company__c = 'Yes',
           Email = 'test@test.test',
           ABN__c = '11005 357 522',
           ACN__c = '004085616',
