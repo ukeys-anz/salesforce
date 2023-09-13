@@ -153,7 +153,7 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     );
 
     //Fetch the map of financial account numbers based on the list of financial accounts in order to filter out card response.
-    Map<String, List<String>> accountNumbersList = FinancialAccountService.getFilteredFinancialAccountNumbers(
+    Map<String, List<String>> accountNumbersList = FinancialAccountService.getAccountNumbersByStatusMap(
       finacialAccountListByStatus
     );
 

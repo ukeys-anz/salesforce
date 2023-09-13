@@ -1,7 +1,7 @@
 /**
  * @author Shivam Swaraj
  * @since September 2023
- * @description Helper class for financial accounts DML or DDL actions.
+ * @description Helper class for financial accounts DML operations.
  */
 public with sharing class FinancialAccountService {
   /**
@@ -34,23 +34,21 @@ public with sharing class FinancialAccountService {
    * @param financialAccountList List of financial accounts filtered based on status
    * @return  List<String>  List of FinancialAccounts Account Number based on financial accounts list received.
    */
-  public static Map<String, List<String>> getFilteredFinancialAccountNumbers(
+  public static Map<String, List<String>> getAccountNumbersByStatusMap(
     List<FinServ__FinancialAccount__c> financialAccountList
   ) {
     Map<String, List<String>> accountNumbersByStatusMap = new Map<String, List<String>>();
 
     //creating map of list of account numbers by status
-    if (!financialAccountList.isEmpty()) {
-      for (FinServ__FinancialAccount__c finAcc : financialAccountList) {
-        if (!accountNumbersByStatusMap.containsKey(finAcc.FinServ__Status__c)) {
-          accountNumbersByStatusMap.put(
-            finAcc.FinServ__Status__c,
-            new List<String>()
-          );
-        }
-        accountNumbersByStatusMap.get(finAcc.FinServ__Status__c)
-          .add(finAcc.FinServ__FinancialAccountNumber__c);
+    for (FinServ__FinancialAccount__c finAcc : financialAccountList) {
+      if (!accountNumbersByStatusMap.containsKey(finAcc.FinServ__Status__c)) {
+        accountNumbersByStatusMap.put(
+          finAcc.FinServ__Status__c,
+          new List<String>()
+        );
       }
+      accountNumbersByStatusMap.get(finAcc.FinServ__Status__c)
+        .add(finAcc.FinServ__FinancialAccountNumber__c);
     }
     return accountNumbersByStatusMap;
   }
