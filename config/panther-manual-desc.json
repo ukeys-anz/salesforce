@@ -981,6 +981,7 @@
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
+        "PersonaAttemptCount__c",
         "PersonaId__c",
         "PersonID__c",
         "Fraud_PersonID__c"
@@ -1419,7 +1420,8 @@
         "TaxResidencyStatusDeclaredAt__c",
         "ElectronicVerificationAcknowledgedAt__c",
         "ElectronicVerificationAcknowledged__c",
-        "EquifaxAttemptCount__c"
+        "EquifaxAttemptCount__c",
+        "EventTimestamp__c"
       ],
       "IA-2415984": [
         "SecurityMobile__c",
