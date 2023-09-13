@@ -19,10 +19,10 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
   }
   /**
    * @description method to access Issue type picklist values
-   * @param methodName
+   * @param methodName What function is being requested
    * @param input method name
-   * @param outMap
-   * @param options
+   * @param outMap output map
+   * @param options Currently unused. For future development.
    * @return true if successful
    */
   public Boolean invokeMethod(
@@ -53,7 +53,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
    * @description method to fetch dependent picklist values
    * @param input map containg fieldname
    * @param output output map
-   * @param options
+   * @param options Currently unused. For future development.
    */
   public void getDependentValues(
     Map<String, Object> input,
@@ -74,7 +74,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
    * @description method to access Issue type picklist values
    * @param input input map
    * @param outMap output map
-   * @param options
+   * @param options Currently unused. For future development.
    * @param fieldName name of picklist field
    */
   public void populatePicklist(
@@ -127,7 +127,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
    * @description method to access Issue type picklist values
    * @param input subsequent Issue type
    * @param outMap  map of subsequent types
-   * @param options
+   * @param options Currently unused. For future development.
    */
   public void populateSubIssueTypeDependentPicklist(
     Map<String, Object> input,
@@ -145,9 +145,9 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
 
   /**
    * @description method to access Issue type picklist values
-   * @param objectName
-   * @param controllingField
-   * @param dependentField
+   * @param objectName Name of Object containing picklist
+   * @param controllingField Unused. Controlling picklist field name
+   * @param dependentField Controlled picklist field name
    * @return map of dependent picklist
    */
   public Map<String, List<Map<String, String>>> dependentPicklist(
@@ -155,82 +155,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
     String controllingField,
     String dependentField
   ) {
-    Map<String, List<Map<String, String>>> controllingInfo = new Map<String, List<Map<String, String>>>();
-    Schema.SObjectType objType = Schema.getGlobalDescribe().get(objectName);
-    Schema.DescribeSObjectResult describeResult = objType.getDescribe();
-    Schema.DescribeFieldResult controllingFieldInfo = describeResult.fields.getMap()
-      .get(controllingField)
-      .getDescribe();
-    Schema.DescribeFieldResult dependentFieldInfo = describeResult.fields.getMap()
-      .get(dependentField)
-      .getDescribe();
-    List<Schema.PicklistEntry> controllingValues = controllingFieldInfo.getPicklistValues();
-    List<Schema.PicklistEntry> dependentValues = dependentFieldInfo.getPicklistValues();
-    for (Schema.PicklistEntry currControllingValue : controllingValues) {
-      controllingInfo.put(
-        currControllingValue.getValue(),
-        new List<Map<String, String>>()
-      );
-    }
-
-    for (Schema.PicklistEntry currDependentValue : dependentValues) {
-      String jsonString = JSON.serialize(currDependentValue);
-      MyPickListInfo info = (MyPickListInfo) JSON.deserialize(
-        jsonString,
-        MyPickListInfo.class
-      );
-      String hexString = EncodingUtil.convertToHex(
-          EncodingUtil.base64Decode(info.validFor)
-        )
-        .toUpperCase();
-      Integer baseCount = 0;
-      for (Integer curr : hexString.getChars()) {
-        Integer val = 0;
-        if (curr >= 65) {
-          val = curr - 65 + 10;
-        } else {
-          val = curr - 48;
-        }
-        if ((val & 8) == 8) {
-          controllingInfo.get(controllingValues[baseCount + 0].getValue())
-            .add(
-              new Map<String, String>{
-                'name' => currDependentValue.getValue(),
-                'value' => currDependentValue.getLabel()
-              }
-            );
-        }
-        if ((val & 4) == 4) {
-          controllingInfo.get(controllingValues[baseCount + 1].getValue())
-            .add(
-              new Map<String, String>{
-                'name' => currDependentValue.getValue(),
-                'value' => currDependentValue.getLabel()
-              }
-            );
-        }
-        if ((val & 2) == 2) {
-          controllingInfo.get(controllingValues[baseCount + 2].getValue())
-            .add(
-              new Map<String, String>{
-                'name' => currDependentValue.getValue(),
-                'value' => currDependentValue.getLabel()
-              }
-            );
-        }
-        if ((val & 1) == 1) {
-          controllingInfo.get(controllingValues[baseCount + 3].getValue())
-            .add(
-              new Map<String, String>{
-                'name' => currDependentValue.getValue(),
-                'value' => currDependentValue.getLabel()
-              }
-            );
-        }
-        baseCount = baseCount + 4;
-      }
-    }
-    return controllingInfo;
+    return PicklistUtil.getCachedOmniPicklistMap(objectName, dependentField);
   }
 
   /**

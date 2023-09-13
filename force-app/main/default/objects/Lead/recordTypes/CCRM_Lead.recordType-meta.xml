@@ -7,6 +7,57 @@
     <description>Create a new AR&amp;C commercial lead</description>
     <label>Commercial CRM Lead</label>
     <picklistValues>
+        <picklist>Associated_Source_Detail__c</picklist>
+        <values>
+            <fullName>ANZ - BBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Product Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - RM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - SBM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - SBS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accountant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>External Seminar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Seminar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-ANZ Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Entity_Type__c</picklist>
         <values>
             <fullName>01</fullName>
@@ -68,47 +119,43 @@
     <picklistValues>
         <picklist>FinServ__ExpressedInterest__c</picklist>
         <values>
-            <fullName>Asset Finance</fullName>
+            <fullName>Assist with Business Cashflow</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit Card</fullName>
+            <fullName>Purchasing Property</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Foreign Exchange</fullName>
+            <fullName>Purchasing a new Business</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Loan</fullName>
+            <fullName>Purchasing an existing Business</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Indemnity Guarantee</fullName>
+            <fullName>Purchasing equipment %28inc%2E vehicles and fit out%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Insurance</fullName>
+            <fullName>Refinance</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Merchant</fullName>
+            <fullName>Purchase Vacant Land</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Overdraft</fullName>
+            <fullName>Development and Renovation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Term Loan</fullName>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Trade Finance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth</fullName>
+            <fullName>Set up a new Business %28Start Up%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2529,23 +2576,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Accountant</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Broker</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Referral</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>External Referral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>External Seminar</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2554,10 +2585,6 @@
         </values>
         <values>
             <fullName>Internal Referral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Internal Seminar</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2649,6 +2676,17 @@
         </values>
         <values>
             <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Registered_Company__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>

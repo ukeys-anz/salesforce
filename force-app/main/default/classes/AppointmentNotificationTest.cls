@@ -55,10 +55,16 @@ public with sharing class AppointmentNotificationTest {
     );
     insert testAccount;
 
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location';
+    loc.LocationType = 'Store';
+    insert loc;
+
     Interaction interactionSubject = createInteraction();
     interactionSubject.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactionSubject.AccountId = testAccount.Id;
     interactionSubject.Status__c = STATUS_CANCELLED;
+    interactionSubject.LocationId = loc.Id;
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
@@ -77,7 +83,7 @@ public with sharing class AppointmentNotificationTest {
         ContactRequestId__c,
         Interaction_Auto_Number__c,
         InteractionType,
-        LocationId,
+        Location.Name,
         RecordTypeId
       FROM Interaction
       WHERE Id = :interactionSubject.Id
@@ -88,6 +94,7 @@ public with sharing class AppointmentNotificationTest {
 
     Map<Id, SObject> dataMap = new Map<Id, SObject>();
     dataMap.put(testAccount.Id, testAccount);
+    dataMap.put(loc.Id, loc);
 
     IDR_Notification_Event__e platformEvent = AppointmentNotificationEventCreator.getInstance()
       .createBaseIDRNotificationEvent(interactionSubject);
@@ -144,9 +151,15 @@ public with sharing class AppointmentNotificationTest {
       insert testLead;
     }
 
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location';
+    loc.LocationType = 'Store';
+    insert loc;
+
     Interaction interactionSubject = createInteraction();
     interactionSubject.Lead__c = testLead.Id;
     interactionSubject.Status__c = InteractionConstants.SCHEDULED_STATUS;
+    interactionSubject.LocationId = loc.Id;
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
@@ -167,7 +180,7 @@ public with sharing class AppointmentNotificationTest {
         ContactRequestId__c,
         Interaction_Auto_Number__c,
         InteractionType,
-        LocationId,
+        Location.Name,
         RecordTypeId
       FROM Interaction
       WHERE Id = :interactionSubject.Id
@@ -178,6 +191,7 @@ public with sharing class AppointmentNotificationTest {
 
     Map<Id, SObject> dataMap = new Map<Id, SObject>();
     dataMap.put(testLead.Id, testLead);
+    dataMap.put(loc.Id, loc);
 
     IDR_Notification_Event__e platformEvent = AppointmentNotificationEventCreator.getInstance()
       .createBaseIDRNotificationEvent(interactionSubject);
@@ -228,9 +242,9 @@ public with sharing class AppointmentNotificationTest {
     );
 
     System.assertEquals(
-      interactionSubject.LocationId,
+      interactionSubject.Location.Name,
       notificationEvent.Location__c,
-      'Location__c should be set'
+      'Location Name should be set'
     );
 
     System.assertEquals(
@@ -260,36 +274,6 @@ public with sharing class AppointmentNotificationTest {
     Integer result = Lib_SystemLog.getDifferenceInMinutes(startTime, endTime);
 
     System.assertEquals(30, result, 'Should be 30 minute duration');
-  }
-
-  @isTest
-  static void notificationTemplateTest() {
-    Interaction createdInteraction = new Interaction();
-
-    Interaction cancelledInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
-      Status__c = STATUS_CANCELLED
-    );
-
-    String createdTemplate = AppointmentNotificationEventCreator.getNotificationTemplate(
-      createdInteraction
-    );
-    String cancelledTemplate = AppointmentNotificationEventCreator.getNotificationTemplate(
-      cancelledInteraction
-    );
-
-    System.assertEquals(
-      TEMPLATE_BOOKED,
-      createdTemplate,
-      'The newly created interaction should have a template of ' +
-      TEMPLATE_BOOKED
-    );
-    System.assertEquals(
-      TEMPLATE_CANCELLED,
-      cancelledTemplate,
-      'The newly created interaction should have a template of ' +
-      TEMPLATE_CANCELLED
-    );
   }
 
   /**

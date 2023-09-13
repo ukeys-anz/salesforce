@@ -59,4 +59,76 @@ public with sharing class CCRMAPIRepositoryTest {
       'The returned capcisId does not match'
     );
   }
+
+  @isTest
+  static void testMaintainParty() {
+    CCRMAPIRepository apiRepo = new CCRMAPIRepository();
+    Lead record = new Lead();
+    DCRMMaintainPartyModel maintainPartyResponse = apiRepo.maintainParty(
+      record
+    );
+
+    // Verify response received contains fake values
+    System.assertNotEquals(
+      null,
+      maintainPartyResponse.ocvId,
+      'The returned ocvId does not match'
+    );
+  }
+
+  @isTest
+  static void testGetAddressesLWC() {
+    CCRMValidateAddressModel getAddressesLWC = CCRMAPIRepository.getAddressesLWC(
+      '005357522'
+    );
+
+    // Verify response received contains fake values
+    System.assertEquals(
+      6,
+      getAddressesLWC.count,
+      'address should score should return'
+    );
+  }
+
+  @isTest
+  static void testGetSelectedAddressLWC() {
+    CCRMGetSelectedAddressModel getAddressesLWC = CCRMAPIRepository.getSelectedAddressLWC(
+      '005357522'
+    );
+
+    // Verify response received contains fake values
+    System.assertEquals(
+      'B',
+      getAddressesLWC.addressType,
+      'Select Address should return'
+    );
+  }
+
+  @isTest
+  static void testGetAddressesLwcV2() {
+    CCRMValidateAddressModelV2 getAddressesLWC = CCRMAPIRepository.getAddressesLwcV2(
+      '005357522'
+    );
+
+    // Verify response received contains fake values
+    System.assertNotEquals(
+      null,
+      getAddressesLWC.result.suggestions,
+      'address suggestions should return'
+    );
+  }
+
+  @isTest
+  static void testGetSelectedAddressLwcV2() {
+    CCRMGetSelectedAddressModelV2 getAddressesLWC = CCRMAPIRepository.getSelectedAddressLwcV2(
+      '005357522'
+    );
+
+    // Verify response received contains fake values
+    System.assertNotEquals(
+      null,
+      getAddressesLWC.result,
+      'address result should return'
+    );
+  }
 }

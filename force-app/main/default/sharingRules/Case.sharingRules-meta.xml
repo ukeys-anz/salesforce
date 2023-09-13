@@ -58,7 +58,7 @@
         <sharedTo>
             <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
-        <booleanFilter>(1 AND 2) OR (1 AND 3 AND 4)</booleanFilter>
+        <booleanFilter>(1 AND 2 AND 5) OR (1 AND 3 AND 4 AND 5)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -78,6 +78,11 @@
             <field>Origin</field>
             <operation>equals</operation>
             <value>ANZ Plus Web</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>equals</operation>
+            <value>false</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -661,6 +666,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>RTs_OnboardingSupport_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read access to General Enquiry, Account Closure, Dispute, ANZ Plus Complaints, Non-Customer Complaints, Customer Feedback, ID Ops Assistance and Fraud Check record type for Onboarding Support.</description>
+        <label>RTs_OnboardingSupport_RO</label>
+        <sharedTo>
+            <role>Onboarding_Support_Read_Only</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,ID Ops Assistance,Customer Feedback,Direct Entry,General Enquiry,Fraud Check,Card,NPP,Direct Debit,BPAY,Non-Customer Complaint,ATM,ANZ Plus Complaint</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_FinCrimeAgents_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>All Cases having Fraud record types, disputes, General Enquiry, Customer Feedback are to be shared with FinCrime Agents with Read only access.</description>
@@ -726,6 +746,21 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Card</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RTs_StatCompAgent_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All Cases having Fraud record types, disputes, General Enquiry, Customer Feedback are to be shared with Statutory Compliance Agents with Read only access</description>
+        <label>RTs Stat Comp Agent RO</label>
+        <sharedTo>
+            <role>Statutory_Compliance_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,Direct Debit,Recipient/Mule,BPAY,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

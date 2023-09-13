@@ -25,25 +25,36 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     this.modalMsg = "";
     this.valCustomerFields();
     if (this.missingFields.length > 0) {
-      if (this.missingFields.length > 0) {
-        this.modalMsg =
-          "Please complete all required fields: " +
-          this.missingFields.join(", ");
-        if (
-          this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
-          !this.omniJsonData.Case.CustomerDetails.Customer
-        ) {
-          this.modalMsg +=
-            "<br><br>Customer number must be numbers and atleast 10 digits long";
-        }
-      }
+      this.modalMsg =
+        "Please complete all required fields: " + this.missingFields.join(", ");
+      if (
+        this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+        !this.omniJsonData.Case.CustomerDetails.Customer &&
+        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID"
+      )
+        this.modalMsg +=
+          "<br><br>Customer number must be numbers and atleast 10 digits long.";
+      if (
+        this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+        this.omniJsonData.Response === false
+      )
+        this.modalMsg +=
+          "<br><br>Customer number is not valid or has not been validated, check the number and try again.";
       this.showModal = true;
     } else if (
       !this.missingFields.length &&
-      this.omniScriptHeaderDef.hasInvalidElements &&
-      this.omniJsonData.Case.isThisCustomerComplaint === "Yes"
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      this.omniScriptHeaderDef.hasInvalidElements
     ) {
       this.modalMsg = "Please complete all required fields";
+      this.showModal = true;
+    } else if (
+      !this.missingFields.length &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      this.omniJsonData.Response === false
+    ) {
+      this.modalMsg +=
+        "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
       this.showModal = true;
     } else {
       this.showModal = false;
@@ -83,6 +94,20 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.missingFields.push("Customer Decision");
     let details = this.omniJsonData.Case.CustomerDetails;
     if (this.omniJsonData.Case.isThisCustomerComplaint === "Yes") {
+      if (
+        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier ===
+          "CACHE ID" &&
+        !this.omniJsonData.Case.CustomerDetails.Customer1
+      ) {
+        this.missingFields.push("Customer Number");
+      } else if (
+        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier !==
+          "CACHE ID" &&
+        !this.omniJsonData.Case.CustomerDetails.Customer
+      ) {
+        this.missingFields.push("Customer Number");
+      }
+
       this.checkFields(details, this.omniJsonData.custMap);
     } else if (this.omniJsonData.Case.isThisCustomerComplaint === "No") {
       let nonCustMap = JSON.parse(JSON.stringify(this.omniJsonData.nonCustMap));
@@ -98,7 +123,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         nonCustMap.push({ Street: "Street" });
         nonCustMap.push({ Suburb: "Suburb" });
         nonCustMap.push({ State: "State" });
-        nonCustMap.push({ Country: "Country" });
       }
       this.checkFields(details, nonCustMap);
     }
@@ -225,7 +249,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     reMap.forEach((field) => {
       let ele = Object.keys(field)[0];
       if (ele.includes("Block")) {
-        if (!detail[ele] || (detail[ele] && !detail[ele][ele.split("-")[0]])) {
+        if (!detail[ele] || (detail[ele] && !detail[ele].Id)) {
           this.missingFields.push(Object.values(field)[0]);
         }
       } else if (!detail[ele]) {

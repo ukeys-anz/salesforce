@@ -5,7 +5,7 @@
     <errorConditionFormula>AND(
         $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
         RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
-        $Profile.Name = &quot;ANZ Standard User&quot;,
+        $Profile.Name = &quot;ANZ CCRM Standard User&quot;,
         $User.Id !=  Owner:User.Id, 
         NOT(ISCHANGED( OwnerId ))
     )</errorConditionFormula>

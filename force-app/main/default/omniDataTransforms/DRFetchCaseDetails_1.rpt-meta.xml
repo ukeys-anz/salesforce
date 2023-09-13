@@ -275,22 +275,8 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom6372</globalKey>
-        <inputFieldName>avoidableEscalation</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:avoidableEscalation</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom2530</globalKey>
-        <inputFieldName>showProdServiceError</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom3658</globalKey>
+        <inputFieldName>Case:IDR_Real_Form_Ref_No__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -315,6 +301,23 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:prodError var:prod2Error var:prod3Error CONCAT</formulaConverted>
+        <formulaExpression>CONCAT(prodError,prod2Error,prod3Error)</formulaExpression>
+        <formulaResultPath>prodErrorMsg</formulaResultPath>
+        <formulaSequence>8.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom4577</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom6483</globalKey>
@@ -338,6 +341,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:product2</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:IDR_Avoidable_Escalation__c &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:IDR_Avoidable_Escalation__c,&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
+        <formulaResultPath>avoidableEscalation</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom6984</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -427,6 +447,20 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom5252</globalKey>
+        <inputFieldName>prodErrorMsg</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>prodErrorMsg</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom6998</globalKey>
@@ -457,12 +491,12 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom2530</globalKey>
-        <inputFieldName>showProdServiceError</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom9783</globalKey>
+        <inputFieldName>Case:Parent.CaseNumber</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>showProdServiceError</outputFieldName>
+        <outputFieldName>Case:ParentCase-Block:ParentCase</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -471,13 +505,16 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom9783</globalKey>
-        <inputFieldName>Case:Parent.CaseNumber</inputFieldName>
+        <formulaConverted>| | var:Case:Product__c ISBLANK &quot;Product/\/\/or/\/\/Service/\/\/Name,/\/\/&quot; &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(ISBLANK(Case:Product__c),&quot;Product or Service Name, &quot;,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>prodError</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom3698</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ParentCase-Block:ParentCase</outputFieldName>
-        <outputObjectName>json</outputObjectName>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -516,25 +553,8 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:IDR_Avoidable_Escalation__c &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
-        <formulaExpression>IF(Case:IDR_Avoidable_Escalation__c,&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
-        <formulaResultPath>avoidableEscalation</formulaResultPath>
-        <formulaSequence>4.0</formulaSequence>
-        <globalKey>DRFetchCaseDetailsCustom6254</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom7974</globalKey>
-        <inputFieldName>Case:IDR_Product_3__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom1520</globalKey>
+        <inputFieldName>Case:IDR_Account_Card_Policy_Number_3__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -629,6 +649,37 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:Case:IDR_Product_3__c ISBLANK var:Case:IDR_Third_Issue__c &amp;&amp; &quot;Product/\/\/or/\/\/Service/\/\/Name/\/\/3,/\/\/&quot; &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(ISBLANK(Case:IDR_Product_3__c)&amp;&amp;Case:IDR_Third_Issue__c,&quot;Product or Service Name 3, &quot;,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>prod3Error</formulaResultPath>
+        <formulaSequence>7.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom3903</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom6118</globalKey>
+        <inputFieldName>showProdServiceError</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>showProdServiceError</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom3544</globalKey>
@@ -673,8 +724,8 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:Case:Product__c ISBLANK | var:Case:IDR_Inbox_Email_Address__c ISNOTBLANK &amp;&amp; &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
-        <formulaExpression>IF(ISBLANK(Case:Product__c)&amp;&amp;ISNOTBLANK(Case:IDR_Inbox_Email_Address__c),&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
+        <formulaConverted>| | var:Case:Product__c ISBLANK | var:Case:IDR_Inbox_Email_Address__c ISNOTBLANK &amp;&amp; var:Case:IDR_Second_Issue__c &quot;true&quot; == | var:Case:IDR_Product_2__c ISBLANK &amp;&amp; || var:Case:IDR_Third_Issue__c &quot;true&quot; == | var:Case:IDR_Product_3__c ISBLANK &amp;&amp; || | var:Case:Product__c ISBLANK || &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
+        <formulaExpression>IF(((ISBLANK(Case:Product__c)&amp;&amp;ISNOTBLANK(Case:IDR_Inbox_Email_Address__c))||((Case:IDR_Second_Issue__c==&quot;true&quot;)&amp;&amp;ISBLANK(Case:IDR_Product_2__c))||((Case:IDR_Third_Issue__c==&quot;true&quot;)&amp;&amp;ISBLANK(Case:IDR_Product_3__c))||(ISBLANK(Case:Product__c))),&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
         <formulaResultPath>showProdServiceError</formulaResultPath>
         <formulaSequence>3.0</formulaSequence>
         <globalKey>DRFetchCaseDetailsCustom9060</globalKey>
@@ -746,12 +797,12 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom4169</globalKey>
-        <inputFieldName>Case:IDR_Avoidable_Escalation_Reason__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom8006</globalKey>
+        <inputFieldName>avoidableEscalation</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:avoidableEscalationReason</outputFieldName>
+        <outputFieldName>Case:avoidableEscalation</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -760,8 +811,8 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom76</globalKey>
-        <inputFieldName>Case:Provided_details_to_Prod_Manufacturer_3__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom4173</globalKey>
+        <inputFieldName>Case:IDR_Financial_Compensation_2__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -844,11 +895,8 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:Case:Product__c ISBLANK | var:Case:IDR_Inbox_Email_Address__c ISNOTBLANK &amp;&amp; &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
-        <formulaExpression>IF(ISBLANK(Case:Product__c)&amp;&amp;ISNOTBLANK(Case:IDR_Inbox_Email_Address__c),&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
-        <formulaResultPath>showProdServiceError</formulaResultPath>
-        <formulaSequence>3.0</formulaSequence>
-        <globalKey>DRFetchCaseDetailsCustom9060</globalKey>
+        <globalKey>DRFetchCaseDetailsCustom5813</globalKey>
+        <inputFieldName>Case:IDR_Financial_Remedy_Points__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -875,6 +923,20 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2021</globalKey>
+        <inputFieldName>Case:IDR_Avoidable_Escalation_Reason__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:avoidableEscalationReason</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
         <filterValue>CaseId</filterValue>
         <globalKey>DRFetchCaseDetailsCustom5097</globalKey>
@@ -888,9 +950,26 @@
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:Case:IDR_Product_2__c ISBLANK var:Case:IDR_Second_Issue__c &amp;&amp; &quot;Product/\/\/or/\/\/Service/\/\/Name/\/\/2,/\/\/&quot; &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(ISBLANK(Case:IDR_Product_2__c)&amp;&amp;Case:IDR_Second_Issue__c,&quot;Product or Service Name 2, &quot;,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>prod2Error</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom5986</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;CaseId&quot; : &quot;5002O0000091PU0QAM&quot;
+  &quot;CaseId&quot; : &quot;5009n000007BLebAAG&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

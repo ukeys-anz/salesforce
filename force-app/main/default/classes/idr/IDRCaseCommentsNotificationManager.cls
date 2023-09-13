@@ -23,10 +23,11 @@ public with sharing class IDRCaseCommentsNotificationManager {
           IDRCaseActions.isIDRComplaintType(caseRec)
         ) {
           if (
-            (!(caseRec.Status == 'Closed' ||
+            ((!(caseRec.Status == 'Closed' ||
             caseRec.Status == 'Withdrawn' ||
             caseRec.Status == 'Resolved')) ||
-            (!((record.CommentBody).startsWith('New attachment added; ')))
+            (!((record.CommentBody).startsWith('New attachment added; ')))) &&
+            !String.valueOf(caseRec.OwnerId).startsWith('00G')
           ) {
             wrapperList.add(createNotification(caseRec));
           }
@@ -74,17 +75,15 @@ public with sharing class IDRCaseCommentsNotificationManager {
               ? caseRec.IDR_NC_Last_Name__c
               : ''))
           : '';
-        String subjectStr = (customerName != '')
-          ? ('New Correspondence received on a Closed Complaint added by ' +
-            UserInfo.getName() +
-            ' on case ' +
-            caseRec.CaseNumber +
-            ' ' +
-            customerName)
-          : ('New Correspondence received on a Closed Complaint added by ' +
-            UserInfo.getName() +
-            ' on case ' +
-            caseRec.CaseNumber);
+        String subjectStr =
+          IDRConstants.TASK_CORRESPONDENCE_SUBJECT +
+          ' ' +
+          UserInfo.getName() +
+          ' on case ' +
+          caseRec.CaseNumber;
+        if (customerName != '') {
+          subjectStr += ' ' + customerName;
+        }
         if (
           caseRec.OwnerId != record.CreatedById &&
           IDRCaseActions.isIDRComplaintType(caseRec) &&
@@ -96,7 +95,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
             caseRec,
             subjectStr
           );
-          newCorrsTask.Description = 'Tick the \'Additional Correspondence reviewed\' checkbox in CMOS once task has been actioned and closed';
+          newCorrsTask.Description = IDRConstants.TASK_CORRESPONDENCE_DESCRIPTION;
           assiTasks.add(newCorrsTask);
         }
       }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>CCRM_System_Role_Access</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>New permission for contract events to update financial accounts</description>
     <fieldPermissions>
         <editable>true</editable>
@@ -518,6 +522,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Force_Update__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__FinancialAccount__c.Interest_Accrued__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -529,6 +538,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.Marketing_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Number_Of_Signatures__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -357,4 +357,87 @@ private class AccountTriggerHandlerTest {
       'All leads should have been converted'
     );
   }
+
+  @isTest
+  static void testInsertAccountWithoutBankruptField() {
+    Account acc = new Account(
+      Name = 'Test Account',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = false
+    );
+
+    Test.startTest();
+    insert acc;
+    Test.stopTest();
+
+    System.assert(!acc.BankruptCheckBox__c, 'Bankrupt flag should be false');
+  }
+
+  @isTest
+  static void testInsertAccountWithBankruptField() {
+    Account acc = new Account(
+      Name = 'Test Account',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = false,
+      Bankrupt_Date__c = Date.today()
+    );
+
+    Test.startTest();
+    insert acc;
+    Test.stopTest();
+
+    acc = [
+      SELECT BankruptCheckBox__c, Name
+      FROM Account
+      WHERE Name = 'Test Account'
+    ];
+    System.assert(acc.BankruptCheckBox__c, 'Bankrupt flag should be true');
+  }
+
+  @isTest
+  static void testUpdateAccountWithNullBankruptField() {
+    Account acc = new Account(
+      Name = 'Test Account',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = false,
+      Bankrupt_Date__c = Date.today()
+    );
+
+    Test.startTest();
+    insert acc;
+
+    acc.Bankrupt_Date__c = null;
+    update acc;
+    Test.stopTest();
+
+    acc = [
+      SELECT BankruptCheckBox__c, Name
+      FROM Account
+      WHERE Name = 'Test Account'
+    ];
+    System.assert(!acc.BankruptCheckBox__c, 'Bankrupt flag should be false');
+  }
+
+  @isTest
+  static void testUpdateAccountWithBankruptField() {
+    Account acc = new Account(
+      Name = 'Test Account',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = false
+    );
+
+    Test.startTest();
+    insert acc;
+
+    acc.Bankrupt_Date__c = Date.today();
+    update acc;
+    Test.stopTest();
+
+    acc = [
+      SELECT BankruptCheckBox__c, Name
+      FROM Account
+      WHERE Name = 'Test Account'
+    ];
+    System.assert(acc.BankruptCheckBox__c, 'Bankrupt flag should be true');
+  }
 }

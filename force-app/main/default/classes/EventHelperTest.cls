@@ -64,7 +64,11 @@ public with sharing class EventHelperTest {
     insert psAssigments;
 
     System.runAs(testUser2) {
-      DateTime appointmentDateTime = DateTime.Now();
+      DateTime appointmentDateTime = DateTime.newInstance(
+        DateTime.now().year() + 1,
+        1,
+        1
+      );
       DateTime endDateTime = appointmentDateTime.addMinutes(
         otherPurposeDuration
       );
@@ -145,7 +149,11 @@ public with sharing class EventHelperTest {
   @isTest
   static void testEventCreationForLead() {
     setup();
-    DateTime appointmentDateTime = DateTime.Now();
+    DateTime appointmentDateTime = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
     DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
     Lead testLead;
 

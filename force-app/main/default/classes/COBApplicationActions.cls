@@ -37,7 +37,20 @@ public with sharing class COBApplicationActions {
 
     Logger.debug('KYC QA number of cases: ' + cases.size());
     Logger.debug('KYC QA case insertion started: ' + System.now());
-    DMLUtil.insertRecords(cases, false, false);
+    List<Database.SaveResult> results = DMLUtil.insertRecords(
+      cases,
+      false,
+      false
+    );
+    for (Integer i = 0; i < results.size(); i++) {
+      if (results[i].isSuccess() == false) {
+        Logger.error(
+          'KYC QA Case creation failed for COB record: ' + records[i].Id,
+          Logger.Severity.HIGH
+        );
+      }
+    }
+
     Logger.debug('KYC QA case insertion finished: ' + System.now());
     Logger.saveLog();
   }

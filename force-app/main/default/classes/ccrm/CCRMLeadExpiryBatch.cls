@@ -12,16 +12,19 @@ public with sharing class CCRMLeadExpiryBatch implements Database.Batchable<sObj
    */
   public Database.QueryLocator start(Database.BatchableContext bc) {
     string ccrmLeadRtId = CCRMConstants.CCRM_LEAD_RT_ID;
+    String mlcrmLeadRtId = MLCRMConstants.MLCRM_LEAD_RT_ID;
     Set<String> leadStatuses = new Set<String>{
-      CCRMConstants.STATUS_NEW,
-      CCRMConstants.STATUS_IN_PROGRESS
+      CCRMConstants.STATUS_ASSIGNED,
+      CCRMConstants.STATUS_IN_PROGRESS,
+      CCRMConstants.STATUS_NEW
     };
     return Database.getQueryLocator(
-      'SELECT Id, Status, Expiry_Date__c, Name ' +
+      'SELECT Id, Status, RecordTypeId, Expiry_Date__c, Name, Lead_Outcome__c ' +
       'FROM Lead ' +
       'WHERE Status IN :leadStatuses' +
       ' AND Expiry_Date__c <= YESTERDAY' +
-      ' AND RecordTypeId = :ccrmLeadRtId'
+      ' AND (RecordTypeId = :ccrmLeadRtId OR' +
+      ' RecordTypeId = :mlcrmLeadRtId)'
     );
   }
 

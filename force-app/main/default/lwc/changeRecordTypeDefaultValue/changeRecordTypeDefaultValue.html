@@ -1,0 +1,99 @@
+<template>
+  <template lwc:if={loadingData}>
+    <div class="slds-align_absolute-center" style="height: 4rem">
+      <div role="status" class="slds-spinner_inline">
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+    </div>
+  </template>
+  <template lwc:else>
+    <lightning-record-edit-form
+      object-api-name="Case"
+      record-type-id={updatedRT}
+      class="lookupFields"
+    >
+      <template lwc:if={lookupFields} for:each={lookupFields} for:item="f">
+        <template lwc:if={f.defaultFieldValueFlag}>
+          <lightning-input-field
+            key={f.name}
+            field-name={f.name}
+            value={f.value}
+            data-id={f.name}
+            onchange={handleChosenValue}
+          ></lightning-input-field>
+        </template>
+        <template lwc:else>
+          <lightning-input-field
+            key={f.name}
+            field-name={f.name}
+            data-id={f.name}
+            onchange={handleChosenValue}
+          ></lightning-input-field>
+        </template>
+      </template>
+    </lightning-record-edit-form>
+
+    <lightning-record-edit-form
+      object-api-name="Case"
+      record-type-id={updatedRT}
+      record-id={recordId}
+      onerror={handleError}
+      onsuccess={handleSuccess}
+      onsubmit={handleSendValues}
+      class="submitRecordEditForm"
+    >
+      <template for:each={allOtherFields} for:item="f">
+        <template lwc:if={f.defaultFieldValueFlag}>
+          <lightning-input-field
+            key={f.name}
+            field-name={f.name}
+            value={f.value}
+            data-id={f.name}
+            onchange={handleChosenValue}
+          ></lightning-input-field>
+        </template>
+        <template lwc:else>
+          <lightning-input-field
+            key={f.name}
+            field-name={f.name}
+            data-id={f.name}
+            onchange={handleChosenValue}
+          ></lightning-input-field>
+        </template>
+      </template>
+      <footer class="slds-card__footer">
+        <lightning-button
+          name="cancel"
+          class="slds-button_neutral slds-button--neutral cancelBTN"
+          label="Cancel"
+          onclick={handleCancelButton}
+        >
+        </lightning-button>
+        <lightning-button
+          variant="brand"
+          type="submit"
+          name="save"
+          label="Save"
+        >
+        </lightning-button>
+      </footer>
+    </lightning-record-edit-form>
+    <template lwc:if={submittingFlag}>
+      <div style="height: 6rem">
+        <div class="slds-spinner_container">
+          <div
+            role="status"
+            class="slds-spinner slds-spinner_medium slds-spinner_brand slds-is-relative"
+          >
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </template>
+</template>

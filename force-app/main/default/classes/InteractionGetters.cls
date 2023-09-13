@@ -43,6 +43,7 @@ public with sharing class InteractionGetters {
           StartTime,
           Endtime,
           OwnerId,
+          Owner.Name,
           Interaction_External_Id__c
         FROM Interaction
         WHERE

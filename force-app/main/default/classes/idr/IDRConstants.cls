@@ -167,6 +167,8 @@ public with sharing class IDRConstants {
   public static final String TASK_TYPE_COLLECTION = 'Collections';
   public static final String TASK_TYPE_COMPLIANTS_FLAG = 'Complaints Flag';
   public static final String TASK_TYPE_NOTIFICATION = 'Notification';
+  public static final String TASK_CORRESPONDENCE_SUBJECT = 'New Correspondence received on a Closed Complaint added by';
+  public static final String TASK_CORRESPONDENCE_DESCRIPTION = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
@@ -221,7 +223,8 @@ public with sharing class IDRConstants {
           'Credit assessment' => '5',
           'Credit reporting' => '19',
           'Transactions & payments' => '10',
-          'Fraud & Scams' => '14',
+          'Fraud & Scams' => 'Fraud',
+          'Fraud' => 'Fraud',
           'Transaction Disputes' => '20',
           'Privacy and Confidentiality' => '8',
           'Advice' => '1',
@@ -273,7 +276,8 @@ public with sharing class IDRConstants {
           'EDR_Hardship',
           'EDR_Wealth',
           'IDR_Satellite',
-          'IDR_Spare' //IDR Disputes & Scams
+          'IDR_Spare', //IDR Disputes & Scams
+          'EDR_CM_Everyday_Banking_Wealth' // EDR Scams
         };
       }
       return workBasketNames;
@@ -339,7 +343,8 @@ public with sharing class IDRConstants {
     '10',
     '12',
     '13',
-    '14',
+    'Fraud',
+    'Scam',
     '15',
     '16',
     '17',

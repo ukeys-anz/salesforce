@@ -315,10 +315,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Incorrect Customer Reference Number</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Payee has not received funds</fullName>
             <default>false</default>
         </values>
@@ -360,6 +356,10 @@
         </values>
         <values>
             <fullName>Unauthorised Transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unintended Payment</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3751,6 +3751,219 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_AFCA_Issue_Type__c</picklist>
+        <values>
+            <fullName>Advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Charges</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer Data Rights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Difficulty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Firm Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instructions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy %26 Confidentiality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transactions</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_AFCA_Product_Line__c</picklist>
+        <values>
+            <fullName>Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deposit Taking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Superannuation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Traditional Trustee Services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_AFCA_Product_Type__c</picklist>
+        <values>
+            <fullName>Annuity Policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved Deposit Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Current Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Derivatives%2FHedging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Transfer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estate Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estate Planning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extended Warranty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guarantees</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Income Stream Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life policy Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managed Investments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Margin Loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Cash</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Income Stream Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Indemnity Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retirement Savings Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safe Custody</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Securities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small APRA Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business%2FFarm Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Superannuation Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Superannuation-Non-Trustee Related</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusts</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_AFCA_Status__c</picklist>
         <values>
             <fullName>10</fullName>
@@ -3798,6 +4011,321 @@
         </values>
         <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_AFCA_Sub_issue_Type__c</picklist>
+        <values>
+            <fullName>Account administration error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application for early super release declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Appropriate Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Break Costs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Break costs disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancellation of policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chargebacks- declined %28consumer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chargebacks- delayed %28consumer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chargebacks- merchant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Claim amount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Score</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Death benefit distribution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decline of financial difficulty request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deductible or excess</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Default judgement obtained</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Default listing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Default notice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay in claim handling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay in complaint handling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of application or variation request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- Complainant non-disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- Driving under influence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- Exclusion%2Fcondition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- No policy or contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- no proof of loss</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim-Fraudulent claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dishonoured transactions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to active in the clients best interest</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to follow instructions%2Fagreement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to prioritise clients interests</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to provide advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to provide special needs assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure%2Frefusal to provide access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Family law division of super benefit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fee disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial firm failure to respond to request for assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inappropriate advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inappropriate debt collection action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inappropriate margin call notice and%2For investment liquidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect commissions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect fees%2Fcosts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect financial information provided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect interest added</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect premiums</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect product%2Fservice information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect tax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate data collection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate data correction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate data maintenance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate data use or disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insufficient product%2Fservice information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interpretation of product terms and conditions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liability disputed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loss of documents %2F personal property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Management of complainant details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Misleading product%2Fservice information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mistaken internet payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mortgagee sale</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No claim bonus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other CDR issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other privacy breaches</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repayment History Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request to suspend enforcement proceedings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responsible lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security and Destruction%2FDe-identification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service quality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical problems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unauthorised information disclosed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unauthorised transaction %28scam%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unconscionable conduct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unfair Contract terms</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4443,10 +4971,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>14</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>15</fullName>
             <default>false</default>
         </values>
@@ -4504,6 +5028,14 @@
         </values>
         <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4526,10 +5058,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>14</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>15</fullName>
             <default>false</default>
         </values>
@@ -4587,6 +5115,14 @@
         </values>
         <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5752,6 +6288,10 @@
     <picklistValues>
         <picklist>IDR_Product_Category__c</picklist>
         <values>
+            <fullName>ANZ Internet Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>ANZ Plus</fullName>
             <default>false</default>
         </values>
@@ -5789,10 +6329,6 @@
         </values>
         <values>
             <fullName>Insurance%2Fwealth products</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ANZ Internet Banking</fullName>
             <default>false</default>
         </values>
         <values>
@@ -5889,6 +6425,38 @@
         </values>
         <values>
             <fullName>101</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>102</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>103</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>104</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>105</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>106</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>107</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>108</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>109</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6315,6 +6883,38 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>102</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>103</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>104</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>105</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>106</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>107</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>108</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>109</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>11</fullName>
             <default>false</default>
         </values>
@@ -6735,6 +7335,38 @@
         </values>
         <values>
             <fullName>101</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>102</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>103</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>104</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>105</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>106</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>107</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>108</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>109</fullName>
             <default>false</default>
         </values>
         <values>
@@ -12522,10 +13154,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>14</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>15</fullName>
             <default>false</default>
         </values>
@@ -12583,6 +13211,14 @@
         </values>
         <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -4,6 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR CRP LT</label>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_CRP_Leadership</permissionSets>
     <permissionSets>IDR_User_Level_1</permissionSets>

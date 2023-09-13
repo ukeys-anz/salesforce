@@ -546,6 +546,6 @@
     </recordTypeVisibilities>
     <tabSettings>
         <tab>Quality_Assessment__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

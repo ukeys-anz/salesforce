@@ -29,6 +29,8 @@
     "Controlling_Post__c",
     "CustomerOnboardingApplication__c",
     "EmailMessage",
+    "Entitlement",
+    "Event",
     "External_Case_Status__c",
     "FinServ__ContactContactRelation__c",
     "FinServ__FinancialAccount__c",
@@ -45,6 +47,7 @@
     "Lead",
     "Lead_Flex_Field__c",
     "Legal_Entity__c",
+    "Location",
     "Log_Record_Access__b",
     "Opportunity",
     "OpportunityLineItem",
@@ -58,6 +61,7 @@
     "Response_Type__c",
     "Reported_Bug__c",
     "Task",
+    "Twilio_Details__c",
     "Traced_Application_Log__b",
     "trailheadapp__Badge__c",
     "trailheadapp__Debug_Log__c",
@@ -70,6 +74,13 @@
     "User"
   ],
   "usermap": [
+    {
+      "name": "Api Enabled User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["Interaction_Read_Only", "Disable_MFA"],
+      "type": "system"
+    },
     {
       "name": "ANZ Plus Operations - Read Only",
       "profile": "ANZx Standard User",
@@ -150,7 +161,8 @@
         "Customer_Onboarding_Integration",
         "Case_Read_Write_Customer_Onboarding_Integration",
         "Case_Read_Write_KYC_QA",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Customer_Read_Only"
       ],
       "type": "system"
     },
@@ -467,7 +479,8 @@
         "Enforce_mTLS",
         "Interaction_Integration",
         "Password_Never_Expires",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Twilio_Details_Read_Write"
       ],
       "type": "system"
     },
@@ -672,8 +685,22 @@
         "API_Only",
         "Enforce_mTLS",
         "Case_Read_Write_KYC_QA",
+        "Case_View_All",
         "Customer_Onboarding_View_All",
         "Customer_Read_Only",
+        "Disable_MFA",
+        "Bypass_Chatter_Feed_Item_URL_Validation"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Appointment Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Appointment_Booking_Integration",
+        "FinancialServicesCloudExtension",
         "Disable_MFA"
       ],
       "type": "system"
