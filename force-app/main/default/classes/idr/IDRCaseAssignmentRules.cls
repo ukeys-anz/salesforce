@@ -187,7 +187,7 @@ public with sharing class IDRCaseAssignmentRules {
       }
 
       // Fraud & Scams
-      if (rec.Type == '14' || rec.Type == 'Fraud' || rec.Type == 'Scam' || rec.Type == 'Fraud' || rec.Type == 'Scam') {
+      if (rec.Type == '14' || rec.Type == 'Fraud' || rec.Type == 'Scam') {
         return QUEUE_MAP.get('IDR_Spare'); // IDR Disputes & Scams
       }
 

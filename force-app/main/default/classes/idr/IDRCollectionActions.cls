@@ -242,7 +242,6 @@ public with sharing class IDRCollectionActions {
       );
     }
     return stopCollectionAccList;
-    return stopCollectionAccList;
   }
 
   /**
@@ -406,7 +405,7 @@ public with sharing class IDRCollectionActions {
   ) {
     List<Database.SaveResult> publishResults = EventBus.publish(
       collectionsEventList
-      );
+    );
     for (Integer i = 0; i < publishResults.size(); i++) {
       if (!publishResults[i].isSuccess()) {
         isCollectionEventFailed = true;
@@ -566,13 +565,11 @@ public with sharing class IDRCollectionActions {
    * @param rec current case record from the trigger
    * @param startCollecMap Map with account number as key and set of case ids as values
    * @return List<IDRCollectionsAccounts> collection account list
-   * @return List<IDRCollectionsAccounts> collection account list
    */
   private static List<IDRCollectionsAccounts> validateRecordForStartCollection(
     Case rec,
     Map<String, Set<Id>> startCollecMap
   ) {
-    List<IDRCollectionsAccounts> startCollectionAccList = new List<IDRCollectionsAccounts>();
     List<IDRCollectionsAccounts> startCollectionAccList = new List<IDRCollectionsAccounts>();
     if (
       String.isNotBlank(rec.IDR_Collection_Number__c) &&
@@ -608,14 +605,12 @@ public with sharing class IDRCollectionActions {
       );
     }
     return startCollectionAccList;
-    return startCollectionAccList;
   }
 
   /**
    * @description method to add issue one into start collection event and task list
    * @param rec current case record from the trigger
    * @param startCollecMap Map with account number as key and set of case ids as values
-   * @return List<IDRCollectionsAccounts> collection account list
    * @return List<IDRCollectionsAccounts> collection account list
    */
   private static List<IDRCollectionsAccounts> startCollectionForIssueOne(
@@ -649,7 +644,6 @@ public with sharing class IDRCollectionActions {
         }
       }
     }
-    return startCollectionAccList;
     return startCollectionAccList;
   }
 
@@ -695,14 +689,12 @@ public with sharing class IDRCollectionActions {
       }
     }
     return startCollectionAccList;
-    return startCollectionAccList;
   }
 
   /**
    * @description method to add issue three into start collection event and task list
    * @param rec current case record from the trigger
    * @param startCollecMap Map with account number as key and set of case ids as values
-   * @return List<IDRCollectionsAccounts> collection account list
    * @return List<IDRCollectionsAccounts> collection account list
    */
   private static List<IDRCollectionsAccounts> startCollectionForIssueThree(
@@ -740,7 +732,6 @@ public with sharing class IDRCollectionActions {
         }
       }
     }
-    return startCollectionAccList;
     return startCollectionAccList;
   }
 
