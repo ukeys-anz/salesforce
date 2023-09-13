@@ -210,6 +210,7 @@ public without sharing class IDRTaskActions {
     }
     stampQueueName(records, oldMap);
     validateSIDueDate(records, oldMap);
+    IDRTaskActions2.validateQAComplianceTask(records, oldMap);
   }
 
   /**

@@ -55,6 +55,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    IDRQualityAssessmentTaskActions.createComplianceTasks(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
     QualityAssessmentActions.createQAShareRecord(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
