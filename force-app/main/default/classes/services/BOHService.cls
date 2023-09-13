@@ -26,7 +26,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_SOP + sopId,
+      System.Label.MS_Get_SOP + sopId +'/consolidate',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
