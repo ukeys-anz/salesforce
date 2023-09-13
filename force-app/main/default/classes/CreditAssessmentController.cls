@@ -316,9 +316,12 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       WHERE Id = :String.valueOf(input.get('recordId'))
     ];
 
+    String creditId = String.valueOf(input.get('creditId'));
+
     //Remove the version identifier from the credit id
-    String creditId = String.valueOf(input.get('creditId'))
-      .left(String.valueOf(input.get('creditId')).indexOf('@'));
+    if (creditId.contains('@')) {
+      creditId = creditId.left(creditId.indexOf('@'));
+    }
 
     CreditAssessmentAPIRepository creditApi = new CreditAssessmentAPIRepository();
     CreditReferralModel cr = creditApi.createCreditEnquiryAssessment(
