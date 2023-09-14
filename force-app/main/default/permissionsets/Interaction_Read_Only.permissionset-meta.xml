@@ -368,7 +368,7 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>
-        <tab>Interaction_List_View</tab>
+        <tab>standard-Interaction</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>
