@@ -5,7 +5,7 @@ let styleDefinition = {
       styleObject: {
         class: "slds-col   slds-text-align_center  slds-size_1-of-12  ",
         style: "      \n         ",
-        styleProperties: { styles: { label: { fontSize: "20px" } } }
+        styleProperties: { styles: { label: { fontSize: "15px" } } }
       }
     },
     {
@@ -26,8 +26,9 @@ let styleDefinition = {
       styleObject: {
         class:
           "slds-col   slds-text-align_center slds-border_bottom  slds-size_1-of-12  ",
-        style: "     border-bottom: #0176d3 2px solid; \n         ",
-        styleProperties: { styles: { label: { fontSize: "20px" } } }
+        style:
+          "     border-bottom: #0176d3 2px solid; \n         font-weight: bold",
+        styleProperties: { styles: { label: { fontSize: "15px" } } }
       }
     }
   ],
@@ -37,7 +38,7 @@ let styleDefinition = {
       styleObject: {
         class: "slds-col   slds-text-align_center  slds-size_1-of-12  ",
         style: "      \n         ",
-        styleProperties: { styles: { label: { fontSize: "20px" } } }
+        styleProperties: { styles: { label: { fontSize: "15px" } } }
       }
     },
     {
@@ -58,12 +59,13 @@ let styleDefinition = {
       styleObject: {
         class:
           "slds-col   slds-text-align_center slds-border_bottom  slds-size_1-of-12  ",
-        style: "     border-bottom: #0176d3 2px solid; \n         ",
-        styleProperties: { styles: { label: { fontSize: "20px" } } }
+        style:
+          "     border-bottom: #0176d3 2px solid; \n         font-weight: bold",
+        styleProperties: { styles: { label: { fontSize: "15px" } } }
       }
     }
   ],
-  state0element2: [
+  state0element3: [
     {
       conditions: "default",
       styleObject: {
@@ -73,7 +75,7 @@ let styleDefinition = {
       }
     }
   ],
-  state0element3: [
+  state0element4: [
     {
       conditions: "default",
       styleObject: {

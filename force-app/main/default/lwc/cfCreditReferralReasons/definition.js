@@ -47,9 +47,11 @@ let definition = {
               styleObject: {
                 size: { isResponsive: false, default: 12 },
                 padding: [
-                  { type: "bottom", size: "large", label: "bottom:large" }
+                  { type: "top", size: "small", label: "top:small" },
+                  { type: "bottom", size: "x-small", label: "bottom:x-small" }
                 ],
-                class: "slds-p-bottom_large ",
+                class:
+                  "slds-border_right slds-border_bottom slds-border_left slds-border_top slds-p-top_small slds-p-bottom_x-small ",
                 sizeClass: "slds-size_12-of-12 ",
                 margin: [],
                 background: {
@@ -61,16 +63,22 @@ let definition = {
                 },
                 container: { class: "" },
                 border: {
-                  type: "",
-                  width: "",
-                  color: "",
+                  type: [
+                    "border_right",
+                    "border_bottom",
+                    "border_left",
+                    "border_top"
+                  ],
+                  width: "1",
+                  color: "#cccccc",
                   radius: "",
-                  style: ""
+                  style: "solid"
                 },
                 elementStyleProperties: {},
                 text: { align: "", color: "" },
                 inlineStyle: "",
-                style: "      \n         "
+                style:
+                  "     border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid;border-top: #cccccc 1px solid; \n         "
               },
               children: [
                 {
@@ -93,7 +101,9 @@ let definition = {
                     padding: [
                       { type: "right", size: "medium", label: "right:medium" }
                     ],
-                    margin: [],
+                    margin: [
+                      { type: "left", size: "small", label: "left:small" }
+                    ],
                     background: {
                       color: "",
                       image: "",
@@ -112,7 +122,7 @@ let definition = {
                     elementStyleProperties: {},
                     text: { align: "", color: "" },
                     inlineStyle: "",
-                    class: "slds-p-right_medium ",
+                    class: "slds-p-right_medium slds-m-left_small ",
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
@@ -131,7 +141,9 @@ let definition = {
                             label: "right:medium"
                           }
                         ],
-                        margin: [],
+                        margin: [
+                          { type: "left", size: "small", label: "left:small" }
+                        ],
                         background: {
                           color: "",
                           image: "",
@@ -150,7 +162,7 @@ let definition = {
                         elementStyleProperties: {},
                         text: { align: "", color: "" },
                         inlineStyle: "",
-                        class: "slds-p-right_medium ",
+                        class: "slds-p-right_medium slds-m-left_small ",
                         style: "      \n         "
                       },
                       label: "Default",
@@ -425,7 +437,6 @@ let definition = {
                   userUpdatedElementLabel: true
                 },
                 {
-                  key: "element_element_block_0_0_outputField_4_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: "1" },
@@ -464,7 +475,6 @@ let definition = {
                     class: "",
                     style: "      \n         "
                   },
-                  parentElementKey: "element_block_0_0",
                   elementLabel: "Guidance-Code_value",
                   styleObjects: [
                     {
@@ -502,134 +512,12 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  userUpdatedElementLabel: true
+                  userUpdatedElementLabel: true,
+                  key: "element_element_block_0_0_outputField_4_0",
+                  parentElementKey: "element_block_0_0"
                 },
                 {
-                  name: "Action",
-                  element: "action",
-                  size: { isResponsive: false, default: "3" },
-                  stateIndex: 0,
-                  class: "slds-col ",
-                  property: {
-                    label: "Test sample",
-                    iconName: "utility:edit",
-                    record: "{record}",
-                    card: "{card}",
-                    stateObj: "{record}",
-                    actionList: [
-                      {
-                        stateAction: {
-                          id: "flex-action-1686628146415",
-                          type: "Flyout",
-                          openUrlIn: "Current Window",
-                          flyoutType: "childCard",
-                          openFlyoutIn: "Modal",
-                          channelName: "close_modal",
-                          flyoutCustomLwcData: {
-                            attributes: {
-                              type: "LightningComponentBundle",
-                              url:
-                                "/services/data/v46.0/tooling/sobjects/LightningComponentBundle/0RbBm0000003gAEKAY"
-                            },
-                            MasterLabel: "modal",
-                            IsExposed: true,
-                            Id: "0RbBm0000003gAEKAY",
-                            NamespacePrefix: "omnistudio",
-                            ManageableState: "installed",
-                            DeveloperName: "modal"
-                          },
-                          flyoutLwc: "CreditAssessmentModal",
-                          cardName: "CreditAssessmentModal",
-                          cardNode: "{record}"
-                        },
-                        key: "1686112953672-5wgj5r1wg",
-                        label: "Action",
-                        draggable: true,
-                        isOpen: true,
-                        actionIndex: 0
-                      }
-                    ],
-                    showSpinner: "false",
-                    iconOnly: false,
-                    flyoutChannel: "close_modal",
-                    flyoutDetails: { openFlyoutIn: "Modal" },
-                    iconSize: "x-small",
-                    displayAsButton: false,
-                    hideActionIcon: false
-                  },
-                  type: "element",
-                  styleObject: {
-                    sizeClass: "slds-size_3-of-12 ",
-                    size: { isResponsive: false, default: "3" },
-                    padding: [],
-                    margin: [],
-                    background: {
-                      color: "",
-                      image: "",
-                      size: "",
-                      repeat: "",
-                      position: ""
-                    },
-                    container: { class: "" },
-                    border: {
-                      type: "",
-                      width: "",
-                      color: "",
-                      radius: "",
-                      style: ""
-                    },
-                    elementStyleProperties: { iconSize: "x-small" },
-                    text: { align: "", color: "" },
-                    inlineStyle: "position: relative; right: 20px;",
-                    class: "",
-                    style: "      \n         position: relative; right: 20px;",
-                    customClass: ""
-                  },
-                  elementLabel: "Referral-Outcome_value",
-                  key: "element_element_block_0_0_action_5_0",
-                  parentElementKey: "element_block_0_0",
-                  styleObjects: [
-                    {
-                      key: 0,
-                      conditions: "default",
-                      styleObject: {
-                        sizeClass: "slds-size_3-of-12 ",
-                        size: { isResponsive: false, default: "3" },
-                        padding: [],
-                        margin: [],
-                        background: {
-                          color: "",
-                          image: "",
-                          size: "",
-                          repeat: "",
-                          position: ""
-                        },
-                        container: { class: "" },
-                        border: {
-                          type: "",
-                          width: "",
-                          color: "",
-                          radius: "",
-                          style: ""
-                        },
-                        elementStyleProperties: { iconSize: "x-small" },
-                        text: { align: "", color: "" },
-                        inlineStyle: "position: relative; right: 20px;",
-                        class: "",
-                        style:
-                          "      \n         position: relative; right: 20px;",
-                        customClass: ""
-                      },
-                      label: "Default",
-                      name: "Default",
-                      conditionString: "",
-                      draggable: false
-                    }
-                  ],
-                  userUpdatedElementLabel: true
-                },
-                {
-                  key: "element_element_block_0_0_outputField_6_0",
+                  key: "element_element_block_0_0_outputField_5_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: "2" },
@@ -638,7 +526,7 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField:
-                      "%3Cdiv%3EPeter%20Charalambous,%2008/06/2023%209:23am%3C/div%3E",
+                      "%3Cdiv%3E%7BreferralOutcomeDescription%7D%3C/div%3E",
                     card: "{card}"
                   },
                   type: "text",
@@ -669,7 +557,7 @@ let definition = {
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Last-Modified_value",
+                  elementLabel: "Referral-outcome_value",
                   styleObjects: [
                     {
                       key: 0,
@@ -707,20 +595,48 @@ let definition = {
                     }
                   ],
                   userUpdatedElementLabel: true
-                }
-              ],
-              elementLabel: "Block-0",
-              styleObjects: [
+                },
                 {
-                  key: 0,
-                  conditions: "default",
+                  key: "element_element_block_0_0_outputField_6_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "2" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%7BcreatedBy%7D,%20%7BcreateTime%7D%3C/div%3E",
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-3",
+                          field: "createdBy",
+                          operator: "!=",
+                          value: "",
+                          type: "custom",
+                          hasMergeField: false
+                        },
+                        {
+                          id: "state-new-condition-0",
+                          field: "createTime",
+                          operator: "!=",
+                          value: "",
+                          type: "custom",
+                          hasMergeField: false,
+                          logicalOperator: "&&"
+                        }
+                      ]
+                    }
+                  },
+                  type: "text",
                   styleObject: {
-                    size: { isResponsive: false, default: 12 },
-                    padding: [
-                      { type: "bottom", size: "large", label: "bottom:large" }
-                    ],
-                    class: "slds-p-bottom_large ",
-                    sizeClass: "slds-size_12-of-12 ",
+                    size: { isResponsive: false, default: "2" },
+                    sizeClass: "slds-size_2-of-12 ",
+                    padding: [],
                     margin: [],
                     background: {
                       color: "",
@@ -739,8 +655,466 @@ let definition = {
                     },
                     elementStyleProperties: {},
                     text: { align: "", color: "" },
+                    inlineStyle: "margin-right: -50px",
+                    class: "",
+                    style: "      \n         margin-right: -50px"
+                  },
+                  parentElementKey: "element_block_0_0",
+                  elementLabel: "Block-0-Text-7-clone-0",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        size: { isResponsive: false, default: "2" },
+                        sizeClass: "slds-size_2-of-12 ",
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "margin-right: -50px",
+                        class: "",
+                        style: "      \n         margin-right: -50px"
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ],
+                  userUpdatedElementLabel: true
+                },
+                {
+                  key: "element_element_block_0_0_outputField_7_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "2" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField: "%3Cdiv%3E%7BcreateTime%7D%3C/div%3E",
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-3",
+                          field: "createdBy",
+                          operator: "==",
+                          value: "",
+                          type: "custom",
+                          hasMergeField: false
+                        },
+                        {
+                          id: "state-new-condition-7",
+                          field: "createTime",
+                          operator: "!=",
+                          value: "",
+                          type: "custom",
+                          hasMergeField: false,
+                          logicalOperator: "&&"
+                        }
+                      ]
+                    }
+                  },
+                  type: "text",
+                  styleObject: {
+                    size: { isResponsive: false, default: "2" },
+                    sizeClass: "slds-size_2-of-12 ",
+                    padding: [],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "margin-right: -50px",
+                    class: "",
+                    style: "      \n         margin-right: -50px"
+                  },
+                  parentElementKey: "element_block_0_0",
+                  elementLabel: "Block-1-Text-6-clone-0",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        size: { isResponsive: false, default: "2" },
+                        sizeClass: "slds-size_2-of-12 ",
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "margin-right: -50px",
+                        class: "",
+                        style: "      \n         margin-right: -50px"
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ],
+                  userUpdatedElementLabel: true
+                },
+                {
+                  name: "Action",
+                  element: "action",
+                  size: { isResponsive: false, default: "1" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    label: "Edit",
+                    iconName: "utility:edit",
+                    record: "{record}",
+                    card: "{card}",
+                    stateObj: "{record}",
+                    actionList: [
+                      {
+                        stateAction: {
+                          id: "flex-action-1694580022797",
+                          type: "Flyout",
+                          openUrlIn: "Current Window",
+                          flyoutType: "customLwc",
+                          openFlyoutIn: "Modal",
+                          channelName: "close_modal",
+                          flyoutLwc: "creditAssessmentModal",
+                          cardName: "CreditAssessmentModal",
+                          cardNode: "{record}",
+                          flyoutContainerClass: "",
+                          hasExtraParams: true,
+                          flyoutParams: {
+                            reasonCode: "{reasonCode}",
+                            assessmentCategory: "{assessmentCategory}",
+                            reasonDescription: "{reasonDescription}",
+                            guidanceCode: "{guidanceCode}",
+                            createdBy: "{createdBy}",
+                            createTime: "{createTime}",
+                            referralOutcomeCode: "{referralOutcomeCode}",
+                            reasonCodeId: "{reasonCodeId}",
+                            recordId: "{Parent.recordId}",
+                            creditId: "{Parent.creditId}",
+                            applicantId: "{applicantId}"
+                          }
+                        },
+                        key: "1686112953672-5wgj5r1wg",
+                        label: "Open Modal",
+                        draggable: true,
+                        isOpen: true,
+                        actionIndex: 0,
+                        preloadFlyout: false,
+                        reRenderFlyout: false
+                      }
+                    ],
+                    showSpinner: "false",
+                    iconOnly: true,
+                    flyoutChannel: "close_modal",
+                    flyoutDetails: { openFlyoutIn: "Modal" },
+                    iconSize: "small",
+                    displayAsButton: false,
+                    hideActionIcon: false,
+                    buttonVariant: "neutral",
+                    disabled: "",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-10",
+                          field: "Parent.selectedTab",
+                          operator: "==",
+                          value: "Current",
+                          type: "custom",
+                          hasMergeField: false
+                        },
+                        {
+                          id: "state-new-condition-0",
+                          field: "editable",
+                          operator: "==",
+                          value: "true",
+                          type: "custom",
+                          hasMergeField: false,
+                          logicalOperator: "&&"
+                        }
+                      ]
+                    },
+                    iconColor: "#0070D2",
+                    preloadFlyout: false,
+                    reRenderFlyout: false
+                  },
+                  type: "element",
+                  styleObject: {
+                    sizeClass: "slds-size_1-of-12 ",
+                    size: { isResponsive: false, default: "1" },
+                    padding: [],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {
+                      iconSize: "small",
+                      iconColor: "#0070D2"
+                    },
+                    text: { align: "", color: "" },
+                    inlineStyle: "position:relative; left: 80px",
+                    class: "",
+                    style: "      \n         position:relative; left: 80px",
+                    customClass: ""
+                  },
+                  elementLabel: "Last-Modified_value2",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_1-of-12 ",
+                        size: { isResponsive: false, default: "1" },
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {
+                          iconSize: "small",
+                          iconColor: "#0070D2"
+                        },
+                        text: { align: "", color: "" },
+                        inlineStyle: "position:relative; left: 80px",
+                        class: "",
+                        style: "      \n         position:relative; left: 80px",
+                        customClass: ""
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false,
+                      isSetForDesignTime: false,
+                      isopen: true
+                    }
+                  ],
+                  userUpdatedElementLabel: true,
+                  key: "element_element_block_0_0_action_8_0",
+                  parentElementKey: "element_block_0_0"
+                },
+                {
+                  key: "element_element_block_0_0_flexIcon_9_0",
+                  name: "Icon",
+                  element: "flexIcon",
+                  size: { isResponsive: false, default: 1 },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    card: "{card}",
+                    iconType: "Salesforce SVG",
+                    iconName: "utility:edit",
+                    size: "small",
+                    extraclass: "",
+                    variant: "default",
+                    imgsrc: "",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-0",
+                          field: "Parent.selectedTab",
+                          operator: "==",
+                          value: "Current",
+                          type: "custom",
+                          hasMergeField: false
+                        },
+                        {
+                          id: "state-new-condition-7",
+                          field: "editable",
+                          operator: "!=",
+                          value: "true",
+                          type: "custom",
+                          hasMergeField: false,
+                          logicalOperator: "&&"
+                        }
+                      ]
+                    }
+                  },
+                  type: "element",
+                  styleObject: {
+                    size: { isResponsive: false, default: 1 },
+                    sizeClass: "slds-size_1-of-12 ",
+                    padding: [],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "position:relative; left: 80px",
+                    class: "",
+                    style: "      \n         position:relative; left: 80px"
+                  },
+                  parentElementKey: "element_block_0_0",
+                  elementLabel: "Block-1-Icon-8",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        size: { isResponsive: false, default: 1 },
+                        sizeClass: "slds-size_1-of-12 ",
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "position:relative; left: 80px",
+                        class: "",
+                        style: "      \n         position:relative; left: 80px"
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
+                }
+              ],
+              elementLabel: "Block-1",
+              styleObjects: [
+                {
+                  key: 0,
+                  conditions: "default",
+                  styleObject: {
+                    size: { isResponsive: false, default: 12 },
+                    padding: [
+                      { type: "top", size: "small", label: "top:small" },
+                      {
+                        type: "bottom",
+                        size: "x-small",
+                        label: "bottom:x-small"
+                      }
+                    ],
+                    class:
+                      "slds-border_right slds-border_bottom slds-border_left slds-border_top slds-p-top_small slds-p-bottom_x-small ",
+                    sizeClass: "slds-size_12-of-12 ",
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    container: { class: "" },
+                    border: {
+                      type: [
+                        "border_right",
+                        "border_bottom",
+                        "border_left",
+                        "border_top"
+                      ],
+                      width: "1",
+                      color: "#cccccc",
+                      radius: "",
+                      style: "solid"
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
                     inlineStyle: "",
-                    style: "      \n         "
+                    style:
+                      "     border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid;border-top: #cccccc 1px solid; \n         "
                   },
                   label: "Default",
                   name: "Default",
@@ -765,17 +1139,52 @@ let definition = {
   theme: "slds",
   selectableMode: "Multi",
   lwc: {
-    DeveloperName: "cfCreditReferralReasons_1_ANZx",
-    Id: "0RbBm0000003yJ2KAI",
-    MasterLabel: "cfCreditReferralReasons_1_ANZx",
+    DeveloperName: "cfCreditReferralReasons_2_ANZx",
+    Id: "0RbAD000000KSOL0A4",
+    MasterLabel: "cfCreditReferralReasons_2_ANZx",
     NamespacePrefix: "c",
     ManageableState: "unmanaged"
   },
   globalCSS: false,
+  events: [
+    {
+      eventname: "closeFlyout",
+      channelname: "CreditReferralReasons",
+      element: "action",
+      eventtype: "pubsub",
+      recordIndex: "0",
+      actionList: [
+        {
+          key: "1689725972331-93vk8ppnw",
+          label: "Action",
+          draggable: false,
+          isOpen: true,
+          card: "{card}",
+          stateAction: {
+            message: "closemodal",
+            id: "flex-action-1689742547511",
+            type: "cardAction",
+            subType: "Custom",
+            eventName: "reload",
+            bubbles: true,
+            composed: true
+          },
+          actionIndex: 0,
+          isTrackingDisabled: true
+        }
+      ],
+      showSpinner: "false",
+      key: "event-0",
+      displayLabel: "CreditReferralReasons:closeFlyout",
+      eventLabel: "pubsub"
+    }
+  ],
+  selectedCardsLabel: "",
+  sessionVars: [],
   Name: "CreditReferralReasons",
   uniqueKey: "CreditReferralReasons",
-  Id: "0koBm0000000MBpIAM",
-  OmniUiCardKey: "CreditReferralReasons/ANZx/1.0",
+  Id: "0ko9r0000000kcMAAQ",
+  OmniUiCardKey: "CreditReferralReasons/ANZx/2.0",
   OmniUiCardType: "Child"
 };
 export default definition;

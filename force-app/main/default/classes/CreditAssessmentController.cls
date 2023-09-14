@@ -324,14 +324,17 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     }
 
     CreditAssessmentAPIRepository creditApi = new CreditAssessmentAPIRepository();
-    CreditReferralModel cr = creditApi.createCreditEnquiryAssessment(
-      creditId,
-      String.valueOf(input.get('refOutcome')),
-      String.valueOf(input.get('recordId')),
-      c.Account.OCV_ID__c,
-      c.Assessment_Id__c,
-      String.valueOf(input.get('reasonCode'))
-    );
+    //Create map with payload values
+    Map<String, String> payload = new Map<String, String>();
+    payload.put('creditId', creditId);
+    payload.put('referralOutcome', String.valueOf(input.get('refOutcome')));
+    payload.put('ocvId', c.Account.OCV_ID__c);
+    payload.put('assessmentId', c.Assessment_Id__c);
+    payload.put('reasonCode', String.valueOf(input.get('reasonCode')));
+    payload.put('applicantId', String.valueOf(input.get('applicantId')));
+    payload.put('recordId', String.valueOf(input.get('recordId')));
+
+    CreditReferralModel cr = creditApi.createCreditEnquiryAssessment(payload);
 
     if (cr.assessments.isEmpty()) {
       return false;

@@ -49,7 +49,7 @@
           >
             <div
               if:true={cardLoaded}
-              class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small"
+              class="slds-grid slds-wrap slds-card slds-p-right_small slds-p-left_small slds-p-bottom_small slds-m-around_none"
               style=""
             >
               <div
@@ -57,7 +57,7 @@
                 class="slds-col slds-size_12-of-12 condition-element"
                 data-rindex={rindex}
                 style=""
-                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-417","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false}]}'
+                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-group-484","group":[{"id":"state-new-condition-483","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-522","field":"Parent.outcomeStatus","operator":"!=","value":"Processing","type":"custom","hasMergeField":false,"logicalOperator":"&&"},{"id":"state-new-condition-10","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]},{"id":"state-new-group-1","group":[{"id":"state-new-condition-0","field":"Parent.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false},{"id":"state-new-condition-107","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}],"logicalOperator":"||"}]}'
               >
                 <c-cf-credit-referral-child
                   data-style-id="state0element0_child"
@@ -70,7 +70,8 @@
                   parent-mergefields={card}
                   record-id={recordId}
                   is-child-card-tracking-enabled="false"
-                  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-417","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false}]}'
+                  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-group-484","group":[{"id":"state-new-condition-483","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-522","field":"Parent.outcomeStatus","operator":"!=","value":"Processing","type":"custom","hasMergeField":false,"logicalOperator":"&&"},{"id":"state-new-condition-10","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]},{"id":"state-new-group-1","group":[{"id":"state-new-condition-0","field":"Parent.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false},{"id":"state-new-condition-107","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}],"logicalOperator":"||"}]}'
+                  parent-attribute='\{"selectedTab":"{Parent.selectedTab}","recordId":"{Parent.recordId}","creditId":"{Parent.creditId}"}'
                   object-api-name={objectApiName}
                   theme="slds"
                   onupdateparent={updateParentData}
@@ -78,7 +79,7 @@
               </div>
               <div
                 data-style-id="state0element1"
-                class="slds-col slds-text-align_center slds-size_12-of-12 condition-element"
+                class="slds-col slds-text-align_center slds-p-top_large slds-size_12-of-12 condition-element"
                 data-rindex={rindex}
                 style=""
                 data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-396","field":"Parent.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false},{"id":"state-new-condition-428","field":"length","operator":"==","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
@@ -89,6 +90,22 @@
                   record={record}
                   merge-field="%3Ch2%3ENo%20historical%20credit%20assessments%20completed%3C/h2%3E"
                   data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-396","field":"Parent.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false},{"id":"state-new-condition-428","field":"length","operator":"==","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                  theme="slds"
+                ></omnistudio-output-field>
+              </div>
+              <div
+                data-style-id="state0element2"
+                class="slds-col slds-text-align_center slds-p-top_large slds-size_12-of-12 condition-element"
+                data-rindex={rindex}
+                style=""
+                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-396","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-428","field":"Parent.outcomeStatus","operator":"==","value":"Processing","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+              >
+                <omnistudio-output-field
+                  data-style-id="state0element2_child"
+                  card={card}
+                  record={record}
+                  merge-field="%3Ch2%3E%3Cspan%20class=%22ui-provider%20gl%20b%20c%20d%20e%20f%20g%20h%20i%20j%20k%20l%20m%20n%20o%20p%20q%20r%20s%20t%20u%20v%20w%20x%20y%20z%20ab%20ac%20ae%20af%20ag%20ah%20ai%20aj%20ak%22%3ELoan%20Assessment%20in%20progress.%20Waiting%20on%20an%20outcome....%3C/span%3E%3C/h2%3E"
+                  data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-396","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-428","field":"Parent.outcomeStatus","operator":"==","value":"Processing","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
                   theme="slds"
                 ></omnistudio-output-field>
               </div>
@@ -107,7 +124,7 @@
         >
           <div
             if:true={cardLoaded}
-            class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small"
+            class="slds-grid slds-wrap slds-card slds-p-right_small slds-p-left_small slds-p-bottom_small slds-m-around_none"
             style=""
           >
             <div
@@ -115,7 +132,7 @@
               class="slds-col slds-size_12-of-12 condition-element"
               data-rindex={rindex}
               style=""
-              data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-417","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false}]}'
+              data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-group-484","group":[{"id":"state-new-condition-483","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-522","field":"Parent.outcomeStatus","operator":"!=","value":"Processing","type":"custom","hasMergeField":false,"logicalOperator":"&&"},{"id":"state-new-condition-10","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]},{"id":"state-new-group-1","group":[{"id":"state-new-condition-0","field":"Parent.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false},{"id":"state-new-condition-107","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}],"logicalOperator":"||"}]}'
             >
               <c-cf-credit-referral-child
                 data-style-id="state0element0_child"
@@ -128,7 +145,8 @@
                 parent-mergefields={card}
                 record-id={recordId}
                 is-child-card-tracking-enabled="false"
-                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-417","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false}]}'
+                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-group-484","group":[{"id":"state-new-condition-483","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-522","field":"Parent.outcomeStatus","operator":"!=","value":"Processing","type":"custom","hasMergeField":false,"logicalOperator":"&&"},{"id":"state-new-condition-10","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]},{"id":"state-new-group-1","group":[{"id":"state-new-condition-0","field":"Parent.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false},{"id":"state-new-condition-107","field":"length","operator":">","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}],"logicalOperator":"||"}]}'
+                parent-attribute='\{"selectedTab":"{Parent.selectedTab}","recordId":"{Parent.recordId}","creditId":"{Parent.creditId}"}'
                 object-api-name={objectApiName}
                 theme="slds"
                 onupdateparent={updateParentData}
@@ -136,7 +154,7 @@
             </div>
             <div
               data-style-id="state0element1"
-              class="slds-col slds-text-align_center slds-size_12-of-12 condition-element"
+              class="slds-col slds-text-align_center slds-p-top_large slds-size_12-of-12 condition-element"
               data-rindex={rindex}
               style=""
               data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-396","field":"Parent.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false},{"id":"state-new-condition-428","field":"length","operator":"==","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
@@ -147,6 +165,22 @@
                 record={record}
                 merge-field="%3Ch2%3ENo%20historical%20credit%20assessments%20completed%3C/h2%3E"
                 data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-396","field":"Parent.selectedTab","operator":"==","value":"History","type":"custom","hasMergeField":false},{"id":"state-new-condition-428","field":"length","operator":"==","value":"0","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                theme="slds"
+              ></omnistudio-output-field>
+            </div>
+            <div
+              data-style-id="state0element2"
+              class="slds-col slds-text-align_center slds-p-top_large slds-size_12-of-12 condition-element"
+              data-rindex={rindex}
+              style=""
+              data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-396","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-428","field":"Parent.outcomeStatus","operator":"==","value":"Processing","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+            >
+              <omnistudio-output-field
+                data-style-id="state0element2_child"
+                card={card}
+                record={record}
+                merge-field="%3Ch2%3E%3Cspan%20class=%22ui-provider%20gl%20b%20c%20d%20e%20f%20g%20h%20i%20j%20k%20l%20m%20n%20o%20p%20q%20r%20s%20t%20u%20v%20w%20x%20y%20z%20ab%20ac%20ae%20af%20ag%20ah%20ai%20aj%20ak%22%3ELoan%20Assessment%20in%20progress.%20Waiting%20on%20an%20outcome....%3C/span%3E%3C/h2%3E"
+                data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-396","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-428","field":"Parent.outcomeStatus","operator":"==","value":"Processing","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
                 theme="slds"
               ></omnistudio-output-field>
             </div>

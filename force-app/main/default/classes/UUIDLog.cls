@@ -85,7 +85,7 @@ public with sharing class UUIDLog {
       payload
     );
 
-    objectMap.put('request_id', this.uuid);
+    objectMap.put('requestId', this.uuid);
 
     return JSON.serialize(objectMap);
   }

@@ -1,14 +1,9 @@
 import { FlexCardMixin } from "omnistudio/flexCardMixin";
 import { CurrentPageReference } from "lightning/navigation";
-// import {
-//   interpolateWithRegex,
-//   interpolateKeyValue,
-//   loadCssFromStaticResource
-// } from "omnistudio/flexCardUtility";
+import { interpolateWithRegex } from "omnistudio/flexCardUtility";
 
 import { LightningElement, api, track, wire } from "lwc";
-// import pubsub from "omnistudio/pubsub";
-// import { getRecord } from "lightning/uiRecordApi";
+import pubsub from "omnistudio/pubsub";
 
 import data from "./definition";
 
@@ -27,6 +22,7 @@ export default class cfCreditReferralReasons extends FlexCardMixin(
   @api objectApiName;
 
   @track record;
+  @track _sessionApiVars = {};
 
   pubsubEvent = [];
   customEvent = [];
@@ -47,9 +43,27 @@ export default class cfCreditReferralReasons extends FlexCardMixin(
     this.unregisterEvents();
   }
 
-  registerEvents() {}
+  registerEvents() {
+    this.pubsubEvent[0] = {
+      [interpolateWithRegex(
+        `closeFlyout`,
+        this._allMergeFields,
+        this._regexPattern,
+        "noparse"
+      )]: this.handleEventAction.bind(this, data.events[0], 0)
+    };
+    this.pubsubChannel0 = interpolateWithRegex(
+      `CreditReferralReasons`,
+      this._allMergeFields,
+      this._regexPattern,
+      "noparse"
+    );
+    pubsub.register(this.pubsubChannel0, this.pubsubEvent[0]);
+  }
 
-  unregisterEvents() {}
+  unregisterEvents() {
+    pubsub.unregister(this.pubsubChannel0, this.pubsubEvent[0]);
+  }
 
   renderedCallback() {
     super.renderedCallback();

@@ -8,7 +8,7 @@ import { CurrentPageReference } from "lightning/navigation";
 
 import { LightningElement, api, track, wire } from "lwc";
 // import pubsub from "omnistudio/pubsub";
-// import { getRecord } from "lightning/uiRecordApi";
+import { getRecord } from "lightning/uiRecordApi";
 
 import data from "./definition";
 
@@ -30,6 +30,22 @@ export default class cfCreditAssessmentContainer extends FlexCardMixin(
 
   pubsubEvent = [];
   customEvent = [];
+
+  firstRender0 = true;
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: "Case.Id",
+    optionalFields: $cmp.getWireOptionalFields(data.events[0])
+  })
+  wiredRecord0({ error, wiredData }) {
+    if (this.objectApiName === "Case") {
+      if (wiredData && this.firstRender0) {
+        this.firstRender0 = false;
+      } else {
+        this.recordChangeEventHandler(error, wiredData, 0);
+      }
+    }
+  }
 
   connectedCallback() {
     super.connectedCallback();

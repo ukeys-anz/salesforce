@@ -8,12 +8,24 @@ let definition = {
       isSmartAction: false,
       smartAction: {},
       styleObject: {
-        padding: [{ type: "around", size: "x-small" }],
-        margin: [{ type: "around", size: "none" }],
+        padding: [{ type: "top", size: "small", label: "top:small" }],
+        margin: [{ type: "around", size: "none", label: "around:none" }],
         container: { class: "slds-card" },
         size: { isResponsive: false, default: "12" },
-        sizeClass: "slds-size_12-of-12",
-        class: "slds-card slds-p-around_x-small slds-m-bottom_x-small"
+        sizeClass: "slds-size_12-of-12 ",
+        class: "slds-card slds-p-top_small slds-m-around_none ",
+        background: {
+          color: "",
+          image: "",
+          size: "",
+          repeat: "",
+          position: ""
+        },
+        border: { type: "", width: "", color: "", radius: "", style: "" },
+        elementStyleProperties: {},
+        text: { align: "", color: "" },
+        inlineStyle: "",
+        style: "      \n         "
       },
       components: {
         "layer-0": {
@@ -57,7 +69,7 @@ let definition = {
                 showSpinner: "false",
                 hideActionIcon: true,
                 flyoutDetails: {},
-                styles: { label: { fontSize: "20px" } }
+                styles: { label: { fontSize: "15px" } }
               },
               type: "element",
               styleObject: {
@@ -89,7 +101,7 @@ let definition = {
                 selectedStyles: "",
                 customClass: "",
                 elementStyleProperties: {
-                  styles: { label: { fontSize: "20px" } }
+                  styles: { label: { fontSize: "15px" } }
                 },
                 inlineStyle: "",
                 style: "      \n         "
@@ -128,7 +140,7 @@ let definition = {
                     selectedStyles: "",
                     customClass: "",
                     elementStyleProperties: {
-                      styles: { label: { fontSize: "20px" } }
+                      styles: { label: { fontSize: "15px" } }
                     },
                     inlineStyle: "",
                     style: "      \n         "
@@ -177,12 +189,13 @@ let definition = {
                       style: ""
                     },
                     elementStyleProperties: {
-                      styles: { label: { fontSize: "20px" } }
+                      styles: { label: { fontSize: "15px" } }
                     },
                     text: { align: "center", color: "" },
-                    inlineStyle: "",
+                    inlineStyle: "font-weight: bold",
                     class: "slds-text-align_center slds-border_bottom ",
-                    style: "     border-bottom: #0176d3 2px solid; \n         ",
+                    style:
+                      "     border-bottom: #0176d3 2px solid; \n         font-weight: bold",
                     selectedStyles: "Selected Tab",
                     element: "action"
                   },
@@ -234,7 +247,7 @@ let definition = {
                 showSpinner: "false",
                 hideActionIcon: true,
                 flyoutDetails: {},
-                styles: { label: { fontSize: "20px" } },
+                styles: { label: { fontSize: "15px" } },
                 flyoutChannel: "close_modal"
               },
               type: "element",
@@ -259,12 +272,13 @@ let definition = {
                   style: ""
                 },
                 elementStyleProperties: {
-                  styles: { label: { fontSize: "20px" } }
+                  styles: { label: { fontSize: "15px" } }
                 },
                 text: { align: "center", color: "" },
-                inlineStyle: "",
+                inlineStyle: "font-weight: bold",
                 class: "slds-text-align_center slds-border_bottom ",
-                style: "     border-bottom: #0176d3 2px solid; \n         ",
+                style:
+                  "     border-bottom: #0176d3 2px solid; \n         font-weight: bold",
                 selectedStyles: "Selected Tab",
                 element: "action"
               },
@@ -302,7 +316,7 @@ let definition = {
                     selectedStyles: "",
                     customClass: "",
                     elementStyleProperties: {
-                      styles: { label: { fontSize: "20px" } }
+                      styles: { label: { fontSize: "15px" } }
                     },
                     inlineStyle: "",
                     style: "      \n         "
@@ -351,12 +365,13 @@ let definition = {
                       style: ""
                     },
                     elementStyleProperties: {
-                      styles: { label: { fontSize: "20px" } }
+                      styles: { label: { fontSize: "15px" } }
                     },
                     text: { align: "center", color: "" },
-                    inlineStyle: "",
+                    inlineStyle: "font-weight: bold",
                     class: "slds-text-align_center slds-border_bottom ",
-                    style: "     border-bottom: #0176d3 2px solid; \n         ",
+                    style:
+                      "     border-bottom: #0176d3 2px solid; \n         font-weight: bold",
                     selectedStyles: "Selected Tab",
                     element: "action"
                   },
@@ -366,6 +381,89 @@ let definition = {
                   isSetForDesignTime: true,
                   draggable: true,
                   isopen: true
+                }
+              ]
+            },
+            {
+              name: "Block",
+              element: "block",
+              size: { isResponsive: false, default: "12" },
+              stateIndex: 0,
+              class: "slds-col ",
+              property: {
+                label: "Block",
+                collapsible: false,
+                record: "{record}",
+                collapsedByDefault: false,
+                card: "{card}"
+              },
+              type: "block",
+              styleObject: {
+                padding: [],
+                class: "slds-border_top ",
+                sizeClass: "slds-size_12-of-12 ",
+                margin: [],
+                background: {
+                  color: "",
+                  image: "",
+                  size: "",
+                  repeat: "",
+                  position: ""
+                },
+                size: { isResponsive: false, default: "12" },
+                container: { class: "" },
+                border: {
+                  type: "border_top",
+                  width: "1",
+                  color: "#cccccc",
+                  radius: "",
+                  style: "solid"
+                },
+                elementStyleProperties: {},
+                text: { align: "", color: "" },
+                inlineStyle: "",
+                maxHeight: "5px",
+                style:
+                  "     border-top: #cccccc 1px solid; \n       max-height:5px;  "
+              },
+              children: [],
+              elementLabel: "Block-2",
+              styleObjects: [
+                {
+                  key: 0,
+                  conditions: "default",
+                  styleObject: {
+                    padding: [],
+                    class: "slds-border_top ",
+                    sizeClass: "slds-size_12-of-12 ",
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    size: { isResponsive: false, default: "12" },
+                    container: { class: "" },
+                    border: {
+                      type: "border_top",
+                      width: "1",
+                      color: "#cccccc",
+                      radius: "",
+                      style: "solid"
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "",
+                    maxHeight: "5px",
+                    style:
+                      "     border-top: #cccccc 1px solid; \n       max-height:5px;  "
+                  },
+                  label: "Default",
+                  name: "Default",
+                  conditionString: "",
+                  draggable: false
                 }
               ]
             },
@@ -395,11 +493,16 @@ let definition = {
                     }
                   ]
                 },
-                parentAttribute: { selectedTab: "Current" }
+                parentAttribute: {
+                  selectedTab: "Current",
+                  recordId: "{Parent.recordId}",
+                  creditId: "{Parent.creditId}",
+                  outcomeStatus: "{Parent.outcomeStatus}"
+                }
               },
               type: "element",
               styleObject: { sizeClass: "slds-size_12-of-12" },
-              elementLabel: "FlexCard-2"
+              elementLabel: "FlexCard-3"
             },
             {
               name: "FlexCard",
@@ -432,7 +535,7 @@ let definition = {
               },
               type: "element",
               styleObject: { sizeClass: "slds-size_12-of-12" },
-              elementLabel: "FlexCard-3"
+              elementLabel: "FlexCard-4"
             }
           ]
         }
@@ -454,8 +557,12 @@ let definition = {
       remoteClass: "CreditAssessmentController",
       remoteMethod: "getCreditAssessments",
       vlocityAsync: false,
-      inputMap: { creditId: "Parent.creditId" },
-      jsonMap: '{"Parent.creditId":"{Parent.creditId}"}'
+      inputMap: {
+        creditId: "{Parent.creditId}",
+        recordId: "{Parent.recordId}"
+      },
+      jsonMap:
+        '{"Parent.creditId":"{Parent.creditId}","Parent.recordId":"{Parent.recordId}"}'
     },
     orderBy: { name: "", isReverse: "" },
     contextVariables: []
@@ -475,7 +582,7 @@ let definition = {
   sessionVars: [{ name: "selectedTab", val: "Current" }],
   Name: "CreditAssessmentParent",
   uniqueKey: "CreditAssessmentParent",
-  Id: "0koBm0000000Q0vIAE",
+  Id: "0ko9r0000000aBcAAI",
   OmniUiCardKey: "CreditAssessmentParent/ANZx/1.0",
   OmniUiCardType: "Child"
 };

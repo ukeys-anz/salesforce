@@ -49,14 +49,14 @@
           >
             <div
               if:true={cardLoaded}
-              class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small"
+              class="slds-grid slds-wrap slds-card slds-p-top_small slds-p-right_small slds-p-left_small"
               style=""
             >
               <div
                 data-style-id="state0element0"
-                class="slds-col slds-theme_shade slds-p-around_x-small slds-size_12-of-12"
+                class="slds-col slds-theme_shade slds-p-around_small slds-size_12-of-12"
                 data-rindex={rindex}
-                style=""
+                style="background-color: #f3f3f3; border-radius: 3px"
               >
                 <omnistudio-block
                   data-style-id="state0element0_child"
@@ -69,7 +69,7 @@
                   ><div class="slds-grid slds-wrap">
                     <div
                       data-style-id="state0element0block_element0"
-                      class="slds-col slds-text-align_left slds-size_1-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_x-small slds-p-top_xx-small slds-size_1-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -78,28 +78,29 @@
                         card={card}
                         record={record}
                         icon-type="Salesforce SVG"
-                        icon-name="standard:service_report"
-                        size="large"
-                        extraclass="slds-icon_container slds-icon-standard-service-report "
-                        variant="inverse"
+                        icon-name="utility:edit_form"
+                        size="small"
+                        extraclass=""
+                        variant="default"
                         imgsrc=""
+                        color="#0070D2"
                         theme="slds"
                       ></omnistudio-flex-icon>
                     </div>
                     <div
-                      data-style-id="state0element0block_element1"
+                      data-style-id="state0element0block_element0block_element1"
                       class="slds-col slds-p-top_x-small slds-size_10-of-12"
                       data-rindex={rindex}
-                      style=""
+                      style="margin-left: -60px; margin-top: -5px"
                     >
                       <omnistudio-output-field
-                        data-style-id="state0element0block_element1_child"
+                        data-style-id="state0element0block_element0block_element1_child"
                         card={card}
                         record={record}
                         placeholder=""
                         type="text"
                         label="Credit Assessment"
-                        styles='\{"label":{"fontSize":"24px"}}'
+                        styles='\{"label":{"fontSize":"17px"}}'
                         theme="slds"
                       ></omnistudio-output-field>
                     </div></div
@@ -137,7 +138,7 @@
                         parent-mergefields={card}
                         record-id={recordId}
                         is-child-card-tracking-enabled="true"
-                        parent-attribute='\{"creditId":"{Credit_Id__c}"}'
+                        parent-attribute='\{"creditId":"{Credit_Id__c}","recordId":"{recordId}","outcomeStatus":"{Assessment_Outcome__c}"}'
                         object-api-name={objectApiName}
                         theme="slds"
                         onupdateparent={updateParentData}
@@ -160,14 +161,14 @@
         >
           <div
             if:true={cardLoaded}
-            class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-bottom_x-small"
+            class="slds-grid slds-wrap slds-card slds-p-top_small slds-p-right_small slds-p-left_small"
             style=""
           >
             <div
               data-style-id="state0element0"
-              class="slds-col slds-theme_shade slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-theme_shade slds-p-around_small slds-size_12-of-12"
               data-rindex={rindex}
-              style=""
+              style="background-color: #f3f3f3; border-radius: 3px"
             >
               <omnistudio-block
                 data-style-id="state0element0_child"
@@ -180,7 +181,7 @@
                 ><div class="slds-grid slds-wrap">
                   <div
                     data-style-id="state0element0block_element0"
-                    class="slds-col slds-text-align_left slds-size_1-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_x-small slds-p-top_xx-small slds-size_1-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -189,28 +190,29 @@
                       card={card}
                       record={record}
                       icon-type="Salesforce SVG"
-                      icon-name="standard:service_report"
-                      size="large"
-                      extraclass="slds-icon_container slds-icon-standard-service-report "
-                      variant="inverse"
+                      icon-name="utility:edit_form"
+                      size="small"
+                      extraclass=""
+                      variant="default"
                       imgsrc=""
+                      color="#0070D2"
                       theme="slds"
                     ></omnistudio-flex-icon>
                   </div>
                   <div
-                    data-style-id="state0element0block_element1"
+                    data-style-id="state0element0block_element0block_element1"
                     class="slds-col slds-p-top_x-small slds-size_10-of-12"
                     data-rindex={rindex}
-                    style=""
+                    style="margin-left: -60px; margin-top: -5px"
                   >
                     <omnistudio-output-field
-                      data-style-id="state0element0block_element1_child"
+                      data-style-id="state0element0block_element0block_element1_child"
                       card={card}
                       record={record}
                       placeholder=""
                       type="text"
                       label="Credit Assessment"
-                      styles='\{"label":{"fontSize":"24px"}}'
+                      styles='\{"label":{"fontSize":"17px"}}'
                       theme="slds"
                     ></omnistudio-output-field>
                   </div></div
@@ -248,7 +250,7 @@
                       parent-mergefields={card}
                       record-id={recordId}
                       is-child-card-tracking-enabled="true"
-                      parent-attribute='\{"creditId":"{Credit_Id__c}"}'
+                      parent-attribute='\{"creditId":"{Credit_Id__c}","recordId":"{recordId}","outcomeStatus":"{Assessment_Outcome__c}"}'
                       object-api-name={objectApiName}
                       theme="slds"
                       onupdateparent={updateParentData}

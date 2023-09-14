@@ -83,43 +83,37 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @param creditId credit id from credit assessment
-   * @param referralOutcome referral outcome code
-   * @param recordId record id from case
-   * @param ocvId customer ocv id
-   * @param assessmentId assessment id of case
-   * @param reasonCode reason code linked to referral outcome
+   * @param payload payload containing values to send
    * @description updates referral outcome
    * @return `CreditReferralModel`
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   public CreditReferralModel createCreditEnquiryAssessment(
-    String creditId,
-    String referralOutcome,
-    String recordId,
-    String ocvId,
-    String assessmentId,
-    String reasonCode
+    Map<String, String> payload
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
-    String payload =
+    String requestPayload =
       '{"creditEnquiryId": "' +
-      creditId +
-      '", "creditEnquiryAssessmentReferral_outcome": {' +
+      payload.get('creditId') +
+      '", "creditEnquiryAssessmentReferralOutcome": {' +
       '"creditEnquiryAssessmentId": "' +
-      assessmentId +
+      payload.get('assessmentId') +
       '","reasonCode":"' +
-      reasonCode +
+      payload.get('reasonCode') +
       '","referralOutcomeCode":"' +
-      referralOutcome +
+      payload.get('referralOutcome') +
+      '","applicantId":"' +
+      payload.get('applicantId') +
       '"}}';
-    UUIDLog uuidLog = new UUIDLog(payload);
+    UUIDLog uuidLog = new UUIDLog(requestPayload);
     HttpCalloutResponse response = s.createCreditEnquiryAssessment(
-      uuidLog.attachUUID(payload),
-      ocvId
+      uuidLog.attachUUID(requestPayload),
+      payload.get('ocvId')
     );
     if (response.successful == false) {
-      uuidLog.insertUUID(recordId, 'BOH - Credit Referral - Referral Outcome');
+      uuidLog.insertUUID(
+        payload.get('recordId'),
+        'BOH - Credit Referral - Referral Outcome'
+      );
       throw response.error;
     }
 
