@@ -102,8 +102,12 @@ export default class CreditAssessmentModal extends LightningElement {
   async handleSave() {
     //Applicant Id is optional, however it is required in certain instances,
     //so we ensure there is a value otherwise assign blank string to send
-    let applicantId = "";
-    if (this.applicantId && this.applicantId !== "{applicantId}") {
+    let applicantId = null;
+    if (
+      this.applicantId &&
+      this.applicantId !== "{applicantId}" &&
+      this.applicantId !== "null"
+    ) {
       applicantId = this.applicantId;
     }
 

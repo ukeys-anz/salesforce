@@ -97,7 +97,7 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
     enquiry.creditEnquiryId = payload.get('creditId');
     enquiryAssessment.creditEnquiryAssessmentId = payload.get('assessmentId');
     enquiryAssessment.reasonCode = payload.get('reasonCode');
-    enquiryAssessment.referralOutcomeCode = payload.get('referralOutcomeCode');
+    enquiryAssessment.referralOutcomeCode = payload.get('referralOutcome');
     enquiryAssessment.applicantId = payload.get('applicantId');
     enquiry.creditEnquiryAssessmentReferralOutcome = enquiryAssessment;
 
