@@ -6,6 +6,5 @@
     <permissionSets>Author_Reports_and_Dashboards</permissionSets>
     <permissionSets>Case_Send_Communication</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
-    <permissionSets>Outbound_Message</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
