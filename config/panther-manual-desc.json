@@ -281,6 +281,7 @@
         "Display_Name__c",
         "Employee_Indicator__c",
         "Employer_Name__c",
+        "Employment_Type__c",
         "Establishment_Date__c",
         "Mailing_Name__c",
         "Name",
@@ -296,6 +297,7 @@
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
+        "Self_Employed__c",
         "Full_First_Name__c",
         "Full_Middle_Name__c",
         "Full_Last_Name__c",
@@ -318,6 +320,7 @@
         "IsTruncated__c"
       ],
       "IA-2594111": [
+        "OCV_Profile_ID__c",
         "Victim_External_ID__c",
         "Victim_Record_ID__c",
         "Date_Victim_Merged__c"

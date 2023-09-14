@@ -1637,6 +1637,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Employment_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Establishment_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1732,6 +1737,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.OCV_Profile_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.PPID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1753,6 +1763,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Self_Certified_Tax_Residency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Self_Employed__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
