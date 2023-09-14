@@ -39,14 +39,14 @@ public with sharing class BOHServiceMock extends Service {
   }
 
   /**
-   * @param sopId sop id of the customer account
+   * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
    * @return `HttpCalloutResponse` the api response
    * @description create income
    */
   public override HttpCalloutResponse createIncome(
-    String sopId,
+    String verification,
     String ocvId,
     String incomeBody
   ) {

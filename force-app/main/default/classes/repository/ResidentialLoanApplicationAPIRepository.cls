@@ -30,18 +30,22 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
 
   /**
    * @param ocvId ocv id of the customer account
-   * @param sopId sop id of the customer account
+   * @param verification whether the income is verified
    * @param incomeBody post data of income information
    * @return `ResidentialLoanApplicationModel` model class constructed from api response
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
   public ResidentialLoanApplicationModel createIncome(
     String ocvId,
-    String sopId,
+    String verification,
     String incomeBody
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
-    HttpCalloutResponse response = s.createIncome(sopId, ocvId, incomeBody);
+    HttpCalloutResponse response = s.createIncome(
+      verification,
+      ocvId,
+      incomeBody
+    );
     if (response.successful == false) {
       throw response.error;
     }

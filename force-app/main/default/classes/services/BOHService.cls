@@ -38,14 +38,14 @@ public with sharing class BOHService extends Service {
   }
 
   /**
-   * @param sopId sop id of the customer account
+   * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
    * @return `HttpCalloutResponse` the api response
    * @description create income
    */
   public override HttpCalloutResponse createIncome(
-    String sopId,
+    String verification,
     String ocvId,
     String incomeBody
   ) {
@@ -53,9 +53,15 @@ public with sharing class BOHService extends Service {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('Content-Type', 'application/json');
+    String verificationStr = 'unverify';
+    if (verification == 'Yes') {
+      verificationStr = 'verify';
+    }
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_SOP + sopId,
+      System.Label.MS_Create_Income +
+      '?income-verification' +
+      verificationStr,
       HTTP_METHOD.HTTP_POST,
       headers,
       incomeBody

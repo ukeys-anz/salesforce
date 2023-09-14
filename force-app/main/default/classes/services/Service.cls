@@ -74,14 +74,14 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param sopId sop id of the customer account
+   * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
    * @return `HttpCalloutResponse` the api response
-   * @description create income 
+   * @description create income
    */
   public virtual HttpCalloutResponse createIncome(
-    String sopId,
+    String verification,
     String ocvId,
     String incomeBody
   ) {

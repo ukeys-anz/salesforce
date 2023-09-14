@@ -226,6 +226,14 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+        <fullName>MS_Create_Income</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Create_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/createincome</value>
+    </labels>
+    <labels>
         <fullName>MS_Create_Party</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>

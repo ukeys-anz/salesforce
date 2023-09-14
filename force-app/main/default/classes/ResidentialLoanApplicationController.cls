@@ -38,6 +38,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       return getSOP(inputMap, outMap, options);
     } else if (methodName == 'addIncome') {
       return addIncome(inputMap, outMap, options);
+    } else if (methodName == 'editIncome') {
+      return editIncome(inputMap, outMap, options);
     }
     return false;
   }
@@ -154,7 +156,34 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap);
+    SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap, 'create');
+
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      String loanId = (String) inputMap.get('loanId');
+
+      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
+        loanId
+      );
+      ResidentialLoanApplicationModel sopAssets = rlaRepo.createIncome(
+        loanRec[0]?.Account?.OCV_ID__c,
+        loanRec[0]?.SOP_Id__c,
+        JSON.serialize(model)
+      );
+
+      outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  private Boolean editIncome(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap, 'update');
 
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
@@ -177,7 +206,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   }
 
   private SOPCreateIncomeModel generateCreateIncomeModel(
-    Map<String, Object> inputMap
+    Map<String, Object> inputMap,
+    String modelType
   ) {
     SOPCreateIncomeModel model = new SOPCreateIncomeModel();
     model.parent = (String) inputMap.get('sopId');
@@ -228,6 +258,21 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       commission.amountType = (String) inputMap.get('commissionTax');
       model.income.details.add(commission);
     }
+
+    if (modelType == 'create') {
+      model.incomeVerification.name = model.parent;
+      model.incomeVerification.income = '';
+    } else if (modelType == 'update') {
+      model.incomeVerification.name = (String) inputMap.get('incomeName');
+      List<String> incomeSections = model.incomeVerification.name.split('/');
+      if (incomeSections.size() >= 4) {
+        model.incomeVerification.income = incomeSections[3];
+      } else {
+        model.incomeVerification.income = '';
+      }
+    }
+
+    model.incomeVerification.method = 'VERIFICATION_METHOD_DOCUMENT';
 
     return model;
   }

@@ -18,6 +18,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static Map<String, Account> partyIdToAccountMap;
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
   public List<SOPExpenseNode> expenseNodes;
+  public static String currentSopId;
   public Map<String, SOPExpense> expenseMap;
   public static final String OVERTIME_INCOME = 'INCOME_TYPE_OVERTIME';
   public static final String BASE_INCOME = 'INCOME_TYPE_BASE_SALARY';
@@ -133,6 +134,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         accOcvMap.get(partyToOcvMap.get(partyId))
       );
     }
+    ResidentialLoanApplicationModel.currentSopId = this.sop.name; // keep the sop Id for later usage
   }
 
   /**
@@ -415,14 +417,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public class SOPModel {
     public List<SOPParty> parties;
-    public String id;
+    public String name;
 
     /**
      * @description sop id of the whole payload
      */
     public String sopId {
       get {
-        return this.id;
+        return this.name;
       }
     }
 
@@ -522,6 +524,103 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public SOPEmployment employment;
     public string employmentId;
     public Datetime updateTime;
+    public String etag;
+    public String name;
+
+    /**
+     * @description cache the party list
+     */
+    public List<String> parties {
+      get {
+        if (parties == null) {
+          parties = new List<String>();
+          for (
+            String partyId : ResidentialLoanApplicationModel.partyIdToAccountMap.keySet()
+          ) {
+            parties.add(partyId);
+          }
+        }
+
+        return parties;
+      }
+      set {
+      }
+    }
+
+    /**
+     * @description sop id of the whole payload
+     */
+    public String curSopId {
+      get {
+        return ResidentialLoanApplicationModel.currentSopId;
+      }
+    }
+
+    /**
+     * @description returns party's size
+     */
+    public Integer partySize {
+      get {
+        return this.parties.size();
+      }
+    }
+
+    /**
+     * @description returns first user first name
+     */
+    public String firstUser {
+      get {
+        Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          parties[0]
+        );
+        if (act != null) {
+          return act.FirstName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description returns first user's party id
+     */
+    public String firstUserPartyId {
+      get {
+        return parties[0];
+      }
+    }
+
+    /**
+     * @description returns second user's first name
+     */
+    public String secondUser {
+      get {
+        if (partySize < 2) {
+          return null;
+        }
+        Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          parties[1]
+        );
+        if (act != null) {
+          return act.FirstName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description returns second user's party id
+     */
+    public String secondUserPartyId {
+      get {
+        if (partySize < 2) {
+          return null;
+        }
+        return parties[1];
+      }
+    }
+
     /**
      * @description return update time in the expected format
      */
@@ -575,6 +674,35 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
             employment.startDate.month +
             '-' +
             employment.startDate.day;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description startdate for update income card
+     */
+    public String inputStartDate {
+      get {
+        if (employment?.startDate != null) {
+          String formattedMonth = employment.startDate.month;
+          String formattedDay = employment.startDate.day;
+          // Add leading zero if month is a single digit
+          if (formattedMonth.length() == 1) {
+            formattedMonth = '0' + formattedMonth;
+          }
+
+          // Add leading zero if day is a single digit
+          if (formattedDay.length() == 1) {
+            formattedDay = '0' + formattedDay;
+          }
+
+          return formattedMonth +
+            '-' +
+            formattedDay +
+            '-' +
+            employment.startDate.year;
         } else {
           return null;
         }
@@ -671,6 +799,33 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
 
     /**
+     * @description whether we show overtime section at first place in uupdate dialog
+     */
+    public Boolean showOvertime {
+      get {
+        return (overTimeIncome != null);
+      }
+    }
+
+    /**
+     * @description whether we show commission section at first place in uupdate dialog
+     */
+    public Boolean showCommission {
+      get {
+        return (commissionIncome != null);
+      }
+    }
+
+    /**
+     * @description whether we show bonus section at first place in uupdate dialog
+     */
+    public Boolean showBonus {
+      get {
+        return (bonusIncome != null);
+      }
+    }
+
+    /**
      * @description compareTo attribute to compare the base income
      * @param compareTo input object
      * @return Integer result which one is greater
@@ -715,7 +870,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPIncomeDetail {
     public String id;
     public String type;
+    public String frequency;
     /**
+     *
      * @description income Type
      */
     public String incomeType {
@@ -733,7 +890,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description frequency
      */
-    public String frequency {
+    public String readableFrequency {
       get {
         if (this.frequency != null) {
           String result = '';
@@ -757,6 +914,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
       }
     }
+
     public SOPMoney amount;
     public String amountType;
   }

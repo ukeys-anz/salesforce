@@ -42,6 +42,7 @@ public class SOPCreateIncomeModel {
    * @description SOPIncomeVerification information of verification
    */
   public class SOPIncomeVerification {
+    public String name;
     public String income;
     public String method;
   }
