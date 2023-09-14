@@ -173,6 +173,7 @@ public with sharing class BOHService extends Service {
       SELECT
         Id,
         Assessment_Outcome__c,
+        Status,
         Credit_ID__c,
         SOP_Id__c,
         Name,

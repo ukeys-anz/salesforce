@@ -60,6 +60,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String BNPL_LOAN = 'Bpl Loan';
   public static final String BNPL_LOAN_TYPE = 'Fixed Amount';
 
+  public Boolean showAddIncomeBtn;
+
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
    */

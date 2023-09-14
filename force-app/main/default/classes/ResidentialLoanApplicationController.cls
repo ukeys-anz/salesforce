@@ -65,7 +65,11 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         loanRec[0]?.Account?.OCV_ID__c,
         loanRec[0]?.SOP_Id__c
       );
-
+      if (loanRec[0]?.Status == 'STATE_REFERRED' && editIncomeRole()) {
+        sopAssets.showAddIncomeBtn = true;
+      } else {
+        sopAssets.showAddIncomeBtn = false;
+      }
       //Remove Closed status values from assets and debts.
       //Need to loop backwards so next item isn't missed
       for (Integer i = sopAssets.assetsSummary.assets.size() - 1; i >= 0; i--) {
@@ -252,5 +256,21 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       amount.nanos = 0;
     }
     return amount;
+  }
+
+  private static Boolean editIncomeRole() {
+    String usrRoleName = [
+      SELECT id, name, userRole.name
+      FROM user
+      WHERE id = :UserInfo.getUserId()
+      LIMIT 1
+    ]
+    .UserRole.Name;
+    Set<String> roleNameCanEditIncome = new Set<String>{
+      'BOH Coach',
+      'Credit Assessment Officer',
+      'Credit Assessor Lead'
+    };
+    return roleNameCanEditIncome.contains(usrRoleName);
   }
 }
