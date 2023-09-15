@@ -143,8 +143,10 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     List<String> statusList = new List<String>{
       GetHelpConstants.CLOSED_STATUS
     };
-    List<String> accountNumbersAvailable = new List<String>();
-    List<CardListModel.CardCls> cardsToBeRemovedList = new List<CardListModel.CardCls>();
+    List<String> allClosedAccountsNumbersList = new List<String>();
+
+    //Return CardListModel after filtering the card list
+    CardListModel filteredCardListResponse;
 
     //Fetch the financial account list whose status is closed in order to filter the card list.
     List<FinServ__FinancialAccount__c> finacialAccountListByStatus = FinancialAccountService.fetchFinancialAccountsByStatus(
@@ -153,46 +155,33 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     );
 
     //Fetch the map of financial account numbers based on the list of financial accounts in order to filter out card response.
-    Map<String, List<String>> accountNumbersList = FinancialAccountService.getAccountNumbersByStatusMap(
+    Map<String, List<String>> allClosedAccountsMap = FinancialAccountService.getAccountNumbersByStatusMap(
       finacialAccountListByStatus
     );
 
-    //Return CardListModel after filtering the card list
-    CardListModel filteredCardListResponse;
-
     //Get the account numbers from the Map based on the status passed.
-    if (!accountNumbersList.isEmpty()) {
-      accountNumbersAvailable = accountNumbersList.get(
+    if (!allClosedAccountsMap.isEmpty()) {
+      allClosedAccountsNumbersList = allClosedAccountsMap.get(
         GetHelpConstants.CLOSED_STATUS
       );
     }
 
     //list of cards which is to be removed
-    if (!accountNumbersAvailable.isEmpty()) {
-      for (CardListModel.CardCls card : cardListResponse.cards) {
-        Boolean foundClosedCard = true;
+    if (!allClosedAccountsNumbersList.isEmpty()) {
+      for (
+        Integer cardIndex = (cardListResponse.cards.size() - 1);
+        cardIndex >= 0;
+        cardIndex--
+      ) {
+        CardListModel.CardCls card = cardListResponse.cards[cardIndex];
         if (!card.account_numbers.isEmpty()) {
-          for (String acc : card.account_numbers) {
-            if (accountNumbersAvailable.contains(acc)) {
-              foundClosedCard = false;
-              break;
-            }
-          }
-        }
-        if (!foundClosedCard) {
-          cardsToBeRemovedList.add(card);
-        }
-      }
-
-      if (!cardsToBeRemovedList.isEmpty()) {
-        Integer cardIndex = 0;
-        while (cardIndex < cardListResponse.cards.size()) {
           if (
-            cardsToBeRemovedList.contains(cardListResponse.cards[cardIndex])
+            checkIfAnyClosedAccountsAvailable(
+              card.account_numbers,
+              allClosedAccountsNumbersList
+            )
           ) {
             cardListResponse.cards.remove(cardIndex);
-          } else {
-            cardIndex++;
           }
         }
       }
@@ -200,5 +189,26 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
 
     filteredCardListResponse = cardListResponse;
     return filteredCardListResponse;
+  }
+
+  /**
+   * @description this method is used to find any closed accounts available or not
+   * @param cardAccountNumbersList contains list of account numbers present in a card object of the card list.
+   * @param allClosedAccountsNumbersList contains list of account numbers which are closed for the customer.
+   * @return Boolean
+   */
+  public static Boolean checkIfAnyClosedAccountsAvailable(
+    List<String> cardAccountNumbersList,
+    List<String> allClosedAccountsNumbersList
+  ) {
+    Boolean foundClosedCard = false;
+    for (String acc : cardAccountNumbersList) {
+      if (allClosedAccountsNumbersList.contains(acc)) {
+        foundClosedCard = true;
+        break;
+      }
+    }
+
+    return foundClosedCard;
   }
 }
