@@ -13,11 +13,13 @@ public with sharing class InteractionFetchRecordTypeNameTest {
     String recordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
       .get('Store')
       .getRecordTypeId();
-    String recordTypeNameJson = InteractionFetchRecordTypeName.getRecordTypeDeveloperName(
+    RecordType storeRecordType = InteractionFetchRecordTypeName.getRecordTypeDeveloperName(
       recordTypeId
     );
-    String expectedJsonString = 'Store';
-    Boolean isStoreExist = recordTypeNameJson.contains(expectedJsonString);
-    System.assertEquals(true, isStoreExist, 'Store record type should exist');
+    System.assertNotEquals(
+      null,
+      storeRecordType,
+      'Store record type should exist'
+    );
   }
 }

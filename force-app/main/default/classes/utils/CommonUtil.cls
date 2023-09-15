@@ -209,6 +209,17 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @param toShaHash value arg to hash
+   * @description performs hashing of input value using sha algorithm
+   * @return encoded hash
+   */
+  public static String hashValue(String toShaHash) {
+    Blob myBlob = Blob.valueOf(toShaHash);
+    Blob shaHash = Crypto.generateDigest('SHA-256', myBlob);
+    return EncodingUtil.convertToHex(shaHash);
+  }
+
+  /**
    * @description Log an error and throw an exception if user doen't have the required permissions
    * @param processName Process name used to generate the log.
    * @param functionName Name of the funtion to generate the log.
@@ -784,6 +795,22 @@ public with sharing class CommonUtil {
     }
 
     return entitlements;
+  }
+
+  /**
+   * @description This method returns a RecordType instance based on RecordTypeId
+   * @param recordTypeId Id of the record type
+   * @return RecordType instance based on RecordTypeId
+   */
+  public static RecordType getRecordTypeDeveloperName(Id recordTypeId) {
+    if (String.isNotBlank(recordTypeId)) {
+      return [
+        SELECT DeveloperName, Id
+        FROM RecordType
+        WHERE Id = :recordTypeId
+      ];
+    }
+    return null;
   }
 
   /**

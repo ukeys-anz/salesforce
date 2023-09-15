@@ -6,14 +6,11 @@
 public with sharing class InteractionFetchRecordTypeName {
   /**
    * @description Retrieves the existing values present in the Interaction Record on Load
-   * @param recordTypeId
+   * @param recordTypeId Id of the recordtype
    * @return Returns a map of key and values of the recordtype id and recordtype.
    */
   @AuraEnabled(cacheable=true)
-  public static String getRecordTypeDeveloperName(String recordTypeId) {
-    Map<Id, RecordType> recordTypeRecord = new Map<Id, RecordType>(
-      [SELECT DeveloperName, Id FROM RecordType WHERE Id = :recordTypeId]
-    );
-    return JSON.serialize(recordTypeRecord);
+  public static RecordType getRecordTypeDeveloperName(Id recordTypeId) {
+    return CommonUtil.getRecordTypeDeveloperName(recordTypeId);
   }
 }

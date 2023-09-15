@@ -18,6 +18,8 @@
     <sharedTo>
         <role>ANZ_Plus_Operations_Read_Only</role>
         <role>Coach</role>
+        <role>Credit_Assessor_Lead</role>
+        <role>Credit_Assessment_Officer</role>
         <role>FraudX_Agent</role>
     </sharedTo>
 </ListView>

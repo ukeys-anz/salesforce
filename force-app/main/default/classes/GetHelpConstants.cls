@@ -174,6 +174,16 @@ public with sharing class GetHelpConstants {
     .get('Account_Closure')
     .getRecordTypeId();
 
+  // Case - Credit Referral
+  public static final Id CREDIT_REFERRAL_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Credit_Referral')
+    .getRecordTypeId();
+
+  // Residential Loan App - Loan Application
+  public static final Id LOAN_APPLICATION_RT_ID = Schema.SObjectType.ResidentialLoanApplication.getRecordTypeInfosByDeveloperName()
+    .get('Loan_Application')
+    .getRecordTypeId();
+
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
   public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';
@@ -232,6 +242,9 @@ public with sharing class GetHelpConstants {
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
+
+  //UUID Log Status
+  public static final String IN_PROGRESS_STATUS = 'In Progress';
 
   // Task Record Type for Email Case
   public static final String TASK_EMAIL_RT = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
