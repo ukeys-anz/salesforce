@@ -85,4 +85,37 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
     }
     return null;
   }
+
+  /**
+   * @param sopId sop id to retrieve customer information
+   * @param ocvId ocv id of the customer account
+   * @param deleIncomeModel the name and tag of income to be deleted
+   * @return `Boolean` indicate deletion result
+   * @description delete a income from sop
+   */
+  public Boolean deleteIncome(
+    String sopId,
+    String ocvId,
+    String deleIncomeModel
+  ) {
+    Service s = ServiceProvider.getService(BOHService.class);
+    HttpCalloutResponse response = s.deleteIncome(
+      sopId,
+      ocvId,
+      deleIncomeModel
+    );
+    if (!response.successful) {
+      throw response.error;
+    }
+    try {
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (Exception e) {
+      handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
+    }
+    return false;
+  }
 }

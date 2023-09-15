@@ -57,6 +57,24 @@ public with sharing class BOHServiceMock extends Service {
   }
 
   /**
+   * @param sopId sop id of the customer account
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody name and tag of income to be deleted
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income
+   */
+  public override HttpCalloutResponse deleteIncome(
+    String sopId,
+    String ocvId,
+    String incomeBody
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
    * @param sopIds sop id
    * @param creditId credit id
    * @param ocvId ocv id of the primary loan application

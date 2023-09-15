@@ -38,6 +38,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       return getSOP(inputMap, outMap, options);
     } else if (methodName == 'addIncome') {
       return addIncome(inputMap, outMap, options);
+    } else if (methodName == 'deleteIncome') {
+      return deleteIncome(inputMap, outMap, options);
     } else if (methodName == 'editIncome') {
       return editIncome(inputMap, outMap, options);
     }
@@ -303,6 +305,40 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     return amount;
   }
 
+  /**
+   * @description method to delete income from sop
+   * @param inputMap
+   * @param outMap
+   * @param options
+   * @return Boolean for successful delete income
+   */
+  private Boolean deleteIncome(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    System.debug(inputMap.get('partyId'));
+    SOPDeleteIncomeModel model = new SOPDeleteIncomeModel();
+    model.name = (String) inputMap.get('name');
+    model.etag = (String) inputMap.get('etag');
+    String ocvId = (String) inputMap.get('ocvId');
+    String sopId = (String) inputMap.get('sopId');
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      Boolean deleteIncomeResponse = rlaRepo.deleteIncome(
+        sopId,
+        ocvId,
+        JSON.serialize(model)
+      );
+      outMap.put(
+        'object',
+        JSON.deserializeUntyped(JSON.serialize(deleteIncomeResponse))
+      );
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
   private static Boolean editIncomeRole() {
     String usrRoleName = [
       SELECT id, name, userRole.name

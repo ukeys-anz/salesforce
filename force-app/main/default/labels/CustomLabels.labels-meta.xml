@@ -346,6 +346,14 @@
         <value>callout:SF_MS_Fabric/credit-assessment/v1/sop/</value>
     </labels>
     <labels>
+        <fullName>MS_Delete_Income</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Delete_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/deleteincome</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Transactions</fullName>
         <categories>MS</categories>
         <language>en_US</language>

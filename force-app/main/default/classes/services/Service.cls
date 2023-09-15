@@ -16,6 +16,21 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param sopId customer sop id
+   * @param ocvId customer ocv id
+   * @param deleteIncomeModel model to delete income from sop
+   * @return `HttpCalloutResponse` api response
+   * @description virtual chat channels callout
+   */
+  public virtual HttpCalloutResponse deleteIncome(
+    String sopId,
+    String ocvId,
+    String deleteIncomeModel
+  ) {
+    return null;
+  }
+
+  /**
    * @param ocvId customer id
    * @param endPoint endPoint
    * @return `HttpCalloutResponse` api response

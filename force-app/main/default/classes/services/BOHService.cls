@@ -210,4 +210,33 @@ public with sharing class BOHService extends Service {
 
     return response;
   }
+
+  /**
+   * @param sopId sop id to retrieve customer information
+   * @param ocvId ocv id of the customer account
+   * @param deleIncomeModel delete income model
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income from sop
+   */
+  public override HttpCalloutResponse deleteIncome(
+    String sopId,
+    String ocvId,
+    String deleIncomeModel
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Delete_Income +
+      '?etag=' +
+      SOPDeleteIncomeModel.parse(deleIncomeModel).etag,
+      HTTP_METHOD.HTTP_DELETE,
+      headers,
+      deleIncomeModel
+    );
+
+    return response;
+  }
 }
