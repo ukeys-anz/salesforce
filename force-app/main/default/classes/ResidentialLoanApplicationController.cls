@@ -71,8 +71,22 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       if (loanRec[0]?.Status == 'STATE_REFERRED' && editIncomeRole()) {
         sopAssets.showAddIncomeBtn = true;
+        for (
+          ResidentialLoanApplicationModel.SOPIncome income : sopAssets
+            ?.incomesSummary
+            ?.incomes
+        ) {
+          income.showEditIncomeBtn = true;
+        }
       } else {
         sopAssets.showAddIncomeBtn = false;
+        for (
+          ResidentialLoanApplicationModel.SOPIncome income : sopAssets
+            ?.incomesSummary
+            ?.incomes
+        ) {
+          income.showEditIncomeBtn = false;
+        }
       }
       //Remove Closed status values from assets and debts.
       //Need to loop backwards so next item isn't missed
