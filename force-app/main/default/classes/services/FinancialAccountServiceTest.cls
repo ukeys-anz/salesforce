@@ -25,7 +25,6 @@ public with sharing class FinancialAccountServiceTest {
       // Assign Coach User
       List<String> psNames = new List<String>{
         'Financial_Accounts_Read_and_Edit',
-        'FinancialServicesCloudBasic',
         'FinancialServicesCloudStandard',
         'FinancialServicesCloudExtension'
       };
