@@ -691,7 +691,7 @@
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <tabs>standard-Lead</tabs>
-    <tabs>Interaction_List_View</tabs>
+    <tabs>standard-Interaction</tabs>
     <tabs>Coaching_Summary__c</tabs>
     <tabs>standard-ContactRequest</tabs>
     <tabs>standard-ResidentialLoanApplication</tabs>
@@ -705,9 +705,6 @@
         </mappings>
         <mappings>
             <tab>CustomerOnboardingApplication__c</tab>
-        </mappings>
-        <mappings>
-            <tab>Interaction_List_View</tab>
         </mappings>
         <mappings>
             <tab>Knowledge__kav</tab>
@@ -742,6 +739,10 @@
         </mappings>
         <mappings>
             <tab>Quality_Assessment__c</tab>
+        </mappings>
+        <mappings>
+            <fieldName>AccountId</fieldName>
+            <tab>standard-Interaction</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>
