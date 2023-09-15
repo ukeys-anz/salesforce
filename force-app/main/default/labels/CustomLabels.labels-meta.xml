@@ -641,6 +641,14 @@
         <value>/contact-centre-staff/reinit-chats</value>
     </labels>
     <labels>
+        <fullName>MS_Update_Income</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Update_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/updateincome</value>
+    </labels>
+    <labels>
         <fullName>PEGA_Dispute_Status_New</fullName>
         <language>en_US</language>
         <protected>false</protected>

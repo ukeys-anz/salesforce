@@ -105,6 +105,21 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param verification whether the income is verified
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description update income
+   */
+  public virtual HttpCalloutResponse updateIncome(
+    String verification,
+    String ocvId,
+    String incomeBody
+  ) {
+    return null;
+  }
+  
+  /**
    * @param creditId to receive credit assessment list
    * @param ocvId customer ocv id
    * @return HttpCalloutResponse api response

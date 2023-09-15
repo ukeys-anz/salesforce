@@ -174,13 +174,14 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
+      String incomeVerified = (String) inputMap.get('incomeVerified');
 
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
       );
       ResidentialLoanApplicationModel sopAssets = rlaRepo.createIncome(
         loanRec[0]?.Account?.OCV_ID__c,
-        loanRec[0]?.SOP_Id__c,
+        incomeVerified,
         JSON.serialize(model)
       );
 
@@ -201,13 +202,14 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
+      String incomeVerified = (String) inputMap.get('incomeVerified');
 
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
       );
       ResidentialLoanApplicationModel sopAssets = rlaRepo.createIncome(
         loanRec[0]?.Account?.OCV_ID__c,
-        loanRec[0]?.SOP_Id__c,
+        incomeVerified,
         JSON.serialize(model)
       );
 

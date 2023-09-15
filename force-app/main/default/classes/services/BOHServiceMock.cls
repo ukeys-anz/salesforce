@@ -63,6 +63,24 @@ public with sharing class BOHServiceMock extends Service {
   }
 
   /**
+   * @param verification whether the income is verified
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description update income
+   */
+  public override HttpCalloutResponse updateIncome(
+    String verification,
+    String ocvId,
+    String incomeBody
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
+    }
+    return response;
+  }
+  
+  /**
    * @param creditId to receive credit assessment list
    * @param ocvId customer ocv id
    * @return `HttpcalloutResponse` the api response
@@ -77,6 +95,8 @@ public with sharing class BOHServiceMock extends Service {
     }
     return response;
   }
+      
+  
 
   /**
    * @param sopId sop id of the customer account
