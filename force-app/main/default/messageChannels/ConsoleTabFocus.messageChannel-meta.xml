@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Used to determine the tab that is focused in the console app</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>message containing tab id</description>
+        <fieldName>message</fieldName>
+    </lightningMessageFields>
+    <masterLabel>ConsoleTabFocus</masterLabel>
+</LightningMessageChannel>

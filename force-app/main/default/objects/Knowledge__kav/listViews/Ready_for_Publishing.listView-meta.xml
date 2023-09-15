@@ -8,7 +8,6 @@
     <columns>CREATEDBY_USER</columns>
     <columns>VALIDATION_STATUS_ENUM</columns>
     <columns>PUBLISH_STATUS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>VALIDATION_STATUS_ENUM</field>
         <operation>equals</operation>
@@ -19,10 +18,12 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Ready for Publishing</label>
     <sharedTo>
         <role>Content_Writer</role>
         <role>Content_Viewer</role>
+        <role>Credit_Assessor_Lead</role>
         <role>IDR_Content_Writer</role>
         <role>Coach_Lead</role>
         <role>Business_Admin</role>

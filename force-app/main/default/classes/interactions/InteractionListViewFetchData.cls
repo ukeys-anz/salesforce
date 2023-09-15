@@ -46,17 +46,17 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
     Map<String, Object> options
   ) {
     String anyRecordId = (String) inputMap.get('anyRecordId');
+    String interactionQuery = 'SELECT Id,Support_Topics__c,RecordType.DeveloperName,Chat_or_Call_SID__c, Name, Interaction_Auto_Number__c, AccountId, Account.Name,Lead__c, Lead__r.Name,StartTime,Interaction_Purpose__c, Contact_Mobile__c,InteractionType,Resolution__c ,Owner.Name ,CreatedDate, Actual_Topics__c, Reason_for_Visit__c, Status__c, Place__c, Attendees__c ,Video_Call__c, Direction__c From Interaction WHERE ';
     String recordTypeDeveloperName = (String) inputMap.get(
       'recordTypeDeveloperName'
     );
-    List<String> statusSearch = (List<String>) inputMap.get('statusSearch');
-    Integer maxNumber = (inputMap.get('maxNumber') == null)
-      ? MAXLIMIT
-      : (Integer) inputMap.get('maxNumber');
-    String interactionQuery = 'SELECT Id,Support_Topics__c,RecordType.DeveloperName,Chat_or_Call_SID__c, Name, Interaction_Auto_Number__c, AccountId, Account.Name,Lead__c, Lead__r.Name,StartTime,Interaction_Purpose__c, Contact_Mobile__c,InteractionType,Resolution__c ,Owner.Name ,CreatedDate, Actual_Topics__c, Reason_for_Visit__c, Status__c, Place__c, Attendees__c ,Video_Call__c, Direction__c From Interaction WHERE ';
     String sobjectType = String.valueOf(
       Id.valueOf(anyRecordId).getSObjectType()
     );
+    Integer maxNumber = (inputMap.get('maxNumber') == null)
+      ? MAXLIMIT
+      : (Integer) inputMap.get('maxNumber');
+    List<String> statusSearch = (List<String>) inputMap.get('statusSearch');
 
     switch on sobjectType {
       when 'Account' {
@@ -76,18 +76,16 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
       }
     }
 
-    //statusSearch works conditionally when passed from LWC or Aura.When the status search is passed then it will be appended to the query and records will be filtered based on that.
+    //statusSearch works conditionally when passed from LWC or Aura.When the status
+    //search is passed then it will be appended to the query and records will be filtered based on that.
     interactionQuery += ' AND RecordType.DeveloperName = :recordTypeDeveloperName';
     if (statusSearch != null && !statusSearch.isEmpty()) {
-      interactionQuery +=
-        ' AND Status__c IN (\'' +
-        String.join(statusSearch, '\',\'') +
-        '\') ';
+      interactionQuery += ' AND Status__c IN :statusSearch';
     }
     interactionQuery += ' ORDER BY CreatedDate DESC';
     interactionQuery += ' LIMIT ' + maxNumber;
     List<Interaction> lstInteractionsFromDB = (List<Interaction>) Database.query(
-      interactionQuery
+      String.escapeSingleQuotes(interactionQuery)
     );
     outMap.put('interactions', lstInteractionsFromDB);
   }

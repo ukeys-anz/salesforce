@@ -84,7 +84,7 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-c4f09315-d328-41eb-8622-fe3d14f75748</name>
+        <name>Facet-05a86c80-9ead-4ce1-bd57-d0233b501957</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -159,7 +159,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-c4f09315-d328-41eb-8622-fe3d14f75748</value>
+                    <value>Facet-05a86c80-9ead-4ce1-bd57-d0233b501957</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -266,6 +266,23 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>CreditAssessmentOutcomeDeclined</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard_outcome_declined</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Declined</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-3af1241e-2c17-46c1-bb86-0ad9f7aa3f4b</value>
                 </componentInstanceProperties>
@@ -354,6 +371,16 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectApiName</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
+                <componentName>cfaasFilesRelatedList</componentName>
+                <identifier>c_cfaasFilesRelatedList</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -473,11 +500,18 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>objectApiName</name>
-                    <value>Account</value>
+                    <name>toastFields</name>
                 </componentInstanceProperties>
-                <componentName>cfaasFilesRelatedList</componentName>
-                <identifier>c_cfaasFilesRelatedList</identifier>
+                <componentInstanceProperties>
+                    <name>toastMessage</name>
+                    <value>Please submit for reassessment to view the latest assessment outcome.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastTitle</name>
+                    <value>The loan application has been updated.</value>
+                </componentInstanceProperties>
+                <componentName>recordAlert</componentName>
+                <identifier>c_recordAlert</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

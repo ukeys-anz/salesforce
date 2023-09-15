@@ -140,11 +140,15 @@ public without sharing class TestDataFactory {
       when 'NPP_Dispute' {
         newCase = createNPPDisputeCase();
       }
+      when 'Credit_Referral' {
+        newCase = createCreditReferralCase();
+      }
     }
     newCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
       .get(recordTypeDeveloperName)
       .getRecordTypeId();
-    newCase.Dispute_Reason__c = getDisputeReason(recordTypeDeveloperName)[0];
+    List<String> listDispute = getDisputeReason(recordTypeDeveloperName);
+    newCase.Dispute_Reason__c = listDispute == null ? '' : listDispute[0];
     return newCase;
   }
 
@@ -215,6 +219,20 @@ public without sharing class TestDataFactory {
     theCase.Description = 'Direct Debit Dispute Case Description Test_Text_32k';
     theCase.Status = 'Open';
     theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction Id Test_DD_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_DD_Text_255';
+    return theCase;
+  }
+
+  /**
+   * @description Create Case record with fields relevant to Credit_Referral
+   * @return Case
+   */
+  public static Case createCreditReferralCase() {
+    Case theCase = new Case();
+    theCase.Description = 'Credit Referral Case Description Test_Text_32k';
+    theCase.Status = 'Open';
+    theCase.Origin = 'ANZ Plus App';
     theCase.Transaction_Id__c = 'Transaction Id Test_DD_Text_255';
     theCase.Transaction_UUID__c = 'Transaction UUID Test_DD_Text_255';
     return theCase;
@@ -423,5 +441,26 @@ public without sharing class TestDataFactory {
    */
   public static FinServ__FinancialAccount__c createTestFinAccountForDisputeCases() {
     return createTestFinAccountForDisputeCases('0');
+  }
+
+  /**
+   * @description create the Loan Application Records
+   * @param suffix String
+   * @return ResidentialLoanApplication
+   */
+  public static ResidentialLoanApplication createTestResidentialLoanApplication(
+    String suffix
+  ) {
+    return new ResidentialLoanApplication(
+      Name = 'Test Loan Application ' + suffix
+    );
+  }
+
+  /**
+   * @description create a ResidentialLoanApplication Record
+   * @return ResidentialLoanApplication
+   */
+  public static ResidentialLoanApplication createTestResidentialLoanApplication() {
+    return createTestResidentialLoanApplication('0');
   }
 }

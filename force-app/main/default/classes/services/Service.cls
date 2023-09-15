@@ -12,7 +12,8 @@ public with sharing virtual class Service {
   public enum IdType {
     OCVID,
     PERSONAID,
-    SOPID
+    SOPID,
+    CREDITID
   }
 
   /**
@@ -99,6 +100,19 @@ public with sharing virtual class Service {
     String verification,
     String ocvId,
     String incomeBody
+  ) {
+    return null;
+  }
+
+  /**
+   * @param creditId to receive credit assessment list
+   * @param ocvId customer ocv id
+   * @return HttpCalloutResponse api response
+   * @description virtual fetches list of credit assessments
+   */
+  public virtual HttpCalloutResponse getCreditAssessments(
+    String creditId,
+    String ocvId
   ) {
     return null;
   }
@@ -564,35 +578,46 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param creditId to receive credit assessment list
-   * @return HttpCalloutResponse api response
-   * @description virtual fetches list of credit assessments
-   */
-  public virtual HttpCalloutResponse getCreditAssessments(String creditId) {
-    return null;
-  }
-
-  /**
-   * @param creditId credit id from credit assessment
+   * @param payload payload containing credit id and uuid from credit assessment
+   * @param ocvId customer ocv id
    * @return HttpCalloutResponse api response
    * @description submits credit assessment for reassessment
    */
-  public virtual HttpCalloutResponse creditReassessment(String creditId) {
+  public virtual HttpCalloutResponse creditReassessment(
+    String payload,
+    String ocvId
+  ) {
     return null;
   }
 
   /**
    * @param creditId credit id from credit assessment
    * @param assessmentId id of assessment submitted for finalisation
+   * @param ocvId customer ocv id
    * @return HttpCalloutResponse api response
    * @description submits credit assessment for reassessment
    */
   public virtual HttpCalloutResponse finaliseAssessment(
     String creditId,
-    String assessmentId
+    String assessmentId,
+    String ocvId
   ) {
     return null;
   }
+
+  /**
+   * @param payload payload containing credit id, referralOutcome and uuid from credit assessment
+   * @param ocvId customer ocv id
+   * @return HttpCalloutResponse api response
+   * @description submits referral outcome update
+   */
+  public virtual HttpCalloutResponse createCreditEnquiryAssessment(
+    String payload,
+    String ocvId
+  ) {
+    return null;
+  }
+
   /**
    * @param sopIds sop id
    * @param creditId credit id
