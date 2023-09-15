@@ -146,9 +146,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     }
     response.parties = transformedParties;
 
-    SOPModelHelper.initPartyLiability(response);
-    SOPModelHelper.enrichOwnerName(response);
-
     outMap.put('object', JSON.deserializeUntyped(JSON.serialize(response)));
     return true;
   }

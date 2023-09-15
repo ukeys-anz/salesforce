@@ -18,6 +18,8 @@ public with sharing class SOPModel extends CalloutModel {
   public static final String ILLION_LC = 'Illion';
   public static final String CONFIRMED = 'Confirmed on ';
   public static final String NOT_CONFIRMED = 'Confirmation not yet provided';
+  public static final String CREDIT_CHECK_COMPLETED = ' Credit Check completed on ';
+  public static final String CREDIT_CHECK_ATTEMPTED = 'Credit check attempted';
 
   public String name;
   public Components[] components;
@@ -143,9 +145,10 @@ public with sharing class SOPModel extends CalloutModel {
     public String updateRetrievedTimeStr {
       get {
         if (success == false) {
-          return NOT_CONFIRMED;
+          return CREDIT_CHECK_ATTEMPTED;
         } else {
-          return CONFIRMED + BOHService.getFormatedDate(retrievedTime);
+          return CREDIT_CHECK_COMPLETED +
+            BOHService.getFormatedDate(retrievedTime);
         }
       }
     }

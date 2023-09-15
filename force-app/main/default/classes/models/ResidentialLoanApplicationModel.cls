@@ -77,7 +77,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public Integer liabilitySourceSize {
     get {
-      return sop.liabilitySources.size();
+      return null;
     }
   }
   /**
