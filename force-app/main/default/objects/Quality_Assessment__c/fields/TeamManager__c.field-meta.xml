@@ -2,9 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TeamManager__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
-    <description>stores case manager's line manager details</description>
+    <description>stores case manager&apos;s line manager details</description>
     <externalId>false</externalId>
     <label>Team Manager</label>
     <referenceTo>User</referenceTo>

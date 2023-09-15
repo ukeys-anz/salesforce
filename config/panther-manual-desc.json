@@ -2572,6 +2572,7 @@
         "Interaction_Date_Time__c",
         "Interaction_Type__c",
         "Is_the_customer_information_correct__c",
+        "IsItemCaseManagerLoggedInUser__c",
         "Issue_Type__c",
         "Issues_addressed_in_final_response__c",
         "Issue_products_correctly_recorded__c",
