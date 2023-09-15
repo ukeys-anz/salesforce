@@ -197,7 +197,7 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
    * @param allClosedAccountsNumbersList contains list of account numbers which are closed for the customer.
    * @return Boolean
    */
-  public static Boolean checkIfAnyClosedAccountsAvailable(
+  private static Boolean checkIfAnyClosedAccountsAvailable(
     List<String> cardAccountNumbersList,
     List<String> allClosedAccountsNumbersList
   ) {
