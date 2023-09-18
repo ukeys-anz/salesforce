@@ -181,7 +181,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       ResidentialLoanApplicationModel sopAssets = rlaRepo.createIncome(
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
-        JSON.serialize(model)
+        JSON.serialize(model),
+        loanId
       );
 
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
@@ -209,7 +210,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       ResidentialLoanApplicationModel sopAssets = rlaRepo.createIncome(
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
-        JSON.serialize(model)
+        JSON.serialize(model),
+        loanId
       );
 
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
@@ -231,7 +233,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    System.debug(inputMap.get('partyId'));
     SOPDeleteIncomeModel model = new SOPDeleteIncomeModel();
     model.name = (String) inputMap.get('name');
     model.etag = (String) inputMap.get('etag');
@@ -244,7 +245,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       Boolean deleteIncomeResponse = rlaRepo.deleteIncome(
         loanRec[0]?.SOP_Id__c,
         loanRec[0]?.Account?.OCV_ID__c,
-        JSON.serialize(model)
+        JSON.serialize(model),
+        loanId
       );
       outMap.put(
         'object',

@@ -12,11 +12,7 @@ public with sharing class BOHService extends Service {
    * @param sopId sop id to retrieve customer information
    * @return `HttpCalloutResponse` the api response
    * @description fetches customer information of sop from lex api through mule
-   * ===========
-   * curl command in dev: grpcurl -H "Authorization: Bearer ${TOKEN}" -d '{"sop_id":"0626ba39-aeb9-4ebb-a275-01bf15aeb8d1"}' sop-service.lex-dev.apps-dev.x.gcpnp.anz:443 lex.service.sop.v1beta1.SopService/ListAssets
-   * ===========
    */
-  //
   public override HttpCalloutResponse getListAssets(
     String ocvId,
     String sopId
@@ -379,5 +375,16 @@ public with sharing class BOHService extends Service {
     );
 
     return response;
+  }
+
+  /**
+   * @description sets the Credit_Reassess_Required__c = true to fire the toast
+   * @param loanId the loan id to update
+   */
+  public static void setToReassessmentIsRequired(String loanId) {
+    update new ResidentialLoanApplication(
+      Id = loanId,
+      Credit_Reassess_Required__c = true
+    );
   }
 }

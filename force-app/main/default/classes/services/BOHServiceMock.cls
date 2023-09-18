@@ -79,7 +79,7 @@ public with sharing class BOHServiceMock extends Service {
     }
     return response;
   }
-  
+
   /**
    * @param creditId to receive credit assessment list
    * @param ocvId customer ocv id
@@ -95,8 +95,6 @@ public with sharing class BOHServiceMock extends Service {
     }
     return response;
   }
-      
-  
 
   /**
    * @param sopId sop id of the customer account

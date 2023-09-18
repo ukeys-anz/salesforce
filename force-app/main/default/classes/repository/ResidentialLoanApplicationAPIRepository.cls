@@ -32,13 +32,15 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @param ocvId ocv id of the customer account
    * @param verification whether the income is verified
    * @param incomeBody post data of income information
+   * @param loanId of the working loan application
    * @return `ResidentialLoanApplicationModel` model class constructed from api response
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
   public ResidentialLoanApplicationModel createIncome(
     String ocvId,
     String verification,
-    String incomeBody
+    String incomeBody,
+    String loanId
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
     HttpCalloutResponse response = s.createIncome(
@@ -50,6 +52,7 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
       throw response.error;
     }
     try {
+      BOHService.setToReassessmentIsRequired(loanId);
       return ResidentialLoanApplicationModel.parse(response.body);
     } catch (Exception e) {
       handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
@@ -61,13 +64,15 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @param ocvId ocv id of the customer account
    * @param verification whether the income is verified
    * @param incomeBody post data of income information
+   * @param loanId of the working loan application
    * @return `ResidentialLoanApplicationModel` model class constructed from api response
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
   public ResidentialLoanApplicationModel updateIncome(
     String ocvId,
     String verification,
-    String incomeBody
+    String incomeBody,
+    String loanId
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
     HttpCalloutResponse response = s.updateIncome(
@@ -79,6 +84,7 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
       throw response.error;
     }
     try {
+      BOHService.setToReassessmentIsRequired(loanId);
       return ResidentialLoanApplicationModel.parse(response.body);
     } catch (Exception e) {
       handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
@@ -119,13 +125,15 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @param sopId sop id to retrieve customer information
    * @param ocvId ocv id of the customer account
    * @param deleIncomeModel the name and tag of income to be deleted
+   * @param loanId of the working loan application
    * @return `Boolean` indicate deletion result
    * @description delete a income from sop
    */
   public Boolean deleteIncome(
     String sopId,
     String ocvId,
-    String deleIncomeModel
+    String deleIncomeModel,
+    String loanId
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
     HttpCalloutResponse response = s.deleteIncome(
@@ -138,6 +146,7 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
     }
     try {
       if (response.statusCode == 200) {
+        BOHService.setToReassessmentIsRequired(loanId);
         return true;
       } else {
         return false;
