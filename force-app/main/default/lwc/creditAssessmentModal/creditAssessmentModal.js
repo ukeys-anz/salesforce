@@ -52,7 +52,7 @@ export default class CreditAssessmentModal extends LightningElement {
   }
 
   get modifiedBy() {
-    return `By ${this.createdBy}, ${this.createTime}`;
+    return `${this.createdBy} ${this.createTime}`;
   }
 
   async getOptions() {
