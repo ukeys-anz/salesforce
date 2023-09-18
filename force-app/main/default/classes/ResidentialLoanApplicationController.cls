@@ -186,8 +186,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
 
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
+      outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
+      outMap.put('toast', 'Error');
       return false;
     }
   }
@@ -215,8 +217,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
 
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
+      outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
+      outMap.put('toast', 'Error');
       return false;
     }
   }
@@ -252,8 +256,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         'object',
         JSON.deserializeUntyped(JSON.serialize(deleteIncomeResponse))
       );
+      outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
+      outMap.put('toast', 'Error');
       return false;
     }
   }

@@ -84,7 +84,7 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-05a86c80-9ead-4ce1-bd57-d0233b501957</name>
+        <name>Facet-c4f09315-d328-41eb-8622-fe3d14f75748</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -159,7 +159,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-05a86c80-9ead-4ce1-bd57-d0233b501957</value>
+                    <value>Facet-c4f09315-d328-41eb-8622-fe3d14f75748</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -231,6 +231,19 @@
         <name>main</name>
         <itemInstances>
             <componentInstance>
+                <componentName>toastEventListener</componentName>
+                <identifier>c_toastEventListener</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_View_Finances_Tab}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-2036833a-3773-4b2a-9ec7-4eb069f3352a</value>
@@ -259,23 +272,6 @@
                         <leftValue>{!$Permission.CustomPermission.ANZx_View_Finances_Tab}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>false</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>flexcardName</name>
-                    <value>CreditAssessmentOutcomeDeclined</value>
-                </componentInstanceProperties>
-                <componentName>runtime_omnistudio:flexcard</componentName>
-                <identifier>runtime_omnistudio_flexcard_outcome_declined</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Status}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Declined</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -371,16 +367,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>objectApiName</name>
-                    <value>Account</value>
-                </componentInstanceProperties>
-                <componentName>cfaasFilesRelatedList</componentName>
-                <identifier>c_cfaasFilesRelatedList</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -500,18 +486,11 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>toastFields</name>
+                    <name>objectApiName</name>
+                    <value>Account</value>
                 </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>toastMessage</name>
-                    <value>Please submit for reassessment to view the latest assessment outcome.</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>toastTitle</name>
-                    <value>The loan application has been updated.</value>
-                </componentInstanceProperties>
-                <componentName>recordAlert</componentName>
-                <identifier>c_recordAlert</identifier>
+                <componentName>cfaasFilesRelatedList</componentName>
+                <identifier>c_cfaasFilesRelatedList</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
