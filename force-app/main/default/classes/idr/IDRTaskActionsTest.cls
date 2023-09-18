@@ -266,6 +266,13 @@ private with sharing class IDRTaskActionsTest {
 
   @IsTest
   static void testQueueNameStamp() {
+    Group stopQueue = [
+      SELECT Id
+      FROM Group
+      WHERE
+        DeveloperName = 'IDR_Stop_Collections'
+        AND Type = :IDRCaseActions.QUEUE_TYPE
+    ];
     //GIVEN new System Task
     Task[] newTasks = new List<Task>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -284,7 +291,7 @@ private with sharing class IDRTaskActionsTest {
     Set<Id> taskIds = (new Map<Id, Task>(newTasks)).keySet();
     newTasks = [SELECT OwnerId FROM Task WHERE Id IN :taskIds];
     for (Task c : newTasks) {
-      c.OwnerId = IDRTaskActions.stopQueue.Id;
+      c.OwnerId = stopQueue.Id;
     }
     update newTasks;
 
