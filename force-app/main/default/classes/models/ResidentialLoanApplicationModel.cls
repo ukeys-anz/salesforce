@@ -527,6 +527,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public String etag;
     public String name;
     public Boolean showEditIncomeBtn;
+    public Boolean allowdelete;
 
     /**
      * @description cache the party list

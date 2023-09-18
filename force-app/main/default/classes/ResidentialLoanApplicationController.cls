@@ -60,6 +60,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   ) {
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      Boolean allowDeleteIncome = false;
+      Boolean showAddEditIncomeBtn = false;
       String loanId = (String) inputMap.get('loanId');
 
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
@@ -70,24 +72,21 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         loanRec[0]?.SOP_Id__c
       );
       if (loanRec[0]?.Status == 'STATE_REFERRED' && editIncomeRole()) {
-        sopAssets.showAddIncomeBtn = true;
-        for (
-          ResidentialLoanApplicationModel.SOPIncome income : sopAssets
-            ?.incomesSummary
-            ?.incomes
-        ) {
-          income.showEditIncomeBtn = true;
-        }
-      } else {
-        sopAssets.showAddIncomeBtn = false;
-        for (
-          ResidentialLoanApplicationModel.SOPIncome income : sopAssets
-            ?.incomesSummary
-            ?.incomes
-        ) {
-          income.showEditIncomeBtn = false;
-        }
+        showAddEditIncomeBtn = true;
       }
+      if (sopAssets.incomesSummary.incomes.size() > 1) {
+        allowDeleteIncome = true;
+      }
+      sopAssets.showAddIncomeBtn = showAddEditIncomeBtn;
+      for (
+        ResidentialLoanApplicationModel.SOPIncome income : sopAssets
+          ?.incomesSummary
+          ?.incomes
+      ) {
+        income.showEditIncomeBtn = showAddEditIncomeBtn;
+        income.allowdelete = allowDeleteIncome;
+      }
+
       //Remove Closed status values from assets and debts.
       //Need to loop backwards so next item isn't missed
       for (Integer i = sopAssets.assetsSummary.assets.size() - 1; i >= 0; i--) {
@@ -220,6 +219,43 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     }
   }
 
+  /**
+   * @description method to delete income from sop
+   * @param inputMap
+   * @param outMap
+   * @param options
+   * @return Boolean for successful delete income
+   */
+  private Boolean deleteIncome(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    System.debug(inputMap.get('partyId'));
+    SOPDeleteIncomeModel model = new SOPDeleteIncomeModel();
+    model.name = (String) inputMap.get('name');
+    model.etag = (String) inputMap.get('etag');
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      String loanId = (String) inputMap.get('loanId');
+      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
+        loanId
+      );
+      Boolean deleteIncomeResponse = rlaRepo.deleteIncome(
+        loanRec[0]?.SOP_Id__c,
+        loanRec[0]?.Account?.OCV_ID__c,
+        JSON.serialize(model)
+      );
+      outMap.put(
+        'object',
+        JSON.deserializeUntyped(JSON.serialize(deleteIncomeResponse))
+      );
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
   private SOPCreateIncomeModel generateCreateIncomeModel(
     Map<String, Object> inputMap,
     String modelType
@@ -318,40 +354,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     return amount;
   }
 
-  /**
-   * @description method to delete income from sop
-   * @param inputMap
-   * @param outMap
-   * @param options
-   * @return Boolean for successful delete income
-   */
-  private Boolean deleteIncome(
-    Map<String, Object> inputMap,
-    Map<String, Object> outMap,
-    Map<String, Object> options
-  ) {
-    System.debug(inputMap.get('partyId'));
-    SOPDeleteIncomeModel model = new SOPDeleteIncomeModel();
-    model.name = (String) inputMap.get('name');
-    model.etag = (String) inputMap.get('etag');
-    String ocvId = (String) inputMap.get('ocvId');
-    String sopId = (String) inputMap.get('sopId');
-    try {
-      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
-      Boolean deleteIncomeResponse = rlaRepo.deleteIncome(
-        sopId,
-        ocvId,
-        JSON.serialize(model)
-      );
-      outMap.put(
-        'object',
-        JSON.deserializeUntyped(JSON.serialize(deleteIncomeResponse))
-      );
-      return true;
-    } catch (Exception e) {
-      return false;
-    }
-  }
   private static Boolean editIncomeRole() {
     String usrRoleName = [
       SELECT id, name, userRole.name
