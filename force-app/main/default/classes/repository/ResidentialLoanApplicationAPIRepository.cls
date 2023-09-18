@@ -43,12 +43,14 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
     String loanId
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
+    UUIDLog uuidLog = new UUIDLog(incomeBody);
     HttpCalloutResponse response = s.createIncome(
       verification,
       ocvId,
-      incomeBody
+      uuidLog.attachUUID(incomeBody)
     );
     if (response.successful == false) {
+      uuidLog.insertUUID(loanId, 'BOH - SOP - Create Income');
       throw response.error;
     }
     try {
@@ -75,12 +77,14 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
     String loanId
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
+    UUIDLog uuidLog = new UUIDLog(incomeBody);
     HttpCalloutResponse response = s.updateIncome(
       verification,
       ocvId,
-      incomeBody
+      uuidLog.attachUUID(incomeBody)
     );
     if (response.successful == false) {
+      uuidLog.insertUUID(loanId, 'BOH - SOP - Update Income');
       throw response.error;
     }
     try {

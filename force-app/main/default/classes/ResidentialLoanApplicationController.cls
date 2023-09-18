@@ -207,7 +207,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
       );
-      ResidentialLoanApplicationModel sopAssets = rlaRepo.createIncome(
+      ResidentialLoanApplicationModel sopAssets = rlaRepo.updateIncome(
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
         JSON.serialize(model),
