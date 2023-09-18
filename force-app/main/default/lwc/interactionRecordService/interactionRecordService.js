@@ -1,10 +1,11 @@
 import { LightningElement, wire, api } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
-import getInteractionRecord from "@salesforce/apex/InteractionRecordServiceController.getInteractionRecord";
 import { publish, MessageContext } from "lightning/messageService";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
+import getInteractionRecord from "@salesforce/apex/InteractionRecordServiceController.getInteractionRecord";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -27,6 +28,10 @@ export default class InteractionRecordService extends NavigationMixin(
     data: undefined,
     error: undefined
   };
+
+  get displayReinitiateChat() {
+    return hasOutboundChatPermission;
+  }
 
   get showMessage() {
     return this.strRecordTypeName === this.messageRecord;

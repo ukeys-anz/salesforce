@@ -65,14 +65,16 @@
                     data-id={record.chatOrCallSid}
                     onselect={handleOnselect}
                   >
-                    <template if:true={record.enableReinitiate}>
-                      <lightning-menu-item
-                        label="Reply to Customer"
-                        value="re_initiate"
-                        data-id={record.accountId}
-                        onclick={handleActionSelect}
-                      >
-                      </lightning-menu-item>
+                    <template lwc:if={displayReinitiateChat}>
+                      <template if:true={record.enableReinitiate}>
+                        <lightning-menu-item
+                          label="Reply to Customer"
+                          value="re_initiate"
+                          data-id={record.accountId}
+                          onclick={handleActionSelect}
+                        >
+                        </lightning-menu-item>
+                      </template>
                     </template>
                     <lightning-menu-item
                       label="View transcript"
