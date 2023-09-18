@@ -59,6 +59,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    IDRQualityAssessmentTaskActions.checkOnReversionToPending(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
     QualityAssessmentActions.createQAShareRecord(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
