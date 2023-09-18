@@ -85,11 +85,9 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
   /**
    * @param payload payload containing values to send
    * @description updates referral outcome
-   * @return `CreditReferralModel`
+   * @return `Boolean` return boolean as the actual response isnt needed for the component
    */
-  public CreditReferralModel createCreditEnquiryAssessment(
-    Map<String, String> payload
-  ) {
+  public Boolean createCreditEnquiryAssessment(Map<String, String> payload) {
     Service s = ServiceProvider.getService(BOHService.class);
 
     EnquiryBody enquiry = new EnquiryBody();
@@ -117,13 +115,7 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
       throw response.error;
     }
 
-    CreditReferralModel credRef;
-    try {
-      credRef = CreditReferralModel.parse(response.body);
-    } catch (Exception e) {
-      handleErrors(response, e, CreditAssessmentAPIRepository.class);
-    }
-    return credRef;
+    return true;
   }
 
   /**
