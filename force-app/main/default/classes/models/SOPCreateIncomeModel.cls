@@ -7,7 +7,6 @@
 public class SOPCreateIncomeModel {
   public String parent;
   public SOPIncomeEdit income = new SOPIncomeEdit();
-  public SOPIncomeVerification incomeVerification = new SOPIncomeVerification();
 
   /**
    * @description SOPIncomeEdit model of the income information
@@ -36,14 +35,5 @@ public class SOPCreateIncomeModel {
     public String basis;
     public BeginDate startDate = new BeginDate();
     public String type;
-  }
-
-  /**
-   * @description SOPIncomeVerification information of verification
-   */
-  public class SOPIncomeVerification {
-    public String name;
-    public String income;
-    public String method;
   }
 }

@@ -312,21 +312,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       model.income.details.add(commission);
     }
 
-    if (modelType == 'create') {
-      model.incomeVerification.name = model.parent;
-      model.incomeVerification.income = '';
-    } else if (modelType == 'update') {
-      model.incomeVerification.name = (String) inputMap.get('incomeName');
-      List<String> incomeSections = model.incomeVerification.name.split('/');
-      if (incomeSections.size() >= 4) {
-        model.incomeVerification.income = incomeSections[3];
-      } else {
-        model.incomeVerification.income = '';
-      }
-    }
-
-    model.incomeVerification.method = 'VERIFICATION_METHOD_DOCUMENT';
-
     return model;
   }
 
