@@ -238,6 +238,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.ExpiryDateOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.FirstNameOCRClient__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -488,11 +493,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.PersonaAttemptCount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>CustomerOnboardingApplication__c.AustralianTaxResident__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -503,12 +503,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>CustomerOnboardingApplication__c.CXOnboardingStageChangeReason__c</field>
+        <field>CustomerOnboardingApplication__c.CXOnboardingStage__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>CustomerOnboardingApplication__c.CXOnboardingStage__c</field>
+        <field>CustomerOnboardingApplication__c.CXOnboardingStageChangeReason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -614,11 +614,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>CustomerOnboardingApplication__c.EquifaxOverallResult__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>CustomerOnboardingApplication__c.EventTimestamp__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
