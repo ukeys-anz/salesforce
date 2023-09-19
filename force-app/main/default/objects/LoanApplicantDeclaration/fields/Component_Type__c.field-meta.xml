@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Component_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Possible confirmation types.</description>
+    <externalId>false</externalId>
+    <label>Component Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>COMPONENT_TYPE_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>Unspecified</label>
+            </value>
+            <value>
+                <fullName>COMPONENT_TYPE_NEEDS</fullName>
+                <default>false</default>
+                <label>Needs Analysis</label>
+            </value>
+            <value>
+                <fullName>COMPONENT_TYPE_LOAN_PREFERENCES</fullName>
+                <default>false</default>
+                <label>Loan Preferences</label>
+            </value>
+            <value>
+                <fullName>COMPONENT_TYPE_REFINANCE_LIABILITIES</fullName>
+                <default>false</default>
+                <label>Refinance Liabilities</label>
+            </value>
+            <value>
+                <fullName>COMPONENT_TYPE_PROPERTIES</fullName>
+                <default>false</default>
+                <label>Properties</label>
+            </value>
+            <value>
+                <fullName>COMPONENT_TYPE_APPLICANTS</fullName>
+                <default>false</default>
+                <label>Applicant</label>
+            </value>
+            <value>
+                <fullName>COMPONENT_TYPE_SIGNIFICANT_CHANGE</fullName>
+                <default>false</default>
+                <label>Material Change</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
