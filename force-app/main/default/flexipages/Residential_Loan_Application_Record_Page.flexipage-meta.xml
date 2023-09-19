@@ -493,6 +493,23 @@
                 <identifier>c_cfaasFilesRelatedList</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>toastFields</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastMessage</name>
+                    <value>Please submit for reassessment to view the latest assessment outcome.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastTitle</name>
+                    <value>The loan application has been updated.</value>
+                </componentInstanceProperties>
+                <componentName>recordAlert</componentName>
+                <identifier>c_recordAlert</identifier>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <type>Region</type>
     </flexiPageRegions>
