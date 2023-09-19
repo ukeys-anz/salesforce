@@ -200,6 +200,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> options
   ) {
     SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap, 'update');
+    model.etag = (String) inputMap.get('etag');
 
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
@@ -275,9 +276,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     model.income.employment.basis = (String) inputMap.get('employmentType');
     String startDateStr = (String) inputMap.get('startDate');
     List<String> dateParts = startDateStr.split('-');
-    model.income.employment.startDate.month = dateParts[0];
-    model.income.employment.startDate.day = dateParts[1];
-    model.income.employment.startDate.year = dateParts[2];
+    model.income.employment.startDate.month = Integer.valueOf(dateParts[0]);
+    model.income.employment.startDate.day = Integer.valueOf(dateParts[1]);
+    model.income.employment.startDate.year = Integer.valueOf(dateParts[2]);
     model.income.employment.type = 'EMPLOYMENT_TYPE_PAYG';
 
     SOPCreateIncomeModel.SOPIncomeEditType baseSalary = new SOPCreateIncomeModel.SOPIncomeEditType();

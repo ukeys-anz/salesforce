@@ -6,6 +6,7 @@
  */
 public class SOPCreateIncomeModel {
   public String parent;
+  public String etag;
   public SOPIncomeEdit income = new SOPIncomeEdit();
 
   /**
@@ -33,7 +34,16 @@ public class SOPCreateIncomeModel {
     public String partyId;
     public String businessName;
     public String basis;
-    public BeginDate startDate = new BeginDate();
+    public SOPDate startDate = new SOPDate();
     public String type;
+  }
+
+  /**
+   * @description SOPDate information of date information to send to mule
+   */
+  public class SOPDate {
+    public Integer year;
+    public Integer month;
+    public Integer day;
   }
 }
