@@ -320,7 +320,8 @@ public with sharing class BOHService extends Service {
         Credit_ID__c,
         SOP_Id__c,
         Name,
-        Account.OCV_ID__c
+        Account.OCV_ID__c,
+        Credit_Reassess_Required__c
       FROM ResidentialLoanApplication
       WHERE Id = :loanId
       LIMIT 1

@@ -54,7 +54,6 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
       throw response.error;
     }
     try {
-      BOHService.setToReassessmentIsRequired(loanId);
       return ResidentialLoanApplicationModel.parse(response.body);
     } catch (Exception e) {
       handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
@@ -88,7 +87,6 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
       throw response.error;
     }
     try {
-      BOHService.setToReassessmentIsRequired(loanId);
       return ResidentialLoanApplicationModel.parse(response.body);
     } catch (Exception e) {
       handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
@@ -150,7 +148,6 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
     }
     try {
       if (response.statusCode == 200) {
-        BOHService.setToReassessmentIsRequired(loanId);
         return true;
       } else {
         return false;

@@ -184,6 +184,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         JSON.serialize(model),
         loanId
       );
+      publishRLARecordMonitoringToast(loanRec[0]);
 
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       outMap.put('toast', 'Success');
@@ -210,6 +211,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
       );
+      publishRLARecordMonitoringToast(loanRec[0]);
+
       ResidentialLoanApplicationModel sopAssets = rlaRepo.updateIncome(
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
@@ -253,6 +256,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         JSON.serialize(model),
         loanId
       );
+      publishRLARecordMonitoringToast(loanRec[0]);
+
       outMap.put(
         'object',
         JSON.deserializeUntyped(JSON.serialize(deleteIncomeResponse))
@@ -362,5 +367,22 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       'Credit Assessor Lead'
     };
     return roleNameCanEditIncome.contains(usrRoleName);
+  }
+
+  /**
+   * @description publishes RLA event for reassessment toast
+   * @param loan ResidentialLoanApplication
+   */
+  private static void publishRLARecordMonitoringToast(
+    ResidentialLoanApplication loan
+  ) {
+    if (loan.Credit_Reassess_Required__c) {
+      ToastAlertService.publishRecordMonitoringEvent(
+        ToastAlertService.RLA_MESSAGE,
+        new Set<ID>{ loan.Id }
+      );
+      return;
+    }
+    BOHService.setToReassessmentIsRequired(loan.Id);
   }
 }
