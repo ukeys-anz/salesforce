@@ -520,6 +520,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPIncome implements Comparable {
     public String id;
     public String sopId;
+    public String uid;
     public List<SOPIncomeDetail> details;
     public SOPEmployment employment;
     public string employmentId;
@@ -873,6 +874,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public String id;
     public String type;
     public String frequency;
+    public Integer bonusPayments;
     /**
      *
      * @description income Type

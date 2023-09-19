@@ -168,7 +168,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap, 'create');
+    SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap);
 
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
@@ -200,8 +200,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap, 'update');
-    model.etag = (String) inputMap.get('etag');
+    SOPUpdateIncomeModel model = generateUpdateIncomeModel(inputMap);
 
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
@@ -271,8 +270,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   }
 
   private SOPCreateIncomeModel generateCreateIncomeModel(
-    Map<String, Object> inputMap,
-    String modelType
+    Map<String, Object> inputMap
   ) {
     SOPCreateIncomeModel model = new SOPCreateIncomeModel();
     model.parent = (String) inputMap.get('sopId');
@@ -309,6 +307,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       bonus.type = 'INCOME_TYPE_BONUS';
       bonus.amount = stringToMoney((String) inputMap.get('bonusAmount'));
       bonus.amountType = (String) inputMap.get('bonusTax');
+      String paymentsStr = (String) inputMap.get('bonusPayments');
+      bonus.bonusPayments = Integer.valueOf(paymentsStr);
       model.income.details.add(bonus);
     }
 
@@ -322,6 +322,66 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       commission.amountType = (String) inputMap.get('commissionTax');
       model.income.details.add(commission);
+    }
+
+    return model;
+  }
+
+  private SOPUpdateIncomeModel generateUpdateIncomeModel(
+    Map<String, Object> inputMap
+  ) {
+    SOPUpdateIncomeModel model = new SOPUpdateIncomeModel();
+    model.etag = (String) inputMap.get('etag');
+    model.name = (String) inputMap.get('incomeName');
+    model.uid = (String) inputMap.get('uid');
+    model.employment.partyId = (String) inputMap.get('partyId');
+    model.employment.businessName = (String) inputMap.get('employer');
+    model.employment.basis = (String) inputMap.get('employmentType');
+    String startDateStr = (String) inputMap.get('startDate');
+    List<String> dateParts = startDateStr.split('-');
+    model.employment.startDate.month = Integer.valueOf(dateParts[0]);
+    model.employment.startDate.day = Integer.valueOf(dateParts[1]);
+    model.employment.startDate.year = Integer.valueOf(dateParts[2]);
+    model.employment.type = 'EMPLOYMENT_TYPE_PAYG';
+
+    SOPCreateIncomeModel.SOPIncomeEditType baseSalary = new SOPCreateIncomeModel.SOPIncomeEditType();
+    baseSalary.type = 'INCOME_TYPE_BASE_SALARY';
+    baseSalary.frequency = (String) inputMap.get('baseSalaryFrequency');
+    baseSalary.amount = stringToMoney((String) inputMap.get('salaryAmount'));
+    baseSalary.amountType = (String) inputMap.get('salaryTax');
+    model.details.add(baseSalary);
+
+    String showOvertime = (String) inputMap.get('showOvertime');
+    if (showOvertime == 'true') {
+      SOPCreateIncomeModel.SOPIncomeEditType overtime = new SOPCreateIncomeModel.SOPIncomeEditType();
+      overtime.type = 'INCOME_TYPE_OVERTIME';
+      overtime.frequency = (String) inputMap.get('overtimeFrequency');
+      overtime.amount = stringToMoney((String) inputMap.get('overtimeAmount'));
+      overtime.amountType = (String) inputMap.get('overtimeTax');
+      model.details.add(overtime);
+    }
+
+    String showBonus = (String) inputMap.get('showBonus');
+    if (showBonus == 'true') {
+      SOPCreateIncomeModel.SOPIncomeEditType bonus = new SOPCreateIncomeModel.SOPIncomeEditType();
+      bonus.type = 'INCOME_TYPE_BONUS';
+      bonus.amount = stringToMoney((String) inputMap.get('bonusAmount'));
+      bonus.amountType = (String) inputMap.get('bonusTax');
+      String paymentsStr = (String) inputMap.get('bonusPayments');
+      bonus.bonusPayments = Integer.valueOf(paymentsStr);
+      model.details.add(bonus);
+    }
+
+    String showCommision = (String) inputMap.get('showCommision');
+    if (showCommision == 'true') {
+      SOPCreateIncomeModel.SOPIncomeEditType commission = new SOPCreateIncomeModel.SOPIncomeEditType();
+      commission.type = 'INCOME_TYPE_COMMISSION';
+      commission.frequency = (String) inputMap.get('commissionFrequency');
+      commission.amount = stringToMoney(
+        (String) inputMap.get('commissionAmount')
+      );
+      commission.amountType = (String) inputMap.get('commissionTax');
+      model.details.add(commission);
     }
 
     return model;
