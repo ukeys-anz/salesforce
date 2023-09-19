@@ -56,7 +56,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
       (String) input.get('loanId')
     );
 
-    result.isSubmitted = (String.isNotBlank(loanRec?.Assessment_Outcome__c));
+    result.isSubmitted = (String.isNotBlank(loanRec?.Status));
     if (result.isSubmitted) {
       result.hasError = (String.isBlank(loanRec?.Credit_ID__c) ||
       String.isBlank(loanRec?.SOP_Id__c));
@@ -335,7 +335,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     List<ResidentialLoanApplication> rla = [
       SELECT
         Id,
-        Assessment_Outcome__c,
+        Status,
         Credit_ID__c,
         SOP_Id__c,
         Name,

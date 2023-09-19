@@ -57,7 +57,8 @@ private class ViewServiceabilityControllerTest {
       AccountId = accId,
       Credit_ID__c = creditId,
       SOP_Id__c = sopId,
-      Assessment_Outcome__c = 'Approved'
+      Assessment_Outcome__c = 'Approved',
+      Status = 'STATE_CAPTURE'
     );
   }
 
@@ -91,7 +92,7 @@ private class ViewServiceabilityControllerTest {
     );
     System.assert(
       (Boolean) payload.get('isSubmitted'),
-      'Application is should be submitted'
+      'Application should be submitted'
     );
   }
   @isTest
@@ -125,7 +126,7 @@ private class ViewServiceabilityControllerTest {
     );
     System.assert(
       (Boolean) payload.get('isSubmitted'),
-      'Application is should be submitted'
+      'Application should be submitted'
     );
   }
   @isTest
