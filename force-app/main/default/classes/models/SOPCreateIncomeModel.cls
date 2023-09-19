@@ -25,6 +25,7 @@ public class SOPCreateIncomeModel {
     public String frequency;
     public SOPMoney amount;
     public String amountType;
+    public Integer bonusPayments;
   }
 
   /**
