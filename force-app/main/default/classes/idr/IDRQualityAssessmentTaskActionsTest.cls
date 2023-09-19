@@ -14,29 +14,32 @@ private class IDRQualityAssessmentTaskActionsTest {
    */
   @IsTest
   static void checkOnReversionToPending() {
-    createComplianceTasks();
+    User oQAUser = createComplianceTasksImpl();
 
-    List<Quality_Assessment__c> lstAssessments = [SELECT Id, Status__c
-                                                  FROM Quality_Assessment__c
-                                                  WHERE Status__c = :QualityAssessmentActions.STATUS_COMPLETE];
-    Set<Id> stAssessmentIds = new Set<Id>();
-    for ( Quality_Assessment__c oAssessment : lstAssessments) {
-      oAssessment.Status__c = IDRQualityAssessmentTaskActions.STATUS_PENDING;
-      stAssessmentIds.add(oAssessment.Id);
+    System.runAs(oQAUser) {
+      List<Quality_Assessment__c> lstAssessments = [SELECT Id, Status__c
+                                                    FROM Quality_Assessment__c
+                                                        WHERE Status__c = :QualityAssessmentActions.STATUS_COMPLETE
+        ];
+      Set<Id> stAssessmentIds = new Set<Id>();
+      for ( Quality_Assessment__c oAssessment : lstAssessments) {
+        oAssessment.Status__c = IDRQualityAssessmentTaskActions.STATUS_PENDING;
+        stAssessmentIds.add(oAssessment.Id);
+      }
+
+      update lstAssessments;
+      System.debug('Assessments: ' + lstAssessments);
+
+      List<Task> lstTasks = [SELECT Id, Status, WhatId, RecordType.DeveloperName
+                              FROM Task
+                              WHERE WhatId IN :stAssessmentIds
+                              AND Status = 'Expired'
+                                AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
+        ];
+
+      System.debug('Tasks: ' + lstTasks);
+      System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
     }
-
-    update lstAssessments;
-    System.debug('Assessments: ' + lstAssessments);
-
-    List<Task> lstTasks = [SELECT Id, Status, WhatId, RecordType.DeveloperName
-                            FROM Task
-                            WHERE WhatId IN :stAssessmentIds
-                            AND Status = 'Expired'
-                            AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID];
-
-    System.debug('Tasks: ' + lstTasks);
-    System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
-
   }
 
   /**
@@ -44,7 +47,31 @@ private class IDRQualityAssessmentTaskActionsTest {
    */
   @IsTest
   static void createComplianceTasks() {
-    User oUser = TestDataFactory.thisUser;
+    createComplianceTasksImpl();
+  }
+
+  static User createComplianceTasksImpl() {
+
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole cqRole = CommonUtil.getUserRoleByDevName('Capability_Quality_C_Q_Team');
+
+    // Create QA user
+    User oQAUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'QA_User',
+        'ProfileId' => stdUserProfile.Id,
+        'UserRoleId' => cqRole.Id
+      }
+    );
+    insert oQAUser;
+
+    // Add IDR User permissions on test users
+    PermissionSet ps = CommonUtil.getPermissionSetByName('IDR_User');
+    insert TestUtil.createPSAssignment(oQAUser.Id, ps.Id);
+
+    Test.startTest();
+
+    System.runAs(oQAUser) {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
@@ -63,8 +90,8 @@ private class IDRQualityAssessmentTaskActionsTest {
         new Quality_Assessment__c(
           Status__c = 'In Progress',
           Related_Case__c = newCases[i].Id,
-          Case_Manager__c = oUser.Id,
-          TeamManager__c = oUser.Id,
+            Case_Manager__c = oQAUser.Id,
+            TeamManager__c = oQAUser.Id,
           RecordTypeId = (Math.mod(i, 2) == 0) ? IDRConstants.idrtCQQualityAssessment : IDRConstants.idrtCallLetterReviewQualityAssessment
         )
       );
@@ -78,9 +105,8 @@ private class IDRQualityAssessmentTaskActionsTest {
       stAssessmentIds.add(oAssessment.Id);
     }
 
-    Test.startTest();
-
     update lstAssessments;
+
     Test.stopTest();
     System.debug('Assessments: ' + lstAssessments);
 
@@ -88,9 +114,12 @@ private class IDRQualityAssessmentTaskActionsTest {
                             FROM Task
                             WHERE WhatId IN :stAssessmentIds
                             AND Status = 'Open'
-                            AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID];
+                              AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
+      ];
 
     System.debug('Tasks: ' + lstTasks);
     System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
+  }
+    return oQAUser;
   }
 }
