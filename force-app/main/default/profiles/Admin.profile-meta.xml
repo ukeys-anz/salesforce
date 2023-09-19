@@ -5119,7 +5119,7 @@
         <field>CustomerOnboardingApplication__c.EquifaxOverallResult__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>CustomerOnboardingApplication__c.EventTimestamp__c</field>
         <readable>true</readable>
