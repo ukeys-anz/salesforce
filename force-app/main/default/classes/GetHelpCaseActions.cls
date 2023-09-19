@@ -31,8 +31,13 @@ public with sharing class GetHelpCaseActions {
   public static Group accountClosureQueue = CommonUtil.getQueueByName(
     'Account_Closure_Queue'
   );
+
   public static Group cobFraudCheckQueue = CommonUtil.getQueueByName(
     'COB_Fraud_Check_Queue'
+  );
+
+  public static Group cadReferralQueue = CommonUtil.getQueueByName(
+    'CAD_Credit_Referral_Case_Queue'
   );
 
   /**
@@ -98,6 +103,13 @@ public with sharing class GetHelpCaseActions {
         record.OwnerId = accountClosureQueue.Id;
       } else if (CheckCaseRecordType.isANZPlusComplaint(record)) {
         GetHelpCaseActionsHelper.handleEntitlementForUpdate(record, oldRecord);
+      } else if (
+        CheckCaseRecordType.isCreditReferral(record, null) &&
+        record.Status == GetHelpConstants.ESCALATED_STATUS &&
+        oldRecord.Status != GetHelpConstants.ESCALATED_STATUS
+      ) {
+        //Set owner of case to cad referral queue if its set to escalated
+        record.OwnerId = cadReferralQueue.Id;
       }
     }
 
@@ -513,8 +525,9 @@ public with sharing class GetHelpCaseActions {
     }
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
-    GetHelpCaseActionsHelper.setANZxCustomerNonCustomerComplaints(records);
     GetHelpCaseAssignmentRules.assignUnauthenticatedEnquiryCases(records);
+    GetHelpCaseActionsHelper.setANZxCustomerNonCustomerComplaints(records);
+    GetHelpCaseActionsHelper.setCreditReferralApplication(records);
   }
 
   /**
@@ -1006,5 +1019,70 @@ public with sharing class GetHelpCaseActions {
       Logger.debug('KYC QA Case Number: ' + c.CaseNumber__c);
     }
     Logger.saveLog();
+  }
+
+  /**
+   * @description Validate ownership change for credit referral cases - https://jira.anzx.service.anz/browse/ANZX-86338
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   */
+  public static void validateCreditReferralOwnershipChange(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    for (Case creditRefCase : records) {
+      Case oldCase = oldMap.get(creditRefCase.Id);
+      if (
+        creditRefCase.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID
+      ) {
+        GetHelpCaseActionsHelper.isNoAuthorityAssignment(
+          creditRefCase,
+          oldCase
+        );
+        GetHelpCaseActionsHelper.isInvalidCreditLeadNoAuthorityAssignment(
+          creditRefCase,
+          oldCase
+        );
+        GetHelpCaseActionsHelper.isInvalidCreditRefAssignment(
+          creditRefCase,
+          oldCase
+        );
+        GetHelpCaseActionsHelper.isInvalidCreditRefEdit(creditRefCase, oldCase);
+        GetHelpCaseActionsHelper.isInvalidCADQueueAssignment(
+          creditRefCase,
+          oldCase
+        );
+        GetHelpCaseActionsHelper.isInvalidCoachQueueAssignment(
+          creditRefCase,
+          oldCase
+        );
+      }
+    }
+  }
+
+  /**
+   * @description Copy case number of credit referral. Workflow rule breaks as it is editing and triggering the beforeUpdate
+   * @param records Case records from trigger
+   */
+  public static void copyCreditReferralCaseNumbers(List<Case> records) {
+    List<Case> creditRefCases = new List<Case>();
+    for (Case creditRefCase : records) {
+      if (
+        creditRefCase.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID
+      ) {
+        Case c = creditRefCase.clone(true, false, true);
+        c.CaseNumber__c = creditRefCase.CaseNumber;
+        creditRefCases.add(c);
+      }
+    }
+
+    if (!creditRefCases.isEmpty()) {
+      //Run in system mode to avoid edit rules of credit referral case being triggered
+      SystemModeActions actions = new SystemModeActions(
+        'GetHelpCaseActions',
+        'copyCreditReferralCaseNumbers'
+      );
+      actions.updateRecords(creditRefCases, 'Case');
+    }
   }
 }

@@ -4,6 +4,6 @@
     <fields>Name</fields>
     <fields>AccountId</fields>
     <fields>Status</fields>
-    <fields>Assessment_Outcome__c</fields>
+    <fields>LoanPurpose</fields>
     <label>Compact Layout</label>
 </CompactLayout>

@@ -704,6 +704,32 @@
         "Disable_MFA"
       ],
       "type": "system"
+    },
+    {
+      "name": "Credit Referral GCP Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Credit_Referral_Integration",
+        "Case_Read_Write_Credit_Referral",
+        "API_Only",
+        "Enforce_mTLS",
+        "Disable_MFA"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Loan App Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Mortgage",
+        "Loan_app_Integration",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
     }
   ]
 }

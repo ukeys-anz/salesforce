@@ -1,0 +1,14 @@
+.modal-header {
+  --slds-c-modal-header-color-background: #014486;
+  --slds-c-modal-header-text-color: #ffffff;
+}
+
+.tooltip {
+  margin-left: 2px;
+  position: relative;
+  bottom: 3px;
+}
+
+.field-title {
+  font-size: 12px;
+}

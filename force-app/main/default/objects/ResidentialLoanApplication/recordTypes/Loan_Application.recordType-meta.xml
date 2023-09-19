@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loan_Application</fullName>
+    <active>true</active>
+    <label>Loan Application</label>
+    <picklistValues>
+        <picklist>AmortizationType</picklist>
+        <values>
+            <fullName>Adjustable Rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fixed Rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Assessment_Outcome__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Collateral_Assessment_Outcome__c</picklist>
+        <values>
+            <fullName>ASSESSMENT_OUTCOME_APPROVED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ASSESSMENT_OUTCOME_DECLINED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ASSESSMENT_OUTCOME_REFERRED</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EstateHoldType</picklist>
+        <values>
+            <fullName>Fee Simple</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Leasehold</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Loan_Purpose__c</picklist>
+        <values>
+            <fullName>REFINANCING_REASON_CONSOLIDATE_LOANS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>REFINANCING_REASON_PAY_LESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>REFINANCING_REASON_PAY_OFF_SOONER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>REFINANCING_REASON_REFI_CURRENT_BALANCE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>REFINANCING_REASON_TOPUP_EXISTING_LOAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>REFINANCING_REASON_UNSPECIFIED</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Loan_Type__c</picklist>
+        <values>
+            <fullName>TYPE_HOME_LOAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TYPE_REFINANCE</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Main_Goal__c</picklist>
+        <values>
+            <fullName>MAIN_GOAL_CONSOLIDATE_LOANS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAIN_GOAL_PAY_LESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAIN_GOAL_PAY_OFF_SOONER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAIN_GOAL_TOPUP_EXISTING_LOAN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>MortgageLienType</picklist>
+        <values>
+            <fullName>First Lien</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subordinate Lien</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>NativeLandTenure</picklist>
+        <values>
+            <fullName>Alaska Native Corporation Land</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fee Simple %28On a Reservation%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Individual Trust Land %28Allotted%2FRestricted%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tribal Trust Land %28Off Reservation%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tribal Trust Land %28On a Reservation%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ProjectType</picklist>
+        <values>
+            <fullName>Condominium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cooperative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planned Unit Development%28PUD%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property is not located in a project</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RefinanceProgramType</picklist>
+        <values>
+            <fullName>Full Documentation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interest Rate Reduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Streamlined without Appraisal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RefinanceType</picklist>
+        <values>
+            <fullName>Cash Out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Limited Cash Out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Cash Out</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>STATE_APPROVED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_CANCELLED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_CAPTURE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_COMPLETED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_CONFIRMED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_DECLINED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_EXPIRED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_INELIGIBLE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_REFERRED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_SETTLEMENT_INITIATED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_SUBMITTED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_UNSPECIFIED</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TitleType</picklist>
+        <values>
+            <fullName>Joint Tenancy with Right of Survivorship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sole Ownership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tenancy by the Entirety</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tenancy in Common</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TrustTitleType</picklist>
+        <values>
+            <fullName>Title Will be Held by a Land Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Title Will be Held by an Inter Vivos %28Living%29 Trust</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
