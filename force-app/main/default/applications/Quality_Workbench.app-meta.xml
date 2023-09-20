@@ -410,6 +410,9 @@
             <tab>Coaching_Summary__c</tab>
         </mappings>
         <mappings>
+            <tab>standard-Interaction</tab>
+        </mappings>
+        <mappings>
             <tab>Knowledge__kav</tab>
         </mappings>
         <mappings>
@@ -432,9 +435,6 @@
         </mappings>
         <mappings>
             <tab>standard-home</tab>
-        </mappings>
-        <mappings>
-            <tab>standard-Interaction</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>
