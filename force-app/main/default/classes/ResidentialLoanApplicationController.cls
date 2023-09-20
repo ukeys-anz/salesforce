@@ -178,7 +178,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
       );
-      ResidentialLoanApplicationModel sopAssets = rlaRepo.createIncome(
+      rlaRepo.createIncome(
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
         JSON.serialize(model),
@@ -186,7 +186,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       publishRLARecordMonitoringToast(loanRec[0]);
 
-      outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
@@ -212,14 +211,13 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       publishRLARecordMonitoringToast(loanRec[0]);
 
-      ResidentialLoanApplicationModel sopAssets = rlaRepo.updateIncome(
+      rlaRepo.updateIncome(
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
         JSON.serialize(model),
         loanId
       );
 
-      outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
@@ -274,7 +272,14 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   ) {
     SOPCreateIncomeModel model = new SOPCreateIncomeModel();
     model.parent = (String) inputMap.get('sopId');
-    model.income.employment.partyId = (String) inputMap.get('partyId');
+    Integer partySize = Integer.valueOf((String) inputMap.get('partySize'));
+    if (partySize > 1) {
+      model.income.employment.partyId = (String) inputMap.get('partyId');
+    } else {
+      model.income.employment.partyId = (String) inputMap.get(
+        'firstUserPartyId'
+      );
+    }
     model.income.employment.businessName = (String) inputMap.get('employer');
     model.income.employment.basis = (String) inputMap.get('employmentType');
     String startDateStr = (String) inputMap.get('startDate');
@@ -334,7 +339,13 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     model.etag = (String) inputMap.get('etag');
     model.name = (String) inputMap.get('incomeName');
     model.uid = (String) inputMap.get('uid');
-    model.employment.partyId = (String) inputMap.get('partyId');
+    Integer partySize = Integer.valueOf((String) inputMap.get('partySize'));
+    if (partySize > 1) {
+      model.employment.partyId = (String) inputMap.get('partyId');
+    } else {
+      model.employment.partyId = (String) inputMap.get('firstUserPartyId');
+    }
+
     model.employment.businessName = (String) inputMap.get('employer');
     model.employment.basis = (String) inputMap.get('employmentType');
     String startDateStr = (String) inputMap.get('startDate');
