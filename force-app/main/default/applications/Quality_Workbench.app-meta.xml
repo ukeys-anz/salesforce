@@ -425,9 +425,6 @@
             <tab>standard-Lead</tab>
         </mappings>
         <mappings>
-            <tab>standard-Interaction</tab>
-        </mappings>
-        <mappings>
             <tab>standard-ResidentialLoanApplication</tab>
         </mappings>
         <mappings>
@@ -435,6 +432,9 @@
         </mappings>
         <mappings>
             <tab>standard-home</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Interaction</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>
