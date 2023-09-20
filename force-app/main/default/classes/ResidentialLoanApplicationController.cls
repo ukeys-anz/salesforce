@@ -178,7 +178,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
       );
-      ResidentialLoanApplicationModel sopAssets = rlaRepo.createIncome(
+      rlaRepo.createIncome(
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
         JSON.serialize(model),
@@ -186,7 +186,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       publishRLARecordMonitoringToast(loanRec[0]);
 
-      outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
@@ -212,14 +211,13 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       publishRLARecordMonitoringToast(loanRec[0]);
 
-      ResidentialLoanApplicationModel sopAssets = rlaRepo.updateIncome(
+      rlaRepo.updateIncome(
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
         JSON.serialize(model),
         loanId
       );
 
-      outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {

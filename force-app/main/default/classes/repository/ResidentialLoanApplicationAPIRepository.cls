@@ -33,10 +33,9 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @param verification whether the income is verified
    * @param incomeBody post data of income information
    * @param loanId of the working loan application
-   * @return `ResidentialLoanApplicationModel` model class constructed from api response
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
-  public ResidentialLoanApplicationModel createIncome(
+  public void createIncome(
     String ocvId,
     String verification,
     String incomeBody,
@@ -53,12 +52,6 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
       uuidLog.insertUUID(loanId, 'BOH - SOP - Create Income');
       throw response.error;
     }
-    try {
-      return ResidentialLoanApplicationModel.parse(response.body);
-    } catch (Exception e) {
-      handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
-    }
-    return null;
   }
 
   /**
@@ -66,10 +59,9 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @param verification whether the income is verified
    * @param incomeBody post data of income information
    * @param loanId of the working loan application
-   * @return `ResidentialLoanApplicationModel` model class constructed from api response
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
-  public ResidentialLoanApplicationModel updateIncome(
+  public void updateIncome(
     String ocvId,
     String verification,
     String incomeBody,
@@ -86,12 +78,6 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
       uuidLog.insertUUID(loanId, 'BOH - SOP - Update Income');
       throw response.error;
     }
-    try {
-      return ResidentialLoanApplicationModel.parse(response.body);
-    } catch (Exception e) {
-      handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
-    }
-    return null;
   }
 
   /**
