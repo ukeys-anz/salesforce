@@ -108,7 +108,7 @@ export default class ViewCards extends LightningElement {
 
       getCardList({ ocvId: this.ocvId })
         .then((result) => {
-          if (result.cards) {
+          if (result.cards && result.cards.length > 0) {
             this.initialCardsDetails = this.mapCardDetails(result.cards);
             this.cardDetails = [this.initialCardsDetails[0]];
             this.showViewAllButtonHandler();
