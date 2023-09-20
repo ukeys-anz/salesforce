@@ -8,15 +8,16 @@
     <columns>CREATEDBY_USER</columns>
     <columns>VALIDATION_STATUS_ENUM</columns>
     <columns>PUBLISH_STATUS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>PUBLISH_STATUS</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Draft Articles</label>
     <sharedTo>
         <role>Content_Writer</role>
+        <role>Credit_Assessor_Lead</role>
         <role>IDR_Content_Writer</role>
         <role>Coach_Lead</role>
         <role>Business_Admin</role>

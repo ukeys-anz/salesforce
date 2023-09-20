@@ -179,6 +179,24 @@ public with sharing class CheckCaseRecordType {
   }
 
   /**
+   * @description Check if a case is Credit Referral case
+   * @param record The case record to check
+   * @param oldCase old case
+   * @return if the case is a Credit Referral case
+   */
+  public static Boolean isCreditReferral(Case record, Case oldCase) {
+    if (
+      record.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID &&
+      (oldCase == null ||
+      record.Type != oldCase.Type)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * @description Check if a case is created by AEM or no -
    * - means if the recordType is unauthenticated enquiry, Origin is ANZ plus Web and ANZx_Customer__c is true
    * @param record The case record to check

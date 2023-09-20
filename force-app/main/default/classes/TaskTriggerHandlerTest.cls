@@ -155,6 +155,7 @@ private class TaskTriggerHandlerTest {
         )
       }
     );
+    Test.startTest();
     try {
       insert listofTasks;
     } catch (DMLexception e) {
@@ -177,6 +178,7 @@ private class TaskTriggerHandlerTest {
         'Status should be as expected.'
       );
     }
+    Test.stopTest();
   }
 
   @isTest
@@ -187,6 +189,22 @@ private class TaskTriggerHandlerTest {
       WHERE RecordTypeId = :IDRConstants.CUSTOMER_COMPLAINT_RT_ID
     ];
     List<Task> newTasks = new List<Task>();
+
+    Group stopQueue = [
+      SELECT Id
+      FROM Group
+      WHERE
+        DeveloperName = 'IDR_Stop_Collections'
+        AND Type = :IDRCaseActions.QUEUE_TYPE
+    ];
+
+    Group startQueue = [
+      SELECT Id
+      FROM Group
+      WHERE
+        DeveloperName = 'IDR_Restart_Collections'
+        AND Type = :IDRCaseActions.QUEUE_TYPE
+    ];
 
     Test.startTest();
     //GIVEN list of collection tasks created by Mulesoft
@@ -221,12 +239,12 @@ private class TaskTriggerHandlerTest {
     ];
     //THEN they are automatically assigned to STOP or START collections queue
     system.assertEquals(
-      IDRTaskActions.stopQueue.Id,
+      stopQueue.Id,
       taskList[0].OwnerId,
       'Task owner should be as expected.'
     );
     system.assertEquals(
-      IDRTaskActions.startQueue.Id,
+      startQueue.Id,
       taskList[1].OwnerId,
       'Task owner should be as expected.'
     );

@@ -130,8 +130,6 @@ force-app/main/default/connectedApps
 #not ignoring will result in a generated key error
 force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 
-#ignoring All List View from being deployed as it will be manually configured
-force-app/main/default/objects/ResidentialLoanApplication/listViews/All_ResidentialLoanApplications.listView-meta.xml
 #to prevent the standard oob search layout view being re-deployed for 'All Interactions' and duplicating the custom list view name
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
@@ -191,16 +189,6 @@ force-app/main/default/objects/Lead/fields/Not_Registered__c.field-meta.xml
 mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
 force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
 force-app/main/default/tabs/SkyhighNetworks__SHNEvent__c.tab-meta.xml
-
-#ignoring credit referral roles and permission sets as they would be deployed later
-force-app/main/default/roles/Credit_Assessment_Officer.role-meta.xml
-force-app/main/default/roles/Credit_Assessor_Lead.role-meta.xml
-force-app/main/default/permissionsetgroups/Credit_Assessment_Officer.permissionsetgroup-meta.xml
-force-app/main/default/permissionsetgroups/Credit_Assessor_Lead.permissionsetgroup-meta.xml
-force-app/main/default/permissionsets/Case_Credit_Referral.permissionset-meta.xml
-force-app/main/default/permissionsets/Case_Credit_Referral_Ownership_Transfer.permissionset-meta.xml
-force-app/main/default/permissionsets/Reason_Outcome_Read_Only.permissionset-meta.xml
-force-app/main/default/permissionsets/Referral_Reason_Read_Only.permissionset-meta.xml
 
 #named credential to make the build pass and we do the manual deployment later
 force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-meta.xml
