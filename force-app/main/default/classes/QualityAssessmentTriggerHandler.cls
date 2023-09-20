@@ -22,6 +22,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeInsert() {
     QualityAssessmentActions.populateFieldsBeforeTrigger(records, null);
+    QualityAssessmentActions.validateRelatedCase(records, null);
   }
 
   /**
@@ -79,6 +80,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       (Map<Id, Quality_Assessment__c>) oldMap
     );
     QualityAssessmentActions.assignToQueue(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    QualityAssessmentActions.validateRelatedCase(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );

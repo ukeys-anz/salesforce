@@ -28,7 +28,6 @@ private class IDRQualityAssessmentTaskActionsTest {
       }
 
       update lstAssessments;
-      System.debug('Assessments: ' + lstAssessments);
 
       List<Task> lstTasks = [SELECT Id, Status, WhatId, RecordType.DeveloperName
                               FROM Task
@@ -37,7 +36,6 @@ private class IDRQualityAssessmentTaskActionsTest {
                                 AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
         ];
 
-      System.debug('Tasks: ' + lstTasks);
       System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
     }
   }
@@ -72,54 +70,53 @@ private class IDRQualityAssessmentTaskActionsTest {
     Test.startTest();
 
     System.runAs(oQAUser) {
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-          IDR_Customer_Number__c = '1234567890',
-          Status = 'Closed'
-        )
-      );
-    }
-    insert newCases;
+      Case[] newCases = new List<Case>();
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        newCases.add(
+          new Case(
+            RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+            IDR_Customer_Number__c = '1234567890',
+            Status = 'Closed'
+          )
+        );
+      }
+      insert newCases;
 
-    Quality_Assessment__c[] lstAssessments = new List<Quality_Assessment__c>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      lstAssessments.add(
-        new Quality_Assessment__c(
-          Status__c = 'In Progress',
-          Related_Case__c = newCases[i].Id,
-            Case_Manager__c = oQAUser.Id,
-            TeamManager__c = oQAUser.Id,
-          RecordTypeId = (Math.mod(i, 2) == 0) ? IDRConstants.idrtCQQualityAssessment : IDRConstants.idrtCallLetterReviewQualityAssessment
-        )
-      );
-    }
-    insert lstAssessments;
+      Quality_Assessment__c[] lstAssessments = new List<Quality_Assessment__c>();
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        lstAssessments.add(
+          new Quality_Assessment__c(
+            Status__c = 'In Progress',
+            Related_Case__c = newCases[i].Id,
+              Case_Manager__c = oQAUser.Id,
+              TeamManager__c = oQAUser.Id,
+            RecordTypeId = (Math.mod(i, 2) == 0) ? IDRConstants.idrtCQQualityAssessment : IDRConstants.idrtCallLetterReviewQualityAssessment
+          )
+        );
+      }
+      insert lstAssessments;
 
-    Set<Id> stAssessmentIds = new Set<Id>();
-    for ( Quality_Assessment__c oAssessment : lstAssessments) {
-      oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
-      oAssessment.Context_and_General_Comments__c = REFERENCE_VALUE;
-      stAssessmentIds.add(oAssessment.Id);
-    }
+      Set<Id> stAssessmentIds = new Set<Id>();
+      for ( Quality_Assessment__c oAssessment : lstAssessments) {
+        oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
+        oAssessment.Context_and_General_Comments__c = REFERENCE_VALUE;
+        stAssessmentIds.add(oAssessment.Id);
+      }
 
-    update lstAssessments;
+      update lstAssessments;
 
-    Test.stopTest();
-    System.debug('Assessments: ' + lstAssessments);
+      Test.stopTest();
 
-    List<Task> lstTasks = [SELECT Id, Status, WhatId, RecordType.DeveloperName
-                            FROM Task
-                            WHERE WhatId IN :stAssessmentIds
-                            AND Status = 'Open'
+      List<Task> lstTasks = [SELECT Id, Status, WhatId, RecordType.DeveloperName
+                              FROM Task
+                              WHERE WhatId IN :stAssessmentIds
+                              AND Status = 'Open'
                               AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
       ];
 
-    System.debug('Tasks: ' + lstTasks);
-    System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
-  }
+      System.debug('Tasks: ' + lstTasks);
+      System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
+    }
     return oQAUser;
   }
 }
