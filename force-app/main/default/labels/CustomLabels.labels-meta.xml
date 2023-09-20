@@ -271,6 +271,14 @@
         <value>/card-management/v1/cards</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Credit_Assessments</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Credit_Assessments</shortDescription>
+        <value>/credit-assessment/v1/listreferraloutcome/</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Abr_Abn</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -1416,5 +1424,29 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Get View Umi API</shortDescription>
         <value>callout:SF_MS_Fabric/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Submit_Credit_Reassessment</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Submit_Credit_Reassessment</shortDescription>
+        <value>/credit-assessment/v1/reassessment</value>
+    </labels>
+    <labels>
+        <fullName>MS_Submit_Credit_Finalisation</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Submit_Credit_Finalisation</shortDescription>
+        <value>/credit-assessment/v1/confirmassessment</value>
+    </labels>
+    <labels>
+        <fullName>MS_Submit_Referral_Outcome</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Submit_Referral_Outcome</shortDescription>
+        <value>/credit-assessment/v1/providereferraloutcome</value>
     </labels>
 </CustomLabels>

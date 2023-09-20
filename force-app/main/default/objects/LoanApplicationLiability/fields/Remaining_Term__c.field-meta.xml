@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Remaining_Term__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Formula to display months remaining in years and months format</description>
+    <externalId>false</externalId>
+    <formula>TEXT(FLOOR( Months_Remaining__c /12)) &amp; &apos; Years&apos; &amp; &apos; &apos; &amp;
+IF(FLOOR(MOD(Months_Remaining__c,12)) = 0, &apos;&apos;, TEXT(FLOOR(MOD(Months_Remaining__c,12))) &amp; IF(FLOOR(MOD(Months_Remaining__c,12)) = 1, &apos; Month &apos;, &apos; Months &apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Remaining Term</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

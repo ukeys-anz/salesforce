@@ -110,6 +110,73 @@ private class CaseTriggerHandlerTest {
       }
       insert coachPsaList;
 
+      UserRole bohRole = CommonUtil.getUserRoleByDevName('BOH_Coach');
+      User bohCoach = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'BOHCoachTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => bohRole.Id
+        }
+      );
+      insert bohCoach;
+
+      UserRole creditOfficerRole = CommonUtil.getUserRoleByDevName(
+        'Credit_Assessment_Officer'
+      );
+      User creditOfficer = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CreditAssessmentOfficer',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => creditOfficerRole.Id
+        }
+      );
+      insert creditOfficer;
+
+      UserRole creditLeadRole = CommonUtil.getUserRoleByDevName(
+        'Credit_Assessor_Lead'
+      );
+      User creditLead = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CreditLead',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => creditLeadRole.Id
+        }
+      );
+      insert creditLead;
+
+      Profile integrationProfile = CommonUtil.getProfileByName(
+        'Integration User'
+      );
+      UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
+      User creditRefIntegrationUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CreditRefIntegrationUser',
+          'ProfileId' => integrationProfile.Id,
+          'UserRoleId' => anzxRole.Id
+        }
+      );
+      insert creditRefIntegrationUser;
+
+      // Assign related PSs
+      List<String> creditRefPs = new List<String>{
+        'API_Only',
+        'Case_Read_Write_Credit_Referral',
+        'Credit_Referral_Integration'
+      };
+      List<PermissionSet> creditRefPsList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :creditRefPs
+      ];
+
+      List<PermissionSetAssignment> creditRefPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : creditRefPsList) {
+        creditRefPsaList.add(
+          TestUtil.createPSAssignment(creditRefIntegrationUser.Id, ps.Id)
+        );
+      }
+      insert creditRefPsaList;
+
       Account[] accnts = new List<Account>();
       for (Integer i = 0; i < 2; i++) {
         accnts.add(
@@ -670,6 +737,96 @@ private class CaseTriggerHandlerTest {
       c.IDR_Escalation_Reason__c,
       'Escalation Reason should have been updated to DAY_5_ESCALATION_REASON '
     );
+  }
+
+  @IsTest
+  static void testCreditReferralEscalationStatus() {
+    // GIVEN cases are created as not escalated
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.CREDIT_REFERRAL_RT_ID,
+          Status = GetHelpConstants.OPEN_STATUS
+        )
+      );
+    }
+    insert newCases;
+
+    // WHEN they status set to escalated
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases[i].Status = GetHelpConstants.ESCALATED_STATUS;
+    }
+    update newCases;
+
+    // THEN check status and owner fields
+    Case c = [SELECT Status, OwnerId FROM Case WHERE Id = :newCases[0].Id];
+    System.assertEquals(
+      'Escalated',
+      c.Status,
+      'Status should have been updated to Escalated '
+    );
+    System.assertEquals(
+      GetHelpCaseActions.cadReferralQueue.Id,
+      c.OwnerId,
+      'Escalated To should have assigned to CAD Referral Queue '
+    );
+  }
+
+  @IsTest
+  static void testCreditReferralDefaults() {
+    // WHEN Credit Referral is created
+    Account acc = TestDataFactory.createAccount(true);
+    ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      String value = String.valueOf(i);
+      ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
+        value
+      );
+      rla.Credit_ID__c = '000-000-000-00' + value;
+      rla.AccountId = acc.Id;
+
+      newRLA.add(rla);
+    }
+    insert newRLA;
+
+    Case[] newCases = new List<Case>();
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
+      c.AccountId = acc.Id;
+
+      newCases.add(c);
+    }
+    Test.startTest();
+    insert newCases;
+
+    ResidentialLoanApplication sampleRLA = [
+      SELECT Id, AccountId
+      FROM ResidentialLoanApplication
+      WHERE Id = :newRLA[0].Id
+      LIMIT 1
+    ];
+
+    // Verify new case record has an account and loan application
+    Case sampleCase = [
+      SELECT Loan_Application__c, AccountId
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    System.assertEquals(
+      sampleRLA.Id,
+      sampleCase.Loan_Application__c,
+      'Case application should be retrieved from the queried loan application upon inserting'
+    );
+    System.assertEquals(
+      sampleRLA.AccountId,
+      sampleCase.AccountId,
+      'Case account should be retrieved from the queried loan application customer upon inserting'
+    );
+    Test.stopTest();
   }
 
   @isTest
@@ -2773,6 +2930,7 @@ private class CaseTriggerHandlerTest {
   @IsTest
   static void testCardDisputeCase() {
     String recordTypeDeveloperName = 'Card_Dispute';
+    Test.startTest();
     List<Account> accountsList = [
       SELECT Id, OCV_ID__c
       FROM Account
@@ -2803,7 +2961,7 @@ private class CaseTriggerHandlerTest {
         'OCV000000001'
       )
       .Id;
-    Test.startTest();
+
     try {
       insert theCase;
     } catch (DmlException e) {
@@ -3375,6 +3533,7 @@ private class CaseTriggerHandlerTest {
   @isTest
   static void testEmailTaskOnCaseClosureCreationNegative() {
     String recordTypeDeveloperName = 'Card_Dispute';
+    Test.startTest();
     List<Account> accountsList = [
       SELECT Id, OCV_ID__c
       FROM Account
@@ -3421,7 +3580,6 @@ private class CaseTriggerHandlerTest {
       );
       insert externalCaseStatus;
 
-      Test.startTest();
       theCase.Status = 'Closed';
       update theCase;
       Test.stopTest();
@@ -3785,5 +3943,160 @@ private class CaseTriggerHandlerTest {
         usr.id
       );
     }
+  }
+
+  // Test Prevent BOH coach assigning invalid credit referral
+  @isTest
+  public static void testCreditReferralBOHInvalidAssignment() {
+    User usr = TestUtil.getUserByFirstName('BOHCoachTest');
+    User integrationUser = TestUtil.getUserByFirstName(
+      'CreditRefIntegrationUser'
+    );
+    List<Case> creditRefCases = new List<Case>();
+    Group coachQueue = CommonUtil.getQueueByName(
+      'No_CAD_Credit_Referral_Case_Queue'
+    );
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.OwnerId = coachQueue.Id;
+      c.Case_Authority_Level__c = 'CAD_0';
+      creditRefCases.add(c);
+    }
+
+    System.runAs(integrationUser) {
+      insert creditRefCases;
+    }
+
+    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+
+    Test.startTest();
+    System.runAs(usr) {
+      try {
+        c.OwnerId = usr.Id;
+        update c;
+      } catch (Exception e) {
+        System.assert(
+          e.getMessage()
+            .contains(
+              'You can\'t assign a credit referral case that you do not have authority to resolve. Please select another case.'
+            )
+        );
+      }
+    }
+    Test.stopTest();
+  }
+
+  // Test BOH coach assigning credit referral
+  @isTest
+  public static void testCreditReferralBOHAssignment() {
+    User usr = TestUtil.getUserByFirstName('BOHCoachTest');
+    User integrationUser = TestUtil.getUserByFirstName(
+      'CreditRefIntegrationUser'
+    );
+    List<Case> creditRefCases = new List<Case>();
+    Group coachQueue = CommonUtil.getQueueByName(
+      'No_CAD_Credit_Referral_Case_Queue'
+    );
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.OwnerId = coachQueue.Id;
+      c.Case_Authority_Level__c = 'NO CAD';
+      creditRefCases.add(c);
+    }
+
+    System.runAs(integrationUser) {
+      insert creditRefCases;
+    }
+
+    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+
+    Test.startTest();
+    System.runAs(usr) {
+      c.OwnerId = usr.Id;
+      update c;
+    }
+
+    Assert.areEqual(usr.Id, c.OwnerId, 'Expected case owner to be boh coach');
+    Test.stopTest();
+  }
+
+  // Test credit assessment officer assigning credit referral
+  @isTest
+  public static void testCreditReferralOfficerAssignment() {
+    User usr = TestUtil.getUserByFirstName('CreditAssessmentOfficer');
+    User integrationUser = TestUtil.getUserByFirstName(
+      'CreditRefIntegrationUser'
+    );
+    List<Case> creditRefCases = new List<Case>();
+    Group coachQueue = CommonUtil.getQueueByName(
+      'No_CAD_Credit_Referral_Case_Queue'
+    );
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.OwnerId = coachQueue.Id;
+      c.Case_Authority_Level__c = 'NO CAD';
+      creditRefCases.add(c);
+    }
+
+    System.runAs(integrationUser) {
+      insert creditRefCases;
+    }
+
+    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+
+    Test.startTest();
+    System.runAs(usr) {
+      c.OwnerId = usr.Id;
+      update c;
+    }
+
+    Assert.areEqual(
+      usr.Id,
+      c.OwnerId,
+      'Expected case owner to be credit assessment officer'
+    );
+    Test.stopTest();
+  }
+
+  // Test Credit assessment lead invalid assign to boh
+  @isTest
+  public static void testCreditReferralLeadToBohInvalid() {
+    User creditLead = TestUtil.getUserByFirstName('CreditLead');
+    User bohCoach = TestUtil.getUserByFirstName('BOHCoachTest');
+    User integrationUser = TestUtil.getUserByFirstName(
+      'CreditRefIntegrationUser'
+    );
+    List<Case> creditRefCases = new List<Case>();
+    Group coachQueue = CommonUtil.getQueueByName(
+      'No_CAD_Credit_Referral_Case_Queue'
+    );
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.OwnerId = coachQueue.Id;
+      c.Case_Authority_Level__c = 'CAD_0';
+      creditRefCases.add(c);
+    }
+
+    System.runAs(integrationUser) {
+      insert creditRefCases;
+    }
+
+    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+
+    Test.startTest();
+    System.runAs(creditLead) {
+      try {
+        c.OwnerId = bohCoach.Id;
+        update c;
+      } catch (Exception e) {
+        System.assert(
+          e.getMessage()
+            .contains(
+              'You can\'t assign a credit referral case to someone who does not have the authority to resolve it.'
+            )
+        );
+      }
+    }
+    Test.stopTest();
   }
 }
