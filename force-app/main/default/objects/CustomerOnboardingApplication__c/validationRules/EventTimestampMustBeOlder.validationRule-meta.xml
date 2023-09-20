@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventTimestampMustBeOlder</fullName>
+    <active>true</active>
+    <description>If an event with timestamp &lt; current timestamp on the COB Application, upsertion will fail.</description>
+    <errorConditionFormula>EventTimestamp__c &lt;  PRIORVALUE(EventTimestamp__c)</errorConditionFormula>
+    <errorDisplayField>EventTimestamp__c</errorDisplayField>
+    <errorMessage>COB Application data is being overwritten with stale data.</errorMessage>
+</ValidationRule>

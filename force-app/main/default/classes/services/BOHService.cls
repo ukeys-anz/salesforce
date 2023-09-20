@@ -26,7 +26,9 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_SOP + sopId,
+      System.Label.MS_Get_SOP +
+      sopId +
+      '/consolidate',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -63,6 +65,115 @@ public with sharing class BOHService extends Service {
 
     return response;
   }
+
+  /**
+   * @param creditId to retrieve redit assessment list
+   * @param ocvId customer ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches credit assessment list of sop from lex api through mule
+   */
+  public override HttpCalloutResponse getCreditAssessments(
+    String creditId,
+    String ocvId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' +
+      Label.MS_Get_Credit_Assessments +
+      creditId,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+
+    return response;
+  }
+
+  /**
+   * @param payload payload containing credit id and uuid from credit assessment
+   * @param ocvId customer ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description submits credit assessment for reassessment
+   */
+  public override HttpCalloutResponse creditReassessment(
+    String payload,
+    String ocvId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Submit_Credit_Reassessment,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      payload
+    );
+
+    return response;
+  }
+
+  /**
+   * @param creditId credit id from credit assessment
+   * @param assessmentId id of assessment submitted for finalisation
+   * @param ocvId customer ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description submtis the credit assessment for finalisation
+   */
+  public override HttpCalloutResponse finaliseAssessment(
+    String creditId,
+    String assessmentId,
+    String ocvId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Submit_Credit_Finalisation,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      '{"creditEnquiryId":"' +
+      creditId +
+      '", "id":"' +
+      assessmentId +
+      '"}'
+    );
+
+    return response;
+  }
+
+  /**
+   * @param payload payload containing credit id, referralOutcome and uuid from credit assessment
+   * @param ocvId customer ocv id
+   * @return HttpCalloutResponse api response
+   * @description submits referral outcome update
+   */
+  public override HttpCalloutResponse createCreditEnquiryAssessment(
+    String payload,
+    String ocvId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Submit_Referral_Outcome,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      payload
+    );
+
+    return response;
+  }
+
   /**
    * @description Represents Request body for view UMI api
    */

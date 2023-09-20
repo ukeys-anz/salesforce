@@ -65,6 +65,7 @@ public class IDRMilestonesTest {
   */
   @IsTest
   static void testIDRMilestoneCompletion() {
+    Test.startTest();
     Case[] newCases = createCMOSCustomerComplaintCase();
 
     List<Case> cList = [
@@ -123,6 +124,7 @@ public class IDRMilestonesTest {
       cmList2.size(),
       'Both escalation and Max Timeframe milestone should be completed'
     );
+    Test.stopTest();
   }
   /*GIVEN a CMOS Case
   WHEN the case gets created or its issue+sub issue types get updated
