@@ -226,6 +226,14 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+        <fullName>MS_Create_Income</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Create_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/createincome</value>
+    </labels>
+    <labels>
         <fullName>MS_Create_Party</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -344,6 +352,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_SOP</shortDescription>
         <value>callout:SF_MS_Fabric/credit-assessment/v1/sop/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Delete_Income</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Delete_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/deleteincome</value>
     </labels>
     <labels>
         <fullName>MS_Get_Transactions</fullName>
@@ -623,6 +639,14 @@
         <protected>false</protected>
         <shortDescription>MS_Reinitiate_Chat</shortDescription>
         <value>/contact-centre-staff/reinit-chats</value>
+    </labels>
+    <labels>
+        <fullName>MS_Update_Income</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Update_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/updateincome</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_New</fullName>
@@ -1386,7 +1410,31 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Get View Umi API</shortDescription>
-        <value>callout:SF_MS_Fabric/</value>
+        <value>/credit-assessment/v1/umi</value>
+    </labels>
+    <labels>
+        <fullName>MS_Submit_Credit_Reassessment</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Submit_Credit_Reassessment</shortDescription>
+        <value>/credit-assessment/v1/reassessment</value>
+    </labels>
+    <labels>
+        <fullName>MS_Submit_Credit_Finalisation</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Submit_Credit_Finalisation</shortDescription>
+        <value>/credit-assessment/v1/confirmassessment</value>
+    </labels>
+    <labels>
+        <fullName>MS_Submit_Referral_Outcome</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Submit_Referral_Outcome</shortDescription>
+        <value>/credit-assessment/v1/providereferraloutcome</value>
     </labels>
     <labels>
         <fullName>MS_Submit_Credit_Reassessment</fullName>

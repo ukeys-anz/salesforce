@@ -2630,18 +2630,6 @@
         "Referral_Reason__c"
       ]
     },
-    "RecordType": {
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate",
-        "Description",
-        "IsActive"
-      ],
-      "IA-2415840": ["Name"]
-    },
     "Referral_Reason__c": {
       "IA-2415840": [
         "Assessment_Category__c",

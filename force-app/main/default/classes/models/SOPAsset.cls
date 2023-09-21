@@ -15,6 +15,14 @@ public class SOPAsset implements Comparable {
   public String propertyId;
   public String createTime;
   public Datetime updateTime;
+  /**
+   * @description return update time in the expected format
+   */
+  public String updateTimeStr {
+    get {
+      return BOHService.getFormatedDate(updateTime);
+    }
+  }
   public String updatedBy;
 
   /**

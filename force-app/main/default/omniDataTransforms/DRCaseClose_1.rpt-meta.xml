@@ -46,7 +46,6 @@
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8908</globalKey>
@@ -60,7 +59,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -76,7 +74,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2703</globalKey>
@@ -90,7 +87,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -106,7 +102,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3227</globalKey>
@@ -120,7 +115,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -139,7 +133,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:isSystemicIssue &quot;Yes&quot; == var:Case:WhyIsThisPossibleSystemicIssue &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -156,7 +149,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -175,7 +167,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2145</globalKey>
@@ -189,7 +180,6 @@
         <upsertKey>true</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -205,7 +195,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom1392</globalKey>
@@ -219,7 +208,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -238,7 +226,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseClose7222211729647365</globalKey>
@@ -252,7 +239,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -268,7 +254,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom5802</globalKey>
@@ -283,7 +268,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2746</globalKey>
@@ -297,7 +281,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
@@ -314,7 +297,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6393</globalKey>
@@ -328,7 +310,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -344,7 +325,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2837</globalKey>
@@ -358,7 +338,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -374,7 +353,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom1935</globalKey>
@@ -388,7 +366,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -404,7 +381,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom887</globalKey>
@@ -419,7 +395,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom5977</globalKey>
@@ -433,7 +408,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -452,7 +426,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8290</globalKey>
@@ -466,7 +439,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -482,7 +454,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6889</globalKey>
@@ -496,7 +467,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -512,7 +482,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom9056</globalKey>
@@ -526,7 +495,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -542,7 +510,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2779</globalKey>
@@ -556,7 +523,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -572,7 +538,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom9796</globalKey>
@@ -586,7 +551,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -632,7 +596,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy2 &quot;Reward/\/\/points&quot; == var:Case:rewardPoints2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -650,7 +613,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom9515</globalKey>
@@ -665,7 +627,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7647</globalKey>
@@ -679,7 +640,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -698,7 +658,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom4096</globalKey>
@@ -713,7 +672,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseClose6058771135014032</globalKey>
@@ -727,7 +685,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -746,7 +703,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8674</globalKey>
@@ -760,7 +716,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -779,7 +734,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7097</globalKey>
@@ -793,7 +747,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -812,7 +765,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3360</globalKey>
@@ -826,7 +778,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -842,7 +793,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom738</globalKey>
@@ -856,7 +806,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -872,7 +821,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3966</globalKey>
@@ -886,7 +834,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -905,7 +852,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6049</globalKey>
@@ -920,7 +866,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6655</globalKey>
@@ -934,7 +879,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -953,7 +897,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2559</globalKey>
@@ -967,7 +910,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -986,7 +928,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy1 &quot;99&quot; == var:Case:otherRemedy1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -1004,7 +945,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom4250</globalKey>
@@ -1018,7 +958,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
