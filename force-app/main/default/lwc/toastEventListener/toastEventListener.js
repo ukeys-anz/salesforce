@@ -19,6 +19,8 @@ export default class ToastEventListener extends LightningElement {
         variant: event.detail.variant
       });
       this.dispatchEvent(evt);
+      /* eslint-disable no-eval */
+      eval("$A.get('e.force:refreshView').fire();");
     }
   }
 
