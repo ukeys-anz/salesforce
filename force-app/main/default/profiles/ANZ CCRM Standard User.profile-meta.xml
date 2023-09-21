@@ -19674,11 +19674,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ResidentialLoanApplication.Collateral_Assessment_ID__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ResidentialLoanApplication.Collateral_Assessment_Outcome__c</field>
         <readable>false</readable>
     </fieldPermissions>

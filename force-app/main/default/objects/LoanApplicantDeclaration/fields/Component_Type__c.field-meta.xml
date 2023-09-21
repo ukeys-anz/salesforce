@@ -49,6 +49,11 @@
                 <default>false</default>
                 <label>Material Change</label>
             </value>
+            <value>
+                <fullName>COMPONENT_TYPE_LOAN_SUMMARY</fullName>
+                <default>false</default>
+                <label>Loan Summary</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -17,6 +17,21 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param sopId customer sop id
+   * @param ocvId customer ocv id
+   * @param deleteIncomeModel model to delete income from sop
+   * @return `HttpCalloutResponse` api response
+   * @description virtual chat channels callout
+   */
+  public virtual HttpCalloutResponse deleteIncome(
+    String sopId,
+    String ocvId,
+    String deleteIncomeModel
+  ) {
+    return null;
+  }
+
+  /**
    * @param ocvId customer id
    * @param endPoint endPoint
    * @return `HttpCalloutResponse` api response
@@ -71,6 +86,36 @@ public with sharing virtual class Service {
    * @description virtual sop list asset callout
    */
   public virtual HttpCalloutResponse getListAssets(String ocvId, String sopId) {
+    return null;
+  }
+
+  /**
+   * @param verification whether the income is verified
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description create income
+   */
+  public virtual HttpCalloutResponse createIncome(
+    String verification,
+    String ocvId,
+    String incomeBody
+  ) {
+    return null;
+  }
+
+  /**
+   * @param verification whether the income is verified
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description update income
+   */
+  public virtual HttpCalloutResponse updateIncome(
+    String verification,
+    String ocvId,
+    String incomeBody
+  ) {
     return null;
   }
 
@@ -591,8 +636,9 @@ public with sharing virtual class Service {
   /**
    * @param sopIds sop id
    * @param creditId credit id
-   * @param loanId loan id
    * @param ocvId ocv id of the primary loan application
+   * @param termMonths Loan term in months
+   * @param loanAmount Loan amount
    * @return `HttpCalloutResponse` the api response
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
@@ -600,9 +646,20 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse getUMIAssessments(
     List<String> sopIds,
     String creditId,
-    String loanId,
-    String ocvId
+    String ocvId,
+    Integer termMonths,
+    Decimal loanAmount
   ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
+   * @return `HttpCalloutResponse` api response
+   * @description virtual sop list asset callout
+   */
+  public virtual HttpCalloutResponse getSOP(String ocvId, String sopId) {
     return null;
   }
 }
