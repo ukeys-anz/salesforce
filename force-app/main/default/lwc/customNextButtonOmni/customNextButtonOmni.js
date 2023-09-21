@@ -106,7 +106,7 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
         this.errorFromValidation.producterror = false;
         if (
           (products.length === 0 || products.length > 5) &&
-          recordTypeName !== "Call"
+          recordTypeName === "In Person"
         ) {
           this.errorFromValidation.producterror = true;
           this.boolShowError = true;

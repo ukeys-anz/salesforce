@@ -97,32 +97,8 @@ c-interaction-create-and-edit-flow-english
   margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
 }
 
-/* runtime css for In person OS to show requried asterisk*/
+/* runtime css for In person OS for In person OS*/
 c-interaction-create-and-edit-flow-english
-  runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="product"]
-  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
-  content: "*";
-  color: var(
-    --slds-g-color-error-base-40,
-    var(--lwc-colorTextError, rgb(234, 0, 30))
-  );
-  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
-}
-
-/* css requried asterisk on product for message OS */
-c-interaction-create-and-edit-flow-for-message-english
-  omnistudio-omniscript-typeahead[data-omni-key*="product"]
-  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
-  content: "*";
-  color: var(
-    --slds-g-color-error-base-40,
-    var(--lwc-colorTextError, rgb(234, 0, 30))
-  );
-  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
-}
-
-/* runtime css for Message OS*/
-c-interaction-create-and-edit-flow-for-message-english
   runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="product"]
   label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
