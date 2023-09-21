@@ -279,23 +279,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>flexcardName</name>
-                    <value>CreditAssessmentOutcomeDeclined</value>
-                </componentInstanceProperties>
-                <componentName>runtime_omnistudio:flexcard</componentName>
-                <identifier>runtime_omnistudio_flexcard_outcome_declined</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Status}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Declined</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-3af1241e-2c17-46c1-bb86-0ad9f7aa3f4b</value>
                 </componentInstanceProperties>
@@ -376,16 +359,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>objectApiName</name>
-                    <value>Account</value>
-                </componentInstanceProperties>
-                <componentName>cfaasFilesRelatedList</componentName>
-                <identifier>c_cfaasFilesRelatedList</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -508,8 +481,8 @@
                     <name>objectApiName</name>
                     <value>Account</value>
                 </componentInstanceProperties>
-                <componentName>recordAlert</componentName>
-                <identifier>c_recordAlert</identifier>
+                <componentName>cfaasFilesRelatedList</componentName>
+                <identifier>c_cfaasFilesRelatedList</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
