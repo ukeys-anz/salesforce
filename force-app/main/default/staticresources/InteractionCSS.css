@@ -97,7 +97,7 @@ c-interaction-create-and-edit-flow-english
   margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
 }
 
-/* runtime css for In person OS for In person OS*/
+/* runtime css for In person OS to show requried asterisk*/
 c-interaction-create-and-edit-flow-english
   runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="product"]
   label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
