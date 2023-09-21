@@ -112,11 +112,6 @@
         <label>Transactions &amp; payments</label>
     </standardValue>
     <standardValue>
-        <fullName>14</fullName>
-        <default>false</default>
-        <label>Fraud &amp; Scams</label>
-    </standardValue>
-    <standardValue>
         <fullName>20</fullName>
         <default>false</default>
         <label>Transaction Disputes</label>
@@ -205,6 +200,11 @@
         <fullName>Transaction &amp; Savings enquiry</fullName>
         <default>false</default>
         <label>Transaction &amp; Savings enquiry</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Potential Scam</fullName>
+        <default>false</default>
+        <label>Potential Scam</label>
     </standardValue>
     <standardValue>
         <fullName>Dating &amp; Romance</fullName>

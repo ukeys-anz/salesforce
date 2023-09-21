@@ -23385,9 +23385,6 @@
         <layout>ActionPlanTemplateVersion-Action Plan Template Version Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>AllowedEmailDomain-Allowed Email Domain Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Application_Log__c-Application Log Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -23992,9 +23989,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Loan_Applicant_Group__c-Loan Applicant Group Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Location-Location Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>LogEntry__c-Log Entry Layout</layout>

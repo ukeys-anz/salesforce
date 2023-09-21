@@ -123,10 +123,14 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
-    GetHelpCaseActions.linkKYCQACasesToAccount(
+
+    AutoKYCQACaseActions kYCQACaseActions = new AutoKYCQACaseActions(
       (List<Case>) records,
       (Map<Id, Case>) oldMap
     );
+
+    kYCQACaseActions.onBeforeUpdate();
+
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }

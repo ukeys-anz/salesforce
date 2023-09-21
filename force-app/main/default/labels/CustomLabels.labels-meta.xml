@@ -933,6 +933,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>/customer-onboarding/v1/updatePrimaryIdDocument</value>
     </labels>
     <labels>
+        <fullName>ANZX_CustomerValidation_Event_Proto_Data_Schema</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Data schema url for proto files for AutoKYCQA cloud event</shortDescription>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.customervalidation.v1alpha1</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_AutoKYCQA_Event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AutoKYCQA cloud event type</shortDescription>
+        <value>anzx.salesforce.case.v1alpha1.autokycqa.</value>
+    </labels>
+    <labels>
         <fullName>CCRM_ConversationGuideHeading</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>

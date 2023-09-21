@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>ANZX_QA_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rule to share edit access for Quality_Assessment__c to Roles : Quality &amp; Capability Lead, Quality Analyst, and Business_Admin.</description>
+        <label>ANZX_QA_RW</label>
+        <sharedTo>
+            <group>QA_Read_Write_Roles</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Get Help,Join</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZX_QA_RO</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rule to share read access for Quality_Assessment__c to Role : ANZ Plus Operations Read Only.</description>
+        <label>ANZX_QA_RO</label>
+        <sharedTo>
+            <role>ANZ_Plus_Operations_Read_Only</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Get Help,Join</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+</SharingRules>
