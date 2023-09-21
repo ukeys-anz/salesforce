@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <BusinessHoursSettings xmlns="http://soap.sforce.com/2006/04/metadata">
     <businessHours>
+        <name>ANZx Case Business Hours</name>
         <active>true</active>
         <default>false</default>
-        <fridayEndTime>17:00:00.000Z</fridayEndTime>
-        <fridayStartTime>09:00:00.000Z</fridayStartTime>
-        <mondayEndTime>17:00:00.000Z</mondayEndTime>
-        <mondayStartTime>09:00:00.000Z</mondayStartTime>
-        <name>ANZx Case Business Hours</name>
-        <thursdayEndTime>17:00:00.000Z</thursdayEndTime>
-        <thursdayStartTime>09:00:00.000Z</thursdayStartTime>
+        <fridayEndTime>00:00:00.000Z</fridayEndTime>
+        <fridayStartTime>00:00:00.000Z</fridayStartTime>
+        <mondayEndTime>00:00:00.000Z</mondayEndTime>
+        <mondayStartTime>00:00:00.000Z</mondayStartTime>
+        <thursdayEndTime>00:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>00:00:00.000Z</thursdayStartTime>
         <timeZoneId>Australia/Sydney</timeZoneId>
-        <tuesdayEndTime>17:00:00.000Z</tuesdayEndTime>
-        <tuesdayStartTime>09:00:00.000Z</tuesdayStartTime>
-        <wednesdayEndTime>17:00:00.000Z</wednesdayEndTime>
-        <wednesdayStartTime>09:00:00.000Z</wednesdayStartTime>
+        <tuesdayEndTime>00:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>00:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <businessHours>
+        <name>Case Business Hours</name>
         <active>true</active>
         <default>true</default>
         <fridayEndTime>00:00:00.000Z</fridayEndTime>
         <fridayStartTime>00:00:00.000Z</fridayStartTime>
         <mondayEndTime>00:00:00.000Z</mondayEndTime>
         <mondayStartTime>00:00:00.000Z</mondayStartTime>
-        <name>Case Business Hours</name>
         <thursdayEndTime>00:00:00.000Z</thursdayEndTime>
         <thursdayStartTime>00:00:00.000Z</thursdayStartTime>
         <timeZoneId>Australia/Sydney</timeZoneId>
@@ -33,13 +33,13 @@
         <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <businessHours>
+        <name>Default</name>
         <active>true</active>
         <default>false</default>
         <fridayEndTime>00:00:00.000Z</fridayEndTime>
         <fridayStartTime>00:00:00.000Z</fridayStartTime>
         <mondayEndTime>00:00:00.000Z</mondayEndTime>
         <mondayStartTime>00:00:00.000Z</mondayStartTime>
-        <name>Default</name>
         <saturdayEndTime>00:00:00.000Z</saturdayEndTime>
         <saturdayStartTime>00:00:00.000Z</saturdayStartTime>
         <sundayEndTime>00:00:00.000Z</sundayEndTime>
@@ -53,13 +53,13 @@
         <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <businessHours>
+        <name>No Holidays</name>
         <active>true</active>
         <default>false</default>
         <fridayEndTime>00:00:00.000Z</fridayEndTime>
         <fridayStartTime>00:00:00.000Z</fridayStartTime>
         <mondayEndTime>00:00:00.000Z</mondayEndTime>
         <mondayStartTime>00:00:00.000Z</mondayStartTime>
-        <name>No Holidays</name>
         <saturdayEndTime>00:00:00.000Z</saturdayEndTime>
         <saturdayStartTime>00:00:00.000Z</saturdayStartTime>
         <sundayEndTime>00:00:00.000Z</sundayEndTime>
@@ -73,113 +73,113 @@
         <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <holidays>
+        <name>Anzac Day</name>
         <activityDate>2023-04-25</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Anzac Day</description>
         <isRecurring>false</isRecurring>
-        <name>Anzac Day</name>
     </holidays>
     <holidays>
+        <name>Australia Day</name>
         <activityDate>2023-01-26</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Australia Day</description>
         <isRecurring>false</isRecurring>
-        <name>Australia Day</name>
     </holidays>
     <holidays>
+        <name>Boxing Day</name>
         <activityDate>2022-12-26</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Boxing Day</description>
         <isRecurring>false</isRecurring>
-        <name>Boxing Day</name>
     </holidays>
     <holidays>
+        <name>Christmas Day</name>
         <activityDate>2022-12-27</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Christmas Day</description>
         <isRecurring>false</isRecurring>
-        <name>Christmas Day</name>
     </holidays>
     <holidays>
+        <name>Easter Monday</name>
         <activityDate>2023-04-10</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Easter Monday</description>
         <isRecurring>false</isRecurring>
-        <name>Easter Monday</name>
     </holidays>
     <holidays>
+        <name>Good Friday</name>
         <activityDate>2023-04-07</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Good Friday</description>
         <isRecurring>false</isRecurring>
-        <name>Good Friday</name>
     </holidays>
     <holidays>
+        <name>New Year&apos;s Day</name>
         <activityDate>2023-01-01</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>New Year&apos;s Day</description>
         <isRecurring>false</isRecurring>
-        <name>New Year&apos;s Day</name>
     </holidays>
     <holidays>
+        <name>Anzac Day 22</name>
         <activityDate>2022-04-25</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Anzac Day 22</description>
         <isRecurring>false</isRecurring>
-        <name>Anzac Day 22</name>
     </holidays>
     <holidays>
+        <name>Australia Day 22</name>
         <activityDate>2022-01-26</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Australia Day 22</description>
         <isRecurring>false</isRecurring>
-        <name>Australia Day 22</name>
     </holidays>
     <holidays>
+        <name>Boxing Day 22</name>
         <activityDate>2022-12-26</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Boxing Day 22</description>
         <isRecurring>false</isRecurring>
-        <name>Boxing Day 22</name>
     </holidays>
     <holidays>
+        <name>Christmas Day 22</name>
         <activityDate>2022-12-25</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Christmas Day 22</description>
         <isRecurring>false</isRecurring>
-        <name>Christmas Day 22</name>
     </holidays>
     <holidays>
+        <name>Christmas Day2 22</name>
         <activityDate>2022-12-27</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Christmas Day2 22</description>
         <isRecurring>false</isRecurring>
-        <name>Christmas Day2 22</name>
     </holidays>
     <holidays>
+        <name>Easter Monday 22</name>
         <activityDate>2022-04-18</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Easter Monday 22</description>
         <isRecurring>false</isRecurring>
-        <name>Easter Monday 22</name>
     </holidays>
     <holidays>
+        <name>Good Friday 22</name>
         <activityDate>2022-04-15</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Good Friday 22</description>
         <isRecurring>false</isRecurring>
-        <name>Good Friday 22</name>
     </holidays>
     <holidays>
+        <name>New Year&apos;s Day 22</name>
         <activityDate>2022-01-01</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>New Year&apos;s Day</description>
         <isRecurring>false</isRecurring>
-        <name>New Year&apos;s Day 22</name>
     </holidays>
 </BusinessHoursSettings>

@@ -17,5 +17,6 @@
         <role>FinCrime_Agent</role>
         <role>FraudX_Agent</role>
         <role>Support_Coach</role>
+        <role>Card_Dispute_Agent</role>
     </sharedTo>
 </ListView>
