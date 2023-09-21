@@ -493,6 +493,20 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
     public List<SOPLiabilitySources> liabilitySources;
+
+    /**
+     * @description returns consent as a party
+     */
+    public Boolean allPartiesConsented {
+      get {
+        for (SOPParty sop : this.parties) {
+          if (sop.confirmedAccountsTime == null) {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
   }
 
   /**
@@ -501,6 +515,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPParty {
     public String id;
     public String ocvId;
+    public DateTime confirmedAccountsTime;
   }
 
   /**
