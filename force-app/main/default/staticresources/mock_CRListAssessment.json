@@ -1,0 +1,117 @@
+{
+  "assessments": [
+    {
+      "id": "9610b1d5-af42-d5a9-805d-9e5116ee6723",
+      "creditEnquiryId": "13561fa3-5db1-4996-b732-8510337b500d@1",
+      "collateralAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34",
+      "type": "ASSESSMENT_TYPE_PROVISIONAL",
+      "assessTime": "2023-04-21T02:35:38.714743Z",
+      "outcome": "ASSESSMENT_OUTCOME_REFERRED",
+      "creditEnquiryServiceabilityId": "954b2232-8dfa-11ec-b909-0242ac120135",
+      "reasons": [
+        {
+          "reasonCode": "RE202",
+          "reasonDescription": "Review expense - Groceries",
+          "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_APPROVED",
+          "applicantId": "",
+          "referralOutcomeCode": "AR02",
+          "createdBy": "",
+          "createTime": "2023-04-20T04:08:20.958656Z"
+        },
+        {
+          "reasonCode": "RE106",
+          "reasonDescription": "Review expense justification - Health, Life & Other",
+          "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_APPROVED",
+          "applicantId": "",
+          "referralOutcomeCode": "AR03",
+          "createdBy": "",
+          "createTime": "2023-04-20T04:08:20.958656Z"
+        },
+        {
+          "reasonCode": "RE104",
+          "reasonDescription": "Review justification - Phone, Internet & Subscriptions",
+          "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
+          "applicantId": "",
+          "referralOutcomeCode": "AR01",
+          "createdBy": "",
+          "createTime": "2023-04-20T04:08:20.958656Z"
+        }
+      ],
+      "lvr": { "maxAllowableLvr": 80, "actualLvr": 78.5 },
+      "debtToIncomeRatio": 2.5,
+      "createdBy": "charalap",
+      "createTime": "2023-04-21T02:42:38.714743Z",
+      "expiryTime": "2023-07-20T02:42:38.714743Z"
+    },
+    {
+      "id": "8620b1d5-af42-d5a9-805d-9e5116ee09d1",
+      "creditEnquiryId": "13561fa3-5db1-4996-b732-8510337b500d@1",
+      "collateralAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34",
+      "type": "ASSESSMENT_TYPE_FINAL",
+      "assessTime": "2023-04-20T02:35:38.714743Z",
+      "outcome": "ASSESSMENT_OUTCOME_REFERRED",
+      "creditEnquiryServiceabilityId": "954b2232-8dfa-11ec-b909-0242ac120135",
+      "reasons": [
+        {
+          "reasonCode": "RE202",
+          "reasonDescription": "Review expense - Groceries",
+          "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
+          "applicantId": "",
+          "referralOutcomeCode": "AR02",
+          "createdBy": "charalap",
+          "createTime": "2023-04-20T04:08:20.958656Z"
+        },
+        {
+          "reasonCode": "RE106",
+          "reasonDescription": "Review expense justification - Health, Life & Other",
+          "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
+          "applicantId": "",
+          "referralOutcomeCode": "AR01",
+          "createdBy": "charalap",
+          "createTime": "2023-04-20T04:08:20.958656Z"
+        }
+      ],
+      "lvr": { "maxAllowableLvr": 80, "actualLvr": 78.5 },
+      "debtToIncomeRatio": 2.5,
+      "createdBy": "SYSTEM",
+      "createTime": "2023-04-20T02:42:38.714743Z",
+      "expiryTime": "2023-07-20T02:42:38.714743Z"
+    },
+    {
+      "id": "8620b1d5-af42-d5a9-805d-9e5116ee09d1",
+      "creditEnquiryId": "13561fa3-5db1-4996-b732-8510337b500d@1",
+      "collateralAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34",
+      "type": "ASSESSMENT_TYPE_FINAL",
+      "assessTime": "2023-04-20T02:35:38.714743Z",
+      "outcome": "ASSESSMENT_OUTCOME_DECLINED",
+      "creditEnquiryServiceabilityId": "954b2232-8dfa-11ec-b909-0242ac120135",
+      "reasons": [
+        {
+          "reasonCode": "RE202",
+          "reasonDescription": "Review expense - Groceries",
+          "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
+          "applicantId": "",
+          "referralOutcomeCode": "DR02",
+          "referralOutcomeDescription": "Rejected - Explanation unacceptable.",
+          "createdBy": "charalap",
+          "createTime": "2023-04-20T04:08:20.958656Z"
+        },
+        {
+          "reasonCode": "RE106",
+          "reasonDescription": "Review expense justification - Health, Life & Other",
+          "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
+          "applicantId": "",
+          "referralOutcomeCode": "DR01",
+          "referralOutcomeDescription": "Rejected - Explanation unacceptable",
+          "createdBy": "charalap",
+          "createTime": "2023-04-20T04:08:20.958656Z"
+        }
+      ],
+      "lvr": { "maxAllowableLvr": 80, "actualLvr": 78.5 },
+      "debtToIncomeRatio": 2.5,
+      "createdBy": "SYSTEM",
+      "createTime": "2023-04-20T02:42:38.714743Z",
+      "expiryTime": "2023-07-20T02:42:38.714743Z"
+    }
+  ]
+}

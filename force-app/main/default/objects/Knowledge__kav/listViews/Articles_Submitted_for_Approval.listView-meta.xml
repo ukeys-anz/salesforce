@@ -8,16 +8,17 @@
     <columns>CREATEDBY_USER</columns>
     <columns>VALIDATION_STATUS_ENUM</columns>
     <columns>PUBLISH_STATUS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>VALIDATION_STATUS_ENUM</field>
         <operation>equals</operation>
         <value>Submitted</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Articles Submitted for Approval</label>
     <sharedTo>
         <role>Coach_Lead</role>
         <role>Content_Writer</role>
+        <role>Credit_Assessor_Lead</role>
         <role>IDR_Content_Writer</role>
         <role>Business_Admin</role>
     </sharedTo>

@@ -12,11 +12,7 @@ public with sharing class BOHService extends Service {
    * @param sopId sop id to retrieve customer information
    * @return `HttpCalloutResponse` the api response
    * @description fetches customer information of sop from lex api through mule
-   * ===========
-   * curl command in dev: grpcurl -H "Authorization: Bearer ${TOKEN}" -d '{"sop_id":"0626ba39-aeb9-4ebb-a275-01bf15aeb8d1"}' sop-service.lex-dev.apps-dev.x.gcpnp.anz:443 lex.service.sop.v1beta1.SopService/ListAssets
-   * ===========
    */
-  //
   public override HttpCalloutResponse getListAssets(
     String ocvId,
     String sopId
@@ -26,7 +22,9 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_SOP + sopId,
+      System.Label.MS_Get_SOP +
+      sopId +
+      '/consolidate',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -34,28 +32,101 @@ public with sharing class BOHService extends Service {
 
     return response;
   }
+
+  /**
+   * @param verification whether the income is verified
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description create income
+   */
+  public override HttpCalloutResponse createIncome(
+    String verification,
+    String ocvId,
+    String incomeBody
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+    String verificationStr = 'unverify';
+    if (verification == 'Yes') {
+      verificationStr = 'verify';
+    }
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Create_Income +
+      '?income-verification=' +
+      verificationStr,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      incomeBody
+    );
+    return response;
+  }
+
+  /**
+   * @param verification whether the income is verified
+   * @param ocvId ocv id of the customer account
+   * @param incomeBody post data of income information
+   * @return `HttpCalloutResponse` the api response
+   * @description update income
+   */
+  public override HttpCalloutResponse updateIncome(
+    String verification,
+    String ocvId,
+    String incomeBody
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+    String verificationStr = 'unverify';
+    if (verification == 'Yes') {
+      verificationStr = 'verify';
+    }
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Update_Income +
+      '?income-verification=' +
+      verificationStr,
+      HTTP_METHOD.HTTP_PATCH,
+      headers,
+      incomeBody
+    );
+    return response;
+  }
+
   /**
    * @param sopIds sop id
    * @param creditId credit id
-   * @param loanId loan id
    * @param ocvId ocv id of the primary loan application
+   * @param termMonths Loan term in months
+   * @param loanAmount Loan amount
    * @return `HttpCalloutResponse` the api response
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
   public override HttpCalloutResponse getUMIAssessments(
     List<String> sopIds,
     String creditId,
-    String loanId,
-    String ocvId
+    String ocvId,
+    Integer termMonths,
+    Decimal loanAmount
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
 
-    ViewUMIRequest requestBody = new ViewUMIRequest(sopIds, creditId, loanId);
+    ViewUMIRequest requestBody = new ViewUMIRequest(
+      sopIds,
+      creditId,
+      termMonths,
+      loanAmount
+    );
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_View_UMI,
+      'callout:SF_MS_Fabric' + System.Label.MS_Get_View_UMI,
       HTTP_METHOD.HTTP_POST,
       headers,
       Json.serialize(requestBody, true)
@@ -63,23 +134,140 @@ public with sharing class BOHService extends Service {
 
     return response;
   }
+
+  /**
+   * @param creditId to retrieve redit assessment list
+   * @param ocvId customer ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches credit assessment list of sop from lex api through mule
+   */
+  public override HttpCalloutResponse getCreditAssessments(
+    String creditId,
+    String ocvId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' +
+      Label.MS_Get_Credit_Assessments +
+      creditId,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+
+    return response;
+  }
+
+  /**
+   * @param payload payload containing credit id and uuid from credit assessment
+   * @param ocvId customer ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description submits credit assessment for reassessment
+   */
+  public override HttpCalloutResponse creditReassessment(
+    String payload,
+    String ocvId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Submit_Credit_Reassessment,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      payload
+    );
+
+    return response;
+  }
+
+  /**
+   * @param creditId credit id from credit assessment
+   * @param assessmentId id of assessment submitted for finalisation
+   * @param ocvId customer ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description submtis the credit assessment for finalisation
+   */
+  public override HttpCalloutResponse finaliseAssessment(
+    String creditId,
+    String assessmentId,
+    String ocvId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Submit_Credit_Finalisation,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      '{"creditEnquiryId":"' +
+      creditId +
+      '", "id":"' +
+      assessmentId +
+      '"}'
+    );
+
+    return response;
+  }
+
+  /**
+   * @param payload payload containing credit id, referralOutcome and uuid from credit assessment
+   * @param ocvId customer ocv id
+   * @return HttpCalloutResponse api response
+   * @description submits referral outcome update
+   */
+  public override HttpCalloutResponse createCreditEnquiryAssessment(
+    String payload,
+    String ocvId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Submit_Referral_Outcome,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      payload
+    );
+
+    return response;
+  }
+
   /**
    * @description Represents Request body for view UMI api
    */
   public class ViewUMIRequest {
     public List<String> sopIds;
     public String creditEnquiryId;
-    public String loanAppId;
+    public Integer termMonths;
+    public FabricType.FabricMoney loanAmount;
     /**
      * @description Constructor to set the fabric money
      * @param sopIds multiple sop ids related to Residential loan application.
      * @param creditId credit assessment id related to Residential loan application.
-     * @param loanId Loan Id of the Residential loan application.
+     * @param termMonths Loan term in months
+     * @param loanAmount Loan amount
      */
-    public ViewUMIRequest(List<String> sopIds, String creditId, String loanId) {
+    public ViewUMIRequest(
+      List<String> sopIds,
+      String creditId,
+      Integer termMonths,
+      Decimal loanAmount
+    ) {
       this.sopIds = sopIds;
       this.creditEnquiryId = creditId;
-      this.loanAppId = loanAppId;
+      this.termMonths = termMonths;
+      this.loanAmount = new FabricType.FabricMoney('AUD', loanAmount);
     }
   }
 
@@ -128,13 +316,76 @@ public with sharing class BOHService extends Service {
       SELECT
         Id,
         Assessment_Outcome__c,
+        Status,
         Credit_ID__c,
         SOP_Id__c,
         Name,
-        Account.OCV_ID__c
+        Account.OCV_ID__c,
+        Credit_Reassess_Required__c
       FROM ResidentialLoanApplication
       WHERE Id = :loanId
       LIMIT 1
     ];
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches customer information of sop from lex api through mule
+   */
+  public override HttpCalloutResponse getSOP(String ocvId, String sopId) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Get_SOP + sopId,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+
+    return response;
+  }
+
+  /**
+   * @param sopId sop id to retrieve customer information
+   * @param ocvId ocv id of the customer account
+   * @param deleIncomeModel delete income model
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income from sop
+   */
+  public override HttpCalloutResponse deleteIncome(
+    String sopId,
+    String ocvId,
+    String deleIncomeModel
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Delete_Income +
+      '?etag=' +
+      SOPDeleteIncomeModel.parse(deleIncomeModel).etag,
+      HTTP_METHOD.HTTP_DELETE,
+      headers,
+      deleIncomeModel
+    );
+
+    return response;
+  }
+
+  /**
+   * @description sets the Credit_Reassess_Required__c = true to fire the toast
+   * @param loanId the loan id to update
+   */
+  public static void setToReassessmentIsRequired(String loanId) {
+    update new ResidentialLoanApplication(
+      Id = loanId,
+      Credit_Reassess_Required__c = true
+    );
   }
 }

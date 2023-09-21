@@ -26,6 +26,12 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>In Progress</fullName>
+        <default>false</default>
+        <label>In Progress</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Under Investigation</fullName>
         <default>false</default>
         <label>Under Investigation</label>
@@ -203,6 +209,18 @@
         <fullName>Confirmed Fraud</fullName>
         <default>false</default>
         <label>Confirmed Fraud</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Approved</fullName>
+        <default>false</default>
+        <label>Closed - Approved</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Declined</fullName>
+        <default>false</default>
+        <label>Closed - Declined</label>
         <closed>true</closed>
     </standardValue>
     <standardValue>
