@@ -6,8 +6,11 @@
     <description>Call Question 8</description>
     <externalId>false</externalId>
     <inlineHelpText>If a resolution was declined, did the CM explain next steps to the customer?
-
-If the proposed resolution was declined, did the CM ask why this was not appropriate and look for another option?</inlineHelpText>
+If the proposed resolution was declined, did the CM ask why this was not appropriate and look for another option?   If no other options, did the CM: 
+· Explain why their proposed resolution was declined
+· Provide factual information regarding our position 
+· Acknowledge how the customer is feeling 
+· Outline next steps? E.g. &quot;You have the right to pursue your complaint with AFCA, I can provide you with their contact details”</inlineHelpText>
     <label>Resolution declined- next steps advised</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

@@ -8060,6 +8060,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.Complaint_outcome_CMOS__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Compliance_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>

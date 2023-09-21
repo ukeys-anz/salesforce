@@ -2,12 +2,16 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Correct_template_used_tailored_to_case__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Letter Question 9</description>
     <externalId>false</externalId>
     <inlineHelpText>Have we used and tailored the correct template to the specific case, and removed irrelevant information?
 
-In tailoring the template have we removed irrelevant paragraphs and added additional relevant paragraphs.</inlineHelpText>
+In tailoring the template have we removed irrelevant paragraphs and added additional relevant paragraphs. 
+
+Eg: A template is used appropriately but contains several standard paragraphs that may not suit the facts of the complaint. 
+
+Eg: We have added an apology or acknowledgement of the emotional impact of the complaint beyond the standard template wording.</inlineHelpText>
     <label>Correct template used/tailored to case</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

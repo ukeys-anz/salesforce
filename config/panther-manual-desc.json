@@ -2494,6 +2494,7 @@
         "CN_Substantive_Advice__c",
         "CN_Substantive_Advice_Comments__c",
         "Complaint_outcome_Actual__c",
+        "Complaint_outcome_CMOS__c",
         "CMOS_Comment_1__c",
         "CMOS_Comment_2__c",
         "CMOS_Comment_3__c",
