@@ -13,10 +13,21 @@
     <isVersionDefault>true</isVersionDefault>
     <milestones>
         <businessHours>ANZx Case Business Hours</businessHours>
+        <criteriaBooleanFilter>(1 AND 2) OR (3 AND 4)</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Enquiry,Customer Feedback</value>
+            <value>NPP, Customer Feedback, BPAY, Account Closure, Fraud Check, ID Ops Assistance, General Enquiry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Deceased Estate</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Feedback, General Enquiry</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
@@ -27,19 +38,19 @@
         <minutesToComplete>1440</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Warning_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-120</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SLA_Status_Violation_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>0</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
@@ -60,22 +71,22 @@
             <operation>equals</operation>
             <value>Open</value>
         </milestoneCriteriaFilterItems>
-        <milestoneName>Resolution Time</milestoneName>
+        <milestoneName>Investigation Time</milestoneName>
         <minutesToComplete>60</minutesToComplete>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_Warning_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-30</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
         <timeTriggers>
             <actions>
                 <name>SLA_Status_Violation_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-30</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -97,7 +108,7 @@
             <operation>equals</operation>
             <value>Open</value>
         </milestoneCriteriaFilterItems>
-        <milestoneName>Resolution Time</milestoneName>
+        <milestoneName>Investigation Time</milestoneName>
         <minutesToComplete>480</minutesToComplete>
         <timeTriggers>
             <actions>
@@ -122,14 +133,9 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>BPAY, Direct Debit</value>
+            <value>Direct Debit</value>
         </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Under Investigation</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneName>Investigation Time</milestoneName>
+        <milestoneName>Resolution Time</milestoneName>
         <minutesToComplete>7200</minutesToComplete>
         <timeTriggers>
             <actions>
@@ -140,10 +146,6 @@
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
-            <actions>
-                <name>SLA_Status_None_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
             <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
@@ -165,7 +167,7 @@
         </timeTriggers>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Warning_Update</name>
+                <name>SLA_Status_Violation_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>0</timeLength>
@@ -178,14 +180,9 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Entry, NPP</value>
+            <value>Direct Entry</value>
         </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Under Investigation</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneName>Investigation Time</milestoneName>
+        <milestoneName>Resolution Time</milestoneName>
         <minutesToComplete>43200</minutesToComplete>
         <timeTriggers>
             <actions>
@@ -197,7 +194,7 @@
         </timeTriggers>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Warning_Update</name>
+                <name>SLA_Status_Violation_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>0</timeLength>
@@ -228,6 +225,249 @@
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>ANZx Case Business Hours</businessHours>
+        <criteriaBooleanFilter>(1 AND 2) OR (3 AND 5 AND 2) OR (2 AND 3 AND 4 AND (6 OR 7))</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP, Fraud Check, ID Ops Assistance</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Financial Wellbeing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Sub_Type__c</field>
+            <operation>includes</operation>
+            <value>Power of attorney</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Sub_Type__c</field>
+            <operation>includes</operation>
+            <value>Hardship</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Sub_Type__c</field>
+            <operation>includes</operation>
+            <value>Extra Care</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Investigation Time</milestoneName>
+        <minutesToComplete>1440</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>ANZx Case Business Hours</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP, BPAY</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time</milestoneName>
+        <minutesToComplete>30240</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_None_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-10</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_None_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-7259</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>ANZx Case Business Hours</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time</milestoneName>
+        <minutesToComplete>5760</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>ANZx Case Business Hours</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP, Fraud Check, ID Ops Assistance</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Sub_Type__c</field>
+            <operation>includes</operation>
+            <value>Power of attorney</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time</milestoneName>
+        <minutesToComplete>8640</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-3</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>ANZx Case Business Hours</businessHours>
+        <criteriaBooleanFilter>1 AND 2 AND (3 OR 4)</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NPP, Fraud Check, ID Ops Assistance</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>Financial Wellbeing</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Sub_Type__c</field>
+            <operation>includes</operation>
+            <value>Hardship</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Sub_Type__c</field>
+            <operation>includes</operation>
+            <value>Extra Care</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time</milestoneName>
+        <minutesToComplete>7200</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-3</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>No Holidays</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Sub_Type__c</field>
+            <operation>includes</operation>
+            <value>Credit Reporting</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>Resolution Time</milestoneName>
+        <minutesToComplete>43200</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-25</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <name>anz plus - basic subscription</name>
     <versionMaster>5522N0000005BH6</versionMaster>
