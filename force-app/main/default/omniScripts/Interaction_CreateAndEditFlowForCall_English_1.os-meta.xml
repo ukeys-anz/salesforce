@@ -2,7 +2,7 @@
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>OmniScript for creating and editing Call Interactions</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2979,5 +2979,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>07e2e84c-a23d-5896-2f7a-b7bd1e5c6762</webComponentKey>
+    <webComponentKey>0ca0a2c1-3e6b-4ebf-d44d-809ffd0c54d5</webComponentKey>
 </OmniScript>
