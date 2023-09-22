@@ -99,7 +99,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
     System.assertEquals(
       true,
       exceptionThrown,
-      'You do not have permission to delete this comment '
+      'You do not have permission to delete this comment'
     );
   }
 

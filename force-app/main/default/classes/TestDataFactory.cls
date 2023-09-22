@@ -1,7 +1,9 @@
 /**
  * @description This class is to provide generic setups configs for unit tests.
  * @group Utils
+ * Note ExcessivePublicCount Surpressed : The count of the public count here is 25. Since this is a TestDataFactory class,we need to add generic data creation logic so suppressing this wrarning in order to create the pr.
  */
+@SuppressWarnings('PMD.ExcessivePublicCount')
 @isTest
 public without sharing class TestDataFactory {
   public static User thisUser = [
