@@ -29,23 +29,30 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
 
     for (FeedComment record : (List<FeedComment>) records) {
       if (record.parentId != null) {
-        parentIdList.add(record.parentId);
         if (record.parentId.getSObjectType() == Interaction.sObjectType) {
           interactionaIdList.add(record.parentId);
+        } else {
+          parentIdList.add(record.parentId);
         }
       }
     }
 
-    Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
-      [
+    Map<Id, Case> relatedCaseMap = new Map<Id, Case>();
+    Map<Id, Account> relatedAccMap = new Map<Id, Account>();
+    if (!parentIdList.isEmpty()) {
+      // Firing SOQL query only when parentIdList is notEmpty(), but not changing this code much as this is existing logic.
+      relatedCaseMap = [
         SELECT Id, CaseNumber, RecordTypeId, Origin
         FROM Case
         WHERE Id IN :parentIdList
-      ]
-    );
-    Map<Id, Account> relatedAccMap = new Map<Id, Account>(
-      [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
-    );
+      ];
+
+      relatedAccMap = [
+        SELECT Id, Name, ANZx_Customer__c
+        FROM Account
+        WHERE Id IN :parentIdList
+      ];
+    }
 
     //Fetching Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call recordtypeids.
     if (!interactionaIdList.isEmpty()) {
