@@ -399,7 +399,7 @@
     <tabs>standard-Account</tabs>
     <tabs>standard-Task</tabs>
     <tabs>Knowledge__kav</tabs>
-    <tabs>Interaction_List_View</tabs>
+    <tabs>standard-Interaction</tabs>
     <tabs>Coaching_Summary__c</tabs>
     <tabs>standard-Lead</tabs>
     <tabs>standard-ResidentialLoanApplication</tabs>
@@ -410,7 +410,7 @@
             <tab>Coaching_Summary__c</tab>
         </mappings>
         <mappings>
-            <tab>Interaction_List_View</tab>
+            <tab>standard-Interaction</tab>
         </mappings>
         <mappings>
             <tab>Knowledge__kav</tab>
