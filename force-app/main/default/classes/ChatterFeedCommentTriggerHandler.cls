@@ -21,9 +21,26 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
    */
   public override void onApplyDefaults() {
     List<Id> parentIdList = new List<Id>();
+
+    //creating this list for storing interaction ids for the parent.
+    List<Id> interactionaIdList = new List<Id>();
+
+    Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
+
+    //Creating set of recordTypeIds of Interaction for which maskANZx we need to apply
+    Set<Id> interactionRecordTypesIds = new Set<Id>();
+    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
+    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
     for (FeedComment record : (List<FeedComment>) records) {
-      parentIdList.add(record.parentId);
+      if (record.parentId != null) {
+        parentIdList.add(record.parentId);
+        if (record.parentId.getSObjectType() == Interaction.sObjectType) {
+          interactionaIdList.add(record.parentId);
+        }
+      }
     }
+
     Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
       [
         SELECT Id, CaseNumber, RecordTypeId, Origin
@@ -35,9 +52,28 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
       [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
     );
 
+    //Fetching Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call recordtypeids.
+    if (!interactionaIdList.isEmpty()) {
+      relatedInteractionMap = new Map<Id, Interaction>(
+        [
+          SELECT Id, RecordTypeId
+          FROM Interaction
+          WHERE
+            Id IN :interactionaIdList
+            AND RecordTypeId IN :interactionRecordTypesIds
+        ]
+      );
+    }
+
     for (FeedComment record : (List<FeedComment>) records) {
       Case relatedCase = relatedCaseMap.get(record.parentId);
       Account relatedAcc = relatedAccMap.get(record.parentId);
+
+      //Fetch Interaction Record for the feed comment
+      Interaction relatedInteraction = relatedInteractionMap.get(
+        record.parentId
+      );
+
       if (
         (relatedCase != null &&
         CheckCaseRecordType.isANZPlusCaseType(relatedCase)) ||
@@ -64,6 +100,9 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
             );
           }
         }
+      } else if (relatedInteraction != null) {
+        //Added this to mask the number if the feed comment is greater than 15 for Interaction Record same as we are doing for Account and Case.
+        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);
       }
