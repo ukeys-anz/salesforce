@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM8_Q2__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 8 Q2 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Verbal_customer_comms_organised_etc__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CM was not prepared and/or organised.</fullName>
+                <default>false</default>
+                <label>CM was not prepared and/or organised.</label>
+            </value>
+            <value>
+                <fullName>CM did not listen and/or focus on understanding the issues.</fullName>
+                <default>false</default>
+                <label>CM did not listen and/or focus on understanding the issues.</label>
+            </value>
+            <value>
+                <fullName>CM did not try to problem solve (where appropriate).</fullName>
+                <default>false</default>
+                <label>CM did not try to problem solve (where appropriate).</label>
+            </value>
+            <value>
+                <fullName>CM approached the initial conversation with a pre-determined outcome</fullName>
+                <default>false</default>
+                <label>CM approached the initial conversation with a pre-determined outcome</label>
+            </value>
+            <value>
+                <fullName>CM was not empathetic and/or courteous.</fullName>
+                <default>false</default>
+                <label>CM was not empathetic and/or courteous.</label>
+            </value>
+            <value>
+                <fullName>CM receiving the review did not make the call/s which resulted in the ‘not met’.</fullName>
+                <default>false</default>
+                <label>CM receiving the review did not make the call/s which resulted in the ‘not met’.</label>
+            </value>
+            <value>
+                <fullName>There were unsuccessful calls, unrecorded calls with the customer, or no call attempts where a DMF was involved and the customer told us not to call them.</fullName>
+                <default>false</default>
+                <label>There were unsuccessful calls, unrecorded calls with the customer, or no call attempts where a DMF was involved and the customer told us not to call them.</label>
+            </value>
+            <value>
+                <fullName>There were no call attempts, and the customer was not represented by a DMF/paid wealth representative, or did not instruct us to use another contact method.</fullName>
+                <default>false</default>
+                <label>There were no call attempts, and the customer was not represented by a DMF/paid wealth representative, or did not instruct us to use another contact method.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>CM was not prepared and/or organised.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>CM did not listen and/or focus on understanding the issues.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>CM did not try to problem solve (where appropriate).</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>CM approached the initial conversation with a pre-determined outcome</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>CM was not empathetic and/or courteous.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM receiving the review did not make the call/s which resulted in the ‘not met’.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>There were unsuccessful calls, unrecorded calls with the customer, or no call attempts where a DMF was involved and the customer told us not to call them.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>There were no call attempts, and the customer was not represented by a DMF/paid wealth representative, or did not instruct us to use another contact method.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,3119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>C_Q_Assessment</fullName>
+    <active>true</active>
+    <label>C&amp;Q Assessment</label>
+    <picklistValues>
+        <picklist>Accountability_and_Next_Steps__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Accurate_information_in_final_response__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Actions_and_Momentum__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Best_Interest_Duty__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Customer_understanding_of_scope__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Decline_advice_and_refer__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Define_Scope__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Dispute_Resolution__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Fact_Find__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Incomplete_Inaccurate_warning__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Initial_Contact__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Limit_scope_of_advice__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Outcome__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Substantive_Advice_OFSN__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Supplement__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Appropriately_assessed_information__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Assessment_Outcome_Status__c</picklist>
+        <values>
+            <fullName>Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disputed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disputed - C%26Q review final</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disputed - C%26Q review overturned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disputed - C%26Q review upheld</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_asked_customer_for_resolution_sought__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_asked_for_further_information__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_confirmed_complaint_identified_issue__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_proposed_appropriate_resolution__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CM_used_LEAP_call_control__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Checklist__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Customers_Focus__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Fact_Find__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_OFSN__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Out_of_Scope__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Scope_Provided__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Substantive_Advice__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>C_Q_Lead_Response__c</picklist>
+        <values>
+            <fullName>C%26Q Lead provides final outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TM rejects C%26Q Team Lead</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>C_Q_Manager_Response__c</picklist>
+        <values>
+            <fullName>C%26Q Team Lead accepts TM%27s view</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C%26Q Team Lead rejects TM%27s view</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Case_records_are_complete_and_accurate__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Clear_actions_for_acceptance_provided__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Complaint_outcome_Actual__c</picklist>
+        <values>
+            <fullName>In favour of ANZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In favour of customer %28full%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In favour of customer %28partial%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA - open case</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Compliance_Outcome__c</picklist>
+        <values>
+            <fullName>Requirements Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Confirmation_of_resolution_letter_used__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Connection_and_Trust__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Correct_financial_remedy_approach__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Correct_template_used_tailored_to_case__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Corrective_actions_for_TM_CM__c</picklist>
+        <values>
+            <fullName>Coaching recommended</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Further action recommended</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Credit_reporting_notice_obligations_met__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_authority_obtained_as_required__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_correctly_identified__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Customer_information_correct__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Discover_and_Align__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EDR_CM_explained_role_in_AFCA_process__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Energy_and_Adaptability__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Evaluation_Type__c</picklist>
+        <values>
+            <fullName>C %26 Q Assessment</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Financial_product_advice_not_provided__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Finishing_Touches__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Followed_call_authentication_process__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Gave_extra_care_for_vulnerable_customer__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Has_a_REaL_form_been_raised__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Has_a_complaint_LOA_been_loaded_to_PCC__c</picklist>
+        <values>
+            <fullName>N%2FA - No POA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No - POA not loaded</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - POA loaded</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Have_we_clearly_articulated_the_custo__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>High_risk_criteria_identified__c</picklist>
+        <values>
+            <fullName>Complaints addressed to CEO or Board or containing a serious media threat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaints carrying significant reputational risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaints relating to loss of primary place of residence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaints relating to significant compliance breaches</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaints with other external bodies such as Human Rights Commission</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denying a claim with no offer of resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Litigation relating to a complaint%2C tribunal matters %28e%2Eg%2E NCAT%2C VCAT%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy related</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referencing business sensitive information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To a claim of more than %2410%2C000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To a claim to set aside a guarantee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To a customer in vulnerable circumstances such as family violence %28including elder abuse%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To a responsible lending claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To an identified or potential systemic issue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_delay_decision_notice_appropriate__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Identified_additional_assistance_needs__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Identified_flagged_PSI_where_needed__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Identified_what_needed_investigation__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>If_unlicensed_did_communication_stop__c</picklist>
+        <values>
+            <fullName>N%2FA - no LOA%2C or LOA licensed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No - we did not stop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - we stopped</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>In_phone_resolutions_gave_AFCA_details__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Insights_and_Focus__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interaction_Type__c</picklist>
+        <values>
+            <fullName>Chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voice Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_the_customer_information_correct__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Issue_products_correctly_recorded__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Issues_addressed_in_final_response__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Issues_articulatedaddressed_in_response__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Actions_Taken__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Blocks_Applied_where_Appropriate__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Business_Actions_Taken__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Business_Case_Record__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Business_Information__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Case_Data_Field_Accuracy__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Case_Record_Accuracy__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Compliance_Behaviour__c</picklist>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Compliance_Disclaimers__c</picklist>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Compliance_Identification__c</picklist>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Compliance_Information__c</picklist>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Accountable__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Caring__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Interested__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Respect__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Welcoming__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Financial_Operation_Accuracy__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Overall_Decision_Supported__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Key_scoping_and_disclaimers__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Letter_flows_headings_relevant_clear__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Loss_offer_correctly_considered__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Met_call_recording_disclosure_rules__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Met_process_for_handling_restricted_info__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>New_Starter__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Other_practical_options_explored__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Outcome_details_correctly_recorded__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Preparation_and_Framing__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Professionalism_of_response__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Prompt_response_to_customer_in_hardship__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Proposed_resolution_is_fair_reasonable__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>REaL_form_categories__c</picklist>
+        <values>
+            <fullName>%22Part or full decline 1 - identify and address issues</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application for hardship not responded to within 21 days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Breach of debt collection obligations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Breach of privacy obligations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Breach of responsible lending obligations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other%3A %5Bfree text field following%5D%22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part of full decline 3 - insufficient details for decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part or full decline 2 - findings and reference</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution outcome was not implemented in a timely manner when a complaint is closed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rating__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM10_Q1__c</picklist>
+        <values>
+            <fullName>%E2%80%98not met%E2%80%99 result of prior CM or other person %E2%80%93 SME etc%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>any or all of the case comments%2C including summaries of telephone interactions%2C were not clear%2C factual and free of opinion or emotive or judgmental words%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>details%2C or a copy of the customer%E2%80%99s verbal or written acceptance was not on the file%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>incorrect knowledge base%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>some or all relevant%2Fkey documents were not available%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM1_Q1__c</picklist>
+        <values>
+            <fullName>%27Not met%E2%80%99 directed and%2For approved by SME%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Case involved a final written response or detailed investigation %28excluding Confirming Resolution %28CR003%29 letters containing goodwill or commercial offers%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No goodwill or commercial offer made to customer%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not enough information to understand the cause of the issue%2Fs raised and if the issue%2Ffault%2Ferror had been rectified or was not ongoing%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There were red flags requiring referral to an IDR%2FSpecialist team%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we made a goodwill payment%2C but we did not make it clear there was no error and the payment was goodwill%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we sent a Confirming Resolution %28CR003%29 letter and it did not set out the substantive issues and%2For terms of the resolution reached%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM1_Q2__c</picklist>
+        <values>
+            <fullName>CM sought specialist assistance but options not supported%2Fprovided%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Option exploration was not required as we offered the customer what they wanted%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Option exploration was not required%2E what the customer wanted was not possible and there were no other options available%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialist assistance from an SME was not obtained to assist with an outcome for the customer%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There were other practical options available to resolve%2Fachieve an outcome for the customer%2C but we did not explore this%2Fthese%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Where we could not contact the customer%2C we did not look for a suitable option based on information available%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM1_Q3__c</picklist>
+        <values>
+            <fullName>%E2%80%98not met%E2%80%99 directed by SME%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer did not request compensation and there was no basis to provide any%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not apply relevant loss principles and correctly calculate the customer%E2%80%99s financial loss%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not correctly distinguish compensation for financial and non-financial loss and a goodwill gesture or commercial payment in our written or verbal final response%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not obtain sufficient information to determine if we made an error warranting compensation%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not obtain sufficient information to reasonably estimate the customer%E2%80%99s loss%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM1_Q4__c</picklist>
+        <values>
+            <fullName>%27not met%27 directed%2C conducted and%2For approved by SME%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not give correct weight %28or gave no weight%29 to relevant information or documents in making our decision%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not reach a decision on the material questions of fact raised in the complaint because a Confirming Resolution letter %28CR003%29 was appropriately used%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM1_Q5__c</picklist>
+        <values>
+            <fullName>%E2%80%98not met%E2%80%99 directed%2Fdrafted by another BU%2C eg Legal%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>A Confirming Resolution letter %28CR003%29 was appropriately used%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM did not correctly identify the issues raised in the complaint%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM did not provide an appropriate response to the issues raised in the complaint%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>If CM relied on relevant information%2Fdocuments to reach a decision%2C they did not provide some or all of these%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM1_Q6__c</picklist>
+        <values>
+            <fullName>Our final response was not factually accurate%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM2_Q1__c</picklist>
+        <values>
+            <fullName>A written IDR response was issued %28final response or confirmation of resolution letter%29 %28QC assess%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No reference to AFCA was required%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The customer expressed dissatisfaction with our phone-based offer of resolution and we did not tell them about AFCA as an alternative%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM3_Q1__c</picklist>
+        <values>
+            <fullName>CM receiving the review was not the CM responsible for the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay was a result of an allocation%2Findexing error%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There was no information to suggest customer was experiencing vulnerability%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we did not%2C or were slow to%2C identify customer was experiencing vulnerability%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we did not%2C or were slow to%2C provide extra care to customer%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>where our customer was experiencing vulnerability including severe%2Facute factors we did not or were slow to prioritise the complaint and offer%2Fprovide appropriate extra care%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM3_Q2__c</picklist>
+        <values>
+            <fullName>Delay was a result of a triage or indexing error%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The complaint was correctly indexed%2Fallocated to a specialist hardship team from lodgement%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There was no information on file to suggest customer was experiencing financial difficulty%2Fhardship%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we did not refer the complaint to a specialist hardship team%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we were slow to refer the complaint to a specialist hardship team%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>where our customer was experiencing hardship we were slow to%2C or did not identify this as an issue%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM3_Q3__c</picklist>
+        <values>
+            <fullName>CM receiving the review was not the CM responsible for the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer did not require additional assistance with the complaint process%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we did not identify our customer needed additional assistance%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we did not offer and%2For provide additional assistance or adjustments to our complaints process to make it as accessible as possible%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM4_Q1__c</picklist>
+        <values>
+            <fullName>incorrect knowledge base%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>technology issue%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>the correct product category was not correct%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>the correct product or service name was not selected%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>the customer%E2%80%99s issues were not correctly recorded in Case Information%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>the description of issue field was not accurate%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM4_Q2__c</picklist>
+        <values>
+            <fullName>Customer Desired Outcome did not contain enough detail and was not accurate%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Description of Outcome was not accurate%2Fdid not provide a complete description of the complaint resolution or outcome%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Information was not correct%2Fdid not match the resolution or outcome on issue%28s%29 raised%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>incorrect knowledge base%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>technology issue%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM5_Q1__c</picklist>
+        <values>
+            <fullName>%E2%80%98not met%E2%80%99 was result of TM decision%2C complaint was either not particularly complex and%2For the circumstances causing the delay were not beyond ANZ%E2%80%99s control</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM did not use the correct exception template and%2For adapt it to correctly explain the basis of the exception%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM who made the referral%2Fissued the exception letter was not the CM being reviewed%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EDR complaint%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exception letter to the customer did not set out their right to complain to AFCA and%2For provide AFCA%E2%80%99s contact details%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDR response sent within 21 day timeframe for credit related complaints about default notices%2Fhardship notices or requests to postpone enforcement proceedings%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDR response sent within applicable timeframe %2830 days%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In seeking TM approval%2C the CM did not adequately and correctly explain why %28and%2For note CMOS%29 a formal exception was appropriate%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29%3A %E2%80%98not met%E2%80%99 a result of SM assessment%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>a delay %E2%80%98no exception%E2%80%99 template was correctly used%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM5_Q2__c</picklist>
+        <values>
+            <fullName>CM did not write %28by email%2C letter or SMS%29 to customer within 7 days to acknowledge the complaint and tell them how we will deal with the complaint%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM did not%2C where it was necessary to consult a credit bureau about the complaint%2C notify the credit bureau of the complaint%2Fdecision as soon as practicable after receiving the complaint%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM receiving the review was not the CM responsible for the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint is not about credit reporting%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>technology or indexing issues caused no acknowledgement to customer within 7 days%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM6_Q1__c</picklist>
+        <values>
+            <fullName>CM receiving the review was not the CM responsible for the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In any of the calls we failed to terminate the call and call back from an unmonitored and unrecorded line if the caller%2Fcall recipient did not consent to the call being monitored or recorded%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In any of the calls%2C we did not provide the required warning as early as practical and before disclosing or receiving personal information%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In any of the calls%2C we did not warn the caller%2Fcall recipient the call may be recorded%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There were no calls with the customer%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>incorrect knowledge base %28raise a CIP%29%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM6_Q2__c</picklist>
+        <values>
+            <fullName>CM receiving the review was not the CM responsible for the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>For all outbound calls %28if any%29%2C we did not take some or any of the applicable steps under the CR outbound customer call authentication guide%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>For any inbound calls %28if any%29%2C we did not take some or any of the applicable steps under the CR inbound customer call authentication guide%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>If customer has been transferred and already authenticated %28must have been confirmed%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No calls with customer or representative%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>incorrect knowledge base %28raise a CIP%29%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM6_Q3__c</picklist>
+        <values>
+            <fullName>No third party involved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not obtain%2C or hold%2C an appropriate written authority from customer for the third party to represent them and%2For make changes to their personal or account information%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>for a phone authority%2C we disclosed information about our customer to a third party%2C but we did not obtain our customer%E2%80%99s consent by giving enough to understand we were disclosing and%2For why a third party needed it%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>if we disclosed information to a third party without customer consent%2C we did not escalate to an SME and%2For this was not set out in CMOS%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>incorrect knowledge base %28raise a CIP%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>there was not a valid reason for disclosing without consent%2C but this decision was made by an SME%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM6_Q4__c</picklist>
+        <values>
+            <fullName>CM receiving the review was not the CM responsible for the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect knowledge base %28raise a CIP%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Some or any restricted information was not redacted in CMOS%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There was no restricted or confidential information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>some or any confidential or delicate%2Fsensitive information was not appropriately masked and encrypted %28or an appropriate case comment was not left in CMOS about why it was not encrypted%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>some or any restricted information was not encrypted before being sent %28and was not sent by post%29%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM7_Q1__c</picklist>
+        <values>
+            <fullName>Complaint was appropriately resolved on goodwill commercial grounds only %28criterion 1%2E1 applied%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not correctly identify some or all of what needed to be investigated%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not correctly identify some or any of the relevant contract%2C laws%2C codes%2C guidelines or industry practices or standards%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM7_Q2__c</picklist>
+        <values>
+            <fullName>CM escalated information request and was directed not to obtain information by SME%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM had no access to an ANZ system and the case ought to have been referred to a specialist business unit for assistance %28e%2Eg%2E ANZ Shield%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not critically analyse and obtain some or any relevant information from ANZ business units%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not critically analyse and obtain some or any relevant information from the ANZ systems%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM7_Q3__c</picklist>
+        <values>
+            <fullName>CM receiving the review did not make the request for information the subject of the not met%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No additional information was required to address key issues%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>customer does not reply to telephone calls and%2For correspondence despite our attempts to contact them%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we asked for or obtained information from our customer%2C ANZ already had%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we asked for%2C or obtained%2C irrelevant information from our customer%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we did not ask for%2C or we did not give the customer sufficient opportunity to provide additional information needed to enable us to objectively determine what happened%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM7_Q4__c</picklist>
+        <values>
+            <fullName>Currently unable to determine if there is a possible systemic issue and matter referred for C%26Q %E2%80%98further review%E2%80%99 %28CM to raise a PSI if further enquiries reveal appropriate%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No possible systemic issue %28PSI%29 indicated%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not raise a possible systemic issue where one should have been raised%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM7_Q5__c</picklist>
+        <values>
+            <fullName>%E2%80%98not met%E2%80%99 a result of instruction received when CM escalated to an SME%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM receiving the review was not the CM responsible for the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No advice was sought or provided%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we recommended or provided an opinion about appropriate products or services or what the customer should do%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>where the customer asked us for advice or advice was required%2C we did not read the no advice scripting and%2For provide the customer with the appropriate referral %28Moneysmart%2C ANZ website or an internal product team%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>where the customer asked us%2C we recommended or provided an opinion about appropriate products or services or what they should do%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM8_Q1__c</picklist>
+        <values>
+            <fullName>CM did not use or appropriately adapt the most appropriate IDR%2FEDR template%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM receiving the review did not draft the communication%2Fs which resulted in the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Our written communication with the customer was not empathetic or courteous%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Our written communication with the customer was not professional%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There was no written response or communication %28case resolved over the phone and within 5 days etc%29%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM8_Q2__c</picklist>
+        <values>
+            <fullName>CM approached the initial conversation with a pre-determined outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM did not listen and%2For focus on understanding the issues%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM did not try to problem solve %28where appropriate%29%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM receiving the review did not make the call%2Fs which resulted in the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM was not empathetic and%2For courteous%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CM was not prepared and%2For organised%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There were no call attempts%2C and the customer was not represented by a DMF%2Fpaid wealth representative%2C or did not instruct us to use another contact method%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>There were unsuccessful calls%2C unrecorded calls with the customer%2C or no call attempts where a DMF was involved and the customer told us not to call them%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason_C_Q_SM9_Q1__c</picklist>
+        <values>
+            <fullName>CM receiving the review was not the CM responsible for the %E2%80%98not met%E2%80%99%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>all engagement with internal or external stakeholders was over the phone and recordings were unable to be retrieved or were not recorded%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>our requests to stakeholders for relevant information were not clear%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>some or all of our communications with internal stakeholders were not professional and%2For respectful%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>there were no dealings with internal or external stakeholders%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>there were no records of our internal%2Fexternal stakeholder engagement in CMOS at the time of review%2E%22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>we did not provide all relevant information to our stakeholder%2Fs to enable them to provide an informed response to our request or recommendation%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>where we requested CAD approval we did not provide some or all relevant information to the CAD holder to enable them to make an informed decision%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Relevant_info_obtained_from_customer__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Relevant_internal_information_obtained__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Resolution_declined_next_steps_advised__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Response_has_customer_s_desired_outcome__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Response_has_investigation_info_reason__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Response_uses_correct_grammar_spelling__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_Period_Month__c</picklist>
+        <values>
+            <fullName>Apr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aug</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dec</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feb</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jul</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jun</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>May</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nov</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sep</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_Period_Year__c</picklist>
+        <values>
+            <fullName>2023</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2024</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2025</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2026</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2027</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2028</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2029</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2030</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2031</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2032</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2033</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_period__c</picklist>
+        <values>
+            <fullName>%222023-06</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2023-07</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2023-08</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2023-09</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2023-10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2023-11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2023-12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2024-01</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2024-02</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2024-03</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2024-04</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2024-05</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2024-06</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Risk_and_Compliance_Category__c</picklist>
+        <values>
+            <fullName>Advice %2F Consent %2F Disclaimers %2F Warnings Category</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ID %26 Privacy Category</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multiple Categories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Obligations %2F Anti-Hawking Category</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Potential Financial Impacts%2C Information %26 Actions Category</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - Requirements met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Risk_and_Compliance_Sub_Category__c</picklist>
+        <values>
+            <fullName>Action completed incorrectly %28Financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Action completed incorrectly %28No financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Action not completed %28Financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Action not completed %28No financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Advice %2F information provided for non-accredited solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Anti-hawking requirements not followed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Appropriate customer consent not obtained</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint not logged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer not identified correctly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DDO obligations not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>False or misleading information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud %2F Vulnerable Customer %2F Hardship not appropriately referred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Customer Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect or incomplete information %28Financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect or incomplete information %28No financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opt out of marketing request not followed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal details not updated when requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy Breach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy Disclaimer not provided when required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recommendation made was not made based on identified customer needs %2F circumstances</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recording not stopped when requested %2F required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relevant disclaimers %2F warnings not provided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Required scripting not completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sensitive %2F inappropriate notes left in system %28specifics about medical conditions%2C non-factual etc%2E%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stakeholder_comms_clear_relevant_etc__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Withdrawn</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stream__c</picklist>
+        <values>
+            <fullName>Get Help</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Join</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Status__c</picklist>
+        <values>
+            <fullName>Compliance Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Evaluation Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Withdrawn%2FNot Required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Team_Manager_Response__c</picklist>
+        <values>
+            <fullName>Accepted by TM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting response from TM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected by TM</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Verbal_customer_comms_organised_etc__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Was_quick_resolution_offer_appropriate__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Was_the_DMF_paid_rep_licensed__c</picklist>
+        <values>
+            <fullName>N%2FA - no DMF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No - DMF not licensed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - DMF licensed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Were_all_relevant_calls_retrieved__c</picklist>
+        <values>
+            <fullName>No - could not retrieve any calls</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No - no calls applicable to the case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - all calls retrieved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - but not all calls retrieved</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Were_the_CM_s_calls_recorded__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_corrective_actions_are_required__c</picklist>
+        <values>
+            <fullName>Feedback only - no active action required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Further review recommended %28action for MMM%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raise PSI %28action for C%26Q team to take%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raise REaL form %28action for C%26Q team to take%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_how_the_issues_arose_explainedHave__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Written_customer_comms_professional_etc__c</picklist>
+        <values>
+            <fullName>Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not met %28outside CM control%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

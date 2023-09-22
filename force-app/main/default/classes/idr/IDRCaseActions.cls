@@ -169,6 +169,7 @@ public with sharing class IDRCaseActions {
         ) {
           record.addError(IDRConstants.CANNOT_CHANGE_ISSUE_MESSAGE);
         }
+        validateProduct(record, oldRecord);
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -878,6 +879,40 @@ public with sharing class IDRCaseActions {
           ' ' +
           subsequentIssueTypeMap.get(c.IDR_Subsequent_Issue_3__c);
       }
+    }
+  }
+
+  /**
+   * @description Restrict ability to edit 'Product or Service name' selected on cases relating to collections/hardship
+   * @param c  Case record
+   * @param oldCase Old Case record
+   */
+  public static void validateProduct(Case c, Case oldCase) {
+    if (
+      (c.Product__c != oldCase.Product__c &&
+      oldCase.Product__r.IDR_Product_Family__r.Name == 'Asset Finance' &&
+      IDRCollectionActions.isCollectionsIssue(
+        c.Type,
+        c.IDR_Subsequent_Issue__c
+      )) ||
+      (c.IDR_Product_2__c != null &&
+      c.IDR_Product_2__c != oldCase.IDR_Product_2__c &&
+      oldCase.IDR_Product_2__r.IDR_Product_Family__r.Name == 'Asset Finance' &&
+      IDRCollectionActions.isCollectionsIssue(
+        c.IDR_Issue_Type_2__c,
+        c.IDR_Subsequent_Issue_2__c
+      )) ||
+      (c.IDR_Product_3__c != null &&
+      c.IDR_Product_3__c != oldCase.IDR_Product_3__c &&
+      oldCase.IDR_Product_3__r.IDR_Product_Family__r.Name == 'Asset Finance' &&
+      IDRCollectionActions.isCollectionsIssue(
+        c.IDR_Issue_Type_3__c,
+        c.IDR_Subsequent_Issue_3__c
+      ))
+    ) {
+      c.addError(
+        'Cannot update product for complaints relating to collections/hardship'
+      );
     }
   }
 }
