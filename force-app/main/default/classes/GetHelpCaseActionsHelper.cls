@@ -795,4 +795,119 @@ public with sharing class GetHelpCaseActionsHelper {
       GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
     );
   }
+
+  /**
+   * @description Check if user assigning credit ref case has authority to resolve it
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isNoAuthorityAssignment(Case newCase, Case oldCase) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      newCase.OwnerId == UserInfo.getUserId() &&
+      ((UserInfo.getUserRoleId() != creditAssessmentOfficerRole.Id &&
+      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
+      UserInfo.getUserRoleId() != bohCoachRole.Id) ||
+      (UserInfo.getUserRoleId() == bohCoachRole.Id &&
+      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD'))
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_ERROR_ONE);
+    }
+  }
+
+  /**
+   * @description Check if credit assessor lead is assigning credit ref case to users without authority to resolve it
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCreditLeadNoAuthorityAssignment(
+    Case newCase,
+    Case oldCase
+  ) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      UserInfo.getUserRoleId() == creditAssessorLeadRole.Id &&
+      newCase.OwnerId.getSObjectType() != Group.SObjectType &&
+      ((newCase.Owner_Role__c == bohCoachRole.Id &&
+      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD') ||
+      (newCase.Owner_Role__c != bohCoachRole.Id &&
+      newCase.Owner_Role__c != creditAssessmentOfficerRole.Id &&
+      newCase.Owner_Role__c != creditAssessorLeadRole.Id))
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_ERROR_TWO);
+    }
+  }
+
+  /**
+   * @description Check if user is assigning/reassigning case directly to another user
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCreditRefAssignment(Case newCase, Case oldCase) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
+      ((oldCase.OwnerId == UserInfo.getUserId() &&
+      (newCase.OwnerId != coachRefQueue.Id &&
+      newCase.OwnerId != cadReferralQueue.Id)) ||
+      ((oldCase.OwnerId == coachRefQueue.Id ||
+      oldCase.OwnerId == cadReferralQueue.Id) &&
+      newCase.OwnerId != UserInfo.getUserId()) ||
+      (oldCase.OwnerId.getSobjectType() == User.getSObjectType() &&
+      oldCase.OwnerId != UserInfo.getUserId()))
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_ERROR_THREE);
+    }
+  }
+
+  /**
+   * @description Check if user is editing credit referral case without correct access
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCreditRefEdit(Case newCase, Case oldCase) {
+    //Allow integration user to be able to edit cases
+    if (
+      UserInfo.getProfileId() != integrationUserProfile.Id &&
+      ((newCase.OwnerId == oldCase.OwnerId &&
+      newCase.OwnerId != UserInfo.getUserId() &&
+      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id) ||
+      (newCase.OwnerId == oldCase.OwnerId &&
+      newCase.OwnerId.getSobjectType() == Group.getSObjectType() &&
+      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id))
+    ) {
+      newCase.addError(CREDIT_REF_EDIT_ERROR);
+    }
+  }
+
+  /**
+   * @description Prevent assignment of NO CAD authority to CAD referral queue unless it's escalated
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCADQueueAssignment(Case newCase, Case oldCase) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      newCase.OwnerId == cadReferralQueue.Id &&
+      newCase.Status != 'Escalated' &&
+      newCase.Case_Authority_Level__c.toUpperCase() == 'NO CAD'
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_QUEUE_ERROR_TWO);
+    }
+  }
+
+  /**
+   * @description Prevent assignment of CAD authority to Coach queue
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCoachQueueAssignment(Case newCase, Case oldCase) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      newCase.OwnerId == coachRefQueue.Id &&
+      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD'
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_QUEUE_ERROR_ONE);
+    }
+  }
 }

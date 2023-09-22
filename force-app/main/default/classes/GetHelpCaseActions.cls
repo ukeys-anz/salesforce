@@ -972,4 +972,68 @@ public with sharing class GetHelpCaseActions {
 
     DMLUtil.insertRecords(taskList, false, true);
   }
+  /**
+   * @description Validate ownership change for credit referral cases - https://jira.anzx.service.anz/browse/ANZX-86338
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   */
+  public static void validateCreditReferralOwnershipChange(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    for (Case creditRefCase : records) {
+      Case oldCase = oldMap.get(creditRefCase.Id);
+      if (
+        creditRefCase.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID
+      ) {
+        GetHelpCaseActionsHelper.isNoAuthorityAssignment(
+          creditRefCase,
+          oldCase
+        );
+        GetHelpCaseActionsHelper.isInvalidCreditLeadNoAuthorityAssignment(
+          creditRefCase,
+          oldCase
+        );
+        GetHelpCaseActionsHelper.isInvalidCreditRefAssignment(
+          creditRefCase,
+          oldCase
+        );
+        GetHelpCaseActionsHelper.isInvalidCreditRefEdit(creditRefCase, oldCase);
+        GetHelpCaseActionsHelper.isInvalidCADQueueAssignment(
+          creditRefCase,
+          oldCase
+        );
+        GetHelpCaseActionsHelper.isInvalidCoachQueueAssignment(
+          creditRefCase,
+          oldCase
+        );
+      }
+    }
+  }
+
+  /**
+   * @description Copy case number of credit referral. Workflow rule breaks as it is editing and triggering the beforeUpdate
+   * @param records Case records from trigger
+   */
+  public static void copyCreditReferralCaseNumbers(List<Case> records) {
+    List<Case> creditRefCases = new List<Case>();
+    for (Case creditRefCase : records) {
+      if (
+        creditRefCase.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID
+      ) {
+        Case c = creditRefCase.clone(true, false, true);
+        c.CaseNumber__c = creditRefCase.CaseNumber;
+        creditRefCases.add(c);
+      }
+    }
+
+    if (!creditRefCases.isEmpty()) {
+      //Run in system mode to avoid edit rules of credit referral case being triggered
+      SystemModeActions actions = new SystemModeActions(
+        'GetHelpCaseActions',
+        'copyCreditReferralCaseNumbers'
+      );
+      actions.updateRecords(creditRefCases, 'Case');
+    }
+  }
 }
