@@ -23,12 +23,6 @@ public with sharing class ChatterFeedItemActions {
 
     Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
 
-    //Creating set of recordTypeIds of Interaction for which maskANZx we need to apply
-    Set<Id> interactionRecordTypesIds = new Set<Id>();
-    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
-    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
-    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
-
     for (FeedItem record : records) {
       if (record.parentId != null) {
         parentIdList.add(record.parentId);
@@ -48,17 +42,9 @@ public with sharing class ChatterFeedItemActions {
       [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
     );
 
-    //Fetching Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call recordtypeids.
+    //Filtering Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call Interaction recordtypeids.
     if (!interactionaIdList.isEmpty()) {
-      relatedInteractionMap = new Map<Id, Interaction>(
-        [
-          SELECT Id, RecordTypeId
-          FROM Interaction
-          WHERE
-            Id IN :interactionaIdList
-            AND RecordTypeId IN :interactionRecordTypesIds
-        ]
-      );
+      relatedInteractionMap = filteredInteractionMap(interactionaIdList);
     }
 
     for (FeedItem record : records) {
@@ -192,5 +178,27 @@ public with sharing class ChatterFeedItemActions {
         fi.addError(REMOVE_URL + ': ' + returnString);
       }
     }
+  }
+
+  /**
+   * @description this method will filter the Interaction based on the parent id list and the recordtype ids set
+   * @param interactionaIdList parent ids of Interaction for feed item/feed comment
+   * @return relatedInteractionMap map of Interaction with Ids
+   */
+  public static Map<Id, Interaction> filteredInteractionMap(
+    List<Id> interactionaIdList
+  ) {
+    Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
+    relatedInteractionMap = new Map<Id, Interaction>(
+      [
+        SELECT Id, RecordTypeId
+        FROM Interaction
+        WHERE
+          Id IN :interactionaIdList
+          AND RecordTypeId IN :GetHelpConstants.STORE_CALL_MSG_INTERACTION_RECORTYPEIDS_SET
+      ]
+    );
+
+    return relatedInteractionMap;
   }
 }

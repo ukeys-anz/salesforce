@@ -463,4 +463,39 @@ public without sharing class TestDataFactory {
   public static ResidentialLoanApplication createTestResidentialLoanApplication() {
     return createTestResidentialLoanApplication('0');
   }
+
+  /**
+   * @description Create Interaction Record
+   * @param recordTypeId recordTypeId of the interaction
+   * @param doInsert Insert record or just initialise
+   * @return Interaction
+   */
+  public static Interaction createInteraction(
+    Id recordTypeId,
+    Boolean doInsert
+  ) {
+    Interaction testInteraction = new Interaction();
+    testInteraction.RecordTypeId = recordTypeId;
+    testInteraction.Name = 'Test Interaction';
+    testInteraction.StartTime = System.now();
+
+    if (recordTypeId == GetHelpConstants.INTERACTION_GENERAL_RT_ID) {
+      testInteraction.Interaction_Purpose__c = InteractionConstants.NONCUSTOMER;
+      testInteraction.InteractionType = InteractionConstants.CALL;
+      testInteraction.Direction__c = InteractionConstants.INBOUND;
+    } else if (recordTypeId == GetHelpConstants.INTERACTION_MESSAGE_RT_ID) {
+      testInteraction.Interaction_Purpose__c = InteractionConstants.CUSTOMER;
+      testInteraction.InteractionType = InteractionConstants.CHAT;
+      testInteraction.Direction__c = InteractionConstants.INBOUND;
+    } else {
+      testInteraction.Interaction_Purpose__c = InteractionConstants.NONCUSTOMER;
+      testInteraction.InteractionType = InteractionConstants.STORE;
+    }
+
+    if (doInsert) {
+      insert testInteraction;
+    }
+
+    return testInteraction;
+  }
 }

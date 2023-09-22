@@ -265,6 +265,7 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
 
   @isTest
   static void testInteractionFeedItemUpdateWithoutMasking() {
+    String valueToPost = '1234567344';
     User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
     FeedItem post = new FeedItem();
     Interaction testInteraction = new Interaction();
@@ -273,7 +274,7 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       Test.startTest();
       testInteraction = createTestInteraction();
       post.ParentId = testInteraction.Id;
-      post.Body = '1234567344';
+      post.Body = valueToPost;
 
       //Creating Chatter Post for the Interaction record
       insert post;
@@ -287,7 +288,7 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
     ];
     // THEN the chatter should  be created withot the masking of the digit
     System.assertEquals(
-      '1234567344',
+      valueToPost,
       insertedPost.Body,
       'There will be no masking done for the feed item posted'
     );
@@ -295,6 +296,7 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
 
   @isTest
   static void testInteractionFeedItemUpdateWithMasking() {
+    String valueToPost = '1234567344738686386868';
     User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
     FeedItem post = new FeedItem();
     Interaction testInteraction = new Interaction();
@@ -302,7 +304,7 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       Test.startTest();
       testInteraction = createTestInteraction();
       post.ParentId = testInteraction.Id;
-      post.Body = '1234567344738686386868';
+      post.Body = valueToPost;
 
       //Creating Chatter Post for the Interaction record
       insert post;
@@ -315,7 +317,7 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
     ];
     // THEN the chatter should  be created withot the masking of the digit
     System.assertNotEquals(
-      '1234567344738686386868',
+      valueToPost,
       insertedPost.Body,
       'There will be masking done for the feed item posted'
     );
@@ -325,16 +327,12 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
    * @return Return Interaction Record
    */
   static Interaction createTestInteraction() {
-    Interaction testInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
-      Name = 'New Interaction',
-      Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
-      InteractionType = InteractionConstants.STORE,
-      Direction__c = InteractionConstants.INBOUND,
-      StartTime = System.now()
-    );
+    Interaction testInteraction = new Interaction();
 
-    insert testInteraction;
+    testInteraction = TestDataFactory.createInteraction(
+      GetHelpConstants.INTERACTION_STORE_RT_ID,
+      true
+    );
 
     return testInteraction;
   }

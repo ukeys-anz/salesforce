@@ -27,11 +27,6 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
 
     Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
 
-    //Creating set of recordTypeIds of Interaction for which maskANZx we need to apply
-    Set<Id> interactionRecordTypesIds = new Set<Id>();
-    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
-    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
-    interactionRecordTypesIds.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
     for (FeedComment record : (List<FeedComment>) records) {
       if (record.parentId != null) {
         parentIdList.add(record.parentId);
@@ -54,14 +49,8 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
 
     //Fetching Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call recordtypeids.
     if (!interactionaIdList.isEmpty()) {
-      relatedInteractionMap = new Map<Id, Interaction>(
-        [
-          SELECT Id, RecordTypeId
-          FROM Interaction
-          WHERE
-            Id IN :interactionaIdList
-            AND RecordTypeId IN :interactionRecordTypesIds
-        ]
+      relatedInteractionMap = ChatterFeedItemActions.filteredInteractionMap(
+        interactionaIdList
       );
     }
 

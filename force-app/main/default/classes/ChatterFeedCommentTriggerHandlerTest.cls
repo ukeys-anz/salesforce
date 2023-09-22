@@ -105,6 +105,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
 
   @isTest
   static void testInteractionFeedCommentInsertWithoutMasking() {
+    String valueToPost = '1234567344';
     User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
     FeedItem post = new FeedItem();
     FeedComment comment = new FeedComment();
@@ -113,7 +114,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
       Test.startTest();
       post = createInteractionAndFeedItem();
       comment.FeedItemId = post.Id;
-      comment.commentBody = '1234567344';
+      comment.commentBody = valueToPost;
       insert comment;
       //Creating Chatter Post for the Interaction record
       Test.stopTest();
@@ -126,7 +127,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
     ];
     // THEN the chatter should  be created withot the masking of the digit
     System.assertEquals(
-      '1234567344',
+      valueToPost,
       insertedComment.commentBody,
       'There will be no masking done for the feed comment posted'
     );
@@ -134,6 +135,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
 
   @isTest
   static void testInteractionFeedCommentInsertWithMasking() {
+    String valueToPost = '1234567344738686386868';
     User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
     FeedItem post = new FeedItem();
     FeedComment comment = new FeedComment();
@@ -142,7 +144,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
       Test.startTest();
       post = createInteractionAndFeedItem();
       comment.FeedItemId = post.Id;
-      comment.commentBody = '1234567344738686386868';
+      comment.commentBody = valueToPost;
       insert comment;
       //Creating Chatter Post for the Interaction record
       Test.stopTest();
@@ -154,7 +156,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
     ];
     // THEN the chatter should  be created withot the masking of the digit
     System.assertNotEquals(
-      '1234567344738686386868',
+      valueToPost,
       insertedComment.commentBody,
       'There will be masking done for the feed comment posted'
     );
@@ -164,17 +166,12 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
    * @return Return FeedItemRecord
    */
   static FeedItem createInteractionAndFeedItem() {
-    Interaction testInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
-      Name = 'New Interaction',
-      Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
-      InteractionType = InteractionConstants.STORE,
-      Direction__c = InteractionConstants.INBOUND,
-      StartTime = System.now()
+    Interaction testInteraction = new Interaction();
+
+    testInteraction = TestDataFactory.createInteraction(
+      GetHelpConstants.INTERACTION_STORE_RT_ID,
+      true
     );
-
-    insert testInteraction;
-
     FeedItem post = new FeedItem();
     post.ParentId = testInteraction.Id;
     post.Body = 'Test Post';
