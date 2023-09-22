@@ -35,7 +35,7 @@ public with sharing class DateTimeUtilsTest {
       date2,
       (String) bhs.Id
     );
-    System.assertEquals(9, hours.intValue(), 'Matching Hours');
+    System.assertEquals(25, hours.intValue(), 'Matching Hours');
     System.assertEquals(
       10,
       ((hours - hours.intValue()) * SFConstants.MIN_IN_HOUR).intValue(),

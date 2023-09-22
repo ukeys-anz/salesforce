@@ -8,17 +8,18 @@
     <columns>CREATEDBY_USER</columns>
     <columns>VALIDATION_STATUS_ENUM</columns>
     <columns>PUBLISH_STATUS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>PUBLISH_STATUS</field>
         <operation>equals</operation>
         <value>3</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Archived Articles</label>
     <sharedTo>
         <role>Business_Admin</role>
         <role>Content_Writer</role>
         <role>IDR_Content_Writer</role>
         <role>Coach_Lead</role>
+        <role>Credit_Assessor_Lead</role>
     </sharedTo>
 </ListView>

@@ -7982,6 +7982,10 @@
         <recordType>Case.ANZx_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Credit Referral</layout>
+        <recordType>Case.Credit_Referral</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-BPAY Dispute Layout</layout>
         <recordType>Case.BPAY_Dispute</recordType>
     </layoutAssignments>
@@ -9547,6 +9551,10 @@
     <tabVisibilities>
         <tab>standard-InsuranceProfile</tab>
         <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Interaction</tab>
+        <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>standard-Lead</tab>

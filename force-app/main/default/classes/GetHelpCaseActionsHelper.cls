@@ -6,7 +6,9 @@
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  * ExcessivePublicCount Surpressed : GetHelpCaseActions to have all the public methods and attributes together.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
+@SuppressWarnings(
+  'PMD.CyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
+)
 public with sharing class GetHelpCaseActionsHelper {
   public static final String YES = 'Yes';
   public static final String FRAUD_GENERIC_CUSTOMER_NAME = 'Fraud Entitlement Account';
@@ -46,6 +48,34 @@ public with sharing class GetHelpCaseActionsHelper {
     }
     private set;
   }
+
+  public static UserRole bohCoachRole = CommonUtil.getUserRoleByDevName(
+    'BOH_Coach'
+  );
+  public static UserRole creditAssessmentOfficerRole = CommonUtil.getUserRoleByDevName(
+    'Credit_Assessment_Officer'
+  );
+  public static UserRole creditAssessorLeadRole = CommonUtil.getUserRoleByDevName(
+    'Credit_Assessor_Lead'
+  );
+
+  public static Group cadReferralQueue = CommonUtil.getQueueByName(
+    'CAD_Credit_Referral_Case_Queue'
+  );
+  public static Group coachRefQueue = CommonUtil.getQueueByName(
+    'No_CAD_Credit_Referral_Case_Queue'
+  );
+
+  public static Profile integrationUserProfile = CommonUtil.getProfileByName(
+    'Minimum Access - External Apps'
+  );
+
+  public static final String CREDIT_REF_ASSIGN_ERROR_ONE = 'You can\'t assign a credit referral case that you do not have authority to resolve. Please select another case.';
+  public static final String CREDIT_REF_ASSIGN_ERROR_TWO = 'You can\'t assign a credit referral case to someone who does not have the authority to resolve it.';
+  public static final String CREDIT_REF_ASSIGN_ERROR_THREE = 'You can\'t assign the credit referral case directly to someone else. Please assign the case back to the queue for it to be picked up.';
+  public static final String CREDIT_REF_EDIT_ERROR = 'Only the Case Owner or Credit Assessor Lead can edit this credit referral case.';
+  public static final String CREDIT_REF_ASSIGN_QUEUE_ERROR_ONE = 'You can\'t assign this credit referral case to this queue as it doesn\'t meet the minimum authority level needed to resolve it. Please select another queue.';
+  public static final String CREDIT_REF_ASSIGN_QUEUE_ERROR_TWO = 'You can\'t assign this credit referral case by changing the Case Owner field. Please update the case status to Escalated to assign to another queue.';
 
   /**
    * @description  This method checks if Additional_Type__c has more than 2 values selected or
@@ -480,6 +510,40 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Check if the case is a credit referral case and assign application id and customer to case
+   * is ANZx
+   * @param records New record instances to process
+   */
+  public static void setCreditReferralApplication(List<Case> records) {
+    Map<String, Case> mapCase = new Map<String, Case>();
+    for (Case record : records) {
+      if (
+        record.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID &&
+        String.isNotBlank(record.Credit_Id__c)
+      ) {
+        mapCase.put(record.Credit_Id__c, record);
+      }
+    }
+
+    if (mapCase.isEmpty()) {
+      return;
+    }
+
+    for (ResidentialLoanApplication rla : [
+      SELECT Credit_ID__c, AccountId, Account.PersonContactId
+      FROM ResidentialLoanApplication
+      WHERE Credit_ID__c = :mapCase.keySet()
+    ]) {
+      Case newCase = mapCase.get(rla.Credit_ID__c);
+      newCase.AccountId = rla.AccountId;
+      newCase.Loan_Application__c = rla.Id;
+      newCase.ContactId = rla.Account.PersonContactId;
+
+      mapCase.put(newCase.Credit_Id__c, newCase);
+    }
+  }
+
+  /**
    * @description Check if the account on the case has changed
    * @param records New record instances to process
    * @param oldCaseMap Old case map
@@ -730,5 +794,120 @@ public with sharing class GetHelpCaseActionsHelper {
       accIds,
       GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
     );
+  }
+
+  /**
+   * @description Check if user assigning credit ref case has authority to resolve it
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isNoAuthorityAssignment(Case newCase, Case oldCase) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      newCase.OwnerId == UserInfo.getUserId() &&
+      ((UserInfo.getUserRoleId() != creditAssessmentOfficerRole.Id &&
+      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
+      UserInfo.getUserRoleId() != bohCoachRole.Id) ||
+      (UserInfo.getUserRoleId() == bohCoachRole.Id &&
+      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD'))
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_ERROR_ONE);
+    }
+  }
+
+  /**
+   * @description Check if credit assessor lead is assigning credit ref case to users without authority to resolve it
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCreditLeadNoAuthorityAssignment(
+    Case newCase,
+    Case oldCase
+  ) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      UserInfo.getUserRoleId() == creditAssessorLeadRole.Id &&
+      newCase.OwnerId.getSObjectType() != Group.SObjectType &&
+      ((newCase.Owner_Role__c == bohCoachRole.Id &&
+      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD') ||
+      (newCase.Owner_Role__c != bohCoachRole.Id &&
+      newCase.Owner_Role__c != creditAssessmentOfficerRole.Id &&
+      newCase.Owner_Role__c != creditAssessorLeadRole.Id))
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_ERROR_TWO);
+    }
+  }
+
+  /**
+   * @description Check if user is assigning/reassigning case directly to another user
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCreditRefAssignment(Case newCase, Case oldCase) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
+      ((oldCase.OwnerId == UserInfo.getUserId() &&
+      (newCase.OwnerId != coachRefQueue.Id &&
+      newCase.OwnerId != cadReferralQueue.Id)) ||
+      ((oldCase.OwnerId == coachRefQueue.Id ||
+      oldCase.OwnerId == cadReferralQueue.Id) &&
+      newCase.OwnerId != UserInfo.getUserId()) ||
+      (oldCase.OwnerId.getSobjectType() == User.getSObjectType() &&
+      oldCase.OwnerId != UserInfo.getUserId()))
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_ERROR_THREE);
+    }
+  }
+
+  /**
+   * @description Check if user is editing credit referral case without correct access
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCreditRefEdit(Case newCase, Case oldCase) {
+    //Allow integration user to be able to edit cases
+    if (
+      UserInfo.getProfileId() != integrationUserProfile.Id &&
+      ((newCase.OwnerId == oldCase.OwnerId &&
+      newCase.OwnerId != UserInfo.getUserId() &&
+      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id) ||
+      (newCase.OwnerId == oldCase.OwnerId &&
+      newCase.OwnerId.getSobjectType() == Group.getSObjectType() &&
+      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id))
+    ) {
+      newCase.addError(CREDIT_REF_EDIT_ERROR);
+    }
+  }
+
+  /**
+   * @description Prevent assignment of NO CAD authority to CAD referral queue unless it's escalated
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCADQueueAssignment(Case newCase, Case oldCase) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      newCase.OwnerId == cadReferralQueue.Id &&
+      newCase.Status != 'Escalated' &&
+      newCase.Case_Authority_Level__c.toUpperCase() == 'NO CAD'
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_QUEUE_ERROR_TWO);
+    }
+  }
+
+  /**
+   * @description Prevent assignment of CAD authority to Coach queue
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   */
+  public static void isInvalidCoachQueueAssignment(Case newCase, Case oldCase) {
+    if (
+      oldCase.OwnerId != newCase.OwnerId &&
+      newCase.OwnerId == coachRefQueue.Id &&
+      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD'
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_QUEUE_ERROR_ONE);
+    }
   }
 }

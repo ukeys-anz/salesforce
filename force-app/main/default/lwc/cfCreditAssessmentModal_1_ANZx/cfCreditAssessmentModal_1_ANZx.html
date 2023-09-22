@@ -1,0 +1,816 @@
+<template>
+  <div class="slds-grid slds-wrap slds-is-relative">
+    <div style="position: fixed; z-index: 999999; top: 0; right: 0">
+      <omnistudio-toast
+        class="flexcard-toast-element"
+        theme="slds"
+        title=""
+        message=""
+        styletype=""
+      >
+      </omnistudio-toast>
+    </div>
+    <div
+      if:true={showLoader}
+      class="slds-is-absolute vloc-loader_override"
+      style="
+        height: 100%;
+        width: 100%;
+        min-height: 50px;
+        background: transparent;
+        z-index: 99;
+      "
+    >
+      <div>
+        <omnistudio-spinner
+          variant="brand"
+          alternative-text="Loading content..."
+          size="medium"
+          theme="slds"
+        ></omnistudio-spinner>
+      </div>
+    </div>
+    <template if:false={hasPermission}>
+      You don't have required permissions to view this card.
+    </template>
+    <template if:true={hasPermission}>
+      <template if:true={hasRecords}>
+        <omnistudio-flex-card-state
+          data-statue="true"
+          data-index="0"
+          data-rindex={rindex}
+          class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"
+          tracking-obj={_childCardTrackingObj}
+        >
+          <div
+            if:true={cardLoaded}
+            class="slds-grid slds-wrap slds-card"
+            style=""
+          >
+            <div
+              data-style-id="state0element0"
+              class="slds-col slds-size_12-of-12"
+              data-rindex={rindex}
+              style=""
+            >
+              <omnistudio-block
+                data-style-id="state0element0_child"
+                card={card}
+                record={record}
+                label="Block"
+                collapsible="false"
+                collapsed-by-default="false"
+                theme="slds"
+                ><div class="slds-grid slds-wrap">
+                  <div
+                    data-style-id="state0element0block_element0"
+                    class="slds-col slds-theme_default slds-p-around_small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style="background-color: #014486"
+                  >
+                    <omnistudio-block
+                      data-style-id="state0element0block_element0_child"
+                      card={card}
+                      record={record}
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
+                      theme="slds"
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element0block_element0"
+                          class="slds-col slds-size_12-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element0block_element0_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Select a referral outcome"
+                            styles='\{"label":{"fontSize":"24px","color":"#FFFFFF","textAlign":"center"}}'
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div></div
+                    ></omnistudio-block>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element1"
+                    class="slds-col slds-p-top_small slds-p-left_small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-block
+                      data-style-id="state0element0block_element1_child"
+                      card={card}
+                      record={record}
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
+                      theme="slds"
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element1block_element0"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element0_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Reason Code"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element1block_element1"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element1_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Category"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element1block_element2"
+                          class="slds-col slds-size_4-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element2_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Description"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element1block_element3"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element3_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Guidance"
+                            field-level-help="Something about guidance"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div></div
+                    ></omnistudio-block>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element2"
+                    class="slds-col slds-p-left_small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-block
+                      data-style-id="state0element0block_element2_child"
+                      card={card}
+                      record={record}
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
+                      theme="slds"
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element2block_element0"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element2block_element0_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%7BreasonCode%7D%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element2block_element1"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element2block_element1_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%7BassessmentCategory%7D%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element2block_element2"
+                          class="slds-col slds-size_4-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element2block_element2_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%7BreasonDescription%7D%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element2block_element3"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element2block_element3_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%7BguidanceCode%7D%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div></div
+                    ></omnistudio-block>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element3"
+                    class="slds-col slds-p-top_small slds-p-left_small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-base-input-element
+                      data-style-id="state0element0block_element3_child"
+                      card={card}
+                      record={record}
+                      type="combobox"
+                      property-obj='\{"label":"Referral Outcome","type":"combobox","fieldLevelHelp":"","placeholder":"Select one referral outcome","value":"","options":[],"customProperties":[],"fieldBinding":"{value}"}'
+                      theme="slds"
+                    ></omnistudio-base-input-element>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element4"
+                    class="slds-col slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-custom-lwc-wrapper
+                      class=""
+                      element-name="omnistudio-accordion"
+                      property="\{}"
+                      data-rindex={rindex}
+                      records={records}
+                      record={record}
+                      record-id={recordId}
+                      card={card}
+                      ><omnistudio-accordion></omnistudio-accordion
+                    ></omnistudio-custom-lwc-wrapper>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element5"
+                    class="slds-col slds-text-align_right slds-p-bottom_x-small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element5_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#7e8c8d;%22%3ELast%20Modified%20By%20Peter%20Charalambous,%2012/12/2023%2012:12%20PM%3C/span%3E%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element6"
+                    class="slds-col slds-theme_shade slds-p-around_x-small"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-block
+                      data-style-id="state0element0block_element6_child"
+                      card={card}
+                      record={record}
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
+                      theme="slds"
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element6block_element0"
+                          class="slds-col slds-p-around_x-small slds-size_10-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-block
+                            data-style-id="state0element0block_element6block_element0_child"
+                            card={card}
+                            record={record}
+                            label="Block"
+                            collapsible="false"
+                            collapsed-by-default="false"
+                            theme="slds"
+                            ><div class="slds-grid slds-wrap"></div
+                          ></omnistudio-block>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element6block_element1"
+                          class="slds-col slds-size_1-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-flex-action
+                            data-style-id="state0element0block_element6block_element1_child"
+                            tracking-obj={_childCardTrackingObj}
+                            class="state0element0block_element6block_element1_child flexActionElement"
+                            data-action-element-class="state0element0block_element6block_element1_child"
+                            data-action-key="state0element0block_element6block_element1"
+                            onexecuteaction={performAction}
+                            data-show-spinner="false"
+                            data-element-label="close_button"
+                            state-obj={record}
+                            card={card}
+                            record={record}
+                            label="Close"
+                            icon-name="standard-default"
+                            action-list='\[{"stateAction":{"id":"flex-action-1686628262277","type":"Event","openUrlIn":"Current Window","subType":"Custom","eventName":"closemodal","composed":true,"bubbles":true},"key":"1686628220648-jncdfn6x0","label":"Close","draggable":true,"isOpen":true,"isTrackingDisabled":true,"actionIndex":0}]'
+                            hide-action-icon="true"
+                            display-as-button="true"
+                            button-variant="outline-brand"
+                            styles='\{"label":{"textAlign":"center"}}'
+                            flyout-details="\{}"
+                            theme="slds"
+                          ></omnistudio-flex-action>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element6block_element2"
+                          class="slds-col slds-size_1-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-flex-action
+                            data-style-id="state0element0block_element6block_element2_child"
+                            tracking-obj={_childCardTrackingObj}
+                            class="state0element0block_element6block_element2_child flexActionElement"
+                            data-action-element-class="state0element0block_element6block_element2_child"
+                            data-action-key="state0element0block_element6block_element2"
+                            onexecuteaction={performAction}
+                            data-show-spinner="false"
+                            data-element-label="save_button"
+                            state-obj={record}
+                            card={card}
+                            record={record}
+                            label="Save"
+                            icon-name="standard-default"
+                            action-list='\[{"stateAction":{"id":"test-action","type":"Custom","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"}}}]'
+                            hide-action-icon="true"
+                            display-as-button="true"
+                            button-variant="brand"
+                            theme="slds"
+                          ></omnistudio-flex-action>
+                        </div></div
+                    ></omnistudio-block>
+                  </div></div
+              ></omnistudio-block>
+            </div>
+            <div
+              data-style-id="state0element1"
+              class="slds-col slds-size_12-of-12"
+              data-rindex={rindex}
+              style=""
+            >
+              <omnistudio-custom-lwc-wrapper
+                class=""
+                element-name="omnistudio-custom-lwc"
+                property="\{}"
+                data-rindex={rindex}
+                records={records}
+                record={record}
+                record-id={recordId}
+                card={card}
+                ><omnistudio-custom-lwc></omnistudio-custom-lwc
+              ></omnistudio-custom-lwc-wrapper>
+            </div>
+          </div>
+        </omnistudio-flex-card-state>
+      </template>
+      <template if:false={hasRecords}>
+        <omnistudio-flex-card-state
+          data-statue="false"
+          data-index="0"
+          data-rindex={rindex}
+          class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"
+          tracking-obj={_childCardTrackingObj}
+        >
+          <div
+            if:true={cardLoaded}
+            class="slds-grid slds-wrap slds-card"
+            style=""
+          >
+            <div
+              data-style-id="state0element0"
+              class="slds-col slds-size_12-of-12"
+              data-rindex={rindex}
+              style=""
+            >
+              <omnistudio-block
+                data-style-id="state0element0_child"
+                card={card}
+                record={record}
+                label="Block"
+                collapsible="false"
+                collapsed-by-default="false"
+                theme="slds"
+                ><div class="slds-grid slds-wrap">
+                  <div
+                    data-style-id="state0element0block_element0"
+                    class="slds-col slds-theme_default slds-p-around_small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style="background-color: #014486"
+                  >
+                    <omnistudio-block
+                      data-style-id="state0element0block_element0_child"
+                      card={card}
+                      record={record}
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
+                      theme="slds"
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element0block_element0"
+                          class="slds-col slds-size_12-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element0block_element0_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Select a referral outcome"
+                            styles='\{"label":{"fontSize":"24px","color":"#FFFFFF","textAlign":"center"}}'
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div></div
+                    ></omnistudio-block>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element1"
+                    class="slds-col slds-p-top_small slds-p-left_small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-block
+                      data-style-id="state0element0block_element1_child"
+                      card={card}
+                      record={record}
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
+                      theme="slds"
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element1block_element0"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element0_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Reason Code"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element1block_element1"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element1_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Category"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element1block_element2"
+                          class="slds-col slds-size_4-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element2_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Description"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element1block_element3"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element3_child"
+                            card={card}
+                            record={record}
+                            placeholder=""
+                            type="text"
+                            label="Guidance"
+                            field-level-help="Something about guidance"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div></div
+                    ></omnistudio-block>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element2"
+                    class="slds-col slds-p-left_small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-block
+                      data-style-id="state0element0block_element2_child"
+                      card={card}
+                      record={record}
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
+                      theme="slds"
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element2block_element0"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element2block_element0_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%7BreasonCode%7D%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element2block_element1"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element2block_element1_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%7BassessmentCategory%7D%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element2block_element2"
+                          class="slds-col slds-size_4-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element2block_element2_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%7BreasonDescription%7D%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element2block_element3"
+                          class="slds-col slds-size_2-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element2block_element3_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%7BguidanceCode%7D%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div></div
+                    ></omnistudio-block>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element3"
+                    class="slds-col slds-p-top_small slds-p-left_small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-base-input-element
+                      data-style-id="state0element0block_element3_child"
+                      card={card}
+                      record={record}
+                      type="combobox"
+                      property-obj='\{"label":"Referral Outcome","type":"combobox","fieldLevelHelp":"","placeholder":"Select one referral outcome","value":"","options":[],"customProperties":[],"fieldBinding":"{value}"}'
+                      theme="slds"
+                    ></omnistudio-base-input-element>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element4"
+                    class="slds-col slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-custom-lwc-wrapper
+                      class=""
+                      element-name="omnistudio-accordion"
+                      property="\{}"
+                      data-rindex={rindex}
+                      records={records}
+                      record={record}
+                      record-id={recordId}
+                      card={card}
+                      ><omnistudio-accordion></omnistudio-accordion
+                    ></omnistudio-custom-lwc-wrapper>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element5"
+                    class="slds-col slds-text-align_right slds-p-bottom_x-small slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element5_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#7e8c8d;%22%3ELast%20Modified%20By%20Peter%20Charalambous,%2012/12/2023%2012:12%20PM%3C/span%3E%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element6"
+                    class="slds-col slds-theme_shade slds-p-around_x-small"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-block
+                      data-style-id="state0element0block_element6_child"
+                      card={card}
+                      record={record}
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
+                      theme="slds"
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element6block_element0"
+                          class="slds-col slds-p-around_x-small slds-size_10-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-block
+                            data-style-id="state0element0block_element6block_element0_child"
+                            card={card}
+                            record={record}
+                            label="Block"
+                            collapsible="false"
+                            collapsed-by-default="false"
+                            theme="slds"
+                            ><div class="slds-grid slds-wrap"></div
+                          ></omnistudio-block>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element6block_element1"
+                          class="slds-col slds-size_1-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-flex-action
+                            data-style-id="state0element0block_element6block_element1_child"
+                            tracking-obj={_childCardTrackingObj}
+                            class="state0element0block_element6block_element1_child flexActionElement"
+                            data-action-element-class="state0element0block_element6block_element1_child"
+                            data-action-key="state0element0block_element6block_element1"
+                            onexecuteaction={performAction}
+                            data-show-spinner="false"
+                            data-element-label="close_button"
+                            state-obj={record}
+                            card={card}
+                            record={record}
+                            label="Close"
+                            icon-name="standard-default"
+                            action-list='\[{"stateAction":{"id":"flex-action-1686628262277","type":"Event","openUrlIn":"Current Window","subType":"Custom","eventName":"closemodal","composed":true,"bubbles":true},"key":"1686628220648-jncdfn6x0","label":"Close","draggable":true,"isOpen":true,"isTrackingDisabled":true,"actionIndex":0}]'
+                            hide-action-icon="true"
+                            display-as-button="true"
+                            button-variant="outline-brand"
+                            styles='\{"label":{"textAlign":"center"}}'
+                            flyout-details="\{}"
+                            theme="slds"
+                          ></omnistudio-flex-action>
+                        </div>
+                        <div
+                          data-style-id="state0element0block_element6block_element2"
+                          class="slds-col slds-size_1-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-flex-action
+                            data-style-id="state0element0block_element6block_element2_child"
+                            tracking-obj={_childCardTrackingObj}
+                            class="state0element0block_element6block_element2_child flexActionElement"
+                            data-action-element-class="state0element0block_element6block_element2_child"
+                            data-action-key="state0element0block_element6block_element2"
+                            onexecuteaction={performAction}
+                            data-show-spinner="false"
+                            data-element-label="save_button"
+                            state-obj={record}
+                            card={card}
+                            record={record}
+                            label="Save"
+                            icon-name="standard-default"
+                            action-list='\[{"stateAction":{"id":"test-action","type":"Custom","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"}}}]'
+                            hide-action-icon="true"
+                            display-as-button="true"
+                            button-variant="brand"
+                            theme="slds"
+                          ></omnistudio-flex-action>
+                        </div></div
+                    ></omnistudio-block>
+                  </div></div
+              ></omnistudio-block>
+            </div>
+            <div
+              data-style-id="state0element1"
+              class="slds-col slds-size_12-of-12"
+              data-rindex={rindex}
+              style=""
+            >
+              <omnistudio-custom-lwc-wrapper
+                class=""
+                element-name="omnistudio-custom-lwc"
+                property="\{}"
+                data-rindex={rindex}
+                records={records}
+                record={record}
+                record-id={recordId}
+                card={card}
+                ><omnistudio-custom-lwc></omnistudio-custom-lwc
+              ></omnistudio-custom-lwc-wrapper>
+            </div>
+          </div>
+        </omnistudio-flex-card-state>
+      </template>
+    </template>
+    <template if:true={hasError}> {error} </template>
+
+    <omnistudio-action
+      action-wrapperclass="slds-hide"
+      re-render-flyout
+      class="action-trigger slds-col"
+      onupdateos={updateOmniscript}
+      onselectcards={updateSelectedCards}
+      onsetvalue={updateAction}
+      onfireactionevent={actionEvtHandler}
+    >
+    </omnistudio-action>
+
+    <omnistudio-action
+      class="execute-action"
+      re-render-flyout
+      action-wrapperclass="slds-hide"
+      onupdateos={updateOmniscript}
+      onselectcards={updateSelectedCards}
+      onsetvalue={updateAction}
+      onfireactionevent={actionEvtHandler}
+    >
+    </omnistudio-action>
+  </div>
+</template>

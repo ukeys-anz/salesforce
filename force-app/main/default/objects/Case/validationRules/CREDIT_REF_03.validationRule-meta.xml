@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CREDIT_REF_03</fullName>
+    <active>true</active>
+    <description>Credit Referral cases with the status of Closed-Approved/Closed-Declined can not be edited.</description>
+    <errorConditionFormula>AND(
+ NOT($Setup.Salesforce_Library_Settings__c.Disable_VRs__c),
+  RecordType.DeveloperName = &quot;Credit_Referral&quot;,
+  IsClosed 
+)</errorConditionFormula>
+    <errorMessage>You can&apos;t edit a case that has been closed.</errorMessage>
+</ValidationRule>
