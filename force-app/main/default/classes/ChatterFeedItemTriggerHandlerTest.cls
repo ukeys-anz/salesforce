@@ -331,8 +331,13 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
 
     testInteraction = TestDataFactory.createInteraction(
       GetHelpConstants.INTERACTION_STORE_RT_ID,
-      true
+      InteractionConstants.NONCUSTOMER,
+      'New Interaction',
+      System.now(),
+      false
     );
+    testInteraction.InteractionType = InteractionConstants.STORE;
+    insert testInteraction;
 
     return testInteraction;
   }

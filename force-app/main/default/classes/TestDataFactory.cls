@@ -469,35 +469,32 @@ public without sharing class TestDataFactory {
   /**
    * @description Create Interaction Record
    * @param recordTypeId recordTypeId of the interaction
+   * @param interactionPurpose recordTypeId of the interaction
+   * @param customerName recordTypeId of the interaction
+   * @param startTime recordTypeId of the interaction
    * @param doInsert Insert record or just initialise
    * @return Interaction
    */
   public static Interaction createInteraction(
     Id recordTypeId,
+    String interactionPurpose,
+    String customerName,
+    Datetime startTime,
     Boolean doInsert
   ) {
-    Interaction testInteraction = new Interaction();
-    testInteraction.RecordTypeId = recordTypeId;
-    testInteraction.Name = 'Test Interaction';
-    testInteraction.StartTime = System.now();
-
-    if (recordTypeId == GetHelpConstants.INTERACTION_GENERAL_RT_ID) {
-      testInteraction.Interaction_Purpose__c = InteractionConstants.NONCUSTOMER;
-      testInteraction.InteractionType = InteractionConstants.CALL;
-      testInteraction.Direction__c = InteractionConstants.INBOUND;
-    } else if (recordTypeId == GetHelpConstants.INTERACTION_MESSAGE_RT_ID) {
-      testInteraction.Interaction_Purpose__c = InteractionConstants.CUSTOMER;
-      testInteraction.InteractionType = InteractionConstants.CHAT;
-      testInteraction.Direction__c = InteractionConstants.INBOUND;
-    } else {
-      testInteraction.Interaction_Purpose__c = InteractionConstants.NONCUSTOMER;
-      testInteraction.InteractionType = InteractionConstants.STORE;
-    }
+    Faker faker = new Faker('AU');
+    Interaction newInteraction = new Interaction();
+    newInteraction.RecordTypeId = recordTypeId;
+    newInteraction.Name = String.isBlank(customerName)
+      ? faker.randomString(10)
+      : customerName;
+    newInteraction.StartTime = startTime == null ? System.now() : startTime;
+    newInteraction.Interaction_Purpose__c = interactionPurpose;
 
     if (doInsert) {
-      insert testInteraction;
+      insert newInteraction;
     }
 
-    return testInteraction;
+    return newInteraction;
   }
 }

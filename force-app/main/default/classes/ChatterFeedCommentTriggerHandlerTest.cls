@@ -170,8 +170,14 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
 
     testInteraction = TestDataFactory.createInteraction(
       GetHelpConstants.INTERACTION_STORE_RT_ID,
-      true
+      InteractionConstants.NONCUSTOMER,
+      'New Interaction',
+      System.now(),
+      false
     );
+    testInteraction.InteractionType = InteractionConstants.STORE;
+    insert testInteraction;
+
     FeedItem post = new FeedItem();
     post.ParentId = testInteraction.Id;
     post.Body = 'Test Post';
