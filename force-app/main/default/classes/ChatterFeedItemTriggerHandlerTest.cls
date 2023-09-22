@@ -7,6 +7,32 @@
 public with sharing class ChatterFeedItemTriggerHandlerTest {
   @testSetup
   static void setup() {
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    // Create coach user
+    System.runAs(TestDataFactory.thisUser) {
+      User coachUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'TestCoachUser',
+          'ProfileId' => stdUserProfile.Id,
+          'UserRoleId' => coachRole.Id
+        }
+      );
+      insert coachUser;
+      //Assign Permission set group as coach
+      PermissionSetGroup psgCoach = [
+        SELECT Id
+        FROM PermissionSetGroup
+        WHERE DeveloperName = 'Coach'
+        LIMIT 1
+      ];
+      Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = coachUser.Id,
+        PermissionSetGroupId = psgCoach.Id
+      );
+      insert psa;
+    }
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
     accnt.OCV_ID__c = '1';
@@ -235,5 +261,84 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       exceptionThrown,
       'Exception should be thrown if content exceeds 4000 bytes'
     );
+  }
+
+  @isTest
+  static void testInteractionFeedItemUpdateWithoutMasking() {
+    String valueToPost = '1234567344';
+    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
+    FeedItem post = new FeedItem();
+    Interaction testInteraction = new Interaction();
+
+    System.runAs(coachUser) {
+      Test.startTest();
+      testInteraction = createTestInteraction();
+      post.ParentId = testInteraction.Id;
+      post.Body = valueToPost;
+
+      //Creating Chatter Post for the Interaction record
+      insert post;
+      Test.stopTest();
+    }
+
+    FeedItem insertedPost = [
+      SELECT Id, Body
+      FROM FEEDITEM
+      WHERE ParentId = :testInteraction.Id
+    ];
+    // THEN the chatter should  be created withot the masking of the digit
+    System.assertEquals(
+      valueToPost,
+      insertedPost.Body,
+      'There will be no masking done for the feed item posted'
+    );
+  }
+
+  @isTest
+  static void testInteractionFeedItemUpdateWithMasking() {
+    String valueToPost = '1234567344738686386868';
+    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
+    FeedItem post = new FeedItem();
+    Interaction testInteraction = new Interaction();
+    System.runAs(coachUser) {
+      Test.startTest();
+      testInteraction = createTestInteraction();
+      post.ParentId = testInteraction.Id;
+      post.Body = valueToPost;
+
+      //Creating Chatter Post for the Interaction record
+      insert post;
+      Test.stopTest();
+    }
+    FeedItem insertedPost = [
+      SELECT Id, Body
+      FROM FEEDITEM
+      WHERE ParentId = :testInteraction.Id
+    ];
+    // THEN the chatter should  be created withot the masking of the digit
+    System.assertNotEquals(
+      valueToPost,
+      insertedPost.Body,
+      'There will be masking done for the feed item posted'
+    );
+  }
+  /**
+   * @description helper method to create interaction record
+   * @return Return Interaction Record
+   */
+  static Interaction createTestInteraction() {
+    Interaction testInteraction = new Interaction();
+
+    testInteraction = TestDataFactory.createInteraction(
+      GetHelpConstants.INTERACTION_STORE_RT_ID,
+      InteractionConstants.NONCUSTOMER,
+      'New Interaction',
+      System.now(),
+      false
+    );
+    testInteraction.InteractionType = InteractionConstants.STORE;
+    insert testInteraction;
+
+    return testInteraction;
   }
 }
