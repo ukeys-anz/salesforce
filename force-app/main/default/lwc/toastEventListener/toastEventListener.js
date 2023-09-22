@@ -1,10 +1,11 @@
 import { LightningElement } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import pubsub from "omnistudio/pubsub";
 
 export default class ToastEventListener extends LightningElement {
   message = "Sample Message";
   variant = "success";
-
+  timeoutId;
   connectedCallback() {
     window.addEventListener(
       "CustomToastEvent",
@@ -19,9 +20,14 @@ export default class ToastEventListener extends LightningElement {
         variant: event.detail.variant
       });
       this.dispatchEvent(evt);
-      /* eslint-disable no-eval */
-      eval("$A.get('e.force:refreshView').fire();");
+      clearTimeout(this.timeoutId);
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+      this.timeoutId = setTimeout(this.sendEventToFlexcard.bind(this), 3000);
     }
+  }
+
+  sendEventToFlexcard() {
+    pubsub.fire("ReloadChannel", "ReloadEvent", {});
   }
 
   disconnectedCallback() {
