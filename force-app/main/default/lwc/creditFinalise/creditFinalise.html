@@ -1,0 +1,84 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-quick-action-panel header="Finalise Assessment">
+    <template lwc:if={isLoading}>
+      <div class="slds-align_absolute-center" style="height: 4rem">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </template>
+    <template lwc:else>
+      <template lwc:if={isCaseLoaded}>
+        <!--Body block-->
+        <div class="slds-text-align_center">
+          <!-- Icon Block-->
+          <template lwc:if={showSuccessIcon}>
+            <lightning-icon
+              icon-name="utility:success"
+              variant="success"
+              class="slds-p-right_small"
+            >
+            </lightning-icon>
+          </template>
+          <template lwc:elseif={showErrorIcon}>
+            <lightning-icon
+              icon-name="utility:error"
+              variant="error"
+              class="slds-p-right_small"
+            >
+            </lightning-icon>
+          </template>
+
+          <!-- State Block -->
+          <template lwc:if={isAssessed}>
+            Assessment was successfully finalised and case will be closed.
+          </template>
+          <template lwc:elseif={unapprovedState}>
+            This credit referral case is currently being assessed. You can't
+            finalise the referral case until this has been completed.
+          </template>
+          <template lwc:elseif={creditReassess}>
+            The loan application has been updated and you must resubmit this
+            credit referral case for reassessment.
+          </template>
+          <template lwc:else>
+            <p>
+              Assessment outcome is
+              <span class={assessmentOutcome}>
+                <strong> {assessmentOutcome}</strong>
+              </span>
+            </p>
+            <br />
+            <p>
+              Are you sure you'd like to finalise this assessment and close this
+              case?
+            </p>
+          </template>
+        </div>
+
+        <!-- Footer block-->
+        <div slot="footer">
+          <lightning-button
+            variant="neutral"
+            label={closeBtnLabel}
+            onclick={handleCancel}
+          ></lightning-button>
+
+          <template lwc:if={showSubmitBtn}>
+            <lightning-button
+              variant="brand"
+              class="slds-m-left_x-small"
+              label="Confirm"
+              type="submit"
+              onclick={handleSubmit}
+            ></lightning-button>
+          </template>
+        </div>
+      </template>
+    </template>
+  </lightning-quick-action-panel>
+</template>

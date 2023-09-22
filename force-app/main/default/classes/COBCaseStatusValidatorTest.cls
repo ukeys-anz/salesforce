@@ -15,10 +15,7 @@ public with sharing class COBCaseStatusValidatorTest {
       assignRelatedPSs(testUsers);
 
       List<CustomerOnboardingApplication__c> cobApps = createCOBApp();
-
-      createIDOpsCases(cobApps);
-
-      createFraudCheckCases();
+      createCases(cobApps);
     }
   }
 
@@ -83,7 +80,7 @@ public with sharing class COBCaseStatusValidatorTest {
     return cobApps;
   }
 
-  private static void createIDOpsCases(
+  private static List<Case> createIDOpsCases(
     List<CustomerOnboardingApplication__c> cobApps
   ) {
     // Create ID Ops cases with COB Applications
@@ -104,11 +101,10 @@ public with sharing class COBCaseStatusValidatorTest {
     );
 
     idOpsCases.add(idOpsCase);
-
-    insert idOpsCases;
+    return idOpsCases;
   }
 
-  private static void createFraudCheckCases() {
+  private static List<Case> createFraudCheckCases() {
     // Create Fraud Check cases
     List<Case> cobFraudCheckCases = new List<Case>();
     List<String> caseStatus = new List<String>{
@@ -123,8 +119,18 @@ public with sharing class COBCaseStatusValidatorTest {
       );
       cobFraudCheckCases.add(fraudCheckCase);
     }
+    return cobFraudCheckCases;
+  }
 
-    insert cobFraudCheckCases;
+  private static void createCases(
+    List<CustomerOnboardingApplication__c> cobApps
+  ) {
+    List<Case> newCases = new List<Case>();
+    List<Case> fraudCases = createFraudCheckCases();
+    List<Case> idOpsCases = createIDOpsCases(cobApps);
+    newCases.addAll(fraudCases);
+    newCases.addAll(idOpsCases);
+    insert newCases;
   }
 
   private static Case createCobCase(String status, String recordTypeId) {

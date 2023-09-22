@@ -6,6 +6,7 @@ import { NavigationMixin } from "lightning/navigation";
 import { publish, MessageContext } from "lightning/messageService";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
+import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import TIME_ZONE from "@salesforce/i18n/timeZone";
 
@@ -364,7 +365,8 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     if (
       row.Status__c !== "Closed & Archived" &&
       row.Status__c !== "Active" &&
-      row.Status__c !== "Resolved"
+      row.Status__c !== "Resolved" &&
+      hasOutboundChatPermission
     ) {
       actions = [
         { label: "Reply To Customer", name: "ReplyToCustomer" },
