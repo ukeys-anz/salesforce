@@ -11,70 +11,26 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Name</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Status</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Loan_Type__c</field>
+                <field>ApplicationExtIdentifier</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Loan_Purpose__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Main_Goal__c</field>
+                <behavior>Readonly</behavior>
+                <field>Loan_Term__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Collateral_Assessment_ID__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Max_Allowable_LVR_Basis_Points__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Collateral_Assessment_Expiry_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Collateral_Assessment_Outcome__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Settlement_ID__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Version__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>External_Id__c</field>
+                <field>Joint__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>AccountId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Assessment_Outcome__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>First_Home__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Owner_Occupied__c</field>
+                <field>Status</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -82,18 +38,49 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Created_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Last_Updated_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Expiry_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Credit_ID__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Credit_Version__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Package_Code__c</field>
+                <field>Settlement_ID__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Needs Assessment</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Needs_Assessment_Unsuitability_Reasons__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Needs_Assessment_Created_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Needs_Assessment_Last_Updated_Date__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -134,35 +121,59 @@
     </platformActionList>
     <relatedLists>
         <fields>Name</fields>
-        <fields>Account__c</fields>
-        <fields>Primary_Borrower__c</fields>
+        <fields>OCV_Id__c</fields>
         <relatedList>LoanApplicants</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
         <fields>SOP_ID__c</fields>
-        <fields>Guarantor__c</fields>
         <relatedList>Loan_Applicant_Group__c.Residential_Loan_Application__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Assessment_Response__c</fields>
+        <fields>Completed_By__c</fields>
+        <relatedList>Assessment_Response__c.Loan_Application__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>Name</fields>
-        <fields>Balance__c</fields>
+        <fields>Product_Name__c</fields>
+        <fields>LoanExclFinMortInsAmt</fields>
+        <relatedList>LoanApplicationFinancial</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>UnpaidBalanceAmount</fields>
         <relatedList>LoanApplicationLiabilities</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
-        <fields>Property_Value__c</fields>
+        <fields>PropertyValue</fields>
         <relatedList>LoanApplicationProperty</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>Name</fields>
+        <fields>LoanApplicant</fields>
+        <fields>Component_Type__c</fields>
+        <fields>Confirmation_Date__c</fields>
+        <relatedList>LoanApplicantDeclarations</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>NAME</fields>
-        <relatedList>Product_Preference__c.Residential_Loan_Application__c</relatedList>
+        <fields>Invitation_Status__c</fields>
+        <fields>Inviter_Legal_name__c</fields>
+        <relatedList>Loan_Invitation__c.Loan_Application__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Change_Type__c</fields>
+        <relatedList>Material_Change__c.Loan_Application__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000003UVHY</masterLabel>
+        <masterLabel>00h8r000002ROM9</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

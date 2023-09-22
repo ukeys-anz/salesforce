@@ -49,22 +49,6 @@ public without sharing class IDRTaskActions {
       AND Type = :IDRConstants.QUEUE_TYPE
   ];
 
-  public static Group stopQueue = [
-    SELECT Id
-    FROM Group
-    WHERE
-      DeveloperName = :STOP_COLLECTIONS_QUEUE_NAME
-      AND Type = :IDRCaseActions.QUEUE_TYPE
-  ];
-
-  public static Group startQueue = [
-    SELECT Id
-    FROM Group
-    WHERE
-      DeveloperName = :START_COLLECTIONS_QUEUE_NAME
-      AND Type = :IDRCaseActions.QUEUE_TYPE
-  ];
-
   public static Boolean siSystemDeletingAutoGenTask = false;
 
   /**
@@ -157,6 +141,22 @@ public without sharing class IDRTaskActions {
    * @param records The Task record list.
    */
   public static void assignToCollectionsQueue(List<Task> records) {
+    Group stopQueue = [
+      SELECT Id
+      FROM Group
+      WHERE
+        DeveloperName = :STOP_COLLECTIONS_QUEUE_NAME
+        AND Type = :IDRCaseActions.QUEUE_TYPE
+    ];
+
+    Group startQueue = [
+      SELECT Id
+      FROM Group
+      WHERE
+        DeveloperName = :START_COLLECTIONS_QUEUE_NAME
+        AND Type = :IDRCaseActions.QUEUE_TYPE
+    ];
+
     for (Task record : records) {
       if (
         record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&

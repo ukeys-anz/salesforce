@@ -5,7 +5,6 @@
     <caseSensitive>false</caseSensitive>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Loan Domain</complianceGroup>
     <description>Id of the Credit Assessment</description>
-    <encryptionScheme>None</encryptionScheme>
     <externalId>true</externalId>
     <label>Credit Id</label>
     <length>255</length>

@@ -83,6 +83,22 @@ public class SOPDebt {
   public String updatedBy;
   public SOPMoney originalOutstandingBalance;
   public SOPMoney outstandingBalance;
+
+  /**
+   * @description check if outstandingBalance has a positive or a negative value
+   */
+  public Boolean isBalanceNegative {
+    get {
+      if (
+        type == ResidentialLoanApplicationModel.OVERDRAFT &&
+        Integer.valueof(outstandingBalance?.units) < 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
   /**
    * @description return the transformed value of outstandingbalance based on its value from payload
    */
@@ -107,6 +123,20 @@ public class SOPDebt {
         return this.ownership[0].ownerName;
       }
       return ResidentialLoanApplicationModel.JOINT_ACCOUNT;
+    }
+  }
+
+  /**
+   * @description return the paymentType
+   */
+  public string paymentType {
+    get {
+      if (this.debtType == ResidentialLoanApplicationModel.BNPL_FACILITY) {
+        return ResidentialLoanApplicationModel.BNPL_FACILITY_TYPE;
+      } else if (this.debtType == ResidentialLoanApplicationModel.BNPL_LOAN) {
+        return ResidentialLoanApplicationModel.BNPL_LOAN_TYPE;
+      }
+      return '';
     }
   }
 }

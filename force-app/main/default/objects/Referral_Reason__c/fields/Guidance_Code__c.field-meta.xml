@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>Codes to guide assessor on actions to take to resolve the referral</description>
-    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Guidance Code</label>
     <length>20</length>

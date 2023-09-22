@@ -18,6 +18,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static Map<String, Account> partyIdToAccountMap;
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
   public List<SOPExpenseNode> expenseNodes;
+  public static String currentSopId;
   public Map<String, SOPExpense> expenseMap;
   public static final String OVERTIME_INCOME = 'INCOME_TYPE_OVERTIME';
   public static final String BASE_INCOME = 'INCOME_TYPE_BASE_SALARY';
@@ -52,6 +53,15 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String LEASE_HIRE_PURCHASE_TYPE = 'Lease Hire Purchase';
   public static final String LEASE_HIRE_PURCHASE_LABEL = 'Lease/Hire Purchase';
   public static final String CREDIT_CARD_UI_MESSAGE = 'To be provided';
+  public static final String OVERDRAFT = 'LIABILITY_TYPE_OVERDRAFT';
+
+  //BNPL
+  public static final String BNPL_FACILITY = 'Bpl Facility';
+  public static final String BNPL_FACILITY_TYPE = 'Spend Limit';
+  public static final String BNPL_LOAN = 'Bpl Loan';
+  public static final String BNPL_LOAN_TYPE = 'Fixed Amount';
+
+  public Boolean showAddIncomeBtn;
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
@@ -62,6 +72,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
   }
 
+  /**
+   * @description return the liability source size attribute to display finance and savings flexcard.
+   */
+  public Integer liabilitySourceSize {
+    get {
+      return null;
+    }
+  }
   /**
    * @description initialize the maps
    */
@@ -116,6 +134,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         accOcvMap.get(partyToOcvMap.get(partyId))
       );
     }
+    ResidentialLoanApplicationModel.currentSopId = this.sop.name; // keep the sop Id for later usage
   }
 
   /**
@@ -198,25 +217,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public class SOPDebtSummary {
     public List<SOPDebt> liabilities;
-    /**
-     * @description returns liabilities with closed filtered out
-     */
-    public List<SOPDebt> openLiabilities {
-      get {
-        if (openLiabilities != null) {
-          return openLiabilities;
-        }
-        openLiabilities = new List<SOPDebt>();
-        for (SOPDebt liability : liabilities) {
-          if (liability.account.status != 'ACCOUNT_STATE_CLOSED') {
-            openLiabilities.add(liability);
-          }
-        }
-        return openLiabilities;
-      }
-      private set;
-    }
-
     public SOPMoney liabilitiesTotalAmount;
   }
 
@@ -400,25 +400,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
     public List<SOPAsset> assets;
-    /**
-     * @description returns assets with closed filtered out
-     */
-    public List<SOPAsset> openAssets {
-      get {
-        if (openAssets != null) {
-          return openAssets;
-        }
-        openAssets = new List<SOPAsset>();
-        for (SOPAsset asset : assets) {
-          if (asset.account.status != 'ACCOUNT_STATE_CLOSED') {
-            openAssets.add(asset);
-          }
-        }
-        return openAssets;
-      }
-      private set;
-    }
-
     public SOPMoney assetsTotalAmount;
     public SOPMoney savingsTotalAmount;
   }
@@ -436,6 +417,82 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public class SOPModel {
     public List<SOPParty> parties;
+    public String name;
+
+    /**
+     * @description sop id of the whole payload
+     */
+    public String sopId {
+      get {
+        return this.name;
+      }
+    }
+
+    /**
+     * @description returns party's size
+     */
+    public Integer partySize {
+      get {
+        return this.parties.size();
+      }
+    }
+
+    /**
+     * @description returns first user first name
+     */
+    public String firstUser {
+      get {
+        Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          parties[0].id
+        );
+        if (act != null) {
+          return act.FirstName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description returns first user's party id
+     */
+    public String firstUserPartyId {
+      get {
+        return parties[0].id;
+      }
+    }
+
+    /**
+     * @description returns second user's first name
+     */
+    public String secondUser {
+      get {
+        if (partySize < 2) {
+          return null;
+        }
+        Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          parties[1].id
+        );
+        if (act != null) {
+          return act.FirstName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description returns second user's party id
+     */
+    public String secondUserPartyId {
+      get {
+        if (partySize < 2) {
+          return null;
+        }
+        return parties[1].id;
+      }
+    }
+    public List<SOPLiabilitySources> liabilitySources;
   }
 
   /**
@@ -447,15 +504,134 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   }
 
   /**
+   * @description model for liabilitySources
+   */
+  public class SOPLiabilitySources {
+    public String type;
+    public String subType;
+    public Datetime retrievedTime;
+    public Boolean success;
+    public String partyId;
+  }
+
+  /**
    * @description Income class for the income node
    */
   public class SOPIncome implements Comparable {
     public String id;
     public String sopId;
+    public String uid;
     public List<SOPIncomeDetail> details;
     public SOPEmployment employment;
     public string employmentId;
-    public string updateTime;
+    public Datetime updateTime;
+    public String etag;
+    public String name;
+    public Boolean showEditIncomeBtn;
+    public Boolean allowdelete;
+
+    /**
+     * @description cache the party list
+     */
+    public List<String> parties {
+      get {
+        if (parties == null) {
+          parties = new List<String>();
+          for (
+            String partyId : ResidentialLoanApplicationModel.partyIdToAccountMap.keySet()
+          ) {
+            parties.add(partyId);
+          }
+        }
+
+        return parties;
+      }
+      set {
+      }
+    }
+
+    /**
+     * @description sop id of the whole payload
+     */
+    public String curSopId {
+      get {
+        return ResidentialLoanApplicationModel.currentSopId;
+      }
+    }
+
+    /**
+     * @description returns party's size
+     */
+    public Integer partySize {
+      get {
+        return this.parties.size();
+      }
+    }
+
+    /**
+     * @description returns first user first name
+     */
+    public String firstUser {
+      get {
+        Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          parties[0]
+        );
+        if (act != null) {
+          return act.FirstName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description returns first user's party id
+     */
+    public String firstUserPartyId {
+      get {
+        return parties[0];
+      }
+    }
+
+    /**
+     * @description returns second user's first name
+     */
+    public String secondUser {
+      get {
+        if (partySize < 2) {
+          return null;
+        }
+        Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          parties[1]
+        );
+        if (act != null) {
+          return act.FirstName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description returns second user's party id
+     */
+    public String secondUserPartyId {
+      get {
+        if (partySize < 2) {
+          return null;
+        }
+        return parties[1];
+      }
+    }
+
+    /**
+     * @description return update time in the expected format
+     */
+    public String updateTimeStr {
+      get {
+        return BOHService.getFormatedDate(updateTime);
+      }
+    }
     public SOPverification verification;
     /**
      * @description ownerName for the income card
@@ -501,6 +677,35 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
             employment.startDate.month +
             '-' +
             employment.startDate.day;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description startdate for update income card
+     */
+    public String inputStartDate {
+      get {
+        if (employment?.startDate != null) {
+          String formattedMonth = employment.startDate.month;
+          String formattedDay = employment.startDate.day;
+          // Add leading zero if month is a single digit
+          if (formattedMonth.length() == 1) {
+            formattedMonth = '0' + formattedMonth;
+          }
+
+          // Add leading zero if day is a single digit
+          if (formattedDay.length() == 1) {
+            formattedDay = '0' + formattedDay;
+          }
+
+          return formattedMonth +
+            '-' +
+            formattedDay +
+            '-' +
+            employment.startDate.year;
         } else {
           return null;
         }
@@ -597,6 +802,33 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
 
     /**
+     * @description whether we show overtime section at first place in uupdate dialog
+     */
+    public Boolean showOvertime {
+      get {
+        return (overTimeIncome != null);
+      }
+    }
+
+    /**
+     * @description whether we show commission section at first place in uupdate dialog
+     */
+    public Boolean showCommission {
+      get {
+        return (commissionIncome != null);
+      }
+    }
+
+    /**
+     * @description whether we show bonus section at first place in uupdate dialog
+     */
+    public Boolean showBonus {
+      get {
+        return (bonusIncome != null);
+      }
+    }
+
+    /**
      * @description compareTo attribute to compare the base income
      * @param compareTo input object
      * @return Integer result which one is greater
@@ -627,9 +859,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           this.verification != null &&
           this.verification.method == ASSET_TYPE_VERIFICATION
         ) {
-          return 'Y';
+          return Y;
         } else {
-          return 'N';
+          return N;
         }
       }
     }
@@ -641,7 +873,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPIncomeDetail {
     public String id;
     public String type;
+    public String frequency;
+    public Integer bonusPayments;
     /**
+     *
      * @description income Type
      */
     public String incomeType {
@@ -659,7 +894,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description frequency
      */
-    public String frequency {
+    public String readableFrequency {
       get {
         if (this.frequency != null) {
           String result = '';
@@ -683,6 +918,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
       }
     }
+
     public SOPMoney amount;
     public String amountType;
   }
