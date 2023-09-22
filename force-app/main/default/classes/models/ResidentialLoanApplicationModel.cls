@@ -38,7 +38,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String SAVINGS_ANZ_PLUS = 'ANZ Plus';
   public static final String ASSET_TYPE_CASH = 'ASSET_TYPE_CASH';
   public static final String ASSET_TYPE_PROPERTY = 'ASSET_TYPE_PROPERTY';
-  public static final String ASSET_TYPE_VERIFICATION = 'VERIFICATION_METHOD_UNSPECIFIED';
+  public static final String ASSET_TYPE_VERIFICATION = 'VERIFICATION_METHOD_DOCUMENT';
   public static final String INCOME_GROSS = 'INCOME_AMOUNT_TYPE_GROSS';
   public static final String INCOME_NET = 'INCOME_AMOUNT_TYPE_NET';
   public static final String Y = 'Yes';
@@ -493,6 +493,20 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
     public List<SOPLiabilitySources> liabilitySources;
+
+    /**
+     * @description returns consent as a party
+     */
+    public Boolean allPartiesConsented {
+      get {
+        for (SOPParty sop : this.parties) {
+          if (sop.confirmedAccountsTime == null) {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
   }
 
   /**
@@ -501,6 +515,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPParty {
     public String id;
     public String ocvId;
+    public DateTime confirmedAccountsTime;
   }
 
   /**

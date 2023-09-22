@@ -86,7 +86,7 @@
         "ocvId": "1000991493",
         "spouseEarnsIncome": false,
         "relationshipState": "RELATIONSHIP_STATE_UNSPECIFIED",
-        "confirmedAccountsTime": null,
+        "confirmedAccountsTime": "2023-05-04T07:31:38.700353Z",
         "multipleProfiles": false,
         "personaId": ""
       },
@@ -95,7 +95,7 @@
         "ocvId": "276543221",
         "spouseEarnsIncome": false,
         "relationshipState": "RELATIONSHIP_STATE_UNSPECIFIED",
-        "confirmedAccountsTime": null,
+        "confirmedAccountsTime": "2023-05-04T07:31:38.700353Z",
         "multipleProfiles": false,
         "personaId": ""
       }
