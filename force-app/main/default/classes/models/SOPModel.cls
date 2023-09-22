@@ -33,7 +33,7 @@ public with sharing class SOPModel extends CalloutModel {
   public boolean confirmationFlag {
     get {
       for (Parties party : parties) {
-        if (party.confirmedAccounts == null) {
+        if (party.confirmedAccountsTime == null) {
           return false;
         }
       }
@@ -86,18 +86,18 @@ public with sharing class SOPModel extends CalloutModel {
         return relationship;
       }
     }
-    public Datetime confirmedAccounts;
+    public Datetime confirmedAccountsTime;
     /**
-     * @param confirmedAccounts input in dateTime format
+     * @param confirmedAccountsTime input in dateTime format
      * @return returns the formatted value for date and time
      * @description formats the value for date and time
      */
     public String confirmedAccountsTimeStr {
       get {
-        if (confirmedAccounts == null) {
+        if (confirmedAccountsTime == null) {
           return NOT_CONFIRMED;
         } else {
-          return CONFIRMED + BOHService.getFormatedDate(confirmedAccounts);
+          return CONFIRMED + BOHService.getFormatedDate(confirmedAccountsTime);
         }
       }
     }
