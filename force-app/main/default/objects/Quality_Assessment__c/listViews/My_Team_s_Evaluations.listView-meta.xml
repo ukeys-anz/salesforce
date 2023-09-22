@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>My_Team_s_Evaluations</fullName>
-    <booleanFilter>(1 AND 2 AND 4) OR (1 AND 3)</booleanFilter>
+    <booleanFilter>((1 OR 2 )AND 4) OR (1 AND 3)</booleanFilter>
     <columns>NAME</columns>
     <columns>Related_Case__c</columns>
     <columns>Customer__c</columns>
