@@ -22,25 +22,37 @@ public with sharing class ChatterFeedItemActions {
     List<Id> interactionaIdList = new List<Id>();
 
     Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
+    Map<Id, Case> relatedCaseMap = new Map<Id, Case>();
+    Map<Id, Account> relatedAccMap = new Map<Id, Account>();
 
     for (FeedItem record : records) {
       if (record.parentId != null) {
-        parentIdList.add(record.parentId);
         if (record.parentId.getSObjectType() == Interaction.sObjectType) {
           interactionaIdList.add(record.parentId);
+        } else {
+          parentIdList.add(record.parentId);
         }
       }
     }
-    Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
-      [
-        SELECT Id, CaseNumber, RecordTypeId, Origin
-        FROM Case
-        WHERE Id IN :parentIdList
-      ]
-    );
-    Map<Id, Account> relatedAccMap = new Map<Id, Account>(
-      [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
-    );
+
+    // Firing SOQL query only when parentIdList is notEmpty(), but not changing this code much as this is existing logic.
+    if (!parentIdList.isEmpty()) {
+      relatedCaseMap = new Map<Id, Case>(
+        [
+          SELECT Id, CaseNumber, RecordTypeId, Origin
+          FROM Case
+          WHERE Id IN :parentIdList
+        ]
+      );
+
+      relatedAccMap = new Map<Id, Account>(
+        [
+          SELECT Id, Name, ANZx_Customer__c
+          FROM Account
+          WHERE Id IN :parentIdList
+        ]
+      );
+    }
 
     //Filtering Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call Interaction recordtypeids.
     if (!interactionaIdList.isEmpty()) {
