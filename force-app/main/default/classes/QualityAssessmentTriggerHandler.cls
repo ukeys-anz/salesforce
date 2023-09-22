@@ -22,6 +22,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeInsert() {
     QualityAssessmentActions.populateFieldsBeforeTrigger(records, null);
+    IDRQualityAssessmentActions.autoCalculateScore(records);
     QualityAssessmentActions.validateRelatedCase(records, null);
   }
 
@@ -83,6 +84,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    IDRQualityAssessmentActions.autoCalculateScore(records);
     QualityAssessmentActions.validateRelatedCase(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
