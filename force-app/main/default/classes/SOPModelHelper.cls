@@ -31,11 +31,6 @@ public with sharing class SOPModelHelper {
     for (SOPModel.Parties party : sop.parties) {
       party.ownerName = ocvIdToNameMap.get(party.ocvId);
     }
-    for (SOPModel.PartyLiability partylib : sop.partyLiabilities) {
-      partylib.ownerName = ocvIdToNameMap.get(
-        partyIdToOcvIdMap.get(partylib.partyId)
-      );
-    }
   }
 
   /**
