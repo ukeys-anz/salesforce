@@ -70,6 +70,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
+    System.enqueueJob(new QueueCaseMilestoneTargetDate(records));
     Logger.debug('On_After_Insert finished: ' + System.now());
     Logger.saveLog();
   }
