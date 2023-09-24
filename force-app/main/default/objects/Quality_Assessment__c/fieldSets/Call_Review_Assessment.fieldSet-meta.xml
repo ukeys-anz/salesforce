@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Call_Review_Assesment</fullName>
+    <fullName>Call_Review_Assessment</fullName>
     <description>For Calculating Case Manager Score % and Business Score %</description>
     <displayedFields>
         <field>Customer_correctly_identified__c</field>
