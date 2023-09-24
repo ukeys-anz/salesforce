@@ -46,6 +46,7 @@
     </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
+        <logo>ANZx</logo>
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
