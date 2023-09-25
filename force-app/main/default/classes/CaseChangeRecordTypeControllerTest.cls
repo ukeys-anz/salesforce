@@ -45,6 +45,7 @@ public with sharing class CaseChangeRecordTypeControllerTest {
     oldRecord.Priority = 'Standard';
     oldRecord.Type = CommonUtil.getSinglePicklistValue(Case.Type, 'Other');
     oldRecord.ANZx_Customer__c = true;
+    oldRecord.IDR_Product_Category__c = 'Not product related';
     caseList.add(oldRecord);
 
     insert caseList;

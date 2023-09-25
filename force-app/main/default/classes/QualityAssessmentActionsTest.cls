@@ -162,4 +162,88 @@ private class QualityAssessmentActionsTest {
       'Passing Store into calculateInteractionType method should return Store.'
     );
   }
+  //method to test autoCalculateScore
+  @isTest
+  private static void testCaseManagerScoreAndBusinessScore() {
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole cqRole = CommonUtil.getUserRoleByDevName(
+      'Capability_Quality_C_Q_Team'
+    );
+
+    // Create QA user
+    User oQAUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'QA_User',
+        'ProfileId' => stdUserProfile.Id,
+        'UserRoleId' => cqRole.Id
+      }
+    );
+    insert oQAUser;
+    // Add IDR User permissions on test users
+    PermissionSet ps = CommonUtil.getPermissionSetByName('IDR_User');
+    insert TestUtil.createPSAssignment(oQAUser.Id, ps.Id);
+
+    System.runAs(oQAUser) {
+      Test.startTest();
+
+      Case caseRecord = new Case(
+        RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+        IDR_Customer_Number__c = '1234567890',
+        Status = 'Closed'
+      );
+
+      insert caseRecord;
+
+      Quality_Assessment__c qaRecord = new Quality_Assessment__c(
+        RecordTypeId = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+          .get('C_Q_Assessment')
+          .getRecordTypeId(),
+        Related_Case__c = caseRecord.Id,
+        Evaluation_type__c = 'C & Q Assessment',
+        Status__c = 'Complete'
+      );
+
+      Schema.FieldSet fieldSetObj = Schema.SObjectType.Quality_Assessment__c.FieldSets.getMap()
+        .get('C_Q_Assessment');
+      for (Schema.FieldSetMember field : fieldSetObj.getFields()) {
+        ((Sobject) qaRecord).put(field.getFieldPath(), '');
+      }
+
+      insert qaRecord;
+
+      qaRecord = new Quality_Assessment__c(
+        RecordTypeId = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+          .get('Call_Letter_Review_Assessment')
+          .getRecordTypeId(),
+        Related_Case__c = caseRecord.Id,
+        Evaluation_type__c = 'Call Review Assessment',
+        Status__c = 'Complete'
+      );
+
+      fieldSetObj = Schema.SObjectType.Quality_Assessment__c.FieldSets.getMap()
+        .get('Call_Review_Assessment');
+      for (Schema.FieldSetMember field : fieldSetObj.getFields()) {
+        ((Sobject) qaRecord).put(field.getFieldPath(), 'Yes');
+      }
+
+      insert qaRecord;
+
+      Test.stopTest();
+      qaRecord = [
+        SELECT Id, Case_Manager_Score__c, Business_Score__c
+        FROM Quality_Assessment__c
+        WHERE Id = :qaRecord.Id
+      ];
+      System.assertEquals(
+        qaRecord.Case_Manager_Score__c,
+        100,
+        'Case Manager Score Mismatch'
+      );
+      System.assertEquals(
+        qaRecord.Business_Score__c,
+        null,
+        'Business Score Mismatch'
+      );
+    }
+  }
 }

@@ -63,6 +63,18 @@
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User CRP Leadership</label>
+    <recordTypeVisibilities>
+        <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Quality_Assessment__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <userPermissions>
         <name>CreateCustomizeFilters</name>
         <enabled>true</enabled>

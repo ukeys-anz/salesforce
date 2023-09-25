@@ -3,6 +3,14 @@
     <fullName>General_Comment_Validation</fullName>
     <active>true</active>
     <description>General comment should not be empty if the sub status is evaluation completed</description>
-    <errorConditionFormula>ISPICKVAL(Sub_Status__c, &quot;Evaluation completed&quot;) &amp;&amp;  LEN(Context_and_General_Comments__c ) = 0</errorConditionFormula>
+    <errorConditionFormula>AND(
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  OR(
+    RecordType.DeveloperName = &apos;General&apos;,
+    RecordType.DeveloperName = &apos;Get_Help&apos;,
+    RecordType.DeveloperName = &apos;Join&apos;),
+  ISPICKVAL(Sub_Status__c, &quot;Evaluation completed&quot;), 
+  LEN(Context_and_General_Comments__c ) = 0
+)</errorConditionFormula>
     <errorMessage>Please add context or general comments</errorMessage>
 </ValidationRule>
