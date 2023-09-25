@@ -5,22 +5,24 @@
         <visible>true</visible>
     </applicationVisibilities>
     <description>Permission set for Mulesoft to extract complaints on behalf of EDW. Read only access to all cases, view only the fields in use for Complaint Mgt.</description>
-    <hasActivationRequired>false</hasActivationRequired>
-    <label>IDR EDW Integration</label>
-    <license>Salesforce</license>
     <fieldPermissions>
         <editable>false</editable>
-         <field>Case.IDR_Collection_Number__c</field>
+        <field>Case.IDR_Collection_Number_2__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-         <field>Case.IDR_Collection_Number_2__c</field>
+        <field>Case.IDR_Collection_Number_3__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-         <field>Case.IDR_Collection_Number_3__c</field>
+        <field>Case.IDR_Collection_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Event.IDR_Collection_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -33,6 +35,9 @@
         <field>User.Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>IDR EDW Integration</label>
+    <license>Salesforce</license>
     <tabSettings>
         <tab>standard-Case</tab>
         <visibility>Visible</visibility>
@@ -42,19 +47,71 @@
         <visibility>Available</visibility>
     </tabSettings>
     <userPermissions>
+        <name>AssignPermissionSets</name>
         <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>DataExport</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <name>DelegatedTwoFactor</name>
         <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>ExportReport</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <name>ManageInternalUsers</name>
         <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageIpAddresses</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageLoginAccessPolicies</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePasswordPolicies</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageProfilesPermissionsets</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageRoles</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSharing</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageUsers</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ResetPasswords</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>RunReports</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <name>ViewAllUsers</name>
         <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>ViewRoles</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewSetup</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

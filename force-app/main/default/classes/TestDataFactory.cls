@@ -41,6 +41,33 @@ public without sharing class TestDataFactory {
   }
 
   /**
+   * @description Create Person Account record
+   *    * @param ocvId OCV Id of the customer
+   * @param doInsert Insert record or just initialise
+   * @return Person Account
+   */
+  public static Account createPersonAccount(String ocvId, Boolean doInsert) {
+    Faker faker = new Faker('AU');
+    Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('PersonAccount')
+      .getRecordTypeId();
+    Account personAcc = new Account();
+    personAcc.RecordTypeId = personAccountRecordTypeId;
+    personAcc.FirstName = faker.randomString(5);
+    personAcc.LastName = faker.randomString(5);
+    personAcc.OCV_ID__c = String.isNotBlank(ocvId)
+      ? ocvId
+      : faker.randomString(10);
+    personAcc.ANZx_Customer__c = true;
+    personAcc.External_Id__c = faker.randomString(15);
+    if (doInsert) {
+      insert personAcc;
+    }
+
+    return personAcc;
+  }
+
+  /**
    * @description Create Financial Account record
    * @param count Number of records to create
    * @param doInsert Insert record or just initialise
@@ -113,11 +140,15 @@ public without sharing class TestDataFactory {
       when 'NPP_Dispute' {
         newCase = createNPPDisputeCase();
       }
+      when 'Credit_Referral' {
+        newCase = createCreditReferralCase();
+      }
     }
     newCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
       .get(recordTypeDeveloperName)
       .getRecordTypeId();
-    newCase.Dispute_Reason__c = getDisputeReason(recordTypeDeveloperName)[0];
+    List<String> listDispute = getDisputeReason(recordTypeDeveloperName);
+    newCase.Dispute_Reason__c = listDispute == null ? '' : listDispute[0];
     return newCase;
   }
 
@@ -194,6 +225,20 @@ public without sharing class TestDataFactory {
   }
 
   /**
+   * @description Create Case record with fields relevant to Credit_Referral
+   * @return Case
+   */
+  public static Case createCreditReferralCase() {
+    Case theCase = new Case();
+    theCase.Description = 'Credit Referral Case Description Test_Text_32k';
+    theCase.Status = 'Open';
+    theCase.Origin = 'ANZ Plus App';
+    theCase.Transaction_Id__c = 'Transaction Id Test_DD_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_DD_Text_255';
+    return theCase;
+  }
+
+  /**
    * @description Create Case record with fields relevant to Direct_Entry_Dispute
    * @return Case
    */
@@ -242,9 +287,7 @@ public without sharing class TestDataFactory {
       'ATM_Dispute' => new List<String>{
         'Duplicate Transaction',
         'Unauthorised Transaction',
-        'Cash Dispensing Error',
-        'Cash Deposit Error',
-        'Cheque Deposit Error'
+        'Cash Dispensing Error'
       },
       'BPAY_Dispute' => new List<String>{
         'Duplicate Transaction',
@@ -398,5 +441,26 @@ public without sharing class TestDataFactory {
    */
   public static FinServ__FinancialAccount__c createTestFinAccountForDisputeCases() {
     return createTestFinAccountForDisputeCases('0');
+  }
+
+  /**
+   * @description create the Loan Application Records
+   * @param suffix String
+   * @return ResidentialLoanApplication
+   */
+  public static ResidentialLoanApplication createTestResidentialLoanApplication(
+    String suffix
+  ) {
+    return new ResidentialLoanApplication(
+      Name = 'Test Loan Application ' + suffix
+    );
+  }
+
+  /**
+   * @description create a ResidentialLoanApplication Record
+   * @return ResidentialLoanApplication
+   */
+  public static ResidentialLoanApplication createTestResidentialLoanApplication() {
+    return createTestResidentialLoanApplication('0');
   }
 }

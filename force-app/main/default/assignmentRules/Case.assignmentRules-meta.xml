@@ -61,24 +61,6 @@
             </formula>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>Support_Coach_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
-            AND(
-                OR(
-                    ISNEW(),
-                    ISCHANGED(Submitted__c)
-                    )
-                &amp;&amp; Submitted__c = true,
-                RecordType.DeveloperName = &quot;ATM_Dispute&quot;,
-                OR( 
-                    (ISPICKVAL(Dispute_Reason__c, &quot;Cash Deposit Error&quot;)),
-                    (ISPICKVAL(Dispute_Reason__c, &quot;Cheque Deposit Error&quot;))
-                    )
-            )
-            </formula>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>Card_Dispute_General_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
@@ -152,6 +134,20 @@
         </ruleEntry>
         <ruleEntry>
             <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;)</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>No_CAD_Credit_Referral_Case_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>
+                AND(ISNEW(), RecordType.DeveloperName = &quot;Credit_Referral&quot;, Case_Authority_Level__c = &quot;NO CAD&quot;)
+            </formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>CAD_Credit_Referral_Case_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>
+                AND(ISNEW(), RecordType.DeveloperName = &quot;Credit_Referral&quot;, Case_Authority_Level__c != &quot;NO CAD&quot;)
+            </formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

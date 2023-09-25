@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LocationId</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Source_OCV;Privacy_Personal_Information</complianceGroup>
+    <description>ID of the Location associated with the entitlement. Must be a valid location ID.</description>
+    <securityClassification>Confidential</securityClassification>
+</CustomField>

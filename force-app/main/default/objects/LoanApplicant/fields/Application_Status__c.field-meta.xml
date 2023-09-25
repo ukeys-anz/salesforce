@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Status of loan application</description>
+    <externalId>false</externalId>
+    <formula>CASE(LoanApplication.Status,
+    &quot;STATE_UNSPECIFIED&quot; , &quot;Unspecified&quot;,
+    &quot;STATE_CAPTURE&quot;,&quot;Capture&quot;,
+    &quot;STATE_APPROVED&quot;,&quot;Approved&quot;,
+    &quot;STATE_DECLINED&quot;,&quot;Declined&quot;,
+    &quot;STATE_REFERRED&quot;,&quot;Referred&quot;,
+    &quot;STATE_COMPLETED&quot;,&quot;Completed&quot;,
+    &quot;STATE_CANCELLED&quot;,&quot;Cancelled&quot;,
+    &quot;STATE_EXPIRED&quot;,&quot;Expired&quot;,
+    &quot;STATE_SUBMITTED&quot;,&quot;Submitted&quot;,
+    &quot;STATE_CONFIRMED&quot;,&quot;Confirmed&quot;,
+    &quot;STATE_INELIGIBLE&quot;,&quot;Ineligible&quot;,
+    &quot;STATE_SETTLEMENT_INITATED&quot;,&quot;Settlement Initiated&quot;,
+TEXT(LoanApplication.Status))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Application Status</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Available__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <defaultValue>true</defaultValue>
+    <description>To define that the mapping is valid or not</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Available</label>
+    <securityClassification>Internal</securityClassification>
+    <type>Checkbox</type>
+</CustomField>

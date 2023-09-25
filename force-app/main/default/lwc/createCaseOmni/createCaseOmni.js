@@ -29,7 +29,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         "Please complete all required fields: " + this.missingFields.join(", ");
       if (
         this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
-        !this.omniJsonData.Case.CustomerDetails.Customer
+        !this.omniJsonData.Case.CustomerDetails.Customer &&
+        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID"
       )
         this.modalMsg +=
           "<br><br>Customer number must be numbers and atleast 10 digits long.";
@@ -93,6 +94,20 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.missingFields.push("Customer Decision");
     let details = this.omniJsonData.Case.CustomerDetails;
     if (this.omniJsonData.Case.isThisCustomerComplaint === "Yes") {
+      if (
+        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier ===
+          "CACHE ID" &&
+        !this.omniJsonData.Case.CustomerDetails.Customer1
+      ) {
+        this.missingFields.push("Customer Number");
+      } else if (
+        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier !==
+          "CACHE ID" &&
+        !this.omniJsonData.Case.CustomerDetails.Customer
+      ) {
+        this.missingFields.push("Customer Number");
+      }
+
       this.checkFields(details, this.omniJsonData.custMap);
     } else if (this.omniJsonData.Case.isThisCustomerComplaint === "No") {
       let nonCustMap = JSON.parse(JSON.stringify(this.omniJsonData.nonCustMap));
@@ -153,7 +168,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.checkFields(details, this.omniJsonData.realMap);
     if (details.systemicIssue === "Yes")
       this.checkFields(details, this.omniJsonData.sysIssueMap);
-    if (details.CAC) this.checkFields(details, this.omniJsonData.cacMap);
+    if (details.CAC === "Yes")
+      this.checkFields(details, this.omniJsonData.cacMap);
     if (
       itype === SERVICE_QUALITY &&
       subtype === FAILURE_TO_RESPOND &&

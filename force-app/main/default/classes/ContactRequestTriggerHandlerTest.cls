@@ -26,13 +26,27 @@ private class ContactRequestTriggerHandlerTest {
     apptCommt.Confirmed__c = 2;
     apptCommt.Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
-    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    apptCommt.Date_and_Time__c = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
     apptCommt.Appointment_Channel__c = InteractionConstants.STORE;
     apptCommtRecords.add(apptCommt);
 
     Appointment_Commitment__c apptCommt2 = new Appointment_Commitment__c();
     apptCommt2.Available__c = 5;
-    apptCommt2.Date_and_Time__c = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
+    apptCommt2.Date_and_Time__c = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      3,
+      11,
+      1,
+      45,
+      0
+    );
     apptCommt2.Appointment_Channel__c = InteractionConstants.STORE;
     apptCommtRecords.add(apptCommt2);
 
@@ -91,7 +105,14 @@ private class ContactRequestTriggerHandlerTest {
   @isTest
   static void testContactRequestPrepopulation() {
     Account testAccount = createTestAccounts(1)[0];
-    Datetime dateTimeVal = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    Datetime dateTimeVal = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
 
     Appointment_Commitment__c apptCommtRec = [
       SELECT
@@ -111,7 +132,7 @@ private class ContactRequestTriggerHandlerTest {
 
     ContactRequest contReq = new ContactRequest();
     contReq.Appointment_date_and_time__c = DateTime.newInstance(
-      2022,
+      DateTime.now().year() + 1,
       3,
       10,
       12,
@@ -169,7 +190,14 @@ private class ContactRequestTriggerHandlerTest {
     insert loc;
 
     Account testAccount = createTestAccounts(1)[0];
-    Datetime dateTimeVal = DateTime.newInstance(2022, 5, 12, 12, 45, 0);
+    Datetime dateTimeVal = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      5,
+      12,
+      12,
+      45,
+      0
+    );
 
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 100;
@@ -227,7 +255,14 @@ private class ContactRequestTriggerHandlerTest {
   @isTest
   static void testSuccessfulConfirmCountUpdate() {
     Account testAccount = createTestAccounts(1)[0];
-    Datetime dateTimeVal = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    Datetime dateTimeVal = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
 
     Appointment_Commitment__c apptCommtRec = [
       SELECT ID, Confirmed__c, Appointment_Channel__c
@@ -252,7 +287,7 @@ private class ContactRequestTriggerHandlerTest {
 
     ContactRequest contReq = new ContactRequest();
     contReq.Appointment_date_and_time__c = DateTime.newInstance(
-      2022,
+      DateTime.now().year() + 1,
       3,
       10,
       12,
@@ -292,7 +327,7 @@ private class ContactRequestTriggerHandlerTest {
     apptCommtRec.Confirmed__c = 2;
     apptCommtRec.Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     apptCommtRec.Date_and_Time__c = DateTime.newInstance(
-      2022,
+      DateTime.now().year() + 1,
       3,
       10,
       12,
@@ -310,7 +345,7 @@ private class ContactRequestTriggerHandlerTest {
 
     ContactRequest contReq = new ContactRequest();
     contReq.Appointment_date_and_time__c = DateTime.newInstance(
-      2022,
+      DateTime.now().year() + 1,
       3,
       11,
       1,
@@ -380,7 +415,11 @@ private class ContactRequestTriggerHandlerTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;

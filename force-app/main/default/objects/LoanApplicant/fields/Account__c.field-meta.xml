@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <label>Customer</label>
     <referenceTo>Account</referenceTo>
-    <relationshipLabel>Loan Applicants</relationshipLabel>
+    <relationshipLabel>Loan Application</relationshipLabel>
     <relationshipName>Loan_Applicants</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

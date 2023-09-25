@@ -10,11 +10,6 @@
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filters>
-        <field>CASES.STATUS</field>
-        <operation>notEqual</operation>
-        <value>Open</value>
-    </filters>
-    <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.KYC_QA</value>

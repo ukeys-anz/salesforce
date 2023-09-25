@@ -557,6 +557,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Case_Authority_Level__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.OCV_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1193,6 +1198,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Notification_Handler__c.Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Credit_Reassess_Required__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3194,6 +3204,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.Card_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case.Credit_Referral</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

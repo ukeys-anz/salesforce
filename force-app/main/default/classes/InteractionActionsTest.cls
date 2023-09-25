@@ -10,6 +10,7 @@ public with sharing class InteractionActionsTest {
   private static final String APPOINTMENT_RW_PS = 'Appointment_Booking_Read_Write';
   private static final String NOT_AUTOMATED_PURPOSE = 'NotAutomated';
 
+  @testSetup
   static void setup() {
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
     otherPurpose.MasterLabel = InteractionConstants.OTHER_PURPOSE_NAME;
@@ -27,6 +28,7 @@ public with sharing class InteractionActionsTest {
     );
 
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+    TestDataFactory.createAccount(true);
   }
 
   /**
@@ -51,7 +53,11 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
@@ -177,7 +183,14 @@ public with sharing class InteractionActionsTest {
     apptCommt.Confirmed__c = 0;
     apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
-    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    apptCommt.Date_and_Time__c = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
     apptCommt.Appointment_Channel__c = InteractionConstants.STORE;
     insert apptCommt;
 
@@ -201,13 +214,17 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
 
     for (Integer i = 0; i < 100; i++) {
       ContactRequest request = new ContactRequest();
-      request.Appointment_date_and_Time__c = appointmentDate;
+      request.Appointment_date_and_Time__c = appointmentDate.addDays(i + 1);
       request.RequestReason = otherPurposeName;
       request.WhoId = testAccounts[0].PersonContactId;
       request.Appointment_Commitment__c = apptCommt.Id;
@@ -221,7 +238,17 @@ public with sharing class InteractionActionsTest {
       SELECT Id, Status__c, OwnerId, ContactRequestId__c, RecordTypeId
       FROM Interaction
     ];
-
+    for (Integer i = 0; i < 100; i++) {
+      testInteraction[i].StartTime = DateTime.newInstance(
+          DateTime.now().year() + 1,
+          6,
+          20,
+          1,
+          20,
+          0
+        )
+        .addDays(i + 1);
+    }
     System.assertEquals(
       100,
       testInteraction.size(),
@@ -336,7 +363,14 @@ public with sharing class InteractionActionsTest {
     apptCommt.Confirmed__c = 2;
     apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
-    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    apptCommt.Date_and_Time__c = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
     apptCommt.Appointment_Channel__c = InteractionConstants.STORE;
     insert apptCommt;
 
@@ -470,15 +504,18 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testDoesntFindNotOrStillCancelledInteractions() {
     Faker faker = new Faker('AU');
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
     Interaction notCancelledInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
+      AccountId = acc.Id,
       Status__c = InteractionConstants.SCHEDULED_STATUS
     );
 
     Interaction stillCancelledInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
+      AccountId = acc.Id,
       Status__c = InteractionConstants.CANCELLED
     );
 
@@ -499,7 +536,8 @@ public with sharing class InteractionActionsTest {
         RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
         Name = currentInteraction.Name,
         Id = currentInteraction.Id,
-        Status__c = currentInteraction.Status__c
+        Status__c = currentInteraction.Status__c,
+        AccountId = acc.Id
       );
       newInteractions.add(newInteraction);
     }
@@ -518,10 +556,12 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testUnassigningInteraction() {
     Faker faker = new Faker('AU');
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
     Interaction testInteraction = new Interaction(
       OwnerId = UserInfo.getUserId(),
       Name = faker.randomString(10),
-      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+      AccountId = acc.Id
     );
     insert testInteraction;
 
@@ -587,7 +627,11 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
@@ -643,10 +687,12 @@ public with sharing class InteractionActionsTest {
     Faker faker = new Faker('AU');
     Id myId = UserInfo.getUserId();
     Id groupId = CommonUtil.getGroupId(InteractionConstants.APPOINTMENTS_QUEUE);
+    Account acc = [SELECT Id FROM Account WHERE Name = 'TestAccount' LIMIT 1];
 
     Interaction testInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
+      AccountId = acc.Id,
       OwnerId = groupId
     );
     insert testInteraction;
@@ -715,7 +761,11 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
 
@@ -734,7 +784,17 @@ public with sharing class InteractionActionsTest {
       SELECT Id, Status__c, OwnerId, ContactRequestId__c, Coaching_Summary__c
       FROM Interaction
     ];
-
+    for (Integer i = 0; i < 100; i++) {
+      testInteraction[i].StartTime = DateTime.newInstance(
+          DateTime.now().year() + 1,
+          6,
+          20,
+          1,
+          20,
+          0
+        )
+        .addDays(i + 1);
+    }
     System.assertEquals(
       100,
       testInteraction.size(),
@@ -839,7 +899,11 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    DateTime appointmentDate = DateTime.now();
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
 
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
 
@@ -909,29 +973,33 @@ public with sharing class InteractionActionsTest {
       'The coaching summary owner should be current user'
     );
 
-    Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
-    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
-    User coach = TestUtil.createTestUser(
-      new Map<String, Object>{
-        'FirstName' => faker.randomString(10),
-        'ProfileId' => profile.Id,
-        'UserRoleId' => coachRole.Id
-      }
-    );
-    insert coach;
+    User thisUser = new User(Id = UserInfo.getUserId());
+    User coach;
+    System.runAs(thisUser) {
+      Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+      UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+      coach = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => faker.randomString(10),
+          'ProfileId' => profile.Id,
+          'UserRoleId' => coachRole.Id
+        }
+      );
+      insert coach;
 
-    PermissionSet ps = [
-      SELECT Id
-      FROM PermissionSet
-      WHERE Name = :APPOINTMENT_RW_PS
-    ];
+      PermissionSet ps = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name = :APPOINTMENT_RW_PS
+      ];
 
-    PermissionSetAssignment psa = new PermissionSetAssignment(
-      AssigneeId = coach.id,
-      PermissionSetId = ps.Id
-    );
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = coach.id,
+        PermissionSetId = ps.Id
+      );
 
-    insert psa;
+      insert psa;
+    }
 
     Interaction interactNew = new Interaction();
     interactNew.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
@@ -983,7 +1051,14 @@ public with sharing class InteractionActionsTest {
     ];
 
     String financialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
-    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 10, 30, 0);
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      10,
+      20,
+      10,
+      30,
+      0
+    );
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
@@ -1014,7 +1089,14 @@ public with sharing class InteractionActionsTest {
 
     Test.startTest();
 
-    DateTime newAppointmentDate = DateTime.newInstance(2022, 10, 20, 11, 0, 0);
+    DateTime newAppointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      10,
+      20,
+      11,
+      0,
+      0
+    );
 
     ContactRequest request2 = new ContactRequest();
     request2.Appointment_date_and_Time__c = newAppointmentDate;
@@ -1065,7 +1147,14 @@ public with sharing class InteractionActionsTest {
     }
 
     String financialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
-    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 10, 30, 0);
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      10,
+      20,
+      10,
+      30,
+      0
+    );
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
@@ -1090,7 +1179,14 @@ public with sharing class InteractionActionsTest {
 
     Test.startTest();
 
-    DateTime newAppointmentDate = DateTime.newInstance(2022, 10, 20, 11, 0, 0);
+    DateTime newAppointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      10,
+      20,
+      11,
+      0,
+      0
+    );
 
     ContactRequest request2 = new ContactRequest();
     request2.Appointment_date_and_Time__c = newAppointmentDate;
@@ -1131,7 +1227,14 @@ public with sharing class InteractionActionsTest {
     Account testAccount1 = createTestAccount();
     insert testAccount1;
 
-    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      10,
+      20,
+      5,
+      30,
+      0
+    );
     DateTime endDate = appointmentDate.addMinutes(45);
 
     Interaction existingInteraction = new Interaction(
@@ -1192,7 +1295,14 @@ public with sharing class InteractionActionsTest {
       WHERE Id = :testAccount2.Id
     ];
 
-    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      10,
+      20,
+      5,
+      30,
+      0
+    );
     DateTime endDate = appointmentDate.addMinutes(45);
 
     Interaction existingInteraction = new Interaction(
@@ -1295,7 +1405,14 @@ public with sharing class InteractionActionsTest {
     Account testAccount2 = createTestAccount();
     insert testAccount2;
 
-    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      10,
+      20,
+      5,
+      30,
+      0
+    );
     Interaction newInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
@@ -1368,7 +1485,6 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void returnInteractionsWithAutomatedPurpose() {
-    setup();
     Interaction automatedInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
@@ -1393,6 +1509,70 @@ public with sharing class InteractionActionsTest {
       1,
       automatedInteractions.size(),
       'Should only return automated interactions'
+    );
+  }
+
+  /**
+   * @description testing the method that gets locations map to the interactions
+   */
+  @isTest
+  static void testGetLocationMapFromInteraction() {
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
+    Integer otherPurposeDuration = 30;
+    List<ContactRequest> testContactRequests = new List<ContactRequest>();
+    List<Schema.Location> testLocations = new List<Schema.Location>();
+    Account personAccount = createTestAccount('Test', 'Name', 'ocv');
+    insert personAccount;
+    personAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :personAccount.Id
+    ];
+    for (integer i = 0; i < 20; i++) {
+      Schema.Location loc = new Schema.location();
+      loc.Name = 'Test Location ' + i;
+      loc.LocationType = 'Store ' + i;
+      testLocations.add(loc);
+    }
+    insert testLocations;
+    DateTime appointmentDate = DateTime.newInstance(
+      DateTime.now().year() + 1,
+      1,
+      1
+    );
+    for (integer i = 0; i < 20; i++) {
+      ContactRequest request = new ContactRequest();
+      request.Appointment_date_and_Time__c = appointmentDate.addDays(i);
+      request.RequestReason = otherPurposeName;
+      request.WhoId = personAccount.PersonContactId;
+      request.PreferredChannel = InteractionConstants.CALL;
+      request.Location__c = testLocations[i].Id;
+      testContactRequests.add(request);
+    }
+    insert testContactRequests;
+    for (ContactRequest request : testContactRequests) {
+      request.OwnerId = UserInfo.getUserId();
+    }
+    update testContactRequests;
+    List<Interaction> testInteraction = [
+      SELECT Id, Status__c, LocationId, OwnerId, ContactRequestId__c
+      FROM Interaction
+    ];
+
+    System.assertEquals(
+      20,
+      testInteraction.size(),
+      '20 Interaction should be created'
+    );
+    Test.startTest();
+    Map<Id, Schema.Location> locationMap = InteractionActions.getLocationMapFromInteractions(
+      testInteraction
+    );
+    Test.stopTest();
+    System.assertEquals(
+      20,
+      locationMap.size(),
+      '20 key-value pairs  should be receievd'
     );
   }
 }

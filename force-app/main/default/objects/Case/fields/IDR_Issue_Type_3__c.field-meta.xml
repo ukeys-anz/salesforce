@@ -17,6 +17,16 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Fraud</fullName>
+                <default>false</default>
+                <label>Fraud</label>
+            </value>
+            <value>
+                <fullName>Scam</fullName>
+                <default>false</default>
+                <label>Scam</label>
+            </value>
+            <value>
                 <fullName>9</fullName>
                 <default>false</default>
                 <label>Service quality</label>

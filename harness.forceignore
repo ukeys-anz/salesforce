@@ -37,6 +37,7 @@ SingleSignOn.settings
 #auth provider to make the build pass and we do the manual deployment later
 force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 force-app/main/default/authproviders/ANZ_Single_Sign_On.authprovider-meta.xml
+force-app/main/default/authproviders/Salesforce_API_Access.authprovider-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
@@ -129,8 +130,6 @@ force-app/main/default/connectedApps
 #not ignoring will result in a generated key error
 force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 
-#ignoring All List View from being deployed as it will be manually configured
-force-app/main/default/objects/ResidentialLoanApplication/listViews/All_ResidentialLoanApplications.listView-meta.xml
 #to prevent the standard oob search layout view being re-deployed for 'All Interactions' and duplicating the custom list view name
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
@@ -189,4 +188,9 @@ force-app/main/default/objects/Lead/fields/Not_Registered__c.field-meta.xml
 #AR-90796 - Uninstall mvision
 mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
 force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
-force-app/main/default/tabs/SkyhighNetworks__SHNEvent__c.tab-meta.xml
+
+#named credential to make the build pass and we do the manual deployment later
+force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-meta.xml
+
+#ANZX-110254-delete unused resource file
+force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml

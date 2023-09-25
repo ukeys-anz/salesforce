@@ -6,6 +6,7 @@
 public with sharing class AppointmentNotificationEventCreator extends IDRNotificationEventCreator {
   private Set<Interaction> uniqueInteractions;
   private static AppointmentNotificationEventCreator instance;
+  public static final String DEFAULT_TEMPLATE_NAME = 'Created';
 
   private AppointmentNotificationEventCreator() {
     uniqueInteractions = new Set<Interaction>();
@@ -87,7 +88,11 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
   ) {
     Account interactionAccount;
     Lead interactionLead;
+    Schema.Location interactionLocation;
     String emailAddress;
+    String locationAddress;
+    String appointmentDate;
+    String appointmentTime;
     if (targetInteraction.AccountId != null) {
       interactionAccount = (Account) dataMap.get(targetInteraction.AccountId);
       emailAddress = interactionAccount?.PersonEmail;
@@ -95,20 +100,47 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
       interactionLead = (Lead) dataMap.get(targetInteraction.Lead__c);
       emailAddress = interactionLead?.Email;
     }
-
+    if (targetInteraction.LocationId != null) {
+      interactionLocation = (Schema.Location) dataMap.get(
+        targetInteraction.LocationId
+      );
+      locationAddress = getLocationAddress(interactionLocation);
+    }
     String externalId = targetInteraction.Interaction_Auto_Number__c;
     if (dataMap.containsKey(targetInteraction.Id)) {
       externalId = ((ContactRequest) dataMap.get(targetInteraction.Id))?.Name;
     }
-
     notification.Date_and_Time__c = targetInteraction.StartTime;
+    notification.Appointment_Time__c =
+      targetInteraction.StartTime.format('hh:mm a') +
+      ' ' +
+      'AEST/AEDT';
     notification.Preferred_Channel__c = targetInteraction.InteractionType;
-    notification.Location__c = targetInteraction.LocationId;
+    if (interactionLocation != null) {
+      notification.Location__c = interactionLocation.Name;
+      notification.Address__c = locationAddress;
+    }
     notification.Request_Type__c = targetInteraction.Interaction_Purpose__c;
     notification.Record_Id__c = externalId;
     notification.Event_Type__c = 'Appointment';
     notification.AuthorisedEmail__c = emailAddress;
-    notification.EmailTemplate__c = getNotificationTemplate(targetInteraction);
+
+    if (targetInteraction.Status__c == InteractionConstants.CANCELLED_STATUS) {
+      notification.EmailTemplate__c = AppointmentNotificationMetadataProvider.getInstance()
+        .getNotificationTemplateId(InteractionConstants.CANCELLED_STATUS);
+      notification.Appointment_Date__c = targetInteraction.StartTime.format(
+        AppointmentNotificationMetadataProvider.getInstance()
+          .getNotificationDateFormat(InteractionConstants.CANCELLED_STATUS)
+      );
+    } else {
+      notification.EmailTemplate__c = AppointmentNotificationMetadataProvider.getInstance()
+        .getNotificationTemplateId(DEFAULT_TEMPLATE_NAME);
+      notification.Appointment_Date__c = targetInteraction.StartTime.format(
+        AppointmentNotificationMetadataProvider.getInstance()
+          .getNotificationDateFormat(DEFAULT_TEMPLATE_NAME)
+      );
+    }
+
     if (interactionAccount != null) {
       notification.First_Name__c = interactionAccount.FirstName;
     } else {
@@ -119,25 +151,55 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
       targetInteraction.EndTime
     );
     notification.Duration__c = duration;
-
+    notification.ChannelMessage__c = getChannelMessage(
+      targetInteraction,
+      locationAddress,
+      interactionLocation
+    );
     return notification;
   }
 
   /**
-   * @description looks at an interaction and returns a template depending on what email needs to be sent
+   * @description looks at an interaction channel and returns the message accordingly
    * @param interactionSubject Interaction for which to send the email
-   * @return String with Template Id
+   * @param locationAddress Location address of the Interaction for which to send the email
+   * @param targetLocation Location Interaction for which to send the email
+   * @return String with Channel Message
    */
-  @testVisible
-  private static String getNotificationTemplate(
-    Interaction interactionSubject
+  private static String getChannelMessage(
+    Interaction interactionSubject,
+    String locationAddress,
+    Schema.Location targetLocation
   ) {
-    String movement = 'Created';
-    if (interactionSubject.Status__c == InteractionConstants.CANCELLED_STATUS) {
-      movement = InteractionConstants.CANCELLED_STATUS;
-    }
-    return AppointmentNotificationMetadataProvider.getInstance()
-      .getNotificationTemplateId(movement);
+    Map<String, String> channelMessageMap = new Map<String, String>{
+      InteractionConstants.CALL => System.Label.Appointment_Call_Channel_Message,
+      InteractionConstants.VIDEO => System.Label.Appointment_Video_Channel_Message,
+      InteractionConstants.IN_PERSON => 'Visit' +
+      ' ' +
+      targetLocation?.Name +
+      ', ' +
+      locationAddress
+    };
+    return channelMessageMap.containsKey(interactionSubject.InteractionType)
+      ? channelMessageMap.get(interactionSubject.InteractionType)
+      : null;
+  }
+
+  /**
+   * @description return location address
+   * @param interactionLocation Location of which address to be snet
+   * @return String with location Address
+   */
+  private static String getLocationAddress(
+    Schema.Location interactionLocation
+  ) {
+    return interactionLocation.VisitorAddress.Street +
+      ', ' +
+      interactionLocation.VisitorAddress.City +
+      ' ' +
+      interactionLocation.VisitorAddress.State +
+      ', ' +
+      interactionLocation.VisitorAddress.PostalCode;
   }
 
   public override Boolean isValidObject(SObject targetObject) {
@@ -160,7 +222,9 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
     Map<Id, Lead> leadMap = InteractionActions.getLeadMapFromInteractions(
       interactions
     );
-
+    Map<Id, Schema.Location> locationMap = InteractionActions.getLocationMapFromInteractions(
+      interactions
+    );
     Set<Id> contactRequestIds = new Set<Id>();
     for (Interaction currentInteraction : interactions) {
       if (currentInteraction.ContactRequestId__c != null) {
@@ -182,6 +246,7 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
     Map<Id, SObject> dataMap = new Map<Id, SObject>();
     dataMap.putAll(accountMap);
     dataMap.putAll(leadMap);
+    dataMap.putAll(locationMap);
     dataMap.putAll(contactRequestMap);
     return dataMap;
   }

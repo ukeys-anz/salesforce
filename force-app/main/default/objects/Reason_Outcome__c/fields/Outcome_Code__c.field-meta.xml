@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>Code of the possible assessment outcome</description>
-    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Outcome Code</label>
     <length>20</length>

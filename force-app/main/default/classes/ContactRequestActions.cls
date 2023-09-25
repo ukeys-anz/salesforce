@@ -107,7 +107,8 @@ public with sharing class ContactRequestActions {
       Interaction_External_Id__c = 'CR-' + request.Name,
       LocationId = request.Location__c,
       Optional_Notes__c = request.RequestDescription,
-      Contact_Mobile__c = interactionAccount?.PersonMobilePhone
+      Contact_Mobile__c = interactionAccount?.PersonMobilePhone,
+      Focus_Area__c = request?.Focus_Area__c
     );
     return newInteraction;
   }
