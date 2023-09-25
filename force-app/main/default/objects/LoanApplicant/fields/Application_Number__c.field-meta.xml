@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Application_Number__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Loan Domain</complianceGroup>
     <description>Application number on the loan app</description>
     <externalId>false</externalId>
-    <formula>LoanApplication.ApplicationExtIdentifier</formula>
+    <formula>HYPERLINK(&quot;/&quot; &amp; LoanApplication.Id, LoanApplication.ApplicationExtIdentifier, &quot;_self&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Application Number</label>
     <required>false</required>

@@ -4945,6 +4945,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Potential Scam</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Remote Access</fullName>
             <default>false</default>
         </values>

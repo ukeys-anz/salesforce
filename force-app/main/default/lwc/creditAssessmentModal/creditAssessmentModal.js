@@ -52,7 +52,7 @@ export default class CreditAssessmentModal extends LightningElement {
   }
 
   get modifiedBy() {
-    return `By ${this.createdBy}, ${this.createTime}`;
+    return `${this.createdBy} ${this.createTime}`;
   }
 
   async getOptions() {
@@ -141,7 +141,7 @@ export default class CreditAssessmentModal extends LightningElement {
           "The Referral Outcome has been updated successfully.",
           "success"
         );
-        pubsub.fire("CreditReferralReasons", "closeFlyout");
+        pubsub.fire("CreditAssessmentParent", "closeFlyout");
       } else {
         this.showToast(
           "Credit Assessment",

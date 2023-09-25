@@ -606,7 +606,7 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField:
-                      "%3Cdiv%3E%7BcreatedBy%7D,%20%7BcreateTime%7D%3C/div%3E",
+                      "%3Cdiv%3E%7BcreatedBy%7D%20%7BcreateTime%7D%3C/div%3E",
                     card: "{card}",
                     "data-conditions": {
                       id: "state-condition-object",

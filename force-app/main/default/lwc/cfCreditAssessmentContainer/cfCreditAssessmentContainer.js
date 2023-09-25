@@ -1,13 +1,9 @@
 import { FlexCardMixin } from "omnistudio/flexCardMixin";
 import { CurrentPageReference } from "lightning/navigation";
-// import {
-//   interpolateWithRegex,
-//   interpolateKeyValue,
-//   loadCssFromStaticResource
-// } from "omnistudio/flexCardUtility";
+import { interpolateWithRegex } from "omnistudio/flexCardUtility";
 
 import { LightningElement, api, track, wire } from "lwc";
-// import pubsub from "omnistudio/pubsub";
+import pubsub from "omnistudio/pubsub";
 import { getRecord } from "lightning/uiRecordApi";
 
 import data from "./definition";
@@ -37,12 +33,12 @@ export default class cfCreditAssessmentContainer extends FlexCardMixin(
     fields: "Case.Id",
     optionalFields: $cmp.getWireOptionalFields(data.events[0])
   })
-  wiredRecord0({ error, wiredData }) {
+  wiredRecord0({ error, wiredDdata }) {
     if (this.objectApiName === "Case") {
-      if (wiredData && this.firstRender0) {
+      if (wiredDdata && this.firstRender0) {
         this.firstRender0 = false;
       } else {
-        this.recordChangeEventHandler(error, wiredData, 0);
+        this.recordChangeEventHandler(error, wiredDdata, 0);
       }
     }
   }
@@ -63,9 +59,27 @@ export default class cfCreditAssessmentContainer extends FlexCardMixin(
     this.unregisterEvents();
   }
 
-  registerEvents() {}
+  registerEvents() {
+    this.pubsubEvent[0] = {
+      [interpolateWithRegex(
+        `closeFlyout`,
+        this._allMergeFields,
+        this._regexPattern,
+        "noparse"
+      )]: this.handleEventAction.bind(this, data.events[1], 1)
+    };
+    this.pubsubChannel0 = interpolateWithRegex(
+      `CreditAssessmentParent`,
+      this._allMergeFields,
+      this._regexPattern,
+      "noparse"
+    );
+    pubsub.register(this.pubsubChannel0, this.pubsubEvent[0]);
+  }
 
-  unregisterEvents() {}
+  unregisterEvents() {
+    pubsub.unregister(this.pubsubChannel0, this.pubsubEvent[0]);
+  }
 
   renderedCallback() {
     super.renderedCallback();
