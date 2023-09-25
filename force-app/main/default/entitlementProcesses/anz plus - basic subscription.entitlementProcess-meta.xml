@@ -146,6 +146,10 @@
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
+            <actions>
+                <name>SLA_Status_None_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
             <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
