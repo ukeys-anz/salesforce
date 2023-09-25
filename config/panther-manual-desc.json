@@ -2641,6 +2641,18 @@
         "Reason_Description__c"
       ]
     },
+    "RecordType": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Description",
+        "IsActive"
+      ],
+      "IA-2415840": ["Name"]
+    },
     "Release__c": {
       "IA-2468708": [
         "Additions__c",
