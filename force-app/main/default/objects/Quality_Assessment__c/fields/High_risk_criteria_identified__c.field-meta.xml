@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>High_risk_criteria_identified__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>High risk criteria identified</description>
+    <externalId>false</externalId>
+    <label>High risk criteria identified</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>Denying a claim with no offer of resolution</fullName>
+                <default>false</default>
+                <label>Denying a claim with no offer of resolution</label>
+            </value>
+            <value>
+                <fullName>To a claim of more than $10,000</fullName>
+                <default>false</default>
+                <label>To a claim of more than $10,000</label>
+            </value>
+            <value>
+                <fullName>To a responsible lending claim</fullName>
+                <default>false</default>
+                <label>To a responsible lending claim</label>
+            </value>
+            <value>
+                <fullName>To a claim to set aside a guarantee</fullName>
+                <default>false</default>
+                <label>To a claim to set aside a guarantee</label>
+            </value>
+            <value>
+                <fullName>To an identified or potential systemic issue</fullName>
+                <default>false</default>
+                <label>To an identified or potential systemic issue</label>
+            </value>
+            <value>
+                <fullName>To a customer in vulnerable circumstances such as family violence (including elder abuse)</fullName>
+                <default>false</default>
+                <label>To a customer in vulnerable circumstances such as family violence (including elder abuse)</label>
+            </value>
+            <value>
+                <fullName>Referencing business sensitive information</fullName>
+                <default>false</default>
+                <label>Referencing business sensitive information</label>
+            </value>
+            <value>
+                <fullName>Privacy related</fullName>
+                <default>false</default>
+                <label>Privacy related</label>
+            </value>
+            <value>
+                <fullName>Complaints addressed to CEO or Board or containing a serious media threat</fullName>
+                <default>false</default>
+                <label>Complaints addressed to CEO or Board or containing a serious media threat</label>
+            </value>
+            <value>
+                <fullName>Complaints with other external bodies such as Human Rights Commission</fullName>
+                <default>false</default>
+                <label>Complaints with other external bodies such as Human Rights Commission</label>
+            </value>
+            <value>
+                <fullName>Complaints carrying significant reputational risk</fullName>
+                <default>false</default>
+                <label>Complaints carrying significant reputational risk</label>
+            </value>
+            <value>
+                <fullName>Complaints relating to significant compliance breaches</fullName>
+                <default>false</default>
+                <label>Complaints relating to significant compliance breaches</label>
+            </value>
+            <value>
+                <fullName>Complaints relating to loss of primary place of residence</fullName>
+                <default>false</default>
+                <label>Complaints relating to loss of primary place of residence</label>
+            </value>
+            <value>
+                <fullName>Litigation relating to a complaint, tribunal matters (e.g. NCAT, VCAT)</fullName>
+                <default>false</default>
+                <label>Litigation relating to a complaint, tribunal matters (e.g. NCAT, VCAT)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

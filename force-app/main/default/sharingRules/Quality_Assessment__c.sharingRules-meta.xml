@@ -28,4 +28,49 @@
             <value>Get Help,Join</value>
         </criteriaItems>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>IDR_CRLT</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant Read write access to Call / Letter Review Quality Assessment records for Team Managers</description>
+        <label>CR Leadership</label>
+        <sharedTo>
+            <role>Customer_Resolution_Leadership</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Call/Letter Review Assessment</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>IDR_CRTL</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant Read write access to Call / Letter Review Quality Assessment records for Team Managers</description>
+        <label>CR Team Leaders</label>
+        <sharedTo>
+            <role>Customer_Resolution_Team_Leaders</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Call/Letter Review Assessment</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Quality_Assessor_C_Q_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant Read write access to C&amp;Q Assessment records for new role.</description>
+        <label>Quality Assessor C&amp;Q Read/Write</label>
+        <sharedTo>
+            <roleAndSubordinates>Capability_Quality_C_Q_Team</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>C&amp;Q Assessment</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

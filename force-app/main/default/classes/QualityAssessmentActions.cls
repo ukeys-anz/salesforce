@@ -2,6 +2,7 @@
  * @author Victor Wang
  * @since 08/2021
  * @description QualityAssessmentActions class is to handle Quality Assessment process actions
+ * @runTests QualityAssessmentActionsTest
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class QualityAssessmentActions {
@@ -28,6 +29,7 @@ public with sharing class QualityAssessmentActions {
   public static final String GROUP_COACH_LEAD = 'Coach Lead Group';
   public static final String GROUP_JOIN_LEAD = 'Join Lead Group';
   public static final String CHATTER_FEED_STRING = 'There is a new item for review.';
+  public static final String EVALUATION_TYPE_DUPLICATE_ERROR = 'Only one of each Evaluation Type per Case allowed';
 
   private static final List<Id> DISPUTE_CASE_RT_IDS = new List<Id>{
     GetHelpConstants.GENERAL_INQUIRY_RT_ID,
@@ -305,6 +307,73 @@ public with sharing class QualityAssessmentActions {
             evaluationType != null
           ) {
             qa.addError(EVALUATION_TYPE_MAPPING_ERROR);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * @description Validation rule to allow only ONE of the same assessment form type
+   * @param lstNewAssessments Updated Quality Assessment records
+   * @param mpOldAssessments Previous values
+   */
+  public static void validateRelatedCase(
+    List<Quality_Assessment__c> lstNewAssessments,
+    Map<Id, Quality_Assessment__c> mpOldAssessments
+  ) {
+    Quality_Assessment__c oOldAssessment;
+    Map<Id, List<Quality_Assessment__c>> mpCaseId2Assessments = new Map<Id, List<Quality_Assessment__c>>();
+    List<Quality_Assessment__c> lstAssessments;
+    for (Quality_Assessment__c oAssessment : lstNewAssessments) {
+      if (
+        (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment ||
+        oAssessment.RecordTypeId ==
+        IDRConstants.idrtCallLetterReviewQualityAssessment) &&
+        oAssessment.Related_Case__c != null &&
+        (mpOldAssessments == null ||
+        (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
+        oAssessment.Related_Case__c != oOldAssessment.Related_Case__c)
+      ) {
+        if (
+          (lstAssessments = mpCaseId2Assessments.get(
+            oAssessment.Related_Case__c
+          )) == null
+        ) {
+          lstAssessments = new List<Quality_Assessment__c>();
+          mpCaseId2Assessments.put(oAssessment.Related_Case__c, lstAssessments);
+        }
+        for (Quality_Assessment__c oAssessment2 : lstAssessments) {
+          if (
+            oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c
+          ) {
+            oAssessment.addError(EVALUATION_TYPE_DUPLICATE_ERROR);
+          }
+        }
+        lstAssessments.add(oAssessment);
+      }
+    }
+    for (Quality_Assessment__c oAssessment : [
+      SELECT Id, Evaluation_Type__c, Related_Case__c
+      FROM Quality_Assessment__c
+      WHERE
+        Related_Case__c IN :mpCaseId2Assessments.keySet()
+        AND RecordType.DeveloperName IN (
+          'C_Q_Assessment',
+          'Call_Letter_Review_Assessment'
+        )
+    ]) {
+      if (
+        (lstAssessments = mpCaseId2Assessments.get(
+          oAssessment.Related_Case__c
+        )) != null
+      ) {
+        for (Quality_Assessment__c oAssessment2 : lstAssessments) {
+          if (
+            oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c &&
+            oAssessment2.Id != oAssessment.Id
+          ) {
+            oAssessment2.addError(EVALUATION_TYPE_DUPLICATE_ERROR);
           }
         }
       }

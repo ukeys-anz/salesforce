@@ -3,6 +3,16 @@
     <fullName>Can_Not_Change_After_Creation</fullName>
     <active>true</active>
     <description>fields that can&apos;t be changed after creation</description>
-    <errorConditionFormula>ISCHANGED(Evaluation_Type__c) || ISCHANGED( Advice_Supplement__c )</errorConditionFormula>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(
+  RecordType.DeveloperName = &apos;General&apos;,
+  RecordType.DeveloperName = &apos;Get_Help&apos;,
+  RecordType.DeveloperName = &apos;Join&apos;),
+OR(
+  ISCHANGED(Evaluation_Type__c),
+  ISCHANGED( Advice_Supplement__c )
+)
+)</errorConditionFormula>
     <errorMessage>If you need to change the evaluation type or advice supplement, please take a copy of any relevant comments, withdraw this record and create a new one.</errorMessage>
 </ValidationRule>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Evaluation_Type__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Evaluation Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>C&amp;Q Assessment</fullName>
+                <default>true</default>
+                <label>C&amp;Q Assessment</label>
+            </value>
+            <value>
+                <fullName>Call Review Assessment</fullName>
+                <default>false</default>
+                <label>Call Review Assessment</label>
+            </value>
+            <value>
+                <fullName>Letter Review Assessment</fullName>
+                <default>false</default>
+                <label>Letter Review Assessment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

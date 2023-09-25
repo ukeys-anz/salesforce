@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM7_Q4__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 7 Q4 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Identified_flagged_PSI_where_needed__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>We did not raise a possible systemic issue where one should have been raised.</fullName>
+                <default>false</default>
+                <label>We did not raise a possible systemic issue where one should have been raised.</label>
+            </value>
+            <value>
+                <fullName>No possible systemic issue (PSI) indicated.</fullName>
+                <default>false</default>
+                <label>No possible systemic issue (PSI) indicated.</label>
+            </value>
+            <value>
+                <fullName>Currently unable to determine if there is a possible systemic issue and matter referred for C&amp;Q ‘further review’ (CM to raise a PSI if further enquiries reveal appropriate).</fullName>
+                <default>false</default>
+                <label>Currently unable to determine if there is a possible systemic issue and matter referred for C&amp;Q ‘further review’ (CM to raise a PSI if further enquiries reveal appropriate).</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not raise a possible systemic issue where one should have been raised.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>No possible systemic issue (PSI) indicated.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>Currently unable to determine if there is a possible systemic issue and matter referred for C&amp;Q ‘further review’ (CM to raise a PSI if further enquiries reveal appropriate).</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

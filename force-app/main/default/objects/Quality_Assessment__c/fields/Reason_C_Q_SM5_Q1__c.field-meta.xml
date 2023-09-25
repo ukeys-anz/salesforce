@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM5_Q1__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 5 Q1 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>IDR_delay_decision_notice_appropriate__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>In seeking TM approval, the CM did not adequately and correctly explain why (and/or note CMOS) a formal exception was appropriate.</fullName>
+                <default>false</default>
+                <label>In seeking TM approval, the CM did not adequately and correctly explain why (and/or note CMOS) a formal exception was appropriate.</label>
+            </value>
+            <value>
+                <fullName>CM did not use the correct exception template and/or adapt it to correctly explain the basis of the exception.</fullName>
+                <default>false</default>
+                <label>CM did not use the correct exception template and/or adapt it to correctly explain the basis of the exception.</label>
+            </value>
+            <value>
+                <fullName>Exception letter to the customer did not set out their right to complain to AFCA and/or provide AFCA’s contact details.</fullName>
+                <default>false</default>
+                <label>Exception letter to the customer did not set out their right to complain to AFCA and/or provide AFCA’s contact details.</label>
+            </value>
+            <value>
+                <fullName>‘not met’ was result of TM decision, complaint was either not particularly complex and/or the circumstances causing the delay were not beyond ANZ’s control</fullName>
+                <default>false</default>
+                <label>‘not met’ was result of TM decision, complaint was either not particularly complex and/or the circumstances causing the delay were not beyond ANZ’s control</label>
+            </value>
+            <value>
+                <fullName>CM who made the referral/issued the exception letter was not the CM being reviewed.</fullName>
+                <default>false</default>
+                <label>CM who made the referral/issued the exception letter was not the CM being reviewed.</label>
+            </value>
+            <value>
+                <fullName>Not met (outside CM control): ‘not met’ a result of SM assessment.</fullName>
+                <default>false</default>
+                <label>Not met (outside CM control): ‘not met’ a result of SM assessment.</label>
+            </value>
+            <value>
+                <fullName>IDR response sent within applicable timeframe (30 days).</fullName>
+                <default>false</default>
+                <label>IDR response sent within applicable timeframe (30 days).</label>
+            </value>
+            <value>
+                <fullName>IDR response sent within 21 day timeframe for credit related complaints about default notices/hardship notices or requests to postpone enforcement proceedings.</fullName>
+                <default>false</default>
+                <label>IDR response sent within 21 day timeframe for credit related complaints about default notices/hardship notices or requests to postpone enforcement proceedings.</label>
+            </value>
+            <value>
+                <fullName>a delay ‘no exception’ template was correctly used.</fullName>
+                <default>false</default>
+                <label>a delay ‘no exception’ template was correctly used.</label>
+            </value>
+            <value>
+                <fullName>EDR complaint.</fullName>
+                <default>false</default>
+                <label>EDR complaint.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>In seeking TM approval, the CM did not adequately and correctly explain why (and/or note CMOS) a formal exception was appropriate.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>CM did not use the correct exception template and/or adapt it to correctly explain the basis of the exception.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>Exception letter to the customer did not set out their right to complain to AFCA and/or provide AFCA’s contact details.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>‘not met’ was result of TM decision, complaint was either not particularly complex and/or the circumstances causing the delay were not beyond ANZ’s control</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM who made the referral/issued the exception letter was not the CM being reviewed.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>Not met (outside CM control): ‘not met’ a result of SM assessment.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>IDR response sent within applicable timeframe (30 days).</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>IDR response sent within 21 day timeframe for credit related complaints about default notices/hardship notices or requests to postpone enforcement proceedings.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>a delay ‘no exception’ template was correctly used.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>EDR complaint.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
