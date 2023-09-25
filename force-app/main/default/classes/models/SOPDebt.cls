@@ -91,6 +91,7 @@ public class SOPDebt {
     get {
       if (
         type == ResidentialLoanApplicationModel.OVERDRAFT &&
+        outstandingBalance?.units != null &&
         Integer.valueof(outstandingBalance?.units) < 0
       ) {
         return true;
