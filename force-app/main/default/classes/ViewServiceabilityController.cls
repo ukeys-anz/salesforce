@@ -6,6 +6,8 @@
  */
 global with sharing class ViewServiceabilityController implements omnistudio.VlocityOpenInterface, Callable {
   private static final String METHODNAME = 'getUMIAssessments';
+  private static final String STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
+  private static final String STATE_CAPTURE = 'STATE_CAPTURE';
   /**
    * @param action String value of local method to invoke
    * @param args arg map that will contain input, output and options map
@@ -56,35 +58,37 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
       (String) input.get('loanId')
     );
 
-    result.isSubmitted = (String.isNotBlank(loanRec?.Assessment_Outcome__c));
-    if (!result.isSubmitted) {
-      output.put('result', JSON.deserializeUntyped(JSON.serialize(result)));
-      return true;
-    }
-
-    result.hasError = (String.isBlank(loanRec?.Credit_ID__c) ||
-    String.isBlank(loanRec?.SOP_Id__c));
-    if (result.hasError) {
-      output.put('result', JSON.deserializeUntyped(JSON.serialize(result)));
-      return true;
-    }
-    try {
-      ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
-      ViewServiceabilityModel apiResponse = api.getUMIAssessments(
-        new List<String>{ loanRec?.SOP_Id__c },
-        loanRec?.Credit_ID__c,
-        loanRec?.Name,
-        loanRec?.Account?.OCV_ID__c
-      );
-      transformAPIToUIResponse(result, apiResponse);
-    } catch (Exception ex) {
-      result.hasError = true;
-      Logger.error(ex.getMessage(), ex);
-      Logger.saveLog();
+    result.isSubmitted = isLoanSubmitted(loanRec?.Status);
+    if (result.isSubmitted) {
+      result.hasError = (String.isBlank(loanRec?.Credit_ID__c) ||
+      String.isBlank(loanRec?.SOP_Id__c));
+      if (!result.hasError) {
+        try {
+          ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
+          ViewServiceabilityModel apiResponse = api.getUMIAssessments(
+            new List<String>{ loanRec?.SOP_Id__c },
+            loanRec?.Credit_ID__c,
+            loanRec?.Account?.OCV_ID__c,
+            Integer.valueOf(loanRec?.AmortizationTerm),
+            loanRec?.LotOriginalCost
+          );
+          transformAPIToUIResponse(result, apiResponse);
+        } catch (Exception ex) {
+          result.hasError = true;
+          Logger.error(ex.getMessage(), ex);
+          Logger.saveLog();
+        }
+      }
     }
 
     output.put('result', JSON.deserializeUntyped(JSON.serialize(result)));
     return true;
+  }
+
+  private Boolean isLoanSubmitted(string status) {
+    return (String.isNotBlank(status) &&
+    status != STATE_UNSPECIFIED &&
+    status != STATE_CAPTURE);
   }
 
   private class UMIResponse {
@@ -213,8 +217,14 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
         return 1;
       } else if (compare.assessedAmount == null) {
         return -1;
+      } else if (this.assessedAmount > compare.assessedAmount) {
+        return -1;
+      } else if (this.assessedAmount < compare.assessedAmount) {
+        return 1;
+      } else if (this.assessedAmount == compare.assessedAmount) {
+        return 0;
       } else {
-        return Integer.valueOf(compare.assessedAmount - this.assessedAmount);
+        return 1;
       }
     }
   }
@@ -333,11 +343,13 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     List<ResidentialLoanApplication> rla = [
       SELECT
         Id,
-        Assessment_Outcome__c,
+        Status,
         Credit_ID__c,
         SOP_Id__c,
         Name,
-        Account.OCV_ID__c
+        Account.OCV_ID__c,
+        AmortizationTerm,
+        LotOriginalCost
       FROM ResidentialLoanApplication
       WHERE Id = :loanId
       LIMIT 1
