@@ -5,7 +5,7 @@ import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.Fi
 import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 import { handleErrorShowToast } from "c/utils";
-import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+import hasTransactionHistoryPermission from "@salesforce/customPermission/ANZx_View_Transaction_History";
 import { getOptionalFieldValue, processTransaction } from "./helpers/util";
 import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
 
@@ -75,6 +75,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   links;
   @api loading;
   @api showRaiseDispute;
+  @api moreData;
   @api disputeRecordTypesFromParent;
   @api transactionTypeDisputeIdMapFromParent;
   personAccount;
@@ -108,11 +109,13 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   get displayContent() {
-    return hasAccountsGoalsPermission;
+    return hasTransactionHistoryPermission;
   }
 
   get showLoadMore() {
-    return this.links && this.links.next && this.links.next.uri ? true : false;
+    return (
+      this.moreData && this.links && this.links.next && this.links.next.uri
+    );
   }
 
   @api

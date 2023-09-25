@@ -9,13 +9,19 @@
     <label>Authentication Method</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <controllingField>InteractionType</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Authenticated</fullName>
+                <default>false</default>
+                <label>Authenticated</label>
+            </value>
             <value>
                 <fullName>Authenticated by Coach</fullName>
                 <default>false</default>
@@ -94,6 +100,10 @@
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>SMS - OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <valueName>Authenticated</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>

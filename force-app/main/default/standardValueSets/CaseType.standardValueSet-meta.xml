@@ -32,6 +32,11 @@
         <label>Fraud</label>
     </standardValue>
     <standardValue>
+        <fullName>Scam</fullName>
+        <default>false</default>
+        <label>Scam</label>
+    </standardValue>
+    <standardValue>
         <fullName>Financial Wellbeing</fullName>
         <default>false</default>
         <label>Financial Wellbeing</label>
@@ -405,5 +410,10 @@
         <fullName>Account/Card Abuse</fullName>
         <default>false</default>
         <label>Account/Card Abuse</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Potential Scam</fullName>
+        <default>false</default>
+        <label>Potential Scam</label>
     </standardValue>
 </StandardValueSet>

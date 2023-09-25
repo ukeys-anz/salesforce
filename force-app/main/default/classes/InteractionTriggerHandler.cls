@@ -13,28 +13,60 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
-    List<Interaction> apptInteractions = InteractionFilter.getApptInteractions(
+    //Creating a map of all interactions by record type, to be used later. This reduces number of loops.
+    Map<String, List<Interaction>> mapOfInteractionsByRecordType = InteractionFilter.getInteractionsByRecordType(
       records
     );
-    List<Interaction> storeInteractions = InteractionFilter.getStoreInteractions(
-      records
-    );
+
+    List<Interaction> apptInteractions = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_APPT_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_APPT_RT_ID
+        )
+      : new List<Interaction>();
+
+    List<Interaction> storeInteractions = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_STORE_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_STORE_RT_ID
+        )
+      : new List<Interaction>();
+
+    List<Interaction> chatInteractions = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+        )
+      : new List<Interaction>();
+
+    List<Interaction> generalInteractions = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_GENERAL_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_GENERAL_RT_ID
+        )
+      : new List<Interaction>();
 
     Map<Id, SObject> apptMap = new Map<Id, SObject>(apptInteractions);
     Set<Id> apptIds = new Set<Id>(apptMap.keyset());
     InteractionSetters.setInteractionIds(apptInteractions);
     InteractionSetters.setExternalIds(apptIds);
-    InteractionAttendeeActions.insertDefaultAttendee(storeInteractions);
-
-    List<Interaction> generalInteractions = InteractionFilter.getGeneralInteractions(
-      records
-    );
+    InteractionAttendeeActions.insertDefaultAttendee(records);
 
     //Add Interaction Number for Store too.
+
     generalInteractions.addAll(storeInteractions);
+
+    System.debug('generalInteractions ' + generalInteractions);
+    System.debug('storeInteractions ' + storeInteractions);
+    //Add Interaction Number for Chat too
+    generalInteractions.addAll(chatInteractions);
+
     Map<Id, SObject> generalMap = new Map<Id, SObject>(generalInteractions);
-    Set<Id> generalIds = new Set<Id>(generalMap.keyset());
-    InteractionSetters.setGeneralExternalIds(generalIds);
+    InteractionSetters.setGeneralExternalIds(generalMap.keyset());
 
     AppointmentNotificationEventCreator.getInstance()
       .addInteractions(interactions);
@@ -227,5 +259,22 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       InteractionActions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
     }
     InteractionActions.unassignInteractions(oldMap, records);
+    //Creating a map of all interactions by record type, to be used later. This reduces number of loops.
+    Map<String, List<Interaction>> mapOfInteractionsByRecordType = InteractionFilter.getInteractionsByRecordType(
+      records
+    );
+
+    List<Interaction> apptInteraction = mapOfInteractionsByRecordType.containsKey(
+        GetHelpConstants.INTERACTION_APPT_RT_ID
+      )
+      ? mapOfInteractionsByRecordType.get(
+          GetHelpConstants.INTERACTION_APPT_RT_ID
+        )
+      : new List<Interaction>();
+
+    if (!apptInteraction.isEmpty()) {
+      InteractionValidations.validateInteractions(apptInteraction);
+      InteractionSetters.setNameOfInteractions(apptInteraction);
+    }
   }
 }

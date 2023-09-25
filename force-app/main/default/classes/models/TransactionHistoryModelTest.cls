@@ -10,7 +10,7 @@ public class TransactionHistoryModelTest {
     StaticResource sr = [
       SELECT body
       FROM StaticResource
-      WHERE Name = 'mock_transactionHistory'
+      WHERE Name = 'mock_transactionHistory1'
     ];
     TransactionHistoryModel obj = TransactionHistoryModel.parse(
       sr.body.toString()
@@ -29,7 +29,7 @@ public class TransactionHistoryModelTest {
       'Catergories should not be null.'
     );
     System.assert(
-      obj.count == '14',
+      obj.count == '20',
       'The TransactionHistoryModel count should be as expected.'
     );
   }

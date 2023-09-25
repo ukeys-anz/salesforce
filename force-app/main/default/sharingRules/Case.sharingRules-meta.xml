@@ -31,6 +31,20 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>ANZx_Credit_Referral</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>ANZx Credit Referral</label>
+        <sharedTo>
+            <roleAndSubordinates>Credit_Assessor_Lead</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>ANZx_Non_Customer_Complaints</fullName>
         <accessLevel>Read</accessLevel>
         <description>Provides access to Non Customer Complaints for ANZx</description>
@@ -46,7 +60,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -58,7 +72,7 @@
         <sharedTo>
             <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
-        <booleanFilter>(1 AND 2) OR (1 AND 3 AND 4)</booleanFilter>
+        <booleanFilter>(1 AND 2 AND 5) OR (1 AND 3 AND 4 AND 5)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -67,17 +81,52 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>false</value>
+            <value>False</value>
         </criteriaItems>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
             <operation>equals</operation>
             <value>ANZ Plus Web</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>equals</operation>
+            <value>false</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>BOH_Coach</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>provide read only access to BOH coach</description>
+        <label>BOH Coach</label>
+        <sharedTo>
+            <role>BOH_Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_RT_BusinessAdmin_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read only access for business admin</description>
+        <label>Case_RT_BusinessAdmin_RO</label>
+        <sharedTo>
+            <role>Business_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -108,7 +157,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -116,6 +165,21 @@
             <value>Non-Customer Complaint</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Case_RT_QA_Capability_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read only access for Quality &amp; Capability Lead</description>
+        <label>Case_RT_QA&amp;Capability_RO</label>
+        <sharedTo>
+            <role>Quality_Capability_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZRole_RO</fullName>
@@ -134,7 +198,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>false</value>
+            <value>False</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -155,7 +219,7 @@
         <criteriaItems>
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
-            <value>true</value>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -231,6 +295,36 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Credit_Referral_Credit_Assessor_Lead</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide access to credit referral cases for Credit Assessor Leads</description>
+        <label>Credit Referral - Credit Assessor Lead</label>
+        <sharedTo>
+            <role>Credit_Assessor_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Credit_Referral_Integration_User</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide read/edit to the credit referral to credit referral integration group</description>
+        <label>Credit Referral - Integration User</label>
+        <sharedTo>
+            <group>Credit_Referral_Integration</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_Coach_And_Coach_Lead_Group_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback, and AEM cases are to be shared with Coach Public Group with Read/Write access.</description>
@@ -257,7 +351,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -289,7 +383,7 @@
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR (9 AND 10 AND 11)</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR (9 AND 10 AND 11) OR 12</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -343,7 +437,12 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -374,7 +473,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -404,10 +503,16 @@
         <sharedTo>
             <role>Coach</role>
         </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
             <value/>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -418,10 +523,16 @@
         <sharedTo>
             <role>Coach_Lead</role>
         </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
             <value/>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -432,10 +543,16 @@
         <sharedTo>
             <role>FraudX_Agent</role>
         </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
             <value/>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -446,10 +563,16 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
             <value/>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -468,7 +591,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -565,7 +688,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>false</value>
+            <value>False</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -586,7 +709,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>false</value>
+            <value>False</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -697,10 +820,16 @@
         <sharedTo>
             <role>Join_Lead</role>
         </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
             <value/>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -719,7 +848,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>true</value>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

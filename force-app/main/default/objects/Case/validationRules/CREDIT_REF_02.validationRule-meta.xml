@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CREDIT_REF_02</fullName>
+    <active>true</active>
+    <description>Prevent credit referral case closure if the status of the assessment outcome isnt approved/declined. Case can only be closed when outcome is approved/declined and through finalisation call</description>
+    <errorConditionFormula>AND(
+ NOT($Setup.Salesforce_Library_Settings__c.Disable_VRs__c),
+  RecordType.DeveloperName = &quot;Credit_Referral&quot;,
+  System_Action__c = false,
+ AND( Assessment_Outcome__c  &lt;&gt; &quot;Approved&quot;,
+  Assessment_Outcome__c  &lt;&gt; &quot;Declined&quot;
+ ),
+OR(
+ PRIORVALUE(Status) &lt;&gt; &quot;Closed - Approved&quot;,
+ PRIORVALUE(Status) &lt;&gt; &quot;Closed - Declined&quot;
+ ),
+ OR(
+  ISPICKVAL(Status, &quot;Closed - Approved&quot;),
+  ISPICKVAL(Status, &quot;Closed - Declined&quot;)
+ )
+)</errorConditionFormula>
+    <errorMessage>You can&apos;t close this credit referral case until the loan application assessment outcome is approved or declined. Please review the case and submit for reassessment.</errorMessage>
+</ValidationRule>

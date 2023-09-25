@@ -76,14 +76,6 @@ public with sharing class NewCaseFlowWrapperController {
     String newRecordTypeId
   ) {
     Map<String, String> caseDetails = new Map<String, String>();
-    String cDescription = EncodingUtil.URLENCODE(
-      caseRecord.Description,
-      'UTF-8'
-    );
-    String cDesiredOutcome = EncodingUtil.URLENCODE(
-      caseRecord.IDR_Complainant_Desired_Outcome__c,
-      'UTF-8'
-    );
 
     if (newRecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
       caseDetails.put('Type', '');
@@ -93,9 +85,9 @@ public with sharing class NewCaseFlowWrapperController {
         'Web Submitted Enquiry\n\nIssue:\n  ' +
         CommonUtil.getSinglePicklistLabel(Case.Type, caseRecord.Type) +
         '\n\n' +
-        cDescription +
+        caseRecord.Description +
         '\n\nCustomer Desired Outcome:\n  ' +
-        cDesiredOutcome +
+        caseRecord.IDR_Complainant_Desired_Outcome__c +
         '\n\nPriority:\n  ' +
         CommonUtil.getSinglePicklistLabel(Case.Priority, caseRecord.Priority)
       );
@@ -107,7 +99,7 @@ public with sharing class NewCaseFlowWrapperController {
       caseDetails.put('Type', '');
       caseDetails.put(
         'Description',
-        'Web Submitted Enquiry\n\nIssue:\n  Other\n\n' + cDescription
+        'Web Submitted Enquiry\n\nIssue:\n  Other\n\n' + caseRecord.Description
       );
     }
 
@@ -312,7 +304,14 @@ public with sharing class NewCaseFlowWrapperController {
           !isShellCaseCRTB &&
           CommonUtil.userPermissionCheck(
             (Id) userInfo.getUserId(),
-            new Set<String>{ 'IDR_Level_1', 'IDR_Level_2', 'IDR_Level_3' }
+            new Set<String>{
+              'IDR_Level_1',
+              'IDR_Level_2',
+              'IDR_Level_3',
+              'IDR_CRP_Team_Leaders',
+              'IDR_CRP_LT',
+              'IDR_SI_Business_Contact'
+            }
           )
         ) {
           //Fetching 'Customer-Complaint' recodtype Id

@@ -1913,14 +1913,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>InteractionTwilioService</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>InteractionTwilioServiceTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>InteractionValidationTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -19682,11 +19674,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ResidentialLoanApplication.Collateral_Assessment_ID__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ResidentialLoanApplication.Collateral_Assessment_Outcome__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -23843,9 +23830,6 @@
         <layout>Financial_Account_Role_Type_Mapping__mdt-Financial Account Role Type Mapping Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>FlowOrchestrationWorkItem-Orchestration Work Item Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Forgerock_Auth__mdt-Forgerock Auth Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -24023,9 +24007,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Notification_Handler__c-Notification Handler Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>OmniUiCard-Omni UI Card Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>OperatingHours-Operating Hours Layout</layout>

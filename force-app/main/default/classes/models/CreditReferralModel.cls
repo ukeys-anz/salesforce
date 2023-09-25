@@ -1,7 +1,9 @@
 /**
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
  */
-@SuppressWarnings('PMD.FieldNamingConventions, PMD.VariableNamingConventions')
+@SuppressWarnings(
+  'PMD.FieldNamingConventions, PMD.VariableNamingConventions, PMD.ExcessivePublicCount'
+)
 /**
  * @author cruzb
  * @since May 2023
@@ -19,21 +21,11 @@ public with sharing class CreditReferralModel extends CalloutModel {
     public String collateralAssessmentId;
     public String type;
     /**
-     * @description assessedTime format to 'dd/MM/yyyy HH:mm' in local time for interface
+     * @description assessTime format to 'dd/MM/yyyy HH:mm' in local time for interface
      */
-    public String assessedTime {
+    public String assessTime {
       get {
-        if (String.isEmpty(assessedTime)) {
-          return assessedTime;
-        }
-        return DateTimeUtils.getLocalTime(
-          (Datetime) JSON.deserialize(
-            JSON.serialize(assessedTime),
-            Datetime.class
-          ),
-          TransactionHistoryModel.TIMEZONE,
-          'dd/MM/yyyy HH:mm a'
-        );
+        return convertDate(assessTime);
       }
     }
     /**
@@ -53,7 +45,14 @@ public with sharing class CreditReferralModel extends CalloutModel {
     public Lvr lvr;
     public Decimal debtToIncomeRatio;
     public String createdBy;
-    public String createdTime;
+    /**
+     * @description createTime format to 'dd/MM/yyyy HH:mm' in local time for interface
+     */
+    public String createTime {
+      get {
+        return convertDate(createTime);
+      }
+    }
     public String expiryTime;
   }
 
@@ -68,6 +67,20 @@ public with sharing class CreditReferralModel extends CalloutModel {
     public String guidanceCode;
     public String assessmentCategory;
     public String authorityLevel;
+    public String referralOutcomeCode;
+    public String referralOutcomeDescription;
+    public String createdBy;
+    public Boolean editable;
+    public String reasonCodeId;
+
+    /**
+     * @description createTime format to 'dd/MM/yyyy HH:mm' in local time for interface
+     */
+    public String createTime {
+      get {
+        return convertDate(createTime);
+      }
+    }
   }
 
   /**
@@ -85,5 +98,19 @@ public with sharing class CreditReferralModel extends CalloutModel {
    */
   public static CreditReferralModel parse(String json) {
     return (CreditReferralModel) deserialize(json, CreditReferralModel.class);
+  }
+
+  private static String convertDate(String dateToConvert) {
+    if (String.isEmpty(dateToConvert)) {
+      return dateToConvert;
+    }
+    return DateTimeUtils.getLocalTime(
+      (Datetime) JSON.deserialize(
+        JSON.serialize(dateToConvert),
+        Datetime.class
+      ),
+      TransactionHistoryModel.TIMEZONE,
+      'd/MM/yyyy h:mm a'
+    );
   }
 }

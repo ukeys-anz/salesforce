@@ -1,0 +1,90 @@
+<template>
+  <lightning-modal-header
+    class="modal-header"
+    label="Select a referral outcome"
+  ></lightning-modal-header>
+  <template lwc:if={saving}>
+    <div class="slds-align_absolute-center" style="height: 4rem">
+      <div role="status" class="slds-spinner_inline">
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+    </div>
+  </template>
+  <template lwc:else>
+    <lightning-modal-body>
+      <div class="slds-grid slds-gutters">
+        <div class="slds-col">
+          <p class="slds-text-color_weak field-title">Reason Code</p>
+          <p class="slds-text-body_regular">{reasonCode}</p>
+        </div>
+        <div class="slds-col">
+          <p class="slds-text-color_weak field-title">Category</p>
+          <p class="slds-text-body_regular">{assessmentCategory}</p>
+        </div>
+        <div class="slds-col">
+          <p class="slds-text-color_weak field-title">Description</p>
+          <p class="slds-text-body_regular">{reasonDescription}</p>
+        </div>
+        <div class="slds-col">
+          <p class="slds-text-color_weak field-title">
+            Guidance<lightning-helptext
+              class="tooltip"
+              content="The instructions on how to resolve the referral reason can be found by referring to the knowledge article for the category and looking for the guidance code within."
+            ></lightning-helptext>
+          </p>
+          <p class="slds-text-body_regular">{guidanceCode}</p>
+        </div>
+      </div>
+      <div class="slds-form-element">
+        <label class="slds-form-element__label">Referral Outcome</label>
+        <div class="slds-form-element__control">
+          <div class="slds-select_container">
+            <select
+              class="slds-select"
+              name="referralOutcome"
+              onchange={handleSelectedValue}
+            >
+              <option value="" disabled selected={defaultSelection}>
+                Select one referral outcome
+              </option>
+              <option value="">--None--</option>
+              <template for:each={optionList} for:item="option">
+                <option
+                  value={option.value}
+                  key={option.value}
+                  selected={option.selected}
+                >
+                  {option.name}
+                </option>
+              </template>
+            </select>
+          </div>
+        </div>
+      </div>
+      <template lwc:if={showModified}>
+        <span class="slds-text-color_weak slds-float_right slds-p-top_small"
+          >Last Modified By {modifiedBy}</span
+        >
+      </template>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+      <lightning-button
+        label="Cancel"
+        title="Cancel"
+        onclick={handleCancel}
+        class="slds-m-left_x-small"
+      ></lightning-button>
+      <lightning-button
+        variant="brand"
+        label="Save"
+        title="Save"
+        onclick={handleSave}
+        disabled={disableSave}
+        class="slds-m-left_x-small"
+      ></lightning-button>
+    </lightning-modal-footer>
+  </template>
+</template>

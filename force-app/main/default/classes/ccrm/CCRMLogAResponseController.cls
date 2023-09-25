@@ -272,9 +272,16 @@ public with sharing class CCRMLogAResponseController {
         leadRespWrapper.responseTypeValue
       );
       Database.insert(responseRecord);
-       return JSON.serialize(new ResponseCapturedDataWrapper(responseRecord.Id,validateCampaignDateMaxExpiry(leadRespWrapper.leadId))) ;
+      return JSON.serialize(
+        new ResponseCapturedDataWrapper(
+          responseRecord.Id,
+          validateCampaignDateMaxExpiry(leadRespWrapper.leadId)
+        )
+      );
     } else {
-      return JSON.serialize(new ResponseCapturedDataWrapper(LOG_RESPONSE_ERROR_MESSAGE,null)) ;
+      return JSON.serialize(
+        new ResponseCapturedDataWrapper(LOG_RESPONSE_ERROR_MESSAGE, null)
+      );
     }
   }
 
@@ -285,10 +292,19 @@ public with sharing class CCRMLogAResponseController {
    * @return Boolean true if campaign End Date is maximun than final expiry date
    * @US CC-1057
    */
-  @AuraEnabled 
+  @AuraEnabled
   public static Boolean validateCampaignDateMaxExpiry(String leadRecordId) {
-    List<CampaignMember> lstOfCampignMember = [SELECT LeadId,Campaign.EndDate,Lead.Expiry_Date__c FROM CampaignMember WHERE LeadId =:leadRecordId LIMIT 1];
-    if(!lstOfCampignMember.isEmpty() && lstOfCampignMember[0].Lead.Expiry_Date__c == lstOfCampignMember[0].Campaign.EndDate) {
+    List<CampaignMember> lstOfCampignMember = [
+      SELECT LeadId, Campaign.EndDate, Lead.Expiry_Date__c
+      FROM CampaignMember
+      WHERE LeadId = :leadRecordId
+      LIMIT 1
+    ];
+    if (
+      !lstOfCampignMember.isEmpty() &&
+      lstOfCampignMember[0].Lead.Expiry_Date__c ==
+      lstOfCampignMember[0].Campaign.EndDate
+    ) {
       return true;
     }
     return false;
@@ -347,7 +363,7 @@ public with sharing class CCRMLogAResponseController {
     public Date dueDate { get; set; }
   }
 
-/**
+  /**
    * @description wrapper class to store lead guidance details
    */
   private class LeadGuidance {

@@ -5,6 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Twilio</complianceGroup>
     <description>Used to store the unique Chat / Call Channel ID</description>
     <externalId>false</externalId>
+    <inlineHelpText>Unique ID for call or message thread created by Twilio</inlineHelpText>
     <label>Chat or Call SID</label>
     <length>34</length>
     <required>false</required>
