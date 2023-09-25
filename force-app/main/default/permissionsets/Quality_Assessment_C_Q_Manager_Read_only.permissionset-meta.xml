@@ -533,11 +533,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Quality_Assessment__c.Review_period__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Quality_Assessment__c.Stakeholder_comms_clear_relevant_etc__c</field>
         <readable>true</readable>
     </fieldPermissions>
