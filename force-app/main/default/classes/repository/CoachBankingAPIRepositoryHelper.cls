@@ -176,7 +176,7 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
         CardListModel.CardCls card = cardListResponse.cards[cardIndex];
         if (!card.account_numbers.isEmpty()) {
           if (
-            checkIfAnyClosedAccountsAvailable(
+            checkIfOnlyClosedAccountsAvailable(
               card.account_numbers,
               allClosedAccountsNumbersList
             )
@@ -197,18 +197,18 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
    * @param allClosedAccountsNumbersList contains list of account numbers which are closed for the customer.
    * @return Boolean
    */
-  private static Boolean checkIfAnyClosedAccountsAvailable(
+  private static Boolean checkIfOnlyClosedAccountsAvailable(
     List<String> cardAccountNumbersList,
     List<String> allClosedAccountsNumbersList
   ) {
-    Boolean foundClosedCard = false;
+    Boolean foundNonClosedCard = true;
     for (String acc : cardAccountNumbersList) {
-      if (allClosedAccountsNumbersList.contains(acc)) {
-        foundClosedCard = true;
+      if (!allClosedAccountsNumbersList.contains(acc)) {
+        foundNonClosedCard = false;
         break;
       }
     }
 
-    return foundClosedCard;
+    return foundNonClosedCard;
   }
 }
