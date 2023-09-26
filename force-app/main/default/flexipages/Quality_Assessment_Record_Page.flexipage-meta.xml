@@ -142,8 +142,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Customer__c</fieldItem>
-                <identifier>RecordCustomer_cField</identifier>
+                <fieldItem>Record.Customer_Name__c</fieldItem>
+                <identifier>RecordCustomer_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

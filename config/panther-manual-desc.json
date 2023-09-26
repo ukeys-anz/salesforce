@@ -2748,7 +2748,7 @@
         "What_corrective_actions_are_required__c",
         "Written_customer_comms_professional_etc__c"
       ],
-      "IA-2415984": ["Customer__c", "Calculated__c"],
+      "IA-2415984": ["Customer__c", "Customer_Name__c", "Calculated__c"],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": [
         "Case_Manager__c",

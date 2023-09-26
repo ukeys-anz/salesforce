@@ -3,6 +3,7 @@
     <fullName>My_Team_s_Evaluations</fullName>
     <booleanFilter>((1 OR 2 )AND 4) OR (1 AND 3)</booleanFilter>
     <columns>NAME</columns>
+    <columns>Evaluation_Type__c</columns>
     <columns>Related_Case__c</columns>
     <columns>Customer__c</columns>
     <columns>Case_Manager__c</columns>

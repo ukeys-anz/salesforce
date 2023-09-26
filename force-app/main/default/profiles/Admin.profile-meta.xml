@@ -8158,6 +8158,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.Customer_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Customer_authority_obtained_as_required__c</field>
         <readable>true</readable>
