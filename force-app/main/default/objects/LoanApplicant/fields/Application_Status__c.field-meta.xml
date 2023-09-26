@@ -17,7 +17,7 @@
     &quot;STATE_SUBMITTED&quot;,&quot;Submitted&quot;,
     &quot;STATE_CONFIRMED&quot;,&quot;Confirmed&quot;,
     &quot;STATE_INELIGIBLE&quot;,&quot;Ineligible&quot;,
-    &quot;STATE_SETTLEMENT_INITIATED&quot;,&quot;Settlement Initiated&quot;,
+    &quot;STATE_SETTLEMENT_INITATED&quot;,&quot;Settlement Initiated&quot;,
 TEXT(LoanApplication.Status))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Application Status</label>
