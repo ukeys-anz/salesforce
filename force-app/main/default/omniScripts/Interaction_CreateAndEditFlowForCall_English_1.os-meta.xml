@@ -577,8 +577,8 @@
   &quot;message&quot; : {
     &quot;buttonName&quot; : &quot;cancelForNew&quot;
   },
-  &quot;targetType&quot; : &quot;Navigation Item&quot;,
-  &quot;objectAction&quot; : &quot;home&quot;,
+  &quot;targetType&quot; : &quot;Object&quot;,
+  &quot;objectAction&quot; : &quot;list&quot;,
   &quot;recordAction&quot; : &quot;view&quot;,
   &quot;loginAction&quot; : &quot;login&quot;,
   &quot;targetFilter&quot; : &quot;Recent&quot;,
@@ -591,7 +591,7 @@
   &quot;targetLWCLayout&quot; : &quot;lightning&quot;,
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;targetName&quot; : &quot;Interaction_List_View&quot;
+  &quot;targetName&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
             <sequenceNumber>10.0</sequenceNumber>
             <type>Navigate Action</type>
@@ -2979,5 +2979,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>0ca0a2c1-3e6b-4ebf-d44d-809ffd0c54d5</webComponentKey>
+    <webComponentKey>b3aab2df-1412-6a2a-1523-f4d1a9609647</webComponentKey>
 </OmniScript>
