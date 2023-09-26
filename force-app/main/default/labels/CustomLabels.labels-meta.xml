@@ -13,7 +13,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>AccountAPIUpliftedToV1</shortDescription>
-        <value>False</value>
+        <value>True</value>
     </labels>
     <labels>
         <fullName>TransactionPageSize</fullName>
@@ -27,7 +27,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>TransactionAPIUpliftedToV1</shortDescription>
-        <value>False</value>
+        <value>True</value>
     </labels>
     <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
