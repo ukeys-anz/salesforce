@@ -433,6 +433,39 @@ let definition = {
       optionalFields:
         "Case.OwnerId,Case.Assessment_Outcome__c,Case.Case_Authority_Level__c",
       recordId: "{recordId}"
+    },
+    {
+      eventname: "closeFlyout",
+      channelname: "CreditAssessmentParent",
+      element: "action",
+      eventtype: "pubsub",
+      recordIndex: "0",
+      actionList: [
+        {
+          key: "1694751647464-nbmrtysy1",
+          label: "Action",
+          draggable: false,
+          isOpen: true,
+          card: "{card}",
+          stateAction: {
+            id: "flex-action-1694752237196",
+            type: "cardAction",
+            displayName: "Action",
+            vlocityIcon: "standard-default",
+            targetType: "Web Page",
+            openUrlIn: "Current Window",
+            "Web Page": { targetName: "/apex" },
+            eventName: "reload",
+            message:
+              '{"type":"Query","value":{"dsDelay":"","query":"SELECT Id, Credit_Id__c, Assessment_Outcome__c FROM Case WHERE Id = \'{recordId}\'","jsonMap":"{\\"recordId\\":\\"{recordId}\\"}"},"orderBy":{"name":"","isReverse":""},"contextVariables":[{"name":"recordId","val":"5009r000007Q6SLAA0","id":1}]}'
+          },
+          actionIndex: 0
+        }
+      ],
+      showSpinner: "false",
+      key: "event-1",
+      displayLabel: "CreditAssessmentParent:closeFlyout",
+      eventLabel: "pubsub"
     }
   ],
   Name: "CreditAssessmentContainer",

@@ -12,6 +12,13 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Interaction.Edit</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.ANZx_Edit_Interaction}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>FeedItem.TextPost</value>

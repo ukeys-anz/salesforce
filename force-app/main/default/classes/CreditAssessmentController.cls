@@ -155,7 +155,9 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
 
     Set<CreditReferralModel.Reason> setCrReason = new Set<CreditReferralModel.Reason>();
     for (CreditReferralModel.Assessment crAssessment : cr.assessments) {
-      setCrReason.addAll(crAssessment.reasons);
+      if (!crAssessment.reasons.isEmpty()) {
+        setCrReason.addAll(crAssessment.reasons);
+      }
     }
 
     Set<String> setReasonCode = new Set<String>();
@@ -212,7 +214,7 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
         ? refOutcome.Outcome_Description__c
         : '';
       crReason.createdBy = user != null && String.isNotBlank(user.Name)
-        ? user.Name
+        ? user.Name + ','
         : '';
       crReason.editable = false;
       crReason.reasonCodeId = referralReason.Id;
@@ -334,18 +336,7 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     payload.put('applicantId', String.valueOf(input.get('applicantId')));
     payload.put('recordId', String.valueOf(input.get('recordId')));
 
-    CreditReferralModel cr = creditApi.createCreditEnquiryAssessment(payload);
-
-    if (cr.assessments.isEmpty()) {
-      return false;
-    }
-
-    assignReasonFields(cr, String.valueOf(input.get('recordId')));
-    output.put(
-      'object',
-      JSON.deserializeUntyped(JSON.serialize(splitCurrentAndHistory(cr)))
-    );
-    return true;
+    return creditApi.createCreditEnquiryAssessment(payload);
   }
 
   /**
