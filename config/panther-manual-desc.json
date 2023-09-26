@@ -35,12 +35,21 @@
       "Title": "The title of a document",
       "Document_Category__c": "Document Categorisation for complaints"
     },
+    "FinServ__AccountAccountRelation__c": {
+      "FinServ__Account__c": "The main customer of the relationship",
+      "FinServ__RelatedAccount__c": "The related customer of the relationship"
+    },
+    "FinServ__ContactContactRelation__c": {
+      "FinServ__Contact__c": "The main contact of the relationship",
+      "FinServ__RelatedContact__c": "The related contact of the relationship"
+    },
     "FinServ__FinancialAccount__c": {
       "FinServ__Balance__c": "Balance amount in customer's financial account excluding pending transactions",
       "FinServ__CurrentPostedBalance__c": "Balance amount in customer's financial account including pending transactions",
       "FinServ__FinancialAccountNumber__c": "Customer's financial account number",
       "FinServ__FinancialAccountType__c": "Financial account product type",
       "FinServ__InterestRate__c": "Interest rate used by this financial account",
+      "FinServ__JointOwner__c": "Joint owner of the financial account",
       "FinServ__OpenDate__c": "Date the account was opened",
       "FinServ__PrimaryOwner__c": "Primary owner of the financial account",
       "FinServ__RecordTypeName__c": "Record type of the financial account",
@@ -293,6 +302,7 @@
         "Display_Name__c",
         "Employee_Indicator__c",
         "Employer_Name__c",
+        "Employment_Type__c",
         "Establishment_Date__c",
         "Mailing_Name__c",
         "Name",
@@ -308,6 +318,7 @@
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
+        "Self_Employed__c",
         "Full_First_Name__c",
         "Full_Middle_Name__c",
         "Full_Last_Name__c",
@@ -328,6 +339,12 @@
         "FinServ__CustomerType__c",
         "Principal_Place_of_Business_Formula__c",
         "IsTruncated__c"
+      ],
+      "IA-2594111": [
+        "OCV_Profile_ID__c",
+        "Victim_External_ID__c",
+        "Victim_Record_ID__c",
+        "Date_Victim_Merged__c"
       ]
     },
     "Access_Request__c": {
@@ -1268,7 +1285,8 @@
       ],
       "IA-2415831": ["Global_Address_Key__c", "Delivery_Identifier__c"],
       "IA-2415840": ["QAS_Valid_Address__c"],
-      "IA-2415720": ["AddressType"]
+      "IA-2415720": ["AddressType"],
+      "IA-2594111": ["ParentId"]
     },
     "ContactPointEmail": {
       "IA-2415860": ["Occurrence_Number__c"],
@@ -1293,7 +1311,8 @@
         "Verification_Status__c",
         "Verification_Date__c",
         "Verification_Method__c"
-      ]
+      ],
+      "IA-2594111": ["ParentId"]
     },
     "ContactPointPhone": {
       "IA-2530753": [
@@ -1314,7 +1333,8 @@
         "Verification_Date__c",
         "Verification_Method__c"
       ],
-      "IA-2415860": ["Occurrence_Number__c"]
+      "IA-2415860": ["Occurrence_Number__c"],
+      "IA-2594111": ["ParentId"]
     },
     "ContactRequest": {
       "IA-2453595": [
@@ -1611,6 +1631,9 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
+    "FinServ__AccountAccountRelation__c": {
+      "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
+    },
     "FinServ__ContactContactRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
       "IA-2453350": ["External_Id__c"],
@@ -1620,7 +1643,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2594111": ["FinServ__Contact__c", "FinServ__RelatedContact__c"]
     },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
@@ -1628,6 +1652,7 @@
         "FinServ__FinancialAccountNumber__c",
         "FinServ__PrimaryOwner__c",
         "FinServ__RecordTypeName__c",
+        "Force_Update__c",
         "Marketing_Code__c",
         "OCV_ID__c",
         "Product_Type__c",
@@ -1662,7 +1687,8 @@
         "Source_System_Status_Display__c",
         "Source_System_Status__c",
         "System_Record_Status__c"
-      ]
+      ],
+      "IA-2594111": ["FinServ__JointOwner__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -2101,7 +2127,9 @@
         "Created_Date__c"
       ],
       "IA-2594111": [
+        "Account__c",
         "ApplicantExtIdentifier",
+        "ContactId",
         "Loan_Applicant_Group__c",
         "Party_ID__c",
         "Name",
@@ -2724,6 +2752,7 @@
         "Needs_Assessment_Created_Date__c"
       ],
       "IA-2594111": [
+        "AccountId",
         "ApplicationExtIdentifier",
         "Credit_ID__c",
         "Name",
