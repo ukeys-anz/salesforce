@@ -2190,6 +2190,7 @@
         "LastModifiedById",
         "LastModifiedDate",
         "Location_External_ID__c",
+        "Location_Reference_ID__c",
         "LocationType",
         "ExternalReference",
         "IsMobile",
