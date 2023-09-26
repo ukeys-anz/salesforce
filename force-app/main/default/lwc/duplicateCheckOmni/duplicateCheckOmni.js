@@ -1,6 +1,6 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
-import { refreshApex } from "@salesforce/apex";
+import { RefreshEvent } from "lightning/refresh";
 import tmp from "./duplicateCheckOmni.html";
 
 export default class DuplicateCheckOmni extends OmniscriptBaseMixin(
@@ -33,10 +33,15 @@ export default class DuplicateCheckOmni extends OmniscriptBaseMixin(
     } else {
       this.showModal = false;
       this.showResult = true;
+      custNo =
+        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier ===
+        "Customer/Business CAP ID"
+          ? (this.custNo = this.omniJsonData.Case.CustomerDetails.Customer)
+          : (this.custNo = this.omniJsonData.Case.CustomerDetails.Customer1);
       const inputsForIP = {
         customerIdentifier: this.omniJsonData.Case.CustomerDetails
           .CustomerIdentifier,
-        customerId: this.omniJsonData.Case.CustomerDetails.Customer
+        customerId: this.custNo
       };
 
       const params = {
@@ -54,7 +59,7 @@ export default class DuplicateCheckOmni extends OmniscriptBaseMixin(
         .catch((error) => {
           window.console.log(error, "error");
         });
-      return refreshApex(this.record);
+      return this.dispatchEvent(new RefreshEvent());
     }
     return null;
   }
