@@ -8092,6 +8092,10 @@
         <recordType>Interaction.Appointment</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Message Interaction Layout</layout>
+        <recordType>Interaction.Message</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
