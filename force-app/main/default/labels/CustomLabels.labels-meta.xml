@@ -30,6 +30,13 @@
         <value>True</value>
     </labels>
     <labels>
+        <fullName>FinancialAccountStatusForSorting</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Financial Account Status for sorting the records</shortDescription>
+        <value>Active,Open,Dormant,Suspended,Unspecified,Closed</value>
+    </labels>
+    <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
         <categories>IDR</categories>
         <language>en_US</language>

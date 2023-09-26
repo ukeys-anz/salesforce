@@ -44,12 +44,19 @@ public with sharing class FinancialAccountModelConverter {
       destAccount.status = sourceAccount.state;
 
       // Opened at mapping - constructing DateTime based on OpenDate
-      destAccount.opened_at =
-        sourceAccount.open_date.year +
-        '-' +
-        sourceAccount.open_date.month +
-        '-' +
-        sourceAccount.open_date.day;
+      if (
+        sourceAccount.open_date != null &&
+        sourceAccount.open_date.year != null &&
+        sourceAccount.open_date.month != null &&
+        sourceAccount.open_date.day != null
+      ) {
+        destAccount.opened_at =
+          sourceAccount.open_date.year +
+          '-' +
+          sourceAccount.open_date.month +
+          '-' +
+          sourceAccount.open_date.day;
+      }
 
       //Closed at mapping - constructing DateTime based on ClosedDate
       if (

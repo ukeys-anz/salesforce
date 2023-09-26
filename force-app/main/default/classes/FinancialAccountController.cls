@@ -178,7 +178,7 @@ public with sharing class FinancialAccountController {
         WHERE
           FinServ__PrimaryOwner__c = :ownerId
           AND RecordType.DeveloperName IN :recordTypeDeveloperNames
-        ORDER BY FinServ__OpenDate__c DESC, FinServ__Status__c ASC
+        ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
       ];
     }
     if (financialAccount.isEmpty()) {

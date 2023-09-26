@@ -19,6 +19,7 @@ import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 
 /* IMPORT SCHEMA FIELDS */
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
+import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
 
 import {
   CHECKING_ACCOUNT_RT_APINAME,
@@ -184,9 +185,43 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           this.savingsId = account.Id;
         }
       });
+      this.sortFinancialAccounts(this.accountData.checking);
+      this.sortFinancialAccounts(this.accountData.savings);
     }
 
     return finAccounts;
+  }
+  //Sorting the order of accounts based on account status and then based on opendate for similar account statuses.
+  sortFinancialAccounts(arrOfAccounts) {
+    return arrOfAccounts.sort((firstAccount, otherAccount) => {
+      const statusOrder = FinancialAccountStatusForSorting.split(",");
+
+      // Sort by status first
+      if (firstAccount.FinServ__Status__c !== otherAccount.FinServ__Status__c) {
+        return (
+          statusOrder.indexOf(firstAccount.FinServ__Status__c) -
+          statusOrder.indexOf(otherAccount.FinServ__Status__c)
+        );
+      }
+
+      // Handle null openDate values
+      if (
+        firstAccount.FinServ__OpenDate__c === null &&
+        otherAccount.FinServ__OpenDate__c !== null
+      )
+        return 1;
+      if (
+        otherAccount.FinServ__OpenDate__c === null &&
+        firstAccount.FinServ__OpenDate__c !== null
+      )
+        return -1;
+
+      // Sort by date next if status is same
+      return (
+        new Date(otherAccount.FinServ__OpenDate__c) -
+        new Date(firstAccount.FinServ__OpenDate__c)
+      );
+    });
   }
 
   async refreshData() {
