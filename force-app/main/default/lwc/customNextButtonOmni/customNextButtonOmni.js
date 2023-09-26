@@ -98,7 +98,7 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
         this.errorFromValidation.topicerror = false;
         if (
           (actualTopics.length === 0 || actualTopics.length > 5) &&
-          recordTypeName !== "Message"
+          recordTypeName === "In Person"
         ) {
           this.errorFromValidation.topicerror = true;
           this.boolShowError = true;
