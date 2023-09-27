@@ -55,7 +55,7 @@
                 <field>Resolution__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Support_Topics__c</field>
             </layoutItems>
         </layoutColumns>
