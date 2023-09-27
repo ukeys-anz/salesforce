@@ -51,8 +51,14 @@ public with sharing class CCRMTestDataFactory {
     adminUser.ProfileId = adminProfileId;
     insert adminUser;
 
-    addCCRMUserPS(adminUser.id, 'Read_Write_Customer_Details');
-    addCCRMUserPS(adminUser.id, 'CCRM_User_Base');
+    TestUtil.assignPermissionSets(
+      new List<String>{
+        'Customer_Relationships_Read_Write',
+        'Read_Write_Customer_Details',
+        'CCRM_User_Base'
+      },
+      new List<User>{ adminUser }
+    );
 
     return adminUser;
   }
@@ -168,9 +174,17 @@ public with sharing class CCRMTestDataFactory {
     ccrmIntegrationUser.UserRoleId = commercialBankerRole.Id;
     ccrmIntegrationUser.ProfileId = integrationProfileId;
     insert ccrmIntegrationUser;
-    addCCRMUserPS(ccrmIntegrationUser.id, 'CCRM_Marketing_Integration_User');
-    addCCRMUserPS(ccrmIntegrationUser.id, 'Read_Write_Customer_Details');
-    addCCRMUserPS(ccrmIntegrationUser.id, 'Financial_Accounts_Read_and_Edit');
+
+    TestUtil.assignPermissionSets(
+      new List<String>{
+        'CCRM_Marketing_Integration_User',
+        'Customer_Relationships_Read_Write',
+        'Read_Write_Customer_Details',
+        'CCRM_User_Base'
+      },
+      new List<User>{ ccrmIntegrationUser }
+    );
+
     return ccrmIntegrationUser;
   }
 
@@ -1059,5 +1073,26 @@ public with sharing class CCRMTestDataFactory {
 
     apTempVer.Status = 'Final';
     update apTempVer;
+  }
+
+  /**
+   * @description Create non-reciprocal role records
+   * @name createNonReciprocalRole
+   * @param name [Optional] the name of the reciprocal role
+   * @return FinServ__ReciprocalRole__c the newly created record
+   */
+  public static FinServ__ReciprocalRole__c createNonReciprocalRole(
+    String name
+  ) {
+    name = name == null ? new Faker('AU').randomString(10) : name;
+    FinServ__ReciprocalRole__c nonReciprocalRole = new FinServ__ReciprocalRole__c(
+      RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID,
+      Name = name,
+      FinServ__InverseRole__c = name,
+      OCV_Role__c = name,
+      FinServ__CreateInverseRole__c = false
+    );
+    insert nonReciprocalRole;
+    return nonReciprocalRole;
   }
 }
