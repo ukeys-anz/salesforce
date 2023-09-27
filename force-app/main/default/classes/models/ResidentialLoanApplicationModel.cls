@@ -54,12 +54,24 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String LEASE_HIRE_PURCHASE_LABEL = 'Lease/Hire Purchase';
   public static final String CREDIT_CARD_UI_MESSAGE = 'To be provided';
   public static final String OVERDRAFT = 'LIABILITY_TYPE_OVERDRAFT';
+  public static final String HOME_LOAN = 'LIABILITY_TYPE_HOME_LOAN';
+  public static final String OTHER_LOAN_LIABILITY = 'LIABILITY_TYPE_OTHER_LOAN';
+  public static final String LEASE_HIRE = 'LIABILITY_TYPE_LEASE_HIRE_PURCHASE';
+  public static final String VEHICLE_LOAN = 'LIABILITY_TYPE_VEHICLE_LOAN';
+  public static final String STUDENT_LOAN = 'LIABILITY_TYPE_STUDENT_LOAN';
+  public static final String CREDIT_CARD_LIABILITY = 'LIABILITY_TYPE_CREDIT_CARD';
+  public static final String LINE_OF_CREDIT_LIABILITY = 'LIABILITY_TYPE_LINE_OF_CREDIT';
+  public static final String MARGIN_LOAN = 'LIABILITY_TYPE_MARGIN_LOAN';
+  public static final String OTHER_LIABILITY = 'LIABILITY_TYPE_OTHER_LIABILITY';
+  public static final String PERSONAL_LOAN = 'LIABILITY_TYPE_PERSONAL_LOAN';
 
   //BNPL
   public static final String BNPL_FACILITY = 'Bpl Facility';
   public static final String BNPL_FACILITY_TYPE = 'Spend Limit';
   public static final String BNPL_LOAN = 'Bpl Loan';
   public static final String BNPL_LOAN_TYPE = 'Fixed Amount';
+  public static final String BPL_FACILITY = 'LIABILITY_TYPE_BPL_FACILITY';
+  public static final String BPL_LIABILITY = 'LIABILITY_TYPE_BPL_LOAN';
 
   public Boolean showAddIncomeBtn;
 
@@ -210,14 +222,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
       expenseMap.put(expense.categoryName.replaceAll('&', 'and'), expense);
     }
-  }
-
-  /**
-   * @description SOPDebtSummary returns all the sop debt related values and total
-   */
-  public class SOPDebtSummary {
-    public List<SOPDebt> liabilities;
-    public SOPMoney liabilitiesTotalAmount;
   }
 
   /**
