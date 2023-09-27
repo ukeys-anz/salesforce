@@ -178,3 +178,6 @@ mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xm
 
 #ANZX-110254- remove the unused resource file to avoid errors
 force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
+
+#AR-88127 - ignore System Admin CyberArk to be deployed to ScratchOrg
+force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml 
