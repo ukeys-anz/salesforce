@@ -5,14 +5,12 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <deprecated>false</deprecated>
-    <description>Name of the organizational entity that is involved with the financial account.</description>
     <externalId>false</externalId>
     <label>Related Account</label>
     <referenceTo>Account</referenceTo>
-    <relationshipLabel>Financial Account Roles</relationshipLabel>
-    <relationshipName>FinancialAccountRoles</relationshipName>
+    <relationshipName>RelatedToAccounts</relationshipName>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
