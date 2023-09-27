@@ -5,15 +5,28 @@
  */
 
 @IsTest
-private class IDRQualityAssessmentTaskActionsTest {
+public class IDRQualityAssessmentTaskActionsTest {
   public static final String REFERENCE_VALUE = 'TestRef';
 
+  @IsTest
+  static void checkMandatoryFields() {
+    Boolean fExceptionThrown = false;
+    try {
+      createComplianceTasksImpl(false);
+    } catch (DmlException ex) {
+      fExceptionThrown = true;
+    }
+    System.assert(
+      fExceptionThrown,
+      'Mandatory fields didn\'t trigger exception'
+    );
+  }
   /**
    * @description Tests IDRQualityAssessmentTaskActions.checkOnReversionToPending
    */
   @IsTest
   static void checkOnReversionToPending() {
-    User oQAUser = createComplianceTasksImpl();
+    User oQAUser = createComplianceTasksImpl(true);
 
     System.runAs(oQAUser) {
       List<Quality_Assessment__c> lstAssessments = [
@@ -47,10 +60,10 @@ private class IDRQualityAssessmentTaskActionsTest {
    */
   @IsTest
   static void createComplianceTasks() {
-    createComplianceTasksImpl();
+    createComplianceTasksImpl(true);
   }
 
-  static User createComplianceTasksImpl() {
+  static User createComplianceTasksImpl(Boolean fFillMandatoryFields) {
     Profile stdXUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
     UserRole cqRole = CommonUtil.getUserRoleByDevName(
@@ -126,9 +139,11 @@ private class IDRQualityAssessmentTaskActionsTest {
       insert newCases;
 
       Quality_Assessment__c[] lstAssessments = new List<Quality_Assessment__c>();
+      Quality_Assessment__c oNewAssessment;
+      Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
       for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
         lstAssessments.add(
-          new Quality_Assessment__c(
+          oNewAssessment = new Quality_Assessment__c(
             Status__c = 'In Progress',
             Related_Case__c = newCases[i].Id,
             Case_Manager__c = oQAUser.Id,
@@ -136,6 +151,9 @@ private class IDRQualityAssessmentTaskActionsTest {
             RecordTypeId = IDRConstants.idrtCQQualityAssessment
           )
         );
+        if (fFillMandatoryFields) {
+          fillMandatoryFields(oNewAssessment, mpAssessmentFieldSets);
+        }
       }
       insert lstAssessments;
 
@@ -163,5 +181,44 @@ private class IDRQualityAssessmentTaskActionsTest {
       System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
     }
     return oQAUser;
+  }
+
+  /**
+   * @description fill Quality_Assessment__c record with mandatory fields noted in fieldset
+   * @param oAssessment  record to apply mandatory values to
+   * @param mpAssessmentFieldSets map of fieldsets
+   */
+  public static void fillMandatoryFields(
+    Quality_Assessment__c oAssessment,
+    Map<String, FieldSet> mpAssessmentFieldSets
+  ) {
+    String strFieldsetId = IDRQualityAssessmentActions.getFieldsetId(
+      oAssessment
+    );
+    Schema.FieldSet oFieldSet;
+    if (
+      strFieldsetId != '' &&
+      (oFieldSet = mpAssessmentFieldSets.get(strFieldsetId + '_mandatory')) !=
+      null
+    ) {
+      for (Schema.FieldSetMember field : oFieldSet.getFields()) {
+        if ( oAssessment.get(field.SObjectField) == null) {
+          if ( field.getSObjectField().getDescribe().getType() == DisplayType.PICKLIST) {
+            for (PicklistEntry peEntry : field.getSObjectField().getDescribe().getPicklistValues()) {
+              switch on peEntry.value {
+                when 'Met' {
+                  oAssessment.put(field.SObjectField, 'Met');
+                }
+                when 'Yes' {
+                  oAssessment.put(field.SObjectField, 'Yes');
+                }
+              }
+            }
+          } else {
+            oAssessment.put(field.SObjectField, 'Met');
+          }
+        }
+      }
+    }
   }
 }
