@@ -30,6 +30,11 @@
                 <default>false</default>
                 <label>Digital Support</label>
             </value>
+            <value>
+                <fullName>Home Loan</fullName>
+                <default>false</default>
+                <label>Home Loan</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
