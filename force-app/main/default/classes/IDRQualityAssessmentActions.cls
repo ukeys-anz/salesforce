@@ -130,6 +130,9 @@ public with sharing class IDRQualityAssessmentActions {
     Boolean fLoggerUsed = false;
     for (Quality_Assessment__c oAssessment : lstNewAssessments) {
       if (
+        (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment ||
+        oAssessment.RecordTypeId ==
+        IDRConstants.idrtCallLetterReviewQualityAssessment) &&
         oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
         (mpOldAssessments == null ||
         (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||

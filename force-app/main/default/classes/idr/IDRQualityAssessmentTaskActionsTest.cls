@@ -118,10 +118,10 @@ public class IDRQualityAssessmentTaskActionsTest {
       );
     }
 
+    Test.calculatePermissionSetGroup(lstPSGIds);
+
     System.debug('PSA: ' + lstPSA);
     insert lstPSA;
-
-    Test.calculatePermissionSetGroup(lstPSGIds);
 
     Test.startTest();
 
