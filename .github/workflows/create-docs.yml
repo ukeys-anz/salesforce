@@ -127,7 +127,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout -b $BRANCH_NAME
-          git add sysl/salesforce.business.sysl sysl/salesforce.edg.sysl
+          git add sysl/salesforce.edg.sysl
           git commit -m "Update sysl files"
           git push origin $BRANCH_NAME
 

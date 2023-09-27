@@ -10,7 +10,7 @@
     <filters>
         <field>Audience__c</field>
         <operation>equals</operation>
-        <value>Credit Assessor Lead,Credit Assessment Officer,All</value>
+        <value>Credit Assessor Lead,Credit Assessment Officer,BOH Coach,All</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>Credit Assessor Articles</label>
