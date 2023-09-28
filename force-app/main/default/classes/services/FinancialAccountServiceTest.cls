@@ -57,7 +57,9 @@ public with sharing class FinancialAccountServiceTest {
       financialAccountsList[1].FinServ__Status__c = 'Closed';
       financialAccountsList[1].FinServ__FinancialAccountNumber__c = '342490982';
 
+      Test.startTest();
       insert financialAccountsList;
+      Test.stopTest();
     }
 
   }
@@ -67,12 +69,7 @@ public with sharing class FinancialAccountServiceTest {
     List<String> statusList = new List<String>{
       GetHelpConstants.CLOSED_STATUS
     };
-    Account personAccount = [
-      SELECT id, OCV_ID__c
-      FROM Account
-      WHERE OCV_ID__c = 'OCVID887766'
-      LIMIT 1
-    ];
+
     List<FinServ__FinancialAccount__c> financialAccountList = new List<FinServ__FinancialAccount__c>();
     User coachUser = TestUtil.getUserByFirstName(
       'FinancialAccountTestCoachUser'
