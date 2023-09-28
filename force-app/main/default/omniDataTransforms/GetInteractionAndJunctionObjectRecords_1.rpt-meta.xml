@@ -53,7 +53,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>GetInteractionAndJunctionObjectRecords</name>
-        <defaultValue>true</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>GetInteractionAndJunctionObjectRecords37554585780218375</globalKey>
@@ -105,8 +104,8 @@
         <inputObjectName>Interaction_Context_Tag__c</inputObjectName>
         <inputObjectQuerySequence>2.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Interactions:Name</outputFieldName>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Interactions:JunctionObject</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -256,12 +255,12 @@
         <name>GetInteractionAndJunctionObjectRecords</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>GetInteractionAndJunctionObjectRecords9726021160241485</globalKey>
-        <inputFieldName>Interactions:Name</inputFieldName>
+        <globalKey>GetInteractionAndJunctionObjectRecords10115083751805254</globalKey>
+        <inputFieldName>Interactions:Resolution__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Interactions:Name</outputFieldName>
+        <outputFieldName>Interactions:ActionTaken</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -419,12 +418,12 @@
         <name>GetInteractionAndJunctionObjectRecords</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>GetInteractionAndJunctionObjectRecords2624252764358359</globalKey>
-        <inputFieldName>Interactions:CaseId__r.CaseNumber</inputFieldName>
+        <globalKey>GetInteractionAndJunctionObjectRecords6769194231430526</globalKey>
+        <inputFieldName>Interactions:CreatedDate</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Interactions:CaseId</outputFieldName>
+        <outputFieldName>Interactions:CreatedDate</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -483,7 +482,6 @@
         <outputFieldName>Interactions:LastModifiedDate</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
@@ -626,7 +624,7 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Interactions:SupportTopics</outputFieldName>
+        <outputFieldName>Interactions:Name</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -635,12 +633,12 @@
         <name>GetInteractionAndJunctionObjectRecords</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>GetInteractionAndJunctionObjectRecords1965674167706133</globalKey>
-        <inputFieldName>Interactions:Authentication_Method__c</inputFieldName>
+        <globalKey>GetInteractionAndJunctionObjectRecords11186857180457443</globalKey>
+        <inputFieldName>Interactions:Owner.Name</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Interactions:AuthenticationMethod</outputFieldName>
+        <outputFieldName>Interactions:OwnerName</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -663,12 +661,12 @@
         <name>GetInteractionAndJunctionObjectRecords</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>GetInteractionAndJunctionObjectRecords7796293804348036</globalKey>
-        <inputFieldName>Interactions:LastModifiedDate</inputFieldName>
+        <globalKey>GetInteractionAndJunctionObjectRecords5264262953083703</globalKey>
+        <inputFieldName>Interactions:Contact_Mobile__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Interactions:LastModifiedDate</outputFieldName>
+        <outputFieldName>Interactions:ContactMobile</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -727,21 +725,6 @@
         <outputFieldName>Interactions:CoachingSummaryId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>GetInteractionAndJunctionObjectRecords</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>GetInteractionAndJunctionObjectRecords9439494947289371</globalKey>
-        <inputFieldName>Interactions:JunctionObject:Id</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Interactions:JunctionObject:Id</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>JSON</outputType>

@@ -3,7 +3,7 @@
  * @since August 2023
  * @description Model for transaction history API Uplift to V1
  */
-public class TransactionHistoryModelConvertor {
+public class TransactionHistoryModelConverter {
   /**
    * @description FinancialAccountModelConverter converts the v1 response back to v1beta1 response
    * @param sourceModel Holds the values of v1
@@ -159,13 +159,13 @@ public class TransactionHistoryModelConvertor {
       }
       //Mapping Bpay
       if (sourceTransaction.bpay != null) {
-        destTransaction.bpay = TransactionHistoryModelConvertorHelper.convertBpay(
+        destTransaction.bpay = TransactionHistoryModelConverterHelper.convertBpay(
           sourceTransaction.bpay
         );
       }
       //Mapping Transfer
       if (sourceTransaction.transfer != null) {
-        destTransaction.transfer = TransactionHistoryModelConvertorHelper.convertTransfer(
+        destTransaction.transfer = TransactionHistoryModelConverterHelper.convertTransfer(
           sourceTransaction.transfer
         );
       }
@@ -180,7 +180,7 @@ public class TransactionHistoryModelConvertor {
       }
       //Mapping Interest
       if (sourceTransaction.interest != null) {
-        destTransaction.interest = TransactionHistoryModelConvertorHelper.convertInterest(
+        destTransaction.interest = TransactionHistoryModelConverterHelper.convertInterest(
           sourceTransaction.interest
         );
       }

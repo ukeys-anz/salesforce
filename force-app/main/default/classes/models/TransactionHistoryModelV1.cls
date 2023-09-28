@@ -267,7 +267,7 @@ public class TransactionHistoryModelV1 extends CalloutModel {
       json,
       TransactionHistoryModelV1.class
     );
-    return TransactionHistoryModelConvertor.convertToTransactionHistoryModel(
+    return TransactionHistoryModelConverter.convertToTransactionHistoryModel(
       transModelV1
     );
   }

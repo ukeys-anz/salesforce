@@ -3,7 +3,7 @@
  * @since August 2023
  * @description Model for transaction history API Uplift helper class
  */
-public with sharing class TransactionHistoryModelConvertorHelper {
+public with sharing class TransactionHistoryModelConverterHelper {
   /**
    * @description Transform bpay v1 node back to v1beta1
    * @param sourceBpay Transaction API v1 Bpay Node
