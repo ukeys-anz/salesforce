@@ -2,7 +2,7 @@
  * @author Victor Wang
  * @since 08/2021
  * @description QualityAssessmentActions class is to handle Quality Assessment process actions
- * @runTests QualityAssessmentActionsTest
+ * @runTests QualityAssessmentActionsTest, QualityAssessmentTriggerHandlerTest
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class QualityAssessmentActions {
@@ -11,6 +11,7 @@ public with sharing class QualityAssessmentActions {
   public static final String STATUS_IN_PROGRESS = 'In Progress';
   public static final String STATUS_PENDING = 'Pending';
   public static final String STATUS_COMPLETE = 'Complete';
+  public static final String STATUS_WITHDRAWN = 'Withdrawn';
   public static final String SUB_STATUS_OTHER = 'Other';
   public static final String SUB_STATUS_COMPLIANCE_REVIEW = 'Compliance Review';
   public static final String SUB_STATUS_EVALUATION_COMPLETED = 'Evaluation Completed';
@@ -46,7 +47,7 @@ public with sharing class QualityAssessmentActions {
    * @param record case record to determine
    * @return Boolean
    */
-  @testVisible
+  @TestVisible
   private static Boolean isDisputeCaseType(Case record) {
     return DISPUTE_CASE_RT_IDS.contains(record.RecordTypeId);
   }
@@ -61,7 +62,7 @@ public with sharing class QualityAssessmentActions {
   ) {
     Set<Id> interactionIds = new Set<Id>();
     for (Quality_Assessment__c record : records) {
-      Id oldRelatedInteraction = oldMap?.get(record.id).Interaction__c;
+      Id oldRelatedInteraction = oldMap?.get(record.Id).Interaction__c;
       if (record.Interaction__c != oldRelatedInteraction) {
         interactionIds.add(record.Interaction__c);
       }
@@ -81,7 +82,7 @@ public with sharing class QualityAssessmentActions {
   }
   /**
    * @description populate fields on quality assessment record
-   * @param records
+   * @param records list of new values
    * @param oldMap old value map
    */
   public static void populateFields(
@@ -91,7 +92,7 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> qaRecordsWithRelatedCase = new List<Quality_Assessment__c>();
 
     for (Quality_Assessment__c record : records) {
-      Id oldRelatedCase = oldMap?.get(record.id).Related_Case__c;
+      Id oldRelatedCase = oldMap?.get(record.Id).Related_Case__c;
       if (record.Related_Case__c != oldRelatedCase) {
         qaRecordsWithRelatedCase.add(record);
       }
@@ -113,7 +114,7 @@ public with sharing class QualityAssessmentActions {
    * @param qaRecordsWithRelatedCase a list of Quality_Assessment__c with Related_Case__c
    * @return List<Quality_Assessment__c> a list of Quality_Assessment__c with pre-populated fields from Related_Case__c
    */
-  @testVisible
+  @TestVisible
   private static List<Quality_Assessment__c> assignRelatedCaseFieldsToQA(
     List<Quality_Assessment__c> qaRecordsWithRelatedCase
   ) {
@@ -162,7 +163,7 @@ public with sharing class QualityAssessmentActions {
    * @description method to assign field value to a Quality Assessment record
    * @param record quality assessment record
    */
-  @testVisible
+  @TestVisible
   private static void calculateAndAssignFieldsToQA(
     Quality_Assessment__c record
   ) {
@@ -194,7 +195,7 @@ public with sharing class QualityAssessmentActions {
    * @param caseOrigin related case origin
    * @return String Interaction Type
    */
-  @testVisible
+  @TestVisible
   private static String calculateInteractionType(String caseOrigin) {
     switch on caseOrigin {
       when 'Chat' {
@@ -244,7 +245,7 @@ public with sharing class QualityAssessmentActions {
       for (Group q : [
         SELECT Id, DeveloperName
         FROM Group
-        WHERE type = 'Queue' AND DeveloperName IN :queueNameList
+        WHERE Type = 'Queue' AND DeveloperName IN :queueNameList
       ]) {
         queueMap.put(q.DeveloperName, q);
       }
@@ -252,7 +253,7 @@ public with sharing class QualityAssessmentActions {
 
     for (Quality_Assessment__c record : records) {
       if (oldMap != null) {
-        Quality_Assessment__c oldRecord = oldMap.get(record.id);
+        Quality_Assessment__c oldRecord = oldMap.get(record.Id);
         if (
           oldRecord.Sub_Status__c != 'Compliance Review' &&
           record.Sub_Status__c == 'Compliance Review'
@@ -346,6 +347,7 @@ public with sharing class QualityAssessmentActions {
         }
         for (Quality_Assessment__c oAssessment2 : lstAssessments) {
           if (
+            oAssessment2.Status__c != STATUS_WITHDRAWN &&
             oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c
           ) {
             oAssessment.addError(EVALUATION_TYPE_DUPLICATE_ERROR);
@@ -371,6 +373,7 @@ public with sharing class QualityAssessmentActions {
       ) {
         for (Quality_Assessment__c oAssessment2 : lstAssessments) {
           if (
+            oAssessment2.Status__c != STATUS_WITHDRAWN &&
             oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c &&
             oAssessment2.Id != oAssessment.Id
           ) {
@@ -393,7 +396,7 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> qaToCreateSharingRecord = new List<Quality_Assessment__c>();
     for (Quality_Assessment__c qa : records) {
       if (oldMap != null) {
-        Quality_Assessment__c oldRecord = oldMap.get(qa.id);
+        Quality_Assessment__c oldRecord = oldMap.get(qa.Id);
         //share evaluation completed QA with interaction owner
         if (
           qa.Interaction_Owner__c != null &&
@@ -442,7 +445,7 @@ public with sharing class QualityAssessmentActions {
 
     for (Quality_Assessment__c qa : records) {
       if (oldMap != null) {
-        Quality_Assessment__c oldRecord = oldMap.get(qa.id);
+        Quality_Assessment__c oldRecord = oldMap.get(qa.Id);
         if (
           qa.Related_Case__c != null &&
           qa.Related_Case__c != oldRecord.Related_Case__c
@@ -481,7 +484,7 @@ public with sharing class QualityAssessmentActions {
     Id assuranceTeamGroupId = groupsByName.get(GROUP_ASSURANCE_TEAM);
 
     for (Quality_Assessment__c qa : qaRecords) {
-      String oldSubstatus = oldMap?.get(qa.id).Sub_Status__c;
+      String oldSubstatus = oldMap?.get(qa.Id).Sub_Status__c;
       if (qa.Sub_Status__c == oldSubstatus) {
         continue;
       }
@@ -543,9 +546,9 @@ public with sharing class QualityAssessmentActions {
    * @return  `Map<Id, Interaction>` map of interaction
    */
   public static Map<Id, Interaction> getInteractions(Set<Id> interactionIds) {
-    Map<Id, Interaction> interactions = new Map<ID, Interaction>();
+    Map<Id, Interaction> interactions = new Map<Id, Interaction>();
     if (Interaction.SObjectType.getDescribe().isQueryable()) {
-      interactions = new Map<ID, Interaction>(
+      interactions = new Map<Id, Interaction>(
         [
           SELECT Id, CreatedDate, Lead__c, CaseId__c, AccountId
           FROM Interaction
