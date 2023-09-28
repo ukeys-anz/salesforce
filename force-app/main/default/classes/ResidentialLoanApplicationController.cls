@@ -140,6 +140,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     );
     SOPModel.Parties[] transformedParties = new List<SOPModel.Parties>();
 
+    SOPModelHelper.enrichOwnerName(response);
+
     if (response == null) {
       return false;
     }

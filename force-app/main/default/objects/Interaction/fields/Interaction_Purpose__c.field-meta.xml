@@ -91,6 +91,7 @@
             <valueName>Non-Customer</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
