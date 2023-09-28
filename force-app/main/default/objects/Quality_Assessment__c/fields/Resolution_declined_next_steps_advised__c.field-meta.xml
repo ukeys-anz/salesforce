@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resolution_declined_next_steps_advised__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Call Question 8</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If a resolution was declined, did the CM explain next steps to the customer?
+If the proposed resolution was declined, did the CM ask why this was not appropriate and look for another option?   If no other options, did the CM: 
+· Explain why their proposed resolution was declined
+· Provide factual information regarding our position 
+· Acknowledge how the customer is feeling 
+· Outline next steps? E.g. &quot;You have the right to pursue your complaint with AFCA, I can provide you with their contact details”</inlineHelpText>
+    <label>Resolution declined- next steps advised</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

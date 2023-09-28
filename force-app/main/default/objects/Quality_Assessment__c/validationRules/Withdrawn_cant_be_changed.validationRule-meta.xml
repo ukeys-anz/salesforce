@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Withdrawn_cant_be_changed</fullName>
+    <active>true</active>
+    <description>Once Withdrawn, assessment can&apos;t be updated. Kindly create a new assessment.</description>
+    <errorConditionFormula>AND(
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  OR(
+    RecordType.DeveloperName = &apos;C_Q_Assessment&apos;,
+    RecordType.DeveloperName = &apos;Call_Letter_Review_Assessment&apos;),
+  ISPICKVAL(PRIORVALUE(Status__c),&apos;Withdrawn&apos;)
+)</errorConditionFormula>
+    <errorMessage>Once Withdrawn, assessment can&apos;t be updated. Kindly create a new assessment.</errorMessage>
+</ValidationRule>

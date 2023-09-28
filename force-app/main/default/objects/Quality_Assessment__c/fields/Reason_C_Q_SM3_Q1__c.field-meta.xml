@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM3_Q1__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 3 Q1 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Gave_extra_care_for_vulnerable_customer__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>we did not, or were slow to, identify customer was experiencing vulnerability.</fullName>
+                <default>false</default>
+                <label>we did not, or were slow to, identify customer was experiencing vulnerability.</label>
+            </value>
+            <value>
+                <fullName>we did not, or were slow to, provide extra care to customer.</fullName>
+                <default>false</default>
+                <label>we did not, or were slow to, provide extra care to customer.</label>
+            </value>
+            <value>
+                <fullName>where our customer was experiencing vulnerability including severe/acute factors we did not or were slow to prioritise the complaint and offer/provide appropriate extra care.</fullName>
+                <default>false</default>
+                <label>where our customer was experiencing vulnerability including severe/acute factors we did not or were slow to prioritise the complaint and offer/provide appropriate extra care.</label>
+            </value>
+            <value>
+                <fullName>Delay was a result of an allocation/indexing error.</fullName>
+                <default>false</default>
+                <label>Delay was a result of an allocation/indexing error.</label>
+            </value>
+            <value>
+                <fullName>CM receiving the review was not the CM responsible for the ‘not met’.</fullName>
+                <default>false</default>
+                <label>CM receiving the review was not the CM responsible for the ‘not met’.</label>
+            </value>
+            <value>
+                <fullName>There was no information to suggest customer was experiencing vulnerability.</fullName>
+                <default>false</default>
+                <label>There was no information to suggest customer was experiencing vulnerability.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>we did not, or were slow to, identify customer was experiencing vulnerability.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>we did not, or were slow to, provide extra care to customer.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>where our customer was experiencing vulnerability including severe/acute factors we did not or were slow to prioritise the complaint and offer/provide appropriate extra care.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>Delay was a result of an allocation/indexing error.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM receiving the review was not the CM responsible for the ‘not met’.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>There was no information to suggest customer was experiencing vulnerability.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
