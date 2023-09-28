@@ -162,7 +162,7 @@
     <label>Quality Assessment</label>
     <nameField>
         <displayFormat>Q-{00000000}</displayFormat>
-        <label>Quality Reference</label>
+        <label>Quality Assessment Reference</label>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>

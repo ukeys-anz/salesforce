@@ -143,7 +143,7 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Customer_Name__c</fieldItem>
-                <identifier>RecordCustomer_Name_cField</identifier>
+                <identifier>RecordCustomer_name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -258,11 +258,28 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Confirmation_of_resolution_letter_used__c</fieldItem>
+                <identifier>RecordConfirmation_of_resolution_letter_used_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Was_the_DMF_paid_rep_licensed__c</fieldItem>
                 <identifier>RecordWas_the_DMF_paid_rep_licensed_cField</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>C_Q_Assessment</rightValue>
                     </criteria>
@@ -2091,6 +2108,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Correct_financial_remedy_approach__c</fieldItem>
                 <identifier>RecordCorrect_financial_remedy_approach_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2307,6 +2331,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_20__c</fieldItem>
                 <identifier>RecordCMOS_Comment_20_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Letter Review Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-04a401f8-cc3d-412c-8f43-74e9b3fd0e68</name>
@@ -2756,7 +2787,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Case_Manager_Score__c</fieldItem>
                 <identifier>RecordCase_Manager_Score_cField</identifier>
@@ -2766,7 +2797,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Business_score__c</fieldItem>
                 <identifier>RecordBusiness_score_cField</identifier>
@@ -3005,6 +3036,32 @@
                 </componentInstanceProperties>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Quality_Assessment__c.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Histories</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
