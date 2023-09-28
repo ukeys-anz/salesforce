@@ -27,6 +27,6 @@
     </filters>
     <label>My Evaluations</label>
     <sharedTo>
-        <role>Banker</role>
+        <role>Customer_Resolution</role>
     </sharedTo>
 </ListView>

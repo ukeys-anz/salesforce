@@ -35,6 +35,7 @@
     </filters>
     <label>My Team&apos;s Evaluations</label>
     <sharedTo>
-        <role>Banker_Line_Manager</role>
+        <role>Customer_Resolution_Leadership</role>
+        <role>Customer_Resolution_Team_Leaders</role>
     </sharedTo>
 </ListView>
