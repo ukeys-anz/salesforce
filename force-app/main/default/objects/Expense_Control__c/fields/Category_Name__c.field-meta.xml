@@ -35,9 +35,9 @@
                 <label>LIFESTYLE</label>
             </value>
             <value>
-                <fullName>BILLS INSURANCE &amp; GENERAL</fullName>
+                <fullName>UTILITIES &amp; HOUSEHOLD COSTS</fullName>
                 <default>false</default>
-                <label>BILLS INSURANCE &amp; GENERAL</label>
+                <label>UTILITIES &amp; HOUSEHOLD COSTS</label>
             </value>
         </valueSetDefinition>
     </valueSet>

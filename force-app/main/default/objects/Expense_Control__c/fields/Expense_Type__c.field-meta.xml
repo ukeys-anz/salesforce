@@ -35,9 +35,9 @@
                 <label>LIFESTYLE</label>
             </value>
             <value>
-                <fullName>PRIMARY HOUSEHOLD COSTS</fullName>
+                <fullName>PRIMARY_HOUSEHOLD_COSTS</fullName>
                 <default>false</default>
-                <label>PRIMARY HOUSEHOLD COSTS</label>
+                <label>PRIMARY_HOUSEHOLD_COSTS</label>
             </value>
         </valueSetDefinition>
     </valueSet>
