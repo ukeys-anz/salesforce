@@ -9,6 +9,7 @@ public with sharing class QualityAssessmentActions {
   public static final String STATUS_UNASSIGNED = 'Unassigned';
   public static final String STATUS_REFERRED = 'Referred';
   public static final String STATUS_IN_PROGRESS = 'In Progress';
+  public static final String STATUS_PENDING = 'Pending';
   public static final String STATUS_COMPLETE = 'Complete';
   public static final String SUB_STATUS_OTHER = 'Other';
   public static final String SUB_STATUS_COMPLIANCE_REVIEW = 'Compliance Review';

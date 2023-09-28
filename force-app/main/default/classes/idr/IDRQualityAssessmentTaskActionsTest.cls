@@ -144,7 +144,7 @@ public class IDRQualityAssessmentTaskActionsTest {
       for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
         lstAssessments.add(
           oNewAssessment = new Quality_Assessment__c(
-            Status__c = 'In Progress',
+            Status__c = QualityAssessmentActions.STATUS_PENDING,
             Related_Case__c = newCases[i].Id,
             Case_Manager__c = oQAUser.Id,
             TeamManager__c = oIDRUser.Id,
