@@ -269,7 +269,7 @@ private class CCRMLeadActionsTest {
     //Roles and Permission Sets
     UserRole bankerRole = CommonUtil.getUserRoleByDevName('Banker');
     UserRole bankerManagerRole = CommonUtil.getUserRoleByDevName(
-      'Banker Line Manager'
+      'Banker_Line_Manager'
     );
     PermissionSet ps = CommonUtil.getPermissionSetByName('CCRM_User_Base');
 

@@ -156,8 +156,11 @@ public with sharing class TestUtil {
     List<User> users
   ) {
     List<PermissionSetAssignment> psAssignments = new List<PermissionSetAssignment>();
-    for (String permissionSetName : psNames) {
-      PermissionSet ps = CommonUtil.getPermissionSetByName(permissionSetName);
+    for (PermissionSet ps : [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :psNames
+    ]) {
       for (User currentUser : users) {
         psAssignments.add(TestUtil.createPSAssignment(currentUser.id, ps.Id));
       }
