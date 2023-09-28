@@ -52,14 +52,14 @@ public with sharing class FinancialAccountServiceTest {
       financialAccountsList[0].FinServ__PrimaryOwner__c = testAccount.Id;
       financialAccountsList[0].FinServ__Status__c = 'Closed';
       financialAccountsList[0].FinServ__FinancialAccountNumber__c = '342490981';
+      financialAccountsList[0].Source_System_Status__c = 'CAPCISOP';
 
       financialAccountsList[1].FinServ__PrimaryOwner__c = testAccount.Id;
       financialAccountsList[1].FinServ__Status__c = 'Closed';
       financialAccountsList[1].FinServ__FinancialAccountNumber__c = '342490982';
+      financialAccountsList[1].Source_System_Status__c = 'CAPCISOP';
 
-      Test.startTest();
       insert financialAccountsList;
-      Test.stopTest();
     }
 
   }
