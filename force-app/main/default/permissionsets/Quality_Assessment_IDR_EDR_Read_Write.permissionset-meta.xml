@@ -191,6 +191,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.Customer_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Customer_correctly_identified__c</field>
         <readable>true</readable>
@@ -208,6 +213,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Evaluation_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.Feedback_summary_for_the_Case_Manager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
