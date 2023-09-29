@@ -5,7 +5,14 @@
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Look up to Customer</description>
     <externalId>false</externalId>
-    <formula>Related_Case__r.AccountId</formula>
+    <formula>IF( ISBLANK( Related_Case__r.IDR_NC_First_Name__c  + Related_Case__r.IDR_NC_Middle_Names__c + Related_Case__r.IDR_NC_Last_Name__c ), Related_Case__r.IDR_Customer_Number__c,
+
+        Related_Case__r.IDR_NC_First_Name__c +
+        (IF((Related_Case__r.IDR_NC_First_Name__c != null),' ','')) +
+        Related_Case__r.IDR_NC_Middle_Names__c +
+        (IF((Related_Case__r.IDR_NC_Middle_Names__c != null),' ','')) +
+        Related_Case__r.IDR_NC_Last_Name__c
+        )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Customer</label>
     <required>false</required>
