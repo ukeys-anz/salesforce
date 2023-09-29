@@ -34,7 +34,7 @@ private class FarOwnersRemovalServiceTest {
     );
 
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
       FarOwnersRemovalService.doPost();
     }
     Test.stopTest();
@@ -102,7 +102,7 @@ private class FarOwnersRemovalServiceTest {
     }
 
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
       FarOwnersRemovalService.removeAdditionalOwnerFarsFromAccounts(
         new List<Account>{ customer }
       );
@@ -142,7 +142,7 @@ private class FarOwnersRemovalServiceTest {
     }
 
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
       FarOwnersRemovalService.removeContactDataFromAccounts(
         new List<Account>{ customer }
       );
@@ -194,7 +194,7 @@ private class FarOwnersRemovalServiceTest {
     }
 
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
       FarOwnersRemovalService.removeP2PRelationsFromAccounts(
         new List<Account>{ personCustomer }
       );
