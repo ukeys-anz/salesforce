@@ -178,7 +178,6 @@ public with sharing class CCRMTestDataFactory {
     TestUtil.assignPermissionSets(
       new List<String>{
         'CCRM_Marketing_Integration_User',
-        'Customer_Relationships_Read_Write',
         'Read_Write_Customer_Details',
         'CCRM_User_Base'
       },
@@ -255,6 +254,30 @@ public with sharing class CCRMTestDataFactory {
       },
       new List<User>{ ocvIntegrationUser }
     );
+    return ocvIntegrationUser;
+  }
+
+  /**
+   * @description Get a OCV Integration User, if such user not exists yet then create one
+   * @name getOcvIntegrationUser
+   * @return Integration User with OCV Integration User Permission Set.
+   */
+  public static User getOcvIntegrationUser() {
+    if (ocvIntegrationUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE
+          ProfileId = :integrationProfileId
+          AND FirstName = 'IntegrationUserOCV'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        ocvIntegrationUser = createOCVIntegrationUser();
+      } else {
+        ocvIntegrationUser = users[0];
+      }
+    }
     return ocvIntegrationUser;
   }
 
