@@ -139,6 +139,8 @@ public with sharing class IDRQualityAssessmentActions {
         (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
         oAssessment.Status__c != oOldAssessment.Status__c)
       ) {
+        //Set Assessment Completion date to current date and time on assessment closure.
+        oAssessment.Assessment_Completion_Date__c = System.now();
         if (
           oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
           String.isEmpty(oAssessment.Team_Manager_Response__c)
