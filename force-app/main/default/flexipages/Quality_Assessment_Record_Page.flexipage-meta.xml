@@ -366,6 +366,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Complaint_outcome_CMOS__c</fieldItem>
+                <identifier>RecordComplaint_outcome_CMOS_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.High_risk_criteria_identified__c</fieldItem>
                 <identifier>RecordHigh_risk_criteria_identified_cField</identifier>
             </fieldInstance>
@@ -2789,6 +2799,23 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Feedback_summary_for_the_Case_Manager__c</fieldItem>
+                <identifier>RecordFeedback_summary_for_the_Case_Manager_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Case_Manager_Score__c</fieldItem>
                 <identifier>RecordCase_Manager_Score_cField</identifier>
             </fieldInstance>
@@ -2799,8 +2826,49 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.TM_Attestation_feedback_provided_to_CM__c</fieldItem>
+                <identifier>RecordTM_Attestation_feedback_provided_to_CM_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_12__c</fieldItem>
+                <identifier>RecordCMOS_Comment_12_cField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Call_Letter_Review_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Business_score__c</fieldItem>
                 <identifier>RecordBusiness_score_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2811,6 +2879,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Team_Manager_Response__c</fieldItem>
                 <identifier>RecordTeam_Manager_Response_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2821,6 +2896,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Team_Manager_Comments__c</fieldItem>
                 <identifier>RecordTeam_Manager_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2831,6 +2913,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
                 <identifier>RecordC_Q_Manager_Response_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2841,6 +2930,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.C_Q_Manager_Comments__c</fieldItem>
                 <identifier>RecordC_Q_Manager_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2851,6 +2947,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.C_Q_Lead_Comments__c</fieldItem>
                 <identifier>RecordC_Q_Lead_Comments_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-5b6c43d4-ffea-45c2-b80f-6f5a0e9d452f</name>
@@ -2865,6 +2968,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.What_corrective_actions_are_required__c</fieldItem>
                 <identifier>RecordWhat_corrective_actions_are_required_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2875,6 +2985,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Corrective_actions_for_TM_CM__c</fieldItem>
                 <identifier>RecordCorrective_actions_for_TM_CM_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2885,6 +3002,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Has_a_REaL_form_been_raised__c</fieldItem>
                 <identifier>RecordHas_a_REaL_form_been_raised_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2895,6 +3019,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.REaL_form_receipt_no__c</fieldItem>
                 <identifier>RecordREaL_form_receipt_no_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2905,6 +3036,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.REaL_form_categories__c</fieldItem>
                 <identifier>RecordREaL_form_categories_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2915,6 +3053,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.C_Q_Comments_feedback_suggestions__c</fieldItem>
                 <identifier>RecordC_Q_Comments_feedback_suggestions_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -2925,6 +3070,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Assessment_Outcome_Status__c</fieldItem>
                 <identifier>RecordAssessment_Outcome_Status_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-414deaef-13a1-415b-99e8-3babcaa5891f</name>
