@@ -199,6 +199,7 @@ private class QualityAssessmentActionsTest {
           .get('C_Q_Assessment')
           .getRecordTypeId(),
         Related_Case__c = caseRecord.Id,
+        Team_Manager_Response__c = 'Accepted by TM',
         Evaluation_Type__c = 'C & Q Assessment',
         Status__c = 'Complete'
       );

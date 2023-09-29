@@ -108,7 +108,6 @@ public class IDRQualityAssessmentTaskActionsTest {
     ];
     List<Id> lstPSGIds = new List<Id>();
     for (PermissionSetGroup psg : lstPSG) {
-      System.debug('psg: ' + psg);
       lstPSGIds.add(psg.Id);
       lstPSA.add(
         new PermissionSetAssignment(
@@ -120,7 +119,6 @@ public class IDRQualityAssessmentTaskActionsTest {
 
     Test.calculatePermissionSetGroup(lstPSGIds);
 
-    System.debug('PSA: ' + lstPSA);
     insert lstPSA;
 
     Test.startTest();
@@ -161,9 +159,24 @@ public class IDRQualityAssessmentTaskActionsTest {
       for (Quality_Assessment__c oAssessment : lstAssessments) {
         oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
         oAssessment.Context_and_General_Comments__c = REFERENCE_VALUE;
+        oAssessment.Team_Manager_Response__c = '';
+
         stAssessmentIds.add(oAssessment.Id);
       }
 
+      Boolean fExceptionThrown = false;
+      try {
+        update lstAssessments;
+      } catch (DmlException ex) {
+        fExceptionThrown = true;
+      }
+      System.assert(fExceptionThrown, 'Update should\'ve failed for missing Team_Manager_Response__c.');
+
+      for (Quality_Assessment__c oAssessment : lstAssessments) {
+        oAssessment.Team_Manager_Response__c = 'Accepted by TM';
+        oAssessment.Team_Manager_Comments__c = 'LGTM';
+      }
+      // try again
       update lstAssessments;
 
       Test.stopTest();
@@ -203,16 +216,23 @@ public class IDRQualityAssessmentTaskActionsTest {
     ) {
       for (Schema.FieldSetMember field : oFieldSet.getFields()) {
         if ( oAssessment.get(field.SObjectField) == null) {
-          if ( field.getSObjectField().getDescribe().getType() == DisplayType.PICKLIST) {
-            for (PicklistEntry peEntry : field.getSObjectField().getDescribe().getPicklistValues()) {
-              switch on peEntry.value {
-                when 'Met' {
-                  oAssessment.put(field.SObjectField, 'Met');
-                }
-                when 'Yes' {
-                  oAssessment.put(field.SObjectField, 'Yes');
-                }
+          if ( field.getType() == DisplayType.REFERENCE) {
+            switch on field.fieldPath {
+              when 'C_Q_Specialist__c' {
+                oAssessment.put(field.SObjectField, UserInfo.getUserId());
               }
+              when 'Case_Manager__c' {
+                oAssessment.put(field.SObjectField, UserInfo.getUserId());
+              }
+              when 'TeamManager__c' {
+                oAssessment.put(field.SObjectField, UserInfo.getUserId());
+              }
+            }
+          } else if ( field.getType() == DisplayType.PICKLIST) {
+            for (PicklistEntry peEntry : field.getSObjectField().getDescribe().getPicklistValues()) {
+              // just use first one.
+              oAssessment.put(field.SObjectField, peEntry.value);
+              break;
             }
           } else {
             oAssessment.put(field.SObjectField, 'Met');

@@ -6,6 +6,7 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRQualityAssessmentActions {
+  public static final String COMPLETION_ERROR = 'Team Manager Response is required before Completing an Assessment.';
   /**
    * @description calculate Case Manager Score and Business Manager Score
    * @param records new values
@@ -138,6 +139,12 @@ public with sharing class IDRQualityAssessmentActions {
         (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
         oAssessment.Status__c != oOldAssessment.Status__c)
       ) {
+        if (
+          oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
+          String.isEmpty(oAssessment.Team_Manager_Response__c)
+        ) {
+          oAssessment.addError(COMPLETION_ERROR);
+        }
         strFieldSetId = getFieldsetId(oAssessment);
         if (
           strFieldSetId == '' ||
