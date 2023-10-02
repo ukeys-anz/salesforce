@@ -18,6 +18,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.Case_Manager_Score__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Context_and_General_Comments__c</field>
         <readable>true</readable>
     </fieldPermissions>

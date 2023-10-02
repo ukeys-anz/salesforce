@@ -2797,7 +2797,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Feedback_summary_for_the_Case_Manager__c</fieldItem>
                 <identifier>RecordFeedback_summary_for_the_Case_Manager_cField</identifier>
@@ -2824,7 +2824,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.TM_Attestation_feedback_provided_to_CM__c</fieldItem>
                 <identifier>RecordTM_Attestation_feedback_provided_to_CM_cField</identifier>

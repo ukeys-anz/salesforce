@@ -531,6 +531,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quality_Assessment__c.Feedback_summary_for_the_Case_Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quality_Assessment__c.Financial_product_advice_not_provided__c</field>
         <readable>true</readable>
     </fieldPermissions>
