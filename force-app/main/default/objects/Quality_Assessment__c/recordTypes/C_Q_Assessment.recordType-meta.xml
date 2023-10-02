@@ -2907,6 +2907,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>TM_Attestation_feedback_provided_to_CM__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Team_Manager_Response__c</picklist>
         <values>
             <fullName>Accepted by TM</fullName>
@@ -2914,7 +2925,7 @@
         </values>
         <values>
             <fullName>Awaiting response from TM</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Rejected by TM</fullName>
