@@ -1,0 +1,8 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+  <lightning:workspaceAPI aura:id="workspace" />
+  <lightning:messageChannel
+    type="ConsoleTabFocus__c"
+    aura:id="ConsoleTabFocus"
+  />
+  <aura:handler event="lightning:tabFocused" action="{! c.onTabFocused }" />
+</aura:component>

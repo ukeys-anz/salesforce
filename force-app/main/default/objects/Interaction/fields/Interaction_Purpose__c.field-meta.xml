@@ -2,10 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Interaction_Purpose__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Reason for Interaction</description>
     <externalId>false</externalId>
-    <label>Who</label>
+    <inlineHelpText>For Interaction records - select whom the engagement is with, eg customer. For Appointment booking - select the main topic of the appointment, eg financial wellbeing.</inlineHelpText>
+    <label>For</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -15,7 +16,17 @@
         <controllingField>InteractionType</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
+            <value>
+                <fullName>ANZ Customer</fullName>
+                <default>false</default>
+                <label>ANZ Customer</label>
+            </value>
+            <value>
+                <fullName>ANZ Plus Customer</fullName>
+                <default>false</default>
+                <label>ANZ Plus Customer</label>
+            </value>
             <value>
                 <fullName>Customer</fullName>
                 <default>false</default>
@@ -27,6 +38,11 @@
                 <label>Digital Support</label>
             </value>
             <value>
+                <fullName>Existing ANZ Customer</fullName>
+                <default>false</default>
+                <label>Existing ANZ Customer</label>
+            </value>
+            <value>
                 <fullName>Financial Wellbeing</fullName>
                 <default>false</default>
                 <label>Financial Wellbeing</label>
@@ -35,6 +51,11 @@
                 <fullName>Non-Customer</fullName>
                 <default>false</default>
                 <label>Non-Customer</label>
+            </value>
+            <value>
+                <fullName>Home Loan</fullName>
+                <default>false</default>
+                <label>Home Loan</label>
             </value>
             <value>
                 <fullName>Other</fullName>
@@ -51,32 +72,16 @@
                 <default>false</default>
                 <label>Wrong Number</label>
             </value>
-            <value>
-                <fullName>Existing ANZ Customer</fullName>
-                <default>false</default>
-                <label>Existing ANZ Customer</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
-            <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Customer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
-            <controllingFieldValue>Chat</controllingFieldValue>
-            <controllingFieldValue>Store</controllingFieldValue>
-            <controllingFieldValue>Video</controllingFieldValue>
-            <valueName>Digital Support</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Call</controllingFieldValue>
-            <controllingFieldValue>Chat</controllingFieldValue>
-            <controllingFieldValue>Store</controllingFieldValue>
-            <controllingFieldValue>Video</controllingFieldValue>
-            <valueName>Financial Wellbeing</valueName>
+            <valueName>Existing ANZ Customer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
@@ -86,16 +91,9 @@
             <valueName>Non-Customer</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
-            <controllingFieldValue>Store</controllingFieldValue>
-            <controllingFieldValue>Video</controllingFieldValue>
-            <valueName>Other</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Call</controllingFieldValue>
-            <controllingFieldValue>Chat</controllingFieldValue>
-            <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Testing</valueName>
         </valueSettings>
@@ -106,8 +104,43 @@
             <valueName>Wrong Number</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>In Person</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>
-            <valueName>Existing ANZ Customer</valueName>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Home Loan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Digital Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Financial Wellbeing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>ANZ Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>ANZ Plus Customer</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

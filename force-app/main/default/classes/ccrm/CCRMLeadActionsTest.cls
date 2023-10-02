@@ -269,7 +269,7 @@ private class CCRMLeadActionsTest {
     //Roles and Permission Sets
     UserRole bankerRole = CommonUtil.getUserRoleByDevName('Banker');
     UserRole bankerManagerRole = CommonUtil.getUserRoleByDevName(
-      'Banker Line Manager'
+      'Banker_Line_Manager'
     );
     PermissionSet ps = CommonUtil.getPermissionSetByName('CCRM_User_Base');
 
@@ -349,7 +349,7 @@ private class CCRMLeadActionsTest {
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leads[0].Id);
     Test.startTest();
-      CCRMLeadPlatformEventActions.resendManualLeadPlatformEvent(leadIds);
+    CCRMLeadPlatformEventActions.resendManualLeadPlatformEvent(leadIds);
     Test.stopTest();
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage

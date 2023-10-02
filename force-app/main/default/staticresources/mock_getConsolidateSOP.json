@@ -1,5 +1,6 @@
 {
   "sop": {
+    "name": "sops/1e5fbfb6-4d91-4853-9ede-c043019e469a",
     "id": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
     "versionId": "2023-05-04T07:31:38.700353Z",
     "createTime": "2023-05-04T07:31:38.700353Z",
@@ -85,7 +86,7 @@
         "ocvId": "1000991493",
         "spouseEarnsIncome": false,
         "relationshipState": "RELATIONSHIP_STATE_UNSPECIFIED",
-        "confirmedAccountsTime": null,
+        "confirmedAccountsTime": "2023-05-04T07:31:38.700353Z",
         "multipleProfiles": false,
         "personaId": ""
       },
@@ -94,7 +95,7 @@
         "ocvId": "276543221",
         "spouseEarnsIncome": false,
         "relationshipState": "RELATIONSHIP_STATE_UNSPECIFIED",
-        "confirmedAccountsTime": null,
+        "confirmedAccountsTime": "2023-05-04T07:31:38.700353Z",
         "multipleProfiles": false,
         "personaId": ""
       }
@@ -202,11 +203,431 @@
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
         "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_BPL_FACILITY",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "minimumPayment": {
+            "currencyCode": "AUD"
+          },
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "interestOnlyRemainingTerm": 0,
+          "liabilityDuePaidInFull": false,
+          "redrawAmount": {
+            "currencyCode": "AUD"
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "0c2ab959-1247-4859-8318-77f75a011f3e",
+          "bsb": "000000",
+          "accountNumber": "98765679942",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "assetIds": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_BPL_FACILITY",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "minimumPayment": {
+            "currencyCode": "AUD"
+          },
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "interestOnlyRemainingTerm": 0,
+          "liabilityDuePaidInFull": true,
+          "redrawAmount": {
+            "currencyCode": "AUD"
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "0c2ab959-1247-4859-8318-77f75a011f3e",
+          "bsb": "000000",
+          "accountNumber": "98765679942",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "assetIds": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_BPL_FACILITY",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "minimumPayment": {
+            "currencyCode": "AUD"
+          },
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "interestOnlyRemainingTerm": 0,
+          "liabilityDuePaidInFull": true,
+          "redrawAmount": {
+            "currencyCode": "AUD"
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "0c2ab959-1247-4859-8318-77f75a011f3e",
+          "bsb": "000000",
+          "accountNumber": "98765679942",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "assetIds": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_BPL_FACILITY",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "minimumPayment": {
+            "currencyCode": "AUD"
+          },
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "4850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "interestOnlyRemainingTerm": 0,
+          "liabilityDuePaidInFull": false,
+          "redrawAmount": {
+            "currencyCode": "AUD"
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "0c2ab959-1247-4859-8318-77f75a011f3e",
+          "bsb": "000000",
+          "accountNumber": "98765679942",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "assetIds": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_BPL_FACILITY",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "minimumPayment": {
+            "currencyCode": "AUD"
+          },
+          "repaymentAmount": null,
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "interestOnlyRemainingTerm": 0,
+          "liabilityDuePaidInFull": false,
+          "redrawAmount": {
+            "currencyCode": "AUD"
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "0c2ab959-1247-4859-8318-77f75a011f3e",
+          "bsb": "000000",
+          "accountNumber": "98765679942",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "assetIds": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_BPL_LOAN",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD"
+          },
+          "interestRate": 550,
+          "minimumPayment": {
+            "currencyCode": "AUD"
+          },
+          "repaymentAmount": {
+            "currencyCode": "AUD"
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 36,
+          "interestOnlyRemainingTerm": 0,
+          "liabilityDuePaidInFull": false,
+          "redrawAmount": {
+            "currencyCode": "AUD"
+          },
+          "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd",
+          "verifiedPrincipalInterestRemainingTerm": 40
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "21000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "000000",
+          "accountNumber": "C12477942",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "assetIds": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_BPL_LOAN",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD"
+          },
+          "interestRate": 550,
+          "minimumPayment": {
+            "currencyCode": "AUD"
+          },
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "402000",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 36,
+          "interestOnlyRemainingTerm": 0,
+          "liabilityDuePaidInFull": true,
+          "redrawAmount": {
+            "currencyCode": "AUD"
+          },
+          "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd",
+          "verifiedPrincipalInterestRemainingTerm": 40
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "21000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "000000",
+          "accountNumber": "C12477942",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "BNPL - LatitudePay Australia Pty Ltd"
+        },
+        "assetIds": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
         "type": "LIABILITY_TYPE_HOME_LOAN",
         "institutionalLiability": {
           "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
           "interestRate": 550,
-          "repaymentAmount": null,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "402000",
+            "nanos": 0
+          },
           "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
           "principalInterestRemainingTerm": 30,
           "redrawAmount": {
@@ -760,8 +1181,8 @@
         "uid": "f33aafb9-7a49-4848-8032-e03fb5af5627",
         "type": "LIABILITY_TYPE_OVERDRAFT",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
-          "interestRate": 0,
+          "limit": { "currencyCode": "AUD", "units": "2000", "nanos": 0 },
+          "interestRate": 350,
           "repaymentAmount": null,
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
           "principalInterestRemainingTerm": 0,
@@ -776,7 +1197,7 @@
         },
         "outstandingBalance": {
           "currencyCode": "AUD",
-          "units": "0",
+          "units": "-3000",
           "nanos": 0
         },
         "account": {
@@ -831,7 +1252,7 @@
           "productDetails": null
         },
         "assets": ["e450ac74-78e1-470b-8e95-a2512f4359fe"],
-        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
         "ownership": [
           { "partyId": "1000991493", "proportion": { "value": "100" } }
         ],
@@ -842,24 +1263,77 @@
         "verifiedOutstandingBalance": null
       },
       {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "type": "LIABILITY_TYPE_OVERDRAFT",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 0,
+          "repaymentAmount": null,
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "ANZX",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "account": {
+          "id": "f05c4f51-f7e8-4449-a311-5cc84b507a63",
+          "bsb": "014111",
+          "accountNumber": "210418632",
+          "accountName": "ANZ Save",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "ANZX",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": ["e450ac74-78e1-470b-8e95-a2512f4359fe"],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          { "partyId": "1000991493", "proportion": { "value": "100" } }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-13T11:25:50.337387Z",
+        "updatedBy": "1000991493",
+        "etag": "1689247550337387000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/e0bf8a39-241a-4528-b199-fc6f374d28ad",
         "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
-          "limit": null,
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "6000",
+            "nanos": 80000000
+          },
           "interestRate": 550,
           "minimumPayment": {
             "currencyCode": "AUD",
             "units": "6000",
             "nanos": 80000000
           },
-          "repaymentAmount": null,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "4000",
+            "nanos": 70000000
+          },
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
           "principalInterestRemainingTerm": 0,
           "liabilityDuePaidInFull": false,
           "redrawAmount": null,
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-          "financialInstitution": "",
+          "financialInstitution": "NAB",
           "verifiedPrincipalInterestRemainingTerm": 0
         },
         "outstandingBalance": null,
@@ -892,16 +1366,20 @@
         "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
-          "limit": null,
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "5000",
+            "nanos": 0
+          },
           "interestRate": 660,
           "minimumPayment": {},
-          "repaymentAmount": null,
+          "repaymentAmount": {},
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
           "principalInterestRemainingTerm": 0,
           "liabilityDuePaidInFull": false,
           "redrawAmount": null,
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-          "financialInstitution": "",
+          "financialInstitution": "Westpac",
           "verifiedPrincipalInterestRemainingTerm": 0
         },
         "outstandingBalance": {
@@ -938,16 +1416,24 @@
         "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
-          "limit": null,
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "5000",
+            "nanos": 90000000
+          },
           "interestRate": 401,
           "minimumPayment": null,
-          "repaymentAmount": null,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "15000",
+            "nanos": 80000000
+          },
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
           "principalInterestRemainingTerm": 0,
           "liabilityDuePaidInFull": false,
           "redrawAmount": null,
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-          "financialInstitution": "",
+          "financialInstitution": "Westpac",
           "verifiedPrincipalInterestRemainingTerm": 0
         },
         "outstandingBalance": {
@@ -980,6 +1466,286 @@
         "verifiedOutstandingBalance": {
           "currencyCode": "AUD",
           "units": "5500",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_LINE_OF_CREDIT",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_LINE_OF_CREDIT",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_MARGIN_LOAN",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_MARGIN_LOAN",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "type": "LIABILITY_TYPE_OTHER_LIABILITY",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "1000991493",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "fe511fcf-09c9-59ae-9a4b-733f9bc668b1",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
           "nanos": 0
         }
       }

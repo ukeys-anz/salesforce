@@ -11,12 +11,12 @@
     <columns>Status__c</columns>
     <columns>Escalated__c</columns>
     <columns>Owner</columns>
-    <filterScope>Queue</filterScope>
     <filters>
         <field>RecordType</field>
         <operation>equals</operation>
         <value>Interaction.Appointment</value>
     </filters>
-    <label>Unassigned Appointments</label>
+    <filterScope>Queue</filterScope>
+    <label>All Unassigned Appointments</label>
     <queue>Appointments_Queue</queue>
 </ListView>

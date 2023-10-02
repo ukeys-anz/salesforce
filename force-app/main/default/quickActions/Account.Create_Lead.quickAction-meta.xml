@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>This action is used to create ML Lead</description>
     <fieldOverrides>
         <field>AdvertisingIndicator__c</field>
-        <formula
-    >IF( TEXT(Account.Advertising_Indicator__c) == &apos;Y&apos;,true,false)</formula>
+        <formula>IF( TEXT(Account.Advertising_Indicator__c) == &apos;Y&apos;,true,false)</formula>
     </fieldOverrides>
     <fieldOverrides>
         <field>City</field>

@@ -49,7 +49,7 @@ public with sharing class AppointmentNotificationMetadataProvider {
           .isQueryable()
       ) {
         List<Appointment_Notification_Template__mdt> metadataList = [
-          SELECT Id, MasterLabel, Template_Id__c
+          SELECT Id, MasterLabel, Template_Id__c, Date_Format__c
           FROM Appointment_Notification_Template__mdt
           LIMIT 500
         ];
@@ -76,5 +76,14 @@ public with sharing class AppointmentNotificationMetadataProvider {
    */
   public String getNotificationTemplateId(String templateName) {
     return this.getMap().get(templateName).Template_Id__c;
+  }
+
+  /**
+   * @description gets the date format based upon name provided
+   * @param templateName Name of the template to retrieve
+   * @return String of Date Format
+   */
+  public String getNotificationDateFormat(String templateName) {
+    return this.getMap().get(templateName).Date_Format__c;
   }
 }

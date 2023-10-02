@@ -19,7 +19,7 @@ section .slds-accordion__summary {
 
 /* Show required tag on typeahead */
 omnistudio-omniscript-typeahead[data-omni-key*="reason"]
-  label[omnistudio-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -30,7 +30,7 @@ omnistudio-omniscript-typeahead[data-omni-key*="reason"]
 
 /* runtime css */
 runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="reason"]
-  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -39,8 +39,9 @@ runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="reason"]
   margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
 }
 
-omnistudio-omniscript-typeahead[data-omni-key*="topic"]
-  label[omnistudio-typeahead_typeahead_slds]:before {
+c-interaction-create-and-edit-flow-english
+  omnistudio-omniscript-typeahead[data-omni-key*="topic"]
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -50,8 +51,32 @@ omnistudio-omniscript-typeahead[data-omni-key*="topic"]
 }
 
 /* runtime css */
-runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
-  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+c-interaction-create-and-edit-flow-english
+  runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
+c-interaction-create-and-edit-flow-for-call-english
+  omnistudio-omniscript-typeahead[data-omni-key*="topic"]
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
+/* runtime css */
+c-interaction-create-and-edit-flow-for-call-english
+  runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -61,7 +86,7 @@ runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
 }
 
 omnistudio-omniscript-typeahead[data-omni-key*="product"]
-  label[omnistudio-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -72,7 +97,7 @@ omnistudio-omniscript-typeahead[data-omni-key*="product"]
 
 /* runtime css */
 runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="product"]
-  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -117,6 +142,17 @@ runtime_omnistudio_omniscript-omniscript-ip-action[data-omni-key*="Add"]
   button[class="vlocity-btn slds-button slds-button_brand slds-button_stretch"] {
   background-color: rgb(255, 255, 255);
   color: var(--lwc-brandTextLink, rgb(1, 118, 211));
+}
+
+/* Hide input component of Video Call Check box */
+runtime_omnistudio_omniscript-omniscript-text[data-omni-key="VideoCallLabel"]
+  div[class="slds-form-element__control slds-form-element__control-animated-label"] {
+  display: none;
+}
+
+/* Adjust the margins of Video Call Checkbox */
+runtime_omnistudio_omniscript-omniscript-text[data-omni-key="VideoCallLabel"] {
+  margin-top: 0.8rem;
 }
 
 /* Hide the top line */

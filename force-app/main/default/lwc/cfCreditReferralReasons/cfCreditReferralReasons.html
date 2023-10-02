@@ -1,0 +1,523 @@
+<template>
+  <div class="slds-grid slds-wrap slds-is-relative">
+    <div style="position: fixed; z-index: 999999; top: 0; right: 0">
+      <omnistudio-toast
+        class="flexcard-toast-element"
+        theme="slds"
+        title=""
+        message=""
+        styletype=""
+      >
+      </omnistudio-toast>
+    </div>
+    <div
+      if:true={showLoader}
+      class="slds-is-absolute vloc-loader_override"
+      style="
+        height: 100%;
+        width: 100%;
+        min-height: 50px;
+        background: transparent;
+        z-index: 99;
+      "
+    >
+      <div>
+        <omnistudio-spinner
+          variant="brand"
+          alternative-text="Loading content..."
+          size="medium"
+          theme="slds"
+        ></omnistudio-spinner>
+      </div>
+    </div>
+    <template if:false={hasPermission}>
+      You don't have required permissions to view this card.
+    </template>
+    <template if:true={hasPermission}>
+      <template if:true={hasRecords}>
+        <template for:each={_records} for:item="record" for:index="rindex">
+          <omnistudio-flex-card-state
+            if:true={record}
+            key={record._flex.uniqueKey}
+            data-recordid={record.Id}
+            record={record}
+            data-statue="true"
+            data-index="0"
+            data-rindex={rindex}
+            class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"
+            tracking-obj={_childCardTrackingObj}
+          >
+            <div
+              if:true={cardLoaded}
+              class="slds-grid slds-wrap slds-card"
+              style=""
+            >
+              <div
+                data-style-id="state0element0"
+                class="slds-col slds-border_right slds-border_bottom slds-border_left slds-border_top slds-p-top_small slds-p-bottom_x-small slds-size_12-of-12"
+                data-rindex={rindex}
+                style="
+                  border-right: #cccccc 1px solid;
+                  border-bottom: #cccccc 1px solid;
+                  border-left: #cccccc 1px solid;
+                  border-top: #cccccc 1px solid;
+                "
+              >
+                <omnistudio-block
+                  data-style-id="state0element0_child"
+                  card={card}
+                  record={record}
+                  label="Block"
+                  collapsible="false"
+                  collapsed-by-default="false"
+                  theme="slds"
+                  ><div class="slds-grid slds-wrap">
+                    <div
+                      data-style-id="state0element0block_element0"
+                      class="slds-col slds-p-right_medium slds-m-left_small slds-size_1-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element0_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cp%20class=%22slds-text-body_regular%22%3E%7BreasonCode%7D%3C/p%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1"
+                      class="slds-col slds-p-right_x-large slds-size_1-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element0block_element1_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cp%20class=%22slds-text-body_regular%22%3E%7BassessmentCategory%7D%3C/p%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1block_element2"
+                      class="slds-col slds-p-right_x-large slds-size_3-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element0block_element1block_element2_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cp%3E%7BreasonDescription%7D%3C/p%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3"
+                      class="slds-col slds-p-right_x-large slds-size_1-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element0block_element1block_element2block_element3_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cp%20class=%22slds-text-body_regular%22%3E%7BauthorityLevel%7D%3C/p%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4"
+                      class="slds-col slds-size_1-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cp%20class=%22slds-text-body_regular%22%3E%7BguidanceCode%7D%3C/p%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5"
+                      class="slds-col slds-size_2-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3E%7BreferralOutcomeDescription%7D%3C/div%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6"
+                      class="slds-col slds-size_2-of-12 condition-element"
+                      data-rindex={rindex}
+                      style="margin-right: -50px"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-3","field":"createdBy","operator":"!=","value":"","type":"custom","hasMergeField":false},{"id":"state-new-condition-0","field":"createTime","operator":"!=","value":"","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3E%7BcreatedBy%7D%20%7BcreateTime%7D%3C/div%3E"
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-3","field":"createdBy","operator":"!=","value":"","type":"custom","hasMergeField":false},{"id":"state-new-condition-0","field":"createTime","operator":"!=","value":"","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7"
+                      class="slds-col slds-size_2-of-12 condition-element"
+                      data-rindex={rindex}
+                      style="margin-right: -50px"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-3","field":"createdBy","operator":"==","value":"","type":"custom","hasMergeField":false},{"id":"state-new-condition-7","field":"createTime","operator":"!=","value":"","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3E%7BcreateTime%7D%3C/div%3E"
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-3","field":"createdBy","operator":"==","value":"","type":"custom","hasMergeField":false},{"id":"state-new-condition-7","field":"createTime","operator":"!=","value":"","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8"
+                      class="slds-col slds-size_1-of-12 condition-element"
+                      data-rindex={rindex}
+                      style="position: relative; left: 80px"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-10","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-0","field":"editable","operator":"==","value":"true","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                    >
+                      <omnistudio-flex-action
+                        data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8_child"
+                        tracking-obj={_childCardTrackingObj}
+                        class="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8_child flexActionElement"
+                        data-action-element-class="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8_child"
+                        data-action-key="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8"
+                        onexecuteaction={performAction}
+                        data-show-spinner="false"
+                        data-element-label="lastmodified_value2"
+                        state-obj={record}
+                        card={card}
+                        record={record}
+                        label="Edit"
+                        icon-name="utility:edit"
+                        action-list='\[{"stateAction":{"id":"flex-action-1694580022797","type":"Flyout","openUrlIn":"Current Window","flyoutType":"customLwc","openFlyoutIn":"Modal","channelName":"close_modal","flyoutLwc":"creditAssessmentModal","cardName":"CreditAssessmentModal","cardNode":"{record}","flyoutContainerClass":"","hasExtraParams":true,"flyoutParams":{"reasonCode":"{reasonCode}","assessmentCategory":"{assessmentCategory}","reasonDescription":"{reasonDescription}","guidanceCode":"{guidanceCode}","createdBy":"{createdBy}","createTime":"{createTime}","referralOutcomeCode":"{referralOutcomeCode}","reasonCodeId":"{reasonCodeId}","recordId":"{Parent.recordId}","creditId":"{Parent.creditId}","applicantId":"{applicantId}"}},"key":"1686112953672-5wgj5r1wg","label":"Open Modal","draggable":true,"isOpen":true,"actionIndex":0,"preloadFlyout":false,"reRenderFlyout":false}]'
+                        icon-only="true"
+                        flyout-channel="close_modal"
+                        flyout-details='\{"openFlyoutIn":"Modal"}'
+                        icon-size="small"
+                        display-as-button="false"
+                        hide-action-icon="false"
+                        button-variant="neutral"
+                        disabled=""
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-10","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-0","field":"editable","operator":"==","value":"true","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                        icon-color="#0070D2"
+                        preload-flyout="false"
+                        re-render-flyout="false"
+                        theme="slds"
+                        ><div
+                          slot="modalflyout"
+                          class="lastmodified_value2action0"
+                        >
+                          <omnistudio-custom-lwc-wrapper
+                            element-name="c-credit-assessment-modal"
+                            property='\{"reasonCode":"{reasonCode}","assessmentCategory":"{assessmentCategory}","reasonDescription":"{reasonDescription}","guidanceCode":"{guidanceCode}","createdBy":"{createdBy}","createTime":"{createTime}","referralOutcomeCode":"{referralOutcomeCode}","reasonCodeId":"{reasonCodeId}","recordId":"{Parent.recordId}","creditId":"{Parent.creditId}","applicantId":"{applicantId}"}'
+                            records={records}
+                            record-id={recordId}
+                            record={record}
+                            card={card}
+                            action={modalAction.lastmodified_value2action0}
+                          >
+                            <c-credit-assessment-modal></c-credit-assessment-modal>
+                          </omnistudio-custom-lwc-wrapper></div
+                      ></omnistudio-flex-action>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8block_element9"
+                      class="slds-col slds-size_1-of-12 condition-element"
+                      data-rindex={rindex}
+                      style="position: relative; left: 80px"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-7","field":"editable","operator":"!=","value":"true","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                    >
+                      <omnistudio-flex-icon
+                        data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8block_element9_child"
+                        card={card}
+                        record={record}
+                        icon-type="Salesforce SVG"
+                        icon-name="utility:edit"
+                        size="small"
+                        extraclass=""
+                        variant="default"
+                        imgsrc=""
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-7","field":"editable","operator":"!=","value":"true","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                        theme="slds"
+                      ></omnistudio-flex-icon>
+                    </div></div
+                ></omnistudio-block>
+              </div>
+            </div>
+          </omnistudio-flex-card-state>
+        </template>
+      </template>
+      <template if:false={hasRecords}>
+        <omnistudio-flex-card-state
+          record={record}
+          data-statue="false"
+          data-index="0"
+          data-rindex={rindex}
+          class="cf-vlocity-state-0 cf-vlocity-state slds-size_12-of-12"
+          tracking-obj={_childCardTrackingObj}
+        >
+          <div
+            if:true={cardLoaded}
+            class="slds-grid slds-wrap slds-card"
+            style=""
+          >
+            <div
+              data-style-id="state0element0"
+              class="slds-col slds-border_right slds-border_bottom slds-border_left slds-border_top slds-p-top_small slds-p-bottom_x-small slds-size_12-of-12"
+              data-rindex={rindex}
+              style="
+                border-right: #cccccc 1px solid;
+                border-bottom: #cccccc 1px solid;
+                border-left: #cccccc 1px solid;
+                border-top: #cccccc 1px solid;
+              "
+            >
+              <omnistudio-block
+                data-style-id="state0element0_child"
+                card={card}
+                record={record}
+                label="Block"
+                collapsible="false"
+                collapsed-by-default="false"
+                theme="slds"
+                ><div class="slds-grid slds-wrap">
+                  <div
+                    data-style-id="state0element0block_element0"
+                    class="slds-col slds-p-right_medium slds-m-left_small slds-size_1-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element0_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cp%20class=%22slds-text-body_regular%22%3E%7BreasonCode%7D%3C/p%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1"
+                    class="slds-col slds-p-right_x-large slds-size_1-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element0block_element1_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cp%20class=%22slds-text-body_regular%22%3E%7BassessmentCategory%7D%3C/p%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1block_element2"
+                    class="slds-col slds-p-right_x-large slds-size_3-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element0block_element1block_element2_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cp%3E%7BreasonDescription%7D%3C/p%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1block_element2block_element3"
+                    class="slds-col slds-p-right_x-large slds-size_1-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cp%20class=%22slds-text-body_regular%22%3E%7BauthorityLevel%7D%3C/p%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4"
+                    class="slds-col slds-size_1-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cp%20class=%22slds-text-body_regular%22%3E%7BguidanceCode%7D%3C/p%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5"
+                    class="slds-col slds-size_2-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%7BreferralOutcomeDescription%7D%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6"
+                    class="slds-col slds-size_2-of-12 condition-element"
+                    data-rindex={rindex}
+                    style="margin-right: -50px"
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-3","field":"createdBy","operator":"!=","value":"","type":"custom","hasMergeField":false},{"id":"state-new-condition-0","field":"createTime","operator":"!=","value":"","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%7BcreatedBy%7D%20%7BcreateTime%7D%3C/div%3E"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-3","field":"createdBy","operator":"!=","value":"","type":"custom","hasMergeField":false},{"id":"state-new-condition-0","field":"createTime","operator":"!=","value":"","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7"
+                    class="slds-col slds-size_2-of-12 condition-element"
+                    data-rindex={rindex}
+                    style="margin-right: -50px"
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-3","field":"createdBy","operator":"==","value":"","type":"custom","hasMergeField":false},{"id":"state-new-condition-7","field":"createTime","operator":"!=","value":"","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%7BcreateTime%7D%3C/div%3E"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-3","field":"createdBy","operator":"==","value":"","type":"custom","hasMergeField":false},{"id":"state-new-condition-7","field":"createTime","operator":"!=","value":"","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8"
+                    class="slds-col slds-size_1-of-12 condition-element"
+                    data-rindex={rindex}
+                    style="position: relative; left: 80px"
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-10","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-0","field":"editable","operator":"==","value":"true","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                  >
+                    <omnistudio-flex-action
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8_child"
+                      tracking-obj={_childCardTrackingObj}
+                      class="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8_child flexActionElement"
+                      data-action-element-class="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8_child"
+                      data-action-key="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8"
+                      onexecuteaction={performAction}
+                      data-show-spinner="false"
+                      data-element-label="lastmodified_value2"
+                      state-obj={record}
+                      card={card}
+                      record={record}
+                      label="Edit"
+                      icon-name="utility:edit"
+                      action-list='\[{"stateAction":{"id":"flex-action-1694580022797","type":"Flyout","openUrlIn":"Current Window","flyoutType":"customLwc","openFlyoutIn":"Modal","channelName":"close_modal","flyoutLwc":"creditAssessmentModal","cardName":"CreditAssessmentModal","cardNode":"{record}","flyoutContainerClass":"","hasExtraParams":true,"flyoutParams":{"reasonCode":"{reasonCode}","assessmentCategory":"{assessmentCategory}","reasonDescription":"{reasonDescription}","guidanceCode":"{guidanceCode}","createdBy":"{createdBy}","createTime":"{createTime}","referralOutcomeCode":"{referralOutcomeCode}","reasonCodeId":"{reasonCodeId}","recordId":"{Parent.recordId}","creditId":"{Parent.creditId}","applicantId":"{applicantId}"}},"key":"1686112953672-5wgj5r1wg","label":"Open Modal","draggable":true,"isOpen":true,"actionIndex":0,"preloadFlyout":false,"reRenderFlyout":false}]'
+                      icon-only="true"
+                      flyout-channel="close_modal"
+                      flyout-details='\{"openFlyoutIn":"Modal"}'
+                      icon-size="small"
+                      display-as-button="false"
+                      hide-action-icon="false"
+                      button-variant="neutral"
+                      disabled=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-10","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-0","field":"editable","operator":"==","value":"true","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                      icon-color="#0070D2"
+                      preload-flyout="false"
+                      re-render-flyout="false"
+                      theme="slds"
+                      ><div
+                        slot="modalflyout"
+                        class="lastmodified_value2action0"
+                      >
+                        <omnistudio-custom-lwc-wrapper
+                          element-name="c-credit-assessment-modal"
+                          property='\{"reasonCode":"{reasonCode}","assessmentCategory":"{assessmentCategory}","reasonDescription":"{reasonDescription}","guidanceCode":"{guidanceCode}","createdBy":"{createdBy}","createTime":"{createTime}","referralOutcomeCode":"{referralOutcomeCode}","reasonCodeId":"{reasonCodeId}","recordId":"{Parent.recordId}","creditId":"{Parent.creditId}","applicantId":"{applicantId}"}'
+                          records={records}
+                          record-id={recordId}
+                          record={record}
+                          card={card}
+                          action={modalAction.lastmodified_value2action0}
+                        >
+                          <c-credit-assessment-modal></c-credit-assessment-modal>
+                        </omnistudio-custom-lwc-wrapper></div
+                    ></omnistudio-flex-action>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8block_element9"
+                    class="slds-col slds-size_1-of-12 condition-element"
+                    data-rindex={rindex}
+                    style="position: relative; left: 80px"
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-7","field":"editable","operator":"!=","value":"true","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                  >
+                    <omnistudio-flex-icon
+                      data-style-id="state0element0block_element0block_element1block_element2block_element3block_element4block_element5block_element6block_element7block_element8block_element9_child"
+                      card={card}
+                      record={record}
+                      icon-type="Salesforce SVG"
+                      icon-name="utility:edit"
+                      size="small"
+                      extraclass=""
+                      variant="default"
+                      imgsrc=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"Parent.selectedTab","operator":"==","value":"Current","type":"custom","hasMergeField":false},{"id":"state-new-condition-7","field":"editable","operator":"!=","value":"true","type":"custom","hasMergeField":false,"logicalOperator":"&&"}]}'
+                      theme="slds"
+                    ></omnistudio-flex-icon>
+                  </div></div
+              ></omnistudio-block>
+            </div>
+          </div>
+        </omnistudio-flex-card-state>
+      </template>
+    </template>
+    <template if:true={hasError}> {error} </template>
+
+    <omnistudio-action
+      action-wrapperclass="slds-hide"
+      re-render-flyout
+      class="action-trigger slds-col"
+      onupdateos={updateOmniscript}
+      onselectcards={updateSelectedCards}
+      onsetvalue={updateAction}
+      onfireactionevent={actionEvtHandler}
+    >
+    </omnistudio-action>
+
+    <omnistudio-action
+      class="execute-action"
+      re-render-flyout
+      action-wrapperclass="slds-hide"
+      onupdateos={updateOmniscript}
+      onselectcards={updateSelectedCards}
+      onsetvalue={updateAction}
+      onfireactionevent={actionEvtHandler}
+    >
+    </omnistudio-action>
+  </div>
+</template>

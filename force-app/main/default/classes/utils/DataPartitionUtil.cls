@@ -48,4 +48,31 @@ public with sharing class DataPartitionUtil {
     }
     return accountDetails;
   }
+
+  /**
+   * @description storing the first call out of `sop` from `ResidentialLoanApplicationAPIRepository`
+   * @param sessionCacheKey the key is the sopId. Therefore the session cache stores sop details based on sopId
+   * @param value - value that is added to the cache
+   */
+  public static void storeSOPDetailsCache(
+    String sessionCacheKey,
+    SOPModel value
+  ) {
+    dataPartition.put(sessionCacheKey?.replace('-', ''), value, ttlSecs);
+  }
+
+  /**
+   * @description retrieving `sop` details from the session cache
+   * @param sopId retrieve Session Cache data based on sopId
+   * @return SOPModel
+   *
+   */
+  public static SOPModel getSOPDetailsCache(String sopId) {
+    SOPModel sop = (SOPModel) DataPartition.get(sopId?.replace('-', ''));
+    if (sop != null) {
+      Logger.debug('SOP Caching hit: ').setPayload(json.serialize(sop));
+      Logger.saveLog();
+    }
+    return sop;
+  }
 }

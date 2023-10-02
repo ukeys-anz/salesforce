@@ -17,6 +17,7 @@
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
+    <permissionSets>InteractionOmniClasses</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>

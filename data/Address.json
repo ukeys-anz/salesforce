@@ -1,0 +1,112 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef1"
+      },
+      "LocationType": "Store",
+      "Street": "224 Swan St",
+      "City": "Cremorne",
+      "State": "VIC",
+      "PostalCode": "3121",
+      "ParentId": "@LocationRef1"
+    },
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef2"
+      },
+      "LocationType": "Branch",
+      "Street": "Northland Shopping Centre, shop JO65A, 2-50 Murray Rd",
+      "City": "Preston",
+      "State": "VIC",
+      "PostalCode": "3072",
+      "ParentId": "@LocationRef2"
+    },
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef3"
+      },
+      "LocationType": "Branch",
+      "Street": "391 High St",
+      "City": "Preston",
+      "State": "VIC",
+      "PostalCode": "3072",
+      "ParentId": "@LocationRef3"
+    },
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef4"
+      },
+      "LocationType": "Branch",
+      "Street": "344 Clayton Rd",
+      "City": "Clayton",
+      "State": "VIC",
+      "PostalCode": "3168",
+      "ParentId": "@LocationRef4"
+    },
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef5"
+      },
+      "LocationType": "Branch",
+      "Street": "Knox City Shopping Centre, shops 2053-2054, 425 Burwood Highway",
+      "City": "Wantirna",
+      "State": "VIC",
+      "PostalCode": "3152",
+      "ParentId": "@LocationRef5"
+    },
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef6"
+      },
+      "LocationType": "Branch",
+      "Street": "279 Clarendon St",
+      "City": "South Melbourne",
+      "State": "VIC",
+      "PostalCode": "3205",
+      "ParentId": "@LocationRef6"
+    },
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef7"
+      },
+      "LocationType": "Branch",
+      "Street": "293 Collins St",
+      "City": "Melbourne",
+      "State": "VIC",
+      "PostalCode": "3000",
+      "ParentId": "@LocationRef7"
+    },
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef8"
+      },
+      "LocationType": "Store",
+      "Street": "Level 1, 20 Martin Pl",
+      "City": "Sydney",
+      "State": "NSW",
+      "PostalCode": "2000",
+      "ParentId": "@LocationRef8"
+    },
+    {
+      "attributes": {
+        "type": "Address",
+        "referenceId": "AddressRef9"
+      },
+      "LocationType": "Branch",
+      "Street": "833 Collins St",
+      "City": "Docklands",
+      "State": "VIC",
+      "PostalCode": "3008",
+      "ParentId": "@LocationRef9"
+    }
+  ]
+}

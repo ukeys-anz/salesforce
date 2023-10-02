@@ -46,10 +46,12 @@ private class IDRCaseNotificationManagerTest {
 
     System.runAs(usrlist[0]) {
       List<Case> caseToUpdate = [SELECT Id FROM Case];
+      Test.startTest();
       for (Case c : caseToUpdate) {
         c.OwnerId = usrlist[1].id;
       }
       update caseToUpdate;
+      Test.stopTest();
 
       List<Application_Log__c> appLogs = [
         SELECT ID

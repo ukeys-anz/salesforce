@@ -4,7 +4,7 @@
  * @description CCRM lead conversion actions which includes calling search and create party api, deleting auto created contacts post conversion
  */
 
- public with sharing class CCRMLeadConversionActions {
+public with sharing class CCRMLeadConversionActions {
   /**
    * @description Define custom exceptions
    */

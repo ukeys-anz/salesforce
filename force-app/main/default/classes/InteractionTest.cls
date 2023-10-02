@@ -8,7 +8,7 @@ public with sharing class InteractionTest {
   @isTest
   static void storeValidationTest() {
     DateTime startDate = DateTime.newInstance(
-      DateTime.now().year(),
+      DateTime.now().year() + 1,
       1,
       1,
       12,

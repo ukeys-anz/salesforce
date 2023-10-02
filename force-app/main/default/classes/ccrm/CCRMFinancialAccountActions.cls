@@ -99,5 +99,4 @@ public with sharing class CCRMFinancialAccountActions {
       }
     }
   }
-
 }
