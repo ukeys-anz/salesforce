@@ -179,3 +179,10 @@ force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
 
 #ANZX-110254- remove the unused resource file to avoid errors
 force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
+
+
+#Temp ignore
+force-app/main/default/customindex/Assessment.External_Id__c.indx-meta.xml
+force-app/main/default/customindex/AssessmentQuestionResponse.External_Id__c.indx-meta.xml
+force-app/main/default/objects/Assessment
+force-app/main/default/objects/AssessmentQuestionResponse
