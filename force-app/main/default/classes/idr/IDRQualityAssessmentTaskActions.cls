@@ -148,7 +148,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         if (oAssessment.OwnerId != oAssessment.TeamManager__c) {
           lstQAShare.add(
             new Quality_Assessment__Share(
-              AccessLevel = 'Read',
+              AccessLevel = 'Edit',
               ParentId = oAssessment.Id,
               UserOrGroupId = oAssessment.TeamManager__c
             )
@@ -160,7 +160,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         ) {
           lstQAShare.add(
             new Quality_Assessment__Share(
-              AccessLevel = 'Read',
+              AccessLevel = 'Edit',
               ParentId = oAssessment.Id,
               UserOrGroupId = oAssessment.Case_Manager__c
             )
