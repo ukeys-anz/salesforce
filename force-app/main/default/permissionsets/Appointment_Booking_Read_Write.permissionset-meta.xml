@@ -233,6 +233,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Location.Location_Reference_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Location.VisitorAddressId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -288,6 +293,10 @@
         <recordType>Interaction.Appointment</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Appointments</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>Coaching_Summary__c</tab>
         <visibility>Visible</visibility>
