@@ -111,6 +111,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         }
       }
 
+      SOPModelHelper.initPartyLiability(sopAssets);
+      SOPModelHelper.enrichSourcesOwnerName(sopAssets);
+
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       return true;
     } catch (Exception e) {
@@ -139,6 +142,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       loanRec[0]?.SOP_Id__c
     );
     SOPModel.Parties[] transformedParties = new List<SOPModel.Parties>();
+
+    SOPModelHelper.enrichOwnerName(response);
 
     if (response == null) {
       return false;

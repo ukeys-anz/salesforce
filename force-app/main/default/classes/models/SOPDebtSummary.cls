@@ -7,7 +7,8 @@
 
 public class SOPDebtSummary {
   public List<SOPDebt> liabilities;
-
+  public List<SOPDebtSources> sources;
+  public List<SOPLiabilitySources> partyLiabilities;
   /**
    * @description returns homeLoanLiabilityExists value to show Home Loan title on Debt flexcard
    */

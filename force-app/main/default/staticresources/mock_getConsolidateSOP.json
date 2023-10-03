@@ -82,7 +82,7 @@
     ],
     "parties": [
       {
-        "id": "1000991493",
+        "id": "912babdf-4a83-c3b1-90d3-b7ff45048a46",
         "ocvId": "1000991493",
         "spouseEarnsIncome": false,
         "relationshipState": "RELATIONSHIP_STATE_UNSPECIFIED",
@@ -1755,7 +1755,51 @@
       "units": "0",
       "nanos": 0
     },
-    "etag": ""
+    "etag": "",
+    "sources": [
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Illion",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "912babdf-4a83-c3b1-90d3-b7ff45048a46"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Equifax",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "912babdf-4a83-c3b1-90d3-b7ff45048a46"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Experian",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "912babdf-4a83-c3b1-90d3-b7ff45048a46"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Illion",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "276543221"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Equifax",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "276543221"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Experian",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "276543221"
+      }
+    ]
   },
   "incomesSummary": {
     "sop": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
