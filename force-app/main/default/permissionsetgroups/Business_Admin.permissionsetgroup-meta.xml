@@ -12,6 +12,7 @@
     <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Card_Management_Cancel_Card</permissionSets>
     <permissionSets>Card_Management_Coach</permissionSets>
+    <permissionSets>Case_Read_Only_Credit_Referral</permissionSets>
     <permissionSets>Case_Read_Only_Fraud_Agent</permissionSets>
     <permissionSets>Case_Read_Write_Account_Closure</permissionSets>
     <permissionSets>Case_Read_Write_All</permissionSets>
@@ -62,6 +63,7 @@
     <permissionSets>Run_reports_and_dashboards</permissionSets>
     <permissionSets>Store_Location_Read_Write</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
+    <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>

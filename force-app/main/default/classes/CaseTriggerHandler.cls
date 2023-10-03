@@ -69,6 +69,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     SICaseActions.afterInsert(records);
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
+    GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
     Logger.debug('On_After_Insert finished: ' + System.now());
     Logger.saveLog();
   }
@@ -118,6 +119,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     ) {
       GetHelpCaseActions.populateOCVOnComplaint(records);
     }
+    GetHelpCaseActions.validateCreditReferralOwnershipChange(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     GetHelpCaseActions.linkKYCQACasesToAccount(
       (List<Case>) records,
       (Map<Id, Case>) oldMap
@@ -163,6 +168,14 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.createTaskOnDisputeCaseClosure(
       (List<Case>) records,
       (Map<Id, Case>) oldMap
+    );
+
+    ToastAlertService.publishRecordMonitoringEvent(
+      new Map<String, Object>(),
+      ToastAlertService.checkCRAssessmentResults(
+        records,
+        (Map<Id, Case>) oldMap
+      )
     );
     Logger.debug('On_After_Update finished: ' + System.now());
     Logger.saveLog();

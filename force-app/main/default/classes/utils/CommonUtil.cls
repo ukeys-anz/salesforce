@@ -7,6 +7,40 @@
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public with sharing class CommonUtil {
   /**
+   * description cache profile record by name to reduce SOQL to query for profile
+   */
+  static Map<String, Profile> mapProfileByName = new Map<String, Profile>();
+
+  /**
+   * description cache UserRole record by developername to reduce SOQL to query for UserRole
+   */
+  static Map<String, UserRole> mapUserRoleByDevName = new Map<String, UserRole>();
+
+  /**
+   * description cache permission set record by name to reduce SOQL to query for permission set
+   */
+  static Map<String, PermissionSet> mapPermissionSetByName = new Map<String, PermissionSet>();
+
+  static {
+    for (Profile prof : [SELECT Id, Name FROM Profile WITH SYSTEM_MODE]) {
+      mapProfileByName.put(prof.Name, prof);
+    }
+    for (UserRole ur : [
+      SELECT Id, DeveloperName
+      FROM UserRole
+      WITH SYSTEM_MODE
+    ]) {
+      mapUserRoleByDevName.put(ur.DeveloperName, ur);
+    }
+    for (PermissionSet ps : [
+      SELECT Id, Name
+      FROM PermissionSet
+      WITH SYSTEM_MODE
+    ]) {
+      mapPermissionSetByName.put(ps.Name, ps);
+    }
+  }
+  /**
    * @description Get a picklist labels by values (API names).
    * @param field The picklist field, for example Case.Type
    * @return a map of picklist labels by values (example '11':'Other')
@@ -209,6 +243,17 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @param toShaHash value arg to hash
+   * @description performs hashing of input value using sha algorithm
+   * @return encoded hash
+   */
+  public static String hashValue(String toShaHash) {
+    Blob myBlob = Blob.valueOf(toShaHash);
+    Blob shaHash = Crypto.generateDigest('SHA-256', myBlob);
+    return EncodingUtil.convertToHex(shaHash);
+  }
+
+  /**
    * @description Log an error and throw an exception if user doen't have the required permissions
    * @param processName Process name used to generate the log.
    * @param functionName Name of the funtion to generate the log.
@@ -229,19 +274,13 @@ public with sharing class CommonUtil {
    */
   private class InsufficientAccessException extends Exception {
   }
-
   /**
    * @description Get Profile by Profile Name
    * @param profileName name of the Profile
    * @return Profile
    */
   public static Profile getProfileByName(String profileName) {
-    Profile profile = new Profile();
-    for (Profile prof : [SELECT Id FROM Profile WHERE Name = :profileName]) {
-      profile = prof;
-    }
-
-    return profile;
+    return mapProfileByName.get(profileName);
   }
 
   /**
@@ -250,16 +289,7 @@ public with sharing class CommonUtil {
    * @return UserRole
    */
   public static UserRole getUserRoleByDevName(String developerName) {
-    UserRole userRole = new UserRole();
-    for (UserRole role : [
-      SELECT Id, DeveloperName
-      FROM UserRole
-      WHERE DeveloperName = :developerName
-    ]) {
-      userRole = role;
-    }
-
-    return userRole;
+    return mapUserRoleByDevName.get(developerName);
   }
 
   /**
@@ -268,12 +298,7 @@ public with sharing class CommonUtil {
    * @return PermissionSet
    */
   public static PermissionSet getPermissionSetByName(String name) {
-    PermissionSet permSet = new PermissionSet();
-    for (PermissionSet ps : [SELECT Id FROM PermissionSet WHERE Name = :name]) {
-      permSet = ps;
-    }
-
-    return permSet;
+    return mapPermissionSetByName.get(name);
   }
 
   /**
@@ -784,6 +809,22 @@ public with sharing class CommonUtil {
     }
 
     return entitlements;
+  }
+
+  /**
+   * @description This method returns a RecordType instance based on RecordTypeId
+   * @param recordTypeId Id of the record type
+   * @return RecordType instance based on RecordTypeId
+   */
+  public static RecordType getRecordTypeDeveloperName(Id recordTypeId) {
+    if (String.isNotBlank(recordTypeId)) {
+      return [
+        SELECT DeveloperName, Id
+        FROM RecordType
+        WHERE Id = :recordTypeId
+      ];
+    }
+    return null;
   }
 
   /**

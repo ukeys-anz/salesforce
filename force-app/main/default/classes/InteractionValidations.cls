@@ -4,6 +4,11 @@
  * @description Methods for validating Interactions
  */
 public with sharing class InteractionValidations {
+  public static final Map<String, String> INTERACTION_TYPE_ERRORS = new Map<String, String>{
+    InteractionConstants.STORE => System.Label.Interaction_Store_Required,
+    InteractionConstants.IN_PERSON => System.Label.Interaction_In_Person_Location_Required
+  };
+
   /** @description Loop through list of new interactions and validate the data.
    * @param interactions New interaction records to be created.
    */
@@ -40,10 +45,12 @@ public with sharing class InteractionValidations {
   public static void validateLocations(List<Interaction> interactions) {
     for (Interaction currentInteraction : interactions) {
       if (
-        currentInteraction.InteractionType == 'Store' &&
-        currentInteraction.LocationId == null
+        currentInteraction.LocationId == null &&
+        INTERACTION_TYPE_ERRORS.containsKey(currentInteraction.InteractionType)
       ) {
-        currentInteraction.addError(System.Label.Interaction_Store_Required);
+        currentInteraction.addError(
+          INTERACTION_TYPE_ERRORS.get(currentInteraction.InteractionType)
+        );
       }
     }
   }

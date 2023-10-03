@@ -598,12 +598,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ResidentialLoanApplication.Collateral_Assessment_ID__c</field>
+        <field>ResidentialLoanApplication.Collateral_Assessment_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>ResidentialLoanApplication.Collateral_Assessment_Outcome__c</field>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -634,6 +634,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.First_Home__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Joint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Last_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -714,6 +724,31 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>UUID_Log_Entry__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>UUID_Log_Entry__c.UUID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>UUID_Log_Entry__c.Hash_Payload__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>UUID_Log_Entry__c.Reference_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>UUID_Log_Entry__c.Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
@@ -842,6 +877,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>ResidentialLoanApplication</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>UUID_Log_Entry__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>

@@ -4,6 +4,7 @@
     <columns>Name</columns>
     <columns>Account</columns>
     <columns>Status</columns>
+    <columns>CreatedDate</columns>
     <columns>Owner</columns>
     <filterScope>Everything</filterScope>
     <label>All Residential Loan Applications</label>

@@ -54,6 +54,10 @@ SingleSignOn.settings
 #auth provider to make the build pass and we do the manual deployment later
 force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 force-app/main/default/authproviders/ANZ_Single_Sign_On.authprovider-meta.xml
+force-app/main/default/authproviders/Salesforce_API_Access.authprovider-meta.xml
+
+#named credential to make the build pass and we do the manual deployment later
+force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
@@ -72,17 +76,6 @@ force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__
 force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__SourceSystemId__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__Household__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__SourceSystemId__c.field-meta.xml
-force-app/main/default/objects/Case/fields/Application_Status__c.field-meta.xml
-force-app/main/default/objects/Case/fields/Assessment_Id__c.field-meta.xml
-force-app/main/default/objects/Case/fields/Assessment_Outcome__c.field-meta.xml
-force-app/main/default/objects/Case/fields/Case_Authority_Level__c.field-meta.xml
-force-app/main/default/objects/Case/fields/Credit_Id__c.field-meta.xml
-force-app/main/default/objects/Case/fields/Loan_Application__c.field-meta.xml
-force-app/main/default/objects/Case/fields/Loan_Purpose__c.field-meta.xml
-force-app/main/default/objects/Case/fields/System_Action__c.field-meta.xml
-force-app/main/default/objects/ResidentialLoanApplication/fields/Credit_Reassess_Required__c.field-meta.xml
-force-app/main/default/objects/Reason_Outcome__c/Reason_Outcome__c.object-meta.xml
-force-app/main/default/objects/Referral_Reason__c/Referral_Reason__c.object-meta.xml
 force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml
 force-app/main/default/quickActions/Account.New_Appointment.quickAction-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c
@@ -98,9 +91,6 @@ force-app/main/default/classes/UpdateAccountsAndGoals.cls
 force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
 force-app/main/default/classes/GetAccountsAndGoals.cls
 force-app/main/default/classes/utils/CommonUtils.cls
-force-app/main/default/classes/CreditAssessmentActionsController.cls
-force-app/main/default/classes/models/CreditReferralModel.cls
-force-app/main/default/classes/repository/CreditAssessmentAPIRepository.cls
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
@@ -158,7 +148,6 @@ force-app/main/default/connectedApps
 force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 
 #ignoring All List View from being deployed as it will be manually configured
-force-app/main/default/objects/ResidentialLoanApplication/listViews/All_ResidentialLoanApplications.listView-meta.xml
 #to prevent the standard oob search layout view being re-deployed for 'All Interactions' and duplicating the custom list view name
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
@@ -177,18 +166,23 @@ force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
 force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
 force-app/main/default/tabs/SkyhighNetworks__SHNEvent__c.tab-meta.xml
 
-#ignoring credit referral roles and permission sets as they would be deployed later
-force-app/main/default/roles/Credit_Assessment_Officer.role-meta.xml
-force-app/main/default/roles/Credit_Assessor_Lead.role-meta.xml
-force-app/main/default/permissionsetgroups/Credit_Assessment_Officer.permissionsetgroup-meta.xml
-force-app/main/default/permissionsetgroups/Credit_Assessor_Lead.permissionsetgroup-meta.xml
-force-app/main/default/permissionsets/Case_Credit_Referral.permissionset-meta.xml
-force-app/main/default/permissionsets/Case_Credit_Referral_Ownership_Transfer.permissionset-meta.xml
-force-app/main/default/permissionsets/Reason_Outcome_Read_Only.permissionset-meta.xml
-force-app/main/default/permissionsets/Referral_Reason_Read_Only.permissionset-meta.xml
 
 #Ignore omnistudio files
 force-app/main/default/omniDataTransforms
 force-app/main/default/omniIntegrationProcedures
 force-app/main/default/omniScripts
 force-app/main/default/omniUiCard
+
+#AR-90796 - Uninstall mvision
+mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
+force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
+
+#ANZX-110254- remove the unused resource file to avoid errors
+force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
+
+
+#Temp ignore
+force-app/main/default/customindex/Assessment.External_Id__c.indx-meta.xml
+force-app/main/default/customindex/AssessmentQuestionResponse.External_Id__c.indx-meta.xml
+force-app/main/default/objects/Assessment
+force-app/main/default/objects/AssessmentQuestionResponse

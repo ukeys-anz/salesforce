@@ -3,7 +3,7 @@
     <fullName>PEGA_Case_Id__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Pega_SD</complianceGroup>
-    <description>Show the PEGA case number against the email task is created</description>
+    <description>Pega case number that is required for sending email to customer on dispute closure.</description>
     <externalId>false</externalId>
     <formula>Case__r.External_Case_ID__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

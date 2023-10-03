@@ -213,7 +213,7 @@ public with sharing class CCRMContactToContactActions {
       '_' +
       contactExtIdMap.get(record.FinServ__Contact__c) +
       '_' +
-      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name;
+      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name.replace(' ', '');
   }
 
   /**
@@ -231,6 +231,69 @@ public with sharing class CCRMContactToContactActions {
       '_' +
       contactExtIdMap.get(record.FinServ__RelatedContact__c) +
       '_' +
-      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name;
+      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name.replace(' ', '');
+  }
+
+  /**
+   * @description check if end-date of a relationship is updated, then update inverse relationship accordingly
+   * @name checkRelationshipEndDate
+   * @param records records from the trigger
+   * @param oldMap map of old records from the trigger
+   */
+  public static void checkRelationshipEndDate(
+    List<FinServ__ContactContactRelation__c> records,
+    Map<Id, FinServ__ContactContactRelation__c> oldMap
+  ) {
+    List<FinServ__ContactContactRelation__c> updatedRecords = new List<FinServ__ContactContactRelation__c>();
+    for (FinServ__ContactContactRelation__c record : records) {
+      if (
+        !String.isBlank(record.External_Id__c) &&
+        record.FinServ__EndDate__c != oldMap.get(record.Id).FinServ__EndDate__c
+      ) {
+        updatedRecords.add(record);
+      }
+    }
+    if (!updatedRecords.isEmpty()) {
+      endDateInverseRelationship(updatedRecords);
+    }
+  }
+
+  /**
+   * @description find and update the inverse relationship record enddate to match the provided relationships
+   * @name endDateRelationship
+   * @param records original relationship records
+   */
+  private static void endDateInverseRelationship(
+    List<FinServ__ContactContactRelation__c> records
+  ) {
+    List<FinServ__ContactContactRelation__c> recordsToEndDate = new List<FinServ__ContactContactRelation__c>();
+    for (FinServ__ContactContactRelation__c record : [
+      SELECT
+        FinServ__EndDate__c,
+        FinServ__InverseRelationship__c,
+        FinServ__InverseRelationship__r.FinServ__EndDate__c
+      FROM FinServ__ContactContactRelation__c
+      WHERE Id IN :records
+      WITH USER_MODE
+    ]) {
+      if (
+        record.FinServ__EndDate__c !=
+        record.FinServ__InverseRelationship__r.FinServ__EndDate__c
+      ) {
+        recordsToEndDate.add(
+          new FinServ__ContactContactRelation__c(
+            Id = record.FinServ__InverseRelationship__c,
+            FinServ__EndDate__c = record.FinServ__EndDate__c
+          )
+        );
+      }
+    }
+    if (!recordsToEndDate.isEmpty()) {
+      DMLUtil.updateRecords(
+        recordsToEndDate,
+        DMLUtil.ALLOW_PARTIAL_UPDATE,
+        DMLUtil.USER_MODE
+      );
+    }
   }
 }

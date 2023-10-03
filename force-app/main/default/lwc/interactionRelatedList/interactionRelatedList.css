@@ -1,0 +1,32 @@
+/* For matching lighnitng css as this is using blueprints of slds tab */
+
+.lightningScope {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  background-color: #fafaf9;
+  border: 1px solid #dddbda;
+  border-top-left-radius: var(--sds-c-tabs-scoped-radius-border, 0.25rem);
+  border-top-right-radius: var(--sds-c-tabs-scoped-radius-border, 0.25rem);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.slds-is-active .lightningScopeLink {
+  background-color: #fff !important;
+  border-color: #dddbda !important;
+  font-weight: 700 !important;
+  color: var(--sds-c-tabs-scoped-text-color-active, #080707) !important;
+}
+
+.slds-tabs_scoped__link:hover,
+.slds-tabs_scoped__link:focus,
+.slds-tabs--scoped__link:hover,
+.slds-tabs--scoped__link:focus {
+  text-decoration: none !important;
+  color: currentColor !important;
+  border-color: #dddbda !important;
+}

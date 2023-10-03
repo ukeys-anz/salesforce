@@ -75,6 +75,76 @@ private class FetchRecordFromURLTest {
 
       Test.startTest();
       fetchRecordFromURLCallable.call('fetchRecordFromURL', params);
+      Object output = params.get('output');
+      Map<String, Object> outputMap = (Map<String, Object>) output;
+      Map<String, Object> accountIdVsName = (Map<String, Object>) outputMap.get(
+        'returnedRecordFromURL'
+      );
+      System.assertEquals(
+        testAccount.Id,
+        String.valueof(accountIdVsName.get('Id')),
+        'Id not matched'
+      );
+      Test.stopTest();
+    }
+  }
+
+  @isTest
+  static void testIfFetchRecordPositiveInteraction() {
+    Faker faker = new Faker('AU');
+    Account testAccount = new Account(
+      FirstName = 'John',
+      LastName = 'Doe',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'john.something@gmail.com',
+      PersonMobilePhone = '04011231232'
+    );
+    insert testAccount;
+
+    // Insert an Interaction to cover else part
+    Interaction interactNew = new Interaction();
+    interactNew.RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID;
+    String randInteractName = faker.randomString(10);
+    interactNew.Name = randInteractName;
+    interactNew.StartTime = System.now().addDays(30);
+    interactNew.EndTime = interactNew.StartTime.addMinutes(30);
+    interactNew.AccountId = testAccount.id;
+    insert interactNew;
+
+    User coachUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'TestCoachInter123'
+    ];
+    System.runAs(coachUser) {
+      FetchRecordFromURL fetchRecordFromURLCallable = new FetchRecordFromURL();
+      Map<String, Object> params = new Map<String, Object>();
+      params.put(
+        'input',
+        new Map<String, Object>{
+          'ws' => '/lightning/r/Interaction/' +
+          interactNew.Id +
+          '/view',
+          'recordTypeId' => GetHelpConstants.INTERACTION_STORE_RT_ID
+        }
+      );
+      params.put('output', new Map<String, Object>());
+      params.put('options', new Map<String, Object>());
+
+      Test.startTest();
+      fetchRecordFromURLCallable.call('fetchRecordFromURL', params);
+      Object output = params.get('output');
+      Map<String, Object> outputMap = (Map<String, Object>) output;
+      Map<String, Object> accountIdVsName = (Map<String, Object>) outputMap.get(
+        'returnedRecordFromURL'
+      );
+      System.assertEquals(
+        testAccount.Id,
+        String.valueof(accountIdVsName.get('Id')),
+        'Id not matched'
+      );
       Test.stopTest();
     }
   }

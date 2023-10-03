@@ -330,5 +330,4 @@ public without sharing class CCRMLeadConversion {
       Logger.saveLog();
     }
   }
-
 }

@@ -13,8 +13,8 @@ public class SOPInstitutionalLiability {
    */
   public String actualMinimumPayment {
     get {
-      if (minimumPayment != null && minimumPayment.units != null) {
-        return String.valueOf(minimumPayment.minusValue);
+      if (repaymentAmount != null && repaymentAmount.units != null) {
+        return String.valueOf(repaymentAmount.value);
       } else {
         return ResidentialLoanApplicationModel.CREDIT_CARD_UI_MESSAGE;
       }

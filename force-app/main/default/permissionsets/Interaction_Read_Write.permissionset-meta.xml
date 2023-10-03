@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
-        <apexClass>FetchRecordTypeName</apexClass>
+        <apexClass>DependentPicklistController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>FetchRecordFromURL</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionFetchRecordTypeName</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FetchRecordTypeName</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -37,11 +45,27 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>InteractionFetchPicklistValues</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>InteractionFilter</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>InteractionGetters</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionListViewFetchData</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionSearchStringController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionRecordServiceController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -60,10 +84,10 @@
         <apexClass>InteractionTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>InteractionTwilioService</apexClass>
+    <customPermissions>
+        <name>ANZx_Edit_Interaction</name>
         <enabled>true</enabled>
-    </classAccesses>
+    </customPermissions>
     <description>Interaction permission set with Read/Write access.</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -82,12 +106,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Interaction.Appointment__c</field>
+        <field>Interaction.Actual_Topics__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.AppointmentId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Appointment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Assisted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -231,13 +265,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction.Record_Type__c</field>
+        <editable>true</editable>
+        <field>Interaction.Place__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Interaction.Place__c</field>
+        <field>Interaction.Products__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Record_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -262,6 +301,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Reason_for_Visit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Self_Service__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Interaction.StartTime</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -272,7 +321,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Support_Topics__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Interaction.Twilio_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.TwilioDetailsID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Video_Call__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -340,11 +404,15 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Interaction.Message</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Interaction.Store</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>
-        <tab>Interaction_List_View</tab>
+        <tab>standard-Interaction</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

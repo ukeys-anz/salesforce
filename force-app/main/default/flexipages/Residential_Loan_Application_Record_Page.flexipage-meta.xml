@@ -42,6 +42,34 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-86631e2f-b31e-4f19-a61d-dcd7e9ee124f</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>SOP_About_You</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-3fa60617-8af4-4b1b-9688-1c44d04bd0be</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>SOP_Connect_Data</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <name>Facet-88412bd3-6030-47f6-b683-1dff8c71ce20</name>
         <itemInstances>
             <componentInstance>
@@ -51,6 +79,20 @@
                 </componentInstanceProperties>
                 <componentName>runtime_omnistudio:flexcard</componentName>
                 <identifier>runtime_omnistudio_flexcard</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-c4f09315-d328-41eb-8622-fe3d14f75748</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>ServiceabilityViewContainer</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard2</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -75,6 +117,34 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
+                    <value>Facet-86631e2f-b31e-4f19-a61d-dcd7e9ee124f</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>About You</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab8</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-3fa60617-8af4-4b1b-9688-1c44d04bd0be</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Connect Data</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab9</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
                     <value>Facet-88412bd3-6030-47f6-b683-1dff8c71ce20</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -83,6 +153,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab6</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-c4f09315-d328-41eb-8622-fe3d14f75748</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Serviceability</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab5</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -145,6 +229,19 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <name>main</name>
+        <itemInstances>
+            <componentInstance>
+                <componentName>toastEventListener</componentName>
+                <identifier>c_toastEventListener</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_View_Finances_Tab}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -386,6 +483,23 @@
                 </componentInstanceProperties>
                 <componentName>cfaasFilesRelatedList</componentName>
                 <identifier>c_cfaasFilesRelatedList</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>toastFields</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastMessage</name>
+                    <value>Please submit for reassessment to view the latest assessment outcome.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastTitle</name>
+                    <value>The loan application has been updated.</value>
+                </componentInstanceProperties>
+                <componentName>recordAlert</componentName>
+                <identifier>c_recordAlert</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

@@ -70,7 +70,7 @@ public with sharing class CCRMAPIRepositoryTest {
 
     // Verify response received contains fake values
     System.assertNotEquals(
-      Null,
+      null,
       maintainPartyResponse.ocvId,
       'The returned ocvId does not match'
     );

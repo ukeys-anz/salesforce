@@ -20,4 +20,18 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
     //Assign home loan applications queue as owner
     ResidentialLoanApplicationActions.assignHomeLoanAppQueue(records);
   }
+
+  /**
+   * @description onAfterUpdate to create the records
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    ToastAlertService.publishRecordMonitoringEvent(
+      ToastAlertService.RLA_MESSAGE,
+      ToastAlertService.checkRLAReassessmentRequirement(
+        records,
+        (Map<Id, ResidentialLoanApplication>) oldMap
+      )
+    );
+  }
 }

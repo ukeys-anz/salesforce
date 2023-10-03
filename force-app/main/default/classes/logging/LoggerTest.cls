@@ -22,7 +22,7 @@ public with sharing class LoggerTest {
     Profile engineerProfile = CommonUtil.getProfileByName(
       'Minimum Access - Salesforce'
     );
-    UserRole engineerRole = CommonUtil.getUserRoleByDevName('Engineer_Test');
+    UserRole engineerRole = CommonUtil.getUserRoleByDevName('Engineer');
 
     // Create global approver user
     User engineerUser = TestUtil.createTestUser(
@@ -69,6 +69,46 @@ public with sharing class LoggerTest {
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorDeleteResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.DeleteResult dr = TestUtil.getMockDeleteResult(
+        MOCK_STD_DATABASE_RESULT
+      );
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        dr,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -94,6 +134,46 @@ public with sharing class LoggerTest {
         'Error message',
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorMergeResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.MergeResult mr = TestUtil.getMockMergeResult(
+        MOCK_MERGE_DATABASE_RESULT
+      );
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        mr,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
       );
     }
   }
@@ -121,6 +201,46 @@ public with sharing class LoggerTest {
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorSaveResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.SaveResult sr = TestUtil.getMockSaveResult(
+        MOCK_STD_DATABASE_RESULT
+      );
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        sr,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -147,6 +267,46 @@ public with sharing class LoggerTest {
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorUndeleteResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.UndeleteResult ur = TestUtil.getMockUndeleteResult(
+        MOCK_STD_DATABASE_RESULT
+      );
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        ur,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -172,6 +332,46 @@ public with sharing class LoggerTest {
         'Error message',
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorUpsertResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.UpsertResult ur = TestUtil.getMockUpsertResult(
+        MOCK_UPSERT_DATABASE_RESULT
+      );
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        ur,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
       );
     }
   }
@@ -202,6 +402,49 @@ public with sharing class LoggerTest {
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorListDeleteResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.DeleteResult dr = TestUtil.getMockDeleteResult(
+        MOCK_STD_DATABASE_RESULT
+      );
+      List<Database.DeleteResult> deleteResults = new List<Database.DeleteResult>{
+        dr
+      };
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        deleteResults,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -230,6 +473,49 @@ public with sharing class LoggerTest {
         'Error message',
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorListMergeResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.MergeResult mr = TestUtil.getMockMergeResult(
+        MOCK_MERGE_DATABASE_RESULT
+      );
+      List<Database.MergeResult> mergeResults = new List<Database.MergeResult>{
+        mr
+      };
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        mergeResults,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
       );
     }
   }
@@ -260,6 +546,49 @@ public with sharing class LoggerTest {
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorListSaveResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.SaveResult sr = TestUtil.getMockSaveResult(
+        MOCK_STD_DATABASE_RESULT
+      );
+      List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
+        sr
+      };
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        saveResults,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -289,6 +618,49 @@ public with sharing class LoggerTest {
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorListUndeleteResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.UndeleteResult ur = TestUtil.getMockUndeleteResult(
+        MOCK_STD_DATABASE_RESULT
+      );
+      List<Database.UndeleteResult> undeleteResults = new List<Database.UndeleteResult>{
+        ur
+      };
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        undeleteResults,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -317,6 +689,49 @@ public with sharing class LoggerTest {
         'Error message',
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorListUpsertResultWithSeverity() {
+    System.runAs(getEngineer()) {
+      Database.UpsertResult ur = TestUtil.getMockUpsertResult(
+        MOCK_UPSERT_DATABASE_RESULT
+      );
+      List<Database.UpsertResult> upsertResults = new List<Database.UpsertResult>{
+        ur
+      };
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        upsertResults,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
       );
     }
   }
@@ -351,6 +766,54 @@ public with sharing class LoggerTest {
         dmlException.getTypeName(),
         builder.getLogEvent().ExceptionType__c,
         'Exception type should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorExceptionWithSeverity() {
+    System.runAs(getEngineer()) {
+      DMLException dmlException = new DMLException('Test DML exception');
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        dmlException,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        'Test DML exception',
+        builder.getLogEvent().ExceptionMessage__c,
+        'Exception message should match'
+      );
+      System.assertEquals(
+        dmlException.getTypeName(),
+        builder.getLogEvent().ExceptionType__c,
+        'Exception type should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
       );
     }
   }
@@ -395,6 +858,60 @@ public with sharing class LoggerTest {
         builder.getLogEvent().ExceptionType__c,
         'Exception type should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorRecordIdWithExceptionWithSeverity() {
+    System.runAs(getEngineer()) {
+      DMLException dmlException = new DMLException('Test DML exception');
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        '0012N00000ABCDEQA5',
+        dmlException,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        '0012N00000ABCDEQA5',
+        builder.getLogEvent().RecordId__c,
+        'Record Id should match'
+      );
+      System.assertEquals(
+        'Test DML exception',
+        builder.getLogEvent().ExceptionMessage__c,
+        'Exception message should match'
+      );
+      System.assertEquals(
+        dmlException.getTypeName(),
+        builder.getLogEvent().ExceptionType__c,
+        'Exception type should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -426,6 +943,48 @@ public with sharing class LoggerTest {
         builder.getLogEvent().RecordId__c,
         'Record Id should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorRecordIdWithSeverity() {
+    System.runAs(getEngineer()) {
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        '0012N00000ABCDEQA5',
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        '0012N00000ABCDEQA5',
+        builder.getLogEvent().RecordId__c,
+        'Record Id should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -454,6 +1013,49 @@ public with sharing class LoggerTest {
         mockCase.Id,
         builder.getLogEvent().RecordId__c,
         'Record Id should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorRecordWithSeverity() {
+    System.runAs(getEngineer()) {
+      Case mockCase = getMockCase();
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        mockCase,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        mockCase.Id,
+        builder.getLogEvent().RecordId__c,
+        'Record Id should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
       );
     }
   }
@@ -499,6 +1101,61 @@ public with sharing class LoggerTest {
         builder.getLogEvent().ExceptionType__c,
         'Exception type should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorRecordWithExceptionWithSeverity() {
+    System.runAs(getEngineer()) {
+      DMLException dmlException = new DMLException('Test DML exception');
+      Case mockCase = getMockCase();
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        mockCase,
+        dmlException,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        mockCase.Id,
+        builder.getLogEvent().RecordId__c,
+        'Record Id should match'
+      );
+      System.assertEquals(
+        'Test DML exception',
+        builder.getLogEvent().ExceptionMessage__c,
+        'Exception message should match'
+      );
+      System.assertEquals(
+        dmlException.getTypeName(),
+        builder.getLogEvent().ExceptionType__c,
+        'Exception type should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -534,6 +1191,56 @@ public with sharing class LoggerTest {
         'Lead',
         builder.getLogEvent().RecordObjectName__c,
         'Record object name should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorRecordsWithSeverity() {
+    System.runAs(getEngineer()) {
+      Lead l1 = new Lead(LastName = 'Smith');
+      Lead l2 = new Lead(LastName = 'James');
+      List<Lead> leadList = new List<Lead>{ l1, l2 };
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        leadList,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        JSON.serializePretty(leadList),
+        builder.getLogEvent().RecordsJson__c,
+        'Record Json should match'
+      );
+      System.assertEquals(
+        'Lead',
+        builder.getLogEvent().RecordObjectName__c,
+        'Record object name should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
       );
     }
   }
@@ -586,6 +1293,68 @@ public with sharing class LoggerTest {
         builder.getLogEvent().ExceptionType__c,
         'Exception type should match'
       );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorRecordsWithExceptionWithSeverity() {
+    System.runAs(getEngineer()) {
+      DMLException dmlException = new DMLException('Test DML exception');
+      Lead l1 = new Lead(LastName = 'Smith');
+      Lead l2 = new Lead(LastName = 'James');
+      List<Lead> leadList = new List<Lead>{ l1, l2 };
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        leadList,
+        dmlException,
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        JSON.serializePretty(leadList),
+        builder.getLogEvent().RecordsJson__c,
+        'Record Json should match'
+      );
+      System.assertEquals(
+        'Lead',
+        builder.getLogEvent().RecordObjectName__c,
+        'Record object name should match'
+      );
+      System.assertEquals(
+        'Test DML exception',
+        builder.getLogEvent().ExceptionMessage__c,
+        'Exception message should match'
+      );
+      System.assertEquals(
+        dmlException.getTypeName(),
+        builder.getLogEvent().ExceptionType__c,
+        'Exception type should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
     }
   }
 
@@ -608,6 +1377,42 @@ public with sharing class LoggerTest {
         'Error message',
         builder.getLogEvent().LogMessage__c,
         'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
+      );
+    }
+  }
+
+  @isTest
+  static void testErrorMessageWithSeverity() {
+    System.runAs(getEngineer()) {
+      LogEventBuilder builder = Logger.error(
+        'Error message',
+        Logger.Severity.MEDIUM
+      );
+
+      System.assertEquals(
+        1,
+        LoggerHelper.LOG_ENTRIES_BUFFER.size(),
+        'Log entry should have been added to log entries buffer'
+      );
+      System.assertEquals(
+        'ERROR',
+        builder.getLogEvent().LoggingLevel__c,
+        'Logging level should match'
+      );
+      System.assertEquals(
+        'Error message',
+        builder.getLogEvent().LogMessage__c,
+        'Log message should match'
+      );
+      System.assertEquals(
+        Logger.Severity.MEDIUM.name(),
+        builder.getLogEvent().Severity__c,
+        'Log severity should match'
       );
     }
   }

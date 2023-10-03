@@ -1,0 +1,76 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef1"
+      },
+      "Name": "Richmond ANZ Plus Coaching Lab",
+      "LocationType": "Store"
+    },
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef2"
+      },
+      "Name": "Northland Branch",
+      "LocationType": "Branch"
+    },
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef3"
+      },
+      "Name": "Preston Branch",
+      "LocationType": "Branch"
+    },
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef4"
+      },
+      "Name": "Clayton Branch",
+      "LocationType": "Branch"
+    },
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef5"
+      },
+      "Name": "Knox Branch",
+      "LocationType": "Branch"
+    },
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef6"
+      },
+      "Name": "South Melbourne Branch",
+      "LocationType": "Branch"
+    },
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef7"
+      },
+      "Name": "Royal Melbourne Branch",
+      "LocationType": "Branch"
+    },
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef8"
+      },
+      "Name": "Martin Place Coaching Lab",
+      "LocationType": "Store"
+    },
+    {
+      "attributes": {
+        "type": "Location",
+        "referenceId": "LocationRef9"
+      },
+      "Name": "Docklands Branch",
+      "LocationType": "Branch"
+    }
+  ]
+}

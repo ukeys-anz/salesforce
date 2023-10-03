@@ -8,14 +8,8 @@ public with sharing class ResidentialLoanAppTriggerHandlerTest {
   @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
-    Account accnt = new Account(
-      FirstName = faker.person.firstName(),
-      LastName = faker.person.lastName(),
-      OCV_ID__c = faker.randomString(10),
-      ANZx_Customer__c = true,
-      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
-    );
-    insert accnt;
+
+    Account accnt = TestDataFactory.createAccount(true);
 
     //Create RLA records with no owner
     List<ResidentialLoanApplication> rlaList = new List<ResidentialLoanApplication>();

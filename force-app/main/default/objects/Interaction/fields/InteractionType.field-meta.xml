@@ -4,8 +4,9 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>How interaction happened</description>
-    <inlineHelpText>The channel that the appointment will be held through e.g. through phone or store</inlineHelpText>
+    <inlineHelpText>The channel that the appointment will be held in, eg video call, voice call or in-person.</inlineHelpText>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
 </CustomField>

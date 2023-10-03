@@ -208,7 +208,7 @@ public class CCRMLeadConversionTest {
 
   @IsTest
   static void findAndConvertLeadCCRMTest() {
-     System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
       Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
         .Id;
       USER usr = (USER) FakerFactory.make(new FakerUserFactory());
@@ -231,5 +231,4 @@ public class CCRMLeadConversionTest {
       Test.stopTest();
     }
   }
-
 }
