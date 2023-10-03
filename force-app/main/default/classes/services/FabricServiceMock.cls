@@ -92,7 +92,7 @@ public with sharing class FabricServiceMock extends Service {
     List<String> accountNumbers
   ) {
     if (!preset) {
-      if (Label.AccountAPIUpliftedToV1 == 'True') {
+      if (GetHelpConstants.isAccountV1()) {
         response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSEV1;
       } else {
         response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE;
@@ -106,7 +106,7 @@ public with sharing class FabricServiceMock extends Service {
     String paramUrl
   ) {
     if (!preset) {
-      if (Label.TransactionAPIUpliftedToV1 == 'False') {
+      if (!GetHelpConstants.isTransactionsV1()) {
         Map<String, String> mappedMockData = new Map<String, String>{
           'account_numbers' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_1,
           '&cursor.value=ddd' => FabricServiceMock.TRANSACTION_HISTORY_SUCCESS_RESPONSE_2,

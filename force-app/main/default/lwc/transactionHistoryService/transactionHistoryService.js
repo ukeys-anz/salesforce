@@ -1,4 +1,4 @@
-import AccountAPIUpliftedToV1 from "@salesforce/label/c.AccountAPIUpliftedToV1";
+import TransactionAPIUpliftedToV1 from "@salesforce/label/c.TransactionAPIUpliftedToV1";
 
 export const TRANSACTION_STATUSES = {
   Unspecified: "Unknown",
@@ -33,43 +33,30 @@ export const CARD_TYPES = {
 export const PAYMENT_TYPES = {
   // conditional mapping based on custom label for v1 and v1b1
   PAYMENT_TYPE_UNSPECIFIED: "PAYMENT_TYPE_UNSPECIFIED", // common in both v1 and v1b1
-  PAYMENT_TYPE_FAST:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_TYPE_FAST" : "FAST",
-  PAYMENT_TYPE_LOW:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_TYPE_LOW" : "LOW",
-  PAYMENT_TYPE_SWIFT:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_TYPE_SWIFT" : "SWIFT",
-  PAYMENT_TYPE_XBR:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_TYPE_XBR" : "XBR",
-  PAYMENT_TYPE_RTGS:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_TYPE_RTGS" : "RTGS",
-  PAYMENT_TYPE_FAST_RETURN:
-    AccountAPIUpliftedToV1 === "False"
-      ? "PAYMENT_TYPE_FAST_RETURN"
-      : "FAST_RETURN",
-  PAYMENT_TYPE_BKT:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_TYPE_BKT" : "BKT"
+  PAYMENT_TYPE_FAST: !isTransactionsV1() ? "PAYMENT_TYPE_FAST" : "FAST",
+  PAYMENT_TYPE_LOW: !isTransactionsV1() ? "PAYMENT_TYPE_LOW" : "LOW",
+  PAYMENT_TYPE_SWIFT: !isTransactionsV1() ? "PAYMENT_TYPE_SWIFT" : "SWIFT",
+  PAYMENT_TYPE_XBR: !isTransactionsV1() ? "PAYMENT_TYPE_XBR" : "XBR",
+  PAYMENT_TYPE_RTGS: !isTransactionsV1() ? "PAYMENT_TYPE_RTGS" : "RTGS",
+  PAYMENT_TYPE_FAST_RETURN: !isTransactionsV1()
+    ? "PAYMENT_TYPE_FAST_RETURN"
+    : "FAST_RETURN",
+  PAYMENT_TYPE_BKT: !isTransactionsV1() ? "PAYMENT_TYPE_BKT" : "BKT"
 };
 
 export const PAYMENT_SUB_TYPES = {
   // conditional mapping based on custom label
   PAYMENT_SUB_TYPE_UNSPECIFIED: "PAYMENT_SUB_TYPE_UNSPECIFIED", // common in both v1 and v1b1
-  PAYMENT_SUB_TYPE_SCT:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_SUB_TYPE_SCT" : "SCT",
-  PAYMENT_SUB_TYPE_ONUS:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_SUB_TYPE_ONUS" : "ONUS",
-  PAYMENT_SUB_TYPE_SOLICITED:
-    AccountAPIUpliftedToV1 === "False"
-      ? "PAYMENT_SUB_TYPE_SOLICITED"
-      : "SOLICITED",
-  PAYMENT_SUB_TYPE_UNSOLICITED:
-    AccountAPIUpliftedToV1 === "False"
-      ? "PAYMENT_SUB_TYPE_UNSOLICITED"
-      : "UNSOLICITED",
-  PAYMENT_SUB_TYPE_ICS1:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_SUB_TYPE_ICS1" : "ICS1",
-  PAYMENT_SUB_TYPE_DE:
-    AccountAPIUpliftedToV1 === "False" ? "PAYMENT_SUB_TYPE_DE" : "DE"
+  PAYMENT_SUB_TYPE_SCT: !isTransactionsV1() ? "PAYMENT_SUB_TYPE_SCT" : "SCT",
+  PAYMENT_SUB_TYPE_ONUS: !isTransactionsV1() ? "PAYMENT_SUB_TYPE_ONUS" : "ONUS",
+  PAYMENT_SUB_TYPE_SOLICITED: !isTransactionsV1()
+    ? "PAYMENT_SUB_TYPE_SOLICITED"
+    : "SOLICITED",
+  PAYMENT_SUB_TYPE_UNSOLICITED: !isTransactionsV1()
+    ? "PAYMENT_SUB_TYPE_UNSOLICITED"
+    : "UNSOLICITED",
+  PAYMENT_SUB_TYPE_ICS1: !isTransactionsV1() ? "PAYMENT_SUB_TYPE_ICS1" : "ICS1",
+  PAYMENT_SUB_TYPE_DE: !isTransactionsV1() ? "PAYMENT_SUB_TYPE_DE" : "DE"
 };
 
 export const TRANSACTION_HISTORY_RETRIEVE_ERROR =
@@ -145,3 +132,7 @@ export const dateOptions = {
 };
 
 export const timeOptions = { hour: "2-digit", minute: "2-digit" };
+
+function isTransactionsV1() {
+  return TransactionAPIUpliftedToV1 === "TRUE";
+}
