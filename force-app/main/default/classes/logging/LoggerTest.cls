@@ -22,7 +22,7 @@ public with sharing class LoggerTest {
     Profile engineerProfile = CommonUtil.getProfileByName(
       'Minimum Access - Salesforce'
     );
-    UserRole engineerRole = CommonUtil.getUserRoleByDevName('Engineer_Test');
+    UserRole engineerRole = CommonUtil.getUserRoleByDevName('Engineer');
 
     // Create global approver user
     User engineerUser = TestUtil.createTestUser(

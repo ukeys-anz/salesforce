@@ -7,12 +7,14 @@
 private class CCRMOpportunityActionsTest {
   @testSetup
   static void makeData() {
-    User ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
-    CCRMTestDataFactory.addCCRMUserPS(
-      ccrmBaseUser.id,
-      'CCRM_Opportunity_Access'
-    );
-    CCRMTestDataFactory.addCCRMUserPS(ccrmBaseUser.id, 'ActionPlans');
+    User ccrmBaseUser;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
+      TestUtil.assignPermissionSets(
+        new List<String>{ 'CCRM_Opportunity_Access', 'ActionPlans' },
+        new List<User>{ ccrmBaseUser }
+      );
+    }
 
     System.runAs(ccrmBaseUser) {
       CCRMTestDataFactory.createActionPlans();
