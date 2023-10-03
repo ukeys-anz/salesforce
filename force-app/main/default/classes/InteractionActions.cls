@@ -27,7 +27,6 @@ public with sharing class InteractionActions {
    * @param oldMap Map<Id, SObject> map of old versions of the interactions
    * @param records List<Interaction> list of the interaction through which to iterate.
    * @return List<Interaction> list of interaction that have had their ownership changed.
-   *
    */
   public static List<Interaction> findInteractionsOwnershipChanged(
     Map<Id, SObject> oldMap,
