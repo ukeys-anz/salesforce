@@ -175,6 +175,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             : account.FinServ__Status__c === "Dormant"
             ? "slds-badge dormantBadgeClass"
             : "slds-badge";
+
+        // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
+        account.showSavingsJar = account.FinServ__Status__c !== "Closed";
+
         //Determine the type of financial account
         if (account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME) {
           this.accountData.checking.push(account);
