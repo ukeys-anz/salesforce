@@ -194,9 +194,3 @@ force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-
 
 #ANZX-110254-delete unused resource file
 force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
-
-#Temp ignore
-force-app/main/default/customindex/Assessment.External_Id__c.indx-meta.xml
-force-app/main/default/customindex/AssessmentQuestionResponse.External_Id__c.indx-meta.xml
-force-app/main/default/objects/Assessment
-force-app/main/default/objects/AssessmentQuestionResponse
