@@ -134,5 +134,5 @@ export const dateOptions = {
 export const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
 function isTransactionsV1() {
-  return TransactionAPIUpliftedToV1 === "TRUE";
+  return TransactionAPIUpliftedToV1 === "True";
 }
