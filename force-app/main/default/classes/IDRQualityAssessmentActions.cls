@@ -49,7 +49,7 @@ public with sharing class IDRQualityAssessmentActions {
             when 'Not met' {
               ratingApiConversion = 'Not_met';
             }
-            when 'Not met (outside CM Control)' {
+            when 'Not met (outside CM control)' {
               ratingApiConversion = 'Not_met_OCC';
             }
             when 'N/A' {
