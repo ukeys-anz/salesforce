@@ -18,6 +18,7 @@ and the key associated with it in the transaction, taken from the fabric proto d
  */
 export function processTransaction(transaction) {
   switch (transaction.type) {
+    // for v1b1
     case "TRANSACTION_TYPE_TRANSFER":
       return processTransfer(transaction);
     case "TRANSACTION_TYPE_BPAY":
@@ -25,6 +26,16 @@ export function processTransaction(transaction) {
     case "TRANSACTION_TYPE_BSB_ACC_NUM":
     case "TRANSACTION_TYPE_PAYID":
     case "TRANSACTION_TYPE_PAYMENT":
+      return processPayAnyone(transaction);
+
+    // for v1
+    case "TRANSFER":
+      return processTransfer(transaction);
+    case "BPAY":
+      return processBPAY(transaction);
+    case "BSB_ACC_NUM":
+    case "PAYID":
+    case "PAYMENT":
       return processPayAnyone(transaction);
     default:
       return transaction;
@@ -85,6 +96,5 @@ function processPayAnyone(transaction) {
       };
     }
   }
-
   return transaction;
 }
