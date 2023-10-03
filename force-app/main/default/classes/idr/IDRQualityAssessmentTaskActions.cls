@@ -118,6 +118,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
           TeamManager__c,
           TeamManager__r.Name,
           Case_Manager__c,
+          Case_Manager__r.Name,
           Related_Case__r.CaseNumber__c
         FROM Quality_Assessment__c
         WHERE
@@ -134,12 +135,13 @@ public with sharing class IDRQualityAssessmentTaskActions {
             OwnerId = oAssessment.TeamManager__c,
             WhatId = oAssessment.Id,
             Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
-              oAssessment.TeamManager__r.Name +
+              oAssessment.Case_Manager__r.Name +
               ' : case ' +
               oAssessment.Related_Case__r.CaseNumber__c,
             ActivityDate = Date.today().addDays(7),
             Status = 'Open',
             Priority = 'Normal'
+
           )
         );
         System.debug('Assessment: ' + oAssessment);
