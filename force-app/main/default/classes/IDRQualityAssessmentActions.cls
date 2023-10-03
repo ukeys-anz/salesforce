@@ -16,7 +16,7 @@ public with sharing class IDRQualityAssessmentActions {
     for (Quality_Assessment__c qaRecord : records) {
       String fieldSetName;
       if (
-        qaRecord.Status__c == 'Complete' &&
+        qaRecord.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
         (qaRecord.Evaluation_Type__c == 'C & Q Assessment' ||
         qaRecord.Evaluation_Type__c == 'Call Review Assessment' ||
         qaRecord.Evaluation_Type__c == 'Letter Review Assessment')
@@ -134,19 +134,8 @@ public with sharing class IDRQualityAssessmentActions {
         (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment ||
         oAssessment.RecordTypeId ==
         IDRConstants.idrtCallLetterReviewQualityAssessment) &&
-        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
-        (mpOldAssessments == null ||
-        (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
-        oAssessment.Status__c != oOldAssessment.Status__c)
+        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
       ) {
-        //Set Assessment Completion date to current date and time on assessment closure.
-        oAssessment.Assessment_Completion_Date__c = System.now();
-        if (
-          oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
-          String.isEmpty(oAssessment.Team_Manager_Response__c)
-        ) {
-          oAssessment.addError(COMPLETION_ERROR);
-        }
         strFieldSetId = getFieldsetId(oAssessment);
         if (
           strFieldSetId == '' ||
@@ -163,18 +152,48 @@ public with sharing class IDRQualityAssessmentActions {
           );
           fLoggerUsed = true;
         } else {
+          if (
+            (mpOldAssessments == null ||
+            (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
+            oAssessment.Status__c != oOldAssessment.Status__c)
+          ) {
+            //Set Assessment Completion date to current date and time on assessment closure.
+            oAssessment.Assessment_Completion_Date__c = System.now();
+            if (
+              oAssessment.RecordTypeId ==
+              IDRConstants.idrtCQQualityAssessment &&
+              String.isEmpty(oAssessment.Team_Manager_Response__c)
+            ) {
+              oAssessment.addError(COMPLETION_ERROR);
+            }
+            for (Schema.FieldSetMember field : oFieldSet.getFields()) {
+              if (((SObject) oAssessment).get(field.getFieldPath()) == null) {
+                oAssessment.addError(
+                  'Field [' +
+                  field.label +
+                  '] is required to change Status to Complete'
+                );
+              }
+            }
+          }
+        }
+        if (mpOldAssessments != null && oOldAssessment != null) {
           for (Schema.FieldSetMember field : oFieldSet.getFields()) {
-            if (((SObject) oAssessment).get(field.getFieldPath()) == null) {
+            if (
+              ((SObject) oAssessment).get(field.getFieldPath()) !=
+              ((SObject) oOldAssessment).get(field.getFieldPath())
+            ) {
               oAssessment.addError(
                 'Field [' +
                 field.label +
-                '] is required to change Status to Complete'
+                '] can\'t be modified on a Complete assessment'
               );
             }
           }
         }
       }
     }
+
     if (fLoggerUsed) {
       Logger.saveLog();
     }

@@ -89,7 +89,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
     Map<Id, Quality_Assessment__c> mpOldAssessments
   ) {
     Quality_Assessment__c oOldAssessment;
-    Set<Id> stCompletedIds = new Set<Id>();
+    Set<Id> stCompletedCQIds = new Set<Id>();
     for (Quality_Assessment__c oAssessment : lstAssessments) {
       if (
         oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
@@ -98,12 +98,12 @@ public with sharing class IDRQualityAssessmentTaskActions {
         (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
         oAssessment.Status__c != oOldAssessment.Status__c)
       ) {
-        stCompletedIds.add(oAssessment.Id);
+        stCompletedCQIds.add(oAssessment.Id);
       }
     }
-    System.debug('CompletedIds: ' + stCompletedIds);
+    System.debug('CompletedIds: ' + stCompletedCQIds);
     if (
-      stCompletedIds.size() > 0 &&
+      stCompletedCQIds.size() > 0 &&
       Task.SObjectType.getDescribe().isCreateable() &&
       Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
       Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
@@ -111,7 +111,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
       Schema.SObjectType.Task.fields.Subject.isCreateable() &&
       Schema.SObjectType.Task.fields.WhatId.isCreateable()
     ) {
-      List<Quality_Assessment__c> lstCompletedAssessments = [
+      List<Quality_Assessment__c> lstCompletedCQAssessments = [
         SELECT
           Id,
           OwnerId,
@@ -122,13 +122,12 @@ public with sharing class IDRQualityAssessmentTaskActions {
           Related_Case__r.CaseNumber__c
         FROM Quality_Assessment__c
         WHERE
-          Id IN :stCompletedIds
+          Id IN :stCompletedCQIds
           AND TeamManager__c != NULL
           AND Case_Manager__c != NULL
       ];
       List<Task> lstComplianceTasks = new List<Task>();
-      List<Quality_Assessment__Share> lstQAShare = new List<Quality_Assessment__Share>();
-      for (Quality_Assessment__c oAssessment : lstCompletedAssessments) {
+      for (Quality_Assessment__c oAssessment : lstCompletedCQAssessments) {
         lstComplianceTasks.add(
           new Task(
             RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID,
@@ -141,32 +140,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
             ActivityDate = Date.today().addDays(7),
             Status = 'Open',
             Priority = 'Normal'
-
           )
         );
-        System.debug('Assessment: ' + oAssessment);
-        if (oAssessment.OwnerId != oAssessment.TeamManager__c) {
-          lstQAShare.add(
-            new Quality_Assessment__Share(
-              AccessLevel = 'Edit',
-              ParentId = oAssessment.Id,
-              UserOrGroupId = oAssessment.TeamManager__c
-            )
-          );
-        }
-        if (
-          oAssessment.OwnerId != oAssessment.Case_Manager__c &&
-          oAssessment.Case_Manager__c != oAssessment.TeamManager__c
-        ) {
-          lstQAShare.add(
-            new Quality_Assessment__Share(
-              AccessLevel = 'Edit',
-              ParentId = oAssessment.Id,
-              UserOrGroupId = oAssessment.Case_Manager__c
-            )
-          );
-        }
-        System.debug('Share: ' + lstQAShare);
       }
       if (lstComplianceTasks.size() > 0) {
         try {
@@ -178,18 +153,67 @@ public with sharing class IDRQualityAssessmentTaskActions {
           Logger.saveLog();
         }
       }
+    }
+  }
+  /**
+   * @description method to apply apex sharing  if Quality Assessment record's status is changed to Completed
+   * @param lstAssessments new Trigger values
+   * @param mpOldAssessments old Trigger values
+   */
+  public static void createQAShareRecord(
+    List<Quality_Assessment__c> lstAssessments,
+    Map<Id, Quality_Assessment__c> mpOldAssessments
+  ) {
+    Quality_Assessment__c oOldAssessment;
 
-      if (lstQAShare.size() > 0) {
-        try {
-          insert lstQAShare;
-        } catch (Exception e) {
-          System.debug('Exception: ' + e.getMessage());
-          Logger.error(
-            'Error creating Quality Assessment Sharing records: ' +
-            e.getMessage()
+    List<Quality_Assessment__Share> lstQAShare = new List<Quality_Assessment__Share>();
+    for (Quality_Assessment__c oAssessment : lstAssessments) {
+      if (
+        (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment ||
+        oAssessment.RecordTypeId ==
+        IDRConstants.idrtCallLetterReviewQualityAssessment) &&
+        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
+        (mpOldAssessments == null ||
+        (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
+        oAssessment.Status__c != oOldAssessment.Status__c)
+      ) {
+        if (oAssessment.OwnerId != oAssessment.TeamManager__c) {
+          lstQAShare.add(
+            new Quality_Assessment__Share(
+              AccessLevel = (oAssessment.RecordTypeId ==
+                IDRConstants.idrtCQQualityAssessment
+                ? 'Edit'
+                : 'Read'),
+              ParentId = oAssessment.Id,
+              UserOrGroupId = oAssessment.TeamManager__c
+            )
           );
-          Logger.saveLog();
         }
+        if (
+          oAssessment.OwnerId != oAssessment.Case_Manager__c &&
+          oAssessment.Case_Manager__c != oAssessment.TeamManager__c
+        ) {
+          lstQAShare.add(
+            new Quality_Assessment__Share(
+              AccessLevel = 'Read',
+              ParentId = oAssessment.Id,
+              UserOrGroupId = oAssessment.Case_Manager__c
+            )
+          );
+        }
+        System.debug('Share: ' + lstQAShare);
+      }
+    }
+
+    if (lstQAShare.size() > 0) {
+      try {
+        insert lstQAShare;
+      } catch (Exception e) {
+        System.debug('Exception: ' + e.getMessage());
+        Logger.error(
+          'Error creating Quality Assessment Sharing records: ' + e.getMessage()
+        );
+        Logger.saveLog();
       }
     }
   }
