@@ -345,10 +345,11 @@ public with sharing class QualityAssessmentActions {
           lstAssessments = new List<Quality_Assessment__c>();
           mpCaseId2Assessments.put(oAssessment.Related_Case__c, lstAssessments);
         }
-        for (Quality_Assessment__c oAssessment2 : lstAssessments) {
+        for (Quality_Assessment__c oAssessment2 : lstNewAssessments) {
           if (
             oAssessment2.Status__c != STATUS_WITHDRAWN &&
-            oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c
+            oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c &&
+            oAssessment2.Id != oAssessment.Id
           ) {
             oAssessment.addError(EVALUATION_TYPE_DUPLICATE_ERROR);
           }
@@ -361,6 +362,7 @@ public with sharing class QualityAssessmentActions {
       FROM Quality_Assessment__c
       WHERE
         Related_Case__c IN :mpCaseId2Assessments.keySet()
+        AND Status__c != :STATUS_WITHDRAWN
         AND RecordType.DeveloperName IN (
           'C_Q_Assessment',
           'Call_Letter_Review_Assessment'
@@ -373,7 +375,6 @@ public with sharing class QualityAssessmentActions {
       ) {
         for (Quality_Assessment__c oAssessment2 : lstAssessments) {
           if (
-            oAssessment2.Status__c != STATUS_WITHDRAWN &&
             oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c &&
             oAssessment2.Id != oAssessment.Id
           ) {
