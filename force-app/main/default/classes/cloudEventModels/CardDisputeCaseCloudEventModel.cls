@@ -58,8 +58,7 @@ public without sharing class CardDisputeCaseCloudEventModel extends DisputeCaseC
       Account theAccount,
       UserModel theOwner
     ) {
-      super(theCase, theAccount);
-      this.owner = theOwner;
+      super(theCase, theAccount, theOwner);
       if (theCase.Amount_Of_Authorised_Transaction__c != null) {
         this.amountOfAuthorisedTransaction = new FabricType.FabricMoney(
           null,

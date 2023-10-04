@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_unlicensed_did_communication_stop__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>If unlicensed, did communication stop</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Did we stop communicating with unlicensed DMFs or paid representatives?</inlineHelpText>
+    <label>If unlicensed, did communication stop?</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes - we stopped</fullName>
+                <default>false</default>
+                <label>Yes - we stopped</label>
+            </value>
+            <value>
+                <fullName>No - we did not stop</fullName>
+                <default>false</default>
+                <label>No - we did not stop</label>
+            </value>
+            <value>
+                <fullName>N/A - no LOA, or LOA licensed</fullName>
+                <default>false</default>
+                <label>N/A - no LOA, or LOA licensed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

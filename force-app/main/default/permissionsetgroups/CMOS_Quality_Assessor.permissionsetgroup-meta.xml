@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set group for Quality Assessment</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>CMOS Quality Assessor</label>
+    <permissionSets>Quality_Assessment_C_Q_Read_Write</permissionSets>
+    <permissionSets>Quality_Workbench</permissionSets>
+    <permissionSets>View_All_Foreign_Key_Names</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Correct_financial_remedy_approach__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Letter Question 8</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Have we specified the right financial loss approach for compensation &amp; confirmed the amount, account &amp; timeframe?
+
+Have relevant principles applied &amp; correctly calculated customer’s financial loss? 
+* What is appropriate loss for misleading conduct claim? 
+* ePayments Code&apos;s liability principles applied to determine comp (unauth transactions)? 
+* Financial/non-financial loss/goodwill gesture/commercial payment correctly distinguished?
+
+Timeframe: incl. advising when offer implemented &amp; any steps</inlineHelpText>
+    <label>Correct financial remedy approach</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
