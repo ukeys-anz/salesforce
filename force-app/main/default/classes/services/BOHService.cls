@@ -382,7 +382,6 @@ public with sharing class BOHService extends Service {
    * @description sets the Credit_Reassess_Required__c = true to fire the toast
    * @param loanId the loan id to update
    */
-  @future
   public static void setToReassessmentIsRequired(String loanId) {
     update new ResidentialLoanApplication(
       Id = loanId,
