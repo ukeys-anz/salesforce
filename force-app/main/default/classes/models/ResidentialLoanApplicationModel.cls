@@ -5,7 +5,7 @@
  * @group Models
  */
 @SuppressWarnings(
-  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount'
+  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public SOPAssetSummary assetsSummary;
@@ -183,44 +183,94 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
   }
 
+  private Map<String, Expense_Control__c> getExpenseControlMap(
+    Set<String> expenseCodeSet
+  ) {
+    Map<String, Expense_Control__c> expenseControlMap = new Map<String, Expense_Control__c>();
+    for (Expense_Control__c ec : [
+      SELECT Id, Justification_Code__c, Justification_Description__c
+      FROM Expense_Control__c
+      WHERE Justification_Code__c IN :expenseCodeSet
+    ]) {
+      expenseControlMap.put(ec.Justification_Code__c, ec);
+    }
+    return expenseControlMap;
+  }
+
   /**
    * @description organize expense nodes into a tree structure
    */
   public void organizeExpenseNodes() {
-    expenseNodes = new List<SOPExpenseNode>();
-    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
-      if (expense.expenseParent == null) {
-        expense.layer = 1;
-        expenseNodes.add(new SOPExpenseNode(expense));
-      }
-    }
-    List<SOPExpenseNode> l1Nodes = new List<SOPExpenseNode>();
-    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
-      if (expense.layer == null) {
-        for (SOPExpenseNode node : expenseNodes) {
-          if (node.expense.categoryId == expense.expenseParent) {
-            expense.layer = 2;
-            SOPExpenseNode newNode = new SOPExpenseNode(expense);
-            node.childExpenses.add(newNode);
-            l1Nodes.add(newNode);
-          }
-        }
-      }
-    }
-    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
-      if (expense.layer == null) {
-        for (SOPExpenseNode node : l1Nodes) {
-          if (node.expense.categoryId == expense.expenseParent) {
-            expense.layer = 3;
-            SOPExpenseNode newNode = new SOPExpenseNode(expense);
-            node.childExpenses.add(newNode);
-          }
-        }
-      }
-    }
     expenseMap = new Map<String, SOPExpense>();
+    Set<String> expenseCodeSet = new Set<String>();
+    Map<String, SOPExpense> categroyIdToExpenseMap = new Map<String, SOPExpense>();
     for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
       expenseMap.put(expense.categoryName.replaceAll('&', 'and'), expense);
+      categroyIdToExpenseMap.put(expense.categoryId, expense);
+      if (String.isNotBlank(expense.justificationCode)) {
+        expenseCodeSet.add(expense.justificationCode);
+      }
+    }
+    Map<String, Expense_Control__c> expenseControlMap = getExpenseControlMap(
+      expenseCodeSet
+    );
+
+    for (String cateName : expenseMap.keySet()) {
+      SOPExpense exp = expenseMap.get(cateName);
+
+      exp.reason = expenseControlMap.get(exp.justificationCode)
+        .Justification_Description__c;
+      exp.warningReason = exp.reason;
+      if (exp.warningReason == 'Other') {
+        exp.warningReason += ' - ' + exp.otherJustificationCode;
+      }
+
+      if (
+        exp.control ==
+        BOHConstants.EXPENSE_CONTROL.EXPENSE_CONTROL_WARNING.name() &&
+        exp.review ==
+        BOHConstants.EXPENSE_REVIEW.EXPENSE_REVIEW_COMPLETED.name()
+      ) {
+        exp.showWarningMessage = true;
+        exp.warningMessage = BOHConstants.BIT_LOW_WARNING;
+      } else if (
+        exp.control ==
+        BOHConstants.EXPENSE_CONTROL.EXPENSE_CONTROL_BREACHED.name() &&
+        exp.review == BOHConstants.EXPENSE_REVIEW.EXPENSE_REVIEW_REQUIRED.name()
+      ) {
+        exp.showWarningMessage = true;
+        exp.showWarningIcon = true;
+        exp.hasReason = false;
+        exp.warningMessage = BOHConstants.LOW_WARNING;
+        if (String.isNotBlank(exp.expenseParent)) {
+          // L2 or L3, Always under Essentials
+          SOPExpense parentExpense = categroyIdToExpenseMap.get(
+            exp.expenseParent
+          );
+          parentExpense.showWarningIcon = true;
+          expenseMap.get(BOHConstants.EXPENSE_ESSENTIALS)
+            .showWarningIcon = true;
+        }
+      } else if (
+        exp.control ==
+        BOHConstants.EXPENSE_CONTROL.EXPENSE_CONTROL_JUSTIFIED.name() &&
+        exp.review ==
+        BOHConstants.EXPENSE_REVIEW.EXPENSE_REVIEW_COMPLETED.name()
+      ) {
+        exp.showWarningMessage = true;
+        exp.showWarningIcon = true;
+        exp.hasReason = true;
+        exp.warningMessage = BOHConstants.LOW_WARNING;
+        if (String.isNotBlank(exp.expenseParent)) {
+          // L2 or L3, Always under Essentials
+          SOPExpense parentExpense = categroyIdToExpenseMap.get(
+            exp.expenseParent
+          );
+          parentExpense.showWarningIcon = true;
+          expenseMap.get(BOHConstants.EXPENSE_ESSENTIALS)
+            .showWarningIcon = true;
+        }
+      }
     }
   }
 

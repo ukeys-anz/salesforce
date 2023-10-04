@@ -14,6 +14,15 @@ public class SOPExpense {
   public SOPMoney statedMonthlyAverageAmount;
   public Boolean leafNode;
   public Datetime updateTime;
+  public String control;
+  public String justificationCode;
+  public String otherJustificationCode;
+  public String warningMessage;
+  public Boolean showWarningIcon = false;
+  public Boolean showWarningMessage = false;
+  public Boolean hasReason = false;
+  public String reason;
+  public String warningReason;
   /**
    * @description return update time in the expected format
    */
