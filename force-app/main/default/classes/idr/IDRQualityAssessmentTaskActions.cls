@@ -23,6 +23,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
     ) {
       Quality_Assessment__c oOldAssessment;
       Map<Id, Quality_Assessment__c> mpId2PendingAssessments = new Map<Id, Quality_Assessment__c>();
+      Map<Id, Quality_Assessment__c> mpId2CallLetterPendingAssessments = new Map<Id, Quality_Assessment__c>();
       Set<Id> stUserIds = new Set<Id>();
       for (Quality_Assessment__c oAssessment : lstAssessments) {
         if (
@@ -33,6 +34,17 @@ public with sharing class IDRQualityAssessmentTaskActions {
           oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
         ) {
           mpId2PendingAssessments.put(oAssessment.Id, oAssessment);
+          stUserIds.add(oAssessment.TeamManager__c);
+          stUserIds.add(oAssessment.Case_Manager__c);
+        }
+        if (
+          oAssessment.RecordTypeId == IDRConstants.idrtCallLetterReviewQualityAssessment &&
+          oAssessment.Status__c == STATUS_PENDING &&
+          mpOldAssessments != null &&
+          (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) != null &&
+          oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
+        ) {
+          mpId2CallLetterPendingAssessments.put(oAssessment.Id, oAssessment);
           stUserIds.add(oAssessment.TeamManager__c);
           stUserIds.add(oAssessment.Case_Manager__c);
         }
@@ -54,11 +66,20 @@ public with sharing class IDRQualityAssessmentTaskActions {
         SELECT Id, UserOrGroupId, ParentId
         FROM Quality_Assessment__Share
         WHERE
-          ParentId IN :mpId2PendingAssessments.keySet()
+          (ParentId IN :mpId2PendingAssessments.keySet() 
+          OR ParentId IN :mpId2CallLetterPendingAssessments.keySet())
           AND UserOrGroupId IN :stUserIds
       ]) {
         if (
           (oQAssessment = mpId2PendingAssessments.get(oQAShare.ParentId)) !=
+          null &&
+          (oQAShare.UserOrGroupId == oQAssessment.TeamManager__c ||
+          oQAShare.UserOrGroupId == oQAssessment.Case_Manager__c)
+        ) {
+          lstQAShare.add(oQAShare);
+        }
+        if (
+          (oQAssessment = mpId2CallLetterPendingAssessments.get(oQAShare.ParentId)) !=
           null &&
           (oQAShare.UserOrGroupId == oQAssessment.TeamManager__c ||
           oQAShare.UserOrGroupId == oQAssessment.Case_Manager__c)
