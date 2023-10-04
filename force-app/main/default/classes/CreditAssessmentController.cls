@@ -4,7 +4,7 @@
  * @description Controller for Credit Assessment flex card
  */
 global with sharing class CreditAssessmentController implements omnistudio.VlocityOpenInterface, Callable {
-  private static final String STATUS_DECLINED = 'STATUS_DECLINED';
+  private static final String STATUS_DECLINED = 'STATE_DECLINED';
   private static final String DECLINED = 'Declined';
 
   private static UserRole bohCoachRole = CommonUtil.getUserRoleByDevName(

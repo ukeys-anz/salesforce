@@ -39,6 +39,23 @@
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>CreditAssessmentOutcomeDeclined</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard5</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>STATE_DECLINED</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
