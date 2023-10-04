@@ -2682,6 +2682,7 @@
         "Issues_addressed_in_final_response__c",
         "Issue_products_correctly_recorded__c",
         "Issues_articulatedaddressed_in_response__c",
+        "isTeamManagerLoggedInUser__c",
         "Key_scoping_and_disclaimers__c",
         "Key_scoping_and_disclaimers_Comments__c",
         "Lead__c",

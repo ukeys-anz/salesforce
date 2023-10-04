@@ -9,7 +9,7 @@
     <columns>Case_Manager_Score__c</columns>
     <columns>Assessment_Completion_Date__c</columns>
     <columns>UPDATEDBY_USER</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
