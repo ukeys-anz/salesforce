@@ -729,6 +729,7 @@
         "IDR_Complainant_Desired_Outcome__c",
         "IDR_Complainant_Type__c",
         "IDR_Complaint_Outcome__c",
+        "IDR_Complaint_Outcome_Text__c",
         "IDR_Complaint_Remedy__c",
         "IDR_Complaint_Remedy_2__c",
         "IDR_Complaint_Remedy_3__c",
