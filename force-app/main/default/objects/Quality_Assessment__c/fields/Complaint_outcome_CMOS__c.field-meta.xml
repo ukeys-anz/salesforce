@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Reference to complaint outcome field in related case</description>
     <externalId>false</externalId>
-    <formula>TEXT(Related_Case__r.IDR_Complaint_Outcome__c )</formula>
+    <formula>Related_Case__r.IDR_Complaint_Outcome_Text__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Complaint outcome (CMOS)</label>
     <required>false</required>

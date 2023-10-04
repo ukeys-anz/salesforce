@@ -14,7 +14,7 @@
     <columns>What_corrective_actions_are_required__c</columns>
     <columns>Corrective_actions_for_TM_CM__c</columns>
     <columns>UPDATEDBY_USER</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>Status__c</field>
         <operation>equals</operation>

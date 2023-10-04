@@ -9,6 +9,7 @@ export default class DuplicateCheckOmni extends OmniscriptBaseMixin(
   loading = false;
   showError = false;
   showResult = false;
+  custNo;
   @track missingFields = [];
   @track modalMsg;
   @track showModal = false;
@@ -33,7 +34,7 @@ export default class DuplicateCheckOmni extends OmniscriptBaseMixin(
     } else {
       this.showModal = false;
       this.showResult = true;
-      custNo =
+      this.custNo =
         this.omniJsonData.Case.CustomerDetails.CustomerIdentifier ===
         "Customer/Business CAP ID"
           ? (this.custNo = this.omniJsonData.Case.CustomerDetails.Customer)
@@ -69,13 +70,20 @@ export default class DuplicateCheckOmni extends OmniscriptBaseMixin(
       {
         name: "CustomerNumber",
         type: "String",
-        value: this.omniJsonData.Case.CustomerDetails.Customer
+        value: this.custNo
       }
     ];
   }
   // validate that the required field Customer Number for dupe search has been provided
   valCustomerFields() {
-    if (!this.omniJsonData.Case.CustomerDetails.Customer) {
+    if (
+      (this.omniJsonData.Case.CustomerDetails.CustomerIdentifier ===
+        "Customer/Business CAP ID" &&
+        !this.omniJsonData.Case.CustomerDetails.Customer) ||
+      (this.omniJsonData.Case.CustomerDetails.CustomerIdentifier ===
+        "CACHE ID" &&
+        !this.omniJsonData.Case.CustomerDetails.Customer1)
+    ) {
       this.missingFields.push("Customer Number");
     }
   }
