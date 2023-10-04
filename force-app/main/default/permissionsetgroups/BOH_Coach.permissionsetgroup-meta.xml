@@ -40,6 +40,7 @@
     <permissionSets>Raise_Dispute</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Release_Read_Only</permissionSets>
+    <permissionSets>Store_Interaction_Read_Only</permissionSets>
     <permissionSets>Tableau_CRM_Read_Only</permissionSets>
     <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>

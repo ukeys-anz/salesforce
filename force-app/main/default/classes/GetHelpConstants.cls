@@ -273,6 +273,13 @@ public with sharing class GetHelpConstants {
   public static final String ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME = 'anz plus - basic subscription';
   public static final String COMPLAINTS_SLA_PROCESS_NAME = 'complaints';
 
+  //Set of Interaction RecordTypeIds for Store, Call and Chat
+  public static final Set<Id> STORE_CALL_MSG_INTERACTION_RECORTYPEIDS_SET = new Set<Id>{
+    GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+    GetHelpConstants.INTERACTION_STORE_RT_ID,
+    GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+  };
+
   /**
    * @return Boolean
    * @description Method to check if Transaction API has been updated to V1
