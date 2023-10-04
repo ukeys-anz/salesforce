@@ -37,7 +37,11 @@ global with sharing class FarOwnersRemovalService {
     } catch (Exception err) {
       handleResponse(
         500,
-        new Map<String, String>{ 'error' => err.getMessage() }
+        new Map<String, Object>{
+          'error' => err.getMessage() +
+          ' | ' +
+          err.getStackTraceString()
+        }
       );
     }
   }

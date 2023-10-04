@@ -50,6 +50,11 @@
                             <p class="slds-text-heading_medium">
                               {finAccount.FinServ__FinancialAccountNumber__c}
                             </p>
+                            <template lwc:if={finAccount.FinServ__CloseDate__c}>
+                              <p class="slds-text-color_weak italictext">
+                                Date Closed : {finAccount.FinServ__CloseDate__c}
+                              </p>
+                            </template>
                           </div>
                         </div>
                         <div
