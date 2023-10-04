@@ -45,7 +45,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
           oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
         ) {
           mpId2CallLetterPendingAssessments.put(oAssessment.Id, oAssessment);
-          stUserIds.add(oAssessment.TeamManager__c);
+          if (oAssessment.OwnerId != oAssessment.TeamManager__c) {
+            stUserIds.add(oAssessment.TeamManager__c);
+          }
           stUserIds.add(oAssessment.Case_Manager__c);
         }
       }
