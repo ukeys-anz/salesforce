@@ -128,10 +128,10 @@ public with sharing class HomeLoanModel extends CalloutModel {
     public Interest interests;
     @AuraEnabled
     public string valid_at;
-  /**
-   * @return `redraw_amount.value` model class constructed from api response
-   * @description null and blank check for redraw available field
-   */
+    /**
+     * @return `redraw_amount.value` model class constructed from api response
+     * @description null and blank check for redraw available field
+     */
     @AuraEnabled
     public Decimal getRedrawAvailable() {
       try {
