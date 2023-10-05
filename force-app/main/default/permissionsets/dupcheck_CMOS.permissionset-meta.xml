@@ -13,6 +13,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__AssertTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__Dc3MergeField</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -21,7 +25,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__Dc3MergeFieldGroupTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__Dc3MergeFieldRuleLogic</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__Dc3MergeFieldRuleLogicTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -29,7 +41,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__Dc3MergeMasterRuleLogicTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__Dc3MergeMigratorTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__Dc3MergeProcessor</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__Dc3MergeProcessorTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -41,6 +65,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__Dc3MergeRuleConfigRepositoryTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__Dc3MergeRuleMigrator</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -49,7 +77,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__Dc3MergeRuleValidatorTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__Logger</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__LoggerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__MergeRuleParserTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -57,7 +97,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__OJRJobTypePicklistTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__OJRObjectPicklist</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__OJRObjectPicklistTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -65,11 +113,31 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__OJRRecordOwnerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__OJRSortByPicklist</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__OJRSortByPicklistTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__OJRSortPicklist</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__OJRSortPicklistTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__ObjectException</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__ObjectFilterParserTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -81,7 +149,23 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__PlautiLicenseClientTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__PlautiLicenseTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__PlautiMock</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3Analytics</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3AnalyticsTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -169,7 +253,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3AuraSearchResultTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3AuraShareController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3AuraShareControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -233,6 +325,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3ComponentLicense</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3ComponentLicenseTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3ComponentMergeList</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -273,11 +373,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3ComponentWelcome</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3Config</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__dc3ConfigData</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3ConfigDataTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -289,7 +397,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3ConfigExportJobTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3ConfigExternal</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3ConfigExternalTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -306,6 +422,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__dc3ConfigImportJob</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3ConfigImportJobTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3ConfigImportTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -326,6 +450,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__dc3ControllerAnalytics</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3ControllerAnalyticsTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -354,6 +482,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__dc3ControllerBatchExportTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3ControllerBatchIntegrationTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -453,6 +585,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3ControllerMergeCoreTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3ControllerMergeList</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -465,6 +601,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3ControllerMergeRulesv2Test</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3ControllerMergeTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -473,7 +613,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3ControllerObjectMetadataTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3ControllerOverallResults</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3ControllerOverallResultsTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -525,6 +673,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3ControllerShowDuplicatesScreenTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3Convert</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -557,11 +709,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3DirectProcessFlowActionTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3DirectProcessTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__dc3Discard</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3DiscardTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -613,7 +773,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3FindMasterByDcOutputFlowActionTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3FindMasterByIdsFlowAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3FindMasterByIdsFlowActionTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -629,6 +797,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3FlowSearchResultMapperTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3Future</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -641,7 +813,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3GenericConfigRepositoryTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3GetDuplicateIdsFromDcOutputFlowAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3GetDuplicateIdsFromOutputFlowTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -665,6 +845,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3HelperCache</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3HelperCacheTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3HelperFrequent</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -685,7 +873,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3HelperLwcWireMethodsTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3HelperPicklist</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3HelperPicklistTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -693,7 +889,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3HelperSharingTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3HelperTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3HierarchyBatchCreateUPTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -821,7 +1025,23 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3JanitorTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3JarvisClient</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3JarvisClientTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3JarvisHttpMock</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3JarvisHttpMocks</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -862,6 +1082,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__dc3LicenseMapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3LicenseScheduler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3LicenseSchedulerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -933,6 +1161,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3MergeBatchServiceTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3MergeHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -997,6 +1229,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3MetaRepositoryTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3MetaTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1005,7 +1241,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3NgramScorerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3OjrDetailWebController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3OjrDetailWebControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1013,11 +1257,27 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3OjrOverviewWebControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3OnboardingSchedulable</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3OnboardingService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3OnboardingServiceTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3PermissionCheck</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3PermissionCheckTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1037,6 +1297,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3PlautiSecretStoreTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3Plugin</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1049,11 +1313,43 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3PluginModelTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3PluginTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3PluginTestInterface</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3QuickConvertFlowAction</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3QuickConvertFlowActionTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3QuickMergeFlowAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3QuickMergeFlowActionTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3RecordValidationMock</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3RecordValidationService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3RecordValidationServiceTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1093,7 +1389,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3SearchByIDFlowActionTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3SearchByValuesFlowAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3SearchByValuesFlowActionTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1133,7 +1437,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3StoreResultsInJobFlowActionTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3TelemetryClient</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3TelemetryClientTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1141,7 +1453,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3TelemetryCompacterTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3TelemetryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3TelemetryControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1149,7 +1469,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3TelemetryEnricherTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3TelemetryEvent</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3TelemetryHttpMock</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1161,11 +1489,23 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3TelemetryStoreTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3TelemetryTransmitScheduler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3TelemetryTransmitSchedulerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3TelemetryTransmitter</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3TelemetryTransmitterTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1174,6 +1514,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__dc3Trigger</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3TriggerManagementTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1209,7 +1553,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3WebJobIntegrationTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3WebJobOverviewController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3WebJobOverviewControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1217,7 +1569,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3WebOnboardingControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3WebScheduledJobOverviewController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3WebScheduledJobOverviewControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1225,7 +1585,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__dc3WebSettingsControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__dc3WebTelemetryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3WebTelemetryControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__dc3hierarchyServiceTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1242,6 +1614,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__plautiHttpPipeline</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__plautiHttpPipelineTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1265,7 +1641,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>dupcheck__plautiOrgSettingsTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>dupcheck__plautiShareModalController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__plautiShareModalControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1294,6 +1678,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>dupcheck__plautiWebVfEntry</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>dupcheck__plautiWebVfEntryTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <description>This permission set will be assigned to CMOS users to access dupe checker</description>
