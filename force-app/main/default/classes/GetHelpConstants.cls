@@ -279,4 +279,20 @@ public with sharing class GetHelpConstants {
     GetHelpConstants.INTERACTION_STORE_RT_ID,
     GetHelpConstants.INTERACTION_MESSAGE_RT_ID
   };
+
+  /**
+   * @return Boolean
+   * @description Method to check if Transaction API has been updated to V1
+   */
+  public static Boolean isTransactionsV1() {
+    return Label.TransactionAPIUpliftedToV1 == 'True';
+  }
+
+  /**
+   * @return Boolean
+   * @description Method to check if Account API has been updated to V1
+   */
+  public static Boolean isAccountV1() {
+    return Label.AccountAPIUpliftedToV1 == 'True';
+  }
 }

@@ -56,15 +56,36 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
   ) {
     String paramUrlString = '';
 
-    ParameterBuilder builder = new ParameterBuilder();
+    String startTime = GetHelpConstants.isTransactionsV1()
+      ? 'origin_time.after'
+      : 'start_time';
+    String endTime = GetHelpConstants.isTransactionsV1()
+      ? 'origin_time.before'
+      : 'end_time';
+    String bucketIdsList = GetHelpConstants.isTransactionsV1()
+      ? 'buckets'
+      : 'bucket_ids';
 
+    String precedingBucketValue = EncodingUtil.urlEncode(
+      'accounts/' +
+      accountNumber +
+      '/buckets/',
+      'UTF-8'
+    );
+
+    ParameterBuilder builder = new ParameterBuilder();
+    //It an issue in Transaction API where if page_size parameter is not found then the "next_uri" node does not come in response.
     builder.append('account_numbers', accountNumber)
-      .append('start_time', DateTimeUtils.getUTCTimeFromString(startDate))
-      .append('end_time', DateTimeUtils.getUTCTimeFromString(endDate));
+      .append(startTime, DateTimeUtils.getUTCTimeFromString(startDate))
+      .append(endTime, DateTimeUtils.getUTCTimeFromString(endDate))
+      .append('page_size', Label.TransactionPageSize);
 
     if (!bucketIds.isEmpty()) {
       for (String bucketId : bucketIds) {
-        builder.append('bucket_ids', bucketId);
+        String bucketValue = GetHelpConstants.isTransactionsV1()
+          ? precedingBucketValue + bucketId
+          : bucketId;
+        builder.append(bucketIdsList, bucketValue);
       }
     }
 
@@ -107,5 +128,87 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
         CoachBankingAPIRepositoryHelper.class
       );
     }
+  }
+
+  /**
+   * @description filter the card list based on the financial account status. This is created as part of ANZX-112715 By Shivam, September 2023
+   * @param ocvId String containing ocvId of the customer
+   * @param cardListResponse Response received from Fabric after parsing
+   * @return CardListModel
+   */
+  public static CardListModel filterCardsBasedOnAccountStatus(
+    String ocvId,
+    CardListModel cardListResponse
+  ) {
+    List<String> statusList = new List<String>{
+      GetHelpConstants.CLOSED_STATUS
+    };
+    List<String> allClosedAccountsNumbersList = new List<String>();
+
+    //Return CardListModel after filtering the card list
+    CardListModel filteredCardListResponse;
+
+    //Fetch the financial account list whose status is closed in order to filter the card list.
+    List<FinServ__FinancialAccount__c> finacialAccountListByStatus = FinancialAccountService.fetchFinancialAccountsByStatus(
+      ocvId,
+      statusList
+    );
+
+    //Fetch the map of financial account numbers based on the list of financial accounts in order to filter out card response.
+    Map<String, List<String>> allClosedAccountsMap = FinancialAccountService.getAccountNumbersByStatusMap(
+      finacialAccountListByStatus
+    );
+
+    //Get the account numbers from the Map based on the status passed.
+    if (!allClosedAccountsMap.isEmpty()) {
+      allClosedAccountsNumbersList = allClosedAccountsMap.get(
+        GetHelpConstants.CLOSED_STATUS
+      );
+    }
+
+    //list of cards which is to be removed
+    if (!allClosedAccountsNumbersList.isEmpty()) {
+      for (
+        Integer cardIndex = (cardListResponse.cards.size() - 1);
+        cardIndex >= 0;
+        cardIndex--
+      ) {
+        CardListModel.CardCls card = cardListResponse.cards[cardIndex];
+        if (!card.account_numbers.isEmpty()) {
+          if (
+            checkIfOnlyClosedAccountsAvailable(
+              card.account_numbers,
+              allClosedAccountsNumbersList
+            )
+          ) {
+            cardListResponse.cards.remove(cardIndex);
+          }
+        }
+      }
+    }
+
+    filteredCardListResponse = cardListResponse;
+    return filteredCardListResponse;
+  }
+
+  /**
+   * @description this method is used to find any closed accounts available or not
+   * @param cardAccountNumbersList contains list of account numbers present in a card object of the card list.
+   * @param allClosedAccountsNumbersList contains list of account numbers which are closed for the customer.
+   * @return Boolean
+   */
+  private static Boolean checkIfOnlyClosedAccountsAvailable(
+    List<String> cardAccountNumbersList,
+    List<String> allClosedAccountsNumbersList
+  ) {
+    Boolean foundNonClosedCard = true;
+    for (String acc : cardAccountNumbersList) {
+      if (!allClosedAccountsNumbersList.contains(acc)) {
+        foundNonClosedCard = false;
+        break;
+      }
+    }
+
+    return foundNonClosedCard;
   }
 }

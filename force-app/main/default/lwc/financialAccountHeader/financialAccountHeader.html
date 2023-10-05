@@ -21,98 +21,108 @@
               data-id="fin-account"
             >
               <article class="slds-card">
-                <template lwc:if={savingsJar}>
-                  <div class="slds-grid">
-                    <header class="slds-has-flexi-truncate">
-                      <h2 class="slds-card__header-title">
-                        <a
-                          onclick={navigateToRecordViewPage}
-                          data-id={finAccount.Id}
-                          class="slds-truncate"
-                          title={finAccount.Name}
-                        >
-                          <span>{finAccount.Name}</span>
-                        </a>
-                        <span class={finAccount.badgeClass}
-                          >{finAccount.FinServ__Status__c}</span
-                        >
-                      </h2>
-                    </header>
-                  </div>
-                  <div class="slds-grid slds-wrap">
-                    <div class="slds-col slds-grid slds-size_1-of-1">
-                      <div class="slds-grid slds-wrap slds-size_1-of-1">
-                        <div
-                          class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small vertical-align"
-                        >
-                          <div class="header-column">
-                            <p class="slds-text-color_weak">Account Number</p>
-                            <p class="slds-text-heading_medium">
-                              {finAccount.FinServ__FinancialAccountNumber__c}
-                            </p>
+                <template lwc:if={finAccount.showSavingsJar}>
+                  <template lwc:if={savingsJar}>
+                    <div class="slds-grid">
+                      <header class="slds-has-flexi-truncate">
+                        <h2 class="slds-card__header-title">
+                          <a
+                            onclick={navigateToRecordViewPage}
+                            data-id={finAccount.Id}
+                            class="slds-truncate"
+                            title={finAccount.Name}
+                          >
+                            <span>{finAccount.Name}</span>
+                          </a>
+                          <span class={finAccount.badgeClass}
+                            >{finAccount.FinServ__Status__c}</span
+                          >
+                        </h2>
+                      </header>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                      <div class="slds-col slds-grid slds-size_1-of-1">
+                        <div class="slds-grid slds-wrap slds-size_1-of-1">
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small vertical-align"
+                          >
+                            <div class="header-column">
+                              <p class="slds-text-color_weak">Account Number</p>
+                              <p class="slds-text-heading_medium">
+                                {finAccount.FinServ__FinancialAccountNumber__c}
+                              </p>
+                              <template
+                                lwc:if={finAccount.FinServ__CloseDate__c}
+                              >
+                                <p class="slds-text-color_weak italictext">
+                                  Date Closed :
+                                  {finAccount.FinServ__CloseDate__c}
+                                </p>
+                              </template>
+                            </div>
                           </div>
-                        </div>
-                        <div
-                          class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
-                        >
-                          <div class="header-column slds-float_right">
-                            <p class="slds-text-color_weak">
-                              {balanceTitle}
-                              <lightning-icon
-                                icon-name="utility:info"
-                                size="xx-small"
-                                class="tooltip"
-                                onclick={handleInfoModal}
-                              ></lightning-icon>
-                            </p>
-                            <p class="slds-text-heading_large">
-                              <lightning-formatted-number
-                                value={finAccount.FinServ__Balance__c}
-                                format-style="currency"
-                                data-id="amount"
-                              ></lightning-formatted-number>
-                            </p>
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
+                          >
+                            <div class="header-column slds-float_right">
+                              <p class="slds-text-color_weak">
+                                {balanceTitle}
+                                <lightning-icon
+                                  icon-name="utility:info"
+                                  size="xx-small"
+                                  class="tooltip"
+                                  onclick={handleInfoModal}
+                                ></lightning-icon>
+                              </p>
+                              <p class="slds-text-heading_large">
+                                <lightning-formatted-number
+                                  value={finAccount.FinServ__Balance__c}
+                                  format-style="currency"
+                                  data-id="amount"
+                                ></lightning-formatted-number>
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        <div
-                          class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small slds-border_left slds-text-align_center"
-                        >
-                          <p class="slds-text-color_weak">
-                            {savingsJar.goal.name}
-                          </p>
-                          <template lwc:if={savingsJar.image}>
-                            <img
-                              class="savings-jar"
-                              src={savingsJar.image}
-                              width="90%"
-                            />
-                          </template>
-                        </div>
-                        <div
-                          class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
-                        >
-                          <div class="header-column slds-float_right">
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small slds-border_left slds-text-align_center"
+                          >
                             <p class="slds-text-color_weak">
-                              Total Saved
-                              <lightning-icon
-                                icon-name="utility:info"
-                                size="xx-small"
-                                class="tooltip"
-                                onclick={handleInfoModal}
-                              ></lightning-icon>
+                              {savingsJar.goal.name}
                             </p>
-                            <p class="slds-text-heading_large">
-                              <lightning-formatted-number
-                                value={savingsJar.balance.value}
-                                format-style="currency"
-                                data-id="amount"
-                              ></lightning-formatted-number>
-                            </p>
+                            <template lwc:if={savingsJar.image}>
+                              <img
+                                class="savings-jar"
+                                src={savingsJar.image}
+                                width="90%"
+                              />
+                            </template>
+                          </div>
+                          <div
+                            class="slds-col slds-size_1-of-1 slds-large-size_1-of-4 slds-var-p-around_small balance-padding vertical-align"
+                          >
+                            <div class="header-column slds-float_right">
+                              <p class="slds-text-color_weak">
+                                Total Saved
+                                <lightning-icon
+                                  icon-name="utility:info"
+                                  size="xx-small"
+                                  class="tooltip"
+                                  onclick={handleInfoModal}
+                                ></lightning-icon>
+                              </p>
+                              <p class="slds-text-heading_large">
+                                <lightning-formatted-number
+                                  value={savingsJar.balance.value}
+                                  format-style="currency"
+                                  data-id="amount"
+                                ></lightning-formatted-number>
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </template>
                 </template>
                 <template lwc:else>
                   <div class="slds-grid">

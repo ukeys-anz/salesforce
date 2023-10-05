@@ -565,6 +565,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:avoidableEscalation &quot;Yes&quot; == var:Case:avoidableEscalationReason &apos;$Vlocity.NULL&apos; IF</formulaConverted>
