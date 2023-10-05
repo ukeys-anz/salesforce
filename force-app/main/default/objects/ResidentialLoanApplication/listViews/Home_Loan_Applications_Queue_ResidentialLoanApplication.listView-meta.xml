@@ -5,7 +5,7 @@
     <columns>Account</columns>
     <columns>Status</columns>
     <columns>CreatedDate</columns>
-    <columns>Owner</columns>
+    <columns>Owner_Name__c</columns>
     <filterScope>Queue</filterScope>
     <label>Home Loan Applications Queue</label>
     <queue>Home_Loan_Applications_Queue</queue>

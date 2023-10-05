@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ineligible_Reasons__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>If the home loan application becomes ineligible during the application process, one or more reasons will be shown. Otherwise, this field will remain blank.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If the home loan application becomes ineligible during the application process, one or more reasons will be shown. Otherwise, this field will remain blank.</inlineHelpText>
+    <label>Ineligible Reason(s)</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>false</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>INELIGIBLE_REASON_SOP_INELIGIBLE</fullName>
+                <default>false</default>
+                <label>Ineligible due to finances. See Finances tab</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_UNDER_AGE</fullName>
+                <default>false</default>
+                <label>Under 18 years of age</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_NOT_CITIZEN</fullName>
+                <default>false</default>
+                <label>Not an Australian or New Zealand citizen</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_NOT_TAX_RESIDENT</fullName>
+                <default>false</default>
+                <label>Not an Australian tax resident</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_INCOMPLETE_OR_UNVERIFIED_KYC</fullName>
+                <default>false</default>
+                <label>Incomplete or unverified KYC</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_VERIFICATION_EXPIRED_KYC</fullName>
+                <default>false</default>
+                <label>KYC verification expired</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_UNSTRUCTURED_ADDRESS</fullName>
+                <default>false</default>
+                <label>Incorrect address format. Update address to proceed</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_PROPERTY_INELIGIBLE</fullName>
+                <default>false</default>
+                <label>Ineligible due to property. See Property tab</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_INFLIGHT_APPLICATION</fullName>
+                <default>false</default>
+                <label>Existing credit application in progress with ANZ</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
