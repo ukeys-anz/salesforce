@@ -568,6 +568,23 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:avoidableEscalation &quot;Yes&quot; == var:Case:avoidableEscalationReason &apos;$Vlocity.NULL&apos; IF</formulaConverted>
+        <formulaExpression>IF(Case:avoidableEscalation==&quot;Yes&quot;,%Case:avoidableEscalationReason%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
+        <formulaResultPath>Case:avoidableEscalationReason</formulaResultPath>
+        <formulaSequence>15.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom5782</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6853</globalKey>
         <inputFieldName>Case:product2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>

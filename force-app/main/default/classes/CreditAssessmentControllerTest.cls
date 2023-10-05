@@ -63,7 +63,7 @@ public with sharing class CreditAssessmentControllerTest {
       '1'
     );
     r.accountId = customer.Id;
-    r.Status = 'STATUS_DECLINED';
+    r.Status = 'STATE_DECLINED';
     insert r;
     system.debug(r.id);
     Map<String, Object> objectMap = new Map<String, Object>();

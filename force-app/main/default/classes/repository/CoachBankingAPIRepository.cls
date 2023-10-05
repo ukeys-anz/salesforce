@@ -28,7 +28,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       );
       if (response.successful) {
         try {
-          if (Label.AccountAPIUpliftedToV1 == 'True') {
+          if (GetHelpConstants.isAccountV1()) {
             result = FinancialAccountModelV1.parse(response.body);
           } else {
             result = FinancialAccountModel.parse(response.body);
@@ -71,7 +71,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     HttpCalloutResponse response = s.getTransactionHistory(ocvId, paramUrl);
     if (response.successful) {
       try {
-        if (Label.TransactionAPIUpliftedToV1 == 'True') {
+        if (GetHelpConstants.isTransactionsV1()) {
           result = TransactionHistoryModelV1.parse(response.body);
         } else {
           result = TransactionHistoryModel.parse(response.body);

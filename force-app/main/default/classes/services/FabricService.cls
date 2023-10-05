@@ -19,7 +19,7 @@ public with sharing class FabricService extends Service {
     String urlParam = '';
     if (!accountNumbers.isEmpty()) {
       for (String accountNumber : accountNumbers) {
-        if (Label.AccountAPIUpliftedToV1 == 'True') {
+        if (GetHelpConstants.isAccountV1()) {
           String accountFilter = 'accounts/' + accountNumber;
           urlParam +=
             'filter.accounts=' +
@@ -31,7 +31,7 @@ public with sharing class FabricService extends Service {
       }
     }
 
-    if (Label.AccountAPIUpliftedToV1 == 'True') {
+    if (GetHelpConstants.isAccountV1()) {
       financialAccountApiEndpoint = Label.MS_Get_Financial_AccountsV1;
     } else {
       financialAccountApiEndpoint = Label.MS_Get_Financial_Accounts;
@@ -66,7 +66,7 @@ public with sharing class FabricService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
 
-    if (Label.TransactionAPIUpliftedToV1 == 'True') {
+    if (GetHelpConstants.isTransactionsV1()) {
       transactionApiEndpoint = Label.MS_Get_TransactionsV1;
     } else {
       transactionApiEndpoint = Label.MS_Get_Transactions;
