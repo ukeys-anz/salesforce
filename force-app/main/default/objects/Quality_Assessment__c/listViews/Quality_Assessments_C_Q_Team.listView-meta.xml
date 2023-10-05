@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quality_Assessments_C_Q_Team</fullName>
+    <columns>NAME</columns>
+    <columns>C_Q_Specialist__c</columns>
+    <columns>Related_Case__c</columns>
+    <columns>Customer__c</columns>
+    <columns>Case_Manager__c</columns>
+    <columns>TeamManager__c</columns>
+    <columns>New_Starter__c</columns>
+    <columns>Review_Period_Month__c</columns>
+    <columns>Status__c</columns>
+    <columns>Assessment_Outcome_Status__c</columns>
+    <columns>What_corrective_actions_are_required__c</columns>
+    <columns>Corrective_actions_for_TM_CM__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Complete,Pending</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Quality_Assessment__c.C_Q_Assessment</value>
+    </filters>
+    <label>Quality Assessments - C&amp;Q Team</label>
+    <sharedTo>
+        <role>Capability_Quality_C_Q_Team</role>
+    </sharedTo>
+</ListView>

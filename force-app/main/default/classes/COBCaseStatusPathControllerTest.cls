@@ -30,7 +30,8 @@ public with sharing class COBCaseStatusPathControllerTest {
         Status,
         OnboardingVerificationFailedReason__c,
         Status_Update_Error__c,
-        RecordTypeId
+        RecordTypeId,
+        PersonaId__c
       FROM Case
       WHERE RecordTypeId = :recordtype
     ];
@@ -125,6 +126,29 @@ public with sharing class COBCaseStatusPathControllerTest {
       String.isBlank(updatedCobCase.Status_Update_Error__c),
       'Case status update error should have been cleared.'
     );
+  }
+
+  @isTest
+  private static void testUpdateStatusNoPersonaIDException() {
+    Case cobCase = getCOBCase(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
+    cobCase.Status = GetHelpConstants.COB_FAILED_OK_STATUS;
+    cobCase.OnboardingVerificationFailedReason__c = 'Selfie fail - selfie image is not clear enough to match';
+    cobCase.PersonaId__c = '';
+
+    Test.startTest();
+    try {
+      COBCaseStatusPathController.updateStatus(
+        GetHelpConstants.COB_DAON_FAILED_STATUS,
+        cobCase
+      );
+    } catch (Exception e) {
+      Assert.areEqual(
+        'Persona ID is missing on case. Please check again.',
+        e.getMessage(),
+        'Error message should be: Persona ID is missing on case. Please check again.'
+      );
+    }
+    Test.stopTest();
   }
 
   @isTest

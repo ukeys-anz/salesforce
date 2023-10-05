@@ -49,8 +49,7 @@ public without sharing class ATMDisputeCaseCloudEventModel extends DisputeCaseCl
       Account theAccount,
       UserModel theOwner
     ) {
-      super(theCase, theAccount);
-      this.owner = theOwner;
+      super(theCase, theAccount, theOwner);
       this.bankAtm = theCase.Bank_ATM__c;
       this.cardInPossessionDuringTransaction = theCase.Card_In_Possession_During_Transaction__c;
       this.cardNumber = theCase.Card_Number__c;
