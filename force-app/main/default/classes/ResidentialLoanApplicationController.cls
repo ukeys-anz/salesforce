@@ -71,8 +71,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         loanRec[0]?.Account?.OCV_ID__c,
         loanRec[0]?.SOP_Id__c
       );
-      if (loanRec[0]?.Status == 'STATE_REFERRED' && editIncomeRole()) {
+      if (loanRec[0]?.Status == 'STATE_REFERRED' && editIncomeExpenseRole()) {
         showAddEditIncomeBtn = true;
+        sopAssets.showEditExpenseBtn = true;
       }
       if (sopAssets.incomesSummary.incomes.size() > 1) {
         allowDeleteIncome = true;
@@ -429,7 +430,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     return amount;
   }
 
-  private static Boolean editIncomeRole() {
+  private static Boolean editIncomeExpenseRole() {
     String usrRoleName = [
       SELECT id, name, userRole.name
       FROM user

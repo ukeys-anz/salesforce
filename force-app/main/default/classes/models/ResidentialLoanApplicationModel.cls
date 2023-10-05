@@ -74,6 +74,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String BPL_LIABILITY = 'LIABILITY_TYPE_BPL_LOAN';
 
   public Boolean showAddIncomeBtn;
+  public Boolean showEditExpenseBtn;
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
