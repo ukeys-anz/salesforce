@@ -169,9 +169,8 @@ public with sharing class IDRQualityAssessmentActions {
             for (Schema.FieldSetMember field : oFieldSet.getFields()) {
               if (((SObject) oAssessment).get(field.getFieldPath()) == null) {
                 oAssessment.addError(
-                  'Field [' +
-                  field.label +
-                  '] is required to change Status to Complete'
+                  field.getSObjectField(),
+                  'Required when changing Status to Complete'
                 );
               }
             }
