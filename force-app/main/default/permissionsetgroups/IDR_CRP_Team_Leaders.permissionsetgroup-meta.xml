@@ -4,6 +4,8 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR CRP Team Leaders</label>
     <permissionSets>dupcheck_CMOS</permissionSets>
+    <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_CRP_Leaders</permissionSets>
     <permissionSets>IDR_User_Level_1</permissionSets>
@@ -11,7 +13,5 @@
     <permissionSets>Quality_Assessment_C_Q_Manager_Read_only</permissionSets>
     <permissionSets>Quality_Assessment_IDR_EDR_Read_Write</permissionSets>
     <permissionSets>Quality_Workbench</permissionSets>
-    <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
-    <permissionSets>force__OmniStudioExecution</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
