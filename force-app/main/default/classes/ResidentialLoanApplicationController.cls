@@ -42,6 +42,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       return deleteIncome(inputMap, outMap, options);
     } else if (methodName == 'editIncome') {
       return editIncome(inputMap, outMap, options);
+    } else if (methodName == 'editExpense') {
+      return editExpense(inputMap, outMap, options);
     }
     return false;
   }
@@ -273,6 +275,33 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     }
   }
 
+  private Boolean editExpense(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    SOPEditExpenseModel expenseModel = createEditExpensesModel(inputMap);
+
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      String loanId = (String) inputMap.get('loanId');
+      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
+        loanId
+      );
+      publishRLARecordMonitoringToast(loanRec[0]);
+
+      rlaRepo.editExpense(
+        loanRec[0]?.Account?.OCV_ID__c,
+        JSON.serialize(expenseModel),
+        loanId
+      );
+
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
   private SOPCreateIncomeModel generateCreateIncomeModel(
     Map<String, Object> inputMap
   ) {
@@ -430,6 +459,33 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     return amount;
   }
 
+  private SOPEditExpenseModel createEditExpensesModel(
+    Map<String, Object> inputMap
+  ) {
+    SOPEditExpenseModel expenseModel = new SOPEditExpenseModel();
+    expenseModel.parent = (String) inputMap.get('sopId');
+
+    List<SOPEditExpenseModel.MonthlyExpense> monthlyExpenses = new List<SOPEditExpenseModel.MonthlyExpense>();
+    for (Integer i = 0; i < 4; i++) {
+      SOPEditExpenseModel.MonthlyExpense monthlyExpense = new SOPEditExpenseModel.MonthlyExpense();
+      monthlyExpense.name = (String) inputMap.get('name' + i);
+      monthlyExpense.uid = (String) inputMap.get('uid' + i);
+      monthlyExpense.categoryId = (String) inputMap.get('categoryId' + i);
+      monthlyExpense.expenseParent = (String) inputMap.get('expenseParent' + i);
+      monthlyExpense.categoryName = (String) inputMap.get('categoryName' + i);
+      monthlyExpense.control = (String) inputMap.get('control' + i);
+      monthlyExpense.review = (String) inputMap.get('review' + i);
+      monthlyExpense.statedMonthlyAverageAmount = stringToMoney(
+        (String) inputMap.get('statedMonthlyAverageAmount' + i)
+      );
+      monthlyExpense.leafNode = (Boolean) inputMap.get('leafNode' + i);
+      monthlyExpense.etag = (String) inputMap.get('etag' + i);
+      monthlyExpense.hemState = (String) inputMap.get('hemState' + i);
+      monthlyExpenses.add(monthlyExpense);
+    }
+    expenseModel.monthlyExpenses = monthlyExpenses;
+    return expenseModel;
+  }
   private static Boolean editIncomeExpenseRole() {
     String usrRoleName = [
       SELECT id, name, userRole.name
