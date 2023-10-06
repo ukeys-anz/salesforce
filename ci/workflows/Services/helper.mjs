@@ -99,4 +99,18 @@ const findAllSpecifiedTests = (
   return [...new Set([...allSpecifiedTestsArray])];
 };
 
-export { runSfCommand, findJobId, salesforceDiffExist, findAllSpecifiedTests };
+const currentDate = () => {
+  const dateTime = new Date();
+  const day = dateTime.getDate("en-US", "Australia/Sydney");
+  const month = dateTime.getMonth("en-US", "Australia/Sydney") + 1;
+  const year = dateTime.getFullYear("en-US", "Australia/Sydney");
+  return `${day}-${month}-${year}`;
+};
+
+export {
+  runSfCommand,
+  findJobId,
+  salesforceDiffExist,
+  findAllSpecifiedTests,
+  currentDate
+};

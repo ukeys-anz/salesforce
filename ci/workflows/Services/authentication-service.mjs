@@ -35,16 +35,26 @@ const authenticate = (branchName, secretValue) => {
   );
 };
 
+// For production, we use connectedApp with JWT to do the authentication
+// Inputs:
+//  username: tech.gcb@anzx.com
+//  orgURL: https://anz.my.salesforce.com
+const authenticateWithJWT = (consumerKey, cert, username, orgURL) => {
+  return runSfCommand(
+    `echo "${cert}" | sf org login jwt --client-id "${consumerKey}" --jwt-key-file=/dev/stdin --username "${username}" --instance-url "${orgURL}`
+  );
+};
+
 // This will un-authenticate using the alias which is the branch name
 // exp:
 // name: logout
 //  run: |
 //     node ci/workflows/Services/authentication-service.mjs "${{ github.head_ref }}"
 const unauthenticate = (branchName) => {
-  return runSfCommand(`echo y | npx sf org logout -o ${branchName}`);
+  return runSfCommand(`npx sf org logout -o ${branchName} --no-prompt`);
 };
 
-export { findSecretName, authenticate, unauthenticate };
+export { findSecretName, authenticate, unauthenticate, authenticateWithJWT };
 
 // ** POINT: On orchestration, we should have a function which will check the input -
 //           - and accoridng to the input, it will run a different function
