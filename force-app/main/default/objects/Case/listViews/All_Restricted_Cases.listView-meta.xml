@@ -17,6 +17,7 @@
     </filters>
     <label>All Restricted Cases</label>
     <sharedTo>
+        <role>Capability_Quality_C_Q_Team</role>
         <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
     </sharedTo>
 </ListView>

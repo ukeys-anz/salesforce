@@ -6,6 +6,7 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRQualityAssessmentActions {
+  public static final String COMPLETION_ERROR = 'Team Manager Response is required before Completing an Assessment.';
   /**
    * @description calculate Case Manager Score and Business Manager Score
    * @param records new values
@@ -15,7 +16,7 @@ public with sharing class IDRQualityAssessmentActions {
     for (Quality_Assessment__c qaRecord : records) {
       String fieldSetName;
       if (
-        qaRecord.Status__c == 'Complete' &&
+        qaRecord.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
         (qaRecord.Evaluation_Type__c == 'C & Q Assessment' ||
         qaRecord.Evaluation_Type__c == 'Call Review Assessment' ||
         qaRecord.Evaluation_Type__c == 'Letter Review Assessment')
@@ -27,7 +28,7 @@ public with sharing class IDRQualityAssessmentActions {
         } else {
           fieldSetName = 'Letter_Review_Assessment';
         }
-        Schema.FieldSet fieldSetObj = Schema.SObjectType.Quality_Assessment__c.FieldSets.getMap()
+        Schema.FieldSet fieldSetObj = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap()
           .get(fieldSetName);
 
         Decimal naCount = 0;
@@ -38,7 +39,7 @@ public with sharing class IDRQualityAssessmentActions {
         Decimal skippedQuestionCount = 0;
         for (Schema.FieldSetMember field : fieldSetObj.getFields()) {
           String ratingValue = String.valueOf(
-            ((Sobject) qaRecord).get(field.getFieldPath())
+            ((SObject) qaRecord).get(field.getFieldPath())
           );
           switch on ratingValue {
             when null {
@@ -48,7 +49,7 @@ public with sharing class IDRQualityAssessmentActions {
             when 'Not met' {
               ratingApiConversion = 'Not_met';
             }
-            when 'Not met (outside CM Control)' {
+            when 'Not met (outside CM control)' {
               ratingApiConversion = 'Not_met_OCC';
             }
             when 'N/A' {
@@ -56,7 +57,7 @@ public with sharing class IDRQualityAssessmentActions {
               naCount++;
             }
             when else {
-              ratingAPIConversion = ratingValue;
+              ratingApiConversion = ratingValue;
             }
           }
           QA_CMOS_Scoring_Table__mdt ruleRecord = getHelpRules.get(
@@ -80,7 +81,7 @@ public with sharing class IDRQualityAssessmentActions {
             naCount);
         }
         if (qaRecord != null && businessScore != 0) {
-          qaRecord.Business_Score__c =
+          qaRecord.Business_score__c =
             businessScore *
             100 /
             (fieldSetObj.getFields().size() -
@@ -88,6 +89,113 @@ public with sharing class IDRQualityAssessmentActions {
             naCount);
         }
       }
+    }
+  }
+
+  /**
+   * @description Use the Quality_Assessment__c record type and evaluation type to work out the fieldset id
+   * @param oAssessment Quality_Assessment__c record for determining fieldset Id
+   *
+   * @return String fieldset Id matching record type and Evaluation Type
+   */
+  public static String getFieldsetId(Quality_Assessment__c oAssessment) {
+    String strFieldSetId = '';
+    if (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment) {
+      strFieldSetId = 'C_Q_Assessment';
+    } else if (
+      oAssessment.RecordTypeId ==
+      IDRConstants.idrtCallLetterReviewQualityAssessment
+    ) {
+      if (oAssessment.Evaluation_Type__c == 'Call Review Assessment') {
+        strFieldSetId = 'Call_Review_Assessment';
+      } else if (oAssessment.Evaluation_Type__c == 'Letter Review Assessment') {
+        strFieldSetId = 'Letter_Review_Assessment';
+      }
+    }
+    return strFieldSetId;
+  }
+
+  /**
+   * @description Validate that all mandatory fields have been entered when setting status to Complete
+   * @param lstNewAssessments list of new changed assessments
+   * @param mpOldAssessments map of prior values
+   */
+  public static void validateStatusComplete(
+    List<Quality_Assessment__c> lstNewAssessments,
+    Map<Id, Quality_Assessment__c> mpOldAssessments
+  ) {
+    Quality_Assessment__c oOldAssessment;
+    String strFieldSetId;
+    Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
+    Schema.FieldSet oFieldSet;
+    Boolean fLoggerUsed = false;
+    for (Quality_Assessment__c oAssessment : lstNewAssessments) {
+      if (
+        (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment ||
+        oAssessment.RecordTypeId ==
+        IDRConstants.idrtCallLetterReviewQualityAssessment) &&
+        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
+      ) {
+        strFieldSetId = getFieldsetId(oAssessment);
+        if (
+          strFieldSetId == '' ||
+          (oFieldSet = mpAssessmentFieldSets.get(
+            strFieldSetId + '_mandatory'
+          )) == null
+        ) {
+          oAssessment.addError(
+            'Configuration Error: Missing/Incorrect fieldset'
+          );
+          Logger.error(
+            'Configuration Error: Unexpected RecordType/Evaluation Type combination.',
+            oAssessment.Id
+          );
+          fLoggerUsed = true;
+        } else {
+          if (
+            (mpOldAssessments == null ||
+            (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
+            oAssessment.Status__c != oOldAssessment.Status__c)
+          ) {
+            //Set Assessment Completion date to current date and time on assessment closure.
+            oAssessment.Assessment_Completion_Date__c = System.now();
+            if (
+              oAssessment.RecordTypeId ==
+              IDRConstants.idrtCQQualityAssessment &&
+              String.isEmpty(oAssessment.Team_Manager_Response__c)
+            ) {
+              oAssessment.addError(COMPLETION_ERROR);
+            }
+            for (Schema.FieldSetMember field : oFieldSet.getFields()) {
+              if (((SObject) oAssessment).get(field.getFieldPath()) == null) {
+                oAssessment.addError(
+                  'Field [' +
+                  field.label +
+                  '] is required to change Status to Complete'
+                );
+              }
+            }
+          }
+        }
+        if (mpOldAssessments != null && oOldAssessment != null) {
+          for (Schema.FieldSetMember field : oFieldSet.getFields()) {
+            if (
+              ((SObject) oAssessment).get(field.getFieldPath()) !=
+              ((SObject) oOldAssessment).get(field.getFieldPath())
+            ) {
+              oAssessment.addError(
+                'Field [' +
+                field.label +
+                '] can\'t be modified on a Complete assessment'
+              );
+            }
+          }
+        }
+      }
+    }
+
+    if (fLoggerUsed) {
+      Logger.saveLog();
     }
   }
 }

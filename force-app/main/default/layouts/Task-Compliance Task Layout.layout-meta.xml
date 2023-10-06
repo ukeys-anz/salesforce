@@ -59,6 +59,10 @@
                 <behavior>Required</behavior>
                 <field>Priority</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>CompletedDateTime</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
@@ -99,12 +103,6 @@
                 <field>WhoId</field>
             </layoutItem>
         </relatedContentItems>
-        <relatedContentItems>
-            <layoutItem>
-                <behavior>Readonly</behavior>
-                <field>WhatId</field>
-            </layoutItem>
-        </relatedContentItems>
     </relatedContent>
     <relatedObjects>WhoId</relatedObjects>
     <relatedObjects>WhatId</relatedObjects>
@@ -112,7 +110,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N0000026noE</masterLabel>
+        <masterLabel>00h2O000001TlO7</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

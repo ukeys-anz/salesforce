@@ -1742,6 +1742,10 @@
         <layout>Release__c-Release Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Compliance Task Layout</layout>
+        <recordType>Task.Compliance_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Task-IDR System Task</layout>
         <recordType>Task.IDR_System_Task</recordType>
     </layoutAssignments>

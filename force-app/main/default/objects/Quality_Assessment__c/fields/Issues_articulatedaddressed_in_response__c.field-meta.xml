@@ -31,6 +31,11 @@ For each issue raised by the customer, does the response address our findings/de
                 <default>false</default>
                 <label>No</label>
             </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

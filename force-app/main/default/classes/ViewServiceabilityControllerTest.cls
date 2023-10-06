@@ -58,7 +58,7 @@ private class ViewServiceabilityControllerTest {
       Credit_ID__c = creditId,
       SOP_Id__c = sopId,
       Assessment_Outcome__c = 'Approved',
-      Status = 'STATE_CAPTURE'
+      Status = 'STATE_COMPLETED'
     );
   }
 

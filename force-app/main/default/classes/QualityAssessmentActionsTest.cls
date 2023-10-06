@@ -1,7 +1,7 @@
-@isTest
+@IsTest
 private class QualityAssessmentActionsTest {
   //method to test negative case (return false) when calling isDisputeCaseType mehtod
-  @isTest
+  @IsTest
   private static void testIsDisputeCaseTypeNegative() {
     Test.startTest();
 
@@ -20,7 +20,7 @@ private class QualityAssessmentActionsTest {
   }
 
   //method to test positive case (return true) when calling isDisputeCaseType mehtod
-  @isTest
+  @IsTest
   private static void testIsDisputeCaseTypePositive() {
     Test.startTest();
 
@@ -42,7 +42,7 @@ private class QualityAssessmentActionsTest {
   }
 
   //method to test pass null param when calling assignRelatedCaseFieldsToQA mehtod
-  @isTest
+  @IsTest
   private static void testAssignRelatedCaseFieldsToQAWithNullParam() {
     Test.startTest();
 
@@ -60,7 +60,7 @@ private class QualityAssessmentActionsTest {
   }
 
   //method to test assignRelatedCaseFieldsToQA mehtod
-  @isTest
+  @IsTest
   private static void testAssignRelatedCaseFieldsToQA() {
     Test.startTest();
 
@@ -93,7 +93,7 @@ private class QualityAssessmentActionsTest {
   }
 
   //method to test assignRelatedCaseFieldsToQA method if QA record has a pre-select value, then this value should not be overwritten
-  @isTest
+  @IsTest
   private static void testAssignRelatedCaseFieldsToQAWhenOriginPreSelected() {
     Test.startTest();
 
@@ -108,7 +108,7 @@ private class QualityAssessmentActionsTest {
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
       Related_Case__c = caseRecord.Id,
-      Evaluation_type__c = 'Email',
+      Evaluation_Type__c = 'Email',
       Interaction_Type__c = 'Email'
     );
 
@@ -128,7 +128,7 @@ private class QualityAssessmentActionsTest {
   }
 
   //method to test pass null param when calling calculateInteractionType mehtod
-  @isTest
+  @IsTest
   private static void testCalculateInteractionTypeWithNullParam() {
     Test.startTest();
 
@@ -146,7 +146,7 @@ private class QualityAssessmentActionsTest {
   }
 
   //method to test calculateInteractionType mehtod - Store as Origin
-  @isTest
+  @IsTest
   private static void testCalculateInteractionTypeWithStoreOrigin() {
     Test.startTest();
 
@@ -163,7 +163,7 @@ private class QualityAssessmentActionsTest {
     );
   }
   //method to test autoCalculateScore
-  @isTest
+  @IsTest
   private static void testCaseManagerScoreAndBusinessScore() {
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
     UserRole cqRole = CommonUtil.getUserRoleByDevName(
@@ -199,15 +199,15 @@ private class QualityAssessmentActionsTest {
           .get('C_Q_Assessment')
           .getRecordTypeId(),
         Related_Case__c = caseRecord.Id,
-        Evaluation_type__c = 'C & Q Assessment',
+        Team_Manager_Response__c = 'Accepted by TM',
+        Evaluation_Type__c = 'C & Q Assessment',
         Status__c = 'Complete'
       );
-
-      Schema.FieldSet fieldSetObj = Schema.SObjectType.Quality_Assessment__c.FieldSets.getMap()
-        .get('C_Q_Assessment');
-      for (Schema.FieldSetMember field : fieldSetObj.getFields()) {
-        ((Sobject) qaRecord).put(field.getFieldPath(), '');
-      }
+      Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
+      IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(
+        qaRecord,
+        mpAssessmentFieldSets
+      );
 
       insert qaRecord;
 
@@ -216,32 +216,30 @@ private class QualityAssessmentActionsTest {
           .get('Call_Letter_Review_Assessment')
           .getRecordTypeId(),
         Related_Case__c = caseRecord.Id,
-        Evaluation_type__c = 'Call Review Assessment',
+        Evaluation_Type__c = 'Call Review Assessment',
         Status__c = 'Complete'
       );
-
-      fieldSetObj = Schema.SObjectType.Quality_Assessment__c.FieldSets.getMap()
-        .get('Call_Review_Assessment');
-      for (Schema.FieldSetMember field : fieldSetObj.getFields()) {
-        ((Sobject) qaRecord).put(field.getFieldPath(), 'Yes');
-      }
+      IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(
+        qaRecord,
+        mpAssessmentFieldSets
+      );
 
       insert qaRecord;
 
       Test.stopTest();
       qaRecord = [
-        SELECT Id, Case_Manager_Score__c, Business_Score__c
+        SELECT Id, Case_Manager_Score__c, Business_score__c
         FROM Quality_Assessment__c
         WHERE Id = :qaRecord.Id
       ];
       System.assertEquals(
-        qaRecord.Case_Manager_Score__c,
         100,
+        qaRecord.Case_Manager_Score__c,
         'Case Manager Score Mismatch'
       );
       System.assertEquals(
-        qaRecord.Business_Score__c,
         null,
+        qaRecord.Business_score__c,
         'Business Score Mismatch'
       );
     }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Complaint_Outcome_Text__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>This is the formula field which will convert Case Object Complaint Outcome field value(API name) to respective label.</description>
+    <externalId>false</externalId>
+    <formula>CASE(IDR_Complaint_Outcome__c, &apos;1&apos;,&apos;In favour of customer in full&apos;,&apos;2&apos;, &apos;In favour of customer in part&apos;,&apos;In favour of ANZ&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Complaint Outcome Text</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

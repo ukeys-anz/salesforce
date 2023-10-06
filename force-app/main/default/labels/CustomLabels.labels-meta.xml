@@ -9,6 +9,34 @@
         <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER</value>
     </labels>
     <labels>
+        <fullName>AccountAPIUpliftedToV1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AccountAPIUpliftedToV1</shortDescription>
+        <value>True</value>
+    </labels>
+    <labels>
+        <fullName>TransactionPageSize</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of transactions dispalyed on a single page of transaction history.</shortDescription>
+        <value>20</value>
+    </labels>
+    <labels>
+        <fullName>TransactionAPIUpliftedToV1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TransactionAPIUpliftedToV1</shortDescription>
+        <value>True</value>
+    </labels>
+    <labels>
+        <fullName>FinancialAccountStatusForSorting</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Financial Account Status for sorting the records</shortDescription>
+        <value>Active,Open,Dormant,Suspended,Unspecified,Closed</value>
+    </labels>
+    <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -370,6 +398,14 @@
         <value>/coach-banking/v1beta1/transactions</value>
     </labels>
     <labels>
+        <fullName>MS_Get_TransactionsV1</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_TransactionsV1</shortDescription>
+        <value>/coach-banking/v1/transactions</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Qas_Address</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -440,6 +476,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_Financial_Accounts</shortDescription>
         <value>/coach-banking/v1beta1/accounts</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Financial_AccountsV1</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Financial_AccountsV1</shortDescription>
+        <value>/coach-banking/v1/accounts</value>
     </labels>
     <labels>
         <fullName>MS_Get_Tokenized_Card</fullName>
@@ -931,6 +975,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Customer Onboarding UpdatePrimaryIdDocument API</shortDescription>
         <value>/customer-onboarding/v1/updatePrimaryIdDocument</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_CustomerValidation_Event_Proto_Data_Schema</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Data schema url for proto files for AutoKYCQA cloud event</shortDescription>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.customervalidation.v1alpha1</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_AutoKYCQA_Event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AutoKYCQA cloud event type</shortDescription>
+        <value>anzx.salesforce.case.v1alpha1.autokycqa.</value>
     </labels>
     <labels>
         <fullName>CCRM_ConversationGuideHeading</fullName>

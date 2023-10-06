@@ -16,4 +16,9 @@
         <default>false</default>
         <label>Other</label>
     </standardValue>
+    <standardValue>
+        <fullName>Home Loan</fullName>
+        <default>false</default>
+        <label>Home Loan</label>
+    </standardValue>
 </StandardValueSet>
