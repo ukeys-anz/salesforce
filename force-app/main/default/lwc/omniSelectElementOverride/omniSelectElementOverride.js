@@ -37,7 +37,9 @@ export default class OmniSelectElementOverride extends OmniscriptSelect {
       if (root.controllerValues) {
         let controllingValues = root.controllerValues;
         for (let cValue in controllingValues) {
-          mapControllingValueWithIndex[controllingValues[cValue]] = cValue;
+          if (controllingValues.hasOwnProperty(cValue)) {
+            mapControllingValueWithIndex[controllingValues[cValue]] = cValue;
+          }
         }
       }
       if (!root.values) {
