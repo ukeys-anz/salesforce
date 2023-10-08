@@ -394,6 +394,24 @@
         <recordType>Interaction.Store</recordType>
         <type>Flexipage</type>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Complaint_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Customer_Complaint</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Complaint_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Non_Customer_Complaint</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>Quality_Assessment__c</tabs>
     <tabs>standard-Case</tabs>
