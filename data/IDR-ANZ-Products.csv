@@ -232,7 +232,6 @@ International Money Transfers,237,6,19,133,IDR_Everyday_Banking,TRUE
 Digital Wallets,238,6,20,138,IDR_Everyday_Banking,TRUE
 ANZ Plus App,239,6,20,138,IDR_Everyday_Banking,TRUE
 ANZ Cash Escrow Facility,240,6,20,138,IDR_Business_Owners,TRUE
-Home Loan Protection Insurance,241,3,8,40,IDR_Home_Owners,TRUE
 ANZ Standard Variable Residential Land Loan,242,1,2,15,IDR_Home_Owners,TRUE
 ANZ Standard Variable Residential Investment Loan in a Company Name,243,1,2,15,IDR_Home_Owners,TRUE
 ANZ Standard Variable Home Loan in a Company Name,244,1,2,15,IDR_Home_Owners,TRUE
@@ -296,7 +295,7 @@ Generation Mutual 50 Leaders Australian,301,4,13,88,IDR_Wealth,TRUE
 Generation Life Pendal Sustainability Aus Shares Fund,302,4,13,88,IDR_Wealth,TRUE
 Generation Perpetual Wholesale Australia,303,4,13,88,IDR_Wealth,TRUE
 Generation Perpetual Wholesale Etcl SRI,304,4,13,88,IDR_Wealth,TRUE
-Generation Perpetual Wholsale Geared Aus,305,4,13,88,IDR_Wealth,TRUE
+Generation Perpetual Wholesale Geared Aus,305,4,13,88,IDR_Wealth,TRUE
 Generation BlackRock Concentrated Industrial Shares,306,4,13,88,IDR_Wealth,TRUE
 ANZ Australian Small Companies SIV Portfolio,307,4,13,88,IDR_Wealth,TRUE
 ANZ Australian Equities Capital (Tax Payer) Pfolio,308,4,13,88,IDR_Wealth,TRUE
@@ -416,7 +415,7 @@ Generation Life DFA World Allocation 50/50 Trust,421,4,13,98,IDR_Wealth,TRUE
 Generation Dimensional World Allocation 70/30 Trust,422,4,13,98,IDR_Wealth,TRUE
 Generation Life MLC Horizon 2 Income,423,4,13,98,IDR_Wealth,TRUE
 Generation Life MLC Horizon 3 Conservative Growth,424,4,13,98,IDR_Wealth,TRUE
-Generation MLC Horizon 4 Balanced Portfolio,425,4,13,98,IDR_Wealth,TRUE
+Generation Life MLC Horizon 4 Balanced Portfolio,425,4,13,98,IDR_Wealth,TRUE
 Generation Life Pendal Sustainability Balanced Fund,426,4,13,98,IDR_Wealth,TRUE
 Generation Perpetual Wholesale Balanced Growth,427,4,13,98,IDR_Wealth,TRUE
 Generation Perpetual Wholesale Conservative Growth,428,4,13,98,IDR_Wealth,TRUE
@@ -550,7 +549,7 @@ Praemium Wrap,556,9,32,186,IDR_Wealth,TRUE
 Panorama Wrap,557,9,32,186,IDR_Wealth,TRUE
 Challenger Guaranteed Annuity,558,9,32,186,IDR_Wealth,TRUE
 Challenger Guaranteed Annuity - Liquid Lifetime,559,9,32,186,IDR_Wealth,TRUE
-GenerationLife Investment Bond,560,9,32,186,IDR_Wealth,TRUE
+Generation Life Investment Bond,560,9,32,186,IDR_Wealth,TRUE
 (Retail Insurance) OneCare,561,9,32,186,IDR_Wealth,TRUE
 (Retail Insurance) Zurich,562,9,32,186,IDR_Wealth,TRUE
 (Retail Insurance) TAL,563,9,32,186,IDR_Wealth,TRUE
