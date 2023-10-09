@@ -158,8 +158,8 @@
         "puid": "AX14000004802277",
         "payment_reference": "841556",
         "platform": "OSKO",
-        "clearing_method": "FAST",
-        "clearing_sub_method": "ONUS",
+        "clearing_method": "SLOW",
+        "clearing_sub_method": "SOLICITED",
         "other_entity": {
           "name": "Ofi Customer 1",
           "contact": "contacts/ed8017cd-0fe8-57e8-95c3-7b484995ca66",
@@ -1703,13 +1703,16 @@
   "total": "20",
   "links": {
     "self": {
-      "uri": "mockresponsev1/api/v1/transactions?page_size=1000"
+      "uri": "mockresponsev1/api/v1/transactions?page_size=20&cursor.value=aaa"
     },
     "first": {
-      "uri": "mockresponsev1/api/v1/transactions?page_size=1000"
+      "uri": "mockresponsev1/api/v1/transactions?page_size=20&cursor.value=bbb"
     },
     "last": {
-      "uri": "mockresponsev1/api/v1/transactions?page_size=1000&page_token=eyJpc19iZWZvcmUiOmZhbHNlLCJpc19sYXN0Ijp0cnVlLCJkYXRlIjoiMDAwMS0wMS0wMVQwMDowMDowMFoifQ=="
+      "uri": "mockresponsev1/api/v1/transactions?page_size=20&cursor.value=ccc"
+    },
+    "next": {
+      "uri": "mockresponsev1/api/v1/transactions?page_size=20&cursor.value=ddd"
     }
   }
 }
