@@ -12,7 +12,6 @@
     <columns>Assessment_Completion_Date__c</columns>
     <columns>Status__c</columns>
     <columns>UPDATEDBY_USER</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>isTeamManagerLoggedInUser__c</field>
         <operation>equals</operation>
@@ -38,6 +37,7 @@
         <operation>equals</operation>
         <value>Quality_Assessment__c.C_Q_Assessment</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Team&apos;s Evaluations</label>
     <sharedTo>
         <role>Customer_Resolution_Leadership</role>

@@ -77,10 +77,10 @@ public with sharing class IDRConstants {
    */
   public static final Id idrtCQQualityAssessment {
     get {
-      if ( idrtCQQualityAssessment == null ) {
+      if (idrtCQQualityAssessment == null) {
         idrtCQQualityAssessment = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
-        .get('C_Q_Assessment')
-        .getRecordTypeId();
+          .get('C_Q_Assessment')
+          .getRecordTypeId();
       }
       return idrtCQQualityAssessment;
     }
@@ -92,10 +92,10 @@ public with sharing class IDRConstants {
    */
   public static final Id idrtCallLetterReviewQualityAssessment {
     get {
-      if ( idrtCallLetterReviewQualityAssessment == null ) {
+      if (idrtCallLetterReviewQualityAssessment == null) {
         idrtCallLetterReviewQualityAssessment = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
-        .get('Call_Letter_Review_Assessment')
-        .getRecordTypeId();
+          .get('Call_Letter_Review_Assessment')
+          .getRecordTypeId();
       }
       return idrtCallLetterReviewQualityAssessment;
     }
