@@ -212,10 +212,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public void organizeExpenseNodes() {
     expenseMap = new Map<String, SOPExpense>();
     Set<String> expenseCodeSet = new Set<String>();
-    Map<String, SOPExpense> categroyIdToExpenseMap = new Map<String, SOPExpense>();
     for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
       expenseMap.put(expense.categoryName.replaceAll('&', 'and'), expense);
-      categroyIdToExpenseMap.put(expense.categoryId, expense);
       if (String.isNotBlank(expense.justificationCode)) {
         expenseCodeSet.add(expense.justificationCode);
       }
@@ -258,10 +256,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         exp.warningMessage = BOHConstants.LOW_WARNING;
         if (String.isNotBlank(exp.expenseParent)) {
           // L2 or L3, Always under Essentials
-          SOPExpense parentExpense = categroyIdToExpenseMap.get(
-            exp.expenseParent
-          );
-          parentExpense.showWarningIcon = true;
           expenseMap.get(BOHConstants.EXPENSE_ESSENTIALS)
             .showWarningIcon = true;
         }
@@ -277,10 +271,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         exp.warningMessage = BOHConstants.LOW_WARNING;
         if (String.isNotBlank(exp.expenseParent)) {
           // L2 or L3, Always under Essentials
-          SOPExpense parentExpense = categroyIdToExpenseMap.get(
-            exp.expenseParent
-          );
-          parentExpense.showWarningIcon = true;
           expenseMap.get(BOHConstants.EXPENSE_ESSENTIALS)
             .showWarningIcon = true;
         }
