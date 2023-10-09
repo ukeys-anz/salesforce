@@ -767,6 +767,10 @@
     <picklistValues>
         <picklist>Customer_information_correct__c</picklist>
         <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>No</fullName>
             <default>false</default>
         </values>
@@ -1258,6 +1262,10 @@
     </picklistValues>
     <picklistValues>
         <picklist>Issues_articulatedaddressed_in_response__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>No</fullName>
             <default>false</default>
@@ -2721,61 +2729,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Review_period__c</picklist>
-        <values>
-            <fullName>%222023-06</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2023-07</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2023-08</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2023-09</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2023-10</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2023-11</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2023-12</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2024-01</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2024-02</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2024-03</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2024-04</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2024-05</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2024-06</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Risk_and_Compliance_Category__c</picklist>
         <values>
             <fullName>Advice %2F Consent %2F Disclaimers %2F Warnings Category</fullName>
@@ -2927,10 +2880,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>In Progress</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Pending</fullName>
             <default>true</default>
         </values>
@@ -2970,6 +2919,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>TM_Attestation_feedback_provided_to_CM__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Team_Manager_Response__c</picklist>
         <values>
             <fullName>Accepted by TM</fullName>
@@ -2977,7 +2937,7 @@
         </values>
         <values>
             <fullName>Awaiting response from TM</fullName>
-            <default>false</default>
+            <default>true</default>
         </values>
         <values>
             <fullName>Rejected by TM</fullName>

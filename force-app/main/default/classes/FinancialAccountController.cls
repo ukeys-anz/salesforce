@@ -7,12 +7,20 @@
 public with sharing class FinancialAccountController {
   //Map of fabric statuses and user friendly names to map them to
   private static final Map<String, String> FABRIC_STATUSES = new Map<String, String>{
+    //Status Mapping of v1beta1
     'ACCOUNT_STATUS_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
     'ACCOUNT_STATUS_OPEN' => 'Open', // the account is open
     'ACCOUNT_STATUS_ACTIVE' => 'Active', // the account is active
     'ACCOUNT_STATUS_SUSPENDED' => 'Suspended', // the account is suspended
     'ACCOUNT_STATUS_DORMANT' => 'Dormant', // the account is dormant
-    'ACCOUNT_STATUS_CLOSED' => 'Closed' // the account is closed
+    'ACCOUNT_STATUS_CLOSED' => 'Closed', // the account is closed
+    //State Mapping for v1
+    'ACCOUNT_STATE_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
+    'ACCOUNT_STATE_OPEN' => 'Open', // the account is open
+    'ACCOUNT_STATE_ACTIVE' => 'Active', // the account is active
+    'ACCOUNT_STATE_SUSPENDED' => 'Suspended', // the account is suspended
+    'ACCOUNT_STATE_DORMANT' => 'Dormant', // the account is dormant
+    'ACCOUNT_STATE_CLOSED' => 'Closed' // the account is closed
   };
 
   /**
@@ -56,6 +64,11 @@ public with sharing class FinancialAccountController {
           ? null
           : Date.valueOf(finAccount.opened_at);
 
+        //Format closed date from string to date
+        Date closedDate = finAccount.closed_at == null
+          ? null
+          : Date.valueOf(finAccount.closed_at);
+
         financialAccounts.add(
           new FinServ__FinancialAccount__c(
             Id = finAccNumberToIdMap.get(finAccount.account_number),
@@ -65,6 +78,7 @@ public with sharing class FinancialAccountController {
             FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
             BSB__c = finAccount.bsb,
             FinServ__OpenDate__c = openedDate,
+            FinServ__CloseDate__c = closedDate,
             FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
             RecordType = getAccountRecordType(finAccount.marketing_product.code)
           )
@@ -77,6 +91,7 @@ public with sharing class FinancialAccountController {
               Name = finAccount.name,
               FinServ__Balance__c = finAccount.balance.value,
               FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
+              FinServ__CloseDate__c = closedDate,
               FinServ__OpenDate__c = openedDate
             )
           );
@@ -155,15 +170,18 @@ public with sharing class FinancialAccountController {
           Id,
           Name,
           FinServ__Balance__c,
-          FinServ__Status__c,
+          FinServ__CurrentPostedBalance__c,
+          FinServ__CloseDate__c,
           FinServ__FinancialAccountNumber__c,
+          FinServ__Status__c,
+          FinServ__OpenDate__c,
           RecordType.DeveloperName,
           LastModifiedDate
         FROM FinServ__FinancialAccount__c
         WHERE
           FinServ__PrimaryOwner__c = :ownerId
           AND RecordType.DeveloperName IN :recordTypeDeveloperNames
-        ORDER BY FinServ__OpenDate__c DESC, FinServ__Status__c ASC
+        ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
       ];
     }
     if (financialAccount.isEmpty()) {

@@ -140,6 +140,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     );
     SOPModel.Parties[] transformedParties = new List<SOPModel.Parties>();
 
+    SOPModelHelper.enrichOwnerName(response);
+
     if (response == null) {
       return false;
     }
@@ -209,7 +211,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
       );
-      publishRLARecordMonitoringToast(loanRec[0]);
 
       rlaRepo.updateIncome(
         loanRec[0]?.Account?.OCV_ID__c,
@@ -217,6 +218,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         JSON.serialize(model),
         loanId
       );
+      publishRLARecordMonitoringToast(loanRec[0]);
 
       outMap.put('toast', 'Success');
       return true;

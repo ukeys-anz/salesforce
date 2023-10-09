@@ -18,32 +18,6 @@ private class CaseTriggerHandlerTest {
 
   private static final String EMPTY_FAILED_REASON = '';
 
-  private static final String MOBILE1 = '61412121212';
-  private static final String MOBILE2 = '61413131313';
-  private static final String MOBILE3 = '61415151515';
-
-  private static final List<String> COB_MATCHING_MOBILE_NUMBERS = new List<String>{
-    MOBILE1,
-    MOBILE2,
-    MOBILE3
-  };
-
-  private static final List<String> CUSTOMER_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '+' + MOBILE1,
-    '+' + MOBILE2,
-    '+' + MOBILE3
-  };
-
-  private static final List<String> COB_NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '61499999999',
-    '61488888888'
-  };
-
-  private static final List<String> CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '+61422222222',
-    '+61433333333'
-  };
-
   @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
@@ -298,8 +272,6 @@ private class CaseTriggerHandlerTest {
         );
       }
       insert integrationPsaList;
-
-      makeCOBData();
     }
     insertTestAccountsForDisputeCases();
   }
@@ -1997,6 +1969,7 @@ private class CaseTriggerHandlerTest {
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     oldRecord.Type = '11';
+    oldRecord.IDR_Product_Category__c = 'Not product related';
     insert oldRecord;
 
     Test.startTest();
@@ -2020,6 +1993,7 @@ private class CaseTriggerHandlerTest {
     oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     oldRecord.Type = '11';
+    oldRecord.IDR_Product_Category__c = 'Not product related';
     insert oldRecord;
 
     Test.startTest();
@@ -2051,6 +2025,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
     caseRecord.Type = '11';
     insert caseRecord;
@@ -2097,6 +2072,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
     caseRecord.Type = '11';
     insert caseRecord;
@@ -2136,6 +2112,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
     caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
     caseRecord.Type = '11';
     insert caseRecord;
@@ -3055,7 +3032,7 @@ private class CaseTriggerHandlerTest {
       atmDisputeCaseCloudEventModel.ce_subject,
       'ce_subject should match'
     );
-    DisputeCaseCloudEventModel.AccountModel customer = atmDisputeCaseCloudEventDataModel.customer;
+    CaseCloudEventModel.AccountModel customer = atmDisputeCaseCloudEventDataModel.customer;
     System.assertEquals(
       theCase.Account.OCV_ID__c,
       customer.ocvId,
@@ -3110,7 +3087,7 @@ private class CaseTriggerHandlerTest {
       cardDisputeCaseCloudEventModel.ce_subject,
       'ce_subject should match'
     );
-    DisputeCaseCloudEventModel.AccountModel customer = cardDisputeCaseCloudEventDataModel.customer;
+    CaseCloudEventModel.AccountModel customer = cardDisputeCaseCloudEventDataModel.customer;
     System.assertEquals(
       theCase.Account.OCV_ID__c,
       customer.ocvId,
@@ -3594,509 +3571,5 @@ private class CaseTriggerHandlerTest {
       WHERE WhatId = :theCase.Id AND RecordTypeId = :taskRecordTypeId
     ];
     Assert.isTrue(taskList.isEmpty(), 'No Task should be created');
-  }
-
-  private static void makeCOBData() {
-    List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
-    List<Account> personAccsWithMobile = new List<Account>();
-    for (String mobileNumber : COB_MATCHING_MOBILE_NUMBERS) {
-      cobApps.add(createCOBApp(mobileNumber));
-    }
-
-    for (String mobileNumber : CUSTOMER_MATCHING_MOBILE_NUMBERS) {
-      personAccsWithMobile.add(createPersonAccount(mobileNumber));
-    }
-
-    //Add COB apps with not matching mobile Numbers
-    for (String mobileNumber : COB_NOT_MATCHING_MOBILE_NUMBERS) {
-      cobApps.add(createCOBApp(mobileNumber));
-    }
-
-    // Add person Accounts to be linked to cases with no COB
-    List<Account> personAccountsForCasesWithNoCOB = new List<Account>();
-    for (String mobileNumber : CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS) {
-      personAccountsForCasesWithNoCOB.add(createPersonAccount(mobileNumber));
-    }
-
-    personAccsWithMobile.addAll(personAccountsForCasesWithNoCOB);
-
-    insert cobApps;
-    insert personAccsWithMobile;
-
-    List<Entitlement> entitlements = CommonUtil.addPersonAccountEntitlements(
-      personAccsWithMobile,
-      GetHelpConstants.ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME,
-      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
-    );
-    insert entitlements;
-  }
-
-  private static CustomerOnboardingApplication__c createCOBApp(
-    String mobileNumber
-  ) {
-    CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
-      SecurityMobile__c = mobileNumber
-    );
-
-    return cobApp;
-  }
-
-  private static List<CustomerOnboardingApplication__c> getCOBApps() {
-    return [SELECT Id, SecurityMobile__c FROM CustomerOnboardingApplication__c];
-  }
-
-  private static Case createKYCQACase(Id cobAppId, Id caseOwnerId) {
-    Case c = new Case(
-      Status = GetHelpConstants.OPEN_STATUS,
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      CustomerOnboardingApplication__c = cobAppid,
-      OwnerId = caseOwnerId
-    );
-
-    return c;
-  }
-
-  private static List<Case> getKYCQACases() {
-    return [
-      SELECT Id, AccountId, ContactId, ContactMobile, EntitlementId
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
-    ];
-  }
-
-  private static List<Case> getCasesLinkedWithAccount() {
-    return [
-      SELECT Id, AccountId, ContactId, ContactMobile, EntitlementId
-      FROM Case
-      WHERE AccountId != NULL AND ContactId != NULL AND EntitlementId != NULL
-    ];
-  }
-
-  private static List<Case> getCasesWithNoAccount() {
-    return [SELECT Id, OwnerId FROM Case WHERE AccountId = NULL];
-  }
-
-  private static List<Case> getCasesWithAccountNoCOB() {
-    return [
-      SELECT Id, OwnerId
-      FROM Case
-      WHERE AccountId != NULL AND CustomerOnboardingApplication__c = NULL
-    ];
-  }
-
-  private static Account createPersonAccount(String mobileNumber) {
-    Faker faker = new Faker('AU');
-    Account acc = new Account(
-      FirstName = faker.person.firstName(),
-      LastName = faker.person.lastName(),
-      OCV_ID__c = faker.randomString(10),
-      PersonMobilePhone = mobileNumber,
-      ANZx_Customer__c = true,
-      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
-    );
-
-    return acc;
-  }
-
-  private static List<Account> getPersonAccountByMobile(
-    List<String> mobilePhones
-  ) {
-    return [SELECT Id FROM Account WHERE PersonMobilePhone IN :mobilePhones];
-  }
-
-  private static List<Case> createKYCQACases(Id caswOwnerId) {
-    List<CustomerOnboardingApplication__c> cobApps = getCOBApps();
-
-    List<Case> kycQACases = new List<Case>();
-    for (CustomerOnboardingApplication__c cobApp : cobApps) {
-      kycQACases.add(createKYCQACase(cobApp.Id, caswOwnerId));
-    }
-
-    insert kycQACases;
-    return kycQACases;
-  }
-
-  private static List<Case> createKYCQACasesWithAccountNoCOB(Id caswOwnerId) {
-    List<Account> accs = getPersonAccountByMobile(
-      CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS
-    );
-
-    List<Case> kycQACases = new List<Case>();
-    for (Account acc : accs) {
-      Case c = createKYCQACase(null, caswOwnerId);
-      c.AccountId = acc.Id;
-      kycQACases.add(c);
-    }
-
-    insert kycQACases;
-    return kycQACases;
-  }
-
-  @isTest
-  static void testLinkKYCQACasesToAccountChangeOwnership() {
-    User usr = TestUtil.getUserByFirstName('FraudXTest');
-
-    // GIVEN KYC Case in Pending KYC QA Queue
-    List<Case> kycQACases = createKYCQACases(
-      COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id
-    );
-
-    // WHEN Change owner
-    for (Case kycQACase : kycQACases) {
-      kycQACase.OwnerId = usr.Id;
-    }
-
-    Test.startTest();
-    update kycQACases;
-    Test.stopTest();
-
-    // THEN KYC QA Cases will be linked with Matched Person Accounts
-    List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
-
-    Assert.areEqual(
-      COB_MATCHING_MOBILE_NUMBERS.size(),
-      casesLinkedWithAccount.size(),
-      'Should be ' +
-      COB_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
-    );
-
-    // AND THEN KYC QA Cases will not be linked if no Matched Person Accounts found
-    List<Case> casesWithNoAccount = getCasesWithNoAccount();
-
-    Assert.areEqual(
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
-      casesWithNoAccount.size(),
-      'Should be ' +
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with no Matched Person Accounts'
-    );
-  }
-
-  @isTest
-  static void testLinkKYCQACasesToAccountChangeDescription() {
-    // GIVEN KYC Case in Pending KYC QA Queue
-    List<Case> kycQACases = createKYCQACases(
-      COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id
-    );
-
-    // WHEN Change Description
-    for (Case kycQACase : kycQACases) {
-      kycQACase.Description = 'Test';
-    }
-
-    Test.startTest();
-    update kycQACases;
-    Test.stopTest();
-
-    // THEN KYC QA Cases will be linked with Matched Person Accounts
-    List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
-
-    Assert.areEqual(
-      COB_MATCHING_MOBILE_NUMBERS.size(),
-      casesLinkedWithAccount.size(),
-      'Should be ' +
-      COB_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
-    );
-
-    // AND THEN KYC QA Cases will not be linked if no Matched Person Accounts found
-    List<Case> casesWithNoAccount = getCasesWithNoAccount();
-
-    Assert.areEqual(
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
-      casesWithNoAccount.size(),
-      'Should be ' +
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
-    );
-  }
-
-  @isTest
-  static void testLinkKYCQACasesToAccountNoCustomerCaseClosed() {
-    // GIVEN KYC Case in Pending KYC QA Queue
-    List<Case> kycQACases = createKYCQACases(
-      COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id
-    );
-
-    // WHEN Change Status to CLOSED
-    for (Case kycQACase : kycQACases) {
-      kycQACase.Status = GetHelpConstants.CLOSED_STATUS;
-      kycQACase.Sub_Status__c = 'No Defect';
-    }
-
-    Test.startTest();
-    update kycQACases;
-    Test.stopTest();
-
-    // THEN KYC QA Cases will be linked with Matched Person Accounts
-    List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
-
-    Assert.areEqual(
-      COB_MATCHING_MOBILE_NUMBERS.size(),
-      casesLinkedWithAccount.size(),
-      'Should be ' +
-      COB_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
-    );
-
-    // AND THEN KYC QA Cases will not be linked if no Matched Person Accounts found
-    List<Case> casesWithNoAccount = getCasesWithNoAccount();
-
-    Assert.areEqual(
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
-      casesWithNoAccount.size(),
-      'Should be ' +
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
-    );
-
-    // AND THEN KYC QA Cases will be moved to Pending KYC QA - No Customer Queue
-    for (Case c : casesWithNoAccount) {
-      Assert.areEqual(
-        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id,
-        c.OwnerId,
-        'KYC QA Cases should move to ' +
-        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
-        'queue'
-      );
-    }
-  }
-
-  @isTest
-  static void testLinkKYCQACasesToAccountNoCustomerChangeOwnerInNoCustomerQueue() {
-    User usr = TestUtil.getUserByFirstName('FraudXTest');
-
-    // GIVEN KYC Case in Pending KYC QA - No Customer Queue
-    List<Case> kycQACases = createKYCQACases(
-      GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id
-    );
-
-    // WHEN Attempt Changing owner
-    for (Case kycQACase : kycQACases) {
-      kycQACase.OwnerId = usr.Id;
-    }
-
-    Test.startTest();
-    update kycQACases;
-    Test.stopTest();
-
-    // THEN KYC QA Cases will not be linked if no Matched Person Accounts found
-    List<Case> casesWithNoAccount = getCasesWithNoAccount();
-
-    Assert.areEqual(
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
-      casesWithNoAccount.size(),
-      'Should be ' +
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
-    );
-
-    // AND THEN KYC QA Cases will remain in Pending KYC QA - No Customer Queue
-    for (Case c : casesWithNoAccount) {
-      Assert.areEqual(
-        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id,
-        c.OwnerId,
-        'KYC QA Cases should remain in ' +
-        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
-        'queue'
-      );
-    }
-  }
-
-  @isTest
-  static void testLinkKYCQACasesToAccountWithCustomerCaseClosed() {
-    User usr = TestUtil.getUserByFirstName('FraudXTest');
-    // GIVEN KYC Case in Pending KYC QA Queue with Customer and no COB
-    List<Case> kycQACases = createKYCQACasesWithAccountNoCOB(
-      COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id
-    );
-
-    // WHEN Change Status to CLOSED
-    for (Case kycQACase : kycQACases) {
-      kycQACase.OwnerId = usr.Id;
-      kycQACase.Status = GetHelpConstants.CLOSED_STATUS;
-      kycQACase.Sub_Status__c = 'No Defect';
-    }
-
-    Test.startTest();
-    update kycQACases;
-    Test.stopTest();
-
-    // THEN KYC QA Cases will not be re-linked
-    List<Case> casesWithAccountNoCOB = getCasesWithAccountNoCOB();
-
-    Assert.areEqual(
-      CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS.size(),
-      casesWithAccountNoCOB.size(),
-      'Should be ' +
-      CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
-    );
-
-    // AND THEN KYC QA Cases will remain with the case owner that closed the case
-    for (Case c : casesWithAccountNoCOB) {
-      Assert.areEqual(
-        usr.Id,
-        c.OwnerId,
-        'KYC QA Cases should remain with the case owner that closed the case: ' +
-        usr.id
-      );
-    }
-  }
-
-  // Test Prevent BOH coach assigning invalid credit referral
-  @isTest
-  public static void testCreditReferralBOHInvalidAssignment() {
-    User usr = TestUtil.getUserByFirstName('BOHCoachTest');
-    User integrationUser = TestUtil.getUserByFirstName(
-      'CreditRefIntegrationUser'
-    );
-    List<Case> creditRefCases = new List<Case>();
-    Group coachQueue = CommonUtil.getQueueByName(
-      'No_CAD_Credit_Referral_Case_Queue'
-    );
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.OwnerId = coachQueue.Id;
-      c.Case_Authority_Level__c = 'CAD_0';
-      creditRefCases.add(c);
-    }
-
-    System.runAs(integrationUser) {
-      insert creditRefCases;
-    }
-
-    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
-
-    Test.startTest();
-    System.runAs(usr) {
-      try {
-        c.OwnerId = usr.Id;
-        update c;
-      } catch (Exception e) {
-        System.assert(
-          e.getMessage()
-            .contains(
-              'You can\'t assign a credit referral case that you do not have authority to resolve. Please select another case.'
-            )
-        );
-      }
-    }
-    Test.stopTest();
-  }
-
-  // Test BOH coach assigning credit referral
-  @isTest
-  public static void testCreditReferralBOHAssignment() {
-    User usr = TestUtil.getUserByFirstName('BOHCoachTest');
-    User integrationUser = TestUtil.getUserByFirstName(
-      'CreditRefIntegrationUser'
-    );
-    List<Case> creditRefCases = new List<Case>();
-    Group coachQueue = CommonUtil.getQueueByName(
-      'No_CAD_Credit_Referral_Case_Queue'
-    );
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.OwnerId = coachQueue.Id;
-      c.Case_Authority_Level__c = 'NO CAD';
-      creditRefCases.add(c);
-    }
-
-    System.runAs(integrationUser) {
-      insert creditRefCases;
-    }
-
-    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
-
-    Test.startTest();
-    System.runAs(usr) {
-      c.OwnerId = usr.Id;
-      update c;
-    }
-
-    Assert.areEqual(usr.Id, c.OwnerId, 'Expected case owner to be boh coach');
-    Test.stopTest();
-  }
-
-  // Test credit assessment officer assigning credit referral
-  @isTest
-  public static void testCreditReferralOfficerAssignment() {
-    User usr = TestUtil.getUserByFirstName('CreditAssessmentOfficer');
-    User integrationUser = TestUtil.getUserByFirstName(
-      'CreditRefIntegrationUser'
-    );
-    List<Case> creditRefCases = new List<Case>();
-    Group coachQueue = CommonUtil.getQueueByName(
-      'No_CAD_Credit_Referral_Case_Queue'
-    );
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.OwnerId = coachQueue.Id;
-      c.Case_Authority_Level__c = 'NO CAD';
-      creditRefCases.add(c);
-    }
-
-    System.runAs(integrationUser) {
-      insert creditRefCases;
-    }
-
-    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
-
-    Test.startTest();
-    System.runAs(usr) {
-      c.OwnerId = usr.Id;
-      update c;
-    }
-
-    Assert.areEqual(
-      usr.Id,
-      c.OwnerId,
-      'Expected case owner to be credit assessment officer'
-    );
-    Test.stopTest();
-  }
-
-  // Test Credit assessment lead invalid assign to boh
-  @isTest
-  public static void testCreditReferralLeadToBohInvalid() {
-    User creditLead = TestUtil.getUserByFirstName('CreditLead');
-    User bohCoach = TestUtil.getUserByFirstName('BOHCoachTest');
-    User integrationUser = TestUtil.getUserByFirstName(
-      'CreditRefIntegrationUser'
-    );
-    List<Case> creditRefCases = new List<Case>();
-    Group coachQueue = CommonUtil.getQueueByName(
-      'No_CAD_Credit_Referral_Case_Queue'
-    );
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case c = TestDataFactory.createCase('Credit_Referral');
-      c.OwnerId = coachQueue.Id;
-      c.Case_Authority_Level__c = 'CAD_0';
-      creditRefCases.add(c);
-    }
-
-    System.runAs(integrationUser) {
-      insert creditRefCases;
-    }
-
-    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
-
-    Test.startTest();
-    System.runAs(creditLead) {
-      try {
-        c.OwnerId = bohCoach.Id;
-        update c;
-      } catch (Exception e) {
-        System.assert(
-          e.getMessage()
-            .contains(
-              'You can\'t assign a credit referral case to someone who does not have the authority to resolve it.'
-            )
-        );
-      }
-    }
-    Test.stopTest();
   }
 }

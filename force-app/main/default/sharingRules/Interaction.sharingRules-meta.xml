@@ -61,6 +61,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Interaction_Quality_Capability_Lead_Read_Only_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides read only access to users with Quality &amp; Capability Lead Role for Interaction object.</description>
+        <label>Interaction Quality &amp; Capability Lead Read Only Sharing Rule</label>
+        <sharedTo>
+            <role>Quality_Capability_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>BOH_Coach_Read_Write</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule shares all Interaction records with Read/Write access to BOH Coach Users.</description>

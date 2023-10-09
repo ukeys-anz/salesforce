@@ -11,15 +11,16 @@ public without sharing class CloudEventController {
   /**
    * @description create and publish Cloud Events
    * @param cloudEventModels List of CloudEventModel
+   * @return List<sObject> List of events are published successful
    */
-  public static void publishCloudEvents(
+  public static List<sObject> publishCloudEvents(
     List<CloudEventModel> cloudEventModels
   ) {
     if (cloudEventModels.size() == 0) {
-      return;
+      return new List<sObject>();
     }
     createCloudEvents(cloudEventModels);
-    PlatformEventUtils.publishEvents(cloudEvents);
+    return PlatformEventUtils.publishEvents(cloudEvents);
   }
 
   /**

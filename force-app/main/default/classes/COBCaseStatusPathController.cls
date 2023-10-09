@@ -5,6 +5,7 @@
  */
 public with sharing class COBCaseStatusPathController {
   private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
+  private static final String PERSONA_ID_ERROR = 'Persona ID is missing on case. Please check again.';
 
   // Statuses with Callout API
   private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
@@ -23,11 +24,15 @@ public with sharing class COBCaseStatusPathController {
    */
   @AuraEnabled
   public static Boolean updateStatus(String currentStatus, Case cobCase) {
+    if (String.isEmpty(cobCase.PersonaId__c)) {
+      throwException(PERSONA_ID_ERROR);
+    }
+
     String validationError = COBCaseStatusValidator.validateCaseStatusChange(
       currentStatus,
       cobCase
     );
-    if (String.isEmpty(validationError) == false) {
+    if (String.isNotEmpty(validationError)) {
       throwException(validationError);
     }
 

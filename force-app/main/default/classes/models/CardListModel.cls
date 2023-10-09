@@ -44,7 +44,7 @@ public with sharing class CardListModel extends CalloutModel {
     @AuraEnabled
     public ExpiryDateCls expiry_date;
     @AuraEnabled
-    public String account_number;
+    public List<String> account_numbers;
     @AuraEnabled
     public List<String> eligibilities;
     @AuraEnabled

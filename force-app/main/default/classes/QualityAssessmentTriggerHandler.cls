@@ -24,6 +24,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
     QualityAssessmentActions.populateFieldsBeforeTrigger(records, null);
     IDRQualityAssessmentActions.autoCalculateScore(records);
     QualityAssessmentActions.validateRelatedCase(records, null);
+    IDRQualityAssessmentActions.validateStatusComplete(records, null);
   }
 
   /**
@@ -69,6 +70,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    IDRQualityAssessmentTaskActions.createQAShareRecord(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
   }
 
   /**
@@ -86,6 +91,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
     );
     IDRQualityAssessmentActions.autoCalculateScore(records);
     QualityAssessmentActions.validateRelatedCase(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    IDRQualityAssessmentActions.validateStatusComplete(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );

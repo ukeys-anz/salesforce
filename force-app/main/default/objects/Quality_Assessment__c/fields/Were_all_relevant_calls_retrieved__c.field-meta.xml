@@ -5,13 +5,7 @@
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>That is, were all the calls relevant to the complaint retrieved?</description>
     <externalId>false</externalId>
-    <inlineHelpText>Yes - all calls retrieved
-
-Yes - but not all calls retrieved
-
-No - could not retrieve any calls
-
-No - no calls applicable to the case</inlineHelpText>
+    <inlineHelpText>That is, were all the calls relevant to the complaint retrieved?</inlineHelpText>
     <label>Were all relevant calls retrieved?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

@@ -32,11 +32,6 @@ public with sharing class GetHelpCaseActionsHelper {
   private static final String SAME_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select a value in Additional Type that is already selected as the Primary Type.';
   private static final String NO_ENTITLEMENT_ERROR_MSG = 'No entitlement found for account.';
 
-  @TestVisible
-  private static final Group PENDING_KYC_QA_WO_CUSTOMER = CommonUtil.getQueueByName(
-    'Pending_KYC_QA_No_Customer'
-  );
-
   private static Id falseEntitlementAccountId {
     get {
       if (falseEntitlementAccountId != null) {
@@ -526,7 +521,9 @@ public with sharing class GetHelpCaseActionsHelper {
         record.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID &&
         String.isNotBlank(record.Credit_Id__c)
       ) {
-        mapCase.put(record.Credit_Id__c, record);
+        //Strip the version from the credit id as the RLA doesnt have a version
+        String creditId = handleCreditIdVersion(record.Credit_Id__c);
+        mapCase.put(creditId, record);
       }
     }
 
@@ -544,7 +541,9 @@ public with sharing class GetHelpCaseActionsHelper {
       newCase.Loan_Application__c = rla.Id;
       newCase.ContactId = rla.Account.PersonContactId;
 
-      mapCase.put(newCase.Credit_Id__c, newCase);
+      //Strip the version from the credit id as the RLA doesnt have a version
+      String creditId = handleCreditIdVersion(newCase.Credit_Id__c);
+      mapCase.put(creditId, newCase);
     }
   }
 
@@ -788,59 +787,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Get Mobile Number and Case map
-   * @param oldCaseIds Set of old KYC QA Case Ids trigger.oldMap
-   * @return Mobile Number and Case Id map
-   */
-  public static Map<String, String> getMobileByCaseId(Set<Id> oldCaseIds) {
-    if (oldCaseIds.isEmpty() || PermissionUtils.canQuery('Case') == false) {
-      return new Map<String, String>();
-    }
-
-    Map<String, String> mobileByCaseIdMap = new Map<String, String>();
-    for (Case c : [
-      SELECT Id, CustomerOnboardingApplication__r.SecurityMobile__c
-      FROM Case
-      WHERE Id IN :oldCaseIds AND RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
-    ]) {
-      if (
-        String.isNotBlank(c.CustomerOnboardingApplication__r.SecurityMobile__c)
-      ) {
-        mobileByCaseIdMap.put(
-          c.Id,
-          '+' + c.CustomerOnboardingApplication__r.SecurityMobile__c
-        );
-      }
-    }
-    return mobileByCaseIdMap;
-  }
-
-  /**
-   * @description Get Mobile Phones and Account map
-   * @param mobileNumbers List of mobiles from COB Applications
-   * @return Mobile Phones and Account map
-   */
-  public static Map<String, Account> getAccountsByMobile(
-    List<String> mobileNumbers
-  ) {
-    if (
-      mobileNumbers.isEmpty() || PermissionUtils.canQuery('Account') == false
-    ) {
-      return new Map<String, Account>();
-    }
-
-    Map<String, Account> accountByMobileMap = new Map<String, Account>();
-    for (Account acc : [
-      SELECT Id, PersonMobilePhone, PersonContactId
-      FROM Account
-      WHERE PersonMobilePhone IN :mobileNumbers AND ANZx_Customer__c = TRUE
-    ]) {
-      accountByMobileMap.put(acc.PersonMobilePhone, acc);
-    }
-    return accountByMobileMap;
-  }
-
-  /**
    * @description Get Account Ids Entitlment map
    * @param accounts List of Accounts
    * @return Account Ids Entitlment map
@@ -852,39 +798,6 @@ public with sharing class GetHelpCaseActionsHelper {
       accIds,
       GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
     );
-  }
-
-  /**
-   * @description Set case fileds with matching Account
-   * @param c Case
-   * @param matchingAcc Matched Account
-   * @param accountEntitlmentId Matched Account Entitlment Id
-   */
-  public static void setMatchingAccountFields(
-    Case c,
-    Account matchingAcc,
-    Id accountEntitlmentId
-  ) {
-    c.AccountId = matchingAcc.Id;
-    c.ContactId = matchingAcc.PersonContactId;
-    c.EntitlementId = accountEntitlmentId;
-  }
-
-  /**
-   * @description Handle KYC QA Case in the situatuon there is still no MAtched Account:
-   * Either move to "Pending KYC QA - No Customer" queue in the event the case is not closed yet or
-   * remain in the "Pending KYC QA - No Customer" queue untill there is a Matched Account
-   * @param c Case
-   * @param oldCase Old case
-   */
-  public static void handleKYCQACaseNoCustomer(Case c, Case oldCase) {
-    if (
-      (oldCase.Status != GetHelpConstants.CLOSED_STATUS &&
-      c.Status == GetHelpConstants.CLOSED_STATUS) ||
-      oldCase.OwnerId == PENDING_KYC_QA_WO_CUSTOMER.Id
-    ) {
-      c.OwnerId = PENDING_KYC_QA_WO_CUSTOMER.Id;
-    }
   }
 
   /**
@@ -1003,23 +916,14 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Filter cases by Record Type Id
-   * @param records List of case records
-   * @return List of filtered cases
+   * @description Handles removal of version from credit id
+   * @param creditId Credit id
+   * @return Credit id with version removed
    */
-  public static List<Case> getKYCQACasesWithoutCustomer(List<Case> records) {
-    List<Case> kycQACases = CommonUtil.filterCasesByRecordTypeId(
-      records,
-      GetHelpConstants.KYCQA_RT_ID
-    );
-
-    List<Case> kycQACasesWithNoCustomer = new List<Case>();
-    for (Case c : kycQACases) {
-      if (c.AccountId == null) {
-        kycQACasesWithNoCustomer.add(c);
-      }
+  private static String handleCreditIdVersion(String creditId) {
+    if (creditId.contains('@')) {
+      creditId = creditId.left(creditId.indexOf('@'));
     }
-
-    return kycQACasesWithNoCustomer;
+    return creditId;
   }
 }

@@ -8,65 +8,36 @@
 )
 public virtual without sharing class DisputeCaseCloudEventModel extends CaseCloudEventModel {
   public DisputeCaseCloudEventModel(Case theCase, Account theAccount) {
-    super(theCase);
-    String sourceSystemName = '';
-    if (
-      theAccount?.Source_System_Name__c != null &&
-      theAccount?.Source_System_ID__c != null
-    ) {
-      sourceSystemName =
-        ',' +
-        theAccount.Source_System_Name__c.toLowerCase() +
-        '/' +
-        theAccount?.Source_System_ID__c;
-    }
-    ce_xtargets = 'ocv/' + theAccount?.OCV_ID__c + sourceSystemName;
+    super(theCase, theAccount);
   }
 
   /**
    * @description the model for dispute Case cloud event data part
    */
   public virtual class DisputeCaseCloudEventDataModel extends CaseCloudEventModel.CaseCloudEventDataModel {
-    public AccountModel customer { get; set; }
     public FinancialAccountModel financialAccount { get; set; }
     public TransactionModel transactionInformation { get; set; }
-    public UserModel owner { get; set; }
-    public String description { get; set; }
     public String disputeReason { get; set; }
     public String externalCaseId { get; set; }
     public String externalSystem { get; set; }
     public Boolean submitted { get; set; }
     public Datetime submittedTime { get; set; }
+    public Datetime disputeClosedDate { get; set; }
 
-    public DisputeCaseCloudEventDataModel(Case theCase, Account theAccount) {
-      super(theCase);
-      this.customer = new AccountModel(theAccount);
+    public DisputeCaseCloudEventDataModel(
+      Case theCase,
+      Account theAccount,
+      UserModel theOwner
+    ) {
+      super(theCase, theAccount, theOwner);
       this.financialAccount = new FinancialAccountModel(theCase);
       this.transactionInformation = new TransactionModel(theCase);
-      this.description = theCase.Description;
       this.disputeReason = theCase.Dispute_Reason__c;
       this.externalCaseId = theCase.External_Case_ID__c;
       this.externalSystem = theCase.External_System__c;
       this.submitted = theCase.Submitted__c;
       this.submittedTime = theCase.Submitted_Time__c;
-    }
-  }
-  /**
-   * @description Inner Wrapper Class for the account data of All Dispute Cases
-   */
-  public class AccountModel {
-    public String ocvId { get; set; }
-    public String sourceSystem { get; set; }
-    public String sourceSystemId { get; set; }
-
-    /**
-     * @description get an instance of AccountModel
-     * @param theCase the Case record
-     */
-    public AccountModel(Account theAccount) {
-      this.ocvId = theAccount?.OCV_ID__c;
-      this.sourceSystem = theAccount?.Source_System_Name__c;
-      this.sourceSystemId = theAccount?.Source_System_ID__c;
+      this.disputeClosedDate = theCase.ClosedDate;
     }
   }
 

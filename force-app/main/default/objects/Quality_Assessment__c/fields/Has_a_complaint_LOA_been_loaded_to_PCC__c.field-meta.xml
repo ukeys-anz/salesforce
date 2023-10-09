@@ -5,11 +5,7 @@
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Has a complaint LOA been loaded to PCC</description>
     <externalId>false</externalId>
-    <inlineHelpText>&quot;Yes - POA loaded
-
-No - POA not loaded
-
-N/A - No POA&quot;</inlineHelpText>
+    <inlineHelpText>That is, has any ongoing LOA in the complaint been loaded to PCC?</inlineHelpText>
     <label>Has a complaint LOA been loaded to PCC?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

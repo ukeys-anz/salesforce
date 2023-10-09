@@ -6,6 +6,8 @@
  */
 global with sharing class ViewServiceabilityController implements omnistudio.VlocityOpenInterface, Callable {
   private static final String METHODNAME = 'getUMIAssessments';
+  private static final String STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
+  private static final String STATE_CAPTURE = 'STATE_CAPTURE';
   /**
    * @param action String value of local method to invoke
    * @param args arg map that will contain input, output and options map
@@ -56,7 +58,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
       (String) input.get('loanId')
     );
 
-    result.isSubmitted = (String.isNotBlank(loanRec?.Status));
+    result.isSubmitted = isLoanSubmitted(loanRec?.Status);
     if (result.isSubmitted) {
       result.hasError = (String.isBlank(loanRec?.Credit_ID__c) ||
       String.isBlank(loanRec?.SOP_Id__c));
@@ -81,6 +83,12 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
 
     output.put('result', JSON.deserializeUntyped(JSON.serialize(result)));
     return true;
+  }
+
+  private Boolean isLoanSubmitted(string status) {
+    return (String.isNotBlank(status) &&
+    status != STATE_UNSPECIFIED &&
+    status != STATE_CAPTURE);
   }
 
   private class UMIResponse {

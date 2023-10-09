@@ -79,8 +79,4 @@
         <name>CreateCustomizeFilters</name>
         <enabled>true</enabled>
     </userPermissions>
-    <userPermissions>
-        <name>EditPublicFilters</name>
-        <enabled>true</enabled>
-    </userPermissions>
 </PermissionSet>
