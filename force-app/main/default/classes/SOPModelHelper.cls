@@ -65,15 +65,17 @@ public with sharing class SOPModelHelper {
         ocvIdToNameMap.put(acc.ocv_id__c, acc.FirstName);
       }
     }
-    for (SOPLiabilitySources source : sop.liabilitiesSummary.partyLiabilities) {
-      source.ownerName = ocvIdToNameMap.get(
-        partyIdToOcvIdMap.get(source.partyId)
-      );
+    if (sop.liabilitiesSummary.partyLiabilities != null) {
+      for (
+        SOPLiabilitySources source : sop.liabilitiesSummary.partyLiabilities
+      ) {
+        source.ownerName = ocvIdToNameMap.get(
+          partyIdToOcvIdMap.get(source.partyId)
+        );
+      }
     }
   }
-  /*for (SOPModel.Parties party : sop.parties) {
-      party.ownerName = ocvIdToNameMap.get(party.ocvId);
-    }*/
+
   /**
    * @description init method
    * @param sop

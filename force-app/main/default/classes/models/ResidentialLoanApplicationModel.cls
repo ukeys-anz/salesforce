@@ -86,6 +86,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   }
 
   /**
+   * @description return the sources size attribute to display no debt message on flexcard.
+   */
+  public Integer sourceSize {
+    get {
+      return liabilitiesSummary.sources.size();
+    }
+  }
+  /**
    * @description return the liability source size attribute to display finance and savings flexcard.
    */
   public Integer liabilitySourceSize {
