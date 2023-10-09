@@ -1,30 +1,34 @@
 import OmniscriptSelect from "omnistudio/omniscriptSelect";
-import { getPicklistValues } from "lightning/uiObjectInfoApi";
+import { getPicklistValues, getObjectInfo } from "lightning/uiObjectInfoApi";
 import { getElementValue } from "omnistudio/omniscriptInternalUtils";
 import { wire } from "lwc";
-import { getObjectInfo } from "lightning/uiObjectInfoApi";
 
 export default class OmniSelectElementOverride extends OmniscriptSelect {
   mapControllingWithDependentList = {};
   dependentSourceSelect;
-  recordTypeIdFromOS;
-  recordTypeName;
   recordTypeIdFromWiredMethod;
+  isOverridenWithCustomLwc;
 
+  // wired method to extract recordTypeId from lightning uiObjectInfoApi
   @wire(getObjectInfo, { objectApiName: "Interaction" })
   objectInfo({ data }) {
     if (data) {
       const recordTypeIds = data.recordTypeInfos;
-      this.recordTypeName = this.jsonData.RecordTypeName;
       this.recordTypeIdFromWiredMethod = Object.keys(recordTypeIds).find(
-        (rti) => recordTypeIds[rti].name === this.recordTypeName
+        (fetchedRecordTypeId) =>
+          recordTypeIds[fetchedRecordTypeId].name ===
+          this.jsonData.RecordTypeName
       );
-      this.recordTypeIdFromOS = this.recordTypeIdFromWiredMethod;
     }
   }
-
+  // wired method to extract getPicklistValues from lightning uiObjectInfoApi
+  /**
+   * Purpose of this method is to set dependent picklist values based on the controlling picklist
+   * mapControllingValueWithIndex holds the map values of controlling picklists
+   * mapControllingWithDependentList holds the map values of dependent picklists
+   */
   @wire(getPicklistValues, {
-    recordTypeId: "$recordTypeIdFromOS",
+    recordTypeId: "$recordTypeIdFromWiredMethod",
     fieldApiName: "$dependentSourceSelect"
   })
   wiredValues({ data }) {
@@ -43,7 +47,6 @@ export default class OmniSelectElementOverride extends OmniscriptSelect {
         }
       }
       if (!root.values) {
-        console.log(this.mapControllingWithDependentList);
         return;
       }
       for (let pValue of pValues) {
@@ -73,25 +76,26 @@ export default class OmniSelectElementOverride extends OmniscriptSelect {
           }
         }
       }
-      this.getrealTimeOptions();
+      this.generateRealTimeOptions();
     }
   }
-
+  // conditional element overriding in hook
   connectedCallback() {
     super.connectedCallback();
-    if (this._propSetMap.overridewithcustomlwc) {
+    this.isOverridenWithCustomLwc = this._propSetMap.overridewithcustomlwc;
+    if (this.isOverridenWithCustomLwc) {
       this.dependentSourceSelect = this._propSetMap.optionSource.source;
     }
   }
-
+  // conditional element overriding in hook
   combinedWatch() {
     super.combinedWatch();
-    if (this._propSetMap.overridewithcustomlwc) {
-      this.getrealTimeOptions();
+    if (this.isOverridenWithCustomLwc) {
+      this.generateRealTimeOptions();
     }
   }
-
-  getrealTimeOptions() {
+  // to build the dropdown menu data [_realtimeOptions is an array which holds the picklist values]
+  generateRealTimeOptions() {
     let controllingElement = this._propSetMap.controllingField.element;
     let controllingFieldValue = getElementValue(
       controllingElement,
