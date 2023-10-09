@@ -219,8 +219,13 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     for (String cateName : expenseMap.keySet()) {
       SOPExpense exp = expenseMap.get(cateName);
 
-      exp.reason = expenseControlMap.get(exp.justificationCode)
-        .Justification_Description__c;
+      if (expenseControlMap.get(exp.justificationCode) != null) {
+        exp.reason = expenseControlMap.get(exp.justificationCode)
+          .Justification_Description__c;
+      } else {
+        exp.reason = '';
+      }
+
       exp.warningReason = exp.reason;
       if (exp.warningReason == 'Other') {
         exp.warningReason += ' - ' + exp.otherJustificationCode;
