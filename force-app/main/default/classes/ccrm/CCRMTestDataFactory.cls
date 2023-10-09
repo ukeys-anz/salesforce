@@ -259,6 +259,29 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description get OCV Integration User
+   * @name getOCVIntegrationUser
+   * @return OCV Integration User
+   */
+  public static User getOCVIntegrationUser() {
+    if (ocvIntegrationUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE FirstName = 'IntegrationUserOCV'
+        ORDER BY LastModifiedDate DESC
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        ocvIntegrationUser = createOcvIntegrationUser();
+      } else {
+        ocvIntegrationUser = users[0];
+      }
+    }
+    return ocvIntegrationUser;
+  }
+
+  /**
    * @description Create ADOBE Integration User
    * @name createAdobeIntegrationUser
    * @return ADOBE Integration User with API Only & CCRM Base User Permission Set.
