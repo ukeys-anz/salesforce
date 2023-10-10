@@ -1692,7 +1692,7 @@ private class CaseTriggerHandlerTest {
 
     task idrTask = new task(
       whatId = testCase.Id,
-      Subject = IDRConstants.TASK_SUBJECT_DAY5,
+      Subject = IDRConstants.TASK_SUBJECT_DAY1,
       RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
       Priority = 'Standard',
       ActivityDate = system.today()
