@@ -466,24 +466,6 @@
         <recordType>Interaction.Appointment</recordType>
         <type>Flexipage</type>
     </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Complaint_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Case</pageOrSobjectType>
-        <profile>ANZ Standard User</profile>
-        <recordType>Case.Customer_Complaint</recordType>
-        <type>Flexipage</type>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Complaint_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Case</pageOrSobjectType>
-        <profile>ANZ Standard User</profile>
-        <recordType>Case.Non_Customer_Complaint</recordType>
-        <type>Flexipage</type>
-    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>Quality_Assessment__c</tabs>
     <tabs>standard-Case</tabs>
