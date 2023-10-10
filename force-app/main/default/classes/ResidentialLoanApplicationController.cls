@@ -280,9 +280,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    SOPEditExpenseModel expenseModel = createEditExpensesModel(inputMap);
-
     try {
+      SOPEditExpenseModel expenseModel = createEditExpensesModel(inputMap);
+
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
@@ -298,10 +298,20 @@ global with sharing class ResidentialLoanApplicationController implements omnist
 
       return true;
     } catch (Exception e) {
+      /** REVIEWER DISCLOSER: please leave for temporary debugging purpose */
+      System.debug('$$$ editExpense Exception : ' + e.getMessage());
+      System.debug('$$$ editExpense Exception : ' + e.getLineNumber());
+      System.debug('$$$ editExpense Exception : ' + e.getStackTraceString());
+
       return false;
     }
   }
 
+  /**
+   * @description constructs the create income model
+   * @param inputMap map parameters from flexcard
+   * @return SOPCreateIncomeModel
+   */
   private SOPCreateIncomeModel generateCreateIncomeModel(
     Map<String, Object> inputMap
   ) {
@@ -459,6 +469,11 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     return amount;
   }
 
+  /**
+   * @description constructs the expense model
+   * @param inputMap map parameters from flexcard
+   * @return SOPEditExpenseModel
+   */
   private SOPEditExpenseModel createEditExpensesModel(
     Map<String, Object> inputMap
   ) {
@@ -466,23 +481,25 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     expenseModel.parent = (String) inputMap.get('sopId');
 
     List<SOPEditExpenseModel.MonthlyExpense> monthlyExpenses = new List<SOPEditExpenseModel.MonthlyExpense>();
-    for (Integer i = 0; i < 4; i++) {
-      SOPEditExpenseModel.MonthlyExpense monthlyExpense = new SOPEditExpenseModel.MonthlyExpense();
-      monthlyExpense.name = (String) inputMap.get('name' + i);
-      monthlyExpense.uid = (String) inputMap.get('uid' + i);
-      monthlyExpense.categoryId = (String) inputMap.get('categoryId' + i);
-      monthlyExpense.expenseParent = (String) inputMap.get('expenseParent' + i);
-      monthlyExpense.categoryName = (String) inputMap.get('categoryName' + i);
-      monthlyExpense.control = (String) inputMap.get('control' + i);
-      monthlyExpense.review = (String) inputMap.get('review' + i);
-      monthlyExpense.statedMonthlyAverageAmount = stringToMoney(
-        (String) inputMap.get('statedMonthlyAverageAmount' + i)
-      );
-      monthlyExpense.leafNode = (Boolean) inputMap.get('leafNode' + i);
-      monthlyExpense.etag = (String) inputMap.get('etag' + i);
-      monthlyExpense.hemState = (String) inputMap.get('hemState' + i);
-      monthlyExpenses.add(monthlyExpense);
-    }
+
+    SOPEditExpenseModel.MonthlyExpense monthlyExpense = new SOPEditExpenseModel.MonthlyExpense();
+    monthlyExpense.name = (String) inputMap.get('name');
+    monthlyExpense.uid = (String) inputMap.get('uid');
+    monthlyExpense.categoryId = (String) inputMap.get('categoryId');
+    monthlyExpense.expenseParent = (String) inputMap.get('expenseParent');
+    monthlyExpense.categoryName = (String) inputMap.get('categoryName');
+    monthlyExpense.control = (String) inputMap.get('control');
+    monthlyExpense.review = (String) inputMap.get('review');
+    monthlyExpense.statedMonthlyAverageAmount = stringToMoney(
+      (String) inputMap.get('statedMonthlyAverageAmount')
+    );
+    monthlyExpense.leafNode = Boolean.valueOf(
+      (String) inputMap.get('leafNode')
+    );
+    monthlyExpense.etag = (String) inputMap.get('etag');
+    monthlyExpense.hemState = (String) inputMap.get('hemState');
+    monthlyExpenses.add(monthlyExpense);
+
     expenseModel.monthlyExpenses = monthlyExpenses;
     return expenseModel;
   }
