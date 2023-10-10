@@ -1026,7 +1026,8 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
-  &quot;overridewithcustomlwc&quot; : true
+  &quot;overridewithcustomlwc&quot; : true,
+  &quot;objectapiname&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
                 <sequenceNumber>19.0</sequenceNumber>
                 <type>Select</type>
@@ -1438,7 +1439,8 @@
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Referred To&quot;,
   &quot;controlWidth&quot; : 5,
-  &quot;overridewithcustomlwc&quot; : true
+  &quot;overridewithcustomlwc&quot; : true,
+  &quot;objectapiname&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
                 <sequenceNumber>21.0</sequenceNumber>
                 <type>Select</type>
@@ -1488,7 +1490,8 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
-  &quot;overridewithcustomlwc&quot; : true
+  &quot;overridewithcustomlwc&quot; : true,
+  &quot;objectapiname&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
                 <sequenceNumber>22.0</sequenceNumber>
                 <type>Select</type>
@@ -1768,7 +1771,8 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
-  &quot;overridewithcustomlwc&quot; : true
+  &quot;overridewithcustomlwc&quot; : true,
+  &quot;objectapiname&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
                 <sequenceNumber>11.0</sequenceNumber>
                 <type>Select</type>
@@ -2168,7 +2172,8 @@
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;For&quot;,
   &quot;controlWidth&quot; : 5,
-  &quot;overridewithcustomlwc&quot; : true
+  &quot;overridewithcustomlwc&quot; : true,
+  &quot;objectapiname&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
                 <sequenceNumber>3.0</sequenceNumber>
                 <type>Select</type>
@@ -3168,5 +3173,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForMessage_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>50d23d39-4f62-617c-42f6-f146ecffe635</webComponentKey>
+    <webComponentKey>07c0087c-3d40-26b9-117a-cf0757871636</webComponentKey>
 </OmniScript>

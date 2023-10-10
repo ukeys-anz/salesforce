@@ -8,9 +8,10 @@ export default class OmniSelectElementOverride extends OmniscriptSelect {
   dependentSourceSelect;
   recordTypeIdFromWiredMethod;
   isOverridenWithCustomLwc;
+  objectApiNameFromOs;
 
   // wired method to extract recordTypeId from lightning uiObjectInfoApi
-  @wire(getObjectInfo, { objectApiName: "Interaction" })
+  @wire(getObjectInfo, { objectApiName: "$objectApiNameFromOs" })
   objectInfo({ data }) {
     if (data) {
       const recordTypeIds = data.recordTypeInfos;
@@ -83,6 +84,7 @@ export default class OmniSelectElementOverride extends OmniscriptSelect {
   connectedCallback() {
     super.connectedCallback();
     this.isOverridenWithCustomLwc = this._propSetMap.overridewithcustomlwc;
+    this.objectApiNameFromOs = this._propSetMap.objectapiname;
     if (this.isOverridenWithCustomLwc) {
       this.dependentSourceSelect = this._propSetMap.optionSource.source;
     }
