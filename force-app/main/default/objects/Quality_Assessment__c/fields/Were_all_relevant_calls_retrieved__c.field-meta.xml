@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Were_all_relevant_calls_retrieved__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>That is, were all the calls relevant to the complaint retrieved?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>That is, were all the calls relevant to the complaint retrieved?</inlineHelpText>
+    <label>Were all relevant calls retrieved?</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes - all calls retrieved</fullName>
+                <default>false</default>
+                <label>Yes - all calls retrieved</label>
+            </value>
+            <value>
+                <fullName>Yes - but not all calls retrieved</fullName>
+                <default>false</default>
+                <label>Yes - but not all calls retrieved</label>
+            </value>
+            <value>
+                <fullName>No - could not retrieve any calls</fullName>
+                <default>false</default>
+                <label>No - could not retrieve any calls</label>
+            </value>
+            <value>
+                <fullName>No - no calls applicable to the case</fullName>
+                <default>false</default>
+                <label>No - no calls applicable to the case</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

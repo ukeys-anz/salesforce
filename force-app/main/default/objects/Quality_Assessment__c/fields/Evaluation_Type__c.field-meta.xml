@@ -56,6 +56,21 @@
                 <default>false</default>
                 <label>Interaction QI</label>
             </value>
+            <value>
+                <fullName>C &amp; Q Assessment</fullName>
+                <default>false</default>
+                <label>C&amp;Q Assessment</label>
+            </value>
+            <value>
+                <fullName>Call Review Assessment</fullName>
+                <default>false</default>
+                <label>Call Review Assessment</label>
+            </value>
+            <value>
+                <fullName>Letter Review Assessment</fullName>
+                <default>false</default>
+                <label>Letter Review Assessment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

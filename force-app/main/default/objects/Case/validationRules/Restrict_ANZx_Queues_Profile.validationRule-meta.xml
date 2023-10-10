@@ -13,6 +13,7 @@ OR(
 (Owner:Queue.QueueName = &quot;Card Dispute - General Queue&quot;),
 (Owner:Queue.QueueName = &quot;Coach Lead Escalation&quot;),
 (Owner:Queue.QueueName = &quot;Coach Queue&quot;),
+(Owner:Queue.QueueName = &quot;BOH Coach Queue&quot;),
 (Owner:Queue.QueueName = &quot;Compliance Tasks&quot;),
 (Owner:Queue.QueueName = &quot;Digital Fraud Queue&quot;),
 (Owner:Queue.QueueName = &quot;General Case Queue&quot;),

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM1_Q3__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 1 Q3 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Loss_offer_correctly_considered__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>We did not obtain sufficient information to determine if we made an error warranting compensation.</fullName>
+                <default>false</default>
+                <label>We did not obtain sufficient information to determine if we made an error warranting compensation.</label>
+            </value>
+            <value>
+                <fullName>We did not obtain sufficient information to reasonably estimate the customer’s loss.</fullName>
+                <default>false</default>
+                <label>We did not obtain sufficient information to reasonably estimate the customer’s loss.</label>
+            </value>
+            <value>
+                <fullName>We did not apply relevant loss principles and correctly calculate the customer’s financial loss.</fullName>
+                <default>false</default>
+                <label>We did not apply relevant loss principles and correctly calculate the customer’s financial loss.</label>
+            </value>
+            <value>
+                <fullName>We did not correctly distinguish compensation for financial and non-financial loss and a goodwill gesture or commercial payment in our written or verbal final response.</fullName>
+                <default>false</default>
+                <label>We did not correctly distinguish compensation for financial and non-financial loss and a goodwill gesture or commercial payment in our written or verbal final response.</label>
+            </value>
+            <value>
+                <fullName>‘not met’ directed by SME.</fullName>
+                <default>false</default>
+                <label>‘not met’ directed by SME.</label>
+            </value>
+            <value>
+                <fullName>Customer did not request compensation and there was no basis to provide any.</fullName>
+                <default>false</default>
+                <label>Customer did not request compensation and there was no basis to provide any.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not obtain sufficient information to determine if we made an error warranting compensation.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not obtain sufficient information to reasonably estimate the customer’s loss.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not apply relevant loss principles and correctly calculate the customer’s financial loss.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not correctly distinguish compensation for financial and non-financial loss and a goodwill gesture or commercial payment in our written or verbal final response.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>‘not met’ directed by SME.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>Customer did not request compensation and there was no basis to provide any.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

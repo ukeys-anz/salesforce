@@ -446,9 +446,10 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
   public static TransactionHistoryModel parse(String json) {
-    return (TransactionHistoryModel) deserialize(
+    TransactionHistoryModel model = (TransactionHistoryModel) deserialize(
       json,
       TransactionHistoryModel.class
     );
+    return model;
   }
 }

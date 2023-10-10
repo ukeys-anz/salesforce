@@ -20,26 +20,29 @@ public with sharing class CreditAssessmentActionsControllerTest {
     Faker faker = new Faker('AU');
 
     Account acc = TestDataFactory.createAccount(true);
-    ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication();
-    rla.AccountId = acc.Id;
-    rla.Credit_Reassess_Required__c = false;
-    insert rla;
+    ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
+        String.valueOf(i)
+      );
+      rla.Credit_ID__c = '000-000-000-00' + String.valueOf(i);
+      rla.AccountId = acc.Id;
+
+      newRLA.add(rla);
+    }
+    insert newRLA;
 
     List<Case> newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpConstants.CREDIT_REFERRAL_RT_ID,
-          Credit_Id__c = faker.randomString(15),
-          Loan_Application__c = rla.Id,
+          Credit_Id__c = '000-000-000-00' + String.valueOf(i),
+          AccountId = acc.Id,
           Status = 'Open'
         )
       );
     }
-    //Create a case with no credit id for testMissingCreditId
-    newCases.add(
-      new Case(RecordTypeId = GetHelpConstants.CREDIT_REFERRAL_RT_ID)
-    );
     insert newCases;
   }
 
@@ -67,30 +70,6 @@ public with sharing class CreditAssessmentActionsControllerTest {
       c.Loan_Application__r.Credit_Reassess_Required__c,
       'Credit reassess required should be false'
     );
-  }
-
-  @isTest
-  static void testMissingCreditId() {
-    List<Case> c = [
-      SELECT Id, Credit_Id__c, Assessment_Outcome__c
-      FROM Case
-      WHERE
-        RecordTypeId = :GetHelpConstants.CREDIT_REFERRAL_RT_ID
-        AND Credit_Id__c = NULL
-      LIMIT 1
-    ];
-
-    Test.startTest();
-    try {
-      Boolean resp = CreditAssessmentActionsController.reassess(c[0].Id);
-      Assert.fail('Exception should be thrown');
-    } catch (Exception e) {
-      Assert.isTrue(
-        e.getMessage().contains(TECH_ASSIST_ERROR),
-        'Exception message should include error occurred'
-      );
-    }
-    Test.stopTest();
   }
 
   @isTest

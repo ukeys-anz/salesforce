@@ -12,14 +12,30 @@ public with sharing class CreditAssessmentControllerTest {
   @testSetup
   public static void setup() {
     insert new Referral_Reason__c(Reason_Code__c = 'RE202');
+    ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
+    Account rlaCustomer = TestDataFactory.createAccount('CustomerRLA', true);
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
+        String.valueOf(i)
+      );
+      rla.Credit_ID__c = '000-000-000-00' + String.valueOf(i);
+      rla.AccountId = rlaCustomer.Id;
+
+      newRLA.add(rla);
+    }
+    insert newRLA;
   }
 
   @isTest
   static void testGetCreditAssessments() {
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+
     Case c = new Case(
       RecordTypeID = GetHelpConstants.CREDIT_REFERRAL_RT_ID,
       Subject = 'Test Credit Referral',
-      Status = 'Open'
+      Status = 'Open',
+      AccountId = acc.Id,
+      Credit_Id__c = '000-000-000-001'
     );
     insert c;
     Map<String, Object> objectMap = new Map<String, Object>();
@@ -63,7 +79,7 @@ public with sharing class CreditAssessmentControllerTest {
       '1'
     );
     r.accountId = customer.Id;
-    r.Status = 'STATUS_DECLINED';
+    r.Status = 'STATE_DECLINED';
     insert r;
     system.debug(r.id);
     Map<String, Object> objectMap = new Map<String, Object>();

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Team_s_Evaluations</fullName>
+    <booleanFilter>1 AND ((2 AND 3) OR (4 AND 5))</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Evaluation_Type__c</columns>
+    <columns>Related_Case__c</columns>
+    <columns>Customer__c</columns>
+    <columns>Case_Manager__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>Case_Manager_Score__c</columns>
+    <columns>Assessment_Completion_Date__c</columns>
+    <columns>Status__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <filters>
+        <field>isTeamManagerLoggedInUser__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Complete,Pending</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Quality_Assessment__c.Call_Letter_Review_Assessment</value>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Complete</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Quality_Assessment__c.C_Q_Assessment</value>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>My Team&apos;s Evaluations</label>
+    <sharedTo>
+        <role>Customer_Resolution_Leadership</role>
+        <role>Customer_Resolution_Team_Leaders</role>
+    </sharedTo>
+</ListView>
