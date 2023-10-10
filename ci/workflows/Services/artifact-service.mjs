@@ -1,5 +1,11 @@
 import { execSync } from "child_process";
+import { renameFile } from "./helper.mjs";
 import { rmSync, mkdirSync, existsSync } from "fs";
+
+const renameForceignore = () => {
+  renameFile(".forceignore", "ci.forceignore");
+  renameFile("deploy.forceignore", ".forceignore");
+};
 
 const deleteArtifactFolder = (folderName) => {
   return rmSync(folderName, { recursive: true, force: true }, (err) => {
@@ -21,9 +27,10 @@ const createArtifactFolder = (folderName) => {
 };
 
 const buildArtifact = (folderName, baseRef, ref) => {
+  renameForceignore();
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to origin/${baseRef} --from origin/${ref} --output ${folderName}/ --generate-delta -i .forceignore`
+    `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta -i .forceignore`
   ).toString("utf8");
 };
 

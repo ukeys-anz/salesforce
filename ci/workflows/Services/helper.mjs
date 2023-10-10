@@ -1,5 +1,14 @@
 import { execSync } from "child_process";
-import { readdirSync, readFileSync, statSync, existsSync } from "fs";
+import { readdirSync, readFileSync, statSync, existsSync, rename } from "fs";
+
+const renameFile = (oldFilepath, newFilepath) => {
+  rename(oldFilepath, newFilepath, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`${oldFilepath} renamed to ${newFilepath}.`);
+  });
+};
 
 const runSfCommand = (command) => execSync(command, { encoding: "utf-8" });
 
@@ -112,5 +121,6 @@ export {
   findJobId,
   salesforceDiffExist,
   findAllSpecifiedTests,
-  currentDate
+  currentDate,
+  renameFile
 };
