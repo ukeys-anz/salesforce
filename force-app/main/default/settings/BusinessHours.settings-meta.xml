@@ -11,10 +11,10 @@
         <thursdayEndTime>17:00:00.000Z</thursdayEndTime>
         <thursdayStartTime>09:00:00.000Z</thursdayStartTime>
         <timeZoneId>Australia/Sydney</timeZoneId>
-        <tuesdayEndTime>17:00:00.000Z</tuesdayEndTime>
-        <tuesdayStartTime>09:00:00.000Z</tuesdayStartTime>
-        <wednesdayEndTime>17:00:00.000Z</wednesdayEndTime>
-        <wednesdayStartTime>09:00:00.000Z</wednesdayStartTime>
+        <tuesdayEndTime>00:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>00:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <businessHours>
         <name>Case Business Hours</name>

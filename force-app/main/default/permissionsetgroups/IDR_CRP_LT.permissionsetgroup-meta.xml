@@ -5,6 +5,8 @@
     <label>IDR CRP LT</label>
     <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
+    <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_CRP_Leadership</permissionSets>
