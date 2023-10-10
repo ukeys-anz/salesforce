@@ -8,6 +8,8 @@ on:
   pull_request:
     branches:
       - develop
+      - master
+      - epic/*
 
 jobs:
   validation:
@@ -75,3 +77,83 @@ jobs:
         run: |
           echo WHICH_JOB="clean" >> $GITHUB_ENV
           node ci/workflows/Orchestrations/validation.mjs
+
+---------------------------------------------------
+
+** Deployment workflow should be like below
+
+name: Deployment
+
+on:
+  push:
+    branches:
+      - develop
+      - epic/*
+
+jobs:
+  validation:
+    runs-on: [self-hosted, salesforce-prod]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: cleaning
+        run: |
+          mv ci.npmrc .npmrc
+          # npm uninstall sfdx-cli -f
+          rm -rf node_modules
+      - name: Install npm packages
+        run: |
+          # git checkout origin/ar-98054-1
+          # mv ci.npmrc .npmrc
+          # rm -rf node_modules
+          npm ci -f
+      - name: Install SGD
+        run: |
+          echo "${{ github.base_ref }} ${{ github.head_ref }}"
+          echo y | npx sfdx plugins:install https://artifactory.gcp.anz:443/artifactory/api/npm/npmjs-org/sfdx-git-delta/-/sfdx-git-delta-5.25.2.tgz
+
+      - name: ENV vars
+        run: |
+          echo BASE_REF="$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+          echo RUN_ID="${GITHUB_RUN_ID}" >> $GITHUB_ENV
+
+          lastTag="$( git describe --abbrev=0 --tags --match develop* )"
+          #OR: "$( git tag --sort=-creatordate | grep ${{ env.BASE_REF }} | head -1 )"
+          
+          echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
+
+      - name: Find Secret Names
+        run: |
+          sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
+          echo "$sfdxURL"
+          echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
+
+      - name: Find GSM credential
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            sfdxurl:projects/448406129405/secrets/${{ env.SECRET_NAME }}/versions/latest
+
+      - name: Add secrets to ENV
+        run: |
+          echo SFDX_URL="${{ steps.secrets.outputs.sfdxurl }}" >> $GITHUB_ENV
+
+      - name: run Deployment
+        run: |
+          echo WHICH_JOB="deployment" >> $GITHUB_ENV
+          node ci/workflows/Orchestrations/deployment.mjs
+
+      - name: code coverage and cleaning
+        run: |
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+          node ci/workflows/Orchestrations/deployment.mjs

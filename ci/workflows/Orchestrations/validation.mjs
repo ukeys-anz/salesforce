@@ -12,7 +12,7 @@ import {
   validateWithSpecifiedTests,
   validateWithAllTests,
   cancel,
-  deployProgress,
+  validateProgress,
   deployReport,
   findAndUploadJobId,
   codeCoverage
@@ -72,7 +72,7 @@ const validate = () => {
   const validationFunc = validationFunction();
   const validation = validationFunc(BRANCH_NAME, CLASS_FOLDER_PATH);
   findAndUploadJobId(validation, BRANCH_NAME);
-  deployProgress(JOB_ID_PATH);
+  validateProgress(JOB_ID_PATH);
 };
 
 const clean = () => {
