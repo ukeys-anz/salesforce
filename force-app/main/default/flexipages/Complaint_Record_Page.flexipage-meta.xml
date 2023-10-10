@@ -242,28 +242,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>idField</name>
-                    <value>Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>limit</name>
-                    <value>15</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>tableWidth</name>
-                    <value>100%</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Duplicate Check</value>
-                </componentInstanceProperties>
-                <componentName>dupcheck:dc3Live</componentName>
-                <identifier>dupcheck_dc3Live</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
                     <value>ADVGRID</value>
                 </componentInstanceProperties>
