@@ -1,0 +1,29 @@
+<template>
+  <lightning-quick-action-panel header={messageHeader}>
+    <div lwc:if={isLoading}>
+      <lightning-spinner alternative-text="Loading..." variant="brand">
+      </lightning-spinner>
+    </div>
+    <br />
+    <p class="slds-text-align_center">{messageBody}</p>
+    <br />
+    <div slot="footer">
+      <lightning-button
+        variant="neutral"
+        label="Cancel"
+        data-id="cancel-button"
+        onclick={handleClose}
+        disabled={disableButtons}
+      ></lightning-button>
+      <lightning-button
+        class="slds-var-m-left_x-small"
+        variant="brand"
+        label="Confirm"
+        data-id="confirm-button"
+        onclick={handleConfirmSend}
+        disabled={disableButtons}
+      >
+      </lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>

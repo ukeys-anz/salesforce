@@ -1,6 +1,6 @@
 # .forceignore v2
 
-*.md
+**/README.md
 package.xml
 
 # LWC configuration files

@@ -7,6 +7,32 @@
 public with sharing class ChatterFeedCommentTriggerHandlerTest {
   @testSetup
   static void setup() {
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    // Create coach user
+    System.runAs(TestDataFactory.thisUser) {
+      User coachUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'TestCoachUser',
+          'ProfileId' => stdUserProfile.Id,
+          'UserRoleId' => coachRole.Id
+        }
+      );
+      insert coachUser;
+      //Assign Permission set group as coach
+      PermissionSetGroup psgCoach = [
+        SELECT Id
+        FROM PermissionSetGroup
+        WHERE DeveloperName = 'Coach'
+        LIMIT 1
+      ];
+      Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = coachUser.Id,
+        PermissionSetGroupId = psgCoach.Id
+      );
+      insert psa;
+    }
     Account accnt = new Account();
     accnt.Name = 'TestAccount';
     accnt.OCV_ID__c = '1';
@@ -75,5 +101,88 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
       exceptionThrown,
       'You do not have permission to delete this comment'
     );
+  }
+
+  @isTest
+  static void testInteractionFeedCommentInsertWithoutMasking() {
+    String valueToPost = '1234567344';
+    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
+    FeedItem post = new FeedItem();
+    FeedComment comment = new FeedComment();
+
+    System.runAs(coachUser) {
+      Test.startTest();
+      post = createInteractionAndFeedItem();
+      comment.FeedItemId = post.Id;
+      comment.commentBody = valueToPost;
+      insert comment;
+      //Creating Chatter Post for the Interaction record
+      Test.stopTest();
+    }
+
+    FeedComment insertedComment = [
+      SELECT Id, commentBody
+      FROM FeedComment
+      WHERE FeedItemId = :post.Id
+    ];
+    // THEN the chatter should  be created withot the masking of the digit
+    System.assertEquals(
+      valueToPost,
+      insertedComment.commentBody,
+      'There will be no masking done for the feed comment posted'
+    );
+  }
+
+  @isTest
+  static void testInteractionFeedCommentInsertWithMasking() {
+    String valueToPost = '1234567344738686386868';
+    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
+    FeedItem post = new FeedItem();
+    FeedComment comment = new FeedComment();
+
+    System.runAs(coachUser) {
+      Test.startTest();
+      post = createInteractionAndFeedItem();
+      comment.FeedItemId = post.Id;
+      comment.commentBody = valueToPost;
+      insert comment;
+      //Creating Chatter Post for the Interaction record
+      Test.stopTest();
+    }
+    FeedComment insertedComment = [
+      SELECT Id, commentBody
+      FROM FeedComment
+      WHERE FeedItemId = :post.Id
+    ];
+    // THEN the chatter should  be created withot the masking of the digit
+    System.assertNotEquals(
+      valueToPost,
+      insertedComment.commentBody,
+      'There will be masking done for the feed comment posted'
+    );
+  }
+  /**
+   * @description helper method to create interaction record
+   * @return Return FeedItemRecord
+   */
+  static FeedItem createInteractionAndFeedItem() {
+    Interaction testInteraction = new Interaction();
+
+    testInteraction = TestDataFactory.createInteraction(
+      GetHelpConstants.INTERACTION_STORE_RT_ID,
+      InteractionConstants.NONCUSTOMER,
+      'New Interaction',
+      System.now(),
+      false
+    );
+    testInteraction.InteractionType = InteractionConstants.STORE;
+    insert testInteraction;
+
+    FeedItem post = new FeedItem();
+    post.ParentId = testInteraction.Id;
+    post.Body = 'Test Post';
+    insert post;
+
+    return post;
   }
 }

@@ -502,7 +502,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
+            <sequenceNumber>6.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -547,7 +547,7 @@
   &quot;label&quot; : &quot;Cancel&quot;,
   &quot;controlWidth&quot; : 2
 }</propertySetConfig>
-            <sequenceNumber>10.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
             <type>Navigate Action</type>
         </childElements>
         <childElements>
@@ -577,8 +577,8 @@
   &quot;message&quot; : {
     &quot;buttonName&quot; : &quot;cancelForNew&quot;
   },
-  &quot;targetType&quot; : &quot;Navigation Item&quot;,
-  &quot;objectAction&quot; : &quot;home&quot;,
+  &quot;targetType&quot; : &quot;Object&quot;,
+  &quot;objectAction&quot; : &quot;list&quot;,
   &quot;recordAction&quot; : &quot;view&quot;,
   &quot;loginAction&quot; : &quot;login&quot;,
   &quot;targetFilter&quot; : &quot;Recent&quot;,
@@ -591,9 +591,9 @@
   &quot;targetLWCLayout&quot; : &quot;lightning&quot;,
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;targetName&quot; : &quot;Interaction_List_View&quot;
+  &quot;targetName&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
-            <sequenceNumber>11.0</sequenceNumber>
+            <sequenceNumber>10.0</sequenceNumber>
             <type>Navigate Action</type>
         </childElements>
         <childElements>
@@ -976,7 +976,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-            <sequenceNumber>12.0</sequenceNumber>
+            <sequenceNumber>11.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
@@ -2200,7 +2200,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
+            <sequenceNumber>7.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2219,288 +2219,6 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>relatedDetailsBlock</name>
-            <childElements>
-                <name>caseID</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
-  &quot;label&quot; : &quot;Case ID&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;dataSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;mapItems&quot; : {
-      &quot;phase1MapItems&quot; : [ {
-        &quot;InterfaceObjectName__c&quot; : &quot;Case&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;AccountId&quot;,
-        &quot;FilterOperator__c&quot; : &quot;=&quot;,
-        &quot;FilterValue__c&quot; : &quot;AccountIdFromUI&quot;,
-        &quot;InterfaceObjectLookupOrder__c&quot; : 1,
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;CasesFromLookup&quot;
-      } ],
-      &quot;phase2MapItems&quot; : [ {
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;name&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;CasesFromLookup:Id&quot;,
-        &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
-        &quot;DomainObjectCreationOrder__c&quot; : 1
-      }, {
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;value&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;CasesFromLookup:CaseNumber&quot;,
-        &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
-        &quot;DomainObjectCreationOrder__c&quot; : 1
-      } ],
-      &quot;inputParameters&quot; : [ {
-        &quot;element&quot; : &quot;account-Block:value&quot;,
-        &quot;inputParam&quot; : &quot;AccountIdFromUI&quot;
-      } ]
-    }
-  },
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;clearValue&quot; : true,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
-}</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
-                <type>Lookup</type>
-            </childElements>
-            <childElements>
-                <name>coachingSummary</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
-  &quot;label&quot; : &quot;Coaching Summary&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;Click on the link to edit or view the coaching summary including outcomes and actions.&quot;,
-  &quot;helpTextPos&quot; : &quot;bottom-right&quot;,
-  &quot;dataSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;mapItems&quot; : {
-      &quot;phase1MapItems&quot; : [ {
-        &quot;InterfaceObjectName__c&quot; : &quot;Coaching_Summary__c&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;Account__c&quot;,
-        &quot;FilterOperator__c&quot; : &quot;=&quot;,
-        &quot;FilterValue__c&quot; : &quot;AccountIdFromUI&quot;,
-        &quot;InterfaceObjectLookupOrder__c&quot; : 1,
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;CoachingSummariesFromLookup&quot;
-      } ],
-      &quot;phase2MapItems&quot; : [ {
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;name&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;CoachingSummariesFromLookup:Id&quot;,
-        &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
-        &quot;DomainObjectCreationOrder__c&quot; : 1
-      }, {
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;value&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;CoachingSummariesFromLookup:Name&quot;,
-        &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
-        &quot;DomainObjectCreationOrder__c&quot; : 1
-      } ],
-      &quot;inputParameters&quot; : [ {
-        &quot;element&quot; : &quot;account-Block:value&quot;,
-        &quot;inputParam&quot; : &quot;AccountIdFromUI&quot;
-      } ]
-    }
-  },
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;clearValue&quot; : true,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
-}</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
-                <type>Lookup</type>
-            </childElements>
-            <childElements>
-                <name>LineBreak10</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 10,
-  &quot;label&quot; : &quot;LineBreak9&quot;
-}</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
-                <type>Line Break</type>
-            </childElements>
-            <childElements>
-                <name>LineBreak9</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak9&quot;,
-  &quot;padding&quot; : 10,
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
-                <type>Line Break</type>
-            </childElements>
-            <childElements>
-                <name>loanApplication</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;errorMessage&quot; : {
-    &quot;default&quot; : null,
-    &quot;custom&quot; : [ ]
-  },
-  &quot;clearValue&quot; : true,
-  &quot;disOnTplt&quot; : false,
-  &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;dataSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;mapItems&quot; : {
-      &quot;phase1MapItems&quot; : [ {
-        &quot;InterfaceObjectName__c&quot; : &quot;ResidentialLoanApplication&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;AccountId&quot;,
-        &quot;FilterOperator__c&quot; : &quot;=&quot;,
-        &quot;FilterValue__c&quot; : &quot;AccountIdFromUI&quot;,
-        &quot;InterfaceObjectLookupOrder__c&quot; : 1,
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;LoanApplicationsFromLookup&quot;
-      } ],
-      &quot;phase2MapItems&quot; : [ {
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;name&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;LoanApplicationsFromLookup:Id&quot;,
-        &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
-        &quot;DomainObjectCreationOrder__c&quot; : 1
-      }, {
-        &quot;DomainObjectFieldAPIName__c&quot; : &quot;value&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;LoanApplicationsFromLookup:Name&quot;,
-        &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
-        &quot;DomainObjectCreationOrder__c&quot; : 1
-      } ],
-      &quot;inputParameters&quot; : [ {
-        &quot;element&quot; : &quot;account-Block:value&quot;,
-        &quot;inputParam&quot; : &quot;AccountIdFromUI&quot;
-      } ]
-    }
-  },
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Loan Application&quot;,
-  &quot;controlWidth&quot; : 5
-}</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
-                <type>Lookup</type>
-            </childElements>
-            <childElements>
-                <name>TextBlock13</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/p&gt;&quot;,
-  &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
-                <type>Text Block</type>
-            </childElements>
-            <childElements>
-                <name>TextBlock14</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;sanitize&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;show&quot; : null,
-  &quot;text&quot; : &quot;&lt;p&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/p&gt;&quot;,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;controlWidth&quot; : null
-}</propertySetConfig>
-                <sequenceNumber>6.0</sequenceNumber>
-                <type>Text Block</type>
-            </childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Related Details&quot;,
-  &quot;collapse&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>6.0</sequenceNumber>
-            <type>Block</type>
-        </childElements>
-        <childElements>
             <name>TextBlock2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2516,7 +2234,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <childElements>
@@ -3445,5 +3163,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForMessage_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>c530ba2e-2fb2-cebb-f671-d350f65d9333</webComponentKey>
+    <webComponentKey>ee047eda-6b69-3a08-7e38-ba88063af68e</webComponentKey>
 </OmniScript>

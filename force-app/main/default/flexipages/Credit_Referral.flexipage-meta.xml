@@ -213,8 +213,12 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>cfCreditAssessmentContainer</componentName>
-                <identifier>c_cfCreditAssessmentContainer</identifier>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>CreditAssessmentContainer</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

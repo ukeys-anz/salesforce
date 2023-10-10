@@ -213,3 +213,8 @@ img {
   position: relative;
   left: 12%;
 }
+
+.short-desc {
+  word-break: break-all;
+  padding-right: 1rem;
+}

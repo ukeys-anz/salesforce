@@ -28,6 +28,10 @@ public with sharing class PlatformEventUtils {
     for (Integer i = 0; i < results.size(); i++) {
       if (results[i].isSuccess()) {
         publishedEvents.add(events[i]); // Add the successfully published platform event to published events list
+      } else {
+        Logger.error(
+          'Event failed to be published for record: ' + results[i].Id
+        );
       }
     }
     return publishedEvents; // Return the platform events that were successfully published

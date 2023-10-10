@@ -4,12 +4,16 @@
     <active>true</active>
     <description>This VR is to prevent any user besides business admin and quality and capability lead role from editing a completed quality evaluation.</description>
     <errorConditionFormula>AND(
-$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-ISPICKVAL(PRIORVALUE(Status__c),&quot;Complete&quot;),
-NOT(OR(
-$UserRole.Name &lt;&gt; &quot;Business_Admin&quot;,
-$UserRole.Name &lt;&gt; &quot;Quality_Capability_Lead&quot;
-))
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  OR(
+    RecordType.DeveloperName = &apos;General&apos;,
+    RecordType.DeveloperName = &apos;Get_Help&apos;,
+    RecordType.DeveloperName = &apos;Join&apos;),
+  ISPICKVAL(PRIORVALUE(Status__c),&quot;Complete&quot;),
+  NOT(OR(
+    $UserRole.Name &lt;&gt; &quot;Business_Admin&quot;,
+    $UserRole.Name &lt;&gt; &quot;Quality_Capability_Lead&quot;
+  ))
 )</errorConditionFormula>
     <errorMessage>You cannot edit this Quality Evaluation.</errorMessage>
 </ValidationRule>

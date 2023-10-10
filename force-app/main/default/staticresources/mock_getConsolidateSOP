@@ -163,7 +163,7 @@
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
           "principalInterestRemainingTerm": 0,
           "interestOnlyRemainingTerm": 0,
-          "liabilityDuePaidInFull": false,
+          "paidInFull": false,
           "redrawAmount": {
             "currencyCode": "AUD",
             "units": "0",
@@ -231,7 +231,7 @@
           "repaymentFrequency": "FREQUENCY_MONTHLY",
           "principalInterestRemainingTerm": 36,
           "interestOnlyRemainingTerm": 0,
-          "liabilityDuePaidInFull": false,
+          "paidInFull": false,
           "redrawAmount": {
             "currencyCode": "AUD",
             "units": "5000",
@@ -299,7 +299,7 @@
           "repaymentFrequency": "FREQUENCY_MONTHLY",
           "principalInterestRemainingTerm": 30,
           "interestOnlyRemainingTerm": 2,
-          "liabilityDuePaidInFull": false,
+          "paidInFull": false,
           "redrawAmount": {
             "currencyCode": "AUD",
             "units": "15000",
