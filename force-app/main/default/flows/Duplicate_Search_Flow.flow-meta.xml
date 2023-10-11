@@ -23,7 +23,7 @@
         <locationY>242</locationY>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
-    <apiVersion>59.0</apiVersion>
+    <apiVersion>58.0</apiVersion>
     <assignments>
         <name>Assign_DC_Values</name>
         <assignmentItems>
