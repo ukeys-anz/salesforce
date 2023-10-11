@@ -88,23 +88,17 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
         products = products.filter((item) => item.selected === true);
 
         //Here we add error to omniscript parent JSON if any of the three fields is having any error
-        if (
-          (reasonForVisits.length === 0 || reasonForVisits.length > 5) &&
-          recordTypeName === "In Person"
-        ) {
+        if (this.showError(reasonForVisits, recordTypeName)) {
           this.errorFromValidation.reasonforvisiterror = true;
           this.boolShowError = true;
         }
         this.errorFromValidation.topicerror = false;
-        if (
-          (actualTopics.length === 0 || actualTopics.length > 5) &&
-          recordTypeName !== "Message"
-        ) {
+        if (this.showError(actualTopics, recordTypeName)) {
           this.errorFromValidation.topicerror = true;
           this.boolShowError = true;
         }
         this.errorFromValidation.producterror = false;
-        if (products.length === 0 || products.length > 5) {
+        if (this.showError(products, recordTypeName)) {
           this.errorFromValidation.producterror = true;
           this.boolShowError = true;
         }
@@ -120,5 +114,18 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
         this.boolWireCall = true;
       }
     }
+  }
+
+  /**
+   * This method checks if the input array length is 0 or more than 5 for different record types
+   * @param inputArrayObject Incoming array from OmniScript Typeahead components
+   * @param recordTypeName Incoming record type name from OmniScript
+   * @returns Boolean
+   */
+  showError(inputArrayObject, recordTypeName) {
+    if (recordTypeName === "In Person") {
+      return inputArrayObject.length === 0 || inputArrayObject.length > 5;
+    }
+    return inputArrayObject.length > 5;
   }
 }

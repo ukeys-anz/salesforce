@@ -1,7 +1,9 @@
 /**
  * @description This class is to provide generic setups configs for unit tests.
  * @group Utils
+ * Note ExcessivePublicCount Surpressed : The count of the public count here is 25. Since this is a TestDataFactory class,we need to add generic data creation logic so suppressing this wrarning in order to create the pr.
  */
+@SuppressWarnings('PMD.ExcessivePublicCount')
 @isTest
 public without sharing class TestDataFactory {
   public static User thisUser = [
@@ -462,5 +464,37 @@ public without sharing class TestDataFactory {
    */
   public static ResidentialLoanApplication createTestResidentialLoanApplication() {
     return createTestResidentialLoanApplication('0');
+  }
+
+  /**
+   * @description Create Interaction Record
+   * @param recordTypeId recordTypeId of the interaction
+   * @param interactionPurpose recordTypeId of the interaction
+   * @param customerName recordTypeId of the interaction
+   * @param startTime recordTypeId of the interaction
+   * @param doInsert Insert record or just initialise
+   * @return Interaction
+   */
+  public static Interaction createInteraction(
+    Id recordTypeId,
+    String interactionPurpose,
+    String customerName,
+    Datetime startTime,
+    Boolean doInsert
+  ) {
+    Faker faker = new Faker('AU');
+    Interaction newInteraction = new Interaction();
+    newInteraction.RecordTypeId = recordTypeId;
+    newInteraction.Name = String.isBlank(customerName)
+      ? faker.randomString(10)
+      : customerName;
+    newInteraction.StartTime = startTime == null ? System.now() : startTime;
+    newInteraction.Interaction_Purpose__c = interactionPurpose;
+
+    if (doInsert) {
+      insert newInteraction;
+    }
+
+    return newInteraction;
   }
 }

@@ -2876,6 +2876,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Target_SLA_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Type</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -8090,6 +8095,10 @@
     <layoutAssignments>
         <layout>Interaction-Appointment Layout</layout>
         <recordType>Interaction.Appointment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Message Interaction Layout</layout>
+        <recordType>Interaction.Message</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>

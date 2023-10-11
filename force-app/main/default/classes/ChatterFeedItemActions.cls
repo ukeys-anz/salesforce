@@ -17,23 +17,56 @@ public with sharing class ChatterFeedItemActions {
    */
   public static void maskDataInChatterFeed(List<FeedItem> records) {
     List<Id> parentIdList = new List<Id>();
+
+    //creating this list for storing interaction ids for the parent.
+    List<Id> interactionaIdList = new List<Id>();
+
+    Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
+    Map<Id, Case> relatedCaseMap = new Map<Id, Case>();
+    Map<Id, Account> relatedAccMap = new Map<Id, Account>();
+
     for (FeedItem record : records) {
-      parentIdList.add(record.parentId);
+      if (record.parentId != null) {
+        if (record.parentId.getSObjectType() == Interaction.sObjectType) {
+          interactionaIdList.add(record.parentId);
+        } else {
+          parentIdList.add(record.parentId);
+        }
+      }
     }
-    Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
-      [
-        SELECT Id, CaseNumber, RecordTypeId, Origin
-        FROM Case
-        WHERE Id IN :parentIdList
-      ]
-    );
-    Map<Id, Account> relatedAccMap = new Map<Id, Account>(
-      [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
-    );
+
+    // Firing SOQL query only when parentIdList is notEmpty(), but not changing this code much as this is existing logic.
+    if (!parentIdList.isEmpty()) {
+      relatedCaseMap = new Map<Id, Case>(
+        [
+          SELECT Id, CaseNumber, RecordTypeId, Origin
+          FROM Case
+          WHERE Id IN :parentIdList
+        ]
+      );
+
+      relatedAccMap = new Map<Id, Account>(
+        [
+          SELECT Id, Name, ANZx_Customer__c
+          FROM Account
+          WHERE Id IN :parentIdList
+        ]
+      );
+    }
+
+    //Filtering Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call Interaction recordtypeids.
+    if (!interactionaIdList.isEmpty()) {
+      relatedInteractionMap = filteredInteractionMap(interactionaIdList);
+    }
 
     for (FeedItem record : records) {
       Case relatedCase = relatedCaseMap.get(record.parentId);
       Account relatedAcc = relatedAccMap.get(record.parentId);
+
+      //Fetch Interaction Record for the feed comment
+      Interaction relatedInteraction = relatedInteractionMap.get(
+        record.parentId
+      );
 
       if (
         (relatedCase != null &&
@@ -61,6 +94,9 @@ public with sharing class ChatterFeedItemActions {
             );
           }
         }
+      } else if (relatedInteraction != null) {
+        //Added this to mask the number if the feed comment is greater than 15 for Interaction Record same as we are doing for Account and Case.
+        record.Body = TextUtils.maskDataAnzx(record.Body);
       } else {
         record.Body = TextUtils.maskData(record.Body);
       }
@@ -154,5 +190,27 @@ public with sharing class ChatterFeedItemActions {
         fi.addError(REMOVE_URL + ': ' + returnString);
       }
     }
+  }
+
+  /**
+   * @description this method will filter the Interaction based on the parent id list and the recordtype ids set
+   * @param interactionaIdList parent ids of Interaction for feed item/feed comment
+   * @return relatedInteractionMap map of Interaction with Ids
+   */
+  public static Map<Id, Interaction> filteredInteractionMap(
+    List<Id> interactionaIdList
+  ) {
+    Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
+    relatedInteractionMap = new Map<Id, Interaction>(
+      [
+        SELECT Id, RecordTypeId
+        FROM Interaction
+        WHERE
+          Id IN :interactionaIdList
+          AND RecordTypeId IN :GetHelpConstants.STORE_CALL_MSG_INTERACTION_RECORTYPEIDS_SET
+      ]
+    );
+
+    return relatedInteractionMap;
   }
 }

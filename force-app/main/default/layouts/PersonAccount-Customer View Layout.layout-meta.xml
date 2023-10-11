@@ -302,20 +302,6 @@
         <fields>Application_Status__c</fields>
         <relatedList>LoanApplicant.Account__c</relatedList>
     </relatedLists>
-    <relatedLists>
-        <fields>TelephoneNumber</fields>
-        <fields>UsageType</fields>
-        <fields>Verification_Date__c</fields>
-        <fields>Verification_Status__c</fields>
-        <relatedList>ContactPointPhones</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>EmailAddress</fields>
-        <fields>UsageType</fields>
-        <fields>Verification_Date__c</fields>
-        <fields>Verification_Status__c</fields>
-        <relatedList>ContactPointEmails</relatedList>
-    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>

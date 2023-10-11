@@ -17,6 +17,7 @@
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>Case_Read_Write_Fraud_Agent</permissionSets>
     <permissionSets>Case_Read_Write_Non_Customer_Complaints</permissionSets>
+    <permissionSets>Case_Send_Communication</permissionSets>
     <permissionSets>CFaaS_File_Read_Only</permissionSets>
     <permissionSets>CFaaS_View_Files</permissionSets>
     <permissionSets>Chat_Read_Only</permissionSets>
@@ -50,6 +51,7 @@
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Release_Read_Only</permissionSets>
     <permissionSets>Run_reports_and_dashboards</permissionSets>
+    <permissionSets>Store_Interaction_Read_Only</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
     <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>

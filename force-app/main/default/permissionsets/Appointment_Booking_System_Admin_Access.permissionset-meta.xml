@@ -280,6 +280,10 @@
         <visibility>Available</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Appointments</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Coaching_Summary__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
