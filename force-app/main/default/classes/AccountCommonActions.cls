@@ -520,6 +520,8 @@ public with sharing class AccountCommonActions {
   public static void populateFieldsValue(List<Account> records) {
     for (Account record : records) {
       record.BankruptCheckBox__c = record.Bankrupt_Date__c != null;
+      record.Was_ANZx_Customer__c =
+        record.ANZx_Customer__c || record.Was_ANZx_Customer__c;
     }
   }
 }
