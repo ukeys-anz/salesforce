@@ -1,5 +1,14 @@
 import { execSync } from "child_process";
-import { readdirSync, readFileSync, statSync, existsSync } from "fs";
+import { readdirSync, readFileSync, statSync, existsSync, rename } from "fs";
+
+const renameFile = (oldFilepath, newFilepath) => {
+  rename(oldFilepath, newFilepath, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`${oldFilepath} renamed to ${newFilepath}.`);
+  });
+};
 
 const runSfCommand = (command) => execSync(command, { encoding: "utf-8" });
 
@@ -99,4 +108,19 @@ const findAllSpecifiedTests = (
   return [...new Set([...allSpecifiedTestsArray])];
 };
 
-export { runSfCommand, findJobId, salesforceDiffExist, findAllSpecifiedTests };
+const currentDate = () => {
+  const dateTime = new Date();
+  const day = dateTime.getDate("en-US", "Australia/Sydney");
+  const month = dateTime.getMonth("en-US", "Australia/Sydney") + 1;
+  const year = dateTime.getFullYear("en-US", "Australia/Sydney");
+  return `${day}-${month}-${year}`;
+};
+
+export {
+  runSfCommand,
+  findJobId,
+  salesforceDiffExist,
+  findAllSpecifiedTests,
+  currentDate,
+  renameFile
+};
