@@ -12,7 +12,5 @@
     <permissionSets>Quality_Assessment_C_Q_Read_only</permissionSets>
     <permissionSets>Quality_Assessment_IDR_EDR_Read_Only</permissionSets>
     <permissionSets>Quality_Workbench</permissionSets>
-    <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
-    <permissionSets>force__OmniStudioExecution</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

@@ -341,6 +341,9 @@ export default class FinancialAccountParent extends LightningElement {
           : finAccount.FinServ__Status__c === "Dormant"
           ? "slds-badge dormantBadgeClass"
           : "slds-badge";
+
+      // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
+      finAccount.showSavingsJar = finAccount.FinServ__Status__c !== "Closed";
     });
 
     return finAccounts;

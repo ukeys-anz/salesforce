@@ -62,8 +62,9 @@ c-interaction-create-and-edit-flow-english
   margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
 }
 
-c-interaction-create-and-edit-flow-for-call-english
-  omnistudio-omniscript-typeahead[data-omni-key*="topic"]
+/* css requried asterisk on product for In Person OS*/
+c-interaction-create-and-edit-flow-english
+  omnistudio-omniscript-typeahead[data-omni-key*="product"]
   label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(
@@ -73,30 +74,9 @@ c-interaction-create-and-edit-flow-for-call-english
   margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
 }
 
-/* runtime css */
-c-interaction-create-and-edit-flow-for-call-english
-  runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
-  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
-  content: "*";
-  color: var(
-    --slds-g-color-error-base-40,
-    var(--lwc-colorTextError, rgb(234, 0, 30))
-  );
-  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
-}
-
-omnistudio-omniscript-typeahead[data-omni-key*="product"]
-  label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
-  content: "*";
-  color: var(
-    --slds-g-color-error-base-40,
-    var(--lwc-colorTextError, rgb(234, 0, 30))
-  );
-  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
-}
-
-/* runtime css */
-runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="product"]
+/* runtime css for In person OS to show requried asterisk*/
+c-interaction-create-and-edit-flow-english
+  runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="product"]
   label[class="slds-form-element__label slds-show--inline slds-truncate"]:before {
   content: "*";
   color: var(

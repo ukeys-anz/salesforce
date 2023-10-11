@@ -124,6 +124,15 @@ export const cardMapping = {
   CARD_SCHEME_AMERICAN_EXPRESS: CARD_TYPES.American_Express
 };
 
+export const cardSchemeApiValues = {
+  //For V1
+  CARD_SCHEME_UNSPECIFIED: "CARD_SCHEME_UNSPECIFIED",
+  VISA: "CARD_SCHEME_VISA",
+  MASTERCARD: "CARD_SCHEME_MASTERCARD",
+  EFTPOS: "CARD_SCHEME_EFTPOS",
+  AMERICAN_EXPRESS: "CARD_SCHEME_AMERICAN_EXPRESS"
+};
+
 export const dateOptions = {
   weekday: "long",
   year: "numeric",
@@ -134,5 +143,5 @@ export const dateOptions = {
 export const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
 function isTransactionsV1() {
-  return TransactionAPIUpliftedToV1 === "TRUE";
+  return TransactionAPIUpliftedToV1 === "True";
 }

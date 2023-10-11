@@ -73,7 +73,7 @@
   &quot;label&quot; : &quot;ListAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
+        <sequenceNumber>3.0</sequenceNumber>
         <type>List Merge Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -99,7 +99,7 @@
   &quot;label&quot; : &quot;ResponseAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -124,6 +124,30 @@
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
         <sequenceNumber>1.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>SetNullValueForProductList</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;IF(ISBLANK(JunctionData:products),true,false)&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;emptyList&quot; : [ ]
+  },
+  &quot;responseJSONPath&quot; : &quot;emptyList&quot;,
+  &quot;responseJSONNode&quot; : &quot;JunctionData:products&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessKey>Util_mergeListOfTags</omniProcessKey>
@@ -158,5 +182,5 @@
     <type>Util</type>
     <uniqueName>Util_mergeListOfTags_Procedure_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>b4bf439e-a947-9d54-8b7d-ed626e843b90</webComponentKey>
+    <webComponentKey>fbcf4bda-e807-046e-a6fd-67dcd907791c</webComponentKey>
 </OmniIntegrationProcedure>
