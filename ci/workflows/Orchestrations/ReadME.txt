@@ -91,7 +91,7 @@ on:
       - epic/*
 
 jobs:
-  validation:
+  deployment:
     runs-on: [self-hosted, salesforce-prod]
     steps:
       - name: Checkout
@@ -153,7 +153,70 @@ jobs:
           echo WHICH_JOB="deployment" >> $GITHUB_ENV
           node ci/workflows/Orchestrations/deployment.mjs
 
-      - name: code coverage and cleaning
+      - name: cleaning
         run: |
           echo WHICH_JOB="clean" >> $GITHUB_ENV
           node ci/workflows/Orchestrations/deployment.mjs
+
+---------------------------------------------------
+
+** Run All Tests workflow should be like below
+
+name: Run All Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run-all-tests:
+    runs-on: [self-hosted, salesforce-prod]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: cleaning
+        run: |
+          mv ci.npmrc .npmrc
+          # npm uninstall sfdx-cli -f
+          rm -rf node_modules
+          npm ci -f
+
+      - name: ENV vars
+        run: |
+          echo BASE_REF="${{ github.base_ref }}" >> $GITHUB_ENV
+
+      - name: Find Secret Names
+        run: |
+          sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
+          echo "$sfdxURL"
+          echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
+
+      - name: Find GSM credential
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            sfdxurl:projects/448406129405/secrets/${{ env.SECRET_NAME }}/versions/latest
+
+      - name: Add secrets to ENV
+        run: |
+          echo SFDX_URL="${{ steps.secrets.outputs.sfdxurl }}" >> $GITHUB_ENV
+
+      - name: run all tests
+        run: |
+          echo WHICH_JOB="runAllTests" >> $GITHUB_ENV
+          node ci/workflows/Orchestrations/runAllTests.mjs
+
+      - name: cleaning
+        run: |
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+          node ci/workflows/Orchestrations/runAllTests.mjs

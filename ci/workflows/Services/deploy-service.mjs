@@ -4,7 +4,8 @@ import {
   runSfCommand,
   findJobId,
   salesforceDiffExist,
-  findAllSpecifiedTests
+  findAllSpecifiedTests,
+  findJobIdFromCommand
 } from "./helper.mjs";
 
 const validateWithoutTest = (targetOrg) => {
@@ -57,7 +58,8 @@ const deployWithAllTests = (targetOrg) => {
 // will cancel the previous job.
 // Another scenario to use this is to find the job id and run the resume command to check the deployment progress.
 const findAndUploadJobId = (validationReport, branchName) => {
-  const jobId = JSON.parse(validationReport)["result"]["id"];
+  const jobId = findJobIdFromCommand(validationReport);
+  if (!jobId) process.exit();
   const createFile = createWriteStream(`${branchName}.txt`);
   createFile.write(jobId);
   createFile.end();
@@ -65,8 +67,6 @@ const findAndUploadJobId = (validationReport, branchName) => {
   // this txt file will have the jobId and we can -
   // - use it for cancel jobId, if another commit is raised
 };
-
-const findJobIdFromCommand = (command) => JSON.parse(command)["result"]["id"];
 
 const cancel = (jobIdFilePath) => {
   // At first we should download the file which contain the jobId from artifactory.
@@ -156,7 +156,7 @@ const deployReport = (jobIdFilePath) => {
 // Then will print the apex code coverage
 const codeCoverage = (jobIdFilePath) => {
   const jobId = findJobId(jobIdFilePath);
-  if (!jobId) process.exit(1);
+  if (!jobId) process.exit();
 
   const reportJson = JSON.parse(
     runSfCommand(`npx sf project deploy report --job-id ${jobId} --json`)
