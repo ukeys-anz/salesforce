@@ -181,16 +181,16 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       'CreditAssessmentController',
       'assignReasonFields'
     );
-    String lanIds = '\'' + String.join(setCreatedBy, '\',\'') + '\'';
-    //Remove null as a potential check so we dont get random users with no lan ids
+    String emails = '\'' + String.join(setCreatedBy, '\',\'') + '\'';
+    //Remove null as a potential check so we dont get random users with no fed ids
     List<User> userList = systemActions.query(
-      'SELECT Name, Lan_Id__c FROM User WHERE Lan_Id__c != null AND Lan_Id__c IN (' +
-      lanIds +
+      'SELECT Name, FederationIdentifier FROM User WHERE FederationIdentifier != null AND FederationIdentifier IN (' +
+      emails +
       ')'
     );
 
     for (User user : userList) {
-      mapUsers.put(user.Lan_Id__c, user);
+      mapUsers.put(user.FederationIdentifier, user);
     }
 
     if (mapReasons.isEmpty()) {
