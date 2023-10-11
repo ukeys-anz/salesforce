@@ -116,11 +116,17 @@ const currentDate = () => {
   return `${day}-${month}-${year}`;
 };
 
+const findJobIdFromCommand = (command) => {
+  if (!command) return;
+  return JSON.parse(command)["result"]["id"];
+};
+
 export {
   runSfCommand,
   findJobId,
   salesforceDiffExist,
   findAllSpecifiedTests,
   currentDate,
-  renameFile
+  renameFile,
+  findJobIdFromCommand
 };
