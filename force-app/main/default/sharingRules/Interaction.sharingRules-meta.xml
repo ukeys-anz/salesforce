@@ -244,4 +244,17 @@
             <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
-</SharingRules>
+    <!--<sharingCriteriaRules>
+        <fullName>CMOS_Interaction_access_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CMOS Interaction access RO</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>--></SharingRules>

@@ -17,7 +17,7 @@
     </columns>
     <description>Cases approaching maximum IDR time</description>
     <filter>
-        <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -31,13 +31,6 @@
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>TODAY</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>SUBJECT</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>contains</operator>
-            <value>IDR Response due in 5-days</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case.IsOwner__c</column>

@@ -6,4 +6,9 @@
         <sharedTo>Customer_Resolution</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Customer_Resolution_with_ANZ_Plus_Read_Only</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </folderShares>
 </ReportFolder>

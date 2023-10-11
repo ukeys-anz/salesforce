@@ -36,11 +36,6 @@ public without sharing class IDRTaskActions {
     '%' +
     IDRConstants.TASK_SUBJECT_DAY1 +
     '%';
-  private static final String TASK_SUBJECT_DAY5_SEARCH =
-    '%' +
-    IDRConstants.TASK_SUBJECT_DAY5 +
-    '%';
-
   public static Group siQueue = [
     SELECT Id
     FROM Group
@@ -126,6 +121,7 @@ public without sharing class IDRTaskActions {
    * @return An instance of a Task
    */
   public static Task createAssignmentTask(Case c, String subject) {
+    String description =((subject != null) && (subject =='Email attachment has failed to upload' || subject =='Email has failed to upload' || subject.startsWith('New File added by')))? '<Add Comments if applicable>':'';
     return new Task(
       RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
       OwnerId = c.OwnerId,
@@ -133,7 +129,8 @@ public without sharing class IDRTaskActions {
       Subject = subject,
       Status = 'Open',
       Priority = 'Normal',
-      Type = 'Notification'
+      Type = 'Notification',
+      Description = description
     );
   }
   /**
@@ -255,8 +252,7 @@ public without sharing class IDRTaskActions {
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND Id NOT IN :currentTask
           AND IsClosed = FALSE
-          AND (Subject LIKE :TASK_SUBJECT_DAY5_SEARCH
-          OR Subject LIKE :TASK_SUBJECT_DAY1_SEARCH)
+          AND Subject LIKE :TASK_SUBJECT_DAY1_SEARCH
       ];
     }
     for (Task t : oldTasks) {
@@ -292,8 +288,7 @@ public without sharing class IDRTaskActions {
     for (Task record : taskRecs) {
       if (
         String.isNotEmpty(record.Subject) &&
-        (record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) ||
-        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1))
+        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
@@ -303,8 +298,7 @@ public without sharing class IDRTaskActions {
       }
       if (
         String.isNotEmpty(record.Subject) &&
-        (record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY10) ||
-        record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY1))
+        record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY1)
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
@@ -383,7 +377,6 @@ public without sharing class IDRTaskActions {
       return null;
     }
     if (
-      record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) &&
       caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY
     ) {
       expectedDueDate = DateTimeUtils.addBusinessDays(
@@ -392,7 +385,6 @@ public without sharing class IDRTaskActions {
         25
       );
     } else if (
-      record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) &&
       caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY
     ) {
       expectedDueDate = DateTimeUtils.addBusinessDays(
@@ -433,8 +425,7 @@ public without sharing class IDRTaskActions {
       if (
         t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         t.Status == 'Completed' &&
-        (t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) ||
-        t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1))
+        t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
       ) {
         caseIDSet.add(t.WhatId);
       }
@@ -541,8 +532,7 @@ public without sharing class IDRTaskActions {
           WhatId IN :caseMap.keySet()
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND IsClosed = FALSE
-          AND (Subject LIKE :TASK_SUBJECT_DAY5_SEARCH
-          OR Subject LIKE :TASK_SUBJECT_DAY1_SEARCH)
+          AND Subject LIKE :TASK_SUBJECT_DAY1_SEARCH
       ];
     }
     for (Task t : idrTasks) {
@@ -913,9 +903,7 @@ public without sharing class IDRTaskActions {
       }
       if (
         String.isNotEmpty(record.Subject) &&
-        (record.Subject == IDRConstants.TASK_SUBJECT_DAY5 ||
-        record.Subject == IDRConstants.TASK_SUBJECT_DAY1 ||
-        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY10 ||
+        (record.Subject == IDRConstants.TASK_SUBJECT_DAY1 ||
         record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY1) &&
         caseObj != null
       ) {

@@ -201,7 +201,7 @@ private with sharing class IDRTaskActionsTest {
       for (Case c : newCases) {
         Task idrTask = new Task(
           WhatId = c.Id,
-          Subject = IDRConstants.TASK_SUBJECT_DAY5,
+          Subject = IDRConstants.TASK_SUBJECT_DAY1,
           RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
           Priority = 'Standard',
           ActivityDate = System.today()

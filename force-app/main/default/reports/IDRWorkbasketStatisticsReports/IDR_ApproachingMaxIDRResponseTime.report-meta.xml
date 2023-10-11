@@ -25,20 +25,13 @@
     </customDetailFormulas>
     <description>Cases approaching maximum IDR time by Queue</description>
     <filter>
-        <booleanFilter>1 AND 3 AND (2 OR 4)</booleanFilter>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Task.IDR_System_Task</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>SUBJECT</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>contains</operator>
-            <value>IDR Response due in 5-days</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case.Queue__c</column>

@@ -285,7 +285,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref388"
       },
-      "Name": "Generation MLC Horizon 4 Balanced Portfolio",
+      "Name": "Generation Life MLC Horizon 4 Balanced Portfolio",
       "IsActive": true,
       "ANZ_Product_Code__c": "425",
       "IDR_Product_or_Service_Line__c": "4",
@@ -2161,7 +2161,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref518"
       },
-      "Name": "GenerationLife Investment Bond",
+      "Name": "Generation Life Investment Bond",
       "IsActive": true,
       "ANZ_Product_Code__c": "560",
       "IDR_Product_or_Service_Line__c": "9",
