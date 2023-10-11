@@ -102,6 +102,24 @@
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Case</tabs>
     <tabs>Restricted_Cases</tabs>

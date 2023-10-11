@@ -24,7 +24,7 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <label>My Evaluations</label>
     <sharedTo>
         <role>Customer_Resolution</role>

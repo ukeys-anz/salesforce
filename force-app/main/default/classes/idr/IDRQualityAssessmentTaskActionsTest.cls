@@ -170,7 +170,10 @@ public class IDRQualityAssessmentTaskActionsTest {
       } catch (DmlException ex) {
         fExceptionThrown = true;
       }
-      System.assert(fExceptionThrown, 'Update should\'ve failed for missing Team_Manager_Response__c.');
+      System.assert(
+        fExceptionThrown,
+        'Update should\'ve failed for missing Team_Manager_Response__c.'
+      );
 
       for (Quality_Assessment__c oAssessment : lstAssessments) {
         oAssessment.Team_Manager_Response__c = 'Accepted by TM';
@@ -215,8 +218,8 @@ public class IDRQualityAssessmentTaskActionsTest {
       null
     ) {
       for (Schema.FieldSetMember field : oFieldSet.getFields()) {
-        if ( oAssessment.get(field.SObjectField) == null) {
-          if ( field.getType() == DisplayType.REFERENCE) {
+        if (oAssessment.get(field.SObjectField) == null) {
+          if (field.getType() == DisplayType.REFERENCE) {
             switch on field.fieldPath {
               when 'C_Q_Specialist__c' {
                 oAssessment.put(field.SObjectField, UserInfo.getUserId());
@@ -228,8 +231,12 @@ public class IDRQualityAssessmentTaskActionsTest {
                 oAssessment.put(field.SObjectField, UserInfo.getUserId());
               }
             }
-          } else if ( field.getType() == DisplayType.PICKLIST) {
-            for (PicklistEntry peEntry : field.getSObjectField().getDescribe().getPicklistValues()) {
+          } else if (field.getType() == DisplayType.PICKLIST) {
+            for (
+              PicklistEntry peEntry : field.getSObjectField()
+                .getDescribe()
+                .getPicklistValues()
+            ) {
               // just use first one.
               oAssessment.put(field.SObjectField, peEntry.value);
               break;

@@ -23,7 +23,10 @@ private class CaseTriggerHandlerTest {
     Faker faker = new Faker('AU');
     // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
     User thisUser = new User(Id = UserInfo.getUserId());
+    Map<String, User> userMap = new Map<String, User>();
     System.runAs(thisUser) {
+      /*----------Create users for tests----------*/
+
       // Create a FraudX User with 'FraudX Agent' role
       Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
       UserRole role = CommonUtil.getUserRoleByDevName('FraudX_Agent');
@@ -34,9 +37,93 @@ private class CaseTriggerHandlerTest {
           'UserRoleId' => role.Id
         }
       );
-      insert fraudXAgent;
+      userMap.put('fraudXAgent', fraudXAgent);
 
-      // Assign related PSs
+      UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+      User coach = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CoachTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => coachRole.Id
+        }
+      );
+      userMap.put('coach', coach);
+
+      UserRole bohRole = CommonUtil.getUserRoleByDevName('BOH_Coach');
+      User bohCoach = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'BOHCoachTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => bohRole.Id
+        }
+      );
+      userMap.put('bohCoach', bohCoach);
+
+      UserRole creditOfficerRole = CommonUtil.getUserRoleByDevName(
+        'Credit_Assessment_Officer'
+      );
+      User creditOfficer = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CreditAssessmentOfficer',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => creditOfficerRole.Id
+        }
+      );
+      userMap.put('creditOfficer', creditOfficer);
+
+      UserRole creditLeadRole = CommonUtil.getUserRoleByDevName(
+        'Credit_Assessor_Lead'
+      );
+      User creditLead = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CreditLead',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => creditLeadRole.Id
+        }
+      );
+      userMap.put('creditLead', creditLead);
+
+      Profile integrationProfile = CommonUtil.getProfileByName(
+        'Integration User'
+      );
+      UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
+      User creditRefIntegrationUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CreditRefIntegrationUser',
+          'ProfileId' => integrationProfile.Id,
+          'UserRoleId' => anzxRole.Id
+        }
+      );
+      userMap.put('creditRefIntegrationUser', creditRefIntegrationUser);
+
+      // Create IDR L1 user
+      Profile anzProfile = [
+        SELECT Id
+        FROM Profile
+        WHERE Name = 'ANZ Standard User'
+        LIMIT 1
+      ];
+
+      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
+      idrUser.FirstName = 'IDRL1';
+      idrUser.ProfileId = anzProfile.Id;
+      userMap.put('idrUser', idrUser);
+
+      // Create an Integration User
+      UserRole roleAnz = CommonUtil.getUserRoleByDevName('ANZ');
+      User integrationUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'IntegrationTest',
+          'ProfileId' => integrationProfile.Id,
+          'UserRoleId' => roleAnz.Id
+        }
+      );
+      userMap.put('integrationUser', integrationUser);
+
+      insert userMap.values();
+
+      /*----------Assign permission sets to users----------*/
+      // Fraud User permission sets
       List<String> fraudXPSs = new List<String>{
         'Case_Read_Write_Fraud_Agent',
         'Customer_Read_Only',
@@ -50,21 +137,13 @@ private class CaseTriggerHandlerTest {
 
       List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : psList) {
-        psaList.add(TestUtil.createPSAssignment(fraudXAgent.Id, ps.Id));
+        psaList.add(
+          TestUtil.createPSAssignment(userMap.get('fraudXAgent').Id, ps.Id)
+        );
       }
       insert psaList;
 
-      UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
-      User coach = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CoachTest',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => coachRole.Id
-        }
-      );
-      insert coach;
-
-      // Assign related PSs
+      // Coach User permission sets
       List<String> coachPSs = new List<String>{
         'Case_Read_Write_Get_Help',
         'Case_Read_Write_Dispute',
@@ -80,58 +159,13 @@ private class CaseTriggerHandlerTest {
 
       List<PermissionSetAssignment> coachPsaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : coachPsList) {
-        coachPsaList.add(TestUtil.createPSAssignment(coach.Id, ps.Id));
+        coachPsaList.add(
+          TestUtil.createPSAssignment(userMap.get('coach').Id, ps.Id)
+        );
       }
       insert coachPsaList;
 
-      UserRole bohRole = CommonUtil.getUserRoleByDevName('BOH_Coach');
-      User bohCoach = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'BOHCoachTest',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => bohRole.Id
-        }
-      );
-      insert bohCoach;
-
-      UserRole creditOfficerRole = CommonUtil.getUserRoleByDevName(
-        'Credit_Assessment_Officer'
-      );
-      User creditOfficer = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CreditAssessmentOfficer',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => creditOfficerRole.Id
-        }
-      );
-      insert creditOfficer;
-
-      UserRole creditLeadRole = CommonUtil.getUserRoleByDevName(
-        'Credit_Assessor_Lead'
-      );
-      User creditLead = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CreditLead',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => creditLeadRole.Id
-        }
-      );
-      insert creditLead;
-
-      Profile integrationProfile = CommonUtil.getProfileByName(
-        'Integration User'
-      );
-      UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
-      User creditRefIntegrationUser = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CreditRefIntegrationUser',
-          'ProfileId' => integrationProfile.Id,
-          'UserRoleId' => anzxRole.Id
-        }
-      );
-      insert creditRefIntegrationUser;
-
-      // Assign related PSs
+      // Credit Referral Integration User permission sets
       List<String> creditRefPs = new List<String>{
         'API_Only',
         'Case_Read_Write_Credit_Referral',
@@ -146,12 +180,59 @@ private class CaseTriggerHandlerTest {
       List<PermissionSetAssignment> creditRefPsaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : creditRefPsList) {
         creditRefPsaList.add(
-          TestUtil.createPSAssignment(creditRefIntegrationUser.Id, ps.Id)
+          TestUtil.createPSAssignment(
+            userMap.get('creditRefIntegrationUser').Id,
+            ps.Id
+          )
         );
       }
       insert creditRefPsaList;
 
+      // IDR user permission sets
+      List<String> idrPsets = new List<String>{
+        'IDR_User',
+        'IDR_User_Level_1'
+      };
+      List<PermissionSet> idrPsetList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :idrPsets
+      ];
+
+      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : idrPsetList) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = userMap.get('idrUser').Id,
+          PermissionSetId = ps.Id
+        );
+        idrPsaList.add(psa);
+      }
+      insert idrPsaList;
+
+      // Integration User permission sets
+      List<String> integrationPsets = new List<String>{
+        'View_And_Edit_Tasks',
+        'Case_Read_Write_Get_Help',
+        'Case_Read_Write_Dispute',
+        'Read_Only_Admin'
+      };
+
+      List<PermissionSet> integrationPsList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :integrationPsets
+      ];
+
+      List<PermissionSetAssignment> integrationPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : integrationPsList) {
+        integrationPsaList.add(
+          TestUtil.createPSAssignment(userMap.get('integrationUser').Id, ps.Id)
+        );
+      }
+      insert integrationPsaList;
+
       Account[] accnts = new List<Account>();
+      accnts.add(TestDataFactory.createAccount('CustomerRLA', false));
       for (Integer i = 0; i < 2; i++) {
         accnts.add(
           new Account(
@@ -161,7 +242,7 @@ private class CaseTriggerHandlerTest {
             ANZx_Customer__c = true,
             // Criteria based sharing rules cannot be tested in APEX unit tests.
             // Therefore, sharing the test Account record with user by assigning ownership.
-            OwnerId = fraudXAgent.Id,
+            OwnerId = userMap.get('fraudXAgent').Id,
             External_Id__c = faker.randomString(10)
           )
         );
@@ -203,75 +284,18 @@ private class CaseTriggerHandlerTest {
 
       insert accnts;
 
-      // Create IDR L1 user
-      Profile anzProfile = [
-        SELECT Id
-        FROM Profile
-        WHERE Name = 'ANZ Standard User'
-        LIMIT 1
-      ];
-
-      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
-      idrUser.FirstName = 'IDRL1';
-      idrUser.ProfileId = anzProfile.Id;
-      insert idrUser;
-
-      // Assign related PSs
-      List<String> idrPsets = new List<String>{
-        'IDR_User',
-        'IDR_User_Level_1'
-      };
-      List<PermissionSet> idrPsetList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :idrPsets
-      ];
-
-      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : idrPsetList) {
-        PermissionSetAssignment psa = new PermissionSetAssignment(
-          AssigneeId = idrUser.Id,
-          PermissionSetId = ps.Id
+      ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        String value = String.valueOf(i);
+        ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
+          value
         );
-        idrPsaList.add(psa);
+        rla.Credit_ID__c = '000-000-000-00' + value;
+        rla.AccountId = accnts[0].Id;
+
+        newRLA.add(rla);
       }
-      insert idrPsaList;
-
-      // Create an Integration User
-      Profile profileIntegration = CommonUtil.getProfileByName(
-        'Integration User'
-      );
-      UserRole roleAnz = CommonUtil.getUserRoleByDevName('ANZ');
-      User integrationUser = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'IntegrationTest',
-          'ProfileId' => profileIntegration.Id,
-          'UserRoleId' => roleAnz.Id
-        }
-      );
-      insert integrationUser;
-
-      // Assign related PSs
-      List<String> integrationPsets = new List<String>{
-        'View_And_Edit_Tasks',
-        'Case_Read_Write_Get_Help',
-        'Case_Read_Write_Dispute',
-        'Read_Only_Admin'
-      };
-
-      List<PermissionSet> integrationPsList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :integrationPsets
-      ];
-
-      List<PermissionSetAssignment> integrationPsaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : integrationPsList) {
-        integrationPsaList.add(
-          TestUtil.createPSAssignment(integrationUser.Id, ps.Id)
-        );
-      }
-      insert integrationPsaList;
+      insert newRLA;
     }
     insertTestAccountsForDisputeCases();
   }
@@ -713,13 +737,17 @@ private class CaseTriggerHandlerTest {
 
   @IsTest
   static void testCreditReferralEscalationStatus() {
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+
     // GIVEN cases are created as not escalated
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpConstants.CREDIT_REFERRAL_RT_ID,
-          Status = GetHelpConstants.OPEN_STATUS
+          Status = GetHelpConstants.OPEN_STATUS,
+          AccountId = acc.Id,
+          Credit_Id__c = '000-000-000-00' + String.valueOf(i)
         )
       );
     }
@@ -748,19 +776,14 @@ private class CaseTriggerHandlerTest {
   @IsTest
   static void testCreditReferralDefaults() {
     // WHEN Credit Referral is created
-    Account acc = TestDataFactory.createAccount(true);
-    ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      String value = String.valueOf(i);
-      ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
-        value
-      );
-      rla.Credit_ID__c = '000-000-000-00' + value;
-      rla.AccountId = acc.Id;
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
 
-      newRLA.add(rla);
-    }
-    insert newRLA;
+    ResidentialLoanApplication sampleRLA = [
+      SELECT Id, AccountId
+      FROM ResidentialLoanApplication
+      WHERE AccountId = :acc.Id
+      LIMIT 1
+    ];
 
     Case[] newCases = new List<Case>();
 
@@ -768,18 +791,10 @@ private class CaseTriggerHandlerTest {
       Case c = TestDataFactory.createCase('Credit_Referral');
       c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
       c.AccountId = acc.Id;
-
       newCases.add(c);
     }
     Test.startTest();
     insert newCases;
-
-    ResidentialLoanApplication sampleRLA = [
-      SELECT Id, AccountId
-      FROM ResidentialLoanApplication
-      WHERE Id = :newRLA[0].Id
-      LIMIT 1
-    ];
 
     // Verify new case record has an account and loan application
     Case sampleCase = [
@@ -3571,5 +3586,174 @@ private class CaseTriggerHandlerTest {
       WHERE WhatId = :theCase.Id AND RecordTypeId = :taskRecordTypeId
     ];
     Assert.isTrue(taskList.isEmpty(), 'No Task should be created');
+  }
+  // Test Prevent BOH coach assigning invalid credit referral
+  @isTest
+  public static void testCreditReferralBOHInvalidAssignment() {
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+
+    User usr = TestUtil.getUserByFirstName('BOHCoachTest');
+    User integrationUser = TestUtil.getUserByFirstName(
+      'CreditRefIntegrationUser'
+    );
+    List<Case> creditRefCases = new List<Case>();
+    Group coachQueue = CommonUtil.getQueueByName(
+      'No_CAD_Credit_Referral_Case_Queue'
+    );
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.OwnerId = coachQueue.Id;
+      c.Case_Authority_Level__c = 'CAD_0';
+      c.AccountId = acc.Id;
+      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
+      creditRefCases.add(c);
+    }
+
+    System.runAs(integrationUser) {
+      insert creditRefCases;
+    }
+
+    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+
+    Test.startTest();
+    System.runAs(usr) {
+      try {
+        c.OwnerId = usr.Id;
+        update c;
+      } catch (Exception e) {
+        System.assert(
+          e.getMessage()
+            .contains(
+              'You can\'t assign a credit referral case that you do not have authority to resolve. Please select another case.'
+            )
+        );
+      }
+    }
+    Test.stopTest();
+  }
+
+  // Test BOH coach assigning credit referral
+  @isTest
+  public static void testCreditReferralBOHAssignment() {
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+
+    User usr = TestUtil.getUserByFirstName('BOHCoachTest');
+    User integrationUser = TestUtil.getUserByFirstName(
+      'CreditRefIntegrationUser'
+    );
+    List<Case> creditRefCases = new List<Case>();
+    Group coachQueue = CommonUtil.getQueueByName(
+      'No_CAD_Credit_Referral_Case_Queue'
+    );
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.OwnerId = coachQueue.Id;
+      c.Case_Authority_Level__c = 'NO CAD';
+      c.AccountId = acc.Id;
+      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
+      creditRefCases.add(c);
+    }
+
+    System.runAs(integrationUser) {
+      insert creditRefCases;
+    }
+
+    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+
+    Test.startTest();
+    System.runAs(usr) {
+      c.OwnerId = usr.Id;
+      update c;
+    }
+
+    Assert.areEqual(usr.Id, c.OwnerId, 'Expected case owner to be boh coach');
+    Test.stopTest();
+  }
+
+  // Test credit assessment officer assigning credit referral
+  @isTest
+  public static void testCreditReferralOfficerAssignment() {
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+
+    User usr = TestUtil.getUserByFirstName('CreditAssessmentOfficer');
+    User integrationUser = TestUtil.getUserByFirstName(
+      'CreditRefIntegrationUser'
+    );
+    List<Case> creditRefCases = new List<Case>();
+    Group coachQueue = CommonUtil.getQueueByName(
+      'No_CAD_Credit_Referral_Case_Queue'
+    );
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.OwnerId = coachQueue.Id;
+      c.Case_Authority_Level__c = 'NO CAD';
+      c.AccountId = acc.Id;
+      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
+      creditRefCases.add(c);
+    }
+
+    System.runAs(integrationUser) {
+      insert creditRefCases;
+    }
+
+    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+
+    Test.startTest();
+    System.runAs(usr) {
+      c.OwnerId = usr.Id;
+      update c;
+    }
+
+    Assert.areEqual(
+      usr.Id,
+      c.OwnerId,
+      'Expected case owner to be credit assessment officer'
+    );
+    Test.stopTest();
+  }
+
+  // Test Credit assessment lead invalid assign to boh
+  @isTest
+  public static void testCreditReferralLeadToBohInvalid() {
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    User creditLead = TestUtil.getUserByFirstName('CreditLead');
+    User bohCoach = TestUtil.getUserByFirstName('BOHCoachTest');
+    User integrationUser = TestUtil.getUserByFirstName(
+      'CreditRefIntegrationUser'
+    );
+    List<Case> creditRefCases = new List<Case>();
+    Group coachQueue = CommonUtil.getQueueByName(
+      'No_CAD_Credit_Referral_Case_Queue'
+    );
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      Case c = TestDataFactory.createCase('Credit_Referral');
+      c.OwnerId = coachQueue.Id;
+      c.Case_Authority_Level__c = 'CAD_0';
+      c.AccountId = acc.Id;
+      c.Credit_Id__c = '000-000-000-00' + String.valueOf(i);
+      creditRefCases.add(c);
+    }
+
+    System.runAs(integrationUser) {
+      insert creditRefCases;
+    }
+
+    Case c = [SELECT Id FROM Case WHERE Id = :creditRefCases[0].Id];
+
+    Test.startTest();
+    System.runAs(creditLead) {
+      try {
+        c.OwnerId = bohCoach.Id;
+        update c;
+      } catch (Exception e) {
+        System.assert(
+          e.getMessage()
+            .contains(
+              'You can\'t assign a credit referral case to someone who does not have the authority to resolve it.'
+            )
+        );
+      }
+    }
+    Test.stopTest();
   }
 }

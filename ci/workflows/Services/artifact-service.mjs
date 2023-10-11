@@ -41,13 +41,21 @@ const uploadArtifact = (
   //        curl -H "X-JFrog-Art-Api:$(gcloud secrets versions access projects/"${projectName}"/secrets/"${artifactorySecret}"/versions/latest)" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ref.zip"
 };
 
+const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
+  // We should run a gcloud command to download the artifact from artifactory
+  // bash script code:
+  // curl -H "X-JFrog-Art-Api:$(gcloud secrets versions access projects/"${projectName}"/secrets/"${artifactorySecret}"/versions/latest)" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases/${artifactName}.zip"
+  // unzip "${artifactName}.zip" -d "."
+};
+
 ///////////////////////////////////////////
 
 export {
   deleteArtifactFolder,
   createArtifactFolder,
   buildArtifact,
-  uploadArtifact
+  uploadArtifact,
+  downloadArtifact
 };
 
 // POINTS

@@ -95,7 +95,7 @@
                             <visibilityRule>
                                 <booleanFilter>(1 OR 2) AND 3 AND 4 AND 5</booleanFilter>
                                 <criteria>
-                                    <leftValue>{!Record.RecordType.Name}</leftValue>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Customer_Complaint</rightValue>
                                 </criteria>
@@ -660,14 +660,6 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>maxEARContainerHeight</name>
-                    <value>500</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>shouldDisplayFiltersOnRight</name>
-                    <value>false</value>
-                </componentInstanceProperties>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop</identifier>
                 <visibilityRule>
