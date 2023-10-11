@@ -65,4 +65,29 @@ public virtual with sharing class CloudEventModel {
       this.email = theQueue?.Email;
     }
   }
+
+  /**
+   * @description build UserModel from Case Owner for CloudEventModel
+   * @param ownerId The case owner Id
+   * @param ownerUsers Map of related users
+   * @param ownerGroups Map of related groups
+   * @return CloudEventModel.UserModel The UserModel for CloudEventModel
+   */
+  public static UserModel getCaseOwnerModel(
+    Id ownerId,
+    Map<Id, User> ownerUsers,
+    Map<Id, Group> ownerGroups
+  ) {
+    if (ownerId == null) {
+      return null;
+    }
+    if (ownerUsers.containsKey(ownerId)) {
+      return new UserModel(ownerUsers.get(ownerId));
+    }
+
+    if (ownerGroups.containsKey(ownerId)) {
+      return new UserModel(ownerGroups.get(ownerId));
+    }
+    return null;
+  }
 }

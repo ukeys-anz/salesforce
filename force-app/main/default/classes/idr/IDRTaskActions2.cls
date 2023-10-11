@@ -117,4 +117,56 @@ public with sharing class IDRTaskActions2 {
       }
     }
   }
+
+  /**
+   * @description Ensure that QA Compliance Tasks can only be completed if the Assessment has a Team Manager response
+   * @param lstTasks Updated Tasks
+   * @param mpOldTasks Old version of Tasks
+   */
+  public static void validateQAComplianceTask(
+    List<Task> lstTasks,
+    Map<Id, Task> mpOldTasks
+  ) {
+    Task oOldTask;
+    Map<Id, List<Task>> mpQualityAssessmentId2Tasks = new Map<Id, List<Task>>();
+    List<Task> lstQATasks;
+    String strQAPrefix = Quality_Assessment__c.getSObjectType()
+      .getDescribe()
+      .getKeyPrefix();
+    for (Task oTask : lstTasks) {
+      if (
+        oTask.RecordTypeId == GetHelpConstants.TASK_COMPLIANCE_RT_ID &&
+        oTask.Status == 'Completed' &&
+        String.isNotEmpty(oTask.WhatId) &&
+        ((String) oTask.WhatId).left(3) == strQAPrefix &&
+        (mpOldTasks == null ||
+        (oOldTask = mpOldTasks.get(oTask.Id)) == null ||
+        oTask.Status != oOldTask.Status)
+      ) {
+        if (
+          (lstQATasks = mpQualityAssessmentId2Tasks.get(oTask.WhatId)) == null
+        ) {
+          lstQATasks = new List<Task>();
+          mpQualityAssessmentId2Tasks.put(oTask.WhatId, lstQATasks);
+        }
+        lstQATasks.add(oTask);
+      }
+    }
+    for (Quality_Assessment__c oAssessment : [
+      SELECT Id, Team_Manager_Response__c, Team_Manager_Comments__c
+      FROM Quality_Assessment__c
+      WHERE
+        Id IN :mpQualityAssessmentId2Tasks.keySet()
+        AND (Team_Manager_Response__c = NULL
+        OR Team_Manager_Comments__c = NULL)
+    ]) {
+      if (
+        (lstQATasks = mpQualityAssessmentId2Tasks.get(oAssessment.Id)) != null
+      ) {
+        for (Task oTask : lstQATasks) {
+          oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
+        }
+      }
+    }
+  }
 }

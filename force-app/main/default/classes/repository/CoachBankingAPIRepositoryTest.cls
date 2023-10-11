@@ -129,7 +129,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   }
 
   /**
-   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory1.json
+   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory11.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
    */
   @isTest

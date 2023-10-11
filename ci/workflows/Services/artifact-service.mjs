@@ -1,5 +1,11 @@
 import { execSync } from "child_process";
+import { renameFile } from "./helper.mjs";
 import { rmSync, mkdirSync, existsSync } from "fs";
+
+const renameForceignore = () => {
+  renameFile(".forceignore", "ci.forceignore");
+  renameFile("deploy.forceignore", ".forceignore");
+};
 
 const deleteArtifactFolder = (folderName) => {
   return rmSync(folderName, { recursive: true, force: true }, (err) => {
@@ -21,9 +27,10 @@ const createArtifactFolder = (folderName) => {
 };
 
 const buildArtifact = (folderName, baseRef, ref) => {
+  renameForceignore();
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to origin/${baseRef} --from origin/${ref} --output ${folderName}/ --generate-delta -i .forceignore`
+    `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta -i .forceignore`
   ).toString("utf8");
 };
 
@@ -41,13 +48,21 @@ const uploadArtifact = (
   //        curl -H "X-JFrog-Art-Api:$(gcloud secrets versions access projects/"${projectName}"/secrets/"${artifactorySecret}"/versions/latest)" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ref.zip"
 };
 
+const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
+  // We should run a gcloud command to download the artifact from artifactory
+  // bash script code:
+  // curl -H "X-JFrog-Art-Api:$(gcloud secrets versions access projects/"${projectName}"/secrets/"${artifactorySecret}"/versions/latest)" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases/${artifactName}.zip"
+  // unzip "${artifactName}.zip" -d "."
+};
+
 ///////////////////////////////////////////
 
 export {
   deleteArtifactFolder,
   createArtifactFolder,
   buildArtifact,
-  uploadArtifact
+  uploadArtifact,
+  downloadArtifact
 };
 
 // POINTS

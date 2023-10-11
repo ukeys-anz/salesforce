@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>What_corrective_actions_are_required__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>What corrective actions are required?</description>
+    <externalId>false</externalId>
+    <label>What corrective actions are required?</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Feedback only - no active action required</fullName>
+                <default>false</default>
+                <label>Feedback only - no active action required</label>
+            </value>
+            <value>
+                <fullName>Raise REaL form (action for C&amp;Q team to take)</fullName>
+                <default>false</default>
+                <label>Raise REaL form (action for C&amp;Q team to take)</label>
+            </value>
+            <value>
+                <fullName>Raise PSI (action for C&amp;Q team to take)</fullName>
+                <default>false</default>
+                <label>Raise PSI (action for C&amp;Q team to take)</label>
+            </value>
+            <value>
+                <fullName>Further review recommended (action for MMM)</fullName>
+                <default>false</default>
+                <label>Further review recommended (action for MMM)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -24,13 +24,13 @@ public class SOPInstitutionalLiability {
   public String repaymentFrequency;
   public Integer principalInterestRemainingTerm;
   public Integer interestOnlyRemainingTerm;
-  public Boolean liabilityDuePaidInFull;
+  public Boolean paidInFull;
   /**
-   * @description return the transformed value of liabilityDuePaidInFull for flexcard UI
+   * @description return the transformed value of paidInFull for flexcard UI
    */
   public String liabilityDueValue {
     get {
-      if (liabilityDuePaidInFull == false) {
+      if (paidInFull == false) {
         return ResidentialLoanApplicationModel.N;
       } else {
         return ResidentialLoanApplicationModel.Y;

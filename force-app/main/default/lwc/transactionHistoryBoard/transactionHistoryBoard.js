@@ -8,11 +8,13 @@ import { handleErrorShowToast } from "c/utils";
 import hasTransactionHistoryPermission from "@salesforce/customPermission/ANZx_View_Transaction_History";
 import { getOptionalFieldValue, processTransaction } from "./helpers/util";
 import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
+import TransactionAPIUpliftedToV1 from "@salesforce/label/c.TransactionAPIUpliftedToV1";
 
 import {
   transactionStatusMapping,
   transactionTypeMapping,
   cardMapping,
+  cardSchemeApiValues,
   dateOptions,
   timeOptions,
   TRANSACTION_TYPES,
@@ -193,6 +195,15 @@ export default class TransactionHistoryBoard extends LightningElement {
               .scheme
               ? cardMapping[currentTransaction.card.scheme]
               : "Unknown";
+            if (this.isTransactionsV1()) {
+              currentTransaction.card.scheme =
+                cardSchemeApiValues[currentTransaction.card.scheme];
+            }
+          }
+          // Card and Cash scheme values are same. Thus checking if the
+          if (currentTransaction.cash && this.isTransactionsV1()) {
+            currentTransaction.cash.card_scheme =
+              cardSchemeApiValues[currentTransaction.cash.card_scheme];
           }
 
           //Check if international transaction
@@ -496,5 +507,9 @@ export default class TransactionHistoryBoard extends LightningElement {
       endDate = this.getDefaultDate();
     }
     return endDate;
+  }
+
+  isTransactionsV1() {
+    return TransactionAPIUpliftedToV1 === "True";
   }
 }

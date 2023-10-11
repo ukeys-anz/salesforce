@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM7_Q1__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 7 Q1 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Identified_what_needed_investigation__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>We did not correctly identify some or all of what needed to be investigated.</fullName>
+                <default>false</default>
+                <label>We did not correctly identify some or all of what needed to be investigated.</label>
+            </value>
+            <value>
+                <fullName>We did not correctly identify some or any of the relevant contract, laws, codes, guidelines or industry practices or standards.</fullName>
+                <default>false</default>
+                <label>We did not correctly identify some or any of the relevant contract, laws, codes, guidelines or industry practices or standards.</label>
+            </value>
+            <value>
+                <fullName>Complaint was appropriately resolved on goodwill commercial grounds only (criterion 1.1 applied).</fullName>
+                <default>false</default>
+                <label>Complaint was appropriately resolved on goodwill commercial grounds only (criterion 1.1 applied).</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not correctly identify some or all of what needed to be investigated.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not correctly identify some or any of the relevant contract, laws, codes, guidelines or industry practices or standards.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>Complaint was appropriately resolved on goodwill commercial grounds only (criterion 1.1 applied).</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

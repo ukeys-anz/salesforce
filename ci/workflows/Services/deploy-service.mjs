@@ -66,6 +66,8 @@ const findAndUploadJobId = (validationReport, branchName) => {
   // - use it for cancel jobId, if another commit is raised
 };
 
+const findJobIdFromCommand = (command) => JSON.parse(command)["result"]["id"];
+
 const cancel = (jobIdFilePath) => {
   // At first we should download the file which contain the jobId from artifactory.
   // This will give us the current running jobId
@@ -75,8 +77,43 @@ const cancel = (jobIdFilePath) => {
   return runSfCommand(`npx sf project deploy cancel --job-id ${jobId}`);
 };
 
-const deployProgress = (jobIdFilePath) => {
+const validateProgress = (jobIdFilePath) => {
   const jobId = findJobId(jobIdFilePath);
+  if (!jobId) process.exit();
+  const validateProcess = exec(
+    `npx sf project deploy resume --job-id ${jobId}`
+  );
+  validateProcess.stdout.on("data", (data) => {
+    try {
+      const output = JSON.parse(data);
+      if (output.status === 0) {
+        console.log("Validation completed successfully");
+      } else if (output.progress) {
+        console.log(`Progress: ${output.progress}`);
+      } else {
+        console.log(data);
+      }
+    } catch (err) {
+      console.log(data);
+    }
+  });
+
+  validateProcess.stderr.on("data", (data) => {
+    const dataReport = data.toString();
+    if (dataReport.toLowerCase().includes("status")) {
+      console.error(`Progress: ${data.toString()}`);
+    }
+  });
+
+  validateProcess.on("close", (code) => {
+    if (code !== 0) {
+      console.error(`Validation failed with exit code: \n${code}`);
+    }
+  });
+};
+
+const deployProgress = (deploymentCommand) => {
+  const jobId = findJobIdFromCommand(deploymentCommand);
   if (!jobId) process.exit();
   const deployProcess = exec(`npx sf project deploy resume --job-id ${jobId}`);
   deployProcess.stdout.on("data", (data) => {
@@ -153,6 +190,7 @@ export {
   deployWithoutTest,
   deployWithAllTests,
   cancel,
+  validateProgress,
   deployProgress,
   deployReport,
   findAndUploadJobId,
