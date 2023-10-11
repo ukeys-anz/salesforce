@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>REaL_form_categories__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>REaL form categories</description>
+    <externalId>false</externalId>
+    <label>REaL form categories</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>&quot;Part or full decline 1 - identify and address issues</fullName>
+                <default>false</default>
+                <label>&quot;Part or full decline 1 - identify and address issues</label>
+            </value>
+            <value>
+                <fullName>Part or full decline 2 - findings and reference</fullName>
+                <default>false</default>
+                <label>Part or full decline 2 - findings and reference</label>
+            </value>
+            <value>
+                <fullName>Part of full decline 3 - insufficient details for decision</fullName>
+                <default>false</default>
+                <label>Part of full decline 3 - insufficient details for decision</label>
+            </value>
+            <value>
+                <fullName>Resolution outcome was not implemented in a timely manner when a complaint is closed</fullName>
+                <default>false</default>
+                <label>Resolution outcome was not implemented in a timely manner when a complaint is closed</label>
+            </value>
+            <value>
+                <fullName>Breach of privacy obligations</fullName>
+                <default>false</default>
+                <label>Breach of privacy obligations</label>
+            </value>
+            <value>
+                <fullName>Breach of responsible lending obligations</fullName>
+                <default>false</default>
+                <label>Breach of responsible lending obligations</label>
+            </value>
+            <value>
+                <fullName>Application for hardship not responded to within 21 days</fullName>
+                <default>false</default>
+                <label>Application for hardship not responded to within 21 days</label>
+            </value>
+            <value>
+                <fullName>Breach of debt collection obligations</fullName>
+                <default>false</default>
+                <label>Breach of debt collection obligations</label>
+            </value>
+            <value>
+                <fullName>Other: [free text field following]&quot;</fullName>
+                <default>false</default>
+                <label>Other: [free text field following]&quot;</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

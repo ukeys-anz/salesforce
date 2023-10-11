@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM7_Q5__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 7 Q5 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Financial_product_advice_not_provided__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>where the customer asked us, we recommended or provided an opinion about appropriate products or services or what they should do.</fullName>
+                <default>false</default>
+                <label>where the customer asked us, we recommended or provided an opinion about appropriate products or services or what they should do.</label>
+            </value>
+            <value>
+                <fullName>we recommended or provided an opinion about appropriate products or services or what the customer should do.</fullName>
+                <default>false</default>
+                <label>we recommended or provided an opinion about appropriate products or services or what the customer should do.</label>
+            </value>
+            <value>
+                <fullName>where the customer asked us for advice or advice was required, we did not read the no advice scripting and/or provide the customer with the appropriate referral (Moneysmart, ANZ website or an internal product team).</fullName>
+                <default>false</default>
+                <label>where the customer asked us for advice or advice was required, we did not read the no advice scripting and/or provide the customer with the appropriate referral (Moneysmart, ANZ website or an internal product team).</label>
+            </value>
+            <value>
+                <fullName>‘not met’ a result of instruction received when CM escalated to an SME.</fullName>
+                <default>false</default>
+                <label>‘not met’ a result of instruction received when CM escalated to an SME.</label>
+            </value>
+            <value>
+                <fullName>CM receiving the review was not the CM responsible for the ‘not met’.</fullName>
+                <default>false</default>
+                <label>CM receiving the review was not the CM responsible for the ‘not met’.</label>
+            </value>
+            <value>
+                <fullName>No advice was sought or provided.</fullName>
+                <default>false</default>
+                <label>No advice was sought or provided.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>where the customer asked us, we recommended or provided an opinion about appropriate products or services or what they should do.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>we recommended or provided an opinion about appropriate products or services or what the customer should do.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>where the customer asked us for advice or advice was required, we did not read the no advice scripting and/or provide the customer with the appropriate referral (Moneysmart, ANZ website or an internal product team).</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>‘not met’ a result of instruction received when CM escalated to an SME.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM receiving the review was not the CM responsible for the ‘not met’.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>No advice was sought or provided.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

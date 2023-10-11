@@ -3,6 +3,15 @@
     <fullName>Related_records_are_mandatory</fullName>
     <active>true</active>
     <description>When a QA record is created it should be associated with either a case/interaction or reference field should be available.</description>
-    <errorConditionFormula>ISBLANK(Related_Case__c) &amp;&amp; ISBLANK(Reference__c) &amp;&amp; ISBLANK( Interaction__c ) &amp;&amp; $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false</errorConditionFormula>
+    <errorConditionFormula>AND(
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  OR(
+    RecordType.DeveloperName = &apos;General&apos;,
+    RecordType.DeveloperName = &apos;Get_Help&apos;,
+    RecordType.DeveloperName = &apos;Join&apos;),
+  ISBLANK(Related_Case__c),
+  ISBLANK(Reference__c),
+  ISBLANK( Interaction__c )
+)</errorConditionFormula>
     <errorMessage>Please link the evaluation to the relevant Case or Interaction record. Otherwise, please populate the &apos;Reference&apos; field.</errorMessage>
 </ValidationRule>

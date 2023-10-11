@@ -35,6 +35,7 @@ public class NotificationHandlerTriggerTest {
       testCase.Status = IDRConstants.OPEN_STATUS;
       testCase.ANZx_Customer__c = true;
       testCase.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
+      testCase.IDR_Product_Category__c = 'Not product related';
     }
     testCase.RecordTypeId = recordTypeId;
     testCase.IDR_NC_Mobile__c = '+61499999999';
