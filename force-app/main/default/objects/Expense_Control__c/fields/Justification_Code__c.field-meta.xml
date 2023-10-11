@@ -75,24 +75,24 @@
                 <label>JTR99</label>
             </value>
             <value>
-                <fullName>JP102</fullName>
+                <fullName>JPI02</fullName>
                 <default>false</default>
-                <label>JP102</label>
+                <label>JPI02</label>
             </value>
             <value>
-                <fullName>JP103</fullName>
+                <fullName>JPI03</fullName>
                 <default>false</default>
-                <label>JP103</label>
+                <label>JPI03</label>
             </value>
             <value>
-                <fullName>JP104</fullName>
+                <fullName>JPI04</fullName>
                 <default>false</default>
-                <label>JP104</label>
+                <label>JPI04</label>
             </value>
             <value>
-                <fullName>JP199</fullName>
+                <fullName>JPI99</fullName>
                 <default>false</default>
-                <label>JP199</label>
+                <label>JPI99</label>
             </value>
             <value>
                 <fullName>JLI03</fullName>
