@@ -6,7 +6,6 @@
 
 @IsTest
 public class IDRQualityAssessmentTaskActionsTest {
-  public static final String REFERENCE_VALUE = 'TestRef';
 
   @IsTest
   static void checkMandatoryFields() {
@@ -158,7 +157,6 @@ public class IDRQualityAssessmentTaskActionsTest {
       Set<Id> stAssessmentIds = new Set<Id>();
       for (Quality_Assessment__c oAssessment : lstAssessments) {
         oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
-        oAssessment.Context_and_General_Comments__c = REFERENCE_VALUE;
         oAssessment.Team_Manager_Response__c = '';
 
         stAssessmentIds.add(oAssessment.Id);
