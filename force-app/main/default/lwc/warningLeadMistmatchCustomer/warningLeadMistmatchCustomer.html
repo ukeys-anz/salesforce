@@ -1,0 +1,15 @@
+<template>
+  <template if:true={misMatchWarning}>
+    <div
+      class="slds-modal__content slds-p-around_medium contentDiv slds-text-title"
+    >
+      <div>
+        <img src={warningSignUrl} class="imgDivPadding" />
+        <font size="2"><b>{warningMsgConstant}</b></font>
+      </div>
+      <lightning-formatted-rich-text
+        value={misMatchLeadDetailsMessage}
+      ></lightning-formatted-rich-text>
+    </div>
+  </template>
+</template>

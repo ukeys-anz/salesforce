@@ -6,6 +6,6 @@
     <description>Captures the source of the Lead</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Picklist</type>
 </CustomField>

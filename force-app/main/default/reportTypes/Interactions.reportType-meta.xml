@@ -2859,6 +2859,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Lead__c.Registered_Company__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Lead__c.Phone</field>
             <table>Interaction</table>
         </columns>

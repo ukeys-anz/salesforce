@@ -3,6 +3,7 @@
  * @since  07/2023
  * @group MLCRM (Mobile Lending CRM)
  * @description MLCRM_TerritoryConfigSharingScheduler is schedular class to schedule batch class for sharing sobject record when any update happens to territory or user territory records.
+ * @runTests MLCRM_TerritoryConfigSharingBatchTest
  */
 global class MLCRM_TerritoryConfigSharingScheduler implements Schedulable {
   /**

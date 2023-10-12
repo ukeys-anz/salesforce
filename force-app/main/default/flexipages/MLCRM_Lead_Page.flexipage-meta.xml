@@ -42,6 +42,15 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Lead.Log_Interaction_ML</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Global.Create_Event_ML</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Global.Create_Task_ML</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -62,7 +71,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>3</value>
+                    <value>6</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
@@ -1320,6 +1329,24 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-9368f82e-7889-4cfc-a608-0b0613117ef8</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>timelineConfigs</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Lead_Timeline_ML</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentName>industries_common:timeline</componentName>
+                <identifier>industries_common_timeline</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <name>Facet-fqobd72repv</name>
         <itemInstances>
             <componentInstance>
@@ -1343,10 +1370,24 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Standard.Tab.activity</value>
+                    <value>Tasks</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>activityTab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-9368f82e-7889-4cfc-a608-0b0613117ef8</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Timeline</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1384,27 +1425,27 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>warningLeadMistmatchCustomer</componentName>
+                <identifier>c_warningLeadMistmatchCustomer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>decorate</name>
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>richTextValue</name>
-                    <value>&lt;p&gt;&lt;img src=&quot;https://aries-rockaway-1532--c.vf.force.com/resource/1687771306000/Warning_Icon?&quot;&gt; &lt;strong style=&quot;font-size: 18px;&quot;&gt;Customer in Collections&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, Oxygen, Ubuntu, &amp;quot;Fira Sans&amp;quot;, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif; font-size: 14px;&quot;&gt;One or more of this customer&apos;s account is currently being managed by the collections team&lt;/span&gt;&lt;/p&gt;</value>
+                    <value>&lt;p&gt;&lt;img src=&quot;/resource/Warning_Icon?&quot;&gt; &lt;strong style=&quot;font-size: 18px;&quot;&gt;Customer in Collections&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, Oxygen, Ubuntu, &amp;quot;Fira Sans&amp;quot;, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif; font-size: 14px;&quot;&gt;One or more of this customer&apos;s account is currently being managed by the collections team&lt;/span&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.FinServ__RelatedAccount__r.Collections__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Adobe</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1417,21 +1458,15 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>richTextValue</name>
-                    <value>&lt;p&gt;&lt;img src=&quot;https://aries-rockaway-1532--c.vf.force.com/resource/1687771306000/Warning_Icon?&quot;&gt; &lt;strong style=&quot;font-size: 18px;&quot;&gt;Customer in Hardship&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, Oxygen, Ubuntu, &amp;quot;Fira Sans&amp;quot;, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif; font-size: 14px;&quot;&gt;This Customer is currently being managed by the hardship team&lt;/span&gt;&lt;/p&gt;</value>
+                    <value>&lt;p&gt;&lt;img src=&quot;/resource/Warning_Icon?&quot;&gt; &lt;strong style=&quot;font-size: 18px;&quot;&gt;Customer in Hardship&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(23, 43, 77); font-family: -apple-system, &amp;quot;system-ui&amp;quot;, &amp;quot;Segoe UI&amp;quot;, Roboto, Oxygen, Ubuntu, &amp;quot;Fira Sans&amp;quot;, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif; font-size: 14px;&quot;&gt;This Customer is currently being managed by the hardship team&lt;/span&gt;&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.FinServ__RelatedAccount__r.Hardship__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Adobe</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

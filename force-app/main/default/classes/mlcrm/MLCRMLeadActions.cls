@@ -260,21 +260,26 @@ public with sharing class MLCRMLeadActions {
       }
     }
     if (!idsOfTerritory.isEmpty()) {
-      //getting map of territory records
-      Map<Id, Territory__c> mapOfTerritory = new Map<Id, Territory__c>(
-        [
-          SELECT Primary_Franchise_Owner__c
-          FROM Territory__c
-          WHERE Id IN :idsOfTerritory
-        ]
-      );
+      Map<Id, Territory__c> mapOfUserToTerritory;
+      //getting list of territory records
+      List<Territory__c> lstOfTerritory = [
+        SELECT Primary_Franchise_Owner__c
+        FROM Territory__c
+        WHERE Id IN :idsOfTerritory
+      ];
+      if (!lstOfTerritory.isEmpty()) {
+        mapOfUserToTerritory = new Map<Id, Territory__c>();
+        for (Territory__c objTerritory : lstOfTerritory) {
+          mapOfUserToTerritory.put(objTerritory.Id, objTerritory);
+        }
+      }
 
       for (Lead objLead : lstOfLead) {
         if (
           objLead.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID &&
-          mapOfTerritory.containsKey(objLead.Territory__c)
+          mapOfUserToTerritory.containsKey(objLead.Territory__c)
         ) {
-          objLead.Primary_Franchise_Owner__c = mapOfTerritory.get(
+          objLead.Primary_Franchise_Owner__c = mapOfUserToTerritory.get(
               objLead.Territory__c
             )
             .Primary_Franchise_Owner__c;

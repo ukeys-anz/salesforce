@@ -13,10 +13,15 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
     WITH USER_MODE
   ];
 
+  public static Map<String, Set<String>> objectFieldsMap = new Map<String, Set<String>>();
+
   public static final Map<String, Map<String, String>> TRANSFORM_CONFIGS = new Map<String, Map<String, String>>{
     Schema.SObjectType.ContactPointAddress.Name => new Map<String, String>{
       Schema.SObjectType.ContactPointAddress.fields.Street.Name => 'addressLine1',
       Schema.SObjectType.ContactPointAddress.fields.Delivery_Identifier__c.Name => 'deliveryIdentifier'
+    },
+    Schema.SObjectType.Account.Name => new Map<String, String>{
+      Schema.SObjectType.Account.fields.Controlling_Post__c.Name => CCRMConstants.ACC_CP_TRANSFORM
     }
   };
 
@@ -38,12 +43,19 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         Schema.SObjectType.Customer_Profile_Updates__c.fields.Occurrence_Number__c.Name,
         Schema.SObjectType.ContactPointEmail.fields.Occurrence_Number__c.Name
       ),
+    Schema.SObjectType.ContactPointPhone.Name => new MappingConfig(
+        Schema.SObjectType.ContactPointPhone.fields.Customer_Name__c.Name
+      )
+      .copyField(
+        Schema.SObjectType.Customer_Profile_Updates__c.fields.Occurrence_Number__c.Name,
+        Schema.SObjectType.ContactPointPhone.fields.Occurrence_Number__c.Name
+      ),
     Schema.SObjectType.ContactPointAddress.Name => new MappingConfig(
       Schema.SObjectType.ContactPointAddress.fields.Customer_Name__c.Name
     )
   };
 
-  static final Map<String, List<TrackingConfig>> TRACKING_CONFIGS = new Map<String, List<TrackingConfig>>{
+  public static final Map<String, List<TrackingConfig>> TRACKING_CONFIGS = new Map<String, List<TrackingConfig>>{
     Schema.SObjectType.Account.Name => new List<TrackingConfig>{
       new TrackingConfig(Schema.SObjectType.Account.Label + NAME_SUFFIX)
         .name('Account.TaxDetails')
@@ -79,8 +91,55 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         .copyFields(
           Schema.SObjectType.ContactPointAddress.fieldSets.CCRMProspectCopyFields
         )
+    },
+    Schema.SObjectType.ContactPointPhone.Name => new List<TrackingConfig>{
+      new TrackingConfig(
+          Schema.SObjectType.ContactPointPhone.Label + NAME_SUFFIX
+        )
+        .trackFields(
+          Schema.SObjectType.ContactPointPhone.fieldSets.MLCRMProspectTrackedFields
+        )
     }
   };
+
+  public static final Map<String, List<TrackingConfig>> TRACKING_CONFIGS_ML = new Map<String, List<TrackingConfig>>{
+    Schema.SObjectType.Account.Name => new List<TrackingConfig>{
+      new TrackingConfig(Schema.SObjectType.Account.Label + NAME_SUFFIX)
+        .trackFields(
+          Schema.SObjectType.Account.fieldSets.MLCRMProspectTrackedFields
+        )
+    },
+    Schema.SObjectType.ContactPointEmail.Name => new List<TrackingConfig>{
+      new TrackingConfig(
+          Schema.SObjectType.ContactPointEmail.Label + NAME_SUFFIX
+        )
+        .trackFields(
+          Schema.SObjectType.ContactPointEmail.fieldSets.CCRMProspectTrackedFields
+        )
+    },
+    Schema.SObjectType.ContactPointPhone.Name => new List<TrackingConfig>{
+      new TrackingConfig(
+          Schema.SObjectType.ContactPointPhone.Label + NAME_SUFFIX
+        )
+        .trackFields(
+          Schema.SObjectType.ContactPointPhone.fieldSets.MLCRMProspectTrackedFields
+        )
+    },
+    Schema.SObjectType.ContactPointAddress.Name => new List<TrackingConfig>{
+      new TrackingConfig(
+          Schema.SObjectType.ContactPointAddress.Label + NAME_SUFFIX
+        )
+        .trackFields(
+          Schema.SObjectType.ContactPointAddress.fieldSets.CCRMProspectTrackedFields
+        )
+        .copyFields(
+          Schema.SObjectType.ContactPointAddress.fieldSets.CCRMProspectCopyFields
+        )
+    }
+  };
+
+  public static Map<Id, SObject> cpIdMap = new Map<Id, SObject>();
+  public static Map<Id, SObject> indIdMap = new Map<Id, SObject>();
 
   /**
    * @description Wrapper class for prospect field mapping configuration
@@ -176,6 +235,16 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
       return this;
     }
 
+    TrackingConfig trackFieldsActive(Set<String> fieldList) {
+      this.trackedFields = fieldList;
+      return this;
+    }
+
+    TrackingConfig copyFieldsActive(Set<String> fieldList) {
+      this.copyFields = fieldList;
+      return this;
+    }
+
     /**
      * @description extract field API names from a fieldset
      * @param fieldset the fieldSet to extract
@@ -197,6 +266,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
     SObject record;
     SObject oldRecord;
     Schema.DescribeSObjectResult objectInfo;
+    String recordTypeName;
     MappingConfig mappingConfig;
     TrackingConfig config;
     Map<String, String> transformConfig;
@@ -215,6 +285,10 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
       this.record = record;
       this.oldRecord = oldRecord;
       this.objectInfo = this.record.getSObjectType().getDescribe();
+      this.recordTypeName = this.objectInfo.sobjectType.getDescribe()
+        .getRecordTypeInfosById()
+        .get((Id) record.get('RecordTypeId'))
+        .getDeveloperName();
       this.fieldMap = this.objectInfo.fields.getMap();
       this.mappingConfig = MAPPING_CONFIGS.get(this.objectInfo.Name);
       this.transformConfig = TRANSFORM_CONFIGS.containsKey(this.objectInfo.Name)
@@ -224,15 +298,26 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
 
     /**
      * @description generate Customer_Profile_Updates__c from a given record
+     * @param isProspect true if we are passing prospect account records & False if we are passing Active account records.
+     * @param isMLUser true if current user if MLCRM Profile User.
      * @return List<Customer_Profile_Updates__c> the generated records
      */
-    public List<Customer_Profile_Updates__c> getUpdates() {
+    public List<Customer_Profile_Updates__c> getUpdates(
+      Boolean isProspect,
+      Boolean isMLUser
+    ) {
       List<Customer_Profile_Updates__c> results = new List<Customer_Profile_Updates__c>();
-      for (TrackingConfig config : TRACKING_CONFIGS.get(this.objectInfo.Name)) {
-        Customer_Profile_Updates__c cpu = this.getUpdateByConfig(config);
-        if (cpu != null) {
-          results.add(cpu);
+      Map<String, List<TrackingConfig>> trackingConfig;
+      if (isProspect) {
+        trackingConfig = isMLUser ? TRACKING_CONFIGS_ML : TRACKING_CONFIGS;
+        for (TrackingConfig config : trackingConfig.get(this.objectInfo.Name)) {
+          Customer_Profile_Updates__c cpu = this.getUpdateByConfig(config);
+          if (cpu != null) {
+            results.add(cpu);
+          }
         }
+      } else if (!isProspect) {
+        results = generateTrackingConfigForActive(results);
       }
 
       this.revertAllChanges();
@@ -313,25 +398,48 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         this.addFieldToMap(
           this.newValues,
           fieldInfo.label,
-          this.record.get(field)
+          getValue(fieldInfo.label, field, this.record)
         );
         this.addFieldToMap(
           this.newBackEndValues,
           field,
-          this.record.get(field)
+          getValue(field, field, this.record)
         );
       }
       if (this.oldRecord != null) {
         this.addFieldToMap(
           this.oldValues,
           fieldInfo.label,
-          this.oldRecord.get(field)
+          getValue(fieldInfo.label, field, this.oldRecord)
         );
         this.addFieldToMap(
           this.oldBackEndValues,
           field,
-          this.oldRecord.get(field)
+          getValue(field, field, this.oldRecord)
         );
+      }
+    }
+
+    /**
+     * @description return value of Controlling Post's CPID value Or Industry's Code Value
+     * @param fieldName can be label or API Name
+     * @param field the name of field, always API Name
+     * @param record the record, can be old or new
+     * @return Object return the value of the field
+     */
+    Object getValue(String fieldName, String field, Sobject record) {
+      if (
+        fieldName == CCRMConstants.ACC_CPID_LABEL ||
+        fieldName == CCRMConstants.ACC_CPID
+      ) {
+        return cpIdMap.get((Id) record.get(field))?.get('CPID__c');
+      } else if (
+        fieldName == CCRMConstants.ACC_IND_LABEL ||
+        fieldName == CCRMConstants.ACC_IND
+      ) {
+        return indIdMap.get((Id) record.get(field))?.get('Code__c');
+      } else {
+        return record.get(field);
       }
     }
 
@@ -401,8 +509,111 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
           this.record.get(this.mappingConfig.copyFields.get(targetField))
         );
       }
-
       return cpu;
+    }
+
+    /**
+     * @description generate a Tracking Config Map for Active/Inactive Customers
+     * @param results List of Customer_Profile_Updates__c
+     * @return List<Customer_Profile_Updates__c> list of Customer_Profile_Updates__c
+     */
+    public List<Customer_Profile_Updates__c> generateTrackingConfigForActive(
+      List<Customer_Profile_Updates__c> results
+    ) {
+      objectFieldsMap = CCRMCustomerProfileUpdateHelper.formObjectFieldsMap(
+        this.record
+      );
+      Map<String, List<TrackingConfig>> trackingConfigActive = new Map<String, List<TrackingConfig>>{
+        Schema.SObjectType.Account.Name => new List<TrackingConfig>{
+          new TrackingConfig(Schema.SObjectType.Account.Label + NAME_SUFFIX)
+            .trackFieldsActive(
+              objectFieldsMap
+                ?.get(
+                  Schema.SObjectType.Account.Name +
+                  '-' +
+                  this.recordTypeName
+                )
+            )
+        },
+        Schema.SObjectType.Contact.Name => new List<TrackingConfig>{
+          new TrackingConfig(Schema.SObjectType.Contact.Label + NAME_SUFFIX)
+            .trackFieldsActive(
+              objectFieldsMap
+                ?.get(
+                  Schema.SObjectType.Contact.Name +
+                  '-' +
+                  this.recordTypeName
+                )
+            )
+        },
+        Schema.SObjectType.ContactPointEmail.Name => new List<TrackingConfig>{
+          new TrackingConfig(
+              Schema.SObjectType.ContactPointEmail.Label + NAME_SUFFIX
+            )
+            .trackFieldsActive(
+              objectFieldsMap
+                ?.get(
+                  Schema.SObjectType.ContactPointEmail.Name +
+                  '-' +
+                  this.recordTypeName
+                )
+            )
+        },
+        Schema.SObjectType.ContactPointAddress.Name => new List<TrackingConfig>{
+          new TrackingConfig(
+              Schema.SObjectType.ContactPointAddress.Label + NAME_SUFFIX
+            )
+            .trackFieldsActive(
+              objectFieldsMap
+                ?.get(
+                  Schema.SObjectType.ContactPointAddress.Name +
+                  '-' +
+                  this.recordTypeName
+                )
+            )
+            .copyFieldsActive(
+              objectFieldsMap
+                ?.get(
+                  Schema.SObjectType.ContactPointAddress.Name +
+                  '-' +
+                  this.recordTypeName
+                )
+            )
+        }
+      };
+      if (
+        objectFieldsMap.containsKey(
+          Schema.SObjectType.ContactPointPhone.Name +
+          '-' +
+          this.recordTypeName
+        )
+      ) {
+        trackingConfigActive.put(
+          Schema.SObjectType.ContactPointPhone.Name,
+          new List<TrackingConfig>{
+            new TrackingConfig(
+                Schema.SObjectType.ContactPointPhone.Label + NAME_SUFFIX
+              )
+              .trackFieldsActive(
+                objectFieldsMap
+                  ?.get(
+                    Schema.SObjectType.ContactPointPhone.Name +
+                    '-' +
+                    this.recordTypeName
+                  )
+              )
+          }
+        );
+      }
+      for (
+        TrackingConfig config : trackingConfigActive.get(this.objectInfo.Name)
+      ) {
+        Customer_Profile_Updates__c cpu = this.getUpdateByConfig(config);
+        if (cpu != null) {
+          results.add(cpu);
+        }
+      }
+      return results;
     }
   }
 }

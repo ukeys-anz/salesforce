@@ -66,8 +66,8 @@ public class MLCRM_TerritoryConfigSharingBatchTest {
       ];
       lstOfUserTerritory[0].user__c = objMlUser3.Id;
       update lstOfUserTerritory;
-      MLCRM_TerritoryConfigSharingScheduler objSchedular = new MLCRM_TerritoryConfigSharingScheduler();
-      objSchedular.execute(null);
+      MLCRM_TerritoryConfigSharingScheduler objScheduler = new MLCRM_TerritoryConfigSharingScheduler();
+      objScheduler.execute(null);
       Test.stopTest();
     }
 

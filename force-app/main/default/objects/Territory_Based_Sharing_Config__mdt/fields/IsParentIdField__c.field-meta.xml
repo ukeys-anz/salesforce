@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsParentIdField__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <defaultValue>false</defaultValue>
+    <description>This field is used to indicate if the sharing object uses ParentId or &lt;object&gt;Id as the parent field.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>IsParentIdField</label>
+    <type>Checkbox</type>
+</CustomField>
