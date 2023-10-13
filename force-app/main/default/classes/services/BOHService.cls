@@ -82,7 +82,7 @@ public with sharing class BOHService extends Service {
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_Update_Expense,
-      HTTP_METHOD.HTTP_POST,
+      HTTP_METHOD.HTTP_PATCH,
       headers,
       expenseBody
     );
