@@ -80,6 +80,10 @@
         <name>ANZx_Edit_Interaction</name>
         <enabled>true</enabled>
     </customPermissions>
+    <customPermissions>
+        <name>ANZx_Refer_To_ANZ</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>Interaction permission set with Read/Write access.</description>
     <fieldPermissions>
         <editable>false</editable>
