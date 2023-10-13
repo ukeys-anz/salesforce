@@ -63,6 +63,6 @@ RUN mkdir -p /opt/harness-delegate/.sf || true ; chown delegate:delegate /opt/ha
     mkdir -p /opt/harness-delegate/.tfwrap || true ; chown delegate:delegate /opt/harness-delegate/.tfwrap && \
     mkdir -p /opt/harness-delegate/.local/share/sfdx || true ; chown delegate:delegate /opt/harness-delegate/.local/share/sfdx
 
-RUN echo y | sfdx plugins:install https://${ARTIFACTORY}:443/artifactory/api/npm/npmjs-org/sfdx-git-delta/-/sfdx-git-delta-5.25.2.tgz
+RUN echo y | sfdx plugins:install https://${ARTIFACTORY}:443/artifactory/api/npm/npmjs-org/sfdx-git-delta/-/sfdx-git-delta-5.25.2.tgz && npm install sfdx-git-delta@latest --global
 
 USER delegate
