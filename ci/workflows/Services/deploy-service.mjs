@@ -5,20 +5,21 @@ import {
   findJobId,
   salesforceDiffExist,
   findAllSpecifiedTests,
-  findJobIdFromCommand
+  findJobIdFromCommand,
+  logger
 } from "./helper.mjs";
 
 const validateWithoutTest = (targetOrg) => {
   if (!salesforceDiffExist()) return;
   const command = `npx sf project deploy start -o ${targetOrg} -d artifact --dry-run --ignore-conflicts --async --verbose --json`;
-  console.log(command);
+  logger(command);
   return runSfCommand(command);
 };
 
 const validateWithAllTests = (targetOrg) => {
   if (!salesforceDiffExist()) return;
   const command = `npx sf project deploy start -o ${targetOrg} -d artifact --dry-run --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
-  console.log(command);
+  logger(command);
   return runSfCommand(command);
 };
 
@@ -35,21 +36,21 @@ const validateWithSpecifiedTests = (targetOrg, classFolderPath) => {
   const allSpecifiedTests = " -t " + specifiedTestsArray.join(" -t ");
   command += allSpecifiedTests + " --json";
 
-  console.log(command);
+  logger(command);
   return runSfCommand(command);
 };
 
 const deployWithoutTest = (targetOrg) => {
   if (!salesforceDiffExist()) return;
   const command = `npx sf project deploy start -o ${targetOrg} -d artifact --ignore-conflicts --async --verbose --json`;
-  console.log(command);
+  logger(command);
   return runSfCommand(command);
 };
 
 const deployWithAllTests = (targetOrg) => {
   if (!salesforceDiffExist()) return;
   const command = `npx sf project deploy start -o ${targetOrg} -d artifact --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
-  console.log(command);
+  logger(command);
   return runSfCommand(command);
 };
 
@@ -60,6 +61,8 @@ const deployWithAllTests = (targetOrg) => {
 const findAndUploadJobId = (validationReport, branchName) => {
   const jobId = findJobIdFromCommand(validationReport);
   if (!jobId) process.exit();
+  logger(`Job Id : ${jobId}`);
+
   const createFile = createWriteStream(`${branchName}.txt`);
   createFile.write(jobId);
   createFile.end();
@@ -73,16 +76,20 @@ const cancel = (jobIdFilePath) => {
   // This will give us the current running jobId
   // Then we can cancel that and run a new job, when we raise a new commit
   const jobId = findJobId(jobIdFilePath);
-  if (!jobId) process.exit();
-  return runSfCommand(`npx sf project deploy cancel --job-id ${jobId}`);
+  if (!jobId) return;
+  const command = `npx sf project deploy cancel --job-id ${jobId}`;
+  logger(command);
+  return runSfCommand(command);
 };
 
 const validateProgress = (jobIdFilePath) => {
   const jobId = findJobId(jobIdFilePath);
   if (!jobId) process.exit();
-  const validateProcess = exec(
-    `npx sf project deploy resume --job-id ${jobId}`
-  );
+
+  const command = `npx sf project deploy resume --job-id ${jobId}`;
+  logger(command);
+
+  const validateProcess = exec(command);
   validateProcess.stdout.on("data", (data) => {
     try {
       const output = JSON.parse(data);
@@ -115,7 +122,11 @@ const validateProgress = (jobIdFilePath) => {
 const deployProgress = (deploymentCommand) => {
   const jobId = findJobIdFromCommand(deploymentCommand);
   if (!jobId) process.exit();
-  const deployProcess = exec(`npx sf project deploy resume --job-id ${jobId}`);
+
+  const command = `npx sf project deploy resume --job-id ${jobId}`;
+  logger(command);
+
+  const deployProcess = exec(command);
   deployProcess.stdout.on("data", (data) => {
     try {
       const output = JSON.parse(data);
@@ -156,7 +167,7 @@ const deployReport = (jobIdFilePath) => {
 // Then will print the apex code coverage
 const codeCoverage = (jobIdFilePath) => {
   const jobId = findJobId(jobIdFilePath);
-  if (!jobId) process.exit();
+  if (!jobId) return;
 
   const reportJson = JSON.parse(
     runSfCommand(`npx sf project deploy report --job-id ${jobId} --json`)
@@ -177,7 +188,8 @@ const codeCoverage = (jobIdFilePath) => {
     (1 - notCoveredLines / (coveredLines + notCoveredLines)) *
     100
   ).toFixed(2);
-  console.log(`Apex test coverage: ${percentage}%`);
+
+  logger(`Apex test coverage: ${percentage}%`);
   return;
 };
 

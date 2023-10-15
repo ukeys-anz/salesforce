@@ -51,7 +51,7 @@ const runTests = () => {
     clean: clean
   };
 
-  return runFunctionMapping[WHICH_JOB]();
+  return WHICH_JOB ? runFunctionMapping[WHICH_JOB]() : runAllTests();
 };
 
 runTests();

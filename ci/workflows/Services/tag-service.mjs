@@ -1,5 +1,5 @@
 import { exec } from "child_process";
-import { currentDate } from "./helper.mjs";
+import { currentDate, logger } from "./helper.mjs";
 // The fundtion to create a tag for us.
 // We should checkout the salesforce repo at first:
 
@@ -13,7 +13,8 @@ import { currentDate } from "./helper.mjs";
 // runId = ${GITHUB_RUN_ID}
 const createTag = (baseRef, runId) => {
   const tag = `${baseRef}-${runId}`;
-  console.log(`New created tag: ${tag}`);
+  logger(`New created tag: ${tag}`);
+
   return exec(`
         git tag ${tag}
         git push origin ${tag}
@@ -23,7 +24,8 @@ const createTag = (baseRef, runId) => {
 const createTagPipeline = (releaseName) => {
   const date = currentDate();
   const tag = `master-${releaseName}-${date}`;
-  console.log(`New created tag: ${tag}`);
+  logger(`New created tag: ${tag}`);
+
   return exec(`
         git tag ${tag}
         git push origin ${tag}

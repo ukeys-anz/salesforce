@@ -1,5 +1,5 @@
 import { exec } from "child_process";
-import { runSfCommand, findJobIdFromCommand } from "./helper.mjs";
+import { runSfCommand, findJobIdFromCommand, logger } from "./helper.mjs";
 
 // We are using sfdx command here, as it seems there is no equivalent command on sf to run tests -
 // - using sf project commands.
@@ -53,7 +53,7 @@ const runAllLocalTestsProgress = (targetOrg, runAllTestPackagePath) => {
 
 const runAllTests = (targetOrg, runAllTestClassPath) => {
   const command = `npx sf project deploy start -o ${targetOrg} -d ${runAllTestClassPath} --dry-run --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
-  console.log(command);
+  logger(command);
   return runSfCommand(command);
 };
 
@@ -61,9 +61,11 @@ const runAllTestsProgress = (targetOrg, runAllTestClassPath) => {
   const runAllTestsReport = runAllTests(targetOrg, runAllTestClassPath);
   const jobId = findJobIdFromCommand(runAllTestsReport);
   if (!jobId) process.exit();
-  const runAllTestsProcess = exec(
-    `npx sf project deploy resume --job-id ${jobId}`
-  );
+
+  const command = `npx sf project deploy resume --job-id ${jobId}`;
+  logger(command);
+
+  const runAllTestsProcess = exec(command);
   runAllTestsProcess.stdout.on("data", (data) => {
     try {
       const output = JSON.parse(data);

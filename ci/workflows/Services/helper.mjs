@@ -1,5 +1,13 @@
 import { execSync } from "child_process";
-import { readdirSync, readFileSync, statSync, existsSync, rename } from "fs";
+import {
+  readdirSync,
+  readFileSync,
+  statSync,
+  existsSync,
+  rename,
+  rmSync,
+  mkdirSync
+} from "fs";
 
 const renameFile = (oldFilepath, newFilepath) => {
   rename(oldFilepath, newFilepath, (err) => {
@@ -121,6 +129,30 @@ const findJobIdFromCommand = (command) => {
   return JSON.parse(command)["result"]["id"];
 };
 
+const deleteFolder = (folderPath) => {
+  return rmSync(folderPath, { recursive: true, force: true }, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`${folderPath} is deleted!`);
+  });
+};
+
+const createFolder = (folderPath) => {
+  return mkdirSync(folderPath, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`${folderPath} is created!`);
+  });
+};
+
+const logger = (log) => {
+  console.log("-----------------");
+  console.log(log);
+  console.log("\n");
+};
+
 export {
   runSfCommand,
   findJobId,
@@ -128,5 +160,9 @@ export {
   findAllSpecifiedTests,
   currentDate,
   renameFile,
-  findJobIdFromCommand
+  findJobIdFromCommand,
+  findAllFiles,
+  deleteFolder,
+  createFolder,
+  logger
 };
