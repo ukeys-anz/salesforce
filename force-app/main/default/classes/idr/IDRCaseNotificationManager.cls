@@ -80,6 +80,7 @@ public with sharing class IDRCaseNotificationManager {
         '\n')
       : '';
     if (
+      fieldLabel != 'Parent Updated' &&
       fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
       (!(String.valueOf(c.OwnerId).startsWith('00G')))
     ) {
