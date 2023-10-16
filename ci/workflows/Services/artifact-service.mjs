@@ -44,8 +44,12 @@ const createDiff = (folderName, baseRef, ref) => {
     const f = file.replace(folderName + "-all-files", folderName);
     if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
   });
-  logger(`All Changed files:\n${notIgnoredFilesChanges}`);
-  logger(`All Ignored files:\n${ignoredFilesChanges}`);
+  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
+  logger(
+    `All Ignored files:\n${
+      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
+    }`
+  );
   deleteFolder(folderName + "-all-files");
 };
 

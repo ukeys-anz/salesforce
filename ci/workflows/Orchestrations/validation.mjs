@@ -14,10 +14,10 @@ import {
   cancel,
   validateProgress,
   deployReport,
-  findAndUploadJobId,
+  uploadJobId,
   codeCoverage
 } from "../Services/deploy-service.mjs";
-import { deleteFolder } from "../Services/helper.mjs";
+import { booleanMap, deleteFolder, logger } from "../Services/helper.mjs";
 
 //////////
 
@@ -44,10 +44,12 @@ const PROJECT_NAME = "xxxx";
 /// functions
 
 const validationFunction = () => {
+  const draftPr = booleanMap(DRAFT_PR);
+  const specifiedTestsPR = booleanMap(SPECIFIED_TEST_PR);
   const testMapping = {
-    NoTest: DRAFT_PR,
-    SpecifiedTests: SPECIFIED_TEST_PR,
-    AllTests: !(DRAFT_PR || SPECIFIED_TEST_PR)
+    NoTest: draftPr,
+    SpecifiedTests: specifiedTestsPR,
+    AllTests: !(draftPr || specifiedTestsPR)
   };
 
   const validationFunctionMapping = {
@@ -71,15 +73,15 @@ const validate = () => {
   authenticate(BRANCH_NAME, SFDX_URL);
   cancel(JOB_ID_PATH);
   const validationFunc = validationFunction();
-  const validation = validationFunc(BRANCH_NAME, CLASS_FOLDER_PATH);
-  findAndUploadJobId(validation, BRANCH_NAME);
-  validateProgress(JOB_ID_PATH);
+  const validation = validationFunc(BRANCH_NAME, SOURCE_DIR, CLASS_FOLDER_PATH);
+  uploadJobId(validation, BRANCH_NAME);
+  validateProgress(validation);
 };
 
 const clean = () => {
   codeCoverage(JOB_ID_PATH);
   unauthenticate(BRANCH_NAME);
-  deleteFolder(SOURCE_DIR);
+  logger(deleteFolder(SOURCE_DIR));
 };
 
 /////////

@@ -91,6 +91,7 @@ const runAllTestsProgress = (targetOrg, runAllTestClassPath) => {
   runAllTestsProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Tests failed with exit code: \n${code}`);
+      process.exit(1);
     }
   });
 };
