@@ -3,7 +3,12 @@
  * @description controller class for flexcard to show SOP
  * @since April 2023
  */
+
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssMethodCount')
 global with sharing class ResidentialLoanApplicationController implements omnistudio.VlocityOpenInterface, Callable {
+  private Boolean hasValidationError = false;
+  private String validationError = '';
+  private Set<String> errorMsg = new Set<String>();
   /**
    * @param action String value of local method to invoke
    * @param args arg map that will contain input, output and options map
@@ -176,7 +181,15 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
+    this.hasValidationError = false;
     SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap);
+
+    if (this.hasValidationError) {
+      outMap.put('hasValidationError', true);
+      this.validationError = String.join(this.errorMsg, '<br \\\\>');
+      outMap.put('validationError', this.validationError);
+      return false;
+    }
 
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
@@ -194,6 +207,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       publishRLARecordMonitoringToast(loanRec[0]);
 
+      outMap.put('hasValidationError', false);
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
@@ -207,7 +221,14 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
+    this.hasValidationError = false;
     SOPUpdateIncomeModel model = generateUpdateIncomeModel(inputMap);
+    if (this.hasValidationError) {
+      outMap.put('hasValidationError', true);
+      this.validationError = String.join(this.errorMsg, '<br \\\\>');
+      outMap.put('validationError', this.validationError);
+      return false;
+    }
 
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
@@ -225,7 +246,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         JSON.serialize(model),
         loanId
       );
-
+      outMap.put('hasValidationError', false);
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
@@ -273,6 +294,11 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       outMap.put('toast', 'Error');
       return false;
     }
+  }
+
+  private void setValidationError(String errorMsg) {
+    this.hasValidationError = true;
+    this.errorMsg.add(errorMsg);
   }
 
   private Boolean editExpense(
@@ -324,6 +350,12 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     model.income.employment.businessName = (String) inputMap.get('employer');
     model.income.employment.basis = (String) inputMap.get('employmentType');
     String startDateStr = (String) inputMap.get('startDate');
+    if (!validateEmploymentDetail(model.income.employment, startDateStr)) {
+      setValidationError(BOHConstants.MANDATORY_FIELD_MISSING);
+    }
+    if (Date.valueOf(startDateStr) > Date.today()) {
+      setValidationError(BOHConstants.START_DATE_ERROR);
+    }
     List<String> dateParts = startDateStr.split('-');
     model.income.employment.startDate.month = Integer.valueOf(dateParts[0]);
     model.income.employment.startDate.day = Integer.valueOf(dateParts[1]);
@@ -335,6 +367,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     baseSalary.frequency = (String) inputMap.get('baseSalaryFrequency');
     baseSalary.amount = stringToMoney((String) inputMap.get('salaryAmount'));
     baseSalary.amountType = (String) inputMap.get('salaryTax');
+    if (!validateSOPIncomeEditType(baseSalary)) {
+      setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+    }
     model.income.details.add(baseSalary);
 
     String showOvertime = (String) inputMap.get('showOvertime');
@@ -344,6 +379,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       overtime.frequency = (String) inputMap.get('overtimeFrequency');
       overtime.amount = stringToMoney((String) inputMap.get('overtimeAmount'));
       overtime.amountType = (String) inputMap.get('overtimeTax');
+      if (!validateSOPIncomeEditType(overtime)) {
+        setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+      }
       model.income.details.add(overtime);
     }
 
@@ -355,6 +393,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       bonus.amountType = (String) inputMap.get('bonusTax');
       String paymentsStr = (String) inputMap.get('bonusPayments');
       bonus.bonusPayments = Integer.valueOf(paymentsStr);
+      if (!validateSOPIncomeEditType(bonus)) {
+        setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+      }
       model.income.details.add(bonus);
     }
 
@@ -367,6 +408,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         (String) inputMap.get('commissionAmount')
       );
       commission.amountType = (String) inputMap.get('commissionTax');
+      if (!validateSOPIncomeEditType(commission)) {
+        setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+      }
       model.income.details.add(commission);
     }
 
@@ -390,6 +434,12 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     model.employment.businessName = (String) inputMap.get('employer');
     model.employment.basis = (String) inputMap.get('employmentType');
     String startDateStr = (String) inputMap.get('startDate');
+    if (!validateEmploymentDetail(model.employment, startDateStr)) {
+      setValidationError(BOHConstants.MANDATORY_FIELD_MISSING);
+    }
+    if (Date.valueOf(startDateStr) > Date.today()) {
+      setValidationError(BOHConstants.START_DATE_ERROR);
+    }
     List<String> dateParts = startDateStr.split('-');
     model.employment.startDate.month = Integer.valueOf(dateParts[0]);
     model.employment.startDate.day = Integer.valueOf(dateParts[1]);
@@ -401,6 +451,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     baseSalary.frequency = (String) inputMap.get('baseSalaryFrequency');
     baseSalary.amount = stringToMoney((String) inputMap.get('salaryAmount'));
     baseSalary.amountType = (String) inputMap.get('salaryTax');
+    if (!validateSOPIncomeEditType(baseSalary)) {
+      setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+    }
     model.details.add(baseSalary);
 
     String showOvertime = (String) inputMap.get('showOvertime');
@@ -410,6 +463,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       overtime.frequency = (String) inputMap.get('overtimeFrequency');
       overtime.amount = stringToMoney((String) inputMap.get('overtimeAmount'));
       overtime.amountType = (String) inputMap.get('overtimeTax');
+      if (!validateSOPIncomeEditType(overtime)) {
+        setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+      }
       model.details.add(overtime);
     }
 
@@ -421,6 +477,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       bonus.amountType = (String) inputMap.get('bonusTax');
       String paymentsStr = (String) inputMap.get('bonusPayments');
       bonus.bonusPayments = Integer.valueOf(paymentsStr);
+      if (!validateSOPIncomeEditType(bonus)) {
+        setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+      }
       model.details.add(bonus);
     }
 
@@ -433,6 +492,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         (String) inputMap.get('commissionAmount')
       );
       commission.amountType = (String) inputMap.get('commissionTax');
+      if (!validateSOPIncomeEditType(commission)) {
+        setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+      }
       model.details.add(commission);
     }
 
@@ -536,5 +598,45 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       return;
     }
     BOHService.setToReassessmentIsRequired(loan.Id);
+  }
+
+  /**
+   * @description validate income forms
+   * @param incomeType form contains information of a income type
+   * @return true if all the mandatory fields have value
+   */
+  private static Boolean validateSOPIncomeEditType(
+    SOPCreateIncomeModel.SOPIncomeEditType incomeType
+  ) {
+    if (
+      (String.isBlank(incomeType.amount.units) &&
+      incomeType.amount.nanos == null) ||
+      String.isBlank(incomeType.frequency) ||
+      String.isBlank(incomeType.amountType)
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * @description validate employment detail
+   * @param employment `SOPCreateIncomeModel.SOPEmploymentDetail`
+   * @param startDateStr start time of employment
+   * @return true if the employment detail is valid
+   */
+  private static Boolean validateEmploymentDetail(
+    SOPCreateIncomeModel.SOPEmploymentDetail employment,
+    String startDateStr
+  ) {
+    if (
+      String.isBlank(employment.partyId) ||
+      String.isBlank(employment.businessName) ||
+      String.isBlank(employment.basis) ||
+      String.isBlank(startDateStr)
+    ) {
+      return false;
+    }
+    return true;
   }
 }
