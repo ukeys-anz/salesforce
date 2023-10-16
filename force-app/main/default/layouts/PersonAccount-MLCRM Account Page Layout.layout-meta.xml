@@ -253,20 +253,22 @@
         <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>New</excludeButtons>
         <fields>FinServ__RelatedContact__c</fields>
-        <fields>FinServ__SourceSystemId__c</fields>
-        <fields>Role_Description__c</fields>
-        <fields>FinServ__Role__c</fields>
+        <fields>Customer_SourceSystemId__c</fields>
+        <fields>Customer_Type__c</fields>
+        <fields>OCV_Role__c</fields>
         <relatedList>FinServ__ContactContactRelation__c.FinServ__Contact__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>New</excludeButtons>
         <fields>FULL_NAME</fields>
-        <fields>LEAD.CREATED_DATE</fields>
-        <fields>LEAD.LEAD_SOURCE</fields>
-        <fields>FinServ__ExpressedInterest__c</fields>
         <fields>LEAD.STATUS</fields>
+        <fields>FinServ__PotentialValue__c</fields>
+        <fields>FinServ__ExpressedInterest__c</fields>
+        <fields>LEAD.CREATED_DATE</fields>
         <relatedList>Lead.FinServ__RelatedAccount__c</relatedList>
+        <sortField>LEAD.CREATED_DATE</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>OPPORTUNITY.NAME</fields>
@@ -280,6 +282,23 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>Name</fields>
+        <fields>IsDefault</fields>
+        <fields>ADDRESS.STREET</fields>
+        <relatedList>ContactPointAddresses</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>EmailAddress</fields>
+        <relatedList>ContactPointEmails</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>TelephoneNumber</fields>
+        <fields>UsageType</fields>
+        <fields>Preferred_Indicator__c</fields>
+        <relatedList>ContactPointPhones</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

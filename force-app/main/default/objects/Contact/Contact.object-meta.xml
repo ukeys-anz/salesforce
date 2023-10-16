@@ -330,6 +330,15 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <enableFeeds>true</enableFeeds>
+    <profileSearchLayouts>
+        <fields>FULL_NAME</fields>
+        <fields>ACCOUNT.NAME</fields>
+        <fields>FinServ__OtherAddress__c</fields>
+        <fields>CONTACT.BIRTHDATE</fields>
+        <fields>CONTACT.PHONE3</fields>
+        <fields>CONTACT.EMAIL</fields>
+        <profileName>ANZ ML Standard User</profileName>
+    </profileSearchLayouts>
     <enableHistory>true</enableHistory>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <searchLayouts>

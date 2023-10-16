@@ -1144,10 +1144,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Not required</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Open</fullName>
             <default>true</default>
         </values>
@@ -1155,7 +1151,27 @@
     <picklistValues>
         <picklist>Subject</picklist>
         <values>
-            <fullName>Call</fullName>
+            <fullName>Complete Serviceability Assessment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organise Appointment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request Information or Documentation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request for Pricing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request for Property Valuation</fullName>
             <default>false</default>
         </values>
     </picklistValues>

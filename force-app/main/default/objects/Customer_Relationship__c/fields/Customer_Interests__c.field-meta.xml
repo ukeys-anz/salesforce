@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Interests__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Uncontrolled;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Customer personal interests</description>
+    <externalId>false</externalId>
+    <label>Interests</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sports</fullName>
+                <default>false</default>
+                <label>Sports</label>
+            </value>
+            <value>
+                <fullName>Learning</fullName>
+                <default>false</default>
+                <label>Learning</label>
+            </value>
+            <value>
+                <fullName>Investing and Finance</fullName>
+                <default>false</default>
+                <label>Investing and Finance</label>
+            </value>
+            <value>
+                <fullName>Outdoor Activities</fullName>
+                <default>false</default>
+                <label>Outdoor Activities</label>
+            </value>
+            <value>
+                <fullName>Gaming</fullName>
+                <default>false</default>
+                <label>Gaming</label>
+            </value>
+            <value>
+                <fullName>Social Activities</fullName>
+                <default>false</default>
+                <label>Social Activities</label>
+            </value>
+            <value>
+                <fullName>Cooking</fullName>
+                <default>false</default>
+                <label>Cooking</label>
+            </value>
+            <value>
+                <fullName>Reading</fullName>
+                <default>false</default>
+                <label>Reading</label>
+            </value>
+            <value>
+                <fullName>Fashion</fullName>
+                <default>false</default>
+                <label>Fashion</label>
+            </value>
+            <value>
+                <fullName>Collecting</fullName>
+                <default>false</default>
+                <label>Collecting</label>
+            </value>
+            <value>
+                <fullName>Gardening</fullName>
+                <default>false</default>
+                <label>Gardening</label>
+            </value>
+            <value>
+                <fullName>Animal</fullName>
+                <default>false</default>
+                <label>Animal</label>
+            </value>
+            <value>
+                <fullName>Travel</fullName>
+                <default>false</default>
+                <label>Travel</label>
+            </value>
+            <value>
+                <fullName>Health and Fitness</fullName>
+                <default>false</default>
+                <label>Health and Fitness</label>
+            </value>
+            <value>
+                <fullName>Dance</fullName>
+                <default>false</default>
+                <label>Dance</label>
+            </value>
+            <value>
+                <fullName>Music</fullName>
+                <default>false</default>
+                <label>Music</label>
+            </value>
+            <value>
+                <fullName>Movies</fullName>
+                <default>false</default>
+                <label>Movies</label>
+            </value>
+            <value>
+                <fullName>Theatre</fullName>
+                <default>false</default>
+                <label>Theatre</label>
+            </value>
+            <value>
+                <fullName>Visual Arts</fullName>
+                <default>false</default>
+                <label>Visual Arts</label>
+            </value>
+            <value>
+                <fullName>Volunteering</fullName>
+                <default>false</default>
+                <label>Volunteering</label>
+            </value>
+            <value>
+                <fullName>Photography</fullName>
+                <default>false</default>
+                <label>Photography</label>
+            </value>
+            <value>
+                <fullName>Writing and Blogging</fullName>
+                <default>false</default>
+                <label>Writing and Blogging</label>
+            </value>
+            <value>
+                <fullName>Technology</fullName>
+                <default>false</default>
+                <label>Technology</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

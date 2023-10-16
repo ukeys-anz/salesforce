@@ -151,6 +151,15 @@
     <enableFeeds>true</enableFeeds>
     <enableHistory>true</enableHistory>
     <externalSharingModel>Private</externalSharingModel>
+    <profileSearchLayouts>
+        <fields>OPPORTUNITY.NAME</fields>
+        <fields>CORE.USERS.FULL_NAME</fields>
+        <fields>OPPORTUNITY.STAGE_NAME</fields>
+        <fields>Territory__c</fields>
+        <fields>Opportunity_ID__c</fields>
+        <fields>Application_Numbers__c</fields>
+        <profileName>ANZ ML Standard User</profileName>
+    </profileSearchLayouts>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <recordTypeTrackHistory>false</recordTypeTrackHistory>
     <searchLayouts>

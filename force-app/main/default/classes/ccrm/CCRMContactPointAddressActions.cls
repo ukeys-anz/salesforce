@@ -41,37 +41,42 @@ public with sharing class CCRMContactPointAddressActions {
   }
 
   /**
-   * @description extract from a list of ContactPointAddress and return the records that are linked to prospect accounts
-   * @param records the list of ContactPointAddress to check if they're belonged to prospect accounts
-   * @return list of records that are linked to prospect accounts
+   * @description getExistingOrProspectCPA to get the CPA related to Existing or Prospect Account
+   * @param records List of CPA Records
+   * @return ContactPointAddressWrapper return List of Existing or Prospect CPA
    */
-  public static List<ContactPointAddress> extractProspectCpa(
+  public static ContactPointAddressWrapper getExistingOrProspectCPA(
     List<ContactPointAddress> records
   ) {
-    Set<Id> accountIds = new Set<Id>();
+    ContactPointAddressWrapper cpaWrap = new ContactPointAddressWrapper();
+
+    Set<Id> accIdsSet = new Set<Id>();
     for (ContactPointAddress record : records) {
       if (record.Customer_Name__c != null) {
-        accountIds.add(record.Customer_Name__c);
+        accIdsSet.add(record.Customer_Name__c);
       }
     }
 
-    Set<Id> prospectIds = CCRMAccountActions.extractProspectIds(accountIds);
+    List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    List<ContactPointAddress> results = new List<ContactPointAddress>();
+    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
+    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(accList);
+
     for (ContactPointAddress record : records) {
-      if (prospectIds.contains(record.Customer_Name__c)) {
-        results.add(record);
+      if (accWrap.prosAcc.containsKey(record.Customer_Name__c)) {
+        cpaWrap.prosCPA.add(record);
+      } else if (accWrap.activeAcc.containsKey(record.Customer_Name__c)) {
+        cpaWrap.activeCPA.add(record);
       }
     }
-
-    return results;
+    return cpaWrap;
   }
 
   /**
    * @description make sure Banker should only be able to add a new address if there is no existing address available for selected address type
    * @param records the list of records to check
    */
-  public static void checkExistingAddressOnProspect(
+  public static void checkExistingAddressOnProspectOrExistingCust(
     List<ContactPointAddress> records
   ) {
     Set<Id> accountIds = new Set<Id>();
@@ -88,7 +93,17 @@ public with sharing class CCRMContactPointAddressActions {
       WHERE
         Customer_Name__c IN :accountIds
         AND ActiveToDate = NULL
-        AND Customer_Name__r.Is_Prospect__c = TRUE
+        AND (Customer_Name__r.Is_Prospect__c = TRUE
+        OR (Customer_Name__r.RecordType.DeveloperName IN (
+          :CCRMConstants.ACC_RT,
+          :MLCRMConstants.PERSONACCOUNT_RT
+        )
+        AND Customer_Name__r.FinServ__Status__c IN (
+          :CCRMConstants.ACTIVE_STATUS,
+          :CCRMConstants.INACTIVE_STATUS
+        )
+        AND Customer_Name__r.Source_System_Name__c = :CCRMConstants.SOURCE_SYSTEM_NAME
+        AND Customer_Name__r.ANZx_Customer__c = FALSE))
       WITH SECURITY_ENFORCED
     ]) {
       if (mapAccountIdToAddressTypes.containsKey(record.Customer_Name__c)) {
@@ -115,5 +130,17 @@ public with sharing class CCRMContactPointAddressActions {
         );
       }
     }
+  }
+
+  /**
+   * @author Naman Garg
+   * @since  09/2023
+   * @group CCRM (Commercial CRM)
+   * @description ContactPointAddressWrapper wrapper class to hold Existing and Prospect CPA
+   * @name ContactWrapper
+   */
+  public class ContactPointAddressWrapper {
+    public List<ContactPointAddress> prosCPA = new List<ContactPointAddress>();
+    public List<ContactPointAddress> activeCPA = new List<ContactPointAddress>();
   }
 }

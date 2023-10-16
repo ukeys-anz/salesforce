@@ -6,12 +6,12 @@
         <description>This sharing rule is used to share territory (Edit Access) records with ANZ Mobile Lending Support Team members</description>
         <label>ANZ Mobile Lending Support Team Territory Sharing</label>
         <sharedTo>
-            <group>ANZ_Mobile_Lending_Support_Team</group>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedTo>
         <criteriaItems>
             <field>CreatedById</field>
             <operation>notEqual</operation>
-            <value/>
+            <value></value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -26,7 +26,7 @@
         <criteriaItems>
             <field>CreatedById</field>
             <operation>notEqual</operation>
-            <value/>
+            <value></value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -41,7 +41,7 @@
         <criteriaItems>
             <field>CreatedById</field>
             <operation>notEqual</operation>
-            <value/>
+            <value></value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

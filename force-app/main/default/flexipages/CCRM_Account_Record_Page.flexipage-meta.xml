@@ -5,12 +5,29 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Edit</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Account.Log_Interaction_CCRM</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Global.Create_Task_CCRM</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Account.ProspectAddAddress</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>collapsed</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsConfiguration</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsInNative</name>
@@ -22,7 +39,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>3</value>
+                    <value>5</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
@@ -66,7 +83,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Advertising_Indicator__c</fieldItem>
                 <identifier>RecordAdvertising_Indicator_cField</identifier>
@@ -76,7 +93,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Establishment_Date__c</fieldItem>
                 <identifier>RecordEstablishment_Date_cField</identifier>
@@ -96,10 +113,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Industry</fieldItem>
-                <identifier>RecordIndustryField</identifier>
+                <fieldItem>Record.Industry__c</fieldItem>
+                <identifier>RecordIndustry_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -130,7 +147,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Mailing_Name__c</fieldItem>
                 <identifier>RecordMailing_Name_cField</identifier>
@@ -160,7 +177,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Disclosure_Indicator__c</fieldItem>
                 <identifier>RecordDisclosure_Indicator_cField</identifier>
@@ -204,16 +221,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__MaritalStatus__pc</fieldItem>
                 <identifier>RecordFinServ_MaritalStatus_pcField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Occupation__c</fieldItem>
-                <identifier>RecordOccupation_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -404,6 +411,40 @@
                 <identifier>RecordOCV_ID_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Controlling_Post__c</fieldItem>
+                <identifier>RecordControlling_Post_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Controlling_Post__r.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>&apos;&apos;</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CPID__c</fieldItem>
+                <identifier>RecordCPID_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Controlling_Post__r.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>&apos;&apos;</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -445,12 +486,16 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
+        <name>Facet-016f78c7-1fd5-41f6-92ff-a4a19d9d52b3</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-5463df16-daf7-4a97-853e-e7a109a5c61d</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
@@ -465,6 +510,10 @@
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-89d6e8f0-2f0c-4afe-8b81-fa1ee5c11811</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
@@ -488,6 +537,10 @@
                     <value>Facet-66e5462f-ca7a-472a-b848-85b65fe5643e</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Know Your Customer</value>
                 </componentInstanceProperties>
@@ -500,6 +553,10 @@
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-03feb8f9-5b60-45db-9ece-4a6c62dfd9bb</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
@@ -515,10 +572,146 @@
                 <identifier>force_recordDetailPanelMobile</identifier>
             </componentInstance>
         </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-d33d4692-69aa-4cf0-bdce-cbaac0c147cb</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>ContactPointAddresses</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>GRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>ContactPointEmails</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>GRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Contacts</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>GRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-c4ed4dbf-b07e-45e5-b9b3-68b34968fede</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-016f78c7-1fd5-41f6-92ff-a4a19d9d52b3</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.detail</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-d33d4692-69aa-4cf0-bdce-cbaac0c147cb</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Contact Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>main</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-c4ed4dbf-b07e-45e5-b9b3-68b34968fede</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset2</identifier>
+            </componentInstance>
+        </itemInstances>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-3e8d796c-ba99-48ae-9807-5eb49fe2fe30</name>
+        <name>Facet-8edf9839-427a-4efb-9432-c8586a7a1938</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -527,6 +720,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-3e8d796c-ba99-48ae-9807-5eb49fe2fe30</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>timelineConfigs</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Customer_Timeline_CCRM</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentName>industries_common:timeline</componentName>
+                <identifier>industries_common_timeline</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -550,6 +761,20 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-8edf9839-427a-4efb-9432-c8586a7a1938</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Tasks</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -559,7 +784,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Standard.Tab.activity</value>
+                    <value>Timeline</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
@@ -641,19 +866,13 @@
                             <value>NAME</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>OldValue__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>NewValue__c</value>
+                            <value>CREATEDBY_USER</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Status__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Action__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Object_Name__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

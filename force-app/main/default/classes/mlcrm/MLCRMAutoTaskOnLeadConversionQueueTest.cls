@@ -33,7 +33,7 @@ public with sharing class MLCRMAutoTaskOnLeadConversionQueueTest {
   }
 
   @IsTest
-  static void findAndConvertLeadCCRMTest() {
+  static void autoTaskOnLeadConversionQueueTest() {
     System.runAs(MLCRMTestDataFactory.createAdminUser()) {
       Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
         .Id;
@@ -61,12 +61,69 @@ public with sharing class MLCRMAutoTaskOnLeadConversionQueueTest {
       Test.startTest();
       AccountCommonActions.findAndConvertCCRMLead(testAccount.id, record);
       Test.stopTest();
-      // THEN the existing lead is converted into this account
-      Lead l = [SELECT Id, Status FROM Lead WHERE id = :record.Id LIMIT 1];
+      // THEN the task has been created against the opportunity.
+      Task taskRecord = [
+        SELECT Id, Subject, Description
+        FROM Task
+        WHERE recordtypeId = :MLCRMConstants.MLCRM_TASK_RT_ID
+        LIMIT 1
+      ];
       System.assertEquals(
-        'Converted',
-        l.Status,
-        'Lead should have been converted.'
+        Label.MLCRM_Auto_Task_MistMatch_Subject,
+        taskRecord.Subject,
+        'Mismatched task not created.'
+      );
+      System.assert(
+        taskRecord.Description.contains('First Name'),
+        'First Name is matched.'
+      );
+      System.assert(
+        !taskRecord.Description.contains('Middle Name'),
+        'Middle Name is not matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('Last Name'),
+        'Last Name is matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('Home Phone'),
+        'Home Phone is matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('Work Phone'),
+        'Work Phone is matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('Mobile Phone'),
+        'Mobile Phone is matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('Email'),
+        'Email is matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('Street'),
+        'Street is matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('City'),
+        'City is matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('State'),
+        'State is matched.'
+      );
+      System.assert(
+        !taskRecord.Description.contains('Country'),
+        'Country is not matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('Postal Code'),
+        'Postal Code is matched.'
+      );
+      System.assert(
+        taskRecord.Description.contains('Advertising Indicator'),
+        'Advertising Indicator is not matched.'
       );
     }
   }

@@ -1,0 +1,12 @@
+{
+  "credHelpers": {
+    "gcr.io": "gcloud",
+    "staging-k8s.gcr.io": "gcloud",
+    "us.gcr.io": "gcloud",
+    "australia-southeast1-docker.pkg.dev": "gcloud",
+    "australia-southeast2-docker.pkg.dev": "gcloud",
+    "asia.gcr.io": "gcloud",
+    "marketplace.gcr.io": "gcloud",
+    "eu.gcr.io": "gcloud"
+  }
+}

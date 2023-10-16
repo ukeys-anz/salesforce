@@ -3453,6 +3453,7 @@ private class CaseTriggerHandlerTest {
 
   @isTest
   static void testEmailTaskOnCaseClosureCreation() {
+    Test.startTest();
     User usr = TestUtil.getUserByFirstName('IntegrationTest');
     Case theCase;
     System.runAs(usr) {
@@ -3500,7 +3501,6 @@ private class CaseTriggerHandlerTest {
       );
       insert externalCaseStatus;
 
-      Test.startTest();
       theCase.Status = 'Closed';
       update theCase;
       Test.stopTest();

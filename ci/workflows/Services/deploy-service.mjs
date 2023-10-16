@@ -4,26 +4,32 @@ import {
   runSfCommand,
   findJobId,
   salesforceDiffExist,
-  findAllSpecifiedTests
+  findAllSpecifiedTests,
+  findJobIdFromCommand,
+  logger
 } from "./helper.mjs";
 
-const validateWithoutTest = (targetOrg) => {
-  if (!salesforceDiffExist()) return;
-  const command = `npx sf project deploy start -o ${targetOrg} -d artifact --dry-run --ignore-conflicts --async --verbose --json`;
-  console.log(command);
+const validateWithoutTest = (targetOrg, artifactPath) => {
+  if (!salesforceDiffExist(artifactPath)) return;
+  const command = `npx sf project deploy start -o ${targetOrg} -d ${artifactPath} --dry-run --ignore-conflicts --async --verbose --json`;
+  logger(command);
   return runSfCommand(command);
 };
 
-const validateWithAllTests = (targetOrg) => {
-  if (!salesforceDiffExist()) return;
-  const command = `npx sf project deploy start -o ${targetOrg} -d artifact --dry-run --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
-  console.log(command);
+const validateWithAllTests = (targetOrg, artifactPath) => {
+  if (!salesforceDiffExist(artifactPath)) return;
+  const command = `npx sf project deploy start -o ${targetOrg} -d ${artifactPath} --dry-run --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
+  logger(command);
   return runSfCommand(command);
 };
 
-const validateWithSpecifiedTests = (targetOrg, classFolderPath) => {
-  if (!salesforceDiffExist()) return;
-  let command = `npx sf project deploy start -o ${targetOrg} -d artifact --dry-run --ignore-conflicts --async --verbose --test-level RunSpecifiedTests`;
+const validateWithSpecifiedTests = (
+  targetOrg,
+  artifactPath,
+  classFolderPath
+) => {
+  if (!salesforceDiffExist(artifactPath)) return;
+  let command = `npx sf project deploy start -o ${targetOrg} -d ${artifactPath} --dry-run --ignore-conflicts --async --verbose --test-level RunSpecifiedTests`;
 
   const specifiedTestsArray = findAllSpecifiedTests(classFolderPath);
   if (!specifiedTestsArray.length) {
@@ -34,21 +40,21 @@ const validateWithSpecifiedTests = (targetOrg, classFolderPath) => {
   const allSpecifiedTests = " -t " + specifiedTestsArray.join(" -t ");
   command += allSpecifiedTests + " --json";
 
-  console.log(command);
+  logger(command);
   return runSfCommand(command);
 };
 
-const deployWithoutTest = (targetOrg) => {
-  if (!salesforceDiffExist()) return;
-  const command = `npx sf project deploy start -o ${targetOrg} -d artifact --ignore-conflicts --async --verbose --json`;
-  console.log(command);
+const deployWithoutTest = (targetOrg, artifactPath) => {
+  if (!salesforceDiffExist(artifactPath)) return;
+  const command = `npx sf project deploy start -o ${targetOrg} -d ${artifactPath} --ignore-conflicts --async --verbose --json`;
+  logger(command);
   return runSfCommand(command);
 };
 
-const deployWithAllTests = (targetOrg) => {
-  if (!salesforceDiffExist()) return;
-  const command = `npx sf project deploy start -o ${targetOrg} -d artifact --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
-  console.log(command);
+const deployWithAllTests = (targetOrg, artifactPath) => {
+  if (!salesforceDiffExist(artifactPath)) return;
+  const command = `npx sf project deploy start -o ${targetOrg} -d ${artifactPath} --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
+  logger(command);
   return runSfCommand(command);
 };
 
@@ -56,8 +62,10 @@ const deployWithAllTests = (targetOrg) => {
 // The file should be uploaded from artifactory as if we raise a new commit, it will find it and -
 // will cancel the previous job.
 // Another scenario to use this is to find the job id and run the resume command to check the deployment progress.
-const findAndUploadJobId = (validationReport, branchName) => {
-  const jobId = JSON.parse(validationReport)["result"]["id"];
+const uploadJobId = (validationReport, branchName) => {
+  const jobId = findJobIdFromCommand(validationReport);
+  if (!jobId) return;
+
   const createFile = createWriteStream(`${branchName}.txt`);
   createFile.write(jobId);
   createFile.end();
@@ -70,15 +78,63 @@ const cancel = (jobIdFilePath) => {
   // At first we should download the file which contain the jobId from artifactory.
   // This will give us the current running jobId
   // Then we can cancel that and run a new job, when we raise a new commit
-  const jobId = findJobId(jobIdFilePath);
-  if (!jobId) process.exit();
-  return runSfCommand(`npx sf project deploy cancel --job-id ${jobId}`);
+  const jobId = findJobId(jobIdFilePath, "| Cancel previous job.");
+  if (!jobId) return;
+  const command = `npx sf project deploy cancel --job-id ${jobId}`;
+  logger(command);
+  return runSfCommand(command);
 };
 
-const deployProgress = (jobIdFilePath) => {
-  const jobId = findJobId(jobIdFilePath);
+const validateProgress = (validationReport) => {
+  const jobId = findJobIdFromCommand(validationReport);
+  if (!jobId) {
+    logger("No Job Id could be found");
+    process.exit();
+  }
+  logger(`Job Id : ${jobId}`);
+
+  const command = `npx sf project deploy resume --job-id ${jobId}`;
+  logger(command);
+
+  const validateProcess = exec(command);
+  validateProcess.stdout.on("data", (data) => {
+    try {
+      const output = JSON.parse(data);
+      if (output.status === 0) {
+        console.log("Validation completed successfully");
+      } else if (output.progress) {
+        console.log(`Progress: ${output.progress}`);
+      } else {
+        console.log(data);
+      }
+    } catch (err) {
+      console.log(data);
+    }
+  });
+
+  validateProcess.stderr.on("data", (data) => {
+    const dataReport = data.toString();
+    if (dataReport.toLowerCase().includes("status")) {
+      console.error(`Progress: ${data.toString()}`);
+    }
+  });
+
+  validateProcess.on("close", (code) => {
+    if (code !== 0) {
+      console.error(`Validation failed with exit code: \n${code}`);
+      process.exit(1);
+    }
+  });
+};
+
+const deployProgress = (deploymentCommand) => {
+  const jobId = findJobIdFromCommand(deploymentCommand);
   if (!jobId) process.exit();
-  const deployProcess = exec(`npx sf project deploy resume --job-id ${jobId}`);
+
+  const command = `npx sf project deploy resume --job-id ${jobId}`;
+  logger(command);
+
+  const deployProcess = exec(command);
   deployProcess.stdout.on("data", (data) => {
     try {
       const output = JSON.parse(data);
@@ -104,12 +160,13 @@ const deployProgress = (jobIdFilePath) => {
   deployProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Deployment failed with exit code: \n${code}`);
+      process.exit(1);
     }
   });
 };
 
 const deployReport = (jobIdFilePath) => {
-  const jobId = findJobId(jobIdFilePath);
+  const jobId = findJobId(jobIdFilePath, "| Validation/Deployment report");
   if (!jobId) process.exit();
   return runSfCommand(`npx sf project deploy report --job-id ${jobId}`);
 };
@@ -118,8 +175,8 @@ const deployReport = (jobIdFilePath) => {
 // Will find the test result and then the number of covered lines and not covered lines
 // Then will print the apex code coverage
 const codeCoverage = (jobIdFilePath) => {
-  const jobId = findJobId(jobIdFilePath);
-  if (!jobId) process.exit(1);
+  const jobId = findJobId(jobIdFilePath, "| Code Coverage");
+  if (!jobId) return;
 
   const reportJson = JSON.parse(
     runSfCommand(`npx sf project deploy report --job-id ${jobId} --json`)
@@ -140,7 +197,8 @@ const codeCoverage = (jobIdFilePath) => {
     (1 - notCoveredLines / (coveredLines + notCoveredLines)) *
     100
   ).toFixed(2);
-  console.log(`Apex test coverage: ${percentage}%`);
+
+  logger(`Apex test coverage: ${percentage}%`);
   return;
 };
 
@@ -153,8 +211,9 @@ export {
   deployWithoutTest,
   deployWithAllTests,
   cancel,
+  validateProgress,
   deployProgress,
   deployReport,
-  findAndUploadJobId,
+  uploadJobId,
   codeCoverage
 };

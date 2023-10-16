@@ -12,3 +12,10 @@ p.modalSubText {
   padding-bottom: 1.5rem;
   padding-top: 0.3rem;
 }
+
+.imgDivPadding {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+}
