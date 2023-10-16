@@ -7,6 +7,12 @@
 public with sharing class CCRMContactPointEmailActions {
   private static final String EMAIL_EXISTS_ERROR = 'An email record is already available for this customer. Please edit the email below.';
   private static final String INVALID_EMAIL_ERROR = 'Please enter Email in correct format.';
+  private static final String EMAIL_LINKED_ERROR = 'Please select the correct type based on the Customer';
+  private static final Profile CURRENT_USER_PROFILE = MLCRMCommonUtils.getProfileById(
+    UserInfo.getProfileId()
+  );
+  private static final Boolean IS_CCRM_USER = (CURRENT_USER_PROFILE?.Name ==
+  Label.CCRM_Profile_Name);
 
   /**
    * @description Copy ParentId to Customer_Name__c field.
@@ -41,39 +47,46 @@ public with sharing class CCRMContactPointEmailActions {
   }
 
   /**
-   * @description extract from a list of ContactPointEmail and return the records that are linked to prospect accounts
-   * @param records the list of ContactPointEmail to check if they're belonged to prospect accounts
-   * @return list of records that are linked to prospect accounts
+   * @description getExistingOrProspectCPE to get the CPE related to Existing or Prospect Account
+   * @param records List of CPE Records
+   * @return ContactPointEmailWrapper return List of Existing or Prospect CPE
    */
-  public static List<ContactPointEmail> extractProspectCpe(
+  public static ContactPointEmailWrapper getExistingOrProspectCPE(
     List<ContactPointEmail> records
   ) {
-    Set<Id> accountIds = new Set<Id>();
+    ContactPointEmailWrapper cpeWrap = new ContactPointEmailWrapper();
+
+    Set<Id> accIdsSet = new Set<Id>();
     for (ContactPointEmail record : records) {
       if (record.Customer_Name__c != null) {
-        accountIds.add(record.Customer_Name__c);
+        accIdsSet.add(record.Customer_Name__c);
       }
     }
 
-    Set<Id> prospectIds = CCRMAccountActions.extractProspectIds(accountIds);
+    List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    List<ContactPointEmail> results = new List<ContactPointEmail>();
+    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
+    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(accList);
+
     for (ContactPointEmail record : records) {
-      if (prospectIds.contains(record.Customer_Name__c)) {
-        results.add(record);
+      if (accWrap.prosAcc.containsKey(record.Customer_Name__c)) {
+        cpeWrap.prosCPE.add(record);
+      } else if (accWrap.activeAcc.containsKey(record.Customer_Name__c)) {
+        cpeWrap.activeCPE.add(record);
       }
     }
 
-    return results;
+    return cpeWrap;
   }
 
   /**
    * @description make sure bankers should only be able to add a new email if there is no existing email available for that Prospect
    * @param records the list of records to check
    */
-  public static void checkExistingEmailOnProspect(
+  public static void checkExistingEmailOnProspectOrExistingCust(
     List<ContactPointEmail> records
   ) {
+    Map<Id, AggregateResult> mapAccountIdToEmailCount = new Map<Id, AggregateResult>();
     Set<Id> accountIds = new Set<Id>();
     for (ContactPointEmail record : records) {
       if (record.Customer_Name__c != null) {
@@ -81,14 +94,24 @@ public with sharing class CCRMContactPointEmailActions {
       }
     }
 
-    Map<Id, AggregateResult> mapAccountIdToEmailCount = new Map<Id, AggregateResult>(
+    mapAccountIdToEmailCount = new Map<Id, AggregateResult>(
       [
         SELECT Customer_Name__c Id, COUNT(Id) Cnt
         FROM ContactPointEmail
         WHERE
           Customer_Name__c IN :accountIds
           AND ActiveToDate = NULL
-          AND Customer_Name__r.Is_Prospect__c = TRUE
+          AND (Customer_Name__r.Is_Prospect__c = TRUE
+          OR (Customer_Name__r.RecordType.DeveloperName IN (
+            :CCRMConstants.ACC_RT,
+            :MLCRMConstants.PERSONACCOUNT_RT
+          )
+          AND Customer_Name__r.FinServ__Status__c IN (
+            :CCRMConstants.ACTIVE_STATUS,
+            :CCRMConstants.INACTIVE_STATUS
+          )
+          AND Customer_Name__r.Source_System_Name__c = :CCRMConstants.SOURCE_SYSTEM_NAME
+          AND Customer_Name__r.ANZx_Customer__c = FALSE))
         WITH SECURITY_ENFORCED
         GROUP BY Customer_Name__c
       ]
@@ -105,7 +128,9 @@ public with sharing class CCRMContactPointEmailActions {
    * @description validate prospect's emails. This is done instead of Custom Validation Rule since these values will be reverted before Custom Validation kick in.
    * @param records the list of email record to validate
    */
-  public static void validateProspectEmails(List<ContactPointEmail> records) {
+  public static void validateExistingOrProspectEmails(
+    List<ContactPointEmail> records
+  ) {
     if (CCRMConstants.SKIP_CUSTOM_VALIDATION_RULES) {
       return;
     }
@@ -120,5 +145,68 @@ public with sharing class CCRMContactPointEmailActions {
         );
       }
     }
+  }
+
+  /**
+   * @description Validate If the Organisation/Individual Email Record is created against Organisation/Individual Customer or not.
+   * @param records the list of email record to validate
+   */
+  public static void validateOrgIndividualEmailsLinking(
+    List<ContactPointEmail> records
+  ) {
+    Set<Id> accountIds = new Set<Id>();
+    Map<Id, Account> accMap;
+    if (CCRMConstants.SKIP_CUSTOM_VALIDATION_RULES) {
+      return;
+    }
+    for (ContactPointEmail record : records) {
+      if (record.Customer_Name__c != null) {
+        accountIds.add(record.Customer_Name__c);
+      }
+    }
+
+    if (!accountIds.isEmpty()) {
+      accMap = getAccountMap(accountIds);
+
+      for (ContactPointEmail record : records) {
+        if (
+          !((record.RecordTypeId == CCRMConstants.CPE_ORG_RT_ID &&
+          accMap.get(record.Customer_Name__c).RecordTypeId ==
+          CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID) ||
+          (record.RecordTypeId == CCRMConstants.CPE_IND_RT_ID &&
+          accMap.get(record.Customer_Name__c).RecordTypeId ==
+          CCRMConstants.ACCOUNT_PERSON_RT_ID))
+        ) {
+          record.addError(EMAIL_LINKED_ERROR);
+        }
+      }
+    }
+  }
+
+  /**
+   * @description get map of Account
+   * @param accountIds the list of accountIds
+   * @return Map<Id, Account> map of Account
+   */
+  public static Map<Id, Account> getAccountMap(Set<Id> accountIds) {
+    return new Map<Id, Account>(
+      [
+        SELECT Id, RecordType.DeveloperName, RecordTypeId
+        FROM Account
+        WHERE Id IN :accountIds
+      ]
+    );
+  }
+
+  /**
+   * @author Naman Garg
+   * @since  09/2023
+   * @group CCRM (Commercial CRM)
+   * @description ContactPointEmailWrapper wrapper class to hold Existing and Prospect CPE
+   * @name ContactWrapper
+   */
+  public class ContactPointEmailWrapper {
+    public List<ContactPointEmail> prosCPE = new List<ContactPointEmail>();
+    public List<ContactPointEmail> activeCPE = new List<ContactPointEmail>();
   }
 }

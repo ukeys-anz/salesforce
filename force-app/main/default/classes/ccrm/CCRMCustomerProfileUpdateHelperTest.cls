@@ -21,7 +21,7 @@ private class CCRMCustomerProfileUpdateHelperTest {
   static void testCreateCustomerProfileUpdates() {
     //GIVEN a prospect customer
     Account prospect = [
-      SELECT Id, Name, ABN__c
+      SELECT Id, Name, RecordTypeId, ABN__c
       FROM Account
       WHERE Is_Prospect__c = TRUE
       LIMIT 1
@@ -30,7 +30,8 @@ private class CCRMCustomerProfileUpdateHelperTest {
       prospect.Id => new Account(
         Id = prospect.Id,
         Name = prospect.Name,
-        ABN__c = prospect.ABN__c
+        ABN__c = prospect.ABN__c,
+        RecordTypeId = prospect.RecordTypeId
       )
     };
 
@@ -38,18 +39,25 @@ private class CCRMCustomerProfileUpdateHelperTest {
     Account update1 = new Account(
       Id = prospect.Id,
       Name = prospect.Name + 1,
-      ABN__c = null
+      ABN__c = null,
+      RecordTypeId = prospect.RecordTypeId
     );
-    Account update2 = new Account(Id = prospect.Id, Name = prospect.Name + 2);
+    Account update2 = new Account(
+      Id = prospect.Id,
+      Name = prospect.Name + 2,
+      RecordTypeId = prospect.RecordTypeId
+    );
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         new List<Account>{ update1 },
-        oldMap
+        oldMap,
+        true
       );
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         new List<Account>{ update2 },
-        oldMap
+        oldMap,
+        true
       );
     }
     Test.stopTest();
@@ -133,7 +141,7 @@ private class CCRMCustomerProfileUpdateHelperTest {
   static void testRevertNewRecords() {
     //WHEN banker added a contact to that account
     Contact con = [
-      SELECT Id, AccountId
+      SELECT Id, AccountId, RecordTypeId
       FROM Contact
       WHERE Account.Is_Prospect__c = TRUE
       LIMIT 1
@@ -141,8 +149,11 @@ private class CCRMCustomerProfileUpdateHelperTest {
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        new List<Contact>{ new Contact(Id = con.Id) },
-        null
+        new List<Contact>{
+          new Contact(Id = con.Id, RecordTypeId = con.RecordTypeId)
+        },
+        null,
+        true
       );
     }
     Test.stopTest();
@@ -162,7 +173,8 @@ private class CCRMCustomerProfileUpdateHelperTest {
   static void testTrackingRequest() {
     List<Customer_Profile_Updates__c> updates;
     ContactPointAddress newRecord = new ContactPointAddress(
-      Street = faker.address.street()
+      Street = faker.address.street(),
+      RecordTypeId = CCRMConstants.CPA_IND_RT_ID
     );
     ContactPointAddress oldRecord = new ContactPointAddress();
 
@@ -172,7 +184,7 @@ private class CCRMCustomerProfileUpdateHelperTest {
           newRecord,
           oldRecord
         )
-        .getUpdates();
+        .getUpdates(true, true);
     }
     Test.stopTest();
 

@@ -36,6 +36,26 @@ public with sharing class CCRMConstants {
   public static final String IS_BUSINESS = 'isBusiness';
   public static final String IS_INDIVIDUAL = 'isIndividual';
   public static final String IS_INVALID = 'isInvalid';
+  public static final String ACTIVE_STATUS = 'Active';
+  public static final String INACTIVE_STATUS = 'Inactive';
+  public static final String ACC_RT = 'Business_Account';
+  public static final String ACC_PERSON_RT = 'PersonAccount';
+  public static final String CON_RT = 'IndustriesBusiness';
+  public static final String CPE_RT = 'Organisation';
+  public static final String CPE_IND_RT = 'Individual';
+  public static final String CPA_RT = 'Organisation';
+  public static final String CPA_IND_RT = 'Individual';
+  public static final String CPP_IND_RT = 'Individual';
+  public static final String SOBJECT_ACCOUNT = 'Account';
+  public static final String SOBJECT_CONTACT = 'Contact';
+  public static final String SOBJECT_CPE = 'ContactPointEmail';
+  public static final String SOBJECT_CPA = 'ContactPointAddress';
+  public static final String SOBJECT_CPP = 'ContactPointPhone';
+  public static final String ACC_CPID = 'Controlling_Post__c';
+  public static final String ACC_CPID_LABEL = 'Controlling Post';
+  public static final String ACC_CP_TRANSFORM = 'CPID__c';
+  public static final String ACC_IND = 'Industry__c';
+  public static final String ACC_IND_LABEL = 'Industry';
   public static final string INVALID_OCV_ROLE_ERROR_MESSAGE = 'OCV Role Id is not found in the Reciprocal Role table';
   public static final String PROSPECT = 'Prospect';
   public static final String SOURCE_SYSTEM_NAME = 'CAP-CIS';
@@ -133,6 +153,26 @@ public with sharing class CCRMConstants {
   //Financial Account Role - Contact Role Record Type Id
   public static final Id FAR_CONTACT_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
     .get('ContactRole')
+    .getRecordTypeId();
+
+  //Contact Point Email - Organisation Record Type Id
+  public static final Id CPE_ORG_RT_ID = Schema.SObjectType.ContactPointEmail.getRecordTypeInfosByDeveloperName()
+    .get('Organisation')
+    .getRecordTypeId();
+
+  //Contact Point Address - Organisation Record Type Id
+  public static final Id CPA_ORG_RT_ID = Schema.SObjectType.ContactPointAddress.getRecordTypeInfosByDeveloperName()
+    .get('Organisation')
+    .getRecordTypeId();
+
+  //Contact Point Email - Individual Record Type Id
+  public static final Id CPE_IND_RT_ID = Schema.SObjectType.ContactPointEmail.getRecordTypeInfosByDeveloperName()
+    .get('Individual')
+    .getRecordTypeId();
+
+  //Contact Point Address - Individual Record Type Id
+  public static final Id CPA_IND_RT_ID = Schema.SObjectType.ContactPointAddress.getRecordTypeInfosByDeveloperName()
+    .get('Individual')
     .getRecordTypeId();
 
   /**

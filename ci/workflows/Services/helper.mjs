@@ -1,5 +1,13 @@
 import { execSync } from "child_process";
-import { readdirSync, readFileSync, statSync, existsSync, rename } from "fs";
+import {
+  readdirSync,
+  readFileSync,
+  statSync,
+  existsSync,
+  rename,
+  rmSync,
+  mkdirSync
+} from "fs";
 
 const renameFile = (oldFilepath, newFilepath) => {
   rename(oldFilepath, newFilepath, (err) => {
@@ -116,11 +124,45 @@ const currentDate = () => {
   return `${day}-${month}-${year}`;
 };
 
+const findJobIdFromCommand = (command) => {
+  if (!command) return;
+  return JSON.parse(command)["result"]["id"];
+};
+
+const deleteFolder = (folderPath) => {
+  return rmSync(folderPath, { recursive: true, force: true }, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`${folderPath} is deleted!`);
+  });
+};
+
+const createFolder = (folderPath) => {
+  return mkdirSync(folderPath, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`${folderPath} is created!`);
+  });
+};
+
+const logger = (log) => {
+  console.log("-----------------");
+  console.log(log);
+  console.log("\n");
+};
+
 export {
   runSfCommand,
   findJobId,
   salesforceDiffExist,
   findAllSpecifiedTests,
   currentDate,
-  renameFile
+  renameFile,
+  findJobIdFromCommand,
+  findAllFiles,
+  deleteFolder,
+  createFolder,
+  logger
 };

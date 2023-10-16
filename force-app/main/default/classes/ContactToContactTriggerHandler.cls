@@ -15,7 +15,7 @@ public with sharing class ContactToContactTriggerHandler extends Lib_TriggerHand
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    CCRMContactToContactActions.checkRelationshipEndDate(
+    CCRMContactToContactActions.checkRelationshipStatus(
       records,
       (Map<Id, FinServ__ContactContactRelation__c>) oldMap
     );

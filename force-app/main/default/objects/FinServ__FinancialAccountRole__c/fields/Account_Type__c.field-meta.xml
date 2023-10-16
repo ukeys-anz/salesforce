@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account_Type__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <description>field that calculates account type</description>
+    <externalId>false</externalId>
+    <formula>CASE( Product_Code_Display__c ,
+ &apos;DDA&apos;,&apos;Deposit Accounts&apos;,
+ &apos;FM&apos;,&apos;Deposit Accounts&apos;,
+ &apos;SSI&apos;,&apos;Deposit Accounts&apos;,
+ &apos;RSV&apos;,&apos;Deposit Accounts&apos;,
+ &apos;CDA&apos;,&apos;Deposit Accounts&apos;,
+ &apos;ILS&apos;,&apos;Loan Accounts&apos;,
+ &apos;PCA&apos;,&apos;Credit Cards&apos;,
+ &apos;PCB&apos;,&apos;Credit Cards&apos;,
+ &apos;OLL&apos;,&apos;Other Limits and Liabilities&apos;,
+ &apos;PTF&apos;,&apos;Other Limits and Liabilities&apos;,
+ &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Account Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

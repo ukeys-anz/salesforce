@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_ValidateApplicationNumber</fullName>
+    <active>true</active>
+    <description>This validation rule is used to validate application number</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;MLCRM_Opportunity&apos;,
+    NOT($Profile.Name = &quot;System Administrator&quot;),
+    NOT(
+        OR(
+            REGEX(Application_Numbers__c, &apos;^(1|7|8)[0-9]{8}(,(1|7|8)[0-9]{8})*$&apos;),
+            ISBLANK(Application_Numbers__c)
+        )
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Application_Numbers__c</errorDisplayField>
+    <errorMessage>Please enter 9 numeric digits beginning with 1, 7 or 8 with no space. If there are multiple Application Numbers, they must be separated by a comma (,) e.g. &quot;123456789,723456789&quot;</errorMessage>
+</ValidationRule>

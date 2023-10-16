@@ -15,6 +15,14 @@
         <value xsi:nil="true"/>
     </values>
     <values>
+        <field>IsParentIdField__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Lookup_Fields__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Object_Name__c</field>
         <value xsi:nil="true"/>
     </values>
@@ -23,7 +31,15 @@
         <value xsi:type="xsd:double">24.0</value>
     </values>
     <values>
+        <field>Row_Cause__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Sharing_Object__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Sharing_Scope__c</field>
         <value xsi:nil="true"/>
     </values>
     <values>

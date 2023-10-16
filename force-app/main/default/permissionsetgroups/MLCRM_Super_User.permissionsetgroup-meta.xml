@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set group for ML Super users</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>MLCRM Super User</label>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>MLCRM_Base</permissionSets>
+    <permissionSets>MLCRM_Create_and_Edit_Customer_Relationship</permissionSets>
+    <permissionSets>MLCRM_Create_and_Edit_Interactions</permissionSets>
+    <permissionSets>MLCRM_Create_and_Edit_Leads</permissionSets>
+    <permissionSets>MLCRM_Create_and_Edit_Opportunities</permissionSets>
+    <permissionSets>MLCRM_Modify_Territory_Sharing_Access</permissionSets>
+    <permissionSets>MLCRM_Transfer_ML_Records</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

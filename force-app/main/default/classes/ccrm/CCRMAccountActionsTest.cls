@@ -12,6 +12,11 @@ private class CCRMAccountActionsTest {
     CCRMTestDataFactory.createTwilioIntegrationUser();
 
     System.runAs(ccrmAdmin) {
+      Account acc;
+      //GIVEN a active account
+      acc = CCRMTestDataFactory.createBusinessAccountWithOwner(
+        CCRMTestDataFactory.getCCRMBaseUser().Id
+      );
       Set<String> setOfEmployeeId = new Set<String>{ '30456789', '10456790' };
       CCRMTestDataFactory.createUsersWithEmployeeId(setOfEmployeeId);
     }
@@ -262,5 +267,35 @@ private class CCRMAccountActionsTest {
       AccountCommonActions.findAndConvertCCRMLead(testAccount.id, leadRec);
       Test.stopTest();
     }
+  }
+
+  @IsTest
+  static void testTrackActiveAccountChanges() {
+    Account acc = [
+      SELECT ID, Name, advertising_Indicator__c, disclosure_Indicator__c
+      FROM Account
+      WHERE Name = 'Test Pty Ltd'
+    ];
+
+    //WHEN the account is updated by banker
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
+      acc.advertising_Indicator__c = 'Y';
+      acc.disclosure_Indicator__c = 'N';
+      update acc;
+
+      Test.stopTest();
+    }
+
+    //THEN a Customer_Profile_Updates__c record is created accordingly to track the changes
+    System.assertEquals(
+      1,
+      [
+        SELECT COUNT()
+        FROM Customer_Profile_Updates__c
+        WHERE Customer_Name__c = :acc.Id
+      ],
+      '1 Customer_Profile_Updates__c record should be created when advertising & disclosure indicator are updated'
+    );
   }
 }

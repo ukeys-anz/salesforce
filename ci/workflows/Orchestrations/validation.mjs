@@ -17,6 +17,7 @@ import {
   findAndUploadJobId,
   codeCoverage
 } from "../Services/deploy-service.mjs";
+import { deleteFolder } from "../Services/helper.mjs";
 
 //////////
 
@@ -33,7 +34,7 @@ const {
 } = process.env;
 
 const JOB_ID_PATH = `${BRANCH_NAME}.txt`;
-const SOURCE_DIR = "artifact";
+const SOURCE_DIR = `artifact-${BRANCH_NAME}`;
 const CLASS_FOLDER_PATH = `${SOURCE_DIR}/force-app/main/default/classes`;
 // This should be change to the project name later
 const PROJECT_NAME = "xxxx";
@@ -55,7 +56,7 @@ const validationFunction = () => {
     AllTests: validateWithAllTests
   };
 
-  const chosenTest = Object.keys(testMapping).filter((k) => testMapping[k]);
+  const chosenTest = Object.keys(testMapping).filter((k) => testMapping[k])[0];
   return validationFunctionMapping[chosenTest];
 };
 
@@ -78,6 +79,7 @@ const validate = () => {
 const clean = () => {
   codeCoverage(JOB_ID_PATH);
   unauthenticate(BRANCH_NAME);
+  deleteFolder(SOURCE_DIR);
 };
 
 /////////
@@ -90,7 +92,7 @@ const runCI = () => {
     clean: clean
   };
 
-  return runFunctionMapping[WHICH_JOB]();
+  return WHICH_JOB ? runFunctionMapping[WHICH_JOB]() : validate();
 };
 
 runCI();

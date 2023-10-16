@@ -5,6 +5,17 @@
     <compactLayoutAssignment>Phone</compactLayoutAssignment>
     <label>Hidden</label>
     <picklistValues>
+        <picklist>Preferred_Indicator__c</picklist>
+        <values>
+            <fullName>N</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>UsageType</picklist>
         <values>
             <fullName>Business Phone</fullName>
