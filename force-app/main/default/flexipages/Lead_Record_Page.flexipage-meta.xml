@@ -10,10 +10,16 @@
                         <valueListItems>
                             <value>CustomButton.Lead.Refer_to_ANZ</value>
                             <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Refer_To_ANZ}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ANZX_Leads</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
