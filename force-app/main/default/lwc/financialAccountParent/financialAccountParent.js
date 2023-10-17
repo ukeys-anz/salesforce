@@ -35,13 +35,15 @@ import { DISPUTE_RECORD_TYPES_RETRIEVE_ERROR } from "c/transactionHistoryService
 const CHECKING_ACCOUNT_RT_APINAME = "CheckingAccount";
 const SAVINGS_ACCOUNT_RT_APINAME = "SavingsAccount";
 const BANK_ACCOUNT_RT_APINAME = "BankingAccount";
-const MULTI_PARTY="Multi-party";
-const JOINT="Joint";
+const MULTI_PARTY = "Multi-party";
+const JOINT = "Joint";
 
 export {
   CHECKING_ACCOUNT_RT_APINAME,
   SAVINGS_ACCOUNT_RT_APINAME,
-  BANK_ACCOUNT_RT_APINAME
+  BANK_ACCOUNT_RT_APINAME,
+  MULTI_PARTY,
+  JOINT
 };
 
 export default class FinancialAccountParent extends LightningElement {

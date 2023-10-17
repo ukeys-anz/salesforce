@@ -193,9 +193,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         } else if (account.Ownership__c) {
           account.showMultipartyBadge = account.Ownership__c === MULTI_PARTY;
           account.multiParty =
-            account.Ownership__c === MULTI_PARTY
-              ? JOINT
-              : account.Ownership__c;
+            account.Ownership__c === MULTI_PARTY ? JOINT : account.Ownership__c;
         }
 
         //Determine the type of financial account
