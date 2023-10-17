@@ -89,6 +89,9 @@ export default class FinancialAccountParent extends LightningElement {
   transactionTypeDisputeIdMap = {};
   disputeRecordTypes = [];
   filterGoal = false;
+  //Added to decide which account is joint account and from which joint owner the account get opened By Shivam, Oct'23
+  isJointAccount = false;
+  ocvIdForJointAccount;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -106,6 +109,11 @@ export default class FinancialAccountParent extends LightningElement {
   async wiredRecord({ data }) {
     this.loading = true;
     if (data) {
+      //Added this to fetch ocvid of the joint owner from where the joint account called to get the ocvid - By Shivam, Oct'23
+      if (this.pageRef?.state?.c__ocvId) {
+        this.ocvIdForJointAccount = this.pageRef.state.c__ocvId;
+        this.isJointAccount = true;
+      }
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
@@ -167,7 +175,8 @@ export default class FinancialAccountParent extends LightningElement {
     this.accountData = [];
     try {
       let accountDetails = await getFinancialAccountFabric({
-        ocvId: this.ocvId,
+        //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
+        ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
         accountNumbers: [this.accountNumber]
       });
       this.accountData = this.handleAccountInformation(accountDetails);
@@ -261,7 +270,8 @@ export default class FinancialAccountParent extends LightningElement {
     }
     try {
       this.transactionData = await getTransactionHistoryAura({
-        ocvId: this.ocvId,
+        //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
+        ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
         accountNumber: this.accountNumber,
         startDate: this.transactionStartDate,
         endDate: this.transactionEndDate,
@@ -344,6 +354,23 @@ export default class FinancialAccountParent extends LightningElement {
 
       // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
       finAccount.showSavingsJar = finAccount.FinServ__Status__c !== "Closed";
+
+      // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
+      if (finAccount.FinServ__Ownership__c) {
+        finAccount.showMultipartyBadge =
+          finAccount.FinServ__Ownership__c === "Multi-party";
+        finAccount.multiParty =
+          finAccount.FinServ__Ownership__c === "Multi-party"
+            ? "Joint"
+            : finAccount.FinServ__Ownership__c;
+      } else if (finAccount.Ownership__c) {
+        finAccount.showMultipartyBadge =
+          finAccount.Ownership__c === "Multi-party";
+        finAccount.multiParty =
+          finAccount.Ownership__c === "Multi-party"
+            ? "Joint"
+            : finAccount.Ownership__c;
+      }
     });
 
     return finAccounts;
