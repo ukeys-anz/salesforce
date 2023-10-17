@@ -241,23 +241,23 @@ public with sharing class CCRMLeadActions {
 
         //Set Lead follow up date when follow up date is greater than campaign expiry date
         if (
+          CCRMLeadUtil.isMLCRMLeadType(record) && 
           mapCampaigns.size() > 0 &&
           record.Followup_Date__c > mapCampaigns.get(record.Id) &&
           System.today()
             .addDays(integer.valueOf(System.Label.ML_FollowUpDateExtends)) <=
-          record.Expiry_Date__c &&
-          CCRMLeadUtil.isMLCRMLeadType(record)
+          record.Expiry_Date__c 
         ) {
           record.Followup_Date__c =
             record.Expiry_Date__c -
             (integer.valueOf(System.Label.ML_FollowUpDateExtends));
         } else if (
+          CCRMLeadUtil.isMLCRMLeadType(record) &&
           mapCampaigns.size() > 0 &&
           record.Followup_Date__c > mapCampaigns.get(record.Id) &&
           System.today()
             .addDays(integer.valueOf(System.Label.ML_FollowUpDateExtends)) >
-          record.Expiry_Date__c &&
-          CCRMLeadUtil.isMLCRMLeadType(record)
+          record.Expiry_Date__c 
         ) {
           record.Followup_Date__c =
             record.Expiry_Date__c -
@@ -789,8 +789,6 @@ public with sharing class CCRMLeadActions {
     Set<Id> referrerIds = new Set<Id>();
     List<Lead> referredEmailLeads = new List<Lead>();
     List<Lead> referredLeads = new List<Lead>();
-    Map<String, User> userEmailMap = new Map<String, User>();
-    Map<Id, User> userMap = new Map<Id, User>();
 
     //filter all the ML leads for which Internal Referral or Referrer Email is changed
     for (Lead record : records) {
@@ -814,25 +812,10 @@ public with sharing class CCRMLeadActions {
         referredEmailLeads.add(record);
       }
     }
-
-    if (!referrerEmails.isEmpty() && Schema.sObjectType.User.isQueryable()) {
-      userEmailMap = getReferrerUsers(referrerEmails);
-    }
-    if (!referrerIds.isEmpty() && Schema.sObjectType.User.isQueryable()) {
-      userMap = getReferrerUsers(referrerIds);
-    }
-    if (
-      !referredLeads.isEmpty() &&
-      Schema.sObjectType.Lead.fields.Referrer_Email__c.isUpdateable()
-    ) {
-      populateReferrerDetails(referredLeads, userMap);
-    }
-    if (
-      !referredEmailLeads.isEmpty() &&
-      Schema.sObjectType.Lead.fields.FinServ__ReferredByUser__c.isUpdateable()
-    ) {
-      populateReferrer(referredEmailLeads, userEmailMap);
-    }
+    Map<String, User> userEmailMap = getReferrerUsers(referrerEmails);
+    Map<Id, User> userMap = getReferrerUsers(referrerIds);
+    populateReferrerDetails(referredLeads, userMap);
+    populateReferrer(referredEmailLeads, userEmailMap);
   }
 
   /**
@@ -847,6 +830,9 @@ public with sharing class CCRMLeadActions {
     Set<String> referrerEmails
   ) {
     Map<String, User> userEmailMap = new Map<String, User>();
+    if (referrerEmails.isEmpty() || !Schema.sObjectType.User.isQueryable()) {
+      return userEmailMap;
+    }
     //query users matching with Referrer Emails
     for (User rUser : [
       SELECT Id, Name, Email
@@ -870,6 +856,9 @@ public with sharing class CCRMLeadActions {
    * @US CC-1882
    */
   private static Map<Id, User> getReferrerUsers(Set<Id> referrerIds) {
+    if (referrerIds.isEmpty() || !Schema.sObjectType.User.isQueryable()) {
+      return new Map<Id, User>();
+    }
     //query users matching with Internal Referrer Ids
     Map<Id, User> userMap = new Map<Id, User>(
       [
@@ -894,10 +883,16 @@ public with sharing class CCRMLeadActions {
     List<Lead> referredLeads,
     Map<Id, User> userMap
   ) {
+    if (
+      referredLeads.isEmpty() ||
+      !Schema.sObjectType.Lead.fields.Referrer_Email__c.isUpdateable() ||
+      userMap == null
+    ) {
+      return;
+    }
     for (Lead record : referredLeads) {
       if (
         record.FinServ__ReferredByUser__c != null &&
-        !userMap.isEmpty() &&
         userMap.containsKey(record.FinServ__ReferredByUser__c)
       ) {
         record.Referrer_Email__c = userMap.get(
@@ -921,10 +916,16 @@ public with sharing class CCRMLeadActions {
     List<Lead> referredLeads,
     Map<String, User> userEmailMap
   ) {
+    if (
+      referredLeads.isEmpty() ||
+      !Schema.sObjectType.Lead.fields.FinServ__ReferredByUser__c.isUpdateable() ||
+      userEmailMap == null
+    ) {
+      return;
+    }
     for (Lead record : referredLeads) {
       if (
         record.Referrer_Email__c != null &&
-        !userEmailMap.isEmpty() &&
         userEmailMap.containsKey(record.Referrer_Email__c)
       ) {
         record.FinServ__ReferredByUser__c = userEmailMap.get(

@@ -1,0 +1,196 @@
+# .forceignore v2
+
+**/README.md
+package.xml
+
+# LWC configuration files
+**/jsconfig.json
+**/.eslintrc.json
+
+# LWC Jest
+
+# Avoid weird conflicts and deployment errors
+**/appMenu
+**/appSwitcher
+**/profileSessionSettings
+**/profilePasswordPolicies
+
+# Profiles not to pull nor push
+# 2 entries per profile as per https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
+force-app/main/default/profiles/Trial Customer Portal User.profile-meta.xml
+Trial Customer Portal User.profile
+#force-app/main/default/profiles/Admin.profile-meta.xml
+
+# SFDX based permissions that are only available in Production
+force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset-meta.xml
+force-app/main/default/permissionsets/Prod_Only_Backup_Restore.permissionset-meta.xml
+
+# Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
+Enforce_SSO.permissionset
+
+# Add this report because this will cause unexpected error in scratch orgs
+force-app/main/default/reports/Knowledge_Reports/New_Knowledge_Article_with_Votes_I9l.report-meta.xml
+
+# Obscure setting that is introduced each time a Health Check (Baseline Hardening) is run and actioned
+SingleSignOn.settings
+
+#auth provider to make the build pass and we do the manual deployment later
+force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
+force-app/main/default/authproviders/ANZ_Single_Sign_On.authprovider-meta.xml
+force-app/main/default/authproviders/Salesforce_API_Access.authprovider-meta.xml
+
+# Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
+force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
+
+#Ignoring Jest tests as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.unit_testing_using_jest_create_tests
+**/__tests__/**
+
+#Ignoring these objects/fields as they aren't used. Ignored as per https://jira.service.anz/browse/ABT-27699
+force-app/main/default/objects/ServiceAppointment/
+force-app/main/default/objects/ServiceResource/
+force-app/main/default/objects/ServiceTerritory/
+force-app/main/default/objects/WorkTypeGroup/
+force-app/main/default/objects/Individual/
+force-app/main/default/objects/FinServ__Securities__c/
+#force-app/main/default/objects/FinServ__ReciprocalRole__c/
+force-app/main/default/objects/FinServ__RollupByLookupConfig__c/
+force-app/main/default/objects/SocialPost/
+force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__Household__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__SourceSystemId__c.field-meta.xml
+force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml
+force-app/main/default/quickActions/Account.New_Appointment.quickAction-meta.xml
+force-app/main/default/objects/FinServ__FinancialGoal__c
+force-app/main/default/layouts/FinServ__FinancialGoal__c-FinServ__Financial Goal Layout.layout-meta.xml
+
+#Ignoring these fields as they are no longer used and should not be created. Entitlement Process has a dependency on them so can't delete them.
+force-app/main/default/objects/Case/fields/IDR_EntitlementStartDate__c.field-meta.xml
+
+#Ignoring apex classes below as they have been renamed
+force-app/main/default/classes/EverydayAccountController.cls
+force-app/main/default/classes/FinancialGoalsComponentController.cls
+force-app/main/default/classes/UpdateAccountsAndGoals.cls
+force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
+force-app/main/default/classes/GetAccountsAndGoals.cls
+force-app/main/default/classes/utils/CommonUtils.cls
+
+#Ignore Knowledge validation status field as it is not supported in metadata API
+KnowledgeValidationStatus
+type:DataCategoryGroup
+force-app/main/default/datacategorygroups
+
+#Ignoring deleted platform event for Nov 10 develop merge - CMOS
+force-app/main/default/objects/IDR_CRC_Escalation_Event__e
+
+#Ignoring the deploy user's pset, likely to break scratch org creation
+force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
+
+#Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
+#as metadata API does not support deleting record type, to avoid destructive change error
+force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml
+force-app/main/default/objects/Case/recordTypes/Bug_Enquiry.recordType-meta.xml
+
+#Temporarily ignoring deleted Process/Flow 'Case_SLA_Notification' until it's removed form source code and prod.
+# Below line can be removed once it's removed from prod.
+force-app/main/default/flows/Case_SLA_Notification.flow-meta.xml
+force-app/main/default/flows/Send_Notification_to_New_User.flow-meta.xml
+
+#Temporary ignoring flow for TSP
+force-app/main/default/flows/PolicyCondition_CAnUFBTTUBeMOfuFueUb.flow-meta.xml
+
+#ANZX-29577 Ignoring Knowledge Process to force engineers to deploy this manually and do a post deployment step
+#to re-reference the queue otherwise the flow will not pick up the correct Queue Id in the destination environment
+force-app/main/default/flows/Knowledge_Process.flow-meta.xml
+
+#ignore pushing harness stuffs for making a scratchOrg
+force-app/main/default/duplicateRules/
+force-app/main/default/matchingRules/
+
+# Now that entitlementProcesses are versioned we no longer need to ignore them.
+#force-app/main/default/entitlementProcesses/
+force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
+force-app/main/default/transactionSecurityPolicies
+
+#to prevent issues when deploying looking for depracated process name
+force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
+force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
+force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
+
+#to prevent issues when deploying looking for deleted objects tab
+force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml
+
+#AR-11570 to avoid errors regarding managed package fields cannot be deleted
+force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_Recipient_ID__c.field-meta.xml
+force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_SurveyID__c.field-meta.xml
+force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Other_Feedback__c.field-meta.xml 
+
+# ignore all Connected Apps as these are manually created. Subsequent pushes will result in invalid cross reference id
+force-app/main/default/connectedApps
+
+#ignoring file as we dont need it to be deployed, just need to see the settings enabled without going through PAM
+#not ignoring will result in a generated key error
+force-app/main/default/settings/PlatformEncryption.settings-meta.xml
+
+#to prevent the standard oob search layout view being re-deployed for 'All Interactions' and duplicating the custom list view name
+force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
+force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
+force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
+
+#ignore to allow linting
+force-app/main/default/triggers/ContactTrigger.trigger-meta.xml
+force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
+force-app/main/default/triggers/ContactPointAddressTrigger.trigger-meta.xml
+#ANZX-72863 - to prevent layout being deployed becuase its custom metadata is already deleted
+force-app/main/default/layouts/PEGA_Smarts_Status_Mapping__mdt-PEGA Smarts Status Mapping Layout.layout-meta.xml
+
+
+#AR-16528 - ignoring destructive field that is being referenced in apex classes
+force-app/main/default/objects/LogEntry__c/fields/RecordsJson__c.field-meta.xml
+
+#CC-418 Decommission Letter Approval process.
+force-app/main/default/workflows/IDR_Letter_Approval__c.workflow-meta.xml
+force-app/main/default/approvalProcesses/IDR_Letter_Approval__c.Letter_Approval_Process.approvalProcess-meta.xml
+
+#ignoring CreateCommsData metadata to be created in destructive file, as it is already deleted
+force-app/main/default/classes/idr/CreateCommsData.cls-meta.xml
+
+#ignoring Account.AR_C_Customer__c field as it will be manually deleted to avoid deployment issues
+force-app/main/default/objects/Account/fields/AR_C_Customer__c.field-meta.xml
+
+#Temporarily adding FinServ__FinancialAccount__c sharing rule to avoid deployment issues.
+force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-meta.xml
+
+#AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
+force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
+
+#ANZX-84013 - ignore for manual deploy due to LWC errors
+force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls
+force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls
+force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls-meta.xml
+force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls-meta.xml
+
+#CC-3470,CC-3492 - ignore for manual deletion
+force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/IsPrimaryOwner__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccount__c/fields/IsPrimaryOwner__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccount__c/fields/Role_Type__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccount__c/fields/Primary_Owner_Start_Date__c.field-meta.xml
+
+#CC-2512 - Queue needs to be manually deleted so don't attempt to deploy this destructive change.
+force-app/main/default/queues/EDR_Responsible_Lending.queue-meta.xml
+
+# (Release 5th July) - Ignore omnistudio files
+force-app/main/default/omniDataTransforms
+force-app/main/default/omniIntegrationProcedures
+force-app/main/default/omniScripts
+force-app/main/default/omniUiCard
+
+force-app/main/default/objects/Lead/fields/Not_Registered__c.field-meta.xml
+
+#AR-90796 - Uninstall mvision
+mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
+force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
+
+#named credential to make the build pass and we do the manual deployment later
+force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-meta.xml
+
+#ANZX-110254-delete unused resource file
+force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml

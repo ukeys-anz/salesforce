@@ -204,17 +204,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Email</fieldItem>
                 <identifier>RecordEmailField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Primary_Contact_Method__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <type>Facet</type>
@@ -269,7 +262,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Company</fieldItem>
                 <identifier>RecordCompanyField</identifier>
@@ -415,7 +408,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Registered_Company__c</fieldItem>
                 <identifier>RecordRegistered_Company_cField2</identifier>
@@ -425,7 +418,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Company</fieldItem>
                 <identifier>RecordCompanyField2</identifier>
@@ -499,7 +492,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Address</fieldItem>
                 <identifier>RecordAddressField</identifier>
@@ -675,7 +668,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Expiry_Date__c</fieldItem>
                 <identifier>RecordExpiry_Date_cField</identifier>
@@ -1387,6 +1380,70 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
                 <identifier>runtime_sales_merge_mergeCandidatesPreviewCard</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;&lt;strong style=&quot;font-size: 18px;&quot;&gt;﻿&lt;img src=&quot;/resource/1687771306000/Warning_Icon?&quot;&gt;&lt;/strong&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt; &lt;/span&gt;&lt;strong style=&quot;font-size: 18px;&quot;&gt;Customer in Collections&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(32, 33, 36); font-size: 14px;&quot;&gt;{!$Label.CCRM_ExistingCustomerCollectionError}&lt;/span&gt;&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__RelatedAccount__r.Collections__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Adobe</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UNICA</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 18px;&quot;&gt;﻿&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;img src=&quot;/resource/1687771306000/Warning_Icon?&quot;&gt; &lt;/span&gt;&lt;strong style=&quot;font-size: 18px;&quot;&gt;Customer in Hardship&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px; color: rgb(32, 33, 36);&quot;&gt;{!$Label.CCRM_ExistingCustomerHardshipError}&lt;/span&gt;&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__RelatedAccount__r.Hardship__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Adobe</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>UNICA</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

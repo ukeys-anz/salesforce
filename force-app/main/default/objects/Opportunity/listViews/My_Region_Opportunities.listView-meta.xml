@@ -8,7 +8,6 @@
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
     <columns>CORE.USERS.FULL_NAME</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>
@@ -19,5 +18,14 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filters>
+        <field>OPPORTUNITY.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Opportunity.Commercial_Opportunity</value>
+    </filters>
+    <filterScope>Everything</filterScope>
     <label>My Region Opportunities</label>
+    <sharedTo>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+    </sharedTo>
 </ListView>

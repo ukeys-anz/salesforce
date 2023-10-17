@@ -43,10 +43,6 @@
                 <behavior>Edit</behavior>
                 <field>Phone</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Email</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

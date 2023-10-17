@@ -71,6 +71,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     AppointmentNotificationEventCreator.getInstance()
       .addInteractions(interactions);
     AppointmentNotificationEventCreator.getInstance().publishEvents();
+    MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Interaction');
   }
 
   /**
@@ -201,6 +202,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     if (events.isEmpty() == false) {
       EventHelper.insertEvents(events);
     }
+    MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Interaction');
   }
 
   /**
@@ -224,6 +226,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     InteractionValidations.validateInteractions(interactions);
+    InteractionEventHelper.assignDefaultTerritory(records);
+    MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
   }
 
   /** @description onBeforeUpdate to handle before update trigger actions.
@@ -276,5 +280,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       InteractionValidations.validateInteractions(apptInteraction);
       InteractionSetters.setNameOfInteractions(apptInteraction);
     }
+    MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
   }
 }

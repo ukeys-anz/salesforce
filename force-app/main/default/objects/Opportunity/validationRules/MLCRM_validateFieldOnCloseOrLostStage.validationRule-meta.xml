@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_validateFieldOnCloseOrLostStage</fullName>
+    <active>true</active>
+    <description>This validation rule is used to make opportunity field read only for terminal stage</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;MLCRM_Opportunity&apos;,
+    NOT($Profile.Name = &quot;System Administrator&quot;),
+    OR(
+        (AND(
+            IsChanged(StageName),
+         OR(
+            TEXT(PRIORVALUE(StageName)) = &apos;Lost&apos;,
+            TEXT(PRIORVALUE(StageName)) = &apos;Closed&apos;  
+          ) 
+        )),
+        (AND(
+            OR(
+            Text(StageName) = &apos;Lost&apos;,
+            Text(StageName) = &apos;Closed&apos;  
+          ),
+            OR(
+            IsChanged(OwnerId),
+            IsChanged(Name),
+            IsChanged(CloseDate)
+           )
+        ))
+    )
+)</errorConditionFormula>
+    <errorMessage>Owner, Name, Stage, Close Date cannot be updated at this current stage.</errorMessage>
+</ValidationRule>

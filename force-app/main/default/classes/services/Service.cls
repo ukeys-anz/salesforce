@@ -514,7 +514,9 @@ public with sharing virtual class Service {
    * @return `HttpCalloutResponse` api response
    * @description virtual maintain party information
    */
-  public virtual HttpCalloutResponse maintainParty(Lead record) {
+  public virtual HttpCalloutResponse maintainParty(
+    OCVRequestPayloadWrapper record
+  ) {
     return null;
   }
 

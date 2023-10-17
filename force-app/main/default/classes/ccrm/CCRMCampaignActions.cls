@@ -38,17 +38,9 @@ public with sharing class CCRMCampaignActions {
         ) {
           record.Campaign_Code__c = defaultCampaignMap.get(ML_DEFAULT_CAMPAIGN)
             .Code__c;
+            //CC-4179 populate campaign Name from Campaign for ML
+          record.Campaign_Name__c = defaultCampaignMap.get(ML_DEFAULT_CAMPAIGN).Name;
         }
-      }
-      //CC-4179 populate campaign Name from Campaign for ML
-      if (
-        CCRMLeadUtil.isMLCRMLeadType(record) &&
-        defaultCampaignMap != null &&
-        defaultCampaignMap.containsKey(ML_DEFAULT_CAMPAIGN) &&
-        String.isBlank(record.Campaign_Name__c)
-      ) {
-        record.Campaign_Name__c = defaultCampaignMap.get(ML_DEFAULT_CAMPAIGN)
-          .Name;
       }
     }
   }

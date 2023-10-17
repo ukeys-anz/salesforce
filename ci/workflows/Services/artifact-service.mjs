@@ -1,30 +1,56 @@
 import { execSync } from "child_process";
-import { rmSync, mkdirSync, existsSync } from "fs";
+import {
+  renameFile,
+  findAllFiles,
+  createFolder,
+  deleteFolder,
+  logger
+} from "./helper.mjs";
 
-const deleteArtifactFolder = (folderName) => {
-  return rmSync(folderName, { recursive: true, force: true }, (err) => {
-    if (err) {
-      console.error(err);
-    }
-    console.log(`${folderName} is deleted!`);
-  });
+const renameForceignore = () => {
+  renameFile(".forceignore", "ci.forceignore");
+  renameFile("deploy.forceignore", ".forceignore");
 };
 
 const createArtifactFolder = (folderName) => {
-  deleteArtifactFolder(folderName);
-  return mkdirSync(folderName, (err) => {
-    if (err) {
-      console.error(err);
-    }
-    console.log(`${folderName} is created!`);
-  });
+  deleteFolder(folderName);
+  createFolder(folderName);
+};
+
+const findAllChangedFile = (folderName, baseRef, ref) => {
+  createArtifactFolder(folderName);
+  execSync(
+    `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta`
+  ).toString("utf8");
 };
 
 const buildArtifact = (folderName, baseRef, ref) => {
+  renameForceignore();
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to origin/${baseRef} --from origin/${ref} --output ${folderName}/ --generate-delta -i .forceignore`
+    `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta -i .forceignore`
   ).toString("utf8");
+};
+
+const createDiff = (folderName, baseRef, ref) => {
+  findAllChangedFile(folderName + "-all-files", baseRef, ref);
+  buildArtifact(folderName, baseRef, ref);
+
+  const allChangedFiles = findAllFiles(folderName + "-all-files");
+  const notIgnoredFilesChanges = findAllFiles(folderName);
+  const ignoredFilesChanges = [];
+
+  allChangedFiles.forEach((file) => {
+    const f = file.replace(folderName + "-all-files", folderName);
+    if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
+  });
+  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
+  logger(
+    `All Ignored files:\n${
+      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
+    }`
+  );
+  deleteFolder(folderName + "-all-files");
 };
 
 const uploadArtifact = (
@@ -34,7 +60,7 @@ const uploadArtifact = (
   artifactorySecret,
   projectName
 ) => {
-  buildArtifact(folderName, baseRef, ref);
+  createDiff(folderName, baseRef, ref);
   // Then we should run a gcloud command to upload the artifact to artifactory
   // bash script code:
   //        zip -r "$ref.zip" "$folderName"
@@ -51,11 +77,11 @@ const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
 ///////////////////////////////////////////
 
 export {
-  deleteArtifactFolder,
   createArtifactFolder,
   buildArtifact,
   uploadArtifact,
-  downloadArtifact
+  downloadArtifact,
+  createDiff
 };
 
 // POINTS
