@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Staging_Account</fullName>
     <active>true</active>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <description>Record type to store the shell record from OCV</description>
     <label>Staging Account</label>
     <picklistValues>

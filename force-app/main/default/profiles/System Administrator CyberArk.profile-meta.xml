@@ -9325,10 +9325,6 @@
         <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>AllowObjectDetectionTraining</name>
-        <enabled>true</enabled>
-    </userPermissions>
-    <userPermissions>
         <name>AllowUniversalSearch</name>
         <enabled>true</enabled>
     </userPermissions>

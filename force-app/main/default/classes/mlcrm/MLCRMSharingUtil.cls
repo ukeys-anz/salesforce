@@ -28,19 +28,23 @@ public without sharing class MLCRMSharingUtil {
       strSobjectName
     );
     if (objTerritoryMtd != null) {
-      Set<Id> setOfEligibleRT = MLCRMCommonUtils.getTaskRecordTypeIdByDeveloperName(
+      Set<Id> setOfEligibleRT = MLCRMCommonUtils.getRecordTypeIdsByDeveloperName(
         objTerritoryMtd.Object_Name__c,
-        objTerritoryMtd.Eligible_Record_Types__c.split(';')
+        objTerritoryMtd.Eligible_Record_Types__c != null
+          ? objTerritoryMtd.Eligible_Record_Types__c.split(';')
+          : null
       );
-      String strLoggedInUserEmail = UserInfo.getUserEmail();
-      Territory_Base_Sharing_Event__e objTerritoryEvt = new Territory_Base_Sharing_Event__e();
+      Territory_Base_Sharing_Event__e objTerritoryEvt = new Territory_Base_Sharing_Event__e(
+        Trigger_Object__c = strSobjectName
+      );
       List<Sobject> lstOfLeadShareToInsert = new List<Sobject>();
-      objTerritoryEvt.Trigger_Object__c = strSobjectName;
       for (sObject objSobject : lstOfSobject) {
         if (
-          setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) &&
+          (!setOfEligibleRT.isEmpty() &&
+          setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) ||
+          setOfEligibleRT.isEmpty()) &&
           !objTerritoryMtd.Excluded_Users__c.containsIgnoreCase(
-            strLoggedInUserEmail
+            UserInfo.getUserName()
           ) &&
           (oldMapSobject == null ||
           (oldMapSobject != null &&
@@ -61,9 +65,11 @@ public without sharing class MLCRMSharingUtil {
         }
 
         if (
-          setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) &&
+          (!setOfEligibleRT.isEmpty() &&
+          setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) ||
+          setOfEligibleRT.isEmpty()) &&
           !objTerritoryMtd.Excluded_Users__c.containsIgnoreCase(
-            strLoggedInUserEmail
+            UserInfo.getUserName()
           ) &&
           oldMapSobject != null &&
           objSobject.get('OwnerId') !=
@@ -72,24 +78,22 @@ public without sharing class MLCRMSharingUtil {
           Sobject objShareObject = getNewSObject(
             objTerritoryMtd.Sharing_Object__c
           );
-          if (!strSobjectName.contains(MLCRMConstants.UNDERSCORE_C)) {
-            objShareObject.put(
-              strSobjectName + 'Id',
-              (Id) objSobject.get('Id')
-            );
-            objShareObject.put(strSobjectName + 'AccessLevel', 'Edit');
-            objShareObject.put(
-              'UserOrGroupId',
-              oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')
-            );
-          } else if (strSobjectName.contains(MLCRMConstants.UNDERSCORE_C)) {
-            objShareObject.put('ParentId', (Id) objSobject.get('Id'));
-            objShareObject.put('AccessLevel', 'Edit');
-            objShareObject.put(
-              'UserOrGroupId',
-              oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')
-            );
-          }
+          String strParentId = !strSobjectName.contains(
+              MLCRMConstants.UNDERSCORE_C
+            )
+            ? strSobjectName + 'Id'
+            : 'ParentId';
+          String strAccessLevel = !strSobjectName.contains(
+              MLCRMConstants.UNDERSCORE_C
+            )
+            ? strSobjectName + 'AccessLevel'
+            : 'AccessLevel';
+          objShareObject.put(strParentId, (Id) objSobject.get('Id'));
+          objShareObject.put(strAccessLevel, 'Edit');
+          objShareObject.put(
+            'UserOrGroupId',
+            oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')
+          );
           lstOfLeadShareToInsert.add(objShareObject);
         }
       }
@@ -146,27 +150,20 @@ public without sharing class MLCRMSharingUtil {
    * @description This method to fetch territory share metadata record for a particular sobject.
    * @name createTerritoryShareRecords
    * @param lstOfSobject list of new sobject records
-   * @param strShareObject share object name
-   * @param strObject sobject name
+   * @param objMtd share object metadata record
    * @author Ashish Kumar
    * @US CC-1894
    */
   public static void createTerritoryShareRecords(
     List<sObject> lstOfSobject,
-    String strShareObject,
-    String strObject
+    Territory_Based_Sharing_Config__mdt objMtd
   ) {
     Map<Id, List<User_Territory__c>> mapOfTerritoryToUsers = new Map<Id, List<User_Territory__c>>();
-    Map<Id, Id> mapOfRecordToOwnerId = new Map<Id, Id>();
     Set<Id> idsOfTerritory = new Set<Id>();
     Map<String, String> mapOfUserToRole = new Map<String, String>();
     if (!lstOfSobject.isEmpty()) {
       for (sObject objSobject : lstOfSobject) {
         idsOfTerritory.add((Id) objSobject.get('Territory__c'));
-        mapOfRecordToOwnerId.put(
-          (Id) objSobject.get('Id'),
-          (Id) objSobject.get('OwnerId')
-        );
       }
     }
 
@@ -209,7 +206,7 @@ public without sharing class MLCRMSharingUtil {
           (Id) objSobject.get('Territory__c')
         )
       ) {
-        Sobject objShareObject = getNewSObject(strShareObject);
+        Sobject objShareObject = getNewSObject(objMtd.Sharing_Object__c);
         // Condition to handle sharing of record for standard share object. Logic to make sure Loan writer are not able to see FO, FM and
         // Admin records. However FO, FM and Admin are able to see LW's records. LWs can see other LWs' records in unrestricted territories.
         // In restricted territories, no records are shared with LWs.
@@ -222,12 +219,16 @@ public without sharing class MLCRMSharingUtil {
           objUT.Territory__r.Access_Scope__c ==
           MLCRMConstants.STRING_UNRESTRICTED) ||
           objUT.ML_Role__c != MLCRMConstants.LOAN_WRITER))) &&
-          !strObject.contains(MLCRMConstants.UNDERSCORE_C) &&
+          !objMtd.IsParentIdField__c &&
           (Id) objSobject.get('OwnerId') != objUT.User__c
         ) {
-          objShareObject.put(strObject + 'Id', (Id) objSobject.get('Id'));
-          objShareObject.put(strObject + 'AccessLevel', 'Edit');
+          objShareObject.put(
+            objMtd.Object_Name__c + 'Id',
+            (Id) objSobject.get('Id')
+          );
+          objShareObject.put(objMtd.Object_Name__c + 'AccessLevel', 'Edit');
           objShareObject.put('UserOrGroupId', objUT.User__c);
+          objShareObject.put('RowCause', objMtd.Row_Cause__c);
           lstOfLeadShare.add(objShareObject);
         } else if (
           mapOfUserToRole.containsKey(strUserRoleKey) &&
@@ -238,7 +239,7 @@ public without sharing class MLCRMSharingUtil {
           objUT.Territory__r.Access_Scope__c ==
           MLCRMConstants.STRING_UNRESTRICTED) ||
           objUT.ML_Role__c != MLCRMConstants.LOAN_WRITER))) &&
-          strObject.contains(MLCRMConstants.UNDERSCORE_C) &&
+          objMtd.IsParentIdField__c &&
           (Id) objSobject.get('OwnerId') != objUT.User__c
         ) {
           // Condition to handle sharing of record for custom share object. Logic to make sure Loan writer are not able to see FO, FM and
@@ -247,21 +248,118 @@ public without sharing class MLCRMSharingUtil {
           objShareObject.put('ParentId', (Id) objSobject.get('Id'));
           objShareObject.put('AccessLevel', 'Edit');
           objShareObject.put('UserOrGroupId', objUT.User__c);
+          objShareObject.put('RowCause', objMtd.Row_Cause__c);
           lstOfLeadShare.add(objShareObject);
         }
       }
     }
     if (!lstOfSobject.isEmpty()) {
-      deleteShareRecords(
-        lstOfSobject,
-        strShareObject,
-        strObject,
-        mapOfRecordToOwnerId
-      );
+      deleteShareRecords(lstOfSobject, objMtd);
     }
 
     if (!lstOfLeadShare.isEmpty()) {
-      insertShareRecord(lstOfLeadShare, strShareObject, strObject);
+      insertShareRecord(lstOfLeadShare, objMtd);
+    }
+  }
+
+  /**
+   * @description This method to create share record for sobject having franchise scope
+   * @name createShareRecordsFranchiseWise
+   * @param lstOfSobject list of new sobject records
+   * @param objMtd share object metadata record
+   * @author Ashish Kumar
+   * @US CC-3659
+   */
+  public static void createShareRecordsFranchiseWise(
+    List<sObject> lstOfSobject,
+    Territory_Based_Sharing_Config__mdt objMtd
+  ) {
+    Map<Id, List<User_Territory__c>> mapOfFranchiseToUsers = new Map<Id, List<User_Territory__c>>();
+    Set<Id> idsOfTerritory = new Set<Id>();
+    Set<Id> idsOfFranchiseOwner = new Set<Id>();
+    Map<String, String> mapOfUserToRole = new Map<String, String>();
+    Map<Id, Territory__c> mapOfTerritory;
+    List<Sobject> lstOfShareRecord = new List<Sobject>();
+    for (sObject objSobject : lstOfSobject) {
+      idsOfTerritory.add((Id) objSobject.get('Territory__c'));
+    }
+
+    if (!idsOfTerritory.isEmpty()) {
+      mapOfTerritory = new Map<Id, Territory__c>(
+        [
+          SELECT Primary_Franchise_Owner__c
+          FROM Territory__c
+          WHERE ID IN :idsOfTerritory
+        ]
+      );
+      for (Territory__c objTerritory : mapOfTerritory.values()) {
+        if (objTerritory.Primary_Franchise_Owner__c != null) {
+          idsOfFranchiseOwner.add(objTerritory.Primary_Franchise_Owner__c);
+        }
+      }
+    }
+
+    if (!idsOfFranchiseOwner.isEmpty()) {
+      for (User_Territory__c objUT : [
+        SELECT Id, Territory__r.Primary_Franchise_Owner__c, User__c
+        FROM User_Territory__c
+        WHERE
+          Territory__r.Primary_Franchise_Owner__c IN :idsOfFranchiseOwner
+          AND Status__c = :MLCRMConstants.STATUS_ACTIVE
+      ]) {
+        if (
+          !mapOfFranchiseToUsers.containsKey(
+            objUT.Territory__r.Primary_Franchise_Owner__c
+          )
+        ) {
+          mapOfFranchiseToUsers.put(
+            objUT.Territory__r.Primary_Franchise_Owner__c,
+            new List<User_Territory__c>()
+          );
+        }
+        mapOfFranchiseToUsers.get(objUT.Territory__r.Primary_Franchise_Owner__c)
+          .add(objUT);
+      }
+
+      for (sObject objSobject : lstOfSobject) {
+        for (
+          User_Territory__c objUT : mapOfFranchiseToUsers.get(
+            mapOfTerritory.get((Id) objSobject.get('Territory__c'))
+              .Primary_Franchise_Owner__c
+          )
+        ) {
+          Sobject objShareObject = getNewSObject(objMtd.Sharing_Object__c);
+          if (
+            !objMtd.IsParentIdField__c &&
+            (Id) objSobject.get('OwnerId') != objUT.User__c
+          ) {
+            objShareObject.put(
+              objMtd.Object_Name__c + 'Id',
+              (Id) objSobject.get('Id')
+            );
+            objShareObject.put(objMtd.Object_Name__c + 'AccessLevel', 'Edit');
+            objShareObject.put('UserOrGroupId', objUT.User__c);
+            objShareObject.put('RowCause', objMtd.Row_Cause__c);
+            lstOfShareRecord.add(objShareObject);
+          } else if (
+            objMtd.IsParentIdField__c &&
+            (Id) objSobject.get('OwnerId') != objUT.User__c
+          ) {
+            objShareObject.put('ParentId', (Id) objSobject.get('Id'));
+            objShareObject.put('AccessLevel', 'Edit');
+            objShareObject.put('UserOrGroupId', objUT.User__c);
+            objShareObject.put('RowCause', objMtd.Row_Cause__c);
+            lstOfShareRecord.add(objShareObject);
+          }
+        }
+      }
+    }
+    if (!lstOfSobject.isEmpty()) {
+      deleteShareRecords(lstOfSobject, objMtd);
+    }
+
+    if (!lstOfShareRecord.isEmpty()) {
+      insertShareRecord(lstOfShareRecord, objMtd);
     }
   }
 
@@ -269,19 +367,17 @@ public without sharing class MLCRMSharingUtil {
    * @description This method is used to create dynamic instance of object.
    * @name insertShareRecord
    * @param lstOfSobject list of sobject record to process
-   * @param strShareObject share sobject API name
-   * @param strObject sobject API name
+   * @param objMtd share object metadata record
    * @author Ashish Kumar
    * @US CC-4418
    */
   private static void insertShareRecord(
     List<Sobject> lstOfSobject,
-    String strShareObject,
-    String strObject
+    Territory_Based_Sharing_Config__mdt objMtd
   ) {
-    String strFieldColumn = strObject.contains(MLCRMConstants.UNDERSCORE_SHARE)
+    String strFieldColumn = objMtd.IsParentIdField__c == true
       ? 'ParentId'
-      : strObject + 'Id';
+      : objMtd.Object_Name__c + 'Id';
     Set<Id> idsOfCreatedRecord = new Set<Id>();
     Database.SaveResult[] lstOfResults = Database.insert(lstOfSobject, false);
     List<WrapSharingError> lstOfSharingError = new List<WrapSharingError>();
@@ -301,7 +397,7 @@ public without sharing class MLCRMSharingUtil {
     if (!lstOfSharingError.isEmpty()) {
       Logger.error(
         'Error occured while creating ' +
-        strShareObject +
+        objMtd.Sharing_Object__c +
         ' record',
         processSharingException(lstOfSharingError)
       );
@@ -327,44 +423,31 @@ public without sharing class MLCRMSharingUtil {
    * @description This method is used to delete share record dynamically.
    * @name deleteShareRecords
    * @param lstOfSobject list of new sobject records
-   * @param strShareObject share object API name
-   * @param strObject sobject name
-   * @param mapOfRecordToOwnerId map of record id of userid to exclude from deleting share records
+   * @param objMtd share object metadata record
    * @author Ashish Kumar
    * @US CC-1894
    */
   private static void deleteShareRecords(
     List<Sobject> lstOfSobject,
-    String strShareObject,
-    String strObject,
-    Map<Id, Id> mapOfRecordToOwnerId
+    Territory_Based_Sharing_Config__mdt objMtd
   ) {
-    String strWhereClause = strObject.contains(MLCRMConstants.UNDERSCORE_SHARE)
+    String strWhereClause = objMtd.IsParentIdField__c == true
       ? 'ParentId'
-      : strObject + 'Id';
+      : objMtd.Object_Name__c + 'Id';
+    String strRowCause = objMtd.Row_Cause__c;
     String strQuery =
       'SELECT Id,UserOrGroupId,' +
       strWhereClause +
       ' FROM ' +
-      String.escapeSingleQuotes(strShareObject) +
+      String.escapeSingleQuotes(objMtd.Sharing_Object__c) +
       ' WHERE ' +
       String.escapeSingleQuotes(strWhereClause) +
-      ' IN: lstOfSobject';
+      ' IN: lstOfSobject and RowCause =: strRowCause';
     List<Sobject> lstOfSobjectShareToDelete = Database.query(strQuery);
     List<Sobject> lstOfSobjectToDelete = new List<Sobject>();
     if (!lstOfSobjectShareToDelete.isEmpty()) {
-      for (Sobject obj : lstOfSobjectShareToDelete) {
-        if (
-          mapOfRecordToOwnerId.containskey((String) obj.get(strWhereClause)) &&
-          mapOfRecordToOwnerId.get((String) obj.get(strWhereClause)) !=
-          (Id) obj.get('UserOrGroupId')
-        ) {
-          lstOfSobjectToDelete.add(obj);
-        }
-      }
-      Set<Id> idsOfDeletedRecord = new Set<Id>();
       Database.DeleteResult[] lstOfDeleteResults = Database.delete(
-        lstOfSobjectToDelete,
+        lstOfSobjectShareToDelete,
         false
       );
       List<WrapSharingError> lstOfSharingError = new List<WrapSharingError>();
@@ -373,8 +456,8 @@ public without sharing class MLCRMSharingUtil {
           Database.Error error = lstOfDeleteResults.get(i).getErrors().get(0);
           lstOfSharingError.add(
             new WrapSharingError(
-              (String) lstOfSobject[i].get(strWhereClause),
-              (String) lstOfSobject[i].get('UserOrGroupId'),
+              (String) lstOfSobjectToDelete[i].get(strWhereClause),
+              (String) lstOfSobjectToDelete[i].get('UserOrGroupId'),
               error.getMessage()
             )
           );
@@ -384,7 +467,7 @@ public without sharing class MLCRMSharingUtil {
       if (!lstOfSharingError.isEmpty()) {
         Logger.error(
           'Error occured while deleting ' +
-          strShareObject +
+          objMtd.Sharing_Object__c +
           ' record',
           processSharingException(lstOfSharingError)
         );

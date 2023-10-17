@@ -41,6 +41,8 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     CCRMOpportunityActions.populateFieldsAfterInsert(records);
     CCRMRegionSharingUtil.shareOpportunitiesToOwnerRegion(records);
     CCRMOpportunityActions.populateOppName(records, null, true, false);
+    //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
+    MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
   }
 
   /**
@@ -93,9 +95,11 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Opportunity>) oldMap
     );
-    CCRMOpportunityActions.insertActionPlans(
+    CCRMActionPlanActions.insertActionPlans(
       records,
       (Map<Id, Opportunity>) oldMap
     );
+    //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
+    MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Opportunity');
   }
 }

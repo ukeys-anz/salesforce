@@ -10,40 +10,52 @@ public with sharing class CCRMContactActions {
   private static final String INVALID_PHONE_ERROR = 'Please enter Work Phone Number in +61212345678 format.';
   private static final String INVALID_EMAIL_ERROR = 'Please enter Email in correct format.';
   private static final String CONTACT_METHOD_ERROR = 'At least one type of contact method must be provided.';
+  private static final String CONTACT_LINKED_ERROR = 'Please select the correct type based on the Customer.';
+  private static final Profile CURRENT_USER_PROFILE = MLCRMCommonUtils.getProfileById(
+    UserInfo.getProfileId()
+  );
+  private static final Boolean IS_CCRM_USER = (CURRENT_USER_PROFILE?.Name ==
+  Label.CCRM_Profile_Name);
 
   /**
-   * @description extract from a list of contact and return the records that are linked to prospect accounts
-   * @param records the list of contacts to check if they're belonged to prospect accounts
-   * @return list of records that are linked to prospect accounts
+   * @description getExistingOrProspectContact to get the CPE related to Existing or Prospect Contact
+   * @param records List of Contact Records
+   * @return ContactWrapper return List of Existing or Prospect Contact
    */
-  public static List<Contact> extractProspectContacts(List<Contact> records) {
-    Set<Id> accountIds = new Set<Id>();
-    for (Contact record : records) {
-      if (record.AccountId != null) {
-        accountIds.add(record.AccountId);
-      }
-    }
-
-    Set<Id> prospectIds = CCRMAccountActions.extractProspectIds(accountIds);
-
-    List<Contact> results = new List<Contact>();
+  public static ContactWrapper getExistingOrProspectContacts(
+    List<Contact> records
+  ) {
+    ContactWrapper conWrap = new ContactWrapper();
+    Set<Id> accIdsSet = new Set<Id>();
     for (Contact record : records) {
       if (
-        prospectIds.contains(record.AccountId) &&
-        record.RecordTypeId == CCRMConstants.CONTACT_BUSINESS_RT_ID
+        record.RecordTypeId == CCRMConstants.CONTACT_BUSINESS_RT_ID &&
+        record.AccountId != null
       ) {
-        results.add(record);
+        accIdsSet.add(record.AccountId);
       }
     }
 
-    return results;
+    List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
+
+    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
+    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(accList);
+
+    for (Contact record : records) {
+      if (accWrap.prosAcc.containsKey(record.AccountId)) {
+        conWrap.prosContact.add(record);
+      } else if (accWrap.activeAcc.containsKey(record.AccountId)) {
+        conWrap.activeContact.add(record);
+      }
+    }
+    return conWrap;
   }
 
   /**
    * @description validate prospect's contact phones. This is done instead of Custom Validation Rule since these values will be reverted before Custom Validation kick in.
    * @param records the list of contacts validate
    */
-  public static void validateProspectContacts(List<Contact> records) {
+  public static void validateExistingOrProspectContacts(List<Contact> records) {
     if (CCRMConstants.SKIP_CUSTOM_VALIDATION_RULES) {
       return;
     }
@@ -106,17 +118,24 @@ public with sharing class CCRMContactActions {
    */
   public static void checkMaxContactsPerOrganisation(List<Contact> records) {
     Set<Id> accountIds = new Set<Id>();
+    Map<Id, AggregateResult> mapAccountIdToContactCount;
     for (Contact record : records) {
       if (record.AccountId != null) {
         accountIds.add(record.AccountId);
       }
     }
 
-    Map<Id, AggregateResult> mapAccountIdToContactCount = new Map<Id, AggregateResult>(
+    mapAccountIdToContactCount = new Map<Id, AggregateResult>(
       [
         SELECT AccountId Id, COUNT(Id) Cnt
         FROM Contact
-        WHERE AccountId IN :accountIds AND Account.Is_Prospect__c = TRUE
+        WHERE
+          AccountId IN :accountIds
+          AND (Account.Is_Prospect__c = TRUE
+          OR (Account.RecordType.DeveloperName = 'Business_Account'
+          AND Account.FinServ__Status__c IN ('Active', 'Inactive')
+          AND Account.Source_System_Name__c = 'CAP-CIS'
+          AND Account.ANZx_Customer__c = FALSE))
         WITH SECURITY_ENFORCED
         GROUP BY AccountId
       ]
@@ -177,5 +196,50 @@ public with sharing class CCRMContactActions {
         .getName();
       record.RecordTypeId = CCRMConstants.CONTACT_HIDDEN_RT_ID;
     }
+  }
+
+  /**
+   * @description Validate If the Organisation/Individual Contact Record is created against Organisation/Individual Customer or not.
+   * @param records the list of contact record to validate
+   */
+  public static void validateOrgIndividualContactsLinking(
+    List<Contact> records
+  ) {
+    Set<Id> accountIds = new Set<Id>();
+    Map<Id, Account> accMap;
+    if (!IS_CCRM_USER || CCRMConstants.SKIP_CUSTOM_VALIDATION_RULES) {
+      return;
+    }
+    for (Contact record : records) {
+      if (record.AccountId != null) {
+        accountIds.add(record.AccountId);
+      }
+    }
+
+    if (!accountIds.isEmpty()) {
+      accMap = CCRMContactPointEmailActions.getAccountMap(accountIds);
+
+      for (Contact record : records) {
+        if (
+          !(record.RecordTypeId == CCRMConstants.CONTACT_BUSINESS_RT_ID &&
+          accMap.get(record.AccountId).RecordTypeId ==
+          CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID)
+        ) {
+          record.addError(CONTACT_LINKED_ERROR);
+        }
+      }
+    }
+  }
+
+  /**
+   * @author Naman Garg
+   * @since  09/2023
+   * @group CCRM (Commercial CRM)
+   * @description ContactWrapper wrapper class to hold Existing and Prospect Contact
+   * @name ContactWrapper
+   */
+  public class ContactWrapper {
+    public List<Contact> prosContact = new List<Contact>();
+    public List<Contact> activeContact = new List<Contact>();
   }
 }

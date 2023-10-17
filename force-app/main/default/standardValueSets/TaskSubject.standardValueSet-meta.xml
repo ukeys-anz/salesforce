@@ -31,4 +31,34 @@
         <default>false</default>
         <label>Case Pended - provide update in case comment</label>
     </standardValue>
+    <standardValue>
+        <fullName>Contact Customer</fullName>
+        <default>false</default>
+        <label>Contact Customer</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Complete Serviceability Assessment</fullName>
+        <default>false</default>
+        <label>Complete Serviceability Assessment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Organise Appointment</fullName>
+        <default>false</default>
+        <label>Organise Appointment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Request for Pricing</fullName>
+        <default>false</default>
+        <label>Request for Pricing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Request for Property Valuation</fullName>
+        <default>false</default>
+        <label>Request for Property Valuation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Request Information or Documentation</fullName>
+        <default>false</default>
+        <label>Request Information or Documentation</label>
+    </standardValue>
 </StandardValueSet>

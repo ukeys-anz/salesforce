@@ -6,7 +6,6 @@
 
 @IsTest
 public class IDRQualityAssessmentTaskActionsTest {
-
   @IsTest
   static void checkMandatoryFields() {
     Boolean fExceptionThrown = false;

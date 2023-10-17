@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__CheckingAccount</fullName>
     <active>true</active>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <description>Represents a deposit account for withdrawals and deposits</description>
     <label>Checking Account</label>
     <picklistValues>

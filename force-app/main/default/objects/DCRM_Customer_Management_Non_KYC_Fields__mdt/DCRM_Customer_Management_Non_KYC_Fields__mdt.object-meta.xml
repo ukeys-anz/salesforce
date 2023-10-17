@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Custom metadata to store the Non-KYC fields.</description>
+    <label>DCRM Customer Management Non KYC Fields</label>
+    <pluralLabel>DCRM Customer Management Non KYC Fields</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

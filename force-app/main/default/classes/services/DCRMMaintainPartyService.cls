@@ -13,18 +13,24 @@ public with sharing class DCRMMaintainPartyService extends Service {
   private static final String PRIMARY_BUSINESS_TELEPHONE = 'Primary Business Telephone';
   private static final String LEGAL_NAME = 'Legal Name';
   private static final String EMAIL_VALUE = 'Email';
+  private static final String PRIMARY_RESIDENTAIL = 'Primary Residential';
   /**
-   * @param record lead record from the lwc component
+   * @param record OCVRequestPayloadWrapper payload from the lwc component
    * @return HttpCalloutResponse
    * @description gathers all the parameters required for callout
    */
-  public override HttpCalloutResponse maintainParty(Lead record) {
+  public override HttpCalloutResponse maintainParty(
+    OCVRequestPayloadWrapper record
+  ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    List<Lead> leadList = new List<Lead>{ record };
-    Map<Id, User> mapOfLanId = CCRMUserActions.getMapOfLanIds(leadList, false);
-    String operatorId = mapOfLanId.containsKey(record.OwnerId)
-      ? mapOfLanId.get(record.OwnerId).Lan_Id__c
+    Lead objLead = new Lead(OwnerId = record.strOwnerId);
+    Map<Id, User> mapOfLanId = CCRMUserActions.getMapOfLanIds(
+      new List<Lead>{ objLead },
+      false
+    );
+    String operatorId = mapOfLanId.containsKey(record.strOwnerId)
+      ? mapOfLanId.get(record.strOwnerId).Lan_Id__c
       : '';
     String requestTime = String.valueOf(System.now()) + '.00'; // appended with ms as required by API mesh
 
@@ -57,40 +63,39 @@ public with sharing class DCRMMaintainPartyService extends Service {
   }
 
   /**
-   * @param record lead record from the lwc component
+   * @param record requestwrapper payload from the lwc component
    * @return String
    * @description creates the request body for callout
    */
-  public static String getBody(Lead record) {
+  public static String getBody(OCVRequestPayloadWrapper record) {
     PartyMaintain maintainPartyReq = new PartyMaintain();
     maintainPartyReq.partyType = PARTY_TYPE;
     maintainPartyReq.source = CRM;
     maintainPartyReq.status = STATUS_PROSPECT;
 
     //Add Phones
-    if (record.MobilePhone != null) {
+    if (String.isNotBlank(record.strMobilePhone)) {
       Phones mobilePhone = new Phones();
       mobilePhone.source = CRM;
       mobilePhone.preferred = 'Y';
       mobilePhone.phoneUsageType = MOBILE_TELEPHONE;
-      mobilePhone.phone = record.MobilePhone;
-
+      mobilePhone.phone = record.strMobilePhone;
       maintainPartyReq.phones.add(mobilePhone);
     }
-    if (record.Home_Phone__c != null) {
+    if (String.isNotBlank(record.strHomePhone)) {
       Phones homePhone = new Phones();
       homePhone.source = CRM;
       homePhone.preferred = 'Y';
       homePhone.phoneUsageType = PRIMARY_HOME_TELEPHONE;
-      homePhone.phone = record.Home_Phone__c;
+      homePhone.phone = record.strHomePhone;
       maintainPartyReq.phones.add(homePhone);
     }
-    if (record.Work_Phone__c != null) {
+    if (String.isNotBlank(record.strWorkPhone)) {
       Phones workPhone = new Phones();
       workPhone.source = CRM;
       workPhone.preferred = 'Y';
       workPhone.phoneUsageType = PRIMARY_BUSINESS_TELEPHONE;
-      workPhone.phone = record.Work_Phone__c;
+      workPhone.phone = record.strWorkPhone;
       maintainPartyReq.phones.add(workPhone);
     }
 
@@ -98,42 +103,44 @@ public with sharing class DCRMMaintainPartyService extends Service {
     Names name = new Names();
     name.source = CRM;
     name.nameUsageType = LEGAL_NAME;
-    name.title = String.isNotBlank(record.Salutation)
-      ? record.Salutation
+    name.title = String.isNotBlank(record.strSalutation)
+      ? record.strSalutation
       : null;
-    name.firstName = String.isNotBlank(record.FirstName)
-      ? record.FirstName
+    name.firstName = String.isNotBlank(record.strFirstName)
+      ? record.strFirstName
       : null;
-    name.middleName = String.isNotBlank(record.MiddleName)
-      ? record.MiddleName
+    name.middleName = String.isNotBlank(record.strMiddleName)
+      ? record.strMiddleName
       : null;
-    name.lastName = String.isNotBlank(record.lastName) ? record.lastName : null;
+    name.lastName = String.isNotBlank(record.strLastName)
+      ? record.strLastName
+      : null;
     //Add Gender only for Individual
-    maintainPartyReq.gender = String.isNotBlank(record.Gender__c)
-      ? record.Gender__c
+    maintainPartyReq.gender = String.isNotBlank(record.strGender)
+      ? record.strGender
       : null;
     maintainPartyReq.names.add(name);
 
     //Add Email Address
-    if (record.Email != null) {
+    if (String.isNotBlank(record.strEmail)) {
       Emails email = new Emails();
       email.source = CRM;
       email.preferred = 'Y';
       email.emailUsageType = EMAIL_VALUE;
-      email.email = record.Email;
+      email.email = record.strEmail;
       maintainPartyReq.emails.add(email);
     }
 
     //add address
-    if (record.Is_Valid_Address__c) {
+    if (record.isValidStreet) {
       Addresses address = new Addresses();
       address.source = CRM;
-      address.addressUsageType = 'Primary Residential';
-      address.addressLineOne = record.Street;
-      address.city = record.City;
-      address.state = record.State;
-      address.country = record.Country;
-      address.postalCode = record.PostalCode;
+      address.addressUsageType = PRIMARY_RESIDENTAIL;
+      address.addressLineOne = record.strStreet;
+      address.city = record.strCity;
+      address.state = record.strState;
+      address.country = record.strCountry;
+      address.postalCode = record.strPostalCode;
       maintainPartyReq.addresses.add(address);
     }
     return Json.serialize(maintainPartyReq, true);
