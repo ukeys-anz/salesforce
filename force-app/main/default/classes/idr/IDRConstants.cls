@@ -167,7 +167,6 @@ public with sharing class IDRConstants {
   public static final String CASE_OWNER_ID = 'Owner ID';
 
   //IDR Maximum time constants
-  public static final String TASK_SUBJECT_DAY5 = 'IDR Response due in 5-days';
   public static final String TASK_SUBJECT_DAY1 = 'IDR Response Due in 1-day';
   public static final String TASK_STANDARD_PRIORITY = 'Standard';
   public static final String TASK_STATUS_EXPIRED = 'Expired';
@@ -175,7 +174,6 @@ public with sharing class IDRConstants {
   public static final String MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final String MILESTONE_PRIORITY = '21-day IDR Response Due';
 
-  public static final String TASK_AFCA_SUBJECT_DAY10 = 'AFCA Response is due in 10 days';
   public static final String TASK_AFCA_SUBJECT_DAY1 = 'AFCA Response is due in 1 day';
 
   //Channel Received

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Approaching Maximum IDR Response Time</name>
     <columns>
         <field>CASE_NUMBER</field>
     </columns>
@@ -17,7 +18,7 @@
     </columns>
     <description>Cases approaching maximum IDR time</description>
     <filter>
-        <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -33,13 +34,6 @@
             <value>TODAY</value>
         </criteriaItems>
         <criteriaItems>
-            <column>SUBJECT</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>contains</operator>
-            <value>IDR Response due in 5-days</value>
-        </criteriaItems>
-        <criteriaItems>
             <column>Case.IsOwner__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
@@ -53,7 +47,6 @@
         <field>SUBJECT</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Approaching Maximum IDR Response Time</name>
     <params>
         <name>closed</name>
         <value>open</value>

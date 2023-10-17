@@ -273,7 +273,8 @@
         "FinServ__Status__c",
         "Hardship__c",
         "KYC_Verification_Level__c",
-        "KYCVerificationDate__c"
+        "KYCVerificationDate__c",
+        "Was_ANZx_Customer__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
       "IA-2468715": [

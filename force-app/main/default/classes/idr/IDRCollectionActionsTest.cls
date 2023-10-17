@@ -10,9 +10,9 @@ private with sharing class IDRCollectionActionsTest {
   static void setup() {
     //create a product
     Product2 p = new Product2(
-      Name = 'Home Loan Protection Insurance',
+      Name = 'ANZ Home Loan Protection (HLP)  Insurance',
       IsActive = true,
-      ANZ_Product_Code__c = '241',
+      ANZ_Product_Code__c = '261',
       IDR_Product_or_Service_Category__c = '8',
       IDR_Product_or_Service_Line__c = '3',
       IDR_Product_or_Service_Type__c = '40'
