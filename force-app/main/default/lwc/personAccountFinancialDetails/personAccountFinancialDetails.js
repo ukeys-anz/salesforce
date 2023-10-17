@@ -24,7 +24,9 @@ import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAc
 
 import {
   CHECKING_ACCOUNT_RT_APINAME,
-  SAVINGS_ACCOUNT_RT_APINAME
+  SAVINGS_ACCOUNT_RT_APINAME,
+  MULTI_PARTY,
+  JOINT
 } from "c/financialAccountParent";
 
 export default class PersonAccountFinancialDetails extends LightningElement {
@@ -183,16 +185,16 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         // Only show showMultipartyBadge badge when the ownership is multi-party By Shivam, Oct'23
         if (account.FinServ__Ownership__c) {
           account.showMultipartyBadge =
-            account.FinServ__Ownership__c === "Multi-party";
+            account.FinServ__Ownership__c === MULTI_PARTY;
           account.multiParty =
-            account.FinServ__Ownership__c === "Multi-party"
-              ? "Joint"
+            account.FinServ__Ownership__c === MULTI_PARTY
+              ? JOINT
               : account.FinServ__Ownership__c;
         } else if (account.Ownership__c) {
-          account.showMultipartyBadge = account.Ownership__c === "Multi-party";
+          account.showMultipartyBadge = account.Ownership__c === MULTI_PARTY;
           account.multiParty =
-            account.Ownership__c === "Multi-party"
-              ? "Joint"
+            account.Ownership__c === MULTI_PARTY
+              ? JOINT
               : account.Ownership__c;
         }
 

@@ -35,6 +35,8 @@ import { DISPUTE_RECORD_TYPES_RETRIEVE_ERROR } from "c/transactionHistoryService
 const CHECKING_ACCOUNT_RT_APINAME = "CheckingAccount";
 const SAVINGS_ACCOUNT_RT_APINAME = "SavingsAccount";
 const BANK_ACCOUNT_RT_APINAME = "BankingAccount";
+const MULTI_PARTY="Multi-party";
+const JOINT="Joint";
 
 export {
   CHECKING_ACCOUNT_RT_APINAME,
@@ -358,17 +360,17 @@ export default class FinancialAccountParent extends LightningElement {
       // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
       if (finAccount.FinServ__Ownership__c) {
         finAccount.showMultipartyBadge =
-          finAccount.FinServ__Ownership__c === "Multi-party";
+          finAccount.FinServ__Ownership__c === MULTI_PARTY;
         finAccount.multiParty =
-          finAccount.FinServ__Ownership__c === "Multi-party"
-            ? "Joint"
+          finAccount.FinServ__Ownership__c === MULTI_PARTY
+            ? JOINT
             : finAccount.FinServ__Ownership__c;
       } else if (finAccount.Ownership__c) {
         finAccount.showMultipartyBadge =
-          finAccount.Ownership__c === "Multi-party";
+          finAccount.Ownership__c === MULTI_PARTY;
         finAccount.multiParty =
-          finAccount.Ownership__c === "Multi-party"
-            ? "Joint"
+          finAccount.Ownership__c === MULTI_PARTY
+            ? JOINT
             : finAccount.Ownership__c;
       }
     });
