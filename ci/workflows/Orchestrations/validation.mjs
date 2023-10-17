@@ -14,9 +14,10 @@ import {
   cancel,
   validateProgress,
   deployReport,
-  findAndUploadJobId,
+  uploadJobId,
   codeCoverage
 } from "../Services/deploy-service.mjs";
+import { booleanMap, deleteFolder, logger } from "../Services/helper.mjs";
 
 //////////
 
@@ -33,7 +34,7 @@ const {
 } = process.env;
 
 const JOB_ID_PATH = `${BRANCH_NAME}.txt`;
-const SOURCE_DIR = "artifact";
+const SOURCE_DIR = `artifact-${BRANCH_NAME}`;
 const CLASS_FOLDER_PATH = `${SOURCE_DIR}/force-app/main/default/classes`;
 // This should be change to the project name later
 const PROJECT_NAME = "xxxx";
@@ -43,10 +44,12 @@ const PROJECT_NAME = "xxxx";
 /// functions
 
 const validationFunction = () => {
+  const draftPr = booleanMap(DRAFT_PR);
+  const specifiedTestsPR = booleanMap(SPECIFIED_TEST_PR);
   const testMapping = {
-    NoTest: DRAFT_PR,
-    SpecifiedTests: SPECIFIED_TEST_PR,
-    AllTests: !(DRAFT_PR || SPECIFIED_TEST_PR)
+    NoTest: draftPr,
+    SpecifiedTests: specifiedTestsPR,
+    AllTests: !(draftPr || specifiedTestsPR)
   };
 
   const validationFunctionMapping = {
@@ -55,7 +58,7 @@ const validationFunction = () => {
     AllTests: validateWithAllTests
   };
 
-  const chosenTest = Object.keys(testMapping).filter((k) => testMapping[k]);
+  const chosenTest = Object.keys(testMapping).filter((k) => testMapping[k])[0];
   return validationFunctionMapping[chosenTest];
 };
 
@@ -70,14 +73,15 @@ const validate = () => {
   authenticate(BRANCH_NAME, SFDX_URL);
   cancel(JOB_ID_PATH);
   const validationFunc = validationFunction();
-  const validation = validationFunc(BRANCH_NAME, CLASS_FOLDER_PATH);
-  findAndUploadJobId(validation, BRANCH_NAME);
-  validateProgress(JOB_ID_PATH);
+  const validation = validationFunc(BRANCH_NAME, SOURCE_DIR, CLASS_FOLDER_PATH);
+  uploadJobId(validation, BRANCH_NAME);
+  validateProgress(validation);
 };
 
 const clean = () => {
   codeCoverage(JOB_ID_PATH);
   unauthenticate(BRANCH_NAME);
+  logger(deleteFolder(SOURCE_DIR));
 };
 
 /////////
@@ -90,7 +94,7 @@ const runCI = () => {
     clean: clean
   };
 
-  return runFunctionMapping[WHICH_JOB]();
+  return WHICH_JOB ? runFunctionMapping[WHICH_JOB]() : validate();
 };
 
 runCI();

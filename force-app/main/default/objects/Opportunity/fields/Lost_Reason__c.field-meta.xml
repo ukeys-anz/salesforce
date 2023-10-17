@@ -9,6 +9,7 @@
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -70,10 +71,24 @@
                 <default>false</default>
                 <label>Simplicity</label>
             </value>
+            <value>
+                <fullName>Application Withdrawn</fullName>
+                <default>false</default>
+                <label>Application Withdrawn</label>
+            </value>
+            <value>
+                <fullName>Lost to competitor</fullName>
+                <default>false</default>
+                <label>Lost to competitor</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
             <valueName>Accessibility</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Application Withdrawn</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
@@ -84,6 +99,7 @@
             <valueName>Customer Needs Change</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
             <valueName>Declined by Credit</valueName>
         </valueSettings>
@@ -92,6 +108,7 @@
             <valueName>Declined by Manager</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
             <valueName>Not Proceeding</valueName>
         </valueSettings>
@@ -114,6 +131,10 @@
         <valueSettings>
             <controllingFieldValue>Opportunity Lost</controllingFieldValue>
             <valueName>Simplicity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lost</controllingFieldValue>
+            <valueName>Lost to competitor</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

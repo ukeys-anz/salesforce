@@ -18,6 +18,7 @@ public with sharing class MLCRMTerritorySharingActions {
     try {
       List<Id> idsOfRecords = new List<Id>();
       String strObjectName;
+      String strLookupFields = '';
       //Subscribing to territory share platform event to create share record for objects.
       for (Territory_Base_Sharing_Event__e objTerritorySharing : records) {
         idsOfRecords.addAll(objTerritorySharing.Record_Ids__c.split(';'));
@@ -26,19 +27,42 @@ public with sharing class MLCRMTerritorySharingActions {
       Territory_Based_Sharing_Config__mdt objTerritoryMtd = MLCRMSharingUtil.getTerritoryRecords(
         strObjectName
       );
+      if (objTerritoryMtd.Lookup_Fields__c != null) {
+        strLookupFields =
+          String.join(objTerritoryMtd.Lookup_Fields__c.split(';'), ',') + ',';
+      }
       if (!idsOfRecords.isEmpty()) {
         String strQuery =
           'SELECT Id,' +
+          strLookupFields +
           String.escapeSingleQuotes(objTerritoryMtd.Territory_Field__c) +
           ',OwnerId FROM ' +
           String.escapeSingleQuotes(strObjectName) +
           ' WHERE ID IN:idsOfRecords';
+        List<Sobject> lstOfSobject = Database.query(strQuery);
         //Method to create share record based on territory
-        MLCRMSharingUtil.createTerritoryShareRecords(
-          Database.query(strQuery),
-          objTerritoryMtd.Sharing_Object__c,
-          strObjectName
-        );
+        if (objTerritoryMtd.Sharing_Scope__c == MLCRMConstants.STR_TERRITORY) {
+          MLCRMSharingUtil.createTerritoryShareRecords(
+            lstOfSobject,
+            objTerritoryMtd
+          );
+        } else if (
+          objTerritoryMtd.Sharing_Scope__c == MLCRMConstants.STR_FRANCHISE
+        ) {
+          //Method to create share record based on franchise
+          MLCRMSharingUtil.createShareRecordsFranchiseWise(
+            lstOfSobject,
+            objTerritoryMtd
+          );
+        } else if (
+          objTerritoryMtd.Sharing_Scope__c == MLCRMConstants.STR_PARENT_OBJECT
+        ) {
+          //Method to create share record based on parent object
+          MLCRMCommonUtils.parentObjectRecordSharing(
+            lstOfSobject,
+            objTerritoryMtd
+          );
+        }
       }
     } catch (Exception ex) {
       //log errors to application log

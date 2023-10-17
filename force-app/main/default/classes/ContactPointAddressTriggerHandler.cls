@@ -10,21 +10,42 @@ public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerH
    */
   public override void onBeforeInsert() {
     CCRMContactPointAddressActions.copyParentIdToCustomerName(records);
-    CCRMContactPointAddressActions.checkExistingAddressOnProspect(records);
+
+    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      CCRMContactPointAddressActions.checkExistingAddressOnProspectOrExistingCust(
+        records
+      );
+    }
   }
 
   /**
    * @description onAfterInsert to handle after insert trigger actions.
    */
   public override void onAfterInsert() {
-    List<ContactPointAddress> prospectAddresses = CCRMContactPointAddressActions.extractProspectCpa(
-      records
-    );
+    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      CCRMContactPointAddressActions.ContactPointAddressWrapper cpaWrap = new CCRMContactPointAddressActions.ContactPointAddressWrapper();
 
-    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-      prospectAddresses,
-      null
-    );
+      //This is used to get the list of Contact Point Address records which are linked to Existing or Prospect Customer.
+      cpaWrap = CCRMContactPointAddressActions.getExistingOrProspectCPA(
+        records
+      );
+
+      //Create the Customer Profile Update records for the ContactPointAddress against the Prospect Customer
+      //and the fields values that will stage will be the Non-KYC fields that is store in ContactPointAddress FieldSet.
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        cpaWrap.prosCPA,
+        null,
+        true
+      );
+
+      //Create the Customer Profile Update records for the ContactPointAddress linked to Existing Customer
+      //and the fields values that will stage will be the Non-KYC fields that is store in custom metadata (DCRM_Customer_Management_Non_KYC_Fields__mdt)
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        cpaWrap.activeCPA,
+        null,
+        false
+      );
+    }
   }
 
   /**
@@ -32,19 +53,33 @@ public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerH
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    List<ContactPointAddress> prospectAddresses = CCRMContactPointAddressActions.extractProspectCpa(
-      records
-    );
+    CCRMContactPointAddressActions.ContactPointAddressWrapper cpaWrap = new CCRMContactPointAddressActions.ContactPointAddressWrapper();
+    cpaWrap = CCRMContactPointAddressActions.getExistingOrProspectCPA(records);
 
     CCRMContactPointActions.updateContactPoints(records);
 
     CCRMContactPointAddressActions.unlinkProspectParentOnDeactivation(
-      prospectAddresses,
+      cpaWrap.prosCPA,
       (Map<Id, ContactPointAddress>) oldMap
     );
-    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-      prospectAddresses,
-      (Map<Id, ContactPointAddress>) oldMap
-    );
+
+    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        cpaWrap.prosCPA,
+        (Map<Id, ContactPointAddress>) oldMap,
+        true
+      );
+
+      CCRMCustomerProfileUpdateHelper.restrictEdit(
+        cpaWrap.activeCPA,
+        (Map<Id, ContactPointAddress>) oldMap
+      );
+
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        cpaWrap.activeCPA,
+        (Map<Id, ContactPointAddress>) oldMap,
+        false
+      );
+    }
   }
 }

@@ -15,6 +15,14 @@
         <value xsi:type="xsd:string">Unica.Integration@anzx.com;Adobe.Integration@anzx.com</value>
     </values>
     <values>
+        <field>IsParentIdField__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Lookup_Fields__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Object_Name__c</field>
         <value xsi:type="xsd:string">Lead</value>
     </values>
@@ -23,8 +31,16 @@
         <value xsi:type="xsd:double">24.0</value>
     </values>
     <values>
+        <field>Row_Cause__c</field>
+        <value xsi:type="xsd:string">Manual</value>
+    </values>
+    <values>
         <field>Sharing_Object__c</field>
         <value xsi:type="xsd:string">LeadShare</value>
+    </values>
+    <values>
+        <field>Sharing_Scope__c</field>
+        <value xsi:type="xsd:string">Territory</value>
     </values>
     <values>
         <field>Territory_Field__c</field>

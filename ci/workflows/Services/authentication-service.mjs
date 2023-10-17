@@ -1,4 +1,4 @@
-import { runSfCommand } from "./helper.mjs";
+import { runSfCommand, logger } from "./helper.mjs";
 
 // This will take the secretValue and branch name and will do the authentication.
 // exp:
@@ -6,9 +6,10 @@ import { runSfCommand } from "./helper.mjs";
 //   run: |
 //      node ci/workflows/Services/authentication-service.mjs authenticate "${{ github.head_ref }}" "${{ steps.secrets.outputs.sfdxurl }}"
 const authenticate = (branchName, secretValue) => {
-  return runSfCommand(
+  const authLog = runSfCommand(
     `echo "${secretValue}" | npx sf org login sfdx-url -a "${branchName}" --sfdx-url-file=/dev/stdin`
   );
+  logger(authLog);
 };
 
 // For production, we use connectedApp with JWT to do the authentication
@@ -16,9 +17,10 @@ const authenticate = (branchName, secretValue) => {
 //  username: tech.gcb@anzx.com
 //  orgURL: https://anz.my.salesforce.com
 const authenticateWithJWT = (consumerKey, cert, username, orgURL) => {
-  return runSfCommand(
+  const authLog = runSfCommand(
     `echo "${cert}" | sf org login jwt --client-id "${consumerKey}" --jwt-key-file=/dev/stdin --username "${username}" --instance-url "${orgURL}`
   );
+  logger(authLog);
 };
 
 // This will un-authenticate using the alias which is the branch name
@@ -27,7 +29,10 @@ const authenticateWithJWT = (consumerKey, cert, username, orgURL) => {
 //  run: |
 //     node ci/workflows/Services/authentication-service.mjs "${{ github.head_ref }}"
 const unauthenticate = (branchName) => {
-  return runSfCommand(`npx sf org logout -o ${branchName} --no-prompt`);
+  const unauthLog = runSfCommand(
+    `npx sf org logout -o ${branchName} --no-prompt`
+  );
+  logger(unauthLog);
 };
 
 export { authenticate, unauthenticate, authenticateWithJWT };

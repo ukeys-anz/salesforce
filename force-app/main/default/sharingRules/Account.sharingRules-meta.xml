@@ -60,4 +60,95 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>MLCRM_Account_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Individual Person Account records to be shared with Read/Write access.</description>
+        <label>MLCRM Account RW</label>
+        <sharedTo>
+            <roleAndSubordinates>AR_C</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>isPersonAccount</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>FinServ__Status__c</field>
+            <operation>equals</operation>
+            <value>Prospect,Active,Inactive</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>MLCRM_Account_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>provide read only access to all ANZ customers to AR &amp; C Role</description>
+        <label>MLCRM Account RO</label>
+        <sharedTo>
+            <roleAndSubordinates>AR_C</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CCRM_Existing_Account_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Providing Read/Write access to existing account to AR&amp;C.</description>
+        <label>CCRM Existing Account RW</label>
+        <sharedTo>
+            <roleAndSubordinates>AR_C</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>FinServ__Status__c</field>
+            <operation>equals</operation>
+            <value>Active,Inactive</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

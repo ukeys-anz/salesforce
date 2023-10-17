@@ -3,6 +3,7 @@
  * @since  07/2023
  * @group MLCRM (Mobile Lending CRM)
  * @description MLCRM_TerritorySharingScheduler is schedular class to schedule batch class for sharing sobject record created by excluded users.
+ * @runTests MLCRM_TerritoryRecalculationBatchTest
  */
 global class MLCRM_TerritorySharingScheduler implements Schedulable {
   /**

@@ -42,11 +42,21 @@ public without sharing class CCRMCustomerProfileUpdateSystemActions {
     if (recordIds.isEmpty()) {
       return;
     }
+    Map<Id, Customer_Profile_Updates__c> custProfileUpdateMap = new Map<Id, Customer_Profile_Updates__c>(
+      [
+        SELECT Id, Customer_Name__c, Customer_Name__r.RecordType.DeveloperName
+        FROM Customer_Profile_Updates__c
+        WHERE Id IN :recordIds
+      ]
+    );
+
     List<Customer_Profile_Update_Event__e> events = new List<Customer_Profile_Update_Event__e>();
     for (Id recordId : recordIds) {
       events.add(
         new Customer_Profile_Update_Event__e(
-          Customer_Profile_Update_Identifier__c = recordId
+          Customer_Profile_Update_Identifier__c = recordId,
+          RecordType_Name__c = custProfileUpdateMap.get(recordId)
+            .Customer_Name__r.RecordType.DeveloperName
         )
       );
     }

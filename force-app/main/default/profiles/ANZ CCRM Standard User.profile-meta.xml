@@ -23888,6 +23888,10 @@
         <recordType>Interaction.Appointment</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-CCRM Interaction Layout</layout>
+        <recordType>Interaction.CCRM_Interaction</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -24003,6 +24007,9 @@
         <layout>Notification_Handler__c-Notification Handler Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>OmniUiCard-Omni UI Card Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>OperatingHours-Operating Hours Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -24037,7 +24044,7 @@
         <layout>Outlook-Outlook Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>PersonAccount-Legal Entity Layout</layout>
+        <layout>PersonAccount-CCRM Account Page Layout</layout>
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>

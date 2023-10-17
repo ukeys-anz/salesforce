@@ -3,11 +3,19 @@
     <fullName>MLCRM Opportunity Process</fullName>
     <isActive>true</isActive>
     <values>
-        <fullName>Approved %26 Offered</fullName>
+        <fullName>Assessed</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Customer Acceptance</fullName>
+        <fullName>Closed</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Documents</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Lost</fullName>
         <default>false</default>
     </values>
     <values>
@@ -15,19 +23,15 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Opportunity Identified</fullName>
+        <fullName>Submitted</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Opportunity Lost</fullName>
+        <fullName>Documents</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Opportunity Won</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Solution Development</fullName>
+        <fullName>Settlement</fullName>
         <default>false</default>
     </values>
 </BusinessProcess>

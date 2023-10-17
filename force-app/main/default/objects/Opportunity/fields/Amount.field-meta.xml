@@ -6,5 +6,6 @@
     <description>Estimated total sale amount</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
 </CustomField>

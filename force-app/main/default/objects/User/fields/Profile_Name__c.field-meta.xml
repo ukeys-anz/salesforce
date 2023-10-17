@@ -3,7 +3,7 @@
     <fullName>Profile_Name__c</fullName>
     <businessStatus>Hidden</businessStatus>
     <externalId>false</externalId>
-    <formula>$Profile.Name</formula>
+    <formula>Profile.Name</formula>
     <label>Profile Name</label>
     <required>false</required>
     <type>Text</type>
