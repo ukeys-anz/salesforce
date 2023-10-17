@@ -361,19 +361,18 @@ export default class FinancialAccountParent extends LightningElement {
 
       // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
       if (finAccount.FinServ__Ownership__c) {
-        finAccount.showMultipartyBadge =
-          finAccount.FinServ__Ownership__c === MULTI_PARTY;
-        finAccount.multiParty =
-          finAccount.FinServ__Ownership__c === MULTI_PARTY
-            ? JOINT
-            : finAccount.FinServ__Ownership__c;
+        finAccount = this.handleShowMultiPartyBadge(
+          finAccount,
+          "FinServ__Ownership__c"
+        );
+        finAccount.multiParty = finAccount.showMultipartyBadge
+          ? JOINT
+          : finAccount.FinServ__Ownership__c;
       } else if (finAccount.Ownership__c) {
-        finAccount.showMultipartyBadge =
-          finAccount.Ownership__c === MULTI_PARTY;
-        finAccount.multiParty =
-          finAccount.Ownership__c === MULTI_PARTY
-            ? JOINT
-            : finAccount.Ownership__c;
+        finAccount = this.handleShowMultiPartyBadge(finAccount, "Ownership__c");
+        finAccount.multiParty = finAccount.showMultipartyBadge
+          ? JOINT
+          : finAccount.Ownership__c;
       }
     });
 
@@ -445,5 +444,11 @@ export default class FinancialAccountParent extends LightningElement {
         );
       }
     }
+  }
+  //Created this method to check whether the account have Multi-party or Single ownership type
+  handleShowMultiPartyBadge(finAccount, finAccountOwner) {
+    finAccount.showMultipartyBadge =
+      finAccount[finAccountOwner] === MULTI_PARTY;
+    return finAccount;
   }
 }

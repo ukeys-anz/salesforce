@@ -182,20 +182,21 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
         account.showSavingsJar = account.FinServ__Status__c !== "Closed";
 
-        // Only show showMultipartyBadge badge when the ownership is multi-party By Shivam, Oct'23
+        // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
         if (account.FinServ__Ownership__c) {
-          account.showMultipartyBadge =
-            account.FinServ__Ownership__c === MULTI_PARTY;
-          account.multiParty =
-            account.FinServ__Ownership__c === MULTI_PARTY
-              ? JOINT
-              : account.FinServ__Ownership__c;
-        } else if (account.Ownership__c) {
-          account.showMultipartyBadge = account.Ownership__c === MULTI_PARTY;
-          account.multiParty =
-            account.Ownership__c === MULTI_PARTY ? JOINT : account.Ownership__c;
+          account = this.handleShowMultiPartyBadge(
+            account,
+            "FinServ__Ownership__c"
+          );
+          account.multiParty = account.showMultipartyBadge
+            ? JOINT
+            : account.FinServ__Ownership__c;
+        } else if (finAccount.Ownership__c) {
+          account = this.handleShowMultiPartyBadge(account, "Ownership__c");
+          account.multiParty = account.showMultipartyBadge
+            ? JOINT
+            : account.Ownership__c;
         }
-
         //Determine the type of financial account
         if (account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME) {
           this.accountData.checking.push(account);
@@ -263,5 +264,12 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     await this.getFinancialAccount();
     await this.getGoals();
     this.loading = false;
+  }
+
+  //Created this method to check whether the account have Multi-party or Single ownership type
+  handleShowMultiPartyBadge(finAccount, finAccountOwner) {
+    finAccount.showMultipartyBadge =
+      finAccount[finAccountOwner] === MULTI_PARTY;
+    return finAccount;
   }
 }
