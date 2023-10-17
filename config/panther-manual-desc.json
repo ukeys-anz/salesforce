@@ -1690,8 +1690,7 @@
         "Source_System_Status__c",
         "System_Record_Status__c"
       ],
-      "IA-2594111": ["FinServ__JointOwner__c"],
-      "IA-2415860": ["Additional_Owner_Count__c", "Ownership__c"]
+      "IA-2594111": ["FinServ__JointOwner__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [

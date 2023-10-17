@@ -150,14 +150,14 @@ public with sharing class FinancialAccountController {
     Set<String> financialAccountNumbers
   ) {
     Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = new Map<String, FinServ__FinancialAccount__c>();
-    for (FinServ__FinancialAccount__c fa : [
+    for (FinServ__FinancialAccount__c finAccount : [
       SELECT Id, FinServ__FinancialAccountNumber__c, Ownership__c
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__FinancialAccountNumber__c IN :financialAccountNumbers
     ]) {
       finAccNumberToFinancialAccountMap.put(
-        fa.FinServ__FinancialAccountNumber__c,
-        fa
+        finAccount.FinServ__FinancialAccountNumber__c,
+        finAccount
       );
     }
     return finAccNumberToFinancialAccountMap;
