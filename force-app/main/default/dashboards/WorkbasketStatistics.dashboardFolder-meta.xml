@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DashboardFolder xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Workbasket Statistics</name>
     <folderShares>
         <accessLevel>View</accessLevel>
         <sharedTo>Banker</sharedTo>
@@ -22,6 +23,11 @@
     </folderShares>
     <folderShares>
         <accessLevel>View</accessLevel>
+        <sharedTo>Customer_Resolution_with_ANZ_Plus_Read_Only</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
         <sharedTo>Customer_Resolution_Team_Leaders</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
@@ -30,5 +36,4 @@
         <sharedTo>Data_Analyst</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
-    <name>Workbasket Statistics</name>
 </DashboardFolder>

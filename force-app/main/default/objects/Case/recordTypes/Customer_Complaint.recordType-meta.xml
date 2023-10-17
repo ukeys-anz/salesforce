@@ -4017,6 +4017,10 @@
     <picklistValues>
         <picklist>IDR_AFCA_Sub_issue_Type__c</picklist>
         <values>
+            <fullName>Account Closure</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Account administration error</fullName>
             <default>false</default>
         </values>
@@ -4137,7 +4141,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Failure to active in the clients best interest</fullName>
+            <fullName>Failure to act in the clients best interest</fullName>
             <default>false</default>
         </values>
         <values>
@@ -8740,21 +8744,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Review_Outcome__c</picklist>
-        <values>
-            <fullName>Resolution Enhanced</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Resolution Overturned</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Resolution Upheld</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Received_Currency__c</picklist>
         <values>
             <fullName>AED</fullName>
@@ -9490,6 +9479,21 @@
         </values>
         <values>
             <fullName>ZWL</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_Outcome__c</picklist>
+        <values>
+            <fullName>Resolution Enhanced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Overturned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Upheld</fullName>
             <default>false</default>
         </values>
     </picklistValues>

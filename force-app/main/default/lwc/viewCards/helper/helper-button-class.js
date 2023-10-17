@@ -80,14 +80,7 @@ function lockCardVisible(card, userPermission) {
 }
 
 function replaceCardVisible(card, userPermission) {
-  let allowedStatus = [
-    STATUS.Issued,
-    STATUS.Temporary_Lock,
-    STATUS.Temporary_Block
-  ];
-  return (
-    userPermission.hasReplacePermission && allowedStatus.includes(card.status)
-  );
+  return userPermission.hasReplacePermission;
 }
 
 function cancelCardVisible(card, userPermission) {

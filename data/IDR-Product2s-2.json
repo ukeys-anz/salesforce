@@ -507,20 +507,6 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref236"
-      },
-      "Name": "Home Loan Protection Insurance",
-      "IsActive": true,
-      "ANZ_Product_Code__c": "241",
-      "IDR_Product_or_Service_Line__c": "3",
-      "IDR_Product_or_Service_Category__c": "8",
-      "IDR_Product_or_Service_Type__c": "40",
-      "IDR_Workbasket__c": "IDR_Home_Owners",
-      "IDR_Product_Family__c": "@Product_Family__cRef11"
-    },
-    {
-      "attributes": {
-        "type": "Product2",
         "referenceId": "Product2Ref237"
       },
       "Name": "ANZ Standard Variable Residential Land Loan",
@@ -1405,7 +1391,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref300"
       },
-      "Name": "Generation Perpetual Wholsale Geared Aus",
+      "Name": "Generation Perpetual Wholesale Geared Aus",
       "IsActive": true,
       "ANZ_Product_Code__c": "305",
       "IDR_Product_or_Service_Line__c": "4",
