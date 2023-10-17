@@ -45,22 +45,25 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 ) {
   @api transactionRecord;
   @api expandAll;
-  @track showTransactionDetails;
   @api showRaiseDispute;
-  zoomLevel = 15;
-
+  @api disputeRecordTypesFromParent;
+  @api personAccount;
+  @api financialAccountId;
+  @api ocvId;
+  @api ownership;
+  @track showTransactionDetails;
   @wire(MessageContext)
   messageContext;
   subscription = null;
   showRecordTypeSelection = false;
-  @api disputeRecordTypesFromParent;
   disputeRecordTypes;
   selectedDisputeRecordType;
-  @api personAccount;
-  @api financialAccountId;
-  @api ocvId;
   tokenizedCardNumber;
   loading;
+  dynamicColumnClass;
+  dynamicLogoClass;
+  dynamicButtonClass;
+  zoomLevel = 15;
 
   connectedCallback() {
     this.subscription = subscribe(
@@ -87,6 +90,20 @@ export default class TransactionHistoryRecord extends NavigationMixin(
             ALLOWED_DISPUTE_TYPES_FOR_SALARY
           )
         : this.disputeRecordTypesFromParent;
+
+    // Dynamically assigning the logo , column and button size
+    this.dynamicLogoClass =
+      this.ownership == "Multi-party"
+        ? "slds-col slds-size--1-of-8 logo-container"
+        : "slds-col slds-size--1-of-7 logo-container";
+    this.dynamicColumnClass =
+      this.ownership == "Multi-party"
+        ? "slds-col slds-size--1-of-8"
+        : "slds-col slds-size--1-of-7";
+    this.dynamicButtonClass =
+      this.ownership == "Multi-party"
+        ? "slds-col slds-size--1-of-8 button-icon-col"
+        : "slds-col slds-size--1-of-7 button-icon-col";
   }
 
   get showPayAnyoneMsgTransactionDetails() {
@@ -181,6 +198,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       return "logo-default";
     }
     return "logo-image";
+  }
+
+  get showTransactionInitiatorColumn() {
+    return this.ownership == "Multi-party";
   }
 
   handleDetailsToggle() {

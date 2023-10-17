@@ -98,4 +98,63 @@ public with sharing class TransactionHistoryModelConverterHelper {
     }
     return null;
   }
+
+  /**
+   * @description Transform card v1 node back to v1beta1
+   * @param sourceCard Transaction API v1 card Node
+   * @return TransactionHistoryModel.Card TransactionAPI v1beta1 Node
+   */
+  public static TransactionHistoryModel.Card convertCard(
+    TransactionHistoryModelV1.Card sourceCard
+  ) {
+    TransactionHistoryModel.Card destCard = new TransactionHistoryModel.Card();
+    if (sourceCard != null) {
+      destCard.last_four_digits = sourceCard.last_four_digits;
+      destCard.method = sourceCard.method;
+      destCard.scheme = sourceCard.scheme;
+      destCard.wallet = sourceCard.wallet;
+    }
+    return destCard;
+  }
+
+  /**
+   * @description Transform card v1 node back to v1beta1
+   * @param sourceCash Transaction API v1 cash Node
+   * @return TransactionHistoryModel.Cash TransactionAPI v1beta1 Node
+   */
+  public static TransactionHistoryModel.Cash convertCash(
+    TransactionHistoryModelV1.Card sourceCash
+  ) {
+    TransactionHistoryModel.Cash destCash = new TransactionHistoryModel.Cash();
+    if (sourceCash != null) {
+      destCash.card_last_four_digits = sourceCash.last_four_digits;
+      destCash.method = sourceCash.method;
+      destCash.card_scheme = sourceCash.scheme;
+      destCash.wallet = sourceCash.wallet;
+    }
+    return destCash;
+  }
+
+  /**
+   * @description Transaction Initiator Name Mapping
+   * @param sourcePersonaId PersonaId received from staffToken
+   * @param mapPersonaIdAndCustomerName  Map holding Pesona Id and Customer Name
+   * @return the name of the person who initiates the transaction
+   */
+  public static String convertPersonaIdtoTransactionInitiator(
+    String sourcePersonaId,
+    Map<String, String> mapPersonaIdAndCustomerName
+  ) {
+    String desttransactionInitiator;
+    if (sourcePersonaId != null && mapPersonaIdAndCustomerName != null) {
+      if (mapPersonaIdAndCustomerName.containsKey(sourcePersonaId)) {
+        desttransactionInitiator = mapPersonaIdAndCustomerName.get(
+          sourcePersonaId
+        );
+      } else {
+        desttransactionInitiator = 'Co-Owner';
+      }
+    }
+    return desttransactionInitiator;
+  }
 }

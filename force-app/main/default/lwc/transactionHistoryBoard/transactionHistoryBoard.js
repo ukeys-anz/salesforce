@@ -59,6 +59,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   //trigger loading on the whole component to append new data
   @api transactionLoadMore;
   @api ocvId;
+  @api ownership;
 
   @wire(MessageContext)
   messageContext;

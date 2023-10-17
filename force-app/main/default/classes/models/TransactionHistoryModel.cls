@@ -139,6 +139,8 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     public String original_anzx_category;
     @AuraEnabled
     public String title;
+    @AuraEnabled
+    public String transactionInitiator;
   }
 
   /**

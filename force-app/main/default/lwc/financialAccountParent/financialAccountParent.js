@@ -11,7 +11,7 @@ import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
 import FIN_ACCOUNT_PRIMARY_OWNER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
-
+import FIN_ACCOUNT_OWNERSHIP from "@salesforce/schema/FinServ__FinancialAccount__c.Ownership__c";
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
 import { TRANSACTION_HISTORY_RETRIEVE_ERROR } from "c/transactionHistoryService";
 
@@ -64,6 +64,7 @@ export default class FinancialAccountParent extends LightningElement {
   loanData;
   loading;
   ocvId;
+  ownership;
   transactionData;
   prevTransactionData;
   @track moreData = true;
@@ -100,6 +101,7 @@ export default class FinancialAccountParent extends LightningElement {
       FIN_ACCOUNT_OCV_ID,
       FIN_ACCOUNT_RT_APINAME,
       FIN_ACCOUNT_PRIMARY_OWNER,
+      FIN_ACCOUNT_OWNERSHIP,
       FIN_ACCOUNT_INTEREST
     ]
   })
@@ -109,6 +111,7 @@ export default class FinancialAccountParent extends LightningElement {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
+      this.ownership = data.fields.Ownership__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
       if (
         this.ocvId &&
@@ -266,6 +269,7 @@ export default class FinancialAccountParent extends LightningElement {
         startDate: this.transactionStartDate,
         endDate: this.transactionEndDate,
         paramUrl: paramUrl,
+        ownership: this.ownership,
         bucketIds: this.transactionBucketIds
       });
 

@@ -40,4 +40,23 @@ public with sharing class AccountQueryHelper {
     }
     return accounts;
   }
+
+  /**
+   * @description find accounts based on a set of Ids
+   * @param ocvId ocvid to search account name
+   * @return Account name based on the ocv id
+   */
+  public static String findAccountNameByOcvId(String ocvId) {
+    Account accounts;
+    if (Account.SObjectType.getDescribe().isQueryable()) {
+      accounts = [SELECT Name, OCV_ID__c FROM Account WHERE OCV_ID__c = :ocvId];
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'AccountQueryHelper',
+        'findAccountNameByOcvId',
+        'Not enough permissions to query Accounts.'
+      );
+    }
+    return accounts.Name;
+  }
 }

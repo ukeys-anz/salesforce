@@ -233,7 +233,6 @@ public with sharing class AuthTokenCacheUtil {
       staffToken,
       expiresIn
     );
-
     return staffToken;
   }
 
@@ -305,5 +304,58 @@ public with sharing class AuthTokenCacheUtil {
    * @description custom exception thrown when a token session cache miss occurs
    */
   public class TokenCacheException extends Exception {
+  }
+
+  /**
+   * @description this method find the persona id from stafftoken and customer name based on ocvid to show transaction initiator
+   * @param idType Enum for specifying which type of id is used
+   * @param idValue holds ocvid of the customer
+   * @return Map of persona id and customer name
+   */
+  public static Map<String, String> getCustomerNameFromStaffToken(
+    Service.IdType idType,
+    String idValue
+  ) {
+    String personaId = null;
+    Map<String, String> mapPersonaIdAndCustomerName = new Map<String, String>();
+    try {
+      String token = AuthTokenCacheUtil.getStaffToken(
+        Service.IdType.OCVID,
+        idValue
+      );
+      List<String> tokenParts = token.split('\\.');
+      if (tokenParts.size() > 2) {
+        String decodedString = EncodingUtil.base64Decode(
+            CommonUtil.base64URLToBase64(tokenParts[1])
+          )
+          .toString();
+        Map<String, Object> tokenMap = (Map<String, Object>) (JSON.deserializeUntyped(
+          decodedString
+        ));
+
+        // checking if '_id' node exists for fetching the persona Id
+        if (tokenMap.containsKey('rqf')) {
+          Map<String, Object> rqfNode = (Map<String, Object>) tokenMap.get(
+            'rqf'
+          );
+          if (
+            rqfNode.containsKey('persona') &&
+            ((Map<String, Object>) rqfNode.get('persona')).containsKey('_id')
+          ) {
+            personaId = (String) ((Map<String, Object>) rqfNode.get('persona'))
+              .get('_id');
+            String customerName = AccountQueryHelper.findAccountNameByOcvId(
+              idValue
+            );
+            mapPersonaIdAndCustomerName.put(personaId, customerName);
+          }
+        }
+      }
+      return mapPersonaIdAndCustomerName;
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      return null;
+    }
   }
 }
