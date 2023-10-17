@@ -1,3 +1,4 @@
+<!-- Rendered in the Person Account -->
 <!-- sldsValidatorIgnore -->
 <template>
   <template lwc:if={hasPermissionIssue}>
@@ -6,69 +7,66 @@
       error-image-url={errorImageUrl}
     ></c-error>
   </template>
-  <template lwc:elseif={financialAccountId}>
-    <article class="homeLoanAccount slds-card">
-      <h1 class="card-title" data-id="component-title">
-        <lightning-icon
-          icon-name="custom:custom107"
-          size="medium"
-          class="slds-m-right_small cicon"
-        ></lightning-icon>
-        Loan - {accountDetails.product_details.name} Account
-      </h1>
-      <template lwc:if={accountDetails}>
-        <div
-          class="slds-card__body slds-card__body_inner"
-          data-id="fin-account"
-        >
-          <article class="slds-card">
-            <div class="slds-grid">
-              <header class="slds-has-flexi-truncate slds-var-p-around_small">
-                <h2 class="slds-card__header-title">
-                  <a
-                    onclick={navigateToRecordViewPage}
-                    data-id="account-number"
-                    class="slds-truncate"
-                    title={accountName}
-                  >
-                    <span>{accountDetails.account_name}</span>
-                  </a>
-                  <span
-                    lwc:if={accountActive}
-                    class="slds-badge slds-theme_success"
-                    >Open</span
-                  >
-                  <span lwc:else class="slds-badge slds-theme_error"
-                    >Closed</span
-                  >
-                </h2>
-              </header>
-            </div>
-            <div class="slds-grid slds-wrap">
-              <div class="slds-col slds-size_1-of-1">
-                <div class="slds-grid slds-wrap slds-size_1-of-1">
-                  <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
-                  >
-                    <div class="header-column">
-                      <p class="slds-text-color_weak">Account Number</p>
+  <template lwc:elseif={hasError}>
+    <c-error message={errorMsg}></c-error>
+  </template>
+  <template lwc:elseif={financialAccountList}>
+    <template lwc:if={financialAccounts}>
+      <template for:each={financialAccounts} for:item="finAccount">
+        <article class="homeLoanAccount slds-card" key={finAccount.Id}>
+          <h1 class="card-title" data-id="component-title">
+            <lightning-icon
+              icon-name="custom:custom107"
+              size="medium"
+              class="slds-m-right_small cicon"
+            ></lightning-icon>
+            Loan - {finAccount.product_details.name} Account
+          </h1>
+          <div
+            class="slds-card__body slds-card__body_inner"
+            data-id="fin-account"
+          >
+            <article class="slds-card">
+              <div class="slds-grid">
+                <header class="slds-has-flexi-truncate slds-var-p-around_small">
+                  <h2 class="slds-card__header-title">
+                    <a
+                      onclick={navigateToRecordViewPage}
+                      data-id={finAccount.recordId}
+                      class="slds-truncate"
+                      title={finAccount.account_name}
+                    >
+                      <span>{finAccount.account_name}</span>
+                    </a>
+                    <span
+                      lwc:if={finAccount.accountActive}
+                      class="slds-badge slds-theme_success"
+                      >Open</span
+                    >
+                    <span lwc:else class="slds-badge slds-theme_error"
+                      >Closed</span
+                    >
+                  </h2>
+                </header>
+              </div>
+              <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-m-top_small">
+                    <img class="loan-image" src={loanImageUrl} />
+                  </div>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <p class="slds-text-color_weak slds-p-right_xx-small">
+                        Account Number
+                      </p>
                       <p class="slds-text-heading_medium">
-                        {accountDetails.account_number}
+                        {finAccount.account_number}
                       </p>
                     </div>
-                    <div class="slds-m-top_small">
-                      <img class="loan-image" src={loanImageUrl} />
-                    </div>
-                  </div>
-                  <div
-                    class="slds-col slds-grid slds-grid_vertical slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
-                  >
-                    <div
-                      class="slds-col_bump-left slds-grid slds-grid_vertical slds-float_right"
-                    >
-                      <p
-                        class="slds-col_bump-left slds-text-color_weak slds-float_right"
-                      >
+                    <div class="slds-col slds-size_1-of-2">
+                      <p class="slds-text-color_weak">
                         Loan Balance
                         <lightning-icon
                           icon-name="utility:info"
@@ -78,20 +76,20 @@
                         ></lightning-icon>
                       </p>
                       <p
-                        class="slds-col slds-text-heading_medium"
+                        class="slds-text-heading_medium"
                         data-test-id="balance"
                       >
                         <lightning-formatted-number
-                          value={accountDetails.balances.current_balance.value}
+                          value={finAccount.balances.current_balance.value}
                           format-style="currency"
                           data-id="amount"
                         ></lightning-formatted-number>
                       </p>
                     </div>
-                    <div
-                      class="slds-col_bump-left slds-grid slds-grid_vertical slds-float_right slds-m-top_xx-large"
-                    >
-                      <p class="slds-col slds-text-color_weak slds-float_right">
+                  </div>
+                  <div class="slds-grid slds-gutters slds-p-top_medium">
+                    <div class="slds-col slds-size_1-of-2">
+                      <p class="slds-text-color_weak slds-p-right_xx-small">
                         Payments Made
                         <lightning-helptext
                           class="tooltip"
@@ -99,82 +97,68 @@
                         ></lightning-helptext>
                       </p>
                       <p
-                        class="slds-col slds-text-heading_medium"
+                        class="slds-text-heading_medium"
                         data-test-id="payment"
                       >
                         <lightning-formatted-number
-                          value={accountDetails.paidOff}
+                          value={finAccount.paidOff}
                           format-style="currency"
                           data-id="amount"
                         ></lightning-formatted-number>
                       </p>
                     </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <p class="slds-text-color_weak">Interest Rate</p>
+                      <p
+                        class="slds-text-heading_medium"
+                        data-test-id="interestrate"
+                      >
+                        {finAccount.loan_details.interests.rate}% p.a.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="slds-grid slds-gutters slds-p-top_medium">
+                    <div class="slds-col slds-size_1-of-2">
+                      <p class="slds-text-color_weak slds-p-right_xx-small">
+                        Minimum Repayment
+                        <lightning-helptext
+                          class="tooltip"
+                          content="This is your Repayment Amount under your credit contract. Does not include any arrears (if applicable)."
+                        ></lightning-helptext>
+                      </p>
+                      <p
+                        class="slds-text-heading_medium"
+                        data-test-id="minirepayment"
+                      >
+                        <lightning-formatted-number
+                          value={finAccount.loan_details.repayment_amount.value}
+                          format-style="currency"
+                          data-id="amount "
+                        ></lightning-formatted-number>
+                      </p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <p class="slds-text-color_weak">Next Repayment</p>
+                      <p
+                        class="slds-text-heading_medium"
+                        data-test-id="nextrepayment"
+                      >
+                        {finAccount.nextRepayment}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="slds-grid slds-wrap slds-var-p-around_small">
-              <div class="slds-col slds-grid slds-size_1-of-3">
-                <div class="header-column">
-                  <p class="slds-text-color_weak">Interest Rate</p>
-                  <p
-                    class="slds-text-heading_small slds-align_absolute-center"
-                    data-test-id="interestrate"
-                  >
-                    {accountDetails.loan_details.interests.rate}% p.a.
-                  </p>
-                </div>
-              </div>
-              <div
-                class="slds-col slds-grid slds-size_1-of-3 slds-align_absolute-center"
-              >
-                <div class="header-column">
-                  <p class="slds-text-color_weak">
-                    Minimum Repayment
-                    <lightning-helptext
-                      class="tooltip"
-                      content="This is your Repayment Amount under your credit contract. Does not include any arrears (if applicable)."
-                    ></lightning-helptext>
-                  </p>
-                  <p
-                    class="slds-text-heading_small"
-                    data-test-id="minirepayment"
-                  >
-                    <lightning-formatted-number
-                      class="slds-align_absolute-center"
-                      value={accountDetails.loan_details.repayment_amount.value}
-                      format-style="currency"
-                      data-id="amount "
-                    ></lightning-formatted-number>
-                  </p>
-                </div>
-              </div>
-              <div
-                class="slds-col slds-grid slds-size_1-of-3 slds-align_absolute-center slds-p-left_xx-large"
-              >
-                <div class="header-column">
-                  <p class="slds-text-color_weak">Next Repayment</p>
-                  <p
-                    class="slds-text-heading_small slds-align_absolute-center"
-                    data-test-id="nextrepayment"
-                  >
-                    {nextRepayment}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <footer class="slds-card__footer account-footer">
-              <span class="lastUpdated" data-test-id="last-updated-time"
-                >Last Updated {timestamp}</span
-              >
-            </footer>
-          </article>
-        </div>
+              <footer class="slds-card__footer account-footer">
+                <span class="lastUpdated" data-test-id="last-updated-time"
+                  >Last Updated {finAccount.lastModifiedTimestamp}</span
+                >
+              </footer>
+            </article>
+          </div>
+        </article>
       </template>
-    </article>
-  </template>
-  <template lwc:if={hasError}>
-    <c-error message={errorMsg}></c-error>
+    </template>
   </template>
 
   <template lwc:if={showBalanceModal}>

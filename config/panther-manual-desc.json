@@ -1723,7 +1723,9 @@
       "IA-2415860": [
         "Product_Code_Display__c",
         "Sub_product_Code_Display__c",
-        "Product_Name_Display__c"
+        "Product_Name_Display__c",
+        "Additional_Owner_Count__c",
+        "Ownership__c"
       ],
       "IA-2594111": ["FinServ__JointOwner__c"]
     },

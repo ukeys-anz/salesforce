@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Additional_Owner_Count__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Count of FA Roles with additional owners to determine multiparty accounts</description>
+    <externalId>false</externalId>
+    <label>Additional Owner Count</label>
+    <securityClassification>Internal</securityClassification>
+    <summaryFilterItems>
+        <field>FinServ__FinancialAccountRole__c.FinServ__Active__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>FinServ__FinancialAccountRole__c.FinServ__Role__c</field>
+        <operation>equals</operation>
+        <value>Additional Owner</value>
+    </summaryFilterItems>
+    <summaryForeignKey>FinServ__FinancialAccountRole__c.FinServ__FinancialAccount__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>
