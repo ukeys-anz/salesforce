@@ -34,7 +34,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Financial Account Ownership values for sorting</shortDescription>
-        <value>Single-party,Multi-party</value>
+        <value>Single,Multi-party</value>
     </labels>
     <labels>
         <fullName>FinancialAccountStatusForSorting</fullName>
