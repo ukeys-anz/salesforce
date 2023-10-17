@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Controls visibility of Refer to ANZ button on Lead and Customer Page</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx Refer To ANZ</label>
+</CustomPermission>
