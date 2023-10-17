@@ -194,3 +194,6 @@ force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-
 
 #ANZX-110254-delete unused resource file
 force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
+
+#DCRM-OTDL this should be removed on 25th Oct Release
+force-app/main/default/objects/FinServ__ContactContactRelation__c/validationRules/FinServ__InactiveCCRCannotBeEdited.validationRule-meta.xml
