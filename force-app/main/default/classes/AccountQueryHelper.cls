@@ -42,13 +42,13 @@ public with sharing class AccountQueryHelper {
   }
 
   /**
-   * @description find accounts based on a set of Ids
+   * @description find accounts based on OCVId
    * @param ocvId ocvid to search account name
    * @return Account name based on the ocv id
    */
   public static String findAccountNameByOcvId(String ocvId) {
     Account accounts;
-    if (Account.SObjectType.getDescribe().isQueryable()) {
+    if (PermissionUtils.canQuery('Account') == true) {
       accounts = [SELECT Name, OCV_ID__c FROM Account WHERE OCV_ID__c = :ocvId];
     } else {
       CommonUtil.logAndThrowIAE(

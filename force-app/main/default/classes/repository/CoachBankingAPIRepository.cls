@@ -75,7 +75,10 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     if (response.successful) {
       try {
         // Story ANZX-120154 : Retrieve the user's persona ID from the JWT token to display the Transaction Initiator in Transaction History records.
-        if (ownership != null && ownership == 'Multi-party') {
+        if (
+          String.isNotBlank(ownership) &&
+          ownership == GetHelpConstants.MULTI_PARTY
+        ) {
           mapPersonaIdAndCustomerName = AuthTokenCacheUtil.getCustomerNameFromStaffToken(
             Service.IdType.OCVID,
             ocvId

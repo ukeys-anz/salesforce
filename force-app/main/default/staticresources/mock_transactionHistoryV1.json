@@ -485,6 +485,13 @@
         "exchange_rate": 1,
         "country_code": "AU"
       },
+      "transfer": {
+        "source_account": {
+          "bsb": "014111"
+        },
+        "puid": "AX14500009136869",
+        "payment_reference": "770572"
+      },
       "origination_system_id": "ANZX5P00000003012",
       "authorisation_source": "POS",
       "merchant_category_code": "5999",
@@ -786,56 +793,59 @@
       "lwc_transaction_description": "ANZ Atm Queen Vic Market et Melbourne Vi"
     },
     {
-      "name": "transactions/5732cd4e-5c8f-3408-a93e-01d796f70779",
-      "uid": "5732cd4e-5c8f-3408-a93e-01d796f70779",
+      "name": "transactions/18d9ea78-9b1c-4377-8910-56681985ab0c",
+      "uid": "18d9ea78-9b1c-4377-8910-56681985ab0c",
       "account": {
-        "bsb": "014111",
-        "account_number": "210490773"
+        "bsb": "012366",
+        "account_number": "210490765"
       },
-      "title": "Transfer To Rainy Day 2",
-      "update_time": "2022-11-23T12:37:04.414759Z",
-      "origin_time": "2022-10-04T03:19:53Z",
-      "value_time": "2022-10-03T13:00:00Z",
-      "status": "POSTED_INTRADAY",
-      "type": "TRANSFER",
-      "raw_type": "19",
-      "raw_code": "52",
+      "title": "ANZ (ATM) ATM",
+      "update_time": "2022-11-23T13:16:43.060010Z",
+      "origin_time": "2022-10-10T03:09:00Z",
+      "post_time": "2022-10-10T03:09:00Z",
+      "value_time": "2022-10-10T03:09:00Z",
+      "status": "POSTED_PRIORDAY",
+      "type": "DEPOSIT_WITHDRAWAL",
+      "raw_type": "1",
+      "raw_code": "2",
       "reportable": true,
-      "long_description": "Transfer within 014111-210490773 #770572",
-      "short_description": "Transfer Within 014111-210490773 #770572",
+      "long_description": "ANZ ATM queen Vic market et melbourne vi",
+      "short_description": "Queen Vic Market Et Melbourne Vi",
       "amount": {
         "currency_code": "AUD",
-        "units": "-5"
+        "units": "-30",
+        "nanos": -260000000
       },
       "country_code": "AU",
       "international": {
         "amount": {
           "currency_code": "AUD",
-          "units": "5"
+          "units": "30",
+          "nanos": 260000000
         },
-        "exchange_rate": 1
+        "exchange_rate": 1,
+        "country_code": "AU"
       },
-      "origination_system_id": "CT5I000000311761",
-      "trace_id": "AX1009136869",
-      "direct_entry_user_id": "0000000",
+      "origination_system_id": "ANZX5O000000003026",
+      "merchant_category_code": "6011",
+      "aux_dom": "0000009040",
       "cheque_serial_number": "0",
       "open_banking": {},
-      "transfer": {
-        "source_account": {
-          "bsb": "014111",
-          "account_number": "210490773",
-          "account": "accounts/210490773",
-          "bucket": "accounts/210490773/buckets/06c1d380-6dbd-5d0d-a768-250272f2a0a1"
-        },
-        "destination_account": {
-          "bsb": "014111",
-          "account_number": "210490773",
-          "account": "accounts/210490773",
-          "bucket": "accounts/210490773/buckets/717f19ce-d95d-521f-82bc-3c2588203d54"
-        },
-        "puid": "AX14500009136869",
-        "payment_reference": "770572"
-      }
+      "enrichment": "enrichments/e0c01b42-5104-5c64-9efe-edd405ee0d70",
+      "merchant": "merchants/a3075ed1-a761-53e4-b1a8-e624ccabe929",
+      "primary_anzx_category": "categories/d5824a5f-256b-515a-aaf8-bb53e536d074",
+      "original_anzx_category": "categories/d5824a5f-256b-515a-aaf8-bb53e536d074",
+      "categories": [
+        "categories/5c4164ed-5f0b-588e-bbc7-d95e756446df",
+        "categories/bcf28077-022e-5c02-bb3d-403e7ad8c061",
+        "categories/d5824a5f-256b-515a-aaf8-bb53e536d074"
+      ],
+      "card": {
+        "last_four_digits": "2362",
+        "scheme": "VISA",
+        "method": "SWIPE"
+      },
+      "lwc_transaction_description": "ANZ Atm Queen Vic Market et Melbourne Vi"
     },
     {
       "name": "transactions/9898d557-738d-4c27-8ef0-8472106c6a76",

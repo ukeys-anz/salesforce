@@ -64,6 +64,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   dynamicLogoClass;
   dynamicButtonClass;
   zoomLevel = 15;
+  showTransactionInitiatorColumn;
 
   connectedCallback() {
     this.subscription = subscribe(
@@ -92,18 +93,16 @@ export default class TransactionHistoryRecord extends NavigationMixin(
         : this.disputeRecordTypesFromParent;
 
     // Dynamically assigning the logo , column and button size
-    this.dynamicLogoClass =
-      this.ownership == "Multi-party"
-        ? "slds-col slds-size--1-of-8 logo-container"
-        : "slds-col slds-size--1-of-7 logo-container";
-    this.dynamicColumnClass =
-      this.ownership == "Multi-party"
-        ? "slds-col slds-size--1-of-8"
-        : "slds-col slds-size--1-of-7";
-    this.dynamicButtonClass =
-      this.ownership == "Multi-party"
-        ? "slds-col slds-size--1-of-8 button-icon-col"
-        : "slds-col slds-size--1-of-7 button-icon-col";
+    if (this.ownership === "Multi-party") {
+      this.showTransactionInitiatorColumn = true;
+      this.dynamicLogoClass = "slds-col slds-size--1-of-8 logo-container";
+      this.dynamicColumnClass = "slds-col slds-size--1-of-8";
+      this.dynamicButtonClass = "slds-col slds-size--1-of-8 button-icon-col";
+    } else {
+      this.dynamicLogoClass = "slds-col slds-size--1-of-7 logo-container";
+      this.dynamicColumnClass = "slds-col slds-size--1-of-7";
+      this.dynamicButtonClass = "slds-col slds-size--1-of-7 button-icon-col";
+    }
   }
 
   get showPayAnyoneMsgTransactionDetails() {
@@ -198,10 +197,6 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       return "logo-default";
     }
     return "logo-image";
-  }
-
-  get showTransactionInitiatorColumn() {
-    return this.ownership == "Multi-party";
   }
 
   handleDetailsToggle() {

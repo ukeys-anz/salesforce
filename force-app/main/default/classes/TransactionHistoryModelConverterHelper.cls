@@ -152,7 +152,7 @@ public with sharing class TransactionHistoryModelConverterHelper {
           sourcePersonaId
         );
       } else {
-        desttransactionInitiator = 'Co-Owner';
+        desttransactionInitiator = GetHelpConstants.CO_OWNER;
       }
     }
     return desttransactionInitiator;

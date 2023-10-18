@@ -260,7 +260,7 @@ public class TransactionHistoryModelV1 extends CalloutModel {
 
   /**
    * @param json input string to deserialize
-   * @param mapPersonaIdAndCustomerName map for holding persona id from staff token and customer name correponding to ocv id of the account
+   * @param mapPersonaIdAndCustomerName map for holding persona id from staff token and customer name corresponding to ocv id of the account
    * @return `TransactionHistoryModel`
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
