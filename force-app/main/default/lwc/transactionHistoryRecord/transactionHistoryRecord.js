@@ -39,6 +39,10 @@ const PENDING_TRANSACTION_MESSAGE =
   "You can’t raise a dispute on a pending transaction. Please try again once payment has cleared.";
 const UNKNOWN_TRANSACTION_MESSAGE =
   "You can’t raise a dispute on a transaction with unknown status.";
+const SLDS_COL_SIZE_OF_8 = "slds-col slds-size--1-of-8";
+const SLDS_COL_SIZE_OF_7 = "slds-col slds-size--1-of-7";
+const LOGO_CONTAINER = "logo-container";
+const BUTTON_ICON_COL = "button-icon-col";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
@@ -95,13 +99,13 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     // Dynamically assigning the logo , column and button size
     if (this.ownership === "Multi-party") {
       this.showTransactionInitiatorColumn = true;
-      this.dynamicLogoClass = "slds-col slds-size--1-of-8 logo-container";
-      this.dynamicColumnClass = "slds-col slds-size--1-of-8";
-      this.dynamicButtonClass = "slds-col slds-size--1-of-8 button-icon-col";
+      this.dynamicLogoClass = SLDS_COL_SIZE_OF_8 + " " + LOGO_CONTAINER;
+      this.dynamicColumnClass = SLDS_COL_SIZE_OF_8;
+      this.dynamicButtonClass = SLDS_COL_SIZE_OF_8 + " " + BUTTON_ICON_COL;
     } else {
-      this.dynamicLogoClass = "slds-col slds-size--1-of-7 logo-container";
-      this.dynamicColumnClass = "slds-col slds-size--1-of-7";
-      this.dynamicButtonClass = "slds-col slds-size--1-of-7 button-icon-col";
+      this.dynamicLogoClass = SLDS_COL_SIZE_OF_7 + " " + LOGO_CONTAINER;
+      this.dynamicColumnClass = SLDS_COL_SIZE_OF_7;
+      this.dynamicButtonClass = SLDS_COL_SIZE_OF_7 + " " + BUTTON_ICON_COL;
     }
   }
 

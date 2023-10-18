@@ -318,6 +318,7 @@ public with sharing class AuthTokenCacheUtil {
   ) {
     String personaId = null;
     Map<String, String> mapPersonaIdAndCustomerName = new Map<String, String>();
+    List<String> listOcvId = new List<String>();
     try {
       String token = AuthTokenCacheUtil.getStaffToken(
         Service.IdType.OCVID,
@@ -344,10 +345,12 @@ public with sharing class AuthTokenCacheUtil {
           ) {
             personaId = (String) ((Map<String, Object>) rqfNode.get('persona'))
               .get('_id');
-            String customerName = AccountQueryHelper.findAccountNameByOcvId(
-              idValue
+            listOcvId.add(idValue);
+            Map<String, Account> mapOcvIdAccount = AccountQueryHelper.findAccountNameByOcvId(
+              listOcvId
             );
-            mapPersonaIdAndCustomerName.put(personaId, customerName);
+            Account acc = mapOcvIdAccount.get(idValue);
+            mapPersonaIdAndCustomerName.put(personaId, acc.Name);
           }
         }
       }
