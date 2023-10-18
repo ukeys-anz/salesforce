@@ -26,7 +26,8 @@ RecordType.DeveloperName = &apos;ANZx_Complaint&apos;
 OR(
 CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;,
 CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Team_Leaders&apos;,
-CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;
+CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;,
+CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_Read_Only&apos;
 )
 )</milestoneCriteriaFormula>
         <milestoneName>FPR 5 Business Day Resolution target</milestoneName>
@@ -54,7 +55,8 @@ RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
 NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;),
 NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Team_Leaders&apos;),
-NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
+NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;),
+NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_Read_Only&apos;)
 )</milestoneCriteriaFormula>
         <milestoneName>Open_Escalation_Time</milestoneName>
         <minutesToComplete>7680</minutesToComplete>

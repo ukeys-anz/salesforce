@@ -54,7 +54,7 @@ public with sharing class CCRMAccountActions {
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in afterUpdate.
    * @return `Map<String, List<Account>>` Return map of Accounts with CPID as key
    */
-  private static Map<String, List<Account>> mapAccountsToCPID(
+  public static Map<String, List<Account>> mapAccountsToCPID(
     List<Account> records,
     Map<Id, Account> oldMap
   ) {
@@ -84,10 +84,7 @@ public with sharing class CCRMAccountActions {
    * @return `Boolean` True if the CPID is updated otherwise false.
    */
   private static Boolean isCPIDChanged(Account record, Account oldRec) {
-    if (oldRec != null && record.CPID__c != oldRec.CPID__c) {
-      return true;
-    }
-    return false;
+    return (oldRec != null && record.CPID__c != oldRec.CPID__c);
   }
 
   /**
@@ -100,15 +97,8 @@ public with sharing class CCRMAccountActions {
     List<Account> records,
     Map<Id, SObject> oldMap
   ) {
-    if (
-      UserInfo.getProfileId() !=
-      CommonUtil.getProfileByName('ANZ CCRM Standard User').Id
-    ) {
-      return;
-    }
-
     for (Account rec : records) {
-      if (!rec.Is_Prospect__c) {
+      if (!rec.Is_Prospect__c && !isActiveAccount(rec)) {
         Account oldRec = (Account) oldMap.get(rec.Id);
         AccountCommonActionsHelper.revertAccountFieldChanges(rec, oldRec);
       }
@@ -170,14 +160,10 @@ public with sharing class CCRMAccountActions {
    * @return `Boolean` True if the the record source is CAP and not a person account
    */
   private static Boolean isValidCCRMAccount(Account record) {
-    if (
-      record.Source_System_Name__c == System.Label.CCRM_Source_System_Name &&
-      String.isNotBlank(record.Source_System_ID__c) &&
-      !record.IsPersonAccount
-    ) {
-      return true;
-    }
-    return false;
+    return (record.Source_System_Name__c ==
+    System.Label.CCRM_Source_System_Name &&
+    String.isNotBlank(record.Source_System_ID__c) &&
+    !record.IsPersonAccount);
   }
 
   /**
@@ -241,37 +227,109 @@ public with sharing class CCRMAccountActions {
   }
 
   /**
-   * @description Extract prospect customers from a list of accounts
-   * @name extractProspectAccounts
-   * @param records from the trigger
-   * @return List<Account> the list of prospect customers
+   * @description CC-5050 to restrict or prevent editing of shell prospect
+   * @name preventEditShellProspect
+   * @param records The Account records passed from Trigger.new()
+   * @param oldMap old trigger values
    */
-  public static List<Account> extractProspectAccounts(List<Account> records) {
-    List<Account> prospects = new List<Account>();
-    for (Account record : records) {
-      if (record.Is_Prospect__c) {
-        prospects.add(record);
+  public static void preventEditShellProspect(
+    List<Account> records,
+    Map<Id, Account> oldMap
+  ) {
+    String currUsername = UserInfo.getUserName();
+    // bypassed if current user is OCV Integration or this is in context of lead conversion, or is a system admin
+    if (
+      currUsername.startsWith(Label.CCRM_OCVIntegrationUsername) ||
+      CCRMLeadConversionActions.manualLeadConversionInitiated ||
+      UserInfo.getProfileId() ==
+      CommonUtil.getProfileByName(MLCRMConstants.ADMIN_PROFILE_NAME).Id
+    ) {
+      return;
+    }
+    for (Account rec : records) {
+      if (isShellAccount(rec)) {
+        rec.addError(Label.ML_ShellProspect_Update_ErrorMessage);
+      } else if (
+        rec.isPersonAccount && rec.OCV_ID__c != oldMap.get(rec.id)?.OCV_ID__c
+      ) {
+        rec.addError(Label.ML_OCV_ID_Update_ErrorMessage);
       }
     }
-
-    return prospects;
   }
 
   /**
-   * @description Filter a list of account IDs to return those that are prospect customers
-   * @name extractProspectIds
-   * @param accountIds The ID of accounts to check
-   * @return Set<Id> - The ID of accounts that are prospect customer
+   * @description getExistingOrProspectAccounts to check if the Account is an active/inactive or Prospect account
+   * @param accList List of Account
+   * @return AccountWrapper return List of Propsect and Active Account
    */
-  public static Set<Id> extractProspectIds(Set<Id> accountIds) {
-    return new Map<Id, Account>(
-        [
-          SELECT Id
-          FROM Account
-          WHERE Id IN :accountIds AND Is_Prospect__c = TRUE
-          WITH SECURITY_ENFORCED
-        ]
-      )
-      .keySet();
+  public static AccountWrapper getExistingOrProspectAccounts(
+    List<Account> accList
+  ) {
+    AccountWrapper accWrap = new AccountWrapper();
+    for (Account acc : accList) {
+      if (acc.Is_Prospect__c) {
+        accWrap.prosAcc.put(acc.Id, acc);
+      } else if (isActiveAccount(acc)) {
+        accWrap.activeAcc.put(acc.Id, acc);
+      }
+    }
+    return accWrap;
+  }
+
+  /**
+   * @description isActiveAccount to check if the Account is an active/inactive account or not
+   * @param accRec accountRec
+   * @return Boolean True if the Account is an active/inactive account otherwise false.
+   */
+  public static Boolean isActiveAccount(Account accRec) {
+    return ((accRec.RecordTypeId ==
+    CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID ||
+    accRec.isPersonAccount) &&
+    (accRec.FinServ__Status__c == CCRMConstants.ACTIVE_STATUS ||
+    accRec.FinServ__Status__c == CCRMConstants.INACTIVE_STATUS) &&
+    accRec.Source_System_Name__c == Label.CCRM_Source_System_Name &&
+    accRec.ANZx_Customer__c == false);
+  }
+
+  /**
+   * @description fetchAccounts fetch List of accounts
+   * @param accIds Ids of Account
+   * @return List<Account> return List of Accounts
+   */
+  public static List<Account> fetchAccounts(Set<Id> accIds) {
+    return [
+      SELECT
+        Id,
+        Is_Prospect__c,
+        isPersonAccount,
+        RecordTypeId,
+        FinServ__Status__c,
+        Source_System_Name__c,
+        ANZx_Customer__c
+      FROM Account
+      WHERE Id IN :accIds
+    ];
+  }
+
+  /**
+   * @author Naman Garg
+   * @since  09/2023
+   * @group CCRM (Commercial CRM)
+   * @description AccountWrapper wrapper class to hold Existing and Prospect Account
+   * @name AccountWrapper
+   */
+  public class AccountWrapper {
+    public Map<Id, Account> prosAcc = new Map<Id, Account>();
+    public Map<Id, Account> activeAcc = new Map<Id, Account>();
+  }
+
+  /**
+   * @description isShellAccount to check if the Account is shell Prospect account or not
+   * @param accountRecord Account Record
+   * @return Boolean True if the Account is shell Prospect account otherwise false.
+   */
+  public static Boolean isShellAccount(Account accountRecord) {
+    return (accountRecord.FinServ__Status__c == CCRMConstants.PROSPECT &&
+    accountRecord.OCV_Event_Version__c == 0);
   }
 }

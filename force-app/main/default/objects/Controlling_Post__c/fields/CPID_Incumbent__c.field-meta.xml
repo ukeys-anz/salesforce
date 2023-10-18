@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CPID_Incumbent__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Sensitive_Personal_Information;Integrity_Trusted;Source_CAP</complianceGroup>
+    <description>This is the CPID Type</description>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
+    <externalId>false</externalId>
+    <label>Incumbent Name</label>
+    <length>100</length>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

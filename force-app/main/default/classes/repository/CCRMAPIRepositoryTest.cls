@@ -63,14 +63,14 @@ public with sharing class CCRMAPIRepositoryTest {
   @isTest
   static void testMaintainParty() {
     CCRMAPIRepository apiRepo = new CCRMAPIRepository();
-    Lead record = new Lead();
+    OCVRequestPayloadWrapper ocvRequest = new OCVRequestPayloadWrapper();
     DCRMMaintainPartyModel maintainPartyResponse = apiRepo.maintainParty(
-      record
+      ocvRequest
     );
 
-    // Verify response received contains fake values
-    System.assertNotEquals(
-      null,
+    // Verify response received contains fake values from mock_dcrmMaintainPartyModel
+    System.assertEquals(
+      '8019989879',
       maintainPartyResponse.ocvId,
       'The returned ocvId does not match'
     );

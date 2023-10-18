@@ -130,22 +130,10 @@ private class TaskTriggerHandlerTest {
     listofTasks.addAll(
       new List<Task>{
         new Task(
-          Subject = IDRConstants.TASK_SUBJECT_DAY5,
-          Priority = 'Normal',
-          ActivityDate = system.today().addDays(60),
-          WhatId = standardComplaint.Id
-        ),
-        new Task(
           Subject = IDRConstants.TASK_SUBJECT_DAY1,
           Priority = 'High',
           ActivityDate = system.today().addDays(60),
           WhatId = standardComplaint.Id
-        ),
-        new Task(
-          Subject = IDRConstants.TASK_SUBJECT_DAY5,
-          Priority = 'Normal',
-          ActivityDate = system.today().addDays(60),
-          WhatId = priorityComplaint.Id
         ),
         new Task(
           Subject = IDRConstants.TASK_SUBJECT_DAY1,
@@ -162,13 +150,13 @@ private class TaskTriggerHandlerTest {
       e.getMessage();
     }
 
-    //check standard5Day Task is closed
+    //check standard1Day Task is closed
     List<Task> checkTask = new List<Task>();
     checkTask = [
       SELECT Id, Status
       FROM Task
       WHERE
-        Subject = :IDRConstants.TASK_SUBJECT_DAY5
+        Subject = :IDRConstants.TASK_SUBJECT_DAY1
         AND WhatId = :standardComplaint.Id
     ];
     if (checkTask.size() > 0) {

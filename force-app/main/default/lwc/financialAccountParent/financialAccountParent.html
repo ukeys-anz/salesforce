@@ -16,9 +16,10 @@
     </template>
     <template lwc:elseif={loanData}>
       <c-home-loan-account
-        record-id={primaryOwner}
+        record-id={recordId}
         object-api-name={objectApiName}
         account-details={loanData}
+        ownership-type={accountOwnershipType}
       ></c-home-loan-account>
     </template>
   </template>

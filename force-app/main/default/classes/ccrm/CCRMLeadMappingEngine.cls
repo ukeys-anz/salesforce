@@ -16,7 +16,7 @@ public with sharing class CCRMLeadMappingEngine {
   private Map<string, string> mappedField = new Map<string, string>();
   //CC-1056
   private Map<Id, Schema.RecordTypeInfo> mapOfLeadRecordTypes;
-  private List<DCRM_Lead_Conversion_Mapping__mdt> mappingsInCustomMetadata;
+  private List<DCRM_Lead_Conversion_Mapping__mdt> leadToSObjectMappingCustomMetadata;
 
   /**
    * @description This method prefill data from Account to Leads for Manual Leads
@@ -41,7 +41,7 @@ public with sharing class CCRMLeadMappingEngine {
     }
 
     //Get mapping from custom metadata
-    List<CCRM_Account_To_Lead_Mapping__mdt> mappingsInCustomMetadata = CCRM_Account_To_Lead_Mapping__mdt.getall()
+    List<CCRM_Account_To_Lead_Mapping__mdt> accountToLeadMappingCustomMetadata = CCRM_Account_To_Lead_Mapping__mdt.getall()
       .Values();
 
     //Creates Mapping for different types of accounts using Account_Type__c field withing custom metadata
@@ -53,7 +53,7 @@ public with sharing class CCRMLeadMappingEngine {
       );
       if (String.isNotBlank(accountType)) {
         for (
-          CCRM_Account_To_Lead_Mapping__mdt mapping : mappingsInCustomMetadata
+          CCRM_Account_To_Lead_Mapping__mdt mapping : accountToLeadMappingCustomMetadata
         ) {
           if (
             mapping.Account_Field_API_Name__c != null &&
@@ -144,7 +144,7 @@ public with sharing class CCRMLeadMappingEngine {
     }
 
     //Get ACCOUNT >> LEAD mapping from custom metadata
-    List<CCRM_UNICA_To_Lead_Mapping__mdt> mappingsInCustomMetadata = CCRM_UNICA_To_Lead_Mapping__mdt.getall()
+    List<CCRM_UNICA_To_Lead_Mapping__mdt> unicaToLeadMappingCustomMetadata = CCRM_UNICA_To_Lead_Mapping__mdt.getall()
       .Values();
 
     //Creates Mapping for different types of accounts using Account_Type__c field withing custom metadata
@@ -164,7 +164,7 @@ public with sharing class CCRMLeadMappingEngine {
 
         //Account fields mapping
         for (
-          CCRM_UNICA_To_Lead_Mapping__mdt mapping : mappingsInCustomMetadata
+          CCRM_UNICA_To_Lead_Mapping__mdt mapping : unicaToLeadMappingCustomMetadata
         ) {
           if (
             mapping.Object__c == 'Account' &&
@@ -331,9 +331,10 @@ public with sharing class CCRMLeadMappingEngine {
 
     //Get Lead to Opportunity mapping from custom metadata
     if (
-      mappingsInCustomMetadata == null || mappingsInCustomMetadata.isEmpty()
+      leadToSObjectMappingCustomMetadata == null ||
+      leadToSObjectMappingCustomMetadata.isEmpty()
     ) {
-      mappingsInCustomMetadata = DCRM_Lead_Conversion_Mapping__mdt.getall()
+      leadToSObjectMappingCustomMetadata = DCRM_Lead_Conversion_Mapping__mdt.getall()
         .Values();
     }
     //Getting all the recordtype developername of lead object.
@@ -348,7 +349,7 @@ public with sharing class CCRMLeadMappingEngine {
     }
     for (String leadRecType : leadRecordTypes) {
       for (
-        DCRM_Lead_Conversion_Mapping__mdt mdRecord : mappingsInCustomMetadata
+        DCRM_Lead_Conversion_Mapping__mdt mdRecord : leadToSObjectMappingCustomMetadata
       ) {
         if (
           mdRecord.Lead_Field__c != null &&
@@ -417,9 +418,10 @@ public with sharing class CCRMLeadMappingEngine {
 
     //Get Lead to Opportunity mapping from custom metadata
     if (
-      mappingsInCustomMetadata == null || mappingsInCustomMetadata.isEmpty()
+      leadToSObjectMappingCustomMetadata == null ||
+      leadToSObjectMappingCustomMetadata.isEmpty()
     ) {
-      mappingsInCustomMetadata = DCRM_Lead_Conversion_Mapping__mdt.getall()
+      leadToSObjectMappingCustomMetadata = DCRM_Lead_Conversion_Mapping__mdt.getall()
         .Values();
     }
 
@@ -433,7 +435,7 @@ public with sharing class CCRMLeadMappingEngine {
       targetObject = oObjectType.newSObject();
       //prefill Target Object from CustomMetadata
       for (
-        DCRM_Lead_Conversion_Mapping__mdt mapping : mappingsInCustomMetadata
+        DCRM_Lead_Conversion_Mapping__mdt mapping : leadToSObjectMappingCustomMetadata
       ) {
         if (
           mapping.Target_Object__c == strTargetObject &&
@@ -596,7 +598,7 @@ public with sharing class CCRMLeadMappingEngine {
         mapIndustries.put(industry.Code__c, industry);
       }
     }
-
+    String strRecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID;
     for (Lead lead : leadList) {
       String accountType = getAccountType(
         mapAccountsRecordTypeId.get(lead.FinServ__RelatedAccount__c)
@@ -618,7 +620,7 @@ public with sharing class CCRMLeadMappingEngine {
           );
         }
       }
-      if (isManual) {
+      if (isManual && lead.recordTypeId != strRecordTypeId) {
         setLeadDefaultData(lead, accountList, mapIndustries);
       }
     }

@@ -24,7 +24,7 @@ import ML_MaxExpiryDateErrorMessage from "@salesforce/label/c.ML_MaxExpiryDateEr
 import ML_LeadQualityRequiredValues from "@salesforce/label/c.ML_LeadQualityRequiredValues";
 import CCRM_LeadQualityRequiredValues from "@salesforce/label/c.CCRM_LeadQualityRequiredValues";
 
-const MOBILE_LENDING_RECORDTYPE = "MLCRM_Leadd";
+const MOBILE_LENDING_RECORDTYPE = "MLCRM_Lead";
 const CCRM_RECORDTYPE = "CCRM_Lead";
 
 export default class LeadLogAResponse extends LightningElement {

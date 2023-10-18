@@ -181,10 +181,7 @@ public without sharing class CCRMLeadConversion {
     Map<Id, Opportunity> mapOfLeadsWithOpportunities = new CCRMLeadMappingEngine()
       .mapLeadToOpportunityFields(leadMap, new Map<Id, Id>());
     Id oppId = null;
-    if (
-      !mapOfLeadsWithOpportunities.isEmpty() &&
-      Schema.sObjectType.Opportunity.isCreateable()
-    ) {
+    if (Schema.sObjectType.Opportunity.isCreateable()) {
       insert mapOfLeadsWithOpportunities.values();
     }
     for (Id leadId : leadMap.keySet()) {
@@ -277,6 +274,9 @@ public without sharing class CCRMLeadConversion {
    * @param leads List of Leads to update Skip Validation
    */
   public static void checkSkipValidation(List<Lead> leads) {
+    if (leads.isEmpty()) {
+      return;
+    }
     List<Id> leadIds = new List<Id>();
     List<Lead> leadList = new List<Lead>();
     Boolean conversionStatusAccess = Schema.sObjectType.Lead.fields.Conversion_Status__c.isUpdateable();

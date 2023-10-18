@@ -15,8 +15,22 @@ public with sharing class MLCRMTestDataFactory {
       'ANZ ML Standard User'
     )
     .Id;
+  public static Id integrationProfileId = CommonUtil.getProfileByName(
+      'Minimum Access - Salesforce'
+    )
+    .Id;
+  public static Id mlRoleId = CommonUtil.getUserRoleByDevName(
+      MLCRMConstants.ML_ROLE_DEV_NAME
+    )
+    ?.Id;
+  public static Id anzIIQUser = CommonUtil.getProfileByName(
+      'Minimum Access - External Apps'
+    )
+    .Id;
   private static User adminUser;
   private static User mlcrmBaseUser;
+  private static User mlcrmIntegrationUser;
+  private static User minimumAccessBaseUser;
   public static UserRole bankerRole = CommonUtil.getUserRoleByDevName('Banker');
   /**
    * @description Create a MLCRM Base User
@@ -36,6 +50,54 @@ public with sharing class MLCRMTestDataFactory {
     insert mlcrmBaseUser;
     addMLCRMUserPS(mlcrmBaseUser.id, 'MLCRM_Base');
     return mlcrmBaseUser;
+  }
+
+  /**
+   * @description Create a Minimum Access User
+   * @name createIIQBaseUser
+   * @return Minimum Access User with API and User Provisioning User Permission Set.
+   */
+  public static User createIIQBaseUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    minimumAccessBaseUser = (User) FakerFactory.make(new FakerUserFactory());
+    minimumAccessBaseUser.FirstName = 'BaseUser' + staticNumber;
+    minimumAccessBaseUser.LastName = 'IIQ';
+    minimumAccessBaseUser.ProfileId = anzIIQUser;
+    minimumAccessBaseUser.IsActive = true;
+    minimumAccessBaseUser.Lan_Id__c = 'testMLBaseUL' + (Math.random() * 10);
+    insert minimumAccessBaseUser;
+    addMLCRMUserPS(minimumAccessBaseUser.id, 'API_Only');
+    addMLCRMUserPS(minimumAccessBaseUser.id, 'User_Provisioning');
+    return minimumAccessBaseUser;
+  }
+
+  /**
+   * @description Create a MLCRM Base User
+   * @param numberOfUser Count of users needed to be created
+   * @name createListOfMLCRMBaseUser
+   */
+  public static void createListOfMLCRMBaseUser(Integer numberOfUser) {
+    List<User> lstOfMlUser = new List<User>();
+    for (Integer data = 0; data < numberOfUser; data++) {
+      String staticNumber =
+        Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+      mlcrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
+      mlcrmBaseUser.FirstName = 'BaseUser' + staticNumber;
+      mlcrmBaseUser.LastName = 'MLCRM';
+      mlcrmBaseUser.UserRoleId = mlRoleId;
+      mlcrmBaseUser.ProfileId = anzStandardProfileId;
+      mlcrmBaseUser.ML_Role__c = 'Franchise Owner';
+      mlcrmBaseUser.ML_Territories__c = 'Canberra Inner South (ACT);Central Coast North (NSW)';
+      mlcrmBaseUser.IsActive = true;
+      mlcrmBaseUser.Lan_Id__c = 'testMLBaseUL' + (Math.random() * 10);
+      lstOfMlUser.add(mlcrmBaseUser);
+    }
+
+    insert lstOfMlUser;
+    for (user objUser : lstOfMlUser) {
+      addMLCRMUserPS(objUser.id, 'MLCRM_Base');
+    }
   }
   /**
    * @description Create a MLCRM System Admin User
@@ -99,6 +161,46 @@ public with sharing class MLCRMTestDataFactory {
       }
     }
     return adminUser;
+  }
+  /**
+   * @description Create a MLCRM Integration User
+   * @name createMLCRMIntegrationUser
+   * @return ANZ ML Standard User with MLCRM Integration User Permission Set.
+   */
+  public static User createMLCRMIntegrationUser() {
+    String staticNumber = Datetime.now().format('MMddHHmmss');
+    mlcrmIntegrationUser = (User) FakerFactory.make(new FakerUserFactory());
+    mlcrmIntegrationUser.FirstName = 'IntegrationUser' + staticNumber;
+    mlcrmIntegrationUser.LastName = 'MLCRM';
+    mlcrmIntegrationUser.UserRoleId = bankerRole.Id;
+    mlcrmIntegrationUser.ProfileId = integrationProfileId;
+    insert mlcrmIntegrationUser;
+    addMLCRMUserPS(mlcrmIntegrationUser.id, 'MLCRM_Marketing_Integration_User');
+    addMLCRMUserPS(mlcrmIntegrationUser.id, 'Read_Write_Customer_Details');
+    addMLCRMUserPS(mlcrmIntegrationUser.id, 'Financial_Accounts_Read_and_Edit');
+    return mlcrmIntegrationUser;
+  }
+
+  /**
+   * @description Get a CCRM Integration User, if such user not exists yet then create one
+   * @name getMLCRMIntegrationUser
+   * @return ANZ ML Standard User with MLCRM Integration User Permission Set.
+   */
+  public static User getMLCRMIntegrationUser() {
+    if (mlcrmIntegrationUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE ProfileId = :integrationProfileId AND LastName = 'MLCRM'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        mlcrmIntegrationUser = createMLCRMIntegrationUser();
+      } else {
+        mlcrmIntegrationUser = users[0];
+      }
+    }
+    return mlcrmIntegrationUser;
   }
 
   /**
@@ -361,5 +463,58 @@ public with sharing class MLCRMTestDataFactory {
       newTaskList.add(task);
     }
     return newTaskList;
+  }
+
+  /**
+   * @description Create Account Records for MLCRM Testing
+   * @name createAccountRecords
+   * @param count Count of Account records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param doInsert Whether or not to insert the records
+   * @return `List<Account>`
+   */
+  public static List<Account> createAccountRecords(
+    Integer count,
+    User ownerUser,
+    Boolean doInsert
+  ) {
+    //Default Count to 1 if null
+    count = count == null || count == 0 ? 1 : count;
+    List<Account> accountList = new List<Account>();
+    for (Integer i = 1; i <= count; i++) {
+      Account accnt = new Account();
+      accnt.FirstName = 'TestAccount' + i;
+      accnt.LastName = 'surname';
+      accnt.OCV_ID__c = 'OCV' + i;
+      //accnt.Industry = createIndustries[0].Code__c;
+      accnt.RecordTypeId = CCRMConstants.ACCOUNT_PERSON_RT_ID;
+      accnt.ABN__c = '50 110 219 460';
+      accnt.PersonMobilePhone = '+6143000000' + i;
+      accnt.PersonEmail = 'test' + i + '@test.com';
+      accnt.FinServ__Gender__pc = 'Male';
+      accnt.BillingStreet = '833 Collins Street';
+      accnt.BillingCity = 'Docklands';
+      accnt.BillingPostalCode = '3008';
+      accnt.BillingState = 'Victoria';
+      accnt.BillingCountry = 'Australia';
+      accnt.FinServ__Status__c = 'Prospect';
+      accnt.Source_System_Name__c = CCRMConstants.SOURCE_SYSTEM_NAME;
+      accnt.ANZx_Customer__c = false;
+      accountList.add(accnt);
+    }
+    if (doInsert) {
+      Database.insert(accountList);
+    }
+    return accountList;
+  }
+
+  /**
+   * @description Create a customer relationship record
+   * @name createCustomerRelationNotes
+   */
+  public static void createCustomerRelationNotes() {
+    Customer_Relationship__c objRelation = new Customer_Relationship__c();
+    objRelation.Relationship_To_Franchise__c = 'Primary';
+    insert objRelation;
   }
 }

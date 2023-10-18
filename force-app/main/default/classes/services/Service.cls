@@ -59,10 +59,14 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId contains customer id
+   * @param accountNumbers account numbers to filter by
    * @return `HttpCalloutResponse` api response
    * @description virtual home loan accounts callout
    */
-  public virtual HttpCalloutResponse getHomeLoanAccounts(String ocvId) {
+  public virtual HttpCalloutResponse getHomeLoanAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
     return null;
   }
 
@@ -514,7 +518,9 @@ public with sharing virtual class Service {
    * @return `HttpCalloutResponse` api response
    * @description virtual maintain party information
    */
-  public virtual HttpCalloutResponse maintainParty(Lead record) {
+  public virtual HttpCalloutResponse maintainParty(
+    OCVRequestPayloadWrapper record
+  ) {
     return null;
   }
 

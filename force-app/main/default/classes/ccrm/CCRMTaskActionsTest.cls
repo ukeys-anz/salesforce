@@ -175,6 +175,7 @@ public with sharing class CCRMTaskActionsTest {
   @IsTest
   static void responseStatusDependentValuesTest() {
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
       //GIVEN Campaign and Lead
       Response_Type__c responseTypeRecord = [
         SELECT Id, Name, Campaign__c, Response_Status__c
@@ -197,7 +198,6 @@ public with sharing class CCRMTaskActionsTest {
 
       String result = '';
 
-      Test.startTest();
       //WHEN Campaign is linked to Lead
       result = CCRMLogAResponseController.responseStatusDependentValues(
         updatedLeads[0].Id
@@ -216,6 +216,7 @@ public with sharing class CCRMTaskActionsTest {
   @isTest
   static void testExpiryDateLogResponseAddedWithoutFollowupDate() {
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
       //GIVEN leads
       List<Lead> leads = [SELECT Id FROM Lead LIMIT 1];
 
@@ -243,7 +244,6 @@ public with sharing class CCRMTaskActionsTest {
       task.Response_Type__c = rtAccepted.Id;
 
       //WHEN
-      Test.startTest();
       insert task;
       Test.stopTest();
 
@@ -273,6 +273,7 @@ public with sharing class CCRMTaskActionsTest {
   static void testDeleteResponse() {
     Task task;
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
       //GIVEN a response is logged against lead
       List<Lead> leads = [SELECT Id FROM Lead LIMIT 1];
 
@@ -282,7 +283,6 @@ public with sharing class CCRMTaskActionsTest {
         WHERE Response_Status__c = 'Accepted'
         LIMIT 1
       ];
-      Test.startTest();
       task = new Task();
       task.Response_Status__c = 'Accepted';
       task.Status = CCRMConstants.STATUS_COMPLETED;

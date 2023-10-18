@@ -4,10 +4,12 @@ import searchPartyInfo from "@salesforce/apex/CCRMLeadConversionActions.searchPa
 import createParty from "@salesforce/apex/CCRMLeadConversionActions.createPartyLWC";
 import maintainParty from "@salesforce/apex/CCRMLeadConversionActions.maintainPartyLWC";
 import updateConversionStatus from "@salesforce/apex/CCRMLeadConversionActions.updateConversionStatus";
+import isLeadMisMatchCustomer from "@salesforce/apex/CCRMLeadConversionActions.isLeadMisMatchCustomer"; //CC-857
 import getLeadRecordForConversion from "@salesforce/apex/CCRMLeadConversion.getLeadRecordForConversion";
 import convertCCRMLead from "@salesforce/apex/CCRMLeadConversionActions.convertCCRMLead";
 import convertLeadWithMatchedParty from "@salesforce/apex/CCRMLeadConversionActions.convertLeadWithMatchedParty";
 import { handleErrorShowToast, showToast, handleErrors } from "c/utils";
+import WARNING_ICON from "@salesforce/resourceUrl/Warning_Icon"; //CC-857
 
 // import labels
 import CCRM_LeadConversionValidationSubText from "@salesforce/label/c.CCRM_LeadConversionValidationSubText";
@@ -24,6 +26,7 @@ import CCRM_AddressError from "@salesforce/label/c.CCRM_AddressError";
 import CCRM_RegisteredCompanyError from "@salesforce/label/c.CCRM_RegisteredCompanyError";
 import CCRM_ExistingCustomerError from "@salesforce/label/c.CCRM_ExistingCustomerError";
 import CCRM_CustomerNeedsError from "@salesforce/label/c.CCRM_CustomerNeedsError";
+import MLCRM_Lead_MisMatch_Warning_Message from "@salesforce/label/c.MLCRM_Lead_MisMatch_Warning_Message"; //CC-857
 
 const columns = [
   {
@@ -87,6 +90,8 @@ const columnsIndividual = [
     fieldName: "ocvId"
   }
 ];
+const warningMsgConstant = "Warning";
+
 export default class LeadConversion extends NavigationMixin(LightningElement) {
   // Initial Declaration
   @api recordId;
@@ -102,6 +107,8 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   @track processStatus = "";
   @track errorMessage;
   @track noMatchSelected = "";
+  @track misMatchWarning = false; //CC-857
+  @track misMatchLeadDetailsMessage = null; //CC-857
   columns = columns;
   columnsIndividual = columnsIndividual;
   searchResults = [];
@@ -120,6 +127,8 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   setTableHeight = "height: 100%";
   cpId = "";
   accountId = "";
+  warningSignUrl = WARNING_ICON; //CC-857
+  warningMsgConstant = warningMsgConstant; //CC-857
 
   get noMatchOption() {
     return [{ label: "No Match Available", value: "createParty" }];
@@ -139,7 +148,8 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     CCRM_AddressError,
     CCRM_RegisteredCompanyError,
     CCRM_ExistingCustomerError,
-    CCRM_LeadDetailsSubText
+    CCRM_LeadDetailsSubText,
+    MLCRM_Lead_MisMatch_Warning_Message
   };
 
   fields = [
@@ -203,13 +213,28 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       this.isLoading = false;
       this.leadConvertData = leadConvertDataResult;
       const validationResult = await this.validateLead();
+      //remove close icon
+      this.removeCloseIcon();
       if (validationResult) {
-        //remove close icon
-        this.removeCloseIcon();
         await updateConversionStatus({
           record: this.leadConvertData.leadRecord,
           status: "In Progress"
         });
+      }
+      //CC-857 Check and show warning if the lead details are mis matching with customer details
+      if (validationResult && this.isMLCRMlead) {
+        const isLeadMistmatched = await isLeadMisMatchCustomer({
+          recordId: this.recordId
+        });
+        if (isLeadMistmatched) {
+          this.misMatchWarning = true;
+          this.misMatchLeadDetailsMessage = this.label.MLCRM_Lead_MisMatch_Warning_Message.replaceAll(
+            "\n",
+            "<br>"
+          );
+        } else {
+          this.misMatchWarning = false;
+        }
       }
       if (validationResult && !this.searchParty) {
         if (this.createPartyRequired) {
@@ -352,6 +377,72 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       this.validationMessage.push({
         id: this.validationMessage.length + 1,
         body: this.label.MLCRM_ConversionStatusValidationError
+      });
+    }
+    if (
+      this.leadConvertData.leadRecord.Company !== null &&
+      this.leadConvertData.leadRecord.Company !== undefined &&
+      this.leadConvertData.leadRecord.Company.length > 40
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: "Company Name cannot be greater than 40 chars."
+      });
+    }
+    if (
+      this.leadConvertData.leadRecord.City !== null &&
+      this.leadConvertData.leadRecord.City !== undefined &&
+      this.leadConvertData.leadRecord.City.length > 25
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: "City cannot be greater than 25 chars."
+      });
+    }
+    if (
+      this.leadConvertData.leadRecord.State !== null &&
+      this.leadConvertData.leadRecord.State !== undefined &&
+      this.leadConvertData.leadRecord.State.length > 15
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: "State cannot be greater than 15 chars."
+      });
+    }
+    if (
+      this.leadConvertData.leadRecord.ABN__c !== null &&
+      this.leadConvertData.leadRecord.ABN__c !== undefined &&
+      this.leadConvertData.leadRecord.ABN__c.replace(/\s/g, "").length > 11
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: "ABN cannot be greater than 11 chars."
+      });
+    }
+    if (
+      this.leadConvertData.leadRecord.ACN__c !== null &&
+      this.leadConvertData.leadRecord.ACN__c !== undefined &&
+      this.leadConvertData.leadRecord.ACN__c.replace(/\s/g, "").length > 11
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: "ACN cannot be greater than 11 chars."
+      });
+    }
+    if (
+      this.leadConvertData.leadRecord.Name !== null &&
+      this.leadConvertData.leadRecord.Name !== undefined &&
+      this.leadConvertData.leadRecord.Name.length > 40
+    ) {
+      this.setInvalidLead();
+      this.validationMessage.push({
+        id: this.validationMessage.length + 1,
+        body: "Name cannot be greater than 40 chars."
       });
     }
   }

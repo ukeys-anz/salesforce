@@ -1707,7 +1707,7 @@ private class CaseTriggerHandlerTest {
 
     task idrTask = new task(
       whatId = testCase.Id,
-      Subject = IDRConstants.TASK_SUBJECT_DAY5,
+      Subject = IDRConstants.TASK_SUBJECT_DAY1,
       RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
       Priority = 'Standard',
       ActivityDate = system.today()
@@ -3453,6 +3453,7 @@ private class CaseTriggerHandlerTest {
 
   @isTest
   static void testEmailTaskOnCaseClosureCreation() {
+    Test.startTest();
     User usr = TestUtil.getUserByFirstName('IntegrationTest');
     Case theCase;
     System.runAs(usr) {
@@ -3500,7 +3501,6 @@ private class CaseTriggerHandlerTest {
       );
       insert externalCaseStatus;
 
-      Test.startTest();
       theCase.Status = 'Closed';
       update theCase;
       Test.stopTest();
