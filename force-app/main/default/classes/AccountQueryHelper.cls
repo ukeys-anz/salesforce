@@ -52,7 +52,13 @@ public with sharing class AccountQueryHelper {
     List<Account> accounts;
     Map<String, Account> mapOcvIdAccount = new Map<String, Account>();
     if (PermissionUtils.canQuery('Account') == true) {
-      accounts = [SELECT Name, OCV_ID__c FROM Account WHERE OCV_ID__c = :ocvId];
+      accounts = [
+        SELECT Name, OCV_ID__c
+        FROM Account
+        WHERE
+          OCV_ID__c = :ocvId
+          AND RecordTypeId = :GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+      ];
 
       for (Account acc : accounts) {
         mapOcvIdAccount.put(acc.OCV_ID__c, acc);
