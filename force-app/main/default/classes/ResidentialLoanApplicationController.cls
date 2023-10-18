@@ -323,8 +323,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
 
       publishRLARecordMonitoringToast(loanRec[0]);
 
+      outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
+      outMap.put('toast', 'Error');
       return false;
     }
   }
