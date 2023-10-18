@@ -1,0 +1,31 @@
+.customGreenTick::before {
+  content: "\2713 ";
+  color: #ffffff;
+  margin-right: 5px;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #00ba01;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2.75rem;
+  font-weight: bold;
+  background-color: #00ba01;
+  font-size: 40px;
+}
+
+.customRedCross::before {
+  content: "\2717 ";
+  color: #ffffff;
+  margin-right: 5px;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #ed1a2d;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2.75rem;
+  font-weight: bold;
+  background-color: #ed1a2d;
+  font-size: 40px;
+}
