@@ -200,14 +200,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             account,
             "FinServ__Ownership__c"
           );
-          account.multiParty = account.showMultipartyBadge
-            ? JOINT
-            : account.FinServ__Ownership__c;
-        } else if (finAccount.Ownership__c) {
+        } else if (account.Ownership__c) {
           account = this.handleShowMultiPartyBadge(account, "Ownership__c");
-          account.multiParty = account.showMultipartyBadge
-            ? JOINT
-            : account.Ownership__c;
         }
         //Determine the type of financial account
         if (account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME) {
@@ -282,6 +276,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   handleShowMultiPartyBadge(finAccount, finAccountOwner) {
     finAccount.showMultipartyBadge =
       finAccount[finAccountOwner] === MULTI_PARTY;
+    finAccount.multiParty = finAccount.showMultipartyBadge
+      ? JOINT
+      : finAccount[finAccountOwner];
     return finAccount;
   }
 }

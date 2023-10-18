@@ -372,14 +372,8 @@ export default class FinancialAccountParent extends LightningElement {
           finAccount,
           "FinServ__Ownership__c"
         );
-        finAccount.multiParty = finAccount.showMultipartyBadge
-          ? JOINT
-          : finAccount.FinServ__Ownership__c;
       } else if (finAccount.Ownership__c) {
         finAccount = this.handleShowMultiPartyBadge(finAccount, "Ownership__c");
-        finAccount.multiParty = finAccount.showMultipartyBadge
-          ? JOINT
-          : finAccount.Ownership__c;
       }
     });
 
@@ -456,6 +450,9 @@ export default class FinancialAccountParent extends LightningElement {
   handleShowMultiPartyBadge(finAccount, finAccountOwner) {
     finAccount.showMultipartyBadge =
       finAccount[finAccountOwner] === MULTI_PARTY;
+    finAccount.multiParty = finAccount.showMultipartyBadge
+      ? JOINT
+      : finAccount[finAccountOwner];
     return finAccount;
   }
 }
