@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set is for ML user which allows them to create and edit reports &amp; dashboards</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>MLCRM Create and Edit Reports and Dashboards</label>
+    <userPermissions>
+        <name>CreateCustomizeDashboards</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>CreateCustomizeReports</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>EditMyDashboards</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>EditMyReports</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RunReports</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewPublicDashboards</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewPublicReports</name>
+        <enabled>true</enabled>
+    </userPermissions>
+</PermissionSet>

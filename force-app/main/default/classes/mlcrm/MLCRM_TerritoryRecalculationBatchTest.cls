@@ -50,8 +50,8 @@ public class MLCRM_TerritoryRecalculationBatchTest {
     user objMlUser = [SELECT Id FROM User WHERE LastName = 'test mluser3'];
     System.runAs(objUser) {
       Test.startTest();
-      MLCRM_TerritorySharingScheduler objSchedular = new MLCRM_TerritorySharingScheduler();
-      objSchedular.execute(null);
+      MLCRM_TerritorySharingScheduler objScheduler = new MLCRM_TerritorySharingScheduler();
+      objScheduler.execute(null);
       Test.stopTest();
     }
 

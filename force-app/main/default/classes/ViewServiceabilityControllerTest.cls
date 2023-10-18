@@ -153,7 +153,10 @@ private class ViewServiceabilityControllerTest {
     Test.stopTest();
     System.assert(isInvoked, 'Method not invoked');
     System.assertNotEquals(payload, null, 'Empty JSON');
-    System.assert((Boolean) payload.get('hasError'), 'Invalid response');
+    System.assert(
+      (Boolean) payload.get('isSubmitted') == false,
+      'Aplication should be submitted'
+    );
   }
   @isTest
   static void testBOHServicegetUMIAssessments() {

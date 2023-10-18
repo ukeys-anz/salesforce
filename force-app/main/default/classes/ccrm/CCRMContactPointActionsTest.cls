@@ -40,30 +40,35 @@ private class CCRMContactPointActionsTest {
 
   @isTest
   static void testUpdateContactPointPhone() {
-    //GIVEN
-    Faker faker = new Faker('AU');
-    Account acc = TestDataFactory.createAccount(faker.person.firstName(), true);
-    ContactPointPhone testContactPointPhone = new ContactPointPhone();
-    testContactPointPhone.TelephoneNumber = '123-456-7890';
-    testContactPointPhone.ParentId = acc.Id;
-    insert testContactPointPhone;
+    System.runAs(MLCRMTestDataFactory.getAdminUser()) {
+      //GIVEN
+      Faker faker = new Faker('AU');
+      Account acc = TestDataFactory.createAccount(
+        faker.person.firstName(),
+        true
+      );
+      ContactPointPhone testContactPointPhone = new ContactPointPhone();
+      testContactPointPhone.TelephoneNumber = '123-456-7890';
+      testContactPointPhone.ParentId = acc.Id;
+      insert testContactPointPhone;
 
-    //WHEN
-    testContactPointPhone.ActiveToDate = System.today() - 1;
-    update testContactPointPhone;
+      //WHEN
+      testContactPointPhone.ActiveToDate = System.today() - 1;
+      update testContactPointPhone;
 
-    //THEN
-    ContactPointPhone cpp = [
-      SELECT ParentId, Previous_Related_Account__c
-      FROM ContactPointPhone
-    ];
-    System.assertEquals(null, cpp.ParentId, 'Parent Id set to null');
+      //THEN
+      ContactPointPhone cpp = [
+        SELECT ParentId, Previous_Related_Account__c
+        FROM ContactPointPhone
+      ];
+      System.assertEquals(null, cpp.ParentId, 'Parent Id set to null');
 
-    System.assertEquals(
-      acc.Id,
-      cpp.Previous_Related_Account__c,
-      'Previous account id should match'
-    );
+      System.assertEquals(
+        acc.Id,
+        cpp.Previous_Related_Account__c,
+        'Previous account id should match'
+      );
+    }
   }
 
   @isTest

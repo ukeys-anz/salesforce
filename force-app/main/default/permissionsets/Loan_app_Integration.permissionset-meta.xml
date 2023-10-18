@@ -277,6 +277,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Material_Change__c.Created_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Material_Change__c.External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -303,6 +308,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Ineligible_Reasons__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

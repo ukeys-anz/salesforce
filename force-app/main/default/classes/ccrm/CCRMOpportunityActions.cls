@@ -109,7 +109,7 @@ public with sharing class CCRMOpportunityActions {
     }
     try {
       List<Opportunity> opps = [
-        SELECT Id, AccountId, Lead_Converted__c, Name, Opp_Id__c
+        SELECT Id, AccountId, Lead_Converted__c, Name, Opp_Id__c, recordtypeId
         FROM Opportunity
         WHERE Id IN :oppIds
         WITH SECURITY_ENFORCED
@@ -136,6 +136,7 @@ public with sharing class CCRMOpportunityActions {
     List<Opportunity> records,
     Map<Id, Opportunity> oldMap
   ) {
+    String strRecordTypeId = MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID;
     for (Opportunity opp : records) {
       Date oldOppCloseDate = oldMap.get(opp.Id).CloseDate;
       //Display message if:
@@ -146,7 +147,8 @@ public with sharing class CCRMOpportunityActions {
         oldName != 'placeholder' &&
         opp.Lead_Converted__c &&
         !opp.Has_Close_Date_Changed__c &&
-        oldOppCloseDate == opp.CloseDate
+        oldOppCloseDate == opp.CloseDate &&
+        opp.recordTypeId != strRecordTypeId
       ) {
         opp.addError(CLOSE_DATE_FIELD_NAME, INVALID_CLOSE_DATE_ERROR);
       } else if (oldOppCloseDate != opp.CloseDate) {
@@ -226,7 +228,12 @@ public with sharing class CCRMOpportunityActions {
         mappedAccounts.containsKey(record.AccountId) && record.Lead_Converted__c
       ) {
         Account acc = mappedAccounts.get(record.AccountId);
-        record.Name = record.Opp_Id__c + ' ' + acc.Name;
+        //CC-5603 Opportunity name should be account name for Mobile Leniding Opportunity
+        if (record.recordtypeId == MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) {
+          record.Name = acc.Name;
+        } else {
+          record.Name = record.Opp_Id__c + ' ' + acc.Name;
+        }
         updatedRecords.add(record);
       }
     }
@@ -469,140 +476,5 @@ public with sharing class CCRMOpportunityActions {
       Logger.saveLog();
       throw new CustomException(ex.getMessage());
     }
-  }
-
-  /**
-   * @description Add Action plan to Opportunity when Opportunity moved to 'Need Analysis' stage.
-   * @name insertActionPlans
-   * @param newOppList list of new records
-   * @param oldOppMap map of old records
-   */
-  public static void insertActionPlans(
-    List<Opportunity> newOppList,
-    Map<Id, Opportunity> oldOppMap
-  ) {
-    Map<String, List<String>> actionPlanTemplateMap = new Map<String, List<String>>();
-    List<ActionPlan> actionPlanToInsert = new List<ActionPlan>();
-    Set<String> oppIdsList = new Set<String>();
-    Set<String> actionPlanTempSet = new Set<String>();
-    String actionPlanName = '';
-
-    for (Opportunity opp : newOppList) {
-      if (
-        opp.recordTypeId == CCRMConstants.CCRM_OPP_RT_ID &&
-        opp.StageName != oldOppMap.get(opp.Id).StageName &&
-        (opp.StageName.equalsIgnoreCase(CCRMConstants.NEED_ANALYSIS) ||
-        opp.StageName.equalsIgnoreCase(CCRMConstants.CUST_ACCEPT))
-      ) {
-        oppIdsList.add(opp.Id);
-      }
-    }
-
-    if (oppIdsList.isEmpty()) {
-      return;
-    }
-
-    for (
-      CCRM_Action_Plan_Template_Selection__mdt iterator : CCRM_Action_Plan_Template_Selection__mdt.getAll()
-        .values()
-    ) {
-      if (iterator.Template_Name__c.contains(';')) {
-        actionPlanTemplateMap.put(
-          (iterator.Opportunity_Record_Type__c +
-            iterator.Commercial_Segment__c +
-            iterator.Opportunity_Stage_Name__c)
-            .deleteWhitespace()
-            .toLowerCase(),
-          new List<String>(iterator.Template_Name__c.split(';'))
-        );
-        actionPlanTempSet.addAll(iterator.Template_Name__c.split(';'));
-      } else {
-        actionPlanTemplateMap.put(
-          (iterator.Opportunity_Record_Type__c +
-            iterator.Commercial_Segment__c +
-            iterator.Opportunity_Stage_Name__c)
-            .deleteWhitespace()
-            .toLowerCase(),
-          new List<String>{ iterator.Template_Name__c }
-        );
-        actionPlanTempSet.add(iterator.Template_Name__c);
-      }
-    }
-
-    Map<String, String> apTempMap = new Map<String, String>();
-    for (ActionPlanTemplateVersion apIterator : [
-      SELECT Id, Name
-      FROM ActionPlanTemplateVersion
-      WHERE
-        Name IN :actionPlanTempSet
-        AND Status = :CCRMConstants.PUBLISHED_TEMPLATE_STATUS
-    ]) {
-      apTempMap.put(apIterator.Name, apIterator.Id);
-    }
-
-    for (Opportunity oppIter : [
-      SELECT
-        Id,
-        Owner.Commercial_Segment__c,
-        StageName,
-        OwnerId,
-        RecordType.DeveloperName
-      FROM Opportunity
-      WHERE Id IN :oppIdsList
-    ]) {
-      actionPlanName = (oppIter.RecordType.DeveloperName +
-        oppIter.Owner.Commercial_Segment__c +
-        oppIter.StageName)
-        .deleteWhitespace()
-        .toLowerCase();
-      if (
-        actionPlanTemplateMap.containsKey(actionPlanName) &&
-        !actionPlanTemplateMap.get(actionPlanName).isEmpty()
-      ) {
-        for (
-          String tempNameIterator : actionPlanTemplateMap.get(actionPlanName)
-        ) {
-          if (apTempMap.containsKey(tempNameIterator)) {
-            actionPlanToInsert.add(
-              createActionPlan(
-                oppIter.Id,
-                tempNameIterator,
-                apTempMap.get(tempNameIterator),
-                oppIter.OwnerId
-              )
-            );
-          }
-        }
-      }
-    }
-    if (!actionPlanToInsert.isEmpty()) {
-      insert actionPlanToInsert;
-    }
-  }
-
-  /**
-   * @description create action Plan
-   * @name createActionPlan
-   * @param oppId Id of opportunity to link action plan with
-   * @param actionPlanName name of the action plan
-   * @param actionPlanTempId Id of Action Plan Template Version
-   * @param ownerId opportunity owner id
-   * @return ActionPlan instance
-   */
-  public static ActionPlan createActionPlan(
-    Id oppId,
-    String actionPlanName,
-    String actionPlanTempId,
-    String ownerId
-  ) {
-    ActionPlan apRec = new ActionPlan();
-    apRec.ActionPlanType = CCRMConstants.PLAN_TYPE;
-    apRec.TargetId = oppId;
-    apRec.ActionPlanState = CCRMConstants.NOT_STARTED;
-    apRec.StartDate = System.today();
-    apRec.OwnerId = ownerId;
-    apRec.Name = actionPlanName;
-    apRec.ActionPlanTemplateVersionId = actionPlanTempId;
-    return apRec;
   }
 }

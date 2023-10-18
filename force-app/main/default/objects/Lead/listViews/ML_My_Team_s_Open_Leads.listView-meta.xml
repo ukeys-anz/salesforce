@@ -23,4 +23,8 @@
     </filters>
     <filterScope>Everything</filterScope>
     <label>My Team&apos;s Open Leads</label>
+    <sharedTo>
+        <roleAndSubordinates>ANZ_Mobile_Lending_Team</roleAndSubordinates>
+        <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+    </sharedTo>
 </ListView>

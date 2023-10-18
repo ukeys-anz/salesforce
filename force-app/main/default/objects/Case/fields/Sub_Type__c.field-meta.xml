@@ -437,6 +437,11 @@
                 <default>false</default>
                 <label>Bankruptcy</label>
             </value>
+            <value>
+                <fullName>HL Signing Authority Update</fullName>
+                <default>false</default>
+                <label>HL Signing Authority Update</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -686,6 +691,10 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>Discharge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>HL Signing Authority Update</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>

@@ -343,12 +343,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Quality_Assessment__c.Issues_addressed_in_final_response__c</field>
+        <field>Quality_Assessment__c.Issue_products_correctly_recorded__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Quality_Assessment__c.isTeamManagerLoggedInUser__c</field>
+        <field>Quality_Assessment__c.Issues_addressed_in_final_response__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -563,6 +563,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.Stakeholder_comms_clear_relevant_etc__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -619,6 +624,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Quality_Assessment__c.Written_customer_comms_professional_etc__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.isTeamManagerLoggedInUser__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

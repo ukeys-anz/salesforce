@@ -11,6 +11,7 @@ import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
 import FIN_ACCOUNT_PRIMARY_OWNER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
+import FIN_ACCOUNT_OWNERSHIP_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.Ownership__c";
 
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
 import { TRANSACTION_HISTORY_RETRIEVE_ERROR } from "c/transactionHistoryService";
@@ -93,9 +94,7 @@ export default class FinancialAccountParent extends LightningElement {
   transactionTypeDisputeIdMap = {};
   disputeRecordTypes = [];
   filterGoal = false;
-  //Added to decide which account is joint account and from which joint owner the account get opened By Shivam, Oct'23
-  isJointAccount = false;
-  ocvIdForJointAccount;
+  accountOwnershipType;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -107,7 +106,8 @@ export default class FinancialAccountParent extends LightningElement {
       FIN_ACCOUNT_OCV_ID,
       FIN_ACCOUNT_RT_APINAME,
       FIN_ACCOUNT_PRIMARY_OWNER,
-      FIN_ACCOUNT_INTEREST
+      FIN_ACCOUNT_INTEREST,
+      FIN_ACCOUNT_OWNERSHIP_TYPE
     ]
   })
   async wiredRecord({ data }) {
@@ -122,6 +122,7 @@ export default class FinancialAccountParent extends LightningElement {
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
+      this.accountOwnershipType = data.fields.Ownership__c.value;
       if (
         this.ocvId &&
         this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME &&
@@ -330,8 +331,14 @@ export default class FinancialAccountParent extends LightningElement {
 
   async getHomeLoanResponse() {
     try {
-      let response = await getHomeLoanAccount({ ocvId: this.ocvId });
-      this.loanData = response.accounts[0];
+      //Filter to only get H1 account we are viewing
+      let response = await getHomeLoanAccount({
+        ocvId: this.ocvId,
+        accountNumbers: [this.accountNumber]
+      });
+      //Need to stringify and send as the array consists of many objects and SF proxies it
+      //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
+      this.loanData = JSON.stringify(response.accounts);
     } catch (error) {
       handleErrorShowToast(
         this,

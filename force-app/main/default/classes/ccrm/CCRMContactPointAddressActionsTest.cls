@@ -25,6 +25,21 @@ private class CCRMContactPointAddressActionsTest {
       acpa.PostalCode = faker.address.stateCode();
       acpa.Global_Address_Key__c = faker.randomString(40);
       insert acpa;
+
+      Account accActive = CCRMTestDataFactory.createBusinessAccountWithOwner(
+        CCRMTestDataFactory.getCCRMBaseUser().Id
+      );
+
+      ContactPointAddress activeCPA = new ContactPointAddress();
+      activeCPA.ParentId = activeCPA.Customer_Name__c = accActive.Id;
+      activeCPA.Name = activeCPA.AddressType = 'Primary Mailing';
+      activeCPA.Street = faker.address.street();
+      activeCPA.City = faker.address.city();
+      activeCPA.State = faker.address.state();
+      activeCPA.Country = faker.address.country();
+      activeCPA.PostalCode = faker.address.stateCode();
+      activeCPA.Global_Address_Key__c = faker.randomString(40);
+      insert activeCPA;
     }
   }
   @IsTest
@@ -100,7 +115,7 @@ private class CCRMContactPointAddressActionsTest {
     //WHEN the addresses are inserted
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      CCRMContactPointAddressActions.checkExistingAddressOnProspect(
+      CCRMContactPointAddressActions.checkExistingAddressOnProspectOrExistingCust(
         new List<ContactPointAddress>{ newAddress, dupAddress }
       );
     }
@@ -115,6 +130,49 @@ private class CCRMContactPointAddressActionsTest {
     System.assert(
       dupAddress.hasErrors(),
       'Banker should not be able to add address of same type to prospect'
+    );
+  }
+
+  @IsTest
+  static void testCheckExistingAddressOnActive() {
+    //GIVEN Banker tries to add 2 new addresses to active, 1 with the same address type as current address and 1 with new address type
+    Account active = [
+      SELECT Id
+      FROM Account
+      WHERE
+        RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
+        AND FinServ__Status__c = :CCRMConstants.ACTIVE_STATUS
+        AND Source_System_Name__c = :Label.CCRM_Source_System_Name
+        AND ANZx_Customer__c = FALSE
+      LIMIT 1
+    ];
+    ContactPointAddress newAddress = new ContactPointAddress(
+      Customer_Name__c = active.Id,
+      AddressType = 'Principal Place of Business'
+    );
+    ContactPointAddress dupAddress = new ContactPointAddress(
+      Customer_Name__c = active.Id,
+      AddressType = 'Primary Mailing'
+    );
+
+    //WHEN the addresses are inserted
+    Test.startTest();
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      CCRMContactPointAddressActions.checkExistingAddressOnProspectOrExistingCust(
+        new List<ContactPointAddress>{ newAddress, dupAddress }
+      );
+    }
+    Test.stopTest();
+
+    //THEN address with different address type should be added
+    System.assert(
+      !newAddress.hasErrors(),
+      'Banker should be able to add address of different type to active'
+    );
+    //AND address with same address type should not be added
+    System.assert(
+      dupAddress.hasErrors(),
+      'Banker should not be able to add address of same type to active'
     );
   }
 }

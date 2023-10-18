@@ -100,6 +100,8 @@ public with sharing class CCRMLeadConversionActions {
       externalIds.addAll(populateExternalIds(result.probableResults));
       searchPartyWrapper = populatePartyDetails(externalIds, result);
     } catch (Exception e) {
+      Logger.error('Error occured during search', record.Id, e);
+      Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
     return searchPartyWrapper;
@@ -126,52 +128,58 @@ public with sharing class CCRMLeadConversionActions {
     ]) {
       accountIdMap.put(acc.External_Id__c, acc);
     }
-    for (
-      CCRMSearchPartyModel.CustomerDetails certResult : result.certifiedResults
-    ) {
-      if (accountIdMap.containsKey(generateExternalId(certResult))) {
-        searchPartyWrapper.probableAndCertifiedResults.add(
-          populateSearchPartyWrapper(certResult, accountIdMap, 'certified')
-        );
-      }
-    }
-
-    for (
-      CCRMSearchPartyModel.CustomerDetails probResult : result.probableResults
-    ) {
-      if (accountIdMap.containsKey(generateExternalId(probResult))) {
-        searchPartyWrapper.probableAndCertifiedResults.add(
-          populateSearchPartyWrapper(probResult, accountIdMap, 'probable')
-        );
-      }
-    }
-
+    searchPartyWrapper.probableAndCertifiedResults.addAll(
+      populateSearchPartyWrapper(
+        result.certifiedResults,
+        accountIdMap,
+        'certified'
+      )
+    );
+    searchPartyWrapper.probableAndCertifiedResults.addAll(
+      populateSearchPartyWrapper(
+        result.probableResults,
+        accountIdMap,
+        'probable'
+      )
+    );
     return searchPartyWrapper;
   }
 
   /**
-   * @param searchPartyResult search party result from the API, either certified or probable result
+   * @param searchPartyResultList search party list of result from the API, either certified or probable result
    * @param accountIdMap map of accounts with key as external id
    * @param resultType type of result - cer
    * @return CCRMSearchPartyInfo returns search party wrapper for lwc component
    * @description populates search party wrapper used in lwc component
    */
-  private static CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo populateSearchPartyWrapper(
-    CCRMSearchPartyModel.CustomerDetails searchPartyResult,
+  private static List<CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo> populateSearchPartyWrapper(
+    List<CCRMSearchPartyModel.CustomerDetails> searchPartyResultList,
     Map<String, Account> accountIdMap,
     String resultType
   ) {
-    CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo rec = new CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo();
-    String externalId = generateExternalId(searchPartyResult);
-    rec.id = accountIdMap.get(externalId).Id;
-    rec.ocvId = searchPartyResult.ocvId;
-    rec.name = accountIdMap.get(externalId).Name;
-    rec.suburb = searchPartyResult.addresses[0]?.city;
-    rec.postCode = searchPartyResult.addresses[0]?.postalCode;
-    rec.cpid = searchPartyResult.cpId;
-    rec.kycStatus = searchPartyResult.kycDetails.status;
-    rec.match = resultType;
-    return rec;
+    List<CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo> searchPartyInfoList = new List<CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo>();
+    for (
+      CCRMSearchPartyModel.CustomerDetails searchPartyResult : searchPartyResultList
+    ) {
+      String externalId = generateExternalId(searchPartyResult);
+      if (accountIdMap.containsKey(externalId)) {
+        CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo rec = new CCRMSearchPartyInformationWrapper.CCRMSearchPartyInfo();
+        rec.id = accountIdMap.get(externalId).Id;
+        rec.ocvId = searchPartyResult.ocvId;
+        rec.name = accountIdMap.get(externalId).Name;
+        rec.suburb = searchPartyResult.addresses != null
+          ? searchPartyResult.addresses[0].city
+          : null;
+        rec.postCode = searchPartyResult.addresses != null
+          ? searchPartyResult.addresses[0].postalCode
+          : null;
+        rec.cpid = searchPartyResult.cpId;
+        rec.kycStatus = searchPartyResult.kycDetails?.status;
+        rec.match = resultType;
+        searchPartyInfoList.add(rec);
+      }
+    }
+    return searchPartyInfoList;
   }
 
   /**
@@ -237,12 +245,44 @@ public with sharing class CCRMLeadConversionActions {
   ) {
     DCRMMaintainPartyModel result;
     CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
-    MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainResult;
+    MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainResult = new MaintainPartyInformationWrapper.MaintainPartyInfoWrapper();
+    OCVRequestPayloadWrapper requestRecord = CCRMLeadConversionActionsHelper.getRequestRecord(
+      record
+    );
     try {
-      result = ccrmapi.maintainParty(record);
-      if (result.ocvId != null) {
-        maintainResult = CCRMLeadConversionActionsHelper.updateLeadWithCapcisIdIndividual(
-          record,
+      result = ccrmapi.maintainParty(requestRecord);
+      if (result.newCustomer == null) {
+        // Throw custom exception
+        CCRMLeadConversionActionsHelper.handleError(
+          Label.MLCRM_MaintainParty_NewCustomerError,
+          record.Id
+        );
+      }
+      if (result.ocvId != null && result.newCustomer == 'true') {
+        Account accInstance = CCRMLeadConversionActionsHelper.autoCreateShellProspect(
+          requestRecord,
+          result
+        );
+        maintainResult.oppID = '';
+        maintainResult.isNewCustomer = true;
+        if (accInstance != null) {
+          String opptId = CCRMLeadConversionActionsHelper.updateLeadWithCapcisIdIndividual(
+            record,
+            result,
+            accInstance
+          );
+          maintainResult.oppID = opptId;
+        } else {
+          maintainResult.oppID = '';
+          // Throw custom exception
+          CCRMLeadConversionActionsHelper.handleError(
+            'Shell Customer Creation Failure.',
+            record.Id
+          );
+        }
+      } else if (result.ocvId != null && result.newCustomer == 'false') {
+        maintainResult = CCRMLeadConversionActionsHelper.getMaintainPartyExistingCustomerDetails(
+          requestRecord,
           result
         );
       }
@@ -288,9 +328,6 @@ public with sharing class CCRMLeadConversionActions {
   @AuraEnabled(cacheable=false)
   public static Boolean updateConversionStatus(Lead record, String status) {
     Boolean isStatusUpdated = false;
-    /*if (record.Conversion_Status__c != MLCRMConstants.STATUS_IN_PROGRESS) {
-      record.Conversion_Status__c = MLCRMConstants.STATUS_IN_PROGRESS;
-    }*/
     Lead leadRec = new Lead(id = record.Id);
     if (
       leadRec.id != null &&
@@ -358,5 +395,31 @@ public with sharing class CCRMLeadConversionActions {
       Logger.saveLog();
       throw new AuraHandledException(ex.getMessage());
     }
+  }
+
+  /**
+   * @description Checks if Lead details is mis-match with Customer details
+   * @name isLeadMisMatchCustomer
+   * @param recordId The record id of selected Lead.
+   * @return String The Fields which are mismatched
+   */
+  @AuraEnabled(cacheable=false)
+  public static String isLeadMisMatchCustomer(Id recordId) {
+    List<Lead> leads = new List<Lead>();
+    Map<Id, String> mismtachLeadsWithFieldsMap = new Map<Id, String>();
+    if (recordId != null) {
+      leads = MLCRMAutoTaskOnLeadConversionHelper.getLeads(
+        new Set<ID>{ recordId }
+      );
+    }
+    if (!leads.isEmpty()) {
+      mismtachLeadsWithFieldsMap = MLCRMAutoTaskOnLeadConversionHelper.checkLeadMisMatchCustomer(
+        leads
+      );
+    }
+    if (mismtachLeadsWithFieldsMap.containsKey(recordId)) {
+      return mismtachLeadsWithFieldsMap.get(recordId);
+    }
+    return null;
   }
 }

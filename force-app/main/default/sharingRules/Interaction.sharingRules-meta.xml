@@ -3,7 +3,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_Business_Admin_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule provides read/write access to the business admin role for Interaction object</description>
+        <description>This sharing rule provides read/write access to the business admin role for
+            Interaction object</description>
         <label>Interaction Business Admin Read/Write Sharing Rule</label>
         <sharedTo>
             <role>Business_Admin</role>
@@ -18,7 +19,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_Coach_Lead_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule shares all Interaction records with Read/Write access to Coach Lead users.</description>
+        <description>This sharing rule shares all Interaction records with Read/Write access to
+            Coach Lead users.</description>
         <label>Interaction Coach Lead Read/Write Sharing Rule</label>
         <sharedTo>
             <role>Coach_Lead</role>
@@ -33,7 +35,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_Coach_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule provides read/write access to users with Coach Role for Interaction object.</description>
+        <description>This sharing rule provides read/write access to users with Coach Role for
+            Interaction object.</description>
         <label>Interaction Coach Read/Write Sharing Rule</label>
         <sharedTo>
             <role>Coach</role>
@@ -78,7 +81,8 @@
     <sharingCriteriaRules>
         <fullName>BOH_Coach_Read_Write</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule shares all Interaction records with Read/Write access to BOH Coach Users.</description>
+        <description>This sharing rule shares all Interaction records with Read/Write access to BOH
+            Coach Users.</description>
         <label>BOH Coach Read/Write</label>
         <sharedTo>
             <role>BOH_Coach</role>
@@ -93,7 +97,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_Join_Lead_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule shares all Interaction records with Read/Write access to Join Lead Users.</description>
+        <description>This sharing rule shares all Interaction records with Read/Write access to Join
+            Lead Users.</description>
         <label>Interaction Join Lead Read/Write Sharing Rule</label>
         <sharedTo>
             <role>Join_Lead</role>
@@ -108,7 +113,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_Onboarding_Support_Read_Sharing_Rule</fullName>
         <accessLevel>Read</accessLevel>
-        <description>This sharing rule provides read access to users with Onboarding Support Role for Interaction object.</description>
+        <description>This sharing rule provides read access to users with Onboarding Support Role
+            for Interaction object.</description>
         <label>Interaction Onboarding Support Read Sharing Rule</label>
         <sharedTo>
             <role>Onboarding_Support_Read_Only</role>
@@ -123,7 +129,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_FraudX_Agent_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule shares all Interaction records with Read/Write access to Fraudx Agent Users.</description>
+        <description>This sharing rule shares all Interaction records with Read/Write access to
+            Fraudx Agent Users.</description>
         <label>Interaction FraudX Agent Read/Write Sharing Rule</label>
         <sharedTo>
             <role>FraudX_Agent</role>
@@ -138,7 +145,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_Card_Dispute_Agent_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule shares all Interaction records with Read/Write access to Card Dispute Agent.</description>
+        <description>This sharing rule shares all Interaction records with Read/Write access to Card
+            Dispute Agent.</description>
         <label>Interaction Card Dispute Agent Read/Write Sharing Rule</label>
         <sharedTo>
             <role>Card_Dispute_Agent</role>
@@ -153,7 +161,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_Support_Coach_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule shares all Interaction records with Read/Write access to Support Coach.</description>
+        <description>This sharing rule shares all Interaction records with Read/Write access to
+            Support Coach.</description>
         <label>Interaction Support Coach Read/Write Sharing Rule</label>
         <sharedTo>
             <role>Support_Coach</role>
@@ -168,7 +177,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_Stat_Comp_Agent_Read_Sharing_Rule</fullName>
         <accessLevel>Read</accessLevel>
-        <description>This sharing rule provides read access to users with Statutory Compliance Agent Role for Interaction object.</description>
+        <description>This sharing rule provides read access to users with Statutory Compliance Agent
+            Role for Interaction object.</description>
         <label>Interaction Stat Comp Agent Read Sharing Rule</label>
         <sharedTo>
             <role>Statutory_Compliance_Agent</role>
@@ -183,7 +193,8 @@
     <sharingCriteriaRules>
         <fullName>Interaction_ANZx_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>This sharing rule shares all Interaction records with Read/Write access to ANZx.</description>
+        <description>This sharing rule shares all Interaction records with Read/Write access to
+            ANZx.</description>
         <label>ANZx Read/Write Sharing Rule</label>
         <sharedTo>
             <role>ANZx</role>
@@ -196,9 +207,25 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>CCRM_Interactions_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Interactions within all of Commercial</description>
+        <label>CCRM Interactions Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>CCRM Interaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Interaction_ANZx_Operations_Read_Only_Sharing_Rule</fullName>
         <accessLevel>Read</accessLevel>
-        <description>This sharing rule provides read access to users with ANZx Operation Read Only Role for Interaction object.</description>
+        <description>This sharing rule provides read access to users with ANZx Operation Read Only
+            Role for Interaction object.</description>
         <label>Interaction ANZx Operations Read Only Sharing Rule</label>
         <sharedTo>
             <role>ANZ_Plus_Operations_Read_Only</role>
@@ -244,4 +271,43 @@
             <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>ML_Sharing_Rule_ML_to_Franchise_Team</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share interactions from &apos;ANZ Mobile Lending Team&apos; To &apos;Mobile
+            Lending Franchise Users&apos; with Read Only Access</description>
+        <label>ML Sharing Rule ML to Franchise Team</label>
+        <sharedTo>
+            <roleAndSubordinates>Mobile_Lending_Franchise_Users</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>ML_Sharing_Rule_ML_to_ML_Team</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Interactions from Mobile Lending Team to Mobile Lending Team</description>
+        <label>ML Sharing Rule ML to ML Team</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>
+<!--<sharingCriteriaRules>
+        <fullName>CMOS_Interaction_access_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CMOS Interaction access RO</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>-->

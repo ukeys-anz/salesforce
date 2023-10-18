@@ -6,6 +6,13 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class MLCRMCommonUtils {
+  private static Profile userProfile;
+  private static Set<Id> userProfileSet;
+  private static Map<String, Id> mapOfProfileId = null;
+  private static String strFranchiseRole;
+  private static Map<Id, User> mapOfUsers;
+  private static Set<Id> idsOfOwnerId = new Set<Id>();
+
   /**
    * @description This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
    * @name validateTerritoryAndOwnerChange
@@ -18,30 +25,16 @@ public with sharing class MLCRMCommonUtils {
     Map<Id, sObject> oldMapSobject,
     List<sObject> lstOfSobject
   ) {
-    Set<Id> idsOfOwnerId = new Set<Id>();
-    String strMLProfileId = CommonUtil.getProfileByName(
-        MLCRMConstants.ML_PROFILE_NAME
-      )
-      .Id;
-    String strAdminProfileId = CommonUtil.getProfileByName(
-        MLCRMConstants.ADMIN_PROFILE_NAME
-      )
-      .Id;
-    String strFranchiseRole = CommonUtil.getUserRoleByDevName(
-        Label.ML_Franchise_Role
-      )
-      .Id;
-
     for (sObject objSobject : lstOfSobject) {
-      if (
-        ((Id) objSobject.get('RecordTypeId') ==
-        MLCRMConstants.MLCRM_LEAD_RT_ID ||
-        (Id) objSobject.get('RecordTypeId') ==
-        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) &&
-        !CCRMLeadUtil.isIntegrationUser() &&
-        userInfo.getProfileId() != strAdminProfileId &&
-        !CCRMConstants.SKIP_CUSTOM_VALIDATION_RULES
-      ) {
+      if (validateSobjectRecord(objSobject)) {
+        getProfileId(lstOfSobject);
+        if (
+          mapOfProfileId != null &&
+          userInfo.getProfileId() ==
+          mapOfProfileId.get(MLCRMConstants.ADMIN_PROFILE_NAME)
+        ) {
+          continue;
+        }
         // validate if territory remains blank for any record then add error.
         if (objSobject.get('Territory__c') == null) {
           objSobject.addError(LABEL.ML_ValidateTerritory);
@@ -51,19 +44,9 @@ public with sharing class MLCRMCommonUtils {
           (oldMapSobject != null &&
           objSobject.get('Territory__c') !=
           oldMapSobject.get((Id) objSobject.get('Id')).get('Territory__c'))) &&
-          userInfo.getProfileId() == strMLProfileId &&
-          UserInfo.getUserRoleId() == strFranchiseRole
-        ) {
-          // validate if record's territory is changed and user is ML profile and having franchise role
-          idsOfOwnerId.add((Id) objSobject.get('OwnerId'));
-          idsOfOwnerId.add(UserInfo.getUserId());
-        } else if (
-          objSobject.get('Territory__c') != null &&
-          (oldMapSobject == null ||
-          (oldMapSobject != null &&
-          objSobject.get('Territory__c') !=
-          oldMapSobject.get((Id) objSobject.get('Id')).get('Territory__c'))) &&
-          userInfo.getProfileId() != strMLProfileId
+          (mapOfProfileId != null &&
+          userInfo.getProfileId() !=
+          mapOfProfileId.get(MLCRMConstants.ML_PROFILE_NAME))
         ) {
           // validate if record's territory is changed and user is not ML profile then add error
           objSobject.addError(LABEL.ML_ValidateTerritoryChangeByNonMLUser);
@@ -73,20 +56,33 @@ public with sharing class MLCRMCommonUtils {
           (oldMapSobject != null &&
           objSobject.get('OwnerId') !=
           oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId'))) &&
-          userInfo.getProfileId() == strMLProfileId
+          (mapOfProfileId != null &&
+          userInfo.getProfileId() !=
+          mapOfProfileId.get(MLCRMConstants.ML_PROFILE_NAME))
         ) {
-          // validate if record's owner is changed and user is ML profile
-          idsOfOwnerId.add((Id) objSobject.get('OwnerId'));
+          // validate if record's owner is changed and user is not ML profile then add error
+          objSobject.addError(LABEL.ML_ValidateOwnerChangeByNonMLUser);
+        } else if (
+          hasTerrChgdAndCurrUserOnFranRole(objSobject, oldMapSobject)
+        ) {
+        } else if (
+          hasTerrChgdAndCurrUserNotOnFranRole(objSobject, oldMapSobject)
+        ) {
         } else if (
           objSobject.get('OwnerId') != null &&
           (oldMapSobject == null ||
           (oldMapSobject != null &&
           objSobject.get('OwnerId') !=
           oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId'))) &&
-          userInfo.getProfileId() != strMLProfileId
+          (mapOfProfileId != null &&
+          userInfo.getProfileId() ==
+          mapOfProfileId.get(MLCRMConstants.ML_PROFILE_NAME)) &&
+          (mapOfUsers != null &&
+          mapOfUsers.get((Id) objSobject.get('OwnerId')).UserRoleId ==
+          strFranchiseRole)
         ) {
-          // validate if record's owner is changed and user is not ML profile then add error
-          objSobject.addError(LABEL.ML_ValidateOwnerChangeByNonMLUser);
+          // validate if record's owner is changed and user is ML profile
+          idsOfOwnerId.add((Id) objSobject.get('OwnerId'));
         }
       }
     }
@@ -115,13 +111,14 @@ public with sharing class MLCRMCommonUtils {
     Map<Id, sObject> oldMapSobject
   ) {
     Set<String> setOfUserToTerritory = new Set<String>();
-    for (User_Territory__c objTerritory : [
+    List<User_Territory__c> lstOfLoggedInUserTerritory = [
       SELECT Territory__c, User__c
       FROM User_Territory__c
       WHERE
         User__c IN :idsOfOwnerId
         AND Status__c = :MLCRMConstants.STATUS_ACTIVE
-    ]) {
+    ];
+    for (User_Territory__c objTerritory : lstOfLoggedInUserTerritory) {
       setOfUserToTerritory.add(
         String.valueOf(objTerritory.User__c) +
         String.valueOf(objTerritory.Territory__c)
@@ -168,10 +165,19 @@ public with sharing class MLCRMCommonUtils {
     Set<Id> idsofLeadOwner = new Set<Id>();
     for (sObject objSobject : lstOfSobject) {
       if (
-        ((Id) objSobject.get('RecordTypeId') ==
-        MLCRMConstants.MLCRM_LEAD_RT_ID ||
+        ((String.valueOf(objSobject.getSObjectType()) ==
+        MLCRMConstants.SOBJECT_LEAD &&
         (Id) objSobject.get('RecordTypeId') ==
-        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) &&
+        MLCRMConstants.MLCRM_LEAD_RT_ID) ||
+        (String.valueOf(objSobject.getSObjectType()) ==
+        MLCRMConstants.SOBJECT_OPPORTUNITY &&
+        (Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) ||
+        (String.valueOf(objSobject.getSObjectType()) ==
+        MLCRMConstants.SOBJECT_RELATIONSHIP_NOTES) ||
+        (String.valueOf(objSobject.getSObjectType()) == 'Interaction' &&
+        (Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.ML_INTERACTION_RT_ID)) &&
         objSobject.get('Territory__c') == null
       ) {
         idsofLeadOwner.add((Id) objSobject.get('OwnerId'));
@@ -227,19 +233,19 @@ public with sharing class MLCRMCommonUtils {
 
   /**
    * @description This method is used to get record type API name of any object dynamically
-   * @name getTaskRecordTypeIdByDeveloperName
+   * @name getRecordTypeIdsByDeveloperName
    * @param strObjectName sobject name
    * @param lstDevelopername List of developername API Name
    * @return Set<Id> Set of developername API Name
    * @author Ashish Kumar
    * @US CC-1894
    */
-  public static Set<Id> getTaskRecordTypeIdByDeveloperName(
+  public static Set<Id> getRecordTypeIdsByDeveloperName(
     String strObjectName,
     List<String> lstDevelopername
   ) {
     Set<Id> setOfRecordTypeIds = new Set<Id>();
-    if (!lstDevelopername.isEmpty()) {
+    if (lstDevelopername != null && !lstDevelopername.isEmpty()) {
       Map<String, Schema.SObjectType> mapOfSchema = Schema.getGlobalDescribe();
       Schema.SObjectType objSchema = mapOfSchema.get(strObjectName);
       Schema.DescribeSObjectResult cfrSchema = objSchema.getDescribe();
@@ -268,5 +274,278 @@ public with sharing class MLCRMCommonUtils {
       return mapOfUsers.keySet();
     }
     return null;
+  }
+
+  /**
+   * @description getProfileById get Profile by ProfileId
+   * @param profileId Id of the Profile
+   * @return Profile
+   */
+  public static Profile getProfileById(String profileId) {
+    if (userProfile == null) {
+      if (Schema.sObjectType.Profile.isQueryable()) {
+        List<Profile> prof = [
+          SELECT Id, Name
+          FROM Profile
+          WHERE Id = :profileId
+        ];
+        if (!prof.isEmpty()) {
+          userProfile = prof[0];
+        }
+      }
+    }
+    return userProfile;
+  }
+
+  /**
+   * @description getAllowedProfileIdsSet to query Profiles by set of Profile Names
+   * @param profileNames set of name of the Profile
+   * @param reset reset the profileId Set
+   * @return Set<Id>
+   */
+  public static Set<Id> getAllowedProfileIdsSet(
+    Set<String> profileNames,
+    Boolean reset
+  ) {
+    if (userProfileSet == null || reset) {
+      Set<Id> profIdSet = new Set<Id>();
+      for (Profile prof : [
+        SELECT Id
+        FROM Profile
+        WHERE Name IN :profileNames
+      ]) {
+        profIdSet.add(prof.Id);
+      }
+      return profIdSet;
+    }
+    return userProfileSet;
+  }
+
+  /**
+   * @description This method is used share sobject record based on parent object sharing modal
+   * @name parentObjectRecordSharing
+   * @param lstOfSobject list of sobject records
+   * @param objTerritoryMtd territory sharing metadata record
+   * @author Ashish Kumar
+   * @US CC-5207
+   */
+  public static void parentObjectRecordSharing(
+    List<Sobject> lstOfSobject,
+    Territory_Based_Sharing_Config__mdt objTerritoryMtd
+  ) {
+    List<Sobject> lstOfTerrirotyShareRecord = new List<Sobject>();
+    List<Sobject> lstOfFranchiseShareRecord = new List<Sobject>();
+    Set<Id> setOfEligibleRT = MLCRMCommonUtils.getRecordTypeIdsByDeveloperName(
+      objTerritoryMtd.Object_Name__c,
+      objTerritoryMtd.Eligible_Record_Types__c != null
+        ? objTerritoryMtd.Eligible_Record_Types__c.split(';')
+        : null
+    );
+    Map<String, Territory_Based_Sharing_Config__mdt> mapOfTerritoryConfig = getTerritoryMetadata();
+    for (Sobject objSobject : lstOfSobject) {
+      if (objTerritoryMtd.Lookup_Fields__c != null) {
+        for (String str : objTerritoryMtd.Lookup_Fields__c.split(';')) {
+          if ((Id) objSobject.get(str) != null) {
+            String objName = ((Id) objSobject.get(str))
+              .getSObjectType()
+              .getDescribe()
+              .getName();
+            if (
+              mapOfTerritoryConfig.containsKey(objName) &&
+              mapOfTerritoryConfig.get(objName).Sharing_Scope__c ==
+              MLCRMConstants.STR_TERRITORY
+            ) {
+              lstOfTerrirotyShareRecord.add(objSobject);
+            } else if (
+              mapOfTerritoryConfig.containsKey(objName) &&
+              mapOfTerritoryConfig.get(objName).Sharing_Scope__c ==
+              MLCRMConstants.STR_FRANCHISE
+            ) {
+              lstOfFranchiseShareRecord.add(objSobject);
+            }
+            break;
+          }
+        }
+      }
+    }
+
+    if (!lstOfTerrirotyShareRecord.isEmpty()) {
+      MLCRMSharingUtil.createTerritoryShareRecords(
+        lstOfTerrirotyShareRecord,
+        objTerritoryMtd
+      );
+    }
+
+    if (!lstOfFranchiseShareRecord.isEmpty()) {
+      MLCRMSharingUtil.createShareRecordsFranchiseWise(
+        lstOfFranchiseShareRecord,
+        objTerritoryMtd
+      );
+    }
+  }
+
+  /**
+   * @description This method to fetch the territory sharing metadata record
+   * @name getTerritoryMetadata
+   * @author Ashish Kumar
+   * @return Map<String,Territory_Based_Sharing_Config__mdt>
+   * @US CC-5207
+   */
+  private static Map<String, Territory_Based_Sharing_Config__mdt> getTerritoryMetadata() {
+    List<Territory_Based_Sharing_Config__mdt> lstOfTerritoryMetadata = Territory_Based_Sharing_Config__mdt.getAll()
+      .values();
+    Map<String, Territory_Based_Sharing_Config__mdt> mapOfTerritoryConfig = new Map<String, Territory_Based_Sharing_Config__mdt>();
+    if (!lstOfTerritoryMetadata.isEmpty()) {
+      for (
+        Territory_Based_Sharing_Config__mdt objMetadata : lstOfTerritoryMetadata
+      ) {
+        mapOfTerritoryConfig.put(objMetadata.Object_Name__c, objMetadata);
+      }
+    }
+    return mapOfTerritoryConfig;
+  }
+
+  /**
+   * @description This method to fetch the territory sharing metadata record
+   * @name getProfileId
+   * @param lstOfSobject each sobject record
+   * @author Ashish Kumar
+   * @US CC-1058
+   */
+  private static void getProfileId(List<sObject> lstOfSobject) {
+    if (mapOfProfileId == null) {
+      mapOfUsers = getRecordUserRole(lstOfSobject);
+      mapOfProfileId = CommonUtil.getProfileByNames(
+        new List<String>{
+          MLCRMConstants.ML_PROFILE_NAME,
+          MLCRMConstants.ADMIN_PROFILE_NAME
+        }
+      );
+      strFranchiseRole = CommonUtil.getUserRoleByDevName(
+          Label.ML_Franchise_Role
+        )
+        .Id;
+    }
+  }
+
+  /**
+   * @description This method to validate the sobject record
+   * @name validateSobjectRecord
+   * @param objSobject each sobject record
+   * @return Boolean
+   * @author Ashish Kumar
+   * @US CC-1058
+   */
+  private static Boolean validateSobjectRecord(sObject objSobject) {
+    if (
+      ((String.valueOf(objSobject.getSObjectType()) ==
+      MLCRMConstants.SOBJECT_LEAD &&
+      (Id) objSobject.get('RecordTypeId') == MLCRMConstants.MLCRM_LEAD_RT_ID) ||
+      (String.valueOf(objSobject.getSObjectType()) ==
+      MLCRMConstants.SOBJECT_OPPORTUNITY &&
+      (Id) objSobject.get('RecordTypeId') ==
+      MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) ||
+      (String.valueOf(objSobject.getSObjectType()) ==
+      MLCRMConstants.SOBJECT_RELATIONSHIP_NOTES) ||
+      (String.valueOf(objSobject.getSObjectType()) == 'Interaction' &&
+      (Id) objSobject.get('RecordTypeId') ==
+      MLCRMConstants.ML_INTERACTION_RT_ID)) &&
+      !CCRMLeadUtil.isIntegrationUser() &&
+      !CCRMConstants.SKIP_CUSTOM_VALIDATION_RULES
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @description This method to get user role developername
+   * @name getRecordUserRole
+   * @param lstOfSobject each sobject record
+   * @return Map<Id,User>
+   * @author Ashish Kumar
+   * @US CC-1058
+   */
+  private static Map<Id, User> getRecordUserRole(List<sObject> lstOfSobject) {
+    Set<Id> idsOfOwner = new Set<Id>();
+    for (Sobject objSobject : lstOfSobject) {
+      idsOfOwner.add((Id) objSobject.get('OwnerId'));
+    }
+
+    if (!idsOfOwner.isEmpty()) {
+      Map<Id, User> mapOfUsers = new Map<Id, User>(
+        [SELECT Id, UserRoleId FROM User WHERE ID IN :idsOfOwner]
+      );
+      return mapOfUsers;
+    }
+    return null;
+  }
+
+  /**
+   * @description This method to validate the sobject record
+   * @name validateTerritoryChange
+   * @param objSobject each sobject record
+   * @param oldMapSobject old sobject record
+   * @return Boolean
+   * @author Ashish Kumar
+   * @US CC-1058
+   */
+  private static Boolean hasTerrChgdAndCurrUserOnFranRole(
+    sObject objSobject,
+    Map<Id, sObject> oldMapSobject
+  ) {
+    if (
+      objSobject.get('Territory__c') != null &&
+      (oldMapSobject == null ||
+      (oldMapSobject != null &&
+      objSobject.get('Territory__c') !=
+      oldMapSobject.get((Id) objSobject.get('Id')).get('Territory__c'))) &&
+      (mapOfProfileId != null &&
+      userInfo.getProfileId() ==
+      mapOfProfileId.get(MLCRMConstants.ML_PROFILE_NAME)) &&
+      (mapOfUsers != null &&
+      mapOfUsers.get((Id) objSobject.get('OwnerId')).UserRoleId ==
+      strFranchiseRole) &&
+      UserInfo.getUserRoleId() == strFranchiseRole
+    ) {
+      // validate if record's territory is changed and user is ML profile and having franchise role
+      idsOfOwnerId.add((Id) objSobject.get('OwnerId'));
+      idsOfOwnerId.add(UserInfo.getUserId());
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @description This method to validate the sobject record
+   * @name hasTerrChgdAndCurrUserNotOnFranRole
+   * @param objSobject each sobject record
+   * @param oldMapSobject old sobject record
+   * @return Boolean
+   * @author Ashish Kumar
+   * @US CC-1058
+   */
+  private static Boolean hasTerrChgdAndCurrUserNotOnFranRole(
+    sObject objSobject,
+    Map<Id, sObject> oldMapSobject
+  ) {
+    if (
+      objSobject.get('Territory__c') != null &&
+      (oldMapSobject == null ||
+      (oldMapSobject != null &&
+      objSobject.get('Territory__c') !=
+      oldMapSobject.get((Id) objSobject.get('Id')).get('Territory__c'))) &&
+      (mapOfProfileId != null &&
+      userInfo.getProfileId() ==
+      mapOfProfileId.get(MLCRMConstants.ML_PROFILE_NAME)) &&
+      (mapOfUsers != null &&
+      mapOfUsers.get((Id) objSobject.get('OwnerId')).UserRoleId ==
+      strFranchiseRole)
+    ) {
+      // validate if record's territory is changed and record owner is having franchise role
+      idsOfOwnerId.add((Id) objSobject.get('OwnerId'));
+      return true;
+    }
+    return false;
   }
 }

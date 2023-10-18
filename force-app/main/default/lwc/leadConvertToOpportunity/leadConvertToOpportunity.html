@@ -46,6 +46,17 @@
           <template if:true={isMLCRMlead}>
             <template if:true={leadDetails}>
               <div class="slds-modal__content slds-p-around_medium contentDiv">
+                <template if:true={misMatchWarning}>
+                  <div class="slds-text-title">
+                    <div>
+                      <img src={warningSignUrl} class="imgDivPadding" />
+                      <font size="2"><b>{warningMsgConstant}</b></font>
+                    </div>
+                    <lightning-formatted-rich-text
+                      value={misMatchLeadDetailsMessage}
+                    ></lightning-formatted-rich-text>
+                  </div>
+                </template>
                 <lightning-card title="Lead Details" icon-name="standard:lead">
                   {modalBodySubText}
                   <div class="slds-var-m-around_medium">

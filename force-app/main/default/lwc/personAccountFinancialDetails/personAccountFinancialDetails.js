@@ -67,10 +67,22 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   }
   async getHomeLoanResponse() {
     try {
-      let response = await getHomeLoanAccount({ ocvId: this.ocvId });
-      this.loanData = response.accounts[0];
-    } catch (e) {
-      console.log("error", e.message);
+      //No need to filter by accounts as we want all H1s
+      let response = await getHomeLoanAccount({
+        ocvId: this.ocvId,
+        accountNumbers: []
+      });
+      //Need to stringify and send as the array consists of many objects and SF proxies it
+      //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
+      this.loanData = JSON.stringify(response.accounts);
+    } catch (error) {
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve Home Loan Details.",
+        error,
+        "Failed To Retrieve Home Loan Details. Please refresh and try again. If issue persists please contact your System Administrator",
+        "pester"
+      );
     }
   }
   get displayContent() {

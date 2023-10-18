@@ -3,6 +3,7 @@
  * @since  07/2023
  * @group MLCRM (Mobile Lending CRM)
  * @description MLCRM_TerritoryConfigSharingBatch is batch class for sharing sobject record when any update happens to territory or user territory records.
+ * @runTests MLCRM_TerritoryConfigSharingBatchTest
  */
 global class MLCRM_TerritoryConfigSharingBatch implements Database.Batchable<sObject> {
   private Set<Id> idsOfTerritory;
@@ -34,16 +35,23 @@ global class MLCRM_TerritoryConfigSharingBatch implements Database.Batchable<sOb
    */
   global Database.QueryLocator start(Database.BatchableContext objSchedule) {
     String strQuery;
-    Set<Id> setOfEligibleRT = MLCRMCommonUtils.getTaskRecordTypeIdByDeveloperName(
-      this.objShareMetadata.Object_Name__c,
-      this.objShareMetadata.Eligible_Record_Types__c.split(';')
-    );
+    String strWhereClause;
+    Set<Id> setOfEligibleRT;
+    if (this.objShareMetadata.Eligible_Record_Types__c != null) {
+      setOfEligibleRT = MLCRMCommonUtils.getRecordTypeIdsByDeveloperName(
+        this.objShareMetadata.Object_Name__c,
+        this.objShareMetadata.Eligible_Record_Types__c.split(';')
+      );
+      strWhereClause = ' WHERE Territory__c IN :idsOfTerritory AND RecordTypeId IN :setOfEligibleRT';
+    } else {
+      strWhereClause = ' WHERE Territory__c IN :idsOfTerritory';
+    }
     strQuery =
       'SELECT Id,OwnerId,  ' +
       String.escapeSingleQuotes(this.objShareMetadata.Territory_Field__c) +
       ' FROM ' +
       String.escapeSingleQuotes(this.objShareMetadata.Object_Name__c) +
-      ' WHERE Territory__c IN :idsOfTerritory AND RecordTypeId IN :setOfEligibleRT';
+      strWhereClause;
     return Database.getQueryLocator(strQuery);
   }
 
@@ -60,11 +68,30 @@ global class MLCRM_TerritoryConfigSharingBatch implements Database.Batchable<sOb
     List<SObject> scope
   ) {
     if (!scope.isEmpty()) {
-      MLCRMSharingUtil.createTerritoryShareRecords(
-        scope,
-        this.objShareMetadata.Sharing_Object__c,
-        this.objShareMetadata.Object_Name__c
-      );
+      if (
+        this.objShareMetadata.Sharing_Scope__c == MLCRMConstants.STR_TERRITORY
+      ) {
+        MLCRMSharingUtil.createTerritoryShareRecords(
+          scope,
+          this.objShareMetadata
+        );
+      } else if (
+        this.objShareMetadata.Sharing_Scope__c == MLCRMConstants.STR_FRANCHISE
+      ) {
+        MLCRMSharingUtil.createShareRecordsFranchiseWise(
+          scope,
+          this.objShareMetadata
+        );
+      } else if (
+        this.objShareMetadata.Sharing_Scope__c ==
+        MLCRMConstants.STR_PARENT_OBJECT
+      ) {
+        //Method to create share record based on parent object
+        MLCRMCommonUtils.parentObjectRecordSharing(
+          scope,
+          this.objShareMetadata
+        );
+      }
     }
   }
 

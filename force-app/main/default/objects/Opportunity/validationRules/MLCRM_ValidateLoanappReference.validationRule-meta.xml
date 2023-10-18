@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_ValidateLoanappReference</fullName>
+    <active>true</active>
+    <description>This validation rule is used to validate Loanapp Reference field</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;MLCRM_Opportunity&apos;,
+NOT(REGEX(Loanapp_Reference__c, &quot;^APP-\\d+$&quot;)),
+NOT(ISBLANK(Loanapp_Reference__c)),
+NOT($Profile.Name = &quot;System Administrator&quot;)
+)</errorConditionFormula>
+    <errorDisplayField>Loanapp_Reference__c</errorDisplayField>
+    <errorMessage>Loanapp Reference must start with &apos;APP-&apos; followed by a number.</errorMessage>
+</ValidationRule>
