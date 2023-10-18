@@ -273,7 +273,8 @@
         "FinServ__Status__c",
         "Hardship__c",
         "KYC_Verification_Level__c",
-        "KYCVerificationDate__c"
+        "KYCVerificationDate__c",
+        "Was_ANZx_Customer__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
       "IA-2468715": [
@@ -1722,7 +1723,9 @@
       "IA-2415860": [
         "Product_Code_Display__c",
         "Sub_product_Code_Display__c",
-        "Product_Name_Display__c"
+        "Product_Name_Display__c",
+        "Additional_Owner_Count__c",
+        "Ownership__c"
       ],
       "IA-2594111": ["FinServ__JointOwner__c"]
     },
@@ -2357,27 +2360,6 @@
     "Material_Change__c": {
       "IA-2415840": ["Loan_Application__c", "External_Id__c", "Change_Type__c"],
       "IA-2530753": ["Created_Date__c"]
-    },
-    "Material_Change_Applicant__c": {
-      "IA-2415983": ["Material_Change__c", "Applicant__c"],
-      "IA-2415840": ["External_Id__c", "Loan_Application__c"]
-    },
-    "Material_Change__c": {
-      "IA-2415840": ["Loan_Application__c", "External_Id__c", "Change_Type__c"]
-    },
-    "Material_Change_Applicant__c": {
-      "IA-2415983": ["Material_Change__c", "Applicant__c"],
-      "IA-2415840": ["External_Id__c", "Loan_Application__c"]
-    },
-    "Material_Change__c": {
-      "IA-2415840": ["Loan_Application__c", "External_Id__c", "Change_Type__c"]
-    },
-    "Material_Change_Applicant__c": {
-      "IA-2415983": ["Material_Change__c", "Applicant__c"],
-      "IA-2415840": ["External_Id__c", "Loan_Application__c"]
-    },
-    "Material_Change__c": {
-      "IA-2415840": ["Loan_Application__c", "External_Id__c", "Change_Type__c"]
     },
     "Material_Change_Applicant__c": {
       "IA-2415983": ["Material_Change__c", "Applicant__c"],

@@ -172,14 +172,14 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   fieldsForAppointment = [
     {
       label: "Appointment Number",
-      fieldName: "Interaction_Auto_Number__c",
+      fieldName: "Interaction_External_Id__c",
       type: "datatableColumnClickHandler",
       typeAttributes: {
         recordId: {
           fieldName: "Id"
         },
         cellValue: {
-          fieldName: "Interaction_Auto_Number__c"
+          fieldName: "Interaction_External_Id__c"
         },
         sObjectApiName: "Interaction"
       },

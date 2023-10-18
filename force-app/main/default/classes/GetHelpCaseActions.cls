@@ -27,6 +27,7 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_WARNING = 'Warning';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
+  public static final String PAY_TO_DISPUTE_PAYMENTID_PREFIX = 'MPS';
 
   public static Group accountClosureQueue = CommonUtil.getQueueByName(
     'Account_Closure_Queue'
@@ -63,6 +64,8 @@ public with sharing class GetHelpCaseActions {
       ) {
         updateCaseDurationTime(record);
       }
+
+      GetHelpCaseActionsHelper.checkPaytoDisputeValidations(record, oldRecord);
 
       if (record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
         if (
@@ -1034,6 +1037,25 @@ public with sharing class GetHelpCaseActions {
         'copyCreditReferralCaseNumbers'
       );
       actions.updateRecords(creditRefCases, 'Case');
+    }
+  }
+
+  /**
+   * @description populate the fields for the PayTo dispute.
+   * @param caseList The case list
+   */
+  public static void populateFieldsOfPayToDispute(List<Case> caseList) {
+    for (Case caseRecord : caseList) {
+      if (
+        caseRecord.recordTypeId == GetHelpConstants.NPP_DISPUTE_RT_ID &&
+        String.isNotBlank(caseRecord.Payment_ID__c) &&
+        String.isNotBlank(caseRecord.Dispute_Reason_PayTo__c)
+      ) {
+        caseRecord.Dispute_Reason__c = caseRecord.Dispute_Reason_PayTo__c;
+        caseRecord.Is_PayTo_Dispute__c = caseRecord.Payment_ID__c.startsWith(
+          PAY_TO_DISPUTE_PAYMENTID_PREFIX
+        );
+      }
     }
   }
 }

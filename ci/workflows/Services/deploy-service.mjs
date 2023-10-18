@@ -102,6 +102,7 @@ const validateProgress = (validationReport) => {
       const output = JSON.parse(data);
       if (output.status === 0) {
         console.log("Validation completed successfully");
+        deployReport(jobId);
       } else if (output.progress) {
         console.log(`Progress: ${output.progress}`);
       } else {
@@ -122,6 +123,7 @@ const validateProgress = (validationReport) => {
   validateProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Validation failed with exit code: \n${code}`);
+      deployReport(jobId);
       process.exit(1);
     }
   });
@@ -140,6 +142,7 @@ const deployProgress = (deploymentCommand) => {
       const output = JSON.parse(data);
       if (output.status === 0) {
         console.log("Deployment completed successfully");
+        deployReport(jobId);
       } else if (output.progress) {
         console.log(`Progress: ${output.progress}`);
       } else {
@@ -160,16 +163,14 @@ const deployProgress = (deploymentCommand) => {
   deployProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Deployment failed with exit code: \n${code}`);
+      deployReport(jobId);
       process.exit(1);
     }
   });
 };
 
-const deployReport = (jobIdFilePath) => {
-  const jobId = findJobId(jobIdFilePath, "| Validation/Deployment report");
-  if (!jobId) process.exit();
-  return runSfCommand(`npx sf project deploy report --job-id ${jobId}`);
-};
+const deployReport = (jobId) =>
+  logger(runSfCommand(`npx sf project deploy report --job-id ${jobId}`));
 
 // This code will find the json report for specific job
 // Will find the test result and then the number of covered lines and not covered lines
