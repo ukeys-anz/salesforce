@@ -54,7 +54,9 @@ public with sharing class FinancialAccountController {
       for (FinancialAccountModel.AccountList finAccount : result.account_list) {
         financialAccountNumbers.add(finAccount.account_number);
       }
-      Map<String, Id> finAccNumberToIdMap = getFinAccNumberToIdMap(
+
+      //Added this to create Financial Account and FInancial Account Number Map to be used for fetching Id,OCVID and Ownership- by Shivam
+      Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = getFinAccNumberToFinancialAccountMap(
         financialAccountNumbers
       );
 
@@ -71,7 +73,10 @@ public with sharing class FinancialAccountController {
 
         financialAccounts.add(
           new FinServ__FinancialAccount__c(
-            Id = finAccNumberToIdMap.get(finAccount.account_number),
+            Id = finAccNumberToFinancialAccountMap.get(
+                finAccount.account_number
+              )
+              .Id,
             Name = finAccount.name,
             FinServ__FinancialAccountNumber__c = finAccount.account_number,
             FinServ__Balance__c = finAccount.balance.value,
@@ -80,14 +85,26 @@ public with sharing class FinancialAccountController {
             FinServ__OpenDate__c = openedDate,
             FinServ__CloseDate__c = closedDate,
             FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
-            RecordType = getAccountRecordType(finAccount.marketing_product.code)
+            RecordType = getAccountRecordType(
+              finAccount.marketing_product.code
+            ),
+            FinServ__Ownership__c = finAccNumberToFinancialAccountMap.get(
+                finAccount.account_number
+              )
+              .Ownership__c
           )
         );
 
-        if (finAccNumberToIdMap.keySet().contains(finAccount.account_number)) {
+        if (
+          finAccNumberToFinancialAccountMap.keySet()
+            .contains(finAccount.account_number)
+        ) {
           financialAccountsUpdate.add(
             new FinServ__FinancialAccount__c(
-              Id = finAccNumberToIdMap.get(finAccount.account_number),
+              Id = finAccNumberToFinancialAccountMap.get(
+                  finAccount.account_number
+                )
+                .Id,
               Name = finAccount.name,
               FinServ__Balance__c = finAccount.balance.value,
               FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
@@ -125,24 +142,25 @@ public with sharing class FinancialAccountController {
   }
 
   /**
-   * @description builds a map of finaccnumber to sf id
-   * fabric only knows the finaccnumber, so we need to fetch the id to do an update
-   *
+   * @description builds a map of finaccnumber to FinServ__FinancialAccount__c
    * @param financialAccountNumbers the financial account identifiers
-   * @return Map<String, Id> map of the fin acc number to the salesforce id
+   * @return Map<String, FinServ__FinancialAccount__c> map of the fin acc number to the FinServ__FinancialAccount__c
    */
-  private static Map<String, Id> getFinAccNumberToIdMap(
+  private static Map<String, FinServ__FinancialAccount__c> getFinAccNumberToFinancialAccountMap(
     Set<String> financialAccountNumbers
   ) {
-    Map<String, Id> finAccNumberToIdMap = new Map<String, Id>();
-    for (FinServ__FinancialAccount__c fa : [
-      SELECT Id, FinServ__FinancialAccountNumber__c
+    Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+    for (FinServ__FinancialAccount__c finAccount : [
+      SELECT Id, FinServ__FinancialAccountNumber__c, Ownership__c
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__FinancialAccountNumber__c IN :financialAccountNumbers
     ]) {
-      finAccNumberToIdMap.put(fa.FinServ__FinancialAccountNumber__c, fa.Id);
+      finAccNumberToFinancialAccountMap.put(
+        finAccount.FinServ__FinancialAccountNumber__c,
+        finAccount
+      );
     }
-    return finAccNumberToIdMap;
+    return finAccNumberToFinancialAccountMap;
   }
 
   /**
@@ -176,7 +194,9 @@ public with sharing class FinancialAccountController {
           FinServ__Status__c,
           FinServ__OpenDate__c,
           RecordType.DeveloperName,
-          LastModifiedDate
+          LastModifiedDate,
+          Ownership__c,
+          OCV_ID__c
         FROM FinServ__FinancialAccount__c
         WHERE
           FinServ__PrimaryOwner__c = :ownerId

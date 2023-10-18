@@ -19,6 +19,8 @@ export default class FinancialAccount extends NavigationMixin(
   @api error;
   //Savings jar details received through personAccountFinancialDetails LWC
   @api savingsJar;
+  //Added by Shivam to utilize the ocv id received through personAccountFinancialDetails LWC
+  @api ocvId;
   componentTitle;
   balanceTitle;
   showInfoModal = false;
@@ -71,12 +73,21 @@ export default class FinancialAccount extends NavigationMixin(
   }
 
   navigateToRecordViewPage(event) {
+    //Added check for ownership to decide which account is joint or not to add ocvId of the owner from where it is called.
+    let stateValue = null;
+    if (event.currentTarget.dataset.ownership === "true") {
+      stateValue = {
+        c__ocvId: this.ocvId
+      };
+    }
+
     this[NavigationMixin.Navigate]({
       type: "standard__recordPage",
       attributes: {
         recordId: event.currentTarget.dataset.id,
         actionName: "view"
-      }
+      },
+      state: stateValue
     });
   }
 
