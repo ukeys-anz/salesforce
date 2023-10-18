@@ -346,7 +346,7 @@ public with sharing class AuthTokenCacheUtil {
             personaId = (String) ((Map<String, Object>) rqfNode.get('persona'))
               .get('_id');
             listOcvId.add(idValue);
-            Map<String, Account> mapOcvIdAccount = AccountQueryHelper.findAccountNameByOcvId(
+            Map<String, Account> mapOcvIdAccount = AccountQueryHelper.findAccountsByOCVId(
               listOcvId
             );
             Account acc = mapOcvIdAccount.get(idValue);

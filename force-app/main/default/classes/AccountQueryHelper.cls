@@ -46,9 +46,7 @@ public with sharing class AccountQueryHelper {
    * @param ocvId list of ocvids to search account details
    * @return map of ocv id and Account
    */
-  public static Map<String, Account> findAccountNameByOcvId(
-    List<String> ocvId
-  ) {
+  public static Map<String, Account> findAccountsByOCVId(List<String> ocvId) {
     List<Account> accounts;
     Map<String, Account> mapOcvIdAccount = new Map<String, Account>();
     if (PermissionUtils.canQuery('Account') == true) {
@@ -66,7 +64,7 @@ public with sharing class AccountQueryHelper {
     } else {
       CommonUtil.logAndThrowIAE(
         'AccountQueryHelper',
-        'findAccountNameByOcvId',
+        'findAccountsByOCVId',
         'Not enough permissions to query Accounts.'
       );
     }
