@@ -69,6 +69,7 @@ export default class FinancialAccountParent extends LightningElement {
   loanData;
   loading;
   ocvId;
+  ownership;
   transactionData;
   prevTransactionData;
   @track moreData = true;
@@ -121,6 +122,7 @@ export default class FinancialAccountParent extends LightningElement {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
+      this.ownership = data.fields.Ownership__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
       this.accountOwnershipType = data.fields.Ownership__c.value;
       if (
@@ -281,6 +283,7 @@ export default class FinancialAccountParent extends LightningElement {
         startDate: this.transactionStartDate,
         endDate: this.transactionEndDate,
         paramUrl: paramUrl,
+        ownership: this.ownership,
         bucketIds: this.transactionBucketIds
       });
 
