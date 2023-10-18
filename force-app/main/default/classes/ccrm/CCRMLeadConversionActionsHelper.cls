@@ -4,6 +4,13 @@
  * @description CCRM lead conversion helper actions which includes calling search and create party api, deleting auto created contacts post conversion
  */
 public with sharing class CCRMLeadConversionActionsHelper {
+  private static final String INSUFFICIANT_PERMISSION_ERROR = 'Insufficiant Permission to update Lead';
+  private static final String CAPCIS_LEAD_UPDATE_ERROR = 'Error occured while updating lead record during conversion.';
+  private static final String INDIVIDUAL = 'Individual';
+  private static final String OCV_USER_ERROR = 'Error occured while fetching OCV Integration User.';
+  private static final String SHELL_PROSPECT_CREATION_ERROR = 'Error occured while shell prospect creation during maintain Party callout :';
+  private static final String CUSTOMER_RELATIONSHIP_CREATION_ERROR = 'Error occured while creating Customer Relationship during maintain Party callout :';
+  private static final String EXISTING_CUSTOMER_NOT_FOUND_ERROR = 'Cannot found Existing Customer in Salesforce with ExternalId: ';
   /**
    * @description Define custom exceptions
    */
@@ -15,106 +22,55 @@ public with sharing class CCRMLeadConversionActionsHelper {
    * @name updateLeadWithCapcisIdIndividual
    * @param record Lead record from lwc component.
    * @param response result from cap api response
-   * @return MaintainPartyInfoWrapper
+   * @param accountInstance Account record
+   * @return String opportunityId
    */
-  public static MaintainPartyInformationWrapper.MaintainPartyInfoWrapper updateLeadWithCapcisIdIndividual(
+  public static String updateLeadWithCapcisIdIndividual(
     Lead record,
-    DCRMMaintainPartyModel response
+    DCRMMaintainPartyModel response,
+    Account accountInstance
   ) {
-    Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
-    String recordTypeId = '';
     if (
-      Schema.sObjectType.Lead.isUpdateable() &&
+      !(Schema.sObjectType.Lead.isUpdateable() &&
       Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable() &&
       Schema.sObjectType.Lead.fields.FinServ__RelatedAccount__c.isUpdateable() &&
-      Schema.sObjectType.Lead.fields.CAPCIS_ID__c.isUpdateable()
+      Schema.sObjectType.Lead.fields.CAPCIS_ID__c.isUpdateable())
     ) {
-      recordTypeId = CCRMConstants.ACCOUNT_PERSON_RT_ID;
-      Account accountInstance = new Account();
-      MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainPartyWrapper = new MaintainPartyInformationWrapper.MaintainPartyInfoWrapper();
-      ShellProspectCreator prospectCreator = new ShellProspectCreator();
-      ShellProspectInfoWrapper shellProspectInfoInstance = getMaintainPartyInfo(
-        response
-      );
-      if (response.newCustomer == 'true') {
-        maintainPartyWrapper.oppID = '';
-        accountInstance = prospectCreator.createShellProspect(
-          shellProspectInfoInstance,
-          recordTypeId,
+      Logger.error(INSUFFICIANT_PERMISSION_ERROR + record.Id);
+      Logger.saveLog();
+      // Throw custom exception
+      throw new CustomException(INSUFFICIANT_PERMISSION_ERROR);
+    }
+    String opportunityId;
+    ShellProspectCreator prospectCreator = new ShellProspectCreator();
+    if (accountInstance != null && accountInstance.Id != null) {
+      record.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
+      record.FinServ__RelatedAccount__c = accountInstance.id;
+      record.CAPCIS_ID__c = response.sourceSystems[0].sourceSystemId;
+      CCRMLeadConversionActions.leadConverionFlow = true;
+      Boolean isLeadUpdated = prospectCreator.updateLead(record);
+      if (isLeadUpdated) {
+        String opptId = CCRMLeadConversionActions.convertCCRMLead(
+          accountInstance.Id,
           record
         );
-        record.FinServ__RelatedAccount__c = accountInstance.id;
-        maintainPartyWrapper.isNewCustomer = true;
-      } else {
-        String externalId =
-          shellProspectInfoInstance.sourceSystemName +
-          '_' +
-          shellProspectInfoInstance.sourceSystemId;
-        try {
-          maintainPartyWrapper.oppID = '';
-          maintainPartyWrapper = populateMaintainPartyDetails(
-            externalId,
-            shellProspectInfoInstance,
-            record
-          );
-          if (
-            maintainPartyWrapper.matchedResults == null ||
-            maintainPartyWrapper.matchedResults.isEmpty()
-          ) {
-            // Throw custom exception
-            handleError(
-              'Cannot found Existing Customer in Salesforce with ExternalId: ' +
-              externalId,
-              record.Id
-            );
-          }
-          maintainPartyWrapper.isNewCustomer = false;
-        } catch (Exception e) {
-          Logger.error(e.getMessage() + record.Id);
-          Logger.saveLog();
-          throw new AuraHandledException(e.getMessage());
-        }
+        opportunityId = opptId;
       }
-      if (
-        response.newCustomer == 'true' &&
-        accountInstance != null &&
-        accountInstance.Id != null
-      ) {
-        record.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
-        record.CAPCIS_ID__c = response.sourceSystems[0].sourceSystemId;
-        CCRMLeadConversionActions.leadConverionFlow = true;
-        Boolean isLeadUpdated = prospectCreator.updateLead(record);
-        if (isLeadUpdated) {
-          String opptId = CCRMLeadConversionActions.convertCCRMLead(
-            accountInstance.Id,
-            record
-          );
-          maintainPartyWrapper.oppID = opptId;
-        }
-      } else if (response.newCustomer == 'true' && accountInstance.Id == null) {
-        maintainPartyWrapper.oppID = '';
-        // Throw custom exception
-        handleError('Shell Customer Creation Failure.', record.Id);
-      }
-      return maintainPartyWrapper;
     }
-    Logger.error('Insufficiant Permission to update Lead' + record.Id);
-    Logger.saveLog();
-    // Throw custom exception
-    throw new CustomException('Insufficiant Permission to update Lead.');
+    return opportunityId;
   }
 
   /**
+   * @description populate party details and return to lwc component
    * @param externalId unique ids to query from salesforce database
    * @param response response data from callout
    * @param record lead record
    * @return MaintainPartyInfoWrapper for lwc
-   * @description populate party details and return to lwc component
    */
   public static MaintainPartyInformationWrapper.MaintainPartyInfoWrapper populateMaintainPartyDetails(
     String externalId,
     ShellProspectInfoWrapper response,
-    Lead record
+    OCVRequestPayloadWrapper record
   ) {
     MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainPartyWrapper = new MaintainPartyInformationWrapper.MaintainPartyInfoWrapper();
     maintainPartyWrapper.matchedResults = new List<MaintainPartyInformationWrapper.MaintainPartyInfo>();
@@ -132,15 +88,15 @@ public with sharing class CCRMLeadConversionActionsHelper {
       rec.id = accountIdMap.get(externalId).Id;
       rec.name = accountIdMap.get(externalId).Name;
       rec.address =
-        record?.street +
+        record?.strStreet +
         ', ' +
-        record?.city +
+        record?.strCity +
         ' ' +
-        record?.state +
+        record?.strState +
         ' ' +
-        record?.country +
+        record?.strCountry +
         ' ' +
-        record?.postalCode;
+        record?.strPostalCode;
       rec.clgId = accountIdMap.get(externalId).CLG__c;
       rec.cpid = response.sourceSystemId;
       rec.kycStatus = accountIdMap.get(externalId).FinServ__KYCStatus__c;
@@ -179,7 +135,7 @@ public with sharing class CCRMLeadConversionActionsHelper {
       isUpdated = prospectCreator.updateLead(record);
     } else {
       // Throw custom exception
-      handleError('Insufficiant Permission to update Lead', record.Id);
+      handleError(INSUFFICIANT_PERMISSION_ERROR, record.Id);
     }
     return isUpdated;
   }
@@ -206,13 +162,10 @@ public with sharing class CCRMLeadConversionActionsHelper {
       record.CAPCIS_ID__c = response.capcisId;
       Database.SaveResult result = Database.update(record, false);
       if (!result.isSuccess()) {
-        handleError(
-          'Error occured while updating lead record during conversion.',
-          record.Id
-        );
+        handleError(CAPCIS_LEAD_UPDATE_ERROR, record.Id);
       }
       recordTypeId = (record.Entity_Type__c != null &&
-        record.Entity_Type__c.equalsIgnoreCase('Individual'))
+        record.Entity_Type__c.equalsIgnoreCase(INDIVIDUAL))
         ? CCRMConstants.ACCOUNT_PERSON_RT_ID
         : CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
       ShellProspectInfoWrapper shellProspectInfoInstance = getCreatePartyInfo(
@@ -220,10 +173,12 @@ public with sharing class CCRMLeadConversionActionsHelper {
       );
       //transform api result to wrapper instance
       ShellProspectCreator prospectCreator = new ShellProspectCreator();
+      OCVRequestPayloadWrapper reqRecord = new OCVRequestPayloadWrapper();
+      reqRecord.strRecordId = record.Id;
       Account accountInstance = prospectCreator.createShellProspect(
         shellProspectInfoInstance,
         recordTypeId,
-        record
+        reqRecord
       );
       return CCRMLeadConversionActions.convertCCRMLead(
         accountInstance.Id,
@@ -231,9 +186,7 @@ public with sharing class CCRMLeadConversionActionsHelper {
       );
     }
     // Throw custom exception
-    throw new CustomException(
-      'Error occured while trying to update Lead record.'
-    );
+    throw new CustomException(CAPCIS_LEAD_UPDATE_ERROR);
   }
 
   /**
@@ -280,7 +233,7 @@ public with sharing class CCRMLeadConversionActionsHelper {
    * @param errorMessage error message to log and create UI exception
    * @param leadId Lead Record Id
    */
-  private static void handleError(String errorMessage, String leadId) {
+  public static void handleError(String errorMessage, String leadId) {
     Logger.error(errorMessage + leadId);
     Logger.saveLog();
     // Throw custom exception
@@ -330,43 +283,37 @@ public with sharing class CCRMLeadConversionActionsHelper {
       if (result.isSuccess()) {
         return true;
       } else {
-        handleError(
-          'Error occured while updating lead record during conversion.',
-          record.Id
-        );
+        handleError(CAPCIS_LEAD_UPDATE_ERROR, record.Id);
       }
       return false;
     }
 
     /**
-     * @description create shell prospect after receiving response form cap API
+     * @description create shell prospect after receiving response from cap API
      * @name createShellProspect
      * @param shellProspectInfoInstance result from cap api response transformed into CustomerInfo wrapper
      * @param recordTypeId recordtype id of shell prospect
-     * @param leadRecord lead record
+     * @param reqRecord source SObject record i.e lead, Opportunity
      * @return shell prospect created for lead conversion
      */
     private Account createShellProspect(
       ShellProspectInfoWrapper shellProspectInfoInstance,
       String recordTypeId,
-      Lead leadRecord
+      OCVRequestPayloadWrapper reqRecord
     ) {
       Account shellProspectToInsert = new Account();
       List<User> userList = new List<User>();
       userList = getOCVUser();
       if (userList.isEmpty()) {
-        handleError(
-          'Error occured while fetching OCV Integration User.',
-          leadRecord.Id
-        );
+        handleError(OCV_USER_ERROR, reqRecord.strRecordId);
       }
       shellProspectToInsert = new Account();
       shellProspectToInsert.Source_System_ID__c = shellProspectInfoInstance.sourceSystemId;
       shellProspectToInsert.Source_System_Name__c = shellProspectInfoInstance.sourceSystemName;
       if (shellProspectInfoInstance.isIndividual) {
-        shellProspectToInsert.FirstName = leadRecord.FirstName;
-        shellProspectToInsert.LastName = leadRecord.LastName;
-        shellProspectToInsert.MiddleName = leadRecord.MiddleName;
+        shellProspectToInsert.FirstName = reqRecord.strFirstName;
+        shellProspectToInsert.LastName = reqRecord.strLastName;
+        shellProspectToInsert.MiddleName = reqRecord.strMiddleName;
       } else {
         shellProspectToInsert.Name = shellProspectInfoInstance.name;
       }
@@ -389,12 +336,183 @@ public with sharing class CCRMLeadConversionActionsHelper {
       );
       if (!result.isSuccess()) {
         handleError(
-          'Error occured while shell prospect creation during lead conversion :' +
-          result.getErrors()[0].getMessage(),
-          leadRecord.id
+          SHELL_PROSPECT_CREATION_ERROR + result.getErrors()[0].getMessage(),
+          reqRecord.strRecordId
         );
       }
       return shellProspectToInsert;
     }
+
+    /**
+     * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
+     * @name createCustomerRelationship
+     * @param shellProspectAccount shell prospect created after response from cap ocv maintain party API.
+     * @param reqRecord source SObject record i.e lead, Opportunity
+     */
+    private void createCustomerRelationship(
+      Account shellProspectAccount,
+      OCVRequestPayloadWrapper reqRecord
+    ) {
+      ID recordId = ID.valueOf(reqRecord.strRecordId);
+      List<Customer_Relationship__c> lstOfPrimaryNotes;
+      String recordQuery = 'Select Id, Territory__c,Territory__r.Primary_Franchise_Owner__c From ';
+      List<SObject> records = new List<SObject>();
+      if (
+        recordId.getSObjectType().getDescribe().getName() ==
+        MLCRMConstants.SOBJECT_LEAD
+      ) {
+        recordQuery += 'Lead WHERE Id = :recordId';
+      } else if (
+        recordId.getSObjectType().getDescribe().getName() ==
+        MLCRMConstants.SOBJECT_OPPORTUNITY
+      ) {
+        recordQuery += 'Opportunity WHERE Id = :recordId';
+      }
+      records = database.query(recordQuery);
+      Customer_Relationship__c objRelation = new Customer_Relationship__c();
+      objRelation.Preferred_Name__c =
+        reqRecord?.strFirstName +
+        ' ' +
+        reqRecord?.strLastName;
+      if (!String.isBlank(reqRecord.strMiddleName)) {
+        objRelation.Preferred_Name__c += ' ' + reqRecord.strMiddleName;
+      }
+      objRelation.Customer__c = shellProspectAccount.Id;
+      if (!records.isEmpty()) {
+        objRelation.Territory__c = (ID) records[0].get('Territory__c');
+      }
+      if (
+        !records.isEmpty() &&
+        records[0]
+          .getSobject('Territory__r')
+          ?.get('Primary_Franchise_Owner__c') != null
+      ) {
+        Id strPrimaryOwnerId = (Id) records[0]
+          .getSobject('Territory__r')
+          ?.get('Primary_Franchise_Owner__c');
+        lstOfPrimaryNotes = [
+          SELECT Id
+          FROM Customer_Relationship__c
+          WHERE
+            Relationship_To_Franchise__c = 'Primary'
+            AND Territory__r.Primary_Franchise_Owner__c = :strPrimaryOwnerId
+          LIMIT 1
+        ];
+      }
+      objRelation.OwnerId = reqRecord.strOwnerId;
+      objRelation.Relationship_To_Franchise__c = lstOfPrimaryNotes != null &&
+        !lstOfPrimaryNotes.isEmpty()
+        ? MLCRMConstants.SECONDARY
+        : MLCRMConstants.PRIMARY;
+      objRelation.Date_Relationship_Commenced__c = System.today();
+      Database.SaveResult result = Database.insert(objRelation, false);
+      if (!result.isSuccess()) {
+        handleError(
+          CUSTOMER_RELATIONSHIP_CREATION_ERROR +
+          result.getErrors()[0].getMessage(),
+          reqRecord.strRecordId
+        );
+      }
+    }
+  }
+
+  /**
+   * @description create shell prospect after receiving response from CAP API
+   * @name autoCreateShellProspect
+   * @param reqRecord Lead record in the form of OCVRequestPayloadWrapper.
+   * @param response result from cap api response
+   * @return MaintainPartyInfoWrapper
+   */
+  public static Account autoCreateShellProspect(
+    OCVRequestPayloadWrapper reqRecord,
+    DCRMMaintainPartyModel response
+  ) {
+    String recordTypeId = CCRMConstants.ACCOUNT_PERSON_RT_ID;
+    Account accountInstance;
+    ShellProspectCreator prospectCreator = new ShellProspectCreator();
+    ShellProspectInfoWrapper shellProspectInfoInstance = getMaintainPartyInfo(
+      response
+    );
+    accountInstance = prospectCreator.createShellProspect(
+      shellProspectInfoInstance,
+      recordTypeId,
+      reqRecord
+    );
+    prospectCreator.createCustomerRelationship(accountInstance, reqRecord);
+    return accountInstance;
+  }
+
+  /**
+   * @description create shell prospect after receiving response from CAP API
+   * @name getMaintainPartyExistingCustomerDetails
+   * @param reqRecord Lead record in the form of OCVRequestPayloadWrapper.
+   * @param response result from cap api response
+   * @return MaintainPartyInfoWrapper
+   */
+  public static MaintainPartyInformationWrapper.MaintainPartyInfoWrapper getMaintainPartyExistingCustomerDetails(
+    OCVRequestPayloadWrapper reqRecord,
+    DCRMMaintainPartyModel response
+  ) {
+    MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainPartyWrapper = new MaintainPartyInformationWrapper.MaintainPartyInfoWrapper();
+    ShellProspectCreator prospectCreator = new ShellProspectCreator();
+    ShellProspectInfoWrapper shellProspectInfoInstance = getMaintainPartyInfo(
+      response
+    );
+    String externalId =
+      shellProspectInfoInstance.sourceSystemName +
+      '_' +
+      shellProspectInfoInstance.sourceSystemId;
+    try {
+      maintainPartyWrapper.oppID = '';
+      maintainPartyWrapper = populateMaintainPartyDetails(
+        externalId,
+        shellProspectInfoInstance,
+        reqRecord
+      );
+      if (
+        maintainPartyWrapper.matchedResults == null ||
+        maintainPartyWrapper.matchedResults.isEmpty()
+      ) {
+        // Throw custom exception
+        handleError(
+          EXISTING_CUSTOMER_NOT_FOUND_ERROR + externalId,
+          reqRecord.strRecordId
+        );
+      }
+      maintainPartyWrapper.isNewCustomer = false;
+    } catch (Exception e) {
+      Logger.error(e.getMessage() + reqRecord.strRecordId);
+      Logger.saveLog();
+      throw new AuraHandledException(e.getMessage());
+    }
+    return maintainPartyWrapper;
+  }
+
+  /**
+   * @description payload request to OCV
+   * @name getRequestRecord
+   * @param record Lead record from lwc component.
+   * @return ocvRequest as OCVRequestPayloadWrapper
+   */
+  public static OCVRequestPayloadWrapper getRequestRecord(Lead record) {
+    OCVRequestPayloadWrapper ocvRequest = new OCVRequestPayloadWrapper();
+    ocvRequest.strOwnerId = record.ownerid;
+    ocvRequest.isValidStreet = record.Is_Valid_Address__c;
+    ocvRequest.strStreet = record.Street;
+    ocvRequest.strCity = record.City;
+    ocvRequest.strState = record.State;
+    ocvRequest.strCountry = record.Country;
+    ocvRequest.strPostalCode = record.PostalCode;
+    ocvRequest.strMobilePhone = record.MobilePhone;
+    ocvRequest.strHomePhone = record.Home_Phone__c;
+    ocvRequest.strWorkPhone = record.Work_Phone__c;
+    ocvRequest.strEmail = record.Email;
+    ocvRequest.strSalutation = record.Salutation;
+    ocvRequest.strFirstName = record.FirstName;
+    ocvRequest.strMiddleName = record.MiddleName;
+    ocvRequest.strLastName = record.LastName;
+    ocvRequest.strGender = record.Gender__c;
+    ocvRequest.strRecordId = record.Id;
+    return ocvRequest;
   }
 }

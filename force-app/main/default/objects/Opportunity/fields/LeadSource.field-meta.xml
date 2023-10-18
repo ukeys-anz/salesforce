@@ -6,6 +6,7 @@
     <description>Source of this opportunity, such as Advertisement or Trade Show.</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
 </CustomField>

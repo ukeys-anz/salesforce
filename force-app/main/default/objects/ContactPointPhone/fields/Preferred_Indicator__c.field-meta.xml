@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Source_OCV;Privacy_Personal_Information</complianceGroup>
     <description>Preferred Indicator for contact point phone</description>
     <externalId>false</externalId>
-    <label>Preferred Indicator</label>
+    <label>Preferred Phone</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>true</trackHistory>

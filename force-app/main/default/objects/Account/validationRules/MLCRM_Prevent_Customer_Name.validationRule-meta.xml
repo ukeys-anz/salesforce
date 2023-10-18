@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_Prevent_Customer_Name</fullName>
+    <active>true</active>
+    <description>CC-5187 Customer Name is Read-Only for ANZ ML Standard User</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+$Profile.Name = &apos;ANZ ML Standard User&apos;,
+RecordType.DeveloperName = &apos;PersonAccount&apos;,
+OR(ISCHANGED(Name),
+ISCHANGED(Salutation),
+ISCHANGED(FirstName),
+ISCHANGED(LastName),
+ISCHANGED(MiddleName),
+ISCHANGED(Suffix),
+ISCHANGED(Suffix__pc),
+ISCHANGED(PersonTitle))
+)</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>Customer Name cannot be updated.</errorMessage>
+</ValidationRule>

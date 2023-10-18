@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>PS to provide modification of Audit Fields (Ex- Created Date) for Data Migration into SF</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ML Data Loader Support Permission</label>
+    <license>Salesforce</license>
+    <userPermissions>
+        <name>CreateAuditFields</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>UpdateWithInactiveOwner</name>
+        <enabled>true</enabled>
+    </userPermissions>
+</PermissionSet>

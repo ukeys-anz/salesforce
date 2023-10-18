@@ -77,7 +77,7 @@
     <navType>Console</navType>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>CCRM_Account_Record_Page</content>
+        <content>CCRM_CLG_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <profile>ANZ CCRM Standard User</profile>
@@ -86,7 +86,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>CCRM_Account_Record_Page</content>
+        <content>CCRM_CLG_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <profile>Admin</profile>
@@ -95,7 +95,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>CCRM_Account_Record_Page</content>
+        <content>CCRM_CLG_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <profile>ANZ CCRM Standard User</profile>
@@ -104,7 +104,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>CCRM_Account_Record_Page</content>
+        <content>CCRM_CLG_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <profile>Admin</profile>
@@ -113,7 +113,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>CCRM_Account_Record_Page</content>
+        <content>CCRM_Individual_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <profile>ANZ CCRM Standard User</profile>
@@ -122,7 +122,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>CCRM_Account_Record_Page</content>
+        <content>CCRM_Individual_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <profile>ANZ CCRM Standard User</profile>
@@ -131,7 +131,43 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>CCRM_Account_Record_Page</content>
+        <content>DCRM_Interaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZ CCRM Standard User</profile>
+        <recordType>Interaction.CCRM_Interaction</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>DCRM_Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZ CCRM Standard User</profile>
+        <recordType>Interaction.CCRM_Interaction</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>DCRM_Interaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Interaction.CCRM_Interaction</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>DCRM_Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Interaction.CCRM_Interaction</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Individual_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <profile>Admin</profile>
@@ -140,7 +176,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>CCRM_Account_Record_Page</content>
+        <content>CCRM_Individual_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <profile>Admin</profile>
