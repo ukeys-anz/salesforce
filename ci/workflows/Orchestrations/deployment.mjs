@@ -1,7 +1,7 @@
 // Deployment Orchestration
 
 /// Import different function from different services.
-import { createDiff } from "../Services/artifact-service.mjs";
+import { createDiffOnDeploy } from "../Services/artifact-service.mjs";
 import {
   authenticate,
   unauthenticate
@@ -32,7 +32,7 @@ const SOURCE_DIR = `artifact-${BASE_REF}-${RUN_ID}`;
 /// functions
 
 const deployment = () => {
-  createDiff(SOURCE_DIR, BASE_REF_LAST_TAG, BASE_REF);
+  createDiffOnDeploy(SOURCE_DIR, BASE_REF, BASE_REF_LAST_TAG);
   authenticate(BASE_REF, SFDX_URL);
   const deployment = deployWithoutTest(BASE_REF, SOURCE_DIR);
   deployProgress(deployment);

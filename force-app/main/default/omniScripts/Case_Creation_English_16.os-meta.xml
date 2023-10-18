@@ -2501,7 +2501,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party email address&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -2543,7 +2543,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party mobile&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -6274,6 +6274,10 @@
     }, {
       &quot;thirdPartyRel&quot; : &quot;Relationship to complaint&quot;
     }, {
+      &quot;thirdPartyEmail&quot; : &quot;Nominated 3rd party email address&quot;
+    }, {
+      &quot;thirdPartyMobile&quot; : &quot;Nominated 3rd party mobile&quot;
+    }, {
       &quot;thirdPartyCountry&quot; : &quot;Nominated 3rd party country&quot;
     }, {
       &quot;thirdPartyState&quot; : &quot;Nominated 3rd party state&quot;
@@ -6377,5 +6381,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_16</uniqueName>
     <versionNumber>16.0</versionNumber>
-    <webComponentKey>0b128911-24d6-8cec-663f-e761abf4d35a</webComponentKey>
+    <webComponentKey>0b7dbbaa-a903-298c-cbfc-1157b1389474</webComponentKey>
 </OmniScript>

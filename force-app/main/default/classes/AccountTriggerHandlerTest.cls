@@ -440,4 +440,30 @@ private class AccountTriggerHandlerTest {
     ];
     System.assert(acc.BankruptCheckBox__c, 'Bankrupt flag should be true');
   }
+
+  @IsTest
+  static void testWasAnxCustomer() {
+    Account acc = new Account();
+    List<Account> accounts = new List<Account>{ acc };
+
+    AccountCommonActions.populateFieldsValue(accounts);
+    Assert.isFalse(
+      acc.Was_ANZx_Customer__c,
+      'Was_ANZx_Customer__c should be false when customer isn\t ANZx'
+    );
+
+    acc.ANZx_Customer__c = true;
+    AccountCommonActions.populateFieldsValue(accounts);
+    Assert.isTrue(
+      acc.Was_ANZx_Customer__c,
+      'Was_ANZx_Customer__c should be true when customer is ANZx'
+    );
+
+    acc.ANZx_Customer__c = false;
+    AccountCommonActions.populateFieldsValue(accounts);
+    Assert.isTrue(
+      acc.Was_ANZx_Customer__c,
+      'Was_ANZx_Customer__c should still be true when customer used to be (but no longer) ANZx'
+    );
+  }
 }
