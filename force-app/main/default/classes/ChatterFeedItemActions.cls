@@ -9,116 +9,13 @@ public with sharing class ChatterFeedItemActions {
   private static final String EDIT_ERROR = 'You cannot edit feed items.';
   private static final string FILE_ERROR = 'Files cannot be shared via chatter. Please remove the file from your message before you post.';
   private static final string IMAGE_ERROR = 'Images cannot be shared via chatter. Please remove the image from your message before you post.';
-  private static final string EXCESSIVE_LENGTH_ERROR = 'Error: Your post is too long';
 
   /**
    * @description Mask the comments where applicable and Handle Excessive Chatter Body
    * @param records FeedItem records from trigger
    */
   public static void maskDataInChatterFeed(List<FeedItem> records) {
-    List<Id> parentIdList = new List<Id>();
-
-    //creating this list for storing interaction ids for the parent.
-    List<Id> interactionaIdList = new List<Id>();
-
-    Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
-    Map<Id, Case> relatedCaseMap = new Map<Id, Case>();
-    Map<Id, Account> relatedAccMap = new Map<Id, Account>();
-
-    for (FeedItem record : records) {
-      if (record.parentId != null) {
-        if (record.parentId.getSObjectType() == Interaction.sObjectType) {
-          interactionaIdList.add(record.parentId);
-        } else {
-          parentIdList.add(record.parentId);
-        }
-      }
-    }
-
-    // Firing SOQL query only when parentIdList is notEmpty(), but not changing this code much as this is existing logic.
-    if (!parentIdList.isEmpty()) {
-      relatedCaseMap = new Map<Id, Case>(
-        [
-          SELECT Id, CaseNumber, RecordTypeId, Origin
-          FROM Case
-          WHERE Id IN :parentIdList
-        ]
-      );
-
-      relatedAccMap = new Map<Id, Account>(
-        [
-          SELECT Id, Name, ANZx_Customer__c
-          FROM Account
-          WHERE Id IN :parentIdList
-        ]
-      );
-    }
-
-    //Filtering Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call Interaction recordtypeids.
-    if (!interactionaIdList.isEmpty()) {
-      relatedInteractionMap = filteredInteractionMap(interactionaIdList);
-    }
-
-    for (FeedItem record : records) {
-      Case relatedCase = relatedCaseMap.get(record.parentId);
-      Account relatedAcc = relatedAccMap.get(record.parentId);
-
-      //Fetch Interaction Record for the feed comment
-      Interaction relatedInteraction = relatedInteractionMap.get(
-        record.parentId
-      );
-
-      if (
-        (relatedCase != null &&
-        CheckCaseRecordType.isANZPlusCaseType(relatedCase)) ||
-        (relatedAcc != null &&
-        relatedAcc.ANZx_Customer__c == true)
-      ) {
-        record.Body = TextUtils.maskDataAnzx(record.Body);
-        if (TextUtils.reactiveLogging(record.Body)) {
-          if (relatedCase != null) {
-            Logger.info(
-              'CaseNumber: ' +
-              relatedCase.CaseNumber +
-              '; Body: ' +
-              record.Body +
-              '; Reason for logging: User entered long digits without needing to mask'
-            );
-          } else {
-            Logger.info(
-              'Account Name: ' +
-              relatedAcc.Name +
-              '; Body: ' +
-              record.Body +
-              '; Reason for logging: User entered long digits without needing to mask'
-            );
-          }
-        }
-      } else if (relatedInteraction != null) {
-        //Added this to mask the number if the feed comment is greater than 15 for Interaction Record same as we are doing for Account and Case.
-        record.Body = TextUtils.maskDataAnzx(record.Body);
-      } else {
-        record.Body = TextUtils.maskData(record.Body);
-      }
-
-      if (record.type == 'ContentPost' && record.RelatedRecordId != null) {
-        record.addError(FILE_ERROR);
-      }
-
-      // Handle Excessive Chatter Body
-      // Limit of Case CommentBody is 4000 bytes. We are allowing small buffer
-      // for the CreatedDate string which is pre-pended during conversion
-      if (
-        relatedCase != null &&
-        relatedCase.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID
-      ) {
-        Blob bodyBlob = Blob.valueOf(record.Body);
-        if (bodyBlob.size() >= 3970) {
-          record.addError(EXCESSIVE_LENGTH_ERROR);
-        }
-      }
-    }
-    Logger.saveLog();
+    FeedMaskUtils.maskDataInChatterFeedAndComment(records);
   }
 
   /**
