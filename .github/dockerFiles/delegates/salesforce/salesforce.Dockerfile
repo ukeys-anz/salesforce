@@ -74,9 +74,4 @@ COPY package-lock.json $HOME/.local/share/sfdx
 WORKDIR $HOME/.local/share/sfdx
 RUN npm ci -f
 
-COPY ci.npmrc $HOME/.local/share/sfdx
-RUN echo y | sfdx plugins:install https://${ARTIFACTORY}:443/artifactory/api/npm/npmjs-org/sfdx-git-delta/-/sfdx-git-delta-5.26.2.tgz
-
-RUN sfdx plugins:link node_modules/sfdx-git-delta/bin
-
 USER delegate

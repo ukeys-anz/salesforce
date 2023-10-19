@@ -15,7 +15,7 @@ jobs:
       ARTIFACTORY: "artifactory.gcp.anz"
       CONFTEST_VERSION: "v0.32.0"
       DOCKER_COMPOSE_VERSION: "1.25.4"
-      DOCKER_IMAGE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.1.0"
+      DOCKER_IMAGE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.0"
       DOCKER_IMAGE_BASE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate-base:latest"
       DOCKER_IMAGE_BASE_SOURCE: "hub.artifactory.gcp.anz/harness/delegate-immutable:23.07.79904.minimal"
       DOCKER_VERSION: "19.03.8"
@@ -55,9 +55,7 @@ jobs:
       - name: "Build ${{ env.DOCKER_IMAGE_BASE }} container"
         run: |
           cd ".github/dockerFiles/delegates"
-          DOCKER_FILE="immutable.Dockerfile"
-          sed -i '/immutable.entrypoint.sh/d' "${DOCKER_FILE}"
-          sed -i '/^\s*CMD/d' "${DOCKER_FILE}"
+          DOCKER_FILE="base.Dockerfile"
           docker build \
             . \
             --no-cache \
@@ -89,9 +87,7 @@ jobs:
       - name: "Build ${{ env.DOCKER_IMAGE }} container"
         run: |
           cd ".github/dockerFiles/delegates/salesforce"
-          DOCKER_FILE="immutable.Dockerfile"
-          sed -i '/immutable.entrypoint.sh/d' "${DOCKER_FILE}"
-          sed -i '/^\s*CMD/d' "${DOCKER_FILE}"
+          DOCKER_FILE="salesforce.Dockerfile"
           docker build \
             . \
             --no-cache \
