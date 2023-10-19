@@ -438,10 +438,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Systemic_Issue_Category__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>IDR_Possible_Systemic_Issues__c</field>
             </layoutItems>
             <layoutItems>

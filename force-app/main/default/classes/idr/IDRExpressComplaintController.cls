@@ -19,7 +19,17 @@ public with sharing class IDRExpressComplaintController {
           IDR_Issue_Type__c,
           Product__c,
           Product__r.Name,
+          IDR_Product_2__c,
+          IDR_Product_2__r.Name,
+          IDR_Product_3__c,
+          IDR_Product_3__r.Name,
           IDR_Sub_Issue_Type__c,
+          IDR_Subsequent_Issue_2__c,
+          IDR_Subsequent_Issue_3__c,
+          IDR_Second_Issue__c,
+          IDR_Third_Issue__c,
+          IDR_Issue_Type_2__c,
+          IDR_Issue_Type_3__c,
           IDR_Description_of_Issue__c,
           IDR_Customer_Desired_Outcome__c,
           IDR_Is_there_another_issue__c,
@@ -34,7 +44,12 @@ public with sharing class IDRExpressComplaintController {
           Is_Active__c,
           IDR_Channel_Received__c,
           IDR_Priority__c,
-          IDR_Written_Response_Requested__c
+          IDR_Written_Response_Requested__c,
+          IDR_Complaint_Remedy_2__c,
+          IDR_Complaint_Remedy_3__c,
+          IDR_Complaint_Sub_Remedy_1__c,
+          IDR_Complaint_Sub_Remedy_2__c,
+          IDR_Complaint_Sub_Remedy_3__c
         FROM Known_Issues__c
         WHERE Is_Active__c = TRUE
       ];
