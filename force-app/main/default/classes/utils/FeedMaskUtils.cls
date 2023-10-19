@@ -38,9 +38,7 @@ public with sharing class FeedMaskUtils {
       String feedRecordBody;
       if (record.getSObjectType() == FeedItem.getSObjectType()) {
         feedItemObj = (FeedItem) record;
-      } else if (
-        record.getSObjectType() == Schema.FeedComment.getSObjectType()
-      ) {
+      } else if (record.getSObjectType() == FeedComment.getSObjectType()) {
         feedCommentObj = (FeedComment) record;
       }
       Id parentIdOfFeedRecord = (Id) record.get('ParentId');
