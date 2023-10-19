@@ -567,9 +567,13 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       monthlyExpense.categoryName = (String) inputMap.get('categoryName' + i);
       monthlyExpense.control = (String) inputMap.get('control' + i);
       monthlyExpense.review = (String) inputMap.get('review' + i);
-      monthlyExpense.statedMonthlyAverageAmount = stringToMoney(
-        (String) inputMap.get('statedMonthlyAverageAmount' + i)
-      );
+      if ((String) inputMap.get('statedMonthlyAverageAmount' + i) != 'null') {
+        monthlyExpense.statedMonthlyAverageAmount = stringToMoney(
+          (String) inputMap.get('statedMonthlyAverageAmount' + i)
+        );
+      } else {
+        monthlyExpense.statedMonthlyAverageAmount = stringToMoney('0.0');
+      }
       monthlyExpense.leafNode = Boolean.valueOf(
         (String) inputMap.get('leafNode' + i)
       );
