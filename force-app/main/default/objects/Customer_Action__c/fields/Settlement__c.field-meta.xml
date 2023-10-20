@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Settlement__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
+    <description>Reference of associated Settlement Id (Salesforce ID)</description>
+    <externalId>false</externalId>
+    <label>Settlement</label>
+    <referenceTo>Settlement__c</referenceTo>
+    <relationshipLabel>Customer Actions</relationshipLabel>
+    <relationshipName>Customer_Actions</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

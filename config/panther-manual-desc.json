@@ -1437,6 +1437,18 @@
         "Last_CAP_Load_Date__c"
       ]
     },
+    "Customer_Action__c": {
+      "IA-2415840": [
+        "Settlement__c",
+        "Task_Id__c",
+        "Task_Name__c",
+        "Category__c",
+        "Status__c",
+        "Assigned_to_Role__c"
+      ],
+      "IA-2530753": ["Created__c", "Completed__c"],
+      "IA-2415998": ["Eligible_to_Complete__c"]
+    },
     "CustomerOnboardingApplication__c": {
       "IA-2594111": [
         "EquifaxEnquiryId__c",
@@ -2594,6 +2606,16 @@
         "LastModifiedDate"
       ]
     },
+    "Proof_of_Insurance__c": {
+      "IA-2415840": [
+        "External_Id__c",
+        "Mortgage_Contract_ID__c",
+        "Property_ID__c",
+        "Document_Id__c",
+        "Document_File_Version__c",
+        "Settlement_ID__c"
+      ]
+    },
     "qualtrics__Survey_Response__c": {
       "IA-2415840": [
         "Additional_Feedback__c",
@@ -3034,6 +3056,26 @@
         "SpanId__c",
         "RecordsJson__c"
       ]
+    },
+    "Settlement__c": {
+      "IA-2415840": ["Settlement_ID__c", "Nominated_Date__c"],
+      "IA-2594111": ["Loan_Application_Number__c"],
+      "IA-2415983": ["Status__c", "Nominated_Account_State__c"],
+      "IA-2530753": [
+        "Created__c",
+        "Last_Modified__c",
+        "Status_Last_Modified_Date__c",
+        "Credit_Assessment_Expiry_date__c",
+        "Type__c"
+      ],
+      "IA-2415720": [
+        "Nominated_BSB__c",
+        "Nominated_Account_Number__c",
+        "Repayment_Account_Number__c"
+      ],
+      "IA-2415998": ["Nominated_by__c"],
+      "IA-2427117": ["Repayment_Id__c", "Frequency__c"],
+      "IA-2426363": ["Repayment_BSB__c"]
     },
     "Task": {
       "IA-2453595": [
