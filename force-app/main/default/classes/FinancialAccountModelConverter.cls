@@ -35,7 +35,7 @@ public with sharing class FinancialAccountModelConverter {
         sourceAccount.balances.current_balance
       );
 
-      // Ownership conversion - Added as part of ANZX-120128 Shivam
+      // Ownership conversion - Added as part of ANZX-120128
       if (sourceAccount.ownership != null) {
         destAccount.ownership = convertOwnership(sourceAccount.ownership);
       }

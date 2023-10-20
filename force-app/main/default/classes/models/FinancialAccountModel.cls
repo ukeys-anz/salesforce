@@ -78,8 +78,7 @@ public with sharing class FinancialAccountModel extends CalloutModel {
     public String closed_at;
     public Double interest_rate;
     public List<TieredRates> tiered_rates;
-    //Added to consume ownership from V1 - ANZX-120128 Shivam
-    public Ownership ownership;
+    public Ownership ownership; //Added to consume ownership from V1 - ANZX-120128
   }
 
   /**
