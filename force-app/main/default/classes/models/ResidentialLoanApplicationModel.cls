@@ -746,9 +746,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         if (employment?.startDate != null) {
           return employment.startDate.year +
-            '-' +
+            '/' +
             employment.startDate.month +
-            '-' +
+            '/' +
             employment.startDate.day;
         } else {
           return null;
@@ -774,10 +774,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
             formattedDay = '0' + formattedDay;
           }
 
-          return formattedMonth +
-            '-' +
-            formattedDay +
-            '-' +
+          return formattedDay +
+            '/' +
+            formattedMonth +
+            '/' +
             employment.startDate.year;
         } else {
           return null;

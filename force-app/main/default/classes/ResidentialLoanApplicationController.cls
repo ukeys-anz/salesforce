@@ -3,7 +3,12 @@
  * @description controller class for flexcard to show SOP
  * @since April 2023
  */
+
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssMethodCount')
 global with sharing class ResidentialLoanApplicationController implements omnistudio.VlocityOpenInterface, Callable {
+  private Boolean hasValidationError = false;
+  private String validationError = '';
+  private Set<String> errorMsg = new Set<String>();
   /**
    * @param action String value of local method to invoke
    * @param args arg map that will contain input, output and options map
@@ -176,7 +181,15 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
+    outMap.clear();
     SOPCreateIncomeModel model = generateCreateIncomeModel(inputMap);
+
+    if (this.hasValidationError) {
+      outMap.put('hasValidationError', true);
+      this.validationError = String.join(this.errorMsg, '<br \\\\>');
+      outMap.put('validationError', this.validationError);
+      return false;
+    }
 
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
@@ -194,6 +207,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       publishRLARecordMonitoringToast(loanRec[0]);
 
+      outMap.put('hasValidationError', false);
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
@@ -207,7 +221,14 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
+    outMap.clear();
     SOPUpdateIncomeModel model = generateUpdateIncomeModel(inputMap);
+    if (this.hasValidationError) {
+      outMap.put('hasValidationError', true);
+      this.validationError = String.join(this.errorMsg, '<br \\\\>');
+      outMap.put('validationError', this.validationError);
+      return false;
+    }
 
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
@@ -225,7 +246,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         loanId
       );
       publishRLARecordMonitoringToast(loanRec[0]);
-
+      outMap.put('hasValidationError', false);
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
@@ -275,6 +296,11 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     }
   }
 
+  private void setValidationError(String errorMsg) {
+    this.hasValidationError = true;
+    this.errorMsg.add(errorMsg);
+  }
+
   private Boolean editExpense(
     Map<String, Object> inputMap,
     Map<String, Object> outMap,
@@ -297,8 +323,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
 
       publishRLARecordMonitoringToast(loanRec[0]);
 
+      outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
+      outMap.put('toast', 'Error');
       return false;
     }
   }
@@ -312,64 +340,86 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> inputMap
   ) {
     SOPCreateIncomeModel model = new SOPCreateIncomeModel();
-    model.parent = (String) inputMap.get('sopId');
-    Integer partySize = Integer.valueOf((String) inputMap.get('partySize'));
-    if (partySize > 1) {
-      model.income.employment.partyId = (String) inputMap.get('partyId');
-    } else {
-      model.income.employment.partyId = (String) inputMap.get(
-        'firstUserPartyId'
-      );
+    try {
+      model.parent = (String) inputMap.get('sopId');
+      Integer partySize = Integer.valueOf((String) inputMap.get('partySize'));
+      if (partySize > 1) {
+        model.income.employment.partyId = (String) inputMap.get('partyId');
+      } else {
+        model.income.employment.partyId = (String) inputMap.get(
+          'firstUserPartyId'
+        );
+      }
+      model.income.employment.businessName = (String) inputMap.get('employer');
+      model.income.employment.basis = (String) inputMap.get('employmentType');
+      model.income.employment.type = 'EMPLOYMENT_TYPE_PAYG';
+
+      if (!validateEmploymentDetail(model.income.employment)) {
+        setValidationError(BOHConstants.MANDATORY_FIELD_MISSING);
+      }
+      String startDateStr = (String) inputMap.get('startDate');
+      setEmploymentStartDate(model.income.employment, startDateStr);
+
+      SOPCreateIncomeModel.SOPIncomeEditType baseSalary = new SOPCreateIncomeModel.SOPIncomeEditType();
+      baseSalary.type = 'INCOME_TYPE_BASE_SALARY';
+      baseSalary.frequency = (String) inputMap.get('baseSalaryFrequency');
+      baseSalary.amount = stringToMoney((String) inputMap.get('salaryAmount'));
+      baseSalary.amountType = (String) inputMap.get('salaryTax');
+      if (!validateSOPIncomeEditType(baseSalary, false)) {
+        setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+      }
+      model.income.details.add(baseSalary);
+
+      String showOvertime = (String) inputMap.get('showOvertime');
+      if (showOvertime == 'true') {
+        SOPCreateIncomeModel.SOPIncomeEditType overtime = new SOPCreateIncomeModel.SOPIncomeEditType();
+        overtime.type = 'INCOME_TYPE_OVERTIME';
+        overtime.frequency = (String) inputMap.get('overtimeFrequency');
+        overtime.amount = stringToMoney(
+          (String) inputMap.get('overtimeAmount')
+        );
+        overtime.amountType = (String) inputMap.get('overtimeTax');
+        if (!validateSOPIncomeEditType(overtime, false)) {
+          setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+        }
+        model.income.details.add(overtime);
+      }
+
+      String showBonus = (String) inputMap.get('showBonus');
+      if (showBonus == 'true') {
+        SOPCreateIncomeModel.SOPIncomeEditType bonus = new SOPCreateIncomeModel.SOPIncomeEditType();
+        bonus.type = 'INCOME_TYPE_BONUS';
+        bonus.amount = stringToMoney((String) inputMap.get('bonusAmount'));
+        bonus.amountType = (String) inputMap.get('bonusTax');
+        String paymentsStr = (String) inputMap.get('bonusPayments');
+        bonus.bonusPayments = paymentsStr.isNumeric()
+          ? Integer.valueOf(paymentsStr)
+          : null;
+        if (
+          !validateSOPIncomeEditType(bonus, true) || !paymentsStr.isNumeric()
+        ) {
+          setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+        }
+        model.income.details.add(bonus);
+      }
+
+      String showCommision = (String) inputMap.get('showCommision');
+      if (showCommision == 'true') {
+        SOPCreateIncomeModel.SOPIncomeEditType commission = new SOPCreateIncomeModel.SOPIncomeEditType();
+        commission.type = 'INCOME_TYPE_COMMISSION';
+        commission.frequency = (String) inputMap.get('commissionFrequency');
+        commission.amount = stringToMoney(
+          (String) inputMap.get('commissionAmount')
+        );
+        commission.amountType = (String) inputMap.get('commissionTax');
+        if (!validateSOPIncomeEditType(commission, false)) {
+          setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+        }
+        model.income.details.add(commission);
+      }
+    } catch (Exception e) {
+      setValidationError('Unexpected error. Please contact admin.');
     }
-    model.income.employment.businessName = (String) inputMap.get('employer');
-    model.income.employment.basis = (String) inputMap.get('employmentType');
-    String startDateStr = (String) inputMap.get('startDate');
-    List<String> dateParts = startDateStr.split('-');
-    model.income.employment.startDate.month = Integer.valueOf(dateParts[0]);
-    model.income.employment.startDate.day = Integer.valueOf(dateParts[1]);
-    model.income.employment.startDate.year = Integer.valueOf(dateParts[2]);
-    model.income.employment.type = 'EMPLOYMENT_TYPE_PAYG';
-
-    SOPCreateIncomeModel.SOPIncomeEditType baseSalary = new SOPCreateIncomeModel.SOPIncomeEditType();
-    baseSalary.type = 'INCOME_TYPE_BASE_SALARY';
-    baseSalary.frequency = (String) inputMap.get('baseSalaryFrequency');
-    baseSalary.amount = stringToMoney((String) inputMap.get('salaryAmount'));
-    baseSalary.amountType = (String) inputMap.get('salaryTax');
-    model.income.details.add(baseSalary);
-
-    String showOvertime = (String) inputMap.get('showOvertime');
-    if (showOvertime == 'true') {
-      SOPCreateIncomeModel.SOPIncomeEditType overtime = new SOPCreateIncomeModel.SOPIncomeEditType();
-      overtime.type = 'INCOME_TYPE_OVERTIME';
-      overtime.frequency = (String) inputMap.get('overtimeFrequency');
-      overtime.amount = stringToMoney((String) inputMap.get('overtimeAmount'));
-      overtime.amountType = (String) inputMap.get('overtimeTax');
-      model.income.details.add(overtime);
-    }
-
-    String showBonus = (String) inputMap.get('showBonus');
-    if (showBonus == 'true') {
-      SOPCreateIncomeModel.SOPIncomeEditType bonus = new SOPCreateIncomeModel.SOPIncomeEditType();
-      bonus.type = 'INCOME_TYPE_BONUS';
-      bonus.amount = stringToMoney((String) inputMap.get('bonusAmount'));
-      bonus.amountType = (String) inputMap.get('bonusTax');
-      String paymentsStr = (String) inputMap.get('bonusPayments');
-      bonus.bonusPayments = Integer.valueOf(paymentsStr);
-      model.income.details.add(bonus);
-    }
-
-    String showCommision = (String) inputMap.get('showCommision');
-    if (showCommision == 'true') {
-      SOPCreateIncomeModel.SOPIncomeEditType commission = new SOPCreateIncomeModel.SOPIncomeEditType();
-      commission.type = 'INCOME_TYPE_COMMISSION';
-      commission.frequency = (String) inputMap.get('commissionFrequency');
-      commission.amount = stringToMoney(
-        (String) inputMap.get('commissionAmount')
-      );
-      commission.amountType = (String) inputMap.get('commissionTax');
-      model.income.details.add(commission);
-    }
-
     return model;
   }
 
@@ -377,65 +427,86 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> inputMap
   ) {
     SOPUpdateIncomeModel model = new SOPUpdateIncomeModel();
-    model.etag = (String) inputMap.get('etag');
-    model.name = (String) inputMap.get('incomeName');
-    model.uid = (String) inputMap.get('uid');
-    Integer partySize = Integer.valueOf((String) inputMap.get('partySize'));
-    if (partySize > 1) {
-      model.employment.partyId = (String) inputMap.get('partyId');
-    } else {
-      model.employment.partyId = (String) inputMap.get('firstUserPartyId');
+    try {
+      model.etag = (String) inputMap.get('etag');
+      model.name = (String) inputMap.get('incomeName');
+      model.uid = (String) inputMap.get('uid');
+      Integer partySize = Integer.valueOf((String) inputMap.get('partySize'));
+      if (partySize > 1) {
+        model.employment.partyId = (String) inputMap.get('partyId');
+      } else {
+        model.employment.partyId = (String) inputMap.get('firstUserPartyId');
+      }
+
+      model.employment.businessName = (String) inputMap.get('employer');
+      model.employment.basis = (String) inputMap.get('employmentType');
+      model.employment.type = 'EMPLOYMENT_TYPE_PAYG';
+      if (!validateEmploymentDetail(model.employment)) {
+        setValidationError(BOHConstants.MANDATORY_FIELD_MISSING);
+      }
+      String startDateStr = (String) inputMap.get('startDate');
+      setEmploymentStartDate(model.employment, startDateStr);
+
+      SOPCreateIncomeModel.SOPIncomeEditType baseSalary = new SOPCreateIncomeModel.SOPIncomeEditType();
+      baseSalary.type = 'INCOME_TYPE_BASE_SALARY';
+      baseSalary.frequency = (String) inputMap.get('baseSalaryFrequency');
+      baseSalary.amount = stringToMoney((String) inputMap.get('salaryAmount'));
+      baseSalary.amountType = (String) inputMap.get('salaryTax');
+      if (!validateSOPIncomeEditType(baseSalary, false)) {
+        setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+      }
+      model.details.add(baseSalary);
+
+      String showOvertime = (String) inputMap.get('showOvertime');
+      if (showOvertime == 'true') {
+        SOPCreateIncomeModel.SOPIncomeEditType overtime = new SOPCreateIncomeModel.SOPIncomeEditType();
+        overtime.type = 'INCOME_TYPE_OVERTIME';
+        overtime.frequency = (String) inputMap.get('overtimeFrequency');
+        overtime.amount = stringToMoney(
+          (String) inputMap.get('overtimeAmount')
+        );
+        overtime.amountType = (String) inputMap.get('overtimeTax');
+        if (!validateSOPIncomeEditType(overtime, false)) {
+          setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+        }
+        model.details.add(overtime);
+      }
+
+      String showBonus = (String) inputMap.get('showBonus');
+      if (showBonus == 'true') {
+        SOPCreateIncomeModel.SOPIncomeEditType bonus = new SOPCreateIncomeModel.SOPIncomeEditType();
+        bonus.type = 'INCOME_TYPE_BONUS';
+        bonus.amount = stringToMoney((String) inputMap.get('bonusAmount'));
+        bonus.amountType = (String) inputMap.get('bonusTax');
+        String paymentsStr = (String) inputMap.get('bonusPayments');
+        bonus.bonusPayments = paymentsStr.isNumeric()
+          ? Integer.valueOf(paymentsStr)
+          : null;
+        if (
+          !validateSOPIncomeEditType(bonus, true) || !paymentsStr.isNumeric()
+        ) {
+          setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+        }
+        model.details.add(bonus);
+      }
+
+      String showCommision = (String) inputMap.get('showCommision');
+      if (showCommision == 'true') {
+        SOPCreateIncomeModel.SOPIncomeEditType commission = new SOPCreateIncomeModel.SOPIncomeEditType();
+        commission.type = 'INCOME_TYPE_COMMISSION';
+        commission.frequency = (String) inputMap.get('commissionFrequency');
+        commission.amount = stringToMoney(
+          (String) inputMap.get('commissionAmount')
+        );
+        commission.amountType = (String) inputMap.get('commissionTax');
+        if (!validateSOPIncomeEditType(commission, false)) {
+          setValidationError(BOHConstants.MANDATORY_DETAIL_MISSING);
+        }
+        model.details.add(commission);
+      }
+    } catch (Exception e) {
+      setValidationError('Unexpected error. Please contact admin.');
     }
-
-    model.employment.businessName = (String) inputMap.get('employer');
-    model.employment.basis = (String) inputMap.get('employmentType');
-    String startDateStr = (String) inputMap.get('startDate');
-    List<String> dateParts = startDateStr.split('-');
-    model.employment.startDate.month = Integer.valueOf(dateParts[0]);
-    model.employment.startDate.day = Integer.valueOf(dateParts[1]);
-    model.employment.startDate.year = Integer.valueOf(dateParts[2]);
-    model.employment.type = 'EMPLOYMENT_TYPE_PAYG';
-
-    SOPCreateIncomeModel.SOPIncomeEditType baseSalary = new SOPCreateIncomeModel.SOPIncomeEditType();
-    baseSalary.type = 'INCOME_TYPE_BASE_SALARY';
-    baseSalary.frequency = (String) inputMap.get('baseSalaryFrequency');
-    baseSalary.amount = stringToMoney((String) inputMap.get('salaryAmount'));
-    baseSalary.amountType = (String) inputMap.get('salaryTax');
-    model.details.add(baseSalary);
-
-    String showOvertime = (String) inputMap.get('showOvertime');
-    if (showOvertime == 'true') {
-      SOPCreateIncomeModel.SOPIncomeEditType overtime = new SOPCreateIncomeModel.SOPIncomeEditType();
-      overtime.type = 'INCOME_TYPE_OVERTIME';
-      overtime.frequency = (String) inputMap.get('overtimeFrequency');
-      overtime.amount = stringToMoney((String) inputMap.get('overtimeAmount'));
-      overtime.amountType = (String) inputMap.get('overtimeTax');
-      model.details.add(overtime);
-    }
-
-    String showBonus = (String) inputMap.get('showBonus');
-    if (showBonus == 'true') {
-      SOPCreateIncomeModel.SOPIncomeEditType bonus = new SOPCreateIncomeModel.SOPIncomeEditType();
-      bonus.type = 'INCOME_TYPE_BONUS';
-      bonus.amount = stringToMoney((String) inputMap.get('bonusAmount'));
-      bonus.amountType = (String) inputMap.get('bonusTax');
-      String paymentsStr = (String) inputMap.get('bonusPayments');
-      bonus.bonusPayments = Integer.valueOf(paymentsStr);
-      model.details.add(bonus);
-    }
-
-    String showCommision = (String) inputMap.get('showCommision');
-    if (showCommision == 'true') {
-      SOPCreateIncomeModel.SOPIncomeEditType commission = new SOPCreateIncomeModel.SOPIncomeEditType();
-      commission.type = 'INCOME_TYPE_COMMISSION';
-      commission.frequency = (String) inputMap.get('commissionFrequency');
-      commission.amount = stringToMoney(
-        (String) inputMap.get('commissionAmount')
-      );
-      commission.amountType = (String) inputMap.get('commissionTax');
-      model.details.add(commission);
-    }
-
     return model;
   }
 
@@ -443,24 +514,29 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     SOPMoney amount = new SOPMoney();
     amount.currencyCode = 'AUD';
 
-    List<String> parts = amountStr.split('\\.');
-    amount.units = parts[0];
-    if (parts.size() > 1) {
-      // If the fractional part exists
-      String fractionalPart = parts[1];
+    if (!String.isBlank(amountStr)) {
+      List<String> parts = amountStr.split('\\.');
 
-      // Fill up to 9 decimal places (nanos)
-      while (fractionalPart.length() < 9) {
-        fractionalPart += '0';
+      if (parts.size() > 0) {
+        amount.units = parts[0];
       }
+      if (parts.size() > 1) {
+        // If the fractional part exists
+        String fractionalPart = parts[1];
 
-      // Cut down to 9 decimal places (if needed)
-      fractionalPart = fractionalPart.substring(0, 9);
+        // Fill up to 9 decimal places (nanos)
+        while (fractionalPart.length() < 9) {
+          fractionalPart += '0';
+        }
 
-      // Convert to integer
-      amount.nanos = Integer.valueOf(fractionalPart);
-    } else {
-      amount.nanos = 0;
+        // Cut down to 9 decimal places (if needed)
+        fractionalPart = fractionalPart.substring(0, 9);
+
+        // Convert to integer
+        amount.nanos = Integer.valueOf(fractionalPart);
+      } else {
+        amount.nanos = 0;
+      }
     }
     return amount;
   }
@@ -491,9 +567,13 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       monthlyExpense.categoryName = (String) inputMap.get('categoryName' + i);
       monthlyExpense.control = (String) inputMap.get('control' + i);
       monthlyExpense.review = (String) inputMap.get('review' + i);
-      monthlyExpense.statedMonthlyAverageAmount = stringToMoney(
-        (String) inputMap.get('statedMonthlyAverageAmount' + i)
-      );
+      if ((String) inputMap.get('statedMonthlyAverageAmount' + i) != 'null') {
+        monthlyExpense.statedMonthlyAverageAmount = stringToMoney(
+          (String) inputMap.get('statedMonthlyAverageAmount' + i)
+        );
+      } else {
+        monthlyExpense.statedMonthlyAverageAmount = stringToMoney('0.0');
+      }
       monthlyExpense.leafNode = Boolean.valueOf(
         (String) inputMap.get('leafNode' + i)
       );
@@ -536,5 +616,69 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       return;
     }
     BOHService.setToReassessmentIsRequired(loan.Id);
+  }
+
+  /**
+   * @description validate income forms
+   * @param incomeType form contains information of a income type
+   * @param isBonus boolean to indicate bonus payment
+   * @return true if all the mandatory fields have value
+   */
+  private static Boolean validateSOPIncomeEditType(
+    SOPCreateIncomeModel.SOPIncomeEditType incomeType,
+    Boolean isBonus
+  ) {
+    if (
+      incomeType.amount.units == 'null' || String.isBlank(incomeType.amountType)
+    ) {
+      return false;
+    }
+    if (!isBonus && String.isBlank(incomeType.frequency)) {
+      return false;
+    }
+    if (isBonus && !(incomeType.bonusPayments > 0)) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * @description validate employment detail
+   * @param employment `SOPCreateIncomeModel.SOPEmploymentDetail`
+   * @return true if the employment detail is valid
+   */
+  private static Boolean validateEmploymentDetail(
+    SOPCreateIncomeModel.SOPEmploymentDetail employment
+  ) {
+    if (
+      String.isBlank(employment.partyId) ||
+      String.isBlank(employment.businessName) ||
+      String.isBlank(employment.basis)
+    ) {
+      return false;
+    }
+    return true;
+  }
+  /**
+   * @description  set the emplyment start date for add/edit income
+   * @param employment `SOPCreateIncomeModel.SOPEmploymentDetail
+   * @param startDateStr start time of employment
+   */
+  private void setEmploymentStartDate(
+    SOPCreateIncomeModel.SOPEmploymentDetail employment,
+    String startDateStr
+  ) {
+    if (String.isBlank(startDateStr) || startDateStr == 'null') {
+      setValidationError(BOHConstants.MANDATORY_FIELD_MISSING);
+      return;
+    }
+    if (startDateStr != null && Date.parse(startDateStr) > Date.today()) {
+      setValidationError(BOHConstants.START_DATE_ERROR);
+      return;
+    }
+    List<String> dateParts = startDateStr.split('/');
+    employment.startDate.day = Integer.valueOf(dateParts[0]);
+    employment.startDate.month = Integer.valueOf(dateParts[1]);
+    employment.startDate.year = Integer.valueOf(dateParts[2]);
   }
 }
