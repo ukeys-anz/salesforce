@@ -23,6 +23,12 @@ public with sharing class FinancialAccountController {
     'ACCOUNT_STATE_CLOSED' => 'Closed' // the account is closed
   };
 
+  //Map of fabric ownership and user friendly names to map them to
+  private static final Map<String, String> FABRIC_OWNERSHIP = new Map<String, String>{
+    'OWNERSHIP_TYPE_MULTIPARTY' => 'Multi-party', // its a joint account
+    'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single' // its an individual account
+  };
+
   /**
    * @description The Financial Account component uses this to fetch the records to display.
    * This makes the callout to fabric to fetch data
@@ -71,12 +77,22 @@ public with sharing class FinancialAccountController {
           ? null
           : Date.valueOf(finAccount.closed_at);
 
+        //Added ownership field in order to show on UI if financial account not found in database
+        String ownership;
+        if (finAccount.ownership != null) {
+          ownership = FABRIC_OWNERSHIP.get(finAccount.ownership.type);
+        }
+
+        //Fetch Financial Account from Database
+        FinServ__FinancialAccount__c finAccountFromDatabase = finAccNumberToFinancialAccountMap.get(
+          finAccount.account_number
+        );
+
         financialAccounts.add(
           new FinServ__FinancialAccount__c(
-            Id = finAccNumberToFinancialAccountMap.get(
-                finAccount.account_number
-              )
-              .Id,
+            Id = finAccountFromDatabase == null
+              ? null
+              : finAccountFromDatabase.Id,
             Name = finAccount.name,
             FinServ__FinancialAccountNumber__c = finAccount.account_number,
             FinServ__Balance__c = finAccount.balance.value,
@@ -88,16 +104,16 @@ public with sharing class FinancialAccountController {
             RecordType = getAccountRecordType(
               finAccount.marketing_product.code
             ),
-            FinServ__Ownership__c = finAccNumberToFinancialAccountMap.get(
-                finAccount.account_number
-              )
-              .Ownership__c
+            FinServ__Ownership__c = finAccountFromDatabase == null
+              ? ownership
+              : finAccountFromDatabase.Ownership__c
           )
         );
 
         if (
-          finAccNumberToFinancialAccountMap.keySet()
-            .contains(finAccount.account_number)
+          finAccNumberToFinancialAccountMap.containsKey(
+            finAccount.account_number
+          )
         ) {
           financialAccountsUpdate.add(
             new FinServ__FinancialAccount__c(
