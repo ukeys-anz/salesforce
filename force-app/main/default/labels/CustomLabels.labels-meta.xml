@@ -390,6 +390,14 @@
         <value>callout:SF_MS_Fabric/credit-assessment/v1/deleteincome</value>
     </labels>
     <labels>
+        <fullName>MS_Update_Expense</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Update_Expense</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/expenses</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Transactions</fullName>
         <categories>MS</categories>
         <language>en_US</language>

@@ -82,6 +82,24 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
 
   /**
    * @param ocvId ocv id of the customer account
+   * @param expenseBody expense edited information
+   * @param loanId of the working loan application
+   * @description fetches updated expense details and deserialized to a model
+   */
+  public void editExpense(String ocvId, String expenseBody, String loanId) {
+    Service s = ServiceProvider.getService(BOHService.class);
+    UUIDLog uuidLog = new UUIDLog(expenseBody);
+    HttpCalloutResponse response = s.editExpense(
+      ocvId,
+      uuidLog.attachUUID(expenseBody)
+    );
+    if (response.successful == false) {
+      uuidLog.insertUUID(loanId, 'BOH - SOP - Update Expense');
+      throw response.error;
+    }
+  }
+  /**
+   * @param ocvId ocv id of the customer account
    * @param sopId sop id to retrieve customer information
    * @return `SOPModel` model class constructed from api response
    * @description fetches a list of assets from flex for a sop, deserialized to a model

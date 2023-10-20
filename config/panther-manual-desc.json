@@ -1640,6 +1640,16 @@
         "FinServ__Regarding__c"
       ]
     },
+    "Expense_Control__c": {
+      "IA-2415840": [
+        "Category_Name__c",
+        "Expense_Category_Id__c",
+        "Expense_Type__c",
+        "External_Id__c",
+        "Justification_Code__c",
+        "Justification_Description__c"
+      ]
+    },
     "External_Case_Status__c": {
       "IA-2468715": [
         "Id",
@@ -1728,6 +1738,7 @@
         "Ownership__c"
       ],
       "IA-2594111": ["FinServ__JointOwner__c"]
+      "IA-2415860": ["Additional_Owner_Count__c", "Ownership__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [

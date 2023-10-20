@@ -5,7 +5,7 @@
  * @group Models
  */
 @SuppressWarnings(
-  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount'
+  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public SOPAssetSummary assetsSummary;
@@ -54,14 +54,27 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String LEASE_HIRE_PURCHASE_LABEL = 'Lease/Hire Purchase';
   public static final String CREDIT_CARD_UI_MESSAGE = 'To be provided';
   public static final String OVERDRAFT = 'LIABILITY_TYPE_OVERDRAFT';
+  public static final String HOME_LOAN = 'LIABILITY_TYPE_HOME_LOAN';
+  public static final String OTHER_LOAN_LIABILITY = 'LIABILITY_TYPE_OTHER_LOAN';
+  public static final String LEASE_HIRE = 'LIABILITY_TYPE_LEASE_HIRE_PURCHASE';
+  public static final String VEHICLE_LOAN = 'LIABILITY_TYPE_VEHICLE_LOAN';
+  public static final String STUDENT_LOAN = 'LIABILITY_TYPE_STUDENT_LOAN';
+  public static final String CREDIT_CARD_LIABILITY = 'LIABILITY_TYPE_CREDIT_CARD';
+  public static final String LINE_OF_CREDIT_LIABILITY = 'LIABILITY_TYPE_LINE_OF_CREDIT';
+  public static final String MARGIN_LOAN = 'LIABILITY_TYPE_MARGIN_LOAN';
+  public static final String OTHER_LIABILITY = 'LIABILITY_TYPE_OTHER_LIABILITY';
+  public static final String PERSONAL_LOAN = 'LIABILITY_TYPE_PERSONAL_LOAN';
 
   //BNPL
   public static final String BNPL_FACILITY = 'Bpl Facility';
   public static final String BNPL_FACILITY_TYPE = 'Spend Limit';
   public static final String BNPL_LOAN = 'Bpl Loan';
   public static final String BNPL_LOAN_TYPE = 'Fixed Amount';
+  public static final String BPL_FACILITY = 'LIABILITY_TYPE_BPL_FACILITY';
+  public static final String BPL_LIABILITY = 'LIABILITY_TYPE_BPL_LOAN';
 
   public Boolean showAddIncomeBtn;
+  public Boolean showEditExpenseBtn;
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
@@ -72,6 +85,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
   }
 
+  /**
+   * @description return the sources size attribute to display no debt message on flexcard.
+   */
+  public Integer sourceSize {
+    get {
+      return liabilitiesSummary.sources.size();
+    }
+  }
   /**
    * @description return the liability source size attribute to display finance and savings flexcard.
    */
@@ -171,53 +192,90 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
   }
 
+  private Map<String, Expense_Control__c> getExpenseControlMap(
+    Set<String> expenseCodeSet
+  ) {
+    Map<String, Expense_Control__c> expenseControlMap = new Map<String, Expense_Control__c>();
+    for (Expense_Control__c ec : [
+      SELECT Id, Justification_Code__c, Justification_Description__c
+      FROM Expense_Control__c
+      WHERE Justification_Code__c IN :expenseCodeSet
+    ]) {
+      expenseControlMap.put(ec.Justification_Code__c, ec);
+    }
+    return expenseControlMap;
+  }
+
   /**
    * @description organize expense nodes into a tree structure
    */
   public void organizeExpenseNodes() {
-    expenseNodes = new List<SOPExpenseNode>();
-    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
-      if (expense.expenseParent == null) {
-        expense.layer = 1;
-        expenseNodes.add(new SOPExpenseNode(expense));
-      }
-    }
-    List<SOPExpenseNode> l1Nodes = new List<SOPExpenseNode>();
-    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
-      if (expense.layer == null) {
-        for (SOPExpenseNode node : expenseNodes) {
-          if (node.expense.categoryId == expense.expenseParent) {
-            expense.layer = 2;
-            SOPExpenseNode newNode = new SOPExpenseNode(expense);
-            node.childExpenses.add(newNode);
-            l1Nodes.add(newNode);
-          }
-        }
-      }
-    }
-    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
-      if (expense.layer == null) {
-        for (SOPExpenseNode node : l1Nodes) {
-          if (node.expense.categoryId == expense.expenseParent) {
-            expense.layer = 3;
-            SOPExpenseNode newNode = new SOPExpenseNode(expense);
-            node.childExpenses.add(newNode);
-          }
-        }
-      }
-    }
     expenseMap = new Map<String, SOPExpense>();
+    Set<String> expenseCodeSet = new Set<String>();
     for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
       expenseMap.put(expense.categoryName.replaceAll('&', 'and'), expense);
+      if (String.isNotBlank(expense.justificationCode)) {
+        expenseCodeSet.add(expense.justificationCode);
+      }
     }
-  }
+    Map<String, Expense_Control__c> expenseControlMap = getExpenseControlMap(
+      expenseCodeSet
+    );
 
-  /**
-   * @description SOPDebtSummary returns all the sop debt related values and total
-   */
-  public class SOPDebtSummary {
-    public List<SOPDebt> liabilities;
-    public SOPMoney liabilitiesTotalAmount;
+    for (String cateName : expenseMap.keySet()) {
+      SOPExpense exp = expenseMap.get(cateName);
+
+      if (expenseControlMap.get(exp.justificationCode) != null) {
+        exp.reason = expenseControlMap.get(exp.justificationCode)
+          .Justification_Description__c;
+      } else {
+        exp.reason = '';
+      }
+
+      exp.warningReason = exp.reason;
+      if (exp.warningReason == 'Other') {
+        exp.warningReason += ' - ' + exp.otherJustificationCode;
+      }
+
+      if (
+        exp.control ==
+        BOHConstants.EXPENSE_CONTROL.EXPENSE_CONTROL_WARNING.name() &&
+        exp.review ==
+        BOHConstants.EXPENSE_REVIEW.EXPENSE_REVIEW_COMPLETED.name()
+      ) {
+        exp.showWarningMessage = true;
+        exp.warningMessage = BOHConstants.BIT_LOW_WARNING;
+      } else if (
+        exp.control ==
+        BOHConstants.EXPENSE_CONTROL.EXPENSE_CONTROL_BREACHED.name() &&
+        exp.review == BOHConstants.EXPENSE_REVIEW.EXPENSE_REVIEW_REQUIRED.name()
+      ) {
+        exp.showWarningMessage = true;
+        exp.showWarningIcon = true;
+        exp.hasReason = false;
+        exp.warningMessage = BOHConstants.LOW_WARNING;
+        if (String.isNotBlank(exp.expenseParent)) {
+          // L2 or L3, Always under Essentials
+          expenseMap.get(BOHConstants.EXPENSE_ESSENTIALS)
+            .showWarningIcon = true;
+        }
+      } else if (
+        exp.control ==
+        BOHConstants.EXPENSE_CONTROL.EXPENSE_CONTROL_JUSTIFIED.name() &&
+        exp.review ==
+        BOHConstants.EXPENSE_REVIEW.EXPENSE_REVIEW_COMPLETED.name()
+      ) {
+        exp.showWarningMessage = true;
+        exp.showWarningIcon = true;
+        exp.hasReason = true;
+        exp.warningMessage = BOHConstants.LOW_WARNING;
+        if (String.isNotBlank(exp.expenseParent)) {
+          // L2 or L3, Always under Essentials
+          expenseMap.get(BOHConstants.EXPENSE_ESSENTIALS)
+            .showWarningIcon = true;
+        }
+      }
+    }
   }
 
   /**
