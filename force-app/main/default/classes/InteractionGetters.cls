@@ -79,7 +79,8 @@ public with sharing class InteractionGetters {
           EndTime,
           Interaction_External_Id__c,
           AccountId,
-          Lead__c
+          Lead__c,
+          Status__c
         FROM Interaction
         WHERE AccountId IN :whoIds OR Lead__c IN :whoIds
       ];

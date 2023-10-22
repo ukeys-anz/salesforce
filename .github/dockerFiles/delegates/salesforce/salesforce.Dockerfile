@@ -61,8 +61,17 @@ LABEL ci_group="ANZx-Salesforce" ci_name="ANZx-Platform"
 RUN mkdir -p /opt/harness-delegate/.sf || true ; chown delegate:delegate /opt/harness-delegate/.sf && \
     mkdir -p /opt/harness-delegate/.terraform.d || true ; chown delegate:delegate /opt/harness-delegate/.terraform.d && \
     mkdir -p /opt/harness-delegate/.tfwrap || true ; chown delegate:delegate /opt/harness-delegate/.tfwrap && \
-    mkdir -p /opt/harness-delegate/.local/share/sfdx || true ; chown delegate:delegate /opt/harness-delegate/.local/share/sfdx
+    mkdir -p /opt/harness-delegate/.local/share/sfdx || true ; chown delegate:delegate /opt/harness-delegate/.local/share/sfdx && \
+    mkdir -p $HOME/.cache/.sf || true ; chown delegate:delegate $HOME/.cache/.sf && \
+    mkdir -p $HOME/.cache/sfdx || true ; chown delegate:delegate $HOME/.cache/sfdx && \
+    mkdir -p $HOME/.cache/.sfdx || true ; chown delegate:delegate $HOME/.cache/.sfdx && \
+    mkdir -p $HOME/.local/share/sfdx || true ; chown delegate:delegate $HOME/.local/share/sfdx && \
+    mkdir -p $HOME/.npm/_logs || true ; chown delegate:delegate $HOME/.npm/_logs && \
+    touch $HOME/.sf/sf.log || true ; chown delegate:delegate $HOME/.sf/sf.log
 
-RUN echo y | sfdx plugins:install https://${ARTIFACTORY}:443/artifactory/api/npm/npmjs-org/sfdx-git-delta/-/sfdx-git-delta-5.25.2.tgz && npm install sfdx-git-delta@latest --global
+COPY package.json $HOME/.local/share/sfdx
+COPY package-lock.json $HOME/.local/share/sfdx
+WORKDIR $HOME/.local/share/sfdx
+RUN npm ci -f
 
 USER delegate

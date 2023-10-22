@@ -1,7 +1,7 @@
 // Deployment Orchestration
 
 /// Import different function from different services.
-import { createDiff } from "../Services/artifact-service.mjs";
+import { createDiffOnDeploy } from "../Services/artifact-service.mjs";
 import {
   authenticate,
   unauthenticate
@@ -11,7 +11,7 @@ import {
   deployProgress,
   deployReport
 } from "../Services/deploy-service.mjs";
-import { deleteFolder } from "../Services/helper.mjs";
+import { deleteFolder, logger } from "../Services/helper.mjs";
 import { createTag } from "../Services/tag-service.mjs";
 //////////
 
@@ -32,16 +32,16 @@ const SOURCE_DIR = `artifact-${BASE_REF}-${RUN_ID}`;
 /// functions
 
 const deployment = () => {
-  createDiff(SOURCE_DIR, BASE_REF_LAST_TAG, BASE_REF);
+  createDiffOnDeploy(SOURCE_DIR, BASE_REF, BASE_REF_LAST_TAG);
   authenticate(BASE_REF, SFDX_URL);
-  const deployment = deployWithoutTest(BASE_REF);
+  const deployment = deployWithoutTest(BASE_REF, SOURCE_DIR);
   deployProgress(deployment);
 };
 
 const clean = () => {
   createTag(BASE_REF, RUN_ID);
   unauthenticate(BASE_REF);
-  deleteFolder(SOURCE_DIR);
+  logger(deleteFolder(SOURCE_DIR));
 };
 
 /////////

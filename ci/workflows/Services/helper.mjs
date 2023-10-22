@@ -20,9 +20,9 @@ const renameFile = (oldFilepath, newFilepath) => {
 
 const runSfCommand = (command) => execSync(command, { encoding: "utf-8" });
 
-const findJobId = (jobIdFilePath) => {
+const findJobId = (jobIdFilePath, comment = "") => {
   if (!existsSync(jobIdFilePath)) {
-    console.error(`ERROR: There is no jobId.`);
+    logger(`ERROR: There is no jobId. ${comment}`);
     return "";
   }
   return readFileSync(jobIdFilePath).toString();
@@ -54,15 +54,15 @@ const findAllFiles = (dir, files = []) => {
 // but there is no class folder inside artifact. This will check that
 const folderExist = (folderPath) => {
   if (!existsSync(folderPath)) {
-    console.error(`ERROR: The ${folderPath} does not exist.`);
+    logger(`ERROR: The ${folderPath} does not exist.`);
     return false;
   }
   return true;
 };
 
 // This will check if there is any salesforce diff on artifact folder or not.
-const salesforceDiffExist = (artifactPath = "artifact/force-app") =>
-  folderExist(artifactPath);
+const salesforceDiffExist = (artifactPath) =>
+  folderExist(artifactPath + "/force-app");
 
 // This will read a file and find all the lines of that.
 // To find all the lines with `@runTests` to find all specified tests
@@ -130,21 +130,23 @@ const findJobIdFromCommand = (command) => {
 };
 
 const deleteFolder = (folderPath) => {
-  return rmSync(folderPath, { recursive: true, force: true }, (err) => {
+  rmSync(folderPath, { recursive: true, force: true }, (err) => {
     if (err) {
       console.error(err);
+      return;
     }
-    console.log(`${folderPath} is deleted!`);
   });
+  return `${folderPath} folder is deleted!`;
 };
 
 const createFolder = (folderPath) => {
-  return mkdirSync(folderPath, (err) => {
+  mkdirSync(folderPath, (err) => {
     if (err) {
       console.error(err);
+      return;
     }
-    console.log(`${folderPath} is created!`);
   });
+  return `${folderPath} folder is created!`;
 };
 
 const logger = (log) => {
@@ -152,6 +154,8 @@ const logger = (log) => {
   console.log(log);
   console.log("\n");
 };
+
+const booleanMap = (stringBoolean) => stringBoolean === "true";
 
 export {
   runSfCommand,
@@ -164,5 +168,6 @@ export {
   findAllFiles,
   deleteFolder,
   createFolder,
-  logger
+  logger,
+  booleanMap
 };

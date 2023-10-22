@@ -7,6 +7,13 @@
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRQualityAssessmentActions {
   public static final String COMPLETION_ERROR = 'Team Manager Response is required before Completing an Assessment.';
+  // Field Names must be all lower case
+  public static final Set<String> MODIFIABLE_FIELDS = new Set<String>{
+    'status__c',
+    'assessment_completion_date__c',
+    'business_score__c',
+    'case_manager_score__c'
+  };
   /**
    * @description calculate Case Manager Score and Business Manager Score
    * @param records new values
@@ -120,6 +127,7 @@ public with sharing class IDRQualityAssessmentActions {
    * @param lstNewAssessments list of new changed assessments
    * @param mpOldAssessments map of prior values
    */
+  @SuppressWarnings('PMD.AvoidDeeplyNestedIfStmts')
   public static void validateStatusComplete(
     List<Quality_Assessment__c> lstNewAssessments,
     Map<Id, Quality_Assessment__c> mpOldAssessments
@@ -127,6 +135,7 @@ public with sharing class IDRQualityAssessmentActions {
     Quality_Assessment__c oOldAssessment;
     String strFieldSetId;
     Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
+    Map<String, SObjectField> mpAssessmentFields = Schema.SObjectType.Quality_Assessment__c.fields.getMap();
     Schema.FieldSet oFieldSet;
     Boolean fLoggerUsed = false;
     for (Quality_Assessment__c oAssessment : lstNewAssessments) {
@@ -169,25 +178,34 @@ public with sharing class IDRQualityAssessmentActions {
             for (Schema.FieldSetMember field : oFieldSet.getFields()) {
               if (((SObject) oAssessment).get(field.getFieldPath()) == null) {
                 oAssessment.addError(
-                  'Field [' +
-                  field.label +
-                  '] is required to change Status to Complete'
+                  field.getSObjectField(),
+                  'Required when changing Status to Complete'
                 );
               }
             }
           }
         }
         if (mpOldAssessments != null && oOldAssessment != null) {
-          for (Schema.FieldSetMember field : oFieldSet.getFields()) {
+          for (String strFieldName : mpAssessmentFields.keySet()) {
             if (
-              ((SObject) oAssessment).get(field.getFieldPath()) !=
-              ((SObject) oOldAssessment).get(field.getFieldPath())
+              !MODIFIABLE_FIELDS.contains(strFieldName) &&
+              ((SObject) oAssessment).get(strFieldName) !=
+              ((SObject) oOldAssessment).get(strFieldName)
             ) {
-              oAssessment.addError(
-                'Field [' +
-                field.label +
-                '] can\'t be modified on a Complete assessment'
-              );
+              // This is where AvoidDeeplyNestedIfStmts trips up
+              if (
+                oAssessment.RecordTypeId ==
+                IDRConstants.idrtCQQualityAssessment &&
+                (strFieldName == 'Team_Manager_Response__c' ||
+                strFieldName == 'Team_Manager_Comments__c')
+              ) {
+                // These fields can be changed.
+              } else {
+                oAssessment.addError(
+                  mpAssessmentFields.get(strFieldName),
+                  'Cannot be modified'
+                );
+              }
             }
           }
         }
