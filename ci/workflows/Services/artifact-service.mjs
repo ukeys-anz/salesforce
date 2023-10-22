@@ -17,14 +17,21 @@ const createArtifactFolder = (folderName) => {
   createFolder(folderName);
 };
 
-const findAllChangedFile = (folderName, baseRef, ref) => {
+const findAllChangedFileOnValidate = (folderName, baseRef, ref) => {
   createArtifactFolder(folderName);
   execSync(
     `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta`
   ).toString("utf8");
 };
 
-const buildArtifact = (folderName, baseRef, ref) => {
+const findAllChangedFileOnDeploy = (folderName, baseRef, tagRef) => {
+  createArtifactFolder(folderName);
+  execSync(
+    `npx sfdx sgd:source:delta --to ${tagRef} --from origin/${baseRef} --output ${folderName}/ --generate-delta`
+  ).toString("utf8");
+};
+
+const buildArtifactOnValidate = (folderName, baseRef, ref) => {
   renameForceignore();
   createArtifactFolder(folderName);
   execSync(
@@ -32,9 +39,17 @@ const buildArtifact = (folderName, baseRef, ref) => {
   ).toString("utf8");
 };
 
-const createDiff = (folderName, baseRef, ref) => {
-  findAllChangedFile(folderName + "-all-files", baseRef, ref);
-  buildArtifact(folderName, baseRef, ref);
+const buildArtifactOnDeploy = (folderName, baseRef, tagRef) => {
+  renameForceignore();
+  createArtifactFolder(folderName);
+  execSync(
+    `npx sfdx sgd:source:delta --to ${tagRef} --from origin/${baseRef} --output ${folderName}/ --generate-delta -i .forceignore`
+  ).toString("utf8");
+};
+
+const createDiffOnValidate = (folderName, baseRef, ref) => {
+  findAllChangedFileOnValidate(folderName + "-all-files", baseRef, ref);
+  buildArtifactOnValidate(folderName, baseRef, ref);
 
   const allChangedFiles = findAllFiles(folderName + "-all-files");
   const notIgnoredFilesChanges = findAllFiles(folderName);
@@ -44,8 +59,33 @@ const createDiff = (folderName, baseRef, ref) => {
     const f = file.replace(folderName + "-all-files", folderName);
     if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
   });
-  logger(`All Changed files:\n${notIgnoredFilesChanges}`);
-  logger(`All Ignored files:\n${ignoredFilesChanges}`);
+  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
+  logger(
+    `All Ignored files:\n${
+      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
+    }`
+  );
+  deleteFolder(folderName + "-all-files");
+};
+
+const createDiffOnDeploy = (folderName, baseRef, tagRef) => {
+  findAllChangedFileOnDeploy(folderName + "-all-files", baseRef, tagRef);
+  buildArtifactOnDeploy(folderName, baseRef, tagRef);
+
+  const allChangedFiles = findAllFiles(folderName + "-all-files");
+  const notIgnoredFilesChanges = findAllFiles(folderName);
+  const ignoredFilesChanges = [];
+
+  allChangedFiles.forEach((file) => {
+    const f = file.replace(folderName + "-all-files", folderName);
+    if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
+  });
+  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
+  logger(
+    `All Ignored files:\n${
+      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
+    }`
+  );
   deleteFolder(folderName + "-all-files");
 };
 
@@ -56,7 +96,7 @@ const uploadArtifact = (
   artifactorySecret,
   projectName
 ) => {
-  createDiff(folderName, baseRef, ref);
+  createDiffOnValidate(folderName, baseRef, ref);
   // Then we should run a gcloud command to upload the artifact to artifactory
   // bash script code:
   //        zip -r "$ref.zip" "$folderName"
@@ -74,10 +114,11 @@ const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
 
 export {
   createArtifactFolder,
-  buildArtifact,
+  buildArtifactOnValidate,
   uploadArtifact,
   downloadArtifact,
-  createDiff
+  createDiffOnValidate,
+  createDiffOnDeploy
 };
 
 // POINTS

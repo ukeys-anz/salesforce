@@ -1,5 +1,6 @@
 import { exec } from "child_process";
 import { runSfCommand, findJobIdFromCommand, logger } from "./helper.mjs";
+import { deployReport } from "./deploy-service.mjs";
 
 // We are using sfdx command here, as it seems there is no equivalent command on sf to run tests -
 // - using sf project commands.
@@ -91,6 +92,8 @@ const runAllTestsProgress = (targetOrg, runAllTestClassPath) => {
   runAllTestsProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Tests failed with exit code: \n${code}`);
+      deployReport(jobId);
+      process.exit(1);
     }
   });
 };

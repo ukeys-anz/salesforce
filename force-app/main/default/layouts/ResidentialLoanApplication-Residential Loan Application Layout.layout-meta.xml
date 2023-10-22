@@ -11,7 +11,7 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>ApplicationExtIdentifier</field>
             </layoutItems>
             <layoutItems>
@@ -25,6 +25,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Joint__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Ineligible_Reasons__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

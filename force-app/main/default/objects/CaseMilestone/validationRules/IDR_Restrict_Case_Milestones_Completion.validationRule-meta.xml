@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Restrict_Case_Milestones_Completion</fullName>
+    <active>true</active>
+    <description>Restrict ability to manually close Milestones to CR and SI Team only</description>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
+!ISNEW() &amp;&amp;
+(Case.RecordType.DeveloperName = &apos;Customer_Complaint&apos; ||
+Case.RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; ||
+Case.RecordType.DeveloperName = &apos;Systemic_Issue&apos;) &amp;&amp;
+ISCHANGED(CompletionDate) &amp;&amp;
+!ISPICKVAL(Case.Status, &apos;Closed&apos;) &amp;&amp;
+!ISPICKVAL(Case.Status, &apos;Escalated&apos;) &amp;&amp;
+$UserRole.DeveloperName != &apos;Customer_Resolution_Leadership&apos; &amp;&amp;
+$UserRole.DeveloperName != &apos;Customer_Resolution_Team_Leaders&apos; &amp;&amp;
+$UserRole.DeveloperName != &apos;Customer_Resolution&apos; &amp;&amp;
+$UserRole.DeveloperName != &apos;Systemic_Issue_Team&apos;</errorConditionFormula>
+    <errorMessage>Milestones can be closed by CR and SI team only</errorMessage>
+</ValidationRule>

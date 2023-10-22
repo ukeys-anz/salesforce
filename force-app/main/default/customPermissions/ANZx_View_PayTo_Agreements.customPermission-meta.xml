@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission required for the user to view the PayTo agreements</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx View PayTo Agreements</label>
+</CustomPermission>

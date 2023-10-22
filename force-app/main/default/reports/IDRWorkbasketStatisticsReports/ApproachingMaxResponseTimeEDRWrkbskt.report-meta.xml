@@ -25,7 +25,7 @@
     </customDetailFormulas>
     <description>Cases approaching maximum IDR time by Queue</description>
     <filter>
-        <booleanFilter>1 AND 2 AND (3 OR 5) AND (6 OR 4)</booleanFilter>
+        <booleanFilter>1 AND 2 AND (3 OR 5) AND 4</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -60,13 +60,6 @@
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
             <value>Specialised</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>SUBJECT</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>contains</operator>
-            <value>IDR Response due in 5-days</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

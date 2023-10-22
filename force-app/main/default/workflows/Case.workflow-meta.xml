@@ -152,17 +152,6 @@
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <tasks>
-        <fullName>AFCA_Response_is_due_in_10_days</fullName>
-        <assignedToType>owner</assignedToType>
-        <description>Consider if the case falls within the exception criteria and if an extension is required.</description>
-        <dueDateOffset>10</dueDateOffset>
-        <notifyAssignee>false</notifyAssignee>
-        <priority>Normal</priority>
-        <protected>false</protected>
-        <status>Open</status>
-        <subject>AFCA Response is due in 10 days</subject>
-    </tasks>
-    <tasks>
         <fullName>AFCA_Response_is_due_in_1_day</fullName>
         <assignedToType>owner</assignedToType>
         <description>Consider if the case falls within the exception criteria and if an extension is required.</description>
@@ -183,16 +172,5 @@
         <protected>false</protected>
         <status>Open</status>
         <subject>IDR Response Due in 1-day</subject>
-    </tasks>
-    <tasks>
-        <fullName>Maximum_IDR_timeframe_5days_Reminder</fullName>
-        <assignedToType>owner</assignedToType>
-        <description>An IDR Response Letter or Delay Notification needs to be sent to the customer</description>
-        <dueDateOffset>5</dueDateOffset>
-        <notifyAssignee>false</notifyAssignee>
-        <priority>Normal</priority>
-        <protected>false</protected>
-        <status>Open</status>
-        <subject>IDR Response due in 5-days</subject>
     </tasks>
 </Workflow>

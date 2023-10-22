@@ -12,6 +12,29 @@ public inherited sharing class HomeLoanControllerTest {
    */
   @testSetup
   public static void setup() {
+    Faker faker = new Faker('AU');
+    Account homeLoanCustomer = new Account();
+    homeLoanCustomer.Name = 'Test Account';
+    homeLoanCustomer.OCV_ID__c = faker.randomString(5);
+    homeLoanCustomer.ANZx_Customer__c = true;
+    homeLoanCustomer.External_Id__c = faker.randomString(6);
+    insert homeLoanCustomer;
+
+    List<FinServ__FinancialAccount__c> finAccounts = TestDataFactory.createFinancialAccount(
+      2,
+      false
+    );
+    for (FinServ__FinancialAccount__c finAccount : finAccounts) {
+      finAccount.Name = homeLoanCustomer.Name;
+      finAccount.RecordTypeId = GetHelpConstants.BANK_ACCOUNT_RT_ID;
+      finAccount.FinServ__PrimaryOwner__c = homeLoanCustomer.Id;
+    }
+
+    finAccounts[0]
+      .Marketing_Code__c = GetHelpConstants.HOME_LOAN_MARKETING_CODES[0];
+    finAccounts[0].FinServ__FinancialAccountNumber__c = '111111111';
+
+    insert finAccounts;
     Set<String> permissionSetAssigned = TestUtil.getUserPermissionSets(
       UserInfo.getUserId()
     );
@@ -19,12 +42,16 @@ public inherited sharing class HomeLoanControllerTest {
       TestUtil.addPermissionSets(new List<String>{ 'BoH_Read_Only' });
     }
   }
+
   @isTest
-  static void homeLoanAccountRetrieve() {
+  static void testHomeLoanAccountRetrieve() {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();
-      HomeLoanModel response = HomeLoanController.getHomeLoanAccount('2222');
+      HomeLoanModel response = HomeLoanController.getHomeLoanAccount(
+        '2222',
+        null
+      );
 
       Test.stopTest();
       System.assertEquals(
@@ -41,53 +68,58 @@ public inherited sharing class HomeLoanControllerTest {
   }
 
   @IsTest
-  static void getHomeLoanFinancialAccountIdTest() {
-    Faker faker = new Faker('AU');
-    Id homeLoanRTId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
-      .get('BankingAccount')
-      .getRecordTypeId();
-    Account homeLoanCustomer = new Account();
-    homeLoanCustomer.Name =
-      faker.person.firstName() +
-      ' ' +
-      faker.person.lastName();
-    homeLoanCustomer.OCV_ID__c = faker.randomString(5);
-    homeLoanCustomer.ANZx_Customer__c = true;
-    homeLoanCustomer.External_Id__c = faker.randomString(6);
-    insert homeLoanCustomer;
-
-    List<FinServ__FinancialAccount__c> finAccounts = TestDataFactory.createFinancialAccount(
-      2,
-      false
-    );
-    for (FinServ__FinancialAccount__c finAccount : finAccounts) {
-      finAccount.Name = homeLoanCustomer.Name;
-      finAccount.RecordTypeId = homeLoanRTId;
-      finAccount.FinServ__PrimaryOwner__c = homeLoanCustomer.Id;
-    }
-
-    finAccounts[0]
-      .Marketing_Code__c = GetHelpConstants.HOME_LOAN_MARKETING_CODES[0];
-    finAccounts[0].FinServ__FinancialAccountNumber__c = '111111111';
-
-    insert finAccounts;
-
+  static void testGetHomeLoanFinancialAccountIdTest() {
+    Account homeLoanCustomer = [
+      SELECT Id
+      FROM Account
+      WHERE Name = 'Test Account'
+    ];
     Test.startTest();
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
-      Id finAccountId = HomeLoanController.getHomeLoanFinancialAccountId(
+      List<FinServ__FinancialAccountRole__c> finAccountRoles = HomeLoanController.getHomeLoanFinancialAccountId(
         homeLoanCustomer.Id
       );
       FinServ__FinancialAccount__c result = [
         SELECT FinServ__FinancialAccountNumber__c
         FROM FinServ__FinancialAccount__c
-        WHERE Id = :finAccountId
+        WHERE Id = :finAccountRoles[0].FinServ__FinancialAccount__c
         LIMIT 1
       ];
       Assert.areEqual(
         '111111111',
         result.FinServ__FinancialAccountNumber__c,
         'One home loan marketing code fin account should be returned'
+      );
+    }
+    Test.stopTest();
+  }
+
+  @IsTest
+  static void testGetAccountOwners() {
+    Account homeLoanCustomer = [
+      SELECT Id
+      FROM Account
+      WHERE Name = 'Test Account'
+    ];
+
+    FinServ__FinancialAccount__c finAccount = [
+      SELECT Id
+      FROM FinServ__FinancialAccount__c
+      WHERE RecordTypeId = :GetHelpConstants.BANK_ACCOUNT_RT_ID
+      LIMIT 1
+    ];
+    Test.startTest();
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      List<FinServ__FinancialAccountRole__c> finAccountRoles = HomeLoanController.getAccountOwnerIds(
+        finAccount.Id
+      );
+
+      Assert.areEqual(
+        homeLoanCustomer.Id,
+        finAccountRoles[0].FinServ__RelatedAccount__c,
+        'Account id and owner id should be equal'
       );
     }
     Test.stopTest();

@@ -1,0 +1,13 @@
+{
+  "httpCode": 400,
+  "httpMessage": "Bad Request",
+  "severity": "FATL",
+  "errors": [
+    {
+      "statusCode": 420,
+      "statusMessage": "Request validation failed",
+      "description": "traceid does not exist",
+      "location": "PATCH /actions/{actionId}"
+    }
+  ]
+}

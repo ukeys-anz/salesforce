@@ -33,7 +33,8 @@ const directEntryDisputesFieldsMapping = {
 
 const nppDisputesFieldsMapping = {
   Payment_ID__c: "pay_anyone.payment_id",
-  Receipt__c: "pay_anyone.payment_receipt_number.value"
+  Receipt__c: "pay_anyone.payment_receipt_number.value",
+  Is_PayTo_Dispute__c: "isPayToDispute"
 };
 
 const bpayDisputesFieldsMapping = {
