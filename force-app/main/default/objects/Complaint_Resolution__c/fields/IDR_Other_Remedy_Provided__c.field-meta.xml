@@ -2,10 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Other_Remedy_Provided__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>high level description of the remedy provided</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
+    <inlineHelpText>Enter a brief, high level description of the remedy provided</inlineHelpText>
     <label>Other Remedy</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

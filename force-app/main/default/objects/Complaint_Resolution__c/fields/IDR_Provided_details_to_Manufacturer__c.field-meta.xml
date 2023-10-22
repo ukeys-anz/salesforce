@@ -2,10 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Provided_details_to_Manufacturer__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>The details of this complaint have been provided to the product manufacturer</description>
     <externalId>false</externalId>
+    <inlineHelpText>Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case</inlineHelpText>
     <label>Provided details to Product Manufacturer</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
