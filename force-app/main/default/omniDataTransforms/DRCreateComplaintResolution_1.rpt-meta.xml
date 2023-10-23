@@ -11,13 +11,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCreateComplaintResolutionCustom8417</globalKey>
-        <inputFieldName>ComplaintRes:otherRemedy</inputFieldName>
+        <globalKey>DRCreateComplaintResolutionCustom6414</globalKey>
+        <inputFieldName>ComplaintRes:PaymentProvided</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRCreateComplaintResolution</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Other_Remedy_Provided__c</outputFieldName>
+        <outputFieldName>IDR_Financial_Compensation__c</outputFieldName>
         <outputObjectName>Complaint_Resolution__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -39,6 +39,34 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateComplaintResolutionCustom4738</globalKey>
+        <inputFieldName>ComplaintRes:detailsOfComplaint</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateComplaintResolution</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Provided_details_to_Manufacturer__c</outputFieldName>
+        <outputObjectName>Complaint_Resolution__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateComplaintResolutionCustom9974</globalKey>
+        <inputFieldName>ComplaintRes:Id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateComplaintResolution</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Complaint_Resolution__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateComplaintResolutionCustom4617</globalKey>
         <inputFieldName>ComplaintRes:durationOfRemedy</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -46,6 +74,34 @@
         <name>DRCreateComplaintResolution</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Duration_of_Remedy__c</outputFieldName>
+        <outputObjectName>Complaint_Resolution__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateComplaintResolutionCustom7937</globalKey>
+        <inputFieldName>ComplaintRes:SubRemedy</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateComplaintResolution</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Complaint_Sub_Remedy__c</outputFieldName>
+        <outputObjectName>Complaint_Resolution__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateComplaintResolutionCustom8417</globalKey>
+        <inputFieldName>ComplaintRes:otherRemedy</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateComplaintResolution</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Other_Remedy_Provided__c</outputFieldName>
         <outputObjectName>Complaint_Resolution__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -79,34 +135,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCreateComplaintResolutionCustom7937</globalKey>
-        <inputFieldName>ComplaintRes:SubRemedy</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateComplaintResolution</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Complaint_Sub_Remedy__c</outputFieldName>
-        <outputObjectName>Complaint_Resolution__c</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCreateComplaintResolutionCustom9974</globalKey>
-        <inputFieldName>ComplaintRes:Id</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateComplaintResolution</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>Complaint_Resolution__c</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -117,20 +145,6 @@
         <name>DRCreateComplaintResolution</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
-        <outputObjectName>Complaint_Resolution__c</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCreateComplaintResolutionCustom6414</globalKey>
-        <inputFieldName>ComplaintRes:PaymentProvided</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateComplaintResolution</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Financial_Compensation__c</outputFieldName>
         <outputObjectName>Complaint_Resolution__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

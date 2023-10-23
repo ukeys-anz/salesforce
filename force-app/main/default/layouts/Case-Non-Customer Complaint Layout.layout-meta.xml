@@ -361,7 +361,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>IDR_Total_Financial_Compensation__c</field>
+                <field>IDR_Total_Financial_Amount__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
