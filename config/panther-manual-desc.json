@@ -1737,7 +1737,7 @@
         "Additional_Owner_Count__c",
         "Ownership__c"
       ],
-      "IA-2594111": ["FinServ__JointOwner__c"]
+      "IA-2594111": ["FinServ__JointOwner__c"],
       "IA-2415860": ["Additional_Owner_Count__c", "Ownership__c"]
     },
     "FinServ__FinancialAccountRole__c": {
