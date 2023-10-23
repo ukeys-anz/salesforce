@@ -117,7 +117,7 @@ const validateProgress = (validationReport) => {
       const output = JSON.parse(data);
       if (output.status === 0) {
         console.log("Validation completed successfully");
-        deployReport(jobId);
+        deployReport(jobId, "Validation");
       } else if (output.progress) {
         console.log(`Progress: ${output.progress}`);
       } else {
@@ -138,7 +138,7 @@ const validateProgress = (validationReport) => {
   validateProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Validation failed with exit code: \n${code}`);
-      deployReport(jobId);
+      deployReport(jobId, "Validation");
       process.exit(1);
     }
   });
@@ -158,7 +158,7 @@ const deployProgress = (deploymentCommand) => {
       const output = JSON.parse(data);
       if (output.status === 0) {
         console.log("Deployment completed successfully");
-        deployReport(jobId);
+        deployReport(jobId, "Deployment");
       } else if (output.progress) {
         console.log(`Progress: ${output.progress}`);
       } else {
@@ -179,14 +179,14 @@ const deployProgress = (deploymentCommand) => {
   deployProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Deployment failed with exit code: \n${code}`);
-      deployReport(jobId);
+      deployReport(jobId, "Deployment");
       process.exit(1);
     }
   });
 };
 
-const deployReport = (jobId) => {
-  logger("Validation/Deployment Report");
+const deployReport = (jobId, whichJob) => {
+  logger(`${whichJob} Report`);
   console.log(runSfCommand(`npx sf project deploy report --job-id ${jobId}`));
 };
 

@@ -176,43 +176,63 @@ jobs:
 
 ** Run All Tests workflow should be like below
 
-name: Run All Tests
+name: Run All Local Tests
 
 on:
   pull_request:
     branches:
-      - master
+      - x
+    #   - "master"
+    # types:
+    #   - opened
+    #   - reopened
+    #   - ready_for_review
+    #   - synchronize
+
+permissions:
+  contents: "read"
+  id-token: "write"
 
 jobs:
   run-all-tests:
-    runs-on: [self-hosted, salesforce-prod]
+    container:
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
+      options: --user root
+    runs-on: [self-hosted, cd-ubuntu-s-np]
     steps:
+      - name: NPM package Version | node, sfdx, sf, sgd version
+        run: |
+          echo "node version: $(node -v)"
+          echo "sf version: $(sf -v)"
+
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
         with:
-          node-version: 18
-
-      - name: cleaning
-        run: |
-          mv ci.npmrc .npmrc
-          # npm uninstall sfdx-cli -f
-          rm -rf node_modules
-          npm ci -f
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
       - name: ENV vars
         run: |
           echo BASE_REF="${{ github.base_ref }}" >> $GITHUB_ENV
+          echo PR_NUMBER="${{ github.event.number }}" >> $GITHUB_ENV
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
+
+      - name: Find Proper TargetOrg
+        run: |
+          echo TARGET_BASE_REF="$( node ci/workflows/Orchestrations/runAllTests.mjs )" >> $GITHUB_ENV
+          echo WHICH_JOB="runAllTests" >> $GITHUB_ENV
 
       - name: Find Secret Names
         run: |
           sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifactory" >> $GITHUB_ENV
 
       - name: Find GSM credential
         id: secrets
@@ -220,17 +240,27 @@ jobs:
         with:
           secrets: |-
             sfdxurl:projects/448406129405/secrets/${{ env.SECRET_NAME }}/versions/latest
+            artifactory:projects/448406129405/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
+            proxypass:projects/anz-x-bootstrap-np-487e09/secrets/h-salesforce-np-proxy-password/versions/3
 
       - name: Add secrets to ENV
         run: |
           echo SFDX_URL="${{ steps.secrets.outputs.sfdxurl }}" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_VALUE="${{ steps.secrets.outputs.artifactory }}" >> $GITHUB_ENV
+
+      - name: Setup HTTP Proxy
+        id: "proxy-harness-delegate"
+        uses: "anzx/github-reusable-actions/setup-http-proxy@main"
+        with:
+          production: false
+          proxy-username: "sf-harness-delegate-np"
+          proxy-password: "${{ steps.secrets.outputs.proxypass }}"
 
       - name: run all tests
         run: |
-          echo WHICH_JOB="runAllTests" >> $GITHUB_ENV
           node ci/workflows/Orchestrations/runAllTests.mjs
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
 
       - name: cleaning
         run: |
-          echo WHICH_JOB="clean" >> $GITHUB_ENV
           node ci/workflows/Orchestrations/runAllTests.mjs
