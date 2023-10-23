@@ -5558,6 +5558,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Event.Is_Case_Owned_By_CR_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Event.IDR_Tribe__c</field>
         <readable>true</readable>
@@ -9727,6 +9732,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Is_Case_Owned_By_CR_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Task.Last_Assigned_Owner__c</field>
         <readable>true</readable>
@@ -10976,7 +10986,7 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>Complaint_Resolution__c</object>
         <viewAllRecords>true</viewAllRecords>
-     </objectPermissions>
+    </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
