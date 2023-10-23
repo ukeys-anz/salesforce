@@ -11,7 +11,7 @@ import {
   deployProgress,
   deployReport
 } from "../Services/deploy-service.mjs";
-import { deleteFolder, logger } from "../Services/helper.mjs";
+import { deleteFolder } from "../Services/helper.mjs";
 import { createTag } from "../Services/tag-service.mjs";
 //////////
 
@@ -41,7 +41,7 @@ const deployment = () => {
 const clean = () => {
   createTag(BASE_REF, RUN_ID);
   unauthenticate(BASE_REF);
-  logger(deleteFolder(SOURCE_DIR));
+  deleteFolder(SOURCE_DIR);
 };
 
 /////////

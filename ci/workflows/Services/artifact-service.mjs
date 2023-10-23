@@ -1,9 +1,10 @@
 import { execSync } from "child_process";
 import {
   renameFile,
-  findAllFiles,
   createFolder,
   deleteFolder,
+  ignoredFiles,
+  salesforceDiffExist,
   logger
 } from "./helper.mjs";
 
@@ -47,60 +48,64 @@ const buildArtifactOnDeploy = (folderName, baseRef, tagRef) => {
   ).toString("utf8");
 };
 
+const artifactFolderExist = (artifactPath) => {
+  if (!folderExist(artifactPath + "/package")) {
+    process.exit(1);
+  }
+};
+
 const createDiffOnValidate = (folderName, baseRef, ref) => {
   findAllChangedFileOnValidate(folderName + "-all-files", baseRef, ref);
   buildArtifactOnValidate(folderName, baseRef, ref);
-
-  const allChangedFiles = findAllFiles(folderName + "-all-files");
-  const notIgnoredFilesChanges = findAllFiles(folderName);
-  const ignoredFilesChanges = [];
-
-  allChangedFiles.forEach((file) => {
-    const f = file.replace(folderName + "-all-files", folderName);
-    if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
-  });
-  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
-  logger(
-    `All Ignored files:\n${
-      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
-    }`
-  );
+  artifactFolderExist(folderName);
+  ignoredFiles(folderName);
   deleteFolder(folderName + "-all-files");
 };
 
 const createDiffOnDeploy = (folderName, baseRef, tagRef) => {
   findAllChangedFileOnDeploy(folderName + "-all-files", baseRef, tagRef);
   buildArtifactOnDeploy(folderName, baseRef, tagRef);
-
-  const allChangedFiles = findAllFiles(folderName + "-all-files");
-  const notIgnoredFilesChanges = findAllFiles(folderName);
-  const ignoredFilesChanges = [];
-
-  allChangedFiles.forEach((file) => {
-    const f = file.replace(folderName + "-all-files", folderName);
-    if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
-  });
-  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
-  logger(
-    `All Ignored files:\n${
-      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
-    }`
-  );
+  artifactFolderExist(folderName);
+  ignoredFiles(folderName);
   deleteFolder(folderName + "-all-files");
 };
 
-const uploadArtifact = (
+const zipArtifactory = (zipFileName, artifactPath) => {
+  console.log("Zipping Artifact");
+  execSync(`zip -r ${zipFileName}.zip ${artifactPath}`).toString("utf8");
+};
+
+const uploadArtifact = (zipFileName, artifactorySecret) => {
+  console.log("Upload Artifact");
+  console.log(
+    execSync(
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${zipFileName}.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${zipFileName}.zip"`
+    ).toString("utf8")
+  );
+};
+
+const deleteZipArtifactory = (zipFileName) => {
+  console.log("Deleting Artifact Zip file");
+  execSync(`rm -f ${zipFileName}.zip`);
+};
+
+const uploadToArtifactory = (zipFileName, artifactorySecret, artifactPath) => {
+  if (!salesforceDiffExist(artifactPath)) return;
+  logger("Upload Artifactory");
+  zipArtifactory(zipFileName, artifactPath);
+  uploadArtifact(zipFileName, artifactorySecret);
+  deleteZipArtifactory(zipFileName);
+};
+
+const createAndUploadArtifact = (
   folderName,
   baseRef,
   ref,
   artifactorySecret,
-  projectName
+  zipFileName
 ) => {
   createDiffOnValidate(folderName, baseRef, ref);
-  // Then we should run a gcloud command to upload the artifact to artifactory
-  // bash script code:
-  //        zip -r "$ref.zip" "$folderName"
-  //        curl -H "X-JFrog-Art-Api:$(gcloud secrets versions access projects/"${projectName}"/secrets/"${artifactorySecret}"/versions/latest)" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ref.zip"
+  uploadToArtifactory(zipFileName, artifactorySecret, folderName);
 };
 
 const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
@@ -115,7 +120,7 @@ const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
 export {
   createArtifactFolder,
   buildArtifactOnValidate,
-  uploadArtifact,
+  createAndUploadArtifact,
   downloadArtifact,
   createDiffOnValidate,
   createDiffOnDeploy

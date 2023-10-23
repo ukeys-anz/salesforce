@@ -6,7 +6,8 @@ import {
   existsSync,
   rename,
   rmSync,
-  mkdirSync
+  mkdirSync,
+  writeFileSync
 } from "fs";
 
 const renameFile = (oldFilepath, newFilepath) => {
@@ -18,9 +19,12 @@ const renameFile = (oldFilepath, newFilepath) => {
   });
 };
 
-const runSfCommand = (command) => execSync(command, { encoding: "utf-8" });
+const runSfCommand = (command) =>
+  execSync(command, { stdio: "pipe", maxBuffer: 1024 * 1024 * 10 }).toString(
+    "utf-8"
+  );
 
-const findJobId = (jobIdFilePath, comment = "") => {
+const printContextFromFile = (jobIdFilePath, comment = "") => {
   if (!existsSync(jobIdFilePath)) {
     logger(`ERROR: There is no jobId. ${comment}`);
     return "";
@@ -130,36 +134,118 @@ const findJobIdFromCommand = (command) => {
 };
 
 const deleteFolder = (folderPath) => {
+  logger(`Delete Folder: ${folderPath}`);
   rmSync(folderPath, { recursive: true, force: true }, (err) => {
     if (err) {
       console.error(err);
       return;
     }
   });
-  return `${folderPath} folder is deleted!`;
+  console.log(`${folderPath} folder is deleted!`);
 };
 
 const createFolder = (folderPath) => {
+  logger(`Create Folder: ${folderPath}`);
   mkdirSync(folderPath, (err) => {
     if (err) {
       console.error(err);
       return;
     }
   });
-  return `${folderPath} folder is created!`;
+  console.log(`${folderPath} folder is created!`);
 };
 
 const logger = (log) => {
-  console.log("-----------------");
+  console.log("\n-=-=-=-=-=-=-=-=-");
   console.log(log);
+  console.log("-----------------");
   console.log("\n");
 };
 
 const booleanMap = (stringBoolean) => stringBoolean === "true";
 
+const ignoredFiles = (folderName) => {
+  const allChangedFiles = findAllFiles(folderName + "-all-files");
+  const notIgnoredFilesChanges = findAllFiles(folderName);
+  const ignoredFilesChanges = [];
+
+  allChangedFiles.forEach((file) => {
+    const f = file.replace(folderName + "-all-files", folderName);
+    if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
+  });
+  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
+  logger(
+    `All Ignored files:\n${
+      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
+    }`
+  );
+};
+
+const createFile = (context, fileName, whatFile) => {
+  console.log(`Create ${whatFile} File`);
+  execSync(`
+    touch ${fileName}
+    printf "${context}" > ${fileName}
+  `);
+};
+
+const updateSfCacheJsonFile = (jsonFile, jobId, anzxCIPackage, targetOrg) => {
+  const deployCacheFile = "/github/home/.sf/deploy-cache.json";
+  jsonFile[jobId] = {
+    manifest: anzxCIPackage,
+    "post-destructive-changes": anzxCIPackage,
+    "target-org": `${targetOrg}`,
+    wait: 120
+  };
+  writeFileSync(deployCacheFile, JSON.stringify(jsonFile));
+};
+
+const createDeployCacheFile = (jobId, targetOrg, anzxCIPackage) => {
+  const deployCacheFile = "/github/home/.sf/deploy-cache.json";
+  const deployCacheFileExist = existsSync(deployCacheFile);
+  let jsonFile = {};
+  if (deployCacheFileExist) {
+    const data = readFileSync(deployCacheFile);
+    jsonFile = JSON.parse(data);
+  }
+  updateSfCacheJsonFile(jsonFile, jobId, anzxCIPackage, targetOrg);
+};
+
+const copyFile = (copySourcePath, pasteSourcePath) => {
+  logger(`Copy ${copySourcePath} to ${pasteSourcePath}`);
+  execSync(`cp "${copySourcePath}" "${pasteSourcePath}"`);
+};
+
+const uploadFile = (fileName, artifactorySecret, whatFile) => {
+  if (!folderExist(fileName)) {
+    console.log(`Could not find ${fileName} file`);
+    process.exit(1);
+  }
+  console.log(`Upload ${whatFile} File`);
+  console.log(
+    execSync(
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${fileName}" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}"`
+    ).toString("utf8")
+  );
+};
+
+const downloadFile = (fileName, artifactorySecret, whatFile) => {
+  console.log(`Download ${whatFile} File.`);
+  console.log(
+    execSync(
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}"`
+    ).toString("utf8")
+  );
+};
+
+const deleteFile = (fileName) => {
+  logger(`Delete File: ${fileName}`);
+  execSync(`rm -f ${fileName}`).toString("utf-8");
+};
+
 export {
   runSfCommand,
-  findJobId,
+  printContextFromFile,
   salesforceDiffExist,
   findAllSpecifiedTests,
   currentDate,
@@ -169,5 +255,13 @@ export {
   deleteFolder,
   createFolder,
   logger,
-  booleanMap
+  booleanMap,
+  ignoredFiles,
+  createFile,
+  uploadFile,
+  downloadFile,
+  deleteFile,
+  folderExist,
+  copyFile,
+  createDeployCacheFile
 };
