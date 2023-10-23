@@ -6,6 +6,8 @@ const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
 const REFERRED_TO_FIRM = "3";
 const OTHER = "99";
+const FINANCIAL_REMEDY = "1";
+const SUB_REMS_PAYMENT = ["10", "18"];
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
