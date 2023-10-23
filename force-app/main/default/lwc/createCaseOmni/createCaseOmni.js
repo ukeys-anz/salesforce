@@ -168,6 +168,13 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.checkFields(details, this.omniJsonData.realMap);
     if (details.systemicIssue === "Yes")
       this.checkFields(details, this.omniJsonData.sysIssueMap);
+    if (
+      details.systemicIssue === "Yes" &&
+      this.omniJsonData.Case.ComplaintDetails.Issue2Checkbox === "Yes"
+    ) {
+      if (!details.additionalissues)
+        this.missingFields.push("Which issue is possibly systemic?");
+    }
     if (details.CAC === "Yes")
       this.checkFields(details, this.omniJsonData.cacMap);
     if (
