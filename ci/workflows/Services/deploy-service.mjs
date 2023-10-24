@@ -9,7 +9,9 @@ import {
   createFile,
   uploadFile,
   downloadFile,
-  createDeployCacheFile
+  createDeployCacheFile,
+  downloadZipFile,
+  unzipFile
 } from "./helper.mjs";
 
 const validateWithoutTest = (targetOrg, artifactPath) => {
@@ -66,6 +68,12 @@ const deployWithAllTests = (targetOrg, artifactPath) => {
   return runSfCommand(command);
 };
 
+const quickDeploy = (artifactFolderName, artifactorySecret, targetOrg) => {
+  downloadZipFile(artifactFolderName, artifactorySecret, "Artifactory");
+  unzipFile(artifactFolderName);
+  return deployWithoutTest(targetOrg, artifactFolderName);
+};
+
 const uploadJobId = (validationReport, fileName, artifactorySecret) => {
   const jobId = findJobIdFromCommand(validationReport);
   if (!jobId) return;
@@ -101,12 +109,13 @@ const cancel = (jobIdFileName, artifactorySecret, targetOrg, anzxCIPackage) => {
 };
 
 const validateProgress = (validationReport) => {
-  logger("Validation Progress");
   const jobId = findJobIdFromCommand(validationReport);
   if (!jobId) {
     logger("No Job Id could be found");
     process.exit();
   }
+
+  logger("Validation Progress");
 
   const command = `npx sf project deploy resume --job-id ${jobId}`;
   console.log(command);
@@ -145,10 +154,10 @@ const validateProgress = (validationReport) => {
 };
 
 const deployProgress = (deploymentCommand) => {
-  logger("Deployment Progress");
   const jobId = findJobIdFromCommand(deploymentCommand);
   if (!jobId) process.exit();
 
+  logger("Deployment Progress");
   const command = `npx sf project deploy resume --job-id ${jobId}`;
   console.log(command);
 
@@ -235,5 +244,6 @@ export {
   deployProgress,
   deployReport,
   uploadJobId,
-  codeCoverage
+  codeCoverage,
+  quickDeploy
 };

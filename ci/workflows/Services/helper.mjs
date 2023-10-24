@@ -144,6 +144,8 @@ const deleteFolder = (folderPath) => {
   console.log(`${folderPath} folder is deleted!`);
 };
 
+const renameItem = (folderPath) => folderPath.replaceAll("/", "-");
+
 const createFolder = (folderPath) => {
   logger(`Create Folder: ${folderPath}`);
   mkdirSync(folderPath, (err) => {
@@ -238,6 +240,20 @@ const downloadFile = (fileName, artifactorySecret, whatFile) => {
   );
 };
 
+const downloadZipFile = (fileName, artifactorySecret, whatFile) => {
+  console.log(`Download ${whatFile} File.`);
+  console.log(
+    execSync(
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}.zip"`
+    ).toString("utf8")
+  );
+};
+
+const unzipFile = (filename) => {
+  console.log(`Unzip Zip File`);
+  console.log(execSync(`unzip "${filename}.zip"`).toString("utf-8"));
+};
+
 const deleteFile = (fileName) => {
   logger(`Delete File: ${fileName}`);
   execSync(`rm -f ${fileName}`).toString("utf-8");
@@ -263,5 +279,8 @@ export {
   deleteFile,
   folderExist,
   copyFile,
-  createDeployCacheFile
+  createDeployCacheFile,
+  renameItem,
+  downloadZipFile,
+  unzipFile
 };

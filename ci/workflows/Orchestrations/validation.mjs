@@ -17,7 +17,12 @@ import {
   uploadJobId,
   codeCoverage
 } from "../Services/deploy-service.mjs";
-import { booleanMap, deleteFolder, deleteFile } from "../Services/helper.mjs";
+import {
+  booleanMap,
+  deleteFolder,
+  deleteFile,
+  renameItem
+} from "../Services/helper.mjs";
 
 //////////
 
@@ -35,9 +40,9 @@ const {
   WORKING_DIR
 } = process.env;
 
-const SOURCE_DIR = `artifact-${BRANCH_NAME}`;
+const SOURCE_DIR = renameItem(`artifact-${BRANCH_NAME}`);
 const CLASS_FOLDER_PATH = `${SOURCE_DIR}/force-app/main/default/classes`;
-const JOB_ID_FILE_NAME = `${BASE_REF}-${PR_NUMBER}`;
+const JOB_ID_FILE_NAME = renameItem(`${BASE_REF}-${PR_NUMBER}`);
 const ANZX_CI_PACKAGE_XML =
   WORKING_DIR + "/ci/workflows/Config/ANZxCIPackage.xml";
 //////////

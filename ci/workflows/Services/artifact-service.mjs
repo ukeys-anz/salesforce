@@ -5,7 +5,8 @@ import {
   deleteFolder,
   ignoredFiles,
   salesforceDiffExist,
-  logger
+  logger,
+  folderExist
 } from "./helper.mjs";
 
 const renameForceignore = () => {
@@ -70,9 +71,9 @@ const createDiffOnDeploy = (folderName, baseRef, tagRef) => {
   deleteFolder(folderName + "-all-files");
 };
 
-const zipArtifactory = (zipFileName, artifactPath) => {
+const zipArtifactory = (artifactPath) => {
   console.log("Zipping Artifact");
-  execSync(`zip -r ${zipFileName}.zip ${artifactPath}`).toString("utf8");
+  execSync(`zip -r "${artifactPath}.zip" "${artifactPath}"`).toString("utf8");
 };
 
 const uploadArtifact = (zipFileName, artifactorySecret) => {
@@ -92,9 +93,9 @@ const deleteZipArtifactory = (zipFileName) => {
 const uploadToArtifactory = (zipFileName, artifactorySecret, artifactPath) => {
   if (!salesforceDiffExist(artifactPath)) return;
   logger("Upload Artifactory");
-  zipArtifactory(zipFileName, artifactPath);
-  uploadArtifact(zipFileName, artifactorySecret);
-  deleteZipArtifactory(zipFileName);
+  zipArtifactory(artifactPath);
+  uploadArtifact(artifactPath, artifactorySecret);
+  deleteZipArtifactory(artifactPath);
 };
 
 const createAndUploadArtifact = (
