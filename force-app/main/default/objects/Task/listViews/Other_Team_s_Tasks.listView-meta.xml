@@ -36,5 +36,6 @@
     <label>Other Team&apos;s Tasks</label>
     <sharedTo>
         <role>Customer_Resolution_Leadership</role>
+        <role>Customer_Resolution_Team_Leaders</role>
     </sharedTo>
 </ListView>
