@@ -1,0 +1,58 @@
+/**
+ * @author Peter Charalambous
+ * @since October 2023
+ * @description Settlements API repository
+ * @group Repository
+ */
+public with sharing class SettlementsAPIRespository extends RepositoryBase {
+  /**
+   * @param poiDetails proof of insurance details
+   * @return `Boolean`
+   * @description Verifies a customers proof of insurance
+   */
+  public Boolean verifyInsurance(Proof_of_Insurance__c poiDetails) {
+    Service s = ServiceProvider.getService(BOHService.class);
+
+    try {
+      //Populate request body
+      ProofOfInsuranceVerification poiVerification = new ProofOfInsuranceVerification();
+      poiVerification.documentId = poiDetails.Document_Id__c;
+      poiVerification.documentFileVersion = poiDetails.Document_File_Version__c;
+
+      VerifyInsuranceRequestBody requestBody = new VerifyInsuranceRequestBody();
+      requestBody.settlementId = poiDetails.Settlement_ID__c;
+      requestBody.mortgageContractId = poiDetails.Mortgage_Contract_ID__c;
+      requestBody.propertyId = poiDetails.Property_ID__c;
+      requestBody.proofOfInsuranceVerification = poiVerification;
+
+      HttpCalloutResponse response = s.verifyInsurance(
+        json.serialize(requestBody),
+        poiDetails.Settlement_ID__r.Loan_Application_Number__r.Account.OCV_ID__c
+      );
+      if (response.successful == false) {
+        throw response.error;
+      }
+    } catch (Exception e) {
+      //
+    }
+    return true;
+  }
+
+  /**
+   * @description VerifyInsuranceRequestBody returns request body of verifyInsurance call
+   */
+  public class VerifyInsuranceRequestBody {
+    public String settlementId;
+    public String mortgageContractId;
+    public String propertyId;
+    public ProofOfInsuranceVerification proofOfInsuranceVerification;
+  }
+
+  /**
+   * @description ProofOfInsuranceVerification returns request body of verifyInsurance call
+   */
+  public class ProofOfInsuranceVerification {
+    public String documentId;
+    public String documentFileVersion;
+  }
+}

@@ -497,4 +497,22 @@ public without sharing class TestDataFactory {
 
     return newInteraction;
   }
+
+  /**
+   * @description create the Settlement records
+   * @param loanAppId Loan app id to link to settlement
+   * @return Settlement__c
+   */
+  public static Settlement__c createSettlement(String loanAppId) {
+    return new Settlement__c(Loan_Application_Number__c = loanAppId);
+  }
+
+  /**
+   * @description create the POI records
+   * @param settlementId Settlement id to link
+   * @return Proof_of_Insurance__c
+   */
+  public static Proof_of_Insurance__c createPOI(String settlementId) {
+    return new Proof_of_Insurance__c(Settlement_ID__c = settlementId);
+  }
 }
