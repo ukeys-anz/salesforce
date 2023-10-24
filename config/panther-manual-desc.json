@@ -1444,7 +1444,7 @@
         "Task_Name__c",
         "Category__c",
         "Status__c",
-        "Assigned_to_Role__c"
+        "Role__c"
       ],
       "IA-2530753": ["Created__c", "Completed__c"],
       "IA-2415998": ["Eligible_to_Complete__c"]
