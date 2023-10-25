@@ -479,4 +479,48 @@ public with sharing class AccountCommonActions {
         record.ANZx_Customer__c || record.Was_ANZx_Customer__c;
     }
   }
+
+  /**
+   * @description linkKYCQACasesToAccount is called to Link the KYC QA Case to Account using OCV ID/Mobile Number
+   * @param accounts The Account records passed from Trigger.new()
+   */
+  public static void linkKYCQACasesToAccount(List<Account> accounts) {
+    Set<String> ocvIds = AccountCommonActionsHelper.getOcvIdsFromAccounts(
+      accounts
+    );
+    Map<String, Case> ocvIdToKYCQACaseMap = AccountCommonActionsHelper.getKYCQACasesFromOcvIds(
+      ocvIds
+    );
+
+    Set<String> mobileNumbers = AccountCommonActionsHelper.getMobileNumbersFromAccounts(
+      accounts
+    );
+    Map<String, Case> mobileNumberToKYCQACaseMap = AccountCommonActionsHelper.getKYCQACasesFromMobileNumbers(
+      mobileNumbers
+    );
+
+    List<Case> kycQACaseToUpdateList = new List<Case>();
+    for (Account acc : accounts) {
+      String sanitisedMobileNumber = TextUtils.sanitiseMobileNumber(
+        acc.PersonMobilePhone
+      );
+      if (
+        String.isNotEmpty(acc.OCV_Id__c) &&
+        ocvIdToKYCQACaseMap.containsKey(acc.OCV_Id__c)
+      ) {
+        Case kycQACase = ocvIdToKYCQACaseMap.get(acc.OCV_Id__c);
+        kycQACase.AccountId = acc.Id;
+        kycQACaseToUpdateList.add(kycQACase);
+      } else if (
+        String.isNotEmpty(sanitisedMobileNumber) &&
+        mobileNumberToKYCQACaseMap.containsKey(sanitisedMobileNumber)
+      ) {
+        Case kycQACase = mobileNumberToKYCQACaseMap.get(sanitisedMobileNumber);
+        kycQACase.AccountId = acc.Id;
+        kycQACaseToUpdateList.add(kycQACase);
+      }
+    }
+
+    update kycQACaseToUpdateList;
+  }
 }
