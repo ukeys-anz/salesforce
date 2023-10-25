@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_Prevent_Future_BirthDate</fullName>
+    <active>true</active>
+    <description>CC-5112 Prevent BirthDate is in Future</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;PersonAccount&apos;, 
+NOT(ISNULL(PersonBirthdate)),
+(ISNEW() || ISCHANGED(PersonBirthdate)),
+PersonBirthdate &gt;  TODAY()
+)</errorConditionFormula>
+    <errorDisplayField>PersonBirthdate</errorDisplayField>
+    <errorMessage>Date of Birth cannot be in the future.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,182 @@
+<template>
+  <lightning-quick-action-panel header={headerText}>
+    <lightning-spinner if:true={isCreatingProspect}> </lightning-spinner>
+    <template if:true={showCreateProspect}>
+      <div class="slds-card" if:true={showWarningBanner}>
+        <div class="slds-card__header slds-grid">
+          <div
+            class="slds-notify slds-notify_alert slds-alert_warning"
+            role="alert"
+          >
+            <span class="slds-assistive-text">warning</span>
+            <span
+              class="slds-icon_container slds-m-right_x-small"
+              title="Description of icon when needed"
+            >
+              <lightning-icon
+                icon-name="utility:warning"
+                alternative-text="Warning!"
+                title="Warning"
+              ></lightning-icon>
+            </span>
+            <div class="warningFont">
+              {label.MLCRM_CreateProspectWarningMessage}&nbsp;
+            </div>
+            <lightning-button-icon
+              icon-name="utility:close"
+              alternative-text="close!"
+              title="Close"
+              onclick={hideBanner}
+              variant="bare"
+            ></lightning-button-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="slds-page-header bannerClass">
+        <div class="slds-text-heading_small">
+          {label.MLCRM_ContactInformationHeader}
+        </div>
+      </div>
+
+      <div
+        class="slds-text-color_error slds-m-left_medium slds-m-top_small"
+        if:true={showMobileOrPhoneError}
+      >
+        {label.MLCRM_MobileOrEmailRequiredMessage}
+      </div>
+      <div class="c-container">
+        <lightning-layout multiple-rows>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-combobox
+              name="Salutation"
+              class="responseStatus"
+              label="Salutation"
+              value={createProspectPayload.strSalutation}
+              placeholder="--None--"
+              options={salutationPicklistValue}
+              onchange={handleChange}
+            >
+            </lightning-combobox>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-input
+              type="tel"
+              label="Mobile"
+              value={createProspectPayload.strMobilePhone}
+              name="strMobilePhone"
+              class="phone"
+              field-level-help={label.MLCRM_MobileHelpText}
+              pattern="^\+614[0-9]{8}|^\+615[0-9]{8}$"
+              message-when-pattern-mismatch={label.MLCRM_PhoneFormatErrorMessage}
+              onchange={handleChange}
+            >
+            </lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-input
+              name="strFirstName"
+              type="text"
+              label="First Name"
+              value={createProspectPayload.strFirstName}
+              required="true"
+              onchange={handleChange}
+            ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-input
+              name="strEmail"
+              type="email"
+              class="email"
+              value={createProspectPayload.strEmail}
+              label="Email"
+              onchange={handleChange}
+            ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-input
+              name="strMiddleName"
+              type="text"
+              value={createProspectPayload.strMiddleName}
+              label="Middle Name"
+              onchange={handleChange}
+            ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-combobox
+              name="strRole"
+              label="Role"
+              class="role"
+              value={createProspectPayload.strRole}
+              placeholder="--None--"
+              options={rolePicklistValue}
+              onchange={handleChange}
+              required
+            ></lightning-combobox>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-input
+              name="strLastName"
+              type="text"
+              value={createProspectPayload.strLastName}
+              label="Last Name"
+              onchange={handleChange}
+              required="true"
+            ></lightning-input>
+          </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout multiple-rows>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-input
+              type="text"
+              name="strSuffix"
+              value={createProspectPayload.strSuffix}
+              label="Suffix"
+              onchange={handleChange}
+            ></lightning-input>
+          </lightning-layout-item>
+        </lightning-layout>
+      </div>
+    </template>
+    <template if:true={showProgressScreen}>
+      <div>
+        <lightning-progress-bar
+          size="medium"
+          value={progress}
+          variant="circular"
+        >
+        </lightning-progress-bar>
+      </div>
+    </template>
+
+    <template if:true={isExistingCustomer}>
+      <div>
+        <lightning-datatable
+          class="resultTable2"
+          key-field="prospectId"
+          data={searchResults}
+          columns={columnsIndividual}
+          hide-checkbox-column="true"
+        >
+        </lightning-datatable>
+      </div>
+    </template>
+    <template if:false={showProgressScreen}>
+      <div slot="footer">
+        <lightning-button
+          variant="neutral"
+          label="Cancel"
+          onclick={closeAction}
+        >
+        </lightning-button>
+        <lightning-button
+          variant="brand"
+          label="Continue"
+          onclick={saveRecord}
+          class="slds-m-left_x-small"
+        >
+        </lightning-button>
+      </div>
+    </template>
+  </lightning-quick-action-panel>
+</template>

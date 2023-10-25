@@ -18,7 +18,9 @@ public with sharing class DCRMMaintainPartyServiceMock extends Service {
    * @return HttpCalloutResponse
    * @description fetches party information for lead conversion
    */
-  public override HttpCalloutResponse maintainParty(Lead record) {
+  public override HttpCalloutResponse maintainParty(
+    OCVRequestPayloadWrapper record
+  ) {
     if (!preset) {
       StaticResource sr = [
         SELECT Body

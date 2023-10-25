@@ -1,53 +1,130 @@
 import { execSync } from "child_process";
-import { rmSync, mkdirSync, existsSync } from "fs";
+import {
+  renameFile,
+  createFolder,
+  deleteFolder,
+  ignoredFiles,
+  salesforceDiffExist,
+  logger,
+  folderExist
+} from "./helper.mjs";
 
-const deleteArtifactFolder = (folderName) => {
-  return rmSync(folderName, { recursive: true, force: true }, (err) => {
-    if (err) {
-      console.error(err);
-    }
-    console.log(`${folderName} is deleted!`);
-  });
+const renameForceignore = () => {
+  renameFile(".forceignore", "ci.forceignore");
+  renameFile("deploy.forceignore", ".forceignore");
 };
 
 const createArtifactFolder = (folderName) => {
-  deleteArtifactFolder(folderName);
-  return mkdirSync(folderName, (err) => {
-    if (err) {
-      console.error(err);
-    }
-    console.log(`${folderName} is created!`);
-  });
+  deleteFolder(folderName);
+  createFolder(folderName);
 };
 
-const buildArtifact = (folderName, baseRef, ref) => {
+const findAllChangedFileOnValidate = (folderName, baseRef, ref) => {
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to origin/${baseRef} --from origin/${ref} --output ${folderName}/ --generate-delta -i .forceignore`
+    `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta`
   ).toString("utf8");
 };
 
-const uploadArtifact = (
+const findAllChangedFileOnDeploy = (folderName, baseRef, tagRef) => {
+  createArtifactFolder(folderName);
+  execSync(
+    `npx sfdx sgd:source:delta --to ${tagRef} --from origin/${baseRef} --output ${folderName}/ --generate-delta`
+  ).toString("utf8");
+};
+
+const buildArtifactOnValidate = (folderName, baseRef, ref) => {
+  renameForceignore();
+  createArtifactFolder(folderName);
+  execSync(
+    `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta -i .forceignore`
+  ).toString("utf8");
+};
+
+const buildArtifactOnDeploy = (folderName, baseRef, tagRef) => {
+  renameForceignore();
+  createArtifactFolder(folderName);
+  execSync(
+    `npx sfdx sgd:source:delta --to ${tagRef} --from origin/${baseRef} --output ${folderName}/ --generate-delta -i .forceignore`
+  ).toString("utf8");
+};
+
+const artifactFolderExist = (artifactPath) => {
+  if (!folderExist(artifactPath + "/package")) {
+    process.exit(1);
+  }
+};
+
+const createDiffOnValidate = (folderName, baseRef, ref) => {
+  findAllChangedFileOnValidate(folderName + "-all-files", baseRef, ref);
+  buildArtifactOnValidate(folderName, baseRef, ref);
+  artifactFolderExist(folderName);
+  ignoredFiles(folderName);
+  deleteFolder(folderName + "-all-files");
+};
+
+const createDiffOnDeploy = (folderName, baseRef, tagRef) => {
+  findAllChangedFileOnDeploy(folderName + "-all-files", baseRef, tagRef);
+  buildArtifactOnDeploy(folderName, baseRef, tagRef);
+  artifactFolderExist(folderName);
+  ignoredFiles(folderName);
+  deleteFolder(folderName + "-all-files");
+};
+
+const zipArtifactory = (artifactPath) => {
+  console.log("Zipping Artifact");
+  execSync(`zip -r "${artifactPath}.zip" "${artifactPath}"`).toString("utf8");
+};
+
+const uploadArtifact = (zipFileName, artifactorySecret) => {
+  console.log("Upload Artifact");
+  console.log(
+    execSync(
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${zipFileName}.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${zipFileName}.zip"`
+    ).toString("utf8")
+  );
+};
+
+const deleteZipArtifactory = (zipFileName) => {
+  console.log("Deleting Artifact Zip file");
+  execSync(`rm -f ${zipFileName}.zip`);
+};
+
+const uploadToArtifactory = (zipFileName, artifactorySecret, artifactPath) => {
+  if (!salesforceDiffExist(artifactPath)) return;
+  logger("Upload Artifactory");
+  zipArtifactory(artifactPath);
+  uploadArtifact(artifactPath, artifactorySecret);
+  deleteZipArtifactory(artifactPath);
+};
+
+const createAndUploadArtifact = (
   folderName,
   baseRef,
   ref,
   artifactorySecret,
-  projectName
+  zipFileName
 ) => {
-  buildArtifact(folderName, baseRef, ref);
-  // Then we should run a gcloud command to upload the artifact to artifactory
+  createDiffOnValidate(folderName, baseRef, ref);
+  uploadToArtifactory(zipFileName, artifactorySecret, folderName);
+};
+
+const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
+  // We should run a gcloud command to download the artifact from artifactory
   // bash script code:
-  //        zip -r "$ref.zip" "$folderName"
-  //        curl -H "X-JFrog-Art-Api:$(gcloud secrets versions access projects/"${projectName}"/secrets/"${artifactorySecret}"/versions/latest)" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ref.zip"
+  // curl -H "X-JFrog-Art-Api:$(gcloud secrets versions access projects/"${projectName}"/secrets/"${artifactorySecret}"/versions/latest)" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases/${artifactName}.zip"
+  // unzip "${artifactName}.zip" -d "."
 };
 
 ///////////////////////////////////////////
 
 export {
-  deleteArtifactFolder,
   createArtifactFolder,
-  buildArtifact,
-  uploadArtifact
+  buildArtifactOnValidate,
+  createAndUploadArtifact,
+  downloadArtifact,
+  createDiffOnValidate,
+  createDiffOnDeploy
 };
 
 // POINTS

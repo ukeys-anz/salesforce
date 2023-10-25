@@ -3,9 +3,9 @@
     <description>To manage permissions of customer resolution team leaders</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR CRP Team Leaders</label>
+    <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
-    <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_CRP_Leaders</permissionSets>
     <permissionSets>IDR_User_Level_1</permissionSets>

@@ -21,6 +21,7 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
     CCRMFinancialAccountActions.populateName(records);
     CCRMFinancialAccountActions.validateSourceStatus(records, null);
     CCRMFinancialAccountActions.setPrimaryOwner(records);
+    MLCRMFinancialAccountActions.populateANZProduct(records, null);
   }
 
   /**
@@ -31,5 +32,9 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
     CCRMFinancialAccountActions.populateName(records);
     CCRMFinancialAccountActions.validateSourceStatus(records, oldMap);
     CCRMFinancialAccountActions.setPrimaryOwner(records);
+    MLCRMFinancialAccountActions.populateANZProduct(
+      records,
+      (Map<Id, FinServ__FinancialAccount__c>) oldMap
+    );
   }
 }

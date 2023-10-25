@@ -125,6 +125,7 @@ private class CCRMLeadActionsTest {
 
   @isTest
   static void testCreateLeadsWithUsersWithCPID() {
+    Test.startTest();
     //Controlling Posts
     Controlling_Post__c cp1 = new Controlling_Post__c();
     cp1.Is_Active__c = true;
@@ -263,6 +264,7 @@ private class CCRMLeadActionsTest {
       leadRecord3.Controlling_Post__c,
       'Controlling Post is Set'
     );
+    Test.stopTest();
   }
 
   private static void createUsersWithEmployeeID() {
@@ -335,6 +337,7 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testLeadPlatformEventsSuccessfullyByAdminAdobe() {
     // GIVEN
+    Test.startTest();
     List<Lead> leads = [
       SELECT Id, LeadSource, recordTypeId
       FROM Lead
@@ -348,9 +351,7 @@ private class CCRMLeadActionsTest {
     //WHEN
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leads[0].Id);
-    Test.startTest();
     CCRMLeadPlatformEventActions.resendManualLeadPlatformEvent(leadIds);
-    Test.stopTest();
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage
     System.assertEquals(
@@ -358,6 +359,7 @@ private class CCRMLeadActionsTest {
       'Partner',
       'Lead source should match.'
     );
+    Test.stopTest();
   }
 
   @isTest
@@ -372,6 +374,8 @@ private class CCRMLeadActionsTest {
     for (Lead record : leads) {
       record.Lead_Originator__c = 'CCRM';
       record.New_to_Bank__c = 'No';
+      record.Company = 'ABC Company';
+      record.Registered_Company__c = 'No';
     }
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       update leads;
@@ -426,7 +430,7 @@ private class CCRMLeadActionsTest {
       leadRecord.FirstName = 'Sam';
       leadRecord.LastName = 'Jacob';
       leadRecord.LeadSource = 'Partner';
-      leadRecord.Campaign_Code__c = 'IKCMP–1579';
+      leadRecord.Campaign_Code__c = 'IKCMP-1579';
       leadRecord.New_to_Bank__c = 'No';
       leadRecord.Lead_Originator__c = 'unica';
       leadRecord.Business_ID__c = 'BUS1234';
@@ -602,9 +606,12 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testLogResponseLeadUpdateToUnica() {
     //GIVEN leads
+    Test.startTest();
     Lead unicaLead = [SELECT Id FROM Lead LIMIT 1];
     unicaLead.Lead_Originator__c = 'UNICA';
     unicaLead.Business_ID__c = 'BUS1234';
+    unicaLead.Registered_Company__c = 'No';
+    unicaLead.Company = 'ABC Company';
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       update unicaLead;
     }
@@ -627,11 +634,9 @@ private class CCRMLeadActionsTest {
     task.Response_Type__c = response.Id;
 
     //WHEN
-    Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       insert task;
     }
-    Test.stopTest();
 
     //THEN
     Lead[] updatedlead = [
@@ -640,6 +645,7 @@ private class CCRMLeadActionsTest {
       WHERE Business_ID__c = 'BUS1234'
     ];
     System.assertEquals(updatedlead[0].SubStatus__c, 'Accepted', 'Lead ');
+    Test.stopTest();
   }
 
   @isTest
@@ -728,6 +734,7 @@ private class CCRMLeadActionsTest {
 
   @IsTest
   static void testValidateUnicaLeadCustomerLinking() {
+    Test.startTest();
     Account acc = CCRMTestDataFactory.createBusinessAccount();
     String invalidId = 'invalidId';
     Campaign campaign = [SELECT Code__c FROM Campaign LIMIT 1];
@@ -781,7 +788,7 @@ private class CCRMLeadActionsTest {
       WHERE username = 'unica.integration@anzx.com.unittest'
       LIMIT 1
     ];
-    Test.startTest();
+
     //WHEN validated
     System.runAs(unicaIntegrationUser) {
       CCRMLeadActions.populateFields(
@@ -796,7 +803,6 @@ private class CCRMLeadActionsTest {
         }
       );
     }
-    Test.stopTest();
 
     //THEN leads with no matching campaign or related account will fail validation
     System.assert(
@@ -815,6 +821,7 @@ private class CCRMLeadActionsTest {
       leadWithInvalidBusinessId.hasErrors(),
       'Lead with invalid Business ID should fail validation'
     );
+    Test.stopTest();
   }
 
   @isTest
@@ -909,6 +916,7 @@ private class CCRMLeadActionsTest {
     //GIVEN when I create a Lead
     //When the lead is manually created
     //Then campaign value is set to default
+    Test.startTest();
     Id leadId;
     Campaign campaign;
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
@@ -919,7 +927,7 @@ private class CCRMLeadActionsTest {
         LIMIT 1
       ];
     }
-    Test.startTest();
+
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       Lead leadRecord = new Lead();
       leadRecord.Email = 'sam1@test.com';
@@ -935,11 +943,12 @@ private class CCRMLeadActionsTest {
       leadRecord.New_to_Bank__c = 'Yes';
       leadRecord.Lead_Originator__c = 'CCRM';
       leadRecord.Status = CCRMConstants.STATUS_ASSIGNED;
+      leadRecord.Company = 'ABC Company';
+      leadRecord.Registered_Company__c = 'No';
 
       insert leadRecord;
       leadId = leadRecord.Id;
     }
-    Test.stopTest();
 
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
       List<CampaignMember> members = [
@@ -949,10 +958,12 @@ private class CCRMLeadActionsTest {
       ];
       System.assert(!members.isEmpty(), 'Campaign Member was created');
     }
+    Test.stopTest();
   }
 
   @isTest
   static void testMLLeadCreationWithReferrerEmail() {
+    Test.startTest();
     System.runAs(MLCRMTestDataFactory.createAdminUser()) {
       Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
         .Id;
@@ -962,13 +973,11 @@ private class CCRMLeadActionsTest {
       usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
       insert usr;
 
-      Test.startTest();
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
       leadRec.Referrer_Email__c = 'test@mltest.anz.com';
       leadRec.Referrer_Name__c = 'Test Referrer Name';
       leadRec.LeadSource = MLCRMConstants.INTERNAL_REFERRAL;
       insert leadRec;
-      Test.stopTest();
 
       Lead leadRecord = [
         SELECT id, FinServ__ReferredByUser__c
@@ -982,18 +991,19 @@ private class CCRMLeadActionsTest {
         'Referrrer is populated'
       );
     }
+    Test.stopTest();
   }
 
   @isTest
   static void testMLLeadCreationWithoutExistingReferrer() {
+    Test.startTest();
     System.runAs(MLCRMTestDataFactory.createAdminUser()) {
-      Test.startTest();
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
       leadRec.Referrer_Email__c = 'test@mltest2.anz.com';
       leadRec.Referrer_Name__c = 'Test Referrer Name';
       leadRec.LeadSource = MLCRMConstants.INTERNAL_REFERRAL;
       insert leadRec;
-      Test.stopTest();
+
       Lead leadRecord = [
         SELECT id, FinServ__ReferredByUser__c
         FROM lead
@@ -1006,23 +1016,24 @@ private class CCRMLeadActionsTest {
         'Referrrer is not found'
       );
     }
+    Test.stopTest();
   }
 
   @isTest
   static void testBulkMLLeadCreation() {
+    Test.startTest();
     System.runAs(MLCRMTestDataFactory.createAdminUser()) {
-      Test.startTest();
       List<Lead> leadsList = new List<Lead>();
       for (Integer i = 0; i < 50; i++) {
         leadsList.add((Lead) FakerFactory.make(new FakerLeadFactory()));
       }
       insert leadsList;
-      Test.stopTest();
       System.assertEquals(leadsList.Size(), 50, 'All ML leads created');
       for (Lead objLead : leadsList) {
         System.assertEquals(objLead.Lead_Id__c, objLead.Lead_Auto_Number__c);
       }
     }
+    Test.stopTest();
   }
 
   @isTest
@@ -1057,6 +1068,7 @@ private class CCRMLeadActionsTest {
 
   @isTest
   static void testMLLeadCreationWithReferrer() {
+    Test.startTest();
     System.runAs(MLCRMTestDataFactory.createAdminUser()) {
       Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
         .Id;
@@ -1066,11 +1078,9 @@ private class CCRMLeadActionsTest {
       usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
       insert usr;
 
-      Test.startTest();
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
       leadRec.FinServ__ReferredByUser__c = usr.Id;
       insert leadRec;
-      Test.stopTest();
 
       Lead leadRecord = [
         SELECT id, Referrer_Email__c
@@ -1084,5 +1094,6 @@ private class CCRMLeadActionsTest {
         'Referrrer is populated'
       );
     }
+    Test.stopTest();
   }
 }

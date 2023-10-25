@@ -200,9 +200,9 @@
     "COBPrimaryIDDocument__c": "The details submitted for a primary document (licence or passport), including the original OCR extractions which may have been edited",
     "COBTaxResidency__c": "The details of a single tax residency in a country/region",
     "Contact": "Contact details of an individual person. Forms part of a person account",
-    "ContactPointAddress": "Represents a contact’s Address, which is associated with customer.",
-    "ContactPointEmail": "Represents a contact’s email, which is associated with customer.",
-    "ContactPointPhone": "Represents a contact’s phone number, which is associated with customer.",
+    "ContactPointAddress": "Represents a contact\u2019s Address, which is associated with customer.",
+    "ContactPointEmail": "Represents a contact\u2019s email, which is associated with customer.",
+    "ContactPointPhone": "Represents a contact\u2019s phone number, which is associated with customer.",
     "ContactRequest": "Represents a request made by the customer to connect with the coach",
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -239,7 +239,7 @@
     "Product_Preference__c": "High level generalised information relating to a group of applicants",
     "Product2": "ANZ or ANZx product",
     "Product Family": "Custom object that holds work basket details for cases",
-    "Quality_Assessment__c": "An object that holds all the relative fields and it’s values for a quality analyst to conduct end to end quality assessment.",
+    "Quality_Assessment__c": "An object that holds all the relative fields and it\u2019s values for a quality analyst to conduct end to end quality assessment.",
     "qualtrics__Survey_Response__c": "Customers answers to a given Qualtrics Survey",
     "Reason_Outcome__c": "Details of the customers referral outcome",
     "Referral_Reason__c": "Information of the customers referral",
@@ -273,7 +273,8 @@
         "FinServ__Status__c",
         "Hardship__c",
         "KYC_Verification_Level__c",
-        "KYCVerificationDate__c"
+        "KYCVerificationDate__c",
+        "Was_ANZx_Customer__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
       "IA-2468715": [
@@ -315,6 +316,9 @@
         "PersonHomePhone",
         "PersonOtherAddress",
         "PersonMailingAddress",
+        "PersonHomePhone",
+        "PersonOtherAddress",
+        "PersonMailingAddress",
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
@@ -338,8 +342,11 @@
       "IA-2415860": [
         "FinServ__CustomerType__c",
         "Principal_Place_of_Business_Formula__c",
-        "IsTruncated__c"
+        "IsTruncated__c",
+        "Security_Code_Updated__c",
+        "Security_Code_Requested__c"
       ],
+      "IA-2460507": ["Last_Updated_By__c"],
       "IA-2594111": [
         "OCV_Profile_ID__c",
         "Victim_External_ID__c",
@@ -1413,6 +1420,21 @@
         "Segment__c",
         "Start_Date__c",
         "State_Code__c"
+      ],
+      "IA-2415840": [
+        "CPID_Type__c",
+        "CPID_Incumbent__c",
+        "CPID_Title__c",
+        "CPID_Address__c",
+        "CPID_Address_1__c",
+        "CPID_Address_2__c",
+        "CPID_Address_3__c",
+        "CPID_Address_4__c",
+        "CPID_Phone__c",
+        "District_CTA__c",
+        "CPID_CancelFag__c",
+        "Last_CHT_Load_Date__c",
+        "Last_CAP_Load_Date__c"
       ]
     },
     "CustomerOnboardingApplication__c": {
@@ -1496,6 +1518,13 @@
       "IA-2435462": ["Object_Name__c", "TriggeredFrom__c", "UserLanId__C"],
       "IA-2530753": ["Customer_Name__c"],
       "IA-2571531": ["Error_Description__c"]
+    },
+    "Customer_Profile_Update_Event__e": {
+      "IA-2415860": ["RecordType_Name__c"]
+    },
+    "DCRM_Customer_Management_Non_KYC_Fields__mdt": {
+      "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
+      "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
     },
     "EmailMessage": {
       "IA-2468715": [
@@ -1639,6 +1668,7 @@
     "FinServ__ContactContactRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
       "IA-2453350": ["External_Id__c"],
+      "IA-2468715": ["Customer_Type__c", "Customer_SourceSystemId__c"],
       "IA-2530753": [
         "CreatedById",
         "CreatedDate",
@@ -1690,6 +1720,13 @@
         "Source_System_Status__c",
         "System_Record_Status__c"
       ],
+      "IA-2415860": [
+        "Product_Code_Display__c",
+        "Sub_product_Code_Display__c",
+        "Product_Name_Display__c",
+        "Additional_Owner_Count__c",
+        "Ownership__c"
+      ],
       "IA-2594111": ["FinServ__JointOwner__c"]
     },
     "FinServ__FinancialAccountRole__c": {
@@ -1712,7 +1749,13 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
-      "IA-2530753": ["Role_Type__c"]
+      "IA-2530753": ["Role_Type__c"],
+      "IA-2415860": [
+        "Product_Code_Display__c",
+        "Sub_product_Code_Display__c",
+        "Product_Name_Display__c",
+        "Account_Name__c"
+      ]
     },
     "FinServ__ReciprocalRole__c": {
       "IA-2530753": [
@@ -1756,6 +1799,12 @@
       ]
     },
     "Interaction": {
+      "IA-2415860": [
+        "Category__c",
+        "Opportunity__c",
+        "Customer_Relationship__c",
+        "Territory__c"
+      ],
       "IA-2530753": [
         "AccountId",
         "ANZ_Number__c",
@@ -2033,6 +2082,9 @@
       ],
       "IA-2415986": ["Campaign_Name__c"]
     },
+    "Lead_Response_Event__e": {
+      "IA-2415860": ["Campaign_Code__c"]
+    },
     "Lead_Flex_Field__c": {
       "IA-2415860": [
         "Campaign_Flex_Field__c",
@@ -2306,7 +2358,8 @@
       "IA-2468715": ["CreatedById", "CreatedDate", "Id"]
     },
     "Material_Change__c": {
-      "IA-2415840": ["Loan_Application__c", "External_Id__c", "Change_Type__c"]
+      "IA-2415840": ["Loan_Application__c", "External_Id__c", "Change_Type__c"],
+      "IA-2530753": ["Created_Date__c"]
     },
     "Material_Change_Applicant__c": {
       "IA-2415983": ["Material_Change__c", "Applicant__c"],
@@ -2350,7 +2403,9 @@
         "Referrer_Industry_Type__c",
         "Lead_Id__c",
         "Source_Lead_Id__c",
-        "Source_Lead_Link__c"
+        "Source_Lead_Link__c",
+        "Follow_Up_Date__c",
+        "Opportunity_ID__c"
       ],
       "IA-2415984": [
         "Contact__c",
@@ -2378,6 +2433,33 @@
         "My_Region_Flag__c",
         "Product_Count__c",
         "Account_Number__c"
+      ],
+      "IA-2415983": [
+        "Application_Numbers__c",
+        "Approval_Expiry_Date__c",
+        "Assessment_Outcome_Date__c",
+        "Assessment_Outcome__c",
+        "Borrowing_Power__c",
+        "DTI__c",
+        "Documents_Issued_Date__c",
+        "Documents_Signed_Date__c",
+        "Eligible_for_FHOG__c",
+        "Expected_Assessment_Date__c",
+        "Expected_Settlement_Date__c",
+        "Interview_Date__c",
+        "LMI_Applies__c",
+        "LVR__c",
+        "Loanapp_Reference__c",
+        "Material_change__c",
+        "PPR_Link__c",
+        "Progress_Payment__c",
+        "Servicing_Branch__c",
+        "Settlement_Completed__c",
+        "Submission_Date__c",
+        "Sufficient_Date__c",
+        "Total_Mortgage_Lending__c",
+        "Waiting_Indicator__c",
+        "Waiting_Flag__c"
       ]
     },
     "OpportunityLineItem": {
@@ -2495,6 +2577,7 @@
         "IDR_Allow_Account_Policy_Number__c",
         "Family"
       ],
+      "IA-2415860": ["Sub_Product_Code__c", "OCV_Sub_Product_Key__c"],
       "IA-2415840": ["ExternalId"]
     },
     "Product_Family__c": {
@@ -2892,7 +2975,8 @@
         "Loan_Purpose_Updated_Date__c",
         "Created_Date__c",
         "Needs_Assessment_Last_Updated_Date__c",
-        "Needs_Assessment_Created_Date__c"
+        "Needs_Assessment_Created_Date__c",
+        "Owner_Name__c"
       ],
       "IA-2594111": [
         "AccountId",
@@ -2911,7 +2995,8 @@
       "IA-2415840": [
         "E_Tag__c",
         "Needs_Assessment_Unsuitability_Reasons__c",
-        "Joint__c"
+        "Joint__c",
+        "Ineligible_Reasons__c"
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"]
     },
@@ -3244,7 +3329,12 @@
       ],
       "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
       "IA-2415855": ["FinServ__ReferrerScore__c"],
-      "IA-2432460": ["Refresh_Token__c"]
+      "IA-2432460": ["Refresh_Token__c"],
+      "IA-2453350": [
+        "ML_Role__c",
+        "ML_Territories__c",
+        "ML_Territories_Virtual__c"
+      ]
     },
     "Territory__c": {
       "IA-2415860": [
@@ -3287,6 +3377,17 @@
     },
     "Territory_Base_Sharing_Event__e": {
       "IA-2415860": ["Change_Context__c", "Record_Ids__c", "Trigger_Object__c"]
+    },
+    "Customer_Relationship__c": {
+      "IA-2415720": [
+        "Customer__c",
+        "Customer_Interests__c",
+        "Date_Relationship_Commenced__c",
+        "Notes__c",
+        "Preferred_Name__c",
+        "Relationship_To_Franchise__c",
+        "Territory__c"
+      ]
     }
   },
   "systemObjects": {

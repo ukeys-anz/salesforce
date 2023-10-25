@@ -37,7 +37,7 @@
         <operation>equals</operation>
         <value>Quality_Assessment__c.C_Q_Assessment</value>
     </filters>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <label>My Team&apos;s Evaluations</label>
     <sharedTo>
         <role>Customer_Resolution_Leadership</role>

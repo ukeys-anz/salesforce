@@ -121,7 +121,12 @@ public without sharing class IDRTaskActions {
    * @return An instance of a Task
    */
   public static Task createAssignmentTask(Case c, String subject) {
-    String description =((subject != null) && (subject =='Email attachment has failed to upload' || subject =='Email has failed to upload' || subject.startsWith('New File added by')))? '<Add Comments if applicable>':'';
+    String description = ((subject != null) &&
+      (subject.startsWith('Email attachment has failed to upload') ||
+      subject.startsWith('Email has failed to upload') ||
+      subject.startsWith('New File added by')))
+      ? '<Add Comments if applicable>'
+      : '';
     return new Task(
       RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
       OwnerId = c.OwnerId,
@@ -376,17 +381,13 @@ public without sharing class IDRTaskActions {
     if (caseRec == null) {
       return null;
     }
-    if (
-      caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY
-    ) {
+    if (caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY) {
       expectedDueDate = DateTimeUtils.addBusinessDays(
         caseRec.BusinessHoursId,
         caseRec.IDR_Date_Received__c,
         25
       );
-    } else if (
-      caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY
-    ) {
+    } else if (caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY) {
       expectedDueDate = DateTimeUtils.addBusinessDays(
         caseRec.BusinessHoursId,
         caseRec.IDR_Date_Received__c,

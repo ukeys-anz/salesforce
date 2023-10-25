@@ -19,7 +19,19 @@ private class CCRMContactPointEmailActionsTest {
       acpe.Customer_Name__c = acc.Id;
       acpe.ParentId = acc.Id;
       acpe.Occurrence_Number__c = 12;
+      acpe.RecordTypeId = CCRMConstants.CPE_ORG_RT_ID;
       insert acpe;
+
+      Account accActive = CCRMTestDataFactory.createBusinessAccountWithOwner(
+        CCRMTestDataFactory.getCCRMBaseUser().Id
+      );
+      ContactPointEmail activeCPE = new ContactPointEmail();
+      activeCPE.EmailAddress = faker.internet.companyEmail();
+      activeCPE.Customer_Name__c = accActive.Id;
+      activeCPE.ParentId = accActive.Id;
+      activeCPE.Occurrence_Number__c = 12;
+      activeCPE.RecordTypeId = CCRMConstants.CPE_ORG_RT_ID;
+      insert activeCPE;
     }
   }
   @IsTest
@@ -90,7 +102,7 @@ private class CCRMContactPointEmailActionsTest {
     //WHEN the email is inserted
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      CCRMContactPointEmailActions.checkExistingEmailOnProspect(
+      CCRMContactPointEmailActions.checkExistingEmailOnProspectOrExistingCust(
         new List<ContactPointEmail>{ newEmail }
       );
     }
@@ -100,6 +112,39 @@ private class CCRMContactPointEmailActionsTest {
     System.assert(
       newEmail.hasErrors(),
       'Banker should not be able to add an extra email to prospect'
+    );
+  }
+
+  @IsTest
+  static void testCheckExistingEmailOnActive() {
+    //GIVEN Banker tries to add a new email address to a active that already has email
+    Account active = [
+      SELECT Id
+      FROM Account
+      WHERE
+        RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
+        AND FinServ__Status__c = :CCRMConstants.ACTIVE_STATUS
+        AND Source_System_Name__c = :Label.CCRM_Source_System_Name
+        AND ANZx_Customer__c = FALSE
+      LIMIT 1
+    ];
+    ContactPointEmail newEmail = new ContactPointEmail(
+      Customer_Name__c = active.Id,
+      EmailAddress = faker.internet.companyEmail()
+    );
+
+    //WHEN the email is inserted
+    Test.startTest();
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      CCRMContactPointEmailActions.checkExistingEmailOnProspectOrExistingCust(
+        new List<ContactPointEmail>{ newEmail }
+      );
+    }
+    Test.stopTest();
+    //THEN the new email should not be added
+    System.assert(
+      newEmail.hasErrors(),
+      'Banker should not be able to add an extra email to active'
     );
   }
 }

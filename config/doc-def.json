@@ -719,6 +719,18 @@
       "type": "system"
     },
     {
+      "name": "KYC QA Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "Case_Read_Write_KYC_QA_Integration"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Loan App Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],

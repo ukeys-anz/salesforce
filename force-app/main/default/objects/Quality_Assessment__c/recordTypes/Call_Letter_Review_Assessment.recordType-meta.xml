@@ -2937,7 +2937,7 @@
         </values>
         <values>
             <fullName>Awaiting response from TM</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Rejected by TM</fullName>

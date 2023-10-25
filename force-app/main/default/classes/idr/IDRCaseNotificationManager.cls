@@ -34,12 +34,15 @@ public with sharing class IDRCaseNotificationManager {
             UserInfo.getUserId() != records[i].OwnerId &&
             IDRCaseActions.isIDRComplaintType(records[i])
           ) {
-            if (!(fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID))) {
-              wrapperList.add(createNotification(fieldLabel, records[i], null));
+            wrapperList.add(createNotification(fieldLabel, records[i], null));
+            if (
+              oldMap.get(records[i].Id) == null ||
+              oldMap.get(records[i].Id).OwnerId == records[i].OwnerId
+            ) {
+              assiTasks.addAll(
+                createNotificationTask(fieldLabel, records[i], null)
+              );
             }
-            assiTasks.addAll(
-              createNotificationTask(fieldLabel, records[i], null)
-            );
           }
         }
       }
@@ -76,7 +79,24 @@ public with sharing class IDRCaseNotificationManager {
         (c.IDR_NC_Last_Name__c != null ? c.IDR_NC_Last_Name__c : '') +
         '\n')
       : '';
-    if (fieldLabel == 'Parent Updated') {
+    if (
+      fieldLabel != 'Parent Updated' &&
+      fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
+      (!(String.valueOf(c.OwnerId).startsWith('00G')))
+    ) {
+      msgBody =
+        'A Case has been assigned to you ' +
+        c.CaseNumber +
+        ' ' +
+        customerName;
+      wrapper = new IDRBankerNotificationWrapper(
+        c,
+        new List<Id>{ c.OwnerId },
+        c.CaseNumber,
+        msgBody,
+        null
+      );
+    } else if (fieldLabel == 'Parent Updated') {
       msgBody =
         'Your case ' +
         c.CaseNumber +

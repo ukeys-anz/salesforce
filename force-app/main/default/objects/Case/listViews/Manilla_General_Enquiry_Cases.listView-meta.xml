@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Manilla_General_Enquiry_Cases</fullName>
+    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.General_Inquiry</value>
+    </filters>
+    <filters>
+        <field>CASES.TYPE</field>
+        <operation>equals</operation>
+        <value>Money,Profile</value>
+    </filters>
+    <filters>
+        <field>Sub_Type__c</field>
+        <operation>equals</operation>
+        <value>Withholding tax refund,Occupation Updates,Address Update (overseas),Citizenship Update,Legal Name Change</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Open,Under Investigation</value>
+    </filters>
+    <filterScope>Queue</filterScope>
+    <label>Manilla General Enquiry Cases</label>
+    <queue>Support_Coach_Queue</queue>
+    <sharedTo>
+        <role>Support_Coach</role>
+    </sharedTo>
+</ListView>

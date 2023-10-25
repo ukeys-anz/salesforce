@@ -30,6 +30,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     if (!CCRMLeadConversionActions.manualLeadConversionInitiated) {
       AccountCommonActions.findAndConvertLead(records);
     }
+    AccountCommonActions.linkKYCQACasesToAccount(records);
   }
 
   /**
@@ -38,21 +39,43 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
+    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(records);
+    Boolean isAllowedProfileCheck = CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging();
+    if (isAllowedProfileCheck) {
+      CCRMAccountActions.preventEditShellProspect(
+        records,
+        (Map<Id, Account>) oldMap
+      ); //CC-5050
+
+      CCRMCustomerProfileUpdateHelper.restrictEdit(
+        accWrap.activeAcc.values(),
+        (Map<Id, Account>) oldMap
+      );
+    }
     AccountCommonActions.populateFieldsValue(records);
-    List<Account> prospects = CCRMAccountActions.extractProspectAccounts(
-      records
-    );
+
     CCRMAccountActions.setControllingPost(records, (Map<Id, Account>) oldMap);
     AccountCommonActions.revertAccountChanges(records, oldMap);
-    CCRMAccountActions.revertAccountChanges(records, oldMap);
-    CCRMAccountActions.validateAndFormatProspectAbnAcnArbn(
-      prospects,
-      (Map<Id, Account>) oldMap
-    );
-    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-      prospects,
-      (Map<Id, Account>) oldMap
-    );
+
+    if (isAllowedProfileCheck) {
+      CCRMAccountActions.revertAccountChanges(records, oldMap);
+
+      CCRMAccountActions.validateAndFormatProspectAbnAcnArbn(
+        accWrap.prosAcc.values(),
+        (Map<Id, Account>) oldMap
+      );
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        accWrap.prosAcc.values(),
+        (Map<Id, Account>) oldMap,
+        true
+      );
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        accWrap.activeAcc.values(),
+        (Map<Id, Account>) oldMap,
+        false
+      );
+    }
   }
 
   /**

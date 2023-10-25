@@ -3,6 +3,7 @@
  * @since  05/2023
  * @group CCRM (Commercial CRM)
  * @description to handle all commercial CRM Contact to Contact actions
+ * @runTests CCRMContactToContactActionsTest
  */
 public with sharing class CCRMContactToContactActions {
   private static Map<Id, FinServ__ReciprocalRole__c> reciprocalRolesIdMap {
@@ -235,55 +236,63 @@ public with sharing class CCRMContactToContactActions {
   }
 
   /**
-   * @description check if end-date of a relationship is updated, then update inverse relationship accordingly
-   * @name checkRelationshipEndDate
+   * @description check if startdate/enddate of a relationship is updated, then update inverse relationship accordingly
+   * @name checkRelationshipStatus
    * @param records records from the trigger
    * @param oldMap map of old records from the trigger
    */
-  public static void checkRelationshipEndDate(
+  public static void checkRelationshipStatus(
     List<FinServ__ContactContactRelation__c> records,
     Map<Id, FinServ__ContactContactRelation__c> oldMap
   ) {
     List<FinServ__ContactContactRelation__c> updatedRecords = new List<FinServ__ContactContactRelation__c>();
     for (FinServ__ContactContactRelation__c record : records) {
+      FinServ__ContactContactRelation__c oldRecord = oldMap.get(record.Id);
       if (
         !String.isBlank(record.External_Id__c) &&
-        record.FinServ__EndDate__c != oldMap.get(record.Id).FinServ__EndDate__c
+        (record.FinServ__StartDate__c != oldRecord.FinServ__StartDate__c ||
+        record.FinServ__EndDate__c != oldRecord.FinServ__EndDate__c)
       ) {
         updatedRecords.add(record);
       }
     }
     if (!updatedRecords.isEmpty()) {
-      endDateInverseRelationship(updatedRecords);
+      updateInverseRelationshipStatus(updatedRecords);
     }
   }
 
   /**
-   * @description find and update the inverse relationship record enddate to match the provided relationships
-   * @name endDateRelationship
+   * @description find and update the inverse relationship record startdate/enddate/active to match the provided relationships
+   * @name updateInverseRelationshipStatus
    * @param records original relationship records
    */
-  private static void endDateInverseRelationship(
+  private static void updateInverseRelationshipStatus(
     List<FinServ__ContactContactRelation__c> records
   ) {
     List<FinServ__ContactContactRelation__c> recordsToEndDate = new List<FinServ__ContactContactRelation__c>();
     for (FinServ__ContactContactRelation__c record : [
       SELECT
+        FinServ__StartDate__c,
         FinServ__EndDate__c,
         FinServ__InverseRelationship__c,
+        FinServ__InverseRelationship__r.FinServ__StartDate__c,
         FinServ__InverseRelationship__r.FinServ__EndDate__c
       FROM FinServ__ContactContactRelation__c
       WHERE Id IN :records
       WITH USER_MODE
     ]) {
       if (
+        record.FinServ__StartDate__c !=
+        record.FinServ__InverseRelationship__r.FinServ__StartDate__c ||
         record.FinServ__EndDate__c !=
         record.FinServ__InverseRelationship__r.FinServ__EndDate__c
       ) {
         recordsToEndDate.add(
           new FinServ__ContactContactRelation__c(
             Id = record.FinServ__InverseRelationship__c,
-            FinServ__EndDate__c = record.FinServ__EndDate__c
+            FinServ__StartDate__c = record.FinServ__StartDate__c,
+            FinServ__EndDate__c = record.FinServ__EndDate__c,
+            FinServ__Active__c = record.FinServ__EndDate__c == null
           )
         );
       }

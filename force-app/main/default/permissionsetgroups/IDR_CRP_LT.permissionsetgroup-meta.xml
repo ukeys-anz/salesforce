@@ -3,9 +3,9 @@
     <description>This permission set group is for CRP LT users</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR CRP LT</label>
+    <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
-    <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_CRP_Leadership</permissionSets>
     <permissionSets>IDR_User_Level_1</permissionSets>

@@ -47,6 +47,24 @@
         <won>false</won>
     </standardValue>
     <standardValue>
+        <fullName>Submitted</fullName>
+        <default>false</default>
+        <label>Submitted</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>30</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Assessed</fullName>
+        <default>false</default>
+        <label>Assessed</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>50</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
         <fullName>Value Proposition</fullName>
         <default>false</default>
         <label>Value Proposition</label>
@@ -101,6 +119,24 @@
         <won>false</won>
     </standardValue>
     <standardValue>
+        <fullName>Documents</fullName>
+        <default>false</default>
+        <label>Documents</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>70</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Settlement</fullName>
+        <default>false</default>
+        <label>Settlement</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>90</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
         <fullName>Negotiation/Review</fullName>
         <default>false</default>
         <label>Negotiation/Review</label>
@@ -128,6 +164,15 @@
         <won>true</won>
     </standardValue>
     <standardValue>
+        <fullName>Closed</fullName>
+        <default>false</default>
+        <label>Closed</label>
+        <closed>true</closed>
+        <forecastCategory>Closed</forecastCategory>
+        <probability>100</probability>
+        <won>true</won>
+    </standardValue>
+    <standardValue>
         <fullName>Closed Lost</fullName>
         <default>false</default>
         <label>Closed Lost</label>
@@ -140,6 +185,15 @@
         <fullName>Opportunity Lost</fullName>
         <default>false</default>
         <label>Opportunity Lost</label>
+        <closed>true</closed>
+        <forecastCategory>Omitted</forecastCategory>
+        <probability>0</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Lost</fullName>
+        <default>false</default>
+        <label>Lost</label>
         <closed>true</closed>
         <forecastCategory>Omitted</forecastCategory>
         <probability>0</probability>

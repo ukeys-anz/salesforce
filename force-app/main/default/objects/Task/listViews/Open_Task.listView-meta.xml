@@ -3,9 +3,11 @@
     <fullName>Open_Task</fullName>
     <booleanFilter>1 OR (2 AND 3)</booleanFilter>
     <columns>SUBJECT</columns>
+    <columns>STATUS</columns>
+    <columns>WHO_NAME</columns>
     <columns>WHAT_NAME</columns>
     <columns>DUE_DATE</columns>
-    <columns>STATUS</columns>
+    <columns>CORE.USERS.ALIAS</columns>
     <columns>PRIORITY</columns>
     <columns>CREATED_DATE</columns>
     <columns>Case_Created__c</columns>

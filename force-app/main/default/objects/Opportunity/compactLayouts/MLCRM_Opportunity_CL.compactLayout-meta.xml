@@ -2,8 +2,11 @@
 <CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MLCRM_Opportunity_CL</fullName>
     <fields>Name</fields>
-    <fields>AccountId</fields>
+    <fields>Opportunity_ID__c</fields>
+    <fields>Customer_Needs__c</fields>
+    <fields>OwnerId</fields>
     <fields>Amount</fields>
     <fields>CloseDate</fields>
+    <fields>Waiting_Flag__c</fields>
     <label>Mobile Lending Opportunity</label>
 </CompactLayout>

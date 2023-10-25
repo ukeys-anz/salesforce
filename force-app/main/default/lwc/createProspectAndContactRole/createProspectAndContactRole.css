@@ -1,0 +1,9 @@
+.bannerClass {
+  padding: 9px !important;
+  margin-left: 15px !important;
+  max-width: 96% !important;
+  margin-top: 20px;
+}
+.warningFont {
+  font-size: 16px;
+}

@@ -254,7 +254,7 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
    * @return DCRMMaintainPartyModel result
    * @description calls the service class methods for integration/callout
    */
-  public DCRMMaintainPartyModel maintainParty(Lead record) {
+  public DCRMMaintainPartyModel maintainParty(OCVRequestPayloadWrapper record) {
     DCRMMaintainPartyModel result;
     Service s = ServiceProvider.getService(DCRMMaintainPartyService.class);
     HttpCalloutResponse response = s.maintainParty(record);
