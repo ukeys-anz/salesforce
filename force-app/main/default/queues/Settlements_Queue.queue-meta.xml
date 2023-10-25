@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Settlement Queue</name>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <queueMembers>
+        <roles>
+            <role>Settlement_Officer_Lead</role>
+            <role>Settlement_Officer</role>
+        </roles>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Settlement__c</sobjectType>
+    </queueSobject>
+</Queue>

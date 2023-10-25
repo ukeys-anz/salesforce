@@ -4,11 +4,13 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
     <description>BSB for repayment account</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Repayment BSB</label>
     <length>15</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

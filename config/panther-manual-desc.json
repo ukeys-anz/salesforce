@@ -3066,7 +3066,8 @@
         "Last_Modified__c",
         "Status_Last_Modified_Date__c",
         "Credit_Assessment_Expiry_date__c",
-        "Type__c"
+        "Type__c",
+        "Owner_Name__c"
       ],
       "IA-2415720": [
         "Nominated_BSB__c",

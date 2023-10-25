@@ -4,11 +4,13 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
     <description>Account Number for nominated account</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Nominated Account Number</label>
     <length>50</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
