@@ -845,10 +845,16 @@ public with sharing class CommonUtil {
    * @param lstOfProfileName set of name of the Profile
    * @return Map<String,Id> ids of profiles.
    */
-  public static Map<String,Id> getProfileByNames(List<String> lstOfProfileName) {
-    Map<String,Id> mapOfProfileId = new Map<String,Id>();
-    for (Profile prof : [SELECT Id,Name FROM Profile WHERE Name IN: lstOfProfileName]) {
-      mapOfProfileId.put(prof.Name,prof.Id);
+  public static Map<String, Id> getProfileByNames(
+    List<String> lstOfProfileName
+  ) {
+    Map<String, Id> mapOfProfileId = new Map<String, Id>();
+    for (Profile prof : [
+      SELECT Id, Name
+      FROM Profile
+      WHERE Name IN :lstOfProfileName
+    ]) {
+      mapOfProfileId.put(prof.Name, prof.Id);
     }
 
     return mapOfProfileId;
