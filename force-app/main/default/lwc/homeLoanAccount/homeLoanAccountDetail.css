@@ -29,22 +29,6 @@
   float: right;
 }
 
-.not-found {
-  margin: 0;
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.balance-padding {
-  padding-right: 48px;
-}
-
-.message-padding {
-  padding: 20px;
-}
-
 .account-footer {
   margin-bottom: 15px;
 }
@@ -70,16 +54,14 @@
   color: #fff;
 }
 
-.vertical-align {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
 .loan-image {
   padding: 0.75em;
 }
 
 .rowgap {
   padding-top: 20px;
+}
+
+.alignment {
+  margin: auto;
 }

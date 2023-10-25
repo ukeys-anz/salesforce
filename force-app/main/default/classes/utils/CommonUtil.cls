@@ -503,6 +503,7 @@ public with sharing class CommonUtil {
     caseFields.add('Effective_Date__c');
     caseFields.add('External_System__c');
     caseFields.add('External_Case_Id__c');
+    caseFields.add('Is_PayTo_Dispute__c');
     caseFields.add('IsStopped');
     caseFields.add('OCV_Id__c');
     caseFields.add('Origin');
@@ -844,10 +845,16 @@ public with sharing class CommonUtil {
    * @param lstOfProfileName set of name of the Profile
    * @return Map<String,Id> ids of profiles.
    */
-  public static Map<String,Id> getProfileByNames(List<String> lstOfProfileName) {
-    Map<String,Id> mapOfProfileId = new Map<String,Id>();
-    for (Profile prof : [SELECT Id,Name FROM Profile WHERE Name IN: lstOfProfileName]) {
-      mapOfProfileId.put(prof.Name,prof.Id);
+  public static Map<String, Id> getProfileByNames(
+    List<String> lstOfProfileName
+  ) {
+    Map<String, Id> mapOfProfileId = new Map<String, Id>();
+    for (Profile prof : [
+      SELECT Id, Name
+      FROM Profile
+      WHERE Name IN :lstOfProfileName
+    ]) {
+      mapOfProfileId.put(prof.Name, prof.Id);
     }
 
     return mapOfProfileId;

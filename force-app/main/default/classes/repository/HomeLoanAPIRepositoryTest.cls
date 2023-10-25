@@ -20,7 +20,7 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
     System.runAs(thisUser) {
       Test.startTest();
       HomeLoanAPIRepository hLoan = new HomeLoanAPIRepository();
-      HomeLoanModel model = hLoan.getHomeLoanAccounts('2222');
+      HomeLoanModel model = hLoan.getHomeLoanAccounts('2222', null);
 
       Test.stopTest();
 

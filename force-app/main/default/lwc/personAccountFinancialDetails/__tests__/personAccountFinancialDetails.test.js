@@ -26,9 +26,14 @@ describe("c-person-account-financial-details", () => {
       "c-financial-account[data-id='savings-account']"
     );
 
+    let homeAccount = element.shadowRoot.querySelector(
+      "c-home-loan-account[data-id='home-account']"
+    );
+
     expect(totalBalance).toBeTruthy();
     expect(checkingAccount).toBeTruthy();
     expect(savingsAccount).toBeTruthy();
+    expect(homeAccount).toBeTruthy();
   });
 
   it("tests refresh button is clicked", () => {
@@ -46,10 +51,14 @@ describe("c-person-account-financial-details", () => {
     const savingsAccount = element.shadowRoot.querySelector(
       "c-financial-account[data-id='savings-account']"
     );
+    const homeAccount = element.shadowRoot.querySelector(
+      "c-home-loan-account[data-id='home-account']"
+    );
 
     expect(totalBalance).toBeTruthy();
     expect(checkingAccount).toBeTruthy();
     expect(savingsAccount).toBeTruthy();
+    expect(homeAccount).toBeTruthy();
 
     let refreshButton = element.shadowRoot.querySelector(
       "button[data-id='refresh']"
@@ -68,6 +77,7 @@ describe("c-person-account-financial-details", () => {
         expect(totalBalance).toBeTruthy();
         expect(checkingAccount).toBeTruthy();
         expect(savingsAccount).toBeTruthy();
+        expect(homeAccount).toBeTruthy();
       });
   });
 });

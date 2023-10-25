@@ -1737,6 +1737,69 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>/credit-assessment/v1/providereferraloutcome</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Mandate_List</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Get Mandate List API</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/search-results</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Mandate_List_Page_Size</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Get Mandate List API</shortDescription>
+        <value>500</value>
+    </labels>
+    <labels>
+        <fullName>MS_Cancel_Mandate</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Cancel_Mandate</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/cancel-mandate</value>
+    </labels>
+    <labels>
+        <fullName>MS_Fraudx_Change_Status</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fraudx Change Mandate Status</shortDescription>
+        <value>callout:SF_MS_Fabric/card-management/v1/mandates/{mandateId}/status</value>
+    </labels>
+    <labels>
+        <fullName>MS_Resume_Mandate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Resume Mandate</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/resume-mandate</value>
+    </labels>
+    <labels>
+        <fullName>MS_Pause_Mandate</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Pause Mandate</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/pause-mandate</value>
+    </labels>
+    <labels>
+        <fullName>PayTo_Fraud_Description</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PayTo_Fraud_Description</shortDescription>
+        <value>Fraud</value>
+    </labels>
+    <labels>
+        <fullName>PayTo_Fraud_Reason_Code</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PayTo Fraud Reason Code</shortDescription>
+        <value>MD21</value>
+    </labels>
+    <labels>
         <fullName>ANZX_Customer_Comm_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>

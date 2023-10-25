@@ -9,10 +9,14 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
   private static final string BOH_READ_ONLY_PERMISSION_ERROR = 'User does not have permissions to view home loans';
   /**
    * @param ocvId customer id
+   * @param accountNumbers param to filter by account numbers
    * @return `HomeLoanAccountModel` model class constructed from api response
    * @description fetches financial accounts from fabric, deserialized to a model when the data has NOT been stored in the session cache
    */
-  public HomeLoanModel getHomeLoanAccounts(String ocvId) {
+  public HomeLoanModel getHomeLoanAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
     if (FeatureManagement.checkPermission('ANZx_Home_Loan') == false) {
       throw new PermissionException(BOH_READ_ONLY_PERMISSION_ERROR);
     }
@@ -23,7 +27,7 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
       return h1AccountDetails;
     }
     Service s = ServiceProvider.getService(HomeLoanService.class);
-    HttpCalloutResponse response = s.getHomeLoanAccounts(ocvId);
+    HttpCalloutResponse response = s.getHomeLoanAccounts(ocvId, accountNumbers);
     if (response.successful == false) {
       throw response.error;
     }

@@ -14,5 +14,6 @@
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
+    <permissionSets>PayTo_View_Agreements</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
