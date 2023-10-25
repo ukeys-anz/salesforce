@@ -1799,4 +1799,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>PayTo Fraud Reason Code</shortDescription>
         <value>MD21</value>
     </labels>
+    <labels>
+        <fullName>ANZX_Customer_Comm_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Customer_Comm_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords&amp;amp;:iid=2&amp;amp;ocv_id=</value>
+    </labels>
 </CustomLabels>
