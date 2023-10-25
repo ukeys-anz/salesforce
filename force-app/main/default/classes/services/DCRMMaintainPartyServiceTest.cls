@@ -6,44 +6,16 @@
  */
 @isTest
 public with sharing class DCRMMaintainPartyServiceTest {
-  @TestSetup
-  static void setup() {
-    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
-    System.runAs(mlUser) {
-      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
-        1,
-        mlUser,
-        true
-      );
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        1,
-        mlUser.Id,
-        lstOfTerritory[0].Id
-      );
-    }
-    System.runAs(mlUser) {
-      Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
-      leadRec.Is_Valid_Address__c = true;
-      leadRec.Gender__c = 'M';
-      leadRec.Home_Phone__c = '+61333333333';
-      //leadRec.MobilePhone = '+61333333333';
-      leadRec.Work_Phone__c = '+61333333333';
-      insert leadRec;
-    }
-  }
   @isTest
   static void testMaintainPartyService() {
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    User mlUser = MLCRMTestDataFactory.getAdminUser();
+    System.runAs(mlUser) {
       Test.setMock(HttpCalloutMock.class, new MockMaintainPartyCallout());
 
       Test.startTest();
       DCRMMaintainPartyService service = new DCRMMaintainPartyService();
-      Lead record = [SELECT id FROM Lead LIMIT 1];
-      CCRMLeadConversion.LeadConversionWrapper leadWrapper = CCRMLeadConversion.getLeadRecordForConversion(
-        record.id
-      );
-      record = leadWrapper.leadRecord;
-      HttpCalloutResponse response = service.maintainParty(record);
+      OCVRequestPayloadWrapper ocvRequest = getRequestRecord(mlUser.Id);
+      HttpCalloutResponse response = service.maintainParty(ocvRequest);
       Test.stopTest();
 
       System.assertEquals(
@@ -71,17 +43,14 @@ public with sharing class DCRMMaintainPartyServiceTest {
 
   @isTest
   static void dcrmMaintainPartyServiceMockTest() {
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    User mlUser = MLCRMTestDataFactory.getAdminUser();
+    System.runAs(mlUser) {
       Test.setMock(HttpCalloutMock.class, new MockMaintainPartyCallout());
 
       Test.startTest();
       DCRMMaintainPartyServiceMock service = new DCRMMaintainPartyServiceMock();
-      Lead record = [SELECT id FROM Lead LIMIT 1];
-      CCRMLeadConversion.LeadConversionWrapper leadWrapper = CCRMLeadConversion.getLeadRecordForConversion(
-        record.id
-      );
-      record = leadWrapper.leadRecord;
-      HttpCalloutResponse response = service.maintainParty(record);
+      OCVRequestPayloadWrapper ocvRequest = getRequestRecord(mlUser.Id);
+      HttpCalloutResponse response = service.maintainParty(ocvRequest);
       Test.stopTest();
 
       System.assertEquals(
@@ -110,5 +79,32 @@ public with sharing class DCRMMaintainPartyServiceTest {
       res.setBody(sr.Body.toString());
       return res;
     }
+  }
+  /**
+   * @description payload request to OCV
+   * @name getRequestRecord
+   * @param mlUserId User Id
+   * @return ocvRequest as OCVRequestPayloadWrapper
+   */
+  static OCVRequestPayloadWrapper getRequestRecord(ID mlUserId) {
+    OCVRequestPayloadWrapper ocvRequest = new OCVRequestPayloadWrapper();
+    ocvRequest.strOwnerId = mlUserId;
+    ocvRequest.isValidStreet = true;
+    ocvRequest.strStreet = 'Street';
+    ocvRequest.strCity = 'City';
+    ocvRequest.strState = 'State';
+    ocvRequest.strCountry = 'Country';
+    ocvRequest.strPostalCode = '110050';
+    ocvRequest.strMobilePhone = '+61512345678';
+    ocvRequest.strHomePhone = '+61412345678';
+    ocvRequest.strWorkPhone = '+61412345678';
+    ocvRequest.strEmail = 'abc@ml.anz.com';
+    ocvRequest.strSalutation = 'Mr';
+    ocvRequest.strFirstName = 'FirstName';
+    ocvRequest.strMiddleName = 'MiddleName';
+    ocvRequest.strLastName = 'LastName';
+    ocvRequest.strGender = 'F';
+    ocvRequest.strRecordId = '';
+    return ocvRequest;
   }
 }

@@ -1,11 +1,32 @@
 import { execSync } from "child_process";
-import { readdirSync, readFileSync, statSync, existsSync } from "fs";
+import {
+  readdirSync,
+  readFileSync,
+  statSync,
+  existsSync,
+  rename,
+  rmSync,
+  mkdirSync,
+  writeFileSync
+} from "fs";
 
-const runSfCommand = (command) => execSync(command, { encoding: "utf-8" });
+const renameFile = (oldFilepath, newFilepath) => {
+  rename(oldFilepath, newFilepath, (err) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(`${oldFilepath} renamed to ${newFilepath}.`);
+  });
+};
 
-const findJobId = (jobIdFilePath) => {
+const runSfCommand = (command) =>
+  execSync(command, { stdio: "pipe", maxBuffer: 1024 * 1024 * 10 }).toString(
+    "utf-8"
+  );
+
+const printContextFromFile = (jobIdFilePath, comment = "") => {
   if (!existsSync(jobIdFilePath)) {
-    console.error(`ERROR: There is no jobId.`);
+    logger(`ERROR: There is no jobId. ${comment}`);
     return "";
   }
   return readFileSync(jobIdFilePath).toString();
@@ -37,15 +58,15 @@ const findAllFiles = (dir, files = []) => {
 // but there is no class folder inside artifact. This will check that
 const folderExist = (folderPath) => {
   if (!existsSync(folderPath)) {
-    console.error(`ERROR: The ${folderPath} does not exist.`);
+    logger(`ERROR: The ${folderPath} does not exist.`);
     return false;
   }
   return true;
 };
 
 // This will check if there is any salesforce diff on artifact folder or not.
-const salesforceDiffExist = (artifactPath = "artifact/force-app") =>
-  folderExist(artifactPath);
+const salesforceDiffExist = (artifactPath) =>
+  folderExist(artifactPath + "/force-app");
 
 // This will read a file and find all the lines of that.
 // To find all the lines with `@runTests` to find all specified tests
@@ -99,4 +120,167 @@ const findAllSpecifiedTests = (
   return [...new Set([...allSpecifiedTestsArray])];
 };
 
-export { runSfCommand, findJobId, salesforceDiffExist, findAllSpecifiedTests };
+const currentDate = () => {
+  const dateTime = new Date();
+  const day = dateTime.getDate("en-US", "Australia/Sydney");
+  const month = dateTime.getMonth("en-US", "Australia/Sydney") + 1;
+  const year = dateTime.getFullYear("en-US", "Australia/Sydney");
+  return `${day}-${month}-${year}`;
+};
+
+const findJobIdFromCommand = (command) => {
+  if (!command) return;
+  return JSON.parse(command)["result"]["id"];
+};
+
+const deleteFolder = (folderPath) => {
+  logger(`Delete Folder: ${folderPath}`);
+  rmSync(folderPath, { recursive: true, force: true }, (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  });
+  console.log(`${folderPath} folder is deleted!`);
+};
+
+const renameItem = (folderPath) => folderPath.replaceAll("/", "-");
+
+const createFolder = (folderPath) => {
+  logger(`Create Folder: ${folderPath}`);
+  mkdirSync(folderPath, (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  });
+  console.log(`${folderPath} folder is created!`);
+};
+
+const logger = (log) => {
+  console.log("\n-=-=-=-=-=-=-=-=-");
+  console.log(log);
+  console.log("-----------------");
+  console.log("\n");
+};
+
+const booleanMap = (stringBoolean) => stringBoolean === "true";
+
+const ignoredFiles = (folderName) => {
+  const allChangedFiles = findAllFiles(folderName + "-all-files");
+  const notIgnoredFilesChanges = findAllFiles(folderName);
+  const ignoredFilesChanges = [];
+
+  allChangedFiles.forEach((file) => {
+    const f = file.replace(folderName + "-all-files", folderName);
+    if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
+  });
+  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
+  logger(
+    `All Ignored files:\n${
+      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
+    }`
+  );
+};
+
+const createFile = (context, fileName, whatFile) => {
+  console.log(`Create ${whatFile} File`);
+  execSync(`
+    touch ${fileName}
+    printf "${context}" > ${fileName}
+  `);
+};
+
+const updateSfCacheJsonFile = (jsonFile, jobId, anzxCIPackage, targetOrg) => {
+  const deployCacheFile = "/github/home/.sf/deploy-cache.json";
+  jsonFile[jobId] = {
+    manifest: anzxCIPackage,
+    "post-destructive-changes": anzxCIPackage,
+    "target-org": `${targetOrg}`,
+    wait: 120
+  };
+  writeFileSync(deployCacheFile, JSON.stringify(jsonFile));
+};
+
+const createDeployCacheFile = (jobId, targetOrg, anzxCIPackage) => {
+  const deployCacheFile = "/github/home/.sf/deploy-cache.json";
+  const deployCacheFileExist = existsSync(deployCacheFile);
+  let jsonFile = {};
+  if (deployCacheFileExist) {
+    const data = readFileSync(deployCacheFile);
+    jsonFile = JSON.parse(data);
+  }
+  updateSfCacheJsonFile(jsonFile, jobId, anzxCIPackage, targetOrg);
+};
+
+const copyFile = (copySourcePath, pasteSourcePath) => {
+  logger(`Copy ${copySourcePath} to ${pasteSourcePath}`);
+  execSync(`cp "${copySourcePath}" "${pasteSourcePath}"`);
+};
+
+const uploadFile = (fileName, artifactorySecret, whatFile) => {
+  if (!folderExist(fileName)) {
+    console.log(`Could not find ${fileName} file`);
+    process.exit(1);
+  }
+  console.log(`Upload ${whatFile} File`);
+  console.log(
+    execSync(
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${fileName}" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}"`
+    ).toString("utf8")
+  );
+};
+
+const downloadFile = (fileName, artifactorySecret, whatFile) => {
+  console.log(`Download ${whatFile} File.`);
+  console.log(
+    execSync(
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}"`
+    ).toString("utf8")
+  );
+};
+
+const downloadZipFile = (fileName, artifactorySecret, whatFile) => {
+  console.log(`Download ${whatFile} File.`);
+  console.log(
+    execSync(
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}.zip"`
+    ).toString("utf8")
+  );
+};
+
+const unzipFile = (filename) => {
+  console.log(`Unzip Zip File`);
+  console.log(execSync(`unzip "${filename}.zip"`).toString("utf-8"));
+};
+
+const deleteFile = (fileName) => {
+  logger(`Delete File: ${fileName}`);
+  execSync(`rm -f ${fileName}`).toString("utf-8");
+};
+
+export {
+  runSfCommand,
+  printContextFromFile,
+  salesforceDiffExist,
+  findAllSpecifiedTests,
+  currentDate,
+  renameFile,
+  findJobIdFromCommand,
+  findAllFiles,
+  deleteFolder,
+  createFolder,
+  logger,
+  booleanMap,
+  ignoredFiles,
+  createFile,
+  uploadFile,
+  downloadFile,
+  deleteFile,
+  folderExist,
+  copyFile,
+  createDeployCacheFile,
+  renameItem,
+  downloadZipFile,
+  unzipFile
+};

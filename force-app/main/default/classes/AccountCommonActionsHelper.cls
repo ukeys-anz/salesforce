@@ -240,4 +240,85 @@ public with sharing class AccountCommonActionsHelper {
     }
     return matchingLeadsByAccIdMap;
   }
+
+  /**
+   * @description getOcvIdsFromAccounts gets a set of OCV Id from a list of accounts
+   * @param accounts A list of account records to extract OCV Id from
+   * @return Set<String> A set of OCV Ids
+   */
+  public static Set<String> getOcvIdsFromAccounts(List<Account> accounts) {
+    Set<String> ocvIds = new Set<String>();
+    for (Account acc : accounts) {
+      if (String.isNotEmpty(acc.OCV_Id__c)) {
+        ocvIds.add(acc.OCV_Id__c);
+      }
+    }
+    return ocvIds;
+  }
+
+  /**
+   * @description getMobileNumbersFromAccounts gets a set of Customer Mobile Phone from a list of accounts
+   * @param accounts A list of account records to extract mobile numbers from
+   * @return Set<String> A set of Cucustomers' mobile numbers
+   */
+  public static Set<String> getMobileNumbersFromAccounts(
+    List<Account> accounts
+  ) {
+    Set<String> mobileNumbers = new Set<String>();
+    for (Account acc : accounts) {
+      if (String.isNotEmpty(acc.PersonMobilePhone)) {
+        mobileNumbers.add(
+          TextUtils.sanitiseMobileNumber(acc.PersonMobilePhone)
+        );
+      }
+    }
+    return mobileNumbers;
+  }
+
+  /**
+   * @description getKYCQACasesFromOcvIds gets a map of KYC QA cases and their corresponding OCV Ids from a list of OCV Ids
+   * @param ocvIds A list of OCV Ids
+   * @return Map<String, Case> A map of KYC QA cases and their corresponding OCV Ids
+   */
+  public static Map<String, Case> getKYCQACasesFromOcvIds(Set<String> ocvIds) {
+    Map<String, Case> ocvIdKYCQACases = new Map<String, Case>();
+    List<Case> cases = [
+      SELECT Id, OCV_Id__c
+      FROM Case
+      WHERE
+        OCV_Id__c IN :ocvIds
+        AND RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+        AND AccountId = NULL
+    ];
+    for (Case c : cases) {
+      ocvIdKYCQACases.put(c.OCV_Id__c, c);
+    }
+    return ocvIdKYCQACases;
+  }
+
+  /**
+   * @description getKYCQACasesFromMobileNumbers gets a map of KYC QA cases and their corresponding mobile numbers from a list of mobile numbers
+   * @param mobileNumbers A list of mobile numbers
+   * @return Map<String, Case> A map of KYC QA cases and their corresponding mobile numbers
+   */
+  public static Map<String, Case> getKYCQACasesFromMobileNumbers(
+    Set<String> mobileNumbers
+  ) {
+    Map<String, Case> mobileNumberToKYCQACaseMap = new Map<String, Case>();
+    List<Case> cases = [
+      SELECT Id, CustomerOnboardingApplication__r.SecurityMobile__c
+      FROM Case
+      WHERE
+        CustomerOnboardingApplication__r.SecurityMobile__c IN :mobileNumbers
+        AND RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+        AND AccountId = NULL
+    ];
+    for (Case c : cases) {
+      mobileNumberToKYCQACaseMap.put(
+        c.CustomerOnboardingApplication__r.SecurityMobile__c,
+        c
+      );
+    }
+    return mobileNumberToKYCQACaseMap;
+  }
 }

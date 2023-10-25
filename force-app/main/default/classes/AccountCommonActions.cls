@@ -298,22 +298,13 @@ public with sharing class AccountCommonActions {
           converts.add(convert);
         }
       }
-      if (!converts.isEmpty()) {
-        lcResults = Database.convertLead(converts);
-      }
-      if (!mapOfOpportunityId.isEmpty()) {
-        //Added as per CC-4230
-        divCRMPostLeadConversionActions(
-          matchingLeadsByAccIdMap,
-          lcResults,
-          mapOfOpportunityId
-        );
-      }
-      /* Moved to divCRMPreLeadConversionActions as Per CC-4230
-      mapOfOpportunityId = ccrmLeadConversionActions(
+      lcResults = Database.convertLead(converts);
+      //Added as per CC-4230
+      divCRMPostLeadConversionActions(
         matchingLeadsByAccIdMap,
-        lcResults
-      );*/
+        lcResults,
+        mapOfOpportunityId
+      );
       for (Database.LeadConvertResult lcr : lcResults) {
         if (!lcr.isSuccess()) {
           Logger.error(
@@ -321,7 +312,6 @@ public with sharing class AccountCommonActions {
             lcr.getAccountId() +
             '; Lead_Id: ' +
             lcr.getLeadId() +
-            '; Lead Record Type: ANZx' +
             '; Error_Message: ' +
             lcr.getErrors()[0].getMessage()
           );
@@ -330,41 +320,6 @@ public with sharing class AccountCommonActions {
       Logger.saveLog();
       return mapOfOpportunityId;
     }
-
-    /**
-     * @description Post lead conversion actions for CCRM leads
-     * @param matchingLeadsByAccIdMap account and lead records map from lead conversion
-     * @param lcResults Lead conversion result
-     * @return mapOf lead and OpportunityId
-     */
-    /*
-    private Map<Id, Id> ccrmLeadConversionActions(
-      Map<Id, List<Lead>> matchingLeadsByAccIdMap,
-      List<Database.LeadConvertResult> lcResults
-    ) {
-      Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
-      Set<Id> leadIds = new Set<Id>();
-      Map<Id, Id> mapOfAccountId = new Map<Id, Id>();
-      List<Contact> contactList = new List<Contact>();
-      for (Database.LeadConvertResult lcr : lcResults) {
-        if (lcr.isSuccess()) {
-          for (Lead l : matchingLeadsByAccIdMap.get(lcr.getAccountId())) {
-            if (
-              CCRMLeadUtil.isCCRMLeadType(l) || CCRMLeadUtil.isMLCRMLeadType(l)
-            ) {
-              leadIds.add(l.Id);
-              contactList.add(new Contact(Id = lcr.getContactId()));
-              mapOfAccountId.put(l.Id, lcr.getAccountId());
-            }
-          }
-        }
-      }
-      if (!leadIds.isEmpty()) {
-        mapOfOpportunityId = createOpportunities(leadIds, mapOfAccountId);
-        deleteAutoCreatedContacts(contactList);
-      }
-      return mapOfOpportunityId;
-    }*/
 
     /**
      * @description Post lead conversion actions for CCRM leads
@@ -377,24 +332,21 @@ public with sharing class AccountCommonActions {
       Map<Id, Id> mapOfAccountId
     ) {
       Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
+      if (leadMap.isEmpty()) {
+        return mapOfOpportunityId;
+      }
       Map<Id, Opportunity> mapOfLeadsWithOpportunities = new CCRMLeadMappingEngine()
         .mapLeadToOpportunityFields(leadMap, mapOfAccountId);
-      if (!mapOfLeadsWithOpportunities.isEmpty()) {
-        insert mapOfLeadsWithOpportunities.values();
+      if (mapOfLeadsWithOpportunities.isEmpty()) {
+        return mapOfOpportunityId;
       }
+      insert mapOfLeadsWithOpportunities.values();
       for (Id leadId : leadMap.keySet()) {
         mapOfOpportunityId.put(
           leadId,
           mapOfLeadsWithOpportunities.get(leadId).Id
         );
       }
-      /* Moved to divCRMPostLeadConversionActions as Per CC-4230
-      CCRMLeadPlatformEventActions.sendUpdateToUnicaOrAdobeOnLeadConversion(
-        leadIds,
-        mapOfOpportunityId
-      );
-      transferTasksToOpportunity(mapOfOpportunityId);
-      */
       return mapOfOpportunityId;
     }
 
@@ -406,7 +358,6 @@ public with sharing class AccountCommonActions {
     private Map<Id, Id> divCRMPreLeadConversionActions(
       Map<Id, List<Lead>> matchingLeadsByAccIdMap
     ) {
-      Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
       Map<Id, Lead> leadMap = new Map<Id, Lead>();
       List<Lead> leadList = new List<Lead>();
       Map<Id, Id> mapOfAccountId = new Map<Id, Id>();
@@ -421,11 +372,12 @@ public with sharing class AccountCommonActions {
           }
         }
       }
-      if (!leadMap.isEmpty()) {
-        //Added skip_validation check as per CC-4248
-        CCRMLeadConversion.checkSkipValidation(leadList);
-        mapOfOpportunityId = createOpportunities(leadMap, mapOfAccountId);
-      }
+      //Added skip_validation check as per CC-4248
+      CCRMLeadConversion.checkSkipValidation(leadList);
+      Map<Id, Id> mapOfOpportunityId = createOpportunities(
+        leadMap,
+        mapOfAccountId
+      );
       return mapOfOpportunityId;
     }
 
@@ -440,6 +392,9 @@ public with sharing class AccountCommonActions {
       List<Database.LeadConvertResult> lcResults,
       Map<Id, Id> mapOfOpportunityId
     ) {
+      if (mapOfOpportunityId.isEmpty()) {
+        return;
+      }
       Set<Id> leadIds = new Set<Id>();
       List<Contact> contactList = new List<Contact>();
       Boolean autoMisMatchTaskRequired = false;
@@ -449,8 +404,7 @@ public with sharing class AccountCommonActions {
             if (CCRMLeadUtil.isCCRMLeadType(l)) {
               leadIds.add(l.Id);
               contactList.add(new Contact(Id = lcr.getContactId()));
-            }
-            if (CCRMLeadUtil.isMLCRMLeadType(l)) {
+            } else if (CCRMLeadUtil.isMLCRMLeadType(l)) {
               leadIds.add(l.Id);
               autoMisMatchTaskRequired = true;
             }
@@ -469,9 +423,7 @@ public with sharing class AccountCommonActions {
           new MLCRMAutoTaskOnLeadConversionQueueable(mapOfOpportunityId)
         );
       }
-      if (!leadIds.isEmpty() && !contactList.isEmpty()) {
-        deleteAutoCreatedContacts(contactList);
-      }
+      deleteAutoCreatedContacts(contactList);
     }
 
     /**
@@ -505,6 +457,9 @@ public with sharing class AccountCommonActions {
      * @param contactList list of contacts from lead conversion
      */
     private void deleteAutoCreatedContacts(List<Contact> contactList) {
+      if (contactList.isEmpty()) {
+        return;
+      }
       DMLUtil.deleteRecords(
         contactList,
         DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
@@ -520,6 +475,52 @@ public with sharing class AccountCommonActions {
   public static void populateFieldsValue(List<Account> records) {
     for (Account record : records) {
       record.BankruptCheckBox__c = record.Bankrupt_Date__c != null;
+      record.Was_ANZx_Customer__c =
+        record.ANZx_Customer__c || record.Was_ANZx_Customer__c;
     }
+  }
+
+  /**
+   * @description linkKYCQACasesToAccount is called to Link the KYC QA Case to Account using OCV ID/Mobile Number
+   * @param accounts The Account records passed from Trigger.new()
+   */
+  public static void linkKYCQACasesToAccount(List<Account> accounts) {
+    Set<String> ocvIds = AccountCommonActionsHelper.getOcvIdsFromAccounts(
+      accounts
+    );
+    Map<String, Case> ocvIdToKYCQACaseMap = AccountCommonActionsHelper.getKYCQACasesFromOcvIds(
+      ocvIds
+    );
+
+    Set<String> mobileNumbers = AccountCommonActionsHelper.getMobileNumbersFromAccounts(
+      accounts
+    );
+    Map<String, Case> mobileNumberToKYCQACaseMap = AccountCommonActionsHelper.getKYCQACasesFromMobileNumbers(
+      mobileNumbers
+    );
+
+    List<Case> kycQACaseToUpdateList = new List<Case>();
+    for (Account acc : accounts) {
+      String sanitisedMobileNumber = TextUtils.sanitiseMobileNumber(
+        acc.PersonMobilePhone
+      );
+      if (
+        String.isNotEmpty(acc.OCV_Id__c) &&
+        ocvIdToKYCQACaseMap.containsKey(acc.OCV_Id__c)
+      ) {
+        Case kycQACase = ocvIdToKYCQACaseMap.get(acc.OCV_Id__c);
+        kycQACase.AccountId = acc.Id;
+        kycQACaseToUpdateList.add(kycQACase);
+      } else if (
+        String.isNotEmpty(sanitisedMobileNumber) &&
+        mobileNumberToKYCQACaseMap.containsKey(sanitisedMobileNumber)
+      ) {
+        Case kycQACase = mobileNumberToKYCQACaseMap.get(sanitisedMobileNumber);
+        kycQACase.AccountId = acc.Id;
+        kycQACaseToUpdateList.add(kycQACase);
+      }
+    }
+
+    update kycQACaseToUpdateList;
   }
 }

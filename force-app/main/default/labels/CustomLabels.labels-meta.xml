@@ -108,7 +108,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Campaign code of Default Campaign</shortDescription>
-        <value>IKCMP–1579</value>
+        <value>IKCMP-1579</value>
     </labels>
     <labels>
         <fullName>CCRM_ExpiryDateDays</fullName>
@@ -921,6 +921,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>^\+?614[0-9]{8}+$</value>
     </labels>
     <labels>
+        <fullName>Regex_ML_Mobile</fullName>
+        <categories>Regex</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Regex ML Mobile</shortDescription>
+        <value>^\+?615[0-9]{8}+$</value>
+    </labels>
+    <labels>
         <fullName>Regex_Phone</fullName>
         <categories>Regex</categories>
         <language>en_US</language>
@@ -1196,7 +1204,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_OCVIntegrationUsername</shortDescription>
-        <value>ocvintegration.user@anzx.com.radinglead</value>
+        <value>ocvintegration.user@anzx.com</value>
     </labels>
     <labels>
         <fullName>Lead_Conversion_Default_Fields</fullName>
@@ -1252,7 +1260,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Campaign code of Default Campaign</shortDescription>
-        <value>IKCMP–1579</value>
+        <value>IKCMP-1579</value>
     </labels>
     <labels>
         <fullName>CCRM_LeadQualityRequiredValues</fullName>
@@ -1391,6 +1399,22 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>All tasks will need to be closed with the right status in-order to change opportunity stage</value>
     </labels>
     <labels>
+        <fullName>CCRM_ExistingCustomerCollectionError</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_ExistingCustomerCollectionError</shortDescription>
+        <value>One or more of this customer&apos;s accounts is currently being managed by the collections team</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExistingCustomerHardshipError</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_ExistingCustomerHardshipError</shortDescription>
+        <value>This Customer is currently being managed by the hardship team</value>
+    </labels>
+    <labels>
         <fullName>DCRM_OCVEventVersion</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -1463,6 +1487,224 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>unica.integration@anzx.com</value>
     </labels>
     <labels>
+        <fullName>MLCRM_Profile_Name</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Profile Name for ANZ ML Standard User</shortDescription>
+        <value>ANZ ML Standard User</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Failed_Auth_Comment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Failed Auth Comment</shortDescription>
+        <value>BRANCH TO LOAD - CUSTOMER FAILED SECURITY QUESTIONS, REFERRED TO BRANCH WITH PHOTO ID</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Existing_BTL_Comment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Existing BTL Comment</shortDescription>
+        <value>BRANCH TO LOAD - CUSTOMER HAS EXISTING BTL. REFERRED TO BRANCH WITH PHOTO ID</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Id_Fraud_Comment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Id Fraud Comment</shortDescription>
+        <value>CUSTOMER SUSPECTS ID FRAUD. REFERRED TO BRANCH WITH PHOTO ID</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_AUTH_BTL_Code</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Auth BTL Code</shortDescription>
+        <value>Branch to Load</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Reference_Guide_URL</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Reference Guide URL</shortDescription>
+        <value>www.google.com</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_MaintainParty_NewCustomerError</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM_MaintainParty_NewCustomerError</shortDescription>
+        <value>Invalid response from OCV. NewCustomer value not specified.</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_ExistingContactPointPhoneError</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM_ExistingContactPointPhoneError</shortDescription>
+        <value>A Phone Number record is already available for this customer. Please edit the Phone Number below.</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Auth_Workstation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Auth Workstation</shortDescription>
+        <value>eAPI</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Auth_Operator_Branch</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Auth Operator Branch</shortDescription>
+        <value>5535</value>
+    </labels>
+    <labels>
+        <fullName>Customer_Auth_Originating_App</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Auth Originating App</shortDescription>
+        <value>CRM</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_CreateProspectWarningMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Create Prospect Warning Message</shortDescription>
+        <value>Please perform an existing customer search before creating a new prospect customer</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_CreateProspect_Header</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM CreateProspect Header</shortDescription>
+        <value>Create New Prospect &amp; Add Contact Role</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_Create_Prospect_Existing_Customer</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Create Prospect Existing Customer</shortDescription>
+        <value>Create New Prospect - Existing Customer Found</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_ContactInformationHeader</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Contact Information Header</shortDescription>
+        <value>Contact Information</value>
+    </labels>
+    <labels>
+        <fullName>ML_CreateProspectErrorMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML Create Prospect Error Message</shortDescription>
+        <value>Something went wrong while creating prospect. Please contact your admin</value>
+    </labels>
+    <labels>
+        <fullName>ML_CreateProspectSuccessMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML Create Prospect Success Message</shortDescription>
+        <value>New Contact Role has been successfully created.</value>
+    </labels>
+    <labels>
+        <fullName>ML_CreateRoleErrorMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML Create Role Error Message</shortDescription>
+        <value>Something went wrong while creating contact role. Please contact your admin</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_PhoneFormatErrorMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Phone Format Error Message</shortDescription>
+        <value>The Mobile Phone entered is not in the correct format. Refer to help text.</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_MobileHelpText</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Mobile Help Text</shortDescription>
+        <value>Mobile Phone number needs to be in the format of +614 or +615 followed by 8 digits. Eg. +61412345678 or +61512345678</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_MobileOrEmailRequiredMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Mobile Or Email Required Message</shortDescription>
+        <value>Mobile Or Email is required</value>
+    </labels>
+    <labels>
+        <fullName>Security_Code_Endpoint</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Security Code Endpoint</shortDescription>
+        <value>/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
+    </labels>
+    <labels>
+        <fullName>Diary_Comments_Endpoint</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Diary Comments Endpoint</shortDescription>
+        <value>/dcrm/customers/v1/diary-comments</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_Lead_MisMatch_Warning_Message</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Lead MisMatch Warning MessageMessage</shortDescription>
+        <value>There are mismatches in the contact information between this lead and the linked customer profile. Check the customer profile to see if needs to be updated.</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_Maximum_Primary_Notes_Error</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Maximum Primary Notes Error</shortDescription>
+        <value>There can be only one primary relationship notes for franchise</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_Minimum_Primary_Notes_Error</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM Minimum Primary Notes Error</shortDescription>
+        <value>The first record created for a Franchise should be the Primary Contact</value>
+    </labels>
+    <labels>
+        <fullName>ML_ShellProspect_Update_ErrorMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML_ShellProspect_Update_ErrorMessage</shortDescription>
+        <value>This is a shell prospect record.</value>
+    </labels>
+    <labels>
+        <fullName>ML_OCV_ID_Update_ErrorMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML_OCV_ID_Update_ErrorMessage</shortDescription>
+        <value>OCV Id cannot be changed.</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_View_UMI</fullName>
         <categories>ST</categories>
         <language>en_US</language>
@@ -1493,5 +1735,68 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>MS_Submit_Referral_Outcome</shortDescription>
         <value>/credit-assessment/v1/providereferraloutcome</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Mandate_List</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Get Mandate List API</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/search-results</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Mandate_List_Page_Size</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Get Mandate List API</shortDescription>
+        <value>500</value>
+    </labels>
+    <labels>
+        <fullName>MS_Cancel_Mandate</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Cancel_Mandate</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/cancel-mandate</value>
+    </labels>
+    <labels>
+        <fullName>MS_Fraudx_Change_Status</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fraudx Change Mandate Status</shortDescription>
+        <value>callout:SF_MS_Fabric/card-management/v1/mandates/{mandateId}/status</value>
+    </labels>
+    <labels>
+        <fullName>MS_Resume_Mandate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Resume Mandate</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/resume-mandate</value>
+    </labels>
+    <labels>
+        <fullName>MS_Pause_Mandate</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Pause Mandate</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/pause-mandate</value>
+    </labels>
+    <labels>
+        <fullName>PayTo_Fraud_Description</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PayTo_Fraud_Description</shortDescription>
+        <value>Fraud</value>
+    </labels>
+    <labels>
+        <fullName>PayTo_Fraud_Reason_Code</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PayTo Fraud Reason Code</shortDescription>
+        <value>MD21</value>
     </labels>
 </CustomLabels>

@@ -58,26 +58,25 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
       (String) input.get('loanId')
     );
 
-    result.isSubmitted = isLoanSubmitted(loanRec?.Status);
+    result.isSubmitted =
+      isLoanSubmitted(loanRec?.Status) &&
+      String.isNotBlank(loanRec?.Credit_ID__c) &&
+      String.isNotBlank(loanRec?.SOP_Id__c);
     if (result.isSubmitted) {
-      result.hasError = (String.isBlank(loanRec?.Credit_ID__c) ||
-      String.isBlank(loanRec?.SOP_Id__c));
-      if (!result.hasError) {
-        try {
-          ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
-          ViewServiceabilityModel apiResponse = api.getUMIAssessments(
-            new List<String>{ loanRec?.SOP_Id__c },
-            loanRec?.Credit_ID__c,
-            loanRec?.Account?.OCV_ID__c,
-            Integer.valueOf(loanRec?.AmortizationTerm),
-            loanRec?.LotOriginalCost
-          );
-          transformAPIToUIResponse(result, apiResponse);
-        } catch (Exception ex) {
-          result.hasError = true;
-          Logger.error(ex.getMessage(), ex);
-          Logger.saveLog();
-        }
+      try {
+        ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
+        ViewServiceabilityModel apiResponse = api.getUMIAssessments(
+          new List<String>{ loanRec?.SOP_Id__c },
+          loanRec?.Credit_ID__c,
+          loanRec?.Account?.OCV_ID__c,
+          Integer.valueOf(loanRec?.AmortizationTerm),
+          loanRec?.LotOriginalCost
+        );
+        transformAPIToUIResponse(result, apiResponse);
+      } catch (Exception ex) {
+        result.hasError = true;
+        Logger.error(ex.getMessage(), ex);
+        Logger.saveLog();
       }
     }
 

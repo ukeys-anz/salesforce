@@ -1,0 +1,101 @@
+name: "Salesforce Docker Image"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  docker-image:
+    runs-on:
+      - "self-hosted"
+      - "salesforce-prod"
+
+    name: "Build Salesforce CICD image"
+    #  Set the GitHub Actions deployment environment
+    env:
+      ARTIFACTORY: "artifactory.gcp.anz"
+      CONFTEST_VERSION: "v0.32.0"
+      DOCKER_COMPOSE_VERSION: "1.25.4"
+      DOCKER_IMAGE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
+      DOCKER_IMAGE_BASE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate-base:latest"
+      DOCKER_IMAGE_BASE_SOURCE: "hub.artifactory.gcp.anz/harness/delegate-immutable:23.07.79904.minimal"
+      DOCKER_VERSION: "19.03.8"
+      GCLOUD_SHA256SUM: "a3a965b6f27f55471d4a43cf010a002ed41ae22c7cc8287353c023cc05a687d0"
+      GCLOUD_VERSION: "343.0.0"
+      GO_TEMPLATE_SHA256: "da12d7b77f16b621f1ea1831238e3b34155fb3631c1e9c01e8d56baaad3b36c3"
+      GO_TEMPLATE_VERSION: "v0.4"
+      HELM_SHA256: "d643f48fe28eeb47ff68a1a7a26fc5142f348d02c8bc38d699674016716f61cd"
+      HELM_VERSION: "v3.8.1"
+      KUBECLT_SHA256: "703e70d49b82271535bc66bc7bd469a58c11d47f188889bd37101c9772f14fa1"
+      KUBECTL_VERSION: "v1.22.0"
+      KUSTOMISE_SHA256: "bab4ab8881718c29ba174bdf677fd89986ad25c40eb363fec9e78c1aff2ff0ea"
+      KUSTOMIZE_VERSION: "v3.10.0"
+      OPA_VERSION: "0.38.0"
+    steps:
+      #  Checkout this repo
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      #  Retrieve secrets we require from Google Secrets Manager using the OIDC permissions we just authenticate with
+      - name: "Retrieve GSM Credentials"
+        id: "secrets"
+        uses: "google-github-actions/get-secretmanager-secrets@main"
+        with:
+          secrets: |-
+            artifactory_token:projects/anz-x-gha-prod-0f0d8b/secrets/ghr-salesforce-prod-artifactory-password/versions/latest
+
+      #  Login to registry
+      - name: "Registry Authentication"
+        uses: "docker/login-action@v3"
+        with:
+          registry: "salesforce-docker.artifactory.gcp.anz"
+          username: "robot-salesforce-ci"
+          password: "${{ steps.secrets.outputs.artifactory_token }}"
+
+      #  Build the base image
+      - name: "Build ${{ env.DOCKER_IMAGE_BASE }} container"
+        run: |
+          cd ".github/dockerFiles/delegates"
+          DOCKER_FILE="base.Dockerfile"
+          docker build \
+            . \
+            --no-cache \
+            -f "${DOCKER_FILE}" \
+            --build-arg ARTIFACTORY="${{ env.ARTIFACTORY }}" \
+            --build-arg BASE_IMAGE="${{ env.DOCKER_IMAGE_BASE_SOURCE }}" \
+            --build-arg CONFTEST_VERSION="${{ env.CONFTEST_VERSION }}" \
+            --build-arg DOCKER_COMPOSE_VERSION="${{ env.DOCKER_COMPOSE_VERSION }}" \
+            --build-arg DOCKER_VERSION="${{ env.DOCKER_VERSION }}" \
+            --build-arg GCLOUD_SHA256SUM="${{ env.GCLOUD_SHA256SUM }}" \
+            --build-arg GCLOUD_VERSION="${{ env.GCLOUD_VERSION }}" \
+            --build-arg GO_TEMPLATE_SHA256="${{ env.GO_TEMPLATE_SHA256 }}" \
+            --build-arg GO_TEMPLATE_VERSION="${{ env.GO_TEMPLATE_VERSION }}" \
+            --build-arg HELM_SHA256="${{ env.HELM_SHA256 }}" \
+            --build-arg HELM_VERSION="${{ env.HELM_VERSION }}" \
+            --build-arg KUBECLT_SHA256="${{ env.KUBECLT_SHA256 }}" \
+            --build-arg KUBECTL_VERSION="${{ env.KUBECTL_VERSION }}" \
+            --build-arg KUSTOMISE_SHA256="${{ env.KUSTOMISE_SHA256 }}" \
+            --build-arg KUSTOMIZE_VERSION="${{ env.KUSTOMIZE_VERSION }}" \
+            --build-arg OPA_VERSION="${{ env.OPA_VERSION }}" \
+            -t "${{ env.DOCKER_IMAGE_BASE }}"
+
+      #  Push the base target image
+      - name: "Push ${{ env.DOCKER_IMAGE_BASE }} container"
+        run: |
+          docker push "${{ env.DOCKER_IMAGE_BASE }}"
+
+      #  Build the cd runner salesforce container image
+      - name: "Build ${{ env.DOCKER_IMAGE }} container"
+        run: |
+          cd ".github/dockerFiles/delegates/salesforce"
+          DOCKER_FILE="salesforce.Dockerfile"
+          docker build \
+            . \
+            --no-cache \
+            -f "${DOCKER_FILE}" \
+            --build-arg BASE_IMAGE="${{ env.DOCKER_IMAGE_BASE }}" \
+            -t "${{ env.DOCKER_IMAGE }}"
+
+      #  Push the CD runner salesforce container image
+      - name: "Push ${{ env.DOCKER_IMAGE }} container"
+        run: |
+          docker push "${{ env.DOCKER_IMAGE }}"

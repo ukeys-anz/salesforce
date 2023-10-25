@@ -38,7 +38,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
           stUserIds.add(oAssessment.Case_Manager__c);
         }
         if (
-          oAssessment.RecordTypeId == IDRConstants.idrtCallLetterReviewQualityAssessment &&
+          oAssessment.RecordTypeId ==
+          IDRConstants.idrtCallLetterReviewQualityAssessment &&
           oAssessment.Status__c == STATUS_PENDING &&
           mpOldAssessments != null &&
           (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) != null &&
@@ -68,7 +69,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         SELECT Id, UserOrGroupId, ParentId
         FROM Quality_Assessment__Share
         WHERE
-          (ParentId IN :mpId2PendingAssessments.keySet() 
+          (ParentId IN :mpId2PendingAssessments.keySet()
           OR ParentId IN :mpId2CallLetterPendingAssessments.keySet())
           AND UserOrGroupId IN :stUserIds
       ]) {
@@ -81,8 +82,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
           lstQAShare.add(oQAShare);
         }
         if (
-          (oQAssessment = mpId2CallLetterPendingAssessments.get(oQAShare.ParentId)) !=
-          null &&
+          (oQAssessment = mpId2CallLetterPendingAssessments.get(
+            oQAShare.ParentId
+          )) != null &&
           (oQAShare.UserOrGroupId == oQAssessment.TeamManager__c ||
           oQAShare.UserOrGroupId == oQAssessment.Case_Manager__c)
         ) {

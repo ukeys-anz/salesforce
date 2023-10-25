@@ -13,7 +13,6 @@
 public with sharing class GetHelpCaseActions {
   public static final String FALSE_CUSTOMER_PROFILE_CASE_SUBJECT = 'False Onboarding';
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
-  public static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
@@ -27,6 +26,7 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_WARNING = 'Warning';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
+  public static final String PAY_TO_DISPUTE_PAYMENTID_PREFIX = 'MPS';
 
   public static Group accountClosureQueue = CommonUtil.getQueueByName(
     'Account_Closure_Queue'
@@ -63,6 +63,8 @@ public with sharing class GetHelpCaseActions {
       ) {
         updateCaseDurationTime(record);
       }
+
+      GetHelpCaseActionsHelper.checkPaytoDisputeValidations(record, oldRecord);
 
       if (record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
         if (
@@ -798,37 +800,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description Prevent Duplicate KYC QA Against a Customer (Account)
-   * @param theCases List of cases
-   */
-  public static void validateDuplicateKYCQACasePerAccount(List<Case> theCases) {
-    Map<Id, Case> accountIdAndCaseMap = new Map<Id, Case>();
-    for (Case theCase : theCases) {
-      if (
-        theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
-        theCase.AccountId != null
-      ) {
-        accountIdAndCaseMap.put(theCase.AccountId, theCase);
-      }
-    }
-    if (
-      Schema.sObjectType.Case.isQueryable() && accountIdAndCaseMap.size() > 0
-    ) {
-      List<Case> existingKYCQACases = [
-        SELECT Id, CaseNumber, AccountId
-        FROM Case
-        WHERE
-          RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
-          AND AccountId IN :accountIdAndCaseMap.keySet()
-      ];
-      for (Case existingKYCQACase : existingKYCQACases) {
-        Case theCase = accountIdAndCaseMap.get(existingKYCQACase.AccountId);
-        theCase.addError(DUPLICATE_KYCQA_ERROR + existingKYCQACase.CaseNumber);
-      }
-    }
-  }
-
-  /**
    * @description  This method populates Account Closure Case subject based on Case record type
    * @param caseList Case records from trigger
    * @param accountList List of accounts for cases
@@ -972,6 +943,7 @@ public with sharing class GetHelpCaseActions {
 
     DMLUtil.insertRecords(taskList, false, true);
   }
+
   /**
    * @description Validate ownership change for credit referral cases - https://jira.anzx.service.anz/browse/ANZX-86338
    * @param records Case records from trigger
@@ -1034,6 +1006,25 @@ public with sharing class GetHelpCaseActions {
         'copyCreditReferralCaseNumbers'
       );
       actions.updateRecords(creditRefCases, 'Case');
+    }
+  }
+
+  /**
+   * @description populate the fields for the PayTo dispute.
+   * @param caseList The case list
+   */
+  public static void populateFieldsOfPayToDispute(List<Case> caseList) {
+    for (Case caseRecord : caseList) {
+      if (
+        caseRecord.recordTypeId == GetHelpConstants.NPP_DISPUTE_RT_ID &&
+        String.isNotBlank(caseRecord.Payment_ID__c) &&
+        String.isNotBlank(caseRecord.Dispute_Reason_PayTo__c)
+      ) {
+        caseRecord.Dispute_Reason__c = caseRecord.Dispute_Reason_PayTo__c;
+        caseRecord.Is_PayTo_Dispute__c = caseRecord.Payment_ID__c.startsWith(
+          PAY_TO_DISPUTE_PAYMENTID_PREFIX
+        );
+      }
     }
   }
 }

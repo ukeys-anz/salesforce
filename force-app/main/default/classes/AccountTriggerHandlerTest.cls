@@ -14,7 +14,23 @@ private class AccountTriggerHandlerTest {
       l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
 
       insert l;
+
+      CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
+        PersonaId__c = 'dsfsadfasdf',
+        OCVId__c = '4324234234',
+        SecurityMobile__c = '0401123123'
+      );
+      insert cob;
+
+      Case kycqa = new Case(
+        CustomerOnboardingApplication__c = cob.Id,
+        RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+        Type = 'KYC QA Sample',
+        OCV_Id__c = '4324234234'
+      );
+      insert kycqa;
     }
+    CCRMTestDataFactory.createOCVIntegrationUser();
   }
 
   @isTest
@@ -439,5 +455,187 @@ private class AccountTriggerHandlerTest {
       WHERE Name = 'Test Account'
     ];
     System.assert(acc.BankruptCheckBox__c, 'Bankrupt flag should be true');
+  }
+
+  @IsTest
+  static void testWasAnxCustomer() {
+    Account acc = new Account();
+    List<Account> accounts = new List<Account>{ acc };
+
+    AccountCommonActions.populateFieldsValue(accounts);
+    Assert.isFalse(
+      acc.Was_ANZx_Customer__c,
+      'Was_ANZx_Customer__c should be false when customer isn\t ANZx'
+    );
+
+    acc.ANZx_Customer__c = true;
+    AccountCommonActions.populateFieldsValue(accounts);
+    Assert.isTrue(
+      acc.Was_ANZx_Customer__c,
+      'Was_ANZx_Customer__c should be true when customer is ANZx'
+    );
+
+    acc.ANZx_Customer__c = false;
+    AccountCommonActions.populateFieldsValue(accounts);
+    Assert.isTrue(
+      acc.Was_ANZx_Customer__c,
+      'Was_ANZx_Customer__c should still be true when customer used to be (but no longer) ANZx'
+    );
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountByOCVId() {
+    Account testAccount = new Account(
+      FirstName = 'Bruce',
+      LastName = 'Something',
+      OCV_ID__c = '4324234234',
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'john.something@gmail.com',
+      PersonMobilePhone = '0401123123'
+    );
+
+    Test.startTest();
+    User ocvIntegrationUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'IntegrationUserOCV'
+    ];
+
+    // Sharing Case record manually to avoid deployment issues
+    List<Case> newCases = [SELECT Id FROM Case];
+    CaseShare cs = new CaseShare();
+    cs.CaseId = newCases[0].id;
+    cs.UserOrGroupId = ocvIntegrationUser.Id;
+    cs.CaseAccessLevel = 'Edit';
+    insert cs;
+
+    System.runAs(ocvIntegrationUser) {
+      insert testAccount;
+    }
+    Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      [SELECT Id FROM Case WHERE AccountId = :testAccount.Id].size(),
+      'Link the KYC QA Case with the relevant Customer using the OCV ID'
+    );
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountMobileNumbersAlreadyMatch() {
+    Account testAccount = new Account(
+      FirstName = 'Bruce',
+      LastName = 'Something',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'john.something@gmail.com',
+      PersonMobilePhone = '0401123123'
+    );
+
+    Test.startTest();
+    User ocvIntegrationUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'IntegrationUserOCV'
+    ];
+
+    // Sharing Case record manually to avoid deployment issues
+    List<Case> newCases = [SELECT Id FROM Case];
+    CaseShare cs = new CaseShare();
+    cs.CaseId = newCases[0].id;
+    cs.UserOrGroupId = ocvIntegrationUser.Id;
+    cs.CaseAccessLevel = 'Edit';
+    insert cs;
+
+    System.runAs(ocvIntegrationUser) {
+      insert testAccount;
+    }
+    Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      [SELECT Id FROM Case WHERE AccountId = :testAccount.Id].size(),
+      'Link the KYC QA Case with the relevant Customer using the Mobile Number'
+    );
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountMobileNumbersRequireSanitising() {
+    Account testAccount = new Account(
+      FirstName = 'Bruce',
+      LastName = 'Something',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'john.something@gmail.com',
+      PersonMobilePhone = '040 112-3123'
+    );
+
+    Test.startTest();
+    User ocvIntegrationUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'IntegrationUserOCV'
+    ];
+
+    // Sharing Case record manually to avoid deployment issues
+    List<Case> newCases = [SELECT Id FROM Case];
+    CaseShare cs = new CaseShare();
+    cs.CaseId = newCases[0].id;
+    cs.UserOrGroupId = ocvIntegrationUser.Id;
+    cs.CaseAccessLevel = 'Edit';
+    insert cs;
+
+    System.runAs(ocvIntegrationUser) {
+      insert testAccount;
+    }
+    Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      [SELECT Id FROM Case WHERE AccountId = :testAccount.Id].size(),
+      'Link the KYC QA Case with the relevant Customer using the Mobile Number'
+    );
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountNoCustomerLinked() {
+    Account testAccount = new Account(
+      FirstName = 'Bruce',
+      LastName = 'Something',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'john.something@gmail.com',
+      PersonMobilePhone = TESTFAKER.randomString(10)
+    );
+
+    Test.startTest();
+    User ocvIntegrationUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'IntegrationUserOCV'
+    ];
+
+    // Sharing Case record manually to avoid deployment issues
+    List<Case> newCases = [SELECT Id FROM Case];
+    CaseShare cs = new CaseShare();
+    cs.CaseId = newCases[0].id;
+    cs.UserOrGroupId = ocvIntegrationUser.Id;
+    cs.CaseAccessLevel = 'Edit';
+    insert cs;
+
+    System.runAs(ocvIntegrationUser) {
+      insert testAccount;
+    }
+    Test.stopTest();
+
+    Assert.areEqual(
+      0,
+      [SELECT Id FROM Case WHERE AccountId = :testAccount.Id].size(),
+      'KYC QA Case created with no customer linked to it when OCV ID/Mobile Number Comparison is not a match'
+    );
   }
 }

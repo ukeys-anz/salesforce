@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>PayToAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PayToController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PayToModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PayToPermissionChecker</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PayToService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PayToServiceMock</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customPermissions>
+        <name>ANZx_View_PayTo_Agreements</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Permission to view the PayTo aggrments</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>PayTo View Agreements</label>
+    <tabSettings>
+        <tab>PayTo_Agreements</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

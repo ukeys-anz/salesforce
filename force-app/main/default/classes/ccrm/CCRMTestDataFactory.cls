@@ -1039,7 +1039,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.Phone = faker.person.phone(true, false);
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
-    accnt.FinServ__Status__c = 'Active';
+    accnt.FinServ__Status__c = 'Dormant';
     insert accnt;
 
     List<Contact> conList = new List<Contact>();
@@ -1098,6 +1098,44 @@ public with sharing class CCRMTestDataFactory {
     update apTempVer;
   }
 
+  /**
+   * @description Create Business Account with owner and contact
+   * @name createBusinessAccount
+   * @param ownerId Id of Owner
+   * @return Account Business account
+   */
+  public static Account createBusinessAccountWithOwner(Id ownerId) {
+    Faker faker = new Faker('AU');
+    Account accnt = new Account();
+    accnt.Name = 'Test Pty Ltd';
+    accnt.OCV_ID__c = faker.randomString(10);
+    accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    accnt.ABN__c = '50 110 219 460';
+    accnt.Phone = '+61333333333';
+    accnt.BillingStreet = '833 Collins Street';
+    accnt.BillingCity = 'Docklands';
+    accnt.BillingPostalCode = '3008';
+    accnt.BillingState = 'VIC';
+    accnt.BillingCountry = 'Australia';
+    accnt.Source_System_ID__c = 'BUS1234';
+    accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
+    accnt.FinServ__Status__c = 'Active';
+    if (ownerId != null) {
+      accnt.OwnerId = ownerId;
+    }
+    insert accnt;
+
+    Contact contact = new Contact();
+    contact.FirstName = 'conFname';
+    contact.LastName = 'conLname';
+    contact.Email = 'con@test.com';
+    contact.MobilePhone = '+61430499999';
+    contact.Phone = '+61255556666';
+    contact.AccountId = accnt.Id;
+    insert contact;
+
+    return accnt;
+  }
   /**
    * @description Create non-reciprocal role records
    * @name createNonReciprocalRole

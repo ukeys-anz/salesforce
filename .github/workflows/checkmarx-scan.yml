@@ -25,7 +25,7 @@ jobs:
 
           echo GITHUB_BRANCH=$GITHUB_BRANCH >> $GITHUB_ENV
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - env:
           # Do not send Google metadata server requests to the Squid proxy
           NO_PROXY: ".googleapis.com,.internal,169.254.169.254"
@@ -38,16 +38,9 @@ jobs:
             CHECKMARX_PASSWORD:projects/36540621485/secrets/ghr-checkmarx-password/versions/2
             CHECKMARX_CLIENT_SECRET:projects/36540621485/secrets/ghr-checkmarx-client-secret/versions/2
 
-      - name: Checkout actions
-        uses: actions/checkout@v2
-        with:
-          path: .github/actions/platform-actions-checkmarx-cxflow
-          repository: anzx/platform-actions-checkmarx-cxflow
-          token: ${{ secrets.CXFLOW_ACTIONS_TOKEN }}
-
       - name: Checkmarx CxFlow Action
         id: checkmarx
-        uses: ./.github/actions/platform-actions-checkmarx-cxflow
+        uses: anzx/platform-actions-checkmarx-cxflow@main
         with:
           project: github.com.anzx.salesforce
           team: /CxServer/Security/Salesforce

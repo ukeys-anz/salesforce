@@ -21,11 +21,15 @@ public with sharing class HomeLoanServiceMock extends Service {
 
   /**
    * @param ocvId customerID to receive Home Loan Accounts
+   * @param accountNumbers account numbers to filter by
    * @return `HttpcalloutResponse` the api response
    * @description fetches fake response for homeLoan api
    */
 
-  public override HttpCalloutResponse getHomeLoanAccounts(String ocvId) {
+  public override HttpCalloutResponse getHomeLoanAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
     if (!preset) {
       response.body = HomeLoanServiceMock.HOMELOAN_ACCOUNTS_RESPONSE;
     }
