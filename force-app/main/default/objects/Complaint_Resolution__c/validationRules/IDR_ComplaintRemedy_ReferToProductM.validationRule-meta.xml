@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_ComplaintRemedy_ReferToProductM</fullName>
+    <active>true</active>
+    <description>If complaint remedy is refer to product manufacturer then other financial options should not be available to edit</description>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp; !ISNEW() &amp;&amp; 
+( IDR_Complaint__r.RecordType.DeveloperName  = &apos;Non_Customer_Complaint&apos; || IDR_Complaint__r.RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp; 
+( TEXT( IDR_Complaint__r.Status) = &apos;Closed&apos; || TEXT( IDR_Complaint__r.Status) = &apos;Provisionally Closed&apos;) &amp;&amp;
+TEXT(IDR_Complaint_Remedy__c) = &apos;3&apos; &amp;&amp; 
+NOT(ISBLANK(IDR_Financial_Compensation__c))</errorConditionFormula>
+    <errorMessage>If the complaint remedy is Referred to Product Manufacturer, the financial amount field must be blank.</errorMessage>
+</ValidationRule>
