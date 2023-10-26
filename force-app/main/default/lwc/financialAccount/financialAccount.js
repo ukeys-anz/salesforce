@@ -26,6 +26,7 @@ export default class FinancialAccount extends NavigationMixin(
   showInfoModal = false;
   productTitle;
   titleIcon;
+  lastUpdated;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -40,7 +41,7 @@ export default class FinancialAccount extends NavigationMixin(
         ? new Date(this.accountDetails[0].LastModifiedDate)
         : new Date();
 
-      let lastUpdated =
+      this.lastUpdated =
         updated.getDate() +
         " " +
         updated.toLocaleString("en-AU", {
@@ -54,9 +55,8 @@ export default class FinancialAccount extends NavigationMixin(
           minute: "numeric",
           hour12: true
         });
-
-      return lastUpdated;
     }
+    return this.lastUpdated;
   }
 
   connectedCallback() {
