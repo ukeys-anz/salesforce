@@ -350,7 +350,7 @@ public with sharing class AuthTokenCacheUtil {
               listOcvId
             );
             Account acc = mapOcvIdAccount.get(idValue);
-            mapPersonaIdAndCustomerName.put(personaId, acc.Name);
+            mapPersonaIdAndCustomerName.put(personaId, acc.FirstName);
           }
         }
       }
