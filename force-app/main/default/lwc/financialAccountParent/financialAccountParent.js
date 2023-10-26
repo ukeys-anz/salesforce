@@ -210,7 +210,8 @@ export default class FinancialAccountParent extends LightningElement {
       try {
         this.goalData = [];
         this.goalData = await getAccountBuckets({
-          ocvId: this.ocvId,
+          //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
+          ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
           pageSize: 7,
           nextPageToken: paramUrl
         });
