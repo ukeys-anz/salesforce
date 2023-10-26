@@ -878,12 +878,12 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>KYCQA_RTs_System_Integration_User_Group</fullName>
+        <fullName>KYCQA_RTs_Join_Integration_User_Group</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Read Write access to KYC QA record type for System Integration Users</description>
-        <label>KYCQA RTs - System Integration User Group</label>
+        <label>KYCQA RTs - Join Integration User Group</label>
         <sharedTo>
-            <group>System_Integration_Users</group>
+            <group>Join_Integration_User</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
