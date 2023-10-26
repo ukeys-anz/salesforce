@@ -4,6 +4,7 @@
     <booleanFilter>(1 OR (2 AND 3)) AND 4</booleanFilter>
     <columns>SUBJECT</columns>
     <columns>WHAT_NAME</columns>
+    <columns>Case_Owner__c</columns>
     <columns>CORE.USERS.FULL_NAME</columns>
     <columns>STATUS</columns>
     <columns>PRIORITY</columns>
