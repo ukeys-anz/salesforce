@@ -35,26 +35,29 @@ export default class FinancialAccount extends NavigationMixin(
     //Create timestamp for last updated
     //Use last modified date if the data is fetched from SF, otherwise,
     //the data is directly from fabric so we can use current time
-    let updated = this.accountDetails[0].LastModifiedDate
-      ? new Date(this.accountDetails[0].LastModifiedDate)
-      : new Date();
+    if (this.accountDetails && this.accountDetails.length > 0) {
+      let updated = this.accountDetails[0].LastModifiedDate
+        ? new Date(this.accountDetails[0].LastModifiedDate)
+        : new Date();
 
-    let lastUpdated =
-      updated.getDate() +
-      " " +
-      updated.toLocaleString("en-AU", {
-        month: "long"
-      }) +
-      " " +
-      updated.getFullYear() +
-      " | " +
-      updated.toLocaleString("en-AU", {
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true
-      });
+      let lastUpdated =
+        updated.getDate() +
+        " " +
+        updated.toLocaleString("en-AU", {
+          month: "long"
+        }) +
+        " " +
+        updated.getFullYear() +
+        " | " +
+        updated.toLocaleString("en-AU", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true
+        });
 
-    return lastUpdated;
+      return lastUpdated;
+    }
+    return null;
   }
 
   connectedCallback() {
