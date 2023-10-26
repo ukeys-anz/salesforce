@@ -133,11 +133,6 @@
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Provisionally Closed,Closed</value>
-        </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
