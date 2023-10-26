@@ -742,6 +742,19 @@
         "Enforce_mTLS"
       ],
       "type": "system"
+    },
+    {
+      "name": "Loan Settlement GCP Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Mortgage",
+        "Settlements_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
     }
   ]
 }

@@ -8,5 +8,5 @@
     <columns>Owner_Name__c</columns>
     <columns>Last_Modified__c</columns>
     <filterScope>Everything</filterScope>
-    <label>All</label>
+    <label>All Settlements</label>
 </ListView>
