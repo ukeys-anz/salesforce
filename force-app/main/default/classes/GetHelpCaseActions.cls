@@ -1027,4 +1027,16 @@ public with sharing class GetHelpCaseActions {
       }
     }
   }
+
+  /**
+   * @description Handles populating fields and assigning ownership for BOH related fraud cases
+   * @param records Case records from trigger
+   */
+  public static void handleBOHFraudCaseCreation(List<Case> records) {
+    for (Case c : records) {
+      if (c.BOH_Fraud_Case__c) {
+        c.Sub_Type__c = 'Home Loan document verification';
+      }
+    }
+  }
 }

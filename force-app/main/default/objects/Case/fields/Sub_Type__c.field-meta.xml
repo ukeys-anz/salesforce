@@ -438,6 +438,11 @@
                 <label>Bankruptcy</label>
             </value>
             <value>
+                <fullName>Home Loan document verification</fullName>
+                <default>false</default>
+                <label>Home Loan document verification</label>
+            </value>
+            <value>
                 <fullName>HL Signing Authority Update</fullName>
                 <default>false</default>
                 <label>HL Signing Authority Update</label>
@@ -510,6 +515,10 @@
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
             <valueName>Falcon transaction confirmation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <valueName>Home Loan document verification</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
