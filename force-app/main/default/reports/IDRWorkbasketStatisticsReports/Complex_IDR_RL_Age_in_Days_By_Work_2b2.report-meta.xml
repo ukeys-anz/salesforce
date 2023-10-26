@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <aggregates>
-        <calculatedFormula>Case.Case_Age_in_Days__c:MAX</calculatedFormula>
-        <datatype>number</datatype>
-        <developerName>FORMULA1</developerName>
-        <isActive>true</isActive>
-        <isCrossBlock>false</isCrossBlock>
-        <masterLabel>Max Age</masterLabel>
-        <scale>0</scale>
-    </aggregates>
     <buckets>
         <bucketType>number</bucketType>
         <developerName>BucketField_10385948</developerName>
@@ -62,7 +53,6 @@
         <field>STATUS</field>
     </columns>
     <columns>
-        <aggregateTypes>Sum</aggregateTypes>
         <field>Case.Case_Age_in_Days__c</field>
     </columns>
     <customDetailFormulas>
