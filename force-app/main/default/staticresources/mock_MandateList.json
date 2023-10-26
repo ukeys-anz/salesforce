@@ -1,0 +1,164 @@
+{
+  "mandates": [
+    {
+      "name": "mandates/351f21a0990d11ec86aab7787b802212",
+      "status": "MANDATE_STATUS_CODE_ACTIVE",
+      "statusDescription": "Active",
+      "mandateType": "DDTP",
+      "establishmentScheme": "ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE",
+      "purposeCode": "MANDATE_PURPOSE_CODE_RETAIL_PAYMENTS",
+      "purposeDescription": "Retail Payments",
+      "description": "Mandate 102 description ipsum lorem facto borg klingon federation",
+      "shortDescription": "Mandate 102 short description",
+      "validityStartDate": {
+        "year": 2022,
+        "month": 3,
+        "day": 1
+      },
+      "validityEndDate": {
+        "year": 2025,
+        "month": 3,
+        "day": 1
+      },
+      "initiatingPartyName": "ANZx Initiator Party Name 102 on behalf of ANZx Creditor Party Ultimate Party Name 102",
+      "initiatingPartyType": "INITIATING_PARTY_TYPE_CODE_PAYEE",
+      "debtorInformation": {
+        "partyName": "DERECK SADIE LARKIN",
+        "ultimatePartyName": "DERECK SADIE LARKIN",
+        "accountIdentificationTypeCode": "ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER",
+        "destinationAccount": {
+          "bsb": "014111",
+          "number": "421924391"
+        },
+        "partyReference": "Debtor reference 102"
+      },
+      "creditorInformation": {
+        "partyName": "ANZx Creditor Party Name 102",
+        "ultimatePartyName": "ANZx Creditor Party Ultimate Party Name 102"
+      },
+      "paymentInformation": {
+        "paymentFrequency": "PAYMENT_FREQUENCY_FORTNIGHTLY",
+        "paymentFrequencyDescription": "Fortnightly",
+        "frequencyDetails": "Fortnightly",
+        "paymentAmountType": "PAYMENT_AMOUNT_TYPE_VARIABLE_PAYMENT",
+        "paymentAmountTypeDescription": "Variable",
+        "amount": {
+          "currencyCode": "AUD",
+          "units": "999",
+          "nanos": 990000000
+        },
+        "maximumAmount": {
+          "currencyCode": "AUD",
+          "units": "10000",
+          "nanos": 10000000
+        }
+      }
+    },
+    {
+      "name": "mandates/26c2a370938b11ec86aab7787b802212",
+      "status": "MANDATE_STATUS_CODE_SUSPENDED",
+      "statusDescription": "Suspended",
+      "mandateType": "DDTP",
+      "establishmentScheme": "ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE",
+      "purposeCode": "MANDATE_PURPOSE_CODE_RETAIL_PAYMENTS",
+      "purposeDescription": "Retail Payments",
+      "description": "Sample description",
+      "validityStartDate": {
+        "year": 2022,
+        "month": 2,
+        "day": 27
+      },
+      "validityEndDate": {
+        "year": 2024,
+        "month": 2,
+        "day": 27
+      },
+      "initiatingPartyName": "CBD Gym Pty Ltd",
+      "initiatingPartyType": "INITIATING_PARTY_TYPE_CODE_PAYEE",
+      "pendingActionIndicator": true,
+      "debtorInformation": {
+        "partyName": "DERECK SADIE LARKIN",
+        "ultimatePartyName": "DERECK SADIE LARKIN",
+        "accountIdentificationTypeCode": "ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER",
+        "destinationAccount": {
+          "bsb": "014111",
+          "number": "421924391"
+        },
+        "partyReference": "Debtors Reference"
+      },
+      "creditorInformation": {
+        "partyName": "CBD Gym Pty Ltd",
+        "ultimatePartyName": "CBD Gym Pty Ltd"
+      },
+      "paymentInformation": {
+        "paymentFrequency": "PAYMENT_FREQUENCY_FORTNIGHTLY",
+        "paymentFrequencyDescription": "Fortnightly",
+        "frequencyDetails": "Fortnightly",
+        "paymentAmountType": "PAYMENT_AMOUNT_TYPE_VARIABLE_PAYMENT",
+        "paymentAmountTypeDescription": "Variable",
+        "amount": {
+          "currencyCode": "AUD",
+          "units": "999",
+          "nanos": 990000000
+        },
+        "maximumAmount": {
+          "currencyCode": "AUD",
+          "units": "100"
+        }
+      }
+    },
+    {
+      "name": "mandates/3c539d402f3c11eebc863e9f760ab8ba",
+      "status": "MANDATE_STATUS_CODE_CANCELLED",
+      "statusDescription": "Cancelled",
+      "mandateType": "DDTP",
+      "establishmentScheme": "ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE",
+      "purposeCode": "MANDATE_PURPOSE_CODE_RETAIL_PAYMENTS",
+      "purposeDescription": "Retail Payments",
+      "description": "sample description",
+      "validityStartDate": {
+        "year": 2020,
+        "month": 9,
+        "day": 14
+      },
+      "validityEndDate": {
+        "year": 2022,
+        "month": 5,
+        "day": 25
+      },
+      "initiatingPartyName": "Telstra on behalf of JOE BLOGGS",
+      "initiatingPartyType": "INITIATING_PARTY_TYPE_CODE_PAYEE",
+      "pendingActionIndicator": true,
+      "debtorInformation": {
+        "partyName": "QUENTIN CARISSA WITTING",
+        "ultimatePartyName": "QUENTIN CARISSA WITTING",
+        "accountIdentificationTypeCode": "ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER",
+        "destinationAccount": {
+          "bsb": "014111",
+          "number": "421924391"
+        },
+        "partyReference": "my debtor reference08"
+      },
+      "creditorInformation": {
+        "partyName": "JOE BLOGGS",
+        "ultimatePartyName": "JOE BLOGGS"
+      },
+      "paymentInformation": {
+        "paymentFrequency": "PAYMENT_FREQUENCY_MONTHLY",
+        "paymentFrequencyDescription": "Monthly",
+        "frequencyDetails": "Monthly",
+        "paymentAmountType": "PAYMENT_AMOUNT_TYPE_VARIABLE_PAYMENT",
+        "paymentAmountTypeDescription": "Variable",
+        "amount": {
+          "currencyCode": "AUD",
+          "units": "999",
+          "nanos": 990000000
+        },
+        "maximumAmount": {
+          "currencyCode": "AUD",
+          "units": "211"
+        }
+      }
+    }
+  ]
+}

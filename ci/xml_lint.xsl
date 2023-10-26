@@ -39,6 +39,24 @@ xmlns:saxon="http://saxon.sf.net/">
         </xsl:copy>
     </xsl:template>
 
+    <!-- CustomApplications sort pageOrSobjectType and profile to the bottom -->
+    <xsl:template match="sf:CustomApplication//sf:actionOverrides">
+        <xsl:copy>
+            <xsl:apply-templates select="node()[not(self::sf:pageOrSobjectType)]">
+                <xsl:sort select="local-name()" data-type="text"/>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="sf:pageOrSobjectType"></xsl:apply-templates>
+        </xsl:copy>
+    </xsl:template>
+    <xsl:template match="sf:CustomApplication//sf:profileActionOverrides">
+        <xsl:copy>
+            <xsl:apply-templates select="node()[not(self::sf:profile)]">
+                <xsl:sort select="local-name()" data-type="text"/>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="sf:profile"></xsl:apply-templates>
+        </xsl:copy>
+    </xsl:template>
+
     <!-- Order Sharing Rules by putting the Full Name up the very top, the rest below and criteriaItems at the bottom -->
     <xsl:template match="
           sf:SharingRules//sf:sharingCriteriaRules

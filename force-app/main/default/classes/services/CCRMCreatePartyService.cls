@@ -101,6 +101,7 @@ public with sharing class CCRMCreatePartyService extends Service {
       ? record.CPID__c
       : '';
     createPartyReq.additionalDetails = addDetails;
+    createPartyReq.employment = new Employment();
     return Json.serialize(createPartyReq, true);
   }
 
@@ -115,6 +116,7 @@ public with sharing class CCRMCreatePartyService extends Service {
     public String openedDate;
     public Addresses addresses = new Addresses();
     public AdditionalDetails additionalDetails = new AdditionalDetails();
+    public Employment employment = new Employment();
   }
 
   /**

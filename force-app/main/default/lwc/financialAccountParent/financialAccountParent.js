@@ -340,12 +340,20 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   handleAccountInformation(finAccounts) {
+    // As per story ANZX-113310 Colour of status “Active”, “Dormant“, “Closed” is changed .Hence,changing the badge class
     finAccounts.forEach((finAccount) => {
       finAccount.badgeClass =
         finAccount.FinServ__Status__c === "Active" ||
         finAccount.FinServ__Status__c === "Open"
           ? "slds-badge slds-theme_success"
-          : "slds-badge slds-theme_error";
+          : finAccount.FinServ__Status__c === "Closed"
+          ? "slds-badge closedBadgeClass"
+          : finAccount.FinServ__Status__c === "Dormant"
+          ? "slds-badge dormantBadgeClass"
+          : "slds-badge";
+
+      // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
+      finAccount.showSavingsJar = finAccount.FinServ__Status__c !== "Closed";
     });
 
     return finAccounts;

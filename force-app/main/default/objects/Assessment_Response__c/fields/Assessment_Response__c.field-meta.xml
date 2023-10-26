@@ -11,7 +11,7 @@
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>
-        <restricted>true</restricted>
+        <restricted>false</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -38,6 +38,11 @@
                 <fullName>ASSESSMENT_RESPONSE_NOT_PROCEEDING</fullName>
                 <default>false</default>
                 <label>Not Proceeding</label>
+            </value>
+            <value>
+                <fullName>ASSESSMENT_RESPONSE_RATE_CHANGE</fullName>
+                <default>false</default>
+                <label>Rate Change</label>
             </value>
         </valueSetDefinition>
     </valueSet>

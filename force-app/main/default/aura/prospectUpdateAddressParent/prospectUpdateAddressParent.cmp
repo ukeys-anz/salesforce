@@ -1,0 +1,10 @@
+<aura:component
+  implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader"
+  access="global"
+>
+  <c:prospectUpdateAddress
+    recordId="{!v.recordId}"
+    recordType="Individual"
+    onclose="{!c.closeModalPopUp}"
+  ></c:prospectUpdateAddress>
+</aura:component>

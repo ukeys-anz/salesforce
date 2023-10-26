@@ -246,7 +246,8 @@ public with sharing class ContactRequestTriggerActions {
             currentInteraction.EndTime,
             currentRequest.Appointment_date_and_Time__c,
             currentRequest.Appointment_date_and_Time__c.addMinutes(duration)
-          )
+          ) &&
+          currentInteraction.Status__c != InteractionConstants.CANCELLED_STATUS
         ) {
           currentRequest.addError(
             System.Label.Interaction_User_Created_Error_Message +

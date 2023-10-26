@@ -530,7 +530,9 @@ public with sharing virtual class Service {
    * @return `HttpCalloutResponse` api response
    * @description virtual maintain party information
    */
-  public virtual HttpCalloutResponse maintainParty(Lead record) {
+  public virtual HttpCalloutResponse maintainParty(
+    OCVRequestPayloadWrapper record
+  ) {
     return null;
   }
 
@@ -676,6 +678,52 @@ public with sharing virtual class Service {
    * @description virtual sop list asset callout
    */
   public virtual HttpCalloutResponse getSOP(String ocvId, String sopId) {
+    return null;
+  }
+  /**
+   * @param ocvId ocv Id
+   * @param status status
+   * @param pageNumber page number of the list to fetch
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches Manadate List from fabric through mule
+   */
+  public virtual HttpCalloutResponse getMandateList(
+    String ocvId,
+    Integer status,
+    Integer pageNumber
+  ) {
+    return null;
+  }
+
+  /**
+   * @param mandateId mandate Id
+   * @param ocvId ocv Id
+   * @param status status
+   * @return `HttpCalloutResponse` the api response
+   * @description changes the mandate status for fabric through mule
+   */
+  public virtual HttpCalloutResponse changeMandateStatus(
+    String mandateId,
+    String ocvId,
+    String status
+  ) {
+    return null;
+  }
+
+  /**
+   * @param mandateId mandate Id
+   * @param ocvId ocv Id
+   * @param status status
+   * @param headerProperties headerProperties
+   * @return `HttpCalloutResponse` the api response
+   * @description changes the mandate status for fraudx through mule
+   */
+  public virtual HttpCalloutResponse changeMandateStatus(
+    String mandateId,
+    String ocvId,
+    String status,
+    Map<String, String> headerProperties
+  ) {
     return null;
   }
 }

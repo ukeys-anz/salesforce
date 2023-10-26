@@ -72,6 +72,36 @@ public with sharing class IDRConstants {
     .get('CFaaS_File')
     .getRecordTypeId();
 
+  /**
+   * @description get Quality_Assessment__c.C_Q_Assessment record on demand
+   */
+  public static final Id idrtCQQualityAssessment {
+    get {
+      if (idrtCQQualityAssessment == null) {
+        idrtCQQualityAssessment = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+          .get('C_Q_Assessment')
+          .getRecordTypeId();
+      }
+      return idrtCQQualityAssessment;
+    }
+    private set;
+  }
+
+  /**
+   * @description get Quality_Assessment__c.Call_Letter_Review_Assessment record on demand
+   */
+  public static final Id idrtCallLetterReviewQualityAssessment {
+    get {
+      if (idrtCallLetterReviewQualityAssessment == null) {
+        idrtCallLetterReviewQualityAssessment = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+          .get('Call_Letter_Review_Assessment')
+          .getRecordTypeId();
+      }
+      return idrtCallLetterReviewQualityAssessment;
+    }
+    private set;
+  }
+
   //Complaint Status' for STOP collection
   public static final Set<String> STATUS_STOP_COLLECTIONS = new Set<String>{
     OPEN_STATUS,
@@ -137,7 +167,6 @@ public with sharing class IDRConstants {
   public static final String CASE_OWNER_ID = 'Owner ID';
 
   //IDR Maximum time constants
-  public static final String TASK_SUBJECT_DAY5 = 'IDR Response due in 5-days';
   public static final String TASK_SUBJECT_DAY1 = 'IDR Response Due in 1-day';
   public static final String TASK_STANDARD_PRIORITY = 'Standard';
   public static final String TASK_STATUS_EXPIRED = 'Expired';
@@ -145,7 +174,6 @@ public with sharing class IDRConstants {
   public static final String MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final String MILESTONE_PRIORITY = '21-day IDR Response Due';
 
-  public static final String TASK_AFCA_SUBJECT_DAY10 = 'AFCA Response is due in 10 days';
   public static final String TASK_AFCA_SUBJECT_DAY1 = 'AFCA Response is due in 1 day';
 
   //Channel Received
@@ -169,6 +197,8 @@ public with sharing class IDRConstants {
   public static final String TASK_TYPE_NOTIFICATION = 'Notification';
   public static final String TASK_CORRESPONDENCE_SUBJECT = 'New Correspondence received on a Closed Complaint added by';
   public static final String TASK_CORRESPONDENCE_DESCRIPTION = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
+  public static final String TASK_QA_COMPLIANCE_SUBJECT = 'Review Required: Quality Assessment Completed for ';
+  public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';

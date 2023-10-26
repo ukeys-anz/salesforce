@@ -32,6 +32,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Was_ANZx_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Activity.Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3147,6 +3152,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.TwilioDetailsID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Twilio_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3553,6 +3563,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.New_to_Bank__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Registered_Company__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

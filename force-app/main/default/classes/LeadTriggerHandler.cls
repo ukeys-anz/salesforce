@@ -22,6 +22,8 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onApplyDefaults() {
     TextUtils.maskSObjectData(records, 'Description');
+    // CC-1057 to set the default value of expiry date for Manually created ML Lead
+    MLCRMLeadActions.setDefaultValue(records);
   }
 
   /**
@@ -41,8 +43,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     CCRMCampaignActions.setDefaultCampaign(records);
     CCRMLeadActions.setValidationStatus(records, null);
     CCRMLeadActions.validateIngestedLeads(records);
-    // CC-1057 to set the default value of expiry date for Manually created ML Lead
-    MLCRMLeadActions.setDefaultValue(records);
     //CC-1054 to set the territory for ML Records based on matching user territory default record.
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.

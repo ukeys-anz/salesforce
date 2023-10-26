@@ -13,6 +13,10 @@ private class CCRMContactActionsTest {
       Account acc = CCRMTestDataFactory.createProspectBusinessAccount(
         CCRMTestDataFactory.getCCRMBaseUser().Id
       );
+
+      Account accActive = CCRMTestDataFactory.createBusinessAccountWithOwner(
+        CCRMTestDataFactory.getCCRMBaseUser().Id
+      );
     }
   }
 
@@ -117,7 +121,7 @@ private class CCRMContactActionsTest {
   @IsTest
   static void testContactEndDateShouldNotPopulate() {
     //GIVEN: Contacts created without Mobile, Fax and Phone
-    List<Contact> contactList = CCRMTestDataFactory.createContacts(5, false);
+    List<Contact> contactList = CCRMTestDataFactory.createContacts(5, true);
 
     //WHEN: Update contact Title
     for (Contact contact : contactList) {
@@ -156,7 +160,7 @@ private class CCRMContactActionsTest {
     accnt.Phone = faker.person.phone(true, false);
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
-    accnt.FinServ__Status__c = 'Active';
+    accnt.FinServ__Status__c = 'Dormant';
     insert accnt;
 
     List<Contact> contactList = new List<Contact>();
@@ -196,5 +200,46 @@ private class CCRMContactActionsTest {
         'Contact record type changed to Hidden'
       );
     }
+  }
+
+  @IsTest
+  static void testCheckMaxContactsPerActiveOrganisation() {
+    //GIVEN a active with 10 contacts
+    Account active = [
+      SELECT Id
+      FROM Account
+      WHERE
+        RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
+        AND FinServ__Status__c = :CCRMConstants.ACTIVE_STATUS
+        AND Source_System_Name__c = :Label.CCRM_Source_System_Name
+        AND ANZx_Customer__c = FALSE
+      LIMIT 1
+    ];
+    List<Contact> contacts = new List<Contact>();
+    for (Integer i = 0; i < 9; i++) {
+      contacts.add(
+        new Contact(
+          LastName = faker.person.lastName(),
+          AccountId = active.Id,
+          Phone = faker.person.phone(true, false)
+        )
+      );
+    }
+    insert contacts;
+
+    //WHEN banker adds another contact to the same active account
+    Contact newContact = new Contact(AccountId = active.Id);
+    Test.startTest();
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      CCRMContactActions.checkMaxContactsPerOrganisation(
+        new List<Contact>{ newContact }
+      );
+    }
+    Test.stopTest();
+    //THEN the contact won't be added
+    System.assert(
+      newContact.hasErrors(),
+      'Banker should not be able to add more than 10 contacts to a active'
+    );
   }
 }

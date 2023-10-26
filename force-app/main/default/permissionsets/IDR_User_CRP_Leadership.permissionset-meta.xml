@@ -61,14 +61,32 @@
         <field>Case.IDR_DEH_Response_Due__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Event.Cases_Related_To_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Cases_Related_To_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User CRP Leadership</label>
+    <recordTypeVisibilities>
+        <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Quality_Assessment__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <userPermissions>
         <name>CreateCustomizeFilters</name>
-        <enabled>true</enabled>
-    </userPermissions>
-    <userPermissions>
-        <name>EditPublicFilters</name>
         <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

@@ -1,6 +1,6 @@
 # .forceignore v2
 
-*.md
+**/README.md
 package.xml
 
 # LWC configuration files
@@ -194,3 +194,4 @@ force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-
 
 #ANZX-110254-delete unused resource file
 force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
+force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml

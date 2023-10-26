@@ -7,11 +7,13 @@
     <permissionSets>BoH_Read_Only</permissionSets>
     <permissionSets>Case_Credit_Referral</permissionSets>
     <permissionSets>Case_Read_Only_Credit_Referral</permissionSets>
+    <permissionSets>Case_Send_Communication</permissionSets>
     <permissionSets>CFaaS_File_Read_Only</permissionSets>
     <permissionSets>CFaaS_View_Files</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
+    <permissionSets>PayTo_View_Agreements</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

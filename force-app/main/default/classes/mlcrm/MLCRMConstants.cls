@@ -34,6 +34,23 @@ public with sharing class MLCRMConstants {
   public static final String SPACE = ' ';
   public static final String STAGE_CLOSED = 'Closed';
   public static final String STAGE_LOST = 'Lost';
+  public static final String PHONETYPE_MOBILE = 'Mobile Telephone';
+  public static final String PERSONACCOUNT_RT = 'PersonAccount';
+  public static final String CONTACT = 'Contact';
+  public static final String CONTACTPOINTADDRESS = 'ContactPointAddress';
+  public static final String CONTACTPOINTEMAIL = 'ContactPointEmail';
+  public static final String CONTACTPOINTPHONE = 'ContactPointPhone';
+  public static final String INDIVIDUAL_RT = 'Individual';
+  public static final String ML_ROLE_DEV_NAME = 'Mobile_Lending_Franchise_Users';
+  public static final String INACTIVE_STATUS = 'Inactive';
+  public static final String SOBJECT_RELATIONSHIP_NOTES = 'Customer_Relationship__c';
+  public static final String SOBJECT_LEAD = 'Lead';
+  public static final String PRIMARY = 'Primary';
+  public static final String STR_TERRITORY = 'Territory';
+  public static final String STR_FRANCHISE = 'Franchise';
+  public static final String STR_PARENT_OBJECT = 'Parent Object';
+  public static final String YES = 'Y';
+  public static final String SECONDARY = 'Secondary';
 
   //MLCRM Lead record type Ids
   public static final Id MLCRM_LEAD_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
@@ -48,5 +65,25 @@ public with sharing class MLCRMConstants {
   //MLCRM Task record type Ids
   public static final Id MLCRM_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('MLCRM_Task')
+    .getRecordTypeId();
+
+  //MLCRM Product2 record type Ids
+  public static final Id CRM_ANZ_PRODUCT_RT_ID = Schema.SObjectType.Product2.getRecordTypeInfosByDeveloperName()
+    .get('CRM_ANZ_Product')
+    .getRecordTypeId();
+
+  //MLCRM Interaction record type Ids
+  public static final Id ML_INTERACTION_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('ML_Interaction')
+    .getRecordTypeId();
+
+  //CCRM Interaction record type Ids
+  public static final Id CCRM_INTERACTION_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('CCRM_Interaction')
+    .getRecordTypeId();
+
+  //ML Event record type Ids
+  public static final Id ML_EVENT_RT_ID = Schema.SObjectType.Event.getRecordTypeInfosByDeveloperName()
+    .get('ML_Event')
     .getRecordTypeId();
 }

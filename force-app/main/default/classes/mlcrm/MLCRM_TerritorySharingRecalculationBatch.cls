@@ -3,6 +3,7 @@
  * @since  07/2023
  * @group MLCRM (Mobile Lending CRM)
  * @description MLCRM_TerritorySharingRecalculationBatch is batch class for sharing sobject record created by excluded users.
+ * @runTests MLCRM_TerritoryRecalculationBatchTest
  */
 global class MLCRM_TerritorySharingRecalculationBatch implements Database.Batchable<sObject> {
   private Territory_Based_Sharing_Config__mdt objShareMetadata;
@@ -30,6 +31,7 @@ global class MLCRM_TerritorySharingRecalculationBatch implements Database.Batcha
    */
   global Database.QueryLocator start(Database.BatchableContext objBatchable) {
     String strQuery;
+    String strWhereClause;
     DateTime objDateTime = System.Now()
       .addHours(
         (-1) * Integer.valueOf(this.objShareMetadata.Recalculation_Timeframe__c)
@@ -37,16 +39,21 @@ global class MLCRM_TerritorySharingRecalculationBatch implements Database.Batcha
     Set<Id> setOfExcludedUsers = MLCRMCommonUtils.getUserIdFromUsername(
       this.objShareMetadata.Excluded_Users__c.split(';')
     );
-    Set<Id> setOfEligibleRT = MLCRMCommonUtils.getTaskRecordTypeIdByDeveloperName(
-      this.objShareMetadata.Object_Name__c,
-      this.objShareMetadata.Eligible_Record_Types__c.split(';')
-    );
+    if (this.objShareMetadata.Eligible_Record_Types__c != null) {
+      Set<Id> setOfEligibleRT = MLCRMCommonUtils.getRecordTypeIdsByDeveloperName(
+        this.objShareMetadata.Object_Name__c,
+        this.objShareMetadata.Eligible_Record_Types__c.split(';')
+      );
+      strWhereClause = ' WHERE CreatedDate >=:objDateTime AND CreatedById IN: setOfExcludedUsers and RecordTypeId IN: setOfEligibleRT';
+    } else {
+      strWhereClause = ' WHERE CreatedDate >=:objDateTime AND CreatedById IN: setOfExcludedUsers';
+    }
     strQuery =
       'SELECT Id,OwnerId, ' +
       String.escapeSingleQuotes(this.objShareMetadata.Territory_Field__c) +
       ' FROM ' +
       String.escapeSingleQuotes(this.objShareMetadata.Object_Name__c) +
-      ' WHERE CreatedDate >=:objDateTime AND CreatedById IN: setOfExcludedUsers and RecordTypeId IN: setOfEligibleRT';
+      strWhereClause;
     return Database.getQueryLocator(strQuery);
   }
 
@@ -63,11 +70,30 @@ global class MLCRM_TerritorySharingRecalculationBatch implements Database.Batcha
     List<SObject> scope
   ) {
     if (!scope.isEmpty()) {
-      MLCRMSharingUtil.createTerritoryShareRecords(
-        scope,
-        this.objShareMetadata.Sharing_Object__c,
-        this.objShareMetadata.Object_Name__c
-      );
+      if (
+        this.objShareMetadata.Sharing_Scope__c == MLCRMConstants.STR_TERRITORY
+      ) {
+        MLCRMSharingUtil.createTerritoryShareRecords(
+          scope,
+          this.objShareMetadata
+        );
+      } else if (
+        this.objShareMetadata.Sharing_Scope__c == MLCRMConstants.STR_FRANCHISE
+      ) {
+        MLCRMSharingUtil.createShareRecordsFranchiseWise(
+          scope,
+          this.objShareMetadata
+        );
+      } else if (
+        this.objShareMetadata.Sharing_Scope__c ==
+        MLCRMConstants.STR_PARENT_OBJECT
+      ) {
+        //Method to create share record based on parent object
+        MLCRMCommonUtils.parentObjectRecordSharing(
+          scope,
+          this.objShareMetadata
+        );
+      }
     }
   }
 

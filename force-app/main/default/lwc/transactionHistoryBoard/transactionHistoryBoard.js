@@ -8,54 +8,20 @@ import { handleErrorShowToast } from "c/utils";
 import hasTransactionHistoryPermission from "@salesforce/customPermission/ANZx_View_Transaction_History";
 import { getOptionalFieldValue, processTransaction } from "./helpers/util";
 import transaction_logos from "@salesforce/resourceUrl/transaction_logos";
+import TransactionAPIUpliftedToV1 from "@salesforce/label/c.TransactionAPIUpliftedToV1";
 
 import {
-  TRANSACTION_STATUSES,
+  transactionStatusMapping,
+  transactionTypeMapping,
+  cardMapping,
+  cardSchemeApiValues,
+  dateOptions,
+  timeOptions,
   TRANSACTION_TYPES,
-  CARD_TYPES,
   PERSON_ACCOUNT_ID_RETRIEVE_ERROR,
   PAYMENT_TYPES,
   PAYMENT_SUB_TYPES
 } from "c/transactionHistoryService";
-
-//Remapping the status and types returned from the API so they
-//are more readable on the UI
-const transactionStatusMapping = {
-  TRANSACTION_STATUS_UNSPECIFIED: TRANSACTION_STATUSES.Unspecified,
-  TRANSACTION_STATUS_PENDING: TRANSACTION_STATUSES.Pending,
-  TRANSACTION_STATUS_POSTED: TRANSACTION_STATUSES.Posted
-};
-const transactionTypeMapping = {
-  TRANSACTION_TYPE_UNSPECIFIED: TRANSACTION_TYPES.Unknown,
-  TRANSACTION_TYPE_CARD: TRANSACTION_TYPES.Card,
-  TRANSACTION_TYPE_DIRECT_DEBIT: TRANSACTION_TYPES.Direct_Debit,
-  TRANSACTION_TYPE_FEE: TRANSACTION_TYPES.Fee,
-  TRANSACTION_TYPE_INTEREST: TRANSACTION_TYPES.Interest,
-  TRANSACTION_TYPE_DEPOSIT_WITHDRAWL: TRANSACTION_TYPES.Deposit_Withdrawal, // TRANSACTION_TYPE_DEPOSIT_WITHDRAWL with typo as this is what Fabric sends, confirmed with their team
-  TRANSACTION_TYPE_TRANSFER: TRANSACTION_TYPES.Transfer,
-  TRANSACTION_TYPE_PAYID: TRANSACTION_TYPES.PAYID,
-  TRANSACTION_TYPE_BSB_ACC_NUM: TRANSACTION_TYPES.BSB_ACC,
-  TRANSACTION_TYPE_BPAY: TRANSACTION_TYPES.BPAY,
-  TRANSACTION_TYPE_OTHER: TRANSACTION_TYPES.Other,
-  TRANSACTION_TYPE_SALARY: TRANSACTION_TYPES.Salary,
-  TRANSACTION_TYPE_PAYMENT: TRANSACTION_TYPES.Payment
-};
-const cardMapping = {
-  CARD_SCHEME_UNSPECIFIED: CARD_TYPES.Unknown,
-  CARD_SCHEME_VISA: CARD_TYPES.Visa,
-  CARD_SCHEME_MASTERCARD: CARD_TYPES.Mastercard,
-  CARD_SCHEME_EFTPOS: CARD_TYPES.EFTPOS,
-  CARD_SCHEME_AMERICAN_EXPRESS: CARD_TYPES.American_Express
-};
-
-const dateOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric"
-};
-
-const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
 export default class TransactionHistoryBoard extends LightningElement {
   @api recordId;
@@ -160,6 +126,12 @@ export default class TransactionHistoryBoard extends LightningElement {
             currentTransaction
           );
 
+          // Set flag if transaction is of PayTo Dispute Type
+          currentTransaction.isPayToDispute =
+            currentTransaction.pay_anyone?.payment_id.substring(0, 3) === "MPS"
+              ? true
+              : false;
+
           //Process date and time, set showDateTitle
           let currentDate = this.getDateObject(
             currentTransaction.transactionDateLocal
@@ -229,6 +201,15 @@ export default class TransactionHistoryBoard extends LightningElement {
               .scheme
               ? cardMapping[currentTransaction.card.scheme]
               : "Unknown";
+            if (this.isTransactionsV1()) {
+              currentTransaction.card.scheme =
+                cardSchemeApiValues[currentTransaction.card.scheme];
+            }
+          }
+          // Card and Cash scheme values are same. Thus checking if the
+          if (currentTransaction.cash && this.isTransactionsV1()) {
+            currentTransaction.cash.card_scheme =
+              cardSchemeApiValues[currentTransaction.cash.card_scheme];
           }
 
           //Check if international transaction
@@ -463,7 +444,12 @@ export default class TransactionHistoryBoard extends LightningElement {
   //provided from the list of merchants given in the response.
   getMerchantDetails(merchant_id) {
     return this.allMerchants.filter((merchant) => {
-      return merchant_id === merchant.merchant_id;
+      return (
+        //Added For V1Beta1
+        merchant_id === merchant.merchant_id ||
+        //Added For V1
+        merchant_id === "merchants/" + merchant.merchant_id
+      );
     });
   }
 
@@ -472,7 +458,12 @@ export default class TransactionHistoryBoard extends LightningElement {
   // //sent as array
   getTagDetails(tagIds) {
     return this.allTags.filter((tag) => {
-      return tagIds.indexOf(tag.tag_id) > -1;
+      return (
+        //Added For V1Beta1
+        tagIds.indexOf(tag.tag_id) > -1 ||
+        //Added For V1
+        tagIds.indexOf("tags/" + tag.tag_id) > -1
+      );
     });
   }
 
@@ -491,7 +482,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
         ].includes(transaction.pay_anyone?.clearing_sub_method):
         return this.transactionTypeDisputeIdMapFromParent.Direct_Entry_Dispute;
-      case [TRANSACTION_TYPES.BSB_ACC, TRANSACTION_TYPES.PAYID].includes(
+      case ([TRANSACTION_TYPES.BSB_ACC, TRANSACTION_TYPES.PAYID].includes(
         transaction.formatted_type
       ) &&
         transaction.pay_anyone?.clearing_method ===
@@ -499,7 +490,8 @@ export default class TransactionHistoryBoard extends LightningElement {
         [
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ICS1,
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
-        ].includes(transaction.pay_anyone?.clearing_sub_method):
+        ].includes(transaction.pay_anyone?.clearing_sub_method)) ||
+        transaction.pay_anyone?.payment_id.substring(0, 3) === "MPS":
         return this.transactionTypeDisputeIdMapFromParent.NPP_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.Direct_Debit:
         return this.transactionTypeDisputeIdMapFromParent.Direct_Debit_Dispute;
@@ -522,5 +514,9 @@ export default class TransactionHistoryBoard extends LightningElement {
       endDate = this.getDefaultDate();
     }
     return endDate;
+  }
+
+  isTransactionsV1() {
+    return TransactionAPIUpliftedToV1 === "True";
   }
 }

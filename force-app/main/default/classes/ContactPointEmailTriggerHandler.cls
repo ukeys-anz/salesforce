@@ -11,25 +11,46 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
   public override void onBeforeInsert() {
     CCRMContactPointEmailActions.copyParentIdToCustomerName(records);
 
-    List<ContactPointEmail> prospectEmails = CCRMContactPointEmailActions.extractProspectCpe(
-      records
-    );
-    CCRMContactPointEmailActions.validateProspectEmails(prospectEmails);
-    CCRMContactPointEmailActions.checkExistingEmailOnProspect(prospectEmails);
+    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      CCRMContactPointEmailActions.ContactPointEmailWrapper cpeWrap = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
+      cpeWrap = CCRMContactPointEmailActions.getExistingOrProspectCPE(records);
+
+      List<ContactPointEmail> conPointEmailList = new List<ContactPointEmail>();
+      conPointEmailList.addAll(cpeWrap.prosCPE);
+      conPointEmailList.addAll(cpeWrap.activeCPE);
+
+      CCRMContactPointEmailActions.validateOrgIndividualEmailsLinking(records);
+
+      CCRMContactPointEmailActions.validateExistingOrProspectEmails(
+        conPointEmailList
+      );
+
+      CCRMContactPointEmailActions.checkExistingEmailOnProspectOrExistingCust(
+        records
+      );
+    }
   }
 
   /**
    * @description onAfterInsert to handle after insert trigger actions.
    */
   public override void onAfterInsert() {
-    List<ContactPointEmail> prospectEmails = CCRMContactPointEmailActions.extractProspectCpe(
-      records
-    );
+    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      CCRMContactPointEmailActions.ContactPointEmailWrapper cpeWrap = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
+      cpeWrap = CCRMContactPointEmailActions.getExistingOrProspectCPE(records);
 
-    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-      prospectEmails,
-      null
-    );
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        cpeWrap.prosCPE,
+        null,
+        true
+      );
+
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        cpeWrap.activeCPE,
+        null,
+        false
+      );
+    }
   }
 
   /**
@@ -37,20 +58,41 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    List<ContactPointEmail> prospectEmails = CCRMContactPointEmailActions.extractProspectCpe(
-      records
-    );
+    CCRMContactPointEmailActions.ContactPointEmailWrapper cpeWrap = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
+    cpeWrap = CCRMContactPointEmailActions.getExistingOrProspectCPE(records);
 
     CCRMContactPointActions.updateContactPoints(records);
 
-    CCRMContactPointEmailActions.validateProspectEmails(prospectEmails);
     CCRMContactPointEmailActions.unlinkProspectParentOnDeactivation(
-      prospectEmails,
+      cpeWrap.prosCPE,
       (Map<Id, ContactPointEmail>) oldMap
     );
-    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-      prospectEmails,
-      (Map<Id, ContactPointEmail>) oldMap
-    );
+
+    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      List<ContactPointEmail> conPointEmailList = new List<ContactPointEmail>();
+      conPointEmailList.addAll(cpeWrap.prosCPE);
+      conPointEmailList.addAll(cpeWrap.activeCPE);
+
+      CCRMContactPointEmailActions.validateExistingOrProspectEmails(
+        conPointEmailList
+      );
+
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        cpeWrap.prosCPE,
+        (Map<Id, ContactPointEmail>) oldMap,
+        true
+      );
+
+      CCRMCustomerProfileUpdateHelper.restrictEdit(
+        cpeWrap.activeCPE,
+        (Map<Id, ContactPointEmail>) oldMap
+      );
+
+      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+        cpeWrap.activeCPE,
+        (Map<Id, ContactPointEmail>) oldMap,
+        false
+      );
+    }
   }
 }

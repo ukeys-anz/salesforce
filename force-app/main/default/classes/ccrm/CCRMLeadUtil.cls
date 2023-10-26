@@ -30,10 +30,7 @@ public with sharing class CCRMLeadUtil {
    * @return `Boolean` True if the the record type is of CCRM Lead type otherwise false.
    */
   public static Boolean isCCRMLeadType(Lead record) {
-    if (record.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID) {
-      return true;
-    }
-    return false;
+    return record.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID;
   }
 
   /**
@@ -43,10 +40,7 @@ public with sharing class CCRMLeadUtil {
    * @return `Boolean` True if the the record type is of MLCRM Lead type otherwise false.
    */
   public static Boolean isMLCRMLeadType(Lead record) {
-    if (record.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID) {
-      return true;
-    }
-    return false;
+    return record.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID;
   }
 
   /**

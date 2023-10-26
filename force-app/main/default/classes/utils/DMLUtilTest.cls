@@ -18,7 +18,7 @@ public with sharing class DMLUtilTest {
     System.runAs(thisUser) {
       // Create a Coach User with 'Coach Agent' role
       Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
-      UserRole qaRole = CommonUtil.getUserRoleByDevName('Quality Analyst');
+      UserRole qaRole = CommonUtil.getUserRoleByDevName('Quality_Analyst');
       User qa = TestUtil.createTestUser(
         new Map<String, Object>{
           'FirstName' => 'QATestUser',

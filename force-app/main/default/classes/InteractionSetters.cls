@@ -118,10 +118,14 @@ public with sharing class InteractionSetters {
    */
   public static void setNameOfInteractions(List<Interaction> interactions) {
     Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
-    Id storeRTID = GetHelpConstants.INTERACTION_STORE_RT_ID;
+    Set<Id> storeRTID = new Set<Id>{
+      GetHelpConstants.INTERACTION_STORE_RT_ID,
+      GetHelpConstants.INTERACTION_CCRM_RT_ID,
+      GetHelpConstants.INTERACTION_ML_RT_ID
+    };
     for (Interaction interact : interactions) {
       // Not updating name when store interaction is updated, it gets updated via Dataraptor
-      if (interact.RecordTypeId == storeRTID) {
+      if (storeRTID.contains(interact.RecordTypeId)) {
         continue;
       }
       if (interact.RecordTypeId != appointmentRTID) {

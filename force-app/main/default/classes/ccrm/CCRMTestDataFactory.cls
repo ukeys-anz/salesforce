@@ -51,8 +51,14 @@ public with sharing class CCRMTestDataFactory {
     adminUser.ProfileId = adminProfileId;
     insert adminUser;
 
-    addCCRMUserPS(adminUser.id, 'Read_Write_Customer_Details');
-    addCCRMUserPS(adminUser.id, 'CCRM_User_Base');
+    TestUtil.assignPermissionSets(
+      new List<String>{
+        'Customer_Relationships_Read_Write',
+        'Read_Write_Customer_Details',
+        'CCRM_User_Base'
+      },
+      new List<User>{ adminUser }
+    );
 
     return adminUser;
   }
@@ -168,9 +174,16 @@ public with sharing class CCRMTestDataFactory {
     ccrmIntegrationUser.UserRoleId = commercialBankerRole.Id;
     ccrmIntegrationUser.ProfileId = integrationProfileId;
     insert ccrmIntegrationUser;
-    addCCRMUserPS(ccrmIntegrationUser.id, 'CCRM_Marketing_Integration_User');
-    addCCRMUserPS(ccrmIntegrationUser.id, 'Read_Write_Customer_Details');
-    addCCRMUserPS(ccrmIntegrationUser.id, 'Financial_Accounts_Read_and_Edit');
+
+    TestUtil.assignPermissionSets(
+      new List<String>{
+        'CCRM_Marketing_Integration_User',
+        'Read_Write_Customer_Details',
+        'CCRM_User_Base'
+      },
+      new List<User>{ ccrmIntegrationUser }
+    );
+
     return ccrmIntegrationUser;
   }
 
@@ -241,6 +254,30 @@ public with sharing class CCRMTestDataFactory {
       },
       new List<User>{ ocvIntegrationUser }
     );
+    return ocvIntegrationUser;
+  }
+
+  /**
+   * @description Get a OCV Integration User, if such user not exists yet then create one
+   * @name getOcvIntegrationUser
+   * @return Integration User with OCV Integration User Permission Set.
+   */
+  public static User getOcvIntegrationUser() {
+    if (ocvIntegrationUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE
+          ProfileId = :integrationProfileId
+          AND FirstName = 'IntegrationUserOCV'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        ocvIntegrationUser = createOCVIntegrationUser();
+      } else {
+        ocvIntegrationUser = users[0];
+      }
+    }
     return ocvIntegrationUser;
   }
 
@@ -551,6 +588,7 @@ public with sharing class CCRMTestDataFactory {
     Account accnt = new Account();
     accnt.Name = 'Test Pty Ltd';
     accnt.OCV_ID__c = faker.randomString(10);
+    accnt.External_Id__c = faker.randomString(10);
     accnt.Industry = createIndustries[0].Code__c;
     accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
     accnt.ABN__c = '50 110 219 460';
@@ -1001,7 +1039,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.Phone = faker.person.phone(true, false);
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
-    accnt.FinServ__Status__c = 'Active';
+    accnt.FinServ__Status__c = 'Dormant';
     insert accnt;
 
     List<Contact> conList = new List<Contact>();
@@ -1058,5 +1096,64 @@ public with sharing class CCRMTestDataFactory {
 
     apTempVer.Status = 'Final';
     update apTempVer;
+  }
+
+  /**
+   * @description Create Business Account with owner and contact
+   * @name createBusinessAccount
+   * @param ownerId Id of Owner
+   * @return Account Business account
+   */
+  public static Account createBusinessAccountWithOwner(Id ownerId) {
+    Faker faker = new Faker('AU');
+    Account accnt = new Account();
+    accnt.Name = 'Test Pty Ltd';
+    accnt.OCV_ID__c = faker.randomString(10);
+    accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    accnt.ABN__c = '50 110 219 460';
+    accnt.Phone = '+61333333333';
+    accnt.BillingStreet = '833 Collins Street';
+    accnt.BillingCity = 'Docklands';
+    accnt.BillingPostalCode = '3008';
+    accnt.BillingState = 'VIC';
+    accnt.BillingCountry = 'Australia';
+    accnt.Source_System_ID__c = 'BUS1234';
+    accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
+    accnt.FinServ__Status__c = 'Active';
+    if (ownerId != null) {
+      accnt.OwnerId = ownerId;
+    }
+    insert accnt;
+
+    Contact contact = new Contact();
+    contact.FirstName = 'conFname';
+    contact.LastName = 'conLname';
+    contact.Email = 'con@test.com';
+    contact.MobilePhone = '+61430499999';
+    contact.Phone = '+61255556666';
+    contact.AccountId = accnt.Id;
+    insert contact;
+
+    return accnt;
+   }
+  /**
+   * @description Create non-reciprocal role records
+   * @name createNonReciprocalRole
+   * @param name [Optional] the name of the reciprocal role
+   * @return FinServ__ReciprocalRole__c the newly created record
+   */
+  public static FinServ__ReciprocalRole__c createNonReciprocalRole(
+    String name
+  ) {
+    name = name == null ? new Faker('AU').randomString(10) : name;
+    FinServ__ReciprocalRole__c nonReciprocalRole = new FinServ__ReciprocalRole__c(
+      RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID,
+      Name = name,
+      FinServ__InverseRole__c = name,
+      OCV_Role__c = name,
+      FinServ__CreateInverseRole__c = false
+    );
+    insert nonReciprocalRole;
+    return nonReciprocalRole;
   }
 }

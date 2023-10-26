@@ -22,6 +22,9 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeInsert() {
     QualityAssessmentActions.populateFieldsBeforeTrigger(records, null);
+    IDRQualityAssessmentActions.autoCalculateScore(records);
+    QualityAssessmentActions.validateRelatedCase(records, null);
+    IDRQualityAssessmentActions.validateStatusComplete(records, null);
   }
 
   /**
@@ -32,6 +35,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
     QualityAssessmentActions.updateRelatedCases(records, null);
     QualityAssessmentActions.createChatterPost(records, null);
     QualityAssessmentTaskActions.createComplianceTasks(records, null);
+    IDRQualityAssessmentTaskActions.createQAShareRecord(records, null);
   }
 
   /**
@@ -55,7 +59,19 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    IDRQualityAssessmentTaskActions.createComplianceTasks(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    IDRQualityAssessmentTaskActions.checkOnReversionToPending(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
     QualityAssessmentActions.createQAShareRecord(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    IDRQualityAssessmentTaskActions.createQAShareRecord(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
@@ -71,6 +87,15 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       (Map<Id, Quality_Assessment__c>) oldMap
     );
     QualityAssessmentActions.assignToQueue(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    IDRQualityAssessmentActions.autoCalculateScore(records);
+    QualityAssessmentActions.validateRelatedCase(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    IDRQualityAssessmentActions.validateStatusComplete(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );

@@ -63,7 +63,7 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
-
+    ML_UserActions.createTerritoryForMLUser(this.records, null);
     CCRMRegionSharingUtil.addUsersToRegion(this.records);
   }
 
@@ -137,7 +137,10 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
-
+    ML_UserActions.createTerritoryForMLUser(
+      this.records,
+      (Map<Id, User>) oldMap
+    );
     CCRMRegionSharingUtil.updateUserRegion(
       this.records,
       (Map<Id, User>) oldMap

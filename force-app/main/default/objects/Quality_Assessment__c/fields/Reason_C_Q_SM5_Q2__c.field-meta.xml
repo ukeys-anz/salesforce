@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_C_Q_SM5_Q2__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>SUCCESS MEASURE 5 Q2 reason</description>
+    <externalId>false</externalId>
+    <label>Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Credit_reporting_notice_obligations_met__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CM did not write (by email, letter or SMS) to customer within 7 days to acknowledge the complaint and tell them how we will deal with the complaint.</fullName>
+                <default>false</default>
+                <label>CM did not write (by email, letter or SMS) to customer within 7 days to acknowledge the complaint and tell them how we will deal with the complaint.</label>
+            </value>
+            <value>
+                <fullName>CM did not, where it was necessary to consult a credit bureau about the complaint, notify the credit bureau of the complaint/decision as soon as practicable after receiving the complaint.</fullName>
+                <default>false</default>
+                <label>CM did not, where it was necessary to consult a credit bureau about the complaint, notify the credit bureau of the complaint/decision as soon as practicable after receiving the complaint.</label>
+            </value>
+            <value>
+                <fullName>CM receiving the review was not the CM responsible for the ‘not met’.</fullName>
+                <default>false</default>
+                <label>CM receiving the review was not the CM responsible for the ‘not met’.</label>
+            </value>
+            <value>
+                <fullName>technology or indexing issues caused no acknowledgement to customer within 7 days.</fullName>
+                <default>false</default>
+                <label>technology or indexing issues caused no acknowledgement to customer within 7 days.</label>
+            </value>
+            <value>
+                <fullName>Complaint is not about credit reporting.</fullName>
+                <default>false</default>
+                <label>Complaint is not about credit reporting.</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>CM did not write (by email, letter or SMS) to customer within 7 days to acknowledge the complaint and tell them how we will deal with the complaint.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>CM did not, where it was necessary to consult a credit bureau about the complaint, notify the credit bureau of the complaint/decision as soon as practicable after receiving the complaint.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>CM receiving the review was not the CM responsible for the ‘not met’.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <valueName>technology or indexing issues caused no acknowledgement to customer within 7 days.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>Complaint is not about credit reporting.</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

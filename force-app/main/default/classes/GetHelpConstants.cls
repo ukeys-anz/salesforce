@@ -169,6 +169,16 @@ public with sharing class GetHelpConstants {
     .get('Message')
     .getRecordTypeId();
 
+  // Interaction - Appointment Interaction RT Id
+  public static final Id INTERACTION_CCRM_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('CCRM_Interaction')
+    ?.getRecordTypeId();
+
+  // Interaction - Appointment Interaction RT Id
+  public static final Id INTERACTION_ML_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('ML_Interaction')
+    ?.getRecordTypeId();
+
   // Case - Account Closure
   public static final Id ACCOUNT_CLOSURE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Account_Closure')
@@ -272,4 +282,27 @@ public with sharing class GetHelpConstants {
   public static final String BASIC_SUBSCRIPTION_ENTITLEMENT_NAME = 'Basic Subscription';
   public static final String ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME = 'anz plus - basic subscription';
   public static final String COMPLAINTS_SLA_PROCESS_NAME = 'complaints';
+
+  //Set of Interaction RecordTypeIds for Store, Call and Chat
+  public static final Set<Id> STORE_CALL_MSG_INTERACTION_RECORTYPEIDS_SET = new Set<Id>{
+    GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+    GetHelpConstants.INTERACTION_STORE_RT_ID,
+    GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+  };
+
+  /**
+   * @return Boolean
+   * @description Method to check if Transaction API has been updated to V1
+   */
+  public static Boolean isTransactionsV1() {
+    return Label.TransactionAPIUpliftedToV1 == 'True';
+  }
+
+  /**
+   * @return Boolean
+   * @description Method to check if Account API has been updated to V1
+   */
+  public static Boolean isAccountV1() {
+    return Label.AccountAPIUpliftedToV1 == 'True';
+  }
 }

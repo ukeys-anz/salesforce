@@ -42,6 +42,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.populateOCVOnComplaint(records);
     GetHelpCaseActions.validateDuplicateKYCQACasePerAccount(records);
     GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
+    GetHelpCaseActions.populateFieldsOfPayToDispute(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
       (List<Case>) records,
       null
@@ -70,6 +71,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
+    System.enqueueJob(new QueueCaseMilestoneTargetDate(records));
     Logger.debug('On_After_Insert finished: ' + System.now());
     Logger.saveLog();
   }
@@ -123,10 +125,14 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
-    GetHelpCaseActions.linkKYCQACasesToAccount(
+
+    AutoKYCQACaseActions kYCQACaseActions = new AutoKYCQACaseActions(
       (List<Case>) records,
       (Map<Id, Case>) oldMap
     );
+
+    kYCQACaseActions.onBeforeUpdate();
+
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }

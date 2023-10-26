@@ -11,23 +11,12 @@
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Global.FinServ__NewEvent</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.FinServ__NewTask</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.FinServ__LogACall</value>
+                            <value>Share</value>
                         </valueListItems>
                         <valueListItems>
                             <value>CustomButton.Opportunity.Launch_BBD</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6)</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!Record.Account.Source_System_Name__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>CAP-CIS</rightValue>
-                                </criteria>
+                                <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.StageName}</leftValue>
                                     <operator>EQUAL</operator>
@@ -55,6 +44,12 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Opportunity.Log_Interaction_CCRM</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Global.Create_Task_CCRM</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -75,7 +70,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>3</value>
+                    <value>5</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
@@ -835,7 +830,7 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-47da192a-5cd0-4be3-b945-2b18c9506e14</name>
+        <name>Facet-962abcec-0931-486f-8fbb-4f8bff05e0c5</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -843,7 +838,39 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel2</identifier>
+                <identifier>runtime_sales_activities_activityPanel</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-47da192a-5cd0-4be3-b945-2b18c9506e14</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>timelineConfigs</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Opportunity_Timeline_CCRM</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentName>industries_common:timeline</componentName>
+                <identifier>industries_common_timeline</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-425f3d42-c58a-4d0b-bdbf-d5356d007524</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>context</name>
+                    <value>RECORD</value>
+                </componentInstanceProperties>
+                <componentName>forceChatter:exposedFeed</componentName>
+                <identifier>forceChatter_exposedFeed</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -854,14 +881,42 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
+                    <value>Facet-962abcec-0931-486f-8fbb-4f8bff05e0c5</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Tasks</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
                     <value>Facet-47da192a-5cd0-4be3-b945-2b18c9506e14</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Standard.Tab.activity</value>
+                    <value>Timeline</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-425f3d42-c58a-4d0b-bdbf-d5356d007524</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.collaborate</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab2</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -897,16 +952,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-e731be44-2f4d-4ba6-897c-0904bb17be12</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Opportunity.Id</value>
                 </componentInstanceProperties>
@@ -928,6 +973,16 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-e731be44-2f4d-4ba6-897c-0904bb17be12</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

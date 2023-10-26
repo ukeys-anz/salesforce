@@ -28,7 +28,11 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       );
       if (response.successful) {
         try {
-          result = FinancialAccountModel.parse(response.body);
+          if (GetHelpConstants.isAccountV1()) {
+            result = FinancialAccountModelV1.parse(response.body);
+          } else {
+            result = FinancialAccountModel.parse(response.body);
+          }
         } catch (Exception e) {
           handleErrors(null, e, CoachBankingAPIRepository.class);
         }
@@ -67,7 +71,11 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     HttpCalloutResponse response = s.getTransactionHistory(ocvId, paramUrl);
     if (response.successful) {
       try {
-        result = TransactionHistoryModel.parse(response.body);
+        if (GetHelpConstants.isTransactionsV1()) {
+          result = TransactionHistoryModelV1.parse(response.body);
+        } else {
+          result = TransactionHistoryModel.parse(response.body);
+        }
       } catch (Exception e) {
         handleErrors(null, e, CoachBankingAPIRepository.class);
       }
@@ -145,6 +153,11 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
           result = CardListModel.parse(response.body);
           CoachBankingAPIRepositoryHelper helper = new CoachBankingAPIRepositoryHelper();
           helper.handleCardIsValidCheck(result);
+          // Adding this line to filter the card list based on the status as part of ANZX-112715 - By Shivam , Sept 2023
+          result = CoachBankingAPIRepositoryHelper.filterCardsBasedOnAccountStatus(
+            ocvId,
+            result
+          );
         } catch (Exception e) {
           handleErrors(null, e, CoachBankingAPIRepository.class);
         }

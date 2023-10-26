@@ -21,6 +21,7 @@ export default class ProspectUpdateAddress extends LightningElement {
   addressId;
   objectAPIName;
   recordTypeId;
+  recordTypeName;
   @track currentAddress = {};
 
   @api get recordId() {
@@ -35,13 +36,33 @@ export default class ProspectUpdateAddress extends LightningElement {
       this.closeQuickAction();
     }
   }
+  @api get recordType() {
+    return null;
+  }
+  set recordType(val) {
+    if (val) {
+      this.recordTypeName = val;
+    } else {
+      this.recordTypeName = "Organisation";
+    }
+  }
 
   @wire(getObjectInfo, { objectApiName: "ContactPointAddress" })
   getObjectInfo({ data, error }) {
     if (data) {
-      this.recordTypeId = Object.values(data.recordTypeInfos).find(
-        (x) => x.name === "Organisation"
-      ).recordTypeId;
+      if (
+        this.recordTypeName !== undefined &&
+        this.recordTypeName !== null &&
+        this.recordTypeName !== ""
+      ) {
+        this.recordTypeId = Object.values(data.recordTypeInfos).find(
+          (x) => x.name === this.recordTypeName
+        ).recordTypeId;
+      } else if (this.addressId === undefined || this.addressId === null) {
+        this.recordTypeId = Object.values(data.recordTypeInfos).find(
+          (x) => x.name === "Organisation"
+        ).recordTypeId;
+      }
     }
     if (error) {
       this.closeQuickAction();

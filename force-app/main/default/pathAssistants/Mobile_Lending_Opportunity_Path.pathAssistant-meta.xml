@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Opportunity</entityName>
+    <fieldName>StageName</fieldName>
+    <masterLabel>Mobile Lending Opportunity Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Assessment_Outcome__c</fieldNames>
+        <fieldNames>Assessment_Outcome_Date__c</fieldNames>
+        <fieldNames>Approval_Expiry_Date__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;You will receive a decision on your application.&lt;/li&gt;&lt;li&gt;Look at reworking deals for declined applications&lt;/li&gt;&lt;li&gt;Set follow-up dates for AST/AIP outcomes.&lt;/li&gt;&lt;li&gt;Update the waiting indicator to get the required information from the customer based on the conditions on AST/AIP notice.&lt;/li&gt;&lt;li&gt;Create tasks for follow-ups as required&lt;/li&gt;&lt;li&gt;Direct customer to perform KYC checks for Approved outcomes&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Assessed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Documents_Issued_Date__c</fieldNames>
+        <fieldNames>Documents_Signed_Date__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Your application is currently with Doc-Prep operations team for preparation of Letter of Offer pack&lt;/li&gt;&lt;li&gt;Set follow-up to ensure documents are returned prior to Offer Expiry and Approval Expiry.&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Documents</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Lost_Reason__c</fieldNames>
+        <picklistValueName>Lost</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Interview_Date__c</fieldNames>
+        <fieldNames>Amount</fieldNames>
+        <fieldNames>Customer_Needs__c</fieldNames>
+        <fieldNames>LMI_Applies__c</fieldNames>
+        <fieldNames>Expected_Settlement_Date__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Book appointment with the customer and conduct customer interview(s)&lt;/li&gt;&lt;li&gt;Start Simpology application for serviceability, application capture, and supporting document requests. Your Simpology application will be in &amp;quot;Open&amp;quot; status at this stage&lt;/li&gt;&lt;li&gt;Order valuation(s)&lt;/li&gt;&lt;li&gt;Submit pricing request&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Needs Analysis</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Expected_Settlement_Date__c</fieldNames>
+        <fieldNames>Settlement_Completed__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Confirm conveyancer details&lt;/li&gt;&lt;li&gt;Ensure customer completes the Loan Disbursement Order&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Settlement</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Submission_Date__c</fieldNames>
+        <fieldNames>Expected_Assessment_Date__c</fieldNames>
+        <fieldNames>Sufficient_Date__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Your application is currently under assessment.Watch out for information requests from operations team&lt;/li&gt;&lt;li&gt;Update the waiting indicator if there are any pending requests with the customer based on insufficiency notice.&lt;/li&gt;&lt;li&gt;Create tasks for follow-ups as required&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Submitted</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>MLCRM_Opportunity</recordTypeName>
+</PathAssistant>

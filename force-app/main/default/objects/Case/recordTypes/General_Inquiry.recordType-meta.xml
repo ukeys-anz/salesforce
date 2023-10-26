@@ -11694,6 +11694,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>HL Signing Authority Update</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Hardship</fullName>
             <default>false</default>
         </values>

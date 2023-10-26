@@ -27,6 +27,7 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_WARNING = 'Warning';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
+  public static final String PAY_TO_DISPUTE_PAYMENTID_PREFIX = 'MPS';
 
   public static Group accountClosureQueue = CommonUtil.getQueueByName(
     'Account_Closure_Queue'
@@ -63,6 +64,8 @@ public with sharing class GetHelpCaseActions {
       ) {
         updateCaseDurationTime(record);
       }
+
+      GetHelpCaseActionsHelper.checkPaytoDisputeValidations(record, oldRecord);
 
       if (record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
         if (
@@ -972,55 +975,6 @@ public with sharing class GetHelpCaseActions {
 
     DMLUtil.insertRecords(taskList, false, true);
   }
-
-  /**
-   * @description linkCasestoAccountByOCVId link case to customer profile by OCV Id or Mobile number
-   * @param records The Case records passed from Trigger.new()
-   * @param oldMap The Case records passed from Trigger.oldMap()
-   */
-  public static void linkKYCQACasesToAccount(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    //get all the cases with no customer from filtered kycQACases
-    List<Case> kycQACasesWithNoCustomer = GetHelpCaseActionsHelper.getKYCQACasesWithoutCustomer(
-      records
-    );
-
-    if (kycQACasesWithNoCustomer.isEmpty()) {
-      return;
-    }
-
-    Map<String, String> mobileByCaseIdMap = GetHelpCaseActionsHelper.getMobileByCaseId(
-      new Map<Id, Case>(kycQACasesWithNoCustomer).keySet()
-    );
-
-    Map<String, Account> accountByMobileMap = GetHelpCaseActionsHelper.getAccountsByMobile(
-      mobileByCaseIdMap.values()
-    );
-    // Get matched Accounts Entitelments
-    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getAccountIdEntitlmentMap(
-      accountByMobileMap.values()
-    );
-
-    for (Case c : kycQACasesWithNoCustomer) {
-      Account matchingAcc = accountByMobileMap.get(mobileByCaseIdMap.get(c.Id));
-      if (matchingAcc != null) {
-        Id accountEntitlmentId = accountIdEntitlmentMap.get(matchingAcc.Id);
-        GetHelpCaseActionsHelper.setMatchingAccountFields(
-          c,
-          matchingAcc,
-          accountEntitlmentId
-        );
-      } else {
-        Case oldCase = oldMap.get(c.Id);
-        GetHelpCaseActionsHelper.handleKYCQACaseNoCustomer(c, oldCase);
-      }
-      Logger.debug('KYC QA Case Number: ' + c.CaseNumber__c);
-    }
-    Logger.saveLog();
-  }
-
   /**
    * @description Validate ownership change for credit referral cases - https://jira.anzx.service.anz/browse/ANZX-86338
    * @param records Case records from trigger
@@ -1083,6 +1037,25 @@ public with sharing class GetHelpCaseActions {
         'copyCreditReferralCaseNumbers'
       );
       actions.updateRecords(creditRefCases, 'Case');
+    }
+  }
+
+  /**
+   * @description populate the fields for the PayTo dispute.
+   * @param caseList The case list
+   */
+  public static void populateFieldsOfPayToDispute(List<Case> caseList) {
+    for (Case caseRecord : caseList) {
+      if (
+        caseRecord.recordTypeId == GetHelpConstants.NPP_DISPUTE_RT_ID &&
+        String.isNotBlank(caseRecord.Payment_ID__c) &&
+        String.isNotBlank(caseRecord.Dispute_Reason_PayTo__c)
+      ) {
+        caseRecord.Dispute_Reason__c = caseRecord.Dispute_Reason_PayTo__c;
+        caseRecord.Is_PayTo_Dispute__c = caseRecord.Payment_ID__c.startsWith(
+          PAY_TO_DISPUTE_PAYMENTID_PREFIX
+        );
+      }
     }
   }
 }

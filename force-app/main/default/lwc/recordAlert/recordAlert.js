@@ -117,10 +117,6 @@ export default class RecordAlert extends LightningElement {
     const self = this;
     const messageCallback = function (response) {
       const eventMessage = JSON.parse(response.data.payload.Message__c);
-      //no toast for current user who fired event
-      if (userInfoId === eventMessage.User) {
-        return;
-      }
 
       switch (self.objectApiName) {
         //case toast only if related RLA is updated
@@ -141,6 +137,10 @@ export default class RecordAlert extends LightningElement {
           }
           break;
         default:
+          //no toast for current user who fired event for every other sobject
+          if (userInfoId === eventMessage.User) {
+            return;
+          }
           break;
       }
 
