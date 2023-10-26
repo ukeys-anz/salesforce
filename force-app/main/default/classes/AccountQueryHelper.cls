@@ -40,4 +40,34 @@ public with sharing class AccountQueryHelper {
     }
     return accounts;
   }
+
+  /**
+   * @description find accounts based on OCVId
+   * @param ocvId list of ocvids to search account details
+   * @return map of ocv id and Account
+   */
+  public static Map<String, Account> findAccountsByOCVId(List<String> ocvId) {
+    List<Account> accounts;
+    Map<String, Account> mapOcvIdAccount = new Map<String, Account>();
+    if (PermissionUtils.canQuery('Account') == true) {
+      accounts = [
+        SELECT Name, OCV_ID__c
+        FROM Account
+        WHERE
+          OCV_ID__c = :ocvId
+          AND RecordTypeId = :GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+      ];
+
+      for (Account acc : accounts) {
+        mapOcvIdAccount.put(acc.OCV_ID__c, acc);
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'AccountQueryHelper',
+        'findAccountsByOCVId',
+        'Not enough permissions to query Accounts.'
+      );
+    }
+    return mapOcvIdAccount;
+  }
 }

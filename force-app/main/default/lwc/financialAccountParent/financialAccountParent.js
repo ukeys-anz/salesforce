@@ -95,6 +95,9 @@ export default class FinancialAccountParent extends LightningElement {
   disputeRecordTypes = [];
   filterGoal = false;
   accountOwnershipType;
+  //Added to decide which account is joint account and from which joint owner the account get opened By Shivam, Oct'23
+  isJointAccount = false;
+  ocvIdForJointAccount;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -282,6 +285,7 @@ export default class FinancialAccountParent extends LightningElement {
         startDate: this.transactionStartDate,
         endDate: this.transactionEndDate,
         paramUrl: paramUrl,
+        ownership: this.accountOwnershipType,
         bucketIds: this.transactionBucketIds
       });
 
