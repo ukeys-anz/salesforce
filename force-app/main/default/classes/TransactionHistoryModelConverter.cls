@@ -122,11 +122,6 @@ public class TransactionHistoryModelConverter {
       destTransaction.title = sourceTransaction.title;
       destTransaction.traceId = sourceTransaction.trace_id;
       destTransaction.origination_id = sourceTransaction.origination_system_id;
-      //Transaction Initiator Name Mapping
-      destTransaction.transactionInitiator = TransactionHistoryModelConverterHelper.convertPersonaIdtoTransactionInitiator(
-        sourceTransaction.persona_id,
-        mapPersonaIdAndCustomerName
-      );
 
       destTransaction.de_user_id = convertFieldValue(
         sourceTransaction.direct_entry_user_id
@@ -145,6 +140,14 @@ public class TransactionHistoryModelConverter {
         );
         destTransaction.is_npp_details_available = sourceTransaction.open_banking.detail_available;
       }
+
+      //Transaction Initiator Name Mapping
+      destTransaction.transactionInitiator = TransactionHistoryModelConverterHelper.convertPersonaIdtoTransactionInitiator(
+        sourceTransaction.persona_id,
+        mapPersonaIdAndCustomerName,
+        destTransaction.ob_transaction_type
+      );
+
       //Amount Mapping
       if (sourceTransaction.amount != null) {
         destTransaction.amount = convertAmount(sourceTransaction.amount);
