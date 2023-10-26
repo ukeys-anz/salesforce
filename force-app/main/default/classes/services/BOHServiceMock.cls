@@ -27,6 +27,10 @@ public with sharing class BOHServiceMock extends Service {
     'mock_UMIListAssessments'
   );
 
+  private static final string VERIFY_INSURANCE = getStaticResource(
+    'mock_verifyInsurance'
+  );
+
   /**
    * @param ocvId ocv id of the customer account
    * @param sopId sop id to retrieve customer savings and asset
@@ -194,6 +198,22 @@ public with sharing class BOHServiceMock extends Service {
   public override HttpCalloutResponse getSOP(String ocvId, String sopId) {
     if (!preset) {
       response.body = BOHServiceMock.SOP_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
+   * @param requestBody body of request to send
+   * @param ocvId ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income from sop
+   */
+  public override HttpCalloutResponse verifyInsurance(
+    String requestBody,
+    String ocvId
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.VERIFY_INSURANCE;
     }
     return response;
   }
