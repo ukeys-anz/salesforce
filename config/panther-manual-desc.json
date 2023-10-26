@@ -1450,7 +1450,8 @@
         "District_CTA__c",
         "CPID_CancelFag__c",
         "Last_CHT_Load_Date__c",
-        "Last_CAP_Load_Date__c"
+        "Last_CAP_Load_Date__c",
+        "CPID_Start_Date__c"
       ]
     },
     "CustomerOnboardingApplication__c": {
