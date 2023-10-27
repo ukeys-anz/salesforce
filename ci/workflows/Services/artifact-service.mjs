@@ -90,7 +90,7 @@ const deleteZipArtifactory = (zipFileName) => {
   execSync(`rm -f ${zipFileName}.zip`);
 };
 
-const uploadToArtifactory = (zipFileName, artifactorySecret, artifactPath) => {
+const uploadToArtifactory = (artifactorySecret, artifactPath) => {
   if (!salesforceDiffExist(artifactPath)) return;
   logger("Upload Artifactory");
   zipArtifactory(artifactPath);
@@ -102,11 +102,10 @@ const createAndUploadArtifact = (
   folderName,
   baseRef,
   ref,
-  artifactorySecret,
-  zipFileName
+  artifactorySecret
 ) => {
   createDiffOnValidate(folderName, baseRef, ref);
-  uploadToArtifactory(zipFileName, artifactorySecret, folderName);
+  uploadToArtifactory(artifactorySecret, folderName);
 };
 
 const downloadArtifact = (artifactName, artifactorySecret, projectName) => {

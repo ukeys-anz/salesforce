@@ -74,6 +74,25 @@ const quickDeploy = (artifactFolderName, artifactorySecret, targetOrg) => {
   return deployWithoutTest(targetOrg, artifactFolderName);
 };
 
+const prodValidationWithAllTests = (
+  artifactFolderName,
+  artifactorySecret,
+  targetOrg
+) => {
+  downloadZipFile(artifactFolderName, artifactorySecret, "Artifactory");
+  unzipFile(artifactFolderName);
+  return validateWithAllTests(targetOrg, artifactFolderName);
+};
+
+const prodDeploymentWithAllTests = (
+  artifactFolderName,
+  artifactorySecret,
+  targetOrg
+) => {
+  downloadZipFile(artifactFolderName, artifactorySecret, "Artifactory");
+  unzipFile(artifactFolderName);
+  return deployWithAllTests(targetOrg, artifactFolderName);
+};
 const uploadJobId = (validationReport, fileName, artifactorySecret) => {
   const jobId = findJobIdFromCommand(validationReport);
   if (!jobId) return;
@@ -237,6 +256,8 @@ export {
   validateWithoutTest,
   validateWithSpecifiedTests,
   validateWithAllTests,
+  prodValidationWithAllTests,
+  prodDeploymentWithAllTests,
   deployWithoutTest,
   deployWithAllTests,
   cancel,

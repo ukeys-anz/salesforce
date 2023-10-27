@@ -73,8 +73,7 @@ const validate = () => {
     SOURCE_DIR,
     BASE_REF,
     BRANCH_NAME,
-    ARTIFACTORY_SECRET_VALUE,
-    JOB_ID_FILE_NAME
+    ARTIFACTORY_SECRET_VALUE
   );
   authenticate(BRANCH_NAME, SFDX_URL);
   cancel(
