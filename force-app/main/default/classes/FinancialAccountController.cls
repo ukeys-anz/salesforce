@@ -195,7 +195,8 @@ public with sharing class FinancialAccountController {
   ) {
     List<FinServ__FinancialAccount__c> financialAccount;
     if (
-      FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable() &&
+      PermissionUtils.canQuery('FinServ__FinancialAccount__c') &&
+      PermissionUtils.canQuery('FinServ__FinancialAccountRole__c') &&
       String.isNotBlank(ownerId) &&
       !recordTypeDeveloperNames.isEmpty()
     ) {
