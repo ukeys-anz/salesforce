@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Home_Loan_Fraud_Referrals</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.General_Inquiry</value>
+    </filters>
+    <filters>
+        <field>CASES.TYPE</field>
+        <operation>equals</operation>
+        <value>Fraud</value>
+    </filters>
+    <filters>
+        <field>Sub_Type__c</field>
+        <operation>equals</operation>
+        <value>Home Loan document verification</value>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>Home Loan Fraud Referrals</label>
+    <sharedTo>
+        <role>BOH_Coach</role>
+        <role>Credit_Assessment_Officer</role>
+        <role>Credit_Assessor_Lead</role>
+        <role>FraudX_Agent</role>
+    </sharedTo>
+</ListView>

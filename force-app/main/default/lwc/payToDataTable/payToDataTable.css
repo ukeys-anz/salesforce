@@ -1,0 +1,7 @@
+.wrapped-content {
+  max-width: 160px;
+  word-break: break-word;
+}
+.tableHeaderMessage {
+  margin-bottom: 1%;
+}

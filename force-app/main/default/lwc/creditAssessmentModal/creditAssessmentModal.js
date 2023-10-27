@@ -2,6 +2,8 @@ import { LightningElement, api } from "lwc";
 import { OmniscriptActionCommonUtil } from "omnistudio/omniscriptActionUtils";
 import pubsub from "omnistudio/pubsub";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import LightningConfirm from "lightning/confirm";
+
 export default class CreditAssessmentModal extends LightningElement {
   @api reasonCode;
   @api assessmentCategory;
@@ -97,6 +99,19 @@ export default class CreditAssessmentModal extends LightningElement {
 
   handleCancel() {
     pubsub.fire("CreditReferralReasons", "closeFlyout");
+  }
+
+  async handleConfirmClick() {
+    const result = await LightningConfirm.open({
+      message:
+        "Are you sure you have selected the correct referral outcome? Once saved this cannot be changed. Please click OK to confirm or cancel to review referral outcome.",
+      label: "Please confirm referral outcome change",
+      theme: "alt-inverse"
+    });
+    //If OK is clicked, result is true
+    if (result) {
+      this.handleSave();
+    }
   }
 
   async handleSave() {

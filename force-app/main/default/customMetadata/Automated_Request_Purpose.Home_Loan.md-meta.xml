@@ -4,6 +4,6 @@
     <protected>false</protected>
     <values>
         <field>Duration__c</field>
-        <value xsi:type="xsd:decimal">60.0</value>
+        <value xsi:type="xsd:decimal">45.0</value>
     </values>
 </CustomMetadata>

@@ -1,0 +1,22 @@
+{
+  "code": "internal",
+  "message": "failed to list mandates",
+  "details": [
+    {
+      "type": "anz.type.DebugInfo",
+      "value": "CgsI8eHopQYQ2ODmAw",
+      "debug": {
+        "@type": "type.googleapis.com/anz.type.DebugInfo",
+        "timestamp": "2023-07-21T07:17:05.007975Z"
+      }
+    },
+    {
+      "type": "fabric.type.ErrorInfo",
+      "value": "GgsI8eHopQYQ2ODmAw",
+      "debug": {
+        "@type": "type.googleapis.com/fabric.type.ErrorInfo",
+        "timestamp": "2023-07-21T07:17:05.007975Z"
+      }
+    }
+  ]
+}

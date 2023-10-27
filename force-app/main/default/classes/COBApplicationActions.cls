@@ -2,6 +2,7 @@
  * @author Batya Aisman Sufrin
  * @since  05/2023
  * @description COBApplicationActions is to handle all the COB Application Trigger actions
+ * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
  */
 public with sharing class COBApplicationActions {
   @TestVisible
@@ -31,8 +32,6 @@ public with sharing class COBApplicationActions {
       return;
     }
 
-    //Set KYC QA Case fields
-    setKYCQAFields(records, ocvIdsKYCQACases);
     List<Case> cases = ocvIdsKYCQACases.values();
 
     Logger.debug('KYC QA number of cases: ' + cases.size());
