@@ -2170,7 +2170,8 @@
       "IA-2530753": [
         "Invitation_Last_Updated_Date__c",
         "Invitation_Expiry_Date__c",
-        "Created_Date__c"
+        "Created_Date__c",
+        "Version__c"
       ],
       "IA-2415984": ["Invitee_Mobile_Number__c", "Inviter_Legal_name__c"]
     },
@@ -2614,7 +2615,8 @@
         "Document_Id__c",
         "Document_File_Version__c",
         "Settlement_ID__c"
-      ]
+      ],
+      "IA-2530753": ["Version__c"]
     },
     "qualtrics__Survey_Response__c": {
       "IA-2415840": [
@@ -3067,7 +3069,10 @@
         "Status_Last_Modified_Date__c",
         "Credit_Assessment_Expiry_date__c",
         "Type__c",
-        "Owner_Name__c"
+        "Owner_Name__c",
+        "Nominated_Account_Version__c",
+        "Repayment_Account_Version__c",
+        "Version__c"
       ],
       "IA-2415720": [
         "Nominated_BSB__c",

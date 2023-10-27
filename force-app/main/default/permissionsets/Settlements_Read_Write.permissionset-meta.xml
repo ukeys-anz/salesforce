@@ -68,6 +68,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Proof_of_Insurance__c.Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Settlement__c.Created__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -98,6 +103,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Settlement__c.Nominated_Account_Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Settlement__c.Nominated_BSB__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -114,6 +124,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Settlement__c.Repayment_Account_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Settlement__c.Repayment_Account_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -144,6 +159,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Settlement__c.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Settlement__c.Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

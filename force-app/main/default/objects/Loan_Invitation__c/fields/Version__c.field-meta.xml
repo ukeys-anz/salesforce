@@ -3,7 +3,7 @@
     <fullName>Version__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
-    <description>The version of this loan</description>
+    <description>The version of this loan invitation</description>
     <externalId>false</externalId>
     <label>Version</label>
     <length>100</length>

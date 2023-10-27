@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>VR01_No_Lower_Version</fullName>
     <active>true</active>
-    <description>Ensure incoming version of the loan is not lower than version currently in Salesforce</description>
+    <description>Ensure incoming version of the proof of insurance is not lower than version currently in Salesforce</description>
     <errorConditionFormula>AND(NOT(ISNEW()),PRIORVALUE(Version__c) &gt; Version__c)</errorConditionFormula>
     <errorMessage>The version cannot be older than the current value</errorMessage>
 </ValidationRule>
