@@ -7,35 +7,41 @@
 public with sharing class SettlementsAPIRespository extends RepositoryBase {
   /**
    * @param poiDetails proof of insurance details
-   * @return `Boolean`
+   * @return `VerifyInsuranceModel`
    * @description Verifies a customers proof of insurance
    */
-  public Boolean verifyInsurance(Proof_of_Insurance__c poiDetails) {
+  public VerifyInsuranceModel verifyInsurance(
+    Proof_of_Insurance__c poiDetails
+  ) {
     Service s = ServiceProvider.getService(BOHService.class);
 
-    try {
-      //Populate request body
-      ProofOfInsuranceVerification poiVerification = new ProofOfInsuranceVerification();
-      poiVerification.documentId = poiDetails.Document_Id__c;
-      poiVerification.documentFileVersion = poiDetails.Document_File_Version__c;
+    //Populate request body
+    ProofOfInsuranceVerification poiVerification = new ProofOfInsuranceVerification();
+    poiVerification.documentId = poiDetails.Document_Id__c;
+    poiVerification.documentFileVersion = poiDetails.Document_File_Version__c;
 
-      VerifyInsuranceRequestBody requestBody = new VerifyInsuranceRequestBody();
-      requestBody.settlementId = poiDetails.Settlement_ID__c;
-      requestBody.mortgageContractId = poiDetails.Mortgage_Contract_ID__c;
-      requestBody.propertyId = poiDetails.Property_ID__c;
-      requestBody.proofOfInsuranceVerification = poiVerification;
+    VerifyInsuranceRequestBody requestBody = new VerifyInsuranceRequestBody();
+    requestBody.settlementId = poiDetails.Settlement_ID__c;
+    requestBody.mortgageContractId = poiDetails.Mortgage_Contract_ID__c;
+    requestBody.propertyId = poiDetails.Property_ID__c;
+    requestBody.proofOfInsuranceVerification = poiVerification;
 
-      HttpCalloutResponse response = s.verifyInsurance(
-        json.serialize(requestBody),
-        poiDetails.Settlement_ID__r.Loan_Application_Number__r.Account.OCV_ID__c
-      );
-      if (response.successful == false) {
-        throw response.error;
-      }
-    } catch (Exception e) {
-      //
+    HttpCalloutResponse response = s.verifyInsurance(
+      json.serialize(requestBody),
+      poiDetails.Settlement_ID__r.Loan_Application_Number__r.Account.OCV_ID__c
+    );
+    if (response.successful == false) {
+      throw response.error;
     }
-    return true;
+
+    VerifyInsuranceModel verifyInsurance;
+    try {
+      verifyInsurance = VerifyInsuranceModel.parse(response.body);
+    } catch (Exception e) {
+      handleErrors(response, e, SettlementsAPIRespository.class);
+    }
+
+    return verifyInsurance;
   }
 
   /**

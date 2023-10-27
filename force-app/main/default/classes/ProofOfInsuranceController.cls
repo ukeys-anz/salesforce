@@ -6,14 +6,13 @@
 public with sharing class ProofOfInsuranceController {
   public static final String TECH_ASSIST_ERROR = 'Verify Insurance Failed. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
   public static final String MISSING_DATA_ERROR = 'Missing Proof of Insurance data. Please correct and try again. Raise a fault through TechAssist if the problem persists.';
-
   /**
    * @description Verifies a customers proof of insurance
    * @param recordId Record id of proof of insurance to verify
-   * @return `boolean` if verification call was successful
+   * @return `VerifyInsuranceModel` if verification call was successful
    */
   @AuraEnabled
-  public static Boolean verifyInsurance(Id recordId) {
+  public static VerifyInsuranceModel verifyInsurance(Id recordId) {
     PermissionUtils.canQuery('Proof_of_Insurance__c');
 
     Proof_of_Insurance__c poiDetails = [
@@ -33,15 +32,17 @@ public with sharing class ProofOfInsuranceController {
         throw new AuraHandledException(MISSING_DATA_ERROR);
       }
       SettlementsAPIRespository settlementsAPI = new SettlementsAPIRespository();
-      settlementsAPI.verifyInsurance(poiDetails);
+      VerifyInsuranceModel response = settlementsAPI.verifyInsurance(
+        poiDetails
+      );
+
+      return response;
     } catch (Exception e) {
       Logger.error(e.getMessage());
       Logger.saveLog();
       e.setMessage(TECH_ASSIST_ERROR);
       throw e;
     }
-
-    return true;
   }
 
   private static Boolean checkFieldSanity(Proof_of_Insurance__c poi) {

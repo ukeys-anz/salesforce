@@ -20,6 +20,7 @@
     "source": 1
   },
   "proof_of_insurance_verification": {
+    "state": "STATE_VERIFIED",
     "document_id": "4ee5a832-1980-43f2-b795-13cb6eb51a4c",
     "document_file_version": 1,
     "create_by": {

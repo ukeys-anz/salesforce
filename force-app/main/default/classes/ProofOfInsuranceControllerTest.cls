@@ -60,9 +60,15 @@ public with sharing class ProofOfInsuranceControllerTest {
       WHERE Mortgage_Contract_ID__c != NULL
     ];
     Test.startTest();
-    Boolean response = ProofOfInsuranceController.verifyInsurance(poi[0].Id);
+    VerifyInsuranceModel response = ProofOfInsuranceController.verifyInsurance(
+      poi[0].Id
+    );
     Test.stopTest();
-    Assert.isTrue(response, 'Response should be true');
+    Assert.areEqual(
+      'STATE_VERIFIED',
+      response.proof_of_insurance_verification.state,
+      'State should be verified'
+    );
   }
 
   @isTest
@@ -74,7 +80,9 @@ public with sharing class ProofOfInsuranceControllerTest {
     ];
     Test.startTest();
     try {
-      Boolean response = ProofOfInsuranceController.verifyInsurance(poi[0].Id);
+      VerifyInsuranceModel response = ProofOfInsuranceController.verifyInsurance(
+        poi[0].Id
+      );
       Assert.fail('Exception should be thrown');
     } catch (Exception e) {
       Assert.isTrue(

@@ -58,9 +58,13 @@ public with sharing class SettlementsAPIRepositoryTest {
     ];
     Test.startTest();
     SettlementsAPIRespository api = new SettlementsAPIRespository();
-    Boolean response = api.verifyInsurance(poiDetails[0]);
+    VerifyInsuranceModel response = api.verifyInsurance(poiDetails[0]);
     Test.stopTest();
 
-    Assert.isTrue(response, 'Response should be true');
+    Assert.areEqual(
+      'STATE_VERIFIED',
+      response.proof_of_insurance_verification.state,
+      'State should be verified'
+    );
   }
 }
