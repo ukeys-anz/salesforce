@@ -146,6 +146,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
       .IDR_Complaint_Remedy_3__c
       ? "Yes"
       : "No";
+    ResolutionInformation.ComplaintRemedy3 = issue[0].IDR_Complaint_Remedy_3__c;
     ResolutionInformation.ComplaintSubRemedy3 =
       issue[0].IDR_Complaint_Sub_Remedy_3__c;
     ResolutionInformation.custWrittenResponse =

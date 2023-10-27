@@ -7,9 +7,9 @@
     <externalId>false</externalId>
     <inlineHelpText>Refers to the actual amount that was paid to the customer or net loss incurred by ANZ. Ensure the exact dollar amount is entered. Evidence of any approvals obtained can be uploaded in the ‘files’ tab of the complaint record</inlineHelpText>
     <label>Payment Amount Provided</label>
-    <precision>18</precision>
+    <precision>9</precision>
     <required>false</required>
-    <scale>0</scale>
+    <scale>2</scale>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>

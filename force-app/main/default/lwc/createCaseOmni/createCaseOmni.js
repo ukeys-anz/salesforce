@@ -66,12 +66,16 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         Response: this.omniJsonData.Response
       };
 
+      const options = {
+        chainable: true
+      };
+
       // Invoking Integration procedure(IP) to create a case
       const params = {
         input: JSON.stringify(inputs),
         sClassName: "omnistudio.IntegrationProcedureService",
         sMethodName: "Case_CreateCase",
-        options: {}
+        options: JSON.stringify(options)
       };
 
       // Navigate to the case record that is closed
