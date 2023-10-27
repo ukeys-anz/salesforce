@@ -126,9 +126,6 @@ public class TransactionHistoryModelConverter {
       destTransaction.de_user_id = convertFieldValue(
         sourceTransaction.direct_entry_user_id
       );
-      destTransaction.de_user_id = convertFieldValue(
-        sourceTransaction.direct_entry_user_id
-      );
 
       //Open Banking Mapping
       if (sourceTransaction.open_banking != null) {

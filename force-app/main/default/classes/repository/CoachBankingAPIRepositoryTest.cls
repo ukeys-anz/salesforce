@@ -117,23 +117,14 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     System.runAs(thisUser) {
       Test.startTest();
       Account acc = TestDataFactory.createPersonAccount('1111', true);
-
-      FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c(
-        Name = 'Everyday Account',
-        FinServ__Balance__c = 200,
-        FinServ__CurrentPostedBalance__c = 200,
-        FinServ__Status__c = 'Active',
-        RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
-        FinServ__PrimaryOwner__c = acc.Id,
-        Account_Key__c = '3424909810',
-        FinServ__FinancialAccountNumber__c = '000000000'
+      List<FinServ__FinancialAccount__c> finAccount = TestDataFactory.createFinancialAccount(
+        1,
+        true
       );
-
-      insert finAccount;
 
       FinServ__FinancialAccountRole__c financialAccountRoleRecord = new FinServ__FinancialAccountRole__c(
         FinServ__RelatedAccount__c = acc.Id,
-        FinServ__FinancialAccount__c = finAccount.Id,
+        FinServ__FinancialAccount__c = finAccount[0].Id,
         FinServ__Active__c = true,
         Finserv__Role__c = 'Additional Owner'
       );
