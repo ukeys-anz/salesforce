@@ -30,6 +30,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     if (!CCRMLeadConversionActions.manualLeadConversionInitiated) {
       AccountCommonActions.findAndConvertLead(records);
     }
+    AccountCommonActions.linkKYCQACasesToAccount(records);
   }
 
   /**

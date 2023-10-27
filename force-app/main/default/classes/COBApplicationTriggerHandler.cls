@@ -2,6 +2,7 @@
  * @description COBApplicationTriggerHandler is the handler class for COB Application Trigger which extends Lib_TriggerHandler the trigger framework used.
  * @author Batya Aisman Sufrin
  * @since 05/2023
+ * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
  */
 public with sharing class COBApplicationTriggerHandler extends Lib_TriggerHandler {
   /**

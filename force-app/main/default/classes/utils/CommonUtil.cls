@@ -503,6 +503,7 @@ public with sharing class CommonUtil {
     caseFields.add('Effective_Date__c');
     caseFields.add('External_System__c');
     caseFields.add('External_Case_Id__c');
+    caseFields.add('Is_PayTo_Dispute__c');
     caseFields.add('IsStopped');
     caseFields.add('OCV_Id__c');
     caseFields.add('Origin');

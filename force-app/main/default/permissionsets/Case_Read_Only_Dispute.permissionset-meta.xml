@@ -196,6 +196,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Dispute_Reason_PayTo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Dispute_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -286,6 +291,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Is_PayTo_Dispute__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Is_The_Card_Lost_Stolen__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -297,6 +307,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Location__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Mandate_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
