@@ -202,6 +202,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           );
         } else if (account.Ownership__c) {
           account = this.handleShowMultiPartyBadge(account, "Ownership__c");
+          account.FinServ__Ownership__c = account.Ownership__c;
         }
         //Determine the type of financial account
         if (account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME) {
