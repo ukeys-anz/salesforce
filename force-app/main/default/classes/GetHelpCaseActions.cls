@@ -13,7 +13,6 @@
 public with sharing class GetHelpCaseActions {
   public static final String FALSE_CUSTOMER_PROFILE_CASE_SUBJECT = 'False Onboarding';
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
-  public static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
@@ -801,37 +800,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description Prevent Duplicate KYC QA Against a Customer (Account)
-   * @param theCases List of cases
-   */
-  public static void validateDuplicateKYCQACasePerAccount(List<Case> theCases) {
-    Map<Id, Case> accountIdAndCaseMap = new Map<Id, Case>();
-    for (Case theCase : theCases) {
-      if (
-        theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
-        theCase.AccountId != null
-      ) {
-        accountIdAndCaseMap.put(theCase.AccountId, theCase);
-      }
-    }
-    if (
-      Schema.sObjectType.Case.isQueryable() && accountIdAndCaseMap.size() > 0
-    ) {
-      List<Case> existingKYCQACases = [
-        SELECT Id, CaseNumber, AccountId
-        FROM Case
-        WHERE
-          RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
-          AND AccountId IN :accountIdAndCaseMap.keySet()
-      ];
-      for (Case existingKYCQACase : existingKYCQACases) {
-        Case theCase = accountIdAndCaseMap.get(existingKYCQACase.AccountId);
-        theCase.addError(DUPLICATE_KYCQA_ERROR + existingKYCQACase.CaseNumber);
-      }
-    }
-  }
-
-  /**
    * @description  This method populates Account Closure Case subject based on Case record type
    * @param caseList Case records from trigger
    * @param accountList List of accounts for cases
@@ -975,6 +943,7 @@ public with sharing class GetHelpCaseActions {
 
     DMLUtil.insertRecords(taskList, false, true);
   }
+
   /**
    * @description Validate ownership change for credit referral cases - https://jira.anzx.service.anz/browse/ANZX-86338
    * @param records Case records from trigger
@@ -1055,6 +1024,18 @@ public with sharing class GetHelpCaseActions {
         caseRecord.Is_PayTo_Dispute__c = caseRecord.Payment_ID__c.startsWith(
           PAY_TO_DISPUTE_PAYMENTID_PREFIX
         );
+      }
+    }
+  }
+
+  /**
+   * @description Handles populating fields and assigning ownership for BOH related fraud cases
+   * @param records Case records from trigger
+   */
+  public static void handleBOHFraudCaseCreation(List<Case> records) {
+    for (Case c : records) {
+      if (c.BOH_Fraud_Case__c) {
+        c.Sub_Type__c = 'Home Loan document verification';
       }
     }
   }

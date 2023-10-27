@@ -878,6 +878,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>KYCQA_RTs_System_Integration_User_Group</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read Write access to KYC QA record type for System Integration Users</description>
+        <label>KYCQA RTs - System Integration User Group</label>
+        <sharedTo>
+            <group>System_Integration_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>KYC QA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Disputes_Readonly</fullName>
         <accessLevel>Read</accessLevel>
         <description>All ATM and Card Dispute cases shared to GCP Integration User</description>

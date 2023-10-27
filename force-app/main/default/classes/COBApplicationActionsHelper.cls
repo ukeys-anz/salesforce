@@ -2,6 +2,7 @@
  * @author Batya Aisman Sufrin
  * @since 05/2023
  * @description Helper class for @link COBApplicationActions
+ * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
  */
 public with sharing class COBApplicationActionsHelper {
   public static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(

@@ -5,11 +5,11 @@
     <label>ML Data Loader Support Permission</label>
     <license>Salesforce</license>
     <userPermissions>
-        <enabled>true</enabled>
         <name>CreateAuditFields</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>UpdateWithInactiveOwner</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

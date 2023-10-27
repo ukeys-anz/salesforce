@@ -241,12 +241,12 @@ public with sharing class CCRMLeadActions {
 
         //Set Lead follow up date when follow up date is greater than campaign expiry date
         if (
-          CCRMLeadUtil.isMLCRMLeadType(record) && 
+          CCRMLeadUtil.isMLCRMLeadType(record) &&
           mapCampaigns.size() > 0 &&
           record.Followup_Date__c > mapCampaigns.get(record.Id) &&
           System.today()
             .addDays(integer.valueOf(System.Label.ML_FollowUpDateExtends)) <=
-          record.Expiry_Date__c 
+          record.Expiry_Date__c
         ) {
           record.Followup_Date__c =
             record.Expiry_Date__c -
@@ -257,7 +257,7 @@ public with sharing class CCRMLeadActions {
           record.Followup_Date__c > mapCampaigns.get(record.Id) &&
           System.today()
             .addDays(integer.valueOf(System.Label.ML_FollowUpDateExtends)) >
-          record.Expiry_Date__c 
+          record.Expiry_Date__c
         ) {
           record.Followup_Date__c =
             record.Expiry_Date__c -
