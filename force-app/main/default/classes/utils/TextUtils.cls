@@ -9,6 +9,7 @@ public with sharing class TextUtils {
   private static final String TAX_REGEX_PATTERN = '[0-9][^a-zA-Z]{13,}[0-9]';
   private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
   private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
+  private static final String SANITISE_MOBILE_NUMBER_REGEX_PATTERN = '[^0-9]';
   private static final Integer UNMASK_LENGTH = 4;
   private static Pattern accountOrCardPattern = Pattern.compile(
     ACCOUNT_OR_CARD_REGEX_PATTERN
@@ -212,5 +213,33 @@ public with sharing class TextUtils {
     Pattern compiledPattern = Pattern.compile(regex);
     Matcher regexMatcher = compiledPattern.matcher(input);
     return regexMatcher.find();
+  }
+
+  /**
+   * @description sanitiseStringBasedOnPattern remove unexpected chars base on regex pattern
+   * @param input Input string that we need to sanitise
+   * @param regexPattern the regex pattern uses to sanitise
+   * @return `String` sanitised string
+   */
+  public static String sanitiseStringBasedOnPattern(
+    String input,
+    String regexPattern
+  ) {
+    if (String.isEmpty(input)) {
+      return input;
+    }
+    return input.replaceAll(regexPattern, '');
+  }
+
+  /**
+   * @description sanitiseMobileNumber remove unexpected chars of mobile number base on sanitise mobile regex pattern
+   * @param input Input mobile number that we need to sanitise
+   * @return `String` sanitised mobile number
+   */
+  public static String sanitiseMobileNumber(String input) {
+    return sanitiseStringBasedOnPattern(
+      input,
+      SANITISE_MOBILE_NUMBER_REGEX_PATTERN
+    );
   }
 }

@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>[ {
+  &quot;canView&quot; : true,
+  &quot;canCancel&quot; : true,
+  &quot;hasError&quot; : false,
+  &quot;mandates&quot; : [ {
+    &quot;additionalInformation&quot; : &quot;&quot;,
+    &quot;automaticExtensionIndicator&quot; : true,
+    &quot;creditorInformation&quot; : {
+      &quot;partyName&quot; : &quot;&quot;,
+      &quot;ultimatePartyName&quot; : &quot;&quot;
+    },
+    &quot;debtorInformation&quot; : {
+      &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;,
+      &quot;destinationAccount&quot; : {
+        &quot;bsb&quot; : &quot;&quot;,
+        &quot;transactionAccountNumber&quot; : &quot;998877667890&quot;
+      },
+      &quot;partyName&quot; : &quot;Test Payer&quot;,
+      &quot;partyReference&quot; : &quot;&quot;,
+      &quot;payid&quot; : null,
+      &quot;ultimatePartyName&quot; : &quot;&quot;
+    },
+    &quot;description&quot; : &quot;&quot;,
+    &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+    &quot;identification&quot; : &quot;&quot;,
+    &quot;initiatingPartyName&quot; : &quot;test party&quot;,
+    &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+    &quot;isMgcrPendingAuth&quot; : true,
+    &quot;isMigratedDdr&quot; : true,
+    &quot;mandateProcessingIndicator&quot; : true,
+    &quot;mandateType&quot; : &quot;&quot;,
+    &quot;name&quot; : &quot;345432222&quot;,
+    &quot;paymentInformation&quot; : {
+      &quot;amount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 33,
+        &quot;units&quot; : &quot;234&quot;
+      },
+      &quot;firstPaymentAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;firstPaymentDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;month&quot; : 1,
+        &quot;year&quot; : 1
+      },
+      &quot;frequencyDetails&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+      &quot;lastPaymentAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;lastPaymentDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;month&quot; : 1,
+        &quot;year&quot; : 1
+      },
+      &quot;maximumAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 0,
+        &quot;units&quot; : &quot;500&quot;
+      },
+      &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_BALLOON_PAYMENT&quot;,
+      &quot;paymentAmountTypeDescription&quot; : &quot;&quot;,
+      &quot;paymentExecuteNotBeforeTime&quot; : {
+        &quot;hours&quot; : 1,
+        &quot;minutes&quot; : 1,
+        &quot;nanos&quot; : 1,
+        &quot;seconds&quot; : 1
+      },
+      &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+      &quot;paymentFrequencyDescription&quot; : &quot;&quot;
+    },
+    &quot;pendingActionIndicator&quot; : true,
+    &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_MORTGAGE_PAYMENTS&quot;,
+    &quot;purposeDescription&quot; : &quot;&quot;,
+    &quot;shortDescription&quot; : &quot;&quot;,
+    &quot;status&quot; : &quot;ACTV&quot;,
+    &quot;statusDescription&quot; : &quot;Active&quot;,
+    &quot;statusPartyRole&quot; : &quot;MANDATE_STATUS_PARTY_ROLE_CODE_DEBTOR&quot;,
+    &quot;statusReasonCode&quot; : &quot;&quot;,
+    &quot;statusReasonDescription&quot; : &quot;Reason Changed&quot;,
+    &quot;transferArrangement&quot; : &quot;&quot;,
+    &quot;validityEndDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;validityStartDate&quot; : {
+      &quot;day&quot; : 20,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 2023
+    }
+  }, {
+    &quot;additionalInformation&quot; : &quot;&quot;,
+    &quot;automaticExtensionIndicator&quot; : true,
+    &quot;creditorInformation&quot; : {
+      &quot;partyName&quot; : &quot;&quot;,
+      &quot;ultimatePartyName&quot; : &quot;&quot;
+    },
+    &quot;debtorInformation&quot; : {
+      &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;,
+      &quot;destinationAccount&quot; : {
+        &quot;bsb&quot; : &quot;&quot;,
+        &quot;transactionAccountNumber&quot; : &quot;7776665567567&quot;
+      },
+      &quot;partyName&quot; : &quot;test payer 2&quot;,
+      &quot;partyReference&quot; : &quot;&quot;,
+      &quot;payid&quot; : null,
+      &quot;ultimatePartyName&quot; : &quot;&quot;
+    },
+    &quot;description&quot; : &quot;&quot;,
+    &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+    &quot;identification&quot; : &quot;&quot;,
+    &quot;initiatingPartyName&quot; : &quot;test party&quot;,
+    &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+    &quot;isMgcrPendingAuth&quot; : true,
+    &quot;isMigratedDdr&quot; : true,
+    &quot;mandateProcessingIndicator&quot; : true,
+    &quot;mandateType&quot; : &quot;&quot;,
+    &quot;name&quot; : &quot;&quot;,
+    &quot;paymentInformation&quot; : {
+      &quot;amount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;45&quot;
+      },
+      &quot;firstPaymentAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;firstPaymentDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;month&quot; : 1,
+        &quot;year&quot; : 1
+      },
+      &quot;frequencyDetails&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+      &quot;lastPaymentAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;lastPaymentDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;month&quot; : 1,
+        &quot;year&quot; : 1
+      },
+      &quot;maximumAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 33,
+        &quot;units&quot; : &quot;233&quot;
+      },
+      &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_BALLOON_PAYMENT&quot;,
+      &quot;paymentAmountTypeDescription&quot; : &quot;&quot;,
+      &quot;paymentExecuteNotBeforeTime&quot; : {
+        &quot;hours&quot; : 1,
+        &quot;minutes&quot; : 1,
+        &quot;nanos&quot; : 1,
+        &quot;seconds&quot; : 1
+      },
+      &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+      &quot;paymentFrequencyDescription&quot; : &quot;&quot;
+    },
+    &quot;pendingActionIndicator&quot; : true,
+    &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_MORTGAGE_PAYMENTS&quot;,
+    &quot;purposeDescription&quot; : &quot;&quot;,
+    &quot;shortDescription&quot; : &quot;&quot;,
+    &quot;status&quot; : &quot;CNCD&quot;,
+    &quot;statusDescription&quot; : &quot;Cancelled&quot;,
+    &quot;statusPartyRole&quot; : &quot;MANDATE_STATUS_PARTY_ROLE_CODE_DEBTOR&quot;,
+    &quot;statusReasonCode&quot; : &quot;&quot;,
+    &quot;statusReasonDescription&quot; : &quot;Reason Changed 2&quot;,
+    &quot;transferArrangement&quot; : &quot;&quot;,
+    &quot;validityEndDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;validityStartDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    }
+  }, {
+    &quot;additionalInformation&quot; : &quot;&quot;,
+    &quot;automaticExtensionIndicator&quot; : true,
+    &quot;creditorInformation&quot; : {
+      &quot;partyName&quot; : &quot;&quot;,
+      &quot;ultimatePartyName&quot; : &quot;&quot;
+    },
+    &quot;debtorInformation&quot; : {
+      &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;,
+      &quot;destinationAccount&quot; : {
+        &quot;bsb&quot; : &quot;&quot;,
+        &quot;transactionAccountNumber&quot; : &quot;&quot;
+      },
+      &quot;partyName&quot; : &quot;&quot;,
+      &quot;partyReference&quot; : &quot;&quot;,
+      &quot;payid&quot; : null,
+      &quot;ultimatePartyName&quot; : &quot;&quot;
+    },
+    &quot;description&quot; : &quot;&quot;,
+    &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+    &quot;identification&quot; : &quot;&quot;,
+    &quot;initiatingPartyName&quot; : &quot;&quot;,
+    &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+    &quot;isMgcrPendingAuth&quot; : true,
+    &quot;isMigratedDdr&quot; : true,
+    &quot;mandateProcessingIndicator&quot; : true,
+    &quot;mandateType&quot; : &quot;&quot;,
+    &quot;name&quot; : &quot;&quot;,
+    &quot;paymentInformation&quot; : {
+      &quot;amount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;firstPaymentAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;firstPaymentDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;month&quot; : 1,
+        &quot;year&quot; : 1
+      },
+      &quot;frequencyDetails&quot; : &quot;&quot;,
+      &quot;lastPaymentAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;lastPaymentDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;month&quot; : 1,
+        &quot;year&quot; : 1
+      },
+      &quot;maximumAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_BALLOON_PAYMENT&quot;,
+      &quot;paymentAmountTypeDescription&quot; : &quot;&quot;,
+      &quot;paymentExecuteNotBeforeTime&quot; : {
+        &quot;hours&quot; : 1,
+        &quot;minutes&quot; : 1,
+        &quot;nanos&quot; : 1,
+        &quot;seconds&quot; : 1
+      },
+      &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+      &quot;paymentFrequencyDescription&quot; : &quot;&quot;
+    },
+    &quot;pendingActionIndicator&quot; : true,
+    &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_MORTGAGE_PAYMENTS&quot;,
+    &quot;purposeDescription&quot; : &quot;&quot;,
+    &quot;shortDescription&quot; : &quot;&quot;,
+    &quot;status&quot; : &quot;CRTD&quot;,
+    &quot;statusDescription&quot; : &quot;&quot;,
+    &quot;statusPartyRole&quot; : &quot;MANDATE_STATUS_PARTY_ROLE_CODE_DEBTOR&quot;,
+    &quot;statusReasonCode&quot; : &quot;&quot;,
+    &quot;statusReasonDescription&quot; : &quot;&quot;,
+    &quot;transferArrangement&quot; : &quot;&quot;,
+    &quot;validityEndDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;validityStartDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    }
+  }, {
+    &quot;additionalInformation&quot; : &quot;&quot;,
+    &quot;automaticExtensionIndicator&quot; : true,
+    &quot;creditorInformation&quot; : {
+      &quot;partyName&quot; : &quot;&quot;,
+      &quot;ultimatePartyName&quot; : &quot;&quot;
+    },
+    &quot;debtorInformation&quot; : {
+      &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;,
+      &quot;destinationAccount&quot; : {
+        &quot;bsb&quot; : &quot;&quot;,
+        &quot;transactionAccountNumber&quot; : &quot;&quot;
+      },
+      &quot;partyName&quot; : &quot;&quot;,
+      &quot;partyReference&quot; : &quot;&quot;,
+      &quot;payid&quot; : null,
+      &quot;ultimatePartyName&quot; : &quot;&quot;
+    },
+    &quot;description&quot; : &quot;&quot;,
+    &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+    &quot;identification&quot; : &quot;&quot;,
+    &quot;initiatingPartyName&quot; : &quot;&quot;,
+    &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+    &quot;isMgcrPendingAuth&quot; : true,
+    &quot;isMigratedDdr&quot; : true,
+    &quot;mandateProcessingIndicator&quot; : true,
+    &quot;mandateType&quot; : &quot;&quot;,
+    &quot;name&quot; : &quot;&quot;,
+    &quot;paymentInformation&quot; : {
+      &quot;amount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;firstPaymentAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;firstPaymentDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;month&quot; : 1,
+        &quot;year&quot; : 1
+      },
+      &quot;frequencyDetails&quot; : &quot;&quot;,
+      &quot;lastPaymentAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;lastPaymentDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;month&quot; : 1,
+        &quot;year&quot; : 1
+      },
+      &quot;maximumAmount&quot; : {
+        &quot;currencyCode&quot; : &quot;ALL&quot;,
+        &quot;nanos&quot; : 1,
+        &quot;units&quot; : &quot;1&quot;
+      },
+      &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_BALLOON_PAYMENT&quot;,
+      &quot;paymentAmountTypeDescription&quot; : &quot;&quot;,
+      &quot;paymentExecuteNotBeforeTime&quot; : {
+        &quot;hours&quot; : 1,
+        &quot;minutes&quot; : 1,
+        &quot;nanos&quot; : 1,
+        &quot;seconds&quot; : 1
+      },
+      &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+      &quot;paymentFrequencyDescription&quot; : &quot;&quot;
+    },
+    &quot;pendingActionIndicator&quot; : true,
+    &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_MORTGAGE_PAYMENTS&quot;,
+    &quot;purposeDescription&quot; : &quot;&quot;,
+    &quot;shortDescription&quot; : &quot;&quot;,
+    &quot;status&quot; : &quot;SUSD&quot;,
+    &quot;statusDescription&quot; : &quot;&quot;,
+    &quot;statusPartyRole&quot; : &quot;MANDATE_STATUS_PARTY_ROLE_CODE_DEBTOR&quot;,
+    &quot;statusReasonCode&quot; : &quot;&quot;,
+    &quot;statusReasonDescription&quot; : &quot;&quot;,
+    &quot;transferArrangement&quot; : &quot;&quot;,
+    &quot;validityEndDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;validityStartDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    }
+  } ],
+  &quot;pageNumber&quot; : 1,
+  &quot;totalMandates&quot; : 4
+} ]</expectedInputJson>
+    <expectedOutputJson>[ {
+  &quot;additionalInformation&quot; : &quot;&quot;,
+  &quot;automaticExtensionIndicator&quot; : true,
+  &quot;creditorInformation&quot; : {
+    &quot;partyName&quot; : &quot;&quot;,
+    &quot;ultimatePartyName&quot; : &quot;&quot;
+  },
+  &quot;debtorInformation&quot; : {
+    &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;,
+    &quot;destinationAccount&quot; : {
+      &quot;bsb&quot; : &quot;&quot;,
+      &quot;transactionAccountNumber&quot; : &quot;998877667890&quot;
+    },
+    &quot;partyName&quot; : &quot;Test Payer&quot;,
+    &quot;partyReference&quot; : &quot;&quot;,
+    &quot;payid&quot; : null,
+    &quot;ultimatePartyName&quot; : &quot;&quot;
+  },
+  &quot;description&quot; : &quot;&quot;,
+  &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+  &quot;identification&quot; : &quot;&quot;,
+  &quot;initiatingPartyName&quot; : &quot;test party&quot;,
+  &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+  &quot;isMgcrPendingAuth&quot; : true,
+  &quot;isMigratedDdr&quot; : true,
+  &quot;mandateProcessingIndicator&quot; : true,
+  &quot;mandateType&quot; : &quot;&quot;,
+  &quot;name&quot; : &quot;345432222&quot;,
+  &quot;paymentInformation&quot; : {
+    &quot;amount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 33,
+      &quot;units&quot; : &quot;234&quot;
+    },
+    &quot;firstPaymentAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;firstPaymentDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;frequencyDetails&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+    &quot;lastPaymentAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;lastPaymentDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;maximumAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 0,
+      &quot;units&quot; : &quot;500&quot;
+    },
+    &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_BALLOON_PAYMENT&quot;,
+    &quot;paymentAmountTypeDescription&quot; : &quot;&quot;,
+    &quot;paymentExecuteNotBeforeTime&quot; : {
+      &quot;hours&quot; : 1,
+      &quot;minutes&quot; : 1,
+      &quot;nanos&quot; : 1,
+      &quot;seconds&quot; : 1
+    },
+    &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+    &quot;paymentFrequencyDescription&quot; : &quot;&quot;
+  },
+  &quot;pendingActionIndicator&quot; : true,
+  &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_MORTGAGE_PAYMENTS&quot;,
+  &quot;purposeDescription&quot; : &quot;&quot;,
+  &quot;shortDescription&quot; : &quot;&quot;,
+  &quot;status&quot; : &quot;ACTV&quot;,
+  &quot;statusDescription&quot; : &quot;Active&quot;,
+  &quot;statusPartyRole&quot; : &quot;MANDATE_STATUS_PARTY_ROLE_CODE_DEBTOR&quot;,
+  &quot;statusReasonCode&quot; : &quot;&quot;,
+  &quot;statusReasonDescription&quot; : &quot;Reason Changed&quot;,
+  &quot;transferArrangement&quot; : &quot;&quot;,
+  &quot;validityEndDate&quot; : {
+    &quot;day&quot; : 1,
+    &quot;month&quot; : 1,
+    &quot;year&quot; : 1
+  },
+  &quot;validityStartDate&quot; : {
+    &quot;day&quot; : 20,
+    &quot;month&quot; : 1,
+    &quot;year&quot; : 2023
+  }
+}, {
+  &quot;additionalInformation&quot; : &quot;&quot;,
+  &quot;automaticExtensionIndicator&quot; : true,
+  &quot;creditorInformation&quot; : {
+    &quot;partyName&quot; : &quot;&quot;,
+    &quot;ultimatePartyName&quot; : &quot;&quot;
+  },
+  &quot;debtorInformation&quot; : {
+    &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;,
+    &quot;destinationAccount&quot; : {
+      &quot;bsb&quot; : &quot;&quot;,
+      &quot;transactionAccountNumber&quot; : &quot;7776665567567&quot;
+    },
+    &quot;partyName&quot; : &quot;test payer 2&quot;,
+    &quot;partyReference&quot; : &quot;&quot;,
+    &quot;payid&quot; : null,
+    &quot;ultimatePartyName&quot; : &quot;&quot;
+  },
+  &quot;description&quot; : &quot;&quot;,
+  &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+  &quot;identification&quot; : &quot;&quot;,
+  &quot;initiatingPartyName&quot; : &quot;test party&quot;,
+  &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+  &quot;isMgcrPendingAuth&quot; : true,
+  &quot;isMigratedDdr&quot; : true,
+  &quot;mandateProcessingIndicator&quot; : true,
+  &quot;mandateType&quot; : &quot;&quot;,
+  &quot;name&quot; : &quot;&quot;,
+  &quot;paymentInformation&quot; : {
+    &quot;amount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;45&quot;
+    },
+    &quot;firstPaymentAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;firstPaymentDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;frequencyDetails&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+    &quot;lastPaymentAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;lastPaymentDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;maximumAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 33,
+      &quot;units&quot; : &quot;233&quot;
+    },
+    &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_BALLOON_PAYMENT&quot;,
+    &quot;paymentAmountTypeDescription&quot; : &quot;&quot;,
+    &quot;paymentExecuteNotBeforeTime&quot; : {
+      &quot;hours&quot; : 1,
+      &quot;minutes&quot; : 1,
+      &quot;nanos&quot; : 1,
+      &quot;seconds&quot; : 1
+    },
+    &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+    &quot;paymentFrequencyDescription&quot; : &quot;&quot;
+  },
+  &quot;pendingActionIndicator&quot; : true,
+  &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_MORTGAGE_PAYMENTS&quot;,
+  &quot;purposeDescription&quot; : &quot;&quot;,
+  &quot;shortDescription&quot; : &quot;&quot;,
+  &quot;status&quot; : &quot;CNCD&quot;,
+  &quot;statusDescription&quot; : &quot;Cancelled&quot;,
+  &quot;statusPartyRole&quot; : &quot;MANDATE_STATUS_PARTY_ROLE_CODE_DEBTOR&quot;,
+  &quot;statusReasonCode&quot; : &quot;&quot;,
+  &quot;statusReasonDescription&quot; : &quot;Reason Changed 2&quot;,
+  &quot;transferArrangement&quot; : &quot;&quot;,
+  &quot;validityEndDate&quot; : {
+    &quot;day&quot; : 1,
+    &quot;month&quot; : 1,
+    &quot;year&quot; : 1
+  },
+  &quot;validityStartDate&quot; : {
+    &quot;day&quot; : 1,
+    &quot;month&quot; : 1,
+    &quot;year&quot; : 1
+  }
+}, {
+  &quot;additionalInformation&quot; : &quot;&quot;,
+  &quot;automaticExtensionIndicator&quot; : true,
+  &quot;creditorInformation&quot; : {
+    &quot;partyName&quot; : &quot;&quot;,
+    &quot;ultimatePartyName&quot; : &quot;&quot;
+  },
+  &quot;debtorInformation&quot; : {
+    &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;,
+    &quot;destinationAccount&quot; : {
+      &quot;bsb&quot; : &quot;&quot;,
+      &quot;transactionAccountNumber&quot; : &quot;&quot;
+    },
+    &quot;partyName&quot; : &quot;&quot;,
+    &quot;partyReference&quot; : &quot;&quot;,
+    &quot;payid&quot; : null,
+    &quot;ultimatePartyName&quot; : &quot;&quot;
+  },
+  &quot;description&quot; : &quot;&quot;,
+  &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+  &quot;identification&quot; : &quot;&quot;,
+  &quot;initiatingPartyName&quot; : &quot;&quot;,
+  &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+  &quot;isMgcrPendingAuth&quot; : true,
+  &quot;isMigratedDdr&quot; : true,
+  &quot;mandateProcessingIndicator&quot; : true,
+  &quot;mandateType&quot; : &quot;&quot;,
+  &quot;name&quot; : &quot;&quot;,
+  &quot;paymentInformation&quot; : {
+    &quot;amount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;firstPaymentAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;firstPaymentDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;frequencyDetails&quot; : &quot;&quot;,
+    &quot;lastPaymentAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;lastPaymentDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;maximumAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_BALLOON_PAYMENT&quot;,
+    &quot;paymentAmountTypeDescription&quot; : &quot;&quot;,
+    &quot;paymentExecuteNotBeforeTime&quot; : {
+      &quot;hours&quot; : 1,
+      &quot;minutes&quot; : 1,
+      &quot;nanos&quot; : 1,
+      &quot;seconds&quot; : 1
+    },
+    &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+    &quot;paymentFrequencyDescription&quot; : &quot;&quot;
+  },
+  &quot;pendingActionIndicator&quot; : true,
+  &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_MORTGAGE_PAYMENTS&quot;,
+  &quot;purposeDescription&quot; : &quot;&quot;,
+  &quot;shortDescription&quot; : &quot;&quot;,
+  &quot;status&quot; : &quot;CRTD&quot;,
+  &quot;statusDescription&quot; : &quot;&quot;,
+  &quot;statusPartyRole&quot; : &quot;MANDATE_STATUS_PARTY_ROLE_CODE_DEBTOR&quot;,
+  &quot;statusReasonCode&quot; : &quot;&quot;,
+  &quot;statusReasonDescription&quot; : &quot;&quot;,
+  &quot;transferArrangement&quot; : &quot;&quot;,
+  &quot;validityEndDate&quot; : {
+    &quot;day&quot; : 1,
+    &quot;month&quot; : 1,
+    &quot;year&quot; : 1
+  },
+  &quot;validityStartDate&quot; : {
+    &quot;day&quot; : 1,
+    &quot;month&quot; : 1,
+    &quot;year&quot; : 1
+  }
+}, {
+  &quot;additionalInformation&quot; : &quot;&quot;,
+  &quot;automaticExtensionIndicator&quot; : true,
+  &quot;creditorInformation&quot; : {
+    &quot;partyName&quot; : &quot;&quot;,
+    &quot;ultimatePartyName&quot; : &quot;&quot;
+  },
+  &quot;debtorInformation&quot; : {
+    &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;,
+    &quot;destinationAccount&quot; : {
+      &quot;bsb&quot; : &quot;&quot;,
+      &quot;transactionAccountNumber&quot; : &quot;&quot;
+    },
+    &quot;partyName&quot; : &quot;&quot;,
+    &quot;partyReference&quot; : &quot;&quot;,
+    &quot;payid&quot; : null,
+    &quot;ultimatePartyName&quot; : &quot;&quot;
+  },
+  &quot;description&quot; : &quot;&quot;,
+  &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+  &quot;identification&quot; : &quot;&quot;,
+  &quot;initiatingPartyName&quot; : &quot;&quot;,
+  &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+  &quot;isMgcrPendingAuth&quot; : true,
+  &quot;isMigratedDdr&quot; : true,
+  &quot;mandateProcessingIndicator&quot; : true,
+  &quot;mandateType&quot; : &quot;&quot;,
+  &quot;name&quot; : &quot;&quot;,
+  &quot;paymentInformation&quot; : {
+    &quot;amount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;firstPaymentAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;firstPaymentDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;frequencyDetails&quot; : &quot;&quot;,
+    &quot;lastPaymentAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;lastPaymentDate&quot; : {
+      &quot;day&quot; : 1,
+      &quot;month&quot; : 1,
+      &quot;year&quot; : 1
+    },
+    &quot;maximumAmount&quot; : {
+      &quot;currencyCode&quot; : &quot;ALL&quot;,
+      &quot;nanos&quot; : 1,
+      &quot;units&quot; : &quot;1&quot;
+    },
+    &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_BALLOON_PAYMENT&quot;,
+    &quot;paymentAmountTypeDescription&quot; : &quot;&quot;,
+    &quot;paymentExecuteNotBeforeTime&quot; : {
+      &quot;hours&quot; : 1,
+      &quot;minutes&quot; : 1,
+      &quot;nanos&quot; : 1,
+      &quot;seconds&quot; : 1
+    },
+    &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_ADHOC&quot;,
+    &quot;paymentFrequencyDescription&quot; : &quot;&quot;
+  },
+  &quot;pendingActionIndicator&quot; : true,
+  &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_MORTGAGE_PAYMENTS&quot;,
+  &quot;purposeDescription&quot; : &quot;&quot;,
+  &quot;shortDescription&quot; : &quot;&quot;,
+  &quot;status&quot; : &quot;SUSD&quot;,
+  &quot;statusDescription&quot; : &quot;&quot;,
+  &quot;statusPartyRole&quot; : &quot;MANDATE_STATUS_PARTY_ROLE_CODE_DEBTOR&quot;,
+  &quot;statusReasonCode&quot; : &quot;&quot;,
+  &quot;statusReasonDescription&quot; : &quot;&quot;,
+  &quot;transferArrangement&quot; : &quot;&quot;,
+  &quot;validityEndDate&quot; : {
+    &quot;day&quot; : 1,
+    &quot;month&quot; : 1,
+    &quot;year&quot; : 1
+  },
+  &quot;validityStartDate&quot; : {
+    &quot;day&quot; : 1,
+    &quot;month&quot; : 1,
+    &quot;year&quot; : 1
+  }
+} ]</expectedOutputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>DRTPayToArrayOfMandates</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>DRTPayToArrayOfMandates</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTPayToArrayOfMandatesCustom6109</globalKey>
+        <inputFieldName>tableName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>results:tableName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTPayToArrayOfMandates</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTPayToArrayOfMandatesCustom208</globalKey>
+        <inputFieldName>result</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>results</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;tableName&quot; : &quot;current&quot;,
+  &quot;result&quot; : {
+    &quot;totalMandates&quot; : null,
+    &quot;mandates&quot; : [ {
+      &quot;status&quot; : &quot;MANDATE_STATUS_CODE_ACTIVE&quot;,
+      &quot;isMgcrPendingAuth&quot; : null,
+      &quot;initiatingPartyName&quot; : &quot;ANZx Initiator Party Name 102 on behalf of ANZx Creditor Party Ultimate Party Name 102&quot;,
+      &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+      &quot;name&quot; : &quot;mandates/351f21a0990d11ec86aab7787b802212&quot;,
+      &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_RETAIL_PAYMENTS&quot;,
+      &quot;creditorInformation&quot; : {
+        &quot;ultimatePartyName&quot; : &quot;ANZx Creditor Party Ultimate Party Name 102&quot;,
+        &quot;partyName&quot; : &quot;ANZx Creditor Party Name 102&quot;
+      },
+      &quot;statusDescription&quot; : &quot;Active&quot;,
+      &quot;mandateProcessingIndicator&quot; : null,
+      &quot;shortDescription&quot; : &quot;Mandate 102 short description&quot;,
+      &quot;transferArrangement&quot; : null,
+      &quot;validityStartDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;year&quot; : 2022,
+        &quot;month&quot; : 3
+      },
+      &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+      &quot;additionalInformation&quot; : null,
+      &quot;isMigratedDdr&quot; : null,
+      &quot;statusPartyRole&quot; : null,
+      &quot;paymentInformation&quot; : {
+        &quot;paymentFrequencyDescription&quot; : &quot;Fortnightly&quot;,
+        &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_VARIABLE_PAYMENT&quot;,
+        &quot;firstPaymentAmount&quot; : null,
+        &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_FORTNIGHTLY&quot;,
+        &quot;frequencyDetails&quot; : &quot;Fortnightly&quot;,
+        &quot;lastPaymentAmount&quot; : null,
+        &quot;firstPaymentDate&quot; : null,
+        &quot;lastPaymentDate&quot; : null,
+        &quot;maximumAmount&quot; : {
+          &quot;currencyCode&quot; : &quot;AUD&quot;,
+          &quot;units&quot; : &quot;10000&quot;,
+          &quot;nanos&quot; : 10000000
+        },
+        &quot;paymentExecuteNotBeforeTime&quot; : null,
+        &quot;paymentAmountTypeDescription&quot; : &quot;Variable&quot;,
+        &quot;amount&quot; : {
+          &quot;currencyCode&quot; : &quot;AUD&quot;,
+          &quot;units&quot; : &quot;999&quot;,
+          &quot;nanos&quot; : 990000000
+        }
+      },
+      &quot;purposeDescription&quot; : &quot;Retail Payments&quot;,
+      &quot;statusReasonDescription&quot; : null,
+      &quot;mandateType&quot; : &quot;DDTP&quot;,
+      &quot;identification&quot; : null,
+      &quot;validityEndDate&quot; : {
+        &quot;day&quot; : 1,
+        &quot;year&quot; : 2025,
+        &quot;month&quot; : 3
+      },
+      &quot;description&quot; : &quot;Mandate 102 description ipsum lorem facto borg klingon federation&quot;,
+      &quot;automaticExtensionIndicator&quot; : null,
+      &quot;statusReasonCode&quot; : null,
+      &quot;debtorInformation&quot; : {
+        &quot;ultimatePartyName&quot; : &quot;DERECK SADIE LARKIN&quot;,
+        &quot;destinationAccount&quot; : {
+          &quot;transactionAccountNumber&quot; : &quot;421924391&quot;,
+          &quot;bsb&quot; : &quot;014111&quot;
+        },
+        &quot;payid&quot; : null,
+        &quot;partyReference&quot; : &quot;Debtor reference 102&quot;,
+        &quot;partyName&quot; : &quot;DERECK SADIE LARKIN&quot;,
+        &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;
+      },
+      &quot;pendingActionIndicator&quot; : null
+    }, {
+      &quot;status&quot; : &quot;MANDATE_STATUS_CODE_SUSPENDED&quot;,
+      &quot;isMgcrPendingAuth&quot; : null,
+      &quot;initiatingPartyName&quot; : &quot;CBD Gym Pty Ltd&quot;,
+      &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+      &quot;name&quot; : &quot;mandates/26c2a370938b11ec86aab7787b802212&quot;,
+      &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_RETAIL_PAYMENTS&quot;,
+      &quot;creditorInformation&quot; : {
+        &quot;ultimatePartyName&quot; : &quot;CBD Gym Pty Ltd&quot;,
+        &quot;partyName&quot; : &quot;CBD Gym Pty Ltd&quot;
+      },
+      &quot;statusDescription&quot; : &quot;Suspended&quot;,
+      &quot;mandateProcessingIndicator&quot; : null,
+      &quot;shortDescription&quot; : null,
+      &quot;transferArrangement&quot; : null,
+      &quot;validityStartDate&quot; : {
+        &quot;day&quot; : 27,
+        &quot;year&quot; : 2022,
+        &quot;month&quot; : 2
+      },
+      &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+      &quot;additionalInformation&quot; : null,
+      &quot;isMigratedDdr&quot; : null,
+      &quot;statusPartyRole&quot; : null,
+      &quot;paymentInformation&quot; : {
+        &quot;paymentFrequencyDescription&quot; : &quot;Fortnightly&quot;,
+        &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_VARIABLE_PAYMENT&quot;,
+        &quot;firstPaymentAmount&quot; : null,
+        &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_FORTNIGHTLY&quot;,
+        &quot;frequencyDetails&quot; : &quot;Fortnightly&quot;,
+        &quot;lastPaymentAmount&quot; : null,
+        &quot;firstPaymentDate&quot; : null,
+        &quot;lastPaymentDate&quot; : null,
+        &quot;maximumAmount&quot; : {
+          &quot;currencyCode&quot; : &quot;AUD&quot;,
+          &quot;units&quot; : &quot;100&quot;,
+          &quot;nanos&quot; : null
+        },
+        &quot;paymentExecuteNotBeforeTime&quot; : null,
+        &quot;paymentAmountTypeDescription&quot; : &quot;Variable&quot;,
+        &quot;amount&quot; : {
+          &quot;currencyCode&quot; : &quot;AUD&quot;,
+          &quot;units&quot; : &quot;999&quot;,
+          &quot;nanos&quot; : 990000000
+        }
+      },
+      &quot;purposeDescription&quot; : &quot;Retail Payments&quot;,
+      &quot;statusReasonDescription&quot; : null,
+      &quot;mandateType&quot; : &quot;DDTP&quot;,
+      &quot;identification&quot; : null,
+      &quot;validityEndDate&quot; : {
+        &quot;day&quot; : 27,
+        &quot;year&quot; : 2024,
+        &quot;month&quot; : 2
+      },
+      &quot;description&quot; : &quot;Sample description&quot;,
+      &quot;automaticExtensionIndicator&quot; : null,
+      &quot;statusReasonCode&quot; : null,
+      &quot;debtorInformation&quot; : {
+        &quot;ultimatePartyName&quot; : &quot;DERECK SADIE LARKIN&quot;,
+        &quot;destinationAccount&quot; : {
+          &quot;transactionAccountNumber&quot; : &quot;421924391&quot;,
+          &quot;bsb&quot; : &quot;014111&quot;
+        },
+        &quot;payid&quot; : null,
+        &quot;partyReference&quot; : &quot;Debtors Reference&quot;,
+        &quot;partyName&quot; : &quot;DERECK SADIE LARKIN&quot;,
+        &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;
+      },
+      &quot;pendingActionIndicator&quot; : true
+    }, {
+      &quot;status&quot; : &quot;MANDATE_STATUS_CODE_CANCELLED&quot;,
+      &quot;isMgcrPendingAuth&quot; : null,
+      &quot;initiatingPartyName&quot; : &quot;Telstra on behalf of JOE BLOGGS&quot;,
+      &quot;establishmentScheme&quot; : &quot;ESTABLISHMENT_SCHEME_CODE_AUTHORISED_PAYMENT_CODE&quot;,
+      &quot;name&quot; : &quot;mandates/3c539d402f3c11eebc863e9f760ab8ba&quot;,
+      &quot;purposeCode&quot; : &quot;MANDATE_PURPOSE_CODE_RETAIL_PAYMENTS&quot;,
+      &quot;creditorInformation&quot; : {
+        &quot;ultimatePartyName&quot; : &quot;JOE BLOGGS&quot;,
+        &quot;partyName&quot; : &quot;JOE BLOGGS&quot;
+      },
+      &quot;statusDescription&quot; : &quot;Cancelled&quot;,
+      &quot;mandateProcessingIndicator&quot; : null,
+      &quot;shortDescription&quot; : null,
+      &quot;transferArrangement&quot; : null,
+      &quot;validityStartDate&quot; : {
+        &quot;day&quot; : 14,
+        &quot;year&quot; : 2020,
+        &quot;month&quot; : 9
+      },
+      &quot;initiatingPartyType&quot; : &quot;INITIATING_PARTY_TYPE_CODE_PAYEE&quot;,
+      &quot;additionalInformation&quot; : null,
+      &quot;isMigratedDdr&quot; : null,
+      &quot;statusPartyRole&quot; : null,
+      &quot;paymentInformation&quot; : {
+        &quot;paymentFrequencyDescription&quot; : &quot;Monthly&quot;,
+        &quot;paymentAmountType&quot; : &quot;PAYMENT_AMOUNT_TYPE_VARIABLE_PAYMENT&quot;,
+        &quot;firstPaymentAmount&quot; : null,
+        &quot;paymentFrequency&quot; : &quot;PAYMENT_FREQUENCY_MONTHLY&quot;,
+        &quot;frequencyDetails&quot; : &quot;Monthly&quot;,
+        &quot;lastPaymentAmount&quot; : null,
+        &quot;firstPaymentDate&quot; : null,
+        &quot;lastPaymentDate&quot; : null,
+        &quot;maximumAmount&quot; : {
+          &quot;currencyCode&quot; : &quot;AUD&quot;,
+          &quot;units&quot; : &quot;211&quot;,
+          &quot;nanos&quot; : null
+        },
+        &quot;paymentExecuteNotBeforeTime&quot; : null,
+        &quot;paymentAmountTypeDescription&quot; : &quot;Variable&quot;,
+        &quot;amount&quot; : {
+          &quot;currencyCode&quot; : &quot;AUD&quot;,
+          &quot;units&quot; : &quot;999&quot;,
+          &quot;nanos&quot; : 990000000
+        }
+      },
+      &quot;purposeDescription&quot; : &quot;Retail Payments&quot;,
+      &quot;statusReasonDescription&quot; : null,
+      &quot;mandateType&quot; : &quot;DDTP&quot;,
+      &quot;identification&quot; : null,
+      &quot;validityEndDate&quot; : {
+        &quot;day&quot; : 25,
+        &quot;year&quot; : 2022,
+        &quot;month&quot; : 5
+      },
+      &quot;description&quot; : &quot;sample description&quot;,
+      &quot;automaticExtensionIndicator&quot; : null,
+      &quot;statusReasonCode&quot; : null,
+      &quot;debtorInformation&quot; : {
+        &quot;ultimatePartyName&quot; : &quot;QUENTIN CARISSA WITTING&quot;,
+        &quot;destinationAccount&quot; : {
+          &quot;transactionAccountNumber&quot; : &quot;421924391&quot;,
+          &quot;bsb&quot; : &quot;014111&quot;
+        },
+        &quot;payid&quot; : null,
+        &quot;partyReference&quot; : &quot;my debtor reference08&quot;,
+        &quot;partyName&quot; : &quot;QUENTIN CARISSA WITTING&quot;,
+        &quot;accountIdentificationTypeCode&quot; : &quot;ACCOUNT_IDENTIFICATION_TYPE_CODE_BASIC_BANK_ACCOUNT_NUMBER&quot;
+      },
+      &quot;pendingActionIndicator&quot; : true
+    } ],
+    &quot;hasError&quot; : false,
+    &quot;pageNumber&quot; : 1
+  }
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>DRTPayToArrayOfMandates_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

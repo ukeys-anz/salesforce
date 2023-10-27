@@ -185,6 +185,3 @@ ENV PATH=/opt/harness-delegate/gcloud/google-cloud-sdk/bin:$PATH
 RUN python3 -m pip install --no-cache-dir --index "${PIP_INDEX_URL}" pyopenssl && \
   # Smoke test gcloud
   gcloud --version
-
-COPY immutable.entrypoint.sh /tmp/entrypoint.sh
-ENTRYPOINT ["/tmp/entrypoint.sh"]

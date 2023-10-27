@@ -11,7 +11,7 @@ import {
   deployProgress,
   deployReport
 } from "../Services/deploy-service.mjs";
-import { deleteFolder, logger } from "../Services/helper.mjs";
+import { deleteFolder, renameItem } from "../Services/helper.mjs";
 import { createTag } from "../Services/tag-service.mjs";
 //////////
 
@@ -25,7 +25,8 @@ const {
   RUN_ID
 } = process.env;
 
-const SOURCE_DIR = `artifact-${BASE_REF}-${RUN_ID}`;
+const PROPER_FOLDER_NAME = renameItem(BASE_REF);
+const SOURCE_DIR = `artifact-${PROPER_FOLDER_NAME}-${RUN_ID}`;
 
 //////////
 
@@ -39,9 +40,9 @@ const deployment = () => {
 };
 
 const clean = () => {
-  createTag(BASE_REF, RUN_ID);
   unauthenticate(BASE_REF);
-  logger(deleteFolder(SOURCE_DIR));
+  deleteFolder(SOURCE_DIR);
+  createTag(BASE_REF, RUN_ID);
 };
 
 /////////

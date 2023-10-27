@@ -44,6 +44,7 @@ public with sharing class HomeLoanController {
         FinServ__RelatedAccount__c = :customerId
         AND FinServ__FinancialAccount__r.RecordTypeId = :GetHelpConstants.BANK_ACCOUNT_RT_ID
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :GetHelpConstants.HOME_LOAN_MARKETING_CODES
+        AND FinServ__Active__c = TRUE
     ];
     return financialAccountRoles;
   }
@@ -63,7 +64,9 @@ public with sharing class HomeLoanController {
     List<FinServ__FinancialAccountRole__c> financialAccountRoles = [
       SELECT Id, FinServ__RelatedAccount__c, FinServ__RelatedAccount__r.Name
       FROM FinServ__FinancialAccountRole__c
-      WHERE FinServ__FinancialAccount__c = :financialAccountId
+      WHERE
+        FinServ__FinancialAccount__c = :financialAccountId
+        AND FinServ__Active__c = TRUE
     ];
 
     return financialAccountRoles;

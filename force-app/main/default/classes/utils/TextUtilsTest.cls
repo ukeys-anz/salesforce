@@ -103,4 +103,48 @@ public with sharing class TextUtilsTest {
       'Description should not be masked'
     );
   }
+
+  @isTest
+  static void testSanitiseMobileNumber() {
+    String input = '61123456789';
+    String exceptedOutput = '61123456789';
+    Assert.areEqual(
+      exceptedOutput,
+      TextUtils.sanitiseMobileNumber(input),
+      'Sanitise Mobile Number ' +
+      input +
+      'should be' +
+      exceptedOutput
+    );
+
+    input = ' 61 123 456 789 ';
+    Assert.areEqual(
+      exceptedOutput,
+      TextUtils.sanitiseMobileNumber(input),
+      'Sanitise Mobile Number ' +
+      input +
+      'should be' +
+      exceptedOutput
+    );
+
+    input = '+61 123 456 789';
+    Assert.areEqual(
+      exceptedOutput,
+      TextUtils.sanitiseMobileNumber(input),
+      'Sanitise Mobile Number ' +
+      input +
+      'should be' +
+      exceptedOutput
+    );
+
+    input = '+61-123 456 789 ';
+    Assert.areEqual(
+      exceptedOutput,
+      TextUtils.sanitiseMobileNumber(input),
+      'Sanitise Mobile Number ' +
+      input +
+      'should be' +
+      exceptedOutput
+    );
+  }
 }

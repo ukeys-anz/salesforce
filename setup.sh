@@ -43,8 +43,8 @@ echoMessageCreator "" $stepNo false
 
 # make a new scratchOrg step
 echoMessageCreator "Making scratchOrg out of the snapshot" $stepNo true
-sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 30 --setalias "$scratchorgalias" 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) == *'Error'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
     echo ""
     echo "${green}* please run the below command in another terminal tab"
     echo ""
