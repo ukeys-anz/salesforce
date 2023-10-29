@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Justification_Description__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <complianceGroup>Source_Loan_Domain;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <description>Description of the possible justification code</description>
+    <externalId>false</externalId>
+    <label>Justification Description</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Intend to cut down spending</fullName>
+                <default>false</default>
+                <label>Intend to cut down spending</label>
+            </value>
+            <value>
+                <fullName>Dependants are more self sufficient</fullName>
+                <default>false</default>
+                <label>Dependants are more self sufficient</label>
+            </value>
+            <value>
+                <fullName>Modest lifestyle</fullName>
+                <default>false</default>
+                <label>Modest lifestyle</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Changed primary mode of transport</fullName>
+                <default>false</default>
+                <label>Changed primary mode of transport</label>
+            </value>
+            <value>
+                <fullName>Sold vehicle</fullName>
+                <default>false</default>
+                <label>Sold vehicle</label>
+            </value>
+            <value>
+                <fullName>Change in regular commute to work</fullName>
+                <default>false</default>
+                <label>Change in regular commute to work</label>
+            </value>
+            <value>
+                <fullName>Intend to walk or cycle</fullName>
+                <default>false</default>
+                <label>Intend to walk or cycle</label>
+            </value>
+            <value>
+                <fullName>Switching to a cheaper provider</fullName>
+                <default>false</default>
+                <label>Switching to a cheaper provider</label>
+            </value>
+            <value>
+                <fullName>Cancelling some services</fullName>
+                <default>false</default>
+                <label>Cancelling some services</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

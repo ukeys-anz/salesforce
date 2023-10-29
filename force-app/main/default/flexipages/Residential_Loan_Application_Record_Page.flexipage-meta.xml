@@ -402,33 +402,12 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
-                            <value>Case.Escalate_Complaint</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Flag_Complex_Complaints</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.NewChildCase</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Re_open_Complaint</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Resolve_Complaint</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Send_Notification</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Update_DEH_Complaint_Details</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>MassChangeOwner</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>NewCase</value>
                         </valueListItems>
                     </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>adminFilters</name>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
@@ -440,7 +419,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>Cases</value>
+                    <value>Cases__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListDisplayType</name>
@@ -453,22 +432,13 @@
                             <value>CASES.CASE_NUMBER</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>NAME</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>CASES.SUBJECT</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>CASES.STATUS</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>CASES.PRIORITY</value>
                         </valueListItems>
                         <valueListItems>
                             <value>CASES.CREATED_DATE</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>OWNER_NAME</value>
+                            <value>CASES.PRIORITY</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
