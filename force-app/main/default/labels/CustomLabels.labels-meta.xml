@@ -1807,4 +1807,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>PayTo Fraud Reason Code</shortDescription>
         <value>MD21</value>
     </labels>
+    <labels>
+        <fullName>MS_Verify_Insurance</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Verify_Insurance</shortDescription>
+        <value>/credit-assessment/v1/settlements/proof-of-insurance/verification</value>
+    </labels>
 </CustomLabels>

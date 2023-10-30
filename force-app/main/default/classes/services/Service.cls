@@ -726,4 +726,17 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
+
+  /**
+   * @param requestBody body of request to send
+   * @param ocvId ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income from sop
+   */
+  public virtual HttpCalloutResponse verifyInsurance(
+    String requestBody,
+    String ocvId
+  ) {
+    return null;
+  }
 }

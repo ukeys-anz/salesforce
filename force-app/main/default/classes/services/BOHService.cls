@@ -411,4 +411,29 @@ public with sharing class BOHService extends Service {
       Credit_Reassess_Required__c = true
     );
   }
+
+  /**
+   * @param requestBody body of request to send
+   * @param ocvId ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income from sop
+   */
+  public override HttpCalloutResponse verifyInsurance(
+    String requestBody,
+    String ocvId
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Verify_Insurance,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      requestBody
+    );
+
+    return response;
+  }
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Settlement_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Settlement Read Only</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Settlement_ID__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Settlement_Read_Write_To_Group</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Settlement Read Write To Group</label>
+        <sharedTo>
+            <group>Settlements_Read_Write</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Settlement_ID__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Settlement_Read_Write_To_SOL</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Settlement Read Write To SOL</label>
+        <sharedTo>
+            <roleAndSubordinates>Settlement_Officer_Lead</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Settlement_ID__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>
