@@ -37,6 +37,11 @@
                           <span class={finAccount.badgeClass}
                             >{finAccount.FinServ__Status__c}</span
                           >
+                          <template lwc:if={finAccount.showMultipartyBadge}>
+                            <span class="slds-badge dormantBadgeClass"
+                              >{finAccount.multiParty}</span
+                            >
+                          </template>
                         </h2>
                       </header>
                     </div>
@@ -138,6 +143,11 @@
                           <span class={finAccount.badgeClass}
                             >{finAccount.FinServ__Status__c}</span
                           >
+                          <template lwc:if={finAccount.showMultipartyBadge}>
+                            <span class="slds-badge dormantBadgeClass"
+                              >{finAccount.multiParty}</span
+                            >
+                          </template>
                         </h2>
                       </header>
                     </div>
@@ -196,6 +206,11 @@
                         <span class={finAccount.badgeClass}
                           >{finAccount.FinServ__Status__c}</span
                         >
+                        <template lwc:if={finAccount.showMultipartyBadge}>
+                          <span class="slds-badge dormantBadgeClass"
+                            >{finAccount.multiParty}</span
+                          >
+                        </template>
                       </h2>
                     </header>
                   </div>

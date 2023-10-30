@@ -74,6 +74,17 @@ public with sharing class GetHelpConstants {
     .get('False_Customer_Profile')
     .getRecordTypeId();
 
+  //Hold the multi-party account's ownership value
+  public static final String MULTI_PARTY = 'Multi-party';
+  //Hold the value of Transaction Initiator for joint account's secondary owner.
+  public static final String CO_OWNER = 'Co-Owner';
+
+  //Hold the value of Transaction Initiator for joint accounts not having persona id.
+  public static final String THIS_CUSTOMER = 'This Customer';
+
+  //API response of Transaction incoming
+  public static final String TRANSFER_INCOMING = 'TRANSFER_INCOMING';
+
   //Financial Account Record types
 
   public static final String CHECKING_ACCOUNT_RT_APINAME = 'CheckingAccount';

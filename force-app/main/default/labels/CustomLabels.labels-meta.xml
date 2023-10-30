@@ -30,6 +30,13 @@
         <value>True</value>
     </labels>
     <labels>
+        <fullName>FinancialAccountOwnershipForSorting</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Financial Account Ownership values for sorting</shortDescription>
+        <value>Single,Multi-party</value>
+    </labels>
+    <labels>
         <fullName>FinancialAccountStatusForSorting</fullName>
         <language>en_US</language>
         <protected>false</protected>
