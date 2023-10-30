@@ -40,6 +40,10 @@ public with sharing class GetHelpCaseActions {
     'CAD_Credit_Referral_Case_Queue'
   );
 
+  public static Group digitalFraudQueue = CommonUtil.getQueueByName(
+    'Digital_Fraud_Queue'
+  );
+
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
    * 1. Validate Additional Type - Validates the selected additional types and addError if it has more than 2 values selected or if the Type value is same as one of the additional values
@@ -1036,6 +1040,7 @@ public with sharing class GetHelpCaseActions {
     for (Case c : records) {
       if (c.BOH_Fraud_Case__c) {
         c.Sub_Type__c = 'Home Loan document verification';
+        c.OwnerId = digitalFraudQueue.Id;
       }
     }
   }
