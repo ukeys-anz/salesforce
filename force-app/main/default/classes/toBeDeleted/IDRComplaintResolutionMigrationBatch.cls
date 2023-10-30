@@ -38,6 +38,7 @@ public with sharing class IDRComplaintResolutionMigrationBatch implements Databa
         cr1.IDR_Complaint_Remedy__c = c.IDR_Complaint_Remedy__c;
         cr1.IDR_Complaint_Sub_Remedy__c = c.IDR_Complaint_Sub_Remedy__c;
         cr1.IDR_Financial_Remedy_Points__c = c.IDR_Financial_Remedy_Points__c;
+        cr1.IDR_Provided_details_to_Manufacturer__c = c.Provided_details_to_Product_Manufacturer__c;
         crList.add(cr1);
         if (c.IDR_Complaint_Remedy_2__c != null) {
           Complaint_Resolution__c cr2 = new Complaint_Resolution__c();
@@ -49,6 +50,7 @@ public with sharing class IDRComplaintResolutionMigrationBatch implements Databa
           cr2.IDR_Complaint_Remedy__c = c.IDR_Complaint_Remedy_2__c;
           cr2.IDR_Complaint_Sub_Remedy__c = c.IDR_Complaint_Sub_Remedy_2__c;
           cr2.IDR_Financial_Remedy_Points__c = c.IDR_Financial_Remedy_Points_2__c;
+          cr2.IDR_Provided_details_to_Manufacturer__c = c.Provided_details_to_Prod_Manufacturer_2__c;
           crList.add(cr2);
           if (c.IDR_Complaint_Remedy_3__c != null) {
             Complaint_Resolution__c cr3 = new Complaint_Resolution__c();
@@ -60,6 +62,7 @@ public with sharing class IDRComplaintResolutionMigrationBatch implements Databa
             cr3.IDR_Complaint_Remedy__c = c.IDR_Complaint_Remedy_3__c;
             cr3.IDR_Complaint_Sub_Remedy__c = c.IDR_Complaint_Sub_Remedy_3__c;
             cr3.IDR_Financial_Remedy_Points__c = c.IDR_Financial_Remedy_Points_3__c;
+            cr3.IDR_Provided_details_to_Manufacturer__c = c.Provided_details_to_Prod_Manufacturer_3__c;
             crList.add(cr3);
           }
         }
