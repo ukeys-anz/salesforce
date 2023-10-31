@@ -40,13 +40,23 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
     GetHelpCaseActions.populateOCVOnComplaint(records);
-    GetHelpCaseActions.validateDuplicateKYCQACasePerAccount(records);
+    AutoKYCQACaseActions kycCaseActions = new AutoKYCQACaseActions(
+      (List<Case>) records,
+      new Map<Id, Case>()
+    );
+    kycCaseActions.onBeforeInsert();
     GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
     GetHelpCaseActions.populateFieldsOfPayToDispute(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
       (List<Case>) records,
       null
     );
+    AutoKYCQACaseActions autoKYCQACaseActions = new AutoKYCQACaseActions(
+      (List<Case>) records,
+      new Map<Id, Case>()
+    );
+    autoKYCQACaseActions.onBeforeInsert();
+
     Logger.debug('On_Before_Insert finished: ' + System.now());
     Logger.saveLog();
   }
@@ -126,12 +136,12 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
 
-    AutoKYCQACaseActions kYCQACaseActions = new AutoKYCQACaseActions(
+    AutoKYCQACaseActions autoKYCQACaseActions = new AutoKYCQACaseActions(
       (List<Case>) records,
       (Map<Id, Case>) oldMap
     );
 
-    kYCQACaseActions.onBeforeUpdate();
+    autoKYCQACaseActions.onBeforeUpdate();
 
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();

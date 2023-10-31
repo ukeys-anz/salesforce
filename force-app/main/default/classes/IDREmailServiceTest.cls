@@ -32,6 +32,9 @@ public with sharing class IDREmailServiceTest {
       psaList.add(psa);
     }
     insert psaList;
+
+    Group oGroup = CommonUtil.getGroupDetails('Queue', 'Indexing_Queue');
+    insert new GroupMember(UserOrGroupId = contextUser.Id, GroupId = oGroup.Id);
   }
 
   @IsTest
@@ -472,16 +475,16 @@ public with sharing class IDREmailServiceTest {
       Test.stopTest();
 
       // When undisclosedRecipient bug is fixed uncomment this assert and remove the LogEntry code
-      /*
+
       List<Case> lstCases = [
         SELECT Id, Subject
         FROM Case
         WHERE Subject = :email.subject
       ];
-*/
 
-      //      System.assertEquals(1, lstCases.size(), 'Complaint not created.');
+      System.assertEquals(1, lstCases.size(), 'Complaint not created.');
 
+      /*
       List<LogEntry__c> lstLogEntries = [
         SELECT Id, ApexClassName__c, ExceptionMessage__c, LogMessage__c
         FROM LogEntry__c
@@ -493,6 +496,7 @@ public with sharing class IDREmailServiceTest {
         lstLogEntries[0].ExceptionMessage__c.contains('undislosedrecipients'),
         'Exception not thrown'
       );
+*/
     }
   }
 
