@@ -1822,4 +1822,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>MS_Verify_Insurance</shortDescription>
         <value>/credit-assessment/v1/settlements/proof-of-insurance/verification</value>
     </labels>
+    <labels>
+        <fullName>ANZX_Customer_Comm_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Customer_Comm_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords?:iid=5&amp;ocv_id=</value>
+    </labels>
 </CustomLabels>
