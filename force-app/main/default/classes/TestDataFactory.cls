@@ -12,6 +12,12 @@ public without sharing class TestDataFactory {
     WHERE Id = :UserInfo.getUserId()
   ];
 
+  public static Id anzxStandardProfileId = CommonUtil.getProfileByName(
+      'ANZx Standard User'
+    )
+    .Id;
+  private static User anzxUser;
+
   /**
    * @description Create Account record
    * @param doInsert the Account record type
@@ -496,5 +502,73 @@ public without sharing class TestDataFactory {
     }
 
     return newInteraction;
+  }
+
+  /**
+   * @description Create ANZx User
+   * @name createANZxUser
+   * @param roleDevName User Role Developer Name
+   * @param psgDevName Permission Set Group Developer Name
+   * @return ANZx User
+   */
+  public static User createANZxUser(String roleDevName, String psgDevName) {
+    anzxUser = (User) FakerFactory.make(new FakerUserFactory());
+    anzxUser.FirstName = roleDevName;
+    anzxUser.UserRoleId = CommonUtil.getUserRoleByDevName(roleDevName).Id;
+    anzxUser.ProfileId = anzxStandardProfileId;
+    insert anzxUser;
+
+    // get the PSG by name (may have been modified in deployment)
+    PermissionSetGroup psg = [
+      SELECT Id, Status
+      FROM PermissionSetGroup
+      WHERE DeveloperName = :psgDevName
+    ];
+
+    // force calculation of the PSG if it is not already Updated
+    if (psg.Status != 'Updated') {
+      Test.calculatePermissionSetGroup(psg.Id);
+    }
+
+    // assign PSG to current user (this fails if PSG is Outdated)
+    insert new PermissionSetAssignment(
+      PermissionSetGroupId = psg.Id,
+      AssigneeId = anzxUser.Id
+    );
+
+    return anzxUser;
+  }
+
+  /**
+   * @description Create ANZx User with User Role Developer Name and Permission Set Group Developer Name are same
+   * @name createANZxUser
+   * @param roleOrPSGDevName User Role Developer Name or Permission Set Group Developer Name
+   * @return ANZx User
+   */
+  public static User createANZxUser(String roleOrPSGDevName) {
+    return createANZxUser(roleOrPSGDevName, roleOrPSGDevName);
+  }
+
+  /**
+   * @description Get a ANZx User, if such user not exists yet then create one
+   * @name getANZxUser
+   * @param roleDevName User Role Developer Name
+   * @return Integration User with ANZx User Permission Set.
+   */
+  public static User getANZxUser(String roleDevName) {
+    if (anzxUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE ProfileId = :anzxStandardProfileId AND FirstName = :roleDevName
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        anzxUser = createANZxUser(roleDevName);
+      } else {
+        anzxUser = users[0];
+      }
+    }
+    return anzxUser;
   }
 }
