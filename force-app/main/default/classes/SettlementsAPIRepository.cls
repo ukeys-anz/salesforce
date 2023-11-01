@@ -4,7 +4,7 @@
  * @description Settlements API repository
  * @group Repository
  */
-public with sharing class SettlementsAPIRespository extends RepositoryBase {
+public with sharing class SettlementsAPIRepository extends RepositoryBase {
   /**
    * @param poiDetails proof of insurance details
    * @return `VerifyInsuranceModel`
@@ -21,7 +21,7 @@ public with sharing class SettlementsAPIRespository extends RepositoryBase {
     poiVerification.documentFileVersion = poiDetails.Document_File_Version__c;
 
     VerifyInsuranceRequestBody requestBody = new VerifyInsuranceRequestBody();
-    requestBody.settlementId = poiDetails.Settlement_ID__c;
+    requestBody.settlementId = poiDetails.Settlement_ID__r.Settlement_ID__c;
     requestBody.mortgageContractId = poiDetails.Mortgage_Contract_ID__c;
     requestBody.propertyId = poiDetails.Property_ID__c;
     requestBody.proofOfInsuranceVerification = poiVerification;
@@ -38,7 +38,7 @@ public with sharing class SettlementsAPIRespository extends RepositoryBase {
     try {
       verifyInsurance = VerifyInsuranceModel.parse(response.body);
     } catch (Exception e) {
-      handleErrors(response, e, SettlementsAPIRespository.class);
+      handleErrors(response, e, SettlementsAPIRepository.class);
     }
 
     return verifyInsurance;

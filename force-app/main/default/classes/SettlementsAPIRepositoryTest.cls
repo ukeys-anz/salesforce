@@ -48,7 +48,7 @@ public with sharing class SettlementsAPIRepositoryTest {
   static void testVerifyInsurance() {
     List<Proof_of_Insurance__c> poiDetails = [
       SELECT
-        Settlement_ID__c,
+        Settlement_ID__r.Settlement_ID__c,
         Mortgage_Contract_ID__c,
         Property_ID__c,
         Document_Id__c,
@@ -57,13 +57,13 @@ public with sharing class SettlementsAPIRepositoryTest {
       FROM Proof_of_Insurance__c
     ];
     Test.startTest();
-    SettlementsAPIRespository api = new SettlementsAPIRespository();
+    SettlementsAPIRepository api = new SettlementsAPIRepository();
     VerifyInsuranceModel response = api.verifyInsurance(poiDetails[0]);
     Test.stopTest();
 
     Assert.areEqual(
       'STATE_VERIFIED',
-      response.proof_of_insurance_verification.state,
+      response.proofOfInsuranceVerification.state,
       'State should be verified'
     );
   }

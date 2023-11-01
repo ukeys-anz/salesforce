@@ -15,15 +15,15 @@ public class VerifyInsuranceModel extends CalloutModel {
   }
 
   @AuraEnabled
-  public String settlement_id;
+  public String settlementId;
   @AuraEnabled
-  public String mortgage_contract_id;
+  public String mortgageContractId;
   @AuraEnabled
-  public String property_id;
+  public String propertyId;
   @AuraEnabled
   public Document document;
   @AuraEnabled
-  public ProofOfInsuranceVerification proof_of_insurance_verification;
+  public ProofOfInsuranceVerification proofOfInsuranceVerification;
 
   /**
    * @description verify insurance create by information
@@ -39,17 +39,17 @@ public class VerifyInsuranceModel extends CalloutModel {
     @AuraEnabled
     public String state;
     @AuraEnabled
-    public String document_id;
+    public String documentId;
     @AuraEnabled
-    public Integer document_file_version;
+    public Integer documentFileVersion;
     @AuraEnabled
-    public CreateBy create_by;
+    public CreateBy createBy;
     @AuraEnabled
-    public CreateTime create_time;
+    public CreateTime createTime;
     @AuraEnabled
-    public CreateBy update_by;
+    public CreateBy updateBy;
     @AuraEnabled
-    public CreateTime update_time;
+    public CreateTime updateTime;
   }
 
   /**
@@ -59,15 +59,15 @@ public class VerifyInsuranceModel extends CalloutModel {
     @AuraEnabled
     public String id;
     @AuraEnabled
-    public CreateTime create_time;
+    public CreateTime createTime;
     @AuraEnabled
     public Integer state;
     @AuraEnabled
-    public String document_storage_id;
+    public String documentStorageId;
     @AuraEnabled
-    public Integer document_storage_status;
+    public Integer documentStorageStatus;
     @AuraEnabled
-    public List<DocumentFileDetails> document_file_details;
+    public List<DocumentFileDetails> documentFileDetails;
     @AuraEnabled
     public Integer source;
   }
@@ -77,11 +77,11 @@ public class VerifyInsuranceModel extends CalloutModel {
    */
   public class DocumentFileDetails {
     @AuraEnabled
-    public String document_file_id;
+    public String documentFileId;
     @AuraEnabled
-    public Integer document_file_version;
+    public Integer documentFileVersion;
     @AuraEnabled
-    public Integer document_file_status;
+    public Integer documentFileStatus;
   }
 
   /**
