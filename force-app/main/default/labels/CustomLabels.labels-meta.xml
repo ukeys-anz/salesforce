@@ -397,6 +397,14 @@
         <value>callout:SF_MS_Fabric/credit-assessment/v1/deleteincome</value>
     </labels>
     <labels>
+        <fullName>MS_Update_Expense</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Update_Expense</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/expenses</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Transactions</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -1805,5 +1813,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>PayTo Fraud Reason Code</shortDescription>
         <value>MD21</value>
+    </labels>
+    <labels>
+        <fullName>MS_Verify_Insurance</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Verify_Insurance</shortDescription>
+        <value>/credit-assessment/v1/settlements/proof-of-insurance/verification</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Customer_Comm_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Customer_Comm_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords?:iid=5&amp;ocv_id=</value>
     </labels>
 </CustomLabels>

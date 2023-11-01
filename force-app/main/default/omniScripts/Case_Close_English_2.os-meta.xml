@@ -288,7 +288,7 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy__c&quot;,
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy__c&quot;,
     &quot;type&quot; : &quot;SObject&quot;
   },
   &quot;options&quot; : [ ],
@@ -333,7 +333,7 @@
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy_2__c&quot;
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy__c&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;&quot;,
@@ -389,7 +389,7 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy_3__c&quot;,
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy__c&quot;,
     &quot;type&quot; : &quot;SObject&quot;
   },
   &quot;options&quot; : [ ],
@@ -483,12 +483,12 @@
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Sub_Remedy__c&quot;
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Sub_Remedy__c&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;ComplaintRemedy1&quot;,
     &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy__c&quot;
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy__c&quot;
   },
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
@@ -524,12 +524,12 @@
     }
   },
   &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy_2__c&quot;,
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy__c&quot;,
     &quot;type&quot; : &quot;SObject&quot;,
     &quot;element&quot; : &quot;ComplaintRemedy2&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Sub_Remedy_2__c&quot;,
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Sub_Remedy__c&quot;,
     &quot;type&quot; : &quot;SObject&quot;
   },
   &quot;options&quot; : [ ],
@@ -574,12 +574,12 @@
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Sub_Remedy_3__c&quot;
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Sub_Remedy__c&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;ComplaintRemedy3&quot;,
     &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy_3__c&quot;
+    &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy__c&quot;
   },
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -970,7 +970,7 @@
     &quot;autoAdv&quot; : null
   } ],
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions&quot;,
+  &quot;helpText&quot; : &quot;A systemic issue arises as a result of a deficiency or error by ANZ that may impact multiple customers and results in customer detriment and/or a regulatory breach&quot;,
   &quot;help&quot; : true,
   &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
@@ -980,7 +980,7 @@
   &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Is this a possible systemic issue?&quot;,
+  &quot;label&quot; : &quot;Are any of the issues possibly systemic?&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
             <sequenceNumber>54.0</sequenceNumber>
@@ -1964,7 +1964,7 @@
         <childElements>
             <name>PossibleSystemicIssueCategory</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-            <isActive>true</isActive>
+            <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
@@ -2445,8 +2445,8 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;Which additional issues are systemic?&quot;,
-  &quot;required&quot; : false,
+  &quot;label&quot; : &quot;Which issue is possibly systemic?&quot;,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -2516,7 +2516,7 @@
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Describe why this complaint is likely to impact more than one customer&quot;,
+  &quot;helpText&quot; : &quot;Describe why this issue may impact multiple customers&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
@@ -2766,8 +2766,9 @@
       &quot;REALFormMAXID&quot; : &quot;REAL Form MAX ID/ServiceNow ID&quot;
     } ],
     &quot;sysIssueMap&quot; : [ {
-      &quot;isSystemicIssue&quot; : &quot;Is this a possible systematic issue?&quot;,
-      &quot;PossibleSystemicIssueCategory&quot; : &quot;Possible Systemic Issue Category&quot;
+      &quot;WhyIsThisPossibleSystemicIssue&quot; : &quot;Why is this a possible systemic issue?&quot;
+    }, {
+      &quot;WhichAdditionalIssuesaereSystemic&quot; : &quot;Which issue is possibly systemic&quot;
     } ],
     &quot;cacMap&quot; : [ {
       &quot;ParentCase-Block&quot; : &quot;Parent Case&quot;
@@ -2889,5 +2890,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>e257b6b4-8b48-8b72-cd1e-899dd71f8002</webComponentKey>
+    <webComponentKey>1ebbc5b8-1b36-7ad0-4e1f-5a6777e0fd96</webComponentKey>
 </OmniScript>

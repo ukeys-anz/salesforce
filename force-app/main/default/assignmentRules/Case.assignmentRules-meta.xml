@@ -167,10 +167,5 @@
                 AND(ISNEW(), RecordType.DeveloperName = &quot;Credit_Referral&quot;, Case_Authority_Level__c != &quot;NO CAD&quot;)
             </formula>
         </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Digital_Fraud_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND(ISNEW(), RecordType.DeveloperName = &quot;General_Inquiry&quot;,  ISPICKVAL(Type,&quot;Fraud&quot;),  BOH_Fraud_Case__c = TRUE)</formula>
-        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

@@ -549,7 +549,7 @@
 }</customJavaScript>
     <description>The IP is used to create Case.</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>true</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -559,7 +559,6 @@
     <name>CreateCase</name>
     <omniProcessElements>
         <name>DRCloseCase</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -591,7 +590,6 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>DRCreateCase</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -623,7 +621,6 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>ResponseAction</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -650,7 +647,6 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>TransformCaseDetails</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>

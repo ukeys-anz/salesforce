@@ -1,51 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customValue>
-        <fullName>About Us</fullName>
-        <default>false</default>
-        <label>About Us</label>
-    </customValue>
-    <customValue>
-        <fullName>Cards</fullName>
-        <default>false</default>
-        <label>Cards</label>
-    </customValue>
-    <customValue>
-        <fullName>Money</fullName>
-        <default>false</default>
-        <label>Money</label>
-    </customValue>
-    <customValue>
-        <fullName>Payments</fullName>
-        <default>false</default>
-        <label>Payments</label>
-    </customValue>
-    <customValue>
-        <fullName>Profile</fullName>
-        <default>false</default>
-        <label>Profile</label>
-    </customValue>
-    <customValue>
-        <fullName>Fraud</fullName>
-        <default>false</default>
-        <label>Fraud</label>
-    </customValue>
-    <customValue>
-        <fullName>Financial Wellbeing</fullName>
-        <default>false</default>
-        <label>Financial Wellbeing</label>
-    </customValue>
-    <customValue>
-        <fullName>Other Enquiries</fullName>
-        <default>false</default>
-        <label>Other Enquiries</label>
-    </customValue>
-    <customValue>
-        <fullName>Deceased Estate</fullName>
-        <default>false</default>
-        <label>Deceased Estate</label>
-    </customValue>
-    <customValue>
         <fullName>9</fullName>
         <default>false</default>
         <label>Service quality</label>
@@ -146,189 +101,279 @@
         <label>Remediation</label>
     </customValue>
     <customValue>
-        <fullName>App Support</fullName>
+        <fullName>11</fullName>
         <default>false</default>
-        <label>App Support</label>
-    </customValue>
-    <customValue>
-        <fullName>Bug Report &amp; Feature</fullName>
-        <default>false</default>
-        <label>Bug Report &amp; Feature</label>
-    </customValue>
-    <customValue>
-        <fullName>Coaching</fullName>
-        <default>false</default>
-        <label>Coaching</label>
-    </customValue>
-    <customValue>
-        <fullName>Customer Feedback (NPS)</fullName>
-        <default>false</default>
-        <label>Customer Feedback (NPS)</label>
-    </customValue>
-    <customValue>
-        <fullName>Customer Update &amp; Details</fullName>
-        <default>false</default>
-        <label>Customer Update &amp; Details</label>
-    </customValue>
-    <customValue>
-        <fullName>Dispute</fullName>
-        <default>false</default>
-        <label>Dispute</label>
-    </customValue>
-    <customValue>
-        <fullName>Join / KYC</fullName>
-        <default>false</default>
-        <label>Join / KYC</label>
-    </customValue>
-    <customValue>
-        <fullName>My Security</fullName>
-        <default>false</default>
-        <label>My Security</label>
-    </customValue>
-    <customValue>
-        <fullName>Product Information</fullName>
-        <default>false</default>
-        <label>Product Information</label>
-    </customValue>
-    <customValue>
-        <fullName>Transaction &amp; Savings enquiry</fullName>
-        <default>false</default>
-        <label>Transaction &amp; Savings enquiry</label>
-    </customValue>
-    <customValue>
-        <fullName>Dating &amp; Romance</fullName>
-        <default>false</default>
-        <label>Dating &amp; Romance</label>
-    </customValue>
-    <customValue>
-        <fullName>Investment</fullName>
-        <default>false</default>
-        <label>Investment</label>
+        <label>Other</label>
     </customValue>
     <customValue>
         <fullName>Remote Access</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Remote Access</label>
     </customValue>
     <customValue>
         <fullName>Business Email Compromise</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Business Email Compromise</label>
     </customValue>
     <customValue>
         <fullName>Threats &amp; Extortion</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Threats &amp; Extortion</label>
     </customValue>
     <customValue>
         <fullName>Fake Charity</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Fake Charity</label>
     </customValue>
     <customValue>
         <fullName>Jobs &amp; Employment</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Jobs &amp; Employment</label>
     </customValue>
     <customValue>
         <fullName>Unexpected Money/Winnings</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Unexpected Money/Winnings</label>
     </customValue>
     <customValue>
         <fullName>ID Takeover Mule</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>ID Takeover Mule</label>
     </customValue>
     <customValue>
         <fullName>Claimed no Knowledge</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Claimed no Knowledge</label>
     </customValue>
     <customValue>
         <fullName>Unable to Contact</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Unable to Contact</label>
     </customValue>
     <customValue>
         <fullName>Not a Recipient</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Not a Recipient</label>
     </customValue>
     <customValue>
         <fullName>Malware</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Malware</label>
     </customValue>
     <customValue>
         <fullName>Phishing</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Phishing</label>
     </customValue>
     <customValue>
         <fullName>Account Takeover</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Account Takeover</label>
     </customValue>
     <customValue>
         <fullName>Phone Porting</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Phone Porting</label>
     </customValue>
     <customValue>
         <fullName>Civil</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Civil</label>
     </customValue>
     <customValue>
         <fullName>Not Fraud</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Not Fraud</label>
     </customValue>
     <customValue>
         <fullName>Assisted PIN Recovery</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Assisted PIN Recovery</label>
     </customValue>
     <customValue>
         <fullName>Assisted Verification</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Assisted Verification</label>
     </customValue>
     <customValue>
         <fullName>Mobile Number Dispute</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Mobile Number Dispute</label>
     </customValue>
     <customValue>
         <fullName>Legal Name Update</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Legal Name Update</label>
     </customValue>
     <customValue>
-        <fullName>Awaiting Details</fullName>
+        <fullName>About Us</fullName>
         <default>false</default>
-        <label>Awaiting Details</label>
+        <isActive>false</isActive>
+        <label>About Us</label>
     </customValue>
     <customValue>
         <fullName>Not a Scam</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Not a Scam</label>
     </customValue>
     <customValue>
         <fullName>KYC QA Sample</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>KYC QA Sample</label>
     </customValue>
     <customValue>
         <fullName>Potential Recipient</fullName>
         <default>false</default>
+        <isActive>false</isActive>
         <label>Potential Recipient</label>
     </customValue>
     <customValue>
-        <fullName>11</fullName>
+        <fullName>Awaiting Details</fullName>
         <default>false</default>
-        <label>Other</label>
+        <isActive>false</isActive>
+        <label>Awaiting Details</label>
+    </customValue>
+    <customValue>
+        <fullName>Cards</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Cards</label>
+    </customValue>
+    <customValue>
+        <fullName>Money</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Money</label>
+    </customValue>
+    <customValue>
+        <fullName>Payments</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Payments</label>
+    </customValue>
+    <customValue>
+        <fullName>Profile</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Profile</label>
+    </customValue>
+    <customValue>
+        <fullName>Fraud</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Fraud</label>
+    </customValue>
+    <customValue>
+        <fullName>Financial Wellbeing</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Financial Wellbeing</label>
+    </customValue>
+    <customValue>
+        <fullName>Other Enquiries</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Other Enquiries</label>
+    </customValue>
+    <customValue>
+        <fullName>Deceased Estate</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Deceased Estate</label>
+    </customValue>
+    <customValue>
+        <fullName>App Support</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>App Support</label>
+    </customValue>
+    <customValue>
+        <fullName>Bug Report &amp; Feature</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Bug Report &amp; Feature</label>
+    </customValue>
+    <customValue>
+        <fullName>Coaching</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Coaching</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Feedback (NPS)</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Customer Feedback (NPS)</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Update &amp; Details</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Customer Update &amp; Details</label>
+    </customValue>
+    <customValue>
+        <fullName>Dispute</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Dispute</label>
+    </customValue>
+    <customValue>
+        <fullName>Join / KYC</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Join / KYC</label>
+    </customValue>
+    <customValue>
+        <fullName>My Security</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>My Security</label>
+    </customValue>
+    <customValue>
+        <fullName>Product Information</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Product Information</label>
+    </customValue>
+    <customValue>
+        <fullName>Transaction &amp; Savings enquiry</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Transaction &amp; Savings enquiry</label>
+    </customValue>
+    <customValue>
+        <fullName>Dating &amp; Romance</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Dating &amp; Romance</label>
+    </customValue>
+    <customValue>
+        <fullName>Investment</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Investment</label>
     </customValue>
     <masterLabel>Issue Type</masterLabel>
     <sorted>false</sorted>

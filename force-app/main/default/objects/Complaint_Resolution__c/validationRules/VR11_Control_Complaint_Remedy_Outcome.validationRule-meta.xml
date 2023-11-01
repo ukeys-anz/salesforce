@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR11_Control_Complaint_Remedy_Outcome</fullName>
+    <active>true</active>
+    <description>This is to control the Financial and Non-FInancial Compensation field based on Complaint Remedy selection</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+NOT( ISNEW() ),
+OR( IDR_Complaint__r.RecordType.DeveloperName  = &apos;Non_Customer_Complaint&apos; || IDR_Complaint__r.RecordType.DeveloperName = &apos;Customer_Complaint&apos;
+),
+OR(
+AND(
+ISPICKVAL( IDR_Complaint_Remedy__c , &apos;1&apos;),
+OR(
+ISBLANK( IDR_Financial_Compensation__c ),
+(IDR_Financial_Compensation__c &lt;=0)
+)
+),
+AND(
+ISPICKVAL( IDR_Complaint_Remedy__c , &apos;2&apos;),
+OR(
+NOT(ISBLANK(IDR_Financial_Compensation__c))
+)
+)
+)
+)</errorConditionFormula>
+    <errorMessage>Financial compensation or non-financial remedy must be populated based on the selection in complaint remedy and the other field must be left blank.</errorMessage>
+</ValidationRule>

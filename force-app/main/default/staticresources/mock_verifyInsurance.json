@@ -1,0 +1,41 @@
+{
+  "settlement_id": "a600a5d5-9db0-4e40-92d3-c4cf1e012f8f",
+  "mortgage_contract_id": "33a5fffb-4e66-48e5-b0ad-b03aeb696a2d",
+  "property_id": "66f1edc8-9d7d-4723-b10d-c51767104d4f",
+  "document": {
+    "id": "4ee5a832-1980-43f2-b795-13cb6eb51a4c",
+    "create_time": {
+      "seconds": 1697501733
+    },
+    "state": 1,
+    "document_storage_id": "40c2bbef-ecac-4b18-ac89-2d48f7c30669",
+    "document_storage_status": 2,
+    "document_file_details": [
+      {
+        "document_file_id": "40c2bbef-ecac-4b18-ac89-2d48f7c30669",
+        "document_file_version": 1,
+        "document_file_status": 4
+      }
+    ],
+    "source": 1
+  },
+  "proof_of_insurance_verification": {
+    "state": "STATE_VERIFIED",
+    "document_id": "4ee5a832-1980-43f2-b795-13cb6eb51a4c",
+    "document_file_version": 1,
+    "create_by": {
+      "id": "139d6067-2c19-4624-9e4f-cd569eebe612"
+    },
+    "create_time": {
+      "seconds": 1697501698,
+      "nanos": 439973446
+    },
+    "update_by": {
+      "id": "139d6067-2c19-4624-9e4f-cd569eebe612"
+    },
+    "update_time": {
+      "seconds": 1697501698,
+      "nanos": 439973597
+    }
+  }
+}

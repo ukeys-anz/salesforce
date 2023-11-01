@@ -21,7 +21,7 @@
         <field>Type</field>
         <literalValue>Fraud</literalValue>
     </fieldOverrides>
-    <label>Create a Fraud Case</label>
+    <label>Create Fraud Case</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>

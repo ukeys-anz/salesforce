@@ -391,6 +391,7 @@
         "IDR_Portfolio_or_Business_Unit__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "Is_Case_Owned_By_CR_Team__c",
         "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
         "Queue__c",
@@ -776,6 +777,7 @@
         "IDR_Issue_Type_2__c",
         "IDR_Issue_Type_3__c",
         "IDR_Masked_CFMS__c",
+        "IDR_Complaint_Resolution_Count__c",
         "IDR_Milestone_Sla__c",
         "IDR_NC_Business_Name__c",
         "IDR_NC_Is_Consent_Obtained__c",
@@ -809,6 +811,7 @@
         "IDR_Systemic_Issue_Description__c",
         "IDR_Third_Issue__c",
         "IDR_Time_To_Escalation__c",
+        "IDR_Total_Financial_Amount__c",
         "IDR_Total_Financial_Compensation__c",
         "IsClosedOnCreate",
         "IsEscalated",
@@ -1243,6 +1246,19 @@
         "CustomerOnboardingApplication__c"
       ]
     },
+    "Complaint_Resolution__c": {
+      "IA-2468715": [
+        "IDR_Complaint__c",
+        "IDR_Complaint_Remedy__c",
+        "IDR_Complaint_Sub_Remedy__c",
+        "IDR_Duration_of_Remedy__c",
+        "IDR_Financial_Compensation__c",
+        "IDR_Financial_Remedy_Points__c",
+        "IDR_Other_Remedy_Provided__c",
+        "IDR_Provided_details_to_Manufacturer__c"
+      ]
+    },
+
     "Contact": {
       "IA-2468715": [
         "AccountId",
@@ -1434,8 +1450,21 @@
         "District_CTA__c",
         "CPID_CancelFag__c",
         "Last_CHT_Load_Date__c",
-        "Last_CAP_Load_Date__c"
+        "Last_CAP_Load_Date__c",
+        "CPID_Start_Date__c"
       ]
+    },
+    "Customer_Action__c": {
+      "IA-2415840": [
+        "Settlement__c",
+        "Task_Id__c",
+        "Task_Name__c",
+        "Category__c",
+        "Status__c",
+        "Role__c"
+      ],
+      "IA-2530753": ["Created__c", "Completed__c"],
+      "IA-2415998": ["Eligible_to_Complete__c"]
     },
     "CustomerOnboardingApplication__c": {
       "IA-2594111": [
@@ -1923,18 +1952,33 @@
         "OwnerId"
       ],
       "IA-2453595": [
+        "IDR_Account_Card_Policy_Number_2__c",
+        "IDR_Account_Card_Policy_Number_3__c",
         "IDR_Complaint_Outcome__c",
         "IDR_Complaint_Remedy__c",
+        "IDR_Complaint_Remedy_2__c",
+        "IDR_Complaint_Remedy_3__c",
+        "IDR_Complaint_Sub_Remedy_1__c",
+        "IDR_Complaint_Sub_Remedy_2__c",
+        "IDR_Complaint_Sub_Remedy_3__c",
         "IDR_Customer_Desired_Outcome__c",
         "IDR_Description_of_Issue__c",
         "IDR_Description_of_Outcome__c",
         "IDR_Is_there_another_issue__c",
         "IDR_Issue_Type__c",
+        "IDR_Issue_Type_2__c",
+        "IDR_Issue_Type_3__c",
         "IDR_Non_Financial_Remedy__c",
         "IDR_Possible_Systemic_Issue__c",
+        "IDR_Product_2__c",
+        "IDR_Product_3__c",
         "IDR_REAL_Form_Required__c",
+        "IDR_Second_Issue__c",
+        "IDR_Third_Issue__c",
         "IDR_Status__c",
         "IDR_Sub_Issue_Type__c",
+        "IDR_Subsequent_Issue_2__c",
+        "IDR_Subsequent_Issue_3__c",
         "IDR_Written_Response_Requested__c",
         "IDR_Written_Response_Required__c",
         "IDR_Channel_Received__c",
@@ -2158,7 +2202,8 @@
       "IA-2530753": [
         "Invitation_Last_Updated_Date__c",
         "Invitation_Expiry_Date__c",
-        "Created_Date__c"
+        "Created_Date__c",
+        "Version__c"
       ],
       "IA-2415984": ["Invitee_Mobile_Number__c", "Inviter_Legal_name__c"]
     },
@@ -2593,6 +2638,17 @@
         "LastModifiedById",
         "LastModifiedDate"
       ]
+    },
+    "Proof_of_Insurance__c": {
+      "IA-2415840": [
+        "External_Id__c",
+        "Mortgage_Contract_ID__c",
+        "Property_ID__c",
+        "Document_Id__c",
+        "Document_File_Version__c",
+        "Settlement_ID__c"
+      ],
+      "IA-2530753": ["Version__c"]
     },
     "qualtrics__Survey_Response__c": {
       "IA-2415840": [
@@ -3034,6 +3090,30 @@
         "SpanId__c",
         "RecordsJson__c"
       ]
+    },
+    "Settlement__c": {
+      "IA-2415840": ["Settlement_ID__c", "Nominated_Date__c"],
+      "IA-2594111": ["Loan_Application_Number__c"],
+      "IA-2415983": ["Status__c", "Nominated_Account_State__c"],
+      "IA-2530753": [
+        "Created__c",
+        "Last_Modified__c",
+        "Status_Last_Modified_Date__c",
+        "Credit_Assessment_Expiry_date__c",
+        "Type__c",
+        "Owner_Name__c",
+        "Nominated_Account_Version__c",
+        "Repayment_Account_Version__c",
+        "Version__c"
+      ],
+      "IA-2415720": [
+        "Nominated_BSB__c",
+        "Nominated_Account_Number__c",
+        "Repayment_Account_Number__c"
+      ],
+      "IA-2415998": ["Nominated_by__c"],
+      "IA-2427117": ["Repayment_Id__c", "Frequency__c"],
+      "IA-2426363": ["Repayment_BSB__c"]
     },
     "Task": {
       "IA-2453595": [

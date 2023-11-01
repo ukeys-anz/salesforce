@@ -139,13 +139,13 @@ public with sharing class TransactionHistoryModelConverterHelper {
    * @description Transaction Initiator Name Mapping
    * @param sourcePersonaId PersonaId received from staffToken
    * @param mapPersonaIdAndCustomerName  Map holding Pesona Id and Customer Name
-   * @param transactiontype Type of Transaction record
+   * @param amount Amount of the transaction : Passed to determine if its a incoming transactions
    * @return the name of the person who initiates the transaction
    */
   public static String convertPersonaIdtoTransactionInitiator(
     String sourcePersonaId,
     Map<String, String> mapPersonaIdAndCustomerName,
-    TransactionHistoryModel.FieldValue transactiontype
+    TransactionHistoryModel.Amount amount
   ) {
     String desttransactionInitiator;
     if (sourcePersonaId != null && mapPersonaIdAndCustomerName != null) {
@@ -153,15 +153,12 @@ public with sharing class TransactionHistoryModelConverterHelper {
         desttransactionInitiator = mapPersonaIdAndCustomerName.get(
           sourcePersonaId
         );
-      } else if (
-        (transactiontype == null) ||
-        (transactiontype != null &&
-        transactiontype.value != GetHelpConstants.TRANSFER_INCOMING)
-      ) {
-        // Add co-owner only if its not a credit transaction i.e TRANSFER_INCOMING
+      } else if ((amount == null) || (amount != null && amount.value < 0)) {
+        // Add co-owner only if its not a credit transaction i.e amount is less than zero
         desttransactionInitiator = GetHelpConstants.CO_OWNER;
       }
-    } else {
+    } else if ((amount == null) || (amount != null && amount.value < 0)) {
+      // Add this customer only if its not a credit transaction i.e amount is less than zero
       desttransactionInitiator = GetHelpConstants.THIS_CUSTOMER;
     }
     return desttransactionInitiator;
