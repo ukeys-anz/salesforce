@@ -6,7 +6,7 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRQualityAssessmentActions {
-  public static final String COMPLETION_ERROR = 'Team Manager Response is required before Completing an Assessment.';
+  //  public static final String COMPLETION_ERROR = 'Team Manager Response is required before Completing an Assessment.';
   // Field Names must be all lower case
   public static final Set<String> MODIFIABLE_FIELDS = new Set<String>{
     'status__c',
@@ -168,6 +168,7 @@ public with sharing class IDRQualityAssessmentActions {
           ) {
             //Set Assessment Completion date to current date and time on assessment closure.
             oAssessment.Assessment_Completion_Date__c = System.now();
+            /*
             if (
               oAssessment.RecordTypeId ==
               IDRConstants.idrtCQQualityAssessment &&
@@ -175,6 +176,7 @@ public with sharing class IDRQualityAssessmentActions {
             ) {
               oAssessment.addError(COMPLETION_ERROR);
             }
+*/
             for (Schema.FieldSetMember field : oFieldSet.getFields()) {
               if (((SObject) oAssessment).get(field.getFieldPath()) == null) {
                 oAssessment.addError(
