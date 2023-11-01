@@ -138,17 +138,18 @@ public class TransactionHistoryModelConverter {
         destTransaction.is_npp_details_available = sourceTransaction.open_banking.detail_available;
       }
 
-      //Transaction Initiator Name Mapping
-      destTransaction.transactionInitiator = TransactionHistoryModelConverterHelper.convertPersonaIdtoTransactionInitiator(
-        sourceTransaction.persona_id,
-        mapPersonaIdAndCustomerName,
-        destTransaction.ob_transaction_type
-      );
-
       //Amount Mapping
       if (sourceTransaction.amount != null) {
         destTransaction.amount = convertAmount(sourceTransaction.amount);
       }
+
+      //Transaction Initiator Name Mapping
+      destTransaction.transactionInitiator = TransactionHistoryModelConverterHelper.convertPersonaIdtoTransactionInitiator(
+        sourceTransaction.persona_id,
+        mapPersonaIdAndCustomerName,
+        destTransaction.amount
+      );
+
       //InternationalAmount Mapping
       if (sourceTransaction.international != null) {
         destTransaction.international_amount = convertInternationalAmount(

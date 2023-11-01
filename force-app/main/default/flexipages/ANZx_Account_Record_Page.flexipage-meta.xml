@@ -220,6 +220,12 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>CustomerCommRecord</componentName>
+                <identifier>c_CustomerCommRecord</identifier>
+            </componentInstance>
+        </itemInstances>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>

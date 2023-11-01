@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Total_Financial_Amount__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Total of all financial amounts provided</description>
+    <externalId>false</externalId>
+    <label>Total Financial Amount</label>
+    <securityClassification>Internal</securityClassification>
+    <summarizedField>Complaint_Resolution__c.IDR_Financial_Compensation__c</summarizedField>
+    <summaryForeignKey>Complaint_Resolution__c.IDR_Complaint__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

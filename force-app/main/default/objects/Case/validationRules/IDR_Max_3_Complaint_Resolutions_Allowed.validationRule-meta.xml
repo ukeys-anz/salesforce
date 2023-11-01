@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Max_3_Complaint_Resolutions_Allowed</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,IDR_Complaint_Resolution_Count__c &gt; 3)</errorConditionFormula>
+    <errorMessage>Cannot create more than 3 Complaint Resolutions</errorMessage>
+</ValidationRule>

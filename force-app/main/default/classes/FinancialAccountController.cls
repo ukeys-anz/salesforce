@@ -193,44 +193,42 @@ public with sharing class FinancialAccountController {
     Id ownerId,
     List<String> recordTypeDeveloperNames
   ) {
-    List<FinServ__FinancialAccount__c> financialAccount;
-    if (
-      PermissionUtils.canQuery('FinServ__FinancialAccount__c') &&
-      PermissionUtils.canQuery('FinServ__FinancialAccountRole__c') &&
-      String.isNotBlank(ownerId) &&
-      !recordTypeDeveloperNames.isEmpty()
-    ) {
-      //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
-      //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
-      List<String> allAccountNumbersRelated = getAllAccountNumberFromFAR(
-        ownerId
-      );
-      financialAccount = [
-        SELECT
-          Id,
-          Name,
-          FinServ__Balance__c,
-          FinServ__CurrentPostedBalance__c,
-          FinServ__CloseDate__c,
-          FinServ__FinancialAccountNumber__c,
-          FinServ__Status__c,
-          FinServ__OpenDate__c,
-          RecordType.DeveloperName,
-          LastModifiedDate,
-          Ownership__c,
-          OCV_ID__c
-        FROM FinServ__FinancialAccount__c
-        WHERE
-          (FinServ__PrimaryOwner__c = :ownerId
-          OR FinServ__FinancialAccountNumber__c IN :allAccountNumbersRelated)
-          AND RecordType.DeveloperName IN :recordTypeDeveloperNames
-        ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
-      ];
+    List<FinServ__FinancialAccount__c> financialAccount = new List<FinServ__FinancialAccount__c>();
+    try {
+      PermissionUtils.canQuery('FinServ__FinancialAccount__c');
+      PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
+      if (String.isNotBlank(ownerId) && !recordTypeDeveloperNames.isEmpty()) {
+        //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
+        //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
+        List<String> allAccountNumbersRelated = getAllAccountNumberFromFAR(
+          ownerId
+        );
+        financialAccount = [
+          SELECT
+            Id,
+            Name,
+            FinServ__Balance__c,
+            FinServ__CurrentPostedBalance__c,
+            FinServ__CloseDate__c,
+            FinServ__FinancialAccountNumber__c,
+            FinServ__Status__c,
+            FinServ__OpenDate__c,
+            RecordType.DeveloperName,
+            LastModifiedDate,
+            Ownership__c,
+            OCV_ID__c
+          FROM FinServ__FinancialAccount__c
+          WHERE
+            (FinServ__PrimaryOwner__c = :ownerId
+            OR FinServ__FinancialAccountNumber__c IN :allAccountNumbersRelated)
+            AND RecordType.DeveloperName IN :recordTypeDeveloperNames
+          ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
+        ];
+      }
+    } catch (Exception objException) {
+      Logger.error(objException.getMessage(), objException);
+      Logger.saveLog();
     }
-    if (financialAccount.isEmpty()) {
-      return null;
-    }
-
     return financialAccount;
   }
 

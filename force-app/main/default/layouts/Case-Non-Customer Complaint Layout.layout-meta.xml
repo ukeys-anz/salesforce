@@ -361,7 +361,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>IDR_Total_Financial_Compensation__c</field>
+                <field>IDR_Total_Financial_Amount__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -493,10 +493,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Is_Common__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IDR_Systemic_Issue_Category__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -783,6 +779,18 @@
         <fields>URL__c</fields>
         <fields>Description__c</fields>
         <relatedList>CFMS_Migrated_Document__c.Parent_Complaint__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>NAME</fields>
+        <fields>IDR_Complaint_Remedy__c</fields>
+        <fields>IDR_Complaint_Sub_Remedy__c</fields>
+        <fields>IDR_Duration_of_Remedy__c</fields>
+        <fields>IDR_Other_Remedy_Provided__c</fields>
+        <fields>IDR_Financial_Compensation__c</fields>
+        <fields>IDR_Provided_details_to_Manufacturer__c</fields>
+        <fields>IDR_Financial_Remedy_Points__c</fields>
+        <relatedList>Complaint_Resolution__c.IDR_Complaint__c</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>

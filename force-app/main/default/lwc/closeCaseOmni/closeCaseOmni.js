@@ -5,6 +5,7 @@ const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
 const REFERRED_TO_PRODUCT = "3";
 const OTHER = "99";
+const REMS = ["1", "10", "18"];
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -50,10 +51,13 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.modalMsg = "";
         if (res.result && res.result.IPResult && res.result.IPResult.result) {
           let errorPath = res.result.IPResult.result.errorsAsJson;
-          if (errorPath.DRError) {
+          if (errorPath && errorPath.DRError) {
             this.modalMsg =
               "Update Failed: You are not authorized to make updates to this field.";
             this.showModal = true;
+          } else {
+            let url = window.location.origin + "/" + this.omniJsonData.recordId;
+            window.open(url, "_self");
           }
         } else {
           let url = window.location.origin + "/" + this.omniJsonData.recordId;
@@ -86,6 +90,11 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       !details.rewardPoints1
     )
       this.missingFields.push("Reward Points 1");
+    if (
+      REMS.includes(details.ComplaintRemedy1) &&
+      !details.PaymentAmountProvided1
+    )
+      this.missingFields.push("Payment Amount Provided 1");
     if (details.SecondComplaintCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.secCmpMap);
       if (
@@ -107,6 +116,11 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         !details.rewardPoints2
       )
         this.missingFields.push("Reward Points 2");
+      if (
+        REMS.includes(details.ComplaintRemedy2) &&
+        !details.PaymentAmountProvided2
+      )
+        this.missingFields.push("Payment Amount Provided 2");
     }
     if (details.ThirdComplaintCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.thirdCmpMap);
@@ -129,6 +143,11 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         !details.rewardPoints3
       )
         this.missingFields.push("Reward Points 3");
+      if (
+        REMS.includes(details.ComplaintRemedy3) &&
+        !details.PaymentAmountProvided3
+      )
+        this.missingFields.push("Payment Amount Provided 3");
     }
     if (details.realFormRequired === "Yes")
       this.checkFields(details, this.omniJsonData.realFormMap);

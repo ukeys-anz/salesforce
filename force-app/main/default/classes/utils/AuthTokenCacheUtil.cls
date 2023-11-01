@@ -320,43 +320,45 @@ public with sharing class AuthTokenCacheUtil {
     Map<String, String> mapPersonaIdAndCustomerName = new Map<String, String>();
     List<String> listOcvId = new List<String>();
     try {
-      String token = AuthTokenCacheUtil.getStaffToken(
-        Service.IdType.OCVID,
-        idValue
-      );
+      String token = getStaffToken(Service.IdType.OCVID, idValue);
       List<String> tokenParts = token.split('\\.');
-      if (tokenParts.size() > 2) {
-        String decodedString = EncodingUtil.base64Decode(
-            CommonUtil.base64URLToBase64(tokenParts[1])
-          )
-          .toString();
-        Map<String, Object> tokenMap = (Map<String, Object>) (JSON.deserializeUntyped(
-          decodedString
-        ));
+      if (tokenParts.size() < 2) {
+        throw new TokenCacheException(
+          'Invalid format when checking token validity'
+        );
+      }
 
-        // checking if '_id' node exists for fetching the persona Id
-        if (tokenMap.containsKey('rqf')) {
-          Map<String, Object> rqfNode = (Map<String, Object>) tokenMap.get(
-            'rqf'
+      String decodedString = EncodingUtil.base64Decode(
+          CommonUtil.base64URLToBase64(tokenParts[1])
+        )
+        .toString();
+      Map<String, Object> tokenMap = (Map<String, Object>) (JSON.deserializeUntyped(
+        decodedString
+      ));
+
+      // checking if '_id' node exists for fetching the persona Id
+      if (tokenMap.containsKey('rqf')) {
+        Map<String, Object> rqfNode = (Map<String, Object>) tokenMap.get('rqf');
+        if (
+          rqfNode.containsKey('persona') &&
+          ((Map<String, Object>) rqfNode.get('persona')).containsKey('_id')
+        ) {
+          personaId = (String) ((Map<String, Object>) rqfNode.get('persona'))
+            .get('_id');
+          listOcvId.add(idValue);
+          Map<String, Account> mapOcvIdAccount = AccountQueryHelper.findAccountsByOCVId(
+            listOcvId
           );
-          if (
-            rqfNode.containsKey('persona') &&
-            ((Map<String, Object>) rqfNode.get('persona')).containsKey('_id')
-          ) {
-            personaId = (String) ((Map<String, Object>) rqfNode.get('persona'))
-              .get('_id');
-            listOcvId.add(idValue);
-            Map<String, Account> mapOcvIdAccount = AccountQueryHelper.findAccountsByOCVId(
-              listOcvId
-            );
-            Account acc = mapOcvIdAccount.get(idValue);
-            mapPersonaIdAndCustomerName.put(personaId, acc.FirstName);
-          }
+          Account acc = mapOcvIdAccount.get(idValue);
+          mapPersonaIdAndCustomerName.put(personaId, acc.FirstName);
         }
       }
+
       return mapPersonaIdAndCustomerName;
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
+      Logger.error(
+        'Unable to retrieve customer name from persona id which is in staff JWT token.'
+      );
       Logger.saveLog();
       return null;
     }

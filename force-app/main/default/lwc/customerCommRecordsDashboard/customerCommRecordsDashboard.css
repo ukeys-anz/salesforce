@@ -1,0 +1,16 @@
+.card-article {
+  padding-top: 3px;
+}
+
+.card-title {
+  background: #f3f3f3;
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 0.25em;
+  font-weight: bold;
+}
+
+.div-no-files {
+  padding: 2em 0 2em 0;
+}
