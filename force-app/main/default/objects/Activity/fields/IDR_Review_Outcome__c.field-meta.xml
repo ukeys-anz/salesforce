@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Review_Outcome__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>This field is used to review correspondence tasks.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Only applicable for New Correspondence Received on Closed Complaints. The &apos;Review Outcome&apos; field must be selected once additional correspondence has been reviewed and necessary action taken. The task cannot be marked as &apos;Completed&apos; until field is populated.</inlineHelpText>
+    <label>Review Outcome</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No action required</fullName>
+                <default>false</default>
+                <label>No action required</label>
+            </value>
+            <value>
+                <fullName>Actioned on closed complaint</fullName>
+                <default>false</default>
+                <label>Actioned on closed complaint</label>
+            </value>
+            <value>
+                <fullName>New complaint</fullName>
+                <default>false</default>
+                <label>New complaint</label>
+            </value>
+            <value>
+                <fullName>Reopened</fullName>
+                <default>false</default>
+                <label>Reopened</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
