@@ -4,11 +4,12 @@
     <columns>NAME</columns>
     <columns>Evaluation_Type__c</columns>
     <columns>Related_Case__c</columns>
-    <columns>Customer__c</columns>
+    <columns>Customer_Name__c</columns>
     <columns>CREATEDBY_USER</columns>
     <columns>Case_Manager_Score__c</columns>
     <columns>Assessment_Completion_Date__c</columns>
     <columns>UPDATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
@@ -24,7 +25,6 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <filterScope>Everything</filterScope>
     <label>My Evaluations</label>
     <sharedTo>
         <role>Customer_Resolution</role>
