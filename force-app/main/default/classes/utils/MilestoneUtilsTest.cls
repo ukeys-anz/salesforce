@@ -29,6 +29,7 @@ private class MilestoneUtilsTest {
       caseList.add(
         new Case(
           RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          Type = 'Deceased Estate',
           AccountId = acc.Id,
           Status = 'Open'
         )

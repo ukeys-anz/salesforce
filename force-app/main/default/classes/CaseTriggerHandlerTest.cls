@@ -911,6 +911,7 @@ private class CaseTriggerHandlerTest {
         new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
       );
     }
+    Test.startTest();
     // WHEN they are inserted
     insert newCases;
     // THEN office field matches the case owner's
@@ -951,6 +952,7 @@ private class CaseTriggerHandlerTest {
       WHERE UserName = 'idruser@anztest.com'
     ];
     c = [SELECT IDR_Office__c FROM Case WHERE id = :newCases[0].id];
+    Test.stopTest();
     System.assertEquals(
       idrUser.Division,
       c.IDR_Office__c,
@@ -1609,12 +1611,20 @@ private class CaseTriggerHandlerTest {
       LIMIT 1
     ];
 
+    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
+      PersonaId__c = 'dsfsadfasdf',
+      OCVId__c = '4324234234',
+      SecurityMobile__c = '61400000000'
+    );
+    insert cob;
+
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = new List<Id>(CheckCaseRecordType.FRAUD_RT_IDS)[4],
           Type = 'KYC QA Sample',
-          AccountId = acc.Id
+          AccountId = acc.Id,
+          CustomerOnboardingApplication__c = cob.Id
         )
       );
     }
@@ -1643,6 +1653,7 @@ private class CaseTriggerHandlerTest {
   //Tests duration hours field is populated during closure time
   @isTest
   static void testUpdateCaseDurationTime() {
+    Test.startTest();
     Case newCase = new Case();
     newCase.IDR_Customer_Number__c = '123456789012';
     insert newCase;
@@ -1659,6 +1670,7 @@ private class CaseTriggerHandlerTest {
       FROM Case
       WHERE Id = :newCase.Id
     ];
+    Test.stopTest();
     System.assert(
       newCase.Case_Hour_Duration__c >= 0,
       'New case duration time hour should be as expected.'
@@ -2640,12 +2652,20 @@ private class CaseTriggerHandlerTest {
       LIMIT 1
     ];
 
+    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
+      PersonaId__c = 'dsfsadfasdf',
+      OCVId__c = '4324234234',
+      SecurityMobile__c = '61400000000'
+    );
+    insert cob;
+
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
           Type = 'KYC QA Sample',
-          AccountId = acc.Id
+          AccountId = acc.Id,
+          CustomerOnboardingApplication__c = cob.Id
         )
       );
     }
@@ -2799,47 +2819,6 @@ private class CaseTriggerHandlerTest {
     );
   }
 
-  // Test Prevent Duplicate KYC QA Against a Customer (Account)
-  @isTest
-  public static void testValidateDuplicateKYCQACasePerAccount() {
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-    Account customerAccount1 = accounts[0];
-
-    Case kycqa1 = new Case(
-      AccountId = customerAccount1.Id,
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      Status = 'Open',
-      Origin = 'Origination',
-      Priority = 'Medium'
-    );
-
-    insert kycqa1;
-
-    Case kycqa2 = new Case(
-      AccountId = customerAccount1.Id,
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      Status = 'Open',
-      Origin = 'Origination',
-      Priority = 'Medium'
-    );
-
-    Test.startTest();
-    try {
-      insert kycqa2;
-      System.assert(false, 'Failed to detect existing KYC QA case');
-    } catch (DmlException e) {
-      System.assert(
-        e.getMessage().contains(GetHelpCaseActions.DUPLICATE_KYCQA_ERROR),
-        'Exception thrown, error message does not reflect duplicate KYC QA error'
-      );
-    }
-    Test.stopTest();
-  }
-
   @IsTest
   static void testATMDisputeCase() {
     String recordTypeDeveloperName = 'ATM_Dispute';
@@ -2959,7 +2938,6 @@ private class CaseTriggerHandlerTest {
     } catch (DmlException e) {
       System.assert(false, 'Failed to create dispute case');
     }
-    Test.stopTest();
     String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
     theCase = Database.query(
       'Select Id, ' +
@@ -2980,6 +2958,7 @@ private class CaseTriggerHandlerTest {
     } catch (DmlException e) {
       System.assert(false, 'Failed to create dispute case');
     }
+    Test.stopTest();
     verifyDuplicateDispute(theCase, recordTypeDeveloperName);
   }
 
@@ -3453,9 +3432,10 @@ private class CaseTriggerHandlerTest {
 
   @isTest
   static void testEmailTaskOnCaseClosureCreation() {
-    Test.startTest();
     User usr = TestUtil.getUserByFirstName('IntegrationTest');
     Case theCase;
+
+    Test.startTest();
     System.runAs(usr) {
       String recordTypeDeveloperName = 'Card_Dispute';
       List<Account> accountsList = [
@@ -3587,6 +3567,92 @@ private class CaseTriggerHandlerTest {
     ];
     Assert.isTrue(taskList.isEmpty(), 'No Task should be created');
   }
+
+  private static CustomerOnboardingApplication__c createCOBApp(
+    String mobileNumber
+  ) {
+    CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
+      SecurityMobile__c = mobileNumber
+    );
+
+    return cobApp;
+  }
+
+  private static List<CustomerOnboardingApplication__c> getCOBApps() {
+    return [SELECT Id, SecurityMobile__c FROM CustomerOnboardingApplication__c];
+  }
+
+  private static Case createKYCQACase(Id cobAppId, Id caseOwnerId) {
+    Case c = new Case(
+      Status = GetHelpConstants.OPEN_STATUS,
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      CustomerOnboardingApplication__c = cobAppid,
+      OwnerId = caseOwnerId
+    );
+
+    return c;
+  }
+
+  private static List<Case> getKYCQACases() {
+    return [
+      SELECT Id, AccountId, ContactId, ContactMobile, EntitlementId
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+    ];
+  }
+
+  private static List<Case> getCasesLinkedWithAccount() {
+    return [
+      SELECT Id, AccountId, ContactId, ContactMobile, EntitlementId
+      FROM Case
+      WHERE AccountId != NULL AND ContactId != NULL AND EntitlementId != NULL
+    ];
+  }
+
+  private static List<Case> getCasesWithNoAccount() {
+    return [SELECT Id, OwnerId FROM Case WHERE AccountId = NULL];
+  }
+
+  private static List<Case> getCasesWithAccountNoCOB() {
+    return [
+      SELECT Id, OwnerId
+      FROM Case
+      WHERE AccountId != NULL AND CustomerOnboardingApplication__c = NULL
+    ];
+  }
+
+  private static Account createPersonAccount(String mobileNumber) {
+    Faker faker = new Faker('AU');
+    Account acc = new Account(
+      FirstName = faker.person.firstName(),
+      LastName = faker.person.lastName(),
+      OCV_ID__c = faker.randomString(10),
+      PersonMobilePhone = mobileNumber,
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+    );
+
+    return acc;
+  }
+
+  private static List<Account> getPersonAccountByMobile(
+    List<String> mobilePhones
+  ) {
+    return [SELECT Id FROM Account WHERE PersonMobilePhone IN :mobilePhones];
+  }
+
+  private static List<Case> createKYCQACases(Id caswOwnerId) {
+    List<CustomerOnboardingApplication__c> cobApps = getCOBApps();
+
+    List<Case> kycQACases = new List<Case>();
+    for (CustomerOnboardingApplication__c cobApp : cobApps) {
+      kycQACases.add(createKYCQACase(cobApp.Id, caswOwnerId));
+    }
+
+    insert kycQACases;
+    return kycQACases;
+  }
+
   // Test Prevent BOH coach assigning invalid credit referral
   @isTest
   public static void testCreditReferralBOHInvalidAssignment() {

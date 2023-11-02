@@ -2,14 +2,20 @@
  * @author Batya Aisman Sufrin
  * @since 09/2023
  * @description Helper class for @link AutoKYCQACaseActions
+ * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
  */
 public with sharing class AutoKYCQACaseActionsHelper {
   public static final Group PENDING_KYC_QA_WO_CUSTOMER = CommonUtil.getQueueByName(
     'Pending_KYC_QA_No_Customer'
   );
 
+  @TestVisible
+  private static final String YES = 'Yes';
+  @TestVisible
+  private static final String NONE = null;
+
   /**
-   * @description Get Mobile Number and Case map
+   * @description Get Mobile Number and Case map - TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
    * @param oldCaseIds Set of old KYC QA Case Ids trigger.oldMap
    * @return Mobile Number and Case Id map
    */
@@ -37,7 +43,7 @@ public with sharing class AutoKYCQACaseActionsHelper {
   }
 
   /**
-   * @description Get Mobile Phones and Account map
+   * @description Get Mobile Phones and Account map - TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
    * @param mobileNumbers List of mobiles from COB Applications
    * @return Mobile Phones and Account map
    */
@@ -62,7 +68,7 @@ public with sharing class AutoKYCQACaseActionsHelper {
   }
 
   /**
-   * @description Set case fileds with matching Account
+   * @description Set case fileds with matching Account- TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
    * @param c Case
    * @param matchingAcc Matched Account
    * @param accountEntitlmentId Matched Account Entitlment Id
@@ -81,6 +87,7 @@ public with sharing class AutoKYCQACaseActionsHelper {
    * @description Handle KYC QA Case in the situatuon there is still no MAtched Account:
    * Either move to "Pending KYC QA - No Customer" queue in the event the case is not closed yet or
    * remain in the "Pending KYC QA - No Customer" queue untill there is a Matched Account
+   * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
    * @param c Case
    * @param oldCase Old case
    */
@@ -102,7 +109,7 @@ public with sharing class AutoKYCQACaseActionsHelper {
   }
 
   /**
-   * @description Filter cases by Record Type Id
+   * @description Filter cases by Record Type Id - TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
    * @param kycQACases List of KYC QA Case records
    * @return List of filtered cases
    */

@@ -284,6 +284,39 @@ public class AuthTokenCacheUtilTest {
   }
 
   /**
+   * @description test method for getCustomerNameFromStaffToken
+   */
+  @isTest
+  public static void testgetCustomerNameFromStaffToken() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    Test.startTest();
+    Map<String, String> mapPersonaIdAndCustomerName = new Map<String, String>();
+    String staffToken = [
+        SELECT body
+        FROM staticresource
+        WHERE name = 'mock_staffToken'
+      ]
+      .body.toString();
+    System.runAs(thisUser) {
+      Account acc = TestDataFactory.createPersonAccount('1111', true);
+      mapPersonaIdAndCustomerName = AuthTokenCacheUtil.getCustomerNameFromStaffToken(
+        Service.IdType.OCVID,
+        '1111'
+      );
+      if (mapPersonaIdAndCustomerName != null) {
+        System.assertEquals(
+          mapPersonaIdAndCustomerName.containsKey(
+            'ab621652-de45-4008-9650-14f6557d13a2'
+          ),
+          true,
+          'Map contains the Persona Id'
+        );
+      }
+    }
+    Test.stopTest();
+  }
+
+  /**
    * @description test method for getForgeJWTToken when retrieving from cache instead of api
    */
   @isTest

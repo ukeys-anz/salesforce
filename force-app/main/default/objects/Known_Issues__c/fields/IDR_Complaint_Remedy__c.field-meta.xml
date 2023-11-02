@@ -3,11 +3,11 @@
     <fullName>IDR_Complaint_Remedy__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <securityClassification>Internal</securityClassification>
     <description>Free text explaining the actions that were required to remedy the complaint including any financial component.</description>
     <externalId>false</externalId>
     <label>Complaint Remedy</label>
     <required>false</required>
+    <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -18,6 +18,11 @@
                 <fullName>1</fullName>
                 <default>false</default>
                 <label>Financial remedy</label>
+            </value>
+            <value>
+                <fullName>4</fullName>
+                <default>false</default>
+                <label>Credit approved remedy</label>
             </value>
             <value>
                 <fullName>2</fullName>

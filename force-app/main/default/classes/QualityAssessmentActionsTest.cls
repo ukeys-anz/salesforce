@@ -238,7 +238,7 @@ private class QualityAssessmentActionsTest {
         'Case Manager Score Mismatch'
       );
       System.assertEquals(
-        null,
+        0,
         qaRecord.Business_score__c,
         'Business Score Mismatch'
       );

@@ -7,16 +7,19 @@ public class TransactionHistoryModelConverter {
   /**
    * @description FinancialAccountModelConverter converts the v1 response back to v1beta1 response
    * @param sourceModel Holds the values of v1
+   * @param mapPersonaIdAndCustomerName map for holding persona id from staff token and customer name correponding to ocv id of teh account
    * @return TransactionHistoryModel which holds the converted value of v1beta1
    */
   public static TransactionHistoryModel convertToTransactionHistoryModel(
-    TransactionHistoryModelV1 sourceModel
+    TransactionHistoryModelV1 sourceModel,
+    Map<String, String> mapPersonaIdAndCustomerName
   ) {
     TransactionHistoryModel transModel = new TransactionHistoryModel();
     transModel.embedded = convertEmbedd(
       sourceModel.merchants,
       sourceModel.transactions,
-      sourceModel.tags
+      sourceModel.tags,
+      mapPersonaIdAndCustomerName
     );
     transModel.count = sourceModel.count;
     transModel.links = convertLinks(sourceModel.links);
@@ -29,12 +32,14 @@ public class TransactionHistoryModelConverter {
    * @param sourceMerchantList Holds the values of v1
    * @param sourceTransactionList Holds the values of v1
    * @param sourceTagList Holds the values of v1
+   * @param mapPersonaIdAndCustomerName Holds personaID from staff token and customer name based on ocv id
    * @return TransactionHistoryModel.Embedded which holds the converted value of v1beta1
    */
   private static TransactionHistoryModel.Embedded convertEmbedd(
     List<TransactionHistoryModelV1.Merchants> sourceMerchantList,
     List<TransactionHistoryModelV1.Transactions> sourceTransactionList,
-    List<TransactionHistoryModelV1.Tags> sourceTagList
+    List<TransactionHistoryModelV1.Tags> sourceTagList,
+    Map<String, string> mapPersonaIdAndCustomerName
   ) {
     TransactionHistoryModel.Embedded embedded = new TransactionHistoryModel.Embedded();
 
@@ -43,7 +48,9 @@ public class TransactionHistoryModelConverter {
     List<TransactionHistoryModel.Tags> destTagsList = new List<TransactionHistoryModel.Tags>();
 
     if (sourceTransactionList != null && !sourceTransactionList.isEmpty()) {
-      destTransactions.addAll(convertTransaction(sourceTransactionList));
+      destTransactions.addAll(
+        convertTransaction(sourceTransactionList, mapPersonaIdAndCustomerName)
+      );
     }
 
     //forming Merchant Details
@@ -91,7 +98,8 @@ public class TransactionHistoryModelConverter {
     return embedded;
   }
   private static List<TransactionHistoryModel.Transactions> convertTransaction(
-    List<TransactionHistoryModelV1.Transactions> sourceTransactionList
+    List<TransactionHistoryModelV1.Transactions> sourceTransactionList,
+    Map<String, String> mapPersonaIdAndCustomerName
   ) {
     List<TransactionHistoryModel.Transactions> destTransactions = new List<TransactionHistoryModel.Transactions>();
     for (
@@ -114,6 +122,7 @@ public class TransactionHistoryModelConverter {
       destTransaction.title = sourceTransaction.title;
       destTransaction.traceId = sourceTransaction.trace_id;
       destTransaction.origination_id = sourceTransaction.origination_system_id;
+
       destTransaction.de_user_id = convertFieldValue(
         sourceTransaction.direct_entry_user_id
       );
@@ -128,10 +137,19 @@ public class TransactionHistoryModelConverter {
         );
         destTransaction.is_npp_details_available = sourceTransaction.open_banking.detail_available;
       }
+
       //Amount Mapping
       if (sourceTransaction.amount != null) {
         destTransaction.amount = convertAmount(sourceTransaction.amount);
       }
+
+      //Transaction Initiator Name Mapping
+      destTransaction.transactionInitiator = TransactionHistoryModelConverterHelper.convertPersonaIdtoTransactionInitiator(
+        sourceTransaction.persona_id,
+        mapPersonaIdAndCustomerName,
+        destTransaction.amount
+      );
+
       //InternationalAmount Mapping
       if (sourceTransaction.international != null) {
         destTransaction.international_amount = convertInternationalAmount(
@@ -154,8 +172,12 @@ public class TransactionHistoryModelConverter {
       destTransaction.aux_dom = convertFieldValue(sourceTransaction.aux_dom);
       //Mapping Card
       if (sourceTransaction.card != null) {
-        destTransaction.card = convertCard(sourceTransaction.card);
-        destTransaction.cash = convertCash(sourceTransaction.card);
+        destTransaction.card = TransactionHistoryModelConverterHelper.convertCard(
+          sourceTransaction.card
+        );
+        destTransaction.cash = TransactionHistoryModelConverterHelper.convertCash(
+          sourceTransaction.card
+        );
       }
       //Mapping Bpay
       if (sourceTransaction.bpay != null) {
@@ -281,32 +303,6 @@ public class TransactionHistoryModelConverter {
       destExchangeRate.value = sourceInternational.exchange_rate;
     }
     return destExchangeRate;
-  }
-
-  private static TransactionHistoryModel.Card convertCard(
-    TransactionHistoryModelV1.Card sourceCard
-  ) {
-    TransactionHistoryModel.Card destCard = new TransactionHistoryModel.Card();
-    if (sourceCard != null) {
-      destCard.last_four_digits = sourceCard.last_four_digits;
-      destCard.method = sourceCard.method;
-      destCard.scheme = sourceCard.scheme;
-      destCard.wallet = sourceCard.wallet;
-    }
-    return destCard;
-  }
-
-  private static TransactionHistoryModel.Cash convertCash(
-    TransactionHistoryModelV1.Card sourceCash
-  ) {
-    TransactionHistoryModel.Cash destCash = new TransactionHistoryModel.Cash();
-    if (sourceCash != null) {
-      destCash.card_last_four_digits = sourceCash.last_four_digits;
-      destCash.method = sourceCash.method;
-      destCash.card_scheme = sourceCash.scheme;
-      destCash.wallet = sourceCash.wallet;
-    }
-    return destCash;
   }
 
   private static TransactionHistoryModel.Address convertAddress(

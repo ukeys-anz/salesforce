@@ -133,11 +133,6 @@
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Provisionally Closed,Closed</value>
-        </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -874,6 +869,21 @@
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>KYCQA_RTs_Join_Integration_User_Group</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read Write access to KYC QA record type for System Integration Users</description>
+        <label>KYCQA RTs - Join Integration User Group</label>
+        <sharedTo>
+            <group>Join_Integration_User</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>KYC QA</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

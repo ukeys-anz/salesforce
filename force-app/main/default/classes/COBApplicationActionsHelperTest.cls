@@ -3,6 +3,7 @@
  * @date May 2023
  * @description Test class for {@link COBApplicationActionsHelper}
  * @group ANZx
+ * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
  */
 @isTest
 public with sharing class COBApplicationActionsHelperTest {

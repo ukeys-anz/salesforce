@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Field to capture which additional issues are possibly systemic issues</description>
     <externalId>false</externalId>
-    <label>Which additional issues are systemic?</label>
+    <label>Which issue is possibly systemic?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -16,6 +16,11 @@
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
+            <value>
+                <fullName>Issue 1</fullName>
+                <default>false</default>
+                <label>Issue 1</label>
+            </value>
             <value>
                 <fullName>Issue 2</fullName>
                 <default>false</default>

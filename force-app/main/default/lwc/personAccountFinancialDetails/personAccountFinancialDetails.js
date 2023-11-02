@@ -20,10 +20,13 @@ import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 /* IMPORT SCHEMA FIELDS */
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
+import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAccountOwnershipForSorting";
 
 import {
   CHECKING_ACCOUNT_RT_APINAME,
-  SAVINGS_ACCOUNT_RT_APINAME
+  SAVINGS_ACCOUNT_RT_APINAME,
+  MULTI_PARTY,
+  JOINT
 } from "c/financialAccountParent";
 
 export default class PersonAccountFinancialDetails extends LightningElement {
@@ -191,6 +194,16 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
         account.showSavingsJar = account.FinServ__Status__c !== "Closed";
 
+        // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
+        if (account.FinServ__Ownership__c) {
+          account = this.handleShowMultiPartyBadge(
+            account,
+            "FinServ__Ownership__c"
+          );
+        } else if (account.Ownership__c) {
+          account = this.handleShowMultiPartyBadge(account, "Ownership__c");
+          account.FinServ__Ownership__c = account.Ownership__c;
+        }
         //Determine the type of financial account
         if (account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME) {
           this.accountData.checking.push(account);
@@ -211,12 +224,25 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   sortFinancialAccounts(arrOfAccounts) {
     return arrOfAccounts.sort((firstAccount, otherAccount) => {
       const statusOrder = FinancialAccountStatusForSorting.split(",");
+      const ownershipOrder = FinancialAccountOwnershipForSorting.split(",");
 
       // Sort by status first
       if (firstAccount.FinServ__Status__c !== otherAccount.FinServ__Status__c) {
         return (
           statusOrder.indexOf(firstAccount.FinServ__Status__c) -
           statusOrder.indexOf(otherAccount.FinServ__Status__c)
+        );
+      }
+
+      //Sort by Ownership keeping single party account at top to multi-party By Shivam, Oct'23
+      if (
+        firstAccount.FinServ__Status__c === otherAccount.FinServ__Status__c &&
+        firstAccount.FinServ__Ownership__c !==
+          otherAccount.FinServ__Ownership__c
+      ) {
+        return (
+          ownershipOrder.indexOf(firstAccount.FinServ__Ownership__c) -
+          ownershipOrder.indexOf(otherAccount.FinServ__Ownership__c)
         );
       }
 
@@ -245,5 +271,15 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     await this.getFinancialAccount();
     await this.getGoals();
     this.loading = false;
+  }
+
+  //Created this method to check whether the account have Multi-party or Single ownership type
+  handleShowMultiPartyBadge(finAccount, finAccountOwner) {
+    finAccount.showMultipartyBadge =
+      finAccount[finAccountOwner] === MULTI_PARTY;
+    finAccount.multiParty = finAccount.showMultipartyBadge
+      ? JOINT
+      : finAccount[finAccountOwner];
+    return finAccount;
   }
 }
