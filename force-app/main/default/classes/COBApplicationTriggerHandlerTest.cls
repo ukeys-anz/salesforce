@@ -2,6 +2,7 @@
  * @description Test class for {@link COBApplicationTriggerHandler}
  * @author Batya Aisman Sufrin
  * @since 05/2023
+ * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
  */
 @isTest
 public with sharing class COBApplicationTriggerHandlerTest {

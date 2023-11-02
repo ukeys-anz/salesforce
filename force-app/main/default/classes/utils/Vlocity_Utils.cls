@@ -3,7 +3,7 @@
  * @since 04/2023
  * @description  To get the customer information and account numbers on OCV search
  */
-global with sharing class Vlocity_Utils implements Callable {
+global without sharing class Vlocity_Utils implements Callable {
   /**
    * @param methodName The method passed from Integration procedure
    * @param input The input from the Integration procedure
@@ -22,6 +22,8 @@ global with sharing class Vlocity_Utils implements Callable {
       getCustomerInfo(input, output, options);
     } else if ('getKnownIssues'.equals(methodName)) {
       getKnownIssues(input, output, options);
+    } else if ('deleteComplaintResolution'.equals(methodName)) {
+      deleteComplaintResolution(input, output, options);
     }
     return true;
   }
@@ -88,5 +90,29 @@ global with sharing class Vlocity_Utils implements Callable {
   @AuraEnabled(cacheable=true)
   public static Boolean getDisableOmni() {
     return IDRConstants.DISABLE_OMNI_FOR_CMOS;
+  }
+
+  /**
+   * @description To delete Complaint Resolution
+   * @param input The input from IP CR Ids
+   * @param output The output to be passed to Integration procedure
+   * @param options The additional parameters required
+   */
+  public void deleteComplaintResolution(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    List<Complaint_Resolution__c> crtodel = new List<Complaint_Resolution__c>();
+    List<Object> complaintRes = (List<Object>) input.get('ComplaintResolution');
+    for (Object c : complaintRes) {
+      Map<String, Object> cr = (Map<String, Object>) c;
+      if (cr.get('Remedy') == null) {
+        crtodel.add(new Complaint_Resolution__c(Id = (Id) cr.get('Id')));
+      }
+    }
+    if (!crtodel.isEmpty()) {
+      delete crtodel;
+    }
   }
 }

@@ -23,12 +23,11 @@
             ISPICKVAL(Status, &apos;Provisionally Closed&apos;),
             OR(
                 ISBLANK(TEXT(IDR_Complaint_Outcome__c)),
-                ISBLANK(IDR_Description_of_Outcome__c),
-                ISPICKVAL( IDR_Complaint_Remedy__c , &apos;&apos;)
+                ISBLANK(IDR_Description_of_Outcome__c)
             )
         )
     )
 )</errorConditionFormula>
-    <errorMessage>To close the case, complaint outcome, Is this a possible systemic issue and  description of outcome must be populated.
-To resolve the case, complaint outcome, description of outcome and complaint remedy must be populated.</errorMessage>
+    <errorMessage>To close the case, Complaint Outcome, Are any of the issues possibly systemic? and Description of Outcome must be populated.
+        To resolve the case, Complaint Outcome and Description of Outcome must be populated.</errorMessage>
 </ValidationRule>

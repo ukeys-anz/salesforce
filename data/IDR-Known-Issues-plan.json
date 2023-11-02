@@ -1,6 +1,6 @@
 [
   {
-    "sobject": "Known_Issue__c",
+    "sobject": "Known_Issues__c",
     "saveRefs": true,
     "resolveRefs": false,
     "files": ["IDR-Known-Issues.json"]

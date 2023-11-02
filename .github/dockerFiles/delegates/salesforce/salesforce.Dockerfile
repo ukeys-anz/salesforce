@@ -53,7 +53,7 @@ RUN curl -o node.tar.gz https://${ARTIFACTORY}:443/artifactory/nodejs-dist/v${NO
   rm node.tar.gz
 
 # Install Salesforce CLI, ignore scripts to avoid binary downloads (e.g. ngrok)
-RUN npm install sfdx-cli@7.205.6 -g --ignore-scripts && npm install @salesforce/cli@1.75.6 -g --ignore-scripts
+RUN npm install @salesforce/cli@2.13.9 -g --ignore-scripts
 
 # Label image to assist in grouping/filtering of scanning reports within the twistlock console
 LABEL ci_group="ANZx-Salesforce" ci_name="ANZx-Platform"
@@ -66,12 +66,13 @@ RUN mkdir -p /opt/harness-delegate/.sf || true ; chown delegate:delegate /opt/ha
     mkdir -p $HOME/.cache/sfdx || true ; chown delegate:delegate $HOME/.cache/sfdx && \
     mkdir -p $HOME/.cache/.sfdx || true ; chown delegate:delegate $HOME/.cache/.sfdx && \
     mkdir -p $HOME/.local/share/sfdx || true ; chown delegate:delegate $HOME/.local/share/sfdx && \
+    mkdir -p $HOME/.local/share/sf || true ; chown delegate:delegate $HOME/.local/share/sf && \
     mkdir -p $HOME/.npm/_logs || true ; chown delegate:delegate $HOME/.npm/_logs && \
     touch $HOME/.sf/sf.log || true ; chown delegate:delegate $HOME/.sf/sf.log
 
-COPY package.json $HOME/.local/share/sfdx
-COPY package-lock.json $HOME/.local/share/sfdx
-WORKDIR $HOME/.local/share/sfdx
+COPY package.json $HOME/.local/share/sf
+COPY package-lock.json $HOME/.local/share/sf
+WORKDIR $HOME/.local/share/sf
 RUN npm ci -f
 
 USER delegate

@@ -33,20 +33,23 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   //To clear Account number 2 and Account number 3 fields
   clearAccountFields(data) {
     if (
-      data &&
-      data.Issue2Checkbox === "No" &&
-      data.AccountPolicyNumber2 &&
-      this.omniJsonDef.name === "AccountPolicyNumber2"
+      data.ComplaintDetails &&
+      data.ComplaintDetails.Issue2Checkbox === "No" &&
+      data.ComplaintDetails.AccountPolicyNumber2 &&
+      this.omniJsonDef.name === "AccountPolicyNumber2" &&
+      !data.CustomerDetails.complaintAbout
     ) {
       this.omniUpdateDataJson("");
       this.value = "";
       this.allValues = [];
     }
     if (
-      data &&
-      (data.Issue2Checkbox === "No" || data.Issue3Checkbox === "No") &&
-      data.AccountPolicyNumber3 &&
-      this.omniJsonDef.name === "AccountPolicyNumber3"
+      data.ComplaintDetails &&
+      (data.ComplaintDetails.Issue2Checkbox === "No" ||
+        data.ComplaintDetails.Issue3Checkbox === "No") &&
+      data.ComplaintDetails.AccountPolicyNumber3 &&
+      this.omniJsonDef.name === "AccountPolicyNumber3" &&
+      !data.CustomerDetails.complaintAbout
     ) {
       this.omniUpdateDataJson("");
       this.value = "";
@@ -92,8 +95,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (
       data.Case.CustomerDetails &&
       data.Case.CustomerDetails.complaintAbout &&
-      !this.allValues.length > 0 &&
-      this.omniJsonDef.name === "AccountPolicyNumber"
+      !this.allValues.length > 0
     ) {
       this.allValues.push("N/A");
       this.value = "N/A";

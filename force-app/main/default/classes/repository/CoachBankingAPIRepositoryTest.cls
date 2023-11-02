@@ -6,6 +6,9 @@
  */
 @isTest
 public inherited sharing class CoachBankingAPIRepositoryTest {
+  //jwt containing a single claim of exp 26/11/2050
+  public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
+
   /**
    * @description Add required PermissionSet
    */
@@ -91,6 +94,56 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         '000000000',
         '2018-07-03 00:00:00',
         '2018-07-26 23:59:59',
+        '',
+        new List<String>()
+      );
+      Test.stopTest();
+
+      System.assertEquals(
+        20,
+        transactionModel.embedded.transactions.size(),
+        'Transactions size should be as expected.'
+      );
+    }
+  }
+
+  /**
+   * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistoryv1.json
+   * called in force-app/main/default/classes/services/FabricServiceMock.cls
+   */
+  @isTest
+  static void transactionHistoryValidResponseForJointAccount() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      Account acc = TestDataFactory.createPersonAccount('1111', true);
+      List<FinServ__FinancialAccount__c> finAccount = TestDataFactory.createFinancialAccount(
+        1,
+        true
+      );
+
+      FinServ__FinancialAccountRole__c financialAccountRoleRecord = new FinServ__FinancialAccountRole__c(
+        FinServ__RelatedAccount__c = acc.Id,
+        FinServ__FinancialAccount__c = finAccount[0].Id,
+        FinServ__Active__c = true,
+        Finserv__Role__c = 'Additional Owner'
+      );
+      insert financialAccountRoleRecord;
+      Cache.Session.put(
+        'local.SessionAzureTokens.idToken' + thisUser.Id,
+        AuthServiceTest.IDTESTVALUE,
+        300,
+        Cache.Visibility.NAMESPACE,
+        false
+      );
+
+      TransactionHistoryModel transactionModel = CoachBankingAPIRepository.getTransactionHistoryAura(
+        '',
+        '1111',
+        '000000000',
+        '2018-07-03 00:00:00',
+        '2018-07-26 23:59:59',
+        'Multi-party',
         new List<String>()
       );
       Test.stopTest();
@@ -116,7 +169,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     Test.startTest();
     CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
     try {
-      transactionModel = coachAPI.getTransactionHistory('1111', '');
+      transactionModel = coachAPI.getTransactionHistory('1111', '', '');
     } catch (Exception e) {
       resultException = e;
     }
@@ -143,6 +196,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         '000000000',
         '2018-07-03 00:00:00',
         '2018-07-26 23:59:59',
+        '',
         new List<String>()
       );
       Test.stopTest();

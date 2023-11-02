@@ -82,7 +82,7 @@
     ],
     "parties": [
       {
-        "id": "1000991493",
+        "id": "912babdf-4a83-c3b1-90d3-b7ff45048a46",
         "ocvId": "1000991493",
         "spouseEarnsIncome": false,
         "relationshipState": "RELATIONSHIP_STATE_UNSPECIFIED",
@@ -1755,7 +1755,51 @@
       "units": "0",
       "nanos": 0
     },
-    "etag": ""
+    "etag": "",
+    "sources": [
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Illion",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "912babdf-4a83-c3b1-90d3-b7ff45048a46"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Equifax",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "912babdf-4a83-c3b1-90d3-b7ff45048a46"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Experian",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "912babdf-4a83-c3b1-90d3-b7ff45048a46"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Illion",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "276543221"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Equifax",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "276543221"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "Experian",
+        "retrievedTime": "2023-09-25T01:54:50Z",
+        "loadBureauLiabilitiesState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+        "partyId": "276543221"
+      }
+    ]
   },
   "incomesSummary": {
     "sop": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
@@ -2011,8 +2055,8 @@
         },
         "calculatedMonthlyAverageAmount": null,
         "originalCalculatedMonthlyAverageAmount": null,
-        "control": "EXPENSE_CONTROL_UNSPECIFIED",
-        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "control": "EXPENSE_CONTROL_BREACHED",
+        "review": "EXPENSE_REVIEW_REQUIRED",
         "leafNode": true,
         "warningCeilingAmount": null,
         "justificationCeilingAmount": null,
@@ -2023,28 +2067,36 @@
         "hemState": "HEM_STATE_UNSPECIFIED"
       },
       {
-        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/2dc581fe-6999-49f9-89fa-f956503c00f7",
-        "uid": "2dc581fe-6999-49f9-89fa-f956503c00f7",
+        "name": "sops/647cdafd-fdec-4262-9c79-89815f95555f/expenses/3dfba4e8-e7bd-4c3f-a505-a7727fd86ed2",
+        "uid": "3dfba4e8-e7bd-4c3f-a505-a7727fd86ed2",
         "categoryId": "c463b0ad-89ef-46a0-9571-e0c8341c9446",
         "expenseParent": "",
         "categoryName": "LifeStyle",
         "statedMonthlyAverageAmount": {
           "currencyCode": "AUD",
-          "units": "0",
+          "units": "500",
           "nanos": 0
         },
         "calculatedMonthlyAverageAmount": null,
         "originalCalculatedMonthlyAverageAmount": null,
-        "control": "EXPENSE_CONTROL_UNSPECIFIED",
-        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "control": "EXPENSE_CONTROL_WARNING",
+        "review": "EXPENSE_REVIEW_COMPLETED",
         "leafNode": true,
-        "warningCeilingAmount": null,
-        "justificationCeilingAmount": null,
-        "createTime": "2023-07-06T01:52:06.165083Z",
-        "updateTime": "2023-07-06T01:52:06.165083Z",
-        "updatedBy": "sop-service",
-        "etag": "1688608326165083000",
-        "hemState": "HEM_STATE_UNSPECIFIED"
+        "warningCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "600",
+          "nanos": 0
+        },
+        "justificationCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "200",
+          "nanos": 0
+        },
+        "createTime": "2023-10-05T02:41:00.071343231Z",
+        "updateTime": "2023-10-05T04:42:08.516168299Z",
+        "updatedBy": "723bcbdf-5c63-b2b1-80d3-b7ff45048a46",
+        "etag": "1696480928516168299",
+        "hemState": "HEM_STATE_HEM"
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/9432e057-96cf-4f26-ac1f-a51fc1187b18",
@@ -2167,28 +2219,37 @@
         "hemState": "HEM_STATE_UNSPECIFIED"
       },
       {
-        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/a6f0aa07-f4aa-4853-b322-509e956d3842",
-        "uid": "a6f0aa07-f4aa-4853-b322-509e956d3842",
+        "name": "sops/647cdafd-fdec-4262-9c79-89815f95555f/expenses/5f2639d0-6b12-4d29-abf6-6cc98aa6a62d",
+        "uid": "5f2639d0-6b12-4d29-abf6-6cc98aa6a62d",
         "categoryId": "ebbc29b8-a13b-46c4-af13-6687348b2335",
-        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "expenseParent": "sops/647cdafd-fdec-4262-9c79-89815f95555f/expenses/",
         "categoryName": "Transport",
         "statedMonthlyAverageAmount": {
           "currencyCode": "AUD",
-          "units": "0",
+          "units": "50",
           "nanos": 0
         },
         "calculatedMonthlyAverageAmount": null,
         "originalCalculatedMonthlyAverageAmount": null,
-        "control": "EXPENSE_CONTROL_UNSPECIFIED",
-        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "control": "EXPENSE_CONTROL_JUSTIFIED",
+        "review": "EXPENSE_REVIEW_COMPLETED",
         "leafNode": true,
-        "warningCeilingAmount": null,
-        "justificationCeilingAmount": null,
-        "createTime": "2023-07-06T01:52:06.165083Z",
-        "updateTime": "2023-07-06T01:52:06.165083Z",
-        "updatedBy": "sop-service",
-        "etag": "1688608326165083000",
-        "hemState": "HEM_STATE_UNSPECIFIED"
+        "justificationCode": "JTR02",
+        "warningCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "340",
+          "nanos": 0
+        },
+        "justificationCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "190",
+          "nanos": 0
+        },
+        "createTime": "2023-10-05T02:41:00.071343231Z",
+        "updateTime": "2023-10-05T04:41:25.045110283Z",
+        "updatedBy": "723bcbdf-5c63-b2b1-80d3-b7ff45048a46",
+        "etag": "1696480885045110283",
+        "hemState": "HEM_STATE_HEM"
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/eba04980-2419-4afc-a6cc-cd0f83bb2367",
@@ -2215,28 +2276,33 @@
         "hemState": "HEM_STATE_UNSPECIFIED"
       },
       {
-        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/356f9a78-e71a-4c3c-9472-f35887770440",
-        "uid": "356f9a78-e71a-4c3c-9472-f35887770440",
+        "name": "sops/647cdafd-fdec-4262-9c79-89815f95555f/expenses/1657c870-e81e-47f9-ae8a-55090e381e09",
+        "uid": "1657c870-e81e-47f9-ae8a-55090e381e09",
         "categoryId": "47280b5c-11a5-4a6b-b5f7-a3e0d9213c11",
-        "expenseParent": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
+        "expenseParent": "sops/647cdafd-fdec-4262-9c79-89815f95555f/expenses/",
         "categoryName": "Bills, Insurance & General",
         "statedMonthlyAverageAmount": {
           "currencyCode": "AUD",
-          "units": "0",
+          "units": "200",
           "nanos": 0
         },
         "calculatedMonthlyAverageAmount": null,
         "originalCalculatedMonthlyAverageAmount": null,
-        "control": "EXPENSE_CONTROL_UNSPECIFIED",
-        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "control": "EXPENSE_CONTROL_JUSTIFIED",
+        "review": "EXPENSE_REVIEW_COMPLETED",
         "leafNode": true,
+        "justificationCode": "JUH04",
         "warningCeilingAmount": null,
-        "justificationCeilingAmount": null,
-        "createTime": "2023-07-06T01:52:06.165083Z",
-        "updateTime": "2023-07-06T01:52:06.165083Z",
-        "updatedBy": "sop-service",
-        "etag": "1688608326165083000",
-        "hemState": "HEM_STATE_UNSPECIFIED"
+        "justificationCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "215",
+          "nanos": 0
+        },
+        "createTime": "2023-10-05T02:41:00.071343231Z",
+        "updateTime": "2023-10-05T04:40:25.429978641Z",
+        "updatedBy": "723bcbdf-5c63-b2b1-80d3-b7ff45048a46",
+        "etag": "1696480825429978641",
+        "hemState": "HEM_STATE_HEM"
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",
@@ -2407,28 +2473,38 @@
         "hemState": "HEM_STATE_UNSPECIFIED"
       },
       {
-        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/ac3156b2-9c82-46e5-9cc1-d8284adb3653",
-        "uid": "ac3156b2-9c82-46e5-9cc1-d8284adb3653",
+        "name": "sops/647cdafd-fdec-4262-9c79-89815f95555f/expenses/1433da8f-032f-48c4-ac47-308b44b65599",
+        "uid": "1433da8f-032f-48c4-ac47-308b44b65599",
         "categoryId": "58a66b05-5b22-47b2-82bf-1c509f8e0b48",
-        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "expenseParent": "sops/647cdafd-fdec-4262-9c79-89815f95555f/expenses/",
         "categoryName": "Groceries",
         "statedMonthlyAverageAmount": {
           "currencyCode": "AUD",
-          "units": "0",
+          "units": "50",
           "nanos": 0
         },
         "calculatedMonthlyAverageAmount": null,
         "originalCalculatedMonthlyAverageAmount": null,
-        "control": "EXPENSE_CONTROL_UNSPECIFIED",
-        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "control": "EXPENSE_CONTROL_JUSTIFIED",
+        "review": "EXPENSE_REVIEW_COMPLETED",
         "leafNode": true,
-        "warningCeilingAmount": null,
-        "justificationCeilingAmount": null,
-        "createTime": "2023-07-06T01:52:06.165083Z",
-        "updateTime": "2023-07-06T01:52:06.165083Z",
-        "updatedBy": "sop-service",
-        "etag": "1688608326165083000",
-        "hemState": "HEM_STATE_UNSPECIFIED"
+        "justificationCode": "JGR99",
+        "otherJustificationText": "test",
+        "warningCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "800",
+          "nanos": 0
+        },
+        "justificationCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "520",
+          "nanos": 0
+        },
+        "createTime": "2023-10-05T02:41:00.071343231Z",
+        "updateTime": "2023-10-05T04:40:04.711708515Z",
+        "updatedBy": "723bcbdf-5c63-b2b1-80d3-b7ff45048a46",
+        "etag": "1696480804711708515",
+        "hemState": "HEM_STATE_HEM"
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/742596e9-df40-4cb6-8d5c-8dc1f5367df2",
