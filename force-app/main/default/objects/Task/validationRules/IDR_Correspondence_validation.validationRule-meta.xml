@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Correspondence_validation</fullName>
-    <active>false</active>
+    <active>true</active>
     <description>Task should NOT be able to be marked as &apos;Completed&apos; unless the &apos;Review Outcome&apos; Field has been selected.</description>
     <errorConditionFormula>AND
 (
