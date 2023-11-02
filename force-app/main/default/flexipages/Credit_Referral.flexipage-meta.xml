@@ -8,7 +8,7 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
-                            <value>Case.Finalise</value>
+                            <value>Case.Reassess</value>
                             <visibilityRule>
                                 <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
                                 <criteria>
@@ -34,7 +34,7 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>Case.Reassess</value>
+                            <value>Case.Finalise</value>
                             <visibilityRule>
                                 <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
                                 <criteria>
