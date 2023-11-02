@@ -274,6 +274,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Case:CustomerDetails:CustomerIdentifier &quot;Customer/Business/\/\/CAP/\/\/ID&quot; == &amp;&amp; var:Case:CustomerDetails:Customer var:Case:CustomerDetails:Customer1 IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;&amp;&amp;%Case:CustomerDetails:CustomerIdentifier%==&quot;Customer/Business CAP ID&quot;,%Case:CustomerDetails:Customer%,%Case:CustomerDetails:Customer1%)</formulaExpression>
+        <formulaResultPath>customer</formulaResultPath>
+        <formulaSequence>11.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom8971</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom2558</globalKey>
         <inputFieldName>Case:ResolutionInformation:otherRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -1450,7 +1467,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetails502832643784511</globalKey>
-        <inputFieldName>Case:CustomerDetails:Customer</inputFieldName>
+        <inputFieldName>customer</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRTransformCaseDetails</name>
