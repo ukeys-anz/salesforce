@@ -3159,8 +3159,12 @@ private class CaseTriggerHandlerTest {
     if (
       disputeCasesRecordTypeNames.contains(theCase.RecordType.DeveloperName)
     ) {
+      String caseRecordTypeChecker = theCase.RecordType.DeveloperName ==
+        'NPP_Dispute' && theCase.Is_PayTo_Dispute__c
+        ? 'PayTo'
+        : theCase.RecordType.Name;
       System.assertEquals(
-        theCase.RecordType.Name +
+        caseRecordTypeChecker +
         ' - ' +
         theCase.Dispute_Reason__c,
         theCase.Subject,
@@ -3821,5 +3825,58 @@ private class CaseTriggerHandlerTest {
       }
     }
     Test.stopTest();
+  }
+
+  @isTest
+  public static void testPayToDisputeCase() {
+    String recordTypeDeveloperName = 'NPP_Dispute';
+    Test.startTest();
+    List<Account> accountsList = [
+      SELECT Id, OCV_ID__c
+      FROM Account
+      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
+    ];
+    Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
+    for (Account account : accountsList) {
+      ocvIDAndAccountMap.put(account.OCV_ID__c, account);
+    }
+    List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [
+      SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c
+      FROM FinServ__FinancialAccount__c
+      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
+    ];
+    Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+    for (
+      FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList
+    ) {
+      ocvIDAndFinSerAccountMap.put(
+        finServFinancialAccount.OCV_ID__c,
+        finServFinancialAccount
+      );
+    }
+
+    Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
+    theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
+    theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
+        'OCV000000001'
+      )
+      .Id;
+    theCase.Payment_ID__c = 'MPS123123DFS';
+    theCase.Dispute_Reason_PayTo__c = 'Not as per agreement';
+    try {
+      insert theCase;
+    } catch (DmlException e) {
+      System.assert(false, 'Failed to create dispute case');
+    }
+    String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
+    theCase = Database.query(
+      'Select Id, ' +
+      String.escapeSingleQuotes(fieldsToBeQueried) +
+      ' From Case Where Id = \'' +
+      theCase.Id +
+      '\''
+    );
+    Test.stopTest();
+    verifyCaseSubject(theCase);
   }
 }
