@@ -6,7 +6,7 @@ import {
   unauthenticate
 } from "../Services/authentication-service.mjs";
 import { uploadJobId, cancel } from "../Services/deploy-service.mjs";
-import { deleteFile } from "../Services/helper.mjs";
+import { deleteFile, renameItem } from "../Services/helper.mjs";
 import {
   runAllLocalTestsProgress,
   runAllLocalTests
@@ -29,9 +29,11 @@ const {
 const RUN_ALL_TEST_PACKAGE_PATH = "ci/workflows/RunAllTestsPackage";
 const RUN_ALL_TEST_CLASS_PATH =
   "ci/workflows/RunAllTestsPackage/RunAllTestsClass.cls";
-const JOB_ID_FILE_NAME = `${BASE_REF}-run-all-tests-${PR_NUMBER}`;
+const JOB_ID_FILE_NAME = renameItem(`${BASE_REF}-run-all-tests-${PR_NUMBER}`);
 const ANZX_CI_PACKAGE_XML =
   WORKING_DIR + "/ci/workflows/Config/ANZxCIPackage.xml";
+const ARTIFACT_PACKAGE_XML =
+  WORKING_DIR + "/ci/workflows/RunAllTestsPackage/package.xml";
 
 //////////
 
@@ -58,7 +60,7 @@ const runAllTests = () => {
     RUN_ALL_TEST_CLASS_PATH
   );
   uploadJobId(runAllTestsReport, JOB_ID_FILE_NAME, ARTIFACTORY_SECRET_VALUE);
-  runAllLocalTestsProgress(runAllTestsReport);
+  runAllLocalTestsProgress(runAllTestsReport, TARGET_ORG, ARTIFACT_PACKAGE_XML);
 };
 
 const clean = () => {

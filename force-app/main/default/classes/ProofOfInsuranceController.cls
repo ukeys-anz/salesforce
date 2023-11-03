@@ -17,7 +17,7 @@ public with sharing class ProofOfInsuranceController {
 
     Proof_of_Insurance__c poiDetails = [
       SELECT
-        Settlement_ID__c,
+        Settlement_ID__r.Settlement_ID__c,
         Mortgage_Contract_ID__c,
         Property_ID__c,
         Document_Id__c,
@@ -31,7 +31,7 @@ public with sharing class ProofOfInsuranceController {
       if (!checkFieldSanity(poiDetails)) {
         throw new AuraHandledException(MISSING_DATA_ERROR);
       }
-      SettlementsAPIRespository settlementsAPI = new SettlementsAPIRespository();
+      SettlementsAPIRepository settlementsAPI = new SettlementsAPIRepository();
       VerifyInsuranceModel response = settlementsAPI.verifyInsurance(
         poiDetails
       );

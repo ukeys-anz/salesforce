@@ -53,6 +53,7 @@
         "wallet": "GOOGLE_PAY",
         "incremental_auth": true
       },
+      "persona_id": "ab621652-de45-4008-9650-14f6557d13a3",
       "lwc_transaction_description": "visa vic roads           city         au"
     },
     {
@@ -109,6 +110,7 @@
         "wallet": "GOOGLE_PAY",
         "incremental_auth": true
       },
+      "persona_id": "ab621652-de45-4008-9650-14f6557d13a2",
       "lwc_transaction_description": "visa vic roads           city         au"
     },
     {
@@ -482,6 +484,13 @@
         },
         "exchange_rate": 1,
         "country_code": "AU"
+      },
+      "transfer": {
+        "source_account": {
+          "bsb": "014111"
+        },
+        "puid": "AX14500009136869",
+        "payment_reference": "770572"
       },
       "origination_system_id": "ANZX5P00000003012",
       "authorisation_source": "POS",

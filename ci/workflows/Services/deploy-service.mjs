@@ -11,7 +11,8 @@ import {
   downloadFile,
   createDeployCacheFile,
   downloadZipFile,
-  unzipFile
+  unzipFile,
+  booleanMap
 } from "./helper.mjs";
 
 const validateWithoutTest = (targetOrg, artifactPath) => {
@@ -24,7 +25,7 @@ const validateWithoutTest = (targetOrg, artifactPath) => {
 
 const validateWithAllTests = (targetOrg, artifactPath) => {
   if (!salesforceDiffExist(artifactPath)) return;
-  logger("Running Validation | All Local Test");
+  logger("Running Validation | All Local Tests");
   const command = `npx sf project deploy start -o ${targetOrg} --manifest "${artifactPath}/package/package.xml" --post-destructive-changes "${artifactPath}/destructiveChanges/destructiveChanges.xml" --dry-run --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
   console.log(command);
   return runSfCommand(command);
@@ -74,6 +75,25 @@ const quickDeploy = (artifactFolderName, artifactorySecret, targetOrg) => {
   return deployWithoutTest(targetOrg, artifactFolderName);
 };
 
+const prodValidationWithAllTests = (
+  artifactFolderName,
+  artifactorySecret,
+  targetOrg
+) => {
+  downloadZipFile(artifactFolderName, artifactorySecret, "Artifactory");
+  unzipFile(artifactFolderName);
+  return validateWithAllTests(targetOrg, artifactFolderName);
+};
+
+const prodDeploymentWithAllTests = (
+  artifactFolderName,
+  artifactorySecret,
+  targetOrg
+) => {
+  downloadZipFile(artifactFolderName, artifactorySecret, "Artifactory");
+  unzipFile(artifactFolderName);
+  return deployWithAllTests(targetOrg, artifactFolderName);
+};
 const uploadJobId = (validationReport, fileName, artifactorySecret) => {
   const jobId = findJobIdFromCommand(validationReport);
   if (!jobId) return;
@@ -96,19 +116,27 @@ const cancel = (jobIdFileName, artifactorySecret, targetOrg, anzxCIPackage) => {
   }
 
   console.log("Prevoius jobId: " + pastJobId);
-  createDeployCacheFile(pastJobId, targetOrg, anzxCIPackage);
+  createDeployCacheFile(pastJobId, targetOrg, anzxCIPackage, anzxCIPackage);
 
   const report = runSfCommand(
-    `npx sf project deploy report --job-id ${pastJobId} -o ${targetOrg}`
+    `npx sf project deploy report --job-id ${pastJobId} -o ${targetOrg} --json`
   );
-  if (!report.includes("InProgress")) return;
+  if (JSON.parse(report)["result"]["status"] !== "InProgress") {
+    console.log(`Past job: ${pastJobId} is already completed/canceled!`);
+    return;
+  }
 
   const command = `npx sf project deploy cancel --job-id ${pastJobId}`;
   console.log(command);
   runSfCommand(command);
 };
 
-const validateProgress = (validationReport) => {
+const validateProgress = (
+  validationReport,
+  targetOrg,
+  artifactPackage,
+  artifactDestructivePackage
+) => {
   const jobId = findJobIdFromCommand(validationReport);
   if (!jobId) {
     logger("No Job Id could be found");
@@ -116,6 +144,13 @@ const validateProgress = (validationReport) => {
   }
 
   logger("Validation Progress");
+
+  createDeployCacheFile(
+    jobId,
+    targetOrg,
+    artifactPackage,
+    artifactDestructivePackage
+  );
 
   const command = `npx sf project deploy resume --job-id ${jobId}`;
   console.log(command);
@@ -134,6 +169,7 @@ const validateProgress = (validationReport) => {
       }
     } catch (err) {
       console.log(data);
+      deployReport(jobId, "Validation");
     }
   });
 
@@ -153,11 +189,24 @@ const validateProgress = (validationReport) => {
   });
 };
 
-const deployProgress = (deploymentCommand) => {
+const deployProgress = (
+  deploymentCommand,
+  targetOrg,
+  artifactPackage,
+  artifactDestructivePackage
+) => {
   const jobId = findJobIdFromCommand(deploymentCommand);
   if (!jobId) process.exit();
 
   logger("Deployment Progress");
+
+  createDeployCacheFile(
+    jobId,
+    targetOrg,
+    artifactPackage,
+    artifactDestructivePackage
+  );
+
   const command = `npx sf project deploy resume --job-id ${jobId}`;
   console.log(command);
 
@@ -175,6 +224,7 @@ const deployProgress = (deploymentCommand) => {
       }
     } catch (err) {
       console.log(data);
+      deployReport(jobId, "Deployment");
     }
   });
 
@@ -202,18 +252,23 @@ const deployReport = (jobId, whichJob) => {
 // This code will find the json report for specific job
 // Will find the test result and then the number of covered lines and not covered lines
 // Then will print the apex code coverage
-const codeCoverage = (jobIdFilePath) => {
+const codeCoverage = (jobIdFilePath, draftPR) => {
   const jobId = printContextFromFile(jobIdFilePath, "| Code Coverage");
   if (!jobId) return;
 
   logger("Apex Code Coverage");
+  if (booleanMap(draftPR)) {
+    console.log("Draft PR | No test");
+    return;
+  }
+
   const reportJson = JSON.parse(
     runSfCommand(`npx sf project deploy report --job-id ${jobId} --json`)
   );
   const runTestResult = reportJson["result"]["details"]["runTestResult"];
   const numTestsRun = runTestResult["numTestsRun"];
   if (!numTestsRun) {
-    console.log("Draft PR | No test");
+    console.log("No test");
     return;
   }
   const codeCoverage = runTestResult["codeCoverage"];
@@ -237,6 +292,8 @@ export {
   validateWithoutTest,
   validateWithSpecifiedTests,
   validateWithAllTests,
+  prodValidationWithAllTests,
+  prodDeploymentWithAllTests,
   deployWithoutTest,
   deployWithAllTests,
   cancel,

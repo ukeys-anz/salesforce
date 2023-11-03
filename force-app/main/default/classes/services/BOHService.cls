@@ -66,6 +66,29 @@ public with sharing class BOHService extends Service {
   }
 
   /**
+   * @param ocvId ocv id of the customer account
+   * @param expenseBody post data of expense information
+   * @return `HttpCalloutResponse` the api response
+   * @description update expense
+   */
+  public override HttpCalloutResponse editExpense(
+    String ocvId,
+    String expenseBody
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Update_Expense,
+      HTTP_METHOD.HTTP_PATCH,
+      headers,
+      expenseBody
+    );
+    return response;
+  }
+  /**
    * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information

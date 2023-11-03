@@ -21,9 +21,9 @@ const createTag = (baseRef, runId) => {
   `);
 };
 
-const createTagPipeline = (releaseName) => {
+const createTagPipeline = (tagPrefix, releaseName) => {
   const date = currentDate();
-  const tag = `master-${releaseName}-${date}`;
+  const tag = `${tagPrefix}-${releaseName}-${date}`;
   logger(`New created tag: ${tag}`);
 
   execSync(`

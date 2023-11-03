@@ -30,6 +30,13 @@
         <value>True</value>
     </labels>
     <labels>
+        <fullName>FinancialAccountOwnershipForSorting</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Financial Account Ownership values for sorting</shortDescription>
+        <value>Single,Multi-party</value>
+    </labels>
+    <labels>
         <fullName>FinancialAccountStatusForSorting</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -388,6 +395,14 @@
         <protected>false</protected>
         <shortDescription>MS_Delete_Income</shortDescription>
         <value>callout:SF_MS_Fabric/credit-assessment/v1/deleteincome</value>
+    </labels>
+    <labels>
+        <fullName>MS_Update_Expense</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Update_Expense</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/expenses</value>
     </labels>
     <labels>
         <fullName>MS_Get_Transactions</fullName>
@@ -1806,5 +1821,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>MS_Verify_Insurance</shortDescription>
         <value>/credit-assessment/v1/settlements/proof-of-insurance/verification</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Customer_Comm_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Customer_Comm_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords?:iid=5&amp;ocv_id=</value>
     </labels>
 </CustomLabels>

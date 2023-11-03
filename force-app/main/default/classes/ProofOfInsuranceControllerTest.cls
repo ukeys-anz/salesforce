@@ -66,7 +66,7 @@ public with sharing class ProofOfInsuranceControllerTest {
     Test.stopTest();
     Assert.areEqual(
       'STATE_VERIFIED',
-      response.proof_of_insurance_verification.state,
+      response.proofOfInsuranceVerification.state,
       'State should be verified'
     );
   }
