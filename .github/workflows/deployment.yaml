@@ -46,7 +46,7 @@ jobs:
           baseRef="$(echo ${GITHUB_REF#refs/heads/})"
           echo BASE_REF="$baseRef" >> $GITHUB_ENV
           echo RUN_ID="${GITHUB_RUN_ID}" >> $GITHUB_ENV
-
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
           lastTag="$( git describe --abbrev=0 --tags --match $baseRef* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
