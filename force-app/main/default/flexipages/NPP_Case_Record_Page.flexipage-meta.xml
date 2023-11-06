@@ -394,6 +394,16 @@
                 <identifier>RecordTransaction_UUID_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Transaction_Made_By__c</fieldItem>
+                <identifier>RecordTransaction_Made_By_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -422,6 +432,16 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <name>Facet-1dff9b7e-2a12-46a5-85be-a3f3d53929c8</name>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Dispute_Raised_By__c</fieldItem>
+                <identifier>RecordDispute_Raised_By_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
