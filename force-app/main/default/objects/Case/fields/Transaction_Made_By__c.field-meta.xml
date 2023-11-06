@@ -15,16 +15,16 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>This customer</fullName>
-                <default>false</default>
-                <label>This customer</label>
-            </value>
+            <sorted>true</sorted>
             <value>
                 <fullName>The joint accountholder</fullName>
                 <default>false</default>
                 <label>The joint accountholder</label>
+            </value>
+            <value>
+                <fullName>This customer</fullName>
+                <default>false</default>
+                <label>This customer</label>
             </value>
         </valueSetDefinition>
     </valueSet>
