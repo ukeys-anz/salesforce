@@ -92,6 +92,10 @@
                 <behavior>Required</behavior>
                 <field>Receipt__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Transaction_Made_By__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -101,6 +105,10 @@
         <editHeading>true</editHeading>
         <label>Dispute Details</label>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Dispute_Raised_By__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Dispute_Reason__c</field>
