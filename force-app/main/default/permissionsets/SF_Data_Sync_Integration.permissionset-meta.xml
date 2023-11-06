@@ -837,6 +837,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Dispute_raised_by__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Dispute_Subtype__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2453,6 +2458,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Trace_Request_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Transaction_made_by__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
