@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Dispute_Raised_By__c</fullName>
+    <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Fabric</complianceGroup>
     <description>Field to indicate which customer raised the dispute for Joint account disputes</description>
     <externalId>false</externalId>
