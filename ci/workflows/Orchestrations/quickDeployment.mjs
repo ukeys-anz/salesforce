@@ -24,11 +24,18 @@ const {
   SFDX_URL,
   RUN_ID,
   ARTIFACTORY_SECRET_VALUE,
-  BRANCH_NAME
+  BRANCH_NAME,
+  WORKING_DIR
 } = process.env;
 
 const ARTIFACT_NAME = renameItem(`artifact-${BRANCH_NAME}`);
-
+const ARTIFACT_PACKAGE_XML =
+  WORKING_DIR + "/" + ARTIFACT_NAME + "/package/package.xml";
+const ARTIFACT_DESTRUCTIVE_XML =
+  WORKING_DIR +
+  "/" +
+  ARTIFACT_NAME +
+  "/destructiveChanges/destructiveChanges.xml";
 //////////
 
 /// functions
@@ -40,7 +47,12 @@ const quickDeployment = () => {
     ARTIFACTORY_SECRET_VALUE,
     BRANCH_NAME
   );
-  deployProgress(deployment);
+  deployProgress(
+    deployment,
+    BRANCH_NAME,
+    ARTIFACT_PACKAGE_XML,
+    ARTIFACT_DESTRUCTIVE_XML
+  );
 };
 
 const quickClean = () => {
