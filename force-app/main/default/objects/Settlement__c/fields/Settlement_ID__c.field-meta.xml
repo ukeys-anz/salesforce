@@ -7,7 +7,7 @@
     <description>Immutable field representing the ID of the parent Settlement entity.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>true</externalId>
-    <label>Settlement ID</label>
+    <label>Settlement Name</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
