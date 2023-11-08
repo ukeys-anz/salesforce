@@ -1,0 +1,16 @@
+{
+  "accounts": [
+    {
+      "status": "1",
+      "tradingName": "AFTERPAY TOUCH GROUP LIMITED",
+      "merchantId": "9959123",
+      "merchantTerminals": "0",
+      "legalName": "SONIC HEALTHCARE LIMITED",
+      "compositeAccountNumber": "4011643101-489290006",
+      "accountNumber": "489290006",
+      "capCustomerId": "4011643101"
+    }
+  ],
+  "nextPageId": null,
+  "noOfTerminals": "0"
+}

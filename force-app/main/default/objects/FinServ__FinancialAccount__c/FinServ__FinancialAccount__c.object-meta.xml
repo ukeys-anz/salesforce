@@ -165,6 +165,15 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Financial Accounts</pluralLabel>
+    <profileSearchLayouts>
+        <fields>NAME</fields>
+        <fields>Account_Number__c</fields>
+        <fields>FinServ__Status__c</fields>
+        <fields>FinServ__Balance__c</fields>
+        <fields>FinServ__OpenDate__c</fields>
+        <fields>FinServ__PrimaryOwner__c</fields>
+        <profileName>ANZ ML Standard User</profileName>
+    </profileSearchLayouts>
     <recordTypeTrackHistory>false</recordTypeTrackHistory>
     <searchLayouts>
         <customTabListAdditionalFields>FinServ__Status__c</customTabListAdditionalFields>
@@ -175,8 +184,8 @@
         <lookupDialogsAdditionalFields>FinServ__FinancialAccountNumber__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>FinServ__Balance__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>FinServ__OpenDate__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Account_Number__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FinServ__Status__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>FinServ__FinancialAccountNumber__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FinServ__Balance__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FinServ__OpenDate__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FinServ__PrimaryOwner__c</searchResultsAdditionalFields>

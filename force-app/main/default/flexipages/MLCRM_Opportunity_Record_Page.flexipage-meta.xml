@@ -109,7 +109,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>hideUpdateButton</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>variant</name>
@@ -558,7 +558,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Lead_Id__c</fieldItem>
                 <identifier>RecordLead_Id_cField</identifier>
@@ -962,16 +962,10 @@
                 <fieldItem>Record.Referrer_Phone__c</fieldItem>
                 <identifier>RecordReferrer_Phone_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.LeadSource}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>External Referral</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.LeadSource}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Internal Referral</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1154,12 +1148,6 @@
                 <fieldItem>Record.Referrer_Phone__c</fieldItem>
                 <identifier>RecordReferrer_Phone_cField2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.LeadSource}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Internal Referral</rightValue>
-                    </criteria>
                     <criteria>
                         <leftValue>{!Record.LeadSource}</leftValue>
                         <operator>EQUAL</operator>

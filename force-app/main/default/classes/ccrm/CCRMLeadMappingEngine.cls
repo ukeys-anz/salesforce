@@ -137,11 +137,7 @@ public with sharing class CCRMLeadMappingEngine {
 
     //Get accounts by related party Ids
     //mapAccountsRecordTypeId = getAccountsByRelatedPartyIds(relatedPartyIds);
-    Set<String> relatedPartyIds = new Set<String>();
-
-    for (Account account : accountMap.values()) {
-      relatedPartyIds.add(account.Id);
-    }
+    Set<String> relatedPartyIds = getRelatedPartyIds(accountMap);
 
     //Get ACCOUNT >> LEAD mapping from custom metadata
     List<CCRM_UNICA_To_Lead_Mapping__mdt> unicaToLeadMappingCustomMetadata = CCRM_UNICA_To_Lead_Mapping__mdt.getall()
@@ -156,12 +152,14 @@ public with sharing class CCRMLeadMappingEngine {
         : accountMap.containsKey(record.Business_ID__c)
             ? record.Business_ID__c
             : accountMap.containsKey(record.Clg_ID__c) ? record.Clg_ID__c : '';
+      if (String.isBlank(fieldName)) {
+        record.addError(Label.ML_Unica_Lead_Source_System_Not_Found_Error);
+      }
       String accountType = getAccountType(
         accountMap.get(fieldName).RecordTypeId
       );
       if (String.isNotBlank(accountType)) {
         record.FinServ__RelatedAccount__c = accountMap.get(fieldName).Id;
-
         //Account fields mapping
         for (
           CCRM_UNICA_To_Lead_Mapping__mdt mapping : unicaToLeadMappingCustomMetadata
@@ -851,5 +849,21 @@ public with sharing class CCRMLeadMappingEngine {
     ) {
       lead.Industry__c = mapIndustries.get(industryId).Id;
     }
+  }
+
+  /**
+   * @description This method returns set of AccountIds
+   * @name getRelatedPartyIds
+   * @param accountMap map of system id with account
+   * @return Set<String> relatedPartyIds
+   */
+  public static Set<String> getRelatedPartyIds(
+    Map<String, Account> accountMap
+  ) {
+    Set<String> relatedPartyIds = new Set<String>();
+    for (Account account : accountMap.values()) {
+      relatedPartyIds.add(account.Id);
+    }
+    return relatedPartyIds;
   }
 }

@@ -1,0 +1,13 @@
+{
+  "assets": [
+    {
+      "id": "0",
+      "manufacturedYear": "8",
+      "make": "TOYOTA",
+      "model": "HILUX SR 4x",
+      "serialNumber": "2TR6507723",
+      "purchasePrice": "13990",
+      "compositeAssetId": "4011643101-431214465-0"
+    }
+  ]
+}

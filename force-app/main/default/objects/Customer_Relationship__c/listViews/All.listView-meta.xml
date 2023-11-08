@@ -10,5 +10,5 @@
     <columns>Territory__c</columns>
     <columns>Relationship_Owner__c</columns>
     <filterScope>Everything</filterScope>
-    <label>My Teams Customers</label>
+    <label>All Customers</label>
 </ListView>

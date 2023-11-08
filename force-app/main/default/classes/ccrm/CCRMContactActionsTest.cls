@@ -160,7 +160,7 @@ private class CCRMContactActionsTest {
     accnt.Phone = faker.person.phone(true, false);
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
-    accnt.FinServ__Status__c = 'Dormant';
+    accnt.FinServ__Status__c = CCRMConstants.DORMANT_STATUS;
     insert accnt;
 
     List<Contact> contactList = new List<Contact>();
@@ -204,8 +204,8 @@ private class CCRMContactActionsTest {
 
   @IsTest
   static void testCheckMaxContactsPerActiveOrganisation() {
-    //GIVEN a active with 10 contacts
-    Account active = [
+    //GIVEN a activeAccount with 10 contacts
+    Account activeAccount = [
       SELECT Id
       FROM Account
       WHERE
@@ -220,15 +220,15 @@ private class CCRMContactActionsTest {
       contacts.add(
         new Contact(
           LastName = faker.person.lastName(),
-          AccountId = active.Id,
+          AccountId = activeAccount.Id,
           Phone = faker.person.phone(true, false)
         )
       );
     }
     insert contacts;
 
-    //WHEN banker adds another contact to the same active account
-    Contact newContact = new Contact(AccountId = active.Id);
+    //WHEN banker adds another contact to the same activeAccount
+    Contact newContact = new Contact(AccountId = activeAccount.Id);
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       CCRMContactActions.checkMaxContactsPerOrganisation(
@@ -239,7 +239,7 @@ private class CCRMContactActionsTest {
     //THEN the contact won't be added
     System.assert(
       newContact.hasErrors(),
-      'Banker should not be able to add more than 10 contacts to a active'
+      'Banker should not be able to add more than 10 contacts to a active Account'
     );
   }
 }

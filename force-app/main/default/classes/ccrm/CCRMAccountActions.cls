@@ -98,7 +98,7 @@ public with sharing class CCRMAccountActions {
     Map<Id, SObject> oldMap
   ) {
     for (Account rec : records) {
-      if (!rec.Is_Prospect__c && !isActiveAccount(rec)) {
+      if (!rec.Is_Prospect__c && !isExistingCustomer(rec)) {
         Account oldRec = (Account) oldMap.get(rec.Id);
         AccountCommonActionsHelper.revertAccountFieldChanges(rec, oldRec);
       }
@@ -265,23 +265,23 @@ public with sharing class CCRMAccountActions {
   public static AccountWrapper getExistingOrProspectAccounts(
     List<Account> accList
   ) {
-    AccountWrapper accWrap = new AccountWrapper();
+    AccountWrapper accountWrapper = new AccountWrapper();
     for (Account acc : accList) {
       if (acc.Is_Prospect__c) {
-        accWrap.prosAcc.put(acc.Id, acc);
-      } else if (isActiveAccount(acc)) {
-        accWrap.activeAcc.put(acc.Id, acc);
+        accountWrapper.prospectAccounts.put(acc.Id, acc);
+      } else if (isExistingCustomer(acc)) {
+        accountWrapper.existingAccounts.put(acc.Id, acc);
       }
     }
-    return accWrap;
+    return accountWrapper;
   }
 
   /**
-   * @description isActiveAccount to check if the Account is an active/inactive account or not
+   * @description isExistingCustomer to check if the Account is an active/inactive account or not
    * @param accRec accountRec
    * @return Boolean True if the Account is an active/inactive account otherwise false.
    */
-  public static Boolean isActiveAccount(Account accRec) {
+  public static Boolean isExistingCustomer(Account accRec) {
     return ((accRec.RecordTypeId ==
     CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID ||
     accRec.isPersonAccount) &&
@@ -319,8 +319,8 @@ public with sharing class CCRMAccountActions {
    * @name AccountWrapper
    */
   public class AccountWrapper {
-    public Map<Id, Account> prosAcc = new Map<Id, Account>();
-    public Map<Id, Account> activeAcc = new Map<Id, Account>();
+    public Map<Id, Account> prospectAccounts = new Map<Id, Account>();
+    public Map<Id, Account> existingAccounts = new Map<Id, Account>();
   }
 
   /**

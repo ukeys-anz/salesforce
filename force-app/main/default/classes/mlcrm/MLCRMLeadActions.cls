@@ -67,177 +67,6 @@ public with sharing class MLCRMLeadActions {
   }
 
   /**
-   * @description This method prefill Referrer when Referrer Email is populated or changed
-   * @name externalReferrerPrefill
-   * @param records List of lead records
-   * @param oldMap Mao of old lead records
-   * author Ankit Garg
-   * @US CC-3672
-   */
-  public static void externalReferrerPrefill(
-    List<Lead> records,
-    Map<Id, Lead> oldMap
-  ) {
-    Set<String> extReferrerEmails = new Set<String>();
-    Set<Id> extReferrerIds = new Set<Id>();
-    List<Lead> referredEmailLeads = new List<Lead>();
-    List<Lead> referredLeads = new List<Lead>();
-    Map<String, Contact> contactEmailMap = new Map<String, Contact>();
-    Map<Id, Contact> contactMap = new Map<Id, Contact>();
-
-    //filter all the ML leads for which Internal Referral or Referrer Email is changed
-    for (Lead record : records) {
-      if (
-        CCRMLeadUtil.isMLCRMLeadType(record) &&
-        String.isNotBlank(record.FinServ__ReferredByContact__c) &&
-        (oldMap == null ||
-        record.FinServ__ReferredByContact__c !=
-        oldMap.get(record.id).FinServ__ReferredByContact__c)
-      ) {
-        extReferrerIds.add(record.FinServ__ReferredByContact__c);
-        referredLeads.add(record);
-      } else if (
-        CCRMLeadUtil.isMLCRMLeadType(record) &&
-        String.isNotBlank(record.Referrer_Email__c) &&
-        record.LeadSource.equals(MLCRMConstants.EXTERNAL_REFERRAL) &&
-        (oldMap == null ||
-        record.Referrer_Email__c != oldMap.get(record.id).Referrer_Email__c)
-      ) {
-        extReferrerEmails.add(record.Referrer_Email__c);
-        referredEmailLeads.add(record);
-      }
-    }
-
-    if (
-      !extReferrerEmails.isEmpty() && Schema.sObjectType.Contact.isQueryable()
-    ) {
-      contactEmailMap = getExternalReferrerContacts(extReferrerEmails);
-    }
-    if (!extReferrerIds.isEmpty() && Schema.sObjectType.Contact.isQueryable()) {
-      contactMap = getExternalReferrerContacts(extReferrerIds);
-    }
-    if (
-      !referredLeads.isEmpty() &&
-      Schema.sObjectType.Lead.fields.Referrer_Email__c.isUpdateable()
-    ) {
-      populateExternalReferrerDetails(referredLeads, contactMap);
-    }
-    if (
-      !referredEmailLeads.isEmpty() &&
-      Schema.sObjectType.Lead.fields.FinServ__ReferredByContact__c.isUpdateable()
-    ) {
-      populateExternalReferrer(referredEmailLeads, contactEmailMap);
-    }
-  }
-  /**
-   * @description This method to query contacts matching with Referrer Emails
-   * @name getExternalReferrerContacts
-   * @param referrerEmails Set of Email Ids
-   * @return contactEmailMap Map<String,Contact>()
-   * @author Ankit Garg
-   * @US CC-3672
-   */
-  private static Map<String, Contact> getExternalReferrerContacts(
-    Set<String> referrerEmails
-  ) {
-    Map<String, Contact> contactEmailMap = new Map<String, Contact>();
-    //query contacts matching with Referrer Emails
-    for (Contact refContact : [
-      SELECT Id, Name, Email, MobilePhone
-      FROM Contact
-      WHERE Email = :referrerEmails
-    ]) {
-      if (!contactEmailMap.containsKey(refContact.Email)) {
-        contactEmailMap.put(refContact.Email, refContact);
-      }
-    }
-    return contactEmailMap;
-  }
-
-  /**
-   * @description This method to query contacts matching with Referrer Contact Ids
-   * @name getExternalReferrerContacts
-   * @param referrerIds Set of Contact Ids
-   * @return contactMap Map<Id,Contact>()
-   * @author Ankit Garg
-   * @US CC-3672
-   */
-  private static Map<Id, Contact> getExternalReferrerContacts(
-    Set<Id> referrerIds
-  ) {
-    //query contacts matching with Internal Referrer Ids
-    Map<Id, Contact> contactMap = new Map<Id, Contact>(
-      [SELECT Id, Name, Email, MobilePhone FROM Contact WHERE Id = :referrerIds]
-    );
-    return contactMap;
-  }
-
-  /**
-   * @description This method to populate Referrer Email and Referrer Name
-   * @name populateExternalReferrerDetails
-   * @param referredLeads List of Lead records
-   * @param contactMap Map of Contacts
-   * @author Ankit Garg
-   * @US CC-3672
-   */
-  private static void populateExternalReferrerDetails(
-    List<Lead> referredLeads,
-    Map<Id, Contact> contactMap
-  ) {
-    for (Lead record : referredLeads) {
-      if (
-        record.FinServ__ReferredByContact__c != null &&
-        !contactMap.isEmpty() &&
-        contactMap.containsKey(record.FinServ__ReferredByContact__c)
-      ) {
-        record.Referrer_Email__c = contactMap.get(
-            record.FinServ__ReferredByContact__c
-          )
-          .Email;
-        record.Referrer_Name__c = contactMap.get(
-            record.FinServ__ReferredByContact__c
-          )
-          .Name;
-        record.Referrer_Phone__c = contactMap.get(
-            record.FinServ__ReferredByContact__c
-          )
-          .MobilePhone;
-      }
-    }
-  }
-  /**
-   * @description This method to populate Internal Referrer and Referrer Name
-   * @name populateReferrer
-   * @param referredLeads List of Lead records
-   * @param contactEmailMap Map of email with Contacts
-   * @author Ankit Garg
-   * @US CC-3672
-   */
-  private static void populateExternalReferrer(
-    List<Lead> referredLeads,
-    Map<String, Contact> contactEmailMap
-  ) {
-    for (Lead record : referredLeads) {
-      if (
-        record.Referrer_Email__c != null &&
-        !contactEmailMap.isEmpty() &&
-        contactEmailMap.containsKey(record.Referrer_Email__c)
-      ) {
-        record.FinServ__ReferredByContact__c = contactEmailMap.get(
-            record.Referrer_Email__c
-          )
-          .Id;
-        record.Referrer_Name__c = contactEmailMap.get(record.Referrer_Email__c)
-          .Name;
-        record.Referrer_Phone__c = contactEmailMap.get(record.Referrer_Email__c)
-          .MobilePhone;
-      } else {
-        record.FinServ__ReferredByContact__c = null;
-      }
-    }
-  }
-
-  /**
    * @description This method to set the primary franchise owner on lead
    * @name populatePrimaryFranchise
    * @param lstOfLead List of Lead records
@@ -260,7 +89,7 @@ public with sharing class MLCRMLeadActions {
       }
     }
     if (!idsOfTerritory.isEmpty()) {
-      Map<Id, Territory__c> mapOfUserToTerritory;
+      Map<Id, Territory__c> mapOfUserTerritories;
       //getting list of territory records
       List<Territory__c> lstOfTerritory = [
         SELECT Primary_Franchise_Owner__c
@@ -268,18 +97,18 @@ public with sharing class MLCRMLeadActions {
         WHERE Id IN :idsOfTerritory
       ];
       if (!lstOfTerritory.isEmpty()) {
-        mapOfUserToTerritory = new Map<Id, Territory__c>();
+        mapOfUserTerritories = new Map<Id, Territory__c>();
         for (Territory__c objTerritory : lstOfTerritory) {
-          mapOfUserToTerritory.put(objTerritory.Id, objTerritory);
+          mapOfUserTerritories.put(objTerritory.Id, objTerritory);
         }
       }
 
       for (Lead objLead : lstOfLead) {
         if (
           objLead.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID &&
-          mapOfUserToTerritory.containsKey(objLead.Territory__c)
+          mapOfUserTerritories.containsKey(objLead.Territory__c)
         ) {
-          objLead.Primary_Franchise_Owner__c = mapOfUserToTerritory.get(
+          objLead.Primary_Franchise_Owner__c = mapOfUserTerritories.get(
               objLead.Territory__c
             )
             .Primary_Franchise_Owner__c;

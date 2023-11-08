@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commercial_Bill__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
+    <description>Associated Id of Commercial bill</description>
+    <externalDeveloperName>CommercialBillId</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Commercial Bill</label>
+    <length>255</length>
+    <referenceTo>Commercial_Bill__x</referenceTo>
+    <relationshipLabel>Linked Bills</relationshipLabel>
+    <relationshipName>Linked_Bills</relationshipName>
+    <securityClassification>Confidential</securityClassification>
+    <type>ExternalLookup</type>
+</CustomField>

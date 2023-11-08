@@ -30,7 +30,7 @@ public with sharing class CCRMGetSelectedAddressModelV2 extends CalloutModel {
    */
   public class Components {
     @AuraEnabled
-    public String country_iso_2;
+    public String country_iso_3;
   }
 
   /**
