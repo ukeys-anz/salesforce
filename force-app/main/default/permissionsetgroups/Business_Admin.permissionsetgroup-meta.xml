@@ -5,7 +5,6 @@
     <label>Business_Admin</label>
     <permissionSets>Account_Hardship_Collections_Manager</permissionSets>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
-    <permissionSets>ANZx_Comms_Tableau_Redirect</permissionSets>
     <permissionSets>Appointment_Commitments_Read_Write</permissionSets>
     <permissionSets>Author_Reports_and_Dashboards</permissionSets>
     <permissionSets>BoH_Read_Only</permissionSets>
