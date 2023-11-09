@@ -217,6 +217,7 @@
     "Entitlement": "Represents the customer support an account or contact is eligible to receive.",
     "Event": "Represents a calendar entry in Salesforce",
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
+    "Financial_Summary_Calculation__e": "Platform event used for financial summary calculation result publishing.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Group": "A set of User records.",
@@ -1697,6 +1698,14 @@
         "Status_Event_ID__c",
         "Status_Timestamp__c",
         "Status_Timestamp_With_Millisec_Gmt__c"
+      ]
+    },
+    "Financial_Summary_Calculation__e": {
+      "IA-2530753": [
+        "Last_Calculated_Time__c",
+        "Response_Id__c",
+        "Summary__c",
+        "Summary_Type__c"
       ]
     },
     "FinServ__AccountAccountRelation__c": {
