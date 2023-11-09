@@ -15,6 +15,7 @@ public class VerifyInsuranceModel extends CalloutModel {
   @AuraEnabled
   public ProofOfInsuranceVerification proofOfInsuranceVerification;
 
+
   /**
    * @description verify insurance proof of insurance verification information
    */
