@@ -278,10 +278,19 @@ public with sharing class NewCaseFlowWrapperController {
     ]) {
       recordTypesToExcl.add(mdt.DeveloperName);
     }
+    List<Profile> profiles = [
+      SELECT Id, Name
+      FROM Profile
+      WHERE Id = :userinfo.getProfileId()
+      LIMIT 1
+    ];
+    String profileName = profiles[0].Name;
 
     if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
       recordTypesToExcl.add(IDRConstants.CUSTOMER_COMPLAINT_RT_NAME);
-      recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);
+      if (profileName != 'ANZx Standard User') {
+        recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);
+      }
     }
 
     try {

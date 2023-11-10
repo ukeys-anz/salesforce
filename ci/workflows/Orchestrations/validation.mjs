@@ -2,7 +2,7 @@
 
 /// Import different function from different services.
 
-import { uploadArtifact } from "../Services/artifact-service.mjs";
+import { createAndUploadArtifact } from "../Services/artifact-service.mjs";
 import {
   authenticate,
   unauthenticate
@@ -17,7 +17,12 @@ import {
   uploadJobId,
   codeCoverage
 } from "../Services/deploy-service.mjs";
-import { booleanMap, deleteFolder, logger } from "../Services/helper.mjs";
+import {
+  booleanMap,
+  deleteFolder,
+  deleteFile,
+  renameItem
+} from "../Services/helper.mjs";
 
 //////////
 
@@ -26,19 +31,25 @@ import { booleanMap, deleteFolder, logger } from "../Services/helper.mjs";
 const {
   WHICH_JOB,
   BASE_REF,
+  BASE_REF_LAST_TAG,
   BRANCH_NAME,
   SFDX_URL,
   DRAFT_PR,
   SPECIFIED_TEST_PR,
-  ARTIFACTORY_SECRET_VALUE
+  ARTIFACTORY_SECRET_VALUE,
+  PR_NUMBER,
+  WORKING_DIR
 } = process.env;
 
-const JOB_ID_PATH = `${BRANCH_NAME}.txt`;
-const SOURCE_DIR = `artifact-${BRANCH_NAME}`;
+const SOURCE_DIR = renameItem(`artifact-${BRANCH_NAME}`);
 const CLASS_FOLDER_PATH = `${SOURCE_DIR}/force-app/main/default/classes`;
-// This should be change to the project name later
-const PROJECT_NAME = "xxxx";
-
+const JOB_ID_FILE_NAME = renameItem(`${BASE_REF}-${PR_NUMBER}`);
+const ANZX_CI_PACKAGE_XML =
+  WORKING_DIR + "/ci/workflows/Config/ANZxCIPackage.xml";
+const ARTIFACT_PACKAGE_XML =
+  WORKING_DIR + "/" + SOURCE_DIR + "/package/package.xml";
+const ARTIFACT_DESTRUCTIVE_XML =
+  WORKING_DIR + "/" + SOURCE_DIR + "/destructiveChanges/destructiveChanges.xml";
 //////////
 
 /// functions
@@ -63,25 +74,34 @@ const validationFunction = () => {
 };
 
 const validate = () => {
-  uploadArtifact(
+  createAndUploadArtifact(
     SOURCE_DIR,
-    BASE_REF,
-    BRANCH_NAME,
-    ARTIFACTORY_SECRET_VALUE,
-    PROJECT_NAME
+    BASE_REF_LAST_TAG,
+    ARTIFACTORY_SECRET_VALUE
   );
   authenticate(BRANCH_NAME, SFDX_URL);
-  cancel(JOB_ID_PATH);
+  cancel(
+    JOB_ID_FILE_NAME,
+    ARTIFACTORY_SECRET_VALUE,
+    BRANCH_NAME,
+    ANZX_CI_PACKAGE_XML
+  );
   const validationFunc = validationFunction();
   const validation = validationFunc(BRANCH_NAME, SOURCE_DIR, CLASS_FOLDER_PATH);
-  uploadJobId(validation, BRANCH_NAME);
-  validateProgress(validation);
+  uploadJobId(validation, JOB_ID_FILE_NAME, ARTIFACTORY_SECRET_VALUE);
+  validateProgress(
+    validation,
+    BRANCH_NAME,
+    ARTIFACT_PACKAGE_XML,
+    ARTIFACT_DESTRUCTIVE_XML
+  );
 };
 
 const clean = () => {
-  codeCoverage(JOB_ID_PATH);
+  codeCoverage(JOB_ID_FILE_NAME, DRAFT_PR);
   unauthenticate(BRANCH_NAME);
-  logger(deleteFolder(SOURCE_DIR));
+  deleteFolder(SOURCE_DIR);
+  deleteFile(JOB_ID_FILE_NAME);
 };
 
 /////////

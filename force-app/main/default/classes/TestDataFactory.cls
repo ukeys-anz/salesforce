@@ -12,6 +12,12 @@ public without sharing class TestDataFactory {
     WHERE Id = :UserInfo.getUserId()
   ];
 
+  public static Id anzxStandardProfileId = CommonUtil.getProfileByName(
+      'ANZx Standard User'
+    )
+    .Id;
+  private static User anzxUser;
+
   /**
    * @description Create Account record
    * @param doInsert the Account record type
@@ -496,5 +502,142 @@ public without sharing class TestDataFactory {
     }
 
     return newInteraction;
+  }
+
+  /**
+   * @description Create ANZx User
+   * @name createANZxUser
+   * @param roleDevName User Role Developer Name
+   * @param psgDevName Permission Set Group Developer Name
+   * @return ANZx User
+   */
+  public static User createANZxUser(String roleDevName, String psgDevName) {
+    anzxUser = (User) FakerFactory.make(new FakerUserFactory());
+    anzxUser.FirstName = roleDevName;
+    anzxUser.UserRoleId = CommonUtil.getUserRoleByDevName(roleDevName).Id;
+    anzxUser.ProfileId = anzxStandardProfileId;
+    insert anzxUser;
+
+    // get the PSG by name (may have been modified in deployment)
+    PermissionSetGroup psg = [
+      SELECT Id, Status
+      FROM PermissionSetGroup
+      WHERE DeveloperName = :psgDevName
+    ];
+
+    // force calculation of the PSG if it is not already Updated
+    if (psg.Status != 'Updated') {
+      Test.calculatePermissionSetGroup(psg.Id);
+    }
+
+    // assign PSG to current user (this fails if PSG is Outdated)
+    insert new PermissionSetAssignment(
+      PermissionSetGroupId = psg.Id,
+      AssigneeId = anzxUser.Id
+    );
+
+    return anzxUser;
+  }
+
+  /**
+   * @description Create ANZx User with User Role Developer Name and Permission Set Group Developer Name are same
+   * @name createANZxUser
+   * @param roleOrPSGDevName User Role Developer Name or Permission Set Group Developer Name
+   * @return ANZx User
+   */
+  public static User createANZxUser(String roleOrPSGDevName) {
+    return createANZxUser(roleOrPSGDevName, roleOrPSGDevName);
+  }
+
+  /**
+   * @description Get a ANZx User, if such user not exists yet then create one
+   * @name getANZxUser
+   * @param roleDevName User Role Developer Name
+   * @return Integration User with ANZx User Permission Set.
+   */
+  public static User getANZxUser(String roleDevName) {
+    if (anzxUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE ProfileId = :anzxStandardProfileId AND FirstName = :roleDevName
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        anzxUser = createANZxUser(roleDevName);
+      } else {
+        anzxUser = users[0];
+      }
+    }
+    return anzxUser;
+  }
+
+  /**
+   * @description create the Settlement records
+   * @param loanAppId Loan app id to link to settlement
+   * @return Settlement__c
+   */
+  public static Settlement__c createSettlement(String loanAppId) {
+    return new Settlement__c(Loan_Application_Number__c = loanAppId);
+  }
+
+  /**
+   * @description create the POI records
+   * @param settlementId Settlement id to link
+   * @return Proof_of_Insurance__c
+   */
+  public static Proof_of_Insurance__c createPOI(String settlementId) {
+    return new Proof_of_Insurance__c(Settlement_ID__c = settlementId);
+  }
+  /**
+   * @description create Business Record Type Account
+   * @param externalId String
+   * @param recordTypeId Id
+   * @param ocvId String
+   * @return Account
+   */
+  public static Account createBusinessRecordTypeAccount(
+    String externalId,
+    Id recordTypeId,
+    String ocvId
+  ) {
+    Account acct = new Account();
+    acct.Name = 'John Citizen Pty Ltd';
+    acct.External_Id__c = externalId;
+    acct.RecordTypeId = recordTypeId;
+    acct.OCV_ID__c = ocvId;
+    insert acct;
+    return acct;
+  }
+  /**
+   * @description create C360 Financial Account
+   * @param recordTypeId Id
+   * @param productType String
+   * @param accountId Id
+   * @param accountKey String
+   * @param accountNum String
+   * @return FinServ__FinancialAccount__c
+   */
+  public static FinServ__FinancialAccount__c createC360FinancialAccount(
+    Id recordTypeId,
+    String productType,
+    Id accountId,
+    String accountKey,
+    String accountNum
+  ) {
+    FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c(
+      Name = 'Test',
+      FinServ__Balance__c = 200,
+      FinServ__CurrentPostedBalance__c = 200,
+      FinServ__Status__c = 'Active',
+      FinServ__FinancialAccountType__c = 'Savings',
+      FinServ__PrimaryOwner__c = accountId,
+      Account_Key__c = accountKey,
+      FinServ__FinancialAccountNumber__c = accountNum,
+      RecordTypeId = recordTypeId,
+      Product_Type__c = productType
+    );
+    insert finAccount;
+    return finAccount;
   }
 }

@@ -3,13 +3,31 @@
  * @author Pavan Kumar Ananta
  * @since 01/06/2020
  * @group Utils
+ * @modified by Shivraj Kadam on 08/28/2023
  */
 public with sharing class TextUtils {
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final String TAX_REGEX_PATTERN = '[0-9][^a-zA-Z]{13,}[0-9]';
   private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
   private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
+  private static final String SANITISE_MOBILE_NUMBER_REGEX_PATTERN = '[^0-9]';
   private static final Integer UNMASK_LENGTH = 4;
+
+  //start - added for CC-4053
+  private static final String EXT_PATTERN_CC = '(?<!\\+)\\b\\d[0-9 -]{13,}\\d\\b';
+  private static final String EXT_PATTERN_8PLUSLENGTH_EX_PHONE = '\\b(?<!\\+)\\b\\d(?:[ -]?\\d){7,14}\\b';
+  private static final String EXT_PATTERN_PASSPORT = '\\b(?=[A-Za-z]*\\d)(?=\\d*[A-Za-z])[A-Za-z\\d]{6,15}\\b';
+  private static Pattern extendRedactCCPattern = Pattern.compile(
+    EXT_PATTERN_CC
+  );
+  private static Pattern extendRedactEightPlusExPhonePattern = Pattern.compile(
+    EXT_PATTERN_8PLUSLENGTH_EX_PHONE
+  );
+  private static Pattern extendRedactPassportPattern = Pattern.compile(
+    EXT_PATTERN_PASSPORT
+  );
+  //end - added for CC-4053
+
   private static Pattern accountOrCardPattern = Pattern.compile(
     ACCOUNT_OR_CARD_REGEX_PATTERN
   );
@@ -212,5 +230,184 @@ public with sharing class TextUtils {
     Pattern compiledPattern = Pattern.compile(regex);
     Matcher regexMatcher = compiledPattern.matcher(input);
     return regexMatcher.find();
+  }
+
+  /**
+   * @description CC-4053 Redacting sensitive customer information
+   * @param sObjects List of SObjects
+   * @param fieldName field name
+   */
+  public static void maskSObjectDataANZExtended(
+    List<SObject> sObjects,
+    String fieldName
+  ) {
+    if (sObjects.isEmpty()) {
+      return;
+    }
+    Set<String> dataTypeNames = new Set<String>{
+      'STRING',
+      'TEXTAREA',
+      'COMBOBOX'
+    };
+    String dataTypeField = getFieldType(sObjects[0], fieldName);
+    for (SObject sObj : sObjects) {
+      if (dataTypeNames.contains(dataTypeField)) {
+        String originalText = (String) sObj.get(fieldName);
+        if (String.isNotBlank(originalText)) {
+          sObj.put(fieldName, maskDataANZExtended(originalText));
+        }
+      }
+    }
+  }
+
+  /**
+   * @description CC-4053 Redacting sensitive customer information
+   * @param sObj object record
+   * @param fieldName name of the field to get type
+   * @return `String` fieldtype
+   */
+  private static String getFieldType(Sobject sObj, String fieldName) {
+    Schema.SObjectType objectType = sObj.getSObjectType();
+    Schema.DescribeSObjectResult objectDescribe = objectType.getDescribe();
+
+    if (objectDescribe.fields.getMap().containsKey(fieldName)) {
+      Schema.DescribeFieldResult fieldDescribe = objectDescribe.fields.getMap()
+        .get(fieldName)
+        .getDescribe();
+      return fieldDescribe.getType().name();
+    }
+
+    return '';
+  }
+
+  /**
+   * @description CC-4053 Redacting sensitive customer information
+   * @param originalText input text
+   * @return `String` redacted string
+   */
+  private static String maskDataANZExtended(String originalText) {
+    String redactedText = maskStringANZExtended(
+      originalText,
+      extendRedactCCPattern,
+      4
+    );
+
+    if (regexMatchesKeyword(redactedText) == false) {
+      return redactedText;
+    }
+    redactedText = maskStringANZExtended(
+      redactedText,
+      extendRedactEightPlusExPhonePattern,
+      0
+    );
+
+    redactedText = maskStringANZExtended(
+      redactedText,
+      extendRedactPassportPattern,
+      0
+    );
+
+    return redactedText;
+  }
+
+  /**
+   * @description CC-4053 Redacting sensitive customer information
+   * @param inputText string to redact
+   * @param matchPattern pattern
+   * @param unmaskLength unmaskLength
+   * @return `String` redacted string
+   */
+  private static String maskStringANZExtended(
+    String inputText,
+    Pattern matchPattern,
+    Integer unmaskLength
+  ) {
+    Matcher matcher = matchPattern.matcher(inputText);
+    while (matcher.find()) {
+      String origMatchedText = matcher.group();
+      String matchedText = origMatchedText.remove('-').remove(' ');
+
+      // leave the last X character of the match string unmasked, where X = unmaskedLength
+      String redactedText =
+        '*'
+          .repeat(
+            matchedText.substring(0, matchedText.length() - unmaskLength)
+              .length()
+          ) + matchedText.right(unmaskLength);
+      inputText = inputText.replaceFirst(origMatchedText, redactedText);
+    }
+    return inputText;
+  }
+
+  /**
+   * @description CC-4053 Redacting sensitive customer information
+   * @param sObjects list of records
+   * @param recordTypeIds recordtypes ids
+   * @return `RecordListWrapper` list of dcrm records and other records
+   */
+  public static RecordListWrapper checkRecordTypeRedactionMethod(
+    List<SObject> sObjects,
+    List<Id> recordTypeIds
+  ) {
+    RecordListWrapper wrapperData = new RecordListWrapper();
+    for (SObject sObj : sObjects) {
+      if (recordTypeIds.contains((Id) sObj.get('RecordTypeId'))) {
+        wrapperData.dcrmRecordList.add(sObj);
+      } else {
+        wrapperData.recordList.add(sObj);
+      }
+    }
+    return wrapperData;
+  }
+
+  /**
+   * @description This is the wrapper class for list
+   * @param dcrmRecordList list of records related to dcrm
+   * @param recordList records other than dcrm list
+   */
+  public class RecordListWrapper {
+    /**
+     * @description list of records related to dcrm
+     */
+    public List<SObject> dcrmRecordList { get; set; }
+    /**
+     * @description records other than dcrm list
+     */
+    public List<SObject> recordList { get; set; }
+    /**
+     * @description constructor
+     */
+    public RecordListWrapper() {
+      dcrmRecordList = new List<SObject>();
+      recordList = new List<SObject>();
+    }
+  }
+
+  /**
+   * @description sanitiseStringBasedOnPattern remove unexpected chars base on regex pattern=
+   * @param input Input string that we need to sanitise
+   * @param regexPattern the regex pattern uses to sanitise
+   * @return `String` sanitised string
+   */
+  public static String sanitiseStringBasedOnPattern(
+    String input,
+    String regexPattern
+  ) {
+    if (String.isEmpty(input)) {
+      return input;
+    }
+    return input.replaceAll(regexPattern, '');
+  }
+
+  /**
+   * @description sanitiseMobileNumber remove unexpected chars of mobile number base on sanitise mobile regex pattern
+   * @param input Input mobile number that we need to sanitise
+   * @return `String` sanitised mobile number
+   */
+  public static String sanitiseMobileNumber(String input) {
+    return sanitiseStringBasedOnPattern(
+      input,
+      SANITISE_MOBILE_NUMBER_REGEX_PATTERN
+    );
   }
 }

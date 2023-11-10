@@ -170,6 +170,14 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Type__c</fields>
+        <fields>Status__c</fields>
+        <fields>Owner_Name__c</fields>
+        <fields>Last_Modified__c</fields>
+        <relatedList>Settlement__c.Loan_Application_Number__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
         <fields>Change_Type__c</fields>
         <relatedList>Material_Change__c.Loan_Application__c</relatedList>
     </relatedLists>
@@ -177,7 +185,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h8r000002ROM9</masterLabel>
+        <masterLabel>00h5m000000MoUu</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

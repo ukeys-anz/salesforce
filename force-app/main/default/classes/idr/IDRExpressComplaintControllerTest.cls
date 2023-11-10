@@ -4,7 +4,7 @@
  * @since Dec 2021
  * @description Test class for IDRExpressComplaintController (Express complaint functionality)
  */
-@isTest
+@IsTest
 public with sharing class IDRExpressComplaintControllerTest {
   @TestSetup
   static void makeData() {
@@ -47,23 +47,20 @@ public with sharing class IDRExpressComplaintControllerTest {
     );
     insert cmosUser;
 
-    List<String> level1PSs = new List<String>{
-      'IDR_User',
-      'IDR_User_Level_1',
-      'Product_Read_Only'
-    };
-
-    List<PermissionSet> psList = [
+    PermissionSetGroup psgLevel1 = [
       SELECT Id
-      FROM PermissionSet
-      WHERE Name IN :level1PSs
+      FROM PermissionSetGroup
+      WHERE DeveloperName = 'IDR_Level_1'
+      LIMIT 1
     ];
+    Test.calculatePermissionSetGroup(psgLevel1.Id);
 
-    List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
-    for (PermissionSet ps : psList) {
-      psaList.add(TestUtil.createPSAssignment(cmosUser.id, ps.Id));
-    }
-    insert psaList;
+    PermissionSetAssignment psAssignment = new PermissionSetAssignment(
+      AssigneeId = cmosUser.Id,
+      PermissionSetGroupId = psgLevel1.Id
+    );
+
+    insert psAssignment;
 
     return cmosUser;
   }
@@ -88,7 +85,7 @@ public with sharing class IDRExpressComplaintControllerTest {
     return cmosUserWithoutPermission;
   }
 
-  @isTest
+  @IsTest
   static void testGetAllKnownIssues() {
     User contextUser = new User();
     User thisUser = [
@@ -133,7 +130,7 @@ public with sharing class IDRExpressComplaintControllerTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testAccessCheckException() {
     User contextUser = createCMOSUserWithoutPermission();
     List<Known_Issues__c> knownIssueList = new List<Known_Issues__c>();

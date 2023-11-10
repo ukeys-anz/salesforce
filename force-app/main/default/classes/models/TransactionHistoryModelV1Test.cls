@@ -7,14 +7,25 @@
 public class TransactionHistoryModelV1Test {
   @isTest
   static void testParse() {
-    String responseJson = [
+    String responseJson;
+    Map<String, String> mapPersonaIdAndCustomerName;
+
+    responseJson = [
         SELECT body
         FROM staticresource
         WHERE name = 'mock_transactionHistoryV1'
       ]
       .body.toString();
+    mapPersonaIdAndCustomerName = new Map<String, String>();
+    mapPersonaIdAndCustomerName.put(
+      'ab621652-de45-4008-9650-14f6557d13a3',
+      'Grimes'
+    );
 
-    TransactionHistoryModel obj = TransactionHistoryModelV1.parse(responseJson);
+    TransactionHistoryModel obj = TransactionHistoryModelV1.parse(
+      responseJson,
+      mapPersonaIdAndCustomerName
+    );
 
     String transactionid = obj.embedded.transactions[0].transaction_id;
     DateTime expectedDatetime = DateTime.newInstanceGMT(

@@ -35,6 +35,11 @@ public with sharing class FinancialAccountModelConverter {
         sourceAccount.balances.current_balance
       );
 
+      // Ownership conversion - Added as part of ANZX-120128
+      if (sourceAccount.ownership != null) {
+        destAccount.ownership = convertOwnership(sourceAccount.ownership);
+      }
+
       // MarketingProduct mapping
       destAccount.marketing_product = new FinancialAccountModel.MarketingProduct();
       destAccount.marketing_product.code = sourceAccount.product_details.marketing_code;
@@ -107,6 +112,14 @@ public with sharing class FinancialAccountModelConverter {
     }
 
     return result;
+  }
+
+  private static FinancialAccountModel.Ownership convertOwnership(
+    FinancialAccountModelV1.Ownership sourceOwnership
+  ) {
+    FinancialAccountModel.Ownership destOwnership = new FinancialAccountModel.Ownership();
+    destOwnership.type = sourceOwnership.type;
+    return destOwnership;
   }
 
   private static FinancialAccountModel.Balance convertBalance(

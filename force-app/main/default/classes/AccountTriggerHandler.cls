@@ -30,6 +30,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     if (!CCRMLeadConversionActions.manualLeadConversionInitiated) {
       AccountCommonActions.findAndConvertLead(records);
     }
+    AccountCommonActions.linkKYCQACasesToAccount(records);
   }
 
   /**
@@ -38,8 +39,10 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
-    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(records);
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
+    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
+      records
+    );
     Boolean isAllowedProfileCheck = CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging();
     if (isAllowedProfileCheck) {
       CCRMAccountActions.preventEditShellProspect(
@@ -48,7 +51,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
       ); //CC-5050
 
       CCRMCustomerProfileUpdateHelper.restrictEdit(
-        accWrap.activeAcc.values(),
+        existingOrProspectAccounts.existingAccounts.values(),
         (Map<Id, Account>) oldMap
       );
     }
@@ -61,16 +64,16 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
       CCRMAccountActions.revertAccountChanges(records, oldMap);
 
       CCRMAccountActions.validateAndFormatProspectAbnAcnArbn(
-        accWrap.prosAcc.values(),
+        existingOrProspectAccounts.prospectAccounts.values(),
         (Map<Id, Account>) oldMap
       );
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        accWrap.prosAcc.values(),
+        existingOrProspectAccounts.prospectAccounts.values(),
         (Map<Id, Account>) oldMap,
         true
       );
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        accWrap.activeAcc.values(),
+        existingOrProspectAccounts.existingAccounts.values(),
         (Map<Id, Account>) oldMap,
         false
       );

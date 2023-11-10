@@ -102,18 +102,18 @@ public class MLCRMCustomerSetCPIDLookupBatchAction {
   /**
    * @description This method is return error message
    * @name processErrors
-   * @param lstOfError list of error records
+   * @param errorList list of error records
    * @return String
    * @author Ankit Garg
    * @US CC-4761
    */
-  public static Exception processErrors(List<String> lstOfError) {
+  public static Exception processErrors(List<String> errorList) {
     Schema.DescribeFieldResult objDescribe = LogEntry__c.ExceptionMessage__c.getDescribe();
     Integer lengthOfField = objDescribe.getLength();
     return new CustomException(
-      JSON.serializePretty(lstOfError).length() > lengthOfField
-        ? JSON.serializePretty(lstOfError).substring(0, lengthOfField)
-        : JSON.serializePretty(lstOfError)
+      JSON.serializePretty(errorList).length() > lengthOfField
+        ? JSON.serializePretty(errorList).substring(0, lengthOfField)
+        : JSON.serializePretty(errorList)
     );
   }
   private class CustomException extends Exception {

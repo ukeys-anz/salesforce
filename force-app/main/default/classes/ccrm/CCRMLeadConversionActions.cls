@@ -319,42 +319,6 @@ public with sharing class CCRMLeadConversionActions {
   }
 
   /**
-   * @description Update Conversion Status of lead call from lwc
-   * @name updateConversionStatus
-   * @param record Lead record from lwc component.
-   * @param status conversion status
-   * @return Boolean
-   */
-  @AuraEnabled(cacheable=false)
-  public static Boolean updateConversionStatus(Lead record, String status) {
-    Boolean isStatusUpdated = false;
-    Lead leadRec = new Lead(id = record.Id);
-    if (
-      leadRec.id != null &&
-      record.Conversion_Status__c != CCRMConstants.STATUS_COMPLETED
-    ) {
-      leadRec.Conversion_Status__c = status;
-    }
-    if (
-      Schema.sObjectType.Lead.isUpdateable() &&
-      Schema.sObjectType.Lead.fields.Conversion_Status__c.isUpdateable()
-    ) {
-      Database.saveResult result = Database.update(leadRec, true);
-      if (result.isSuccess()) {
-        isStatusUpdated = true;
-        return isStatusUpdated;
-      } else {
-        Logger.error(
-          'Error in updating Conversion Status on Lead ' + record.Id,
-          result
-        );
-        Logger.saveLog();
-      }
-    }
-    return isStatusUpdated;
-  }
-
-  /**
    * @description Convert MLCRM Lead for matched maintain party Existing Customer
    * @name convertLeadWithMatchedParty
    * @param accId get account id matched for lead conversion

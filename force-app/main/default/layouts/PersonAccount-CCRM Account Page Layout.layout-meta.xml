@@ -295,6 +295,15 @@
         <relatedList>ContactPointEmails</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>ExternalId</fields>
+        <fields>Comment__c</fields>
+        <fields>Date_Placed__c</fields>
+        <fields>Operator__c</fields>
+        <fields>Expiry_Date__c</fields>
+        <fields>Permanent__c</fields>
+        <relatedList>Diary_Comment__x.Account__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>TelephoneNumber</fields>
         <fields>UsageType</fields>
         <fields>Preferred_Indicator__c</fields>

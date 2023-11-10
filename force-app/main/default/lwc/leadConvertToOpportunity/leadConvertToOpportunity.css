@@ -19,3 +19,7 @@ p.modalSubText {
   padding-left: 0.3rem;
   padding-right: 0.3rem;
 }
+
+.ml-hidden-fields {
+  visibility: hidden;
+}

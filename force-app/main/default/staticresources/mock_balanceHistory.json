@@ -1,0 +1,20 @@
+{
+  "balanceHistory": [
+    {
+      "compositeBalanceHistoryId": "DDA-901221265-0",
+      "month": "August",
+      "year": "2023",
+      "avgBalance": 905.57,
+      "minBalance": 905.57,
+      "maxBalance": 905.57
+    },
+    {
+      "compositeBalanceHistoryId": "DDA-901221265-1",
+      "month": "July",
+      "year": "2023",
+      "avgBalance": 905.57,
+      "minBalance": 905.57,
+      "maxBalance": 905.57
+    }
+  ]
+}

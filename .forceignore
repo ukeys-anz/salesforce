@@ -181,3 +181,6 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 
 #AR-88127 - ignore System Admin CyberArk to be deployed to ScratchOrg
 force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml 
+
+#PR-8811 Skip field destruction in merge
+force-app/main/default/objects/Lead/fields/Conversion_Status__c

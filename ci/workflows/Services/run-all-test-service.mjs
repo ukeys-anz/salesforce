@@ -1,23 +1,30 @@
 import { exec } from "child_process";
-import { runSfCommand, findJobIdFromCommand, logger } from "./helper.mjs";
+import {
+  runSfCommand,
+  findJobIdFromCommand,
+  logger,
+  createDeployCacheFile
+} from "./helper.mjs";
 import { deployReport } from "./deploy-service.mjs";
 
 // We are using sfdx command here, as it seems there is no equivalent command on sf to run tests -
 // - using sf project commands.
-const runAllLocalTests = (targetOrg, runAllTestPackagePath) => {
+// POINT: not in use now
+const runAllLocalTestsSFDX = (targetOrg, runAllTestPackagePath) => {
   return runSfCommand(
     `npx sfdx force:source:deploy -u ${targetOrg} -c -d ${runAllTestPackagePath} -l RunLocalTests --json`
   );
 };
 
-const runAllLocalTestsProgress = (targetOrg, runAllTestPackagePath) => {
+// POINT: not in use now
+const runAllLocalTestsProgressSFDX = (targetOrg, runAllTestPackagePath) => {
   const command = runAllLocalTests(targetOrg, runAllTestPackagePath);
   const jobId = findJobIdFromCommand(command);
   if (!jobId) {
     console.error("Error Running all local tests.");
     process.exit(1);
   }
-  const runAllTestsReport = exec(
+  const runAllTestsReportSFDX = exec(
     `npx sfdx force:mdapi:deploy:report -i ${jobId} -u ${targetOrg} -w 60 --verbose`
   );
   runAllTestsReport.stdout.on("data", (data) => {
@@ -52,19 +59,27 @@ const runAllLocalTestsProgress = (targetOrg, runAllTestPackagePath) => {
 // If we want to use sf project command, we should choose one class to run the fake validation -
 // - with running all the tests.
 
-const runAllTests = (targetOrg, runAllTestClassPath) => {
+const runAllLocalTests = (targetOrg, runAllTestClassPath) => {
+  logger("Run All Tests");
   const command = `npx sf project deploy start -o ${targetOrg} -d ${runAllTestClassPath} --dry-run --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
-  logger(command);
+  console.log(command);
   return runSfCommand(command);
 };
 
-const runAllTestsProgress = (targetOrg, runAllTestClassPath) => {
-  const runAllTestsReport = runAllTests(targetOrg, runAllTestClassPath);
+const runAllLocalTestsProgress = (
+  runAllTestsReport,
+  targetOrg,
+  runAllTestPackage
+) => {
   const jobId = findJobIdFromCommand(runAllTestsReport);
   if (!jobId) process.exit();
 
+  logger("Run All Tests Progress");
+
+  createDeployCacheFile(jobId, targetOrg, runAllTestPackage, runAllTestPackage);
+
   const command = `npx sf project deploy resume --job-id ${jobId}`;
-  logger(command);
+  console.log(command);
 
   const runAllTestsProcess = exec(command);
   runAllTestsProcess.stdout.on("data", (data) => {
@@ -79,6 +94,7 @@ const runAllTestsProgress = (targetOrg, runAllTestClassPath) => {
       }
     } catch (err) {
       console.log(data);
+      deployReport(jobId, "Run All Tests");
     }
   });
 
@@ -92,10 +108,12 @@ const runAllTestsProgress = (targetOrg, runAllTestClassPath) => {
   runAllTestsProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Tests failed with exit code: \n${code}`);
-      deployReport(jobId);
+      deployReport(jobId, "Run All Tests");
       process.exit(1);
     }
   });
 };
 
-export { runAllLocalTestsProgress, runAllTestsProgress };
+/////
+
+export { runAllLocalTestsProgress, runAllLocalTests };

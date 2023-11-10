@@ -641,7 +641,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Boolean isBonus
   ) {
     if (
-      incomeType.amount.units == 'null' || String.isBlank(incomeType.amountType)
+      incomeType.amount.units == 'null' ||
+      String.isBlank(incomeType.amount.units) ||
+      String.isBlank(incomeType.amountType)
     ) {
       return false;
     }

@@ -401,11 +401,13 @@ public with sharing class AccountCommonActions {
       for (Database.LeadConvertResult lcr : lcResults) {
         if (lcr.isSuccess()) {
           for (Lead l : matchingLeadsByAccIdMap.get(lcr.getAccountId())) {
-            if (CCRMLeadUtil.isCCRMLeadType(l)) {
+            if (
+              CCRMLeadUtil.isCCRMLeadType(l) || CCRMLeadUtil.isMLCRMLeadType(l)
+            ) {
               leadIds.add(l.Id);
               contactList.add(new Contact(Id = lcr.getContactId()));
-            } else if (CCRMLeadUtil.isMLCRMLeadType(l)) {
-              leadIds.add(l.Id);
+            }
+            if (CCRMLeadUtil.isMLCRMLeadType(l)) {
               autoMisMatchTaskRequired = true;
             }
           }
@@ -460,11 +462,41 @@ public with sharing class AccountCommonActions {
       if (contactList.isEmpty()) {
         return;
       }
-      DMLUtil.deleteRecords(
-        contactList,
-        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-        DMLUtil.USER_MODE
-      );
+      //Separate contactList into org contacts vs person accounts
+      List<Contact> orgContactList = new List<Contact>();
+      Set<Id> personContactsIdSet = new Set<Id>();
+      for (Contact contactRec : [
+        SELECT id, isPersonAccount
+        FROM contact
+        WHERE id IN :contactList
+      ]) {
+        if (contactRec.isPersonAccount) {
+          personContactsIdSet.add(contactRec.id);
+        } else {
+          orgContactList.add(contactRec);
+        }
+      }
+      if (!orgContactList.isEmpty()) {
+        DMLUtil.deleteRecords(
+          orgContactList,
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
+        );
+      }
+      if (!personContactsIdSet.isEmpty()) {
+        List<OpportunityContactRole> personOpportunityContactRoleList = [
+          SELECT id, ContactId
+          FROM OpportunityContactRole
+          WHERE ContactId IN :personContactsIdSet
+        ];
+        if (!personOpportunityContactRoleList.isEmpty()) {
+          DMLUtil.deleteRecords(
+            personOpportunityContactRoleList,
+            DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+            DMLUtil.SYSTEM_MODE
+          );
+        }
+      }
     }
   }
   /**
@@ -478,5 +510,49 @@ public with sharing class AccountCommonActions {
       record.Was_ANZx_Customer__c =
         record.ANZx_Customer__c || record.Was_ANZx_Customer__c;
     }
+  }
+
+  /**
+   * @description linkKYCQACasesToAccount is called to Link the KYC QA Case to Account using OCV ID/Mobile Number
+   * @param accounts The Account records passed from Trigger.new()
+   */
+  public static void linkKYCQACasesToAccount(List<Account> accounts) {
+    Set<String> ocvIds = AccountCommonActionsHelper.getOcvIdsFromAccounts(
+      accounts
+    );
+    Map<String, Case> ocvIdToKYCQACaseMap = AccountCommonActionsHelper.getKYCQACasesFromOcvIds(
+      ocvIds
+    );
+
+    Set<String> mobileNumbers = AccountCommonActionsHelper.getMobileNumbersFromAccounts(
+      accounts
+    );
+    Map<String, Case> mobileNumberToKYCQACaseMap = AccountCommonActionsHelper.getKYCQACasesFromMobileNumbers(
+      mobileNumbers
+    );
+
+    List<Case> kycQACaseToUpdateList = new List<Case>();
+    for (Account acc : accounts) {
+      String sanitisedMobileNumber = TextUtils.sanitiseMobileNumber(
+        acc.PersonMobilePhone
+      );
+      if (
+        String.isNotEmpty(acc.OCV_Id__c) &&
+        ocvIdToKYCQACaseMap.containsKey(acc.OCV_Id__c)
+      ) {
+        Case kycQACase = ocvIdToKYCQACaseMap.get(acc.OCV_Id__c);
+        kycQACase.AccountId = acc.Id;
+        kycQACaseToUpdateList.add(kycQACase);
+      } else if (
+        String.isNotEmpty(sanitisedMobileNumber) &&
+        mobileNumberToKYCQACaseMap.containsKey(sanitisedMobileNumber)
+      ) {
+        Case kycQACase = mobileNumberToKYCQACaseMap.get(sanitisedMobileNumber);
+        kycQACase.AccountId = acc.Id;
+        kycQACaseToUpdateList.add(kycQACase);
+      }
+    }
+
+    update kycQACaseToUpdateList;
   }
 }

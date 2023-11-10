@@ -29,7 +29,6 @@ public with sharing class CCRMOpportunityActions {
   ) {
     Set<Id> accountIds = new Set<Id>();
     for (Opportunity opp : records) {
-      maskDescription(opp);
       accountIds.add(opp.AccountId);
     }
     checkAccountIsProspect(accountIds, records);
@@ -200,7 +199,11 @@ public with sharing class CCRMOpportunityActions {
     for (Opportunity record : records) {
       if (accounts.containsKey(record.AccountId)) {
         Account acc = accounts.get(record.AccountId);
-        if (acc.FinServ__Status__c != 'Active' && !record.Lead_Converted__c) {
+        if (
+          acc.FinServ__Status__c != 'Active' &&
+          !record.Lead_Converted__c &&
+          record.RecordTypeId != MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID
+        ) {
           record.addError(
             ACCOUNT_ID_FIELD_NAME,
             LEAD_PROCESS_FOR_PROSPECT_ERROR

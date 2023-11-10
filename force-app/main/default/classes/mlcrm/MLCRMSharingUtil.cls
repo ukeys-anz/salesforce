@@ -94,6 +94,7 @@ public without sharing class MLCRMSharingUtil {
             'UserOrGroupId',
             oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')
           );
+          objShareObject.put('RowCause', objTerritoryMtd.Row_Cause__c);
           lstOfLeadShareToInsert.add(objShareObject);
         }
       }

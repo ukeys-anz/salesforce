@@ -138,8 +138,8 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
     }
   };
 
-  public static Map<Id, SObject> cpIdMap = new Map<Id, SObject>();
-  public static Map<Id, SObject> indIdMap = new Map<Id, SObject>();
+  public static Map<Id, SObject> controllingPostMap = new Map<Id, SObject>();
+  public static Map<Id, SObject> industryMap = new Map<Id, SObject>();
 
   /**
    * @description Wrapper class for prospect field mapping configuration
@@ -432,12 +432,12 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         fieldName == CCRMConstants.ACC_CPID_LABEL ||
         fieldName == CCRMConstants.ACC_CPID
       ) {
-        return cpIdMap.get((Id) record.get(field))?.get('CPID__c');
+        return controllingPostMap.get((Id) record.get(field))?.get('CPID__c');
       } else if (
         fieldName == CCRMConstants.ACC_IND_LABEL ||
         fieldName == CCRMConstants.ACC_IND
       ) {
-        return indIdMap.get((Id) record.get(field))?.get('Code__c');
+        return industryMap.get((Id) record.get(field))?.get('Code__c');
       } else {
         return record.get(field);
       }

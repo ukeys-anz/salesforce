@@ -1,0 +1,12 @@
+{
+  "guaranteesFees": [
+    {
+      "compositeGuaranteesFeeId": "4020018249-72466661701-29618-0",
+      "feeType": "IGFEE",
+      "feePercentage": "0",
+      "feeAmount": "0",
+      "feeFrequency": "YR",
+      "feeChargeAccount": "250823253"
+    }
+  ]
+}
