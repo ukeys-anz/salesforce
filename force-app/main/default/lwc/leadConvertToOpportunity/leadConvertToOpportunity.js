@@ -3,7 +3,6 @@ import { NavigationMixin } from "lightning/navigation";
 import searchPartyInfo from "@salesforce/apex/CCRMLeadConversionActions.searchPartyInfoLWC";
 import createParty from "@salesforce/apex/CCRMLeadConversionActions.createPartyLWC";
 import maintainParty from "@salesforce/apex/CCRMLeadConversionActions.maintainPartyLWC";
-import updateConversionStatus from "@salesforce/apex/CCRMLeadConversionActions.updateConversionStatus";
 import isLeadMisMatchCustomer from "@salesforce/apex/CCRMLeadConversionActions.isLeadMisMatchCustomer"; //CC-857
 import getLeadRecordForConversion from "@salesforce/apex/CCRMLeadConversion.getLeadRecordForConversion";
 import convertCCRMLead from "@salesforce/apex/CCRMLeadConversionActions.convertCCRMLead";
@@ -90,6 +89,42 @@ const columnsIndividual = [
     fieldName: "ocvId"
   }
 ];
+
+const leadCommonValidationMatrix = [
+  {
+    fieldName: "Company",
+    length: 40,
+    message: "Company Name cannot be greater than 40 chars."
+  },
+  {
+    fieldName: "City",
+    length: 25,
+    message: "City Name cannot be greater than 25 chars."
+  },
+  {
+    fieldName: "State",
+    length: 15,
+    message: "State cannot be greater than 15 chars."
+  },
+  {
+    fieldName: "ABN__c",
+    length: 11,
+    replace: " ",
+    message: "ABN cannot be greater than 11 chars."
+  },
+  {
+    fieldName: "ACN__c",
+    length: 11,
+    replace: " ",
+    message: "ACN cannot be greater than 11 chars."
+  },
+  {
+    fieldName: "Name",
+    length: 40,
+    message: "Name cannot be greater than 40 chars."
+  }
+];
+
 const warningMsgConstant = "Warning";
 
 export default class LeadConversion extends NavigationMixin(LightningElement) {
@@ -163,16 +198,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     "Address"
   ];
 
-  fieldsML = [
-    "Name",
-    "FinServ__RelatedAccount__c",
-    "MobilePhone",
-    "Email",
-    "Home_Phone__c",
-    "Address",
-    "Work_Phone__c"
-  ];
-
   connectedCallback() {
     // eslint-disable-next-line @lwc/lwc/no-async-operation
     this._interval = setInterval(() => {
@@ -195,7 +220,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.processStatus = "Completed";
       }
     }, 400);
-    window.addEventListener("beforeunload", this.updateLeadStatus.bind(this));
     this.invokeOnReady();
   }
 
@@ -215,12 +239,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       const validationResult = await this.validateLead();
       //remove close icon
       this.removeCloseIcon();
-      if (validationResult) {
-        await updateConversionStatus({
-          record: this.leadConvertData.leadRecord,
-          status: "In Progress"
-        });
-      }
       //CC-857 Check and show warning if the lead details are mis matching with customer details
       if (validationResult && this.isMLCRMlead) {
         const isLeadMistmatched = await isLeadMisMatchCustomer({
@@ -272,7 +290,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.isConverted = true;
         this.progress = 98;
         if (result === null || result === "undefined" || result === "") {
-          this.updateLeadStatus();
           this.closeAction();
           handleErrorShowToast(
             this,
@@ -302,7 +319,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         }
       })
       .catch((error) => {
-        this.updateLeadStatus();
         this.handleError(error);
       });
   }
@@ -369,82 +385,24 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   }
 
   validateLeadCommon() {
-    //# Criteria #1
-    if (
-      this.leadConvertData.leadRecord.Conversion_Status__c === "In Progress"
-    ) {
-      this.setInvalidLead();
-      this.validationMessage.push({
-        id: this.validationMessage.length + 1,
-        body: this.label.MLCRM_ConversionStatusValidationError
-      });
-    }
-    if (
-      this.leadConvertData.leadRecord.Company !== null &&
-      this.leadConvertData.leadRecord.Company !== undefined &&
-      this.leadConvertData.leadRecord.Company.length > 40
-    ) {
-      this.setInvalidLead();
-      this.validationMessage.push({
-        id: this.validationMessage.length + 1,
-        body: "Company Name cannot be greater than 40 chars."
-      });
-    }
-    if (
-      this.leadConvertData.leadRecord.City !== null &&
-      this.leadConvertData.leadRecord.City !== undefined &&
-      this.leadConvertData.leadRecord.City.length > 25
-    ) {
-      this.setInvalidLead();
-      this.validationMessage.push({
-        id: this.validationMessage.length + 1,
-        body: "City cannot be greater than 25 chars."
-      });
-    }
-    if (
-      this.leadConvertData.leadRecord.State !== null &&
-      this.leadConvertData.leadRecord.State !== undefined &&
-      this.leadConvertData.leadRecord.State.length > 15
-    ) {
-      this.setInvalidLead();
-      this.validationMessage.push({
-        id: this.validationMessage.length + 1,
-        body: "State cannot be greater than 15 chars."
-      });
-    }
-    if (
-      this.leadConvertData.leadRecord.ABN__c !== null &&
-      this.leadConvertData.leadRecord.ABN__c !== undefined &&
-      this.leadConvertData.leadRecord.ABN__c.replace(/\s/g, "").length > 11
-    ) {
-      this.setInvalidLead();
-      this.validationMessage.push({
-        id: this.validationMessage.length + 1,
-        body: "ABN cannot be greater than 11 chars."
-      });
-    }
-    if (
-      this.leadConvertData.leadRecord.ACN__c !== null &&
-      this.leadConvertData.leadRecord.ACN__c !== undefined &&
-      this.leadConvertData.leadRecord.ACN__c.replace(/\s/g, "").length > 11
-    ) {
-      this.setInvalidLead();
-      this.validationMessage.push({
-        id: this.validationMessage.length + 1,
-        body: "ACN cannot be greater than 11 chars."
-      });
-    }
-    if (
-      this.leadConvertData.leadRecord.Name !== null &&
-      this.leadConvertData.leadRecord.Name !== undefined &&
-      this.leadConvertData.leadRecord.Name.length > 40
-    ) {
-      this.setInvalidLead();
-      this.validationMessage.push({
-        id: this.validationMessage.length + 1,
-        body: "Name cannot be greater than 40 chars."
-      });
-    }
+    leadCommonValidationMatrix.forEach((record) => {
+      if (
+        this.leadConvertData.leadRecord[record.fieldName] &&
+        (record.replace
+          ? this.leadConvertData.leadRecord[record.fieldName].replaceAll(
+              record.replace,
+              ""
+            ).length > record.length
+          : this.leadConvertData.leadRecord[record.fieldName].length >
+            record.length)
+      ) {
+        this.setInvalidLead();
+        this.validationMessage.push({
+          id: this.validationMessage.length + 1,
+          body: record.message
+        });
+      }
+    });
   }
 
   validateLeadCCRM() {
@@ -607,23 +565,8 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   }
 
   cancelAction() {
-    updateConversionStatus({
-      record: this.leadConvertData.leadRecord,
-      status: ""
-    }).catch((error) => {
-      this.handleError(error);
-    });
     this.initialise();
     this.dispatchEvent(new CustomEvent("closeconvertmodal"));
-  }
-
-  updateLeadStatus() {
-    updateConversionStatus({
-      record: this.leadConvertData.leadRecord,
-      status: "Error"
-    }).catch((error) => {
-      this.handleError(error);
-    });
   }
 
   closeAction() {
@@ -695,7 +638,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
             result.oppID === "undefined" ||
             result.oppID === ""
           ) {
-            this.updateLeadStatus();
             this.closeAction();
             handleErrorShowToast(
               this,
@@ -728,7 +670,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       .catch((error) => {
         this.isLoading = false;
         this.handleError(error);
-        this.updateLeadStatus();
         //this.closeAction();
       });
   }
@@ -754,7 +695,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.isConverted = true;
         this.progress = 98;
         if (result === null || result === "undefined" || result === "") {
-          this.updateLeadStatus();
           this.closeAction();
           handleErrorShowToast(
             this,
@@ -785,7 +725,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       })
       .catch((error) => {
         this.isLoading = false;
-        this.updateLeadStatus();
         this.handleError(error);
         //this.closeAction();
       });
@@ -817,7 +756,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           this.isConverted = true;
           this.progress = 98;
           if (result === null || result === "undefined" || result === "") {
-            this.updateLeadStatus();
             this.closeAction();
             handleErrorShowToast(
               this,
@@ -847,7 +785,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           }
         })
         .catch((error) => {
-          this.updateLeadStatus();
           this.handleError(error);
         });
     }
@@ -923,7 +860,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           "",
           "pester"
         );
-        this.updateLeadStatus();
         this.closeAction();
       });
   }

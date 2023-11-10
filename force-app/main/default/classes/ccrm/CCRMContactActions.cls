@@ -25,7 +25,7 @@ public with sharing class CCRMContactActions {
   public static ContactWrapper getExistingOrProspectContacts(
     List<Contact> records
   ) {
-    ContactWrapper conWrap = new ContactWrapper();
+    ContactWrapper contactWrapper = new ContactWrapper();
     Set<Id> accIdsSet = new Set<Id>();
     for (Contact record : records) {
       if (
@@ -38,17 +38,27 @@ public with sharing class CCRMContactActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
-    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(accList);
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
+    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
+      accList
+    );
 
     for (Contact record : records) {
-      if (accWrap.prosAcc.containsKey(record.AccountId)) {
-        conWrap.prosContact.add(record);
-      } else if (accWrap.activeAcc.containsKey(record.AccountId)) {
-        conWrap.activeContact.add(record);
+      if (
+        existingOrProspectAccounts.prospectAccounts.containsKey(
+          record.AccountId
+        )
+      ) {
+        contactWrapper.prospectContacts.add(record);
+      } else if (
+        existingOrProspectAccounts.existingAccounts.containsKey(
+          record.AccountId
+        )
+      ) {
+        contactWrapper.existingContacts.add(record);
       }
     }
-    return conWrap;
+    return contactWrapper;
   }
 
   /**
@@ -132,9 +142,12 @@ public with sharing class CCRMContactActions {
         WHERE
           AccountId IN :accountIds
           AND (Account.Is_Prospect__c = TRUE
-          OR (Account.RecordType.DeveloperName = 'Business_Account'
-          AND Account.FinServ__Status__c IN ('Active', 'Inactive')
-          AND Account.Source_System_Name__c = 'CAP-CIS'
+          OR (Account.RecordType.DeveloperName = :CCRMConstants.ACC_RT
+          AND Account.FinServ__Status__c IN :(new Set<String>{
+            CCRMConstants.ACTIVE_STATUS,
+            CCRMConstants.INACTIVE_STATUS
+          })
+          AND Account.Source_System_Name__c = :CCRMConstants.SOURCE_SYSTEM_NAME
           AND Account.ANZx_Customer__c = FALSE))
         WITH SECURITY_ENFORCED
         GROUP BY AccountId
@@ -239,7 +252,7 @@ public with sharing class CCRMContactActions {
    * @name ContactWrapper
    */
   public class ContactWrapper {
-    public List<Contact> prosContact = new List<Contact>();
-    public List<Contact> activeContact = new List<Contact>();
+    public List<Contact> prospectContacts = new List<Contact>();
+    public List<Contact> existingContacts = new List<Contact>();
   }
 }

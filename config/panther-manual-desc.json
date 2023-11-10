@@ -47,6 +47,7 @@
       "FinServ__Balance__c": "Balance amount in customer's financial account excluding pending transactions",
       "FinServ__CurrentPostedBalance__c": "Balance amount in customer's financial account including pending transactions",
       "FinServ__FinancialAccountNumber__c": "Customer's financial account number",
+      "Account_Number__c": "Customer's financial account number",
       "FinServ__FinancialAccountType__c": "Financial account product type",
       "FinServ__InterestRate__c": "Interest rate used by this financial account",
       "FinServ__JointOwner__c": "Joint owner of the financial account",
@@ -181,12 +182,14 @@
   },
   "objectManualDesc": {
     "Account": "The contact details, and other personal information pertaining to a customer",
+    "Account_Relationship__x": "Customer to account relationship",
     "Access_Request__c": "Holds information related to Privileged Access Management request submissions by users",
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
     "Assessment_Response__c": "Needs Assessment response completed by the loan applicant",
     "BusinessHours": "Specifies the business hours of your support organization.",
     "Campaign": "Represents and tracks a marketing campaign.",
+    "Balance_History__x": "Balance history external object",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
@@ -208,10 +211,13 @@
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
     "CustomerOnboardingApplication__c": "The main record maintaining Salesforce's copy of the state of a prospect's onboarding journey",
     "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
+    "Deposit_Account__x": "External Direct Deposit financial accounts",
+    "Credit_Card__x": "External Credit Card finanial accounts",
     "EmailMessage": "Represents an email in Salesforce.",
     "Entitlement": "Represents the customer support an account or contact is eligible to receive.",
     "Event": "Represents a calendar entry in Salesforce",
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
+    "Financial_Summary_Calculation__e": "Platform event used for financial summary calculation result publishing.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Group": "A set of User records.",
@@ -223,6 +229,7 @@
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
     "Legal_Entity__c": "This object contains multiple entities for opportunity product",
+    "Loan_Account__x": "External Loan financial accounts",
     "Loan_Applicant_Group__c": "High level generalised information relating to a group of applicants",
     "LoanApplicant": "Individualised, personal information captured to identify applicant circumstances and needs",
     "LoanApplicantLiability": "Applicants share of the current homeloan",
@@ -233,6 +240,7 @@
     "Log__c": "The parent log object, which stores logging information on a transaction level.",
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
+    "Merchant_Facility__x": "External Merchant Facility financial accounts",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
@@ -250,6 +258,7 @@
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
     "Task": "A task to remind a user to follow up on something",
     "Twilio_Details__c": "To capture details from Twilio as part of Call and Chat Interaction",
+    "Term_Deposit__x": "External Term Deposit financial accounts",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
     "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
@@ -1691,6 +1700,14 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
+    "Financial_Summary_Calculation__e": {
+      "IA-2530753": [
+        "Last_Calculated_Time__c",
+        "Response_Id__c",
+        "Summary__c",
+        "Summary_Type__c"
+      ]
+    },
     "FinServ__AccountAccountRelation__c": {
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
     },
@@ -1723,7 +1740,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId",
-        "Force_Update__c"
+        "Force_Update__c",
+        "Account_Number__c"
       ],
       "IA-2415720": [
         "BSB__c",
@@ -2081,6 +2099,7 @@
         "Lead_Owner_Link__c",
         "Lead_Quality__c",
         "Marketing_Consent__c",
+        "ML_DataMigration_Key__c",
         "My_Region_Flag__c",
         "Name",
         "New_to_Bank__c",
@@ -2439,6 +2458,7 @@
         "CLP_Credit_Case_Number__c",
         "Customer_Needs__c",
         "Lost_Reason_Detail__c",
+        "ML_DataMigration_Key__c",
         "Other_Source_Detail__c",
         "Won_from_Lost_to__c",
         "Referrer_Name__c",
@@ -3467,6 +3487,499 @@
         "Preferred_Name__c",
         "Relationship_To_Franchise__c",
         "Territory__c"
+      ],
+      "IA-2415860": ["ML_DataMigration_Key__c"]
+    },
+    "Diary_Comment__x": {
+      "IA-2524375": [
+        "Account__c",
+        "Branch_Name__c",
+        "Comment__c",
+        "Credit_Card__c",
+        "Customer_Review__c",
+        "Cycle_Code__c",
+        "Date_Placed__c",
+        "Deposit_Account__c",
+        "Description__c",
+        "Expiry_Date__c",
+        "Loan_Account__c",
+        "Modified_Date__c",
+        "Operator__c",
+        "Permanent__c",
+        "Prompt_Date__c",
+        "Work_Queue__c",
+        "Term_Deposit__c",
+        "Portfolio_Of_Loan__c",
+        "Other_Limits_and_Liabilities__c",
+        "Additional_Information__c"
+      ]
+    },
+    "Deposit_Account__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "ANZ_Plus_Identifier__c",
+        "ANZSIC_Code__c",
+        "Balance__c",
+        "Balance_Available__c",
+        "BSB__c",
+        "CPID__c",
+        "Customer__c",
+        "Expiry_Date__c",
+        "Limit__c",
+        "Stop_Pay_Number__c",
+        "Number_of_Signatures__c",
+        "Hard_Hold__c",
+        "Interest_Rate__c",
+        "Overdraft_Limit__c",
+        "Margin__c",
+        "Opened_Date__c",
+        "Overdraft_Reference_Index_Rate__c",
+        "Overdraft_Expiry_Date__c",
+        "Overdraft_Interest_Rate__c",
+        "Overdraft_Interest_Repayment_Frequency__c",
+        "Overdraft_Margin__c",
+        "Overdraft_SAO__c",
+        "Overdraft_TPMI__c",
+        "Pledge__c",
+        "Pledge_Amount__c",
+        "Product_Code__c",
+        "Reference_Index_Rate__c",
+        "Reference_Index_Type__c",
+        "Relationship__c",
+        "Sub_Product_Code__c",
+        "Fluctuating_Seasonal_Start_Date__c",
+        "Fluctuating_Seasonal_Limit__c",
+        "Fluctuating_Seasonal_Expiry_Date__c"
+      ]
+    },
+    "Credit_Card__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "ANZ_Plus_Identifier__c",
+        "Balance__c",
+        "CPID__c",
+        "Credit_Limit__c",
+        "Customer__c",
+        "Interest_Rate__c",
+        "Opened_Date__c",
+        "Overdraft_Limit__c",
+        "Product_Category__c",
+        "Product_Status__c",
+        "Cash_Advance_Rate__c",
+        "Interest_Free_Days__c",
+        "Relationship__c"
+      ]
+    },
+    "Credit_Card_Fee__x": {
+      "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
+    },
+    "CardHolder__x": {
+      "IA-2415720": ["Credit_Card__c", "Card_Number__c", "Cardholder_Name__c"]
+    },
+    "Loan_Account__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "Amount_In_Advance__c",
+        "ANZ_Plus_Identifier__c",
+        "ANZSIC_Code__c",
+        "Balance__c",
+        "Branch_Name__c",
+        "CPID__c",
+        "Customer__c",
+        "Date_Loan_Issued__c",
+        "DLP_Repayment_Account_Number__c",
+        "Expiries__c",
+        "Fully_Drawn__c",
+        "Interest_Charge_Method__c",
+        "Interest_Only_Expiry_Date__c",
+        "Interest_Only_Repayment_Amount__c",
+        "Interest_Only_Start_Date__c",
+        "Interest_Only_Term_Month__c",
+        "Interest_Only_Term_Year__c",
+        "Interest_Rate__c",
+        "Interest_Rate_Fixed_Rate_Expiry_Date__c",
+        "Interest_Rate_Fixed_Rate_Start_Date__c",
+        "Interest_Rate_Fixed_Rate_Term_Month__c",
+        "Interest_Rate_Fixed_Rate_Term_Year__c",
+        "Interest_Rate_Margin__c",
+        "Interest_Rate_Reference_Index_Rate__c",
+        "Interest_Rate_Reference_Index_Type__c",
+        "Interest_Type__c",
+        "IO_Initial_Discount__c",
+        "IO_Initial_Interest_Rate__c",
+        "IO_Interest_Frequency__c",
+        "IO_Interest_Repayment_Account_Number__c",
+        "IO_Next_Repayment_Date__c",
+        "IO_Subsequent_Discount__c",
+        "IO_Subsequent_Interest_Rate__c",
+        "Loan_Term_Month__c",
+        "Loan_Term_Year__c",
+        "Offset_Account_Number__c",
+        "Original_Amount_Financed__c",
+        "PI_Elected_Repayment_Amount__c",
+        "PI_Initial_Repayment_Cycle_Day__c",
+        "PI_Interest_Frequency__c",
+        "PI_Principal_Repayment_End_Date__c",
+        "PI_Principal_Repayment_Start_Date__c",
+        "PI_Repayment_Amount__c",
+        "Product_Code__c",
+        "Progress_Draw_Expiry_Date__c",
+        "Purpose_Code__c",
+        "Redraw_Amount__c",
+        "Redraw_Number_of_Signatories__c",
+        "Redraw_Registration__c",
+        "Relationship__c",
+        "Repayment_Details_Days_Delinquent__c",
+        "Repayment_Details_Interest_Repayments__c",
+        "Repayment_Details_Repayment_Frequency__c",
+        "Repayment_Details_Repayment_Type__c",
+        "SAO__c",
+        "Sub_Product_Code__c",
+        "TPMI__c",
+        "Expires__c",
+        "Times_Past_Due_90_Days__c",
+        "Times_Past_Due_30_Days__c",
+        "Times_Past_Due_120_Days__c",
+        "Times_Past_Due_60_Days__c",
+        "Grace_Days__c"
+      ]
+    },
+    "Term_Deposit__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "ANZSIC_Code__c",
+        "Account_Status__c",
+        "Balance__c",
+        "BSB__c",
+        "CPID__c",
+        "Customer__c",
+        "Date_Closed__c",
+        "Date_Opened__c",
+        "Interest_Rate__c",
+        "Issue_Date__c",
+        "Maturity_Date__c",
+        "Negotiable_Rate__c",
+        "Number_Of_Signatures__c",
+        "Pledge__c",
+        "Pledge_Amount__c",
+        "Previous_Interest_Rate__c",
+        "Relationship__c",
+        "Restraints_Hold__c",
+        "Sub_Product_Code__c",
+        "Term_Months__c",
+        "Term_Years__c",
+        "Stops_Pay__c"
+      ]
+    },
+    "Other_Limits_and_Liabilities__x": {
+      "IA-2415720": [
+        "Account_Number__c",
+        "Account_Status__c",
+        "Branch__c",
+        "CCR__c",
+        "CPID__c",
+        "Customer__c",
+        "Limit__c",
+        "Date_Opened__c"
+      ]
+    },
+    "Facility__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Expiry_Date__c",
+        "Other_Limits_and_Liabilities__c",
+        "Sequence__c",
+        "TPMI_No__c",
+        "TPMI_Sub_No__c",
+        "Type__c"
+      ]
+    },
+    "Merchant_Facility__x": {
+      "IA-2415720": [
+        "Account_Status__c",
+        "Customer__c",
+        "Legal_Name__c",
+        "Merchant_ID__c",
+        "No_of_Terminals__c",
+        "Trading_Name__c",
+        "Turnover_Amount_Last_12_Months__c",
+        "Turnover_Amount_Last_3_Months__c",
+        "Turnover_Amount_Last_6_Months__c",
+        "Account_Number__c",
+        "CAP_Customer_ID__c"
+      ]
+    },
+    "Asset_Finance_ELS__x": {
+      "IA-2415720": [
+        "Account_Status__c",
+        "Account_Number__c",
+        "Amount_In_Arrears__c",
+        "Expires__c",
+        "Int_Rate__c",
+        "Product_Code__c",
+        "Loan_Term__c",
+        "Amount__c",
+        "Balance__c",
+        "Balloon_Amount__c",
+        "Int_Type__c",
+        "Limit__c",
+        "Customer__c",
+        "Total_Number_Of_Repayments__c"
+      ]
+    },
+    "Portfolio_Of_Loan__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "CPID__c",
+        "Customer__c",
+        "Expires__c",
+        "Limit__c",
+        "Loan_Term_Month__c",
+        "Loan_Term_Years__c",
+        "Product_Code__c",
+        "Purpose_Code__c",
+        "Sub_Product_Code__c",
+        "TPMI__c",
+        "Undrawn_Balance__c",
+        "Date_Opened__c",
+        "SAO__c",
+        "Relationship__c"
+      ]
+    },
+    "Account_Relationship__x": {
+      "IA-2415720": [
+        "Deposit_Account__c",
+        "Loan_Account__c",
+        "Related_Party_Names__c",
+        "Relationship__c",
+        "Term_Deposit__c",
+        "Portfolio_Of_Loan__c",
+        "Asset_Finance_AMBIT__c"
+      ]
+    },
+    "Balance_History__x": {
+      "IA-2415720": [
+        "Average_Balance__c",
+        "Deposit_Account__c",
+        "Maximum_Balance__c",
+        "Minimum_Balance__c",
+        "Month__c",
+        "Year__c"
+      ]
+    },
+    "Indemnity_Guarantee__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "Limit__c",
+        "Customer__c",
+        "OLL_Type__c",
+        "Opened_Date__c",
+        "Product_Code__c",
+        "Security_Type__c",
+        "Undrawn_Balance__c"
+      ]
+    },
+    "Asset__x": {
+      "IA-2415720": [
+        "Asset_Finance_AMBIT__c",
+        "Amount_Financed__c",
+        "ID__c",
+        "Purchase_Price__c",
+        "Status__c"
+      ]
+    },
+    "Asset_Detail__x": {
+      "IA-2415720": [
+        "Asset_No__c",
+        "Make__c",
+        "Model__c",
+        "Purchase_Price__c",
+        "Serial_No__c",
+        "Year__c",
+        "Asset__c",
+        "ECV__c",
+        "ECV_Date__c",
+        "ECV_Valuer__c"
+      ]
+    },
+    "Asset_Repayment_Detail__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Asset__c",
+        "Frequency__c",
+        "Repayment_Account_Number__c",
+        "Repayment_Type__c",
+        "Start_Date__c",
+        "Total_Number_Of_Repayments__c"
+      ]
+    },
+    "Asset_Finance_AMBIT__x": {
+      "IA-2415720": [
+        "Account_Status__c",
+        "Account_Name__c",
+        "Account_Number__c",
+        "Expires__c",
+        "Int_Rate__c",
+        "Opened_Date__c",
+        "Original_Amount_Financed__c",
+        "Product_Code__c",
+        "Loan_Term_Months__c",
+        "Loan_Term_Years__c",
+        "Balance__c",
+        "Balloon_Payments__c",
+        "Frequency__c",
+        "Int_Type__c",
+        "Limit__c",
+        "Customer__c",
+        "Government_Guarantee__c",
+        "SI__c",
+        "Undrawn_Balance__c",
+        "Amount_in_Arrears__c"
+      ]
+    },
+    "Linked_Account__x": {
+      "IA-2415720": [
+        "Account_Number__c",
+        "Code__c",
+        "Product_Code__c",
+        "Portfolio_Of_Loan__c"
+      ]
+    },
+    "Transaction_History__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Description__c",
+        "Effective_Date__c",
+        "Post_Date__c",
+        "Running_Balance__c",
+        "Source__c",
+        "Type__c",
+        "Time__c",
+        "Deposit_Account__c",
+        "Term_Deposit__c",
+        "Loan_Account__c"
+      ]
+    },
+    "Commercial_Bill__x": {
+      "IA-2415720": [
+        "Account_Number__c",
+        "Account_Status__c",
+        "CAP_Account_Limit__c",
+        "Expires__c",
+        "Facility_Limit__c",
+        "Loan_Term__c",
+        "Loan_Term_Months__c",
+        "Opening_Date__c",
+        "Purpose_Code__c",
+        "Sequence_No__c",
+        "Customer__c"
+      ]
+    },
+    "Linked_Bill__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Bank_Bill_Swap_Reference_Rate__c",
+        "Bill_Type__c",
+        "Commercial_Bill__c",
+        "Expires__c",
+        "Reference_No__c",
+        "Rollover_Date__c",
+        "Rollover_Frequency__c",
+        "Interest_Rate__c"
+      ]
+    },
+    "Commercial_Bill_Fee__x": {
+      "IA-2415720": [
+        "Commercial_Bill__c",
+        "Fee_Amount__c",
+        "Fee_Frequency__c",
+        "Fee_Name__c",
+        "Fee_Rate__c"
+      ]
+    },
+    "Commercial_Bill_Repayment_Detail__x": {
+      "IA-2415720": [
+        "Commercial_Bill__c",
+        "Scheduled_Bill_Reduction_Amount__c",
+        "Scheduled_End_Date__c",
+        "Scheduled_Start_Date__c"
+      ]
+    },
+    "Facility_Fee__x": {
+      "IA-2415720": [
+        "Facility_Limit_Fee__c",
+        "Facility_Limit_Fee_Amount__c",
+        "Facility_Limit_Fee_Frequency__c",
+        "Fee_Charge_Account__c",
+        "Fee_Type__c",
+        "Indemnity_Guarantee__c",
+        "Next_Due_Date__c"
+      ]
+    },
+    "Asset_Detail_ELS__x": {
+      "IA-2415720": [
+        "Asset_Finance_ELS__c",
+        "Asset_No__c",
+        "Make__c",
+        "Model__c",
+        "Purchase_Price__c",
+        "Serial_No__c",
+        "Year__c"
+      ]
+    },
+    "Active_Indemnity_Guarantee__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Expiry_Date__c",
+        "Indemnity_Guarantee__c",
+        "Purpose_Code__c",
+        "Serial_Number__c",
+        "Start_Date__c",
+        "Status__c",
+        "Type__c"
+      ]
+    },
+    "Inactive_Indemnity_Guarantee__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Expiry_Date__c",
+        "Indemnity_Guarantee__c",
+        "Purpose_Code__c",
+        "Serial_Number__c",
+        "Start_Date__c",
+        "Status__c",
+        "Type__c"
+      ]
+    },
+    "Guarantee_Fee_Detail__x": {
+      "IA-2415720": [
+        "Active_Indemnity_Guarantee__c",
+        "Fee_Charge_Account__c",
+        "Fee_Type__c",
+        "Inactive_Indemnity_Guarantee__c",
+        "Next_Due_Date__c",
+        "Per_Bank_G_tee_Fee__c",
+        "Per_Bank_G_tee_Fee_Amount__c",
+        "Per_Bank_G_tee_Fee_Frequency__c"
+      ]
+    },
+    "Favourees__x": {
+      "IA-2415720": [
+        "ABN__c",
+        "Active_Indemnity_Guarantee__c",
+        "Inactive_Indemnity_Guarantee__c",
+        "Name__c"
       ]
     }
   },

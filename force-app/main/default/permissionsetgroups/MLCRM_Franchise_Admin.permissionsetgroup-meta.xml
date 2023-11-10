@@ -3,6 +3,7 @@
     <description>Permission set group for ML Franchise Admin</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Franchise Admin</label>
+    <permissionSets>Customer_Authentication_PS</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>MLCRM_Base</permissionSets>
@@ -10,6 +11,7 @@
     <permissionSets>MLCRM_Create_and_Edit_Interactions</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Leads</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Opportunities</permissionSets>
+    <permissionSets>MLCRM_Create_and_View_Diary_Notes</permissionSets>
     <permissionSets>MLCRM_Transfer_ML_Records</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

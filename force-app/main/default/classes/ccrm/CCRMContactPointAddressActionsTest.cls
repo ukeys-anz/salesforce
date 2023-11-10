@@ -135,8 +135,8 @@ private class CCRMContactPointAddressActionsTest {
 
   @IsTest
   static void testCheckExistingAddressOnActive() {
-    //GIVEN Banker tries to add 2 new addresses to active, 1 with the same address type as current address and 1 with new address type
-    Account active = [
+    //GIVEN Banker tries to add 2 new addresses to active Account, 1 with the same address type as current address and 1 with new address type
+    Account activeAccount = [
       SELECT Id
       FROM Account
       WHERE
@@ -147,11 +147,11 @@ private class CCRMContactPointAddressActionsTest {
       LIMIT 1
     ];
     ContactPointAddress newAddress = new ContactPointAddress(
-      Customer_Name__c = active.Id,
+      Customer_Name__c = activeAccount.Id,
       AddressType = 'Principal Place of Business'
     );
     ContactPointAddress dupAddress = new ContactPointAddress(
-      Customer_Name__c = active.Id,
+      Customer_Name__c = activeAccount.Id,
       AddressType = 'Primary Mailing'
     );
 
@@ -167,12 +167,12 @@ private class CCRMContactPointAddressActionsTest {
     //THEN address with different address type should be added
     System.assert(
       !newAddress.hasErrors(),
-      'Banker should be able to add address of different type to active'
+      'Banker should be able to add address of different type to active Account'
     );
     //AND address with same address type should not be added
     System.assert(
       dupAddress.hasErrors(),
-      'Banker should not be able to add address of same type to active'
+      'Banker should not be able to add address of same type to active Account'
     );
   }
 }

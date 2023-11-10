@@ -1,0 +1,13 @@
+{
+  "facilities": [
+    {
+      "compositeFacilityId": "OLL-710002326-0",
+      "ollSequence": 1,
+      "ollType": 16,
+      "ollAmount": 20000,
+      "ollExpiryDate": "2019-09-22T00:00:00",
+      "tpmiNumber": 0,
+      "tpmiSubNumber": 0
+    }
+  ]
+}

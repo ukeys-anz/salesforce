@@ -244,6 +244,27 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Complaint_RTs_Commercial_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Great Read write access to complaint records for Commercial Banking</description>
+        <label>Complaint_RTs_Commercial_RW</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>true</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>Grant read access to ANZx and CFMS migrated complaint records for Customer Resolution Users</description>
@@ -790,6 +811,36 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Commercial_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key Commercial Banking</description>
+        <label>SI_RT_SI_Commercial_RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue,CFMS Migrated Case</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Mobile_Lending_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key Mobile Lending</description>
+        <label>SI_RT_SI_Mobile_Lending_RO</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue,CFMS Migrated Case</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_Join_Lead_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Join Lead</label>
@@ -920,6 +971,26 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,Direct Debit,Recipient/Mule,BPAY,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>MLCRM_Access_to_CMOS_Cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provides users in the ANZ Mobile Lending Team access to CMOS Cases types Customer Complaint and Non-Customer Complaint</description>
+        <label>MLCRM Access to CMOS Cases</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>true</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

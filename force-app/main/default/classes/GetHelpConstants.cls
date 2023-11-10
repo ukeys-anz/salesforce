@@ -180,15 +180,15 @@ public with sharing class GetHelpConstants {
     .get('Message')
     .getRecordTypeId();
 
-  // Interaction - Appointment Interaction RT Id
+  // Interaction - CCRM Interaction RT Id
   public static final Id INTERACTION_CCRM_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('CCRM_Interaction')
-    ?.getRecordTypeId();
+    .getRecordTypeId();
 
   // Interaction - Appointment Interaction RT Id
   public static final Id INTERACTION_ML_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('ML_Interaction')
-    ?.getRecordTypeId();
+    .getRecordTypeId();
 
   // Case - Account Closure
   public static final Id ACCOUNT_CLOSURE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
