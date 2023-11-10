@@ -36,4 +36,14 @@
         <sharedTo>Data_Analyst</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>ANZ_Mobile_Lending_Team</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Commercial_Banking</sharedTo>
+        <sharedToType>RoleAndSubordinates</sharedToType>
+    </folderShares>
 </DashboardFolder>

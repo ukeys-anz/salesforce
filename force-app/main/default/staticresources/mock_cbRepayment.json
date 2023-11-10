@@ -1,0 +1,10 @@
+{
+  "repayments": [
+    {
+      "compositeAccountRepaymentId": "4017192605-OL72362139602-4",
+      "scheduledBillReductionAmount": "25000.000",
+      "scheduledStartDate": "2019-01-23T00:00:00",
+      "scheduledEndDate": "2019-02-25T00:00:00"
+    }
+  ]
+}

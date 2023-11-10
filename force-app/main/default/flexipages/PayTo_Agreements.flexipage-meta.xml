@@ -12,6 +12,12 @@
                 <identifier>runtime_omnistudio_flexcard</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>customRefreshTab</componentName>
+                <identifier>c_customRefreshTab</identifier>
+            </componentInstance>
+        </itemInstances>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>PayTo Agreements</masterLabel>

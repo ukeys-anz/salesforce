@@ -155,7 +155,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;This will cancel the customer&apos;s payments.&lt;/p&gt;\n&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;br /&gt;&lt;strong&gt;Before cancelling&lt;/strong&gt;&lt;/p&gt;\n&lt;p style=\&quot;text-align: left;\&quot;&gt;The customer may still need to pay the merchant. Please advise them to check their contract to ensure they&apos;re not in breach of the terms.&lt;/p&gt;\n&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;br /&gt;&lt;strong&gt;When cancelled&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;This merchant won&apos;t be able to charge the customer&apos;s account for payments related to these agreement while they&apos;re cancelled.&lt;/li&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;Information about this agreement will remain in the agreement history.&lt;/li&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;This won&apos;t cancel other agreements they have with the merchant.&lt;/li&gt;\n&lt;/ul&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;This will cancel the customer&apos;s payments.&lt;/p&gt;\n&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;br /&gt;&lt;strong&gt;Before cancelling&lt;/strong&gt;&lt;/p&gt;\n&lt;p style=\&quot;text-align: left;\&quot;&gt;The customer may still need to pay the merchant. Please advise them to check their contract to ensure they&apos;re not in breach of the terms.&lt;/p&gt;\n&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;br /&gt;&lt;strong&gt;When cancelled&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;This merchant won&apos;t be able to charge the customer&apos;s account for payments related to this agreement after it is cancelled.&lt;/li&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;Information about this agreement will remain in the agreement history.&lt;/li&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;This won&apos;t cancel other agreements they have with the merchant.&lt;/li&gt;\n&lt;/ul&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -355,7 +355,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;dataJSON&quot; : false,
   &quot;show&quot; : null,
-  &quot;text&quot; : &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span class=\&quot;ui-provider en buo bow byz bza bzb bzc bzd bze bzf bzg bzh bzi bzj bzk bzl bzm bzn bzo bzp bzq bzr bzs bzt bzu bzv bzw bzx bzy bzz caa cab cac cae caf\&quot; dir=\&quot;ltr\&quot;&gt;This will cancel the customer&apos;s payments.&lt;/span&gt;&lt;/p&gt;\n&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;br /&gt;&lt;strong&gt;When cancelled&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;This merchant won&apos;t be able to charge the customer&apos;s account for payments related to these agreement while they&apos;re cancelled.&lt;/li&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;Information about this agreement will remain in the agreement history.&lt;/li&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;This won&apos;t cancel other agreements they have with the merchant.&lt;/li&gt;\n&lt;/ul&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;span class=\&quot;ui-provider en buo bow byz bza bzb bzc bzd bze bzf bzg bzh bzi bzj bzk bzl bzm bzn bzo bzp bzq bzr bzs bzt bzu bzv bzw bzx bzy bzz caa cab cac cae caf\&quot; dir=\&quot;ltr\&quot;&gt;This will cancel the customer&apos;s payments.&lt;/span&gt;&lt;/p&gt;\n&lt;p style=\&quot;text-align: left;\&quot;&gt;&lt;br /&gt;&lt;strong&gt;When cancelled&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;This merchant won&apos;t be able to charge the customer&apos;s account for payments related to this agreement once it is cancelled.&lt;/li&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;Information about this agreement will remain in the agreement history.&lt;/li&gt;\n&lt;li style=\&quot;text-align: left;\&quot;&gt;This won&apos;t cancel other agreements they have with the merchant.&lt;/li&gt;\n&lt;/ul&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
@@ -794,5 +794,5 @@
     <type>PayTo</type>
     <uniqueName>PayTo_Process_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>37ab2691-897c-3d2f-b7cd-e65f256f5949</webComponentKey>
+    <webComponentKey>cf923635-f51d-55ad-8daf-a484d3609764</webComponentKey>
 </OmniScript>

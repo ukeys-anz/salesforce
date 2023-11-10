@@ -10,7 +10,7 @@ public class MLCRMCustomerSetCPIDLookupBatchTest {
   static void setup() {
     User mlUser = MLCRMTestDataFactory.createAdminUser();
     System.runAs(mlUser) {
-      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+      List<Territory__c> territoryList = MLCRMTestDataFactory.createTerritoryRecords(
         1,
         mlUser,
         true
@@ -18,7 +18,7 @@ public class MLCRMCustomerSetCPIDLookupBatchTest {
       MLCRMTestDataFactory.createUserTerritoryRecords(
         1,
         mlUser.Id,
-        lstOfTerritory[0].Id
+        territoryList[0].Id
       );
     }
     System.runAs(mlUser) {

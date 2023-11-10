@@ -26,10 +26,6 @@ public with sharing class IDREmailToCase {
     c.Origin = '8'; // anz.com
     String emailBody = c.Description.trim();
     emailBody = emailBody.removeStart('[');
-    emailBody = emailBody.replaceAll(
-      'This e-mail and any attachments to it \\(the "Communication"\\) is, unless otherwise stated, confidential, may contain copyright material and is for the use only of the intended.+',
-      ''
-    );
     emailBody = emailBody.trim();
     emailBody = emailBody.removeEnd(']');
 
@@ -61,6 +57,9 @@ public with sharing class IDREmailToCase {
               ? ''
               : IDRConstants.CASE_PRIORITY_STANDARD;
           } else if (fieldName == 'Email') {
+            // This presumes that Email is the last field on the form.
+            // If it is not then hopefully it will be bounded by a |-|
+            fieldValue = fieldValue.substringBefore(']');
             List<String> emailValues = fieldValue.split('<', 2);
             c.put(
               IDRConstants.anzComFieldMapping.get(fieldName),

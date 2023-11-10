@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loan_Account__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
+    <description>Parent Loan account</description>
+    <externalDeveloperName>LoanAccount</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Loan Account</label>
+    <length>255</length>
+    <referenceTo>Loan_Account__x</referenceTo>
+    <relationshipLabel>Diary Comments</relationshipLabel>
+    <relationshipName>Diary_Comments</relationshipName>
+    <securityClassification>Confidential</securityClassification>
+    <type>ExternalLookup</type>
+</CustomField>

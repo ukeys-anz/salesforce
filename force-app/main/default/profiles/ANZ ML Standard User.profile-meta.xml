@@ -4059,11 +4059,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Lead.Conversion_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Lead.Customer_ID__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -7423,7 +7418,7 @@
         <recordType>Account.FinServ__IndustriesIndividual</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Customer_Profile_Updates__c-Customer Profile Updates Layout</layout>
+        <layout>Customer_Profile_Updates__c-DCRM Customer Profile Updates Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Contact-FinServ__Contact %28Business%29 Layout</layout>
@@ -7434,16 +7429,49 @@
         <recordType>Contact.FinServ__IndustriesIndividual</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointEmail-Contact Point Email Layout</layout>
+        <layout>ContactPointEmail-DCRM Contact Point Email Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointEmail-DCRM Contact Point Email Layout</layout>
+        <recordType>ContactPointEmail.Hidden</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointEmail-DCRM Contact Point Email Layout</layout>
         <recordType>ContactPointEmail.Individual</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointPhone-Contact Point Phone Layout</layout>
+        <layout>ContactPointEmail-DCRM Contact Point Email Layout</layout>
+        <recordType>ContactPointEmail.Organisation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointPhone-DCRM Contact Point Phone Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointPhone-DCRM Contact Point Phone Layout</layout>
+        <recordType>ContactPointPhone.Hidden</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointPhone-DCRM Contact Point Phone Layout</layout>
         <recordType>ContactPointPhone.Individual</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointAddress-Contact Point Address Layout</layout>
+        <layout>ContactPointPhone-DCRM Contact Point Phone Layout</layout>
+        <recordType>ContactPointPhone.Organisation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
+        <recordType>ContactPointAddress.Hidden</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
         <recordType>ContactPointAddress.Individual</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
+        <recordType>ContactPointAddress.Organisation</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Controlling_Post__c-MLCRM Controlling Post Layout</layout>
@@ -7495,6 +7523,10 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Global-ML Global Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-DCRM Task Layout</layout>
+        <recordType>Task.MLCRM_Task</recordType>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>

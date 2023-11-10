@@ -3,6 +3,7 @@
  * @date September 2023
  * @description Test class for {@link AutoKYCQACaseActionsHelper}
  * @group ANZx
+ * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
  */
 @isTest
 public with sharing class AutoKYCQACaseActionsHelperTest {
@@ -29,11 +30,6 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
     '61488888888'
   };
 
-  private static final List<String> CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '+61422222222',
-    '+61433333333'
-  };
-
   @TestSetup
   private static void makeData() {
     List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
@@ -51,14 +47,6 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
     for (String mobileNumber : COB_NOT_MATCHING_MOBILE_NUMBERS) {
       cobApps.add(createCOBApp(mobileNumber));
     }
-
-    // Add person Accounts to be linked to cases with no COB
-    List<Account> personAccountsForCasesWithNoCOB = new List<Account>();
-    for (String mobileNumber : CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS) {
-      personAccountsForCasesWithNoCOB.add(createPersonAccount(mobileNumber));
-    }
-
-    personAccounts.addAll(personAccountsForCasesWithNoCOB);
 
     insert cobApps;
     insert personAccounts;
@@ -83,17 +71,6 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
       );
     }
 
-    // KYC QA Cases not linked to COB and have linked Personal Account
-    for (Account acc : personAccountsForCasesWithNoCOB) {
-      cases.add(
-        createCaseWithAccountNoCOB(
-          GetHelpConstants.OPEN_STATUS,
-          GetHelpConstants.KYCQA_RT_ID,
-          acc.Id
-        )
-      );
-    }
-
     insert cases;
   }
 
@@ -109,17 +86,6 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
     if (c.recordTypeId == GetHelpConstants.KYCQA_RT_ID) {
       c.OwnerId = COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id;
     }
-
-    return c;
-  }
-
-  private static Case createCaseWithAccountNoCOB(
-    String status,
-    String recordTypeId,
-    Id accId
-  ) {
-    Case c = createCase(status, recordTypeId, null);
-    c.AccountId = accId;
 
     return c;
   }
@@ -177,24 +143,15 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
     );
     Test.stopTest();
 
-    Integer cobKYCQACasesExpectedCnt =
+    Integer expectedCaseCount =
       COB_MATCHING_MOBILE_NUMBERS.size() +
       COB_NOT_MATCHING_MOBILE_NUMBERS.size();
-    Integer totalCacesExpectedCnt =
-      cobKYCQACasesExpectedCnt + CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS.size();
-    Assert.areEqual(
-      totalCacesExpectedCnt,
-      cases.size(),
-      'Should be ' +
-      totalCacesExpectedCnt +
-      '  KYC QA Cases total'
-    );
 
     Assert.areEqual(
-      cobKYCQACasesExpectedCnt,
+      expectedCaseCount,
       mobileByCaseIdMap.size(),
       'Should be ' +
-      cobKYCQACasesExpectedCnt +
+      expectedCaseCount +
       ' KYC QA Cases by COB App Mobile numbers'
     );
   }

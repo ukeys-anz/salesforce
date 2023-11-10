@@ -1,0 +1,14 @@
+{
+  "indemnityGuarantees": [
+    {
+      "compositeAccountNumber": "4020018249-72466661701",
+      "compositeGuaranteesId": "4020018249-72466661701-29618",
+      "id": "29618",
+      "status": "ACTIVE",
+      "startDate": "2011-11-11",
+      "expiryDate": "2015-11-11",
+      "purpose": "FIN",
+      "remainingFaceValue": "6636.03"
+    }
+  ]
+}
