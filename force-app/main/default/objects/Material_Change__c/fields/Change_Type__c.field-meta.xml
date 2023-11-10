@@ -54,11 +54,6 @@
                 <default>false</default>
                 <label>Retirement</label>
             </value>
-            <value>
-                <fullName>CHANGE_TYPE_NONE</fullName>
-                <default>false</default>
-                <label>No significant changes are expected</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
