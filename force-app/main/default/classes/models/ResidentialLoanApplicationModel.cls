@@ -19,6 +19,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
   public List<SOPExpenseNode> expenseNodes;
   public static String currentSopId;
+  public Boolean hasError = false;
   public Map<String, SOPExpense> expenseMap;
   public static final String OVERTIME_INCOME = 'INCOME_TYPE_OVERTIME';
   public static final String BASE_INCOME = 'INCOME_TYPE_BASE_SALARY';
