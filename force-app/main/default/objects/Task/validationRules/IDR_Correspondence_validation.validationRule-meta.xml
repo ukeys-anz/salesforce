@@ -7,6 +7,8 @@
 (
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 NOT(ISNEW()),
+NOT($Permission.IDR_Level_2),
+NOT($Permission.IDR_Level_3),
 RecordType.DeveloperName = &apos;IDR_Task&apos;,
 CONTAINS(Subject, &apos;New Correspondence&apos;),
 ISPICKVAL(Status, &apos;Completed&apos;),
