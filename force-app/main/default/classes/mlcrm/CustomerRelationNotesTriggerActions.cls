@@ -18,6 +18,7 @@ public with sharing class CustomerRelationNotesTriggerActions {
     List<Customer_Relationship__c> records
   ) {
     Set<Id> idsOfTerritory = new Set<Id>();
+    String strNotesPrimaryKey;
     for (Customer_Relationship__c objRelationship : records) {
       if (
         (oldMap == null ||
@@ -39,20 +40,22 @@ public with sharing class CustomerRelationNotesTriggerActions {
           WHERE ID IN :idsOfTerritory
         ]
       );
-      Map<Id, Integer> mapOfPrimaryNotes = new Map<Id, Integer>();
-      for (AggregateResult ar : [
-        SELECT Territory__r.Primary_Franchise_Owner__c primaryOwner, count(Id)
+      Map<String, Integer> mapOfPrimaryNotes = new Map<String, Integer>();
+      for (Customer_Relationship__c objRelation : [
+        SELECT Id, Customer__c, Territory__r.Primary_Franchise_Owner__c
         FROM Customer_Relationship__c
         WHERE
           Territory__c IN :idsOfTerritory
           AND Relationship_To_Franchise__c = 'Primary'
-        GROUP BY Territory__r.Primary_Franchise_Owner__c
       ]) {
-        if (ar.get('primaryOwner') != null) {
-          mapOfPrimaryNotes.put(
-            (Id) ar.get('primaryOwner'),
-            (Integer) ar.get('expr0')
-          );
+        strNotesPrimaryKey =
+          String.valueOf(objRelation.Customer__c) +
+          String.valueOf(objRelation.Territory__r.Primary_Franchise_Owner__c);
+        if (!mapOfPrimaryNotes.containsKey(strNotesPrimaryKey)) {
+          mapOfPrimaryNotes.put(strNotesPrimaryKey, 1);
+        } else {
+          Integer counter = mapOfPrimaryNotes.get(strNotesPrimaryKey);
+          mapOfPrimaryNotes.put(strNotesPrimaryKey, counter + 1);
         }
       }
       for (Customer_Relationship__c objRelationship : records) {
@@ -63,13 +66,19 @@ public with sharing class CustomerRelationNotesTriggerActions {
         if (
           oldMap == null &&
           strFranchiseOwnerId != null &&
-          !mapOfPrimaryNotes.containsKey(strFranchiseOwnerId)
+          !mapOfPrimaryNotes.containsKey(
+            objRelationship.Customer__c + strFranchiseOwnerId
+          )
         ) {
           objRelationship.addError(LABEL.MLCRM_Minimum_Primary_Notes_Error);
         } else if (
           strFranchiseOwnerId != null &&
-          mapOfPrimaryNotes.containsKey(strFranchiseOwnerId) &&
-          mapOfPrimaryNotes.get(strFranchiseOwnerId) > 1
+          mapOfPrimaryNotes.containsKey(
+            objRelationship.Customer__c + strFranchiseOwnerId
+          ) &&
+          mapOfPrimaryNotes.get(
+            objRelationship.Customer__c + strFranchiseOwnerId
+          ) > 1
         ) {
           objRelationship.addError(LABEL.MLCRM_Maximum_Primary_Notes_Error);
         }

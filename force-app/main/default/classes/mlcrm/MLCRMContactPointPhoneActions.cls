@@ -134,7 +134,7 @@ public with sharing class MLCRMContactPointPhoneActions {
   public static ContactPointPhoneWrapper getExistingOrProspectCPP(
     List<ContactPointPhone> records
   ) {
-    ContactPointPhoneWrapper cppWrap = new ContactPointPhoneWrapper();
+    ContactPointPhoneWrapper cppWrapper = new ContactPointPhoneWrapper();
 
     Set<Id> accIdsSet = new Set<Id>();
     for (ContactPointPhone record : records) {
@@ -145,17 +145,27 @@ public with sharing class MLCRMContactPointPhoneActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
-    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(accList);
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
+    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
+      accList
+    );
 
     for (ContactPointPhone record : records) {
-      if (accWrap.prosAcc.containsKey(record.Customer_Name__c)) {
-        cppWrap.prosCPP.add(record);
-      } else if (accWrap.activeAcc.containsKey(record.Customer_Name__c)) {
-        cppWrap.activeCPP.add(record);
+      if (
+        existingOrProspectAccounts.prospectAccounts.containsKey(
+          record.Customer_Name__c
+        )
+      ) {
+        cppWrapper.prospectCPP.add(record);
+      } else if (
+        existingOrProspectAccounts.existingAccounts.containsKey(
+          record.Customer_Name__c
+        )
+      ) {
+        cppWrapper.existingCPP.add(record);
       }
     }
-    return cppWrap;
+    return cppWrapper;
   }
 
   /**
@@ -166,7 +176,7 @@ public with sharing class MLCRMContactPointPhoneActions {
    * @name ContactPointPhoneWrapper
    */
   public class ContactPointPhoneWrapper {
-    public List<ContactPointPhone> prosCPP = new List<ContactPointPhone>();
-    public List<ContactPointPhone> activeCPP = new List<ContactPointPhone>();
+    public List<ContactPointPhone> prospectCPP = new List<ContactPointPhone>();
+    public List<ContactPointPhone> existingCPP = new List<ContactPointPhone>();
   }
 }

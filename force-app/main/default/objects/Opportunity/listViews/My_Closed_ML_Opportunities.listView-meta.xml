@@ -23,6 +23,6 @@
     <filterScope>Mine</filterScope>
     <label>My Closed Opportunities</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ_Mobile_Lending_Team</roleAndSubordinates>
+        <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
     </sharedTo>
 </ListView>

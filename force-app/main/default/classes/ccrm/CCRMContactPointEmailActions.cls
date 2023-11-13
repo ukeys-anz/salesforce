@@ -54,7 +54,7 @@ public with sharing class CCRMContactPointEmailActions {
   public static ContactPointEmailWrapper getExistingOrProspectCPE(
     List<ContactPointEmail> records
   ) {
-    ContactPointEmailWrapper cpeWrap = new ContactPointEmailWrapper();
+    ContactPointEmailWrapper cpeWrapper = new ContactPointEmailWrapper();
 
     Set<Id> accIdsSet = new Set<Id>();
     for (ContactPointEmail record : records) {
@@ -65,18 +65,28 @@ public with sharing class CCRMContactPointEmailActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
-    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(accList);
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
+    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
+      accList
+    );
 
     for (ContactPointEmail record : records) {
-      if (accWrap.prosAcc.containsKey(record.Customer_Name__c)) {
-        cpeWrap.prosCPE.add(record);
-      } else if (accWrap.activeAcc.containsKey(record.Customer_Name__c)) {
-        cpeWrap.activeCPE.add(record);
+      if (
+        existingOrProspectAccounts.prospectAccounts.containsKey(
+          record.Customer_Name__c
+        )
+      ) {
+        cpeWrapper.prospectCPE.add(record);
+      } else if (
+        existingOrProspectAccounts.existingAccounts.containsKey(
+          record.Customer_Name__c
+        )
+      ) {
+        cpeWrapper.existingCPE.add(record);
       }
     }
 
-    return cpeWrap;
+    return cpeWrapper;
   }
 
   /**
@@ -148,7 +158,7 @@ public with sharing class CCRMContactPointEmailActions {
   }
 
   /**
-   * @description Validate If the Organisation/Individual Email Record is created against Organisation/Individual Customer or not.
+   * @description Validate If the Organisation Email record is created against Business_Account and Individual Email Record is created against PersonAccount or not.
    * @param records the list of email record to validate
    */
   public static void validateOrgIndividualEmailsLinking(
@@ -169,6 +179,9 @@ public with sharing class CCRMContactPointEmailActions {
       accMap = getAccountMap(accountIds);
 
       for (ContactPointEmail record : records) {
+        // if ContactPointEmail record type is Organisation and account record type is NOT Business_Account
+        // OR if ContactPointEmail record type is Individual and account record type is NOT PersonAccount
+        // then throw error
         if (
           !((record.RecordTypeId == CCRMConstants.CPE_ORG_RT_ID &&
           accMap.get(record.Customer_Name__c).RecordTypeId ==
@@ -206,7 +219,7 @@ public with sharing class CCRMContactPointEmailActions {
    * @name ContactWrapper
    */
   public class ContactPointEmailWrapper {
-    public List<ContactPointEmail> prosCPE = new List<ContactPointEmail>();
-    public List<ContactPointEmail> activeCPE = new List<ContactPointEmail>();
+    public List<ContactPointEmail> prospectCPE = new List<ContactPointEmail>();
+    public List<ContactPointEmail> existingCPE = new List<ContactPointEmail>();
   }
 }

@@ -1,0 +1,29 @@
+{
+  "accountRelationships": [
+    {
+      "compositeAccountRelationshipId": "DDA-901221265-0",
+      "relatedPartyCustomerId": "4017120146",
+      "relationshipType": "PRI"
+    },
+    {
+      "compositeAccountRelationshipId": "DDA-901221265-1",
+      "relatedPartyCustomerId": "902168950",
+      "relationshipType": "CLG"
+    },
+    {
+      "compositeAccountRelationshipId": "DDA-901221265-2",
+      "relatedPartyCustomerId": "1009086103",
+      "relationshipType": "TPS"
+    },
+    {
+      "compositeAccountRelationshipId": "DDA-901221265-3",
+      "relatedPartyCustomerId": "1009086140",
+      "relationshipType": "TPS"
+    },
+    {
+      "compositeAccountRelationshipId": "DDA-901221265-4",
+      "relatedPartyCustomerId": "4017120167",
+      "relationshipType": "SOL"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+	"accounts": [
+		{
+			"compositeAccountNumber": "4011643101-72455201101",
+			"accountNumber": "72455201101",
+			"accountLimit": "10454",
+			"status": "APPROVED"
+		}
+	],
+	"nextPageId": null
+}

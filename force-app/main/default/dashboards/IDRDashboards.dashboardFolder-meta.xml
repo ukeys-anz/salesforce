@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DashboardFolder xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>CMOS Dashboards</name>
     <folderShares>
         <accessLevel>View</accessLevel>
         <sharedTo>Banker</sharedTo>
@@ -30,5 +31,14 @@
         <sharedTo>Data_Analyst</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
-    <name>CMOS Dashboards</name>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>ANZ_Mobile_Lending_Team</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Commercial_Banking</sharedTo>
+        <sharedToType>RoleAndSubordinates</sharedToType>
+    </folderShares>
 </DashboardFolder>

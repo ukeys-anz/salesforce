@@ -396,6 +396,7 @@ public with sharing class CCRMLeadConversionActionsHelper {
           WHERE
             Relationship_To_Franchise__c = 'Primary'
             AND Territory__r.Primary_Franchise_Owner__c = :strPrimaryOwnerId
+            AND Customer__c = :shellProspectAccount.Id
           LIMIT 1
         ];
       }

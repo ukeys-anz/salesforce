@@ -226,6 +226,20 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     InteractionValidations.validateInteractions(interactions);
+    //Added for CC-4053 Redaction
+    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{
+        MLCRMConstants.ML_INTERACTION_RT_ID,
+        MLCRMConstants.CCRM_INTERACTION_RT_ID
+      }
+    );
+
+    TextUtils.maskSObjectDataANZExtended(wrapperData.dcrmRecordList, 'Name');
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperData.dcrmRecordList,
+      'Optional_Notes__c'
+    );
     InteractionEventHelper.assignDefaultTerritory(records);
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
   }
@@ -263,6 +277,20 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       InteractionActions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
     }
     InteractionActions.unassignInteractions(oldMap, records);
+    //Added for CC-4053 Redaction
+    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{
+        MLCRMConstants.ML_INTERACTION_RT_ID,
+        MLCRMConstants.CCRM_INTERACTION_RT_ID
+      }
+    );
+
+    TextUtils.maskSObjectDataANZExtended(wrapperData.dcrmRecordList, 'Name');
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperData.dcrmRecordList,
+      'Optional_Notes__c'
+    );
     //Creating a map of all interactions by record type, to be used later. This reduces number of loops.
     Map<String, List<Interaction>> mapOfInteractionsByRecordType = InteractionFilter.getInteractionsByRecordType(
       records

@@ -125,7 +125,6 @@ export default class ProspectUpdateAddress extends LightningElement {
     record.State = address.state;
     record.Country = address.country;
     record.PostalCode = address.postalCode;
-    record.Global_Address_Key__c = address.globalAddressKey;
     record.Delivery_Identifier__c = address.dpid;
 
     this.loading = true;
