@@ -53,6 +53,8 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       return saveReferralChange(input, output, options);
     } else if (methodName.equals('getAssessmentOutcome')) {
       return getAssessmentOutcome(input, output, options);
+    } else if (methodName.equals('deleteReferralOutcome')) {
+      return deleteReferralOutcome(input, output, options);
     }
     return false;
   }
@@ -151,7 +153,11 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     CreditReferralModel cr,
     String recordId
   ) {
-    Case caseRecord = [SELECT Id, OwnerId FROM Case WHERE Id = :recordId];
+    Case caseRecord = [
+      SELECT Id, OwnerId, Status
+      FROM Case
+      WHERE Id = :recordId
+    ];
 
     Set<CreditReferralModel.Reason> setCrReason = new Set<CreditReferralModel.Reason>();
     for (CreditReferralModel.Assessment crAssessment : cr.assessments) {
@@ -220,11 +226,12 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       crReason.reasonCodeId = referralReason.Id;
 
       if (
-        (UserInfo.getUserRoleId() == creditAssessorLeadRole.Id) ||
+        ((UserInfo.getUserRoleId() == creditAssessorLeadRole.Id) ||
         (UserInfo.getUserId() == caseRecord.OwnerId &&
         ((UserInfo.getUserRoleId() == creditAssessmentOfficerRole.Id) ||
         (UserInfo.getUserRoleId() == bohCoachRole.Id &&
-        referralReason.Authority_Level__c.toUpperCase() == 'NO CAD')))
+        referralReason.Authority_Level__c.toUpperCase() == 'NO CAD')))) &&
+        (!caseRecord.Status.contains('Closed'))
       ) {
         crReason.editable = true;
       }
@@ -337,6 +344,40 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     payload.put('recordId', String.valueOf(input.get('recordId')));
 
     return creditApi.createCreditEnquiryAssessment(payload);
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
+   * @description returns result from saving referral change
+   */
+  private Boolean deleteReferralOutcome(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    Case c = [
+      SELECT Account.OCV_Id__c, Assessment_Id__c
+      FROM Case
+      WHERE Id = :String.valueOf(input.get('recordId'))
+    ];
+
+    String creditId = String.valueOf(input.get('creditId'));
+
+    //Remove the version identifier from the credit id
+    if (creditId.contains('@')) {
+      creditId = creditId.left(creditId.indexOf('@'));
+    }
+
+    return new CreditAssessmentAPIRepository()
+      .deleteReferralOutcome(
+        creditId,
+        c.Account.OCV_ID__c,
+        c.Assessment_Id__c,
+        String.valueOf(input.get('outcomeId'))
+      );
   }
 
   /**

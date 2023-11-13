@@ -20,6 +20,10 @@ public with sharing class BOHServiceMock extends Service {
     'mock_CRListAssessment'
   );
 
+  private static final string CREDIT_ASSESSMENT_DELETE_RESPONSE = getStaticResource(
+    'mock_CRDeleteReferralOutcome'
+  );
+
   private static final string SOP_LIST_ASSETS_RESPONSE = getStaticResource(
     'mock_getConsolidateSOP'
   );
@@ -217,6 +221,25 @@ public with sharing class BOHServiceMock extends Service {
     return response;
   }
 
+  /**
+   * @param creditId to receive credit assessment list
+   * @param ocvId ocv id of the customer account
+   * @param assessmentId id of assessment submitted for finalisation
+   * @param outcomeCode referral code to delete
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income
+   */
+  public override HttpCalloutResponse deleteReferralOutcome(
+    String creditId,
+    String ocvId,
+    String assessmentId,
+    String outcomeCode
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.CREDIT_ASSESSMENT_DELETE_RESPONSE;
+    }
+    return response;
+  }
   /**
    * @param requestBody body of request to send
    * @param ocvId ocv id
