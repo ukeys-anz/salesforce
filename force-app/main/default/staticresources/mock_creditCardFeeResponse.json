@@ -1,0 +1,9 @@
+{
+  "fees": [
+    {
+      "compositeFeeId": "PCA-4715149920842161-2",
+      "feeType": "ADDITIONAL_CARD",
+      "feeAmount": 15
+    }
+  ]
+}

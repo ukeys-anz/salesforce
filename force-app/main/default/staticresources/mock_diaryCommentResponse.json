@@ -1,0 +1,28 @@
+{
+  "conversationControl": "C00010C0001401677721509931",
+  "totalComments": 119,
+  "commentsCount": 50,
+  "moreComments": "Y",
+  "permanentComment": {
+    "branch": 3026,
+    "datePlaced": "2020-11-13T00:00:00",
+    "dateChanged": "2023-04-05T00:00:00",
+    "operatorId": "GTS132",
+    "comment": "TEST COMMENT CHECK"
+  },
+  "commentDetails": [
+    {
+      "branch": 5535,
+      "customerReviewFlag": "N",
+      "cycleCode": "",
+      "workQueue": "",
+      "datePrompt": null,
+      "datePlaced": "2023-10-03T16:31:30",
+      "dateChanged": null,
+      "operatorId": "LANID123",
+      "dateExpires": "2023-12-12T00:00:00",
+      "commentId": "01677721509881",
+      "comment": "TEST ADDED A COMMENT 3"
+    }
+  ]
+}

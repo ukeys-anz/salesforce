@@ -46,7 +46,6 @@ public without sharing class CCRMLeadConversion {
           RecordType.DeveloperName,
           RecordTypeId,
           LeadSource,
-          Conversion_Status__c,
           OwnerId,
           Salutation,
           Gender__c,
@@ -279,19 +278,13 @@ public without sharing class CCRMLeadConversion {
     }
     List<Id> leadIds = new List<Id>();
     List<Lead> leadList = new List<Lead>();
-    Boolean conversionStatusAccess = Schema.sObjectType.Lead.fields.Conversion_Status__c.isUpdateable();
     Boolean skipValidationAccess = Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable();
 
     for (Lead lead : leads) {
-      if (conversionStatusAccess || skipValidationAccess) {
-        lead.Skip_Validations__c = skipValidationAccess
-          ? CCRMConstants.CONVERT_LEAD
-          : lead.Skip_Validations__c;
-        lead.Conversion_Status__c = conversionStatusAccess
-          ? CCRMConstants.STATUS_COMPLETED
-          : lead.Conversion_Status__c;
-        leadList.add(lead);
-      }
+      lead.Skip_Validations__c = skipValidationAccess
+        ? CCRMConstants.CONVERT_LEAD
+        : lead.Skip_Validations__c;
+      leadList.add(lead);
       leadIds.add(lead.id);
     }
 

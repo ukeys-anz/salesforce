@@ -1,0 +1,11 @@
+{
+  "accounts": [
+    {
+      "accountName": "Buck Hattie",
+      "accountNumber": "503456793",
+      "productCode": "ILS",
+      "accountBalance": "5000000.47",
+      "status": "Active"
+    }
+  ]
+}

@@ -60,13 +60,55 @@
                 <lightning-card title="Lead Details" icon-name="standard:lead">
                   {modalBodySubText}
                   <div class="slds-var-m-around_medium">
-                    <lightning-record-form
+                    <lightning-record-view-form
                       object-api-name="Lead"
                       record-id={recordId}
-                      fields={fieldsML}
-                      mode="readonly"
-                      columns="2"
-                    ></lightning-record-form>
+                    >
+                      <lightning-layout>
+                        <lightning-layout-item flexibility="auto">
+                          <lightning-output-field
+                            field-name="Name"
+                          ></lightning-output-field>
+                          <lightning-output-field
+                            field-name="MobilePhone"
+                          ></lightning-output-field>
+                          <lightning-output-field
+                            field-name="Home_Phone__c"
+                          ></lightning-output-field>
+                          <lightning-output-field
+                            field-name="Work_Phone__c"
+                          ></lightning-output-field>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto">
+                          <lightning-output-field
+                            field-name="FinServ__RelatedAccount__c"
+                          ></lightning-output-field>
+                          <lightning-output-field
+                            field-name="Email"
+                          ></lightning-output-field>
+                          <lightning-output-field
+                            field-name="Address"
+                          ></lightning-output-field>
+                        </lightning-layout-item>
+                      </lightning-layout>
+                      <div style="height: 0px" class="ml-hidden-fields">
+                        <lightning-output-field
+                          field-name="Street"
+                        ></lightning-output-field>
+                        <lightning-output-field
+                          field-name="City"
+                        ></lightning-output-field>
+                        <lightning-output-field
+                          field-name="State"
+                        ></lightning-output-field>
+                        <lightning-output-field
+                          field-name="PostalCode"
+                        ></lightning-output-field>
+                        <lightning-output-field
+                          field-name="Country"
+                        ></lightning-output-field>
+                      </div>
+                    </lightning-record-view-form>
                   </div>
                 </lightning-card>
               </div>

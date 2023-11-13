@@ -18,6 +18,10 @@ public with sharing class CCRMSearchPartyService extends Service {
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('Content-Type', 'application/json');
     headers.put('channel', 'CCRM');
+    headers.put(
+      'Authorization',
+      'Bearer ' + CCRMARNCService.generateJWTToken()
+    );
     String body = getBody(record);
     String endPoint =
       'callout:SF_MS_Party' +

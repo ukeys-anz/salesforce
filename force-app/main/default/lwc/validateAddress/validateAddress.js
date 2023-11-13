@@ -32,6 +32,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   selectedAddress;
   keyLength = 0;
   enabled = false;
+  isAddressDisabled = true; // CC-5929
   message;
   isDataValid = true;
   loading = false;
@@ -225,6 +226,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     }
     this.showAddresses = false;
     this.enabled = true;
+    this.isAddressDisabled = true; // CC-5929
   }
 
   displayAddressFields() {
@@ -233,6 +235,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     this.strLongitude = "";
     this.showAddresses = false;
     this.enabled = true;
+    this.isAddressDisabled = false; // CC-5929
   }
 
   validateFields() {

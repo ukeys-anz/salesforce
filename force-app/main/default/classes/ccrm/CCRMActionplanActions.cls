@@ -165,6 +165,12 @@ public without sharing class CCRMActionplanActions {
 
   /**
    * @description Add Action plan to Opportunity when Opportunity moved to 'Need Analysis' stage.
+   *  If(Opportunity Stage = 'Needs Analysis' OR 'Customer Acceptance'){
+   *  get all CCRM_Action_Plan_Template_Selection__mdt
+   *  create Map<String(Opportunity Record Type+Segment+Stage Name), ActionPlanTemplateName>
+   *  get all published ActionPlanTemplates
+   *  create ActionPlan records for each opportunity
+   * }
    * @name insertActionPlans
    * @param newOppList list of new records
    * @param oldOppMap map of old records
@@ -200,21 +206,21 @@ public without sharing class CCRMActionplanActions {
     ) {
       if (iterator.Template_Name__c.contains(';')) {
         actionPlanTemplateMap.put(
-          (iterator.Opportunity_Record_Type__c +
-            iterator.Commercial_Segment__c +
-            iterator.Opportunity_Stage_Name__c)
-            .deleteWhitespace()
-            .toLowerCase(),
+          getActionPlanKey(
+            iterator.Opportunity_Record_Type__c,
+            iterator.Commercial_Segment__c,
+            iterator.Opportunity_Stage_Name__c
+          ),
           new List<String>(iterator.Template_Name__c.split(';'))
         );
         actionPlanTempSet.addAll(iterator.Template_Name__c.split(';'));
       } else {
         actionPlanTemplateMap.put(
-          (iterator.Opportunity_Record_Type__c +
-            iterator.Commercial_Segment__c +
-            iterator.Opportunity_Stage_Name__c)
-            .deleteWhitespace()
-            .toLowerCase(),
+          getActionPlanKey(
+            iterator.Opportunity_Record_Type__c,
+            iterator.Commercial_Segment__c,
+            iterator.Opportunity_Stage_Name__c
+          ),
           new List<String>{ iterator.Template_Name__c }
         );
         actionPlanTempSet.add(iterator.Template_Name__c);
@@ -242,11 +248,11 @@ public without sharing class CCRMActionplanActions {
       FROM Opportunity
       WHERE Id IN :oppIdsList
     ]) {
-      actionPlanName = (oppIter.RecordType.DeveloperName +
-        oppIter.Owner.Commercial_Segment__c +
-        oppIter.StageName)
-        .deleteWhitespace()
-        .toLowerCase();
+      actionPlanName = getActionPlanKey(
+        oppIter.RecordType.DeveloperName,
+        oppIter.Owner.Commercial_Segment__c,
+        oppIter.StageName
+      );
       if (
         actionPlanTemplateMap.containsKey(actionPlanName) &&
         !actionPlanTemplateMap.get(actionPlanName).isEmpty()
@@ -270,6 +276,22 @@ public without sharing class CCRMActionplanActions {
     if (!actionPlanToInsert.isEmpty()) {
       insert actionPlanToInsert;
     }
+  }
+
+  /**
+   * @description get key for ActionPlanTemplateMap as a concatenated value of Record type, segment and stage name.
+   * @name getActionPlanKey
+   * @param recordType rescord type
+   * @param segment commercial segment
+   * @param stageName stage name
+   * @return key string
+   */
+  public static String getActionPlanKey(
+    String recordType,
+    String segment,
+    String stageName
+  ) {
+    return (recordType + segment + stageName).deleteWhitespace().toLowerCase();
   }
 
   /**
