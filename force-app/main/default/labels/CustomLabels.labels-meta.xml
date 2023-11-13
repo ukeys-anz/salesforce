@@ -1760,6 +1760,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>/credit-assessment/v1/providereferraloutcome</value>
     </labels>
     <labels>
+        <fullName>MS_Delete_Referral_Outcome</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Delete_Referral_Outcome</shortDescription>
+        <value>/credit-assessment/v1/creditenquiries/</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Mandate_List</fullName>
         <categories>ST</categories>
         <language>en_US</language>

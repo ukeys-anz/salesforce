@@ -12,3 +12,9 @@
 .field-title {
   font-size: 12px;
 }
+
+.slds-notify {
+  max-width: 100%;
+  left: 20%;
+  right: 20%;
+}
