@@ -60,6 +60,7 @@ public with sharing class CreditReferralModel extends CalloutModel {
    * @description Reason node
    */
   public class Reason {
+    public String outcomeId;
     public String reasonCode;
     public String reasonDescription;
     public String reasonOutcome;

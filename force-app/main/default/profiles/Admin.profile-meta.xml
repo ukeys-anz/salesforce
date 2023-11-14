@@ -7351,12 +7351,12 @@
         <field>Lead.Primary_Franchise_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Other_Source_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Associated_Source_Detail__c</field>
         <readable>true</readable>
@@ -7881,12 +7881,12 @@
         <field>Opportunity.Lost_Reason_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Other_Source_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Associated_Source_Detail__c</field>
         <readable>true</readable>
