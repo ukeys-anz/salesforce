@@ -41,6 +41,7 @@ public with sharing class CCRMValidateAddressService extends Service {
     headers.put('Content-Type', 'application/json');
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('Content-Type', 'application/json');
     String endPoint =
       'callout:SF_MS_CCRM' +
       Label.MS_Get_Qas_AddressById +
@@ -105,6 +106,7 @@ public with sharing class CCRMValidateAddressService extends Service {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('Content-Type', 'application/json');
+    headers.put('Add-Components', 'true');
     String endPoint =
       'callout:SF_MS_CCRM' +
       Label.MS_Get_Qas_AddressById_V2 +

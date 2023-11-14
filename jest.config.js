@@ -15,6 +15,13 @@ module.exports = {
     "^lightning/actions$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/actions",
     "^lightning/uiRelatedListApi$":
-      "<rootDir>/force-app/tests/jest-mocks/lightning/uiRelatedListApi"
+      "<rootDir>/force-app/tests/jest-mocks/lightning/uiRelatedListApi",
+    "^lightning/modal$": "<rootDir>/force-app/tests/jest-mocks/lightning/modal",
+    "^lightning/modalHeader$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/modalHeader",
+    "^lightning/modalBody$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/modalBody",
+    "^lightning/modalFooter$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/modalFooter"
   }
 };

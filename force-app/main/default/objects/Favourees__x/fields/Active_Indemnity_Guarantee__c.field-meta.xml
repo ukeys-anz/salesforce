@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Indemnity_Guarantee__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
+    <description>Associated Id of Active IG</description>
+    <externalDeveloperName>ActiveGuaranteeId</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Active Indemnity Guarantee</label>
+    <length>18</length>
+    <referenceTo>Active_Indemnity_Guarantee__x</referenceTo>
+    <relationshipLabel>Favourees</relationshipLabel>
+    <relationshipName>Favourees</relationshipName>
+    <securityClassification>Internal</securityClassification>
+    <type>ExternalLookup</type>
+</CustomField>

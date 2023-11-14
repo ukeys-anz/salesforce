@@ -29,7 +29,6 @@ public with sharing class CCRMOpportunityActions {
   ) {
     Set<Id> accountIds = new Set<Id>();
     for (Opportunity opp : records) {
-      maskDescription(opp);
       accountIds.add(opp.AccountId);
     }
     checkAccountIsProspect(accountIds, records);
@@ -117,9 +116,7 @@ public with sharing class CCRMOpportunityActions {
       setNameForOpportunityFromLead(accountIds, opps);
     } catch (System.QueryException e) {
       Logger.error(
-        'InsufficientAccessException' +
-        e.getMessage() +
-        e.getTypeName(),
+        'InsufficientAccessException' + e.getMessage() + e.getTypeName(),
         e
       );
       Logger.savelog();
@@ -175,9 +172,7 @@ public with sharing class CCRMOpportunityActions {
       );
     } catch (System.QueryException e) {
       Logger.error(
-        'InsufficientAccessException' +
-        e.getMessage() +
-        e.getTypeName(),
+        'InsufficientAccessException' + e.getMessage() + e.getTypeName(),
         e
       );
       Logger.saveLog();
@@ -200,7 +195,11 @@ public with sharing class CCRMOpportunityActions {
     for (Opportunity record : records) {
       if (accounts.containsKey(record.AccountId)) {
         Account acc = accounts.get(record.AccountId);
-        if (acc.FinServ__Status__c != 'Active' && !record.Lead_Converted__c) {
+        if (
+          acc.FinServ__Status__c != 'Active' &&
+          !record.Lead_Converted__c &&
+          record.RecordTypeId != MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID
+        ) {
           record.addError(
             ACCOUNT_ID_FIELD_NAME,
             LEAD_PROCESS_FOR_PROSPECT_ERROR

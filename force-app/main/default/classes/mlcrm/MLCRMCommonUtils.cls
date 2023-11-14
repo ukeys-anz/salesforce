@@ -548,4 +548,333 @@ public with sharing class MLCRMCommonUtils {
     }
     return false;
   }
+
+  /**
+   * @description This method prefill Referrer when Referrer Email is populated or changed
+   * @name referrerPrefill
+   * @param records List of sObject records
+   * @param oldMap Map of old sObject records
+   * author Ankit Garg
+   * @US CC-1882
+   */
+  public static void referrerPrefill(
+    List<sObject> records,
+    Map<Id, sObject> oldMap
+  ) {
+    Set<Id> internalReferrerIds = new Set<Id>();
+    Set<Id> externalReferrerIds = new Set<Id>();
+    List<sObject> referrerEmailSobject = new List<sObject>();
+    List<sObject> referrerSobject = new List<sObject>();
+    Set<String> internalReferrerEmails = new Set<String>();
+    Set<String> externalReferrerEmails = new Set<String>();
+
+    //filter all the ML leads for which Internal Referral or Referrer Email is changed
+    for (sObject objSobject : records) {
+      if (
+        ((Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_LEAD_RT_ID ||
+        (Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) &&
+        String.isNotBlank(
+          (String) objSobject.get('FinServ__ReferredByUser__c')
+        ) &&
+        (oldMap == null ||
+        (String) objSobject.get('FinServ__ReferredByUser__c') !=
+        oldMap.get((Id) objSobject.get('Id')).get('FinServ__ReferredByUser__c'))
+      ) {
+        internalReferrerIds.add(
+          (Id) objSobject.get('FinServ__ReferredByUser__c')
+        );
+        referrerSobject.add(objSobject);
+      } else if (
+        ((Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_LEAD_RT_ID ||
+        (Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) &&
+        String.isNotBlank(
+          (String) objSobject.get('FinServ__ReferredByContact__c')
+        ) &&
+        (oldMap == null ||
+        (String) objSobject.get('FinServ__ReferredByContact__c') !=
+        oldMap.get((Id) objSobject.get('Id'))
+          .get('FinServ__ReferredByContact__c'))
+      ) {
+        externalReferrerIds.add(
+          (Id) objSobject.get('FinServ__ReferredByContact__c')
+        );
+        referrerSobject.add(objSobject);
+      } else if (
+        ((Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_LEAD_RT_ID ||
+        (Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) &&
+        String.isNotBlank((String) objSobject.get('Referrer_Email__c')) &&
+        ((String) objSobject.get('LeadSource'))
+          .equals(MLCRMConstants.INTERNAL_REFERRAL) &&
+        (oldMap == null ||
+        (String) objSobject.get('Referrer_Email__c') !=
+        oldMap.get((Id) objSobject.get('Id')).get('Referrer_Email__c'))
+      ) {
+        internalReferrerEmails.add(
+          (String) objSobject.get('Referrer_Email__c')
+        );
+        referrerEmailSobject.add(objSobject);
+      } else if (
+        ((Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_LEAD_RT_ID ||
+        (Id) objSobject.get('RecordTypeId') ==
+        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID) &&
+        String.isNotBlank((String) objSobject.get('Referrer_Email__c')) &&
+        ((String) objSobject.get('LeadSource'))
+          .equals(MLCRMConstants.EXTERNAL_REFERRAL) &&
+        (oldMap == null ||
+        (String) objSobject.get('Referrer_Email__c') !=
+        oldMap.get((Id) objSobject.get('Id')).get('Referrer_Email__c'))
+      ) {
+        externalReferrerEmails.add(
+          (String) objSobject.get('Referrer_Email__c')
+        );
+        referrerEmailSobject.add(objSobject);
+      }
+    }
+
+    mapReferrerByEmail(
+      internalReferrerEmails,
+      externalReferrerEmails,
+      referrerEmailSobject
+    );
+    mapReferrerByLookupId(
+      internalReferrerIds,
+      externalReferrerIds,
+      referrerSobject
+    );
+  }
+
+  /**
+   * @description This method to map reffere by email
+   * @name mapReferrerByEmail
+   * @param internalReferrerEmails Set of internal Email
+   * @param externalReferrerEmails Set of external Email
+   * @param referrerEmailSobject list of sobject
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static void mapReferrerByEmail(
+    Set<String> internalReferrerEmails,
+    Set<String> externalReferrerEmails,
+    List<sObject> referrerEmailSobject
+  ) {
+    Map<String, sObject> userEmailMap = new Map<String, sObject>();
+    if (
+      !internalReferrerEmails.isEmpty() && Schema.sObjectType.User.isQueryable()
+    ) {
+      userEmailMap = getReferrerUsers(internalReferrerEmails, 'User');
+      populateReferrer(
+        referrerEmailSobject,
+        userEmailMap,
+        'FinServ__ReferredByUser__c'
+      );
+    } else if (
+      !externalReferrerEmails.isEmpty() &&
+      Schema.sObjectType.Contact.isQueryable()
+    ) {
+      userEmailMap = getReferrerUsers(externalReferrerEmails, 'Contact');
+      populateReferrer(
+        referrerEmailSobject,
+        userEmailMap,
+        'FinServ__ReferredByContact__c'
+      );
+    }
+  }
+
+  /**
+   * @description This method to map reffere by lookup Id
+   * @name mapReferrerByLookupId
+   * @param internalReferrerIds Set of internal Id
+   * @param externalReferrerIds Set of external Id
+   * @param referrerSobject list of sobject
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static void mapReferrerByLookupId(
+    Set<Id> internalReferrerIds,
+    Set<Id> externalReferrerIds,
+    List<sObject> referrerSobject
+  ) {
+    Map<Id, sObject> userMap = new Map<Id, sObject>();
+    if (
+      !internalReferrerIds.isEmpty() && Schema.sObjectType.User.isQueryable()
+    ) {
+      userMap = getReferrerUsers(internalReferrerIds, 'User');
+      populateReferrerDetails(
+        referrerSobject,
+        userMap,
+        'FinServ__ReferredByUser__c'
+      );
+    } else if (
+      !externalReferrerIds.isEmpty() && Schema.sObjectType.Contact.isQueryable()
+    ) {
+      userMap = getReferrerUsers(externalReferrerIds, 'Contact');
+      populateReferrerDetails(
+        referrerSobject,
+        userMap,
+        'FinServ__ReferredByContact__c'
+      );
+    }
+  }
+
+  /**
+   * @description This method to query users matching with Referrer Emails
+   * @name getReferrerUsers
+   * @param referrerEmails Set of Email Ids
+   * @param strObject sobject API Name
+   * @return userEmailMap Map<String,User>()
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static Map<String, sObject> getReferrerUsers(
+    Set<String> referrerEmails,
+    String strObject
+  ) {
+    Map<String, sObject> userEmailMap = new Map<String, sObject>();
+    String strPhoneColumn = '';
+    if (strObject == 'Contact') {
+      strPhoneColumn = ' ,MobilePhone';
+    }
+    String strQuery =
+      'SELECT Id, Name, Email ' +
+      strPhoneColumn +
+      ' FROM ' +
+      strObject +
+      ' WHERE Email = :referrerEmails';
+    if (strObject == 'User') {
+      strQuery += ' AND isActive = TRUE';
+    }
+
+    //query users matching with Referrer Emails
+    if (
+      (strObject == 'User' && Schema.sObjectType.User.isQueryable()) ||
+      (strObject == 'Contact' && Schema.sObjectType.Contact.isQueryable())
+    ) {
+      for (Sobject rUser : Database.query(strQuery)) {
+        if (!userEmailMap.containsKey((String) rUser.get('Email'))) {
+          userEmailMap.put((String) rUser.get('Email'), rUser);
+        }
+      }
+    }
+    return userEmailMap;
+  }
+
+  /**
+   * @description This method to query users matching with Referrer Emails
+   * @name getReferrerUsers
+   * @param referrerIds Set of User Ids
+   * @param strObject sobject API Name
+   * @return userMap Map<Id,User>()
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static Map<Id, sObject> getReferrerUsers(
+    Set<Id> referrerIds,
+    String strObject
+  ) {
+    //query users matching with Internal Referrer Ids
+    String strPhoneColumn = '';
+    if (strObject == 'Contact') {
+      strPhoneColumn = ' ,MobilePhone';
+    }
+    String strQuery =
+      'SELECT Id, Name, Email ' +
+      strPhoneColumn +
+      ' FROM ' +
+      strObject +
+      ' WHERE Id = :referrerIds';
+    if (strObject == 'User') {
+      strQuery += ' AND isActive = TRUE';
+    }
+
+    strQuery += ' LIMIT 10000';
+    Map<Id, sObject> userMap = new Map<Id, sObject>(Database.query(strQuery));
+    return userMap;
+  }
+
+  /**
+   * @description This method to populate Referrer Email and Referrer Name
+   * @name populateReferrerDetails
+   * @param referrerSobject List of sObject records
+   * @param userMap Map of users
+   * @param strField field API Name
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static void populateReferrerDetails(
+    List<sObject> referrerSobject,
+    Map<Id, sObject> userMap,
+    String strField
+  ) {
+    for (sObject objSobject : referrerSobject) {
+      if (
+        (String) objSobject.get(strField) != null &&
+        !userMap.isEmpty() &&
+        userMap.containsKey((String) objSobject.get(strField))
+      ) {
+        objSobject.put(
+          'Referrer_Email__c',
+          userMap.get((String) objSobject.get(strField)).get('Email')
+        );
+        objSobject.put(
+          'Referrer_Name__c',
+          userMap.get((String) objSobject.get(strField)).get('Name')
+        );
+        if (strField == 'FinServ__ReferredByContact__c') {
+          objSobject.put(
+            'Referrer_Phone__c',
+            userMap.get((String) objSobject.get(strField)).get('MobilePhone')
+          );
+        }
+      }
+    }
+  }
+  /**
+   * @description This method to populate Internal Referrer and Referrer Name
+   * @name populateReferrer
+   * @param referrerSobject List of sObject records
+   * @param userEmailMap Map of email with users
+   * @param strField field API Name
+   * @author Ankit Garg
+   * @US CC-1882
+   */
+  private static void populateReferrer(
+    List<sObject> referrerSobject,
+    Map<String, sObject> userEmailMap,
+    String strField
+  ) {
+    for (sObject objSobject : referrerSobject) {
+      if (
+        (String) objSobject.get('Referrer_Email__c') != null &&
+        !userEmailMap.isEmpty() &&
+        userEmailMap.containsKey((String) objSobject.get('Referrer_Email__c'))
+      ) {
+        objSobject.put(
+          strField,
+          userEmailMap.get((String) objSobject.get('Referrer_Email__c'))
+            .get('Id')
+        );
+        objSobject.put(
+          'Referrer_Name__c',
+          userEmailMap.get((String) objSobject.get('Referrer_Email__c'))
+            .get('Name')
+        );
+        if (strField == 'FinServ__ReferredByContact__c') {
+          objSobject.put(
+            'Referrer_Phone__c',
+            userEmailMap.get((String) objSobject.get(strField))
+              .get('MobilePhone')
+          );
+        }
+      } else {
+        objSobject.put(strField, null);
+      }
+    }
+  }
 }
