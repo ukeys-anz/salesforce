@@ -125,12 +125,12 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       return true;
     } catch (Exception e) {
-      ResidentialLoanApplicationModel sopAssetsError = new ResidentialLoanApplicationModel();
-      sopAssetsError.hasError = true;
-      outMap.put(
-        'object',
-        JSON.deserializeUntyped(JSON.serialize(sopAssetsError))
-      );
+      Map<String, Object> errorResponseMap = new Map<String, Object>{
+        'hasError' => true
+      };
+      outMap.put('object', errorResponseMap);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
       return false;
     }
   }
