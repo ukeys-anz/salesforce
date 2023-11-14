@@ -197,3 +197,4 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 
 #CC-5856 Remove "Conversion Status" from Lead. Manual deletion to prevent class failures during deployment
 force-app/main/default/objects/Lead/fields/Conversion_Status__c.field-meta.xml
+force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml

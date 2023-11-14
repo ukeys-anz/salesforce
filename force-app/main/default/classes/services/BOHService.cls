@@ -347,21 +347,20 @@ public with sharing class BOHService extends Service {
   public static string convertDecimalToString(Decimal amt) {
     if (amt == null) {
       return null;
-    } else if (amt == 0) {
-      return '$' + amt;
+    }
+    String amtString = amt.abs().setScale(2).format();
+    if (!amtString.contains('.')) {
+      amtString = amtString + '.00';
     } else {
-      String str = '$';
-      if (amt < 0) {
-        amt = amt * -1;
-        str = '-' + str;
+      Integer dPosition = amtString.indexOf('.');
+      if (amtString.length() - dPosition < 3) {
+        amtString = amtString + '0';
       }
-      str = str + amt.format();
-      if (!str.contains('.')) {
-        str = str + '.00';
-      } else {
-        str = str.substringAfter('.').length() < 2 ? str + '0' : str;
-      }
-      return str;
+    }
+    if (amt < 0) {
+      return '-$' + amtString;
+    } else {
+      return '$' + amtString;
     }
   }
 
