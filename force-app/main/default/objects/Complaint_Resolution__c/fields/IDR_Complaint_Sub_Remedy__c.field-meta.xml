@@ -132,6 +132,11 @@
                 <label>QBE</label>
             </value>
             <value>
+                <fullName>CGU</fullName>
+                <default>false</default>
+                <label>CGU</label>
+            </value>
+            <value>
                 <fullName>CMC Markets</fullName>
                 <default>false</default>
                 <label>CMC Markets</label>
@@ -272,6 +277,10 @@
         <valueSettings>
             <controllingFieldValue>3</controllingFieldValue>
             <valueName>QBE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>CGU</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>3</controllingFieldValue>
