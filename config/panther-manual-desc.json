@@ -2115,7 +2115,9 @@
         "Primary_Contact_Method__c",
         "SourceSystemId__c",
         "IsNewLead__c",
-        "Territory__c"
+        "Territory__c",
+        "OpportunityType__c",
+        "Contactpreferences__c"
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
