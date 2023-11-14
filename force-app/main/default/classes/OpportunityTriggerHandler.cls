@@ -32,6 +32,21 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
     //CC-1058 This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+    //CC-4053 Redaction
+    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{
+        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID,
+        CCRMConstants.CCRM_OPP_RT_ID
+      }
+    );
+
+    TextUtils.maskSObjectData(wrapperData.recordList, 'Description');
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperData.dcrmRecordList,
+      'Description'
+    );
+    MLCRMCommonUtils.referrerPrefill(records, null);
   }
 
   /**
@@ -83,6 +98,22 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       false,
       true
     );
+
+    //CC-4053 Redaction
+    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{
+        MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID,
+        CCRMConstants.CCRM_OPP_RT_ID
+      }
+    );
+
+    TextUtils.maskSObjectData(wrapperData.recordList, 'Description');
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperData.dcrmRecordList,
+      'Description'
+    );
+    MLCRMCommonUtils.referrerPrefill(records, oldMap);
   }
 
   /**

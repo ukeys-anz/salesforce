@@ -271,6 +271,7 @@ private class CCRMAccountActionsTest {
 
   @IsTest
   static void testTrackActiveAccountChanges() {
+    //GIVEN there's a active business account
     Account acc = [
       SELECT ID, Name, advertising_Indicator__c, disclosure_Indicator__c
       FROM Account

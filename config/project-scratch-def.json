@@ -27,7 +27,8 @@
     "StandardOmniStudioRuntime",
     "OmniStudioMetadata",
     "OmniStudioRuntime",
-    "SustainabilityApp"
+    "SustainabilityApp",
+    "PlatformConnect:5"
   ],
   "settings": {
     "chatterSettings": {

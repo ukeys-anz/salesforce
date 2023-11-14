@@ -7029,11 +7029,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Lead.Conversion_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Lead.CLG_ID__c</field>
     </fieldPermissions>
     <fieldPermissions>
@@ -7109,6 +7104,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Lead.FinServ__ReferredByUser__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.ML_DataMigration_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7349,6 +7349,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Primary_Franchise_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.Other_Source_Detail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.Associated_Source_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7638,6 +7648,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.ML_DataMigration_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.Opp_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7864,6 +7879,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Lost_Reason_Detail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Other_Source_Detail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Associated_Source_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9948,6 +9973,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>User.ML_Role__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.ML_Territories__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>User_Provisioning_Request__c.Business_Function__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10353,6 +10388,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Customer_Relationship__c.ML_DataMigration_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Customer_Relationship__c.Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10449,6 +10489,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product2.Sub_Product_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Account_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

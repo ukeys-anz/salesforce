@@ -22,7 +22,7 @@
             <value>
                 <fullName>Franchise Manager</fullName>
                 <default>false</default>
-                <label>Franchise Manager</label>
+                <label>Business Manager</label>
             </value>
             <value>
                 <fullName>Loan Writer</fullName>
@@ -32,7 +32,7 @@
             <value>
                 <fullName>Admin</fullName>
                 <default>false</default>
-                <label>Admin</label>
+                <label>Franchise Admin</label>
             </value>
         </valueSetDefinition>
     </valueSet>

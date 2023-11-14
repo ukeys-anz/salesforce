@@ -1,0 +1,98 @@
+<template>
+  <div
+    class="slds-is-relative slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-top_x-small slds-p-bottom_x-small slds-p-left_x-small slds-p-right_x-small"
+  >
+    <template if:true={showSpinner}>
+      <lightning-spinner
+        alternative-text="Loading"
+        size="x-small"
+      ></lightning-spinner>
+    </template>
+    <div class="slds-grid">
+      <div class="slds-col slds-size_3-of-12">
+        <lightning-card
+          title="Financial Summary"
+          icon-name="custom:custom17"
+        ></lightning-card>
+      </div>
+      <div
+        class="slds-col slds-size_8-of-12 slds-text-align_right slds-p-top_x-small"
+      >
+        <p>{lastSummaryCalculated}</p>
+      </div>
+      <div class="slds-col slds-size_1-of-12 slds-text-align_right">
+        <lightning-button-icon
+          title="Refresh"
+          icon-name="utility:refresh"
+          slot="actions"
+          alternative-text="Settings"
+          onclick={handleGetUpdatedResult}
+          disabled={isDisableRefresh}
+        ></lightning-button-icon>
+      </div>
+    </div>
+    <div class="slds-p-left_x-large">
+      <lightning-layout multiple-rows>
+        <lightning-layout-item size="3" padding="around-small">
+          <p>Total Customer Balance</p>
+        </lightning-layout-item>
+        <lightning-layout-item size="3" padding="around-small">
+          <p>No. Merchant Terminals</p>
+        </lightning-layout-item>
+        <lightning-layout-item size="3" padding="around-small">
+          <p>Total Asset Financial Balance</p>
+        </lightning-layout-item>
+        <lightning-layout-item
+          size="3"
+          padding="around-small"
+        ></lightning-layout-item>
+        <lightning-layout-item size="3" padding="around-small">
+          <template if:true={showtotalBalCalculationProgress}>
+            <lightning-formatted-text
+              class="calculationText"
+              value="Calculation is in progress"
+            ></lightning-formatted-text>
+          </template>
+          <template if:false={showtotalBalCalculationProgress}>
+            <lightning-formatted-number
+              class="slds-text-heading_x-small slds-text-title_bold"
+              value={totalCustBalance}
+              format-style="currency"
+              currency-code="AUD"
+            ></lightning-formatted-number>
+          </template>
+        </lightning-layout-item>
+        <lightning-layout-item size="3" padding="around-small">
+          <template if:true={showTerminalCalculationProgress}>
+            <lightning-formatted-text
+              class="calculationText"
+              value="Calculation is in progress"
+            ></lightning-formatted-text>
+          </template>
+          <template if:false={showTerminalCalculationProgress}>
+            <lightning-formatted-number
+              class="slds-text-heading_x-small slds-text-title_bold"
+              value={totalTerminal}
+            ></lightning-formatted-number>
+          </template>
+        </lightning-layout-item>
+        <lightning-layout-item size="3" padding="around-small">
+          <template if:true={showAssetCalculationProgress}>
+            <lightning-formatted-text
+              class="calculationText"
+              value="Calculation is in progress"
+            ></lightning-formatted-text>
+          </template>
+          <template if:false={showAssetCalculationProgress}>
+            <lightning-formatted-number
+              class="slds-text-heading_x-small slds-text-title_bold"
+              value={totalAssetBalance}
+              format-style="currency"
+              currency-code="AUD"
+            ></lightning-formatted-number>
+          </template>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+  </div>
+</template>

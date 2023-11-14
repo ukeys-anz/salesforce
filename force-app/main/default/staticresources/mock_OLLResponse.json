@@ -1,0 +1,12 @@
+{
+    "accounts": [
+        {
+            "accountName": "Stephan Pedersen",
+            "accountNumber": "523456789",
+            "productCode": "OLL",
+            "accountBalance": "50.04",
+            "accountLimit": "2000",
+            "status": "Active"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Interest_Rate_Margin__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
+    <description>Margin applied on base rate interest.</description>
+    <externalDeveloperName>InterestRateMargin</externalDeveloperName>
+    <externalId>false</externalId>
+    <inlineHelpText>Margin applied on base rate interest.</inlineHelpText>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Margin (%)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>Confidential</securityClassification>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

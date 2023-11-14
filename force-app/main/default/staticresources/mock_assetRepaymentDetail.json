@@ -1,0 +1,13 @@
+{
+  "repayments": [
+    {
+      "accountNumber": "NULL",
+      "type": "15103",
+      "frequency": 2601,
+      "amount": "14513.0600",
+      "startDate": "2017-03-27",
+      "numberOfRepayments": 1,
+      "compositeAssetRepaymentId": "4020632171-58887-127578-0"
+    }
+  ]
+}
