@@ -46,7 +46,7 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
     Map<String, Object> options
   ) {
     String anyRecordId = (String) inputMap.get('anyRecordId');
-    String interactionQuery = 'SELECT Id,Support_Topics__c,RecordType.DeveloperName,Chat_or_Call_SID__c, Name, Interaction_Auto_Number__c, Interaction_External_Id__c, AccountId, Account.Name,Lead__c, Lead__r.Name,StartTime,Interaction_Purpose__c, Contact_Mobile__c,InteractionType,Resolution__c ,Owner.Name ,CreatedDate, Actual_Topics__c, Reason_for_Visit__c, Status__c, Place__c, Attendees__c ,Video_Call__c, Direction__c From Interaction WHERE ';
+    String interactionQuery = 'SELECT Id,Support_Topics__c,RecordType.DeveloperName,Chat_or_Call_SID__c, Name, Interaction_Auto_Number__c,Interaction_External_Id__c, AccountId, Account.Name,Lead__c, Lead__r.Name,StartTime,Interaction_Purpose__c, Contact_Mobile__c,InteractionType,Resolution__c ,Owner.Name ,CreatedDate, Status__c, Place__c, Attendees__c ,Video_Call__c, Direction__c ,Actual_Topic_Formula__c,Reason_for_Visit_Formula__c From Interaction WHERE ';
     String recordTypeDeveloperName = (String) inputMap.get(
       'recordTypeDeveloperName'
     );

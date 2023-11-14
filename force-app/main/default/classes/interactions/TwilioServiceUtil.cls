@@ -30,6 +30,7 @@ public with sharing class TwilioServiceUtil {
     List<Interaction> interactionToBeUpdated = new List<Interaction>();
     List<InteractionContextServiceUpdate.TwilioContextResponse> responseList = new List<InteractionContextServiceUpdate.TwilioContextResponse>();
     List<Twilio_Details__c> twilioDetailRecordToInsertOrUpdate = new List<Twilio_Details__c>();
+    List<Database.UpsertResult> lstUpsertResult = new List<Database.UpsertResult>();
     Set<String> agentEmailList = new Set<String>();
     Map<String, Id> agentOwnerIdMap = new Map<String, Id>();
     for (
@@ -39,6 +40,18 @@ public with sharing class TwilioServiceUtil {
         intCount
       );
       Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
+      //Checking whether the transaction made for Update or Insert.
+      if (String.isNotBlank(res.twilioDetailRecordId)) {
+        twilioDetailRecord.Id = res.twilioDetailRecordId;
+      } else if (!String.isNotBlank(res.twilioDetailRecordId)) {
+        twilioDetailRecord.Id = [
+          SELECT TwilioDetailsID__c
+          FROM Interaction
+          WHERE Id = :res.interactionId
+        ]
+        .TwilioDetailsID__c;
+      }
+
       if (String.isNotBlank(res.twilioId)) {
         twilioDetailRecord.Twilio_ID__c = res.twilioId;
       }
@@ -69,10 +82,10 @@ public with sharing class TwilioServiceUtil {
       agentOwnerIdMap.put(agent.FederationIdentifier, agent.Id);
     }
 
-    //Upsert Twilio Details
-    List<Database.UpsertResult> lstUpsertResult = Database.upsert(
+    //create Twilio Details upsert list based on from which context it is called
+    lstUpsertResult = Database.upsert(
       twilioDetailRecordToInsertOrUpdate,
-      Twilio_Details__c.Chat_or_Call_SID__c,
+      Twilio_Details__c.Id,
       false
     );
 
@@ -185,5 +198,57 @@ public with sharing class TwilioServiceUtil {
       }
     }
     return responseList;
+  }
+
+  /**
+   * @description Method to insert Twilio Details record on insertion of Interaction for Chat and Call Recordtype
+   * and if the insertion failed then creation of Twilio Details get rolled back
+   * @param interactionsList list of interaction created newly from trigger
+   */
+  public static void insertTwilioDetailsOnInteractionCreation(
+    List<Interaction> interactionsList
+  ) {
+    List<Twilio_Details__c> twilioDetailsToBeInserted = new List<Twilio_Details__c>();
+    List<Interaction> interactionListForTwilioDetailsCreation = new List<Interaction>();
+    //Set of Interaction RecordTypeIds for Call and Chat
+    Set<Id> callMessageRecTypeIdsSet = new Set<Id>{
+      GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+      GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+    };
+
+    for (Interaction newInteraction : interactionsList) {
+      if (callMessageRecTypeIdsSet.contains(newInteraction.RecordTypeId)) {
+        interactionListForTwilioDetailsCreation.add(newInteraction);
+        Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
+        twilioDetailsToBeInserted.add(twilioDetailRecord);
+      }
+    }
+    //Insert Twilio Details
+    List<Database.SaveResult> twilioInsertResult = DMLUtil.insertRecords(
+      twilioDetailsToBeInserted,
+      false,
+      false
+    );
+
+    Logger.error(
+      'Error in Creating Twilio Details On Trigger Event',
+      twilioInsertResult
+    );
+    Logger.saveLog();
+
+    //Coaches needs each Call/Chat Interaction should have Twilio details precreated so that they should only fill in few fields from related details section
+    for (
+      Integer intInsertCount = 0;
+      intInsertCount < twilioInsertResult.size();
+      intInsertCount++
+    ) {
+      Database.SaveResult twilioRecordInserted = twilioInsertResult.get(
+        intInsertCount
+      );
+      if (twilioRecordInserted.isSuccess()) {
+        interactionListForTwilioDetailsCreation[intInsertCount]
+          .TwilioDetailsID__c = twilioRecordInserted.getId();
+      }
+    }
   }
 }

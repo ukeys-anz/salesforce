@@ -2912,6 +2912,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Actual_Topic_1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Actual_Topic_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.ANZ_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3102,6 +3112,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Record_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3132,6 +3147,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.ReasonforVisit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.StartTime</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3158,11 +3178,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Twilio_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction.TwilioDetailsID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

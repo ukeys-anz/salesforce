@@ -1914,7 +1914,13 @@
         "Loan_Application__c",
         "Actual_Topics__c",
         "Products__c",
-        "Reason_for_Visit__c"
+        "Reason_for_Visit__c",
+        "Actual_Topic_1__c",
+        "Actual_Topic_2__c",
+        "ReasonforVisit__c",
+        "Product__c",
+        "Actual_Topic_Formula__c",
+        "Reason_for_Visit_Formula__c"
       ]
     },
     "Interaction_Tag__c": {

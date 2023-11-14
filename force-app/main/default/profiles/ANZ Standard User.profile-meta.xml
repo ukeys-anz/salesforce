@@ -1725,6 +1725,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Message Interaction Layout</layout>
+        <recordType>Interaction.Message</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Interaction-Store Interaction Layout</layout>
         <recordType>Interaction.Store</recordType>
     </layoutAssignments>

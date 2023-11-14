@@ -89,15 +89,15 @@ public with sharing class InteractionRecordServiceController {
       this.interactId = record.Id;
       this.interactName = record.Name;
       this.ownerName = record.Owner.Name;
-      this.actualTopic = String.isNotBlank(record.Actual_Topics__c)
-        ? record.Actual_Topics__c
+      this.actualTopic = String.isNotBlank(record.Actual_Topic_Formula__c)
+        ? record.Actual_Topic_Formula__c
         : String.isNotBlank(record.Support_Topics__c)
             ? record.Support_Topics__c
             : record.Interaction_Auto_Number__c;
       this.videoCall = record.Video_Call__c;
       this.status = record.Status__c;
       this.attendees = record.Attendees__c;
-      this.reasonOfVisit = record.Reason_for_Visit__c;
+      this.reasonOfVisit = record.Reason_for_Visit_Formula__c;
       this.place = record.Place__c;
       this.accountId = record.AccountId;
       this.chatOrCallSid = record.Chat_or_Call_SID__c;
