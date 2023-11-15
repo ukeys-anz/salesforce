@@ -6,6 +6,7 @@
     <permissionSets>dupcheck_CMOS</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>Chatter_User_with_License</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_CRP_Leaders</permissionSets>
     <permissionSets>IDR_User_Level_1</permissionSets>
