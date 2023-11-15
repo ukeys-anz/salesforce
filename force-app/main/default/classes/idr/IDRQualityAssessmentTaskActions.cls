@@ -40,7 +40,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
         if (
           oAssessment.RecordTypeId ==
           IDRConstants.idrtCallLetterReviewQualityAssessment &&
-          oAssessment.Status__c == QualityAssessmentActions.STATUS_PENDING &&
+          (oAssessment.Status__c == QualityAssessmentActions.STATUS_PENDING ||
+          oAssessment.Status__c == QualityAssessmentActions.STATUS_WITHDRAWN) &&
           mpOldAssessments != null &&
           (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) != null &&
           oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
