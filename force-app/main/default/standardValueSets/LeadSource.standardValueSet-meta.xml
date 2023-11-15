@@ -102,9 +102,9 @@
         <label>External Seminar</label>
     </standardValue>
     <standardValue>
-        <fullName>Store</fullName>
+        <fullName>Coach Lab (QR code)</fullName>
         <default>false</default>
-        <label>Store</label>
+        <label>Coach Lab (QR code)</label>
     </standardValue>
     <standardValue>
         <fullName>Masterclass</fullName>
@@ -112,24 +112,14 @@
         <label>Masterclass</label>
     </standardValue>
     <standardValue>
-        <fullName>Money mindset</fullName>
+        <fullName>Unknown</fullName>
         <default>false</default>
-        <label>Money mindset</label>
+        <label>Unknown</label>
     </standardValue>
     <standardValue>
         <fullName>Marketing</fullName>
         <default>false</default>
         <label>Marketing</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Phone</fullName>
-        <default>false</default>
-        <label>Phone</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Unknown</fullName>
-        <default>false</default>
-        <label>Unknown</label>
     </standardValue>
     <standardValue>
         <fullName>ANZ Campaigns</fullName>
@@ -145,5 +135,20 @@
         <fullName>Advertising</fullName>
         <default>false</default>
         <label>Advertising</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Home Loan Explore &apos;Call me back&apos;</fullName>
+        <default>false</default>
+        <label>Home Loan Explore &apos;Call me back&apos;</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Internal campaign</fullName>
+        <default>false</default>
+        <label>Internal campaign</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Referral from ANZ</fullName>
+        <default>false</default>
+        <label>Referral from ANZ</label>
     </standardValue>
 </StandardValueSet>
