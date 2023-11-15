@@ -6,6 +6,14 @@
 global with sharing class InteractionListViewFetchData implements omnistudio.VlocityOpenInterface, Callable {
   private final static Integer MAXLIMIT = 5000;
   private final static String FETCH_DATABASED_ON_RECORD_ID_METHOD = 'fetchDataBasedOnRecordId';
+  private static final Map<String, String> SOBJECT_TO_QUERY_PARAM_MAP = new Map<String, String>{
+    'Account' => 'AccountId = :anyRecordId',
+    'Case' => 'CaseId__c = :anyRecordId',
+    'Coaching_Summary__c' => 'Coaching_Summary__c = :anyRecordId',
+    'Lead' => 'Lead__c = :anyRecordId',
+    'ResidentialLoanApplication' => 'Loan_Application__c = :anyRecordId'
+  };
+
   /**
    * @description invokeMethod to handle insertion of logs from omnistudio.
    * @param methodName Method named to be called.
@@ -57,24 +65,7 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
       ? MAXLIMIT
       : (Integer) inputMap.get('maxNumber');
     List<String> statusSearch = (List<String>) inputMap.get('statusSearch');
-
-    switch on sobjectType {
-      when 'Account' {
-        interactionQuery += 'AccountId = :anyRecordId';
-      }
-      when 'Case' {
-        interactionQuery += 'CaseId__c = :anyRecordId';
-      }
-      when 'Coaching_Summary__c' {
-        interactionQuery += 'Coaching_Summary__c = :anyRecordId';
-      }
-      when 'Lead' {
-        interactionQuery += 'Lead__c = :anyRecordId';
-      }
-      when 'ResidentialLoanApplication' {
-        interactionQuery += 'Loan_Application__c = :anyRecordId';
-      }
-    }
+    interactionQuery += SOBJECT_TO_QUERY_PARAM_MAP.get(sobjectType);
 
     //statusSearch works conditionally when passed from LWC or Aura.When the status
     //search is passed then it will be appended to the query and records will be filtered based on that.
