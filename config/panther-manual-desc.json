@@ -2117,7 +2117,8 @@
         "IsNewLead__c",
         "Territory__c",
         "OpportunityType__c",
-        "Contactpreferences__c"
+        "Contactpreferences__c",
+        "Is_BOH_Lead__c"
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
