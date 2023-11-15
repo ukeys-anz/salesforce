@@ -756,6 +756,18 @@
         "Enforce_mTLS"
       ],
       "type": "system"
+    },
+    {
+      "name": "InAppComplaint Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Write_Get_Help",
+        "Case_View_All",
+        "Disable_MFA"
+      ],
+      "type": "system"
     }
   ]
 }

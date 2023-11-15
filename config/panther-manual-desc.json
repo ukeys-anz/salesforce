@@ -990,7 +990,8 @@
       ],
       "IA-2530753": [
         "IDR_Product_Family__c",
-        "OnboardingVerificationFailedReason__c"
+        "OnboardingVerificationFailedReason__c",
+        "External_Request_Id__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",

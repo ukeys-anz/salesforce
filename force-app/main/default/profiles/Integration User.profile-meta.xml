@@ -100,6 +100,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.External_Request_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__ReciprocalRole__c.FinServ__CreateInverseRole__c</field>
         <readable>true</readable>
     </fieldPermissions>
