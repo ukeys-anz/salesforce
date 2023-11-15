@@ -71,28 +71,35 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    Case c = [
-      SELECT Account.OCV_Id__c
-      FROM Case
-      WHERE Id = :String.valueOf(input.get('recordId'))
-    ];
+    try {
+      Case c = [
+        SELECT Account.OCV_Id__c
+        FROM Case
+        WHERE Id = :String.valueOf(input.get('recordId'))
+      ];
 
-    CreditAssessmentAPIRepository api = new CreditAssessmentAPIRepository();
-    CreditReferralModel cr = api.getCreditAssessments(
-      String.valueOf(input.get('creditId')),
-      c.Account.OCV_ID__c
-    );
+      CreditAssessmentAPIRepository api = new CreditAssessmentAPIRepository();
+      CreditReferralModel cr = api.getCreditAssessments(
+        String.valueOf(input.get('creditId')),
+        c.Account.OCV_ID__c
+      );
 
-    if (cr.assessments.isEmpty()) {
+      if (cr.assessments.isEmpty()) {
+        return false;
+      }
+
+      assignReasonFields(cr, String.valueOf(input.get('recordId')));
+      output.put(
+        'object',
+        JSON.deserializeUntyped(JSON.serialize(splitCurrentAndHistory(cr)))
+      );
+      return true;
+    } catch (Exception e) {
+      CreditReferralModel cr = new CreditReferralModel();
+      cr.hasError = true;
+      output.put('object', JSON.deserializeUntyped(JSON.serialize(cr)));
       return false;
     }
-
-    assignReasonFields(cr, String.valueOf(input.get('recordId')));
-    output.put(
-      'object',
-      JSON.deserializeUntyped(JSON.serialize(splitCurrentAndHistory(cr)))
-    );
-    return true;
   }
 
   /**

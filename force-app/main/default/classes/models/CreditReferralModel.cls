@@ -10,6 +10,7 @@
  * @description Model for Credit Referrals
  */
 public with sharing class CreditReferralModel extends CalloutModel {
+  public Boolean hasError = false;
   public List<Assessment> assessments;
 
   /**
