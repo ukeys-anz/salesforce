@@ -6,9 +6,32 @@
     <compactLayoutAssignment>ANZX_Leads</compactLayoutAssignment>
     <label>ANZX Leads</label>
     <picklistValues>
+        <picklist>Contactpreferences__c</picklist>
+        <values>
+            <fullName>12-2 %28lunch period%29 AEST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2-5 AEST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9-12 AEST</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>LeadSource</picklist>
         <values>
-            <fullName>Marketing</fullName>
+            <fullName>Coach Lab %28QR code%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan Explore %27Call me back%27</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal campaign</fullName>
             <default>false</default>
         </values>
         <values>
@@ -16,15 +39,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Money mindset</fullName>
+            <fullName>Marketing</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Phone</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Store</fullName>
+            <fullName>Referral from ANZ</fullName>
             <default>false</default>
         </values>
         <values>
@@ -33,6 +52,68 @@
         </values>
         <values>
             <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OpportunityType__c</picklist>
+        <values>
+            <fullName>Financial Well Being</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transact %26 Save</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SubStatus__c</picklist>
+        <values>
+            <fullName>1st attempt made</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2nd attempt made</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3rd attempt made</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto-closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow up required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not contactable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not interested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opportunity identified</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred to Classic</fullName>
             <default>false</default>
         </values>
     </picklistValues>
