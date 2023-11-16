@@ -32,12 +32,13 @@ public with sharing class SICaseActions {
       if (record.RecordTypeId == IDRConstants.SI_RT_ID) {
         //Align status and workflow: Records in Monitoring workflow step should be closed
         //Note that SI_Workflow_Step__c being a dependent picklist of Status, not all combinations need to be handled by trigger
-        if (
+        //As part of CC-4250 Enable workflow status changes, monitoring should not auto close the case.
+        /*if (
           record.Status != oldRecord.Status ||
           record.SI_Workflow_Step__c != oldRecord.SI_Workflow_Step__c
         ) {
           record = alignStatusToWorkflow(record, oldRecord);
-        }
+        }*/
         CommonUtil.handleMasking(
           record,
           oldRecord,

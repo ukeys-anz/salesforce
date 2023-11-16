@@ -55,6 +55,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Open</controllingFieldValue>
             <valueName>Monitoring</valueName>
         </valueSettings>
     </valueSet>
