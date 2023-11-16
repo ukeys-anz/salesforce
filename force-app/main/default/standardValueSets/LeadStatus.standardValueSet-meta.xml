@@ -97,4 +97,10 @@
         <label>Closed</label>
         <converted>false</converted>
     </standardValue>
+    <standardValue>
+        <fullName>In progress</fullName>
+        <default>false</default>
+        <label>In progress</label>
+        <converted>false</converted>
+    </standardValue>
 </StandardValueSet>
