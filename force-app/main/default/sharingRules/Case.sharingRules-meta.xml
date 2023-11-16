@@ -923,6 +923,20 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CMOS_ANZ_Case_access_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CMOS ANZ Case access RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Fraud_FraudXAgent_RW</fullName>
         <accessLevel>Edit</accessLevel>
@@ -946,17 +960,4 @@
             <role>FraudX_Agent</role>
         </sharedFrom>
     </sharingOwnerRules>
-    <!--<sharingCriteriaRules>
-        <fullName>CMOS_ANZ_Case_access_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>CMOS ANZ Case access RO</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>--></SharingRules>
+</SharingRules>
