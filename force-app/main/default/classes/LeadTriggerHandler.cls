@@ -58,6 +58,8 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       wrapperData.dcrmRecordList,
       'Description'
     );
+    // Method will check if lead is BOH Lead
+    BOHLeadActions.getInstance().setBOHLeadFlag(records);
   }
 
   /**
