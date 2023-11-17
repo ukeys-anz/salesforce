@@ -196,6 +196,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Review_Period_Year__c</fieldItem>
                 <identifier>RecordReview_Period_Year_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
