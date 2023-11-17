@@ -26,7 +26,12 @@ public class MLCRMFinancialAccountActions {
         oldMap.get(objFinancialAccount.Id).Product_SubCode__c !=
         objFinancialAccount.Product_SubCode__c)
       ) {
-        setOfSubProductCode.add(objFinancialAccount.Product_SubCode__c);
+        if(String.isNotBlank(objFinancialAccount.Product_SubCode__c)){
+          setOfSubProductCode.add(objFinancialAccount.Product_SubCode__c);
+        }
+        else if(String.isNotBlank(objFinancialAccount.Product_Type__c) ){
+          setOfSubProductCode.add(objFinancialAccount.Product_Type__c);
+        }
       }
     }
 
