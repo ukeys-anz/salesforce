@@ -78,7 +78,8 @@ private with sharing class SICaseActionsTest {
     );
   }
 
-  @isTest
+  //As part of CC-4250 Enable workflow status changes, monitoring should not auto close the case.
+  /*@isTest
   static void testStatusWhenWorkflowChanges() {
     //GIVEN closed/monitoring SI
     Case[] newCases = [
@@ -89,14 +90,12 @@ private with sharing class SICaseActionsTest {
         AND Status = 'Closed'
         AND SI_Workflow_step__c = 'Monitoring'
     ];
-
     //WHEN workflopw step goes back to investigating
     for (Case c : newCases) {
       c.SI_Workflow_step__c = 'Investigating';
     }
     Test.startTest();
     update newCases;
-
     //THEN Status is Open
     Case[] c = [
       SELECT Status
@@ -109,7 +108,7 @@ private with sharing class SICaseActionsTest {
       'SI not in Monitoring should not be closed'
     );
     Test.stopTest();
-  }
+  }*/
 
   @isTest
   static void testTasksOnCaseUpdate() {

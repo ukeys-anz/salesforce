@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Task_Name__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
+    <description>Customer Action&apos;s Type</description>
+    <externalId>false</externalId>
+    <label>Task Name</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>false</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>TYPE_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>Unspecified</label>
+            </value>
+            <value>
+                <fullName>TYPE_UPLOAD_LOO_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Upload LOO Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_UPLOAD_MORTGAGE_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Upload Mortgage Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_GENERATE_LOO_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Generate LOO Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_GENERATE_MORTGAGE_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Generate Mortgage Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_ACCEPT_LOAN_OFFER</fullName>
+                <default>false</default>
+                <label>Accept loan offer</label>
+            </value>
+            <value>
+                <fullName>TYPE_ACCEPT_MORTGAGE_CONTRACT</fullName>
+                <default>false</default>
+                <label>Accept Mortgage Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_UPLOAD_WITNESS_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Upload Witness Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_UPLOAD_BUILDING_INSURANCE_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Upload Building Insurance Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_SET_DRAWDOWN_ACCOUNT</fullName>
+                <default>false</default>
+                <label>Set Drawdown Account</label>
+            </value>
+            <value>
+                <fullName>TYPE_CREATE_REPAYMENT_PREFERENCE</fullName>
+                <default>false</default>
+                <label>Create Repayment Preference</label>
+            </value>
+            <value>
+                <fullName>TYPE_CREATE_RELEASE_AUTHORITY</fullName>
+                <default>false</default>
+                <label>Create Release Authority</label>
+            </value>
+            <value>
+                <fullName>TYPE_VERIFY_BUILDING_INSURANCE_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Verify Building Insurance Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_CONFIRM_DRAWDOWN_ACCOUNT</fullName>
+                <default>false</default>
+                <label>Confirm Drawdown Account</label>
+            </value>
+            <value>
+                <fullName>TYPE_CONFIRM_REPAYMENT_PREFERENCE</fullName>
+                <default>false</default>
+                <label>Confirm Repayment Preference</label>
+            </value>
+            <value>
+                <fullName>TYPE_GENERATE_SIGNED_LOO_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Signed LOO Document</label>
+            </value>
+            <value>
+                <fullName>TYPE_GENERATE_SIGNED_MORTGAGE_DOCUMENT</fullName>
+                <default>false</default>
+                <label>Signed Mortgage Document</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

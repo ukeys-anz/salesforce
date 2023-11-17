@@ -36,11 +36,15 @@ import { DISPUTE_RECORD_TYPES_RETRIEVE_ERROR } from "c/transactionHistoryService
 const CHECKING_ACCOUNT_RT_APINAME = "CheckingAccount";
 const SAVINGS_ACCOUNT_RT_APINAME = "SavingsAccount";
 const BANK_ACCOUNT_RT_APINAME = "BankingAccount";
+const MULTI_PARTY = "Multi-party";
+const JOINT = "Joint";
 
 export {
   CHECKING_ACCOUNT_RT_APINAME,
   SAVINGS_ACCOUNT_RT_APINAME,
-  BANK_ACCOUNT_RT_APINAME
+  BANK_ACCOUNT_RT_APINAME,
+  MULTI_PARTY,
+  JOINT
 };
 
 export default class FinancialAccountParent extends LightningElement {
@@ -91,6 +95,9 @@ export default class FinancialAccountParent extends LightningElement {
   disputeRecordTypes = [];
   filterGoal = false;
   accountOwnershipType;
+  //Added to decide which account is joint account and from which joint owner the account get opened By Shivam, Oct'23
+  isJointAccount = false;
+  ocvIdForJointAccount;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -109,6 +116,11 @@ export default class FinancialAccountParent extends LightningElement {
   async wiredRecord({ data }) {
     this.loading = true;
     if (data) {
+      //Added this to fetch ocvid of the joint owner from where the joint account called to get the ocvid - By Shivam, Oct'23
+      if (this.pageRef?.state?.c__ocvId) {
+        this.ocvIdForJointAccount = this.pageRef.state.c__ocvId;
+        this.isJointAccount = true;
+      }
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
@@ -171,7 +183,8 @@ export default class FinancialAccountParent extends LightningElement {
     this.accountData = [];
     try {
       let accountDetails = await getFinancialAccountFabric({
-        ocvId: this.ocvId,
+        //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
+        ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
         accountNumbers: [this.accountNumber]
       });
       this.accountData = this.handleAccountInformation(accountDetails);
@@ -200,7 +213,8 @@ export default class FinancialAccountParent extends LightningElement {
       try {
         this.goalData = [];
         this.goalData = await getAccountBuckets({
-          ocvId: this.ocvId,
+          //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
+          ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
           pageSize: 7,
           nextPageToken: paramUrl
         });
@@ -265,11 +279,13 @@ export default class FinancialAccountParent extends LightningElement {
     }
     try {
       this.transactionData = await getTransactionHistoryAura({
-        ocvId: this.ocvId,
+        //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
+        ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
         accountNumber: this.accountNumber,
         startDate: this.transactionStartDate,
         endDate: this.transactionEndDate,
         paramUrl: paramUrl,
+        ownership: this.accountOwnershipType,
         bucketIds: this.transactionBucketIds
       });
 
@@ -354,6 +370,16 @@ export default class FinancialAccountParent extends LightningElement {
 
       // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
       finAccount.showSavingsJar = finAccount.FinServ__Status__c !== "Closed";
+
+      // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
+      if (finAccount.FinServ__Ownership__c) {
+        finAccount = this.handleShowMultiPartyBadge(
+          finAccount,
+          "FinServ__Ownership__c"
+        );
+      } else if (finAccount.Ownership__c) {
+        finAccount = this.handleShowMultiPartyBadge(finAccount, "Ownership__c");
+      }
     });
 
     return finAccounts;
@@ -424,5 +450,14 @@ export default class FinancialAccountParent extends LightningElement {
         );
       }
     }
+  }
+  //Created this method to check whether the account have Multi-party or Single ownership type
+  handleShowMultiPartyBadge(finAccount, finAccountOwner) {
+    finAccount.showMultipartyBadge =
+      finAccount[finAccountOwner] === MULTI_PARTY;
+    finAccount.multiParty = finAccount.showMultipartyBadge
+      ? JOINT
+      : finAccount[finAccountOwner];
+    return finAccount;
   }
 }

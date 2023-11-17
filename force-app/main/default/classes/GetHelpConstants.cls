@@ -74,6 +74,17 @@ public with sharing class GetHelpConstants {
     .get('False_Customer_Profile')
     .getRecordTypeId();
 
+  //Hold the multi-party account's ownership value
+  public static final String MULTI_PARTY = 'Multi-party';
+  //Hold the value of Transaction Initiator for joint account's secondary owner.
+  public static final String CO_OWNER = 'Co-Owner';
+
+  //Hold the value of Transaction Initiator for joint accounts not having persona id.
+  public static final String THIS_CUSTOMER = 'This Customer';
+
+  //API response of Transaction incoming
+  public static final String TRANSFER_INCOMING = 'TRANSFER_INCOMING';
+
   //Financial Account Record types
 
   public static final String CHECKING_ACCOUNT_RT_APINAME = 'CheckingAccount';
@@ -169,15 +180,15 @@ public with sharing class GetHelpConstants {
     .get('Message')
     .getRecordTypeId();
 
-  // Interaction - Appointment Interaction RT Id
+  // Interaction - CCRM Interaction RT Id
   public static final Id INTERACTION_CCRM_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('CCRM_Interaction')
-    ?.getRecordTypeId();
+    .getRecordTypeId();
 
   // Interaction - Appointment Interaction RT Id
   public static final Id INTERACTION_ML_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('ML_Interaction')
-    ?.getRecordTypeId();
+    .getRecordTypeId();
 
   // Case - Account Closure
   public static final Id ACCOUNT_CLOSURE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
@@ -305,4 +316,6 @@ public with sharing class GetHelpConstants {
   public static Boolean isAccountV1() {
     return Label.AccountAPIUpliftedToV1 == 'True';
   }
+  // String to formulate name of Store Interaction
+  public static final String COACHING_LAB = 'Coaching Lab';
 }

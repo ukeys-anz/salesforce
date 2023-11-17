@@ -133,11 +133,6 @@
             <operation>equals</operation>
             <value>False</value>
         </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Provisionally Closed,Closed</value>
-        </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -245,6 +240,27 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_RTs_Commercial_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Great Read write access to complaint records for Commercial Banking</description>
+        <label>Complaint_RTs_Commercial_RW</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>true</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -522,31 +538,11 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Escalated_Complaint_for_Coaches_Role_RO</fullName>
+        <fullName>Escalated_Complaint_for_Coach_Lead_And_Coach_Role_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <label>Escalated Complaint for Coaches Role RO</label>
+        <label>Escalated Complaint for Coach and Coach Lead Role RO</label>
         <sharedTo>
-            <role>Coach</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
-        <criteriaItems>
-            <field>Original_Case_Owner__c</field>
-            <operation>notEqual</operation>
-            <value/>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Escalated_Complaint_for_Coach_Lead_Role_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Escalated Complaint for Coach Lead Role RO</label>
-        <sharedTo>
-            <role>Coach_Lead</role>
+            <group>Coach_And_Coach_Lead_Group</group>
         </sharedTo>
         <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
@@ -795,6 +791,36 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Commercial_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key Commercial Banking</description>
+        <label>SI_RT_SI_Commercial_RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue,CFMS Migrated Case</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Mobile_Lending_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key Mobile Lending</description>
+        <label>SI_RT_SI_Mobile_Lending_RO</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue,CFMS Migrated Case</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_Join_Lead_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Join Lead</label>
@@ -878,12 +904,12 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>KYCQA_RTs_System_Integration_User_Group</fullName>
+        <fullName>KYCQA_RTs_Join_Integration_User_Group</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Read Write access to KYC QA record type for System Integration Users</description>
-        <label>KYCQA RTs - System Integration User Group</label>
+        <label>KYCQA RTs - Join Integration User Group</label>
         <sharedTo>
-            <group>System_Integration_Users</group>
+            <group>Join_Integration_User</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -928,6 +954,40 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CMOS_ANZ_Case_access_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CMOS ANZ Case access RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>MLCRM_Access_to_CMOS_Cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provides users in the ANZ Mobile Lending Team access to CMOS Cases types Customer Complaint and Non-Customer Complaint</description>
+        <label>MLCRM Access to CMOS Cases</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>true</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Fraud_FraudXAgent_RW</fullName>
         <accessLevel>Edit</accessLevel>
@@ -951,17 +1011,4 @@
             <role>FraudX_Agent</role>
         </sharedFrom>
     </sharingOwnerRules>
-    <!--<sharingCriteriaRules>
-        <fullName>CMOS_ANZ_Case_access_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>CMOS ANZ Case access RO</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>--></SharingRules>
+</SharingRules>

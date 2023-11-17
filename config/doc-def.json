@@ -726,7 +726,8 @@
         "API_Only",
         "Disable_MFA",
         "Enforce_mTLS",
-        "Case_Read_Write_KYC_QA_Integration"
+        "Case_Read_Write_KYC_QA_Integration",
+        "Customer_Onboarding_View_All"
       ],
       "type": "system"
     },
@@ -740,6 +741,31 @@
         "Loan_app_Integration",
         "Disable_MFA",
         "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Loan Settlement GCP Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Mortgage",
+        "Settlements_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "InAppComplaint Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Write_Get_Help",
+        "Case_View_All",
+        "Disable_MFA"
       ],
       "type": "system"
     }

@@ -66,6 +66,29 @@ public with sharing class BOHService extends Service {
   }
 
   /**
+   * @param ocvId ocv id of the customer account
+   * @param expenseBody post data of expense information
+   * @return `HttpCalloutResponse` the api response
+   * @description update expense
+   */
+  public override HttpCalloutResponse editExpense(
+    String ocvId,
+    String expenseBody
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Update_Expense,
+      HTTP_METHOD.HTTP_PATCH,
+      headers,
+      expenseBody
+    );
+    return response;
+  }
+  /**
    * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
@@ -219,6 +242,42 @@ public with sharing class BOHService extends Service {
   }
 
   /**
+   * @param creditId credit id from credit assessment
+   * @param assessmentId id of assessment submitted for finalisation
+   * @param ocvId customer ocv id
+   * @param outcomeCode outcome code to delete
+   * @return `HttpCalloutResponse` the api response
+   * @description removes the referral outcome to be updated
+   */
+  public override HttpCalloutResponse deleteReferralOutcome(
+    String creditId,
+    String assessmentId,
+    String ocvId,
+    String outcomeCode
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' +
+      Label.MS_Delete_Referral_Outcome +
+      creditId +
+      '/assessments/' +
+      assessmentId +
+      '/outcomes/' +
+      outcomeCode,
+      HTTP_METHOD.HTTP_DELETE,
+      headers,
+      null
+    );
+
+    return response;
+  }
+
+  /**
    * @param payload payload containing credit id, referralOutcome and uuid from credit assessment
    * @param ocvId customer ocv id
    * @return HttpCalloutResponse api response
@@ -288,21 +347,20 @@ public with sharing class BOHService extends Service {
   public static string convertDecimalToString(Decimal amt) {
     if (amt == null) {
       return null;
-    } else if (amt == 0) {
-      return '$' + amt;
+    }
+    String amtString = amt.abs().setScale(2).format();
+    if (!amtString.contains('.')) {
+      amtString = amtString + '.00';
     } else {
-      String str = '$';
-      if (amt < 0) {
-        amt = amt * -1;
-        str = '-' + str;
+      Integer dPosition = amtString.indexOf('.');
+      if (amtString.length() - dPosition < 3) {
+        amtString = amtString + '0';
       }
-      str = str + amt.format();
-      if (!str.contains('.')) {
-        str = str + '.00';
-      } else {
-        str = str.substringAfter('.').length() < 2 ? str + '0' : str;
-      }
-      return str;
+    }
+    if (amt < 0) {
+      return '-$' + amtString;
+    } else {
+      return '$' + amtString;
     }
   }
 
@@ -387,5 +445,30 @@ public with sharing class BOHService extends Service {
       Id = loanId,
       Credit_Reassess_Required__c = true
     );
+  }
+
+  /**
+   * @param requestBody body of request to send
+   * @param ocvId ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income from sop
+   */
+  public override HttpCalloutResponse verifyInsurance(
+    String requestBody,
+    String ocvId
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Verify_Insurance,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      requestBody
+    );
+
+    return response;
   }
 }

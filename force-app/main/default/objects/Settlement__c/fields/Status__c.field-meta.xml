@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
+    <description>The current status of the settlement</description>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>STATE_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>Unspecified</label>
+            </value>
+            <value>
+                <fullName>STATE_NEW</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>STATE_INITIATED</fullName>
+                <default>false</default>
+                <label>Initiated</label>
+            </value>
+            <value>
+                <fullName>STATE_DOCUMENTS_GENERATED</fullName>
+                <default>false</default>
+                <label>Documents Generated</label>
+            </value>
+            <value>
+                <fullName>STATE_OFFER_COMMITTED</fullName>
+                <default>false</default>
+                <label>Offer Committed</label>
+            </value>
+            <value>
+                <fullName>STATE_SETTLING</fullName>
+                <default>false</default>
+                <label>Settling</label>
+            </value>
+            <value>
+                <fullName>STATE_COMPLETED</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

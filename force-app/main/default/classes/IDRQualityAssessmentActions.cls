@@ -79,21 +79,27 @@ public with sharing class IDRQualityAssessmentActions {
             businessScore += ruleRecord.Business_Score__c;
           }
         }
-        if (qaRecord != null && caseManagerScore != 0) {
-          qaRecord.Case_Manager_Score__c =
-            caseManagerScore *
-            100 /
-            (fieldSetObj.getFields().size() -
-            skippedQuestionCount -
-            naCount);
-        }
-        if (qaRecord != null && businessScore != 0) {
-          qaRecord.Business_score__c =
-            businessScore *
-            100 /
-            (fieldSetObj.getFields().size() -
-            skippedQuestionCount -
-            naCount);
+        if (qaRecord != null) {
+          if (caseManagerScore != 0) {
+            qaRecord.Case_Manager_Score__c =
+              caseManagerScore *
+              100 /
+              (fieldSetObj.getFields().size() -
+              skippedQuestionCount -
+              naCount);
+          } else {
+            qaRecord.Case_Manager_Score__c = 0;
+          }
+          if (businessScore != 0) {
+            qaRecord.Business_score__c =
+              businessScore *
+              100 /
+              (fieldSetObj.getFields().size() -
+              skippedQuestionCount -
+              naCount);
+          } else {
+            qaRecord.Business_Score__c = 0;
+          }
         }
       }
     }

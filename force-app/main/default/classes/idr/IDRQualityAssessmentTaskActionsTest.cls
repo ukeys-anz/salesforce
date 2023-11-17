@@ -23,7 +23,7 @@ public class IDRQualityAssessmentTaskActionsTest {
    * @description Tests IDRQualityAssessmentTaskActions.checkOnReversionToPending
    */
   @IsTest
-  static void checkOnReversionToPending() {
+  static void checkOnReversionFromComplete() {
     User oQAUser = createComplianceTasksImpl(true);
 
     System.runAs(oQAUser) {
@@ -34,7 +34,7 @@ public class IDRQualityAssessmentTaskActionsTest {
       ];
       Set<Id> stAssessmentIds = new Set<Id>();
       for (Quality_Assessment__c oAssessment : lstAssessments) {
-        oAssessment.Status__c = IDRQualityAssessmentTaskActions.STATUS_PENDING;
+        oAssessment.Status__c = QualityAssessmentActions.STATUS_PENDING;
         stAssessmentIds.add(oAssessment.Id);
       }
 

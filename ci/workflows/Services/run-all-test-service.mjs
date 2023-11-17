@@ -1,15 +1,22 @@
 import { exec } from "child_process";
-import { runSfCommand, findJobIdFromCommand, logger } from "./helper.mjs";
+import {
+  runSfCommand,
+  findJobIdFromCommand,
+  logger,
+  createDeployCacheFile
+} from "./helper.mjs";
 import { deployReport } from "./deploy-service.mjs";
 
 // We are using sfdx command here, as it seems there is no equivalent command on sf to run tests -
 // - using sf project commands.
+// POINT: not in use now
 const runAllLocalTestsSFDX = (targetOrg, runAllTestPackagePath) => {
   return runSfCommand(
     `npx sfdx force:source:deploy -u ${targetOrg} -c -d ${runAllTestPackagePath} -l RunLocalTests --json`
   );
 };
 
+// POINT: not in use now
 const runAllLocalTestsProgressSFDX = (targetOrg, runAllTestPackagePath) => {
   const command = runAllLocalTests(targetOrg, runAllTestPackagePath);
   const jobId = findJobIdFromCommand(command);
@@ -59,10 +66,17 @@ const runAllLocalTests = (targetOrg, runAllTestClassPath) => {
   return runSfCommand(command);
 };
 
-const runAllLocalTestsProgress = (runAllTestsReport) => {
-  logger("Run All Tests Progress");
+const runAllLocalTestsProgress = (
+  runAllTestsReport,
+  targetOrg,
+  runAllTestPackage
+) => {
   const jobId = findJobIdFromCommand(runAllTestsReport);
   if (!jobId) process.exit();
+
+  logger("Run All Tests Progress");
+
+  createDeployCacheFile(jobId, targetOrg, runAllTestPackage, runAllTestPackage);
 
   const command = `npx sf project deploy resume --job-id ${jobId}`;
   console.log(command);
@@ -80,6 +94,7 @@ const runAllLocalTestsProgress = (runAllTestsReport) => {
       }
     } catch (err) {
       console.log(data);
+      deployReport(jobId, "Run All Tests");
     }
   });
 

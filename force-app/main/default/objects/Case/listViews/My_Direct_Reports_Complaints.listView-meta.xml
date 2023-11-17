@@ -7,7 +7,6 @@
     <columns>IDR_Date_Received__c</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>Is_Owner_s_Line_Manager_Me__c</field>
         <operation>equals</operation>
@@ -23,8 +22,11 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>My Direct Reports&apos; Complaints</label>
     <sharedTo>
+        <role>ANZ_Mobile_Lending_Team</role>
         <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
     </sharedTo>
 </ListView>

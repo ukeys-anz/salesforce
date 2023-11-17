@@ -4,7 +4,7 @@
     <fields>Name</fields>
     <fields>AccountId</fields>
     <fields>Lead__c</fields>
-    <fields>Status__c</fields>
     <fields>Record_Type__c</fields>
+    <fields>Status__c</fields>
     <label>Message Interaction</label>
 </CompactLayout>

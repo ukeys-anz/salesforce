@@ -9,7 +9,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <name>ChatterInternalUser</name>
         <enabled>true</enabled>
+        <name>ChatterInternalUser</name>
     </userPermissions>
 </PermissionSet>

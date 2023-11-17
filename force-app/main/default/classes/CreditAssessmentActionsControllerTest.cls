@@ -11,6 +11,7 @@ public with sharing class CreditAssessmentActionsControllerTest {
   private static final String REASSESS_REQUIRED_ERROR = 'The loan application has been updated and you must resubmit this credit referral case for reassessment.';
   private static final String ASSESSMENT_ERROR = 'This credit referral case is currently being assessed. You can\'t finalise the referral case until this has been completed.';
   private static final String FINALISE_CALLOUT_ERROR = 'Failed to complete finalisation.';
+  private static final String FRAUD_RELATED_ERROR = 'There’s a fraud case related to this credit referral case still open. You can’t finalise this case until the fraud case is closed.';
 
   /**
    * @description Setup data for test classes
@@ -18,7 +19,6 @@ public with sharing class CreditAssessmentActionsControllerTest {
   @testSetup
   public static void setup() {
     Faker faker = new Faker('AU');
-
     Account acc = TestDataFactory.createAccount(true);
     ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -178,6 +178,42 @@ public with sharing class CreditAssessmentActionsControllerTest {
       Assert.isTrue(
         e.getMessage().contains(ASSESSMENT_ERROR),
         'Exception message should be thrown for invalid outcome'
+      );
+    }
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testRelatedFraudCaseStopFinalise() {
+    Case c = [
+      SELECT Id, Credit_Id__c, Assessment_Outcome__c, AccountId
+      FROM Case
+      WHERE
+        RecordTypeId = :GetHelpConstants.CREDIT_REFERRAL_RT_ID
+        AND Credit_Id__c != NULL
+      LIMIT 1
+    ];
+    c.Assessment_Outcome__c = 'Approved';
+    update c;
+    Case fraudCase = new Case(
+      ParentId = c.Id,
+      AccountId = c.AccountId,
+      RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+      Type = 'Fraud',
+      Sub_Type__c = 'Home loan document verification',
+      Status = 'Open',
+      CaseNumber__c = '334343'
+    );
+    insert fraudCase;
+
+    Test.startTest();
+    try {
+      CreditAssessmentActionsController.finalise(c.Id);
+      Assert.fail('Exception should be thrown');
+    } catch (Exception e) {
+      Assert.isTrue(
+        e.getMessage().contains(FRAUD_RELATED_ERROR),
+        'Exception message should be thrown because of related open fraud case'
       );
     }
     Test.stopTest();

@@ -164,7 +164,7 @@ export default class AddressLookupUtil extends LightningElement {
           response.result.components !== null
         ) {
           this.selectedAddress.country =
-            response.result.components.country_iso_2;
+            response.result.components.country_iso_3;
         }
         this.currentAddress.street = this.selectedAddress.street;
         this.currentAddress.city = this.selectedAddress.locality;
@@ -173,6 +173,7 @@ export default class AddressLookupUtil extends LightningElement {
         this.currentAddress.postalCode = this.selectedAddress.postal_code;
         this.currentAddress.globalAddressKey = globalAddressKey;
         this.currentAddress.isValidAddress = true;
+        this.disabled = true;
         this.eventDispatchers.addressChange();
       } catch (error) {
         this.eventDispatchers.selectError();

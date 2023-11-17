@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Limits_and_Liabilities__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
+    <description>Associated Id Of OLL</description>
+    <externalDeveloperName>OLLId</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Other Limits and Liabilities</label>
+    <length>255</length>
+    <referenceTo>Other_Limits_and_Liabilities__x</referenceTo>
+    <relationshipLabel>Facilities</relationshipLabel>
+    <relationshipName>Facilities</relationshipName>
+    <securityClassification>Internal</securityClassification>
+    <type>ExternalLookup</type>
+</CustomField>

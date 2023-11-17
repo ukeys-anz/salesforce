@@ -14,84 +14,44 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>S</fullName>
+                <fullName>Single</fullName>
                 <default>false</default>
                 <label>Single</label>
             </value>
             <value>
-                <fullName>M</fullName>
+                <fullName>Married</fullName>
                 <default>false</default>
                 <label>Married</label>
             </value>
             <value>
-                <fullName>P</fullName>
+                <fullName>Separated</fullName>
                 <default>false</default>
                 <label>Separated</label>
             </value>
             <value>
-                <fullName>D</fullName>
+                <fullName>Divorced</fullName>
                 <default>false</default>
                 <label>Divorced</label>
             </value>
             <value>
-                <fullName>W</fullName>
+                <fullName>Widowed</fullName>
                 <default>false</default>
                 <label>Widowed</label>
             </value>
             <value>
-                <fullName>F</fullName>
-                <default>false</default>
-                <label>DeFacto</label>
-            </value>
-            <value>
-                <fullName>Z</fullName>
-                <default>false</default>
-                <label>Not Disclosed</label>
-            </value>
-            <value>
-                <fullName>Single</fullName>
-                <default>false</default>
-                <label>Single-old</label>
-            </value>
-            <value>
-                <fullName>Married</fullName>
-                <default>false</default>
-                <label>Married-old</label>
-            </value>
-            <value>
-                <fullName>Separated</fullName>
-                <default>false</default>
-                <label>Separated-old</label>
-            </value>
-            <value>
-                <fullName>Divorced</fullName>
-                <default>false</default>
-                <label>Divorced-old</label>
-            </value>
-            <value>
-                <fullName>Widowed</fullName>
-                <default>false</default>
-                <label>Widowed-old</label>
-            </value>
-            <value>
                 <fullName>Other</fullName>
                 <default>false</default>
-                <label>Other-old</label>
-            </value>
-            <value>
-                <fullName>Married/DeFacto</fullName>
-                <default>false</default>
-                <label>Married/DeFacto-old</label>
+                <label>Other</label>
             </value>
             <value>
                 <fullName>Married/De Facto</fullName>
                 <default>false</default>
-                <label>Married/De Facto-old</label>
+                <label>Married/De Facto</label>
             </value>
             <value>
                 <fullName>Unknown</fullName>
                 <default>false</default>
-                <label>Unknown-old</label>
+                <label>Unknown</label>
             </value>
         </valueSetDefinition>
     </valueSet>

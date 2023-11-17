@@ -33,6 +33,8 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
     GetHelpCaseActions.validateAdditionalTypes(records, null);
+    GetHelpCaseActions.handleBOHFraudCaseCreation(records);
+    GetHelpCaseActions.populateFieldsOfPayToDispute(records);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.setPriority(records);
     GetHelpCaseActions.updateEntitlement(records);
@@ -46,7 +48,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     );
     kycCaseActions.onBeforeInsert();
     GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
-    GetHelpCaseActions.populateFieldsOfPayToDispute(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
       (List<Case>) records,
       null

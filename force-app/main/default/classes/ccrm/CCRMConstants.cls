@@ -80,6 +80,7 @@ public with sharing class CCRMConstants {
   public static final String ERROR = 'Error';
   public static final String OPPORTUNITY_OBJ_PREFIX = '006';
   public static final String STATUS_OPEN = 'Open';
+  public static final String DORMANT_STATUS = 'Dormant';
 
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
     'Business_Account'

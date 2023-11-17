@@ -8,10 +8,10 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
-                            <value>Interaction.Create_Case_New</value>
+                            <value>FeedItem.TextPost</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Interaction.Edit</value>
+                            <value>Edit</value>
                             <visibilityRule>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Edit_Interaction}</leftValue>
@@ -19,15 +19,6 @@
                                     <rightValue>true</rightValue>
                                 </criteria>
                             </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>FeedItem.TextPost</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>ChangeOwnerOne</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Interaction.Update_Customer</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -61,12 +52,8 @@
         <name>Facet-003da93e-a551-4558-9eb4-5e1a0845516f</name>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>flexcardName</name>
-                    <value>InteractionFlexCard</value>
-                </componentInstanceProperties>
-                <componentName>runtime_omnistudio:flexcard</componentName>
-                <identifier>runtime_omnistudio_flexcard</identifier>
+                <componentName>force:detailPanel</componentName>
+                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -134,20 +121,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-d8ec77ec-b788-4ea3-a3b3-2aa5073e592b</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
-            </componentInstance>
-        </itemInstances>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <name>Facet-f94c6f65-5e07-4b48-a082-236d89d08a50</name>
         <itemInstances>
             <componentInstance>
@@ -180,6 +153,30 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>main</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-d8ec77ec-b788-4ea3-a3b3-2aa5073e592b</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-50098e15-311a-4f1a-8540-635811171c9f</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <name>sidebar</name>
         <itemInstances>
             <componentInstance>
@@ -205,58 +202,6 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>flexcardName</name>
-                    <value>InteractionRelatedDetails</value>
-                </componentInstanceProperties>
-                <componentName>runtime_omnistudio:flexcard</componentName>
-                <identifier>runtime_omnistudio_flexcard2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!$Permission.CustomPermission.ANZx_Edit_Interaction}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>lookupFieldName</name>
-                    <value>Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>titleFieldName</name>
-                    <value>Related Details</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>updateQuickActionName</name>
-                    <value>Interaction.Related_Details</value>
-                </componentInstanceProperties>
-                <componentName>console:relatedRecord</componentName>
-                <identifier>console_relatedRecord</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!$Permission.CustomPermission.ANZx_Edit_Interaction}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-50098e15-311a-4f1a-8540-635811171c9f</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset3</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

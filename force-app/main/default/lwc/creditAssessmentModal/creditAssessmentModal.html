@@ -3,6 +3,42 @@
     class="modal-header"
     label="Select a referral outcome"
   ></lightning-modal-header>
+
+  <div class="slds-p-bottom_xx-small"></div>
+  <template lwc:if={showError}>
+    <div
+      class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+      role="alert"
+      id="showError"
+    >
+      <span
+        class="slds-icon_container slds-icon-utility-error slds-m-right_x-small"
+        title="Description of icon when needed"
+      >
+        <lightning-icon
+          icon-name="utility:error"
+          alternative-text="Error"
+          title="Error"
+          variant="inverse"
+        ></lightning-icon>
+      </span>
+      <h2>{errorMessage}</h2>
+      <div class="slds-notify__close">
+        <button
+          class="slds-button slds-button_icon slds-button_icon-small slds-button_icon-inverse"
+          title="Close"
+          onclick={closeError}
+        >
+          <lightning-icon
+            icon-name="utility:close"
+            alternative-text="Close"
+            title="Close"
+            variant="inverse"
+          ></lightning-icon>
+        </button>
+      </div>
+    </div>
+  </template>
   <template lwc:if={saving}>
     <div class="slds-align_absolute-center" style="height: 4rem">
       <div role="status" class="slds-spinner_inline">
@@ -15,7 +51,7 @@
   </template>
   <template lwc:else>
     <lightning-modal-body>
-      <div class="slds-grid slds-gutters">
+      <div class="slds-grid slds-gutters slds-m-bottom_large">
         <div class="slds-col">
           <p class="slds-text-color_weak field-title">Reason Code</p>
           <p class="slds-text-body_regular">{reasonCode}</p>
@@ -38,11 +74,25 @@
           <p class="slds-text-body_regular">{guidanceCode}</p>
         </div>
       </div>
+
       <div class="slds-form-element">
-        <label class="slds-form-element__label">Referral Outcome</label>
+        <div class="slds-clearfix">
+          <label class="slds-form-element__label" style="margin-top: 5px"
+            >Referral Outcome</label
+          >
+          <div class="slds-float_right">
+            <lightning-button
+              variant="base"
+              label="Clear Referral Outcome"
+              onclick={handleDelete}
+              disabled={isClearBtnDisabled}
+            ></lightning-button>
+          </div>
+        </div>
         <div class="slds-form-element__control">
           <div class="slds-select_container">
             <select
+              disabled={hasOutcome}
               class="slds-select"
               name="referralOutcome"
               onchange={handleSelectedValue}
@@ -50,7 +100,7 @@
               <option value="" disabled selected={defaultSelection}>
                 Select one referral outcome
               </option>
-              <option value="">--None--</option>
+              <option value="None">--None--</option>
               <template for:each={optionList} for:item="option">
                 <option
                   value={option.value}
@@ -81,7 +131,7 @@
         variant="brand"
         label="Save"
         title="Save"
-        onclick={handleSave}
+        onclick={handleConfirmClick}
         disabled={disableSave}
         class="slds-m-left_x-small"
       ></lightning-button>

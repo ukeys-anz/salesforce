@@ -9,7 +9,7 @@
   </template>
   <article class={transactionRecord.rowColour}>
     <div class="slds-grid slds-m-bottom_small">
-      <div class="slds-col slds-size--1-of-7 logo-container">
+      <div class={dynamicLogoClass}>
         <template lwc:if={transactionRecord.logo}>
           <img class={logoClass} alt="Logo" src={transactionRecord.logo} />
         </template>
@@ -32,32 +32,45 @@
           </div>
         </template>
       </div>
-      <div class="slds-col slds-size--1-of-7">
+      <div class={dynamicColumnClass}>
         <div class="slds-grid slds-form-element__label">Name</div>
         <p class="slds-truncate name" title={transactionRecord.title}>
           {transactionRecord.title}
         </p>
         <div class="description-tooltip">{transactionRecord.title}</div>
       </div>
-      <div class="slds-col slds-size--1-of-7">
+      <div class={dynamicColumnClass}>
         <div class="slds-grid slds-form-element__label">Transaction Type</div>
         <div class="slds-grid" data-test-id="transaction-type">
           {transactionRecord.formatted_type}
         </div>
       </div>
-      <div class="slds-col slds-size--1-of-7">
+      <template lwc:if={showTransactionInitiatorColumn}>
+        <div class={dynamicColumnClass}>
+          <div class="slds-grid slds-form-element__label">
+            Transaction Made By
+          </div>
+          <div
+            class="slds-grid short-desc"
+            data-test-id="transaction-customername"
+          >
+            {transactionRecord.transactionInitiator}
+          </div>
+        </div>
+      </template>
+      <div class={dynamicColumnClass}>
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
         <div class="slds-grid" data-test-id="transaction-time">
           {transactionTime}
         </div>
       </div>
-      <div class="slds-col slds-size--1-of-7">
+      <div class={dynamicColumnClass}>
         <div class="slds-grid slds-form-element__label">Short Description</div>
         <div class="slds-grid slds-hyphenate short-desc">
           {transactionRecord.short_desc}
         </div>
       </div>
-      <div class="slds-col slds-size--1-of-7">
+      <div class={dynamicColumnClass}>
         <div class="slds-grid slds-form-element__label">Amount</div>
         <div class="slds-grid">
           <template lwc:if={positiveAmount}>
@@ -82,7 +95,7 @@
           </template>
         </div>
       </div>
-      <div class="slds-col slds-size--1-of-7 button-icon-col">
+      <div class={dynamicButtonClass}>
         <lightning-button-menu alternative-text="Show Actions">
           <template lwc:if={showTransactionDetails}>
             <lightning-menu-item
@@ -124,39 +137,39 @@
     </div>
     <template lwc:if={showTransactionDetails}>
       <div class="slds-grid slds-m-bottom_small">
-        <div class="slds-col slds-size--1-of-7"></div>
-        <div class="slds-col slds-size--1-of-7">
+        <div class={dynamicColumnClass}></div>
+        <div class={dynamicColumnClass}>
           <div class="slds-grid slds-form-element__label">Status</div>
           <div class="slds-grid">{transactionRecord.status}</div>
         </div>
-        <div class="slds-col slds-size--1-of-7">
+        <div class={dynamicColumnClass}>
           <div class="slds-grid slds-form-element__label">Long Description</div>
           <div class="slds-grid description">{transactionRecord.long_desc}</div>
           <div class="description-tooltip" data-id="longDesc">
             {transactionRecord.long_desc}
           </div>
         </div>
-        <div class="slds-col slds-size--1-of-7">
+        <div class={dynamicColumnClass}>
           <div class="slds-grid slds-form-element__label">Transaction ID</div>
           <div class="slds-grid" data-id="transactionId">
             {transactionRecord.transaction_id}
           </div>
         </div>
-        <div class="slds-col slds-size--1-of-7">
+        <div class={dynamicColumnClass}>
           <div class="slds-grid slds-form-element__label">Error Reason</div>
           <div class="slds-grid word-fix" data-id="transError">
             {transactionRecord.Error}
           </div>
         </div>
-        <div class="slds-col slds-size--1-of-7">
+        <div class={dynamicColumnClass}>
           <div class="slds-grid slds-form-element__label">Currency Code</div>
           <div class="slds-grid">{transactionRecord.amount.currency_code}</div>
         </div>
       </div>
       <!-- 2nd row of showTransaction Details -->
       <div class="slds-grid slds-m-bottom_small">
-        <div class="slds-col slds-size--1-of-7"></div>
-        <div class="slds-col slds-size--1-of-7">
+        <div class={dynamicColumnClass}></div>
+        <div class={dynamicColumnClass}>
           <div class="slds-grid slds-form-element__label">Message</div>
           <div class="slds-grid">
             <template lwc:if={showPayAnyoneMsgTransactionDetails}>
@@ -164,7 +177,7 @@
             </template>
           </div>
         </div>
-        <div class="slds-col slds-size--1-of-7">
+        <div class={dynamicColumnClass}>
           <div class="slds-grid slds-form-element__label">Reference</div>
           <div class="slds-grid">
             <template lwc:if={showPayAnyoneReferenceTransactionDetails}>
@@ -178,18 +191,18 @@
         <div class="transaction-section">
           <h3 class="section-title">Merchant Details</h3>
           <div class="slds-grid slds-m-bottom_small">
-            <div class="slds-col slds-size--1-of-7"></div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}></div>
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Name</div>
               <div class="slds-grid short-desc" data-test-id="merchant-name">
                 {transactionRecord.merchantName}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Address</div>
               <div class="slds-grid">{transactionRecord.merchantLocation}</div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Phone</div>
               <div class="slds-grid">
                 <template lwc:if={transactionRecord.merchantPhoneNumber}>
@@ -197,13 +210,13 @@
                 </template>
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Website</div>
               <div class="slds-grid word-fix short-desc">
                 {transactionRecord.merchantWebsiteUrl}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Email</div>
               <div class="slds-grid">{transactionRecord.merchantEmail}</div>
             </div>
@@ -215,8 +228,8 @@
         <div class="transaction-section">
           <h3 class="section-title">International Exchange Details</h3>
           <div class="slds-grid slds-m-bottom_small">
-            <div class="slds-col slds-size--1-of-7"></div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}></div>
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Converted Amount
               </div>
@@ -228,7 +241,7 @@
                 </lightning-formatted-number>
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Converted Currency Code
               </div>
@@ -236,7 +249,7 @@
                 {amountConvertedCurrency}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Exchange Rate
               </div>
@@ -250,14 +263,14 @@
         <div class="transaction-section">
           <h3 class="section-title">Card Details</h3>
           <div class="slds-grid slds-m-bottom_small">
-            <div class="slds-col slds-size--1-of-7"></div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}></div>
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Card Scheme</div>
               <div class="slds-grid" data-test-id="card-scheme">
                 {transactionRecord.card.formatted_scheme}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Card Last 4 Digits
               </div>
@@ -273,8 +286,8 @@
         <div class="transaction-section">
           <h3 class="section-title">Transfer Details</h3>
           <div class="slds-grid slds-m-bottom_small">
-            <div class="slds-col slds-size--1-of-7"></div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}></div>
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Payer Account Number
               </div>
@@ -282,7 +295,7 @@
                 {transactionRecord.transfer.source_account.account.transactionAccountNumber}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Payer BSB Number
               </div>
@@ -290,7 +303,7 @@
                 {transactionRecord.transfer.source_account.account.bsb}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Message</div>
               <div class="slds-grid">{transactionRecord.transfer.message}</div>
             </div>
@@ -302,16 +315,16 @@
         <div class="transaction-section">
           <h3 class="section-title">BPAY Details</h3>
           <div class="slds-grid slds-m-bottom_small">
-            <div class="slds-col slds-size--1-of-7"></div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}></div>
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Biller Name</div>
               <div class="slds-grid">{transactionRecord.bpay.biller_name}</div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Biller Code</div>
               <div class="slds-grid">{transactionRecord.bpay.biller_code}</div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Biller Reference Number
               </div>
@@ -327,8 +340,8 @@
         <div class="transaction-section">
           <h3 class="section-title">Pay Anyone Details</h3>
           <div class="slds-grid slds-m-bottom_small">
-            <div class="slds-col slds-size--1-of-7"></div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}></div>
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Payer Account Number
               </div>
@@ -336,7 +349,7 @@
                 {transactionRecord.pay_anyone.other_entity.account.transactionAccountNumber}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">
                 Payer BSB Number
               </div>
@@ -344,13 +357,13 @@
                 {transactionRecord.pay_anyone.other_entity.account.bsb}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Alias Name</div>
-              <div class="slds-grid">
+              <div class="slds-grid short-desc">
                 {transactionRecord.pay_anyone.other_entity.alias_name}
               </div>
             </div>
-            <div class="slds-col slds-size--1-of-7">
+            <div class={dynamicColumnClass}>
               <div class="slds-grid slds-form-element__label">Alias ID</div>
               <div class="slds-grid">
                 {transactionRecord.pay_anyone.other_entity.alias_id}
@@ -380,7 +393,7 @@
         <div class="transaction-section">
           <h3 class="section-title">Map</h3>
           <div class="slds-grid slds-m-bottom_small">
-            <div class="slds-col slds-size--1-of-7"></div>
+            <div class={dynamicColumnClass}></div>
             <lightning-map
               map-markers={transactionRecord.mapMarkers}
               zoom-level={zoomLevel}

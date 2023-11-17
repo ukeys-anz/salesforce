@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>IDR Non-Financial Remedy Cases</name>
     <aggregates>
         <calculatedFormula>CLOSED:SUM/RowCount</calculatedFormula>
         <datatype>percent</datatype>
@@ -73,6 +74,7 @@
             <operator>equals</operator>
             <value>2</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
@@ -90,7 +92,6 @@
         <field>Case.IDR_Non_Financial_Remedy__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>IDR Non-Financial Remedy Cases</name>
     <params>
         <name>units</name>
         <value>d</value>
