@@ -163,8 +163,7 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-</SharingRules>
-<!--<sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>CMOS_customer_access_RO</fullName>
         <accessLevel>Read</accessLevel>
         <accountSettings>
@@ -175,7 +174,7 @@
         <description>Read Only for CMOS to access account</description>
         <label>CMOS customer access RO</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -183,4 +182,5 @@
             <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>-->
+    </sharingCriteriaRules>
+</SharingRules>

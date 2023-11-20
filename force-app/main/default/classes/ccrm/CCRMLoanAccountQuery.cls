@@ -130,12 +130,12 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
       customerId = getCustomerId(fa.accountNumber);
       if (String.isBlank(customerId)) {
         continue;
-      }  
-      row.put('CustomerId', customerId);  
+      }
+      row.put('CustomerId', customerId);
       row.put('ExternalId', getExternalId(fa));
       row.put('DisplayUrl', getDisplayUrl(fa));
       row.put('Relationship', getAccountRelationship(fa.accountNumber));
-        
+
       row.put('AccountName', fa.accountName);
       row.put('AccountNumber', formatAccountNumber(fa.accountNumber));
       row.put('AccountStatus', fa.status);

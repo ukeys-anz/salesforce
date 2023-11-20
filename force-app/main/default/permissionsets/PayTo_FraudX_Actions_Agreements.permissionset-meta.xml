@@ -49,6 +49,11 @@
         <enabled>true</enabled>
     </customPermissions>
     <description>Permission to perform fraudX actions on the PayTo aggrments</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Lan_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>PayTo FraudX Actions Agreements</label>
 </PermissionSet>

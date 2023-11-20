@@ -3,6 +3,11 @@
     <description>Separate permission set for CRP Leadership</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Activity.IDR_Review_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Date_Closed__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -67,8 +72,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Event.IDR_Review_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Task.Cases_Related_To_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.IDR_Review_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
@@ -86,7 +101,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <name>CreateCustomizeFilters</name>
         <enabled>true</enabled>
+        <name>CreateCustomizeFilters</name>
     </userPermissions>
 </PermissionSet>

@@ -78,25 +78,6 @@ public with sharing class InteractionContextServiceUpdateTest {
     insert psaList;
 
     System.runAs(apiUser) {
-      List<Twilio_Details__c> twilioDetailsList = new List<Twilio_Details__c>();
-      Twilio_Details__c twilioDetailRecord1 = new Twilio_Details__c();
-      twilioDetailRecord1.Twilio_ID__c = faker.randomString(10);
-      twilioDetailRecord1.Chat_or_Call_SID__c = 'CH1123141516161616';
-      twilioDetailRecord1.Status__c = 'Linked';
-      twilioDetailRecord1.Call_Recording_Id__c = faker.randomString(10);
-      twilioDetailRecord1.ANZ_Queue__c = faker.randomString(10);
-      twilioDetailsList.add(twilioDetailRecord1);
-
-      Twilio_Details__c twilioDetailRecord2 = new Twilio_Details__c();
-      twilioDetailRecord2.Twilio_ID__c = faker.randomString(10);
-      twilioDetailRecord2.Chat_or_Call_SID__c = 'CH1123141516161617';
-      twilioDetailRecord2.Status__c = 'Created';
-      twilioDetailRecord2.Call_Recording_Id__c = faker.randomString(10);
-      twilioDetailRecord2.ANZ_Queue__c = faker.randomString(10);
-      twilioDetailsList.add(twilioDetailRecord2);
-
-      insert twilioDetailsList;
-
       //Creating Test Interactions
       List<Interaction> listOfInteractions = new List<Interaction>();
       Interaction interactNew1 = new Interaction();
@@ -105,7 +86,6 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactNew1.Name = randInteractName1;
       interactNew1.StartTime = System.now().addDays(30);
       interactNew1.EndTime = interactNew1.StartTime.addMinutes(30);
-      interactNew1.TwilioDetailsID__c = twilioDetailsList[0].Id;
       interactNew1.Chat_or_Call_SID__c = 'CH1123141516161616';
       listOfInteractions.add(interactNew1);
 
@@ -115,11 +95,17 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactNew2.Name = randInteractName2;
       interactNew2.StartTime = System.now().addDays(30);
       interactNew2.EndTime = interactNew2.StartTime.addMinutes(30);
-      interactNew2.TwilioDetailsID__c = twilioDetailsList[1].Id;
       interactNew2.Chat_or_Call_SID__c = 'CH1123141516161617';
+
       listOfInteractions.add(interactNew2);
 
       insert listOfInteractions;
+
+      List<Interaction> interactionInsertedList = [
+        SELECT id, TwilioDetailsID__c
+        FROM Interaction
+        WHERE Id IN :listOfInteractions
+      ];
     }
 
   }
@@ -235,7 +221,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
 
     Interaction interactionRecord = [
-      SELECT Id, Chat_or_Call_SID__c, RecordTypeId, OwnerId
+      SELECT Id, Chat_or_Call_SID__c, RecordTypeId, OwnerId, TwilioDetailsID__c
       FROM Interaction
       WHERE RecordTypeId = :GetHelpConstants.INTERACTION_GENERAL_RT_ID
       LIMIT 1
@@ -267,7 +253,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     Test.stopTest();
 
     List<Interaction> interactionList = [
-      SELECT Id, Chat_or_Call_SID__c, OwnerId
+      SELECT Id, Chat_or_Call_SID__c, OwnerId, TwilioDetailsID__c
       FROM Interaction
       WHERE Chat_or_Call_SID__c = 'CH1123141516161617'
       LIMIT 1

@@ -1397,6 +1397,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>VerifiedContactDetails</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>UniqueIdUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1846,6 +1850,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Activity.Cases_Related_To_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Activity.IDR_Review_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7351,12 +7360,12 @@
         <field>Lead.Primary_Franchise_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Other_Source_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Associated_Source_Detail__c</field>
         <readable>true</readable>
@@ -7881,12 +7890,12 @@
         <field>Opportunity.Lost_Reason_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Other_Source_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Associated_Source_Detail__c</field>
         <readable>true</readable>
@@ -10747,6 +10756,10 @@
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Message Interaction Layout</layout>
+        <recordType>Interaction.Message</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Interaction-Store Interaction Layout</layout>

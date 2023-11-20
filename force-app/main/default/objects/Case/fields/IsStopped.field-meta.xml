@@ -6,6 +6,6 @@
     <description>Indicates whether an entitlement process on a case is stopped (true) or not (false).</description>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
 </CustomField>

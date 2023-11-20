@@ -23903,6 +23903,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Message Interaction Layout</layout>
+        <recordType>Interaction.Message</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>InteractionAttendee-Interaction Attendee Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
