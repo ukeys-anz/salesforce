@@ -13,7 +13,7 @@ public class MLCRM_TerritoryRecalculationBatchTest {
     User mlUser3 = MLCRMTestDataFactory.createMLCRMBaseUser();
     mlUser3.LastName = 'test mluser3';
     update mlUser3;
-    adminUser.username = 'Adobe.Integration@anzx.com';
+    adminUser.username = 'Adobe.IntegrationTest@anzx.com';
     update adminUser;
     //Create Test Lead Records
     System.runAs(adminUser) {
@@ -44,7 +44,7 @@ public class MLCRM_TerritoryRecalculationBatchTest {
     user objUser = [
       SELECT Id
       FROM User
-      WHERE username = 'Adobe.Integration@anzx.com'
+      WHERE username = 'Adobe.IntegrationTest@anzx.com'
       LIMIT 1
     ];
     user objMlUser = [SELECT Id FROM User WHERE LastName = 'test mluser3'];
