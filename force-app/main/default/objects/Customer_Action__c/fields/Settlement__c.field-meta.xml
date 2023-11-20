@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
     <description>Reference of associated Settlement Id (Salesforce ID)</description>
     <externalId>false</externalId>
-    <label>Settlement</label>
+    <label>Settlement Name</label>
     <referenceTo>Settlement__c</referenceTo>
     <relationshipLabel>Customer Actions</relationshipLabel>
     <relationshipName>Customer_Actions</relationshipName>

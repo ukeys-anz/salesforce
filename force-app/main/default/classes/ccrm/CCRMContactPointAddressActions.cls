@@ -48,7 +48,7 @@ public with sharing class CCRMContactPointAddressActions {
   public static ContactPointAddressWrapper getExistingOrProspectCPA(
     List<ContactPointAddress> records
   ) {
-    ContactPointAddressWrapper cpaWrap = new ContactPointAddressWrapper();
+    ContactPointAddressWrapper cpaWrapper = new ContactPointAddressWrapper();
 
     Set<Id> accIdsSet = new Set<Id>();
     for (ContactPointAddress record : records) {
@@ -59,17 +59,27 @@ public with sharing class CCRMContactPointAddressActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper accWrap = new CCRMAccountActions.AccountWrapper();
-    accWrap = CCRMAccountActions.getExistingOrProspectAccounts(accList);
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
+    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
+      accList
+    );
 
     for (ContactPointAddress record : records) {
-      if (accWrap.prosAcc.containsKey(record.Customer_Name__c)) {
-        cpaWrap.prosCPA.add(record);
-      } else if (accWrap.activeAcc.containsKey(record.Customer_Name__c)) {
-        cpaWrap.activeCPA.add(record);
+      if (
+        existingOrProspectAccounts.prospectAccounts.containsKey(
+          record.Customer_Name__c
+        )
+      ) {
+        cpaWrapper.prospectCPA.add(record);
+      } else if (
+        existingOrProspectAccounts.existingAccounts.containsKey(
+          record.Customer_Name__c
+        )
+      ) {
+        cpaWrapper.existingCPA.add(record);
       }
     }
-    return cpaWrap;
+    return cpaWrapper;
   }
 
   /**
@@ -140,7 +150,7 @@ public with sharing class CCRMContactPointAddressActions {
    * @name ContactWrapper
    */
   public class ContactPointAddressWrapper {
-    public List<ContactPointAddress> prosCPA = new List<ContactPointAddress>();
-    public List<ContactPointAddress> activeCPA = new List<ContactPointAddress>();
+    public List<ContactPointAddress> prospectCPA = new List<ContactPointAddress>();
+    public List<ContactPointAddress> existingCPA = new List<ContactPointAddress>();
   }
 }

@@ -98,10 +98,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Loss_Reason__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Lost_Reason_Detail__c</field>
             </layoutItems>
             <layoutItems>

@@ -441,14 +441,14 @@ global with sharing class InteractionContextService {
 
   /**
    * @description Method to create the Twilio Details record for the Interaction To be Created.
-   * @param interactionToBeCreated List<Interaction> To Be Created
+   * @param interactionListCreatedDB List<Interaction> To Be Created
    * @param results List<Database.SaveResult> for Interaction Created
    * @param contextRequests Interaction Context Request From Twilio
    * @param twilioDetailsByInteractionList List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>
    * @param responseList  List<InteractionContextResponse>
    */
   private static void createTwilioRecordAfterInteractionCreation(
-    List<Interaction> interactionToBeCreated,
+    List<Interaction> interactionListCreatedDB,
     List<Database.SaveResult> results,
     List<InteractionContextRequest> contextRequests,
     List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList,
@@ -462,27 +462,30 @@ global with sharing class InteractionContextService {
           Account.OCV_ID__c,
           Account.PersonMobilePhone,
           Support_Topics__c,
-          InteractionType
+          InteractionType,
+          TwilioDetailsID__c
         FROM Interaction
-        WHERE Id IN :interactionToBeCreated
+        WHERE Id IN :interactionListCreatedDB
       ]
     );
-    for (Integer i = 0; i < interactionToBeCreated.size(); i++) {
+    for (Integer i = 0; i < interactionListCreatedDB.size(); i++) {
       Database.SaveResult sr = results[i];
       if (sr.isSuccess()) {
         InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContext = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
 
-        twilioContext.interactionId = interactionToBeCreated[i].Id;
+        twilioContext.interactionId = interactionListCreatedDB[i].Id;
         twilioContext.callRecordingId = contextRequests[i].callRecordingId;
         twilioContext.chatOrCallId = contextRequests[i].chatOrCallId;
         twilioContext.chatOrCallStatus = contextRequests[i].chatOrCallStatus;
         twilioContext.twilioId = contextRequests[i].twilioId;
+        twilioContext.twilioDetailRecordId = interactionListCreatedDB[i]
+          .TwilioDetailsID__c;
         twilioDetailsByInteractionList.add(twilioContext);
 
         responseList.add(
           generateResponse(
-            interactionToBeCreated[i].Id,
-            newInteractionMap.get(interactionToBeCreated[i].Id)
+            interactionListCreatedDB[i].Id,
+            newInteractionMap.get(interactionListCreatedDB[i].Id)
               .Interaction_External_Id__c,
             contextRequests[i].ocvId,
             contextRequests[i].issueSubtype

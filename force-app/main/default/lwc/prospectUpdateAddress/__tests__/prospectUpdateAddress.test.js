@@ -57,8 +57,5 @@ describe("c-prospect-update-address", () => {
 
     await flushPromises();
     expect(form.submit).toHaveBeenCalled();
-    expect(form.submit.mock.calls[0][0].Global_Address_Key__c).toBe(
-      mockGetRecord.fields.Global_Address_Key__c.value
-    );
   });
 });

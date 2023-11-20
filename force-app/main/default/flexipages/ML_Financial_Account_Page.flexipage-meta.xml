@@ -42,8 +42,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.FinServ__FinancialAccountNumber__c</fieldItem>
-                <identifier>RecordFinServ_FinancialAccountNumber_cField</identifier>
+                <fieldItem>Record.Account_Number__c</fieldItem>
+                <identifier>RecordAccount_Number_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

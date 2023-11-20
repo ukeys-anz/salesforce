@@ -38,7 +38,7 @@ public with sharing class IDREmailServiceHelper {
       Priority = IDRConstants.CASE_PRIORITY_STANDARD,
       Subject = email.subject,
       SuppliedEmail = fromEmail,
-      IDR_Inbox_Email_Address__c = senderEmail.Abbreviate(80),
+      IDR_Inbox_Email_Address__c = strValidatedEmail,
       RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
       Origin = caseOrigin
     );
@@ -265,7 +265,10 @@ public with sharing class IDREmailServiceHelper {
             RecordTypeId = IDRConstants.EMAIL_ATTACHMENT_RT_ID
           );
           returnConVerList.add(cv);
-        } else {
+        } else if (
+          bAttachment.mimeTypeSubType != 'message/delivery-status' &&
+          bAttachment.fileName != 'winmail.dat'
+        ) {
           attachmentFailureDetected = true;
           Logger.error(
             'CMOS-' +

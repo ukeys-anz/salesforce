@@ -32,7 +32,8 @@ const {
   CONSUMER_KEY_SECRET_VALUE,
   CERT_SECRET_VALUE,
   BASE_REF_LAST_TAG,
-  CLEANING_JOB
+  CLEANING_JOB,
+  WORKING_DIR
 } = process.env;
 
 // STAGE_NAME should be changed from preprod deployment to prod validation/deployment
@@ -41,6 +42,10 @@ const SOURCE_DIR = `artifact-master-${RELEASE_NAME}`;
 const DEPLOY_USER_USERNAME =
   BASE_REF === "master" ? "master" : "tech.gcb@anzx.com";
 const PROD_URL = "https://anz.my.salesforce.com";
+const ARTIFACT_PACKAGE_XML =
+  WORKING_DIR + "/" + SOURCE_DIR + "/package/package.xml";
+const ARTIFACT_DESTRUCTIVE_XML =
+  WORKING_DIR + "/" + SOURCE_DIR + "/destructiveChanges/destructiveChanges.xml";
 //////////
 
 /// functions
@@ -65,7 +70,12 @@ const prodValidation = () => {
     ARTIFACTORY_SECRET_VALUE,
     PROD_DEPLOY_USERNAME
   );
-  validateProgress(validation);
+  validateProgress(
+    validation,
+    PROD_DEPLOY_USERNAME,
+    ARTIFACT_PACKAGE_XML,
+    ARTIFACT_DESTRUCTIVE_XML
+  );
 };
 
 const prodDeployment = () => {

@@ -23,9 +23,7 @@ export default class VerifyInsurance extends LightningElement {
       let response = await verifyInsurance({ recordId: this._recordId });
       //The API should always set to State verified, but the response has multiple states,
       //so handling here just in case something on API ever changes to avoid errors
-      if (
-        response?.proof_of_insurance_verification?.state === "STATE_VERIFIED"
-      ) {
+      if (response?.proofOfInsuranceVerification?.state === "STATE_VERIFIED") {
         showToast(
           this,
           "Verify Insurance",
@@ -35,7 +33,7 @@ export default class VerifyInsurance extends LightningElement {
           ""
         );
       } else if (
-        response?.proof_of_insurance_verification?.state === "STATE_REJECTED"
+        response?.proofOfInsuranceVerification?.state === "STATE_REJECTED"
       ) {
         showToast(
           this,

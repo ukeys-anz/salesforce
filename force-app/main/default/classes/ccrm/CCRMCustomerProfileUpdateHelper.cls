@@ -48,11 +48,14 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
     );
 
     if (objectInfo.Name == CCRMConstants.SOBJECT_ACCOUNT) {
-      CCRMCustomerProfileUpdateConfig.cpIdMap = getUpdatedCPIDs(
+      CCRMCustomerProfileUpdateConfig.controllingPostMap = getUpdatedCPIDs(
         records,
         oldMap
       );
-      CCRMCustomerProfileUpdateConfig.indIdMap = getIndustry(records, oldMap);
+      CCRMCustomerProfileUpdateConfig.industryMap = getIndustry(
+        records,
+        oldMap
+      );
     }
 
     List<Customer_Profile_Updates__c> customerProfileUpdates = new List<Customer_Profile_Updates__c>();
@@ -271,6 +274,9 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
       Schema.DescribeSObjectResult objectInfo = records[0]
         .getSObjectType()
         .getDescribe();
+      Map<Id, Schema.RecordTypeInfo> recordTypeInfoMap = objectInfo
+        .sobjectType.getDescribe()
+        .getRecordTypeInfosById();
       Set<String> fieldPopulated;
       for (Sobject record : records) {
         fieldPopulated = new Set<String>();
@@ -281,8 +287,7 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
         fieldPopulated.addAll(
           oldMap.get((Id) record.get('Id')).getPopulatedFieldsAsMap().keySet()
         );
-        String recordTypeName = objectInfo.sobjectType.getDescribe()
-          .getRecordTypeInfosById()
+        String recordTypeName = recordTypeInfoMap
           .get((Id) record.get('RecordTypeId'))
           .getDeveloperName();
 

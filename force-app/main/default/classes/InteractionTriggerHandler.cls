@@ -215,7 +215,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     InteractionSetters.setOwnerNewInteractions(interactions);
 
-    InteractionSetters.setNameOfInteractions(records);
+    InteractionSetters.setNameOfInteractions(records, new Map<Id, SObject>{});
 
     List<Interaction> newInteractions = InteractionFilter.getInteractionsWithoutEnddate(
       interactions
@@ -228,6 +228,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     InteractionValidations.validateInteractions(interactions);
     InteractionEventHelper.assignDefaultTerritory(records);
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+
+    //Added to create Twilio Details when an Interaction created in the system for Chat and Call
+    TwilioServiceUtil.insertTwilioDetailsOnInteractionCreation(records);
   }
 
   /** @description onBeforeUpdate to handle before update trigger actions.
@@ -278,8 +281,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     if (!apptInteraction.isEmpty()) {
       InteractionValidations.validateInteractions(apptInteraction);
-      InteractionSetters.setNameOfInteractions(apptInteraction);
     }
+    InteractionSetters.setNameOfInteractions(records, oldMap);
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
   }
 }

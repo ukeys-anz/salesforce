@@ -20,6 +20,8 @@ public class CustomerRelationNotesTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+    //Added for CC-4053 Redaction
+    TextUtils.maskSObjectDataANZExtended(records, 'Notes__c');
   }
 
   /**
@@ -46,10 +48,8 @@ public class CustomerRelationNotesTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
-    CustomerRelationNotesTriggerActions.validatePrimaryRelationshipNotes(
-      (Map<Id, Customer_Relationship__c>) oldMap,
-      records
-    );
+    //Added for CC-4053 Redaction
+    TextUtils.maskSObjectDataANZExtended(records, 'Notes__c');
   }
 
   /**

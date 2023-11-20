@@ -15,12 +15,14 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      CCRMContactActions.ContactWrapper conWrap = new CCRMContactActions.ContactWrapper();
-      conWrap = CCRMContactActions.getExistingOrProspectContacts(records);
+      CCRMContactActions.ContactWrapper existingOrProspectContacts = new CCRMContactActions.ContactWrapper();
+      existingOrProspectContacts = CCRMContactActions.getExistingOrProspectContacts(
+        records
+      );
 
       List<Contact> conList = new List<Contact>();
-      conList.addAll(conWrap.prosContact);
-      conList.addAll(conWrap.activeContact);
+      conList.addAll(existingOrProspectContacts.prospectContacts);
+      conList.addAll(existingOrProspectContacts.existingContacts);
 
       CCRMContactActions.validateOrgIndividualContactsLinking(records);
 
@@ -40,17 +42,19 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      CCRMContactActions.ContactWrapper conWrap = new CCRMContactActions.ContactWrapper();
-      conWrap = CCRMContactActions.getExistingOrProspectContacts(records);
+      CCRMContactActions.ContactWrapper existingOrProspectContacts = new CCRMContactActions.ContactWrapper();
+      existingOrProspectContacts = CCRMContactActions.getExistingOrProspectContacts(
+        records
+      );
 
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        conWrap.prosContact,
+        existingOrProspectContacts.prospectContacts,
         null,
         true
       );
 
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        conWrap.activeContact,
+        existingOrProspectContacts.existingContacts,
         null,
         false
       );
@@ -65,18 +69,20 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
     if (CCRMLeadConversionActions.leadConverionFlow) {
       return;
     }
-    CCRMContactActions.ContactWrapper conWrap = new CCRMContactActions.ContactWrapper();
-    conWrap = CCRMContactActions.getExistingOrProspectContacts(records);
+    CCRMContactActions.ContactWrapper existingOrProspectContacts = new CCRMContactActions.ContactWrapper();
+    existingOrProspectContacts = CCRMContactActions.getExistingOrProspectContacts(
+      records
+    );
 
     Boolean isAllowedProfileCheck = CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging();
     if (isAllowedProfileCheck) {
       List<Contact> conList = new List<Contact>();
-      conList.addAll(conWrap.prosContact);
-      conList.addAll(conWrap.activeContact);
+      conList.addAll(existingOrProspectContacts.prospectContacts);
+      conList.addAll(existingOrProspectContacts.existingContacts);
 
       CCRMContactActions.validateExistingOrProspectContacts(conList);
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        conWrap.prosContact,
+        existingOrProspectContacts.prospectContacts,
         (Map<Id, Contact>) oldMap,
         true
       );
@@ -89,12 +95,12 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
 
     if (isAllowedProfileCheck) {
       CCRMCustomerProfileUpdateHelper.restrictEdit(
-        conWrap.activeContact,
+        existingOrProspectContacts.existingContacts,
         (Map<Id, Contact>) oldMap
       );
 
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        conWrap.activeContact,
+        existingOrProspectContacts.existingContacts,
         (Map<Id, Contact>) oldMap,
         false
       );

@@ -115,38 +115,69 @@ public with sharing class InteractionSetters {
   /** @description Method to set the Interaction Name for manual appointment rt creations
    * and all general rt creations
    * @param interactions list of new interactions created.
+   * @param oldMap map of old interactions
    */
-  public static void setNameOfInteractions(List<Interaction> interactions) {
-    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
-    Set<Id> storeRTID = new Set<Id>{
-      GetHelpConstants.INTERACTION_STORE_RT_ID,
-      GetHelpConstants.INTERACTION_CCRM_RT_ID,
-      GetHelpConstants.INTERACTION_ML_RT_ID
+  public static void setNameOfInteractions(
+    List<Interaction> interactions,
+    Map<Id, SObject> oldMap
+  ) {
+    List<String> listOfFieldApiNamesForChatAndCall = new List<String>{
+      'Direction__c',
+      'InteractionType',
+      'Actual_Topic_Formula__c'
     };
-    for (Interaction interact : interactions) {
-      // Not updating name when store interaction is updated, it gets updated via Dataraptor
-      if (storeRTID.contains(interact.RecordTypeId)) {
-        continue;
-      }
-      if (interact.RecordTypeId != appointmentRTID) {
-        // If interaction Name is blank then populate name as per below logic.
-        if (String.isBlank(interact.Name)) {
-          String supportTopic = interact.Support_Topics__c;
-          // If supportTopic is blank then populate with only Direction__c and InteractionType, if not then populate with Direction__c, InteractionType and supportTopic.
-          interact.Name = String.isBlank(supportTopic)
-            ? interact.Direction__c + ' ' + interact.InteractionType
-            : interact.Direction__c +
-              ' ' +
-              interact.InteractionType +
-              ' - ' +
-              supportTopic;
+    List<String> listOfFieldApiNameForStore = new List<String>{
+      'Reason_for_Visit_Formula__c'
+    };
+    for (Interaction newInteraction : interactions) {
+      Interaction oldInteraction = (Interaction) oldMap?.get(newInteraction.Id);
+      String concatinatedDirectionAndChannel =
+        newInteraction.Direction__c +
+        ' ' +
+        newInteraction.InteractionType;
+      switch on newInteraction.Record_Type__c {
+        when 'Call', 'Message' {
+          // Hard Coded here as Static variables are not accessible in switch case
+          if (
+            InteractionActions.hasAnyFieldChanged(
+              newInteraction,
+              oldInteraction,
+              listOfFieldApiNamesForChatAndCall
+            )
+          ) {
+            newInteraction.Name = concatinatedDirectionAndChannel;
+            if (String.isNotBlank(newInteraction.Actual_Topic_Formula__c)) {
+              newInteraction.Name +=
+                ' - ' + newInteraction.Actual_Topic_Formula__c.split(',')[0];
+            } else if (String.isNotBlank(newInteraction.Support_Topics__c)) {
+              newInteraction.Name += ' - ' + newInteraction.Support_Topics__c;
+            }
+          }
         }
-      } else if (
-        AutomatedRequestMetadataProvider.getInstance()
-          .getMap()
-          .containsKey(interact.Interaction_Purpose__c)
-      ) {
-        interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+        when 'In Person' {
+          if (
+            InteractionActions.hasAnyFieldChanged(
+              newInteraction,
+              oldInteraction,
+              listOfFieldApiNameForStore
+            )
+          ) {
+            newInteraction.Name =
+              GetHelpConstants.COACHING_LAB +
+              ' - ' +
+              newInteraction.Reason_for_Visit_Formula__c;
+          }
+        }
+        when else {
+          if (
+            AutomatedRequestMetadataProvider.getInstance()
+              .getMap()
+              .containsKey(newInteraction.Interaction_Purpose__c)
+          ) {
+            newInteraction.Name =
+              newInteraction.Interaction_Purpose__c + ' Appointment';
+          }
+        }
       }
     }
   }

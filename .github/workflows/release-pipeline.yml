@@ -121,6 +121,7 @@ jobs:
           echo CERT_SECRET_VALUE="${{ steps.secrets.outputs.prod-cert }}" >> $GITHUB_ENV
           echo ARTIFACTORY_SECRET_VALUE="${{ steps.secrets.outputs.artifactory }}" >> $GITHUB_ENV
           echo CLEANING_JOB="false" >> $GITHUB_ENV
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
           lastTag="$( git describe --abbrev=0 --tags --match master* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 

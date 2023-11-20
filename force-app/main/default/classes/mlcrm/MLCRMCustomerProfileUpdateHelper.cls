@@ -49,12 +49,14 @@ public with sharing class MLCRMCustomerProfileUpdateHelper {
       Schema.DescribeSObjectResult objectInfo = records[0]
         .getSObjectType()
         .getDescribe();
+      Map<Id, Schema.RecordTypeInfo> recordTypeInfoMap = objectInfo
+        .sobjectType.getDescribe()
+        .getRecordTypeInfosById();
       String recordTypeName;
       Set<String> fieldPopulated;
       for (Sobject record : records) {
         fieldPopulated = getAllFieldPopulated(record, oldMap);
-        recordTypeName = objectInfo.sobjectType.getDescribe()
-          .getRecordTypeInfosById()
+        recordTypeName = recordTypeInfoMap
           .get((Id) record.get('RecordTypeId'))
           .getDeveloperName();
         for (String populatedfieldName : fieldPopulated) {

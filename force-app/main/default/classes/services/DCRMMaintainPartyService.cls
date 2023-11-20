@@ -39,6 +39,10 @@ public with sharing class DCRMMaintainPartyService extends Service {
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     headers.put('Channel', 'CRM');
+    headers.put(
+      'Authorization',
+      'Bearer ' + CCRMARNCService.generateJWTToken()
+    );
     headers.put('request-time', requestTime);
     if (!String.isBlank(operatorId)) {
       headers.put('user-id', operatorId);

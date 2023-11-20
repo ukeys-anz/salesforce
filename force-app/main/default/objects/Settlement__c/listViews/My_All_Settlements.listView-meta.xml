@@ -7,5 +7,5 @@
     <columns>Status__c</columns>
     <columns>Last_Modified__c</columns>
     <filterScope>Mine</filterScope>
-    <label>My All Settlements</label>
+    <label>My Settlements</label>
 </ListView>

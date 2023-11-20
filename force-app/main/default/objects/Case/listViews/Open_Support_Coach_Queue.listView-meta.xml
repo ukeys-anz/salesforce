@@ -3,18 +3,19 @@
     <fullName>Open_Support_Coach_Queue</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>NAME</columns>
+    <columns>CASES.SUBJECT</columns>
     <columns>CASES.TYPE</columns>
     <columns>Sub_Type__c</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>OWNER_NAME</columns>
     <columns>CASES.RECORDTYPE</columns>
-    <filterScope>Queue</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Queue</filterScope>
     <label>Open Support Coach Queue</label>
     <queue>Support_Coach_Queue</queue>
     <sharedTo>
