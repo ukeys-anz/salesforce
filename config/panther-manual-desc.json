@@ -398,6 +398,7 @@
         "IDR_Pend_Reason__c",
         "IDR_Pended_To__c",
         "IDR_Portfolio_or_Business_Unit__c",
+        "IDR_Review_Outcome__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
         "Is_Case_Owned_By_CR_Team__c",
@@ -990,7 +991,8 @@
       ],
       "IA-2530753": [
         "IDR_Product_Family__c",
-        "OnboardingVerificationFailedReason__c"
+        "OnboardingVerificationFailedReason__c",
+        "External_Request_Id__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -1914,7 +1916,13 @@
         "Loan_Application__c",
         "Actual_Topics__c",
         "Products__c",
-        "Reason_for_Visit__c"
+        "Reason_for_Visit__c",
+        "Actual_Topic_1__c",
+        "Actual_Topic_2__c",
+        "ReasonforVisit__c",
+        "Product__c",
+        "Actual_Topic_Formula__c",
+        "Reason_for_Visit_Formula__c"
       ]
     },
     "Interaction_Tag__c": {

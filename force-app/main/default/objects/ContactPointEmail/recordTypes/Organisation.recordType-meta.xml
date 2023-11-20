@@ -21,5 +21,9 @@
             <fullName>Marketing Email</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Security Email</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
 </RecordType>

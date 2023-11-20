@@ -125,6 +125,12 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       return true;
     } catch (Exception e) {
+      Map<String, Object> errorResponseMap = new Map<String, Object>{
+        'hasError' => true
+      };
+      outMap.put('object', errorResponseMap);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
       return false;
     }
   }
@@ -141,39 +147,42 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
-    String loanId = (String) inputMap.get('loanId');
-    List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(loanId);
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      String loanId = (String) inputMap.get('loanId');
+      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
+        loanId
+      );
+      SOPModel response = rlaRepo.getSOP(
+        loanRec[0]?.Account?.OCV_ID__c,
+        loanRec[0]?.SOP_Id__c
+      );
+      SOPModel.Parties[] transformedParties = new List<SOPModel.Parties>();
+      SOPModelHelper.enrichOwnerName(response);
 
-    SOPModel response = rlaRepo.getSOP(
-      loanRec[0]?.Account?.OCV_ID__c,
-      loanRec[0]?.SOP_Id__c
-    );
-    SOPModel.Parties[] transformedParties = new List<SOPModel.Parties>();
+      if (response == null) {
+        return false;
+      }
+      for (Object row : response.parties) {
+        Map<String, Object> obj = (Map<String, Object>) JSON.deserializeUntyped(
+          JSON.serialize(row)
+        );
+        obj.put('partyDependantsCount', response.dependantsCount);
 
-    SOPModelHelper.enrichOwnerName(response);
-
-    if (response == null) {
+        transformedParties.add(
+          (SOPModel.Parties) System.JSON.deserialize(
+            JSON.serialize(obj),
+            SOPModel.Parties.class
+          )
+        );
+      }
+      response.parties = transformedParties;
+      outMap.put('object', JSON.deserializeUntyped(JSON.serialize(response)));
+      return true;
+    } catch (Exception e) {
+      outMap.put('toast', 'getSOPError');
       return false;
     }
-
-    for (Object row : response.parties) {
-      Map<String, Object> obj = (Map<String, Object>) JSON.deserializeUntyped(
-        JSON.serialize(row)
-      );
-      obj.put('partyDependantsCount', response.dependantsCount);
-
-      transformedParties.add(
-        (SOPModel.Parties) System.JSON.deserialize(
-          JSON.serialize(obj),
-          SOPModel.Parties.class
-        )
-      );
-    }
-    response.parties = transformedParties;
-
-    outMap.put('object', JSON.deserializeUntyped(JSON.serialize(response)));
-    return true;
   }
 
   private Boolean addIncome(
@@ -211,7 +220,11 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
-      outMap.put('toast', 'Error');
+      if (e.getMessage().contains('verifyIncome:HTTP POST')) {
+        outMap.put('toast', 'verifyError');
+      } else {
+        outMap.put('toast', 'Error');
+      }
       return false;
     }
   }
@@ -250,7 +263,11 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       outMap.put('toast', 'Success');
       return true;
     } catch (Exception e) {
-      outMap.put('toast', 'Error');
+      if (e.getMessage().contains('verifyIncome:HTTP POST')) {
+        outMap.put('toast', 'verifyError');
+      } else {
+        outMap.put('toast', 'Error');
+      }
       return false;
     }
   }

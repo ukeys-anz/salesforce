@@ -316,4 +316,6 @@ public with sharing class GetHelpConstants {
   public static Boolean isAccountV1() {
     return Label.AccountAPIUpliftedToV1 == 'True';
   }
+  // String to formulate name of Store Interaction
+  public static final String COACHING_LAB = 'Coaching Lab';
 }

@@ -92,7 +92,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           ', ' +
           record.ContentDocument.LatestPublishedVersion.FileType;
 
-        Logger.error(errorDescription, record.Id);
+        Logger.error(errorDescription, record.ContentDocumentId);
         if (oCase != null) {
           // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
           mpUpdateCases.put(oCase.Id, oCase);

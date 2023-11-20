@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>This field display the list of products</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the products the query was related to. Choose ‘Not product related’ if it doesn’t apply.</inlineHelpText>
+    <label>Product</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ANZ Plus</fullName>
+                <default>false</default>
+                <label>ANZ Plus</label>
+            </value>
+            <value>
+                <fullName>ANZ Plus Home Loan - Fixed</fullName>
+                <default>false</default>
+                <label>ANZ Plus Home Loan - Fixed</label>
+            </value>
+            <value>
+                <fullName>ANZ Plus Home Loan - Variable</fullName>
+                <default>false</default>
+                <label>ANZ Plus Home Loan - Variable</label>
+            </value>
+            <value>
+                <fullName>ANZ Product</fullName>
+                <default>false</default>
+                <label>ANZ Product</label>
+            </value>
+            <value>
+                <fullName>ANZ Save</fullName>
+                <default>false</default>
+                <label>ANZ Save</label>
+            </value>
+            <value>
+                <fullName>Joint ANZ Plus</fullName>
+                <default>false</default>
+                <label>Joint ANZ Plus</label>
+            </value>
+            <value>
+                <fullName>Joint ANZ Save</fullName>
+                <default>false</default>
+                <label>Joint ANZ Save</label>
+            </value>
+            <value>
+                <fullName>Non Product Related</fullName>
+                <default>false</default>
+                <label>Non Product Related</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

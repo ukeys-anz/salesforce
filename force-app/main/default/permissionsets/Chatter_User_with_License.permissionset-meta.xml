@@ -5,11 +5,11 @@
     <label>Chatter User with License</label>
     <license>Salesforce</license>
     <tabSettings>
-        <tab>standard-Chatter</tab>
+        <tab>standard-Feed</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <name>ChatterInternalUser</name>
         <enabled>true</enabled>
+        <name>ChatterInternalUser</name>
     </userPermissions>
 </PermissionSet>

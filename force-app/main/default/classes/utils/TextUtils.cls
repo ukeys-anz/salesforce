@@ -176,10 +176,10 @@ public with sharing class TextUtils {
               : '';
             Logger.info(
               loggerInitialString +
-                fieldName +
-                ': ' +
-                (String) record.get(fieldName) +
-                '; Reason for logging: User entered long digits without needing to mask'
+              fieldName +
+              ': ' +
+              (String) record.get(fieldName) +
+              '; Reason for logging: User entered long digits without needing to mask'
             );
             Logger.saveLog();
           }
@@ -381,9 +381,9 @@ public with sharing class TextUtils {
       dcrmRecordList = new List<SObject>();
       recordList = new List<SObject>();
     }
-  }    
+  }
 
-  /** 
+  /**
    * @description sanitiseStringBasedOnPattern remove unexpected chars base on regex pattern=
    * @param input Input string that we need to sanitise
    * @param regexPattern the regex pattern uses to sanitise

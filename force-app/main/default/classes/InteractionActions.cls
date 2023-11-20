@@ -273,4 +273,27 @@ public with sharing class InteractionActions {
     }
     return null;
   }
+
+  /**
+   * @description Generic method to check whether the list of fields are updated or not to Utilize it in update mode
+   * @param newObject new version of sobject record
+   * @param oldObject old version of sobject record
+   * @param fieldApiNames list of fieldApiNames
+   * @return Boolean result whether the field is updated or not
+   */
+  public static Boolean hasAnyFieldChanged(
+    SObject newObject,
+    SObject oldObject,
+    List<String> fieldApiNames
+  ) {
+    for (String eachField : fieldApiNames) {
+      if (
+        (oldObject == null) ||
+        (newObject.get(eachField) != oldObject.get(eachField))
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
