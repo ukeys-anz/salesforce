@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Eligible_to_Complete__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
+    <description>[Output] List of Roles and specific Parties that are eligible to complete the Task
+May have multiple records where several roles and/or parties are eligible to complete this task</description>
+    <externalId>false</externalId>
+    <label>Eligible to Complete</label>
+    <length>32768</length>
+    <securityClassification>Restricted</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

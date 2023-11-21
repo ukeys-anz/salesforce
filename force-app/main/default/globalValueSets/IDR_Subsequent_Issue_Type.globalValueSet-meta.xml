@@ -243,7 +243,7 @@
     <customValue>
         <fullName>52</fullName>
         <default>false</default>
-        <label>Incorrect Advice</label>
+        <label>Advice not appropriate</label>
     </customValue>
     <customValue>
         <fullName>53</fullName>
@@ -509,6 +509,27 @@
         <fullName>98</fullName>
         <default>false</default>
         <label>Enforcement proceedings</label>
+    </customValue>
+    <customValue>
+        <fullName>99</fullName>
+        <default>false</default>
+        <label>Service Quality</label>
+    </customValue>
+    <customValue>
+        <fullName>100</fullName>
+        <default>false</default>
+        <label>Investment Performance</label>
+    </customValue>
+    <customValue>
+        <fullName>101</fullName>
+        <default>false</default>
+        <label>Fees and Charges</label>
+    </customValue>
+    <customValue>
+        <fullName>Stores are cashless</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Stores are cashless</label>
     </customValue>
     <masterLabel>Subsequent Issue Type</masterLabel>
     <sorted>false</sorted>

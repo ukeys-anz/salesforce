@@ -77,7 +77,7 @@ public class CaseDurationTest {
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
     System.assertEquals(
-      8,
+      24,
       durationTime.hours,
       'Case duration time should be as expected.'
     );
@@ -116,7 +116,7 @@ public class CaseDurationTest {
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
     System.assertEquals(
-      16,
+      48,
       durationTime.hours,
       'Case duration time should be as expected.'
     );
@@ -208,7 +208,7 @@ public class CaseDurationTest {
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
     System.assertEquals(
-      8,
+      24,
       durationTime.hours,
       'Case duration time should be as expected.'
     );

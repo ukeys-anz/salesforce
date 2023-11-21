@@ -20,11 +20,19 @@ public with sharing class BOHServiceMock extends Service {
     'mock_CRListAssessment'
   );
 
+  private static final string CREDIT_ASSESSMENT_DELETE_RESPONSE = getStaticResource(
+    'mock_CRDeleteReferralOutcome'
+  );
+
   private static final string SOP_LIST_ASSETS_RESPONSE = getStaticResource(
     'mock_getConsolidateSOP'
   );
   private static final string UMI_LIST_ASSEEEMENTS_RESPONSE = getStaticResource(
     'mock_UMIListAssessments'
+  );
+
+  private static final string VERIFY_INSURANCE = getStaticResource(
+    'mock_verifyInsurance'
   );
 
   /**
@@ -80,6 +88,21 @@ public with sharing class BOHServiceMock extends Service {
     return response;
   }
 
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param expenseBody post data of expense information
+   * @return `HttpCalloutResponse` the api response
+   * @description edit Expense
+   */
+  public override HttpCalloutResponse editExpense(
+    String ocvId,
+    String expenseBody
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
+    }
+    return response;
+  }
   /**
    * @param creditId to receive credit assessment list
    * @param ocvId customer ocv id
@@ -194,6 +217,41 @@ public with sharing class BOHServiceMock extends Service {
   public override HttpCalloutResponse getSOP(String ocvId, String sopId) {
     if (!preset) {
       response.body = BOHServiceMock.SOP_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
+   * @param creditId to receive credit assessment list
+   * @param ocvId ocv id of the customer account
+   * @param assessmentId id of assessment submitted for finalisation
+   * @param outcomeCode referral code to delete
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income
+   */
+  public override HttpCalloutResponse deleteReferralOutcome(
+    String creditId,
+    String ocvId,
+    String assessmentId,
+    String outcomeCode
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.CREDIT_ASSESSMENT_DELETE_RESPONSE;
+    }
+    return response;
+  }
+  /**
+   * @param requestBody body of request to send
+   * @param ocvId ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income from sop
+   */
+  public override HttpCalloutResponse verifyInsurance(
+    String requestBody,
+    String ocvId
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.VERIFY_INSURANCE;
     }
     return response;
   }

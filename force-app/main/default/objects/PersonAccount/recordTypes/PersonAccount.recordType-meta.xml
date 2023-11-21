@@ -794,31 +794,35 @@
     <picklistValues>
         <picklist>FinServ__MaritalStatus__pc</picklist>
         <values>
-            <fullName>D</fullName>
+            <fullName>Divorced</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>M</fullName>
+            <fullName>Married</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>P</fullName>
+            <fullName>Separated</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>S</fullName>
+            <fullName>Single</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>F</fullName>
+            <fullName>Married/De Facto</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>W</fullName>
+            <fullName>Widowed</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Z</fullName>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
             <default>false</default>
         </values>
     </picklistValues>

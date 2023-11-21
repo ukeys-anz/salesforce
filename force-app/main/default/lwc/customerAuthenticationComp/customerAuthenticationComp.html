@@ -1,0 +1,116 @@
+<template>
+  <div class="slds-is-relative">
+    <template lwc:if={loading}>
+      <lightning-spinner
+        variant="brand"
+        alternative-text="Loading"
+      ></lightning-spinner>
+    </template>
+    <div
+      class="whiteBg slds-align_absolute-center slds-p-top_small slds-p-bottom_small"
+    >
+      <div>
+        <span
+          ><lightning-icon
+            size="x-small"
+            class="authIcn slds-m-right_small"
+            icon-name="utility:contact"
+            variant="inverse"
+          ></lightning-icon
+        ></span>
+        <span class="blueCol"> <b>Customer Authentication </b></span>
+      </div>
+    </div>
+    <template lwc:if={showAuthenticateBtn}>
+      <lightning-layout multiple-rows="true" class="whiteBg">
+        <lightning-layout-item padding="around-small" size="12">
+          <lightning-button
+            label="Authenticate Customer"
+            title="Authenticate Customer"
+            stretch
+            onclick={handleAuth}
+            data-id="authenticate-id"
+          ></lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+    <template lwc:if={showSecurityCode}>
+      <lightning-layout multiple-rows="true" class="whiteBg">
+        <lightning-layout-item padding="around-small" size="12">
+          <lightning-input
+            type="text"
+            label="Security Code"
+            disabled
+            value={securityCode}
+          ></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item
+          size="12"
+          padding="horizontal-small"
+          class="textCol"
+        >
+          <lightning-formatted-text
+            value="Add branch to load/diary comment:"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12">
+          <lightning-button
+            label="Customer Failed Authentication"
+            title="Customer Failed Authentication"
+            data-name="FailedAuth"
+            stretch
+            onclick={handleFailedAuth}
+          ></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12">
+          <lightning-button
+            label="Current Security Code is 'Branch to load'"
+            data-name="ExistingBranch"
+            title="Branch to Load"
+            stretch
+            onclick={handleCode}
+            data-id="code-id"
+          ></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12">
+          <lightning-button
+            label="Customer suspects ID Theft"
+            title="Suspects Id Theft"
+            data-name="IdTheft"
+            stretch
+            onclick={handleTheft}
+          ></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12">
+          <lightning-layout multiple-rows="true" class="greyBg">
+            <lightning-layout-item padding="around-small" size="1">
+              <lightning-icon
+                size="small"
+                icon-name="utility:info"
+              ></lightning-icon>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="11">
+              <lightning-formatted-text
+                value="Remember to ask Manual Authentication Questions if the customer cannot remember their Security Code. For more information view "
+              ></lightning-formatted-text>
+              <lightning-formatted-url
+                value={label.customerReferenceGuideURL}
+                label="Reference Guides on Max"
+                target="_blank"
+              ></lightning-formatted-url>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12">
+          <lightning-button
+            label="Close"
+            class="slds-float_right"
+            title="Close"
+            onclick={handleClose}
+            variant="brand"
+          ></lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+  </div>
+</template>

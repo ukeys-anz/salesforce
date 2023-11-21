@@ -19,7 +19,21 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     IDRTaskActions.beforeInsertActions(records);
     GetHelpTaskActions.beforeInsertActions(records);
     CCRMTaskActions.validateLeadAbnACN(records);
-    CCRMTaskActions.populateData(records, null);
+    //Added for CC-4053 Redaction
+    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{
+        CCRMConstants.CCRM_TASK_RT_ID,
+        MLCRMConstants.MLCRM_TASK_RT_ID,
+        CCRMConstants.LEAD_RESPONSE_RT_ID
+      }
+    );
+
+    TextUtils.maskSObjectDataANZExtended(wrapperData.dcrmRecordList, 'Subject');
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperData.dcrmRecordList,
+      'Description'
+    );
   }
   /**
    * @description onAfterInsert to perform processing during the after insert phase
@@ -36,7 +50,21 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRTaskActions.updateNotificationSubject(records);
     IDRTaskActions.beforeUpdateActions(records, (Map<Id, Task>) oldMap);
-    CCRMTaskActions.populateData(records, (Map<Id, Task>) oldMap);
+    //Added for CC-4053 Redaction
+    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{
+        CCRMConstants.CCRM_TASK_RT_ID,
+        MLCRMConstants.MLCRM_TASK_RT_ID,
+        CCRMConstants.LEAD_RESPONSE_RT_ID
+      }
+    );
+
+    TextUtils.maskSObjectDataANZExtended(wrapperData.dcrmRecordList, 'Subject');
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperData.dcrmRecordList,
+      'Description'
+    );
   }
   /**
    * @description onAfterUpdate to handle after update trigger actions.

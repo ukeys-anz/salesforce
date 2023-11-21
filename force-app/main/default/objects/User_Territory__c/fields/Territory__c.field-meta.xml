@@ -3,7 +3,7 @@
     <fullName>Territory__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
-    <description>Lookup to Territory object</description>
+    <description>Lookup to Territory object.</description>
     <externalId>false</externalId>
     <label>Territory</label>
     <referenceTo>Territory__c</referenceTo>

@@ -80,6 +80,7 @@ export default class PayToDataTable extends OmniscriptBaseMixin(
       this.handleOmniLaunchedData();
     } else {
       this.mandates = this.response[0].mandates;
+      this.handleErrorRefresh();
       this.calculateLength();
     }
     this.handleConditionalDatatable();
@@ -94,6 +95,17 @@ export default class PayToDataTable extends OmniscriptBaseMixin(
   // Listen to the custom event that handles the single row selection across tables
   handleSingleMandateEventListener() {
     window.addEventListener("onmandateselection", this.handleClearSelection);
+  }
+
+  handleErrorRefresh() {
+    if (this.response[0].hasError) {
+      this.dispatchEvent(
+        new CustomEvent("checkRefresh", {
+          bubbles: true,
+          composed: true
+        })
+      );
+    }
   }
 
   handleMessage(event) {

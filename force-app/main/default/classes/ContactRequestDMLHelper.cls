@@ -11,18 +11,20 @@ public with sharing class ContactRequestDMLHelper {
    */
   public static List<ContactRequest> getContactRequest(Set<Id> requestIds) {
     List<ContactRequest> requests = new List<ContactRequest>();
-    if (ContactRequest.SObjectType.getDescribe().isQueryable()) {
-      requests = [
-        SELECT Id, Interaction__c, Name
-        FROM ContactRequest
-        WHERE Id IN :requestIds
-      ];
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestDMLHelper',
-        'getContactRequest',
-        'Not enough permissions to query Contact Request.'
-      );
+    if (!requestIds.isEmpty()) {
+      if (ContactRequest.SObjectType.getDescribe().isQueryable()) {
+        requests = [
+          SELECT Id, Interaction__c, Name
+          FROM ContactRequest
+          WHERE Id IN :requestIds
+        ];
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'ContactRequestDMLHelper',
+          'getContactRequest',
+          'Not enough permissions to query Contact Request.'
+        );
+      }
     }
     return requests;
   }

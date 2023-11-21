@@ -6,6 +6,8 @@ const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
 const REFERRED_TO_FIRM = "3";
 const OTHER = "99";
+const FINANCIAL_REMEDY = "1";
+const SUB_REMS_PAYMENT = ["10", "18"];
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -64,12 +66,16 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         Response: this.omniJsonData.Response
       };
 
+      const options = {
+        chainable: true
+      };
+
       // Invoking Integration procedure(IP) to create a case
       const params = {
         input: JSON.stringify(inputs),
         sClassName: "omnistudio.IntegrationProcedureService",
         sMethodName: "Case_CreateCase",
-        options: {}
+        options: JSON.stringify(options)
       };
 
       // Navigate to the case record that is closed
@@ -158,23 +164,26 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     if (this.omniJsonData.Case.CustomerDecision !== "Disagrees") {
       this.checkFields(details, this.omniJsonData.resInfoMap);
     }
-    if (
-      details.ComplaintStatus === "Closed" ||
-      details.ComplaintStatus === "Provisionally Closed"
-    ) {
+    if (details.ComplaintStatus === "Closed") {
       this.checkFields(details, this.omniJsonData.closeCmpMap);
     }
     if (details.realFormRequired === "Yes")
       this.checkFields(details, this.omniJsonData.realMap);
     if (details.systemicIssue === "Yes")
       this.checkFields(details, this.omniJsonData.sysIssueMap);
+    if (
+      details.systemicIssue === "Yes" &&
+      this.omniJsonData.Case.ComplaintDetails.Issue2Checkbox === "Yes"
+    ) {
+      if (!details.additionalissues)
+        this.missingFields.push("Which issue is possibly systemic?");
+    }
     if (details.CAC === "Yes")
       this.checkFields(details, this.omniJsonData.cacMap);
     if (
       itype === SERVICE_QUALITY &&
       subtype === FAILURE_TO_RESPOND &&
-      (details.ComplaintStatus === "Closed" ||
-        details.ComplaintStatus === "Provisionally Closed")
+      details.ComplaintStatus === "Closed"
     ) {
       if (!details.CAC)
         this.missingFields.push("Is this a complaint about a complaint?");
@@ -198,6 +207,13 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       !details.rewardPoints1
     )
       this.missingFields.push("Reward Points 1");
+    if (
+      (FINANCIAL_REMEDY.includes(details.ComplaintRemedy1) ||
+        SUB_REMS_PAYMENT.includes(details.ComplaintSubRemedy1)) &&
+      !details.PaymentAmountProvided1
+    ) {
+      this.missingFields.push("Payment Amount Provided 1");
+    }
     if (details.secondComplaintRemedyCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.secRemedyMap);
       if (
@@ -219,6 +235,13 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         !details.rewardPoints2
       )
         this.missingFields.push("Reward Points 2");
+      if (
+        (FINANCIAL_REMEDY.includes(details.ComplaintRemedy2) ||
+          SUB_REMS_PAYMENT.includes(details.ComplaintSubRemedy2)) &&
+        !details.PaymentAmountProvided2
+      ) {
+        this.missingFields.push("Payment Amount Provided 2");
+      }
     }
     if (details.thirdComplaintRemedyCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.thirdRemedyMap);
@@ -241,6 +264,13 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         !details.rewardPoints3
       )
         this.missingFields.push("Reward Points 3");
+      if (
+        (FINANCIAL_REMEDY.includes(details.ComplaintRemedy3) ||
+          SUB_REMS_PAYMENT.includes(details.ComplaintSubRemedy3)) &&
+        !details.PaymentAmountProvided3
+      ) {
+        this.missingFields.push("Payment Amount Provided 3");
+      }
     }
     if (details.ComplaintStatus === "Escalated")
       this.checkFields(details, this.omniJsonData.escMap);

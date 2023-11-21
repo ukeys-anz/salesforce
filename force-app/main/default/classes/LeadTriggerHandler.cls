@@ -21,7 +21,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    * @name onApplyDefaults
    */
   public override void onApplyDefaults() {
-    TextUtils.maskSObjectData(records, 'Description');
     // CC-1057 to set the default value of expiry date for Manually created ML Lead
     MLCRMLeadActions.setDefaultValue(records);
   }
@@ -34,8 +33,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     AbnAcnUtil.validateABN(records, null);
     AbnAcnUtil.validateACN(records, null);
     CCRMLeadActions.populateFields(records);
-    CCRMLeadActions.referrerPrefill(records, null);
-    MLCRMLeadActions.externalReferrerPrefill(records, null);
+    MLCRMCommonUtils.referrerPrefill(records, null);
     CCRMLeadActions.populateFromPreviousLead(records);
     CCRMControllingPostActions.retrieveControllingPost(records, null);
     CCRMLeadActions.prefillManualLeadsFromAccountOnInsert(records);
@@ -47,6 +45,19 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+    //Added for CC-4053 Redaction
+    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{
+        MLCRMConstants.MLCRM_LEAD_RT_ID,
+        CCRMConstants.CCRM_LEAD_RT_ID
+      }
+    );
+    TextUtils.maskSObjectData(wrapperData.recordList, 'Description');
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperData.dcrmRecordList,
+      'Description'
+    );
   }
 
   /**
@@ -66,14 +77,8 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       ((List<Lead>) records),
       ((Map<Id, Lead>) oldMap)
     );
-    CCRMLeadActions.referrerPrefill(
-      ((List<Lead>) records),
-      ((Map<Id, Lead>) oldMap)
-    );
-    MLCRMLeadActions.externalReferrerPrefill(
-      ((List<Lead>) records),
-      ((Map<Id, Lead>) oldMap)
-    );
+    MLCRMCommonUtils.referrerPrefill(records, oldMap);
+
     if (!CCRMLeadConversionActions.leadConverionFlow) {
       CCRMLeadActions.prefillManualLeadsFromAccountOnUpdate(
         ((List<Lead>) records),
@@ -81,8 +86,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       );
     }
     CCRMLeadActions.setValidationStatus(records, (Map<Id, Lead>) oldMap);
-    //Mask Lead Description where applicable
-    TextUtils.maskSObjectData(records, 'Description');
+
     CCRMLeadActions.leadCompletedActionBeforeUpdate(
       (Map<Id, Lead>) oldMap,
       records
@@ -97,6 +101,20 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
     MLCRMLeadActions.populatePrimaryFranchise(records, (Map<Id, Lead>) oldMap);
+    //Added for CC-4053 Redaction
+    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{
+        MLCRMConstants.MLCRM_LEAD_RT_ID,
+        CCRMConstants.CCRM_LEAD_RT_ID
+      }
+    );
+
+    TextUtils.maskSObjectData(wrapperData.recordList, 'Description');
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperData.dcrmRecordList,
+      'Description'
+    );
   }
 
   /**

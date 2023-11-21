@@ -58,21 +58,37 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   }
   /**
    * @param ocvId customer id
+   * @param ownership Used to control visibility of Transaction Initiator column under TransactionHistory
    * @param paramUrl Used to fetch the next lot of transactions or search by date
    * @return `TransactionHistoryModel` model class constructed from api response
    * @description fetches transaction history from fabric, deserialized to a model
    */
   public TransactionHistoryModel getTransactionHistory(
     String ocvId,
+    String ownership,
     String paramUrl
   ) {
     TransactionHistoryModel result;
+    Map<String, String> mapPersonaIdAndCustomerName;
     Service s = ServiceProvider.getService(FabricService.class);
     HttpCalloutResponse response = s.getTransactionHistory(ocvId, paramUrl);
     if (response.successful) {
       try {
+        // Story ANZX-120154 : Retrieve the user's persona ID from the JWT token to display the Transaction Initiator in Transaction History records.
+        if (
+          String.isNotBlank(ownership) &&
+          ownership == GetHelpConstants.MULTI_PARTY
+        ) {
+          mapPersonaIdAndCustomerName = AuthTokenCacheUtil.getCustomerNameFromStaffToken(
+            Service.IdType.OCVID,
+            ocvId
+          );
+        }
         if (GetHelpConstants.isTransactionsV1()) {
-          result = TransactionHistoryModelV1.parse(response.body);
+          result = TransactionHistoryModelV1.parse(
+            response.body,
+            mapPersonaIdAndCustomerName
+          );
         } else {
           result = TransactionHistoryModel.parse(response.body);
         }
@@ -94,6 +110,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @param accountNumber Account number for which we want to fetch the transactions
    * @param startDate start date of the transaction search filter
    * @param endDate end date of the transaction search filter
+   * @param ownership holds the value as Single or Multi-Party Account
    * @param bucketIds list of bucket ids to filter transactions by
    * @return String
    * @exception CalloutException
@@ -106,6 +123,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     String accountNumber,
     String startDate,
     String endDate,
+    String ownership,
     List<String> bucketIds
   ) {
     if (FeatureManagement.checkPermission('ANZx_View_Transaction_History')) {
@@ -121,6 +139,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       try {
         TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
           ocvId,
+          ownership,
           paramUrl
         );
         return responseModel;

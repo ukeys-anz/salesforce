@@ -109,6 +109,18 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param ocvId ocv id of the customer account
+   * @param expenseBody post data of expense information
+   * @return `HttpCalloutResponse` the api response
+   * @description update expense
+   */
+  public virtual HttpCalloutResponse editExpense(
+    String ocvId,
+    String expenseBody
+  ) {
+    return null;
+  }
+  /**
    * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
@@ -711,6 +723,36 @@ public with sharing virtual class Service {
     String ocvId,
     String status,
     Map<String, String> headerProperties
+  ) {
+    return null;
+  }
+
+  /**
+   * @param creditId credit id from credit assessment
+   * @param assessmentId id of assessment submitted for finalisation
+   * @param ocvId customer ocv id
+   * @param referralOutcomeCode outcome code to delete
+   * @return HttpCalloutResponse api response
+   * @description removes the referral outcome to be updated
+   */
+  public virtual HttpCalloutResponse deleteReferralOutcome(
+    String creditId,
+    String assessmentId,
+    String ocvId,
+    String referralOutcomeCode
+  ) {
+    return null;
+  }
+
+  /**
+   * @param requestBody body of request to send
+   * @param ocvId ocv id
+   * @return `HttpCalloutResponse` the api response
+   * @description delete income from sop
+   */
+  public virtual HttpCalloutResponse verifyInsurance(
+    String requestBody,
+    String ocvId
   ) {
     return null;
   }

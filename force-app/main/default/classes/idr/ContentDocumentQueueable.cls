@@ -22,7 +22,7 @@ public with sharing class ContentDocumentQueueable implements Queueable {
       for (
         String strDocumentId : lstLogDeletions[0].Body.toString().split('\r\n')
       ) {
-        if ( strDocumentId.startsWith('069')) {
+        if (strDocumentId.startsWith('069')) {
           stDocumentIds.add(strDocumentId);
         }
       }
@@ -42,9 +42,11 @@ public with sharing class ContentDocumentQueueable implements Queueable {
    * @param context Queueable context unused.
    */
   public void execute(QueueableContext context) {
-    if (ContentDocument.getSObjectType().getDescribe().isDeletable() &&
-        stDocumentIds != null &&
-        stDocumentIds.size() > 0) {
+    if (
+      ContentDocument.getSObjectType().getDescribe().isDeletable() &&
+      stDocumentIds != null &&
+      stDocumentIds.size() > 0
+    ) {
       Set<Id> stIds = new Set<Id>();
       for (String strDocumentId : stDocumentIds) {
         if (stIds.size() < 2000) {
@@ -56,7 +58,7 @@ public with sharing class ContentDocumentQueueable implements Queueable {
         FROM ContentDocument
         WHERE Id IN :stIds
       ];
-      if ( lstDocuments.size() > 0 ) {
+      if (lstDocuments.size() > 0) {
         delete lstDocuments;
       }
       stDocumentIds.removeAll(stIds);

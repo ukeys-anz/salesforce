@@ -1,0 +1,22 @@
+.whiteBg {
+  background: white;
+  width: 100%;
+}
+.blueCol {
+  color: rgb(1, 118, 211);
+}
+.authIcn {
+  --slds-c-icon-color-background: rgb(1, 118, 211);
+}
+.textCol {
+  color: var(
+    --slds-g-color-neutral-base-30,
+    var(--lwc-colorTextLabel, rgb(68, 68, 68))
+  );
+}
+.greyBg {
+  background-color: var(
+    --slds-g-color-neutral-base-95,
+    var(--lwc-colorBackgroundInputDisabled, rgb(243, 243, 243))
+  );
+}

@@ -1,0 +1,93 @@
+<template>
+  <template lwc:if={showRecords}>
+    <lightning-card>
+      <h1 class="card-title">
+        <lightning-icon
+          icon-name={iconName}
+          size="small"
+          class="slds-m-right_small"
+        ></lightning-icon>
+        {relatedListTitle}
+      </h1>
+      <div class="related-list-container">
+        <template for:each={recordsToShow} for:item="rec">
+          <div key={rec.Id} class="slds-m-bottom_small related-list-row">
+            <lightning-tile
+              label={rec.rowTitle}
+              data-url={rec.recordUrl}
+              href="javascript:void(0)"
+              onclick={navigateToRecord}
+            ></lightning-tile>
+            <dl class="slds-dl_horizontal">
+              <template for:each={rec.info} for:item="inf">
+                <dt class="slds-dl_horizontal__label" key={inf.label}>
+                  <p class="slds-truncate" title={inf.label}>{inf.label}:</p>
+                </dt>
+                <dd
+                  class="slds-dl_horizontal__detail slds-tile__meta"
+                  key={inf.label}
+                >
+                  <template lwc:if={inf.checkbox}>
+                    <div class="slds-checkbox slds-truncate">
+                      <input
+                        type="checkbox"
+                        name={inf.label}
+                        id="checkbox-unique-id-81"
+                        value="checkbox-unique-id-81"
+                        checked={inf.value}
+                        disabled
+                      />
+                      <label
+                        class="slds-checkbox__label"
+                        for="checkbox-unique-id-81"
+                        disabled
+                      >
+                        <span class="slds-checkbox_faux" disabled></span>
+                      </label>
+                    </div>
+                  </template>
+                  <template lwc:else>
+                    <p class="slds-truncate" title={inf.label}>{inf.value}</p>
+                  </template>
+                </dd>
+              </template>
+            </dl>
+          </div>
+        </template>
+        <lightning-modal-footer lwc:if={footerVisible}>
+          <div class="slds-grid slds-grid_align-spread">
+            <template
+              lwc:if={viewPrevVisible}
+              class="slds-col slds-col_bump-left"
+            >
+              <lightning-button onclick={handlePrevious} label="Previous">
+              </lightning-button>
+            </template>
+            <template lwc:else class="slds-col slds-col_bump-left">
+              <span></span>
+            </template>
+            <template
+              lwc:if={viewNextVisible}
+              class="slds-col slds-float_right"
+            >
+              <lightning-button onclick={handleNext} label="Next">
+              </lightning-button>
+            </template>
+          </div>
+        </lightning-modal-footer>
+      </div>
+    </lightning-card>
+  </template>
+  <template lwc:else>
+    <article class="slds-card slds-m-bottom_small">
+      <div class="slds-align_absolute-center" style="height: 4rem">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </article>
+  </template>
+</template>

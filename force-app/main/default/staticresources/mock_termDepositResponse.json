@@ -1,0 +1,12 @@
+{
+  "accounts": [
+    {
+      "accountName": "Denis Lai",
+      "accountNumber": "403456789",
+      "productCode": "CDA",
+      "accountBalance": "50.01",
+      "accountLimit": "1000",
+      "status": "Active"
+    }
+  ]
+}

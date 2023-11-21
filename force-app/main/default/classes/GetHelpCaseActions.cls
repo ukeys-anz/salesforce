@@ -27,6 +27,7 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
   public static final String PAY_TO_DISPUTE_PAYMENTID_PREFIX = 'MPS';
+  public static final String PAY_TO_SUBJECT_PREFIX = 'PayTo';
 
   public static Group accountClosureQueue = CommonUtil.getQueueByName(
     'Account_Closure_Queue'
@@ -38,6 +39,10 @@ public with sharing class GetHelpCaseActions {
 
   public static Group cadReferralQueue = CommonUtil.getQueueByName(
     'CAD_Credit_Referral_Case_Queue'
+  );
+
+  public static Group digitalFraudQueue = CommonUtil.getQueueByName(
+    'Digital_Fraud_Queue'
   );
 
   /**
@@ -279,15 +284,16 @@ public with sharing class GetHelpCaseActions {
   public static void populateDisputeCaseSubject(Case record) {
     // For dispute cases, subject will be text comprising "<Record Type Name> - <Dispute Reason>
     if (String.isNotBlank(record.Dispute_Reason__c)) {
-      record.Subject =
-        Schema.getGlobalDescribe()
-          .get('Case')
-          .getDescribe()
-          .getRecordTypeInfosById()
-          .get(record.RecordTypeId)
-          .getName() +
-        ' - ' +
-        record.Dispute_Reason__c;
+      String caseSubjectPrefix = record.Is_PayTo_Dispute__c
+        ? PAY_TO_SUBJECT_PREFIX
+        : Schema.getGlobalDescribe()
+            .get('Case')
+            .getDescribe()
+            .getRecordTypeInfosById()
+            .get(record.RecordTypeId)
+            .getName();
+
+      record.Subject = caseSubjectPrefix + ' - ' + record.Dispute_Reason__c;
     }
   }
 
@@ -1024,6 +1030,19 @@ public with sharing class GetHelpCaseActions {
         caseRecord.Is_PayTo_Dispute__c = caseRecord.Payment_ID__c.startsWith(
           PAY_TO_DISPUTE_PAYMENTID_PREFIX
         );
+      }
+    }
+  }
+
+  /**
+   * @description Handles populating fields and assigning ownership for BOH related fraud cases
+   * @param records Case records from trigger
+   */
+  public static void handleBOHFraudCaseCreation(List<Case> records) {
+    for (Case c : records) {
+      if (c.BOH_Fraud_Case__c) {
+        c.Sub_Type__c = 'Home Loan document verification';
+        c.OwnerId = digitalFraudQueue.Id;
       }
     }
   }

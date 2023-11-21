@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -61,10 +60,10 @@
                 <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>leftsidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>initiateInteraction</componentName>
@@ -118,6 +117,12 @@
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
                 <identifier>force_detailPanel</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>verifiedContactDetails</componentName>
+                <identifier>c_verifiedContactDetails</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -198,6 +203,10 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectApiName</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
                 <componentName>cfaasFilesRelatedList</componentName>
                 <identifier>c_cfaasFilesRelatedList</identifier>
                 <visibilityRule>
@@ -220,10 +229,16 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>CustomerCommRecord</componentName>
+                <identifier>c_CustomerCommRecord</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>leftsidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentName>personAccountFinancialDetails</componentName>
@@ -255,14 +270,18 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>showLegacyActivityComposer</name>
+                    <value>false</value>
+                </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>rightsidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -410,6 +429,7 @@
                 <identifier>recordAccessLogMonitor</identifier>
             </componentInstance>
         </itemInstances>
+        <name>rightsidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>ANZx Account Record Page</masterLabel>

@@ -5,7 +5,11 @@
     <label>CCRM Banker</label>
     <permissionSets>CCRM_Opportunity_Access</permissionSets>
     <permissionSets>CCRM_User_Base</permissionSets>
+    <permissionSets>Customer_Authentication_PS</permissionSets>
     <permissionSets>force__ActionPlans</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>View_C360_Financial_Accounts</permissionSets>
+    <permissionSets>View_C360_Financial_Summary</permissionSets>
+    <permissionSets>View_Diary_Comment</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

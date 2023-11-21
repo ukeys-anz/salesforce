@@ -1693,7 +1693,7 @@
         <recordType>Lead.CCRM_Lead</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>PersonAccount-Legal Entity Layout</layout>
+        <layout>PersonAccount-Customer View Layout</layout>
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -1723,6 +1723,10 @@
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Message Interaction Layout</layout>
+        <recordType>Interaction.Message</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Interaction-Store Interaction Layout</layout>
@@ -2127,6 +2131,15 @@
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Complaint_Resolution__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

@@ -4,6 +4,11 @@
     <label>CCRM CLO</label>
     <permissionSets>CCRM_Opportunity_Access</permissionSets>
     <permissionSets>CCRM_User_Base</permissionSets>
+    <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__ActionPlans</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <permissionSets>View_C360_Financial_Accounts</permissionSets>
+    <permissionSets>View_C360_Financial_Summary</permissionSets>
+    <permissionSets>View_Diary_Comment</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

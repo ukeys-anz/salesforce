@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR04_Required_to_Close_Complaint</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+NOT( ISNEW() ),
+OR(
+IDR_Complaint__r.RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+IDR_Complaint__r.RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+OR(
+ISPICKVAL(IDR_Complaint__r.Status, &apos;Closed&apos;),
+ISPICKVAL(IDR_Complaint__r.Status, &apos;Provisionally Closed&apos;)
+),
+ISPICKVAL( IDR_Complaint_Remedy__c , &apos;&apos;)
+)</errorConditionFormula>
+    <errorMessage>To close the case or to resolve the case, complaint remedy must be populated</errorMessage>
+</ValidationRule>

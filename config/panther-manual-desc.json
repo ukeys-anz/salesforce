@@ -47,6 +47,7 @@
       "FinServ__Balance__c": "Balance amount in customer's financial account excluding pending transactions",
       "FinServ__CurrentPostedBalance__c": "Balance amount in customer's financial account including pending transactions",
       "FinServ__FinancialAccountNumber__c": "Customer's financial account number",
+      "Account_Number__c": "Customer's financial account number",
       "FinServ__FinancialAccountType__c": "Financial account product type",
       "FinServ__InterestRate__c": "Interest rate used by this financial account",
       "FinServ__JointOwner__c": "Joint owner of the financial account",
@@ -181,12 +182,14 @@
   },
   "objectManualDesc": {
     "Account": "The contact details, and other personal information pertaining to a customer",
+    "Account_Relationship__x": "Customer to account relationship",
     "Access_Request__c": "Holds information related to Privileged Access Management request submissions by users",
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
     "Assessment_Response__c": "Needs Assessment response completed by the loan applicant",
     "BusinessHours": "Specifies the business hours of your support organization.",
     "Campaign": "Represents and tracks a marketing campaign.",
+    "Balance_History__x": "Balance history external object",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
@@ -208,10 +211,13 @@
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
     "CustomerOnboardingApplication__c": "The main record maintaining Salesforce's copy of the state of a prospect's onboarding journey",
     "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
+    "Deposit_Account__x": "External Direct Deposit financial accounts",
+    "Credit_Card__x": "External Credit Card finanial accounts",
     "EmailMessage": "Represents an email in Salesforce.",
     "Entitlement": "Represents the customer support an account or contact is eligible to receive.",
     "Event": "Represents a calendar entry in Salesforce",
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
+    "Financial_Summary_Calculation__e": "Platform event used for financial summary calculation result publishing.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Group": "A set of User records.",
@@ -223,6 +229,7 @@
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
     "Legal_Entity__c": "This object contains multiple entities for opportunity product",
+    "Loan_Account__x": "External Loan financial accounts",
     "Loan_Applicant_Group__c": "High level generalised information relating to a group of applicants",
     "LoanApplicant": "Individualised, personal information captured to identify applicant circumstances and needs",
     "LoanApplicantLiability": "Applicants share of the current homeloan",
@@ -233,6 +240,7 @@
     "Log__c": "The parent log object, which stores logging information on a transaction level.",
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
+    "Merchant_Facility__x": "External Merchant Facility financial accounts",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
@@ -250,6 +258,7 @@
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
     "Task": "A task to remind a user to follow up on something",
     "Twilio_Details__c": "To capture details from Twilio as part of Call and Chat Interaction",
+    "Term_Deposit__x": "External Term Deposit financial accounts",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
     "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
@@ -389,8 +398,10 @@
         "IDR_Pend_Reason__c",
         "IDR_Pended_To__c",
         "IDR_Portfolio_or_Business_Unit__c",
+        "IDR_Review_Outcome__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "Is_Case_Owned_By_CR_Team__c",
         "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
         "Queue__c",
@@ -776,6 +787,7 @@
         "IDR_Issue_Type_2__c",
         "IDR_Issue_Type_3__c",
         "IDR_Masked_CFMS__c",
+        "IDR_Complaint_Resolution_Count__c",
         "IDR_Milestone_Sla__c",
         "IDR_NC_Business_Name__c",
         "IDR_NC_Is_Consent_Obtained__c",
@@ -809,6 +821,7 @@
         "IDR_Systemic_Issue_Description__c",
         "IDR_Third_Issue__c",
         "IDR_Time_To_Escalation__c",
+        "IDR_Total_Financial_Amount__c",
         "IDR_Total_Financial_Compensation__c",
         "IsClosedOnCreate",
         "IsEscalated",
@@ -978,7 +991,8 @@
       ],
       "IA-2530753": [
         "IDR_Product_Family__c",
-        "OnboardingVerificationFailedReason__c"
+        "OnboardingVerificationFailedReason__c",
+        "External_Request_Id__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -1243,6 +1257,19 @@
         "CustomerOnboardingApplication__c"
       ]
     },
+    "Complaint_Resolution__c": {
+      "IA-2468715": [
+        "IDR_Complaint__c",
+        "IDR_Complaint_Remedy__c",
+        "IDR_Complaint_Sub_Remedy__c",
+        "IDR_Duration_of_Remedy__c",
+        "IDR_Financial_Compensation__c",
+        "IDR_Financial_Remedy_Points__c",
+        "IDR_Other_Remedy_Provided__c",
+        "IDR_Provided_details_to_Manufacturer__c"
+      ]
+    },
+
     "Contact": {
       "IA-2468715": [
         "AccountId",
@@ -1434,8 +1461,21 @@
         "District_CTA__c",
         "CPID_CancelFag__c",
         "Last_CHT_Load_Date__c",
-        "Last_CAP_Load_Date__c"
+        "Last_CAP_Load_Date__c",
+        "CPID_Start_Date__c"
       ]
+    },
+    "Customer_Action__c": {
+      "IA-2415840": [
+        "Settlement__c",
+        "Task_Id__c",
+        "Task_Name__c",
+        "Category__c",
+        "Status__c",
+        "Role__c"
+      ],
+      "IA-2530753": ["Created__c", "Completed__c"],
+      "IA-2415998": ["Eligible_to_Complete__c"]
     },
     "CustomerOnboardingApplication__c": {
       "IA-2594111": [
@@ -1662,6 +1702,14 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
+    "Financial_Summary_Calculation__e": {
+      "IA-2530753": [
+        "Last_Calculated_Time__c",
+        "Response_Id__c",
+        "Summary__c",
+        "Summary_Type__c"
+      ]
+    },
     "FinServ__AccountAccountRelation__c": {
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
     },
@@ -1694,7 +1742,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId",
-        "Force_Update__c"
+        "Force_Update__c",
+        "Account_Number__c"
       ],
       "IA-2415720": [
         "BSB__c",
@@ -1867,7 +1916,13 @@
         "Loan_Application__c",
         "Actual_Topics__c",
         "Products__c",
-        "Reason_for_Visit__c"
+        "Reason_for_Visit__c",
+        "Actual_Topic_1__c",
+        "Actual_Topic_2__c",
+        "ReasonforVisit__c",
+        "Product__c",
+        "Actual_Topic_Formula__c",
+        "Reason_for_Visit_Formula__c"
       ]
     },
     "Interaction_Tag__c": {
@@ -1923,18 +1978,33 @@
         "OwnerId"
       ],
       "IA-2453595": [
+        "IDR_Account_Card_Policy_Number_2__c",
+        "IDR_Account_Card_Policy_Number_3__c",
         "IDR_Complaint_Outcome__c",
         "IDR_Complaint_Remedy__c",
+        "IDR_Complaint_Remedy_2__c",
+        "IDR_Complaint_Remedy_3__c",
+        "IDR_Complaint_Sub_Remedy_1__c",
+        "IDR_Complaint_Sub_Remedy_2__c",
+        "IDR_Complaint_Sub_Remedy_3__c",
         "IDR_Customer_Desired_Outcome__c",
         "IDR_Description_of_Issue__c",
         "IDR_Description_of_Outcome__c",
         "IDR_Is_there_another_issue__c",
         "IDR_Issue_Type__c",
+        "IDR_Issue_Type_2__c",
+        "IDR_Issue_Type_3__c",
         "IDR_Non_Financial_Remedy__c",
         "IDR_Possible_Systemic_Issue__c",
+        "IDR_Product_2__c",
+        "IDR_Product_3__c",
         "IDR_REAL_Form_Required__c",
+        "IDR_Second_Issue__c",
+        "IDR_Third_Issue__c",
         "IDR_Status__c",
         "IDR_Sub_Issue_Type__c",
+        "IDR_Subsequent_Issue_2__c",
+        "IDR_Subsequent_Issue_3__c",
         "IDR_Written_Response_Requested__c",
         "IDR_Written_Response_Required__c",
         "IDR_Channel_Received__c",
@@ -2037,6 +2107,7 @@
         "Lead_Owner_Link__c",
         "Lead_Quality__c",
         "Marketing_Consent__c",
+        "ML_DataMigration_Key__c",
         "My_Region_Flag__c",
         "Name",
         "New_to_Bank__c",
@@ -2158,7 +2229,8 @@
       "IA-2530753": [
         "Invitation_Last_Updated_Date__c",
         "Invitation_Expiry_Date__c",
-        "Created_Date__c"
+        "Created_Date__c",
+        "Version__c"
       ],
       "IA-2415984": ["Invitee_Mobile_Number__c", "Inviter_Legal_name__c"]
     },
@@ -2394,6 +2466,7 @@
         "CLP_Credit_Case_Number__c",
         "Customer_Needs__c",
         "Lost_Reason_Detail__c",
+        "ML_DataMigration_Key__c",
         "Other_Source_Detail__c",
         "Won_from_Lost_to__c",
         "Referrer_Name__c",
@@ -2593,6 +2666,17 @@
         "LastModifiedById",
         "LastModifiedDate"
       ]
+    },
+    "Proof_of_Insurance__c": {
+      "IA-2415840": [
+        "External_Id__c",
+        "Mortgage_Contract_ID__c",
+        "Property_ID__c",
+        "Document_Id__c",
+        "Document_File_Version__c",
+        "Settlement_ID__c"
+      ],
+      "IA-2530753": ["Version__c"]
     },
     "qualtrics__Survey_Response__c": {
       "IA-2415840": [
@@ -3035,6 +3119,30 @@
         "RecordsJson__c"
       ]
     },
+    "Settlement__c": {
+      "IA-2415840": ["Settlement_ID__c", "Nominated_Date__c"],
+      "IA-2594111": ["Loan_Application_Number__c"],
+      "IA-2415983": ["Status__c", "Nominated_Account_State__c"],
+      "IA-2530753": [
+        "Created__c",
+        "Last_Modified__c",
+        "Status_Last_Modified_Date__c",
+        "Credit_Assessment_Expiry_date__c",
+        "Type__c",
+        "Owner_Name__c",
+        "Nominated_Account_Version__c",
+        "Repayment_Account_Version__c",
+        "Version__c"
+      ],
+      "IA-2415720": [
+        "Nominated_BSB__c",
+        "Nominated_Account_Number__c",
+        "Repayment_Account_Number__c"
+      ],
+      "IA-2415998": ["Nominated_by__c"],
+      "IA-2427117": ["Repayment_Id__c", "Frequency__c"],
+      "IA-2426363": ["Repayment_BSB__c"]
+    },
     "Task": {
       "IA-2453595": [
         "Action__c",
@@ -3387,7 +3495,827 @@
         "Preferred_Name__c",
         "Relationship_To_Franchise__c",
         "Territory__c"
+      ],
+      "IA-2415860": ["ML_DataMigration_Key__c"]
+    },
+    "Diary_Comment__x": {
+      "IA-2524375": [
+        "Account__c",
+        "Branch_Name__c",
+        "Comment__c",
+        "Credit_Card__c",
+        "Customer_Review__c",
+        "Cycle_Code__c",
+        "Date_Placed__c",
+        "Deposit_Account__c",
+        "Description__c",
+        "Expiry_Date__c",
+        "Loan_Account__c",
+        "Modified_Date__c",
+        "Operator__c",
+        "Permanent__c",
+        "Prompt_Date__c",
+        "Work_Queue__c",
+        "Term_Deposit__c",
+        "Portfolio_Of_Loan__c",
+        "Other_Limits_and_Liabilities__c",
+        "Additional_Information__c"
       ]
+    },
+    "Deposit_Account__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "ANZ_Plus_Identifier__c",
+        "ANZSIC_Code__c",
+        "Balance__c",
+        "Balance_Available__c",
+        "BSB__c",
+        "CPID__c",
+        "Customer__c",
+        "Expiry_Date__c",
+        "Limit__c",
+        "Stop_Pay_Number__c",
+        "Number_of_Signatures__c",
+        "Hard_Hold__c",
+        "Interest_Rate__c",
+        "Overdraft_Limit__c",
+        "Margin__c",
+        "Opened_Date__c",
+        "Overdraft_Reference_Index_Rate__c",
+        "Overdraft_Expiry_Date__c",
+        "Overdraft_Interest_Rate__c",
+        "Overdraft_Interest_Repayment_Frequency__c",
+        "Overdraft_Margin__c",
+        "Overdraft_SAO__c",
+        "Overdraft_TPMI__c",
+        "Pledge__c",
+        "Pledge_Amount__c",
+        "Product_Code__c",
+        "Reference_Index_Rate__c",
+        "Reference_Index_Type__c",
+        "Relationship__c",
+        "Sub_Product_Code__c",
+        "Fluctuating_Seasonal_Start_Date__c",
+        "Fluctuating_Seasonal_Limit__c",
+        "Fluctuating_Seasonal_Expiry_Date__c"
+      ]
+    },
+    "Credit_Card__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "ANZ_Plus_Identifier__c",
+        "Balance__c",
+        "CPID__c",
+        "Credit_Limit__c",
+        "Customer__c",
+        "Interest_Rate__c",
+        "Opened_Date__c",
+        "Overdraft_Limit__c",
+        "Product_Category__c",
+        "Product_Status__c",
+        "Cash_Advance_Rate__c",
+        "Interest_Free_Days__c",
+        "Relationship__c"
+      ]
+    },
+    "Credit_Card_Fee__x": {
+      "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
+    },
+    "CardHolder__x": {
+      "IA-2415720": ["Credit_Card__c", "Card_Number__c", "Cardholder_Name__c"]
+    },
+    "Loan_Account__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "Amount_In_Advance__c",
+        "ANZ_Plus_Identifier__c",
+        "ANZSIC_Code__c",
+        "Balance__c",
+        "Branch_Name__c",
+        "CPID__c",
+        "Customer__c",
+        "Date_Loan_Issued__c",
+        "DLP_Repayment_Account_Number__c",
+        "Expiries__c",
+        "Fully_Drawn__c",
+        "Interest_Charge_Method__c",
+        "Interest_Only_Expiry_Date__c",
+        "Interest_Only_Repayment_Amount__c",
+        "Interest_Only_Start_Date__c",
+        "Interest_Only_Term_Month__c",
+        "Interest_Only_Term_Year__c",
+        "Interest_Rate__c",
+        "Interest_Rate_Fixed_Rate_Expiry_Date__c",
+        "Interest_Rate_Fixed_Rate_Start_Date__c",
+        "Interest_Rate_Fixed_Rate_Term_Month__c",
+        "Interest_Rate_Fixed_Rate_Term_Year__c",
+        "Interest_Rate_Margin__c",
+        "Interest_Rate_Reference_Index_Rate__c",
+        "Interest_Rate_Reference_Index_Type__c",
+        "Interest_Type__c",
+        "IO_Initial_Discount__c",
+        "IO_Initial_Interest_Rate__c",
+        "IO_Interest_Frequency__c",
+        "IO_Interest_Repayment_Account_Number__c",
+        "IO_Next_Repayment_Date__c",
+        "IO_Subsequent_Discount__c",
+        "IO_Subsequent_Interest_Rate__c",
+        "Loan_Term_Month__c",
+        "Loan_Term_Year__c",
+        "Offset_Account_Number__c",
+        "Original_Amount_Financed__c",
+        "PI_Elected_Repayment_Amount__c",
+        "PI_Initial_Repayment_Cycle_Day__c",
+        "PI_Interest_Frequency__c",
+        "PI_Principal_Repayment_End_Date__c",
+        "PI_Principal_Repayment_Start_Date__c",
+        "PI_Repayment_Amount__c",
+        "Product_Code__c",
+        "Progress_Draw_Expiry_Date__c",
+        "Purpose_Code__c",
+        "Redraw_Amount__c",
+        "Redraw_Number_of_Signatories__c",
+        "Redraw_Registration__c",
+        "Relationship__c",
+        "Repayment_Details_Days_Delinquent__c",
+        "Repayment_Details_Interest_Repayments__c",
+        "Repayment_Details_Repayment_Frequency__c",
+        "Repayment_Details_Repayment_Type__c",
+        "SAO__c",
+        "Sub_Product_Code__c",
+        "TPMI__c",
+        "Expires__c",
+        "Times_Past_Due_90_Days__c",
+        "Times_Past_Due_30_Days__c",
+        "Times_Past_Due_120_Days__c",
+        "Times_Past_Due_60_Days__c",
+        "Grace_Days__c"
+      ]
+    },
+    "Term_Deposit__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "ANZSIC_Code__c",
+        "Account_Status__c",
+        "Balance__c",
+        "BSB__c",
+        "CPID__c",
+        "Customer__c",
+        "Date_Closed__c",
+        "Date_Opened__c",
+        "Interest_Rate__c",
+        "Issue_Date__c",
+        "Maturity_Date__c",
+        "Negotiable_Rate__c",
+        "Number_Of_Signatures__c",
+        "Pledge__c",
+        "Pledge_Amount__c",
+        "Previous_Interest_Rate__c",
+        "Relationship__c",
+        "Restraints_Hold__c",
+        "Sub_Product_Code__c",
+        "Term_Months__c",
+        "Term_Years__c",
+        "Stops_Pay__c"
+      ]
+    },
+    "Other_Limits_and_Liabilities__x": {
+      "IA-2415720": [
+        "Account_Number__c",
+        "Account_Status__c",
+        "Branch__c",
+        "CCR__c",
+        "CPID__c",
+        "Customer__c",
+        "Limit__c",
+        "Date_Opened__c"
+      ]
+    },
+    "Facility__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Expiry_Date__c",
+        "Other_Limits_and_Liabilities__c",
+        "Sequence__c",
+        "TPMI_No__c",
+        "TPMI_Sub_No__c",
+        "Type__c"
+      ]
+    },
+    "Merchant_Facility__x": {
+      "IA-2415720": [
+        "Account_Status__c",
+        "Customer__c",
+        "Legal_Name__c",
+        "Merchant_ID__c",
+        "No_of_Terminals__c",
+        "Trading_Name__c",
+        "Turnover_Amount_Last_12_Months__c",
+        "Turnover_Amount_Last_3_Months__c",
+        "Turnover_Amount_Last_6_Months__c",
+        "Account_Number__c",
+        "CAP_Customer_ID__c"
+      ]
+    },
+    "Asset_Finance_ELS__x": {
+      "IA-2415720": [
+        "Account_Status__c",
+        "Account_Number__c",
+        "Amount_In_Arrears__c",
+        "Expires__c",
+        "Int_Rate__c",
+        "Product_Code__c",
+        "Loan_Term__c",
+        "Amount__c",
+        "Balance__c",
+        "Balloon_Amount__c",
+        "Int_Type__c",
+        "Limit__c",
+        "Customer__c",
+        "Total_Number_Of_Repayments__c"
+      ]
+    },
+    "Portfolio_Of_Loan__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "CPID__c",
+        "Customer__c",
+        "Expires__c",
+        "Limit__c",
+        "Loan_Term_Month__c",
+        "Loan_Term_Years__c",
+        "Product_Code__c",
+        "Purpose_Code__c",
+        "Sub_Product_Code__c",
+        "TPMI__c",
+        "Undrawn_Balance__c",
+        "Date_Opened__c",
+        "SAO__c",
+        "Relationship__c"
+      ]
+    },
+    "Account_Relationship__x": {
+      "IA-2415720": [
+        "Deposit_Account__c",
+        "Loan_Account__c",
+        "Related_Party_Names__c",
+        "Relationship__c",
+        "Term_Deposit__c",
+        "Portfolio_Of_Loan__c",
+        "Asset_Finance_AMBIT__c"
+      ]
+    },
+    "Balance_History__x": {
+      "IA-2415720": [
+        "Average_Balance__c",
+        "Deposit_Account__c",
+        "Maximum_Balance__c",
+        "Minimum_Balance__c",
+        "Month__c",
+        "Year__c"
+      ]
+    },
+    "Indemnity_Guarantee__x": {
+      "IA-2415720": [
+        "Account_Name__c",
+        "Account_Number__c",
+        "Account_Status__c",
+        "Limit__c",
+        "Customer__c",
+        "OLL_Type__c",
+        "Opened_Date__c",
+        "Product_Code__c",
+        "Security_Type__c",
+        "Undrawn_Balance__c"
+      ]
+    },
+    "Asset__x": {
+      "IA-2415720": [
+        "Asset_Finance_AMBIT__c",
+        "Amount_Financed__c",
+        "ID__c",
+        "Purchase_Price__c",
+        "Status__c"
+      ]
+    },
+    "Asset_Detail__x": {
+      "IA-2415720": [
+        "Asset_No__c",
+        "Make__c",
+        "Model__c",
+        "Purchase_Price__c",
+        "Serial_No__c",
+        "Year__c",
+        "Asset__c",
+        "ECV__c",
+        "ECV_Date__c",
+        "ECV_Valuer__c"
+      ]
+    },
+    "Asset_Repayment_Detail__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Asset__c",
+        "Frequency__c",
+        "Repayment_Account_Number__c",
+        "Repayment_Type__c",
+        "Start_Date__c",
+        "Total_Number_Of_Repayments__c"
+      ]
+    },
+    "Asset_Finance_AMBIT__x": {
+      "IA-2415720": [
+        "Account_Status__c",
+        "Account_Name__c",
+        "Account_Number__c",
+        "Expires__c",
+        "Int_Rate__c",
+        "Opened_Date__c",
+        "Original_Amount_Financed__c",
+        "Product_Code__c",
+        "Loan_Term_Months__c",
+        "Loan_Term_Years__c",
+        "Balance__c",
+        "Balloon_Payments__c",
+        "Frequency__c",
+        "Int_Type__c",
+        "Limit__c",
+        "Customer__c",
+        "Government_Guarantee__c",
+        "SI__c",
+        "Undrawn_Balance__c",
+        "Amount_in_Arrears__c"
+      ]
+    },
+    "Linked_Account__x": {
+      "IA-2415720": [
+        "Account_Number__c",
+        "Code__c",
+        "Product_Code__c",
+        "Portfolio_Of_Loan__c"
+      ]
+    },
+    "Transaction_History__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Description__c",
+        "Effective_Date__c",
+        "Post_Date__c",
+        "Running_Balance__c",
+        "Source__c",
+        "Type__c",
+        "Time__c",
+        "Deposit_Account__c",
+        "Term_Deposit__c",
+        "Loan_Account__c"
+      ]
+    },
+    "Commercial_Bill__x": {
+      "IA-2415720": [
+        "Account_Number__c",
+        "Account_Status__c",
+        "CAP_Account_Limit__c",
+        "Expires__c",
+        "Facility_Limit__c",
+        "Loan_Term__c",
+        "Loan_Term_Months__c",
+        "Opening_Date__c",
+        "Purpose_Code__c",
+        "Sequence_No__c",
+        "Customer__c"
+      ]
+    },
+    "Linked_Bill__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Bank_Bill_Swap_Reference_Rate__c",
+        "Bill_Type__c",
+        "Commercial_Bill__c",
+        "Expires__c",
+        "Reference_No__c",
+        "Rollover_Date__c",
+        "Rollover_Frequency__c",
+        "Interest_Rate__c"
+      ]
+    },
+    "Commercial_Bill_Fee__x": {
+      "IA-2415720": [
+        "Commercial_Bill__c",
+        "Fee_Amount__c",
+        "Fee_Frequency__c",
+        "Fee_Name__c",
+        "Fee_Rate__c"
+      ]
+    },
+    "Commercial_Bill_Repayment_Detail__x": {
+      "IA-2415720": [
+        "Commercial_Bill__c",
+        "Scheduled_Bill_Reduction_Amount__c",
+        "Scheduled_End_Date__c",
+        "Scheduled_Start_Date__c"
+      ]
+    },
+    "Facility_Fee__x": {
+      "IA-2415720": [
+        "Facility_Limit_Fee__c",
+        "Facility_Limit_Fee_Amount__c",
+        "Facility_Limit_Fee_Frequency__c",
+        "Fee_Charge_Account__c",
+        "Fee_Type__c",
+        "Indemnity_Guarantee__c",
+        "Next_Due_Date__c"
+      ]
+    },
+    "Asset_Detail_ELS__x": {
+      "IA-2415720": [
+        "Asset_Finance_ELS__c",
+        "Asset_No__c",
+        "Make__c",
+        "Model__c",
+        "Purchase_Price__c",
+        "Serial_No__c",
+        "Year__c"
+      ]
+    },
+    "Active_Indemnity_Guarantee__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Expiry_Date__c",
+        "Indemnity_Guarantee__c",
+        "Purpose_Code__c",
+        "Serial_Number__c",
+        "Start_Date__c",
+        "Status__c",
+        "Type__c"
+      ]
+    },
+    "Inactive_Indemnity_Guarantee__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Expiry_Date__c",
+        "Indemnity_Guarantee__c",
+        "Purpose_Code__c",
+        "Serial_Number__c",
+        "Start_Date__c",
+        "Status__c",
+        "Type__c"
+      ]
+    },
+    "Guarantee_Fee_Detail__x": {
+      "IA-2415720": [
+        "Active_Indemnity_Guarantee__c",
+        "Fee_Charge_Account__c",
+        "Fee_Type__c",
+        "Inactive_Indemnity_Guarantee__c",
+        "Next_Due_Date__c",
+        "Per_Bank_G_tee_Fee__c",
+        "Per_Bank_G_tee_Fee_Amount__c",
+        "Per_Bank_G_tee_Fee_Frequency__c"
+      ]
+    },
+    "Favourees__x": {
+      "IA-2415720": [
+        "ABN__c",
+        "Active_Indemnity_Guarantee__c",
+        "Inactive_Indemnity_Guarantee__c",
+        "Name__c"
+      ]
+    }
+  },
+  "lineageInformation": {
+    "COBAddress__c": {
+      "AddressBuildingName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: building_name",
+      "AddressCity__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: city",
+      "AddressDeliveryId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: delivery_id",
+      "AddressLatitude__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_QASResult :: latitude",
+      "AddressLevelNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: level_number",
+      "AddressLongitude__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_QASResult :: longitude",
+      "AddressPostcode__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: post_code",
+      "AddressQASId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_QASResult :: qas_id",
+      "AddressResidenceNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: residence_number",
+      "AddressResidenceType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_QASResult :: residence_type",
+      "AddressState__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: state",
+      "AddressStreetName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: street_name",
+      "AddressStreetNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: street_number",
+      "AddressStreetSuffix__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: street_suffix",
+      "AddressStreetType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: street_type",
+      "AddressType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: current_address",
+      "CustomerOnboardingApplication__c": "",
+      "PersonaAddressType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address",
+      "PersonaId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: persona_id",
+      "PostalNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_QASResult :: delivery_id",
+      "PostalType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: box_id",
+      "QASAddress__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address_ManualEntry :: station_info",
+      "SubmittedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Address :: create_time"
+    },
+    "COBCitizenship__c": {
+      "CustomerOnboardingApplication__c": "",
+      "PersonaCitizenship__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Citizenship",
+      "PersonaId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: persona_id",
+      "RegionCode__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Citizenship :: region_code",
+      "RegionName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Citizenship :: region_name",
+      "Removed__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Citizenship :: removed",
+      "SubmittedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Citizenship :: create_time"
+    },
+    "COBIDVSearchResult__c": {
+      "CustomerOnboardingApplication__c": "",
+      "MatchIndicator__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult_DataSourceSearchResult :: match_indicator",
+      "PersonaDataSource__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult_DataSourceSearchResult :: match_indicator",
+      "PersonaId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: persona_id",
+      "SearchName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult_DataSourceSearchResult :: search_name",
+      "SearchResultDetail__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult_DataSourceSearchResult :: service_result_detail",
+      "SubmittedAt__c": ""
+    },
+    "COBPrimaryIDDocument__c": {
+      "CountryOfIssueOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_PassportDetails_OCR :: country_of_issue",
+      "CountryOfIssueOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_PassportDetails_OCR :: country_of_issue",
+      "CountryOfIssue__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_PassportDetails :: country_of_issue",
+      "CustomerOnboardingApplication__c": "",
+      "DaonDocumentId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: daon_document_id",
+      "DaonLocationUri__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: daon_location_uri",
+      "DateOfBirthOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: date_of_birth",
+      "DateOfBirthOCRMatch__c": "",
+      "DateOfBirthOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: date_of_birth",
+      "DateOfBirth__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: date_of_birth",
+      "ExpiryDateOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: expiry_date",
+      "ExpiryDateOCRMatch__c": "",
+      "ExpiryDateOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: expiry_date",
+      "ExpiryDate__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: expiry_date",
+      "FirstNameOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: first_name",
+      "FirstNameOCRMatch__c": "",
+      "FirstNameOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: first_name",
+      "FirstName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: first_name",
+      "IdDocumentType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: primary_id_type",
+      "LastNameOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: last_name",
+      "LastNameOCRMatch__c": "",
+      "LastNameOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: last_name",
+      "LastName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: last_name",
+      "LicenceCardNumberOCRClientTransform__c": "",
+      "LicenceCardNumberOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: licence_card_number_token",
+      "LicenceCardNumberOCRMatch__c": "",
+      "LicenceCardNumberOCRServerTransform__c": "",
+      "LicenceCardNumberOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: licence_card_number_token",
+      "LicenceCardNumberTransform__c": "",
+      "LicenceCardNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: licence_card_number_token",
+      "LicenceNumberOCRClientTransform__c": "",
+      "LicenceNumberOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: licence_number_token",
+      "LicenceNumberOCRMatch__c": "",
+      "LicenceNumberOCRServerTransform__c": "",
+      "LicenceNumberOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: licence_number_token",
+      "LicenceNumberTransform__c": "",
+      "LicenceNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: licence_number_token",
+      "MiddleNamesOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: middle_names",
+      "MiddleNamesOCRMatch__c": "",
+      "MiddleNamesOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: middle_names",
+      "MiddleNames__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: middle_names",
+      "PassportNumberOCRClientTransform__c": "",
+      "PassportNumberOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: passport_number_token",
+      "PassportNumberOCRMatch__c": "",
+      "PassportNumberOCRServerTransform__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: passport_number_token",
+      "PassportNumberOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR :: passport_number_token",
+      "PassportNumberTransform__c": "",
+      "PassportNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_PassportDetails :: passport_number_token",
+      "PersonaDocumentId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: primary_id_type",
+      "PersonaId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: persona_id",
+      "StateOfIssueOCRClient__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR ::  state_of_issue",
+      "StateOfIssueOCRServer__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails_OCR ::  state_of_issue",
+      "StateOfIssue__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails ::  state_of_issue",
+      "SubmittedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_AustralianDriverLicenceDetails :: create_time"
+    },
+    "COBTaxResidency__c": {
+      "CustomerOnboardingApplication__c": "",
+      "OmissionReasonCode__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency_OmissionReason: :: reason_code",
+      "OmissionReasonDescription__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency_OmissionReason: :: reason_description",
+      "PersonaId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: persona_id",
+      "PersonaTaxResidency__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
+      "RegionCode__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency :: region_code",
+      "RegionName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency :: region_name",
+      "Removed__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency :: removed",
+      "SubmittedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency :: create_time",
+      "TaxIdentificationNumberTransform__c": "",
+      "TaxIdentificationNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency%2Eoneof_disclosure :: tax_identification_number_token"
+    },
+    "CustomerOnboardingApplication__c": {
+      "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
+      "CXOnboardingAction__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: cx_onboarding_action",
+      "CXOnboardingStageChangeReason__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: cx_onboarding_stage_change_reason",
+      "CXOnboardingStage__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: cx_onboarding_stage",
+      "DaonEnrolmentId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: enrolment_id",
+      "DaonEnrolmentTime__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: enrolment_time",
+      "DaonEnrolmentType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: enrolment_type",
+      "DaonEvaluationResultURI__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: evaluation_result_uri",
+      "DaonFalseMatchRate__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: false_match_rate",
+      "DaonIdCheckPerformAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: false_match_rate",
+      "DaonIdCheckResult__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: idcheck_result",
+      "DaonIdEvaluationSuccessful__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: successful",
+      "DaonScore__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: score",
+      "DaonThreshold__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types ::CustomerOnboardingState_DaonIDEvaluationResult :: threshold",
+      "ElectronicVerificationAcknowledgedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EVAcknowledgement :: create_time",
+      "ElectronicVerificationAcknowledged__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EVAcknowledgement :: acknowledgement",
+      "EmploymentStatus__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Occupation :: employment_status",
+      "EquifaxAECResult__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult :: aec_result",
+      "EquifaxAttemptCount__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult :: attempt_count",
+      "EquifaxCRAResult__c ": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult :: cra_result",
+      "EquifaxCheckPerformAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult :: create_time",
+      "EquifaxDVSResult__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult :: dvs_result",
+      "EquifaxEnquiryId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult :: enquiry_id",
+      "EquifaxMatrixURI__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult :: matrix_uri",
+      "EquifaxOverallResult__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_EquifaxEVResult :: overall_result",
+      "EventTimestamp__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: create_time",
+      "ForeignTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: foreign_tax_resident",
+      "OCVId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: ocv_id",
+      "OccupationCode__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Occupation :: occupation_code",
+      "OccupationDescription__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Occupation :: occupation_description",
+      "OccupationSubmittedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_Occupation :: create_time",
+      "OccurredAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: create_time",
+      "OnboardingAttemptCount__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: onboarding_attempt_count",
+      "OnboardingEvent__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState",
+      "PersonId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: person_id",
+      "PersonaId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: persona_id",
+      "PreferredName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_SecurityDetails :: preferred_name",
+      "SecurityDetailsSubmittedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_SecurityDetails :: create_time",
+      "SecurityEmail__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_SecurityDetails :: email",
+      "SecurityMobile__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_SecurityDetails :: mobile",
+      "SelfieRegisteredAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_SelfieDetails :: create_time",
+      "SelfieRegistrationChallengeId__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_SelfieDetails :: registration_challenge_id",
+      "TaxResidencyStatusDeclaredAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency :: create_time",
+      "TncAcceptedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TermsAndConditionsAcceptance :: create_time",
+      "TncName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TermsAndConditionsAcceptance :: tnc_name",
+      "TncVersion__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TermsAndConditionsAcceptance :: tnc_version",
+      "VerificationType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: verification_type"
+    }
+  },
+  "lineageTransformInformation": {
+    "COBAddress__c": {
+      "AddressBuildingName__c": "1:1 Transformation",
+      "AddressCity__c": "1:1 Transformation",
+      "AddressDeliveryId__c": "1:1 Transformation",
+      "AddressLatitude__c": "1:1 Transformation",
+      "AddressLevelNumber__c": "1:1 Transformation",
+      "AddressLongitude__c": "1:1 Transformation",
+      "AddressPostcode__c": "1:1 Transformation",
+      "AddressQASId__c": "1:1 Transformation",
+      "AddressResidenceNumber__c": "1:1 Transformation",
+      "AddressResidenceType__c": "1:1 Transformation",
+      "AddressState__c": "1:1 Transformation",
+      "AddressStreetName__c": "1:1 Transformation",
+      "AddressStreetNumber__c": "1:1 Transformation",
+      "AddressStreetSuffix__c": "1:1 Transformation",
+      "AddressStreetType__c": "1:1 Transformation",
+      "AddressType__c": "1:1 Transformation",
+      "CustomerOnboardingApplication__c": "Concatenation of persona_id and current_address",
+      "PersonaAddressType__c": "1:1 Transformation",
+      "PersonaId__c": "1:1 Transformation",
+      "PostalNumber__c": "1:1 Transformation",
+      "PostalType__c": "1:1 Transformation",
+      "QASAddress__c": "1:1 Transformation",
+      "SubmittedAt__c": "1:1 Transformation"
+    },
+    "COBCitizenship__c": {
+      "CustomerOnboardingApplication__c": "Look up relationship established using Persona Id, no corresponding field from Customer Onboarding State Cloud Event",
+      "PersonaCitizenship__c": "Concatenation of persona_id and region_code",
+      "PersonaId__c": "1:1 Transformation",
+      "RegionCode__c": "1:1 Transformation",
+      "RegionName__c": "1:1 Transformation",
+      "Removed__c": "1:1 Transformation",
+      "SubmittedAt__c": "1:1 Transformation"
+    },
+    "COBIDVSearchResult__c": {
+      "CustomerOnboardingApplication__c": "Look up relationship established using Persona Id, no corresponding field from Customer Onboarding State Cloud Event",
+      "MatchIndicator__c": "1:1 Transformation",
+      "PersonaDataSource__c": "Concatenation of persona_id and search_name",
+      "PersonaId__c": "1:1 Transformation",
+      "SearchName__c": "1:1 Transformation",
+      "SearchResultDetail__c": "1:1 Transformation",
+      "SubmittedAt__c": ""
+    },
+    "COBPrimaryIDDocument__c": {
+      "CountryOfIssueOCRClient__c": "1:1 Transformation",
+      "CountryOfIssueOCRServer__c": "1:1 Transformation",
+      "CountryOfIssue__c": "1:1 Transformation",
+      "CustomerOnboardingApplication__c": "Look up relationship established using Persona Id, no corresponding field from Customer Onboarding State Cloud Event",
+      "DaonDocumentId__c": "1:1 Transformation",
+      "DaonLocationUri__c": "1:1 Transformation",
+      "DateOfBirthOCRClient__c": "1:1 Transformation",
+      "DateOfBirthOCRMatch__c": "",
+      "DateOfBirthOCRServer__c": "1:1 Transformation",
+      "DateOfBirth__c": "1:1 Transformation",
+      "ExpiryDateOCRClient__c": "1:1 Transformation",
+      "ExpiryDateOCRMatch__c": "",
+      "ExpiryDateOCRServer__c": "1:1 Transformation",
+      "ExpiryDate__c": "1:1 Transformation",
+      "FirstNameOCRClient__c": "1:1 Transformation",
+      "FirstNameOCRMatch__c": "",
+      "FirstNameOCRServer__c": "1:1 Transformation",
+      "FirstName__c": "1:1 Transformation",
+      "IdDocumentType__c": "1:1 Transformation",
+      "LastNameOCRClient__c": "1:1 Transformation",
+      "LastNameOCRMatch__c": "",
+      "LastNameOCRServer__c": "1:1 Transformation",
+      "LastName__c": "1:1 Transformation",
+      "LicenceCardNumberOCRClientTransform__c": "Always set to 'fpe.personal-identifier'",
+      "LicenceCardNumberOCRClient__c": "1:1 Transformation",
+      "LicenceCardNumberOCRMatch__c": "",
+      "LicenceCardNumberOCRServerTransform__c": "Always set to 'fpe.personal-identifier'",
+      "LicenceCardNumberOCRServer__c": "1:1 Transformation",
+      "LicenceCardNumberTransform__c": "Always set to 'fpe.personal-identifier'",
+      "LicenceCardNumber__c": "1:1 Transformation",
+      "LicenceNumberOCRClientTransform__c": "Always set to 'fpe.personal-identifier'",
+      "LicenceNumberOCRClient__c": "1:1 Transformation",
+      "LicenceNumberOCRMatch__c": "",
+      "LicenceNumberOCRServerTransform__c": "Always set to 'fpe.personal-identifier'",
+      "LicenceNumberOCRServer__c": "1:1 Transformation",
+      "LicenceNumberTransform__c": "Always set to 'fpe.personal-identifier'",
+      "LicenceNumber__c": "1:1 Transformation",
+      "MiddleNamesOCRClient__c": "1:1 Transformation",
+      "MiddleNamesOCRMatch__c": "",
+
+      "MiddleNamesOCRServer__c": "1:1 Transformation",
+      "MiddleNames__c": "1:1 Transformation",
+      "PassportNumberOCRClientTransform__c": "Always set to 'fpe.personal-identifier'",
+      "PassportNumberOCRClient__c": "1:1 Transformation",
+      "PassportNumberOCRMatch__c": "",
+      "PassportNumberOCRServerTransform__c": "Always set to 'fpe.personal-identifier'",
+      "PassportNumberOCRServer__c": "1:1 Transformation",
+      "PassportNumberTransform__c": "Always set to 'fpe.personal-identifier'",
+      "PassportNumber__c": "1:1 Transformation",
+      "PersonaDocumentId__c": "Concatenation of persona_id and daon_document_id",
+      "PersonaId__c": "1:1 Transformation",
+      "StateOfIssueOCRClient__c": "1:1 Transformation",
+      "StateOfIssueOCRServer__c": "1:1 Transformation",
+      "StateOfIssue__c": "1:1 Transformation",
+      "SubmittedAt__c": "1:1 Transformation"
+    },
+    "COBTaxResidency__c": {
+      "CustomerOnboardingApplication__c": "Look up relationship established using Persona Id, no corresponding field from Customer Onboarding State Cloud Event",
+      "OmissionReasonCode__c": "1:1 Transformation",
+      "OmissionReasonDescription__c": "1:1 Transformation",
+      "PersonaId__c": "1:1 Transformation",
+      "PersonaTaxResidency__c": "Concatenation of persona_id and australian_tax_resident",
+      "RegionCode__c": "1:1 Transformation",
+      "RegionName__c": "1:1 Transformation",
+      "Removed__c": "1:1 Transformation",
+      "SubmittedAt__c": "1:1 Transformation",
+      "TaxIdentificationNumberTransform__c": "Always set to 'fpe.personal-identifier'",
+      "TaxIdentificationNumber__c": "1:1 Transformation"
+    },
+    "CustomerOnboardingApplication__c": {
+      "AustralianTaxResident__c": "1:1 Transformation",
+      "CXOnboardingAction__c": "1:1 Transformation",
+      "CXOnboardingStageChangeReason__c": "1:1 Transformation",
+      "CXOnboardingStage__c": "1:1 Transformation",
+      "DaonEnrolmentId__c": "1:1 Transformation",
+      "DaonEnrolmentTime__c": "1:1 Transformation",
+      "DaonEnrolmentType__c": "1:1 Transformation",
+      "DaonEvaluationResultURI__c": "1:1 Transformation",
+      "DaonFalseMatchRate__c": "1:1 Transformation",
+      "DaonIdCheckPerformAt__c": "1:1 Transformation",
+      "DaonIdCheckResult__c": "1:1 Transformation",
+      "DaonIdEvaluationSuccessful__c": "1:1 Transformation",
+      "DaonScore__c": "1:1 Transformation",
+      "DaonThreshold__c": "1:1 Transformation",
+      "ElectronicVerificationAcknowledgedAt__c": "1:1 Transformation",
+      "ElectronicVerificationAcknowledged__c": "1:1 Transformation",
+      "EmploymentStatus__c": "1:1 Transformation",
+      "EquifaxAECResult__c": "1:1 Transformation",
+      "EquifaxAttemptCount__c": "1:1 Transformation",
+      "EquifaxCRAResult__c ": "1:1 Transformation",
+      "EquifaxCheckPerformAt__c": "1:1 Transformation",
+      "EquifaxDVSResult__c": "1:1 Transformation",
+      "EquifaxEnquiryId__c": "1:1 Transformation",
+      "EquifaxMatrixURI__c": "1:1 Transformation",
+      "EquifaxOverallResult__c": "1:1 Transformation",
+      "EventTimestamp__c": "1:1 Transformation",
+      "ForeignTaxResident__c": "1:1 Transformation",
+      "OCVId__c": "1:1 Transformation",
+      "OccupationCode__c": "1:1 Transformation",
+      "OccupationDescription__c": "1:1 Transformation",
+      "OccupationSubmittedAt__c": "1:1 Transformation",
+      "OccurredAt__c": "1:1 Transformation",
+      "OnboardingAttemptCount__c": "1:1 Transformation",
+      "OnboardingEvent__c": "1:1 Transformation",
+      "PersonId__c": "1:1 Transformation",
+      "PersonaId__c": "1:1 Transformation",
+      "PreferredName__c": "1:1 Transformation",
+      "SecurityDetailsSubmittedAt__c": "1:1 Transformation",
+      "SecurityEmail__c": "1:1 Transformation",
+      "SecurityMobile__c": "1:1 Transformation",
+      "SelfieRegisteredAt__c": "1:1 Transformation",
+      "SelfieRegistrationChallengeId__c": "1:1 Transformation",
+      "TaxResidencyStatusDeclaredAt__c": "1:1 Transformation",
+      "TncAcceptedAt__c": "1:1 Transformation",
+      "TncName__c": "1:1 Transformation",
+      "TncVersion__c": "1:1 Transformation",
+      "VerificationType__c": "1:1 Transformation"
     }
   },
   "systemObjects": {
