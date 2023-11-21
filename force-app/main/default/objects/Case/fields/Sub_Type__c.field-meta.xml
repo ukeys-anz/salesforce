@@ -388,14 +388,14 @@
                 <label>Legal Name Change</label>
             </value>
             <value>
-                <fullName>Direct Debit or Recurring Payments stop request</fullName>
+                <fullName>Stop request - Direct Debit</fullName>
                 <default>false</default>
-                <label>Direct Debit or Recurring Payments stop request</label>
+                <label>Stop request - Direct Debit</label>
             </value>
             <value>
-                <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
+                <fullName>13 month statement - Direct Debit and Recurring Payments</fullName>
                 <default>false</default>
-                <label>Direct Debit or Recurring Payments 13 month statement</label>
+                <label>13 month statement - Direct Debit and Recurring Payments</label>
             </value>
             <value>
                 <fullName>Large Value Transfer requests</fullName>
@@ -655,11 +655,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
-            <valueName>Direct Debit or Recurring Payments stop request</valueName>
+            <valueName>Stop request - Direct Debit</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
-            <valueName>Direct Debit or Recurring Payments 13 month statement</valueName>
+            <valueName>13 month statement - Direct Debit and Recurring Payments</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
