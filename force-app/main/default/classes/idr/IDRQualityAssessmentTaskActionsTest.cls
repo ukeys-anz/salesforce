@@ -156,7 +156,7 @@ public class IDRQualityAssessmentTaskActionsTest {
       Set<Id> stAssessmentIds = new Set<Id>();
       for (Quality_Assessment__c oAssessment : lstAssessments) {
         oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
-        oAssessment.Team_Manager_Response__c = '';
+        oAssessment.Case_Manager__c = null;
 
         stAssessmentIds.add(oAssessment.Id);
       }
@@ -169,12 +169,11 @@ public class IDRQualityAssessmentTaskActionsTest {
       }
       System.assert(
         fExceptionThrown,
-        'Update should\'ve failed for missing Team_Manager_Response__c.'
+        'Update should\'ve failed for missing Case_Manager__c.'
       );
 
       for (Quality_Assessment__c oAssessment : lstAssessments) {
-        oAssessment.Team_Manager_Response__c = 'Accepted by TM';
-        oAssessment.Team_Manager_Comments__c = 'LGTM';
+        oAssessment.Case_Manager__c = UserInfo.getUserId();
       }
       // try again
       update lstAssessments;
