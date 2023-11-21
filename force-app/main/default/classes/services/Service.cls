@@ -728,6 +728,23 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param creditId credit id from credit assessment
+   * @param assessmentId id of assessment submitted for finalisation
+   * @param ocvId customer ocv id
+   * @param referralOutcomeCode outcome code to delete
+   * @return HttpCalloutResponse api response
+   * @description removes the referral outcome to be updated
+   */
+  public virtual HttpCalloutResponse deleteReferralOutcome(
+    String creditId,
+    String assessmentId,
+    String ocvId,
+    String referralOutcomeCode
+  ) {
+    return null;
+  }
+
+  /**
    * @param requestBody body of request to send
    * @param ocvId ocv id
    * @return `HttpCalloutResponse` the api response

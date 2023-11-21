@@ -4409,6 +4409,61 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Product_Category__c</picklist>
+        <values>
+            <fullName>ANZ Plus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Asset finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cheque%2FSavings accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foreign exchange</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance%2Fwealth products</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchants</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not product related</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
             <fullName>1</fullName>

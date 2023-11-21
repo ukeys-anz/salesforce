@@ -1,0 +1,80 @@
+{
+  "records": [
+    {
+      "info": [
+        {
+          "label": "Email Address",
+          "checkbox": false,
+          "value": "test@test2.com",
+          "url": "/lightning/r/ContactPointEmail/9VlBm000000145hKAC/view"
+        },
+        {
+          "label": "Verification Date",
+          "checkbox": false,
+          "value": "23/10/2023"
+        },
+        { "label": "Verification Status", "checkbox": true, "value": true }
+      ],
+      "Id": "9VlBm000000145hKAC",
+      "UsageType": "",
+      "rowTitle": "Security Email"
+    },
+    {
+      "info": [
+        {
+          "label": "Email Address",
+          "checkbox": false,
+          "value": "test@test1.com",
+          "url": "/lightning/r/ContactPointEmail/9VlBm000000O45hKAC/view"
+        },
+        {
+          "label": "Verification Date",
+          "checkbox": false,
+          "value": "22/10/2023"
+        },
+        { "label": "Verification Status", "checkbox": true, "value": true }
+      ],
+      "Id": "9VlBm000000O45hKAC",
+      "UsageType": "",
+      "rowTitle": "Security Email"
+    },
+    {
+      "info": [
+        {
+          "label": "Telephone Number",
+          "checkbox": false,
+          "value": "0440000000",
+          "url": "/lightning/r/ContactPointPhone/0OwBm000000ZWhlKAG/view"
+        },
+        {
+          "label": "Verification Date",
+          "checkbox": false,
+          "value": "23/10/2023"
+        },
+        { "label": "Verification Status", "checkbox": true, "value": true }
+      ],
+      "Id": "0OwBm000000ZWhlKAG",
+      "UsageType": "",
+      "rowTitle": "Security Mobile"
+    },
+    {
+      "info": [
+        {
+          "label": "Telephone Number",
+          "checkbox": false,
+          "value": "0440000001",
+          "url": "/lightning/r/ContactPointPhone/0OwBm000001ZWhlKAG/view"
+        },
+        {
+          "label": "Verification Date",
+          "checkbox": false,
+          "value": "22/10/2023"
+        },
+        { "label": "Verification Status", "checkbox": true, "value": true }
+      ],
+      "Id": "0OwBm000001ZWhlKAG",
+      "UsageType": "",
+      "rowTitle": "Security Mobile"
+    }
+  ]
+}

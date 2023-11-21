@@ -3,8 +3,9 @@
     <fullName>VR06_Restrict_Level_IDR_Users</fullName>
     <active>true</active>
     <description>If user is of Level 2 or Level 3 restrict access to edit fields if the user is not the owner or manager of the record owner</description>
-    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp; 
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
 !ISNEW() &amp;&amp; 
+(!isChanged(IDR_Complaint_Resolution_Count__c)) &amp;&amp;
 ($Permission.IDR_Level_2 || $Permission.IDR_Level_3)&amp;&amp;
 (RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; ||
   RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp;

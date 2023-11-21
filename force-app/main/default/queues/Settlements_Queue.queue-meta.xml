@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Settlement Queue</name>
+    <name>Settlements Queue</name>
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <queueMembers>
         <roles>

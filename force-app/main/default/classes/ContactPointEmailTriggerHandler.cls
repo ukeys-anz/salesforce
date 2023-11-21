@@ -12,12 +12,14 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
     CCRMContactPointEmailActions.copyParentIdToCustomerName(records);
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      CCRMContactPointEmailActions.ContactPointEmailWrapper cpeWrap = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
-      cpeWrap = CCRMContactPointEmailActions.getExistingOrProspectCPE(records);
+      CCRMContactPointEmailActions.ContactPointEmailWrapper existingOrProspectAccountsCPE = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
+      existingOrProspectAccountsCPE = CCRMContactPointEmailActions.getExistingOrProspectCPE(
+        records
+      );
 
       List<ContactPointEmail> conPointEmailList = new List<ContactPointEmail>();
-      conPointEmailList.addAll(cpeWrap.prosCPE);
-      conPointEmailList.addAll(cpeWrap.activeCPE);
+      conPointEmailList.addAll(existingOrProspectAccountsCPE.prospectCPE);
+      conPointEmailList.addAll(existingOrProspectAccountsCPE.existingCPE);
 
       CCRMContactPointEmailActions.validateOrgIndividualEmailsLinking(records);
 
@@ -36,17 +38,19 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
    */
   public override void onAfterInsert() {
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      CCRMContactPointEmailActions.ContactPointEmailWrapper cpeWrap = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
-      cpeWrap = CCRMContactPointEmailActions.getExistingOrProspectCPE(records);
+      CCRMContactPointEmailActions.ContactPointEmailWrapper existingOrProspectAccountsCPE = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
+      existingOrProspectAccountsCPE = CCRMContactPointEmailActions.getExistingOrProspectCPE(
+        records
+      );
 
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        cpeWrap.prosCPE,
+        existingOrProspectAccountsCPE.prospectCPE,
         null,
         true
       );
 
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        cpeWrap.activeCPE,
+        existingOrProspectAccountsCPE.existingCPE,
         null,
         false
       );
@@ -58,38 +62,40 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CCRMContactPointEmailActions.ContactPointEmailWrapper cpeWrap = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
-    cpeWrap = CCRMContactPointEmailActions.getExistingOrProspectCPE(records);
+    CCRMContactPointEmailActions.ContactPointEmailWrapper existingOrProspectAccountsCPE = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
+    existingOrProspectAccountsCPE = CCRMContactPointEmailActions.getExistingOrProspectCPE(
+      records
+    );
 
     CCRMContactPointActions.updateContactPoints(records);
 
     CCRMContactPointEmailActions.unlinkProspectParentOnDeactivation(
-      cpeWrap.prosCPE,
+      existingOrProspectAccountsCPE.prospectCPE,
       (Map<Id, ContactPointEmail>) oldMap
     );
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
       List<ContactPointEmail> conPointEmailList = new List<ContactPointEmail>();
-      conPointEmailList.addAll(cpeWrap.prosCPE);
-      conPointEmailList.addAll(cpeWrap.activeCPE);
+      conPointEmailList.addAll(existingOrProspectAccountsCPE.prospectCPE);
+      conPointEmailList.addAll(existingOrProspectAccountsCPE.existingCPE);
 
       CCRMContactPointEmailActions.validateExistingOrProspectEmails(
         conPointEmailList
       );
 
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        cpeWrap.prosCPE,
+        existingOrProspectAccountsCPE.prospectCPE,
         (Map<Id, ContactPointEmail>) oldMap,
         true
       );
 
       CCRMCustomerProfileUpdateHelper.restrictEdit(
-        cpeWrap.activeCPE,
+        existingOrProspectAccountsCPE.existingCPE,
         (Map<Id, ContactPointEmail>) oldMap
       );
 
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        cpeWrap.activeCPE,
+        existingOrProspectAccountsCPE.existingCPE,
         (Map<Id, ContactPointEmail>) oldMap,
         false
       );

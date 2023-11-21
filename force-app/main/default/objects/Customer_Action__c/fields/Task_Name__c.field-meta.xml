@@ -47,7 +47,7 @@
             <value>
                 <fullName>TYPE_ACCEPT_MORTGAGE_CONTRACT</fullName>
                 <default>false</default>
-                <label>Accepts Mortgage Document</label>
+                <label>Accept Mortgage Document</label>
             </value>
             <value>
                 <fullName>TYPE_UPLOAD_WITNESS_DOCUMENT</fullName>

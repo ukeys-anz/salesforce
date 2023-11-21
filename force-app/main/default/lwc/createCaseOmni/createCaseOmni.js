@@ -164,10 +164,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     if (this.omniJsonData.Case.CustomerDecision !== "Disagrees") {
       this.checkFields(details, this.omniJsonData.resInfoMap);
     }
-    if (
-      details.ComplaintStatus === "Closed" ||
-      details.ComplaintStatus === "Provisionally Closed"
-    ) {
+    if (details.ComplaintStatus === "Closed") {
       this.checkFields(details, this.omniJsonData.closeCmpMap);
     }
     if (details.realFormRequired === "Yes")
@@ -186,8 +183,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     if (
       itype === SERVICE_QUALITY &&
       subtype === FAILURE_TO_RESPOND &&
-      (details.ComplaintStatus === "Closed" ||
-        details.ComplaintStatus === "Provisionally Closed")
+      details.ComplaintStatus === "Closed"
     ) {
       if (!details.CAC)
         this.missingFields.push("Is this a complaint about a complaint?");

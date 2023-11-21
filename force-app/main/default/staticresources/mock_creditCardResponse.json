@@ -1,0 +1,12 @@
+{
+  "accounts": [
+    {
+      "accountName": "Tom Hanks",
+      "accountNumber": "7234567890121234",
+      "productCode": "PCA",
+      "accountBalance": "500.04",
+      "accountLimit": "2000",
+      "status": "Active"
+    }
+  ]
+}

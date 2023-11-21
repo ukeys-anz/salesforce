@@ -14959,11 +14959,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Lead.Conversion_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Lead.Customer_ID__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -23380,6 +23375,9 @@
         <layout>AccountContactRelation-Account Contact Relationship Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Account_Relationship__x-Account Relationship Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>ActionPlan-Action Plan Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -23432,6 +23430,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>AzureAD_Identity__mdt-Azure AD Identity Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Balance_History__x-Balance History Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Banker-Banker Layout</layout>
@@ -23672,33 +23673,33 @@
         <recordType>Contact.FinServ__IndustriesBusiness</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointAddress-Contact Point Address Layout</layout>
+        <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointAddress-Contact Point Address Layout</layout>
+        <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
         <recordType>ContactPointAddress.Hidden</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointAddress-Contact Point Address Layout</layout>
+        <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
         <recordType>ContactPointAddress.Individual</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointAddress-Contact Point Address Layout</layout>
+        <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
         <recordType>ContactPointAddress.Organisation</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointEmail-Contact Point Email Layout</layout>
+        <layout>ContactPointEmail-DCRM Contact Point Email Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointEmail-Contact Point Email Layout</layout>
+        <layout>ContactPointEmail-DCRM Contact Point Email Layout</layout>
         <recordType>ContactPointEmail.Hidden</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointEmail-Contact Point Email Layout</layout>
+        <layout>ContactPointEmail-DCRM Contact Point Email Layout</layout>
         <recordType>ContactPointEmail.Individual</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ContactPointEmail-Contact Point Email Layout</layout>
+        <layout>ContactPointEmail-DCRM Contact Point Email Layout</layout>
         <recordType>ContactPointEmail.Organisation</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -23767,13 +23768,16 @@
         <layout>CustomerProperty-Customer Property Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Customer_Profile_Updates__c-Customer Profile Updates Layout</layout>
+        <layout>Customer_Profile_Updates__c-DCRM Customer Profile Updates Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>DCRM_Lead_Conversion_Mapping__mdt-DCRM Lead Conversion Mapping Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>DCRM_Lead_Response_Conversation_Guide__mdt-DCRM Lead Response Conversation Guide Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Deposit_Account__x-Deposit Account Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>DistributorAuthorization-Distributor Authorization Layout</layout>
@@ -23909,6 +23913,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Message Interaction Layout</layout>
+        <recordType>Interaction.Message</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>InteractionAttendee-Interaction Attendee Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -23964,6 +23972,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Legal_Entity__c-Legal Entity Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Loan_Account__x-Loan Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>LoanApplicant-Loan Applicant Layout</layout>
@@ -24266,6 +24277,10 @@
     <layoutAssignments>
         <layout>Task-Task Layout</layout>
         <recordType>Task.Lead_Response</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-DCRM Task Layout</layout>
+        <recordType>Task.CCRM_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Territory_Based_Sharing_Config__mdt-Territory Based Sharing Config Layout</layout>
