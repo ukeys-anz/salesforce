@@ -191,6 +191,7 @@ public with sharing class AccountCommonActionsHelper {
           AND (MobilePhone IN :mobileSet
           OR Email IN :emailSet)
           AND IsConverted = FALSE
+          AND Is_BOH_Lead__c = FALSE
       ];
       return potentialMatchingLeads;
     }
