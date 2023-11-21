@@ -42,6 +42,7 @@ jobs:
         run: |
           echo BASE_REF="${{ github.base_ref }}" >> $GITHUB_ENV
           echo PR_NUMBER="${{ github.event.number }}" >> $GITHUB_ENV
+          echo REPO_NAME="${{ github.event.repository.name }}" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
 
       - name: Find Proper TargetOrg
@@ -78,11 +79,11 @@ jobs:
           proxy-username: "sf-harness-delegate-np"
           proxy-password: "${{ steps.secrets.outputs.proxypass }}"
 
-      - name: run all tests
+      - name: Run all tests
         run: |
           node ci/workflows/Orchestrations/runAllTests.mjs
           echo WHICH_JOB="clean" >> $GITHUB_ENV
 
-      - name: cleaning
+      - name: Cleaning
         run: |
           node ci/workflows/Orchestrations/runAllTests.mjs

@@ -23,10 +23,12 @@ const {
   TARGET_BASE_REF,
   PR_NUMBER,
   ARTIFACTORY_SECRET_VALUE,
-  WORKING_DIR
+  WORKING_DIR,
+  REPO_NAME
 } = process.env;
 
 const RUN_ALL_TEST_PACKAGE_PATH = "ci/workflows/RunAllTestsPackage";
+const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases-np`;
 const RUN_ALL_TEST_CLASS_PATH =
   "ci/workflows/RunAllTestsPackage/RunAllTestsClass.cls";
 const JOB_ID_FILE_NAME = renameItem(`${BASE_REF}-run-all-tests-${PR_NUMBER}`);
@@ -52,6 +54,7 @@ const runAllTests = () => {
   cancel(
     JOB_ID_FILE_NAME,
     ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME,
     TARGET_ORG,
     ANZX_CI_PACKAGE_XML
   );
@@ -59,7 +62,12 @@ const runAllTests = () => {
     TARGET_ORG,
     RUN_ALL_TEST_CLASS_PATH
   );
-  uploadJobId(runAllTestsReport, JOB_ID_FILE_NAME, ARTIFACTORY_SECRET_VALUE);
+  uploadJobId(
+    runAllTestsReport,
+    JOB_ID_FILE_NAME,
+    ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME
+  );
   runAllLocalTestsProgress(runAllTestsReport, TARGET_ORG, ARTIFACT_PACKAGE_XML);
 };
 

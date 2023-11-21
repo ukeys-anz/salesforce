@@ -363,7 +363,12 @@ const copyFile = (copySourcePath, pasteSourcePath) => {
   execSync(`cp "${copySourcePath}" "${pasteSourcePath}"`);
 };
 
-const uploadFile = (fileName, artifactorySecret, whatFile) => {
+const uploadFile = (
+  fileName,
+  artifactorySecret,
+  artifactoryRepoName,
+  whatFile
+) => {
   if (!folderExist(fileName)) {
     console.log(`Could not find ${fileName} file`);
     process.exit(1);
@@ -371,25 +376,35 @@ const uploadFile = (fileName, artifactorySecret, whatFile) => {
   console.log(`Upload ${whatFile} File`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${fileName}" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}"`
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${fileName}" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}"`
     ).toString("utf8")
   );
 };
 
-const downloadFile = (fileName, artifactorySecret, whatFile) => {
+const downloadFile = (
+  fileName,
+  artifactorySecret,
+  artifactoryRepoName,
+  whatFile
+) => {
   console.log(`Download ${whatFile} File.`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}"`
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}"`
     ).toString("utf8")
   );
 };
 
-const downloadZipFile = (fileName, artifactorySecret, whatFile) => {
+const downloadZipFile = (
+  fileName,
+  artifactorySecret,
+  artifactoryRepoName,
+  whatFile
+) => {
   console.log(`Download ${whatFile} File.`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}.zip"`
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}.zip"`
     ).toString("utf8")
   );
 };

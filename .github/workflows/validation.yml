@@ -59,6 +59,7 @@ jobs:
           echo DRAFT_PR="${{ github.event.pull_request.draft }}" >> $GITHUB_ENV
           echo SPECIFIED_TEST_PR="${{ contains( toJson(github.event.pull_request.labels), 'Run Specified Tests') }}" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
+          echo REPO_NAME="${{ github.event.repository.name }}" >> $GITHUB_ENV
 
           lastTag="$( git describe --abbrev=0 --tags --match $baseRef* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
