@@ -259,6 +259,23 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ThirdComplaintCheckbox &quot;Yes&quot; == var:Case:ComplaintRemedy3 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
+        <formulaExpression>IF(Case:ThirdComplaintCheckbox==&quot;Yes&quot;,%Case:ComplaintRemedy3%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
+        <formulaResultPath>Case:ComplaintRemedy3</formulaResultPath>
+        <formulaSequence>18.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom7608</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -406,6 +423,23 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:IsthisComplaintAboutComplaint &quot;Yes&quot; == var:Case:ParentCase-Block:Id &apos;$Vlocity.NULL&apos; IF</formulaConverted>
+        <formulaExpression>IF(Case:IsthisComplaintAboutComplaint==&quot;Yes&quot;,%Case:ParentCase-Block:Id%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
+        <formulaResultPath>Case:ParentCase-Block:Id</formulaResultPath>
+        <formulaSequence>20.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom7728</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -757,6 +791,23 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:SecondComplaintCheckbox &quot;Yes&quot; == var:Case:ComplaintSubRemedy2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
+        <formulaExpression>IF(Case:SecondComplaintCheckbox==&quot;Yes&quot;,%Case:ComplaintSubRemedy2%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
+        <formulaResultPath>Case:ComplaintSubRemedy2</formulaResultPath>
+        <formulaSequence>17.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom2948</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
