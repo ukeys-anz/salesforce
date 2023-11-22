@@ -3,7 +3,6 @@
     <description>This permission set group is for Systemic Issue business contact users</description>
     <label>IDR SI Business Contact</label>
     <permissionSets>Chatter_User_with_License</permissionSets>
-    <permissionSets>Chatter_User_with_License</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_3</permissionSets>
