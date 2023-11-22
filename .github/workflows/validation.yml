@@ -3,19 +3,15 @@ name: Salesforce Validation
 on:
   pull_request:
     branches:
-      - x
-      # This should be changed
-      # pull_request:
-      # branches:
-      #   - "master"
-      #   - "develop"
-      #   - "release"
-      #   - "epic/*"
-      # types:
-      #   - opened
-      #   - reopened
-      #   - ready_for_review
-      #   - synchronize
+      - "master"
+      - "develop"
+      - "release"
+      - "epic/*"
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
 
 permissions:
   contents: "read"

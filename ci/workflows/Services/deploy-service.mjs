@@ -289,7 +289,7 @@ const deployReport = (jobId, whichJob) => {
 // Then will print the apex code coverage
 const codeCoverage = (jobIdFilePath, draftPR) => {
   const jobId = printContextFromFile(jobIdFilePath, "| Code Coverage");
-  if (!jobId) return;
+  if (!jobId || jobId.includes("File not found")) return;
 
   logger("Apex Code Coverage");
   if (booleanMap(draftPR)) {
