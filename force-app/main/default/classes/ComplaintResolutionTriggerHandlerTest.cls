@@ -1,7 +1,7 @@
 /**
  * @author Laxmi Vuyyuru
  * @since 11-2023
- * @description Test class for IDRComplaintResolutionActions
+ * @description Test class for  IDRComplaintResolutionActions
  */
 @IsTest
 public class ComplaintResolutionTriggerHandlerTest {

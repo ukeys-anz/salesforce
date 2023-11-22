@@ -1,7 +1,7 @@
 /**
  * @author Laxmi
  * @since 04/2023
- * @description  To get the customer information and account numbers on OCV search
+ * @description  To get the customer information  and account numbers on OCV search
  */
 global with sharing class Vlocity_Utils implements Callable {
   /**
