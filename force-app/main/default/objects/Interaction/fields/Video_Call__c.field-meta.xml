@@ -6,6 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>For Chat Interactions to decide whether Video Call happened or not</description>
     <externalId>false</externalId>
+    <inlineHelpText>If this interaction also involved a video call, then check the box.</inlineHelpText>
     <label>Video Call</label>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -66,6 +66,10 @@ global with sharing class InteractionContextServiceUpdate {
      * @description agentEmail
      */
     public String agentEmail { get; set; }
+    /**
+     * @description store the id of the Twilio Detail
+     */
+    public String twilioDetailRecordId { get; set; }
   }
 
   /**

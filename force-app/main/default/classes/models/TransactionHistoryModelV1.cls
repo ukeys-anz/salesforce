@@ -255,20 +255,26 @@ public class TransactionHistoryModelV1 extends CalloutModel {
     public Interest interest;
     public Transfer transfer;
     public OpenBanking open_banking;
+    public String persona_id;
   }
 
   /**
    * @param json input string to deserialize
+   * @param mapPersonaIdAndCustomerName map for holding persona id from staff token and customer name corresponding to ocv id of the account
    * @return `TransactionHistoryModel`
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
-  public static TransactionHistoryModel parse(String json) {
+  public static TransactionHistoryModel parse(
+    String json,
+    Map<String, String> mapPersonaIdAndCustomerName
+  ) {
     TransactionHistoryModelV1 transModelV1 = (TransactionHistoryModelV1) deserialize(
       json,
       TransactionHistoryModelV1.class
     );
     return TransactionHistoryModelConverter.convertToTransactionHistoryModel(
-      transModelV1
+      transModelV1,
+      mapPersonaIdAndCustomerName
     );
   }
 }

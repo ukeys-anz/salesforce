@@ -4,19 +4,15 @@ import {
   readFileSync,
   statSync,
   existsSync,
-  rename,
+  renameSync,
   rmSync,
   mkdirSync,
   writeFileSync
 } from "fs";
 
 const renameFile = (oldFilepath, newFilepath) => {
-  rename(oldFilepath, newFilepath, (err) => {
-    if (err) {
-      console.error(err);
-    }
-    console.log(`${oldFilepath} renamed to ${newFilepath}.`);
-  });
+  renameSync(oldFilepath, newFilepath);
+  console.log(`${oldFilepath} renamed to ${newFilepath}.`);
 };
 
 const runSfCommand = (command) =>
@@ -26,7 +22,7 @@ const runSfCommand = (command) =>
 
 const printContextFromFile = (jobIdFilePath, comment = "") => {
   if (!existsSync(jobIdFilePath)) {
-    logger(`ERROR: There is no jobId. ${comment}`);
+    logger(`There is no jobId. ${comment}`);
     return "";
   }
   return readFileSync(jobIdFilePath).toString();
@@ -64,9 +60,54 @@ const folderExist = (folderPath) => {
   return true;
 };
 
-// This will check if there is any salesforce diff on artifact folder or not.
-const salesforceDiffExist = (artifactPath) =>
+const salesforceDestructiveChanges = (artifactPath) => {
+  const destructivePath = "/destructiveChanges/destructiveChanges.xml";
+  let allDestructiveChanges = findNamesAndMembersXML(
+    artifactPath + destructivePath
+  );
+  allDestructiveChanges = printXMLNamesAndMembers(allDestructiveChanges);
+  return allDestructiveChanges;
+};
+
+const salesforceIgnoredDestructiveChanges = (artifactPath) => {
+  const destructivePath = "/destructiveChanges/destructiveChanges.xml";
+  let allIgnoredDestructiveChanges = findDiffOnXMLs(
+    artifactPath + "-all-files" + destructivePath,
+    artifactPath + destructivePath
+  );
+  allIgnoredDestructiveChanges = printXMLNamesAndMembers(
+    allIgnoredDestructiveChanges
+  );
+  return allIgnoredDestructiveChanges;
+};
+
+const salesforceFileChanges = (artifactPath) => {
+  const packagePath = "/package/package.xml";
+  let allChanges = findNamesAndMembersXML(artifactPath + packagePath);
+  allChanges = printXMLNamesAndMembers(allChanges);
+  return allChanges;
+};
+
+const salesforceIgnoredFileChanges = (artifactPath) => {
+  const packagePath = "/package/package.xml";
+  let allIgnoredChanges = findDiffOnXMLs(
+    artifactPath + "-all-files" + packagePath,
+    artifactPath + packagePath
+  );
+  allIgnoredChanges = printXMLNamesAndMembers(allIgnoredChanges);
+  return allIgnoredChanges;
+};
+
+const salesforceForceAppChangesExist = (artifactPath) =>
   folderExist(artifactPath + "/force-app");
+
+// This will check if there is any salesforce diff on artifact folder or not.
+const salesforceDiffExist = (artifactPath) => {
+  return (
+    salesforceDestructiveChanges(artifactPath) ||
+    salesforceForceAppChangesExist(artifactPath)
+  );
+};
 
 // This will read a file and find all the lines of that.
 // To find all the lines with `@runTests` to find all specified tests
@@ -105,7 +146,7 @@ const findAllClassesSpecifiedTests = (classArray) => {
   return specifiedTests;
 };
 
-// This will remove the duplication on specified tests and will return it as a class of specified tests
+// This will remove the duplication on specified tests and will return it as an array of specified tests
 const findAllSpecifiedTests = (
   classFolderPath = "artifact/force-app/main/default/classes"
 ) => {
@@ -134,53 +175,128 @@ const findJobIdFromCommand = (command) => {
 };
 
 const deleteFolder = (folderPath) => {
-  logger(`Delete Folder: ${folderPath}`);
   rmSync(folderPath, { recursive: true, force: true }, (err) => {
     if (err) {
       console.error(err);
       return;
     }
   });
-  console.log(`${folderPath} folder is deleted!`);
 };
 
 const renameItem = (folderPath) => folderPath.replaceAll("/", "-");
 
 const createFolder = (folderPath) => {
-  logger(`Create Folder: ${folderPath}`);
   mkdirSync(folderPath, (err) => {
     if (err) {
       console.error(err);
       return;
     }
   });
-  console.log(`${folderPath} folder is created!`);
 };
 
 const logger = (log) => {
-  console.log("\n-=-=-=-=-=-=-=-=-");
+  console.log(
+    "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  );
   console.log(log);
-  console.log("-----------------");
+  console.log("---------------------------------");
+  console.log("\n");
+};
+
+const loggerInStep = (log) => {
+  console.log("=================");
+  console.log(log);
   console.log("\n");
 };
 
 const booleanMap = (stringBoolean) => stringBoolean === "true";
 
-const ignoredFiles = (folderName) => {
-  const allChangedFiles = findAllFiles(folderName + "-all-files");
-  const notIgnoredFilesChanges = findAllFiles(folderName);
-  const ignoredFilesChanges = [];
+// This will find all the parent component changes on package/destructiveChange.xml ( eg: ApexClass )
+const findNamesOnXML = (filePath) => {
+  const destructiveFileLines = readFileLines(filePath);
+  let destructiveChangeNames = {};
+  let index = 0;
 
-  allChangedFiles.forEach((file) => {
-    const f = file.replace(folderName + "-all-files", folderName);
-    if (!notIgnoredFilesChanges.includes(f)) ignoredFilesChanges.push(f);
-  });
-  logger(`All Changed files:\n${notIgnoredFilesChanges.join("\n")}`);
-  logger(
-    `All Ignored files:\n${
-      ignoredFilesChanges.length ? ignoredFilesChanges.join("\n") : "None"
-    }`
+  for (let ind = 0; ind < destructiveFileLines.length; ind++) {
+    const line = destructiveFileLines[ind];
+
+    let name = line.split("<name>")[1];
+    if (!name) continue;
+
+    name = name.split("</name>")[0];
+    destructiveChangeNames[index] = name;
+    index++;
+  }
+  return destructiveChangeNames;
+};
+
+// This will find all the component changes on package/destructiveChange.xml ( eg: TSPCondition.cls )
+const findMembersOnXML = (filePath) => {
+  const destructiveFileLines = readFileLines(filePath);
+  let destructiveChangesMembers = {};
+  let index = 0;
+
+  for (let ind = 0; ind < destructiveFileLines.length; ind++) {
+    const line = destructiveFileLines[ind];
+
+    let name = line.split("<name>")[1];
+    if (name) {
+      index++;
+      continue;
+    }
+
+    let member = line.split("<members>")[1];
+    if (!member) continue;
+
+    if (!destructiveChangesMembers[index])
+      destructiveChangesMembers[index] = [];
+    member = member.split("</members>")[0];
+    destructiveChangesMembers[index].push(member);
+  }
+  return destructiveChangesMembers;
+};
+
+// This will find all the changes on a parnet components and which components are changed (eg: { ApexClass : [ TSPCondition.cls ] } )
+const findNamesAndMembersXML = (filePath) => {
+  const names = findNamesOnXML(filePath);
+  const members = findMembersOnXML(filePath);
+  const result = {};
+
+  for (const key in members) {
+    result[names[key]] = members[key];
+  }
+  return result;
+};
+
+// This will find the ignored changed components
+const findDiffOnXMLs = (fullChangesFilePath, changesWithIgnoredFilesPath) => {
+  const fullXMLJson = findNamesAndMembersXML(fullChangesFilePath);
+  const xmlWithIgnoredJson = findNamesAndMembersXML(
+    changesWithIgnoredFilesPath
   );
+  const diffResult = {};
+  for (const key in fullXMLJson) {
+    if (!xmlWithIgnoredJson[key]) {
+      diffResult[key] = fullXMLJson[key];
+      continue;
+    }
+
+    const name = fullXMLJson[key];
+    const members = xmlWithIgnoredJson[key];
+
+    const diff = name.filter((el) => !members.includes(el));
+    if (diff.length) diffResult[key] = diff;
+  }
+  return diffResult;
+};
+
+// This will print the changes from package/destructiveChanges.xml ( eg: ApexClass: TSPCondition )
+const printXMLNamesAndMembers = (xmlJsonFile) => {
+  let result = "";
+  for (const key in xmlJsonFile) {
+    result += key + ":\n" + xmlJsonFile[key].join("\n") + "\n";
+  }
+  return result;
 };
 
 const createFile = (context, fileName, whatFile) => {
@@ -191,18 +307,41 @@ const createFile = (context, fileName, whatFile) => {
   `);
 };
 
-const updateSfCacheJsonFile = (jsonFile, jobId, anzxCIPackage, targetOrg) => {
+// This will update the sf cache json
+// For @salesforce/cli, they are using a new logic for each run. There is -
+// - a json file which will contain all the jobIds and informations about it.
+// Using container will remove this file whenever we raise a new commit. Thus -
+// If we want to cancel a job, or check the progress of the running job with more than 33 mins -
+// - we should create and update this json file
+const updateSfCacheJsonFile = (
+  jsonFile,
+  jobId,
+  anzxCIPackage,
+  anzxCIDestructivePackage,
+  targetOrg
+) => {
   const deployCacheFile = "/github/home/.sf/deploy-cache.json";
   jsonFile[jobId] = {
     manifest: anzxCIPackage,
-    "post-destructive-changes": anzxCIPackage,
+    "post-destructive-changes": anzxCIDestructivePackage,
     "target-org": `${targetOrg}`,
     wait: 120
   };
   writeFileSync(deployCacheFile, JSON.stringify(jsonFile));
 };
 
-const createDeployCacheFile = (jobId, targetOrg, anzxCIPackage) => {
+// This will update the sf cache json
+// For @salesforce/cli, they are using a new logic for each run. There is -
+// - a json file which will contain all the jobIds and informations about it.
+// Using container will remove this file whenever we raise a new commit. Thus -
+// If we want to cancel a job, or check the progress of the running job with more than 33 mins -
+// - we should create and update this json file
+const createDeployCacheFile = (
+  jobId,
+  targetOrg,
+  anzxCIPackage,
+  anzxCIDestructivePackage
+) => {
   const deployCacheFile = "/github/home/.sf/deploy-cache.json";
   const deployCacheFileExist = existsSync(deployCacheFile);
   let jsonFile = {};
@@ -210,7 +349,13 @@ const createDeployCacheFile = (jobId, targetOrg, anzxCIPackage) => {
     const data = readFileSync(deployCacheFile);
     jsonFile = JSON.parse(data);
   }
-  updateSfCacheJsonFile(jsonFile, jobId, anzxCIPackage, targetOrg);
+  updateSfCacheJsonFile(
+    jsonFile,
+    jobId,
+    anzxCIPackage,
+    anzxCIDestructivePackage,
+    targetOrg
+  );
 };
 
 const copyFile = (copySourcePath, pasteSourcePath) => {
@@ -218,7 +363,12 @@ const copyFile = (copySourcePath, pasteSourcePath) => {
   execSync(`cp "${copySourcePath}" "${pasteSourcePath}"`);
 };
 
-const uploadFile = (fileName, artifactorySecret, whatFile) => {
+const uploadFile = (
+  fileName,
+  artifactorySecret,
+  artifactoryRepoName,
+  whatFile
+) => {
   if (!folderExist(fileName)) {
     console.log(`Could not find ${fileName} file`);
     process.exit(1);
@@ -226,25 +376,35 @@ const uploadFile = (fileName, artifactorySecret, whatFile) => {
   console.log(`Upload ${whatFile} File`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${fileName}" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}"`
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${fileName}" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}"`
     ).toString("utf8")
   );
 };
 
-const downloadFile = (fileName, artifactorySecret, whatFile) => {
+const downloadFile = (
+  fileName,
+  artifactorySecret,
+  artifactoryRepoName,
+  whatFile
+) => {
   console.log(`Download ${whatFile} File.`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}"`
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}"`
     ).toString("utf8")
   );
 };
 
-const downloadZipFile = (fileName, artifactorySecret, whatFile) => {
+const downloadZipFile = (
+  fileName,
+  artifactorySecret,
+  artifactoryRepoName,
+  whatFile
+) => {
   console.log(`Download ${whatFile} File.`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${fileName}.zip"`
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}.zip"`
     ).toString("utf8")
   );
 };
@@ -255,7 +415,6 @@ const unzipFile = (filename) => {
 };
 
 const deleteFile = (fileName) => {
-  logger(`Delete File: ${fileName}`);
   execSync(`rm -f ${fileName}`).toString("utf-8");
 };
 
@@ -271,8 +430,8 @@ export {
   deleteFolder,
   createFolder,
   logger,
+  loggerInStep,
   booleanMap,
-  ignoredFiles,
   createFile,
   uploadFile,
   downloadFile,
@@ -282,5 +441,9 @@ export {
   createDeployCacheFile,
   renameItem,
   downloadZipFile,
-  unzipFile
+  unzipFile,
+  salesforceIgnoredDestructiveChanges,
+  salesforceDestructiveChanges,
+  salesforceFileChanges,
+  salesforceIgnoredFileChanges
 };

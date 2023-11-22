@@ -25,15 +25,17 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
    */
   public override void onAfterInsert() {
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      MLCRMContactPointPhoneActions.ContactPointPhoneWrapper cppWrap = new MLCRMContactPointPhoneActions.ContactPointPhoneWrapper();
-      cppWrap = MLCRMContactPointPhoneActions.getExistingOrProspectCPP(records);
+      MLCRMContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new MLCRMContactPointPhoneActions.ContactPointPhoneWrapper();
+      existingOrProspectAccountsCPP = MLCRMContactPointPhoneActions.getExistingOrProspectCPP(
+        records
+      );
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        cppWrap.prosCPP,
+        existingOrProspectAccountsCPP.prospectCPP,
         null,
         true
       );
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        cppWrap.activeCPP,
+        existingOrProspectAccountsCPP.existingCPP,
         null,
         false
       );
@@ -46,25 +48,27 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     CCRMContactPointActions.updateContactPoints(records);
-    MLCRMContactPointPhoneActions.ContactPointPhoneWrapper cppWrap = new MLCRMContactPointPhoneActions.ContactPointPhoneWrapper();
-    cppWrap = MLCRMContactPointPhoneActions.getExistingOrProspectCPP(records);
+    MLCRMContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new MLCRMContactPointPhoneActions.ContactPointPhoneWrapper();
+    existingOrProspectAccountsCPP = MLCRMContactPointPhoneActions.getExistingOrProspectCPP(
+      records
+    );
     MLCRMContactPointPhoneActions.unlinkProspectParentOnDeactivation(
-      cppWrap.prosCPP,
+      existingOrProspectAccountsCPP.prospectCPP,
       (Map<Id, ContactPointPhone>) oldMap
     );
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        cppWrap.prosCPP,
+        existingOrProspectAccountsCPP.prospectCPP,
         (Map<Id, ContactPointPhone>) oldMap,
         true
       );
       CCRMCustomerProfileUpdateHelper.restrictEdit(
-        cppWrap.activeCPP,
+        existingOrProspectAccountsCPP.existingCPP,
         (Map<Id, ContactPointPhone>) oldMap
       );
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        cppWrap.activeCPP,
+        existingOrProspectAccountsCPP.existingCPP,
         (Map<Id, ContactPointPhone>) oldMap,
         false
       );

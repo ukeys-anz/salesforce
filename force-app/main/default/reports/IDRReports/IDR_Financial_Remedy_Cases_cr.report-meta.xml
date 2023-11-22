@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>IDR Financial Remedy Cases</name>
     <aggregates>
         <calculatedFormula>Case.IDR_Financial_Compensation__c:SUM/RowCount</calculatedFormula>
         <datatype>number</datatype>
@@ -60,7 +61,6 @@
         <field>Case$Origin</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>IDR Financial Remedy Cases</name>
     <params>
         <name>co</name>
         <value>1</value>

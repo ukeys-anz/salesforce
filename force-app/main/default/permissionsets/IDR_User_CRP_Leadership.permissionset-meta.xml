@@ -101,7 +101,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <name>CreateCustomizeFilters</name>
         <enabled>true</enabled>
+        <name>CreateCustomizeFilters</name>
     </userPermissions>
 </PermissionSet>

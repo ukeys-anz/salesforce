@@ -65,6 +65,24 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Settlement_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Settlement__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Settlement_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Settlement__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Survey_Response_Record_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
@@ -791,6 +809,54 @@
         <type>Flexipage</type>
         <profile>ANZx Standard Automation User</profile>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Settlement_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Settlement__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Settlement_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Settlement__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Settlement_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Settlement__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Settlement_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Settlement__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Settlement_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Settlement__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Settlement_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Settlement__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Case</tabs>
@@ -806,6 +872,7 @@
     <tabs>standard-ResidentialLoanApplication</tabs>
     <tabs>Interaction_Tag__c</tabs>
     <tabs>Quality_Assessment__c</tabs>
+    <tabs>Settlement__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -851,6 +918,9 @@
         </mappings>
         <mappings>
             <tab>Quality_Assessment__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Settlement__c</tab>
         </mappings>
         <mappings>
             <fieldName>AccountId</fieldName>

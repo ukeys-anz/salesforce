@@ -1,0 +1,41 @@
+{
+  "settlementId": "a600a5d5-9db0-4e40-92d3-c4cf1e012f8f",
+  "mortgageContractId": "33a5fffb-4e66-48e5-b0ad-b03aeb696a2d",
+  "propertyId": "66f1edc8-9d7d-4723-b10d-c51767104d4f",
+  "document": {
+    "id": "4ee5a832-1980-43f2-b795-13cb6eb51a4c",
+    "createTime": {
+      "seconds": 1697501733
+    },
+    "state": 1,
+    "documentStorageId": "40c2bbef-ecac-4b18-ac89-2d48f7c30669",
+    "documentStorageStatus": 2,
+    "documentFileDetails": [
+      {
+        "documentFileId": "40c2bbef-ecac-4b18-ac89-2d48f7c30669",
+        "documentFileVersion": 1,
+        "documentFileStatus": 4
+      }
+    ],
+    "source": 1
+  },
+  "proofOfInsuranceVerification": {
+    "state": "STATE_VERIFIED",
+    "documentId": "4ee5a832-1980-43f2-b795-13cb6eb51a4c",
+    "documentFileVersion": 1,
+    "createBy": {
+      "id": "139d6067-2c19-4624-9e4f-cd569eebe612"
+    },
+    "createTime": {
+      "seconds": 1697501698,
+      "nanos": 439973446
+    },
+    "updateBy": {
+      "id": "139d6067-2c19-4624-9e4f-cd569eebe612"
+    },
+    "updateTime": {
+      "seconds": 1697501698,
+      "nanos": 439973597
+    }
+  }
+}

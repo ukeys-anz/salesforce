@@ -1273,7 +1273,7 @@
         <modifyAllRecords>false</modifyAllRecords>
         <object>Complaint_Resolution__c</object>
         <viewAllRecords>false</viewAllRecords>
-     </objectPermissions>
+    </objectPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

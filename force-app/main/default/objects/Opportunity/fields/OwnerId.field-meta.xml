@@ -6,6 +6,7 @@
     <description>ID of the User who has been assigned to work this opportunity.</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

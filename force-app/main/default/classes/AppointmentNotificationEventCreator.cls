@@ -109,7 +109,7 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
     String externalId = targetInteraction.Interaction_Auto_Number__c;
     if (dataMap.containsKey(targetInteraction.Id)) {
       externalId =
-        'CR-' + ((ContactRequest) dataMap.get(targetInteraction.Id))?.Name;
+        'CR-' + ((ContactRequest) dataMap.get(targetInteraction.Id)).Name;
     }
     notification.Date_and_Time__c = targetInteraction.StartTime;
     notification.Appointment_Time__c =
@@ -232,16 +232,17 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
         contactRequestIds.add(currentInteraction.ContactRequestId__c);
       }
     }
+
+    List<ContactRequest> requests = ContactRequestDMLHelper.getContactRequest(
+      contactRequestIds
+    );
+    Map<Id, ContactRequest> contactRequestMap = new Map<Id, ContactRequest>(
+      requests
+    );
+
     Map<Id, ContactRequest> interactionIdCRAutoNumberMap = new Map<Id, ContactRequest>();
-    Map<Id, ContactRequest> contactRequestMap = new Map<Id, ContactRequest>();
-    if (!contactRequestIds.isEmpty()) {
-      List<ContactRequest> requests = ContactRequestDMLHelper.getContactRequest(
-        contactRequestIds
-      );
-      contactRequestMap = new Map<Id, ContactRequest>(requests);
-      for (ContactRequest request : requests) {
-        interactionIdCRAutoNumberMap.put(request.Interaction__c, request);
-      }
+    for (ContactRequest request : requests) {
+      interactionIdCRAutoNumberMap.put(request.Interaction__c, request);
     }
 
     Map<Id, SObject> dataMap = new Map<Id, SObject>();

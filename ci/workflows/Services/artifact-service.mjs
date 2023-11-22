@@ -3,10 +3,15 @@ import {
   renameFile,
   createFolder,
   deleteFolder,
-  ignoredFiles,
   salesforceDiffExist,
   logger,
-  folderExist
+  folderExist,
+  loggerInStep,
+  findAllFiles,
+  salesforceIgnoredDestructiveChanges,
+  salesforceDestructiveChanges,
+  salesforceFileChanges,
+  salesforceIgnoredFileChanges
 } from "./helper.mjs";
 
 const renameForceignore = () => {
@@ -19,25 +24,63 @@ const createArtifactFolder = (folderName) => {
   createFolder(folderName);
 };
 
-const findAllChangedFileOnValidate = (folderName, baseRef, ref) => {
+const printAllChangedAndIgnoredFiles = (folderName) => {
+  const notIgnoredFilesChanges = salesforceFileChanges(folderName);
+  const ignoredFilesChanges = salesforceIgnoredFileChanges(folderName);
+  loggerInStep(
+    `All Changed Files\n${
+      notIgnoredFilesChanges ? notIgnoredFilesChanges : "None"
+    }\n`
+  );
+  loggerInStep(
+    `All Ignored Changed Files\n${
+      ignoredFilesChanges ? ignoredFilesChanges : "None"
+    }`
+  );
+};
+
+const printAllDestructiveChangesAndIgnoredFiles = (folderName) => {
+  const allDestructiveChanges = salesforceDestructiveChanges(folderName);
+  const allIgnoredDestructiveChanges = salesforceIgnoredDestructiveChanges(
+    folderName
+  );
+
+  loggerInStep(
+    `All Destructive Changes\n${
+      allDestructiveChanges ? allDestructiveChanges : "None"
+    }\n`
+  );
+  loggerInStep(
+    `All Ignored Destructive Changes\n${
+      allIgnoredDestructiveChanges ? allIgnoredDestructiveChanges : "None"
+    }`
+  );
+};
+
+const printAllChangesAndIgnoredFiles = (folderName) => {
+  printAllChangedAndIgnoredFiles(folderName);
+  printAllDestructiveChangesAndIgnoredFiles(folderName);
+};
+
+const findAllChangedFileOnValidate = (folderName, tagRef) => {
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta`
+    `npx sfdx sgd:source:delta --to HEAD --from ${tagRef} --output ${folderName}/ --generate-delta`
   ).toString("utf8");
 };
 
 const findAllChangedFileOnDeploy = (folderName, baseRef, tagRef) => {
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to ${tagRef} --from origin/${baseRef} --output ${folderName}/ --generate-delta`
+    `npx sfdx sgd:source:delta --to origin/${baseRef} --from ${tagRef} --output ${folderName}/ --generate-delta`
   ).toString("utf8");
 };
 
-const buildArtifactOnValidate = (folderName, baseRef, ref) => {
+const buildArtifactOnValidate = (folderName, tagRef) => {
   renameForceignore();
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to origin/${ref} --from origin/${baseRef} --output ${folderName}/ --generate-delta -i .forceignore`
+    `npx sfdx sgd:source:delta --to HEAD --from ${tagRef} --output ${folderName}/ --generate-delta -i .forceignore`
   ).toString("utf8");
 };
 
@@ -45,7 +88,7 @@ const buildArtifactOnDeploy = (folderName, baseRef, tagRef) => {
   renameForceignore();
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to ${tagRef} --from origin/${baseRef} --output ${folderName}/ --generate-delta -i .forceignore`
+    `npx sfdx sgd:source:delta --to origin/${baseRef} --from ${tagRef} --output ${folderName}/ --generate-delta -i .forceignore`
   ).toString("utf8");
 };
 
@@ -55,11 +98,11 @@ const artifactFolderExist = (artifactPath) => {
   }
 };
 
-const createDiffOnValidate = (folderName, baseRef, ref) => {
-  findAllChangedFileOnValidate(folderName + "-all-files", baseRef, ref);
-  buildArtifactOnValidate(folderName, baseRef, ref);
+const createDiffOnValidate = (folderName, tagRef) => {
+  findAllChangedFileOnValidate(folderName + "-all-files", tagRef);
+  buildArtifactOnValidate(folderName, tagRef);
   artifactFolderExist(folderName);
-  ignoredFiles(folderName);
+  printAllChangesAndIgnoredFiles(folderName);
   deleteFolder(folderName + "-all-files");
 };
 
@@ -67,20 +110,24 @@ const createDiffOnDeploy = (folderName, baseRef, tagRef) => {
   findAllChangedFileOnDeploy(folderName + "-all-files", baseRef, tagRef);
   buildArtifactOnDeploy(folderName, baseRef, tagRef);
   artifactFolderExist(folderName);
-  ignoredFiles(folderName);
+  printAllChangesAndIgnoredFiles(folderName);
   deleteFolder(folderName + "-all-files");
 };
 
 const zipArtifactory = (artifactPath) => {
-  console.log("Zipping Artifact");
+  loggerInStep("Zipping Artifact");
   execSync(`zip -r "${artifactPath}.zip" "${artifactPath}"`).toString("utf8");
 };
 
-const uploadArtifact = (zipFileName, artifactorySecret) => {
-  console.log("Upload Artifact");
+const uploadArtifact = (
+  zipFileName,
+  artifactorySecret,
+  artifactoryRepoName
+) => {
+  loggerInStep("Upload Artifact");
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${zipFileName}.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${zipFileName}.zip"`
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${zipFileName}.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${zipFileName}.zip"`
     ).toString("utf8")
   );
 };
@@ -90,23 +137,27 @@ const deleteZipArtifactory = (zipFileName) => {
   execSync(`rm -f ${zipFileName}.zip`);
 };
 
-const uploadToArtifactory = (zipFileName, artifactorySecret, artifactPath) => {
+const uploadToArtifactory = (
+  artifactorySecret,
+  artifactPath,
+  artifactoryRepoName
+) => {
   if (!salesforceDiffExist(artifactPath)) return;
   logger("Upload Artifactory");
   zipArtifactory(artifactPath);
-  uploadArtifact(artifactPath, artifactorySecret);
+  uploadArtifact(artifactPath, artifactorySecret, artifactoryRepoName);
   deleteZipArtifactory(artifactPath);
 };
 
 const createAndUploadArtifact = (
   folderName,
-  baseRef,
-  ref,
+  tagRef,
   artifactorySecret,
-  zipFileName
+  artifactoryRepoName
 ) => {
-  createDiffOnValidate(folderName, baseRef, ref);
-  uploadToArtifactory(zipFileName, artifactorySecret, folderName);
+  logger("Build Artifact");
+  createDiffOnValidate(folderName, tagRef);
+  uploadToArtifactory(artifactorySecret, folderName, artifactoryRepoName);
 };
 
 const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
@@ -126,13 +177,3 @@ export {
   createDiffOnValidate,
   createDiffOnDeploy
 };
-
-// POINTS
-// We should install node and npm package to have access to sf commands
-
-// We should install the SGD plugin before running the node command:
-// - echo y | npx sfdx plugins:install https://artifactory.gcp.anz:443/artifactory/api/npm/npmjs-org/sfdx-git-delta/-/sfdx-git-delta-5.25.2.tgz
-
-// On orchesteration we can use the following values comming from github actions
-//    baseRef: "${{ github.base_ref }}"
-//    ref: "${{ github.head_ref }}"

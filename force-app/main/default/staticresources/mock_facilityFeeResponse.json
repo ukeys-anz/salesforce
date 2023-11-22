@@ -1,0 +1,12 @@
+{
+  "facilityFees": [
+    {
+      "compositeFacilityFeeId": "4020018249-72466661701-0",
+      "feeType": "COMFE",
+      "feePercentage": "1.3",
+      "feeAmount": "86.28",
+      "feeFrequency": "YR",
+      "feeChargeAccount": "250823253"
+    }
+  ]
+}

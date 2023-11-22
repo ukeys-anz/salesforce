@@ -1,3 +1,3 @@
 import { LightningElement } from "lwc";
 
-export default class ModalBody extends LightningElement {}
+export default class ModalHeader extends LightningElement {}

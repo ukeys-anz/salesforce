@@ -2,6 +2,10 @@ import { LightningElement, api } from "lwc";
 import { OmniscriptActionCommonUtil } from "omnistudio/omniscriptActionUtils";
 import pubsub from "omnistudio/pubsub";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import LightningConfirm from "lightning/confirm";
+
+const ERROR_MESSAGE =
+  "Unfortunately there was an error saving the Referral Outcome. Please try again.";
 export default class CreditAssessmentModal extends LightningElement {
   @api reasonCode;
   @api assessmentCategory;
@@ -11,12 +15,17 @@ export default class CreditAssessmentModal extends LightningElement {
   @api createTime;
   @api referralOutcomeCode;
   @api applicantId;
+  @api outcomeId;
+
   optionList;
   selectedValue;
   saving = false;
+  showError = false;
   defaultSelection = true;
   disableSave = true;
-
+  hasOutcome = false;
+  isClearBtnDisabled = true;
+  errorMessage;
   //Only call getOptions when we have a reasonCodeId
   @api set reasonCodeId(value) {
     this._reasonCodeId = value;
@@ -85,18 +94,36 @@ export default class CreditAssessmentModal extends LightningElement {
         this.optionList[defaultValue].selected = true;
         this.selectedValue = this.optionList[defaultValue];
         this.defaultSelection = false;
-        this.disableSave = false;
+        this.hasOutcome = true;
+        this.isClearBtnDisabled = false;
       }
     }
   }
 
   handleSelectedValue(e) {
     this.selectedValue = e.target.value;
-    this.disableSave = false;
+    if (this.selectedValue === "None") {
+      this.disableSave = true;
+    } else {
+      this.disableSave = false;
+    }
   }
 
   handleCancel() {
     pubsub.fire("CreditReferralReasons", "closeFlyout");
+  }
+
+  async handleConfirmClick() {
+    const result = await LightningConfirm.open({
+      message:
+        "Are you sure you have selected the correct referral outcome? Once saved this cannot be changed. Please click OK to confirm or cancel to review referral outcome.",
+      label: "Please confirm referral outcome change",
+      theme: "alt-inverse"
+    });
+    //If OK is clicked, result is true
+    if (result) {
+      this.handleSave();
+    }
   }
 
   async handleSave() {
@@ -134,7 +161,6 @@ export default class CreditAssessmentModal extends LightningElement {
         null,
         null
       );
-
       if (!response?.error) {
         this.showToast(
           "Credit Assessment",
@@ -143,21 +169,65 @@ export default class CreditAssessmentModal extends LightningElement {
         );
         pubsub.fire("CreditAssessmentParent", "closeFlyout");
       } else {
-        this.showToast(
-          "Credit Assessment",
-          "Failed to update referral outcome.",
-          "error"
-        );
+        this.showError = true;
+        this.errorMessage = ERROR_MESSAGE;
       }
     } catch (error) {
-      this.showToast(
-        "Credit Assessment",
-        "Failed to update referral outcome.",
-        "error"
-      );
+      this.showError = true;
+      this.errorMessage = ERROR_MESSAGE;
     } finally {
       this.saving = false;
     }
+  }
+
+  async handleDelete() {
+    this.saving = true;
+    this._actionUtilClass = new OmniscriptActionCommonUtil();
+    const params = {
+      input: {
+        creditId: this.creditId,
+        recordId: this.recordId,
+        outcomeId: this.outcomeId
+      },
+      sClassName: "CreditAssessmentController",
+      sMethodName: "deleteReferralOutcome",
+      options: "{}"
+    };
+
+    this._actionUtilClass
+      .executeAction(params, null, this, null, null)
+      .then((response) => {
+        if (!response?.error) {
+          this.showToast(
+            "Credit Assessment",
+            "The referral outcome was successfully removed",
+            "success"
+          );
+
+          this.hasOutcome = false;
+          this.template.querySelector('[name="referralOutcome"]').value =
+            "None";
+          this.isClearBtnDisabled = true;
+        } else {
+          this.handleDeleteError();
+        }
+      })
+      .catch(() => {
+        this.handleDeleteError();
+      });
+
+    this.saving = false;
+    this.disableSave = true;
+  }
+
+  handleDeleteError() {
+    this.showToast(
+      "Credit Assessment",
+      "The referral outcome could not be deleted. Please try again.",
+      "error"
+    );
+    this.isClearBtnDisabled = false;
+    this.hasOutcome = true;
   }
 
   showToast(theTitle, theMessage, theVariant) {
@@ -167,5 +237,13 @@ export default class CreditAssessmentModal extends LightningElement {
       variant: theVariant
     });
     this.dispatchEvent(event);
+  }
+
+  closeError() {
+    this.showError = false;
+    const closeErrorEvent = new CustomEvent("errorclosed", {
+      detail: this.showError
+    });
+    this.dispatchEvent(closeErrorEvent);
   }
 }

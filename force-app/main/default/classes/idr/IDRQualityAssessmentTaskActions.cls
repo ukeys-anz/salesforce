@@ -237,9 +237,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
   }
   private without sharing class WithoutSharing {
     /**
-    * @description Insert Quality_Assessment__Share records
+     * @description Insert Quality_Assessment__Share records
      * @param lstQAShare list of Quality_Assessment__Share records to insert
-    */
+     */
 
     public void insertQAShare(List<Quality_Assessment__Share> lstQAShare) {
       try {
@@ -247,11 +247,10 @@ public with sharing class IDRQualityAssessmentTaskActions {
       } catch (Exception e) {
         System.debug('Exception: ' + e.getMessage());
         Logger.error(
-        'Error creating Quality Assessment Sharing records: ' + e.getMessage()
+          'Error creating Quality Assessment Sharing records: ' + e.getMessage()
         );
         Logger.saveLog();
       }
-
     }
   }
 }

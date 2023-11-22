@@ -6,6 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>Engagement Type: Assisted</description>
     <externalId>false</externalId>
+    <inlineHelpText>Tick how their query was resolved - with your assistance, self-service or both.</inlineHelpText>
     <label>Assisted</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>

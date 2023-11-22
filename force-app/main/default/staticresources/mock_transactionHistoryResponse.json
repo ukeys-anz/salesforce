@@ -1,0 +1,15 @@
+{
+  "transactions": [
+    {
+      "transactionDate": "2022-03-30T00:00:00",
+      "transactionId": "CT8TM61000004619",
+      "postedDate": "2019-07-04T00:00:00",
+      "transactionType": "D",
+      "description": "",
+      "amount": "-1009.25",
+      "source": "FEE",
+      "runningBalance": 8867.81,
+      "compositeId": "CDA-999961674-CT8TM61000004619-0-"
+    }
+  ]
+}

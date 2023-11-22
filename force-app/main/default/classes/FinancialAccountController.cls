@@ -23,6 +23,12 @@ public with sharing class FinancialAccountController {
     'ACCOUNT_STATE_CLOSED' => 'Closed' // the account is closed
   };
 
+  //Map of fabric ownership and user friendly names to map them to
+  private static final Map<String, String> FABRIC_OWNERSHIP = new Map<String, String>{
+    'OWNERSHIP_TYPE_MULTIPARTY' => 'Multi-party', // its a joint account
+    'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single' // its an individual account
+  };
+
   /**
    * @description The Financial Account component uses this to fetch the records to display.
    * This makes the callout to fabric to fetch data
@@ -54,7 +60,9 @@ public with sharing class FinancialAccountController {
       for (FinancialAccountModel.AccountList finAccount : result.account_list) {
         financialAccountNumbers.add(finAccount.account_number);
       }
-      Map<String, Id> finAccNumberToIdMap = getFinAccNumberToIdMap(
+
+      //Added this to create Financial Account and FInancial Account Number Map to be used for fetching Id,OCVID and Ownership- by Shivam
+      Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = getFinAccNumberToFinancialAccountMap(
         financialAccountNumbers
       );
 
@@ -69,9 +77,22 @@ public with sharing class FinancialAccountController {
           ? null
           : Date.valueOf(finAccount.closed_at);
 
+        //Added ownership field in order to show on UI if financial account not found in database
+        String ownership;
+        if (finAccount.ownership != null) {
+          ownership = FABRIC_OWNERSHIP.get(finAccount.ownership.type);
+        }
+
+        //Fetch Financial Account from Database
+        FinServ__FinancialAccount__c finAccountFromDatabase = finAccNumberToFinancialAccountMap.get(
+          finAccount.account_number
+        );
+
         financialAccounts.add(
           new FinServ__FinancialAccount__c(
-            Id = finAccNumberToIdMap.get(finAccount.account_number),
+            Id = finAccountFromDatabase == null
+              ? null
+              : finAccountFromDatabase.Id,
             Name = finAccount.name,
             FinServ__FinancialAccountNumber__c = finAccount.account_number,
             FinServ__Balance__c = finAccount.balance.value,
@@ -80,14 +101,26 @@ public with sharing class FinancialAccountController {
             FinServ__OpenDate__c = openedDate,
             FinServ__CloseDate__c = closedDate,
             FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
-            RecordType = getAccountRecordType(finAccount.marketing_product.code)
+            RecordType = getAccountRecordType(
+              finAccount.marketing_product.code
+            ),
+            FinServ__Ownership__c = finAccountFromDatabase == null
+              ? ownership
+              : finAccountFromDatabase.Ownership__c
           )
         );
 
-        if (finAccNumberToIdMap.keySet().contains(finAccount.account_number)) {
+        if (
+          finAccNumberToFinancialAccountMap.containsKey(
+            finAccount.account_number
+          )
+        ) {
           financialAccountsUpdate.add(
             new FinServ__FinancialAccount__c(
-              Id = finAccNumberToIdMap.get(finAccount.account_number),
+              Id = finAccNumberToFinancialAccountMap.get(
+                  finAccount.account_number
+                )
+                .Id,
               Name = finAccount.name,
               FinServ__Balance__c = finAccount.balance.value,
               FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
@@ -125,24 +158,25 @@ public with sharing class FinancialAccountController {
   }
 
   /**
-   * @description builds a map of finaccnumber to sf id
-   * fabric only knows the finaccnumber, so we need to fetch the id to do an update
-   *
+   * @description builds a map of finaccnumber to FinServ__FinancialAccount__c
    * @param financialAccountNumbers the financial account identifiers
-   * @return Map<String, Id> map of the fin acc number to the salesforce id
+   * @return Map<String, FinServ__FinancialAccount__c> map of the fin acc number to the FinServ__FinancialAccount__c
    */
-  private static Map<String, Id> getFinAccNumberToIdMap(
+  private static Map<String, FinServ__FinancialAccount__c> getFinAccNumberToFinancialAccountMap(
     Set<String> financialAccountNumbers
   ) {
-    Map<String, Id> finAccNumberToIdMap = new Map<String, Id>();
-    for (FinServ__FinancialAccount__c fa : [
-      SELECT Id, FinServ__FinancialAccountNumber__c
+    Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+    for (FinServ__FinancialAccount__c finAccount : [
+      SELECT Id, FinServ__FinancialAccountNumber__c, Ownership__c
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__FinancialAccountNumber__c IN :financialAccountNumbers
     ]) {
-      finAccNumberToIdMap.put(fa.FinServ__FinancialAccountNumber__c, fa.Id);
+      finAccNumberToFinancialAccountMap.put(
+        finAccount.FinServ__FinancialAccountNumber__c,
+        finAccount
+      );
     }
-    return finAccNumberToIdMap;
+    return finAccNumberToFinancialAccountMap;
   }
 
   /**
@@ -159,35 +193,42 @@ public with sharing class FinancialAccountController {
     Id ownerId,
     List<String> recordTypeDeveloperNames
   ) {
-    List<FinServ__FinancialAccount__c> financialAccount;
-    if (
-      FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable() &&
-      String.isNotBlank(ownerId) &&
-      !recordTypeDeveloperNames.isEmpty()
-    ) {
-      financialAccount = [
-        SELECT
-          Id,
-          Name,
-          FinServ__Balance__c,
-          FinServ__CurrentPostedBalance__c,
-          FinServ__CloseDate__c,
-          FinServ__FinancialAccountNumber__c,
-          FinServ__Status__c,
-          FinServ__OpenDate__c,
-          RecordType.DeveloperName,
-          LastModifiedDate
-        FROM FinServ__FinancialAccount__c
-        WHERE
-          FinServ__PrimaryOwner__c = :ownerId
-          AND RecordType.DeveloperName IN :recordTypeDeveloperNames
-        ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
-      ];
+    List<FinServ__FinancialAccount__c> financialAccount = new List<FinServ__FinancialAccount__c>();
+    try {
+      PermissionUtils.canQuery('FinServ__FinancialAccount__c');
+      PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
+      if (String.isNotBlank(ownerId) && !recordTypeDeveloperNames.isEmpty()) {
+        //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
+        //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
+        List<String> allAccountNumbersRelated = getAllAccountNumberFromFAR(
+          ownerId
+        );
+        financialAccount = [
+          SELECT
+            Id,
+            Name,
+            FinServ__Balance__c,
+            FinServ__CurrentPostedBalance__c,
+            FinServ__CloseDate__c,
+            FinServ__FinancialAccountNumber__c,
+            FinServ__Status__c,
+            FinServ__OpenDate__c,
+            RecordType.DeveloperName,
+            LastModifiedDate,
+            Ownership__c,
+            OCV_ID__c
+          FROM FinServ__FinancialAccount__c
+          WHERE
+            (FinServ__PrimaryOwner__c = :ownerId
+            OR FinServ__FinancialAccountNumber__c IN :allAccountNumbersRelated)
+            AND RecordType.DeveloperName IN :recordTypeDeveloperNames
+          ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
+        ];
+      }
+    } catch (Exception objException) {
+      Logger.error(objException.getMessage(), objException);
+      Logger.saveLog();
     }
-    if (financialAccount.isEmpty()) {
-      return null;
-    }
-
     return financialAccount;
   }
 
@@ -217,5 +258,26 @@ public with sharing class FinancialAccountController {
         );
       }
     }
+  }
+
+  /**
+   * @description builds a list of finaccnumbers from the financial account roles for the customer sent from the UI
+   * @param ownerId customer id receive from the UI
+   * @return List<String> list of the financial account numbers
+   */
+  private static List<String> getAllAccountNumberFromFAR(Id ownerId) {
+    List<String> financialAccountNumbers = new List<String>();
+
+    for (FinServ__FinancialAccountRole__c finAccRole : [
+      SELECT FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+      FROM FinServ__FinancialAccountRole__c
+      WHERE FinServ__RelatedAccount__c = :ownerId AND FinServ__Active__c = TRUE
+    ]) {
+      financialAccountNumbers.add(
+        finAccRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+      );
+    }
+
+    return financialAccountNumbers;
   }
 }

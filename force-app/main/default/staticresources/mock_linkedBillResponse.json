@@ -1,0 +1,15 @@
+{
+  "bills": [
+    {
+      "compositeBillId": "4017192605-OL72362139602-PIF5HDRG",
+      "billType": "Commercial Bill - Variable",
+      "billReferenceNo": "PIF5HDRG",
+      "billAmount": "1475000.000",
+      "billSwapReferencePercentage": "0.000638210000000",
+      "billRollOverDate": "2022-03-16T00:00:00",
+      "billRollOverFrequency": "1M",
+      "billExpiry": "2022-05-16T00:00:00",
+      "billInterestRate": "0.063821000000000"
+    }
+  ]
+}

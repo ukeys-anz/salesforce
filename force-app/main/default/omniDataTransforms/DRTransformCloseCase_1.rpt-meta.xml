@@ -103,6 +103,7 @@
     <name>DRTransformCloseCase</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy3 ISNOTBLANK | | var:Case:otherRemedy3 ISNOTBLANK var:Case:otherRemedy3 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -112,7 +113,6 @@
         <globalKey>DRTransformCloseCaseCustom5094</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -120,6 +120,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy2 ISNOTBLANK | | var:Case:rewardPoints2 ISNOTBLANK var:Case:rewardPoints2 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -129,7 +130,6 @@
         <globalKey>DRTransformCloseCaseCustom5763</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -137,13 +137,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom6781</globalKey>
         <inputFieldName>Case:ComplaintRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|1:Remedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -151,13 +151,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom9044</globalKey>
         <inputFieldName>Case:PaymentAmountProvided3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:PaymentProvided</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -165,13 +165,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom8801</globalKey>
         <inputFieldName>Case:ComplaintSubRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|1:SubRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -179,13 +179,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom7796</globalKey>
         <inputFieldName>Case:ComplaintRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:Remedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -193,13 +193,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom8521</globalKey>
         <inputFieldName>Case:PaymentAmountProvided1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|1:PaymentProvided</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -207,13 +207,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom6870</globalKey>
         <inputFieldName>Case:ComplaintResolution2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:Id</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -221,13 +221,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom7228</globalKey>
         <inputFieldName>Case:ComplaintSubRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:SubRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -235,13 +235,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom4851</globalKey>
         <inputFieldName>Case:ComplaintSubRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:SubRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -249,13 +249,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom1565</globalKey>
         <inputFieldName>Case:ComplaintRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:Remedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -263,6 +263,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy3 ISNOTBLANK | | var:Case:durationOfRemedy3 ISNOTBLANK var:Case:durationOfRemedy3 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -272,7 +273,6 @@
         <globalKey>DRTransformCloseCaseCustom8284</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -280,6 +280,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy2 ISNOTBLANK | | var:Case:detailsOfComplaint2 ISNOTBLANK var:Case:detailsOfComplaint2 &quot;&quot; IF &quot;&quot; IF</formulaConverted>
@@ -289,7 +290,6 @@
         <globalKey>DRTransformCloseCaseCustom8263</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -297,6 +297,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy2 ISNOTBLANK | | var:Case:PaymentAmountProvided2 ISNOTBLANK var:Case:PaymentAmountProvided2 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -306,7 +307,6 @@
         <globalKey>DRTransformCloseCaseCustom9554</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -314,13 +314,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom1943</globalKey>
         <inputFieldName>Case:detailsOfComplaint1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|1:detailsOfComplaint</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -328,6 +328,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy2 ISNOTBLANK | | var:Case:otherRemedy2 ISNOTBLANK var:Case:otherRemedy2 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -337,7 +338,6 @@
         <globalKey>DRTransformCloseCaseCustom5908</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -345,6 +345,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:rewardPoints1 ISNOTBLANK var:Case:rewardPoints1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -354,7 +355,6 @@
         <globalKey>DRTransformCloseCaseCustom1863</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -362,13 +362,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom2713</globalKey>
         <inputFieldName>Case:ComplaintResolution3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:Id</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -376,13 +376,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom2209</globalKey>
         <inputFieldName>Case:ComplaintResolution1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|1:Id</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -390,6 +390,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy3 ISNOTBLANK | | var:Case:rewardPoints3 ISNOTBLANK var:Case:rewardPoints3 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -399,7 +400,6 @@
         <globalKey>DRTransformCloseCaseCustom8199</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -407,13 +407,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom9370</globalKey>
         <inputFieldName>Case:otherRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|1:otherRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -421,13 +421,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom7191</globalKey>
         <inputFieldName>Case:PaymentAmountProvided2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:PaymentProvided</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -435,13 +435,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom5741</globalKey>
         <inputFieldName>Case:durationOfRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:durationOfRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -449,13 +449,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom710</globalKey>
         <inputFieldName>Case:rewardPoints3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:rewardPoints</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -463,6 +463,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy3 ISNOTBLANK | | var:Case:PaymentAmountProvided3 ISNOTBLANK var:Case:PaymentAmountProvided3 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -472,7 +473,6 @@
         <globalKey>DRTransformCloseCaseCustom3522</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -480,13 +480,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom870</globalKey>
         <inputFieldName>Case:rewardPoints1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|1:rewardPoints</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -494,13 +494,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom5877</globalKey>
         <inputFieldName>Case:durationOfRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|1:durationOfRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -508,13 +508,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom1844</globalKey>
         <inputFieldName>Case:otherRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:otherRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -522,13 +522,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom6749</globalKey>
         <inputFieldName>Case:otherRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:otherRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -536,13 +536,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom1467</globalKey>
         <inputFieldName>Case:rewardPoints2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:rewardPoints</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -550,6 +550,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy2 ISNOTBLANK | | var:Case:durationOfRemedy2 ISNOTBLANK var:Case:durationOfRemedy2 &apos;$Vlocity.NULL&apos; IF &quot;&quot; IF</formulaConverted>
@@ -559,7 +560,6 @@
         <globalKey>DRTransformCloseCaseCustom4146</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -567,13 +567,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom4275</globalKey>
         <inputFieldName>Case:detailsOfComplaint3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:detailsOfComplaint</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -581,13 +581,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom3184</globalKey>
         <inputFieldName>Case:durationOfRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:durationOfRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -595,6 +595,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:otherRemedy1 ISNOTBLANK var:Case:otherRemedy1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -604,7 +605,6 @@
         <globalKey>DRTransformCloseCaseCustom5161</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -612,6 +612,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:detailsOfComplaint1 ISNOTBLANK var:Case:detailsOfComplaint1 &quot;&quot; IF</formulaConverted>
@@ -621,7 +622,6 @@
         <globalKey>DRTransformCloseCaseCustom5245</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -629,6 +629,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:PaymentAmountProvided1 ISNOTBLANK var:Case:PaymentAmountProvided1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -638,7 +639,6 @@
         <globalKey>DRTransformCloseCaseCustom8170</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -646,6 +646,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:ComplaintRemedy3 ISNOTBLANK | | var:Case:detailsOfComplaint3 ISNOTBLANK var:Case:detailsOfComplaint3 &quot;&quot; IF &quot;&quot; IF</formulaConverted>
@@ -655,7 +656,6 @@
         <globalKey>DRTransformCloseCaseCustom1099</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -663,6 +663,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:durationOfRemedy1 ISNOTBLANK var:Case:durationOfRemedy1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -672,7 +673,6 @@
         <globalKey>DRTransformCloseCaseCustom5892</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -680,13 +680,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom1655</globalKey>
         <inputFieldName>Case:detailsOfComplaint2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRTransformCloseCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:detailsOfComplaint</outputFieldName>
         <outputObjectName>json</outputObjectName>

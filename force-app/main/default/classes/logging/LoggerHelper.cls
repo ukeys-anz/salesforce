@@ -39,7 +39,7 @@ public with sharing class LoggerHelper {
         defaultSaveMethod = Logger.SaveMethod.QUEUEABLE;
       }
       when 'IMMEDIATE' {
-        if ( Test.isRunningTest()) {
+        if (Test.isRunningTest()) {
           defaultSaveMethod = Logger.SaveMethod.IMMEDIATE;
         } else {
           defaultSaveMethod = Logger.SaveMethod.EVENT_BUS;
@@ -187,7 +187,7 @@ public with sharing class LoggerHelper {
         System.enqueueJob(new QueueableSaver(logEvents));
       }
       when IMMEDIATE {
-        if ( Test.isRunningTest()) {
+        if (Test.isRunningTest()) {
           LogEventActions.processLogEvents(logEvents);
         }
       }

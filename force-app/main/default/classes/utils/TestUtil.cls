@@ -192,7 +192,7 @@ public with sharing class TestUtil {
         psAssignments.add(psa);
       }
     }
-    if ( Test.isRunningTest()) {
+    if (Test.isRunningTest()) {
       Test.calculatePermissionSetGroup(lstPSGIds);
     }
     insert psAssignments;

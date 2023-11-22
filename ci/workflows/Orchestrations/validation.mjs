@@ -31,20 +31,27 @@ import {
 const {
   WHICH_JOB,
   BASE_REF,
+  BASE_REF_LAST_TAG,
   BRANCH_NAME,
   SFDX_URL,
   DRAFT_PR,
   SPECIFIED_TEST_PR,
   ARTIFACTORY_SECRET_VALUE,
   PR_NUMBER,
-  WORKING_DIR
+  WORKING_DIR,
+  REPO_NAME
 } = process.env;
 
 const SOURCE_DIR = renameItem(`artifact-${BRANCH_NAME}`);
+const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases-np`;
 const CLASS_FOLDER_PATH = `${SOURCE_DIR}/force-app/main/default/classes`;
 const JOB_ID_FILE_NAME = renameItem(`${BASE_REF}-${PR_NUMBER}`);
 const ANZX_CI_PACKAGE_XML =
   WORKING_DIR + "/ci/workflows/Config/ANZxCIPackage.xml";
+const ARTIFACT_PACKAGE_XML =
+  WORKING_DIR + "/" + SOURCE_DIR + "/package/package.xml";
+const ARTIFACT_DESTRUCTIVE_XML =
+  WORKING_DIR + "/" + SOURCE_DIR + "/destructiveChanges/destructiveChanges.xml";
 //////////
 
 /// functions
@@ -71,26 +78,36 @@ const validationFunction = () => {
 const validate = () => {
   createAndUploadArtifact(
     SOURCE_DIR,
-    BASE_REF,
-    BRANCH_NAME,
+    BASE_REF_LAST_TAG,
     ARTIFACTORY_SECRET_VALUE,
-    JOB_ID_FILE_NAME
+    ARTIFACTORY_REPO_NAME
   );
   authenticate(BRANCH_NAME, SFDX_URL);
   cancel(
     JOB_ID_FILE_NAME,
     ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME,
     BRANCH_NAME,
     ANZX_CI_PACKAGE_XML
   );
   const validationFunc = validationFunction();
   const validation = validationFunc(BRANCH_NAME, SOURCE_DIR, CLASS_FOLDER_PATH);
-  uploadJobId(validation, JOB_ID_FILE_NAME, ARTIFACTORY_SECRET_VALUE);
-  validateProgress(validation);
+  uploadJobId(
+    validation,
+    JOB_ID_FILE_NAME,
+    ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME
+  );
+  validateProgress(
+    validation,
+    BRANCH_NAME,
+    ARTIFACT_PACKAGE_XML,
+    ARTIFACT_DESTRUCTIVE_XML
+  );
 };
 
 const clean = () => {
-  codeCoverage(JOB_ID_FILE_NAME);
+  codeCoverage(JOB_ID_FILE_NAME, DRAFT_PR);
   unauthenticate(BRANCH_NAME);
   deleteFolder(SOURCE_DIR);
   deleteFile(JOB_ID_FILE_NAME);

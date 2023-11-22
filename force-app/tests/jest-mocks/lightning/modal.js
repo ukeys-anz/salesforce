@@ -56,9 +56,7 @@ function selectAll(template, element, selectors) {
  */
 export default class LightningModal extends LightningElement {
   static open(apis) {
-    throw new Error(
-      "The LightningModal documentation contains examples for mocking .open"
-    );
+    jest.fn().mockResolvedValue("option1");
   }
 
   @api size;

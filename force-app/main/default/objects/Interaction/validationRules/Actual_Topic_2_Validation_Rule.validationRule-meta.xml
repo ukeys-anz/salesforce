@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Actual_Topic_2_Validation_Rule</fullName>
+    <active>true</active>
+    <description>This Validation rule ensures that value will be present in  Actual Topic 1 field.</description>
+    <errorConditionFormula>Actual_Topic_1__c == null  &amp;&amp;  Actual_Topic_2__c != null &amp;&amp;  OR(Record_Type__c = &apos;Call&apos;,Record_Type__c = &apos;In Person&apos;,Record_Type__c = &apos;Message&apos;)</errorConditionFormula>
+    <errorDisplayField>Actual_Topic_2__c</errorDisplayField>
+    <errorMessage>You cannot fill Actual Topic 2 unless Actual Topic 1 has value</errorMessage>
+</ValidationRule>

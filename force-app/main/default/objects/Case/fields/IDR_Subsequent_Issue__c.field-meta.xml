@@ -537,11 +537,6 @@
                 <label>No direct phone line</label>
             </value>
             <value>
-                <fullName>Stores are cashless</fullName>
-                <default>false</default>
-                <label>Stores are cashless</label>
-            </value>
-            <value>
                 <fullName>Not enough stores</fullName>
                 <default>false</default>
                 <label>Not enough stores</label>
@@ -653,10 +648,6 @@
         <valueSettings>
             <controllingFieldValue>9</controllingFieldValue>
             <valueName>Request won&apos;t be actioned</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>Stores are cashless</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>

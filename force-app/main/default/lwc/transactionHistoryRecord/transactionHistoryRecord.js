@@ -39,28 +39,36 @@ const PENDING_TRANSACTION_MESSAGE =
   "You can’t raise a dispute on a pending transaction. Please try again once payment has cleared.";
 const UNKNOWN_TRANSACTION_MESSAGE =
   "You can’t raise a dispute on a transaction with unknown status.";
+const SLDS_COL_SIZE_OF_8 = "slds-col slds-size--1-of-8";
+const SLDS_COL_SIZE_OF_7 = "slds-col slds-size--1-of-7";
+const LOGO_CONTAINER = "logo-container";
+const BUTTON_ICON_COL = "button-icon-col";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
 ) {
   @api transactionRecord;
   @api expandAll;
-  @track showTransactionDetails;
   @api showRaiseDispute;
-  zoomLevel = 15;
-
+  @api disputeRecordTypesFromParent;
+  @api personAccount;
+  @api financialAccountId;
+  @api ocvId;
+  @api ownership;
+  @track showTransactionDetails;
   @wire(MessageContext)
   messageContext;
   subscription = null;
   showRecordTypeSelection = false;
-  @api disputeRecordTypesFromParent;
   disputeRecordTypes;
   selectedDisputeRecordType;
-  @api personAccount;
-  @api financialAccountId;
-  @api ocvId;
   tokenizedCardNumber;
   loading;
+  dynamicColumnClass;
+  dynamicLogoClass;
+  dynamicButtonClass;
+  zoomLevel = 15;
+  showTransactionInitiatorColumn;
 
   connectedCallback() {
     this.subscription = subscribe(
@@ -87,6 +95,18 @@ export default class TransactionHistoryRecord extends NavigationMixin(
             ALLOWED_DISPUTE_TYPES_FOR_SALARY
           )
         : this.disputeRecordTypesFromParent;
+
+    // Dynamically assigning the logo , column and button size
+    if (this.ownership === "Multi-party") {
+      this.showTransactionInitiatorColumn = true;
+      this.dynamicLogoClass = SLDS_COL_SIZE_OF_8 + " " + LOGO_CONTAINER;
+      this.dynamicColumnClass = SLDS_COL_SIZE_OF_8;
+      this.dynamicButtonClass = SLDS_COL_SIZE_OF_8 + " " + BUTTON_ICON_COL;
+    } else {
+      this.dynamicLogoClass = SLDS_COL_SIZE_OF_7 + " " + LOGO_CONTAINER;
+      this.dynamicColumnClass = SLDS_COL_SIZE_OF_7;
+      this.dynamicButtonClass = SLDS_COL_SIZE_OF_7 + " " + BUTTON_ICON_COL;
+    }
   }
 
   get showPayAnyoneMsgTransactionDetails() {
