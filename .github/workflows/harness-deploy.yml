@@ -4,16 +4,29 @@ name: Deploy
 on:
   push:
     branches:
-      - "release"
-      - "develop"
-      - "epic/*"
+      - x
+  workflow_dispatch:
+    inputs:
+      BASEREF:
+        description: "Base Ref"
+        required: true
+        type: text
 
 jobs:
   harness-deploy:
     runs-on: [self-hosted, salesforce-prod]
     steps:
       - name: Set BASE_REF
-        run: echo BASE_REF=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
+        run: |
+          if [[ ${{ github.event_name }} == 'workflow_dispatch' ]];then
+            echo BASE_REF="${{ github.event.inputs.BASEREF }}" >> $GITHUB_ENV
+            echo REF="refs/heads/${{ github.event.inputs.BASEREF }}" >> $GITHUB_ENV
+            echo GIT_REF="${{ github.event.inputs.BASEREF }}-${GITHUB_RUN_ID}" >> $GITHUB_ENV
+          else
+            echo BASE_REF=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
+            echo REF="${{ github.ref }}"
+            echo GIT_REF="${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}" >> $GITHUB_ENV
+          fi
 
       - if: env.BASE_REF != 'release'
         name: Read Harness API Key
@@ -27,9 +40,9 @@ jobs:
         name: Trigger Harness Job
         uses: docker://anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest
         env:
-          GITHUB_REF: ${{ github.ref }}
+          GITHUB_REF: ${{ env.REF }}
           GITHUB_SHA: ${{ github.sha }}
-          UPLOAD_ARTIFACT: ${{ contains(github.base_ref, 'develop') || contains(github.base_ref, 'master') }}
+          UPLOAD_ARTIFACT: false
           REPO_NAME: ${{ github.event.repository.name }}
         with:
           application-name: salesforce
@@ -41,13 +54,13 @@ jobs:
 
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ env.REF }}
           fetch-depth: 0
 
       - name: "Tag Release"
         shell: bash
         run: |
-          echo "${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}"
-          TAG="${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID}"
+          echo "${{ env.GIT_REF }}"
+          TAG="${{ env.GIT_REF }}"
           git tag "$TAG"
           git push origin "$TAG"

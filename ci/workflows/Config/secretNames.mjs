@@ -1,11 +1,12 @@
-{
-  "master": "h-salesforce-np-preprod",
-  "develop": "h-salesforce-np-test",
+const salesforceSecretNames = {
+  master: "h-salesforce-np-preprod",
+  develop: "h-salesforce-np-test",
   "release/preprod": "h-salesforce-prod-preprod",
   "release/consumer-key": "h-salesforce-prod-ca-consumerkey",
   "release/cert": "h-salesforce-prod-cert",
-  "release": "h-salesforce-np-test",
+  release: "h-salesforce-np-test",
   "epic/anzx-bau": "h-salesforce-np-anzxbau",
+  "epic/cfaasepic": "h-salesforce-np-cfaasepic",
   "epic/cmos-a": "h-salesforce-np-cmosa",
   "epic/cmos-b": "h-salesforce-np-cmosb",
   "epic/cmos-bau": "h-salesforce-np-cmosbaudev",
@@ -27,11 +28,29 @@
   "epic/platform": "h-salesforce-np-platform",
   "epic/twilio": "h-salesforce-np-twilio",
   "epic/h1-statements": "h-salesforce-np-h1stment",
-  "epic/receive-and-distribute-ingested-leads": "h-salesforce-np-receive-and-distribute-ingested-leads",
+  "epic/receive-and-distribute-ingested-leads":
+    "h-salesforce-np-receive-and-distribute-ingested-leads",
   "epic/credit-referral": "h-salesforce-np-credit-referral",
   "epic/view-sop": "h-salesforce-np-viewsop",
   "epic/interaction-v2": "h-salesforce-np-interactionv2",
   "epic/view-umi": "h-salesforce-np-viewumi",
   "epic/appointment-booking": "h-salesforce-np-appointment-booking",
-  "epic/payto": "h-salesforce-np-payto"
-}
+  "epic/payto": "h-salesforce-np-payto",
+  "epic/apiupliftforaccountandtransaction": "h-salesforce-np-apiuplift",
+  "epic/bdm-login": "h-salesforce-np-bdmlogin",
+  "epic/loan-app": "h-salesforce-np-loan-app",
+  "epic/search-customer": "h-salesforce-np-searchcustomer",
+  "epic/inapp-complaint": "h-salesforce-np-inappcomp",
+  "epic/bohleads": "h-salesforce-np-bohleads"
+};
+
+const brokerSecretNames = {
+  master: "h-salesforce-np-preprod-broker",
+  develop: "h-salesforce-np-test-broker",
+  "epic/brokernfr": "h-salesforce-np-brokernfr-broker",
+  "epic/replicate-data": "h-salesforce-np-replicate-data-broker",
+  "epic/loan-apps": "h-salesforce-np-loan-apps-broker",
+  "epic/cb-km-login": "h-salesforce-np-commercial-broker"
+};
+
+export { salesforceSecretNames, brokerSecretNames };

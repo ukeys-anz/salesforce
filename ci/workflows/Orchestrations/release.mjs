@@ -33,15 +33,17 @@ const {
   CERT_SECRET_VALUE,
   BASE_REF_LAST_TAG,
   CLEANING_JOB,
-  WORKING_DIR
+  WORKING_DIR,
+  REPO_NAME,
+  PROD_USER_NAME,
+  PROD_URL
 } = process.env;
 
 // STAGE_NAME should be changed from preprod deployment to prod validation/deployment
 const BASE_REF = STAGE_NAME === "preprod-deployment" ? "master" : "prodrel";
+const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases`;
 const SOURCE_DIR = `artifact-master-${RELEASE_NAME}`;
-const DEPLOY_USER_USERNAME =
-  BASE_REF === "master" ? "master" : "tech.gcb@anzx.com";
-const PROD_URL = "https://anz.my.salesforce.com";
+const DEPLOY_USER_USERNAME = BASE_REF === "master" ? "master" : PROD_USER_NAME;
 const ARTIFACT_PACKAGE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/package/package.xml";
 const ARTIFACT_DESTRUCTIVE_XML =
@@ -52,7 +54,11 @@ const ARTIFACT_DESTRUCTIVE_XML =
 
 const preprodDeployment = () => {
   createDiffOnDeploy(SOURCE_DIR, BASE_REF, BASE_REF_LAST_TAG);
-  uploadToArtifactory(ARTIFACTORY_SECRET_VALUE, SOURCE_DIR);
+  uploadToArtifactory(
+    ARTIFACTORY_SECRET_VALUE,
+    SOURCE_DIR,
+    ARTIFACTORY_REPO_NAME
+  );
   authenticate(DEPLOY_USER_USERNAME, SFDX_URL);
   const deployment = deployWithoutTest(DEPLOY_USER_USERNAME, SOURCE_DIR);
   deployProgress(deployment);
