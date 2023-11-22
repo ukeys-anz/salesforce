@@ -11646,6 +11646,26 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>VAU Opt-In</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VAU Opt-Out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchant Refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATM Cash Deposit Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATM Cheque Deposit Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Digital wallet provisioning</fullName>
             <default>false</default>
         </values>
@@ -11751,6 +11771,18 @@
         </values>
         <values>
             <fullName>Power of attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PayID technical issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email PayID already registered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile PayID already registered</fullName>
             <default>false</default>
         </values>
         <values>
@@ -12624,6 +12656,10 @@
         </values>
         <values>
             <fullName>Statutory Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PayID Issue/Dispute</fullName>
             <default>false</default>
         </values>
     </picklistValues>
