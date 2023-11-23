@@ -1,15 +1,14 @@
-name: Run All Local Tests
+name: Salesforce Run All Local Tests
 
 on:
   pull_request:
     branches:
-      - x
-    #   - "master"
-    # types:
-    #   - opened
-    #   - reopened
-    #   - ready_for_review
-    #   - synchronize
+      - "master"
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
 
 permissions:
   contents: "read"
@@ -45,17 +44,13 @@ jobs:
           echo REPO_NAME="${{ github.event.repository.name }}" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
 
-      - name: Find Proper TargetOrg
+      - name: Find Proper TargetOrg and Secret Name
         run: |
-          echo TARGET_BASE_REF="$( node ci/workflows/Orchestrations/runAllTests.mjs )" >> $GITHUB_ENV
-          echo WHICH_JOB="runAllTests" >> $GITHUB_ENV
-
-      - name: Find Secret Names
-        run: |
-          sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
-          echo "$sfdxURL"
-          echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
+          secretName=$( node ci/workflows/Orchestrations/runAllTests.mjs )
+          echo "$secretName"
+          echo SECRET_NAME="$secretName" >> $GITHUB_ENV
           echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifactory" >> $GITHUB_ENV
+          echo WHICH_JOB="runAllTests" >> $GITHUB_ENV
 
       - name: Find GSM credential
         id: secrets
