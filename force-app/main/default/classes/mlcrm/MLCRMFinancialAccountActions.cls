@@ -26,7 +26,11 @@ public class MLCRMFinancialAccountActions {
         oldMap.get(objFinancialAccount.Id).Product_SubCode__c !=
         objFinancialAccount.Product_SubCode__c)
       ) {
-        setOfSubProductCode.add(objFinancialAccount.Product_SubCode__c);
+        if (String.isNotBlank(objFinancialAccount.Product_SubCode__c)) {
+          setOfSubProductCode.add(objFinancialAccount.Product_SubCode__c);
+        } else if (String.isNotBlank(objFinancialAccount.Product_Type__c)) {
+          setOfSubProductCode.add(objFinancialAccount.Product_Type__c);
+        }
       }
     }
 
@@ -50,12 +54,21 @@ public class MLCRMFinancialAccountActions {
 
     for (FinServ__FinancialAccount__c objFinancialAccount : records) {
       if (
+        String.isNotBlank(objFinancialAccount.Product_SubCode__c) &&
         mapOfSubCodeToProduct.containsKey(
           objFinancialAccount.Product_SubCode__c
         )
       ) {
         objFinancialAccount.FinServ__ProductName__c = mapOfSubCodeToProduct.get(
             objFinancialAccount.Product_SubCode__c
+          )
+          .Id;
+      } else if (
+        String.isNotBlank(objFinancialAccount.Product_Type__c) &&
+        mapOfSubCodeToProduct.containsKey(objFinancialAccount.Product_Type__c)
+      ) {
+        objFinancialAccount.FinServ__ProductName__c = mapOfSubCodeToProduct.get(
+            objFinancialAccount.Product_Type__c
           )
           .Id;
       }

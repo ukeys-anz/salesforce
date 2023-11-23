@@ -71,6 +71,18 @@
                     <name>Digital_wallet_issue</name>
                     <label>Digital wallet issue</label>
                 </dataCategory>
+                <dataCategory>
+                    <name>VAU_Opt_In</name>
+                    <label>VAU Opt-In</label>
+                </dataCategory>
+                <dataCategory>
+                    <name>VAU_Opt_Out</name>
+                    <label>VAU Opt-Out</label>
+                </dataCategory>
+                <dataCategory>
+                    <name>Merchant_Refund</name>
+                    <label>Merchant Refund</label>
+                </dataCategory>
                 <label>Cards</label>
             </dataCategory>
             <dataCategory>
@@ -99,7 +111,31 @@
                     <name>Transaction_disputes</name>
                     <label>Transaction disputes</label>
                 </dataCategory>
+                <dataCategory>
+                    <name>ATM_Cash_Deposit_Dispute</name>
+                    <label>ATM Cash Deposit Dispute</label>
+                </dataCategory>
+                <dataCategory>
+                    <name>ATM_Cheque_Deposit_Dispute</name>
+                    <label>ATM Cheque Deposit Dispute</label>
+                </dataCategory>
                 <label>Money</label>
+            </dataCategory>
+            <dataCategory>
+                <name>PayID_Issue_Dispute</name>
+                <dataCategory>
+                    <name>PayID_technical_issue</name>
+                    <label>PayID technical issue</label>
+                </dataCategory>
+                <dataCategory>
+                    <name>Email_PayID_already_registered</name>
+                    <label>Email PayID already registered</label>
+                </dataCategory>
+                <dataCategory>
+                    <name>Mobile_PayID_already_registered</name>
+                    <label>Mobile PayID already registered</label>
+                </dataCategory>
+                <label>PayID Issue/Dispute</label>
             </dataCategory>
             <dataCategory>
                 <name>Payments</name>

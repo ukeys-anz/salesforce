@@ -8,9 +8,11 @@
     <externalId>false</externalId>
     <inlineHelpText>Enter a brief, high level description of the remedy provided</inlineHelpText>
     <label>Other Remedy</label>
+    <length>32000</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>TextArea</type>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
 </CustomField>

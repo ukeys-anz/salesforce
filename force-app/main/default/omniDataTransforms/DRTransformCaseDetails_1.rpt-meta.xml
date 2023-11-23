@@ -909,13 +909,26 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ResolutionInformation:complaintRelatedHardship</outputFieldName>
+        <outputFieldName>ComplaintRes|3:SubRemedy</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7072</globalKey>
+        <inputFieldName>Case:ResolutionInformation:complaintRelatedHardship</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:complaintRelatedHardship</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom594</globalKey>
@@ -985,6 +998,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -1364,7 +1378,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == | &quot;select/\/\/id/\/\/from/\/\/RecordType/\/\/where/\/\/Name/\/\/=/\/\/&apos;Customer/\/\/Complaint&apos;&quot; QUERY | &quot;select/\/\/id/\/\/from/\/\/RecordType/\/\/where/\/\/Name/\/\/=/\/\/&apos;Non-Customer/\/\/Complaint&apos;&quot; QUERY IF</formulaConverted>
@@ -1423,7 +1436,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetails3999182223311337</globalKey>
@@ -1647,7 +1659,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetails28910106851355666</globalKey>
