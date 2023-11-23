@@ -204,7 +204,6 @@ const validateProgress = (
       }
     } catch (err) {
       console.log(data);
-      deployReport(jobId, "Validation");
     }
   });
 
@@ -259,7 +258,6 @@ const deployProgress = (
       }
     } catch (err) {
       console.log(data);
-      deployReport(jobId, "Deployment");
     }
   });
 
