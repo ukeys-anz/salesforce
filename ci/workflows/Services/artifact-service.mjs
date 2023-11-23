@@ -119,11 +119,15 @@ const zipArtifactory = (artifactPath) => {
   execSync(`zip -r "${artifactPath}.zip" "${artifactPath}"`).toString("utf8");
 };
 
-const uploadArtifact = (zipFileName, artifactorySecret) => {
+const uploadArtifact = (
+  zipFileName,
+  artifactorySecret,
+  artifactoryRepoName
+) => {
   loggerInStep("Upload Artifact");
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${zipFileName}.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/${zipFileName}.zip"`
+      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${zipFileName}.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${zipFileName}.zip"`
     ).toString("utf8")
   );
 };
@@ -133,18 +137,27 @@ const deleteZipArtifactory = (zipFileName) => {
   execSync(`rm -f ${zipFileName}.zip`);
 };
 
-const uploadToArtifactory = (artifactorySecret, artifactPath) => {
+const uploadToArtifactory = (
+  artifactorySecret,
+  artifactPath,
+  artifactoryRepoName
+) => {
   if (!salesforceDiffExist(artifactPath)) return;
   logger("Upload Artifactory");
   zipArtifactory(artifactPath);
-  uploadArtifact(artifactPath, artifactorySecret);
+  uploadArtifact(artifactPath, artifactorySecret, artifactoryRepoName);
   deleteZipArtifactory(artifactPath);
 };
 
-const createAndUploadArtifact = (folderName, tagRef, artifactorySecret) => {
+const createAndUploadArtifact = (
+  folderName,
+  tagRef,
+  artifactorySecret,
+  artifactoryRepoName
+) => {
   logger("Build Artifact");
   createDiffOnValidate(folderName, tagRef);
-  uploadToArtifactory(artifactorySecret, folderName);
+  uploadToArtifactory(artifactorySecret, folderName, artifactoryRepoName);
 };
 
 const downloadArtifact = (artifactName, artifactorySecret, projectName) => {
