@@ -1,15 +1,14 @@
-name: Run All Local Tests
+name: Salesforce Run All Local Tests
 
 on:
   pull_request:
     branches:
-      - x
-    #   - "master"
-    # types:
-    #   - opened
-    #   - reopened
-    #   - ready_for_review
-    #   - synchronize
+      - "master"
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
 
 permissions:
   contents: "read"

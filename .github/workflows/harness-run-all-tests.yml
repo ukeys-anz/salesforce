@@ -16,12 +16,7 @@ on:
 
   pull_request:
     branches:
-      - "master"
-    types:
-      - opened
-      - reopened
-      - ready_for_review
-      - synchronize
+      - x
 
 jobs:
   # This job will run all the tests
