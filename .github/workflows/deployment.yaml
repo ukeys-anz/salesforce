@@ -3,10 +3,9 @@ name: Salesforce Deployment
 on:
   push:
     branches:
-      - x
-      # - "release"
-      # - "develop"
-      # - "epic/*"
+      - "release"
+      - "develop"
+      - "epic/*"
 
 permissions:
   contents: "write"
@@ -47,6 +46,8 @@ jobs:
           echo BASE_REF="$baseRef" >> $GITHUB_ENV
           echo RUN_ID="${GITHUB_RUN_ID}" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
+          echo REPO_NAME="${{ github.event.repository.name }}" >> $GITHUB_ENV
+
           lastTag="$( git describe --abbrev=0 --tags --match $baseRef* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
