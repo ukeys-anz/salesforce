@@ -225,6 +225,7 @@ public with sharing class AccountCommonActionsHelper {
    * @description getLeadsByAccIdMap gets a list of potential matching leads by their corresponding account Id
    * @param l The lead record to be added to the list
    * @param matchingLeadsByAccIdMap A map of leads to be converted and their corresponding account Ids
+   * @param bohLeadsList A list of all the matching boh leads
    * @param account Account record matching the lead
    * @return Map<Id, List<Lead>> A map of leads to be converted and their corresponding account Ids
    */
