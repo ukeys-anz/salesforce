@@ -66,6 +66,7 @@ public with sharing class AccountCommonActionsHelper {
     }
 
     Map<Id, List<Lead>> matchingLeadsByAccIdMap = new Map<Id, List<Lead>>();
+    List<Lead> bohLeadsList = new List<Lead>();
     LeadRetriever lr = new LeadRetriever();
     for (
       Lead l : lr.getPotentialMatchingLeads(
@@ -81,6 +82,7 @@ public with sharing class AccountCommonActionsHelper {
         putLeadsInMapByAccId(
           l,
           matchingLeadsByAccIdMap,
+          bohLeadsList,
           accountByEmailMap.get(l.Email)
         );
       } else if (
@@ -89,9 +91,14 @@ public with sharing class AccountCommonActionsHelper {
         putLeadsInMapByAccId(
           l,
           matchingLeadsByAccIdMap,
+          bohLeadsList,
           accountByMobileMap.get(l.MobilePhone)
         );
       }
+    }
+
+    if (!bohLeadsList.isEmpty() && Schema.sObjectType.Lead.isUpdateable()) {
+      Database.update(bohLeadsList);
     }
 
     return matchingLeadsByAccIdMap;
@@ -191,7 +198,6 @@ public with sharing class AccountCommonActionsHelper {
           AND (MobilePhone IN :mobileSet
           OR Email IN :emailSet)
           AND IsConverted = FALSE
-          AND Is_BOH_Lead__c = FALSE
       ];
       return potentialMatchingLeads;
     }
@@ -225,19 +231,27 @@ public with sharing class AccountCommonActionsHelper {
   public static Map<Id, List<Lead>> putLeadsInMapByAccId(
     Lead l,
     Map<Id, List<Lead>> matchingLeadsByAccIdMap,
+    List<Lead> bohLeadsList,
     Account account
   ) {
-    if (
-      // Check if the map already contains this key
-      matchingLeadsByAccIdMap.containsKey(account.Id)
-    ) {
-      // If yes, add the lead to the exist list
-      matchingLeadsByAccIdMap.get(account.Id).add(l);
+    // Need to exclude the BOH Leads from the converison process, but adding the related account flag on the lead
+    if (l.Is_BOH_Lead__c) {
+      l.FinServ__RelatedAccount__c = account.Id;
+      bohLeadsList.add(l);
     } else {
-      // If no, create a new list of leads and put this in the map by the account Id
-      List<Lead> matchingLeads = new List<Lead>();
-      matchingLeads.add(l);
-      matchingLeadsByAccIdMap.put(account.Id, matchingLeads);
+      // Adding only those leads in the map which needs to go through the conversion process
+      if (
+        // Check if the map already contains this key
+        matchingLeadsByAccIdMap.containsKey(account.Id)
+      ) {
+        // If yes, add the lead to the exist list
+        matchingLeadsByAccIdMap.get(account.Id).add(l);
+      } else {
+        // If no, create a new list of leads and put this in the map by the account Id
+        List<Lead> matchingLeads = new List<Lead>();
+        matchingLeads.add(l);
+        matchingLeadsByAccIdMap.put(account.Id, matchingLeads);
+      }
     }
     return matchingLeadsByAccIdMap;
   }
