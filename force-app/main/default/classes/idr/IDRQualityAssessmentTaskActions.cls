@@ -6,13 +6,12 @@
  */
 
 public with sharing class IDRQualityAssessmentTaskActions {
-  public static final String STATUS_PENDING = 'Pending';
   /**
    * @description For all Assessments going from Completed to Pending set their Compliance Tasks to Expired.
    * @param lstAssessments new Trigger Values
    * @param mpOldAssessments old Trigger Values
    */
-  public static void checkOnReversionToPending(
+  public static void checkOnReversionFromComplete(
     List<Quality_Assessment__c> lstAssessments,
     Map<Id, Quality_Assessment__c> mpOldAssessments
   ) {
@@ -28,7 +27,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
       for (Quality_Assessment__c oAssessment : lstAssessments) {
         if (
           oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
-          oAssessment.Status__c == STATUS_PENDING &&
+          (oAssessment.Status__c == QualityAssessmentActions.STATUS_PENDING ||
+          oAssessment.Status__c == QualityAssessmentActions.STATUS_WITHDRAWN) &&
           mpOldAssessments != null &&
           (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) != null &&
           oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
@@ -40,7 +40,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
         if (
           oAssessment.RecordTypeId ==
           IDRConstants.idrtCallLetterReviewQualityAssessment &&
-          oAssessment.Status__c == STATUS_PENDING &&
+          (oAssessment.Status__c == QualityAssessmentActions.STATUS_PENDING ||
+          oAssessment.Status__c == QualityAssessmentActions.STATUS_WITHDRAWN) &&
           mpOldAssessments != null &&
           (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) != null &&
           oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE

@@ -766,6 +766,72 @@ public with sharing class InteractionTriggerHandlerTest {
     );
   }
 
+  @isTest
+  static void testValidTwilioDetailsCreation() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
+    Integer countOfTwilioDetailsInserted;
+
+    List<Interaction> interactionListToBeInserted = new List<Interaction>();
+    System.runAs(coachUser) {
+      Test.startTest();
+      for (Integer i = 0; i < 50; i++) {
+        Interaction intToInsert = TestDataFactory.createInteraction(
+          GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+          InteractionConstants.CUSTOMER,
+          'New Interaction',
+          System.now(),
+          false
+        );
+        intToInsert.InteractionType = 'Chat';
+        intToInsert.Direction__c = 'Inbound';
+        interactionListToBeInserted.add(intToInsert);
+      }
+      DMLUtil.insertRecords(interactionListToBeInserted, false, true);
+      countOfTwilioDetailsInserted = [SELECT COUNT() FROM Twilio_Details__c];
+      Test.stopTest();
+    }
+    System.assertEquals(
+      countOfTwilioDetailsInserted,
+      50,
+      'Twilio Details Created Successfully'
+    );
+  }
+
+  @isTest
+  static void testInValidTwilioDetailsCreation() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
+    Integer countOfTwilioDetailsInserted;
+
+    List<Interaction> interactionListToBeInserted = new List<Interaction>();
+    System.runAs(coachUser) {
+      Test.startTest();
+      for (Integer i = 0; i < 50; i++) {
+        Interaction intToInsert = TestDataFactory.createInteraction(
+          GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+          InteractionConstants.CUSTOMER,
+          'New Interaction',
+          System.now(),
+          false
+        );
+        intToInsert.InteractionType = 'Call';
+        intToInsert.Direction__c = 'Inbound';
+        interactionListToBeInserted.add(intToInsert);
+      }
+      interactionListToBeInserted[48]
+        .RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID;
+      interactionListToBeInserted[48].InteractionType = 'Store';
+      interactionListToBeInserted[49].Direction__c = '';
+      DMLUtil.insertRecords(interactionListToBeInserted, false, true);
+      countOfTwilioDetailsInserted = [SELECT COUNT() FROM Twilio_Details__c];
+      Test.stopTest();
+    }
+    System.assertEquals(
+      countOfTwilioDetailsInserted,
+      48,
+      'Twilio Details Created Successfully'
+    );
+  }
+
   /**
    * @description helper method to create a person account
    * @param firstName String the first name of the person

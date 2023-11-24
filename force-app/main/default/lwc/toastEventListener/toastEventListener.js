@@ -21,8 +21,10 @@ export default class ToastEventListener extends LightningElement {
       });
       this.dispatchEvent(evt);
       clearTimeout(this.timeoutId);
-      // eslint-disable-next-line @lwc/lwc/no-async-operation
-      this.timeoutId = setTimeout(this.sendEventToFlexcard.bind(this), 3000);
+      if (event.detail.variant === "success") {
+        // eslint-disable-next-line @lwc/lwc/no-async-operation
+        this.timeoutId = setTimeout(this.sendEventToFlexcard.bind(this), 3000);
+      }
     }
   }
 

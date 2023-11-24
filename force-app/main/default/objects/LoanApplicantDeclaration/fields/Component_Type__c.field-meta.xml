@@ -42,7 +42,7 @@
             <value>
                 <fullName>COMPONENT_TYPE_APPLICANTS</fullName>
                 <default>false</default>
-                <label>Applicant</label>
+                <label>Applicants</label>
             </value>
             <value>
                 <fullName>COMPONENT_TYPE_SIGNIFICANT_CHANGE</fullName>

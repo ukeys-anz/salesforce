@@ -179,9 +179,11 @@ public with sharing class TestUtil {
   ) {
     List<PermissionSetAssignment> psAssignments = new List<PermissionSetAssignment>();
     Map<String, PermissionSetGroup> pSetGroupMap = UserProvisioningCommonActions.getAllPsetGroupMap();
+    List<String> lstPSGIds = new List<String>();
 
     for (String permissionSetGroupName : psgNames) {
       PermissionSetGroup psg = pSetGroupMap.get(permissionSetGroupName);
+      lstPSGIds.add(psg.Id);
       for (User currentUser : users) {
         PermissionSetAssignment psa = new PermissionSetAssignment(
           AssigneeId = currentUser.Id,
@@ -189,6 +191,9 @@ public with sharing class TestUtil {
         );
         psAssignments.add(psa);
       }
+    }
+    if (Test.isRunningTest()) {
+      Test.calculatePermissionSetGroup(lstPSGIds);
     }
     insert psAssignments;
   }

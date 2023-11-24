@@ -124,7 +124,10 @@ public with sharing class CCRMDiaryCommentQuery extends CCRMExternalObjectQueryB
           }
           row.put('Permanent', true);
           row.put('Branch', calloutResponse.permanentComment.branch);
-          row.put('DatePlaced', calloutResponse.permanentComment.datePlaced.format('dd/MM/yyyy'));
+          row.put(
+            'DatePlaced',
+            calloutResponse.permanentComment.datePlaced.format('dd/MM/yyyy')
+          );
           row.put(
             'ModifiedDate',
             adjustUTCDateTime(calloutResponse.permanentComment.dateChanged)

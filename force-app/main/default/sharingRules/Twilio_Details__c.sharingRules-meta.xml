@@ -149,4 +149,18 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Twilio_Details_for_CMOS</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Twilio Details for CMOS</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

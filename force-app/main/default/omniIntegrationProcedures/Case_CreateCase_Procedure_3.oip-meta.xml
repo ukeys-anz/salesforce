@@ -2,55 +2,32 @@
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
     <customJavaScript>{
     &quot;Case&quot;: {
-        &quot;durationOfRemedy1&quot;: null,
-        &quot;otherRemedy1&quot;: null,
-        &quot;rewardPoints1&quot;: null,
-        &quot;detailsOfComplaint1&quot;: null,
-        &quot;PaymentAmountProvided1&quot;: 111,
-        &quot;ComplaintRemedy2&quot;: &quot;2&quot;,
-        &quot;ComplaintSubRemedy2&quot;: &quot;99&quot;,
-        &quot;durationOfRemedy2&quot;: null,
-        &quot;otherRemedy2&quot;: &quot;otherrmedy update&quot;,
-        &quot;rewardPoints2&quot;: null,
-        &quot;detailsOfComplaint2&quot;: null,
-        &quot;PaymentAmountProvided2&quot;: null,
-        &quot;ThirdComplaintCheckbox&quot;: &quot;Yes&quot;,
-        &quot;ComplaintRemedy3&quot;: &quot;2&quot;,
-        &quot;ComplaintSubRemedy3&quot;: &quot;Reward Points&quot;,
-        &quot;durationOfRemedy3&quot;: null,
-        &quot;otherRemedy3&quot;: null,
-        &quot;rewardPoints3&quot;: &quot;5&quot;,
-        &quot;detailsOfComplaint3&quot;: null,
-        &quot;PaymentAmountProvided3&quot;: null,
         &quot;avoidableEscalation&quot;: &quot;No&quot;,
-        &quot;avoidableEscalationReason&quot;: null,
-        &quot;REALFormMAXID&quot;: null,
-        &quot;WhyIsThisPossibleSystemicIssue&quot;: null,
-        &quot;PossibleSystemicIssueCategory&quot;: null,
-        &quot;WhichAdditionalIssuesaereSystemic&quot;: null,
-        &quot;IsthisComplaintAboutComplaint&quot;: null,
-        &quot;ParentCase-Block&quot;: null,
-        &quot;CAC&quot;: null,
-        &quot;ReviewOutcome&quot;: null,
-        &quot;Id&quot;: &quot;5009j000006qjLlAAI&quot;,
-        &quot;Type&quot;: &quot;21&quot;,
-        &quot;ComplaintResolution3&quot;: &quot;a1t9j000000VKlfAAG&quot;,
-        &quot;ComplaintResolution1&quot;: &quot;a1t9j000000VKldAAG&quot;,
-        &quot;ComplaintResolution2&quot;: &quot;a1t9j000000VKleAAG&quot;,
-        &quot;thirdIssue&quot;: false,
-        &quot;IDR_Subsequent_Issue__c&quot;: &quot;36&quot;,
-        &quot;IDR_Restriction_Level__c&quot;: &quot;No Restriction&quot;,
-        &quot;secondIssue&quot;: false,
-        &quot;accountNumber2&quot;: &quot;N/A&quot;,
-        &quot;accountNumber3&quot;: &quot;N/A&quot;,
-        &quot;ComplaintStatus&quot;: &quot;Closed&quot;,
+        &quot;ComplaintResolution3&quot;: &quot;a2i9n000001MlSjAAK&quot;,
+        &quot;ComplaintSubRemedy2&quot;: &quot;Zurich&quot;,
+        &quot;ComplaintResolution2&quot;: &quot;a2i9n000001MlR7AAK&quot;,
+        &quot;ComplaintRemedy2&quot;: &quot;3&quot;,
+        &quot;ComplaintSubRemedy1&quot;: &quot;10&quot;,
+        &quot;ComplaintRemedy1&quot;: &quot;4&quot;,
+        &quot;ComplaintResolution1&quot;: &quot;a2i9n000001MlPVAA0&quot;,
+        &quot;PaymentAmountProvided1&quot;: 1,
+        &quot;ThirdComplaintCheckbox&quot;: &quot;No&quot;,
         &quot;SecondComplaintCheckbox&quot;: &quot;Yes&quot;,
-        &quot;ComplaintOutcome&quot;: &quot;2&quot;,
-        &quot;realFormRequired&quot;: &quot;No&quot;,
+        &quot;DescriptionOutcome&quot;: &quot;test&quot;,
+        &quot;ComplaintOutcome&quot;: &quot;1&quot;,
+        &quot;product1&quot;: &quot;01t2O000001KLxpQAG&quot;,
+        &quot;accountNumber3&quot;: &quot;N/A&quot;,
+        &quot;accountNumber2&quot;: &quot;N/A&quot;,
+        &quot;IDR_Restriction_Level__c&quot;: &quot;No Restriction&quot;,
+        &quot;IDR_Subsequent_Issue__c&quot;: &quot;109&quot;,
+        &quot;Type&quot;: &quot;Fraud&quot;,
+        &quot;thirdIssue&quot;: false,
+        &quot;secondIssue&quot;: false,
+        &quot;detailsOfComplaint2&quot;: true,
+        &quot;detailsOfComplaint1&quot;: false,
+        &quot;Id&quot;: &quot;5009n000008y2QaAAI&quot;,
         &quot;isSystemicIssue&quot;: &quot;No&quot;,
-        &quot;DescriptionOutcome&quot;: &quot;ftyfty&quot;,
-        &quot;ComplaintRemedy1&quot;: &quot;1&quot;,
-        &quot;ComplaintSubRemedy1&quot;: &quot;2&quot;
+        &quot;realFormRequired&quot;: &quot;No&quot;
     },
     &quot;isCloseCase&quot;: true
 }</customJavaScript>
@@ -64,6 +41,99 @@
     <isWebCompEnabled>false</isWebCompEnabled>
     <language>Procedure</language>
     <name>CreateCase</name>
+    <omniProcessElements>
+        <name>ComplaintResLoopBlock</name>
+        <childElements>
+            <name>DRCreateComplaintResolution</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true &amp;&amp; (Case:ResolutionInformation:ComplaintStatus==\&quot;Closed\&quot; || Case:ResolutionInformation:ComplaintStatus==\&quot;Provisionally Closed\&quot;)&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;ComplaintRes:Remedy&quot; : &quot;%TransformCaseDetails:ComplaintRes:Remedy%&quot;,
+    &quot;ComplaintRes:SubRemedy&quot; : &quot;%TransformCaseDetails:ComplaintRes:SubRemedy%&quot;,
+    &quot;ComplaintRes:PaymentProvided&quot; : &quot;%TransformCaseDetails:ComplaintRes:PaymentProvided%&quot;,
+    &quot;ComplaintRes:detailsOfComplaint&quot; : &quot;%TransformCaseDetails:ComplaintRes:detailsOfComplaint%&quot;,
+    &quot;ComplaintRes:durationOfRemedy&quot; : &quot;%TransformCaseDetails:ComplaintRes:durationOfRemedy%&quot;,
+    &quot;ComplaintRes:otherRemedy&quot; : &quot;%TransformCaseDetails:ComplaintRes:otherRemedy%&quot;,
+    &quot;ComplaintRes:rewardPoints&quot; : &quot;%TransformCaseDetails:ComplaintRes:rewardPoints%&quot;,
+    &quot;ComplaintId&quot; : &quot;%DRCreateCase:Case_1:Id%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;bundle&quot; : &quot;DRCreateComplaintResolution&quot;,
+  &quot;chainOnStep&quot; : true,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>DataRaptor Post Action</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;loopList&quot; : &quot;TransformCaseDetails:ComplaintRes&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true&quot;,
+  &quot;loopOutput&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;LoopBlock1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>3.0</sequenceNumber>
+        <type>Loop Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>DeleteComplaintResolution</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;ComplaintResolution&quot; : &quot;%TransformClosecase:ComplaintRes%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteMethod&quot; : &quot;deleteComplaintResolution&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;RemoteAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>7.0</sequenceNumber>
+        <type>Remote Action</type>
+    </omniProcessElements>
     <omniProcessElements>
         <name>DRCloseCase</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
@@ -129,40 +199,6 @@
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>DRCreateComplaintResolution</name>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true&quot;,
-  &quot;failureConditionalFormula&quot; : &quot;&quot;,
-  &quot;failOnStepError&quot; : true,
-  &quot;useFormulas&quot; : true,
-  &quot;additionalInput&quot; : {
-    &quot;ComplaintRes&quot; : &quot;%TransformCaseDetails:ComplaintRes%&quot;,
-    &quot;ComplaintId&quot; : &quot;%DRCreateCase:Case_1:Id%&quot;
-  },
-  &quot;additionalOutput&quot; : { },
-  &quot;failureResponse&quot; : { },
-  &quot;sendOnlyAdditionalInput&quot; : true,
-  &quot;returnOnlyAdditionalOutput&quot; : false,
-  &quot;returnOnlyFailureResponse&quot; : false,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;bundle&quot; : &quot;DRCreateComplaintResolution&quot;,
-  &quot;chainOnStep&quot; : false,
-  &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
-        <type>DataRaptor Post Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
         <name>DRUpdateComplaintResolution</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -220,7 +256,7 @@
   &quot;label&quot; : &quot;ResponseAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -320,5 +356,5 @@
     <type>Case</type>
     <uniqueName>Case_CreateCase_Procedure_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>b30a2181-8a43-6a2f-08a1-a1895ab831fa</webComponentKey>
+    <webComponentKey>5bbea47f-b867-bb2a-eff1-a2aa6624cbaa</webComponentKey>
 </OmniIntegrationProcedure>

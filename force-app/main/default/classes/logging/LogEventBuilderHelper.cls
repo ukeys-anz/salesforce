@@ -195,13 +195,21 @@ public with sharing class LogEventBuilderHelper {
     List<String> stackTraceLines
   ) {
     Integer ignoreIndex;
+    if (Test.isRunningTest() && stackTraceLines.size() > 0) {
+      for (String ignoredClass : IGNORED_CLASSES) {
+        if (
+          stackTraceLines[stackTraceLines.size() - 1]
+            .contains('.' + ignoredClass + '.')
+        ) {
+          // If running Test and top StackTraceLines is an ignored class then remove nothing
+          return ignoreIndex;
+        }
+      }
+    }
     for (Integer i = 0; i < stackTraceLines.size(); i++) {
       Boolean ignoreLine = false;
       for (String ignoredClass : IGNORED_CLASSES) {
-        if (
-          stackTraceLines[i].contains('.' + ignoredClass + '.') &&
-          !Test.isRunningTest()
-        ) {
+        if (stackTraceLines[i].contains('.' + ignoredClass + '.')) {
           ignoreLine = true;
           ignoreIndex = i;
         }

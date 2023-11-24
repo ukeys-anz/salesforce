@@ -10,6 +10,7 @@
  * @description Model for Credit Referrals
  */
 public with sharing class CreditReferralModel extends CalloutModel {
+  public Boolean hasError = false;
   public List<Assessment> assessments;
 
   /**
@@ -60,6 +61,7 @@ public with sharing class CreditReferralModel extends CalloutModel {
    * @description Reason node
    */
   public class Reason {
+    public String outcomeId;
     public String reasonCode;
     public String reasonDescription;
     public String reasonOutcome;

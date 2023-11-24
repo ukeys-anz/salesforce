@@ -10,6 +10,7 @@ public with sharing class CreditAssessmentActionsController {
   private static final String REASSESS_REQUIRED_ERROR = 'The loan application has been updated and you must resubmit this credit referral case for reassessment.';
   private static final String ASSESSMENT_ERROR = 'This credit referral case is currently being assessed. You can\'t finalise the referral case until this has been completed.';
   private static final String FINALISE_CALLOUT_ERROR = 'Failed to complete finalisation.';
+  private static final String FRAUD_RELATED_ERROR = 'There’s a fraud case related to this credit referral case still open. You can’t finalise this case until the fraud case is closed.';
 
   /**
    * @param recordId case id
@@ -37,15 +38,11 @@ public with sharing class CreditAssessmentActionsController {
     if (String.isBlank(c.Credit_Id__c)) {
       Logger.error('Missing Credit Id on Credit assessment case: ' + recordId);
       Logger.saveLog();
-      AuraHandledException e = new AuraHandledException(TECH_ASSIST_ERROR);
-      e.setMessage(TECH_ASSIST_ERROR);
-      throw e;
+      throw ExceptionHelper.createAuraHandledException(TECH_ASSIST_ERROR);
     }
 
     if (c.Assessment_Outcome__c == 'Processing') {
-      AuraHandledException e = new AuraHandledException(IN_PROGRESS_ERROR);
-      e.setMessage(IN_PROGRESS_ERROR);
-      throw e;
+      throw ExceptionHelper.createAuraHandledException(IN_PROGRESS_ERROR);
     }
 
     try {
@@ -88,52 +85,68 @@ public with sharing class CreditAssessmentActionsController {
   public static Boolean finalise(String recordId) {
     //Check if user can query case
     PermissionUtils.canQuery('Case');
-
-    //Retrieve fields from case record
-    Case c = [
+    Boolean hasFraudCase = false;
+    Case caseToFinalise;
+    //Retrieve case records for validation
+    List<Case> cList = [
       SELECT
+        Id,
+        Type,
+        ParentId,
+        RecordTypeId,
         Credit_Id__c,
         Assessment_Outcome__c,
         Assessment_Id__c,
-        Loan_Application__r.Credit_Reassess_Required__c,
-        Account.OCV_Id__c
+        IDR_Subsequent_Issue__c,
+        Account.OCV_ID__c,
+        Loan_Application__r.Credit_Reassess_Required__c
       FROM Case
-      WHERE Id = :recordId
+      WHERE
+        Id = :recordId
+        OR (ParentId = :recordId
+        AND RecordTypeId = :GetHelpConstants.GENERAL_INQUIRY_RT_ID
+        AND Type = 'Fraud'
+        AND Sub_Type__c = 'Home loan document verification'
+        AND Status != 'Closed')
     ];
-
-    if (c.Loan_Application__r.Credit_Reassess_Required__c) {
-      AuraHandledException e = new AuraHandledException(
-        REASSESS_REQUIRED_ERROR
-      );
-      e.setMessage(REASSESS_REQUIRED_ERROR);
-      throw e;
+    for (Case c : cList) {
+      if (c.ParentId == recordId && c.Type == 'Fraud') {
+        hasFraudCase = true;
+      } else if (c.Id == recordId) {
+        caseToFinalise = c;
+      }
+    }
+    if (caseToFinalise?.Loan_Application__r?.Credit_Reassess_Required__c) {
+      throw ExceptionHelper.createAuraHandledException(REASSESS_REQUIRED_ERROR);
     }
 
     if (
-      c.Assessment_Outcome__c != 'Approved' &&
-      c.Assessment_Outcome__c != 'Declined'
+      caseToFinalise.Assessment_Outcome__c != 'Approved' &&
+      caseToFinalise.Assessment_Outcome__c != 'Declined'
     ) {
-      AuraHandledException e = new AuraHandledException(ASSESSMENT_ERROR);
-      e.setMessage(ASSESSMENT_ERROR);
-      throw e;
+      throw ExceptionHelper.createAuraHandledException(ASSESSMENT_ERROR);
+    }
+    // less priority error, only throw when there is no above errors
+    if (hasFraudCase) {
+      throw ExceptionHelper.createAuraHandledException(FRAUD_RELATED_ERROR);
     }
 
     try {
       CreditAssessmentAPIRepository creditApi = new CreditAssessmentAPIRepository();
       creditApi.finaliseAssessment(
-        c.Credit_Id__c,
-        c.Assessment_Id__c,
-        c.Account.OCV_ID__c
+        caseToFinalise.Credit_Id__c,
+        caseToFinalise.Assessment_Id__c,
+        caseToFinalise.Account.OCV_ID__c
       );
 
       //Add checks to ensure we only update status based on correct outcome
-      if (c.Assessment_Outcome__c == 'Approved') {
-        c.Status = 'Closed - Approved';
-      } else if (c.Assessment_Outcome__c == 'Declined') {
-        c.Status = 'Closed - Declined';
+      if (caseToFinalise.Assessment_Outcome__c == 'Approved') {
+        caseToFinalise.Status = 'Closed - Approved';
+      } else if (caseToFinalise.Assessment_Outcome__c == 'Declined') {
+        caseToFinalise.Status = 'Closed - Declined';
       }
-      c.System_Action__c = true;
-      DMLUtil.updateRecords(new List<Case>{ c }, false, false);
+      caseToFinalise.System_Action__c = true;
+      DMLUtil.updateRecords(new List<Case>{ caseToFinalise }, false, false);
     } catch (Exception e) {
       Logger.error(e.getMessage());
       Logger.saveLog();

@@ -1760,6 +1760,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>/credit-assessment/v1/providereferraloutcome</value>
     </labels>
     <labels>
+        <fullName>MS_Delete_Referral_Outcome</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Delete_Referral_Outcome</shortDescription>
+        <value>/credit-assessment/v1/creditenquiries/</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Mandate_List</fullName>
         <categories>ST</categories>
         <language>en_US</language>
@@ -1836,9 +1844,9 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM JWT Siging Certificate</shortDescription>
-        <value>sf_signature_mule_callout_production_anz_com</value>       
+        <value>sf_signature_mule_callout_production_anz_com</value>
     </labels>
-    <labels>   
+    <labels>
         <fullName>ML_ANZ_Role</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -1861,7 +1869,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>ANZX_Customer_Comm_Url</shortDescription>
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords?:iid=5&amp;ocv_id=</value>
     </labels>
-    <labels>    
+    <labels>
         <fullName>ML_ConversationGuideBody</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -1869,7 +1877,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>ML_ConversationGuideBody</shortDescription>
         <value>Check the guidance provided for this Campaign/Lead on Max.</value>
     </labels>
-    <labels>    
+    <labels>
         <fullName>Financial_Account_Endpoint</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>

@@ -217,6 +217,7 @@
     "Entitlement": "Represents the customer support an account or contact is eligible to receive.",
     "Event": "Represents a calendar entry in Salesforce",
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
+    "Financial_Summary_Calculation__e": "Platform event used for financial summary calculation result publishing.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Group": "A set of User records.",
@@ -397,6 +398,7 @@
         "IDR_Pend_Reason__c",
         "IDR_Pended_To__c",
         "IDR_Portfolio_or_Business_Unit__c",
+        "IDR_Review_Outcome__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
         "Is_Case_Owned_By_CR_Team__c",
@@ -989,7 +991,8 @@
       ],
       "IA-2530753": [
         "IDR_Product_Family__c",
-        "OnboardingVerificationFailedReason__c"
+        "OnboardingVerificationFailedReason__c",
+        "External_Request_Id__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -1699,6 +1702,14 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
+    "Financial_Summary_Calculation__e": {
+      "IA-2530753": [
+        "Last_Calculated_Time__c",
+        "Response_Id__c",
+        "Summary__c",
+        "Summary_Type__c"
+      ]
+    },
     "FinServ__AccountAccountRelation__c": {
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
     },
@@ -1905,7 +1916,13 @@
         "Loan_Application__c",
         "Actual_Topics__c",
         "Products__c",
-        "Reason_for_Visit__c"
+        "Reason_for_Visit__c",
+        "Actual_Topic_1__c",
+        "Actual_Topic_2__c",
+        "ReasonforVisit__c",
+        "Product__c",
+        "Actual_Topic_Formula__c",
+        "Reason_for_Visit_Formula__c"
       ]
     },
     "Interaction_Tag__c": {

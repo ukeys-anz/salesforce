@@ -1187,7 +1187,8 @@ public with sharing class Logger {
    */
   public enum SaveMethod {
     EVENT_BUS,
-    QUEUEABLE
+    QUEUEABLE,
+    IMMEDIATE
   }
 
   /**
