@@ -77,7 +77,17 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Complaint__c</fieldItem>
+                <identifier>RecordIDR_Complaint_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Complaint_Remedy__c</fieldItem>
                 <identifier>RecordIDR_Complaint_Remedy_cField</identifier>
@@ -87,7 +97,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Complaint_Sub_Remedy__c</fieldItem>
                 <identifier>RecordIDR_Complaint_Sub_Remedy_cField</identifier>
@@ -96,8 +106,8 @@
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
+                  <name>uiBehavior</name>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Duration_of_Remedy__c</fieldItem>
                 <identifier>RecordIDR_Duration_of_Remedy_cField</identifier>
@@ -125,7 +135,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Other_Remedy_Provided__c</fieldItem>
                 <identifier>RecordIDR_Other_Remedy_Provided_cField</identifier>
@@ -142,7 +152,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Financial_Remedy_Points__c</fieldItem>
                 <identifier>RecordIDR_Financial_Remedy_Points_cField</identifier>
@@ -159,7 +169,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Provided_details_to_Manufacturer__c</fieldItem>
                 <identifier>RecordIDR_Provided_details_to_Manufacturer_cField</identifier>
@@ -176,7 +186,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Financial_Compensation__c</fieldItem>
                 <identifier>RecordIDR_Financial_Compensation_cField</identifier>
@@ -198,16 +208,6 @@
                         <rightValue>10</rightValue>
                     </criteria>
                 </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.IDR_Complaint__c</fieldItem>
-                <identifier>RecordIDR_Complaint_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-09b3d290-d198-44a7-9926-f54d26f7c70c</name>

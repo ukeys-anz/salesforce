@@ -2,7 +2,7 @@
  * @author  Laxmi Teja Vuyyuru
  * @since 11/2023
  * @description  ComplaintResolutionTriggerHandler is the handler class for Complaint Resolution Trigger for clearing the Remedy dependent values
- * based on Complaint Remedy and  Complaint Sub Remedy
+ * based on Complaint Remedy and Complaint Sub Remedy
  */
 public with sharing class IDRComplaintResolutionActions {
   /**
