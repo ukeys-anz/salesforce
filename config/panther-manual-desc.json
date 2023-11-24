@@ -2040,7 +2040,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Date_Received__c"
       ],
       "IA-2415983": ["FinServ__ExpressedInterest__c"],
       "IA-2415984": [
@@ -2135,7 +2136,8 @@
         "Territory__c",
         "OpportunityType__c",
         "Contactpreferences__c",
-        "Is_BOH_Lead__c"
+        "Is_BOH_Lead__c",
+        "Lead_Record_Name__c"
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
