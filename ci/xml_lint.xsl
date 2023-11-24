@@ -39,6 +39,18 @@ xmlns:saxon="http://saxon.sf.net/">
         </xsl:copy>
     </xsl:template>
 
+    <!-- Specific metas where name is sorted last -->
+    <xsl:template match="
+          sf:PermissionSet//sf:userPermissions
+          ">
+        <xsl:copy>
+            <xsl:apply-templates select="node()[not(self::sf:fullName|self::sf:name)]">
+                <xsl:sort select="local-name()" data-type="text"/>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="sf:fullName|sf:name"></xsl:apply-templates>
+        </xsl:copy>
+    </xsl:template>
+
     <!-- CustomApplications sort pageOrSobjectType and profile to the bottom -->
     <xsl:template match="sf:CustomApplication//sf:actionOverrides">
         <xsl:copy>
@@ -134,7 +146,8 @@ xmlns:saxon="http://saxon.sf.net/">
     <xsl:template match="sf:OmniScript|
                         sf:OmniIntegrationProcedure|
                         sf:OmniDataTransform|
-                        sf:OmniUiCard">
+                        sf:OmniUiCard|
+                        sf:FlexiPage//sf:flexiPageRegions">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()">
                 <xsl:sort select="local-name()" data-type="text" />

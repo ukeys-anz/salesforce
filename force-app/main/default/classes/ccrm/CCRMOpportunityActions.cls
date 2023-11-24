@@ -116,7 +116,9 @@ public with sharing class CCRMOpportunityActions {
       setNameForOpportunityFromLead(accountIds, opps);
     } catch (System.QueryException e) {
       Logger.error(
-        'InsufficientAccessException' + e.getMessage() + e.getTypeName(),
+        'InsufficientAccessException' +
+        e.getMessage() +
+        e.getTypeName(),
         e
       );
       Logger.savelog();
@@ -172,7 +174,9 @@ public with sharing class CCRMOpportunityActions {
       );
     } catch (System.QueryException e) {
       Logger.error(
-        'InsufficientAccessException' + e.getMessage() + e.getTypeName(),
+        'InsufficientAccessException' +
+        e.getMessage() +
+        e.getTypeName(),
         e
       );
       Logger.saveLog();

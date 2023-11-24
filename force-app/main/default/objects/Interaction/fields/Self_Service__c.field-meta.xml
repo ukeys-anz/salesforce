@@ -6,6 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>Engagement Type: Self Service</description>
     <externalId>false</externalId>
+    <inlineHelpText>Tick how their query was resolved - with your assistance, self-service or both.</inlineHelpText>
     <label>Self Service</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>

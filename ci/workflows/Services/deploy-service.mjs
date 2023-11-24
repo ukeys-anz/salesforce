@@ -69,8 +69,18 @@ const deployWithAllTests = (targetOrg, artifactPath) => {
   return runSfCommand(command);
 };
 
-const quickDeploy = (artifactFolderName, artifactorySecret, targetOrg) => {
-  downloadZipFile(artifactFolderName, artifactorySecret, "Artifactory");
+const quickDeploy = (
+  artifactFolderName,
+  artifactorySecret,
+  artifactoryRepoName,
+  targetOrg
+) => {
+  downloadZipFile(
+    artifactFolderName,
+    artifactorySecret,
+    artifactoryRepoName,
+    "Artifactory"
+  );
   unzipFile(artifactFolderName);
   return deployWithoutTest(targetOrg, artifactFolderName);
 };
@@ -78,9 +88,15 @@ const quickDeploy = (artifactFolderName, artifactorySecret, targetOrg) => {
 const prodValidationWithAllTests = (
   artifactFolderName,
   artifactorySecret,
+  artifactoryRepoName,
   targetOrg
 ) => {
-  downloadZipFile(artifactFolderName, artifactorySecret, "Artifactory");
+  downloadZipFile(
+    artifactFolderName,
+    artifactorySecret,
+    artifactoryRepoName,
+    "Artifactory"
+  );
   unzipFile(artifactFolderName);
   return validateWithAllTests(targetOrg, artifactFolderName);
 };
@@ -88,24 +104,41 @@ const prodValidationWithAllTests = (
 const prodDeploymentWithAllTests = (
   artifactFolderName,
   artifactorySecret,
+  artifactoryRepoName,
   targetOrg
 ) => {
-  downloadZipFile(artifactFolderName, artifactorySecret, "Artifactory");
+  downloadZipFile(
+    artifactFolderName,
+    artifactorySecret,
+    artifactoryRepoName,
+    "Artifactory"
+  );
   unzipFile(artifactFolderName);
   return deployWithAllTests(targetOrg, artifactFolderName);
 };
-const uploadJobId = (validationReport, fileName, artifactorySecret) => {
+const uploadJobId = (
+  validationReport,
+  fileName,
+  artifactorySecret,
+  artifactoryRepoName
+) => {
   const jobId = findJobIdFromCommand(validationReport);
   if (!jobId) return;
   logger(`Upload Job Id to Artifactory: ${jobId}`);
   createFile(jobId, fileName, "Job Id");
-  uploadFile(fileName, artifactorySecret, "Job Id");
+  uploadFile(fileName, artifactorySecret, artifactoryRepoName, "Job Id");
   return jobId;
 };
 
-const cancel = (jobIdFileName, artifactorySecret, targetOrg, anzxCIPackage) => {
+const cancel = (
+  jobIdFileName,
+  artifactorySecret,
+  artifactoryRepoName,
+  targetOrg,
+  anzxCIPackage
+) => {
   logger("Cancel Previous Running Jobs");
-  downloadFile(jobIdFileName, artifactorySecret, "Job Id");
+  downloadFile(jobIdFileName, artifactorySecret, artifactoryRepoName, "Job Id");
   const pastJobId = printContextFromFile(
     jobIdFileName,
     "| Cancel previous job."
@@ -121,7 +154,9 @@ const cancel = (jobIdFileName, artifactorySecret, targetOrg, anzxCIPackage) => {
   const report = runSfCommand(
     `npx sf project deploy report --job-id ${pastJobId} -o ${targetOrg} --json`
   );
-  if (JSON.parse(report)["result"]["status"] !== "InProgress") {
+
+  const prevJobStatus = JSON.parse(report)["result"]["status"];
+  if (prevJobStatus !== "InProgress" && prevJobStatus !== "Pending") {
     console.log(`Past job: ${pastJobId} is already completed/canceled!`);
     return;
   }
@@ -169,7 +204,6 @@ const validateProgress = (
       }
     } catch (err) {
       console.log(data);
-      deployReport(jobId, "Validation");
     }
   });
 
@@ -224,7 +258,6 @@ const deployProgress = (
       }
     } catch (err) {
       console.log(data);
-      deployReport(jobId, "Deployment");
     }
   });
 
@@ -254,7 +287,7 @@ const deployReport = (jobId, whichJob) => {
 // Then will print the apex code coverage
 const codeCoverage = (jobIdFilePath, draftPR) => {
   const jobId = printContextFromFile(jobIdFilePath, "| Code Coverage");
-  if (!jobId) return;
+  if (!jobId || jobId.includes("File not found")) return;
 
   logger("Apex Code Coverage");
   if (booleanMap(draftPR)) {

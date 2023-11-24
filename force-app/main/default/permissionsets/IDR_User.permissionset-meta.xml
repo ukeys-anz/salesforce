@@ -296,6 +296,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_Complaint_Resolution_Count__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_Complaint_Sub_Remedy_2__c</field>
         <readable>true</readable>
     </fieldPermissions>

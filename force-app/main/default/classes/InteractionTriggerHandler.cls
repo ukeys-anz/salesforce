@@ -215,7 +215,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     InteractionSetters.setOwnerNewInteractions(interactions);
 
-    InteractionSetters.setNameOfInteractions(records);
+    InteractionSetters.setNameOfInteractions(records, new Map<Id, SObject>{});
 
     List<Interaction> newInteractions = InteractionFilter.getInteractionsWithoutEnddate(
       interactions
@@ -226,22 +226,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     InteractionValidations.validateInteractions(interactions);
-    //Added for CC-4053 Redaction
-    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
-      records,
-      new List<Id>{
-        MLCRMConstants.ML_INTERACTION_RT_ID,
-        MLCRMConstants.CCRM_INTERACTION_RT_ID
-      }
-    );
-
-    TextUtils.maskSObjectDataANZExtended(wrapperData.dcrmRecordList, 'Name');
-    TextUtils.maskSObjectDataANZExtended(
-      wrapperData.dcrmRecordList,
-      'Optional_Notes__c'
-    );
     InteractionEventHelper.assignDefaultTerritory(records);
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+
+    //Added to create Twilio Details when an Interaction created in the system for Chat and Call
+    TwilioServiceUtil.insertTwilioDetailsOnInteractionCreation(records);
   }
 
   /** @description onBeforeUpdate to handle before update trigger actions.
@@ -277,20 +266,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       InteractionActions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
     }
     InteractionActions.unassignInteractions(oldMap, records);
-    //Added for CC-4053 Redaction
-    TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
-      records,
-      new List<Id>{
-        MLCRMConstants.ML_INTERACTION_RT_ID,
-        MLCRMConstants.CCRM_INTERACTION_RT_ID
-      }
-    );
-
-    TextUtils.maskSObjectDataANZExtended(wrapperData.dcrmRecordList, 'Name');
-    TextUtils.maskSObjectDataANZExtended(
-      wrapperData.dcrmRecordList,
-      'Optional_Notes__c'
-    );
     //Creating a map of all interactions by record type, to be used later. This reduces number of loops.
     Map<String, List<Interaction>> mapOfInteractionsByRecordType = InteractionFilter.getInteractionsByRecordType(
       records
@@ -306,8 +281,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     if (!apptInteraction.isEmpty()) {
       InteractionValidations.validateInteractions(apptInteraction);
-      InteractionSetters.setNameOfInteractions(apptInteraction);
     }
+    InteractionSetters.setNameOfInteractions(records, oldMap);
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
   }
 }

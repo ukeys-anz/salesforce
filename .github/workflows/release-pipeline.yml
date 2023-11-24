@@ -47,6 +47,12 @@ jobs:
             DEPLOYMENT_TITLE: "Stage 6: Prod Deployment"
 
     environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
+    # For salesforce-broker, we need to change the value of the following env variable:
+    #     PREPROD_SECRET_NAME: "h-salesforce-prod-preprod-broker"
+    #     PROD_CONSUMER_KEY_SECRET_NAME: "h-salesforce-prod-ca-consumerkey-broker"
+    #     PROD_CERT_SECRET_NAME: "h-salesforce-prod-cert-broker"
+    #     PROD_USER_NAME: "tech.gcb@anzx.com.broker"
+    #     PROD_URL: "https://anzbankbroker.my.salesforce.com"
     env:
       RELEASE_NAME: "${{ github.event.inputs.NAME }}"
       ARTIFACTORY_SECRET_NAME: "h-salesforce-prod-artifactory"
@@ -59,6 +65,10 @@ jobs:
       PROD_VALIDATION_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'production-validation' }}
       PROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'production-deployment' }}
       STAGE_NAME: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
+      REPO_NAME: ${{ github.event.repository.name }}
+      PROD_USER_NAME: "tech.gcb@anzx.com"
+      PROD_URL: "https://anz.my.salesforce.com"
+
     steps:
       - name: Environment Varibales Debug
         run: |
@@ -68,6 +78,7 @@ jobs:
           echo "DEBUG: PROD_VALIDATION_STEP=${{ env.PROD_VALIDATION_STEP }}"
           echo "DEBUG: PROD_DEPLOYMENT_STEP=${{ env.PROD_DEPLOYMENT_STEP }}"
           echo "DEBUG: STAGE_NAME=${{ env.STAGE_NAME }}"
+          echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
 
       - name: Link SGD plugin
         if: ${{ env.PREPROD_DEPLOYMENT_STEP }}
