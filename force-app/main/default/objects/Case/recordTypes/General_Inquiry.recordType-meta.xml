@@ -11738,6 +11738,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Manage PayTo</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Managing Repayments</fullName>
             <default>false</default>
         </values>

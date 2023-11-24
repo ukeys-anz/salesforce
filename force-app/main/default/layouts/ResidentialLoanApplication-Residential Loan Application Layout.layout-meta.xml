@@ -170,7 +170,6 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Settlement_ID__c</fields>
         <fields>Type__c</fields>
         <fields>Status__c</fields>
         <fields>Owner_Name__c</fields>

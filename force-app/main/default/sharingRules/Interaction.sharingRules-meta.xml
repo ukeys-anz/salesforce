@@ -237,6 +237,20 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CMOS_Interaction_access_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CMOS Interaction access RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>ANZ_Plus_Operations_Interactions_RO</fullName>
         <accessLevel>Read</accessLevel>
@@ -297,17 +311,3 @@
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>
-<!--<sharingCriteriaRules>
-        <fullName>CMOS_Interaction_access_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>CMOS Interaction access RO</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>Name</field>
-            <operation>notEqual</operation>
-            <value/>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>-->

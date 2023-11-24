@@ -67,4 +67,33 @@ public class Vlocity_UtilsTest {
   static void testDisableOmni() {
     Vlocity_Utils.getDisableOmni();
   }
+
+  /**
+   * @description to test create complaint resolutions
+   */
+  @IsTest
+  static void testCreateCR() {
+    Vlocity_Utils obj = new Vlocity_Utils();
+    List<Map<String, Object>> cr = new List<Map<String, Object>>();
+    Case c = [SELECT Id FROM Case LIMIT 1];
+    Map<String, Object> inmap = new Map<String, Object>{
+      'Remedy' => '4',
+      'SubRemedy' => '16',
+      'durationOfRemedy' => '5'
+    };
+    cr.add(inmap);
+    inmap.put('SubRemedy', '99');
+    inmap.put('otherRemedy', 'test12');
+    cr.add(inmap);
+    Map<String, Object> args = new Map<String, Object>();
+    String action = 'createComplaintResolution';
+    args.put(
+      'input',
+      new Map<String, Object>{
+        'ComplaintResolution' => cr,
+        'ComplaintId' => c.Id
+      }
+    );
+    obj.call(action, args);
+  }
 }

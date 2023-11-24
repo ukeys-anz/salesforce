@@ -447,6 +447,11 @@
                 <default>false</default>
                 <label>HL Signing Authority Update</label>
             </value>
+            <value>
+                <fullName>Manage PayTo</fullName>
+                <default>false</default>
+                <label>Manage PayTo</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -668,6 +673,10 @@
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Large Value Transfer requests</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Manage PayTo</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>

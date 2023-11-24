@@ -10,29 +10,35 @@
       "creditEnquiryServiceabilityId": "954b2232-8dfa-11ec-b909-0242ac120135",
       "reasons": [
         {
+          "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd34",
           "reasonCode": "RE202",
           "reasonDescription": "Review expense - Groceries",
           "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_APPROVED",
           "applicantId": "",
-          "referralOutcomeCode": "AR02",
+          "referralOutcomeCode": "AR01",
+          "referralOutcomeDescription": "Accepted - Explanation acceptable",
           "createdBy": "",
           "createTime": "2023-04-20T04:08:20.958656Z"
         },
         {
+          "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd35",
           "reasonCode": "RE106",
           "reasonDescription": "Review expense justification - Health, Life & Other",
           "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_APPROVED",
           "applicantId": "",
-          "referralOutcomeCode": "AR03",
+          "referralOutcomeCode": "",
+          "referralOutcomeDescription": "Accepted - Explanation acceptable",
           "createdBy": "",
           "createTime": "2023-04-20T04:08:20.958656Z"
         },
         {
+          "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd36",
           "reasonCode": "RE104",
           "reasonDescription": "Review justification - Phone, Internet & Subscriptions",
           "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
           "applicantId": "",
           "referralOutcomeCode": "AR01",
+          "referralOutcomeDescription": "Accepted - Explanation acceptable",
           "createdBy": "",
           "createTime": "2023-04-20T04:08:20.958656Z"
         }
@@ -53,6 +59,7 @@
       "creditEnquiryServiceabilityId": "954b2232-8dfa-11ec-b909-0242ac120135",
       "reasons": [
         {
+          "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd37",
           "reasonCode": "RE202",
           "reasonDescription": "Review expense - Groceries",
           "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
@@ -62,6 +69,7 @@
           "createTime": "2023-04-20T04:08:20.958656Z"
         },
         {
+          "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd38",
           "reasonCode": "RE106",
           "reasonDescription": "Review expense justification - Health, Life & Other",
           "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
@@ -87,6 +95,7 @@
       "creditEnquiryServiceabilityId": "954b2232-8dfa-11ec-b909-0242ac120135",
       "reasons": [
         {
+          "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd39",
           "reasonCode": "RE202",
           "reasonDescription": "Review expense - Groceries",
           "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
@@ -97,12 +106,13 @@
           "createTime": "2023-04-20T04:08:20.958656Z"
         },
         {
+          "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd11",
           "reasonCode": "RE106",
           "reasonDescription": "Review expense justification - Health, Life & Other",
           "reasonOutcome": "ASSESSMENT_REASON_OUTCOME_UNSPECIFIED",
           "applicantId": "",
           "referralOutcomeCode": "DR01",
-          "referralOutcomeDescription": "Rejected - Explanation unacceptable",
+          "referralOutcomeDescription": "Rejected - Explanation unacceptable!",
           "createdBy": "charalap",
           "createTime": "2023-04-20T04:08:20.958656Z"
         }

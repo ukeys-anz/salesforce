@@ -46,34 +46,34 @@ global class CCRMCoreBankingDataSourceConnection extends DataSource.Connection {
   ) {
     //instantiate External object query class based on external object name
     CCRMExternalObjectQueryBase externalQuery = instantiateExternalQueryClass(
-       context.tableSelection.tableSelected
+      context.tableSelection.tableSelected
     );
-    
-    DataSource.TableResult result;  
+
+    DataSource.TableResult result;
     try {
-        CCRMExternalObjectQueryBase.ExternalQueryResult externalData = externalQuery.execute(
-          context
-        );
-      
-        result = DataSource.TableResult.get(
-            true,
-            '',
-            context.TableSelection.tableSelected,
-            externalData.queryResult
-        );
-        result.queryMoreToken = externalData.queryMoreToken;
-    } catch(Exception ex) {
-       Logger.error('Unexpected errors: ' + ex.getMessage());
-       Logger.saveLog();
-        
-       result = DataSource.TableResult.get(
-         false,
-         'Unexpected errors. Please contact your system administrator.',
-         context.TableSelection.tableSelected,
-         new List<Map<String, Object>>()
-       ); 
-    }    
-    
+      CCRMExternalObjectQueryBase.ExternalQueryResult externalData = externalQuery.execute(
+        context
+      );
+
+      result = DataSource.TableResult.get(
+        true,
+        '',
+        context.TableSelection.tableSelected,
+        externalData.queryResult
+      );
+      result.queryMoreToken = externalData.queryMoreToken;
+    } catch (Exception ex) {
+      Logger.error('Unexpected errors: ' + ex.getMessage());
+      Logger.saveLog();
+
+      result = DataSource.TableResult.get(
+        false,
+        'Unexpected errors. Please contact your system administrator.',
+        context.TableSelection.tableSelected,
+        new List<Map<String, Object>>()
+      );
+    }
+
     return result;
   }
 

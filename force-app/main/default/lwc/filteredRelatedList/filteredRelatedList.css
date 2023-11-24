@@ -1,0 +1,44 @@
+.THIS.slds-card__body {
+  height: 22px !important;
+}
+
+.related-list-container {
+  padding: 5px;
+  margin: 5px;
+}
+
+.related-list-header {
+  font-weight: bold;
+  padding: 8px;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.related-list-row {
+  padding: 8px;
+}
+
+.related-list-row:hover {
+  background-color: #eaeaea;
+}
+
+.titleText {
+  margin-left: 12px;
+}
+
+.title {
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #d8d8d8;
+  padding: 10px;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  min-height: 32px;
+  padding: 16px;
+  font-size: 16px;
+  border-radius: 0.25em;
+  font-weight: bold;
+  position: relative;
+  bottom: 24px;
+}

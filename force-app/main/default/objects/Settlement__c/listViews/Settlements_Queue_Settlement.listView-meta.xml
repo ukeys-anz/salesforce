@@ -6,8 +6,9 @@
     <columns>Type__c</columns>
     <columns>Status__c</columns>
     <columns>Last_Modified__c</columns>
+    <columns>Owner_Name__c</columns>
     <filterScope>Queue</filterScope>
-    <label>Settlement Queue</label>
+    <label>Settlements Queue</label>
     <queue>Settlements_Queue</queue>
     <sharedTo>
         <allInternalUsers/>
