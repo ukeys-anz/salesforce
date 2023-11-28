@@ -1,8 +1,8 @@
 <template>
   <lightning-quick-action-panel header={headerText}>
-    <lightning-spinner if:true={isCreatingProspect}> </lightning-spinner>
-    <template if:true={showCreateProspect}>
-      <div class="slds-card" if:true={showWarningBanner}>
+    <lightning-spinner lwc:if={isCreatingProspect}> </lightning-spinner>
+    <template lwc:if={showCreateProspect}>
+      <div class="slds-card" lwc:if={showWarningBanner}>
         <div class="slds-card__header slds-grid">
           <div
             class="slds-notify slds-notify_alert slds-alert_warning"
@@ -41,7 +41,7 @@
 
       <div
         class="slds-text-color_error slds-m-left_medium slds-m-top_small"
-        if:true={showMobileOrPhoneError}
+        lwc:if={showMobileOrPhoneError}
       >
         {label.MLCRM_MobileOrEmailRequiredMessage}
       </div>
@@ -138,7 +138,7 @@
         </lightning-layout>
       </div>
     </template>
-    <template if:true={showProgressScreen}>
+    <template lwc:if={showProgressScreen}>
       <div>
         <lightning-progress-bar
           size="medium"
@@ -149,7 +149,7 @@
       </div>
     </template>
 
-    <template if:true={isExistingCustomer}>
+    <template lwc:if={isExistingCustomer}>
       <div>
         <lightning-datatable
           class="resultTable2"

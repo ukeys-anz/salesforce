@@ -127,7 +127,7 @@
                   </lightning-input>
                 </lightning-layout-item>
               </template>
-              <template if:true={displayDueDate}>
+              <template lwc:if={displayDueDate}>
                 <lightning-layout-item size="6" padding="around-small">
                   <lightning-input
                     if:false={resetValidationError}
@@ -159,7 +159,7 @@
                 </lightning-textarea>
               </lightning-layout-item>
               <!--Show what happens next-->
-              <template if:true={showWhatHappensNext}>
+              <template lwc:if={showWhatHappensNext}>
                 <lightning-layout-item
                   size="12"
                   padding="around-small"
