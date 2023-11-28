@@ -2932,11 +2932,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Interaction.Actual_Topics__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Interaction.AppointmentId__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3107,11 +3102,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Interaction.Products__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Interaction.Product__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3138,11 +3128,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Resolution__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction.Reason_for_Visit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3183,16 +3168,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Video_Call__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction_Context_Tag__c.Tag_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction_Context_Tag__c.Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4463,15 +4438,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Interaction</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>Interaction_Context_Tag__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

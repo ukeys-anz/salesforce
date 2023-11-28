@@ -8232,119 +8232,119 @@
         <visibility>Available</visibility>
     </tabSettings>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ConvertLeads</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditTask</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>TransferAnyLead</name>
         <enabled>false</enabled>
+        <name>TransferAnyLead</name>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AddDirectMessageMembers</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AllowUniversalSearch</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AllowViewKnowledge</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AssignTopics</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ChatterInternalUser</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ContentWorkspaces</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CreateCustomizeFilters</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CreateTopics</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditOppLineItemUnitPrice</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditTopics</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EnableNotifications</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ExportReport</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>LightningConsoleAllowedForUser</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>LightningExperienceUser</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>MassInlineEdit</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>PreventClassicExperience</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>RemoveDirectMessageMembers</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>RunReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>SelectFilesFromSalesforce</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>SendSitRequests</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ShowCompanyNameAsUserBadge</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>SubmitMacrosAllowed</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>SubscribeToLightningReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>UseWebLink</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewDeveloperName</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>ViewHelpLink</name>
         <enabled>true</enabled>
+        <name>ViewHelpLink</name>
     </userPermissions>
 </PermissionSet>

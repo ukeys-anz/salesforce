@@ -11,19 +11,17 @@ import {
   deployReport,
   quickDeploy
 } from "../Services/deploy-service.mjs";
-import { deleteFolder, renameItem } from "../Services/helper.mjs";
+import { deleteFolder, renameItem, findAllArgvs } from "../Services/helper.mjs";
 import { createTag } from "../Services/tag-service.mjs";
 
 //////////
 
-/// Find all the env variables & other variables values
+/// Find all the env, argv & other variables values
 
 const {
   WHICH_JOB,
   BASE_REF,
-  SFDX_URL,
   RUN_ID,
-  ARTIFACTORY_SECRET_VALUE,
   BRANCH_NAME,
   WORKING_DIR,
   REPO_NAME
@@ -38,6 +36,10 @@ const ARTIFACT_DESTRUCTIVE_XML =
   "/" +
   ARTIFACT_NAME +
   "/destructiveChanges/destructiveChanges.xml";
+
+const args = findAllArgvs();
+const SFDX_URL = args[0];
+const ARTIFACTORY_SECRET_VALUE = args[1];
 //////////
 
 /// functions
