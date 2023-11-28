@@ -45,12 +45,32 @@ public with sharing class CardListModel extends CalloutModel {
     public ExpiryDateCls expiry_date;
     @AuraEnabled
     public List<String> account_numbers;
+    /**
+     * @description concate account numbers and show on card details screen
+     */
+    // ANZX-128122 : Show Account Numbers on Card Details section.
+    @AuraEnabled
+    public String concatAccountNumber {
+      get {
+        String accountNumbers;
+        if (this.account_numbers != null && !this.account_numbers.isEmpty()) {
+          accountNumbers = (this.account_numbers.size() > 0)
+            ? String.join(this.account_numbers, ',')
+            : this.account_numbers[0];
+        }
+        return accountNumbers;
+      }
+      set;
+    }
+
     @AuraEnabled
     public List<String> eligibilities;
     @AuraEnabled
     public Map<String, Integer> wallets;
     @AuraEnabled
     public Boolean card_controls_enabled;
+    @AuraEnabled
+    public String accountType;
 
     /**
      * @description stores the card controls for the card
@@ -137,10 +157,31 @@ public with sharing class CardListModel extends CalloutModel {
 
   /**
    * @param json input string to deserialize
+   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
    * @return `CardListModel`
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
-  public static CardListModel parse(String json) {
-    return (CardListModel) deserialize(json, CardListModel.class);
+  public static CardListModel parse(
+    String json,
+    Map<String, String> mapOfAccountNumberAndOwnership
+  ) {
+    CardListModel cardmodel = (CardListModel) deserialize(
+      json,
+      CardListModel.class
+    );
+    List<CardCls> listOfCards = cardmodel.cards;
+    for (CardCls card : listOfCards) {
+      if (card.account_numbers != null && !card.account_numbers.isEmpty()) {
+        for (String accnumber : card.account_numbers) {
+          if (mapOfAccountNumberAndOwnership.containsKey(accnumber)) {
+            card.accountType = mapOfAccountNumberAndOwnership.get(accnumber) ==
+              GetHelpConstants.MULTI_PARTY
+              ? GetHelpConstants.JOINT
+              : GetHelpConstants.SINGLE;
+          }
+        }
+      }
+    }
+    return cardmodel;
   }
 }
