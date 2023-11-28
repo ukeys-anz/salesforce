@@ -381,8 +381,8 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     return new CreditAssessmentAPIRepository()
       .deleteReferralOutcome(
         creditId,
+        String.valueOf(input.get('assessmentId')),
         c.Account.OCV_ID__c,
-        c.Assessment_Id__c,
         String.valueOf(input.get('outcomeId'))
       );
   }

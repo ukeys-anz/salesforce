@@ -39,7 +39,9 @@ public with sharing class CFaaSAPIRepositoryTest {
     CFaaSAPIRepository cfaasAPI = new CFaaSAPIRepository();
     CFaaSDocumentModel.CFaaSDownloadUrl response = cfaasAPI.getDownloadURL(
       acc.OCV_Id__c,
-      file.Document_Id__c
+      file.Document_Id__c,
+      '',
+      ''
     );
 
     Test.stopTest();

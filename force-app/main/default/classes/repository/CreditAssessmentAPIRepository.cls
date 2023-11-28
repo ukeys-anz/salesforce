@@ -84,16 +84,16 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
 
   /**
    * @param creditId credit id from credit assessment
-   * @param ocvId customer ocv id
    * @param assessmentId id of assessment submitted for finalisation
+   * @param ocvId customer ocv id
    * @param outcomeCode outcome code to delete
    * @description submits the deletes the credit assessment referral outcome to be updated
    * @return `Boolean` return boolean as the actual response isnt needed for the component
    */
   public Boolean deleteReferralOutcome(
     String creditId,
-    String ocvId,
     String assessmentId,
+    String ocvId,
     String outcomeCode
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
