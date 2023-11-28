@@ -23,9 +23,11 @@ global with sharing class Vlocity_Utils implements Callable {
     } else if ('getKnownIssues'.equals(methodName)) {
       getKnownIssues(input, output, options);
     } else if ('deleteComplaintResolution'.equals(methodName)) {
-      (new DeleteCRS()).deleteComplaintResolution(input, output, options);
+      (new ComplaintResolutionActions())
+        .deleteComplaintResolution(input, output, options);
     } else if ('createComplaintResolution'.equals(methodName)) {
-      (new DeleteCRS()).createComplaintResolution(input, output, options);
+      (new ComplaintResolutionActions())
+        .createComplaintResolution(input, output, options);
     }
     return true;
   }
@@ -93,7 +95,7 @@ global with sharing class Vlocity_Utils implements Callable {
     return IDRConstants.DISABLE_OMNI_FOR_CMOS;
   }
 
-  private without sharing class DeleteCRS {
+  private without sharing class ComplaintResolutionActions {
     /**
      * @description To delete Complaint Resolution
      * @param input The input from IP CR Ids
@@ -142,35 +144,65 @@ global with sharing class Vlocity_Utils implements Callable {
           IDR_Complaint_Remedy__c = (String) cr.get('Remedy'),
           IDR_Complaint_Sub_Remedy__c = (String) cr.get('SubRemedy')
         );
-        if (cr.get('durationOfRemedy') != null) {
-          cr1.IDR_Duration_of_Remedy__c = Decimal.valueOf(
-            String.valueOf(cr.get('durationOfRemedy'))
-          );
+        if (cr.get('Remedy') != null) {
+          if (cr.get('durationOfRemedy') != null) {
+            cr1.IDR_Duration_of_Remedy__c = Decimal.valueOf(
+              String.valueOf(cr.get('durationOfRemedy'))
+            );
+          }
+          if (cr.get('otherRemedy') != null) {
+            cr1.IDR_Other_Remedy_Provided__c = String.valueOf(
+              cr.get('otherRemedy')
+            );
+          }
+          if (cr.get('PaymentProvided') != null) {
+            cr1.IDR_Financial_Compensation__c = Decimal.valueOf(
+              String.valueOf(cr.get('PaymentProvided'))
+            );
+          }
+          if (cr.get('rewardPoints') != null) {
+            cr1.IDR_Financial_Remedy_Points__c = Decimal.valueOf(
+              String.valueOf(cr.get('rewardPoints'))
+            );
+          }
+          if (cr.get('detailsOfComplaint') != null) {
+            cr1.IDR_Provided_details_to_Manufacturer__c = Boolean.valueOf(
+              cr.get('detailsOfComplaint')
+            );
+          }
+          if (cr.get('Id') != null) {
+            cr1.Id = (Id) (cr.get('Id'));
+          }
+          crtocreate.add(cr1);
         }
-        if (cr.get('otherRemedy') != null) {
-          cr1.IDR_Other_Remedy_Provided__c = String.valueOf(
-            cr.get('otherRemedy')
-          );
-        }
-        if (cr.get('PaymentProvided') != null) {
-          cr1.IDR_Financial_Compensation__c = Decimal.valueOf(
-            String.valueOf(cr.get('PaymentProvided'))
-          );
-        }
-        if (cr.get('rewardPoints') != null) {
-          cr1.IDR_Financial_Remedy_Points__c = Decimal.valueOf(
-            String.valueOf(cr.get('rewardPoints'))
-          );
-        }
-        if (cr.get('detailsOfComplaint') != null) {
-          cr1.IDR_Provided_details_to_Manufacturer__c = Boolean.valueOf(
-            cr.get('detailsOfComplaint')
-          );
-        }
-        crtocreate.add(cr1);
       }
       if (!crtocreate.isEmpty()) {
-        insert crtocreate;
+        List<Database.UpsertResult> results = Database.upsert(
+          crtocreate,
+          false
+        );
+        for (Integer i = 0; i < crtocreate.size(); i++) {
+          Database.UpsertResult sr = results[i];
+          if (!sr.isSuccess()) {
+            String errorMessage =
+              'Unable to create complaint resolutions ' +
+              'associated Complaint Resolution: ' +
+              crtocreate[i] +
+              ' associated case: ' +
+              crtocreate[i].IDR_Complaint__c;
+            for (Database.Error err : sr.getErrors()) {
+              errorMessage += err;
+              Logger.error(errorMessage);
+              Logger.saveLog();
+            }
+          }
+        }
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'Vlocity_Utils',
+          'createComplaintResolution',
+          'Not enough permissions to create Complaint Resolutions.'
+        );
       }
     }
   }
