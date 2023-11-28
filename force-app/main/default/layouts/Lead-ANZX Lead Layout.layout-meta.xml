@@ -28,6 +28,16 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>PostalCode__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PreferredName__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Email</field>
             </layoutItems>
         </layoutColumns>
@@ -66,11 +76,16 @@
                 <field>OpportunityType__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OpportunityType__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Status</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>SubStatus__c</field>
                 <field>SubStatus__c</field>
             </layoutItems>
         </layoutColumns>
