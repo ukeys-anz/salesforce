@@ -28,16 +28,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PostalCode__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>PreferredName__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Email</field>
             </layoutItems>
         </layoutColumns>
@@ -85,7 +75,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SubStatus__c</field>
                 <field>SubStatus__c</field>
             </layoutItems>
         </layoutColumns>
