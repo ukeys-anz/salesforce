@@ -59,7 +59,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Date_Recevied__c</field>
+                <field>Date_Received__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
