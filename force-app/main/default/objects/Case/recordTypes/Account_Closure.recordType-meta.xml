@@ -223,11 +223,11 @@
     <picklistValues>
         <picklist>Dispute_Raised_By__c</picklist>
         <values>
-            <fullName>The joint accountholder</fullName>
+            <fullName>Co-Owner</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>This customer</fullName>
+            <fullName>This Customer</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -9219,11 +9219,11 @@
     <picklistValues>
         <picklist>Transaction_Made_By__c</picklist>
         <values>
-            <fullName>The joint accountholder</fullName>
+            <fullName>Co-Owner</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>This customer</fullName>
+            <fullName>This Customer</fullName>
             <default>false</default>
         </values>
     </picklistValues>

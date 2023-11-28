@@ -17,14 +17,14 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
-                <fullName>The joint accountholder</fullName>
+                <fullName>Co-Owner</fullName>
                 <default>false</default>
-                <label>The joint accountholder</label>
+                <label>Co-Owner</label>
             </value>
             <value>
-                <fullName>This customer</fullName>
+                <fullName>This Customer</fullName>
                 <default>false</default>
-                <label>This customer</label>
+                <label>This Customer</label>
             </value>
         </valueSetDefinition>
     </valueSet>
