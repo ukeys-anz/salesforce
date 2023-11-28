@@ -18,7 +18,12 @@ import {
   deployReport,
   validateProgress
 } from "../Services/deploy-service.mjs";
-import { deleteFolder, renameItem, booleanMap } from "../Services/helper.mjs";
+import {
+  deleteFolder,
+  renameItem,
+  booleanMap,
+  findAllArgvs
+} from "../Services/helper.mjs";
 import { createTagPipeline } from "../Services/tag-service.mjs";
 //////////
 
@@ -26,16 +31,12 @@ import { createTagPipeline } from "../Services/tag-service.mjs";
 
 const {
   RELEASE_NAME,
-  ARTIFACTORY_SECRET_VALUE,
   STAGE_NAME,
-  SFDX_URL,
-  CONSUMER_KEY_SECRET_VALUE,
-  CERT_SECRET_VALUE,
   BASE_REF_LAST_TAG,
   CLEANING_JOB,
   WORKING_DIR,
   REPO_NAME,
-  PROD_USER_NAME,
+  PROD_DEPLOY_USERNAME,
   PROD_URL
 } = process.env;
 
@@ -43,11 +44,18 @@ const {
 const BASE_REF = STAGE_NAME === "preprod-deployment" ? "master" : "prodrel";
 const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases`;
 const SOURCE_DIR = `artifact-master-${RELEASE_NAME}`;
-const DEPLOY_USER_USERNAME = BASE_REF === "master" ? "master" : PROD_USER_NAME;
+const DEPLOY_USER_USERNAME =
+  BASE_REF === "master" ? "master" : PROD_DEPLOY_USERNAME;
 const ARTIFACT_PACKAGE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/package/package.xml";
 const ARTIFACT_DESTRUCTIVE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/destructiveChanges/destructiveChanges.xml";
+
+const args = findAllArgvs();
+const SFDX_URL = args[0];
+const CONSUMER_KEY_SECRET_VALUE = args[1];
+const CERT_SECRET_VALUE = args[2];
+const ARTIFACTORY_SECRET_VALUE = args[3];
 //////////
 
 /// functions

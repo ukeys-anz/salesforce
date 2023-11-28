@@ -15,7 +15,7 @@ permissions:
 jobs:
   Release:
     container:
-      image: "anzx-docker-dev.artifactory.gcp.anz/cd/salesforce-delegate:latest"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
@@ -47,12 +47,6 @@ jobs:
             DEPLOYMENT_TITLE: "Stage 6: Prod Deployment"
 
     environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
-    # For salesforce-broker, we need to change the value of the following env variable:
-    #     PREPROD_SECRET_NAME: "h-salesforce-prod-preprod-broker"
-    #     PROD_CONSUMER_KEY_SECRET_NAME: "h-salesforce-prod-ca-consumerkey-broker"
-    #     PROD_CERT_SECRET_NAME: "h-salesforce-prod-cert-broker"
-    #     PROD_USER_NAME: "tech.gcb@anzx.com.broker"
-    #     PROD_URL: "https://anzbankbroker.my.salesforce.com"
     env:
       RELEASE_NAME: "${{ github.event.inputs.NAME }}"
       ARTIFACTORY_SECRET_NAME: "h-salesforce-prod-artifactory"
@@ -66,7 +60,7 @@ jobs:
       PROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'production-deployment' }}
       STAGE_NAME: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
       REPO_NAME: ${{ github.event.repository.name }}
-      PROD_USER_NAME: "tech.gcb@anzx.com"
+      PROD_DEPLOY_USERNAME: "tech.gcb@anzx.com"
       PROD_URL: "https://anz.my.salesforce.com"
 
     steps:
@@ -81,31 +75,33 @@ jobs:
           echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
 
       - name: Link SGD plugin
-        if: ${{ env.PREPROD_DEPLOYMENT_STEP }}
+        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           cd /opt/harness-delegate/.local/share/sf
           sf plugins:link node_modules/sfdx-git-delta/bin
 
       - name: NPM package Version | node, sfdx, sf, sgd version
-        if: ${{ env.PREPROD_DEPLOYMENT_STEP }}
+        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           echo "node version: $(node -v)"
           echo "sf version: $(sf -v)"
           echo "sf plugins: $(sf plugins)"
 
       - name: Checkout
-        if: ${{ env.NOT_APPROVAL_STEP }}
+        if: env.NOT_APPROVAL_STEP == 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        if: env.NOT_APPROVAL_STEP == 'true'
         id: "authenticate-harness-delegate"
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
         with:
           service_account: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
 
       - name: "Retrieve GSM Credentials"
+        if: env.NOT_APPROVAL_STEP == 'true'
         id: secrets
         uses: "google-github-actions/get-secretmanager-secrets@v1"
         with:
@@ -117,6 +113,7 @@ jobs:
             proxypass:projects/anz-x-bootstrap-prod-3b7a6d/secrets/h-salesforce-prod-proxy-password/versions/1
 
       - name: "Setup HTTP Proxy (sf-harness-delegate-prod)"
+        if: env.NOT_APPROVAL_STEP == 'true'
         id: "proxy-harness-delegate"
         uses: "anzx/github-reusable-actions/setup-http-proxy@main"
         with:
@@ -125,25 +122,21 @@ jobs:
           proxy-password: "${{ steps.secrets.outputs.proxypass }}"
 
       - name: Add genral Secrets to ENV
-        if: ${{ env.NOT_APPROVAL_STEP }}
+        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
-          echo SFDX_URL="${{ steps.secrets.outputs.preprod }}" >> $GITHUB_ENV
-          echo CONSUMER_KEY_SECRET_VALUE="${{ steps.secrets.outputs.prod-consumer-key }}" >> $GITHUB_ENV
-          echo CERT_SECRET_VALUE="${{ steps.secrets.outputs.prod-cert }}" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_VALUE="${{ steps.secrets.outputs.artifactory }}" >> $GITHUB_ENV
           echo CLEANING_JOB="false" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
           lastTag="$( git describe --abbrev=0 --tags --match master* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
       - name: Run ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
-        if: ${{ env.NOT_APPROVAL_STEP }}
+        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
-          node --no-warnings ci/workflows/Orchestrations/release.mjs
+          node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
           echo CLEANING_JOB="true" >> $GITHUB_ENV
 
       - name: Cleaning | Create Tag
-        if: ${{ env.NOT_APPROVAL_STEP }}
+        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs
 
