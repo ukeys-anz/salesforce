@@ -191,7 +191,14 @@ public with sharing class AccountCommonActionsHelper {
       Set<String> emailSet
     ) {
       List<Lead> potentialMatchingLeads = [
-        SELECT Id, Firstname, Lastname, MobilePhone, Email, RecordTypeId
+        SELECT
+          Id,
+          Firstname,
+          Lastname,
+          MobilePhone,
+          Email,
+          RecordTypeId,
+          Is_BOH_Lead__c
         FROM Lead
         WHERE
           RecordTypeId = :GetHelpConstants.LEAD_ANZX_RT_ID
