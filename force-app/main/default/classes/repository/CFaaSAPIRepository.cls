@@ -8,17 +8,26 @@ public with sharing class CFaaSAPIRepository extends RepositoryBase {
   /**
    * @param ocvId customer id
    * @param docId document id reference in external system
+   * @param recordId record id for the cfaas file object
+   * @param cvId content version Id if applicable
    * @return CFaaSDocumentModel.CFaaSDownloadUrl containing signed URL to call for document content
    * @description cfaas get download url api endpoint
    */
   public CFaaSDocumentModel.CFaaSDownloadUrl getDownloadURL(
     String ocvId,
-    String docId
+    String docId,
+    String recordId,
+    String cvId
   ) {
     CFaaSDocumentModel.CFaaSDownloadUrl result;
 
     Service s = ServiceProvider.getService(CFaaSService.class);
-    HttpCalloutResponse response = s.getDownloadUrl(ocvId, docId);
+    HttpCalloutResponse response = s.getDownloadUrl(
+      ocvId,
+      docId,
+      recordId,
+      cvId
+    );
 
     try {
       if (response.successful == false) {
