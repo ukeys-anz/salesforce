@@ -8,7 +8,7 @@
     <formula>IF( Owner:Queue.QueueName != &apos;&apos; , Owner:Queue.QueueName ,
  HYPERLINK( &apos;/&apos; + Owner:User.Id ,(Owner:User.FirstName + &apos; &apos; + Owner:User.LastName) , &apos;_self&apos;) )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Owner Name</label>
+    <label>Owner</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>

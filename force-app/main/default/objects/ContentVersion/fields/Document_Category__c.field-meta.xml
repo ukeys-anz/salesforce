@@ -78,6 +78,11 @@
                 <default>false</default>
                 <label>Third Party Authority</label>
             </value>
+            <value>
+                <fullName>CFaaS File</fullName>
+                <default>false</default>
+                <label>CFaaS File</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

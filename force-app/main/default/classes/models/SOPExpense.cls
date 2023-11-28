@@ -39,12 +39,12 @@ public class SOPExpense {
   }
 
   /**
-   * @description return empty string when otherJustificationCode is null or not 'Other'
+   * @description return empty string when otherJustificationText is null or not 'Other'
    */
-  public String otherJustificationCode {
+  public String otherJustificationText {
     get {
-      if(otherJustificationCode != null && reason == 'Other') {
-        return otherJustificationCode;
+      if(otherJustificationText != null && reason == 'Other') {
+        return otherJustificationText;
       }
       return '';
     }

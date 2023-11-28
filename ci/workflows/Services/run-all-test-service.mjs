@@ -94,7 +94,6 @@ const runAllLocalTestsProgress = (
       }
     } catch (err) {
       console.log(data);
-      deployReport(jobId, "Run All Tests");
     }
   });
 

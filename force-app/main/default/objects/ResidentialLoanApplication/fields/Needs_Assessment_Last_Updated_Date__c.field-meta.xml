@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>Last time when Assessment was updated</description>
     <externalId>false</externalId>
-    <label>Needs Assessment Last Updated Date</label>
+    <label>Last Updated Date</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>

@@ -229,12 +229,6 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>CustomerCommRecord</componentName>
-                <identifier>c_CustomerCommRecord</identifier>
-            </componentInstance>
-        </itemInstances>
         <name>leftsidebar</name>
         <type>Region</type>
     </flexiPageRegions>

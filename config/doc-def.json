@@ -39,7 +39,6 @@
     "Identifier__c",
     "Interaction",
     "Interaction_Tag__c",
-    "Interaction_Context_Tag__c",
     "InteractionSummary",
     "Industry__c",
     "Knowledge__kav",
@@ -640,7 +639,8 @@
         "API_Only",
         "Enforce_mTLS",
         "Mortgage",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Set_Audit_Fields"
       ],
       "type": "system"
     },
