@@ -1,7 +1,9 @@
 /**
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
  */
-@SuppressWarnings('PMD.FieldNamingConventions, PMD.VariableNamingConventions')
+@SuppressWarnings(
+  'PMD.ExcessivePublicCount, PMD.FieldNamingConventions, PMD.VariableNamingConventions, PMD.TooManyFields, PMD.PropertyNamingConventions'
+)
 /**
  * @author Lance Shi
  * @since April 2021
