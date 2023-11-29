@@ -176,6 +176,7 @@ public with sharing class CardListModel extends CalloutModel {
               GetHelpConstants.MULTI_PARTY
               ? GetHelpConstants.JOINT
               : GetHelpConstants.SINGLE;
+            break;
           }
         }
       }
