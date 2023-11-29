@@ -43,6 +43,14 @@ public with sharing class IDREmailServiceHelper {
       Origin = caseOrigin
     );
     if (fromEmail == System.Label.ANZ_com_Sender_Address) {
+      if (
+        newCase.Description.startsWith(
+          'The attached message was sent a user who has Send-As or Send-On-Behalf-Of rights for this mailbox'
+        )
+      ) {
+        // Return newCase without an Id
+        return newCase;
+      }
       IDREmailToCase.parseWebFormEmail(newCase);
     }
 
