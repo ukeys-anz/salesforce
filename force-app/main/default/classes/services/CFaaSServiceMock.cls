@@ -26,12 +26,16 @@ public with sharing class CFaaSServiceMock extends Service {
   /**
    * @param ocvId customer id
    * @param docId document id reference in external system
+   * @param recordId record id for the cfaas file object
+   * @param cvId content version Id if applicable
    * @return `HttpCalloutResponse` api response
    * @description virtual gets CFaas download url
    */
   public override HttpCalloutResponse getDownloadUrl(
     String ocvId,
-    String docId
+    String docId,
+    String recordId,
+    String cvId
   ) {
     if (!preset) {
       response.body = CFAAS_DOWNLOAD_URL_RESPONSE;

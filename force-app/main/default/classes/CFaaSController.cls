@@ -14,10 +14,10 @@ public with sharing class CFaaSController {
    * @param docId document id reference in external system
    * @param cfaasFileId id of related cfaas file record which end user selected in order to view
    * @param securityClassification security classification of the file
-   * @return Id of the related content document which provides preview to end user
+   * @return CFassFileResult result of the document information
    */
   @AuraEnabled(cacheable=false)
-  public static Id getCFaaSDocument(
+  public static CFassFileResult getCFaaSDocument(
     String ocvId,
     String docId,
     String cfaasFileId,
@@ -29,13 +29,25 @@ public with sharing class CFaaSController {
       Security_Classification__c = securityClassification
     );
 
-    Id contentDocumentId = getExistingContentDocument(cfaasFile);
+    CFassFileResult result = getExistingContentDocument(cfaasFile, ocvId);
 
-    if (contentDocumentId == null) {
-      contentDocumentId = getNewContentDocument(ocvId, cfaasFile);
+    if (result == null) {
+      result = getNewContentDocument(ocvId, cfaasFile, '');
     }
 
-    return contentDocumentId;
+    return result;
+  }
+
+  /**
+   * @description wrapper class for cfaas document information
+   */
+  public class CFassFileResult {
+    @AuraEnabled
+    public Id docId;
+    @AuraEnabled
+    public String result;
+    @AuraEnabled
+    public String status;
   }
 
   /**
@@ -43,11 +55,13 @@ public with sharing class CFaaSController {
    * currently exist in SF and inserts a log that user has viewed the file
    * @param ocvId customer id
    * @param cfaasFile a wrapper of cfaas file record which user selected to view
-   * @return Id of the newly inserted content document
+   * @param cvId content version id if applicable
+   * @return CFassFileResult result of the new document information
    */
-  private static Id getNewContentDocument(
+  private static CFassFileResult getNewContentDocument(
     String ocvId,
-    CFaaS_File__c cfaasFile
+    CFaaS_File__c cfaasFile,
+    String cvId
   ) {
     CFaaSAPIRepository cfaasAPI = new CFaaSAPIRepository();
     CFaaSDocumentModel.CFaaSDownloadUrl downloadUrlModel;
@@ -56,19 +70,34 @@ public with sharing class CFaaSController {
     try {
       downloadUrlModel = cfaasAPI.getDownloadURL(
         ocvId,
-        cfaasFile.Document_Id__c
+        cfaasFile.Document_Id__c,
+        cfaasFile.Id,
+        cvId
       );
 
-      documentBody = cfaasAPI.fetchDocumentContent(
-        downloadUrlModel.url,
-        downloadUrlModel.otp,
-        downloadUrlModel.contentType
-      );
-      cfaasFile.File_Extension__c = downloadUrlModel.extension;
+      List<ContentVersion> cvList = [
+        SELECT ContentDocumentId, CreatedDate, Document_Flag__c
+        FROM ContentVersion
+        WHERE Id = :downloadUrlModel.contentVersionId
+        WITH SECURITY_ENFORCED
+        LIMIT 1
+      ];
 
       insertDocViewedLog(cfaasFile);
 
-      return insertDocumentContent(cfaasFile, documentBody);
+      if (cvList.isEmpty()) {
+        return null;
+      }
+      CFassFileResult result = new CFassFileResult();
+      result.docId = cvList[0].ContentDocumentId;
+      result.result = BOHConstants.CFAAS_DOCUMENT_FLAG.CREATING.name();
+      if (cvList[0].Document_Flag__c == '4') {
+        // final
+        result.status = BOHConstants.CFAAS_FILE_STATUS.FINALVERSION.name();
+      } else {
+        result.status = BOHConstants.CFAAS_FILE_STATUS.DRAFT.name();
+      }
+      return result;
     } catch (Exception e) {
       throw new AuraHandledException(FAILED_MESSAGE);
     }
@@ -148,11 +177,15 @@ public with sharing class CFaaSController {
    * @description getExistingContentDocument is called to check if the file already exists
    * and was created by the same user re-accessing the file
    * @param cfaasFile CFaaS_File__c record and its details
-   * @return Id of the existing content document
+   * @param ocvId customer id
+   * @return CFassFileResult result of the existing document information
    */
-  private static Id getExistingContentDocument(CFaaS_File__c cfaasFile) {
+  private static CFassFileResult getExistingContentDocument(
+    CFaaS_File__c cfaasFile,
+    String ocvId
+  ) {
     List<ContentVersion> cvList = [
-      SELECT ContentDocumentId
+      SELECT Id, ContentDocumentId, CreatedDate, Document_Flag__c
       FROM ContentVersion
       WHERE
         FirstPublishLocationId = :cfaasFile.Id
@@ -161,10 +194,33 @@ public with sharing class CFaaSController {
       LIMIT 1
     ];
 
-    if (!cvList.isEmpty()) {
-      return cvList[0].ContentDocumentId;
-    } else {
+    if (cvList.isEmpty()) {
       return null;
     }
+    CFassFileResult result = new CFassFileResult();
+    result.docId = cvList[0].ContentDocumentId;
+    result.result = BOHConstants.CFAAS_DOCUMENT_FLAG.EXISTING.name();
+    if (cvList[0].Document_Flag__c == '4') {
+      // final
+      result.status = BOHConstants.CFAAS_FILE_STATUS.FINALVERSION.name();
+    } else {
+      result.status = BOHConstants.CFAAS_FILE_STATUS.DRAFT.name();
+      if (isTimeMoreThanTwoMin(cvList[0].CreatedDate)) {
+        getNewContentDocument(ocvId, cfaasFile, cvList[0].Id);
+      }
+    }
+    return result;
+  }
+
+  /**
+   * @description function to tell whether created time is more than 2 mins from now
+   * @param targetTime targe time to compare to
+   * @return Boolean result whether it is more than 2 mins or not
+   */
+  private static Boolean isTimeMoreThanTwoMin(Datetime targetTime) {
+    Datetime currentTime = Datetime.Now();
+    Decimal timeDifferenceInMin =
+      (currentTime.getTime() - targetTime.getTime()) / (60 * 1000);
+    return timeDifferenceInMin > 2;
   }
 }

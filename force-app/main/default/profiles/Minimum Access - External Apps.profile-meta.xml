@@ -2025,6 +2025,11 @@
         <apexPage>FinServ__WealthLabelDependencies</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>ContentVersion.CFaaS_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <name>AccessCMC</name>

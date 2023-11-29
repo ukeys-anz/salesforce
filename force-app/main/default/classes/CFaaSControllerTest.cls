@@ -51,9 +51,22 @@ public with sharing class CFaaSControllerTest {
       WHERE Customer__c = :acc.Id
       LIMIT 1
     ];
+
+    Id cfaasFileRecordTypeId = Schema.SObjectType.ContentVersion.getRecordTypeInfosByName()
+      .get('CFaaS File')
+      .getRecordTypeId();
+    ContentVersion cv = new ContentVersion();
+    cv.Document_Flag__c = '4';
+    cv.FirstPublishLocationId = file.Id;
+    cv.title = 'test';
+    cv.PathOnClient = 'test';
+    cv.VersionData = Blob.valueOf('Test Content');
+    cv.RecordTypeId = cfaasFileRecordTypeId;
+    insert cv;
+
     Test.startTest();
 
-    Id contentDocumentId = CFaaSController.getCFaaSDocument(
+    CFaaSController.CFassFileResult result = CFaaSController.getCFaaSDocument(
       acc.OCV_ID__c,
       file.Document_Id__c,
       file.Id,
@@ -64,7 +77,7 @@ public with sharing class CFaaSControllerTest {
 
     System.assertNotEquals(
       null,
-      contentDocumentId,
+      result,
       'Content Document Id should be returned to LWC'
     );
   }
