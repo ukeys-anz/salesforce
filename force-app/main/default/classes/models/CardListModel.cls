@@ -158,19 +158,15 @@ public with sharing class CardListModel extends CalloutModel {
   }
 
   /**
-   * @param json input string to deserialize
+   * @param cardmodel deserialized card model
    * @param mapOfAccountNumberAndOwnership input map of account number and ownership
-   * @return `CardListModel`
-   * @description deserializes the input string into the model, using the base method and reserved key replacement
+   * @return `CardListModel` return the cardlistmodel with accountType field updated
+   * @description This method updates the accountype field in the cardlistmodel
    */
-  public static CardListModel parse(
-    String json,
+  public static CardListModel updateAccountType(
+    CardListModel cardmodel,
     Map<String, String> mapOfAccountNumberAndOwnership
   ) {
-    CardListModel cardmodel = (CardListModel) deserialize(
-      json,
-      CardListModel.class
-    );
     List<CardCls> listOfCards = cardmodel.cards;
     for (CardCls card : listOfCards) {
       if (card.account_numbers != null && !card.account_numbers.isEmpty()) {
@@ -185,5 +181,23 @@ public with sharing class CardListModel extends CalloutModel {
       }
     }
     return cardmodel;
+  }
+
+  /**
+   * @param json input string to deserialize
+   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
+   * @return `CardListModel`
+   * @description deserializes the input string into the model, using the base method and reserved key replacement
+   */
+  public static CardListModel parse(
+    String json,
+    Map<String, String> mapOfAccountNumberAndOwnership
+  ) {
+    CardListModel cardmodel = (CardListModel) deserialize(
+      json,
+      CardListModel.class
+    );
+
+    return updateAccountType(cardmodel, mapOfAccountNumberAndOwnership);
   }
 }
