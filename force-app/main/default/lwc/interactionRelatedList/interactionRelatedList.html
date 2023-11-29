@@ -7,17 +7,6 @@
             class="slds-tabs_scoped__nav slds-grid slds-wrap lightningScope"
             role="tablist"
           >
-            <template lwc:if={showCaseChatTabHead}>
-              <li class={chatTab} title="Dial" role="presentation">
-                <div
-                  class="slds-tabs_scoped__link lightningScopeLink"
-                  role="tab"
-                  onclick={handleShowChatTab}
-                >
-                  Chats
-                </div>
-              </li>
-            </template>
             <template lwc:if={showAppTab}>
               <li class={appointmentTab} title="Contact" role="presentation">
                 <div
@@ -59,17 +48,6 @@
                   onclick={handleShowStoreTab}
                 >
                   In Person
-                </div>
-              </li>
-            </template>
-            <template lwc:if={showAccChatTabHead}>
-              <li class={chatTab} title="Dial" role="presentation">
-                <div
-                  class="slds-tabs_scoped__link lightningScopeLink"
-                  role="tab"
-                  onclick={handleShowChatTab}
-                >
-                  Chats
                 </div>
               </li>
             </template>
@@ -167,17 +145,6 @@
           </c-view-all-generic>
         </footer>
       </template>
-    </template>
-    <template lwc:if={showChatTab}>
-      <div class="slds-card__body slds-card__body_inner">
-        <div>
-          <c-chat-topic-related-list
-            record-id={recordId}
-            object-name={sObjectType}
-          >
-          </c-chat-topic-related-list>
-        </div>
-      </div>
     </template>
   </article>
 </template>

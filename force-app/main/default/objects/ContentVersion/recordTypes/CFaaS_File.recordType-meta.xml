@@ -4,4 +4,22 @@
     <active>true</active>
     <description>Files representing content stored in CFaaS</description>
     <label>CFaaS File</label>
+    <picklistValues>
+        <picklist>Document_Category__c</picklist>
+        <values>
+            <fullName>CFaaS File</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Document_Flag__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

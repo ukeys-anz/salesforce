@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>The time the loan application was created</description>
     <externalId>false</externalId>
-    <label>Needs Assessment Created Date</label>
+    <label>Created Date</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>

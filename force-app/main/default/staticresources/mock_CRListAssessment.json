@@ -18,7 +18,8 @@
           "referralOutcomeCode": "AR01",
           "referralOutcomeDescription": "Accepted - Explanation acceptable",
           "createdBy": "",
-          "createTime": "2023-04-20T04:08:20.958656Z"
+          "createTime": "2023-04-20T04:08:20.958656Z",
+          "creditEnquiryAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34"
         },
         {
           "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd35",
@@ -29,7 +30,8 @@
           "referralOutcomeCode": "",
           "referralOutcomeDescription": "Accepted - Explanation acceptable",
           "createdBy": "",
-          "createTime": "2023-04-20T04:08:20.958656Z"
+          "createTime": "2023-04-20T04:08:20.958656Z",
+          "creditEnquiryAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34"
         },
         {
           "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd36",
@@ -40,7 +42,8 @@
           "referralOutcomeCode": "AR01",
           "referralOutcomeDescription": "Accepted - Explanation acceptable",
           "createdBy": "",
-          "createTime": "2023-04-20T04:08:20.958656Z"
+          "createTime": "2023-04-20T04:08:20.958656Z",
+          "creditEnquiryAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34"
         }
       ],
       "lvr": { "maxAllowableLvr": 80, "actualLvr": 78.5 },
@@ -66,7 +69,8 @@
           "applicantId": "",
           "referralOutcomeCode": "AR02",
           "createdBy": "charalap",
-          "createTime": "2023-04-20T04:08:20.958656Z"
+          "createTime": "2023-04-20T04:08:20.958656Z",
+          "creditEnquiryAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34"
         },
         {
           "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd38",
@@ -76,7 +80,8 @@
           "applicantId": "",
           "referralOutcomeCode": "AR01",
           "createdBy": "charalap",
-          "createTime": "2023-04-20T04:08:20.958656Z"
+          "createTime": "2023-04-20T04:08:20.958656Z",
+          "creditEnquiryAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34"
         }
       ],
       "lvr": { "maxAllowableLvr": 80, "actualLvr": 78.5 },
@@ -103,7 +108,8 @@
           "referralOutcomeCode": "DR02",
           "referralOutcomeDescription": "Rejected - Explanation unacceptable.",
           "createdBy": "charalap",
-          "createTime": "2023-04-20T04:08:20.958656Z"
+          "createTime": "2023-04-20T04:08:20.958656Z",
+          "creditEnquiryAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34"
         },
         {
           "outcomeId": "2b93e632-7d3e-4184-b66c-fafd6ba0bd11",
@@ -114,7 +120,8 @@
           "referralOutcomeCode": "DR01",
           "referralOutcomeDescription": "Rejected - Explanation unacceptable!",
           "createdBy": "charalap",
-          "createTime": "2023-04-20T04:08:20.958656Z"
+          "createTime": "2023-04-20T04:08:20.958656Z",
+          "creditEnquiryAssessmentId": "cc1811a3-1ce2-21f9-4c20-b031ae9bfa34"
         }
       ],
       "lvr": { "maxAllowableLvr": 80, "actualLvr": 78.5 },

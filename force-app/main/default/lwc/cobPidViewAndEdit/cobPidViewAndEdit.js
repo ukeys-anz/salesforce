@@ -9,7 +9,8 @@ import updateCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.updat
 const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.IdDocumentType__c",
   "COBPrimaryIDDocument__c.PersonaId__c",
-  "COBPrimaryIDDocument__c.CustomerOnboardingApplication__r.EquifaxAttemptCount__c"
+  "COBPrimaryIDDocument__c.CustomerOnboardingApplication__r.EquifaxAttemptCount__c",
+  "COBPrimaryIDDocument__c.CustomerOnboardingApplication__r.Has_ID_Ops_Assistance_Cases__c"
 ];
 
 export default class CobPidViewAndEdit extends LightningElement {
@@ -17,6 +18,7 @@ export default class CobPidViewAndEdit extends LightningElement {
   @track data = {};
 
   _personaId;
+  _hasIDOpsAssistanceCases = false;
   _initDetokenizedData = {};
   _equifaxAttemptCount = 0;
 
@@ -33,7 +35,7 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   get allowEdit() {
-    return hasEditPermission;
+    return hasEditPermission && this._hasIDOpsAssistanceCases;
   }
 
   get disableSave() {
@@ -92,6 +94,8 @@ export default class CobPidViewAndEdit extends LightningElement {
         IdDocumentType__c: data.fields.IdDocumentType__c.value
       };
       this._personaId = data.fields.PersonaId__c.value;
+      this._hasIDOpsAssistanceCases =
+        data.fields.CustomerOnboardingApplication__r.value.fields.Has_ID_Ops_Assistance_Cases__c.value;
       this._equifaxAttemptCount =
         data.fields.CustomerOnboardingApplication__r.value.fields.EquifaxAttemptCount__c.value;
 
