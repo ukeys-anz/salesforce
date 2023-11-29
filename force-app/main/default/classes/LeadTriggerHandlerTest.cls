@@ -331,4 +331,50 @@ private class LeadTriggerHandlerTest {
       'Lead should have been converted successully.'
     );
   }
+
+  @isTest
+  public static void testBOHLeads() {
+    Test.startTest();
+    Faker faker = new Faker('AU');
+    Account acc = new Account(
+      FirstName = 'Test',
+      LastName = 'Lead',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'testlead12@mail.com',
+      PersonMobilePhone = '04012212313213'
+    );
+    insert acc;
+
+    Lead l = new Lead();
+    l.Firstname = 'Test';
+    l.Lastname = 'Lead';
+    l.Email = 'testlead12@mail.com';
+    l.MobilePhone = '04012212313213';
+    l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
+    l.LeadSource = 'Web';
+    l.OpportunityType__c = 'Home Lending';
+    insert l;
+    Test.stopTest();
+    Lead testLead = [
+      SELECT Id, Is_BOH_Lead__c, FinServ__RelatedAccount__c, Email
+      FROM Lead
+      WHERE Email = 'testlead12@mail.com'
+    ];
+    Account testAccount = [
+      SELECT Id, PersonEmail
+      FROM Account
+      WHERE PersonEmail = 'testlead12@mail.com'
+    ];
+    Assert.isTrue(
+      testLead.Is_BOH_Lead__c,
+      'Is BOH Lead flag should have been true'
+    );
+    Assert.areEqual(
+      testAccount.Id,
+      testLead.FinServ__RelatedAccount__c,
+      'Existing Customer id incorrect'
+    );
+  }
 }
