@@ -140,6 +140,18 @@
                           </div>
 
                           <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-p-bottom_medium">
+                              <p class="slds-text-title_bold">Account Number</p>
+                              <p
+                                class="slds-text-body_regular account-number"
+                                data-test-id="account-number"
+                              >
+                                {card.concatAccountNumber}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="slds-col slds-size_1-of-1">
                             <div class="slds-p-bottom_medium dig-wallet">
                               <p class="slds-text-title_bold">Digital Wallet</p>
                               <template lwc:if={card.hasWallet}>
@@ -188,10 +200,22 @@
                                 </template>
                               </p>
                               <p
-                                class="slds-text-body_regular status"
+                                class="slds-text-body_regular status singleLineText"
                                 data-test-id="status"
                               >
                                 {card.statusToShow}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-p-bottom_medium">
+                              <p class="slds-text-title_bold">Account Type</p>
+                              <p
+                                class="slds-text-body_regular"
+                                data-test-id="account-type"
+                              >
+                                {card.accountType}
                               </p>
                             </div>
                           </div>
