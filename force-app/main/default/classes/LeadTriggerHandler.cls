@@ -60,6 +60,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     );
     // Method will check if lead is BOH Lead
     BOHLeadActions.getInstance().setBOHLeadFlag(records);
+    BOHLeadActions.populateExistingCustomer(records);
   }
 
   /**
