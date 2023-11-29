@@ -88,11 +88,16 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9 AND 10</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
             <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Resolved</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
@@ -144,23 +149,20 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
             <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>Maximum_IDR_timeframe_5days_Reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-5</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16)) AND 17 AND 18</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND ((6 AND 7) OR (8 AND 9) OR (10 AND 11) OR (12 AND 13) OR (14 AND 15) OR (16 AND 17)) AND 18 AND 19</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
             <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Resolved</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
@@ -257,14 +259,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
             <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>Maximum_IDR_timeframe_5days_Reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-5</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
@@ -291,14 +285,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
         </milestoneCriteriaFilterItems>
         <milestoneName>AFCA Response Due</milestoneName>
         <minutesCustomClass>AFCAMilestoneTimeCalculator</minutesCustomClass>
-        <timeTriggers>
-            <actions>
-                <name>AFCA_Response_is_due_in_10_days</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-10</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
         <timeTriggers>
             <actions>
                 <name>AFCA_Response_is_due_in_1_day</name>
@@ -383,14 +369,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
                 <type>Task</type>
             </actions>
             <timeLength>-1</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>Maximum_IDR_timeframe_5days_Reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-5</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -525,14 +503,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
         </milestoneCriteriaFilterItems>
         <milestoneName>21-day IDR Response Due</milestoneName>
         <minutesToComplete>30240</minutesToComplete>
-        <timeTriggers>
-            <actions>
-                <name>Maximum_IDR_timeframe_5days_Reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-5</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
         <timeTriggers>
             <actions>
                 <name>Maximum_IDR_Time_1day_Reminder</name>

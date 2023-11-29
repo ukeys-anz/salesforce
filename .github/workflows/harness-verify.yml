@@ -5,15 +5,12 @@ name: Verify
 on:
   pull_request:
     branches:
-      - "master"
-      - "develop"
-      - "release"
-      - "epic/*"
-    types:
-      - opened
-      - reopened
-      - ready_for_review
-      - synchronize
+      - "x"
+    # types:
+    #   - opened
+    #   - reopened
+    #   - ready_for_review
+    #   - synchronize
 
 jobs:
   # This job only does the validation, even though it reads as build_and_deploy. This is due to a name mismatch in terraform.

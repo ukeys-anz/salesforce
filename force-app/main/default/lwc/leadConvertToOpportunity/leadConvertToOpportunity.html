@@ -1,9 +1,9 @@
 <template>
-  <lightning-spinner if:true={isLoading}></lightning-spinner>
-  <template if:true={hasError}>
+  <lightning-spinner lwc:if={isLoading}></lightning-spinner>
+  <template lwc:if={hasError}>
     <c-error message={errorMessage}></c-error>
   </template>
-  <template if:true={isModalOpen}>
+  <template lwc:if={isModalOpen}>
     <section
       role="dialog"
       tabindex="-1"
@@ -42,11 +42,11 @@
             </lightning-button>
           </div>
         </template>
-        <template if:true={validLead}>
-          <template if:true={isMLCRMlead}>
-            <template if:true={leadDetails}>
+        <template lwc:if={validLead}>
+          <template lwc:if={isMLCRMlead}>
+            <template lwc:if={leadDetails}>
               <div class="slds-modal__content slds-p-around_medium contentDiv">
-                <template if:true={misMatchWarning}>
+                <template lwc:if={misMatchWarning}>
                   <div class="slds-text-title">
                     <div>
                       <img src={warningSignUrl} class="imgDivPadding" />
@@ -130,8 +130,8 @@
               </div>
             </template>
           </template>
-          <template if:true={isCCRMlead}>
-            <template if:true={leadDetails}>
+          <template lwc:if={isCCRMlead}>
+            <template lwc:if={leadDetails}>
               <div class="slds-modal__content slds-p-around_medium contentDiv">
                 <lightning-card title="Lead Details" icon-name="standard:lead">
                   {modalBodySubText}
@@ -164,7 +164,7 @@
               </div>
             </template>
           </template>
-          <template if:true={searchParty}>
+          <template lwc:if={searchParty}>
             <div
               class="slds-modal__content slds-p-around_medium contentDiv slds-border_bottom"
             >
@@ -182,7 +182,7 @@
                   >
                   </lightning-datatable>
                 </div>
-                <template if:true={noDataFound}>
+                <template lwc:if={noDataFound}>
                   <div style="height: 100px">
                     <br />
                     <h1 class="slds-align_absolute-center">
@@ -208,7 +208,7 @@
                 title="Cancel"
                 onclick={cancelAction}
               ></lightning-button>
-              <template if:true={enableCreatePartAndConvertButton}>
+              <template lwc:if={enableCreatePartAndConvertButton}>
                 <lightning-button
                   class="slds-button"
                   variant="brand"
@@ -217,7 +217,7 @@
                   onclick={createParty}
                 ></lightning-button>
               </template>
-              <template if:true={isConvertLeadButton}>
+              <template lwc:if={isConvertLeadButton}>
                 <lightning-button
                   class="slds-button"
                   variant="brand"
@@ -228,7 +228,7 @@
               </template>
             </div>
           </template>
-          <template if:true={maintainPartyExist}>
+          <template lwc:if={maintainPartyExist}>
             <div
               class="slds-modal__content slds-p-around_medium contentDiv slds-border_bottom"
             >
@@ -251,7 +251,7 @@
                   >
                   </lightning-datatable>
                 </div>
-                <template if:true={noDataFound}>
+                <template lwc:if={noDataFound}>
                   <div style="height: 100px">
                     <br />
                     <h1 class="slds-align_absolute-center">
@@ -281,7 +281,7 @@
             </div>
           </template>
 
-          <template if:true={isConvertLead}>
+          <template lwc:if={isConvertLead}>
             <div class="slds-modal__content slds-p-around_medium contentDiv">
               <div
                 class="slds-modal__content slds-p-around_medium"

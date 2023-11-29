@@ -7,7 +7,7 @@
     <description>Unique external ID for the record. Useful for use cases such as data backup and restoration.</description>
     <externalId>true</externalId>
     <label>UUID</label>
-    <length>36</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
