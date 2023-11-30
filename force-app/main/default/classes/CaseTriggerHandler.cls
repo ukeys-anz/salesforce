@@ -82,7 +82,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
-    GetHelpCaseActions.updateCOBAppHasIDOpsAssistanceCases(records);
     System.enqueueJob(new QueueCaseMilestoneTargetDate(records));
     Logger.debug('On_After_Insert finished: ' + System.now());
     Logger.saveLog();
@@ -187,7 +186,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       (Map<Id, Case>) oldMap
     );
-    GetHelpCaseActions.updateCOBAppHasIDOpsAssistanceCases(records);
 
     ToastAlertService.publishRecordMonitoringEvent(
       new Map<String, Object>(),

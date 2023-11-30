@@ -1046,33 +1046,4 @@ public with sharing class GetHelpCaseActions {
       }
     }
   }
-
-  /**
-   * @description Update Has ID Ops Assistance Cases field on COB Application.
-   * @param caseList The case list
-   */
-  public static void updateCOBAppHasIDOpsAssistanceCases(List<Case> caseList) {
-    Set<Id> cobAppIds = new Set<Id>();
-    for (Case c : caseList) {
-      if (
-        c.CustomerOnboardingApplication__c == null ||
-        CheckCaseRecordType.isIDOpsAssistance(c) == false
-      ) {
-        continue;
-      }
-      cobAppIds.add(c.CustomerOnboardingApplication__c);
-    }
-    if (
-      cobAppIds.size() > 0 &&
-      !PermissionUtils.canUpdate('CustomerOnboardingApplication__c')
-    ) {
-      return;
-    }
-    List<CustomerOnboardingApplication__c> cobAppsHasIDOpsAssistanceCases = GetHelpCaseActionsHelper.getCOBAppsHasIDOpsAssistanceCases(
-      cobAppIds
-    );
-    if (cobAppsHasIDOpsAssistanceCases.size() > 0) {
-      update cobAppsHasIDOpsAssistanceCases;
-    }
-  }
 }
