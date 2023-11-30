@@ -42,12 +42,11 @@
     <language>Procedure</language>
     <name>CreateCase</name>
     <omniProcessElements>
-        <name>ComplaintResLoopBlock</name>
         <childElements>
-            <name>DRCreateComplaintResolution</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>DRCreateComplaintResolution</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true &amp;&amp; (Case:ResolutionInformation:ComplaintStatus==\&quot;Closed\&quot; || Case:ResolutionInformation:ComplaintStatus==\&quot;Provisionally Closed\&quot;)&quot;,
@@ -83,9 +82,10 @@
             <sequenceNumber>1.0</sequenceNumber>
             <type>DataRaptor Post Action</type>
         </childElements>
-        <isActive>true</isActive>
+        <isActive>false</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ComplaintResLoopBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;TransformCaseDetails:ComplaintRes&quot;,
@@ -95,14 +95,72 @@
   &quot;label&quot; : &quot;LoopBlock1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>DeleteComplaintResolution</name>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>DRUpdateComplaintResolution</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;ComplaintRes:Remedy&quot; : &quot;%TransformClosecase:ComplaintRes:Remedy%&quot;,
+    &quot;ComplaintRes:SubRemedy&quot; : &quot;%TransformClosecase:ComplaintRes:SubRemedy%&quot;,
+    &quot;ComplaintRes:PaymentProvided&quot; : &quot;%TransformClosecase:ComplaintRes:PaymentProvided%&quot;,
+    &quot;ComplaintRes:detailsOfComplaint&quot; : &quot;%TransformClosecase:ComplaintRes:detailsOfComplaint%&quot;,
+    &quot;ComplaintRes:durationOfRemedy&quot; : &quot;%TransformClosecase:ComplaintRes:durationOfRemedy%&quot;,
+    &quot;ComplaintRes:otherRemedy&quot; : &quot;%TransformClosecase:ComplaintRes:otherRemedy%&quot;,
+    &quot;ComplaintRes:Id&quot; : &quot;%TransformClosecase:ComplaintRes:Id%&quot;,
+    &quot;ComplaintRes:rewardPoints&quot; : &quot;%TransformClosecase:ComplaintRes:rewardPoints%&quot;,
+    &quot;ComplaintId&quot; : &quot;%Case:Id%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;bundle&quot; : &quot;DRCreateComplaintResolution&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>DataRaptor Post Action</type>
+        </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>CRLoopBlock</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;loopList&quot; : &quot;TransformClosecase:ComplaintRes&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
+  &quot;loopOutput&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;LoopBlock2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>7.0</sequenceNumber>
+        <type>Loop Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>DeleteComplaintResolution</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
@@ -131,15 +189,15 @@
   &quot;label&quot; : &quot;RemoteAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>DRCloseCase</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>DRCloseCase</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
@@ -163,15 +221,15 @@
   &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
+        <sequenceNumber>5.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>DRCreateCase</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>DRCreateCase</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true&quot;,
@@ -199,19 +257,19 @@
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>DRUpdateComplaintResolution</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>RACreateComplaintResolution</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true &amp;&amp; (Case:ResolutionInformation:ComplaintStatus==\&quot;Closed\&quot; || Case:ResolutionInformation:ComplaintStatus==\&quot;Provisionally Closed\&quot;)&quot;,
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
   &quot;useFormulas&quot; : true,
   &quot;additionalInput&quot; : {
-    &quot;ComplaintRes&quot; : &quot;%TransformClosecase:ComplaintRes%&quot;,
-    &quot;ComplaintId&quot; : &quot;%Case:Id%&quot;
+    &quot;ComplaintId&quot; : &quot;%DRCreateCase:Case_1:Id%&quot;,
+    &quot;ComplaintResolution&quot; : &quot;%TransformCaseDetails:ComplaintRes%&quot;
   },
   &quot;additionalOutput&quot; : { },
   &quot;failureResponse&quot; : { },
@@ -222,22 +280,25 @@
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;sendJSONPath&quot; : &quot;&quot;,
   &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;bundle&quot; : &quot;DRCreateComplaintResolution&quot;,
+  &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteMethod&quot; : &quot;createComplaintResolution&quot;,
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;additionalChainableResponse&quot; : { },
   &quot;show&quot; : null,
-  &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
+  &quot;label&quot; : &quot;RemoteAction2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
-        <type>DataRaptor Post Action</type>
+        <sequenceNumber>3.0</sequenceNumber>
+        <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ResponseAction</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ResponseAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -256,15 +317,15 @@
   &quot;label&quot; : &quot;ResponseAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>10.0</sequenceNumber>
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>TransformCaseDetails</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>TransformCaseDetails</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true&quot;,
@@ -293,10 +354,10 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>TransformClosecase</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>TransformClosecase</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
@@ -321,7 +382,7 @@
   &quot;label&quot; : &quot;DataRaptorTransformAction2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessKey>Case_CreateCase</omniProcessKey>
@@ -356,5 +417,5 @@
     <type>Case</type>
     <uniqueName>Case_CreateCase_Procedure_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>5bbea47f-b867-bb2a-eff1-a2aa6624cbaa</webComponentKey>
+    <webComponentKey>9eb36038-7d30-63bf-8324-4629c045442d</webComponentKey>
 </OmniIntegrationProcedure>

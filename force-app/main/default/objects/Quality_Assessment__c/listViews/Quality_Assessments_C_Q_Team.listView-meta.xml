@@ -4,7 +4,7 @@
     <columns>NAME</columns>
     <columns>C_Q_Specialist__c</columns>
     <columns>Related_Case__c</columns>
-    <columns>Customer__c</columns>
+    <columns>Customer_Name__c</columns>
     <columns>Case_Manager__c</columns>
     <columns>TeamManager__c</columns>
     <columns>New_Starter__c</columns>

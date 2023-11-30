@@ -61,6 +61,43 @@
             </formula>
         </ruleEntry>
         <ruleEntry>
+            <assignedTo>Support_Coach_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>
+            AND(
+                    ISNEW(),
+                    RecordType.DeveloperName = &quot;General_Inquiry&quot;,
+                    OR (
+                        AND (
+                            
+                            ISPICKVAL(Type, &quot;Cards&quot;),
+                            OR(
+                                INCLUDES(Sub_Type__c, &quot;VAU Opt-In&quot;),
+                                INCLUDES(Sub_Type__c, &quot;VAU Opt-Out&quot;),
+                                INCLUDES(Sub_Type__c, &quot;Merchant Refund&quot;)
+                            )
+                        ),
+                        AND (
+                            ISPICKVAL(Type, &quot;Money&quot;),
+                            OR(
+                                INCLUDES(Sub_Type__c, &quot;ATM Cash Deposit Dispute&quot;),
+                                INCLUDES(Sub_Type__c, &quot;ATM Cheque Deposit Dispute&quot;)
+                            )
+                        ),
+                        AND (
+
+                            ISPICKVAL(Type, &quot;PayID Issue/Dispute&quot;),
+                            OR(
+                                INCLUDES(Sub_Type__c, &quot;PayID technical issue&quot;),
+                                INCLUDES(Sub_Type__c, &quot;Email PayID already registered&quot;),
+                                INCLUDES(Sub_Type__c, &quot;Mobile PayID already registered&quot;)
+                            )
+                        )
+                    )
+                    )
+            </formula>
+        </ruleEntry>
+        <ruleEntry>
             <assignedTo>Card_Dispute_General_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
