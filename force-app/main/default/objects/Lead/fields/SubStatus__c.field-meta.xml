@@ -68,23 +68,13 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
             <valueName>Opportunity identified</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
             <valueName>Referred to Classic</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>Not interested</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>Not contactable</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <valueName>Auto-closed</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Nurturing</controllingFieldValue>
@@ -101,6 +91,18 @@
         <valueSettings>
             <controllingFieldValue>Nurturing</controllingFieldValue>
             <valueName>Follow up required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Declined</controllingFieldValue>
+            <valueName>Not interested</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Declined</controllingFieldValue>
+            <valueName>Not contactable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Declined</controllingFieldValue>
+            <valueName>Auto-closed</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
