@@ -232,6 +232,16 @@ public with sharing class IDRQualityAssessmentTaskActions {
     }
 
     if (lstQAShare.size() > 0) {
+      (new WithoutSharing()).insertQAShare(lstQAShare);
+    }
+  }
+  private without sharing class WithoutSharing {
+    /**
+     * @description Insert Quality_Assessment__Share records
+     * @param lstQAShare list of Quality_Assessment__Share records to insert
+     */
+
+    public void insertQAShare(List<Quality_Assessment__Share> lstQAShare) {
       try {
         insert lstQAShare;
       } catch (Exception e) {
