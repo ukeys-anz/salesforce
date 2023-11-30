@@ -63,7 +63,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
       isLoanSubmitted(loanRec?.Status) &&
       String.isNotBlank(loanRec?.Credit_ID__c) &&
       String.isNotBlank(loanRec?.SOP_Id__c);
-    if (result.isSubmitted) {
+    if (result.isSubmitted && !result.reassessRequired) {
       try {
         ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
         ViewServiceabilityModel apiResponse = api.getUMIAssessments(
