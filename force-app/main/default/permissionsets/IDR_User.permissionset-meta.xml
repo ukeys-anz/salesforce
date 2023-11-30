@@ -1586,27 +1586,27 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditCaseComments</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditTask</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>RunFlow</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>RunReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>TransferAnyCase</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>ViewAllForeignKeyNames</name>
         <enabled>true</enabled>
+        <name>ViewAllForeignKeyNames</name>
     </userPermissions>
 </PermissionSet>

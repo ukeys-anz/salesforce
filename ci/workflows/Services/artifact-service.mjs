@@ -175,5 +175,6 @@ export {
   createAndUploadArtifact,
   downloadArtifact,
   createDiffOnValidate,
-  createDiffOnDeploy
+  createDiffOnDeploy,
+  uploadToArtifactory
 };

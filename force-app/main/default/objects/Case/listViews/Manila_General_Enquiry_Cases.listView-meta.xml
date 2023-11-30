@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Manilla_General_Enquiry_Cases</fullName>
+    <fullName>Manila_General_Enquiry_Cases</fullName>
     <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>NAME</columns>
@@ -30,7 +30,7 @@
         <value>Open,Under Investigation</value>
     </filters>
     <filterScope>Queue</filterScope>
-    <label>Manilla General Enquiry Cases</label>
+    <label>Manila General Enquiry Cases</label>
     <queue>Support_Coach_Queue</queue>
     <sharedTo>
         <role>Support_Coach</role>

@@ -11,17 +11,16 @@ import {
   deployProgress,
   deployReport
 } from "../Services/deploy-service.mjs";
-import { deleteFolder, renameItem } from "../Services/helper.mjs";
+import { deleteFolder, findAllArgvs, renameItem } from "../Services/helper.mjs";
 import { createTag } from "../Services/tag-service.mjs";
 //////////
 
-/// Find all the env variables & other variables values
+/// Find all the env, argv & other variables values
 
 const {
   WHICH_JOB,
   BASE_REF,
   BASE_REF_LAST_TAG,
-  SFDX_URL,
   RUN_ID,
   WORKING_DIR
 } = process.env;
@@ -32,6 +31,9 @@ const ARTIFACT_PACKAGE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/package/package.xml";
 const ARTIFACT_DESTRUCTIVE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/destructiveChanges/destructiveChanges.xml";
+
+const args = findAllArgvs();
+const SFDX_URL = args[0];
 //////////
 
 /// functions
