@@ -107,6 +107,7 @@ const createDiffOnValidate = (folderName, tagRef) => {
 };
 
 const createDiffOnDeploy = (folderName, baseRef, tagRef) => {
+  logger("Build Artifact");
   findAllChangedFileOnDeploy(folderName + "-all-files", baseRef, tagRef);
   buildArtifactOnDeploy(folderName, baseRef, tagRef);
   artifactFolderExist(folderName);

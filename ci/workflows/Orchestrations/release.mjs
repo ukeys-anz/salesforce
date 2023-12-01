@@ -69,24 +69,30 @@ const preprodDeployment = () => {
   );
   authenticate(DEPLOY_USER_USERNAME, SFDX_URL);
   const deployment = deployWithoutTest(DEPLOY_USER_USERNAME, SOURCE_DIR);
-  deployProgress(deployment);
+  deployProgress(
+    deployment,
+    DEPLOY_USER_USERNAME,
+    ARTIFACT_PACKAGE_XML,
+    ARTIFACT_DESTRUCTIVE_XML
+  );
 };
 
 const prodValidation = () => {
   authenticateWithJWT(
     CONSUMER_KEY_SECRET_VALUE,
     CERT_SECRET_VALUE,
-    PROD_DEPLOY_USERNAME,
+    DEPLOY_USER_USERNAME,
     PROD_URL
   );
   const validation = prodValidationWithAllTests(
     SOURCE_DIR,
     ARTIFACTORY_SECRET_VALUE,
-    PROD_DEPLOY_USERNAME
+    ARTIFACTORY_REPO_NAME,
+    DEPLOY_USER_USERNAME
   );
   validateProgress(
     validation,
-    PROD_DEPLOY_USERNAME,
+    DEPLOY_USER_USERNAME,
     ARTIFACT_PACKAGE_XML,
     ARTIFACT_DESTRUCTIVE_XML
   );
@@ -96,15 +102,21 @@ const prodDeployment = () => {
   authenticateWithJWT(
     CONSUMER_KEY_SECRET_VALUE,
     CERT_SECRET_VALUE,
-    PROD_DEPLOY_USERNAME,
+    DEPLOY_USER_USERNAME,
     PROD_URL
   );
   const deployment = prodDeploymentWithAllTests(
     SOURCE_DIR,
     ARTIFACTORY_SECRET_VALUE,
-    PROD_DEPLOY_USERNAME
+    ARTIFACTORY_REPO_NAME,
+    DEPLOY_USER_USERNAME
   );
-  deployProgress(deployment);
+  deployProgress(
+    deployment,
+    DEPLOY_USER_USERNAME,
+    ARTIFACT_PACKAGE_XML,
+    ARTIFACT_DESTRUCTIVE_XML
+  );
 };
 
 const validationCleaning = () => {

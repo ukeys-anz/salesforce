@@ -38,7 +38,7 @@ jobs:
             DEPLOYMENT_TITLE: "Stage 3: Prod Validation Approval"
 
           - DEPLOYMENT_ENVIRONMENT: "production-validation"
-            DEPLOYMENT_TITLE: "Stage 4: Preprod Validation"
+            DEPLOYMENT_TITLE: "Stage 4: Prod Validation"
 
           - DEPLOYMENT_ENVIRONMENT: "prod-deployment"
             DEPLOYMENT_TITLE: "Stage 5: Prod Deployment Approval"
@@ -121,7 +121,7 @@ jobs:
           proxy-username: "sf-harness-delegate-prod"
           proxy-password: "${{ steps.secrets.outputs.proxypass }}"
 
-      - name: Add genral Secrets to ENV
+      - name: Add Genral Secrets to ENV
         if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           echo CLEANING_JOB="false" >> $GITHUB_ENV
@@ -140,8 +140,8 @@ jobs:
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs
 
-  cleanup:
-    name: "cleanup"
+  Cleanup:
+    name: "Cleanup"
     runs-on: [self-hosted, cd-ubuntu-s-prod]
     needs: [Release]
     if: failure() || always()
