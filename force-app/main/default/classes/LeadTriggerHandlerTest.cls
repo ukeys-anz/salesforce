@@ -377,4 +377,76 @@ private class LeadTriggerHandlerTest {
       'Existing Customer id incorrect'
     );
   }
+
+  @isTest
+  public static void testConvertBOHLeads() {
+    Test.startTest();
+    Lead l1 = new Lead(
+      Firstname = 'Test',
+      Lastname = 'Lead',
+      Email = 'testlead12@mail.com',
+      MobilePhone = '04012212313213',
+      RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID,
+      LeadSource = 'Web',
+      OpportunityType__c = 'Home Lending'
+    );
+    insert l1;
+
+    l1.Status = 'Closed';
+    l1.SubStatus__c = 'Opportunity identified';
+    update l1;
+
+    Faker faker = new Faker('AU');
+    List<Account> accountList = new List<Account>();
+    Account acc = new Account(
+      FirstName = 'Test',
+      LastName = 'Lead',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'testlead12@mail.com',
+      PersonMobilePhone = '04012212313213'
+    );
+    accountList.add(acc);
+    Account acc1 = new Account(
+      FirstName = 'Test',
+      LastName = 'Name',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'testaccount12@mail.com',
+      PersonMobilePhone = '04012212313214'
+    );
+    accountList.add(acc1);
+    insert accountList;
+
+    Lead l2 = new Lead(
+      Firstname = 'Test',
+      Lastname = 'Name',
+      Email = 'testaccount12@mail.com',
+      MobilePhone = '04012212313214',
+      RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID,
+      LeadSource = 'Web',
+      OpportunityType__c = 'Home Lending'
+    );
+    insert l2;
+
+    l2.Status = 'Closed';
+    l2.SubStatus__c = 'Referred to Classic';
+    update l2;
+
+    Test.stopTest();
+    List<Lead> leadList = [
+      SELECT
+        Id,
+        Is_BOH_Lead__c,
+        FinServ__RelatedAccount__c,
+        Email,
+        IsConverted,
+        Status
+      FROM Lead
+      WHERE IsConverted = TRUE
+    ];
+    Assert.areEqual(2, leadList.size(), 'All the leads should be converted');
+  }
 }

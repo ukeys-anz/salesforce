@@ -175,5 +175,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     LeadChatterMigrationHelper.migrateChatterPostsOnConversion(records, oldMap);
     MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Lead');
     CCRMLeadActions.notifyLeadOwners((Map<Id, Lead>) oldMap, records);
+    BOHLeadActions.getInstance().convertLeads(records);
   }
 }

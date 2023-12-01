@@ -6,6 +6,7 @@
  */
 public with sharing class BOHLeadActions {
   private static final String BOH_DECLINED_STATUS = 'Declined';
+  private static final String BOH_CLOSED_STATUS = 'Closed';
   private static final String BOH_AUTO_CLOSED_SUB_STATUS = 'Auto-closed';
   private static BOHLeadActions instance;
   private List<BOH_Lead_Auto_Closure_Mapping__mdt> bohLeadMappingList;
@@ -311,5 +312,101 @@ public with sharing class BOHLeadActions {
     leadByEmailMap.get(acc.PersonEmail)?.FirstName.toLowerCase() &&
     acc.Lastname.toLowerCase() ==
     leadByEmailMap.get(acc.PersonEmail)?.Lastname.toLowerCase());
+  }
+
+  /**
+   * @description convertLeads convert leads into their matching accounts
+   * @param leadsList A list fo leads to be converted
+   */
+  public void convertLeads(List<Lead> leadsList) {
+    List<Database.LeadConvert> converts = new List<Database.LeadConvert>();
+    List<Database.LeadConvertResult> lcResults = new List<Database.LeadConvertResult>();
+    LeadStatus convertedStatus = [
+      SELECT MasterLabel
+      FROM LeadStatus
+      WHERE IsConverted = TRUE
+      LIMIT 1
+    ];
+
+    for (Lead l : leadsList) {
+      if (
+        l.Is_BOH_Lead__c &&
+        l.Status == BOH_CLOSED_STATUS &&
+        l.FinServ__RelatedAccount__c != null
+      ) {
+        Database.LeadConvert convert = new Database.LeadConvert();
+        convert.setLeadId(l.Id);
+        convert.setAccountId(l.FinServ__RelatedAccount__c);
+        convert.setConvertedStatus(convertedStatus.MasterLabel);
+        convert.setDoNotCreateOpportunity(true);
+        converts.add(convert);
+      }
+    }
+    lcResults = Database.convertLead(converts);
+    List<Contact> contactList = new List<Contact>();
+    for (Database.LeadConvertResult lcr : lcResults) {
+      if (!lcr.isSuccess()) {
+        Logger.error(
+          'Account_Id: ' +
+          lcr.getAccountId() +
+          '; Lead_Id: ' +
+          lcr.getLeadId() +
+          '; Error_Message: ' +
+          lcr.getErrors()[0].getMessage()
+        );
+      } else {
+        contactList.add(new Contact(Id = lcr.getContactId()));
+      }
+    }
+    Logger.saveLog();
+
+    if (!contactList.isEmpty()) {
+      deleteAutoCreatedContacts(contactList);
+    }
+  }
+
+  /**
+   * @description delete auto created contacts post lead conversion
+   * @param contactList list of contacts from lead conversion
+   */
+  private void deleteAutoCreatedContacts(List<Contact> contactList) {
+    if (contactList.isEmpty()) {
+      return;
+    }
+    //Separate contactList into org contacts vs person accounts
+    List<Contact> orgContactList = new List<Contact>();
+    Set<Id> personContactsIdSet = new Set<Id>();
+    for (Contact contactRec : [
+      SELECT id, isPersonAccount
+      FROM contact
+      WHERE id IN :contactList
+    ]) {
+      if (contactRec.isPersonAccount) {
+        personContactsIdSet.add(contactRec.id);
+      } else {
+        orgContactList.add(contactRec);
+      }
+    }
+    if (!orgContactList.isEmpty()) {
+      DMLUtil.deleteRecords(
+        orgContactList,
+        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+        DMLUtil.SYSTEM_MODE
+      );
+    }
+    if (!personContactsIdSet.isEmpty()) {
+      List<OpportunityContactRole> personOpportunityContactRoleList = [
+        SELECT id, ContactId
+        FROM OpportunityContactRole
+        WHERE ContactId IN :personContactsIdSet
+      ];
+      if (!personOpportunityContactRoleList.isEmpty()) {
+        DMLUtil.deleteRecords(
+          personOpportunityContactRoleList,
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
+        );
+      }
+    }
   }
 }
