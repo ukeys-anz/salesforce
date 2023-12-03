@@ -121,11 +121,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Interaction.Actual_Topics__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Interaction.AppointmentId__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -290,11 +285,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Interaction.Products__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Record_Type__c</field>
         <readable>true</readable>
@@ -322,11 +312,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Reason_for_Visit_Formula__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Interaction.Reason_for_Visit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -6,7 +6,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>Customer SOP Id</description>
     <externalId>true</externalId>
-    <label>SOP ID</label>
+    <label>SOP Id</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
