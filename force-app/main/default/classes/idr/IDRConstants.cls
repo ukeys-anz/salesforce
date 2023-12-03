@@ -178,6 +178,7 @@ public with sharing class IDRConstants {
 
   //Channel Received
   public static final String CHANNEL_RECEIVED_AFCA_REFERRED = '11';
+  public static final String CHANNEL_RECEIVED_ANZ_COM = '8';
 
   //IDREmailServiceConstants
   public static final String CASE_NO_REGEX = '\\d{4,8}';
@@ -300,6 +301,7 @@ public with sharing class IDRConstants {
           'IDR_Home_Owners',
           'IDR_Wealth',
           'IDR_Early_Resolution',
+          'IDR_Early_Resolution_Unassisted_Channel',
           'CCR_Complaints',
           'Hardship_IDR_Letter',
           'IDR_ANZ_Plus',
@@ -400,5 +402,47 @@ public with sharing class IDRConstants {
     '17',
     '18',
     '20'
+  };
+
+  public static final List<String> IDR_UNASSISTED_ISSUE_TYPE = new List<String> {
+    '18',
+    '13',
+    '12',
+    '15',
+    '9',
+    '10'
+  };
+
+  public static final List<String> IDR_UNASSISTED_SUB_ISSUE_TYPE = new List<String>{
+  // Account Set-up & Maintenance
+    '11', // Account/Profile set up
+    '12', // Account/Profile Maintenance
+    '63', // Statement Issue
+  // Channel Accessibility
+    '2',  // Branch queues / wait time
+    '3',  // Call queues / wait time
+    '4',  // Trading hours/ location/ closures
+    '5',  // Design/ layout/ content
+    '6',  // System fault/ outage
+    '9',  // Digital
+    'Not working on device',
+    'No direct phone line',
+    'Not enough stores',
+    'Digital only service',
+  // Organisational Structure & Marketing
+    '54', // About ANZ organisational structure
+    '55', // Media releases
+    '56', // Marketing campaigns
+    '10', // Other
+  // Product Features, Offers, Sales
+    '73', // Marketing contact not requested/ required
+  // Service Quality
+    '57', // Tone or manner of response
+    '59', // Call transferred, disconnected or not returned
+    '60', // Appointment not made/ upheld
+    '62', // Failure to respond to customer request for info
+    'Request won\'t be actioned',
+  // Transactions & Payments
+    '50'  // Payment system fault/outage
   };
 }
