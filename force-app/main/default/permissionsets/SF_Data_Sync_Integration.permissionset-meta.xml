@@ -837,7 +837,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Dispute_raised_by__c</field>
+        <field>Case.Dispute_Raised_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2462,7 +2462,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Transaction_made_by__c</field>
+        <field>Case.Transaction_Made_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
