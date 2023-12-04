@@ -112,6 +112,7 @@ force-app/main/default/transactionSecurityPolicies
 
 #to prevent issues when deploying looking for depracated process name
 force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/anz plus - basic subscription.entitlementProcess-meta.xml
 force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
 force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
 
