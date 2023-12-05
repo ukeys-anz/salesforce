@@ -73,6 +73,10 @@
                 <behavior>Edit</behavior>
                 <field>SubStatus__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>FinServ__RelatedAccount__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
