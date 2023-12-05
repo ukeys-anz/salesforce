@@ -8,19 +8,27 @@ public with sharing class CFaaSService extends Service {
   /**
    * @param ocvId customer id
    * @param docId document id reference in external system
+   * @param recordId record id for the cfaas file object
+   * @param cvId content version Id if applicable
    * @return HttpCalloutResponse
    * @description cfaas get download url api
    */
   public override HttpCalloutResponse getDownloadUrl(
     String ocvId,
-    String docId
+    String docId,
+    String recordId,
+    String cvId
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
 
     Map<String, Object> callBody = new Map<String, Object>{
       'documentId' => docId,
-      'urlType' => 1
+      'urlType' => 1,
+      'recordId' => recordId,
+      'cvId' => cvId,
+      'requester_sf_id' => UserInfo.getUserId()
     };
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();

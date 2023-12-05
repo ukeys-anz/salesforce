@@ -48,7 +48,12 @@ public inherited sharing class CFaaSServiceTest {
 
     Test.startTest();
     CFaaSService cfaasService = new CFaaSService();
-    HttpCalloutResponse response = cfaasService.getDownloadUrl(ocvId, docId);
+    HttpCalloutResponse response = cfaasService.getDownloadUrl(
+      ocvId,
+      docId,
+      '',
+      ''
+    );
     Test.stopTest();
 
     System.assertNotEquals(
@@ -109,7 +114,12 @@ public inherited sharing class CFaaSServiceTest {
 
     Test.startTest();
     CFaaSService cfaasService = new CFaaSService();
-    HttpCalloutResponse response = cfaasService.getDownloadUrl(ocvId, docId);
+    HttpCalloutResponse response = cfaasService.getDownloadUrl(
+      ocvId,
+      docId,
+      '',
+      ''
+    );
     Test.stopTest();
 
     System.assertEquals(null, response.body, 'Response body should be null.');
@@ -137,7 +147,12 @@ public inherited sharing class CFaaSServiceTest {
 
     Test.startTest();
     CFaaSService cfaasService = new CFaaSService();
-    HttpCalloutResponse response = cfaasService.getDownloadUrl(ocvId, docId);
+    HttpCalloutResponse response = cfaasService.getDownloadUrl(
+      ocvId,
+      docId,
+      '',
+      ''
+    );
     Test.stopTest();
 
     System.assertEquals(null, response.body, 'Response body should be null.');

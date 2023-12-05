@@ -1,7 +1,7 @@
 /**
  * @author Shermal Warnakula
  * @since Feb 2021
- * @description Holds common util functions
+ * @description Holds common util  functions
  * @group Utils
  */
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')

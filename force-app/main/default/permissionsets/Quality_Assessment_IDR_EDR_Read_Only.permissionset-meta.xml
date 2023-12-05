@@ -302,8 +302,4 @@
         <object>Quality_Assessment__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
 </PermissionSet>

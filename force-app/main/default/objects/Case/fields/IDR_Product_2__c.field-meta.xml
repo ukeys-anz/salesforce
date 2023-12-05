@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Product_2__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Foreign key to Product2 table, if secondary issue within the complaint case relates to a specific product, this links to that product</description>
     <externalId>false</externalId>
@@ -10,7 +10,7 @@
     <label>Product or Service Name 2</label>
     <lookupFilter>
         <active>true</active>
-        <booleanFilter>(1 OR 2)</booleanFilter>
+        <booleanFilter>(1 OR 2 OR 3 OR 4)</booleanFilter>
         <filterItems>
             <field>Product2.IsActive</field>
             <operation>equals</operation>
@@ -20,6 +20,16 @@
             <field>$Source.IsClosed</field>
             <operation>equals</operation>
             <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Status</field>
+            <operation>equals</operation>
+            <value>Withdrawn</value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Status</field>
+            <operation>equals</operation>
+            <value>Re-opened</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>

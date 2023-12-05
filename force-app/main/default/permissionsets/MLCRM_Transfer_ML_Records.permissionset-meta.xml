@@ -254,23 +254,23 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AllowViewEditConvertedLeads</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditEvent</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditTask</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>TransferAnyEntity</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>TransferAnyLead</name>
         <enabled>true</enabled>
+        <name>TransferAnyLead</name>
     </userPermissions>
 </PermissionSet>

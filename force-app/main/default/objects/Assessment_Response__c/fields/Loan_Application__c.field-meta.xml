@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <label>Loan Application</label>
     <referenceTo>ResidentialLoanApplication</referenceTo>
-    <relationshipLabel>Assessment Responses</relationshipLabel>
+    <relationshipLabel>Needs Assessment Responses</relationshipLabel>
     <relationshipName>Assessment_Responses</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

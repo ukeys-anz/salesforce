@@ -1282,7 +1282,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <name>ManageInternalUsers</name>
         <enabled>true</enabled>
+        <name>ManageInternalUsers</name>
     </userPermissions>
 </PermissionSet>
