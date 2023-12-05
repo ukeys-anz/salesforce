@@ -273,6 +273,46 @@
                 <label>Digital wallet issue</label>
             </value>
             <value>
+                <fullName>VAU Opt-In</fullName>
+                <default>false</default>
+                <label>VAU Opt-In</label>
+            </value>
+            <value>
+                <fullName>VAU Opt-Out</fullName>
+                <default>false</default>
+                <label>VAU Opt-Out</label>
+            </value>
+            <value>
+                <fullName>Merchant Refund</fullName>
+                <default>false</default>
+                <label>Merchant Refund</label>
+            </value>
+            <value>
+                <fullName>ATM Cash Deposit Dispute</fullName>
+                <default>false</default>
+                <label>ATM Cash Deposit Dispute</label>
+            </value>
+            <value>
+                <fullName>ATM Cheque Deposit Dispute</fullName>
+                <default>false</default>
+                <label>ATM Cheque Deposit Dispute</label>
+            </value>
+            <value>
+                <fullName>PayID technical issue</fullName>
+                <default>false</default>
+                <label>PayID technical issue</label>
+            </value>
+            <value>
+                <fullName>Email PayID already registered</fullName>
+                <default>false</default>
+                <label>Email PayID already registered</label>
+            </value>
+            <value>
+                <fullName>Mobile PayID already registered</fullName>
+                <default>false</default>
+                <label>Mobile PayID already registered</label>
+            </value>
+            <value>
                 <fullName>Transaction Disputes</fullName>
                 <default>false</default>
                 <label>Transaction Disputes</label>
@@ -388,14 +428,14 @@
                 <label>Legal Name Change</label>
             </value>
             <value>
-                <fullName>Direct Debit or Recurring Payments stop request</fullName>
+                <fullName>Stop request - Direct Debit</fullName>
                 <default>false</default>
-                <label>Direct Debit or Recurring Payments stop request</label>
+                <label>Stop request - Direct Debit</label>
             </value>
             <value>
-                <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
+                <fullName>13 month statement - Direct Debit and Recurring Payments</fullName>
                 <default>false</default>
-                <label>Direct Debit or Recurring Payments 13 month statement</label>
+                <label>13 month statement - Direct Debit and Recurring Payments</label>
             </value>
             <value>
                 <fullName>Large Value Transfer requests</fullName>
@@ -595,6 +635,18 @@
             <valueName>Digital wallet issue</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>VAU Opt-In</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>VAU Opt-Out</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <valueName>Merchant Refund</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Using account</valueName>
         </valueSettings>
@@ -651,6 +703,26 @@
             <valueName>Proof of Amount</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>ATM Cash Deposit Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>ATM Cheque Deposit Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PayID Issue/Dispute</controllingFieldValue>
+            <valueName>PayID technical issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PayID Issue/Dispute</controllingFieldValue>
+            <valueName>Email PayID already registered</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>PayID Issue/Dispute</controllingFieldValue>
+            <valueName>Mobile PayID already registered</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Create or Manage PayID</valueName>
         </valueSettings>
@@ -664,11 +736,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
-            <valueName>Direct Debit or Recurring Payments stop request</valueName>
+            <valueName>Stop request - Direct Debit</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
-            <valueName>Direct Debit or Recurring Payments 13 month statement</valueName>
+            <valueName>13 month statement - Direct Debit and Recurring Payments</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>

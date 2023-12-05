@@ -1,4 +1,5 @@
 import { api, LightningElement, wire, track } from "lwc";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getRelatedListRecords } from "lightning/uiRelatedListApi";
 import { handleErrorShowToast, handleErrors } from "c/utils";
 import { NavigationMixin } from "lightning/navigation";
@@ -264,7 +265,17 @@ export default class CfaasFilesRelatedList extends NavigationMixin(
         })
           .then((result) => {
             this.showSpinner = false;
-            this.showFilePreviewModal(result);
+            if (result.status === "DRAFT") {
+              const evt = new ShowToastEvent({
+                title: "We're getting your preview ready...",
+                message:
+                  "This might take a while, so feel free to carry on with your day and check back in a bit.",
+                variant: "success"
+              });
+              this.dispatchEvent(evt);
+            } else {
+              this.showFilePreviewModal(result.docId);
+            }
           })
           .catch((error) => {
             this.showSpinner = false;

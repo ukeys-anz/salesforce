@@ -88,11 +88,23 @@
         <fields>Material_Change__c</fields>
         <relatedList>Material_Change_Applicant__c.Applicant__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>Component_Type__c</fields>
+        <fields>Confirmation_Date__c</fields>
+        <relatedList>LoanApplicantDeclarations</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Invitation_Status__c</fields>
+        <fields>Inviter_Legal_name__c</fields>
+        <relatedList>Loan_Invitation__c.Loan_Applicant__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h8r000002ROLt</masterLabel>
+        <masterLabel>00h5m000000MoUk</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

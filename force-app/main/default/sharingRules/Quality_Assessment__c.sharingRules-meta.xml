@@ -15,17 +15,17 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>ANZX_QA_RO</fullName>
+        <fullName>ANZX_Quality_Assessment_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Sharing rule to share read access for Quality_Assessment__c to Role : ANZ Plus Operations Read Only.</description>
-        <label>ANZX_QA_RO</label>
+        <description>Sharing rule to share read access for Quality_Assessment__c to Role : ANZ Plus Operations Read Only and Coach Leads.</description>
+        <label>ANZX_Quality_Assessment_RO</label>
         <sharedTo>
-            <role>ANZ_Plus_Operations_Read_Only</role>
+            <group>QA_Read_Only_Roles</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Get Help,Join</value>
+            <value>Join,Get Help</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

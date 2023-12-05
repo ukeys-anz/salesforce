@@ -850,7 +850,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <name>TransferAnyCase</name>
         <enabled>true</enabled>
+        <name>TransferAnyCase</name>
     </userPermissions>
 </PermissionSet>

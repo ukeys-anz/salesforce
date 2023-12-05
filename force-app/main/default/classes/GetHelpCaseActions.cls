@@ -534,6 +534,7 @@ public with sharing class GetHelpCaseActions {
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
     GetHelpCaseAssignmentRules.assignUnauthenticatedEnquiryCases(records);
+    GetHelpCaseAssignmentRules.assignGeneralEnquiryCases(records);
     GetHelpCaseActionsHelper.setANZxCustomerNonCustomerComplaints(records);
     GetHelpCaseActionsHelper.setCreditReferralApplication(records);
   }

@@ -20,72 +20,76 @@
             <value>
                 <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
                 <default>false</default>
-                <label>Selfie fail - selfie image is not clear enough to match</label>
+                <label>Selfie - Unusable for matching</label>
             </value>
             <value>
                 <fullName>Selfie fail - document image is not clear enough to match</fullName>
                 <default>false</default>
-                <label>Selfie fail - document image is not clear enough to match</label>
+                <label>ID Document - Poor quality document photo</label>
             </value>
             <value>
                 <fullName>Selfie fail - selfie image is clear, but not the same person</fullName>
                 <default>false</default>
-                <label>Selfie fail - selfie image is clear, but not the same person</label>
+                <label>Selfie - Facial comparison failed</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is a picture of a picture</fullName>
+                <default>false</default>
+                <label>ID Document - Picture of Picture (MV Only)</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is expired</fullName>
+                <default>false</default>
+                <label>ID Document - Expired (MV Only)</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is ineligible type</fullName>
+                <default>false</default>
+                <label>ID Document - Type not acceptable</label>
+            </value>
+            <value>
+                <fullName>Doc fail - suspected fraud, based on document</fullName>
+                <default>false</default>
+                <label>ID Document - Suspect fraud</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document details unreadable</fullName>
+                <default>false</default>
+                <label>ID Document - Data unreadable</label>
+            </value>
+            <value>
+                <fullName>EV Fail - DVS has given fail response</fullName>
+                <default>false</default>
+                <label>DVS - Fail response</label>
+            </value>
+            <value>
+                <fullName>EV Fail - DVS system error response</fullName>
+                <default>false</default>
+                <label>DVS - System error response</label>
+            </value>
+            <value>
+                <fullName>Doc fail - doc details are outside of fixable threshold</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Doc fail - doc details are outside of fixable threshold</label>
+            </value>
+            <value>
+                <fullName>EV fail - retries exhausted on customer name variations</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>EV fail - retries exhausted on customer name variations</label>
             </value>
             <value>
                 <fullName>Selfie fail - selfie image is clear, but a picture of a picture</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Selfie fail - selfie image is clear, but a picture of a picture</label>
             </value>
             <value>
                 <fullName>Selfie fail - suspected fraud, based on selfie</fullName>
                 <default>false</default>
+                <isActive>false</isActive>
                 <label>Selfie fail - suspected fraud, based on selfie</label>
-            </value>
-            <value>
-                <fullName>Doc fail - document is a picture of a picture</fullName>
-                <default>false</default>
-                <label>Doc fail - document is a picture of a picture</label>
-            </value>
-            <value>
-                <fullName>Doc fail - document is expired</fullName>
-                <default>false</default>
-                <label>Doc fail - document is expired</label>
-            </value>
-            <value>
-                <fullName>Doc fail - document is ineligible type</fullName>
-                <default>false</default>
-                <label>Doc fail - document is ineligible type</label>
-            </value>
-            <value>
-                <fullName>Doc fail - suspected fraud, based on document</fullName>
-                <default>false</default>
-                <label>Doc fail - suspected fraud, based on document</label>
-            </value>
-            <value>
-                <fullName>Doc fail - doc details are outside of fixable threshold</fullName>
-                <default>false</default>
-                <label>Doc fail - doc details are outside of fixable threshold</label>
-            </value>
-            <value>
-                <fullName>Doc fail - document details unreadable</fullName>
-                <default>false</default>
-                <label>Doc fail - document details unreadable</label>
-            </value>
-            <value>
-                <fullName>EV fail - retries exhausted on customer name variations</fullName>
-                <default>false</default>
-                <label>EV fail - retries exhausted on customer name variations</label>
-            </value>
-            <value>
-                <fullName>EV Fail - DVS has given fail response</fullName>
-                <default>false</default>
-                <label>EV Fail - DVS has given fail response</label>
-            </value>
-            <value>
-                <fullName>EV Fail - DVS system error response</fullName>
-                <default>false</default>
-                <label>EV Fail - DVS system error response</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -99,14 +103,6 @@
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Selfie fail - selfie image is clear, but not the same person</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Failed</controllingFieldValue>
-            <valueName>Selfie fail - selfie image is clear, but a picture of a picture</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Failed</controllingFieldValue>
-            <valueName>Selfie fail - suspected fraud, based on selfie</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
@@ -126,15 +122,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
-            <valueName>Doc fail - doc details are outside of fixable threshold</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Doc fail - document details unreadable</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Failed</controllingFieldValue>
-            <valueName>EV fail - retries exhausted on customer name variations</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
