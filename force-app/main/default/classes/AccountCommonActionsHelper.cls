@@ -249,7 +249,7 @@ public with sharing class AccountCommonActionsHelper {
   public static Set<String> getOcvIdsFromAccounts(List<Account> accounts) {
     Set<String> ocvIds = new Set<String>();
     for (Account acc : accounts) {
-      if (String.isNotEmpty(acc.OCV_Id__c)) {
+      if (acc.ANZx_Customer__c && String.isNotEmpty(acc.OCV_Id__c)) {
         ocvIds.add(acc.OCV_Id__c);
       }
     }
@@ -259,14 +259,14 @@ public with sharing class AccountCommonActionsHelper {
   /**
    * @description getMobileNumbersFromAccounts gets a set of Customer Mobile Phone from a list of accounts
    * @param accounts A list of account records to extract mobile numbers from
-   * @return Set<String> A set of Cucustomers' mobile numbers
+   * @return Set<String> A set of customers' mobile numbers
    */
   public static Set<String> getMobileNumbersFromAccounts(
     List<Account> accounts
   ) {
     Set<String> mobileNumbers = new Set<String>();
     for (Account acc : accounts) {
-      if (String.isNotEmpty(acc.PersonMobilePhone)) {
+      if (acc.ANZx_Customer__c && String.isNotEmpty(acc.PersonMobilePhone)) {
         mobileNumbers.add(
           TextUtils.sanitiseMobileNumber(acc.PersonMobilePhone)
         );
