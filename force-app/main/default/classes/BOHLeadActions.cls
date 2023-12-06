@@ -60,7 +60,11 @@ public with sharing class BOHLeadActions {
    * @return Boolean that shows if BOH lead needs to be auto closed or not
    */
   public Boolean isBOHLeadNeedAutoClosure(Lead record) {
-    if (record.Is_BOH_Lead__c) {
+    if (
+      this.bohMap.get(record.LeadSource)?.get(record.OpportunityType__c) == null
+    ) {
+      return false;
+    } else {
       return (Lib_SystemLog.getDifferenceInMinutes(
         record.CreatedDate,
         DateTime.now()
@@ -71,7 +75,6 @@ public with sharing class BOHLeadActions {
       24 *
       60));
     }
-    return false;
   }
 
   /**
@@ -80,6 +83,9 @@ public with sharing class BOHLeadActions {
    */
   public static void autoCloseBOHLeads(List<Lead> records) {
     List<Lead> updatedLeads = new List<Lead>();
+    if (records.isEmpty()) {
+      return;
+    }
     for (Lead record : records) {
       if (BOHLeadActions.getInstance().isBOHLeadNeedAutoClosure(record)) {
         record.Status = BOH_DECLINED_STATUS;
