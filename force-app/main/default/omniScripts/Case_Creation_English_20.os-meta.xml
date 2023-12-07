@@ -5065,7 +5065,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 32000,
+  &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -5112,7 +5112,7 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 32000,
+  &quot;maxLength&quot; : 255,
   &quot;minLength&quot; : 0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
@@ -5153,7 +5153,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 32000,
+  &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -6351,5 +6351,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_20</uniqueName>
     <versionNumber>20.0</versionNumber>
-    <webComponentKey>4d869057-2bea-b169-2d4f-620f313b4f40</webComponentKey>
+    <webComponentKey>29e4a6d6-41b7-a14e-bcae-1632e907d8f8</webComponentKey>
 </OmniScript>
