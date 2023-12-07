@@ -6,6 +6,16 @@
     </customMetadataTypeAccesses>
     <description>Permissions to create, view and edit Leads</description>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.FinServ__ReferredByContact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.FinServ__ReferredByUser__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Address</field>
         <readable>true</readable>

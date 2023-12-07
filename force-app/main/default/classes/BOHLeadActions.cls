@@ -4,7 +4,7 @@
  * @since 11/2023
  * @description BOH Lead Methods
  */
-public with sharing class BOHLeadActions {
+public without sharing class BOHLeadActions {
   private static final String BOH_DECLINED_STATUS = 'Declined';
   private static final String BOH_CLOSED_STATUS = 'Closed';
   private static final String BOH_AUTO_CLOSED_SUB_STATUS = 'Auto-closed';
@@ -322,9 +322,10 @@ public with sharing class BOHLeadActions {
 
   /**
    * @description convertLeads convert leads into their matching accounts
+   * @param oldRecords A old records to check old values of lead
    * @param leadsList A list fo leads to be converted
    */
-  public void convertLeads(List<Lead> leadsList) {
+  public void convertLeads(Map<Id, Lead> oldRecords, List<Lead> leadsList) {
     List<Database.LeadConvert> converts = new List<Database.LeadConvert>();
     List<Database.LeadConvertResult> lcResults = new List<Database.LeadConvertResult>();
     LeadStatus convertedStatus = [
@@ -337,6 +338,9 @@ public with sharing class BOHLeadActions {
     for (Lead l : leadsList) {
       if (
         l.Is_BOH_Lead__c &&
+        (l.Status != oldRecords.get(l.Id).Status ||
+        l.FinServ__RelatedAccount__c !=
+        oldRecords.get(l.Id).FinServ__RelatedAccount__c) &&
         l.Status == BOH_CLOSED_STATUS &&
         l.FinServ__RelatedAccount__c != null
       ) {
