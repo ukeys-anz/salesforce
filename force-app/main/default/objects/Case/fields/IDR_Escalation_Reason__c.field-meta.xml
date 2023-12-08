@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Escalation_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Complaint Escalation Reason</description>
     <externalId>false</externalId>
     <label>Complaint Escalation Reason</label>
@@ -84,6 +84,51 @@
                 <fullName>20</fullName>
                 <default>false</default>
                 <label>Further investigation required (Internal business unit escalation process exhausted)</label>
+            </value>
+            <value>
+                <fullName>Business unit process exhausted (Manager escalation/discretion/investigation)</fullName>
+                <default>false</default>
+                <label>Business unit process exhausted (Manager escalation/discretion/investigation)</label>
+            </value>
+            <value>
+                <fullName>Complaint relates to collections (I am not from any collections team)</fullName>
+                <default>false</default>
+                <label>Complaint relates to collections (I am not from any collections team)</label>
+            </value>
+            <value>
+                <fullName>Credit information, credit eligibility or credit reporting body</fullName>
+                <default>false</default>
+                <label>Credit information, credit eligibility or credit reporting body</label>
+            </value>
+            <value>
+                <fullName>Customer alleges lending should not have been approved</fullName>
+                <default>false</default>
+                <label>Customer alleges lending should not have been approved</label>
+            </value>
+            <value>
+                <fullName>Hardship application outcome (I am not from any hardship team)</fullName>
+                <default>false</default>
+                <label>Hardship application outcome (I am not from any hardship team)</label>
+            </value>
+            <value>
+                <fullName>Third party product complaint (e.g., World Line/QBE/CGU)</fullName>
+                <default>false</default>
+                <label>Third party product complaint (e.g., World Line/QBE/CGU)</label>
+            </value>
+            <value>
+                <fullName>Unable to locate the right business unit to assist</fullName>
+                <default>false</default>
+                <label>Unable to locate the right business unit to assist</label>
+            </value>
+            <value>
+                <fullName>Written response requested by customer</fullName>
+                <default>false</default>
+                <label>Written response requested by customer</label>
+            </value>
+            <value>
+                <fullName>Indexing (internal team process)</fullName>
+                <default>false</default>
+                <label>Indexing (internal team process)</label>
             </value>
         </valueSetDefinition>
     </valueSet>

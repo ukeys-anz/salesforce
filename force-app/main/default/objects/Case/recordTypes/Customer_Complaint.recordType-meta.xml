@@ -4872,55 +4872,39 @@
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
         <values>
-            <fullName>10</fullName>
+            <fullName>Business unit process exhausted %28Manager escalation%2Fdiscretion%2Finvestigation%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>11</fullName>
+            <fullName>Complaint relates to collections %28I am not from any collections team%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>12</fullName>
+            <fullName>Credit information%2C credit eligibility or credit reporting body</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>13</fullName>
+            <fullName>Customer alleges lending should not have been approved</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>14</fullName>
+            <fullName>Hardship application outcome %28I am not from any hardship team%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>15</fullName>
+            <fullName>Indexing %28internal team process%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>16</fullName>
+            <fullName>Third party product complaint %28e%2Eg%2E%2C World Line%2FQBE%2FCGU%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>17</fullName>
+            <fullName>Unable to locate the right business unit to assist</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>18</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>20</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>7</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>8</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>9</fullName>
+            <fullName>Written response requested by customer</fullName>
             <default>false</default>
         </values>
     </picklistValues>
