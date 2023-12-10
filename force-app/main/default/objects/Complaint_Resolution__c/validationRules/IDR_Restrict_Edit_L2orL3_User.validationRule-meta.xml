@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Restrict_Edit_L2orL3_User</fullName>
+    <active>true</active>
+    <description>To restrict L2 or L3 user from creating complaint resolution records related to the case of which they are not the owner.</description>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
+ISNEW() &amp;&amp;
+($Permission.IDR_Level_2 || $Permission.IDR_Level_3)&amp;&amp;
+NOT($User.Id = IDR_Complaint__r.OwnerId) &amp;&amp;
+NOT(ISBLANK(TEXT(IDR_Complaint_Remedy__c)))</errorConditionFormula>
+    <errorMessage>You cannot save this resolution as you are not the case owner of the complaint selected.</errorMessage>
+</ValidationRule>
