@@ -64,7 +64,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>flexcardName</name>
-                    <value>SOP_About_You</value>
+                    <value>SOP_About_You_Container</value>
                 </componentInstanceProperties>
                 <componentName>runtime_omnistudio:flexcard</componentName>
                 <identifier>runtime_omnistudio_flexcard3</identifier>
@@ -659,16 +659,16 @@
                     <name>relatedListFieldAliases</name>
                     <valueList>
                         <valueListItems>
-                            <value>CASES.CASE_NUMBER</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>CASES.SUBJECT</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>CASES.CREATED_DATE</value>
+                            <value>OWNER_NAME</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>CASES.PRIORITY</value>
+                            <value>CASES.STATUS</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CASES.CREATED_DATE</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

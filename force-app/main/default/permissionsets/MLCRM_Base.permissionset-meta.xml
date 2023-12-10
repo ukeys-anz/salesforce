@@ -2461,15 +2461,15 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AllowViewEditConvertedLeads</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditEvent</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>EditTask</name>
         <enabled>true</enabled>
+        <name>EditTask</name>
     </userPermissions>
 </PermissionSet>

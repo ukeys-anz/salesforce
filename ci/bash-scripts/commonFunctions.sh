@@ -136,7 +136,7 @@ function waitForManualSteps(){
     read -rp "${green}Do you want to open the scratch org to do manual $2 steps (y/n)? " manualDeploySteps
     echo "${reset}"
     if [[ $manualDeploySteps == y || $manualDeploySteps == Y ]]; then
-        sf sf org open -o $1 
+        sf org open -o $1 
     fi
 
     echo ""

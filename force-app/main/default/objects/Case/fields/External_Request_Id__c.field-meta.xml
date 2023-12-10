@@ -8,7 +8,7 @@
     <encryptionScheme>None</encryptionScheme>
     <externalId>true</externalId>
     <label>External Request Id</label>
-    <length>20</length>
+    <length>36</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

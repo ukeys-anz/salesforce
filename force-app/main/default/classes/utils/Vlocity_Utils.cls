@@ -64,7 +64,6 @@ global with sharing class Vlocity_Utils implements Callable {
         custId,
         custIdentifier
       );
-      System.debug('test ' + result);
       output.put('Response', JSON.serialize(result));
     } catch (Exception ex) {
       output.put('Response', '');
@@ -95,6 +94,9 @@ global with sharing class Vlocity_Utils implements Callable {
     return IDRConstants.DISABLE_OMNI_FOR_CMOS;
   }
 
+  /**
+   * @description To handle complaint resolution actions which are used in IP
+   */
   private without sharing class ComplaintResolutionActions {
     /**
      * @description To delete Complaint Resolution
@@ -138,72 +140,60 @@ global with sharing class Vlocity_Utils implements Callable {
         'ComplaintResolution'
       );
       for (Object c : complaintRes) {
-        Map<String, Object> cr = (Map<String, Object>) c;
+        RemedyDependentValues remedyValues = (RemedyDependentValues) JSON.deserialize(
+          JSON.serialize(c),
+          RemedyDependentValues.class
+        );
+        if (remedyValues.remedy == null) {
+          continue;
+        }
         Complaint_Resolution__c cr1 = new Complaint_Resolution__c(
           IDR_Complaint__c = (Id) input.get('ComplaintId'),
-          IDR_Complaint_Remedy__c = (String) cr.get('Remedy'),
-          IDR_Complaint_Sub_Remedy__c = (String) cr.get('SubRemedy')
+          IDR_Complaint_Remedy__c = remedyValues.remedy,
+          IDR_Complaint_Sub_Remedy__c = remedyValues.subRemedy
         );
-        if (cr.get('Remedy') != null) {
-          if (cr.get('durationOfRemedy') != null) {
-            cr1.IDR_Duration_of_Remedy__c = Decimal.valueOf(
-              String.valueOf(cr.get('durationOfRemedy'))
-            );
-          }
-          if (cr.get('otherRemedy') != null) {
-            cr1.IDR_Other_Remedy_Provided__c = String.valueOf(
-              cr.get('otherRemedy')
-            );
-          }
-          if (cr.get('PaymentProvided') != null) {
-            cr1.IDR_Financial_Compensation__c = Decimal.valueOf(
-              String.valueOf(cr.get('PaymentProvided'))
-            );
-          }
-          if (cr.get('rewardPoints') != null) {
-            cr1.IDR_Financial_Remedy_Points__c = Decimal.valueOf(
-              String.valueOf(cr.get('rewardPoints'))
-            );
-          }
-          if (cr.get('detailsOfComplaint') != null) {
-            cr1.IDR_Provided_details_to_Manufacturer__c = Boolean.valueOf(
-              cr.get('detailsOfComplaint')
-            );
-          }
-          if (cr.get('Id') != null) {
-            cr1.Id = (Id) (cr.get('Id'));
-          }
-          crtocreate.add(cr1);
+        if (remedyValues.durationOfRemedy != null) {
+          cr1.IDR_Duration_of_Remedy__c = remedyValues.durationOfRemedy;
         }
+        if (remedyValues.otherRemedy != null) {
+          cr1.IDR_Other_Remedy_Provided__c = remedyValues.otherRemedy;
+        }
+        if (remedyValues.paymentProvided != null) {
+          cr1.IDR_Financial_Compensation__c = remedyValues.paymentProvided;
+        }
+        if (remedyValues.rewardPoints != null) {
+          cr1.IDR_Financial_Remedy_Points__c = remedyValues.rewardPoints;
+        }
+        if (remedyValues.detailsOfComplaint != null) {
+          cr1.IDR_Provided_details_to_Manufacturer__c = remedyValues.detailsOfComplaint;
+        }
+        if (remedyValues.id != null) {
+          cr1.Id = remedyValues.id;
+        }
+        crtocreate.add(cr1);
       }
       if (!crtocreate.isEmpty()) {
-        List<Database.UpsertResult> results = Database.upsert(
+        List<Database.UpsertResult> results = new List<Database.UpsertResult>();
+        DMLUtil.upsertRecords(
           crtocreate,
-          false
-        );
-        for (Integer i = 0; i < crtocreate.size(); i++) {
-          Database.UpsertResult sr = results[i];
-          if (!sr.isSuccess()) {
-            String errorMessage =
-              'Unable to create complaint resolutions ' +
-              'associated Complaint Resolution: ' +
-              crtocreate[i] +
-              ' associated case: ' +
-              crtocreate[i].IDR_Complaint__c;
-            for (Database.Error err : sr.getErrors()) {
-              errorMessage += err;
-              Logger.error(errorMessage);
-              Logger.saveLog();
-            }
-          }
-        }
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'Vlocity_Utils',
-          'createComplaintResolution',
-          'Not enough permissions to create Complaint Resolutions.'
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
         );
       }
     }
+  }
+
+  /**
+   * @description To deserialize the input from IP.
+   */
+  public class RemedyDependentValues {
+    public String remedy;
+    public String subRemedy;
+    public Decimal durationOfRemedy;
+    public String otherRemedy;
+    public Decimal paymentProvided;
+    public Decimal rewardPoints;
+    public Boolean detailsOfComplaint;
+    public Id id;
   }
 }
