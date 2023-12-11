@@ -41,7 +41,7 @@ public with sharing class GetHelpCaseActionsHelper {
       falseEntitlementAccountId = [
         SELECT Id
         FROM Account
-        WHERE Name = :FRAUD_GENERIC_CUSTOMER_NAME
+        WHERE OCV_ID__c = :Label.Fraudx_Generic_Customer_OCV_Id
         LIMIT 1
       ]
       .Id;

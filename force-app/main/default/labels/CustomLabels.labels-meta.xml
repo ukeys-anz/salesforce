@@ -1885,4 +1885,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>Financial Account Endpoint</shortDescription>
         <value>callout:SF_MS_Party/dcrm/customers/v1/accounts/</value>
     </labels>
+    <labels>
+        <fullName>Fraudx_Generic_Customer_OCV_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Fraudx Generic Customer OCVId</shortDescription>
+        <value>Generic-FRX</value>
+    </labels>
 </CustomLabels>
