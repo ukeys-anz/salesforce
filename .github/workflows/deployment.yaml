@@ -67,11 +67,6 @@ jobs:
             artifactory:projects/448406129405/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
             proxypass:projects/anz-x-bootstrap-np-487e09/secrets/h-salesforce-np-proxy-password/versions/3
 
-      - name: Add secrets to ENV
-        run: |
-          echo SFDX_URL="${{ steps.secrets.outputs.sfdxurl }}" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_VALUE="${{ steps.secrets.outputs.artifactory }}" >> $GITHUB_ENV
-
       - name: Setup HTTP Proxy
         id: "proxy-harness-delegate"
         uses: "anzx/github-reusable-actions/setup-http-proxy@main"
@@ -82,7 +77,7 @@ jobs:
 
       - name: Run Deployment
         run: |
-          node --no-warnings ci/workflows/Orchestrations/deployment.mjs
+          node --no-warnings ci/workflows/Orchestrations/deployment.mjs "${{ steps.secrets.outputs.sfdxurl }}"
           echo WHICH_JOB="clean" >> $GITHUB_ENV
 
       - name: Creating new tag and cleaning

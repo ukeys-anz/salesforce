@@ -21,22 +21,21 @@ import {
   booleanMap,
   deleteFolder,
   deleteFile,
-  renameItem
+  renameItem,
+  findAllArgvs
 } from "../Services/helper.mjs";
 
 //////////
 
-/// Find all the env variables & other variables values
+/// Find all the env, argv & other variables values
 
 const {
   WHICH_JOB,
   BASE_REF,
   BASE_REF_LAST_TAG,
   BRANCH_NAME,
-  SFDX_URL,
   DRAFT_PR,
   SPECIFIED_TEST_PR,
-  ARTIFACTORY_SECRET_VALUE,
   PR_NUMBER,
   WORKING_DIR,
   REPO_NAME
@@ -52,6 +51,10 @@ const ARTIFACT_PACKAGE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/package/package.xml";
 const ARTIFACT_DESTRUCTIVE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/destructiveChanges/destructiveChanges.xml";
+
+const args = findAllArgvs();
+const SFDX_URL = args[0];
+const ARTIFACTORY_SECRET_VALUE = args[1];
 //////////
 
 /// functions

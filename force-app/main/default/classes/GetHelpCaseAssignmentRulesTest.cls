@@ -6,6 +6,22 @@
  */
 @isTest
 public with sharing class GetHelpCaseAssignmentRulesTest {
+  @TestSetup
+  static void setup() {
+    Faker faker = new Faker('AU');
+    User thisUser = new User(Id = UserInfo.getUserId());
+    System.runAs(thisUser) {
+      Account ac = new Account(
+        FirstName = 'AssignSupportCoachTest',
+        LastName = 'Profile Account',
+        OCV_ID__c = faker.randomString(10),
+        RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+        ANZx_Customer__c = true,
+        PersonMobilePhone = '+61400000000'
+      );
+      insert ac;
+    }
+  }
   /**
    * @description : This is to test for ATM/Card/NPP dispute types, when in unauthorised transaction situation
    * case is assigned correctly
@@ -441,6 +457,99 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     System.assert(
       expMsg.contains(validationMsg),
       'The message should be as expected.'
+    );
+  }
+
+  /**
+   * @description : This is to test to check if the general enquiry case has one of the following conditions -
+   * - then it should be assigned to support coach queue:
+   *        1. Issue Type: Cards | Sub Issue Type: 'VAU Opt-In' Or 'VAU Opt-Out' Or 'Merchant Refund'
+   *        2. Issue Type: Money | Sub Issue Type: 'ATM Cash Deposit Dispute' Or 'ATM Cheque Deposit Dispute'
+   *        3. Issue Type: PayID Issue/Dispute | Sub Issue Type: 'PayID technical issue' Or 'Email PayID already registered' Or 'Mobile PayID already registered'
+   *
+   * Otherwisem it should not be assigned to support coach queue
+   */
+
+  @isTest
+  static void testAssignGeneralEnquiryToSuppotCoachQueue() {
+    Account ac = [
+      SELECT Id
+      FROM Account
+      WHERE PersonMobilePhone = '+61400000000'
+      LIMIT 1
+    ];
+
+    Case testCase = new Case(
+      RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+      Status = GetHelpConstants.OPEN_STATUS,
+      AccountId = ac.Id,
+      Origin = 'Chat',
+      Priority = 'Standard',
+      Description = 'Test',
+      Type = 'Cards',
+      Sub_Type__c = 'VAU Opt-In'
+    );
+
+    Test.startTest();
+    insert testCase;
+    Case c = [SELECT Id, OwnerId, Queue__c FROM Case WHERE Id = :testCase.Id];
+
+    Group supportCoachQueue = CommonUtil.getQueueByName('Support_Coach_Queue');
+    Assert.areEqual(
+      c.OwnerId,
+      supportCoachQueue.Id,
+      'Should return the Id of expected queue.'
+    );
+    Assert.areEqual(
+      c.Queue__c,
+      supportCoachQueue.Name,
+      'Should return the Name of expected queue.'
+    );
+  }
+
+  /**
+   * @description : This is to test to check if the general enquiry case has one of the following conditions -
+   * - then it should be assigned to support coach queue:
+   *        1. Issue Type: Cards | Sub Issue Type: 'VAU Opt-In' Or 'VAU Opt-Out' Or 'Merchant Refund'
+   *        2. Issue Type: Money | Sub Issue Type: 'ATM Cash Deposit Dispute' Or 'ATM Cheque Deposit Dispute'
+   *        3. Issue Type: PayID Issue/Dispute | Sub Issue Type: 'PayID technical issue' Or 'Email PayID already registered' Or 'Mobile PayID already registered'
+   *
+   * Otherwisem it should not be assigned to support coach queue
+   */
+  @isTest
+  static void testAssignGeneralEnquiryToSuppotCoachQueueFalse() {
+    Account ac = [
+      SELECT Id
+      FROM Account
+      WHERE PersonMobilePhone = '+61400000000'
+      LIMIT 1
+    ];
+
+    Case testCase = new Case(
+      RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+      Status = GetHelpConstants.OPEN_STATUS,
+      AccountId = ac.Id,
+      Origin = 'Chat',
+      Priority = 'Standard',
+      Description = 'Test',
+      Type = 'Cards',
+      Sub_Type__c = 'Digital wallet issue'
+    );
+
+    Test.startTest();
+    insert testCase;
+    Case c = [SELECT Id, OwnerId, Queue__c FROM Case WHERE Id = :testCase.Id];
+
+    Group supportCoachQueue = CommonUtil.getQueueByName('Support_Coach_Queue');
+    Assert.areNotEqual(
+      c.OwnerId,
+      supportCoachQueue.Id,
+      'Should return the Id of expected queue.'
+    );
+    Assert.areNotEqual(
+      c.Queue__c,
+      supportCoachQueue.Name,
+      'Should return the Name of expected queue.'
     );
   }
 }

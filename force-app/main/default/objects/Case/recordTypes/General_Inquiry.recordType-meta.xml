@@ -7116,10 +7116,6 @@
     <picklistValues>
         <picklist>OnboardingVerificationFailedReason__c</picklist>
         <values>
-            <fullName>Doc fail - doc details are outside of fixable threshold</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Doc fail - document is a picture of a picture</fullName>
             <default>false</default>
         </values>
@@ -7144,15 +7140,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>EV fail - retries exhausted on customer name variations</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Selfie fail - document image is not clear enough to match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Selfie fail - selfie image is clear%2C but a picture of a picture</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7161,10 +7149,6 @@
         </values>
         <values>
             <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Selfie fail - suspected fraud%2C based on selfie</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -11557,6 +11541,10 @@
     <picklistValues>
         <picklist>Sub_Type__c</picklist>
         <values>
+            <fullName>13 month statement - Direct Debit and Recurring Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>90%25 Centrelink Payment Request</fullName>
             <default>false</default>
         </values>
@@ -11653,19 +11641,31 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>VAU Opt-In</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VAU Opt-Out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchant Refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATM Cash Deposit Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATM Cheque Deposit Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Digital wallet provisioning</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Direct Debit or Recurring Payment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Direct Debit or Recurring Payments stop request</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11769,6 +11769,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>PayID technical issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email PayID already registered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile PayID already registered</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Privacy</fullName>
             <default>false</default>
         </values>
@@ -11802,6 +11814,10 @@
         </values>
         <values>
             <fullName>Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stop request - Direct Debit</fullName>
             <default>false</default>
         </values>
         <values>
@@ -12646,6 +12662,10 @@
         </values>
         <values>
             <fullName>Statutory Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PayID Issue/Dispute</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -632,7 +632,7 @@
     },
     {
       "name": "CFaaS GCP Integration User",
-      "profile": "Integration User",
+      "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
         "CFaaS_Integration",

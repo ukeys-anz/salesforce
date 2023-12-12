@@ -7208,10 +7208,6 @@
     <picklistValues>
         <picklist>OnboardingVerificationFailedReason__c</picklist>
         <values>
-            <fullName>Doc fail - doc details are outside of fixable threshold</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Doc fail - document details unreadable</fullName>
             <default>false</default>
         </values>
@@ -7240,15 +7236,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>EV fail - retries exhausted on customer name variations</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Selfie fail - document image is not clear enough to match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Selfie fail - selfie image is clear%2C but a picture of a picture</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7257,10 +7245,6 @@
         </values>
         <values>
             <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Selfie fail - suspected fraud%2C based on selfie</fullName>
             <default>false</default>
         </values>
     </picklistValues>

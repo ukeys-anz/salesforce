@@ -16,6 +16,21 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final Group BOH_COACH_QUEUE = CommonUtil.getQueueByName(
     'BOH_Coach_Queue'
   );
+  public static final Group SUPPORT_COACH_QUEUE = CommonUtil.getQueueByName(
+    'Support_Coach_Queue'
+  );
+
+  private static final Map<String, String> SUB_TYPE_TO_TYPE_MAP_SUPPORT_COACH = new Map<String, String>{
+    'VAU Opt-In' => 'Cards',
+    'VAU Opt-Out' => 'Cards',
+    'Merchant Refund' => 'Cards',
+    'ATM Cash Deposit Dispute' => 'Money',
+    'ATM Cheque Deposit Dispute' => 'Money',
+    'PayID technical issue' => 'PayID Issue/Dispute',
+    'Email PayID already registered' => 'PayID Issue/Dispute',
+    'Mobile PayID already registered' => 'PayID Issue/Dispute'
+  };
+
   /**
    * @description method to call the Case assignment rules for Disputes
    * @param cases Records in the current context
@@ -137,6 +152,25 @@ public with sharing class GetHelpCaseAssignmentRules {
       } else {
         record.OwnerId = COACH_QUEUE.Id;
         record.Queue__c = COACH_QUEUE.Name;
+      }
+    }
+  }
+
+  /**
+   * @description method to call the Case assignment rules for general enquiry cases
+   * Will assign those cases to Support Coach Queue
+   * @param records List<Case> to be checked.
+   */
+  public static void assignGeneralEnquiryCases(List<Case> records) {
+    for (Case record : records) {
+      if (!CheckCaseRecordType.isGeneralEnquiry(record)) {
+        continue;
+      }
+      String recordSubType = record.Sub_Type__c;
+      String recordType = record.Type;
+      if (SUB_TYPE_TO_TYPE_MAP_SUPPORT_COACH.get(recordSubType) == recordType) {
+        record.OwnerId = SUPPORT_COACH_QUEUE.Id;
+        record.Queue__c = SUPPORT_COACH_QUEUE.Name;
       }
     }
   }

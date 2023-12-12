@@ -16,6 +16,7 @@ export default class CreditAssessmentModal extends LightningElement {
   @api referralOutcomeCode;
   @api applicantId;
   @api outcomeId;
+  @api assessmentId;
 
   optionList;
   selectedValue;
@@ -187,7 +188,8 @@ export default class CreditAssessmentModal extends LightningElement {
       input: {
         creditId: this.creditId,
         recordId: this.recordId,
-        outcomeId: this.outcomeId
+        outcomeId: this.outcomeId,
+        assessmentId: this.assessmentId
       },
       sClassName: "CreditAssessmentController",
       sMethodName: "deleteReferralOutcome",

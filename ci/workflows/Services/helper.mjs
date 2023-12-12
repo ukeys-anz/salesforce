@@ -418,6 +418,11 @@ const deleteFile = (fileName) => {
   execSync(`rm -f ${fileName}`).toString("utf-8");
 };
 
+const findAllArgvs = () => {
+  const argvs = process.argv;
+  return argvs.slice(2);
+};
+
 export {
   runSfCommand,
   printContextFromFile,
@@ -445,5 +450,6 @@ export {
   salesforceIgnoredDestructiveChanges,
   salesforceDestructiveChanges,
   salesforceFileChanges,
-  salesforceIgnoredFileChanges
+  salesforceIgnoredFileChanges,
+  findAllArgvs
 };
