@@ -19,6 +19,7 @@ public with sharing class CFaaSDocumentModel extends CalloutModel {
     public String name;
     public String fileID;
     public String extension;
+    public String contentVersionId;
 
     /**
      * @description set the content type based on extension using map

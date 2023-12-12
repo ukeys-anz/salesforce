@@ -1046,6 +1046,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Select a Response Status and Outcome Reason to document your activity and progress the Lead.</value>
     </labels>
     <labels>
+        <fullName>CardsAccountTypeForSorting</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CardsAccountTypeForSorting</shortDescription>
+        <value>Single,Joint</value>
+    </labels>
+    <labels>
         <fullName>ML_AdobeLeadExpiryRemainder</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>

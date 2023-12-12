@@ -38,10 +38,12 @@ const {
   SPECIFIED_TEST_PR,
   ARTIFACTORY_SECRET_VALUE,
   PR_NUMBER,
-  WORKING_DIR
+  WORKING_DIR,
+  REPO_NAME
 } = process.env;
 
 const SOURCE_DIR = renameItem(`artifact-${BRANCH_NAME}`);
+const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases-np`;
 const CLASS_FOLDER_PATH = `${SOURCE_DIR}/force-app/main/default/classes`;
 const JOB_ID_FILE_NAME = renameItem(`${BASE_REF}-${PR_NUMBER}`);
 const ANZX_CI_PACKAGE_XML =
@@ -77,18 +79,25 @@ const validate = () => {
   createAndUploadArtifact(
     SOURCE_DIR,
     BASE_REF_LAST_TAG,
-    ARTIFACTORY_SECRET_VALUE
+    ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME
   );
   authenticate(BRANCH_NAME, SFDX_URL);
   cancel(
     JOB_ID_FILE_NAME,
     ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME,
     BRANCH_NAME,
     ANZX_CI_PACKAGE_XML
   );
   const validationFunc = validationFunction();
   const validation = validationFunc(BRANCH_NAME, SOURCE_DIR, CLASS_FOLDER_PATH);
-  uploadJobId(validation, JOB_ID_FILE_NAME, ARTIFACTORY_SECRET_VALUE);
+  uploadJobId(
+    validation,
+    JOB_ID_FILE_NAME,
+    ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME
+  );
   validateProgress(
     validation,
     BRANCH_NAME,

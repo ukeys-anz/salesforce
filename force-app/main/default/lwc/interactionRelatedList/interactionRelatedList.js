@@ -21,8 +21,6 @@ export default class InteractionRelatedList extends NavigationMixin(
   interactionList;
   appointmentList;
   sObjectType;
-  showAccChatTabHead = false;
-  showCaseChatTabHead = false;
   showMessageTab = false;
   showCallTab = false;
   showStoreTab = false;
@@ -53,21 +51,6 @@ export default class InteractionRelatedList extends NavigationMixin(
     this.appointmentTab = ACTIVE_TAB;
     this.interactionTab = NORMAL_TAB;
     this.chatTab = NORMAL_TAB;
-    this.showMessageTab = false;
-    this.showCallTab = false;
-    this.showStoreTab = false;
-    this.messageTab = NORMAL_TAB;
-    this.callTab = NORMAL_TAB;
-    this.storeTab = NORMAL_TAB;
-  }
-
-  handleShowChatTab() {
-    this.showAppointmentTab = false;
-    this.showInteractionTab = false;
-    this.showChatTab = true;
-    this.appointmentTab = NORMAL_TAB;
-    this.interactionTab = NORMAL_TAB;
-    this.chatTab = ACTIVE_TAB;
     this.showMessageTab = false;
     this.showCallTab = false;
     this.showStoreTab = false;
@@ -138,12 +121,7 @@ export default class InteractionRelatedList extends NavigationMixin(
       if (result != null) {
         this.sObjectType = result;
         if (result === "Account") {
-          this.showAccChatTabHead = true;
           this.handleShowAppointmentTab();
-        }
-        if (result === "Case") {
-          this.showCaseChatTabHead = true;
-          this.handleShowChatTab();
         }
         if (result === "Coaching_Summary__c") {
           this.handleShowMessageTab();
