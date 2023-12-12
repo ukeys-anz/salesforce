@@ -63,7 +63,9 @@ public with sharing class BOHLeadAutoClosureBatchTest {
     List<Lead> testRecords = [
       SELECT Id, SubStatus__c, Status
       FROM Lead
-      WHERE Status = 'Declined' AND SubStatus__c = 'Auto-closed'
+      WHERE
+        Status = :BOHConstants.BOH_CLOSED_STATUS
+        AND SubStatus__c = :BOHConstants.BOH_AUTO_CLOSED_SUB_STATUS
     ];
 
     Assert.areEqual(100, testRecords.size(), 'Incorrect Count of records');
@@ -93,7 +95,7 @@ public with sharing class BOHLeadAutoClosureBatchTest {
     List<Lead> testRecords = [
       SELECT Id, SubStatus__c, Status
       FROM Lead
-      WHERE Status = 'New'
+      WHERE Status = :BOHConstants.BOH_NEW_STATUS
     ];
 
     Assert.areEqual(100, testRecords.size(), 'Incorrect Count of records');

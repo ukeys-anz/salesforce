@@ -93,15 +93,18 @@
             <valueName>Follow up required</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Declined</controllingFieldValue>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
             <valueName>Not interested</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Declined</controllingFieldValue>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
             <valueName>Not contactable</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Declined</controllingFieldValue>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
             <valueName>Auto-closed</valueName>
         </valueSettings>
     </valueSet>

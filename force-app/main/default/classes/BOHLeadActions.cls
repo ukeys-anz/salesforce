@@ -5,9 +5,6 @@
  * @description BOH Lead Methods
  */
 public without sharing class BOHLeadActions {
-  private static final String BOH_DECLINED_STATUS = 'Declined';
-  private static final String BOH_CLOSED_STATUS = 'Closed';
-  private static final String BOH_AUTO_CLOSED_SUB_STATUS = 'Auto-closed';
   private static BOHLeadActions instance;
   private List<BOH_Lead_Auto_Closure_Mapping__mdt> bohLeadMappingList;
   private Map<String, Map<String, Decimal>> bohMap;
@@ -88,8 +85,8 @@ public without sharing class BOHLeadActions {
     }
     for (Lead record : records) {
       if (BOHLeadActions.getInstance().isBOHLeadNeedAutoClosure(record)) {
-        record.Status = BOH_DECLINED_STATUS;
-        record.SubStatus__c = BOH_AUTO_CLOSED_SUB_STATUS;
+        record.Status = BOHConstants.BOH_CLOSED_STATUS;
+        record.SubStatus__c = BOHConstants.BOH_AUTO_CLOSED_SUB_STATUS;
         updatedLeads.add(record);
       }
     }
@@ -340,8 +337,10 @@ public without sharing class BOHLeadActions {
         l.Is_BOH_Lead__c &&
         (l.Status != oldRecords.get(l.Id).Status ||
         l.FinServ__RelatedAccount__c !=
-        oldRecords.get(l.Id).FinServ__RelatedAccount__c) &&
-        l.Status == BOH_CLOSED_STATUS &&
+        oldRecords.get(l.Id).FinServ__RelatedAccount__c ||
+        l.SubStatus__c != oldRecords.get(l.Id).SubStatus__c) &&
+        l.Status == BOHConstants.BOH_CLOSED_STATUS &&
+        BOHConstants.BOH_SUB_STATUS_FOR_CONVERSION.contains(l.SubStatus__c) &&
         l.FinServ__RelatedAccount__c != null
       ) {
         Database.LeadConvert convert = new Database.LeadConvert();
