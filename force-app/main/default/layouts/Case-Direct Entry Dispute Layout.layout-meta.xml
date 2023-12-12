@@ -62,10 +62,6 @@
         <label>Dispute Details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Dispute_Raised_By__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Dispute_Reason__c</field>
             </layoutItems>

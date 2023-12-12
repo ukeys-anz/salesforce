@@ -257,11 +257,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Dispute_Raised_By__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.Dispute_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -860,7 +855,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <name>TransferAnyCase</name>
         <enabled>true</enabled>
+        <name>TransferAnyCase</name>
     </userPermissions>
 </PermissionSet>
