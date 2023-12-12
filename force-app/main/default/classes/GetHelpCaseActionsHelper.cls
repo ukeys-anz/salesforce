@@ -59,6 +59,9 @@ public with sharing class GetHelpCaseActionsHelper {
   public static UserRole creditAssessorLeadRole = CommonUtil.getUserRoleByDevName(
     'Credit_Assessor_Lead'
   );
+  public static UserRole coachLeadRole = CommonUtil.getUserRoleByDevName(
+    'Coach_Lead'
+  );
 
   public static Group cadReferralQueue = CommonUtil.getQueueByName(
     'CAD_Credit_Referral_Case_Queue'
@@ -832,7 +835,8 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     if (
       oldCase.OwnerId != newCase.OwnerId &&
-      UserInfo.getUserRoleId() == creditAssessorLeadRole.Id &&
+      (UserInfo.getUserRoleId() == creditAssessorLeadRole.Id ||
+      UserInfo.getUserRoleId() == coachLeadRole.Id) &&
       newCase.OwnerId.getSObjectType() != Group.SObjectType &&
       ((newCase.Owner_Role__c == bohCoachRole.Id &&
       newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD') ||
@@ -853,6 +857,7 @@ public with sharing class GetHelpCaseActionsHelper {
     if (
       oldCase.OwnerId != newCase.OwnerId &&
       UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
+      UserInfo.getUserRoleId() != coachLeadRole.Id &&
       ((oldCase.OwnerId == UserInfo.getUserId() &&
       (newCase.OwnerId != coachRefQueue.Id &&
       newCase.OwnerId != cadReferralQueue.Id)) ||

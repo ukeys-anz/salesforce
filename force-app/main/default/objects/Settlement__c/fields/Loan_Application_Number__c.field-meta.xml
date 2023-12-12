@@ -10,7 +10,7 @@
     <referenceTo>ResidentialLoanApplication</referenceTo>
     <relationshipLabel>Settlements</relationshipLabel>
     <relationshipName>Settlements</relationshipName>
-    <required>true</required>
+    <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
