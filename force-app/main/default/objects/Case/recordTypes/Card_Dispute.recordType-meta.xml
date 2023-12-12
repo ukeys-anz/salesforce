@@ -161,6 +161,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Dispute_Raised_By__c</picklist>
+        <values>
+            <fullName>Co-Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>This Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
             <fullName>Charged Incorrect Amount</fullName>
@@ -5198,6 +5209,17 @@
         </values>
         <values>
             <fullName>Transaction</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Transaction_Made_By__c</picklist>
+        <values>
+            <fullName>Co-Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>This Customer</fullName>
             <default>false</default>
         </values>
     </picklistValues>
