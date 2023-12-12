@@ -1,7 +1,7 @@
 /**
  * @author Adnan
  * @since  08/2023
- * @description Batch class to mask cfms cases
+ * @description Batch class to mask cfms  cases
  */
 public class IDRCFMSDataMaskingBatch implements Database.Batchable<sObject> {
   /**

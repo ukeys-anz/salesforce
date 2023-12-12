@@ -1,7 +1,7 @@
 /**
  * @author Adnan
  * @since  10/2023
- * @description Batch class for migrating complaint resolution records from case object to a new object
+ * @description Batch class for  migrating complaint resolution records from case object to a new object
  */
 public with sharing class IDRComplaintResolutionMigrationBatch implements Database.Batchable<SObject> {
   private static final String NO_POST_PROCESSING_STEPS_MSG = 'No post processing steps as of now';

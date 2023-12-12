@@ -58,7 +58,6 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
       (String) input.get('loanId')
     );
 
-    result.reassessRequired = loanRec?.Credit_Reassess_Required__c;
     result.isSubmitted =
       isLoanSubmitted(loanRec?.Status) &&
       String.isNotBlank(loanRec?.Credit_ID__c) &&
@@ -94,7 +93,6 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
   private class UMIResponse {
     Boolean hasError = false;
     Boolean isSubmitted;
-    Boolean reassessRequired;
     Decimal totalUmi;
     String lastModified;
     List<Assessment> incomeAssessment = new List<Assessment>();
@@ -350,8 +348,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
         Name,
         Account.OCV_ID__c,
         AmortizationTerm,
-        LotOriginalCost,
-        Credit_Reassess_Required__c
+        LotOriginalCost
       FROM ResidentialLoanApplication
       WHERE Id = :loanId
       LIMIT 1

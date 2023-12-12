@@ -16,7 +16,7 @@ const authenticate = (branchName, secretValue) => {
 const authenticateWithJWT = (consumerKey, cert, username, orgURL) => {
   logger("Authenticate to Production");
   const authLog = runSfCommand(
-    `echo "${cert}" | sf org login jwt --client-id "${consumerKey}" --jwt-key-file=/dev/stdin --username "${username}" --instance-url "${orgURL}`
+    `echo "${cert}" | sf org login jwt --client-id "${consumerKey}" --jwt-key-file=/dev/stdin --username "${username}" --instance-url "${orgURL}"`
   );
   console.log(authLog);
 };

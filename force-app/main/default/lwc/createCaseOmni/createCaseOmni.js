@@ -61,9 +61,13 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else {
       this.showModal = false;
       this.loading = true;
+
       const inputs = {
         Case: this.omniJsonData.Case,
-        Response: this.omniJsonData.Response
+        Response:
+          this.omniJsonData.Response != null
+            ? { profile: this.omniJsonData.Response.profile }
+            : this.omniJsonData.Response
       };
 
       const options = {
@@ -80,7 +84,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
 
       // Navigate to the case record that is closed
       this.omniRemoteCall(params, true).then((res) => {
-        console.log("res ", JSON.parse(JSON.stringify(res)));
         let result = res.result.IPResult;
         this.loading = false;
         if (result.CaseId) {
