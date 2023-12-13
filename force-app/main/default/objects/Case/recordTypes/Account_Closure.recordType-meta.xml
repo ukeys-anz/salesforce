@@ -21,6 +21,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Account_Type__c</picklist>
+        <values>
+            <fullName>Individual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joint</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Additional_Type__c</picklist>
         <values>
             <fullName>App Support</fullName>
