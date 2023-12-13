@@ -4,7 +4,7 @@
  * @description Quality Assessment task related actions for CMOS
  * @runTests IDRQualityAssessmentTaskActionsTest
  */
-
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRQualityAssessmentTaskActions {
   /**
    * @description For all Assessments going from Completed to Pending set their Compliance Tasks to Expired.
@@ -116,20 +116,30 @@ public with sharing class IDRQualityAssessmentTaskActions {
   ) {
     Quality_Assessment__c oOldAssessment;
     Set<Id> stCompletedCQIds = new Set<Id>();
+    Set<Id> correctiveActionsCQIds = new Set<Id>();
     for (Quality_Assessment__c oAssessment : lstAssessments) {
       if (
         oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
-        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
         (mpOldAssessments == null ||
         (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
-        oAssessment.Status__c != oOldAssessment.Status__c)
+        (oAssessment.Status__c != oOldAssessment.Status__c && 
+         oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE) || 
+        (oAssessment.What_corrective_actions_are_required__c != oOldAssessment.What_corrective_actions_are_required__c && 
+         oAssessment.What_corrective_actions_are_required__c != null))
       ) {
+          if(oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE){
         stCompletedCQIds.add(oAssessment.Id);
       }
+      if (
+        oAssessment.What_corrective_actions_are_required__c != null
+      ) {
+        correctiveActionsCQIds.add(oAssessment.Id);
+      }
     }
-    System.debug('CompletedIds: ' + stCompletedCQIds);
+    }
     if (
-      stCompletedCQIds.size() > 0 &&
+      (stCompletedCQIds.size() > 0 ||
+      correctiveActionsCQIds.size() > 0) &&
       Task.SObjectType.getDescribe().isCreateable() &&
       Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
       Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
@@ -148,26 +158,46 @@ public with sharing class IDRQualityAssessmentTaskActions {
           Related_Case__r.CaseNumber__c
         FROM Quality_Assessment__c
         WHERE
-          Id IN :stCompletedCQIds
+          (Id IN :stCompletedCQIds
           AND TeamManager__c != NULL
-          AND Case_Manager__c != NULL
+          AND Case_Manager__c != NULL)
+          OR (Id IN :correctiveActionsCQIds
+          AND TeamManager__c != NULL)
       ];
       List<Task> lstComplianceTasks = new List<Task>();
       for (Quality_Assessment__c oAssessment : lstCompletedCQAssessments) {
-        lstComplianceTasks.add(
-          new Task(
-            RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID,
-            OwnerId = oAssessment.TeamManager__c,
-            WhatId = oAssessment.Id,
-            Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
-              oAssessment.Case_Manager__r.Name +
-              ' : case ' +
-              oAssessment.Related_Case__r.CaseNumber__c,
-            ActivityDate = Date.today().addDays(7),
-            Status = 'Open',
-            Priority = 'Normal'
-          )
-        );
+        if (stCompletedCQIds.contains(oAssessment.Id)) {
+          lstComplianceTasks.add(
+            new Task(
+              RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID,
+              OwnerId = oAssessment.TeamManager__c,
+              WhatId = oAssessment.Id,
+              Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
+                oAssessment.Case_Manager__r.Name +
+                ' : case ' +
+                oAssessment.Related_Case__r.CaseNumber__c,
+              ActivityDate = Date.today().addDays(7),
+              Status = 'Open',
+              Priority = 'Normal'
+            )
+          );
+        }
+        if (correctiveActionsCQIds.contains(oAssessment.Id)) {
+          lstComplianceTasks.add(
+            new Task(
+              RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID,
+              OwnerId = oAssessment.TeamManager__c,
+              WhatId = oAssessment.Id,
+              Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
+                oAssessment.Case_Manager__r.Name +
+                ' : case ' +
+                oAssessment.Related_Case__r.CaseNumber__c,
+              ActivityDate = Date.today().addDays(7),
+              Status = 'Open',
+              Priority = 'Normal'
+            )
+          );
+        }
       }
       if (lstComplianceTasks.size() > 0) {
         try {
