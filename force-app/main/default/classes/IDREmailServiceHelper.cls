@@ -42,16 +42,16 @@ public with sharing class IDREmailServiceHelper {
       RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
       Origin = caseOrigin
     );
+    if (
+      newCase.Description != null &&
+      newCase.Description.contains(
+        'The attached message was sent a user who has Send-As or Send-On-Behalf-Of rights for this mailbox'
+      )
+    ) {
+      // Return newCase without an Id
+      return newCase;
+    }
     if (fromEmail == System.Label.ANZ_com_Sender_Address) {
-      if (
-        newCase.Description != null &&
-        newCase.Description.contains(
-          'The attached message was sent a user who has Send-As or Send-On-Behalf-Of rights for this mailbox'
-        )
-      ) {
-        // Return newCase without an Id
-        return newCase;
-      }
       IDREmailToCase.parseWebFormEmail(newCase);
     }
 
