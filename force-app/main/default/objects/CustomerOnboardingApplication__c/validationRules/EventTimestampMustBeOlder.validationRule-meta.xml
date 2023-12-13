@@ -3,7 +3,7 @@
     <fullName>EventTimestampMustBeOlder</fullName>
     <active>true</active>
     <description>If an event with timestamp &lt; current timestamp on the COB Application, upsertion will fail.</description>
-    <errorConditionFormula>EventTimestamp__c &lt;  PRIORVALUE(EventTimestamp__c)</errorConditionFormula>
+    <errorConditionFormula>VALUE(EventTimestamp__c)  &lt;   VALUE(PRIORVALUE(EventTimestamp__c) )</errorConditionFormula>
     <errorDisplayField>EventTimestamp__c</errorDisplayField>
     <errorMessage>COB Application data is being overwritten with stale data.</errorMessage>
 </ValidationRule>

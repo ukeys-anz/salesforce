@@ -283,7 +283,7 @@ public with sharing class AccountCommonActionsHelper {
   public static Map<String, Case> getKYCQACasesFromOcvIds(Set<String> ocvIds) {
     Map<String, Case> ocvIdKYCQACases = new Map<String, Case>();
     List<Case> cases = [
-      SELECT Id, OCV_Id__c
+      SELECT Id, OCV_Id__c, PersonaId__c
       FROM Case
       WHERE
         OCV_Id__c IN :ocvIds
@@ -306,7 +306,10 @@ public with sharing class AccountCommonActionsHelper {
   ) {
     Map<String, Case> mobileNumberToKYCQACaseMap = new Map<String, Case>();
     List<Case> cases = [
-      SELECT Id, CustomerOnboardingApplication__r.SecurityMobile__c
+      SELECT
+        Id,
+        CustomerOnboardingApplication__r.SecurityMobile__c,
+        PersonaId__c
       FROM Case
       WHERE
         CustomerOnboardingApplication__r.SecurityMobile__c IN :mobileNumbers
