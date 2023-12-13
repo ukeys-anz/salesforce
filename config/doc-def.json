@@ -109,6 +109,13 @@
       "type": "system"
     },
     {
+      "name": "Apex Batch User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["View_All_Files"],
+      "type": "system"
+    },
+    {
       "name": "Coach",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Coach"],
