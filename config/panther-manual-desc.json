@@ -983,6 +983,7 @@
         "SI_PSI_Source__c"
       ],
       "IA-2415720": [
+        "Account_Type__c",
         "Biller_Code__c",
         "Biller_Name__c",
         "Date_Account_Last_Debited__c",
