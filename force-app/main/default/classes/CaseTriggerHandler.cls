@@ -52,12 +52,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       null
     );
-    AutoKYCQACaseActions autoKYCQACaseActions = new AutoKYCQACaseActions(
-      (List<Case>) records,
-      new Map<Id, Case>()
-    );
-    autoKYCQACaseActions.onBeforeInsert();
-
     Logger.debug('On_Before_Insert finished: ' + System.now());
     Logger.saveLog();
   }
