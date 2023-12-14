@@ -4841,39 +4841,39 @@
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
         <values>
-            <fullName>Business unit process exhausted %28Manager escalation%2Fdiscretion%2Finvestigation%29</fullName>
+            <fullName>21</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Complaint relates to collections %28I am not from any collections team%29</fullName>
+            <fullName>22</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit information%2C credit eligibility or credit reporting body</fullName>
+            <fullName>23</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer alleges lending should not have been approved</fullName>
+            <fullName>24</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Hardship application outcome %28I am not from any hardship team%29</fullName>
+            <fullName>25</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Indexing %28internal team process%29</fullName>
+            <fullName>26</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Third party product complaint %28e%2Eg%2E%2C World Line%2FQBE%2FCGU%29</fullName>
+            <fullName>27</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unable to locate the right business unit to assist</fullName>
+            <fullName>28</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Written response requested by customer</fullName>
+            <fullName>18</fullName>
             <default>false</default>
         </values>
     </picklistValues>

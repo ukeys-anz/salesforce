@@ -389,19 +389,15 @@ public with sharing class IDRConstants {
   };
 
   public static final List<String> IDR_ESCALATION_VALUES = new List<String>{
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '20'
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '18'
   };
 
   public static final List<String> IDR_UNASSISTED_ISSUE_TYPE = new List<String> {
