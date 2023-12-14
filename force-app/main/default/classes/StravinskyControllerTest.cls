@@ -61,6 +61,7 @@ public with sharing class StravinskyControllerTest {
     Faker faker = new Faker('AU');
     Case newCase = new Case(
       AccountId = acc.Id,
+      Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
       Package_Id__c = faker.randomString(10)
     );
@@ -98,6 +99,7 @@ public with sharing class StravinskyControllerTest {
     Faker faker = new Faker('AU');
     Case newCase = new Case(
       AccountId = acc.Id,
+      Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
       Package_Id__c = faker.randomString(10)
     );
@@ -129,6 +131,7 @@ public with sharing class StravinskyControllerTest {
 
     Case newCase = new Case(
       AccountId = acc.Id,
+      Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID
     );
     insert newCase;
@@ -147,6 +150,112 @@ public with sharing class StravinskyControllerTest {
       }
 
       Test.stopTest();
+    }
+  }
+
+  @isTest
+  static void testPackageClosureJointAccount() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      //Joint Account
+      Account jointCustomer = TestDataFactory.createPersonAccount(
+        '10111111',
+        true
+      );
+      List<FinServ__FinancialAccount__c> jointFinAccount = TestDataFactory.createFinancialAccount(
+        1,
+        true
+      );
+      FinServ__FinancialAccountRole__c financialAccountRoleRecord = new FinServ__FinancialAccountRole__c(
+        FinServ__RelatedAccount__c = jointCustomer.Id,
+        FinServ__FinancialAccount__c = jointFinAccount[0].Id,
+        FinServ__Active__c = true,
+        Finserv__Role__c = 'Additional Owner'
+      );
+
+      insert financialAccountRoleRecord;
+
+      Faker faker = new Faker('AU');
+      Case newCase = new Case(
+        AccountId = jointCustomer.Id,
+        Account_Type__c = 'Joint',
+        RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+        Package_Id__c = faker.randomString(10)
+      );
+      insert newCase;
+
+      PackageClosureModel response = StravinskyController.getPackageClosureAura(
+        newCase.Id
+      );
+
+      Test.stopTest();
+      System.assertEquals(
+        200,
+        response.status.code,
+        'Status code of 200 was expected'
+      );
+      System.assertEquals(
+        'Package closure successfully completed',
+        response.status.description,
+        'Package closure was not successful'
+      );
+    }
+  }
+
+  @isTest
+  static void testPackageClosureJointAccountException() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      //Joint Account
+      Account jointCustomer = TestDataFactory.createPersonAccount(
+        '10111111',
+        true
+      );
+      List<FinServ__FinancialAccount__c> jointFinAccount = TestDataFactory.createFinancialAccount(
+        2,
+        true
+      );
+
+      List<FinServ__FinancialAccountRole__c> financialAccountRoleRecordList = new List<FinServ__FinancialAccountRole__c>();
+      FinServ__FinancialAccountRole__c financialAccountRoleRecord1 = new FinServ__FinancialAccountRole__c(
+        FinServ__RelatedAccount__c = jointCustomer.Id,
+        FinServ__FinancialAccount__c = jointFinAccount[0].Id,
+        FinServ__Active__c = true,
+        Finserv__Role__c = 'Additional Owner'
+      );
+      financialAccountRoleRecordList.add(financialAccountRoleRecord1);
+
+      FinServ__FinancialAccountRole__c financialAccountRoleRecord2 = new FinServ__FinancialAccountRole__c(
+        FinServ__RelatedAccount__c = jointCustomer.Id,
+        FinServ__FinancialAccount__c = jointFinAccount[1].Id,
+        FinServ__Active__c = true,
+        Finserv__Role__c = 'Additional Owner'
+      );
+      financialAccountRoleRecordList.add(financialAccountRoleRecord2);
+      insert financialAccountRoleRecordList;
+
+      Faker faker = new Faker('AU');
+      Case newCase = new Case(
+        AccountId = jointCustomer.Id,
+        Account_Type__c = 'Joint',
+        RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+        Package_Id__c = faker.randomString(10)
+      );
+      insert newCase;
+
+      try {
+        StravinskyController.getPackageClosureAura(newCase.Id);
+        System.assert(false, 'Should have thrown an exception');
+      } catch (AuraHandledException e) {
+        System.assertEquals(
+          'Failed to perform account closure because there are more than one Joint Account associated with the customer',
+          e.getMessage(),
+          'Exception message was not as expected'
+        );
+        Test.stopTest();
+      }
     }
   }
 }
