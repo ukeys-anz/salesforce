@@ -71,11 +71,6 @@
                 <label>Privacy breach</label>
             </value>
             <value>
-                <fullName>18</fullName>
-                <default>false</default>
-                <label>Indexing (internal team process)</label>
-            </value>
-            <value>
                 <fullName>19</fullName>
                 <default>false</default>
                 <label>Document management required</label>
@@ -124,6 +119,11 @@
                 <fullName>28</fullName>
                 <default>false</default>
                 <label>Written response requested by customer</label>
+            </value>
+            <value>
+                <fullName>18</fullName>
+                <default>false</default>
+                <label>Indexing (internal team process)</label>
             </value>
         </valueSetDefinition>
     </valueSet>
