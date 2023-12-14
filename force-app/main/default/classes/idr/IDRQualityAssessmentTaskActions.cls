@@ -122,20 +122,19 @@ public with sharing class IDRQualityAssessmentTaskActions {
         oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
         (mpOldAssessments == null ||
         (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
-        (oAssessment.Status__c != oOldAssessment.Status__c && 
-         oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE) || 
-        (oAssessment.What_corrective_actions_are_required__c != oOldAssessment.What_corrective_actions_are_required__c && 
-         oAssessment.What_corrective_actions_are_required__c != null))
+        (oAssessment.Status__c != oOldAssessment.Status__c &&
+        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE) ||
+        (oAssessment.Corrective_actions_for_TM_CM__c !=
+        oOldAssessment.Corrective_actions_for_TM_CM__c &&
+        oAssessment.Corrective_actions_for_TM_CM__c != null))
       ) {
-          if(oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE){
-        stCompletedCQIds.add(oAssessment.Id);
+        if (oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE) {
+          stCompletedCQIds.add(oAssessment.Id);
+        }
+        if (oAssessment.Corrective_actions_for_TM_CM__c != null) {
+          correctiveActionsCQIds.add(oAssessment.Id);
+        }
       }
-      if (
-        oAssessment.What_corrective_actions_are_required__c != null
-      ) {
-        correctiveActionsCQIds.add(oAssessment.Id);
-      }
-    }
     }
     if (
       (stCompletedCQIds.size() > 0 ||

@@ -49,7 +49,7 @@ public class IDRQualityAssessmentTaskActionsTest {
           AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
       ];
 
-      System.assertEquals(lstAssessments.size()*2, lstTasks.size(), 'Count');
+      System.assertEquals(lstAssessments.size() * 2, lstTasks.size(), 'Count');
     }
   }
 
@@ -145,7 +145,7 @@ public class IDRQualityAssessmentTaskActionsTest {
             Case_Manager__c = oQAUser.Id,
             TeamManager__c = oIDRUser.Id,
             RecordTypeId = IDRConstants.idrtCQQualityAssessment,
-            What_corrective_actions_are_required__c = 'Feedback only - no active action required'
+            Corrective_actions_for_TM_CM__c = 'Update internal records'
           )
         );
         if (fFillMandatoryFields) {
@@ -153,7 +153,6 @@ public class IDRQualityAssessmentTaskActionsTest {
         }
       }
       insert lstAssessments;
-
 
       Set<Id> stAssessmentIds = new Set<Id>();
       for (Quality_Assessment__c oAssessment : lstAssessments) {
@@ -190,7 +189,7 @@ public class IDRQualityAssessmentTaskActionsTest {
       ];
 
       System.debug('Tasks: ' + lstTasks);
-      System.assertEquals(lstAssessments.size()*2, lstTasks.size(), 'Count');
+      System.assertEquals(lstAssessments.size() * 2, lstTasks.size(), 'Count');
     }
     return oQAUser;
   }
