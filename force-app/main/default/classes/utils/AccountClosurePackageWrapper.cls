@@ -1,15 +1,19 @@
 /**
- * * @description the wrapper representing CardControlResponse / SetControlsRequest etc
- */
+ * * @description the wrapper class used in StravinskyAPIRepository to create Account Closure Package body to be sent to Mulesoft
+ * */
 public with sharing class AccountClosurePackageWrapper {
   /**
-   * @description packageId present in the Case Record
+   * @description accountType ofor which case is raised
    */
-  public String packageId;
+  public String accountType;
   /**
    * @description closeDate when the request raised
    */
   public String closeDate;
+  /**
+   * @description packageId present in the Case Record
+   */
+  public String packageId;
   /**
    * @description list of checking account numbers
    */
@@ -18,10 +22,6 @@ public with sharing class AccountClosurePackageWrapper {
    * @description list of savings account numbers
    */
   public List<String> accountNumbersS1;
-  /**
-   * @description accountType ofor which case is raised
-   */
-  public String accountType;
   /**
    * @description list of customer ocvids
    */

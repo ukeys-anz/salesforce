@@ -17,6 +17,12 @@ public with sharing class StravinskyController {
    */
   @AuraEnabled(cacheable=false)
   public static PackageClosureModel getPackageClosureAura(Id recordId) {
+    List<String> customerOcvIdsList = new List<String>();
+    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
+    //Converting this into List of Account Numbers
+    List<String> checkingAccountNumbers = new List<String>();
+    List<String> savingsAccountNumbers = new List<String>();
+
     if (
       !PermissionUtils.canQuery('Case') ||
       !PermissionUtils.canQuery('FinServ__FinancialAccount__c')
@@ -42,60 +48,11 @@ public with sharing class StravinskyController {
       throw e;
     }
 
-    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
-    List<FinServ__FinancialAccountRole__c> financialAccountsRole = new List<FinServ__FinancialAccountRole__c>();
-    List<String> customerOcvIdsList = new List<String>();
-
-    //Added AccountType check in order to segregate the Individual and Joint Scenario.
-    if (!String.isBlank(caseRecord.Account_Type__c)) {
-      if (caseRecord.Account_Type__c == 'Individual') {
-        financialAccounts = [
-          SELECT
-            Id,
-            FinServ__FinancialAccountNumber__c,
-            Ownership__c,
-            OCV_ID__c,
-            RecordType.DeveloperName
-          FROM FinServ__FinancialAccount__c
-          WHERE
-            FinServ__PrimaryOwner__c = :caseRecord.AccountId
-            AND Ownership__c = :GetHelpConstants.SINGLE
-            AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
-        ];
-      } else {
-        financialAccountsRole = [
-          SELECT FinServ__FinancialAccount__c, FinServ__RelatedAccount__c
-          FROM FinServ__FinancialAccountRole__c
-          WHERE
-            FinServ__RelatedAccount__r.OCV_ID__c = :caseRecord.Account.OCV_Id__c
-            AND FinServ__Active__c = TRUE
-            AND FinServ__FinancialAccount__r.Ownership__c = :GetHelpConstants.MULTI_PARTY
-            AND FinServ__FinancialAccount__r.FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
-            AND (FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
-            OR FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME)
-        ];
-
-        //Added to throw exception if more than 1 Joint Accounts found
-        if (financialAccountsRole.size() > 1) {
-          Logger.error(
-            'Error closing package - ' + MORE_THAN_ONE_JOINT_FIN_ACCOUNT,
-            recordId
-          );
-          Logger.saveLog();
-          AuraHandledException e = new AuraHandledException(
-            MORE_THAN_ONE_JOINT_FIN_ACCOUNT
-          );
-          e.setMessage(MORE_THAN_ONE_JOINT_FIN_ACCOUNT);
-          throw e;
-        } else {
-          //Creating List Of Financial Accounts based on Financial Account Roles found
-          financialAccounts = getJointFinancialAccountsDetails(
-            financialAccountsRole,
-            customerOcvIdsList
-          );
-        }
-      }
-    }
+    //Added to Fetch Financial Accounts Details based on the Case Record Account Type
+    financialAccounts = checkAccountTypeAndReturnFinancialAccounts(
+      caseRecord,
+      customerOcvIdsList
+    );
 
     if (financialAccounts.isEmpty()) {
       Logger.error('Error closing package - ' + MISSING_FIN_ACCOUNT, recordId);
@@ -104,10 +61,6 @@ public with sharing class StravinskyController {
       e.setMessage(MISSING_FIN_ACCOUNT);
       throw e;
     }
-
-    //Converting this into List of Account Numbers
-    List<String> savingsAccountNumbers = new List<String>();
-    List<String> checkingAccountNumbers = new List<String>();
 
     for (FinServ__FinancialAccount__c finAccount : financialAccounts) {
       //This is added in order to resolve duplication and run only when Individual Account Type present
@@ -119,14 +72,20 @@ public with sharing class StravinskyController {
       }
       if (
         finAccount.RecordType.DeveloperName ==
-        GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
+        GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME &&
+        !savingsAccountNumbers.contains(
+          finAccount.FinServ__FinancialAccountNumber__c
+        )
       ) {
         savingsAccountNumbers.add(
           finAccount.FinServ__FinancialAccountNumber__c
         );
       } else if (
         finAccount.RecordType.DeveloperName ==
-        GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME
+        GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME &&
+        !checkingAccountNumbers.contains(
+          finAccount.FinServ__FinancialAccountNumber__c
+        )
       ) {
         checkingAccountNumbers.add(
           finAccount.FinServ__FinancialAccountNumber__c
@@ -154,6 +113,74 @@ public with sharing class StravinskyController {
     }
 
     return response;
+  }
+
+  /**
+   * @description this method is used to fetch List of Financial Joint Accounts based on the Account_Type__c of the Case Record
+   * @param caseRecord case record which is raised by Coach
+   * @param customerOcvIdsList used as pass by reference for storing ocvids of the customers
+   * @return List<FinServ__FinancialAccount__c>
+   */
+  private static List<FinServ__FinancialAccount__c> checkAccountTypeAndReturnFinancialAccounts(
+    Case caseRecord,
+    List<String> customerOcvIdsList
+  ) {
+    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
+    List<FinServ__FinancialAccountRole__c> financialAccountsRole = new List<FinServ__FinancialAccountRole__c>();
+
+    //Added AccountType check in order to segregate the Individual and Joint Scenario.
+    switch on caseRecord.Account_Type__c {
+      when 'Individual' {
+        financialAccounts = [
+          SELECT
+            Id,
+            FinServ__FinancialAccountNumber__c,
+            Ownership__c,
+            OCV_ID__c,
+            RecordType.DeveloperName
+          FROM FinServ__FinancialAccount__c
+          WHERE
+            FinServ__PrimaryOwner__c = :caseRecord.AccountId
+            AND Ownership__c = :GetHelpConstants.SINGLE
+            AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
+        ];
+      }
+      when 'Joint' {
+        financialAccountsRole = [
+          SELECT FinServ__FinancialAccount__c, FinServ__RelatedAccount__c
+          FROM FinServ__FinancialAccountRole__c
+          WHERE
+            FinServ__RelatedAccount__r.OCV_ID__c = :caseRecord.Account.OCV_Id__c
+            AND FinServ__Active__c = TRUE
+            AND FinServ__FinancialAccount__r.Ownership__c = :GetHelpConstants.MULTI_PARTY
+            AND FinServ__FinancialAccount__r.FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
+            AND (FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
+            OR FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME)
+        ];
+
+        //Added to throw exception if more than 1 Joint Accounts found
+        if (financialAccountsRole.size() > 1) {
+          Logger.error(
+            'Error closing package - ' + MORE_THAN_ONE_JOINT_FIN_ACCOUNT,
+            caseRecord.Id
+          );
+          Logger.saveLog();
+          AuraHandledException e = new AuraHandledException(
+            MORE_THAN_ONE_JOINT_FIN_ACCOUNT
+          );
+          e.setMessage(MORE_THAN_ONE_JOINT_FIN_ACCOUNT);
+          throw e;
+        } else {
+          //Creating List Of Financial Accounts based on Financial Account Roles found
+          financialAccounts = getJointFinancialAccountsDetails(
+            financialAccountsRole,
+            customerOcvIdsList
+          );
+        }
+      }
+    }
+
+    return financialAccounts;
   }
 
   /**

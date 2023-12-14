@@ -159,10 +159,11 @@ public with sharing class StravinskyControllerTest {
     System.runAs(thisUser) {
       Test.startTest();
       //Joint Account
-      Account jointCustomer = TestDataFactory.createPersonAccount(
-        '10111111',
-        true
-      );
+      Account jointCustomer = [
+        SELECT Id
+        FROM Account
+        WHERE Display_Name__c = 'TestAccount'
+      ];
       List<FinServ__FinancialAccount__c> jointFinAccount = TestDataFactory.createFinancialAccount(
         1,
         true
@@ -209,10 +210,11 @@ public with sharing class StravinskyControllerTest {
     System.runAs(thisUser) {
       Test.startTest();
       //Joint Account
-      Account jointCustomer = TestDataFactory.createPersonAccount(
-        '10111111',
-        true
-      );
+      Account jointCustomer = [
+        SELECT Id
+        FROM Account
+        WHERE Display_Name__c = 'TestAccount'
+      ];
       List<FinServ__FinancialAccount__c> jointFinAccount = TestDataFactory.createFinancialAccount(
         2,
         true

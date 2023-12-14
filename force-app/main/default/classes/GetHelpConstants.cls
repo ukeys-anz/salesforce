@@ -325,4 +325,17 @@ public with sharing class GetHelpConstants {
   }
   // String to formulate name of Store Interaction
   public static final String COACHING_LAB = 'Coaching Lab';
+
+  //Creating Dummy List for Test Class StravinskyServiceTest and StravinskyAPIRepositoryTest
+  public static final List<String> CHECKING_ACCOUNT_LIST = new List<String>{
+    '111111111'
+  };
+
+  public static final List<String> SAVINGS_ACCOUNT_LIST = new List<String>{
+    '000000000'
+  };
+
+  public static final List<String> CUSTOMER_OCVIDS_LIST = new List<String>{
+    '1011111111'
+  };
 }

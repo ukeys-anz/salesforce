@@ -49,21 +49,15 @@ public inherited sharing class StravinskyServiceTest {
     Faker faker = new Faker('AU');
     String ocvId = faker.randomString(10);
     String packageId = faker.randomString(10);
-    List<String> checkingAccount = new List<String>();
-    checkingAccount.add(faker.randomString(15));
-    List<String> savingsAccount = new List<String>();
-    savingsAccount.add(faker.randomString(15));
-    List<String> customerOCVIds = new List<String>();
-    customerOCVIds.add(faker.randomString(15));
     String accountType = 'Individual';
 
     //Added in order to create a wrapper object to be sent to Mulesoft
     AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
     closureCaseRecord.packageId = packageId;
     closureCaseRecord.closeDate = String.valueOf(Date.today());
-    closureCaseRecord.accountNumbersA1 = checkingAccount;
-    closureCaseRecord.accountNumbersS1 = savingsAccount;
-    closureCaseRecord.ocvIds = customerOCVIds;
+    closureCaseRecord.accountNumbersA1 = GetHelpConstants.CHECKING_ACCOUNT_LIST;
+    closureCaseRecord.accountNumbersS1 = GetHelpConstants.SAVINGS_ACCOUNT_LIST;
+    closureCaseRecord.ocvIds = GetHelpConstants.CUSTOMER_OCVIDS_LIST;
     closureCaseRecord.accountType = accountType;
 
     Test.setMock(HttpCalloutMock.class, new MockClosePackageSuccess());
@@ -97,21 +91,15 @@ public inherited sharing class StravinskyServiceTest {
 
     String ocvId = faker.randomString(10);
     String packageId = faker.randomString(10);
-    List<String> checkingAccount = new List<String>();
-    checkingAccount.add(faker.randomString(15));
-    List<String> savingsAccount = new List<String>();
-    savingsAccount.add(faker.randomString(15));
-    List<String> customerOCVIds = new List<String>();
-    customerOCVIds.add(faker.randomString(15));
     String accountType = 'Individual';
 
     //Added in order to create a wrapper object to be sent to Mulesoft
     AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
     closureCaseRecord.packageId = packageId;
     closureCaseRecord.closeDate = String.valueOf(Date.today());
-    closureCaseRecord.accountNumbersA1 = checkingAccount;
-    closureCaseRecord.accountNumbersS1 = savingsAccount;
-    closureCaseRecord.ocvIds = customerOCVIds;
+    closureCaseRecord.accountNumbersA1 = GetHelpConstants.CHECKING_ACCOUNT_LIST;
+    closureCaseRecord.accountNumbersS1 = GetHelpConstants.SAVINGS_ACCOUNT_LIST;
+    closureCaseRecord.ocvIds = GetHelpConstants.CUSTOMER_OCVIDS_LIST;
     closureCaseRecord.accountType = accountType;
 
     //load forge staff token
