@@ -187,10 +187,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
               RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID,
               OwnerId = oAssessment.TeamManager__c,
               WhatId = oAssessment.Id,
-              Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
-                oAssessment.Case_Manager__r.Name +
-                ' : case ' +
-                oAssessment.Related_Case__r.CaseNumber__c,
+              Subject = IDRConstants.TASK_TM_ATTESTATION_SUBJECT +
+                oAssessment.Case_Manager__r.Name,
+                Description = 'You must add a task comment detailing the action taken before marking this task as completed.',
               ActivityDate = Date.today().addDays(7),
               Status = 'Open',
               Priority = 'Normal'

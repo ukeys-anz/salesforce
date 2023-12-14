@@ -199,6 +199,7 @@ public with sharing class IDRConstants {
   public static final String TASK_CORRESPONDENCE_SUBJECT = 'New Correspondence received on a Closed Complaint added by';
   public static final String TASK_CORRESPONDENCE_DESCRIPTION = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
   public static final String TASK_QA_COMPLIANCE_SUBJECT = 'Review Required: Quality Assessment Completed for ';
+  public static final String TASK_TM_ATTESTATION_SUBJECT ='Team Manager Corrective Actions- Attestation- ';
   public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
 
   //Migrated Document
