@@ -8,7 +8,7 @@ public with sharing class StravinskyController {
   public static final String MISSING_FIN_ACCOUNT = 'Failed to retrieve financial account data. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
   public static final String FAILED_CLOSURE = 'Failed to perform account closure. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
   //Added this error message if more than one joint account found
-  public static final String MORE_THAN_ONE_JOINT_FIN_ACCOUNT = 'Failed to perform account closure because there are more than one Joint Account associated with the customer';
+  public static final String MORE_THAN_ONE_JOINT_ACCOUNT = System.Label.MoreThanOneJointAccountFoundError;
 
   /**
    * @param recordId Case/Record Id (required)
@@ -25,7 +25,8 @@ public with sharing class StravinskyController {
 
     if (
       !PermissionUtils.canQuery('Case') ||
-      !PermissionUtils.canQuery('FinServ__FinancialAccount__c')
+      !PermissionUtils.canQuery('FinServ__FinancialAccount__c') ||
+      !PermissionUtils.canQuery('FinServ__FinancialAccountRole__c')
     ) {
       CommonUtil.logAndThrowIAE(
         'StravinskyController',
@@ -158,17 +159,17 @@ public with sharing class StravinskyController {
             OR FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME)
         ];
 
-        //Added to throw exception if more than 1 Joint Accounts found
+        //Added to throw exception if more than 1 Joint Account(One Savings and One Transactions) found. A Joint Account will always have one Savings and one Transactions financial account at Salesforce end.
         if (financialAccountsRole.size() > 2) {
           Logger.error(
-            'Error closing package - ' + MORE_THAN_ONE_JOINT_FIN_ACCOUNT,
+            'Error closing package - ' + MORE_THAN_ONE_JOINT_ACCOUNT,
             caseRecord.Id
           );
           Logger.saveLog();
           AuraHandledException e = new AuraHandledException(
-            MORE_THAN_ONE_JOINT_FIN_ACCOUNT
+            MORE_THAN_ONE_JOINT_ACCOUNT
           );
-          e.setMessage(MORE_THAN_ONE_JOINT_FIN_ACCOUNT);
+          e.setMessage(MORE_THAN_ONE_JOINT_ACCOUNT);
           throw e;
         } else {
           //Creating List Of Financial Accounts based on Financial Account Roles found
