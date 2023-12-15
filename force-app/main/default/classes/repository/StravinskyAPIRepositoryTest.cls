@@ -40,9 +40,9 @@ public with sharing class StravinskyAPIRepositoryTest {
 
     PackageClosureModel response = stravinskyApi.packageClosure(
       newCase,
-      GetHelpConstants.CHECKING_ACCOUNT_LIST,
-      GetHelpConstants.SAVINGS_ACCOUNT_LIST,
-      GetHelpConstants.CUSTOMER_OCVIDS_LIST
+      StravinskyServiceTest.CHECKING_ACCOUNT_LIST,
+      StravinskyServiceTest.SAVINGS_ACCOUNT_LIST,
+      StravinskyServiceTest.CUSTOMER_OCVIDS_LIST
     );
     PackageClosureModel.Status status = response.status;
 
@@ -83,9 +83,9 @@ public with sharing class StravinskyAPIRepositoryTest {
     try {
       PackageClosureModel response = stravinskyApi.packageClosure(
         newCase,
-        GetHelpConstants.CHECKING_ACCOUNT_LIST,
-        GetHelpConstants.SAVINGS_ACCOUNT_LIST,
-        GetHelpConstants.CUSTOMER_OCVIDS_LIST
+        StravinskyServiceTest.CHECKING_ACCOUNT_LIST,
+        StravinskyServiceTest.SAVINGS_ACCOUNT_LIST,
+        StravinskyServiceTest.CUSTOMER_OCVIDS_LIST
       );
     } catch (Exception e) {
       resultException = e;
