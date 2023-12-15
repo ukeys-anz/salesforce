@@ -159,7 +159,7 @@ public with sharing class StravinskyController {
         ];
 
         //Added to throw exception if more than 1 Joint Accounts found
-        if (financialAccountsRole.size() > 1) {
+        if (financialAccountsRole.size() > 2) {
           Logger.error(
             'Error closing package - ' + MORE_THAN_ONE_JOINT_FIN_ACCOUNT,
             caseRecord.Id

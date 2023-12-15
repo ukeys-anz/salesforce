@@ -216,9 +216,12 @@ public with sharing class StravinskyControllerTest {
         WHERE Display_Name__c = 'TestAccount'
       ];
       List<FinServ__FinancialAccount__c> jointFinAccount = TestDataFactory.createFinancialAccount(
-        2,
-        true
+        3,
+        false
       );
+      jointFinAccount[2].RecordTypeId = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID;
+      jointFinAccount[2].FinServ__FinancialAccountNumber__c = '1111111111';
+      insert jointFinAccount;
 
       List<FinServ__FinancialAccountRole__c> financialAccountRoleRecordList = new List<FinServ__FinancialAccountRole__c>();
       FinServ__FinancialAccountRole__c financialAccountRoleRecord1 = new FinServ__FinancialAccountRole__c(
@@ -236,6 +239,15 @@ public with sharing class StravinskyControllerTest {
         Finserv__Role__c = 'Additional Owner'
       );
       financialAccountRoleRecordList.add(financialAccountRoleRecord2);
+
+      FinServ__FinancialAccountRole__c financialAccountRoleRecord3 = new FinServ__FinancialAccountRole__c(
+        FinServ__RelatedAccount__c = jointCustomer.Id,
+        FinServ__FinancialAccount__c = jointFinAccount[2].Id,
+        FinServ__Active__c = true,
+        Finserv__Role__c = 'Additional Owner'
+      );
+      financialAccountRoleRecordList.add(financialAccountRoleRecord3);
+
       insert financialAccountRoleRecordList;
 
       Faker faker = new Faker('AU');
