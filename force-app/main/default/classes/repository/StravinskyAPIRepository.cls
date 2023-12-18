@@ -12,24 +12,34 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
 
   /**
    * @param caseRecord contains ocv id and package id
-   * @param checkingAccount the account number for the checking account
-   * @param savingsAccount the account number for the savings account
+   * @param checkingAccount the account numbers for the checking account
+   * @param savingsAccount the account numbers for the savings account
+   * @param customerOCVIds ocvIds of the customer individual or joint
    * @return PackageClosureModel
    * @description stravinsky package closure api
    */
   public PackageClosureModel packageClosure(
     Case caseRecord,
-    String checkingAccount,
-    String savingsAccount
+    List<String> checkingAccount,
+    List<String> savingsAccount,
+    List<String> customerOCVIds
   ) {
     PackageClosureModel result;
 
+    //Added in order to create a wrapper object to be sent to Mulesoft
+    AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
+    closureCaseRecord.packageId = caseRecord.Package_Id__c;
+    closureCaseRecord.closeDate = String.valueOf(Date.today());
+    closureCaseRecord.accountNumbersA1 = checkingAccount;
+    closureCaseRecord.accountNumbersS1 = savingsAccount;
+    closureCaseRecord.ocvIds = customerOCVIds;
+    closureCaseRecord.accountType = caseRecord.Account_Type__c;
+
     Service s = ServiceProvider.getService(StravinskyService.class);
+    //Updated ClosedPackage method to accept OCVId and ClosurePackageWrapper
     HttpCalloutResponse response = s.closePackage(
       caseRecord.Account.OCV_ID__c,
-      caseRecord.Package_Id__c,
-      checkingAccount,
-      savingsAccount
+      closureCaseRecord
     );
 
     if (response.successful) {
