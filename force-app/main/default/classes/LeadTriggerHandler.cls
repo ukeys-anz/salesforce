@@ -58,6 +58,9 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       wrapperData.dcrmRecordList,
       'Description'
     );
+    // Method will check if lead is BOH Lead
+    BOHLeadActions.getInstance().setBOHLeadFlag(records);
+    BOHLeadActions.populateExistingCustomer(records);
   }
 
   /**
@@ -172,5 +175,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     LeadChatterMigrationHelper.migrateChatterPostsOnConversion(records, oldMap);
     MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Lead');
     CCRMLeadActions.notifyLeadOwners((Map<Id, Lead>) oldMap, records);
+    BOHLeadActions.getInstance().convertLeads((Map<Id, Lead>) oldMap, records);
   }
 }

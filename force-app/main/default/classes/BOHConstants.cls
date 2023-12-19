@@ -11,6 +11,17 @@ public class BOHConstants {
   public static final String MANDATORY_DETAIL_MISSING = 'Mandatory Information is missing from the Income Details. An entry is required for all the fields within each Income Type. Please review and try again.';
   public static final String START_DATE_ERROR = 'The Start Date cannot be in the future. Please review and try again.';
 
+  public static final String BOH_CLOSED_STATUS = 'Closed';
+  public static final String BOH_NEW_STATUS = 'New';
+  public static final String BOH_AUTO_CLOSED_SUB_STATUS = 'Auto-closed';
+  public static final String BOH_OPPORTUNITY_IDENTIFIED_SUB_STATUS = 'Opportunity identified';
+  public static final String BOH_REFERRED_TO_CLASSIC_SUB_STATUS = 'Referred to Classic';
+
+  public static final List<String> BOH_SUB_STATUS_FOR_CONVERSION = new List<String>{
+    BOH_OPPORTUNITY_IDENTIFIED_SUB_STATUS,
+    BOH_REFERRED_TO_CLASSIC_SUB_STATUS
+  };
+
   public enum EXPENSE_CONTROL {
     EXPENSE_CONTROL_WARNING,
     EXPENSE_CONTROL_BREACHED,
