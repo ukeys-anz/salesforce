@@ -202,6 +202,9 @@ public with sharing class IDRConstants {
   public static final String TASK_TM_ATTESTATION_SUBJECT ='Team Manager Corrective Actions- Attestation- ';
   public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
 
+  //Quality Assessment Constants
+  public static final String CORRECTIVE_ACTIONS_NA = 'N/A- no action required';
+
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
 

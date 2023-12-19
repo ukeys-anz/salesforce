@@ -120,6 +120,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
     for (Quality_Assessment__c oAssessment : lstAssessments) {
       if (
         oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
+        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
         (mpOldAssessments == null ||
         (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
         (oAssessment.Status__c != oOldAssessment.Status__c &&
@@ -128,10 +129,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
         oOldAssessment.Corrective_actions_for_TM_CM__c &&
         oAssessment.Corrective_actions_for_TM_CM__c != null))
       ) {
-        if (oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE) {
           stCompletedCQIds.add(oAssessment.Id);
-        }
-        if (oAssessment.Corrective_actions_for_TM_CM__c != null) {
+        if (oAssessment.Corrective_actions_for_TM_CM__c != IDRConstants.CORRECTIVE_ACTIONS_NA) {
           correctiveActionsCQIds.add(oAssessment.Id);
         }
       }
