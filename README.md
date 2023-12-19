@@ -10,9 +10,19 @@ Repository for the Salesforce Customer Relationship Management platform
 <details>
   <summary>Click to see setup steps</summary>
 
-### 1. Cloning the repository
+### 1. Setup your machine
 
-To clone this repository locally, you need to ensure you add your username into the HTTPS URL. So instead of getting the HTTPS link and entering
+At first please follow all the steps mentioned [here](https://backstage.service.anz/docs/default/system/salesforce/engineering/machine-setup/)
+
+### 2. Cloning the repository
+
+To clone this repository locally, you need to ensure SSH has been setup on your machine.
+
+```bash
+git clone git@github.com:anzx/salesforce.git
+```
+
+If you have not setup SSH, you can add your username into the HTTPS URL. So instead of getting the HTTPS link and entering
 
 ```bash
 git clone https://github.com/org/repo.git
@@ -24,7 +34,7 @@ you will need to add your username
 git clone https://USERNAME@github.com/org/repo.git
 ```
 
-### 2. Setting up tooling
+### 3. Setting up tooling
 
 It is not recommended to run Salesforce on WLAN, as most features do not work. You are better off switching to MOBILITY to run Salesforce CLI. To setup local tooling:
 
@@ -63,7 +73,7 @@ You will see prettier notices in your terminal everytime you run `git-commit`
 sfdx force:auth:web:login -r https://anz.my.salesforce.com -a DevHub -d
 ```
 
-### 3. Creating a scrarch org
+### 4. Creating a scrarch org
 
 There is a pre-written shell script, so to create a scratch org run:
 
@@ -86,27 +96,38 @@ During the development phase, there are several things to keep in mind:
 
 ## Release Process
 
-We use GitHub Actions to enable our CICD workflow. The complete CICD solution is documented [here](https://github.com/anzx/documents/blob/design-docs/github-actions-salesforce.md).
+We use GitHub Actions to enable our CICD workflow. The complete Release Pipeline solution is documented [here](https://backstage.service.anz/docs/default/system/salesforce/engineering/release-guideline).
 
 To summarise the workflows there are two events:
 
 ### Pull Request
 
-When you raise a PR against develop or master, the following three jobs run:
+When you raise a PR against develop or master, the following jobs run:
 
-1. **Package and Verify**
-   This will build a package that only contains your changes and runs a deployment to systest (develop) or staging (master) with the _check only_ flag set to `TRUE`. This ensures your changes will deploy successfully, and it runs all local tests to ensure we remain compliant in regards to minimum required test coverage.
+1. **Salesforce Validation**
+   This will build a package that only contains your changes and runs a Validation to targetOrg. This ensures your changes will validated successfully, and it runs all local tests to ensure we remain compliant in regards to minimum required test coverage.
+
 2. **Lint**
-   This step lints all of the files within our project and ensures they are compliant to the Prettier styling convention & ESLint coding rules. For Prettier this includes LWC, Aura and through the Apex Plugin it also lints apex files and for ESLint it is LWC and TypScript files. This ensures consistency and best practise in the way we write code, makes PRs easier to read and extinguishes disagreements over coding styles and formats.
+   This step lints all of the files within our project and ensures they are compliant to the Prettier styling convention & ESLint coding rules. For Prettier this includes LWC, Aura and through the Apex Plugin it also lints apex files and for ESLint it is LWC and TypScript files. This ensures consistency and best practise in the way we write code, makes PRs easier
+   to read and extinguishes disagreements over coding styles and formats.
+
 3. **Scan**
    PMD is used to run a code scan to detect poorly written or vulnerable code, as well as ensuring our code conforms to the ApexDoc code documentation specs.
 
+4. **Unit Tests**
+   This is to run all the jest tests for LWCs to ensure everything is working as expected.
+
+5. **Sysl Scan**
+   This is to check no information is missed on field's metadata. ( Business Status, Integrity, Privacy, Source, description, and security classification)
+
+   - Point: If the field is just a field that we use on backend, you can make the Business Status to be Hidden.
+
 ### Merge
 
-When you merge to develop or master, the following runs:
+When you merge to epics, the following runs:
 
-1. **Package and Deploy**
-   This will build a package that only contains your changes and runs a deployment to systest (develop) or staging (master) with the _check only_ flag set to `FALSE`. This deploys the changes merged as well as running all tests.
+1. **Salesforce Deployment**
+   This will build a package that only contains your changes and runs a deployment to target org.
 
 ### Other Controls
 
@@ -119,6 +140,18 @@ Any changes to the org can be reviewed by any member of the team, with a few exc
   - YAML files
   - Dockerfile
   - Any of the shell scripts within `ci/`
+
+### Update PantherIds and description for (Un)managed package's fields
+
+- All the fields that has businessStatus as active on their metadata should have pantherId. Please add the the related pantherId to [panther-manual-desc.json](https://github.com/anzx/salesforce/blob/develop/config/panther-manual-desc.json#L272) file, into the `pantherId` key.
+
+- If a new object has been created, the description of that should be added [here](https://github.com/anzx/salesforce/blob/develop/config/panther-manual-desc.json#L183)
+
+- If there is a new (Un)managed field, the description of that should be added [here](https://github.com/anzx/salesforce/blob/develop/config/panther-manual-desc.json#L2)
+
+- If lineage information of any field should be updated, you can do it [here](https://github.com/anzx/salesforce/blob/develop/config/panther-manual-desc.json#L3973)
+
+- If lineage transform information of any field should be updated, you can do it [here](https://github.com/anzx/salesforce/blob/develop/config/panther-manual-desc.json#L4136)
 
 ## Feature Traceability
 

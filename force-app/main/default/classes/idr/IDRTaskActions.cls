@@ -101,7 +101,10 @@ public without sharing class IDRTaskActions {
     ) {
       record.ActivityDate = Date.today().addDays(1);
     }
-    if (record.OwnerId.getSobjectType() == User.SObjectType) {
+    if (record.OwnerId.getSobjectType() == User.SObjectType &&
+        !record.Subject.containsIgnoreCase(START_COLLECTIONS_SUBJECT) &&
+        !record.Subject.containsIgnoreCase(STOP_COLLECTIONS_SUBJECT)) {
+        // CC-6558 Collections get assigned to a Queue and should not get reverted to the prior User when the Case owner changes.
       record.Last_Assigned_Owner__c = record.OwnerId;
     }
   }

@@ -272,7 +272,7 @@ public with sharing class AccountCommonActionsHelper {
   public static Set<String> getOcvIdsFromAccounts(List<Account> accounts) {
     Set<String> ocvIds = new Set<String>();
     for (Account acc : accounts) {
-      if (String.isNotEmpty(acc.OCV_Id__c)) {
+      if (acc.ANZx_Customer__c && String.isNotEmpty(acc.OCV_Id__c)) {
         ocvIds.add(acc.OCV_Id__c);
       }
     }
@@ -282,14 +282,14 @@ public with sharing class AccountCommonActionsHelper {
   /**
    * @description getMobileNumbersFromAccounts gets a set of Customer Mobile Phone from a list of accounts
    * @param accounts A list of account records to extract mobile numbers from
-   * @return Set<String> A set of Cucustomers' mobile numbers
+   * @return Set<String> A set of customers' mobile numbers
    */
   public static Set<String> getMobileNumbersFromAccounts(
     List<Account> accounts
   ) {
     Set<String> mobileNumbers = new Set<String>();
     for (Account acc : accounts) {
-      if (String.isNotEmpty(acc.PersonMobilePhone)) {
+      if (acc.ANZx_Customer__c && String.isNotEmpty(acc.PersonMobilePhone)) {
         mobileNumbers.add(
           TextUtils.sanitiseMobileNumber(acc.PersonMobilePhone)
         );
@@ -306,7 +306,7 @@ public with sharing class AccountCommonActionsHelper {
   public static Map<String, Case> getKYCQACasesFromOcvIds(Set<String> ocvIds) {
     Map<String, Case> ocvIdKYCQACases = new Map<String, Case>();
     List<Case> cases = [
-      SELECT Id, OCV_Id__c
+      SELECT Id, OCV_Id__c, PersonaId__c
       FROM Case
       WHERE
         OCV_Id__c IN :ocvIds
@@ -329,7 +329,10 @@ public with sharing class AccountCommonActionsHelper {
   ) {
     Map<String, Case> mobileNumberToKYCQACaseMap = new Map<String, Case>();
     List<Case> cases = [
-      SELECT Id, CustomerOnboardingApplication__r.SecurityMobile__c
+      SELECT
+        Id,
+        CustomerOnboardingApplication__r.SecurityMobile__c,
+        PersonaId__c
       FROM Case
       WHERE
         CustomerOnboardingApplication__r.SecurityMobile__c IN :mobileNumbers

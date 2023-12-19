@@ -26,11 +26,23 @@ private class AccountTriggerHandlerTest {
         CustomerOnboardingApplication__c = cob.Id,
         RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
         Type = 'KYC QA Sample',
-        OCV_Id__c = '4324234234'
+        OCV_Id__c = '4324234234',
+        PersonaId__c = '123456789'
       );
       insert kycqa;
     }
-    CCRMTestDataFactory.createOCVIntegrationUser();
+
+    User ocvIntegrationUser = CCRMTestDataFactory.createOCVIntegrationUser();
+    System.runAs(ocvIntegrationUser) {
+      // Add Logging Setting
+      LoggingSettings__c userCustomSetting = new LoggingSettings__c(
+        DefaultSaveMethod__c = 'EVENT_BUS',
+        DefaultLoggingLevel__c = 'DEBUG',
+        SecureLogEnabled__c = true,
+        SetupOwnerId = ocvIntegrationUser.Id
+      );
+      insert userCustomSetting;
+    }
   }
 
   @isTest
@@ -520,6 +532,18 @@ private class AccountTriggerHandlerTest {
       [SELECT Id FROM Case WHERE AccountId = :testAccount.Id].size(),
       'Link the KYC QA Case with the relevant Customer using the OCV ID'
     );
+
+    List<LogEntry__c> logEntryList = Database.query(
+      'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
+      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+      '%\''
+    );
+
+    Assert.areEqual(
+      1,
+      logEntryList.size(),
+      'Log Entry record should be created for successfull Account link to KYC QA'
+    );
   }
 
   @isTest
@@ -558,6 +582,18 @@ private class AccountTriggerHandlerTest {
       1,
       [SELECT Id FROM Case WHERE AccountId = :testAccount.Id].size(),
       'Link the KYC QA Case with the relevant Customer using the Mobile Number'
+    );
+
+    List<LogEntry__c> logEntryList = Database.query(
+      'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
+      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+      '%\''
+    );
+
+    Assert.areEqual(
+      1,
+      logEntryList.size(),
+      'Log Entry record should be created for successfull Account link to KYC QA'
     );
   }
 
@@ -598,6 +634,18 @@ private class AccountTriggerHandlerTest {
       [SELECT Id FROM Case WHERE AccountId = :testAccount.Id].size(),
       'Link the KYC QA Case with the relevant Customer using the Mobile Number'
     );
+
+    List<LogEntry__c> logEntryList = Database.query(
+      'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
+      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+      '%\''
+    );
+
+    Assert.areEqual(
+      1,
+      logEntryList.size(),
+      'Log Entry record should be created for successfull Account link to KYC QA'
+    );
   }
 
   @isTest
@@ -636,6 +684,65 @@ private class AccountTriggerHandlerTest {
       0,
       [SELECT Id FROM Case WHERE AccountId = :testAccount.Id].size(),
       'KYC QA Case created with no customer linked to it when OCV ID/Mobile Number Comparison is not a match'
+    );
+
+    List<LogEntry__c> logEntryList = Database.query(
+      'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
+      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+      '%\''
+    );
+
+    Assert.areEqual(
+      0,
+      logEntryList.size(),
+      'Log Entry record should\'nt be created since no Account was linked'
+    );
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountError() {
+    Account testAccount = new Account(
+      FirstName = 'Bruce',
+      LastName = 'Something',
+      OCV_ID__c = TESTFAKER.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonEmail = 'john.something@gmail.com',
+      PersonMobilePhone = '0401123123'
+    );
+
+    Test.startTest();
+    User ocvIntegrationUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'IntegrationUserOCV'
+    ];
+
+    // Sharing Case record manually to avoid deployment issues
+    List<Case> newCases = [SELECT Id FROM Case];
+    CaseShare cs = new CaseShare();
+    cs.CaseId = newCases[0].id;
+    cs.UserOrGroupId = ocvIntegrationUser.Id;
+    cs.CaseAccessLevel = 'Edit';
+    insert cs;
+
+    AccountCommonActions.forceDMLError = true; // Simulate a DML error
+
+    System.runAs(ocvIntegrationUser) {
+      insert testAccount;
+    }
+    Test.stopTest();
+
+    List<LogEntry__c> logEntryList = Database.query(
+      'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
+      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_ERROR +
+      '%\''
+    );
+
+    Assert.areEqual(
+      1,
+      logEntryList.size(),
+      'Log Entry record should be created for an error on attempt to link Account to KYC QA'
     );
   }
 }

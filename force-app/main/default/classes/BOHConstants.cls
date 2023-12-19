@@ -31,4 +31,14 @@ public class BOHConstants {
     EXPENSE_REVIEW_COMPLETED,
     EXPENSE_REVIEW_REQUIRED
   }
+
+  public enum CFAAS_DOCUMENT_FLAG {
+    EXISTING,
+    CREATING
+  }
+
+  public enum CFAAS_FILE_STATUS {
+    FINALVERSION,
+    DRAFT
+  }
 }

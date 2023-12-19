@@ -36,6 +36,7 @@ public with sharing class CheckCaseRecordType {
       record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
       record.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
       record.RecordTypeId == GetHelpConstants.ACCOUNT_CLOSURE_RT_ID ||
+      record.RecordTypeId == GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID ||
       DISPUTE_RT_IDS.contains(record.RecordTypeId)
     ) {
       return true;

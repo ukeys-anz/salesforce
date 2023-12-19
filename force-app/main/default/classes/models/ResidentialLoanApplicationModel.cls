@@ -235,7 +235,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
 
       exp.warningReason = exp.reason;
       if (exp.warningReason == 'Other') {
-        exp.warningReason += ' - ' + exp.otherJustificationCode;
+        exp.warningReason += ' - ' + exp.otherJustificationText;
       }
 
       if (
