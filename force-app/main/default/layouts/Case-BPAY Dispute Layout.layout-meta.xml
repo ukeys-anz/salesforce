@@ -92,6 +92,10 @@
                 <behavior>Required</behavior>
                 <field>Receipt__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Transaction_Made_By__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

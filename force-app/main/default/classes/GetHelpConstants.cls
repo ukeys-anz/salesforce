@@ -76,6 +76,13 @@ public with sharing class GetHelpConstants {
 
   //Hold the multi-party account's ownership value
   public static final String MULTI_PARTY = 'Multi-party';
+
+  //Hold the joint account's ownership value
+  public static final String JOINT = 'Joint';
+
+  //Hold the single account's ownership value
+  public static final String SINGLE = 'Single';
+
   //Hold the value of Transaction Initiator for joint account's secondary owner.
   public static final String CO_OWNER = 'Co-Owner';
 

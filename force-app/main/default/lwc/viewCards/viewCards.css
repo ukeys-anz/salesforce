@@ -80,6 +80,15 @@
   margin-top: -29px;
 }
 
+.account-number {
+  word-break: break-all;
+  padding-right: 1rem;
+}
+
+.singleLineText {
+  white-space: break-spaces;
+}
+
 @media only screen and (min-width: 767px) and (max-width: 1580px) {
   .buttonsContainer,
   .allButtonsContainer {
