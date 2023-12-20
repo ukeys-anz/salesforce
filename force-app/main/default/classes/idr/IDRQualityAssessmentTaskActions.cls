@@ -53,7 +53,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
           stUserIds.add(oAssessment.Case_Manager__c);
         }
       }
-      System.debug('PendingIds: ' + mpId2PendingAssessments);
       List<Task> lstUpdateTasks = new List<Task>();
       for (Task oTask : [
         SELECT Id, Status
@@ -242,19 +241,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
             )
           );
         }
-        if (
-          oAssessment.OwnerId != oAssessment.Case_Manager__c &&
-          oAssessment.Case_Manager__c != oAssessment.TeamManager__c
-        ) {
-          lstQAShare.add(
-            new Quality_Assessment__Share(
-              AccessLevel = 'Read',
-              ParentId = oAssessment.Id,
-              UserOrGroupId = oAssessment.Case_Manager__c
-            )
-          );
-        }
-        System.debug('Share: ' + lstQAShare);
+        // Quality_Assessment__Share record for CaseManager__c is created after a calculated delay.
+        // It is therefore handled by Quality_Assessment_CMOS.flow and not here.
       }
     }
 
