@@ -72,7 +72,7 @@ jobs:
           sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifactory" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifact" >> $GITHUB_ENV
 
       - name: Retrieve GSM Credentials
         id: secrets
@@ -168,7 +168,7 @@ jobs:
           sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifactory" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifact" >> $GITHUB_ENV
 
       - name: Retrieve GSM Credentials
         id: secrets
@@ -255,7 +255,7 @@ jobs:
           sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifactory" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifact" >> $GITHUB_ENV
 
       - name: Retrieve GSM Credentials
         id: secrets
@@ -350,7 +350,7 @@ jobs:
           sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifactory" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifact" >> $GITHUB_ENV
 
       - name: Find GSM credential
         id: secrets
