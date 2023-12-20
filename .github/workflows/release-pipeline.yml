@@ -49,7 +49,7 @@ jobs:
     environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
     env:
       RELEASE_NAME: "${{ github.event.inputs.NAME }}"
-      ARTIFACTORY_SECRET_NAME: "h-salesforce-prod-artifactory"
+      ARTIFACTORY_SECRET_NAME: "h-salesforce-prod-artifact"
       PREPROD_SECRET_NAME: "h-salesforce-prod-preprod"
       PROD_CONSUMER_KEY_SECRET_NAME: "h-salesforce-prod-ca-consumerkey"
       PROD_CERT_SECRET_NAME: "h-salesforce-prod-cert"
