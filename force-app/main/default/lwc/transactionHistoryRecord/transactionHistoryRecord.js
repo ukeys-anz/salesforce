@@ -15,6 +15,8 @@ import {
   TRANSACTION_TYPES
 } from "c/transactionHistoryService";
 
+import { MULTI_PARTY } from "c/financialAccountParent";
+
 const ALLOWED_TRANSACTION_TYPES = [
   TRANSACTION_TYPES.BSB_ACC,
   TRANSACTION_TYPES.Card,
@@ -101,7 +103,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
         : this.disputeRecordTypesFromParent;
 
     // Dynamically assigning the logo , column and button size
-    if (this.ownership === "Multi-party") {
+    if (this.ownership === MULTI_PARTY) {
       this.showTransactionInitiatorColumn = true;
       this.dynamicLogoClass = SLDS_COL_SIZE_OF_8 + " " + LOGO_CONTAINER;
       this.dynamicColumnClass = SLDS_COL_SIZE_OF_8;
@@ -315,7 +317,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     );
     if (
       transactionRecord.transactionInitiator &&
-      this.ownership === "Multi-party"
+      this.ownership === MULTI_PARTY
     ) {
       if (transactionRecord.transactionInitiator !== CO_OWNER) {
         transactionMadeBy = THIS_CUSTOMER;
