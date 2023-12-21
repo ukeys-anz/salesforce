@@ -88,7 +88,7 @@
             <value>
                 <fullName>22</fullName>
                 <default>false</default>
-                <label>Complaint relates to collections (I am not from any collections team)</label>
+                <label>Complaint relates to collections</label>
             </value>
             <value>
                 <fullName>23</fullName>
@@ -103,7 +103,7 @@
             <value>
                 <fullName>25</fullName>
                 <default>false</default>
-                <label>Hardship application outcome (I am not from any hardship team)</label>
+                <label>Hardship application outcome</label>
             </value>
             <value>
                 <fullName>26</fullName>
