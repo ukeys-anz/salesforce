@@ -53,15 +53,10 @@ public with sharing class TransactionHistoryControllerTest {
       External_Id__c = 'a#@sjaf0832'
     );
     insert acc;
-    FinServ__FinancialAccount__c finAcc = new FinServ__FinancialAccount__c(
-      Name = 'Savings Account',
-      FinServ__PrimaryOwner__c = acc.Id,
-      Account_Key__c = 'b#2fa8s0'
-    );
-    insert finAcc;
+
     Test.startTest();
     Map<String, Object> returnMap = TransactionHistoryController.getPersonAccount(
-      finAcc.Id
+      acc.OCV_ID__c
     );
     Test.stopTest();
     System.assertEquals(

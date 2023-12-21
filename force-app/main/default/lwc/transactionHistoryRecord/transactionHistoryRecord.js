@@ -44,6 +44,10 @@ const SLDS_COL_SIZE_OF_7 = "slds-col slds-size--1-of-7";
 const LOGO_CONTAINER = "logo-container";
 const BUTTON_ICON_COL = "button-icon-col";
 
+//Added to check the value present in Transaction Initiator Column
+const THIS_CUSTOMER = "This Customer";
+const CO_OWNER = "Co-Owner";
+
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
 ) {
@@ -236,12 +240,14 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     this.loading = true;
     await this.handleTokenizedCardSearch(disputeType);
 
+    //Added the Transaction Made By value to be prepopulated when the Case Dispute raised for a Tansaction
     let defaultFieldValuesObj = prepopulateDisputesFields(
       this.personAccount,
       this.financialAccountId,
       disputeType,
       this.transactionRecord,
-      this.tokenizedCardNumber
+      this.tokenizedCardNumber,
+      transactionMadeBy
     );
 
     //If we fail to automatically infer record type, log error
@@ -299,5 +305,27 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       });
       this.tokenizedCardNumber = result;
     }
+  }
+
+  //Get the Transaction Made By value to be prepopulated
+  prepopulateTransactionMadeBy(transactionRecord) {
+    let transactionMadeBy;
+    console.log(
+      "transactionInitiator 1" + transactionRecord.transactionInitiator
+    );
+    if (
+      transactionRecord.transactionInitiator &&
+      this.ownership === "Multi-party"
+    ) {
+      if (transactionRecord.transactionInitiator !== CO_OWNER) {
+        transactionMadeBy = THIS_CUSTOMER;
+      } else {
+        transactionMadeBy = CO_OWNER;
+      }
+    } else {
+      transactionMadeBy = "";
+    }
+
+    return transactionMadeBy;
   }
 }
