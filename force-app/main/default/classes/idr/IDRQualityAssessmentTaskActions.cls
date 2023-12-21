@@ -128,8 +128,13 @@ public with sharing class IDRQualityAssessmentTaskActions {
         oOldAssessment.Corrective_actions_for_TM_CM__c &&
         oAssessment.Corrective_actions_for_TM_CM__c != null))
       ) {
+        if (oOldAssessment != null) {
           stCompletedCQIds.add(oAssessment.Id);
-        if (oAssessment.Corrective_actions_for_TM_CM__c != IDRConstants.CORRECTIVE_ACTIONS_NA) {
+        }
+        if (
+          oAssessment.Corrective_actions_for_TM_CM__c !=
+          IDRConstants.CORRECTIVE_ACTIONS_NA
+        ) {
           correctiveActionsCQIds.add(oAssessment.Id);
         }
       }
@@ -187,7 +192,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
               WhatId = oAssessment.Id,
               Subject = IDRConstants.TASK_TM_ATTESTATION_SUBJECT +
                 oAssessment.Case_Manager__r.Name,
-                Description = 'You must add a task comment detailing the action taken before marking this task as completed.',
+              Description = 'You must add a task comment detailing the action taken before marking this task as completed.',
               ActivityDate = Date.today().addDays(7),
               Status = 'Open',
               Priority = 'Normal'
