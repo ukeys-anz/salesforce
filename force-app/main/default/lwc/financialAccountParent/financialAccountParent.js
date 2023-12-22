@@ -117,13 +117,8 @@ export default class FinancialAccountParent extends LightningElement {
     this.loading = true;
     if (data) {
       //Added this to fetch ocvid of the joint owner from where the joint account called to get the ocvid - By Shivam, Oct'23
-      if (this.pageRef?.state?.c__ocvId) {
-        this.ocvIdForJointAccount = this.pageRef.state.c__ocvId;
-        this.isJointAccount = true;
-      }
-      //Changed this to send the Joint Owner OCV Id from where it is called
-      this.ocvId = this.isJointAccount
-        ? this.ocvIdForJointAccount
+      this.ocvId = this.pageRef?.state?.c__ocvId
+        ? this.pageRef.state.c__ocvId
         : data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;

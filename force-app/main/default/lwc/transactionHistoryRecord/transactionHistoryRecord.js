@@ -311,21 +311,16 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
   //Get the Transaction Made By value to be prepopulated
   prepopulateTransactionMadeBy(transactionRecord) {
-    let transactionMadeBy;
-    console.log(
-      "transactionInitiator 1" + transactionRecord.transactionInitiator
-    );
+    let transactionMadeBy = "";
+
     if (
       transactionRecord.transactionInitiator &&
       this.ownership === MULTI_PARTY
     ) {
-      if (transactionRecord.transactionInitiator !== CO_OWNER) {
-        transactionMadeBy = THIS_CUSTOMER;
-      } else {
-        transactionMadeBy = CO_OWNER;
-      }
-    } else {
-      transactionMadeBy = "";
+      transactionMadeBy =
+        transactionRecord.transactionInitiator !== CO_OWNER
+          ? THIS_CUSTOMER
+          : CO_OWNER;
     }
 
     return transactionMadeBy;
