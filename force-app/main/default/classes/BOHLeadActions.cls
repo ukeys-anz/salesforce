@@ -4,7 +4,7 @@
  * @since 11/2023
  * @description BOH Lead Methods
  */
-public without sharing class BOHLeadActions {
+public with sharing class BOHLeadActions {
   private static BOHLeadActions instance;
   private List<BOH_Lead_Auto_Closure_Mapping__mdt> bohLeadMappingList;
   private Map<String, Map<String, Decimal>> bohMap;
@@ -104,10 +104,19 @@ public without sharing class BOHLeadActions {
     Set<String> emailSet
   ) {
     List<Account> potentialMatchingCustomers = [
-      SELECT Id, FirstName, LastName, PersonMobilePhone, PersonEmail
+      SELECT
+        Id,
+        FirstName,
+        LastName,
+        PersonMobilePhone,
+        PersonEmail,
+        ANZx_Customer__c,
+        Was_ANZx_Customer__c
       FROM Account
       WHERE
         RecordTypeId = :GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+        AND (ANZx_Customer__c = TRUE
+        OR Was_ANZx_Customer__c = FALSE)
         AND (PersonMobilePhone IN :mobileSet
         OR PersonEmail IN :emailSet)
     ];
@@ -318,103 +327,121 @@ public without sharing class BOHLeadActions {
   }
 
   /**
-   * @description convertLeads convert leads into their matching accounts
+   * @description convertBohLeads convert leads into their matching accounts
    * @param oldRecords A old records to check old values of lead
    * @param leadsList A list fo leads to be converted
    */
-  public void convertLeads(Map<Id, Lead> oldRecords, List<Lead> leadsList) {
-    List<Database.LeadConvert> converts = new List<Database.LeadConvert>();
-    List<Database.LeadConvertResult> lcResults = new List<Database.LeadConvertResult>();
-    LeadStatus convertedStatus = [
-      SELECT MasterLabel
-      FROM LeadStatus
-      WHERE IsConverted = TRUE
-      LIMIT 1
-    ];
-
-    for (Lead l : leadsList) {
-      if (
-        l.Is_BOH_Lead__c &&
-        (l.Status != oldRecords.get(l.Id).Status ||
-        l.FinServ__RelatedAccount__c !=
-        oldRecords.get(l.Id).FinServ__RelatedAccount__c ||
-        l.SubStatus__c != oldRecords.get(l.Id).SubStatus__c) &&
-        l.Status == BOHConstants.BOH_CLOSED_STATUS &&
-        BOHConstants.BOH_SUB_STATUS_FOR_CONVERSION.contains(l.SubStatus__c) &&
-        l.FinServ__RelatedAccount__c != null
-      ) {
-        Database.LeadConvert convert = new Database.LeadConvert();
-        convert.setLeadId(l.Id);
-        convert.setAccountId(l.FinServ__RelatedAccount__c);
-        convert.setConvertedStatus(convertedStatus.MasterLabel);
-        convert.setDoNotCreateOpportunity(true);
-        converts.add(convert);
-      }
-    }
-    lcResults = Database.convertLead(converts);
-    List<Contact> contactList = new List<Contact>();
-    for (Database.LeadConvertResult lcr : lcResults) {
-      if (!lcr.isSuccess()) {
-        Logger.error(
-          'Account_Id: ' +
-          lcr.getAccountId() +
-          '; Lead_Id: ' +
-          lcr.getLeadId() +
-          '; Error_Message: ' +
-          lcr.getErrors()[0].getMessage()
-        );
-      } else {
-        contactList.add(new Contact(Id = lcr.getContactId()));
-      }
-    }
-    Logger.saveLog();
-
-    if (!contactList.isEmpty()) {
-      deleteAutoCreatedContacts(contactList);
-    }
+  public static void convertBohLeads(
+    Map<Id, Lead> oldRecords,
+    List<Lead> leadsList
+  ) {
+    ConvertLeadHelper helper = new ConvertLeadHelper();
+    helper.convertLeads((Map<Id, Lead>) oldRecords, leadsList);
   }
 
   /**
-   * @description delete auto created contacts post lead conversion
-   * @param contactList list of contacts from lead conversion
+   * @description public without sharing class to bypass account sharing setting in lead conversion process
    */
-  private void deleteAutoCreatedContacts(List<Contact> contactList) {
-    if (contactList.isEmpty()) {
-      return;
-    }
-    //Separate contactList into org contacts vs person accounts
-    List<Contact> orgContactList = new List<Contact>();
-    Set<Id> personContactsIdSet = new Set<Id>();
-    for (Contact contactRec : [
-      SELECT id, isPersonAccount
-      FROM contact
-      WHERE id IN :contactList
-    ]) {
-      if (contactRec.isPersonAccount) {
-        personContactsIdSet.add(contactRec.id);
-      } else {
-        orgContactList.add(contactRec);
+  public without sharing class ConvertLeadHelper {
+    /**
+     * @description convertLeads convert leads into their matching accounts
+     * @param oldRecords A old records to check old values of lead
+     * @param leadsList A list fo leads to be converted
+     */
+    public void convertLeads(Map<Id, Lead> oldRecords, List<Lead> leadsList) {
+      List<Database.LeadConvert> converts = new List<Database.LeadConvert>();
+      List<Database.LeadConvertResult> lcResults = new List<Database.LeadConvertResult>();
+      LeadStatus convertedStatus = [
+        SELECT MasterLabel
+        FROM LeadStatus
+        WHERE IsConverted = TRUE
+        LIMIT 1
+      ];
+
+      for (Lead l : leadsList) {
+        if (
+          l.Is_BOH_Lead__c &&
+          (l.Status != oldRecords.get(l.Id).Status ||
+          l.FinServ__RelatedAccount__c !=
+          oldRecords.get(l.Id).FinServ__RelatedAccount__c ||
+          l.SubStatus__c != oldRecords.get(l.Id).SubStatus__c) &&
+          l.Status == BOHConstants.BOH_CLOSED_STATUS &&
+          BOHConstants.BOH_SUB_STATUS_FOR_CONVERSION.contains(l.SubStatus__c) &&
+          l.FinServ__RelatedAccount__c != null
+        ) {
+          Database.LeadConvert convert = new Database.LeadConvert();
+          convert.setLeadId(l.Id);
+          convert.setAccountId(l.FinServ__RelatedAccount__c);
+          convert.setConvertedStatus(convertedStatus.MasterLabel);
+          convert.setDoNotCreateOpportunity(true);
+          converts.add(convert);
+        }
+      }
+      lcResults = Database.convertLead(converts);
+      List<Contact> contactList = new List<Contact>();
+      for (Database.LeadConvertResult lcr : lcResults) {
+        if (!lcr.isSuccess()) {
+          Logger.error(
+            'Account_Id: ' +
+            lcr.getAccountId() +
+            '; Lead_Id: ' +
+            lcr.getLeadId() +
+            '; Error_Message: ' +
+            lcr.getErrors()[0].getMessage()
+          );
+        } else {
+          contactList.add(new Contact(Id = lcr.getContactId()));
+        }
+      }
+      Logger.saveLog();
+
+      if (!contactList.isEmpty()) {
+        deleteAutoCreatedContacts(contactList);
       }
     }
-    if (!orgContactList.isEmpty()) {
-      DMLUtil.deleteRecords(
-        orgContactList,
-        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-        DMLUtil.SYSTEM_MODE
-      );
-    }
-    if (!personContactsIdSet.isEmpty()) {
-      List<OpportunityContactRole> personOpportunityContactRoleList = [
-        SELECT id, ContactId
-        FROM OpportunityContactRole
-        WHERE ContactId IN :personContactsIdSet
-      ];
-      if (!personOpportunityContactRoleList.isEmpty()) {
+
+    /**
+     * @description delete auto created contacts post lead conversion
+     * @param contactList list of contacts from lead conversion
+     */
+    private void deleteAutoCreatedContacts(List<Contact> contactList) {
+      if (contactList.isEmpty()) {
+        return;
+      }
+      //Separate contactList into org contacts vs person accounts
+      List<Contact> orgContactList = new List<Contact>();
+      Set<Id> personContactsIdSet = new Set<Id>();
+      for (Contact contactRec : [
+        SELECT id, isPersonAccount
+        FROM contact
+        WHERE id IN :contactList
+      ]) {
+        if (contactRec.isPersonAccount) {
+          personContactsIdSet.add(contactRec.id);
+        } else {
+          orgContactList.add(contactRec);
+        }
+      }
+      if (!orgContactList.isEmpty()) {
         DMLUtil.deleteRecords(
-          personOpportunityContactRoleList,
+          orgContactList,
           DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
           DMLUtil.SYSTEM_MODE
         );
+      }
+      if (!personContactsIdSet.isEmpty()) {
+        List<OpportunityContactRole> personOpportunityContactRoleList = [
+          SELECT id, ContactId
+          FROM OpportunityContactRole
+          WHERE ContactId IN :personContactsIdSet
+        ];
+        if (!personOpportunityContactRoleList.isEmpty()) {
+          DMLUtil.deleteRecords(
+            personOpportunityContactRoleList,
+            DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+            DMLUtil.SYSTEM_MODE
+          );
+        }
       }
     }
   }
