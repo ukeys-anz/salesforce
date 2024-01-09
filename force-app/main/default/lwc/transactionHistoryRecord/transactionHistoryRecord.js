@@ -243,6 +243,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     await this.handleTokenizedCardSearch(disputeType);
 
     //Added the Transaction Made By value to be prepopulated when the Case Dispute raised for a Tansaction
+    let transactionMadeBy = this.prepopulateTransactionMadeBy(
+      this.transactionRecord
+    );
+
     let defaultFieldValuesObj = prepopulateDisputesFields(
       this.personAccount,
       this.financialAccountId,
