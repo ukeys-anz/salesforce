@@ -242,7 +242,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (
       !this.tokenizedCardNumber &&
       (disputeType === "Card" || disputeType === "ATM") &&
-      this.ownership === "Multi-party"
+      this.ownership === MULTI_PARTY
     ) {
       await LightningAlert.open({
         message: errorMessageForCard,
