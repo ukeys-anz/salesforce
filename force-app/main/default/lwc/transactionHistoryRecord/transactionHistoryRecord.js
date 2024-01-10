@@ -15,8 +15,6 @@ import {
   TRANSACTION_TYPES
 } from "c/transactionHistoryService";
 
-import { MULTI_PARTY } from "c/financialAccountParent";
-
 const ALLOWED_TRANSACTION_TYPES = [
   TRANSACTION_TYPES.BSB_ACC,
   TRANSACTION_TYPES.Card,
@@ -49,6 +47,7 @@ const BUTTON_ICON_COL = "button-icon-col";
 //Added to check the value present in Transaction Initiator Column
 const THIS_CUSTOMER = "This Customer";
 const CO_OWNER = "Co-Owner";
+const MULTI_PARTY = "Multi-party";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
