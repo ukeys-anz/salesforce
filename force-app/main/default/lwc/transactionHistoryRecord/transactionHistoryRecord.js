@@ -1,12 +1,13 @@
 import { LightningElement, track, api, wire } from "lwc";
 import { subscribe, MessageContext } from "lightning/messageService";
-import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
+import LightningAlert from "lightning/alert";
 import { NavigationMixin } from "lightning/navigation";
+import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
+import errorMessageForCard from "@salesforce/label/c.Error_Message";
+import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
-import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
 import logMissedTransaction from "@salesforce/apex/TransactionHistoryController.logMissedTransaction";
-import LightningAlert from "lightning/alert";
 import getTokenizedCardNumber from "@salesforce/apex/DisputesController.getTokenizedCardNumber";
 import {
   TRANSACTION_STATUSES,
@@ -231,17 +232,15 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       this.selectedDisputeRecordType
     );
     this.loading = true;
-    let handleTokenizedCardSearchResult = this.handleTokenizedCardSearch(
-      disputeType
-    );
+
+    await this.handleTokenizedCardSearch(disputeType);
+
     if (
-      JSON.stringify(handleTokenizedCardSearchResult) === "{}" &&
-      disputeType === "Card"
+      !this.tokenizedCardNumber &&
+      (disputeType === "Card" || disputeType === "ATM")
     ) {
-      let errMsg =
-        "This transaction is linked to the other account holder's card. Let the customer know that the person who made the transaction must raise dispute in the app.";
       await LightningAlert.open({
-        message: errMsg,
+        message: errorMessageForCard,
         theme: "info",
         label: "Can't Raise a Dispute"
       });
