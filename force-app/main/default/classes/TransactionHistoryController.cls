@@ -46,35 +46,30 @@ public with sharing class TransactionHistoryController {
   @AuraEnabled
   public static Map<String, Object> getPersonAccount(String customerOCVId) {
     Map<String, Object> returnMap = new Map<String, Object>();
-
-    if (Account.SObjectType.getDescribe().isAccessible()) {
-      Account personAccount = [
-        SELECT
-          Id,
-          BillingStreet,
-          BillingCity,
-          BillingState,
-          BillingPostalCode,
-          BillingCountry,
-          OCV_ID__c
-        FROM Account
-        WHERE OCV_ID__c = :customerOCVId
-        LIMIT 1
-      ];
-      returnMap.put('AccountId', personAccount.Id);
-      returnMap.put('BillingStreet', personAccount.BillingStreet);
-      returnMap.put('BillingCity', personAccount.BillingCity);
-      returnMap.put('BillingState', personAccount.BillingState);
-      returnMap.put('BillingPostalCode', personAccount.BillingPostalCode);
-      returnMap.put('BillingCountry', personAccount.BillingCountry);
-      returnMap.put('OCV_ID__c', personAccount.OCV_ID__c);
-      Logger.debug('Person Account retrieved with Id: ' + personAccount.Id);
-      Logger.saveLog();
-      return returnMap;
-    }
-    Logger.debug('Unable to retrieve person account');
+    PermissionUtils.canQuery('Account');
+    Account personAccount = [
+      SELECT
+        Id,
+        BillingStreet,
+        BillingCity,
+        BillingState,
+        BillingPostalCode,
+        BillingCountry,
+        OCV_ID__c
+      FROM Account
+      WHERE OCV_ID__c = :customerOCVId
+      LIMIT 1
+    ];
+    returnMap.put('AccountId', personAccount.Id);
+    returnMap.put('BillingStreet', personAccount.BillingStreet);
+    returnMap.put('BillingCity', personAccount.BillingCity);
+    returnMap.put('BillingState', personAccount.BillingState);
+    returnMap.put('BillingPostalCode', personAccount.BillingPostalCode);
+    returnMap.put('BillingCountry', personAccount.BillingCountry);
+    returnMap.put('OCV_ID__c', personAccount.OCV_ID__c);
+    Logger.debug('Person Account retrieved with Id: ' + personAccount.Id);
     Logger.saveLog();
-    return null;
+    return returnMap;
   }
 
   /**

@@ -1,5 +1,7 @@
 import TransactionAPIUpliftedToV1 from "@salesforce/label/c.TransactionAPIUpliftedToV1";
 
+export const MULTI_PARTY = "Multi-party";
+
 export const TRANSACTION_STATUSES = {
   Unspecified: "Unknown",
   Pending: "Pending",

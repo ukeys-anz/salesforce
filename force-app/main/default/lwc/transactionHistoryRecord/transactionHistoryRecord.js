@@ -10,9 +10,11 @@ import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
 import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
 import logMissedTransaction from "@salesforce/apex/TransactionHistoryController.logMissedTransaction";
 import getTokenizedCardNumber from "@salesforce/apex/DisputesController.getTokenizedCardNumber";
+
 import {
   TRANSACTION_STATUSES,
-  TRANSACTION_TYPES
+  TRANSACTION_TYPES,
+  MULTI_PARTY
 } from "c/transactionHistoryService";
 
 const ALLOWED_TRANSACTION_TYPES = [
@@ -47,7 +49,6 @@ const BUTTON_ICON_COL = "button-icon-col";
 //Added to check the value present in Transaction Initiator Column
 const THIS_CUSTOMER = "This Customer";
 const CO_OWNER = "Co-Owner";
-const MULTI_PARTY = "Multi-party";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
