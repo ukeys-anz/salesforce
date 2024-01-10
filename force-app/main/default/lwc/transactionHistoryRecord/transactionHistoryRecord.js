@@ -1,13 +1,12 @@
 import { LightningElement, track, api, wire } from "lwc";
-
 import { subscribe, MessageContext } from "lightning/messageService";
-import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
-
+import LightningAlert from "lightning/alert";
 import { NavigationMixin } from "lightning/navigation";
-import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
-
-import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
 import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
+import errorMessageForCard from "@salesforce/label/c.Assisted_Raise_Dispute_Error_Message";
+import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
+import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
+import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
 import logMissedTransaction from "@salesforce/apex/TransactionHistoryController.logMissedTransaction";
 import getTokenizedCardNumber from "@salesforce/apex/DisputesController.getTokenizedCardNumber";
 import {
@@ -232,9 +231,23 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     let disputeType = this.handleGetDisputeTypeFromRecordTypeId(
       this.selectedDisputeRecordType
     );
-
     this.loading = true;
+
     await this.handleTokenizedCardSearch(disputeType);
+    // Alert message, if the customer who is raising the dispute is not the transaction initiator for joint accounts (Card and ATM)
+    if (
+      !this.tokenizedCardNumber &&
+      (disputeType === "Card" || disputeType === "ATM") &&
+      this.ownership === "Multi-party"
+    ) {
+      await LightningAlert.open({
+        message: errorMessageForCard,
+        theme: "info",
+        label: "Can't Raise a Dispute"
+      });
+      this.loading = false;
+      return;
+    }
 
     let defaultFieldValuesObj = prepopulateDisputesFields(
       this.personAccount,

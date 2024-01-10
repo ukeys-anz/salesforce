@@ -1914,4 +1914,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>Fraudx Generic Customer OCVId</shortDescription>
         <value>Generic-FRX</value>
     </labels>
+    <labels>
+        <fullName>Assisted_Raise_Dispute_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>For Raise Dispute Card Transactions</shortDescription>
+        <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
+    </labels>
 </CustomLabels>
