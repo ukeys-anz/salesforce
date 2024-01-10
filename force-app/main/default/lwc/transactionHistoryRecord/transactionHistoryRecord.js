@@ -14,7 +14,9 @@ import getTokenizedCardNumber from "@salesforce/apex/DisputesController.getToken
 import {
   TRANSACTION_STATUSES,
   TRANSACTION_TYPES,
-  MULTI_PARTY
+  MULTI_PARTY,
+  THIS_CUSTOMER,
+  CO_OWNER
 } from "c/transactionHistoryService";
 
 const ALLOWED_TRANSACTION_TYPES = [
@@ -45,10 +47,6 @@ const SLDS_COL_SIZE_OF_8 = "slds-col slds-size--1-of-8";
 const SLDS_COL_SIZE_OF_7 = "slds-col slds-size--1-of-7";
 const LOGO_CONTAINER = "logo-container";
 const BUTTON_ICON_COL = "button-icon-col";
-
-//Added to check the value present in Transaction Initiator Column
-const THIS_CUSTOMER = "This Customer";
-const CO_OWNER = "Co-Owner";
 
 export default class TransactionHistoryRecord extends NavigationMixin(
   LightningElement
