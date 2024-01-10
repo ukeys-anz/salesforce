@@ -6,6 +6,7 @@ import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
 import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
 import logMissedTransaction from "@salesforce/apex/TransactionHistoryController.logMissedTransaction";
+import LightningAlert from "lightning/alert";
 import getTokenizedCardNumber from "@salesforce/apex/DisputesController.getTokenizedCardNumber";
 import {
   TRANSACTION_STATUSES,
