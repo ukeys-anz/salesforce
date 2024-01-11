@@ -116,7 +116,10 @@ export default class ViewCards extends LightningElement {
             this.initialCardsDetails = this.sortCardDetails(
               this.mapCardDetails(result.cards)
             );
-            this.cardDetails = [this.initialCardsDetails[0]];
+            //Added this in order to handle the expansion of card details if load more is already clicked
+            this.cardDetails = this.viewAllCards
+              ? this.initialCardsDetails
+              : [this.initialCardsDetails[0]];
             this.showViewAllButtonHandler();
             this.isInvalidCardHandler();
             this.showDetails = true;
