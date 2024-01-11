@@ -9,9 +9,13 @@ import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
 import logMissedTransaction from "@salesforce/apex/TransactionHistoryController.logMissedTransaction";
 import getTokenizedCardNumber from "@salesforce/apex/DisputesController.getTokenizedCardNumber";
+
 import {
   TRANSACTION_STATUSES,
-  TRANSACTION_TYPES
+  TRANSACTION_TYPES,
+  MULTI_PARTY,
+  THIS_CUSTOMER,
+  CO_OWNER
 } from "c/transactionHistoryService";
 
 const ALLOWED_TRANSACTION_TYPES = [
@@ -96,7 +100,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
         : this.disputeRecordTypesFromParent;
 
     // Dynamically assigning the logo , column and button size
-    if (this.ownership === "Multi-party") {
+    if (this.ownership === MULTI_PARTY) {
       this.showTransactionInitiatorColumn = true;
       this.dynamicLogoClass = SLDS_COL_SIZE_OF_8 + " " + LOGO_CONTAINER;
       this.dynamicColumnClass = SLDS_COL_SIZE_OF_8;
@@ -238,7 +242,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (
       !this.tokenizedCardNumber &&
       (disputeType === "Card" || disputeType === "ATM") &&
-      this.ownership === "Multi-party"
+      this.ownership === MULTI_PARTY
     ) {
       await LightningAlert.open({
         message: errorMessageForCard,
@@ -249,12 +253,18 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       return;
     }
 
+    //Added the Transaction Made By value to be prepopulated when the Case Dispute raised for a Tansaction
+    let transactionMadeBy = this.prepopulateTransactionMadeBy(
+      this.transactionRecord
+    );
+
     let defaultFieldValuesObj = prepopulateDisputesFields(
       this.personAccount,
       this.financialAccountId,
       disputeType,
       this.transactionRecord,
-      this.tokenizedCardNumber
+      this.tokenizedCardNumber,
+      transactionMadeBy
     );
 
     //If we fail to automatically infer record type, log error
@@ -312,5 +322,22 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       });
       this.tokenizedCardNumber = result;
     }
+  }
+
+  //Get the Transaction Made By value to be prepopulated
+  prepopulateTransactionMadeBy(transactionRecord) {
+    let transactionMadeBy = "";
+
+    if (
+      transactionRecord.transactionInitiator &&
+      this.ownership === MULTI_PARTY
+    ) {
+      transactionMadeBy =
+        transactionRecord.transactionInitiator !== CO_OWNER
+          ? THIS_CUSTOMER
+          : CO_OWNER;
+    }
+
+    return transactionMadeBy;
   }
 }
