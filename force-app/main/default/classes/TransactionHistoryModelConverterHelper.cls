@@ -161,8 +161,7 @@ public with sharing class TransactionHistoryModelConverterHelper {
       }
     } else if (
       ((amount == null) || (amount != null && amount.value < 0)) &&
-      (destTransactionType != 'CARD' &&
-      destTransactionType != 'DEPOSIT_WITHDRAWAL')
+      (!GetHelpConstants.SET_OF_TRANSACTION_TYPE.contains(destTransactionType))
     ) {
       // As per the Desk check feedback for [ANZX-120154], for CARD and ATM transactions, the default value for Transaction Made By (Initiator) value should be blank
       // Add this customer only if its not a credit transaction i.e amount is less than zero

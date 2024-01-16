@@ -325,4 +325,9 @@ public with sharing class GetHelpConstants {
   }
   // String to formulate name of Store Interaction
   public static final String COACHING_LAB = 'Coaching Lab';
+  // Set of transactions type where the default value of Transaction Made By should be blank (Transaction Made By this is a field and column on transaction record page)
+  public static final Set<String> SET_OF_TRANSACTION_TYPE = new Set<String>{
+    'CARD',
+    'DEPOSIT_WITHDRAWAL'
+  };
 }
