@@ -727,11 +727,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Related_Bug__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.SLA_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -877,11 +872,15 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Case.Customer_Feedback</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Case.General_Inquiry</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Case.Customer_Feedback</recordType>
+        <recordType>Case.NPP_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>
