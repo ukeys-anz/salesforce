@@ -36,6 +36,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
     QualityAssessmentActions.createChatterPost(records, null);
     QualityAssessmentTaskActions.createComplianceTasks(records, null);
     IDRQualityAssessmentTaskActions.createQAShareRecord(records, null);
+    IDRQualityAssessmentTaskActions.createComplianceTasks(records, null);
   }
 
   /**

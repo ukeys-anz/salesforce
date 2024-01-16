@@ -18,12 +18,22 @@
             <value>
                 <fullName>Coaching recommended</fullName>
                 <default>false</default>
-                <label>Coaching recommended</label>
+                <label>TM Coaching/Feedback recommended</label>
+            </value>
+            <value>
+                <fullName>Review customer correspondence/contact centre</fullName>
+                <default>false</default>
+                <label>Review customer correspondence/contact centre</label>
+            </value>
+            <value>
+                <fullName>Update internal records</fullName>
+                <default>false</default>
+                <label>Update internal records</label>
             </value>
             <value>
                 <fullName>Further action recommended</fullName>
                 <default>false</default>
-                <label>Further action recommended</label>
+                <label>Other further action recommended</label>
             </value>
         </valueSetDefinition>
     </valueSet>
