@@ -365,7 +365,6 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       return false;
     }
-    // Fake Commit
     return DISPUTE_PEGA_RT_IDS.contains(record.RecordTypeId) &&
       record.Submitted__c &&
       record.Status == 'Open';
