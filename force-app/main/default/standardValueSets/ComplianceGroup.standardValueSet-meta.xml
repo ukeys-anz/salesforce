@@ -151,4 +151,9 @@
         <default>false</default>
         <label>Source - CFaaS</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source_Property_Domain</fullName>
+        <default>false</default>
+        <label>Source - Property Domain</label>
+    </standardValue>
 </StandardValueSet>

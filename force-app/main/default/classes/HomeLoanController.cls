@@ -11,15 +11,55 @@ public with sharing class HomeLoanController {
    * This makes the callout to mule to fetch home loan data
    * @param ocvId Ocv id
    * @param accountNumbers param to filter by account numbers
+   * @param recordId only provided for financial account, person account will pass empty string
    * @return
    */
   @AuraEnabled
   public static HomeLoanModel getHomeLoanAccount(
     String ocvId,
-    List<String> accountNumbers
+    List<String> accountNumbers,
+    String recordId
   ) {
     HomeLoanAPIRepository hloanapi = new HomeLoanAPIRepository();
     HomeLoanModel result = hloanapi.getHomeLoanAccounts(ocvId, accountNumbers);
+
+    //Not using permission utils as we dont want to error out if not queryable
+    //and only need to query if on financial account record page
+    if (
+      String.isNotBlank(recordId) &&
+      (Feature__c.sObjectType.getDescribe().isQueryable() &&
+      FA_Feature_Relationship__c.SObjectType.getDescribe().isQueryable())
+    ) {
+      //Fetch the linked offset feature
+      FA_Feature_Relationship__c featureId = [
+        SELECT Feature__c
+        FROM FA_Feature_Relationship__c
+        WHERE
+          Financial_Account__c = :recordId
+          AND Relationship_Status__c = 'Active'
+      ];
+
+      //Retrieve the linked offset account
+      FA_Feature_Relationship__c fafRelationship = [
+        SELECT
+          Id,
+          Financial_Account__c,
+          Financial_Account__r.FinServ__FinancialAccountNumber__c
+        FROM FA_Feature_Relationship__c
+        WHERE
+          Feature__c = :featureId.Feature__c
+          AND Financial_Account_Product__c = 'ANZ Plus'
+          AND Relationship_Status__c = 'Active'
+      ];
+
+      //Populate the offset details for the account
+      for (HomeLoanModel.HomeLoanAccount acc : result.accounts) {
+        HomeLoanModel.OffsetDetails offsetDetails = new HomeLoanModel.OffsetDetails();
+        offsetDetails.accountNumber = fafRelationship.Financial_Account__r.FinServ__FinancialAccountNumber__c;
+        offsetDetails.recordId = fafRelationship.Financial_Account__c;
+        acc.loan_details.offsetAccount = offsetDetails;
+      }
+    }
     return result;
   }
 
