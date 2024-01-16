@@ -140,12 +140,14 @@ public with sharing class TransactionHistoryModelConverterHelper {
    * @param sourcePersonaId PersonaId received from staffToken
    * @param mapPersonaIdAndCustomerName  Map holding Pesona Id and Customer Name
    * @param amount Amount of the transaction : Passed to determine if its a incoming transactions
+   * @param destTransactionType type of transaction to identify whether it is CARD or ATM
    * @return the name of the person who initiates the transaction
    */
   public static String convertPersonaIdtoTransactionInitiator(
     String sourcePersonaId,
     Map<String, String> mapPersonaIdAndCustomerName,
-    TransactionHistoryModel.Amount amount
+    TransactionHistoryModel.Amount amount,
+    String destTransactionType
   ) {
     String desttransactionInitiator;
     if (sourcePersonaId != null && mapPersonaIdAndCustomerName != null) {
@@ -157,7 +159,12 @@ public with sharing class TransactionHistoryModelConverterHelper {
         // Add co-owner only if its not a credit transaction i.e amount is less than zero
         desttransactionInitiator = GetHelpConstants.CO_OWNER;
       }
-    } else if ((amount == null) || (amount != null && amount.value < 0)) {
+    } else if (
+      ((amount == null) || (amount != null && amount.value < 0)) &&
+      (destTransactionType != 'CARD' &&
+      destTransactionType != 'DEPOSIT_WITHDRAWAL')
+    ) {
+      // As per the Desk check feedback for [ANZX-120154], for CARD and ATM transactions, the default value for Transaction Made By (Initiator) value should be blank
       // Add this customer only if its not a credit transaction i.e amount is less than zero
       desttransactionInitiator = GetHelpConstants.THIS_CUSTOMER;
     }
