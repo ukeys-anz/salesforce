@@ -1,5 +1,11 @@
 import TransactionAPIUpliftedToV1 from "@salesforce/label/c.TransactionAPIUpliftedToV1";
 
+//Added to check the value present in Transaction Initiator Column and Ownership field
+export const MULTI_PARTY = "Multi-party";
+export const JOINT = "Joint";
+export const THIS_CUSTOMER = "This Customer";
+export const CO_OWNER = "Co-Owner";
+
 export const TRANSACTION_STATUSES = {
   Unspecified: "Unknown",
   Pending: "Pending",

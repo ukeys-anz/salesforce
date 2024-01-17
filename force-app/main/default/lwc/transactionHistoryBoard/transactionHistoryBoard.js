@@ -378,7 +378,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   // Getting person contact Id so we can pre-populated it on the data capture form
   handleGetPersonAccount() {
     getPersonAccount({
-      financialAccountId: this.recordId
+      customerOCVId: this.ocvId
     })
       .then((result) => {
         if (result != null) {

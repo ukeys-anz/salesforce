@@ -31,20 +31,20 @@ import {
 } from "./helpers/utils";
 import { CurrentPageReference } from "lightning/navigation";
 import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryController.getDisputeRecordTypeMap";
-import { DISPUTE_RECORD_TYPES_RETRIEVE_ERROR } from "c/transactionHistoryService";
+import {
+  DISPUTE_RECORD_TYPES_RETRIEVE_ERROR,
+  MULTI_PARTY,
+  JOINT
+} from "c/transactionHistoryService";
 
 const CHECKING_ACCOUNT_RT_APINAME = "CheckingAccount";
 const SAVINGS_ACCOUNT_RT_APINAME = "SavingsAccount";
 const BANK_ACCOUNT_RT_APINAME = "BankingAccount";
-const MULTI_PARTY = "Multi-party";
-const JOINT = "Joint";
 
 export {
   CHECKING_ACCOUNT_RT_APINAME,
   SAVINGS_ACCOUNT_RT_APINAME,
-  BANK_ACCOUNT_RT_APINAME,
-  MULTI_PARTY,
-  JOINT
+  BANK_ACCOUNT_RT_APINAME
 };
 
 export default class FinancialAccountParent extends LightningElement {
@@ -117,11 +117,9 @@ export default class FinancialAccountParent extends LightningElement {
     this.loading = true;
     if (data) {
       //Added this to fetch ocvid of the joint owner from where the joint account called to get the ocvid - By Shivam, Oct'23
-      if (this.pageRef?.state?.c__ocvId) {
-        this.ocvIdForJointAccount = this.pageRef.state.c__ocvId;
-        this.isJointAccount = true;
-      }
-      this.ocvId = data.fields.OCV_ID__c.value;
+      this.ocvId = this.pageRef?.state?.c__ocvId
+        ? this.pageRef.state.c__ocvId
+        : data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
@@ -184,7 +182,7 @@ export default class FinancialAccountParent extends LightningElement {
     try {
       let accountDetails = await getFinancialAccountFabric({
         //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
-        ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
+        ocvId: this.ocvId,
         accountNumbers: [this.accountNumber]
       });
       this.accountData = this.handleAccountInformation(accountDetails);
@@ -214,7 +212,7 @@ export default class FinancialAccountParent extends LightningElement {
         this.goalData = [];
         this.goalData = await getAccountBuckets({
           //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
-          ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
+          ocvId: this.ocvId,
           pageSize: 7,
           nextPageToken: paramUrl
         });
@@ -280,7 +278,7 @@ export default class FinancialAccountParent extends LightningElement {
     try {
       this.transactionData = await getTransactionHistoryAura({
         //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
-        ocvId: this.isJointAccount ? this.ocvIdForJointAccount : this.ocvId,
+        ocvId: this.ocvId,
         accountNumber: this.accountNumber,
         startDate: this.transactionStartDate,
         endDate: this.transactionEndDate,

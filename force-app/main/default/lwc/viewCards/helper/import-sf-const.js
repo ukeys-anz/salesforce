@@ -8,6 +8,7 @@ import hasCancelCardPermission from "@salesforce/customPermission/ANZx_Cancel_Ca
 export const CARD_IMAGES = {
   default: `${card_images}/card_active.png`,
   active: `${card_images}/card_active.png`,
+  joint: `${card_images}/card_joint.png`,
   locked: `${card_images}/card_locked.png`,
   disabled: `${card_images}/card_disabled.png`
 };
