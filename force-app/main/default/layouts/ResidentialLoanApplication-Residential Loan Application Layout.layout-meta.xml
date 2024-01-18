@@ -152,7 +152,9 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
-        <fields>PropertyValue</fields>
+        <fields>Property_Value__c</fields>
+        <fields>Property_Type__c</fields>
+        <fields>Maximum_Allowable_LVR__c</fields>
         <relatedList>LoanApplicationProperty</relatedList>
     </relatedLists>
     <relatedLists>

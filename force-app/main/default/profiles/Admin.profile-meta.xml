@@ -10533,6 +10533,17 @@
         <layout>Appointment_Commitment__c-Appointment Commitment Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Assessment_Response__c-Assessment Response Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Assessment_Response__c-Assessment Response Layout</layout>
+        <recordType>Assessment_Response__c.Needs_Assessment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Assessment_Response__c-Ineligible Reason Page</layout>
+        <recordType>Assessment_Response__c.Property_Collateral_Assessment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Automated_Request_Purpose__mdt-Automated Request Purpose Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
