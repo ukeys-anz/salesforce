@@ -559,7 +559,10 @@ public with sharing class CCRMLeadActions {
   ) {
     List<Lead> listOfLeads = new List<Lead>();
     for (Lead record : records) {
-      if (!record.Is_BOH_Lead__c) {
+      if (
+        record.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID ||
+        record.RecordTypeId == CCRMConstants.MLCRM_LEAD_RT_ID
+      ) {
         Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
         if (
           (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA ||
