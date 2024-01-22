@@ -140,7 +140,7 @@
             <sequenceNumber>1.0</sequenceNumber>
             <type>DataRaptor Post Action</type>
         </childElements>
-        <isActive>true</isActive>
+        <isActive>false</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
         <name>CRLoopBlock</name>
@@ -153,7 +153,7 @@
   &quot;label&quot; : &quot;LoopBlock2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -182,7 +182,7 @@
   &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
   &quot;remoteOptions&quot; : { },
   &quot;remoteMethod&quot; : &quot;deleteComplaintResolution&quot;,
-  &quot;chainOnStep&quot; : false,
+  &quot;chainOnStep&quot; : true,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;additionalChainableResponse&quot; : { },
   &quot;show&quot; : null,
@@ -215,7 +215,7 @@
   &quot;sendJSONPath&quot; : &quot;Case&quot;,
   &quot;sendJSONNode&quot; : &quot;Case&quot;,
   &quot;bundle&quot; : &quot;DRCaseClose&quot;,
-  &quot;chainOnStep&quot; : false,
+  &quot;chainOnStep&quot; : true,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
@@ -247,7 +247,7 @@
   &quot;sendJSONPath&quot; : &quot;TransformCaseDetails&quot;,
   &quot;sendJSONNode&quot; : &quot;&quot;,
   &quot;bundle&quot; : &quot;DRCreateCase&quot;,
-  &quot;chainOnStep&quot; : false,
+  &quot;chainOnStep&quot; : true,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
@@ -283,7 +283,7 @@
   &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
   &quot;remoteOptions&quot; : { },
   &quot;remoteMethod&quot; : &quot;createComplaintResolution&quot;,
-  &quot;chainOnStep&quot; : false,
+  &quot;chainOnStep&quot; : true,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;additionalChainableResponse&quot; : { },
   &quot;show&quot; : null,
@@ -291,6 +291,43 @@
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
         <sequenceNumber>3.0</sequenceNumber>
+        <type>Remote Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>RAUpdateComplaintRes</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%=true&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;ComplaintId&quot; : &quot;%Case:Id%&quot;,
+    &quot;ComplaintResolution&quot; : &quot;%TransformClosecase:ComplaintRes%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteMethod&quot; : &quot;createComplaintResolution&quot;,
+  &quot;chainOnStep&quot; : true,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;RemoteAction4&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -343,7 +380,7 @@
   &quot;sendJSONPath&quot; : &quot;&quot;,
   &quot;sendJSONNode&quot; : &quot;&quot;,
   &quot;bundle&quot; : &quot;DRTransformCaseDetails&quot;,
-  &quot;chainOnStep&quot; : false,
+  &quot;chainOnStep&quot; : true,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;ignoreCache&quot; : false,
   &quot;show&quot; : null,
@@ -375,7 +412,7 @@
   &quot;sendJSONPath&quot; : &quot;Case&quot;,
   &quot;sendJSONNode&quot; : &quot;Case&quot;,
   &quot;bundle&quot; : &quot;DRTransformCloseCase&quot;,
-  &quot;chainOnStep&quot; : false,
+  &quot;chainOnStep&quot; : true,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;ignoreCache&quot; : false,
   &quot;show&quot; : null,
@@ -417,5 +454,5 @@
     <type>Case</type>
     <uniqueName>Case_CreateCase_Procedure_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>9eb36038-7d30-63bf-8324-4629c045442d</webComponentKey>
+    <webComponentKey>6f474dfe-d2ae-dd30-f15d-b1a2c189e78b</webComponentKey>
 </OmniIntegrationProcedure>

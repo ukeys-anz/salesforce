@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequestedLoanAmount</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source_Property_Domain</complianceGroup>
+    <description>Requested Loan Amount by Customer</description>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+</CustomField>

@@ -43,6 +43,16 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
     if (response.successful) {
       try {
         result = IDRCustomerInformationModel.parse(response.body);
+        if ( Label.IDR_Excluded_OCV_ProductTypes != null) {
+          List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(',');
+          List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
+          for ( IDRCustomerInformationModel.Accounts oAccount : result.accounts) {
+            if ( !lstExcludedProductTypes.contains(oAccount.subProductCode)) {
+              accounts.add(oAccount);
+            }
+          }
+          result.accounts = accounts;
+        }
       } catch (Exception e) {
         handleErrors(null, e, IDRAPIRepository.class);
       }
