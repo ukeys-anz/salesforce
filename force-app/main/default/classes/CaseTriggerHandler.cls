@@ -152,6 +152,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.afterUpdate(oldMap, records);
     Logger.debug('On_Validate_before_AfterUpdate finished: ' + System.now());
     Logger.saveLog();
+    //Fake Commit
   }
 
   /**
