@@ -195,7 +195,10 @@ public with sharing class IDRQualityAssessmentTaskActions {
   }
  /**
    * @description method to write a common function to create a Task.
-   * 
+   * @param oAssessment Quality Assessment object
+   * @param strDescription Description of the task
+   * @param strSubject Subject of the task
+   * @return Task object
    */
   public static Task getComplianceTask(Quality_Assessment__c oAssessment, String strDescription, String strSubject ){
       Task taskObj = New Task();
