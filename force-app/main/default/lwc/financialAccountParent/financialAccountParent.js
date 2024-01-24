@@ -112,7 +112,6 @@ export default class FinancialAccountParent extends LightningElement {
     ]
   })
   async wiredRecord({ data }) {
-    console.log("Wried method from financial Account Parent");
     if (this.wiredMethodCalled) {
       return;
     }
