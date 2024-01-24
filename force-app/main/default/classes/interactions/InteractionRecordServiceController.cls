@@ -111,7 +111,8 @@ public with sharing class InteractionRecordServiceController {
           InteractionConstants.CLOSED_AND_ARCHIVED
         ) ||
         record.Status__c.equals(InteractionConstants.ACTIVE) ||
-        record.Status__c.equals(InteractionConstants.RESOLVED));
+        record.Status__c.equals(InteractionConstants.RESOLVED) ||
+        record.Status__c.equals(InteractionConstants.CANCELLED_STATUS));
       } else {
         this.enableReinitiate = true;
       }
