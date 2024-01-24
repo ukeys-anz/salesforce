@@ -205,8 +205,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
       taskObj.RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID;
       taskObj.OwnerId = oAssessment.TeamManager__c;
       taskObj.WhatId = oAssessment.Id;
-      taskObj.Subject = Subject;
-      taskObj.Description = Description;
+      taskObj.Subject = strSubject;
+      taskObj.Description = strDescription;
       taskObj.ActivityDate = Date.today().addDays(7);
       taskObj.Status = 'Open';
       taskObj.Priority = 'Normal';
