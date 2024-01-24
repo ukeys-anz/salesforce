@@ -95,6 +95,7 @@ export default class FinancialAccountParent extends LightningElement {
   disputeRecordTypes = [];
   filterGoal = false;
   accountOwnershipType;
+  wiredMethodCalled = false;
 
   @wire(CurrentPageReference)
   pageRef;
@@ -111,6 +112,10 @@ export default class FinancialAccountParent extends LightningElement {
     ]
   })
   async wiredRecord({ data }) {
+    console.log("Wried method from financial Account Parent");
+    if (this.wiredMethodCalled) {
+      return;
+    }
     this.loading = true;
     if (data) {
       //Added this to fetch ocvid of the joint owner from where the joint account called to get the ocvid - By Shivam, Oct'23
@@ -148,7 +153,9 @@ export default class FinancialAccountParent extends LightningElement {
       if (!this.transactionData) {
         await this.getTransactionData();
       }
+      this.wiredMethodCalled = true;
     }
+
     this.loading = false;
   }
 
