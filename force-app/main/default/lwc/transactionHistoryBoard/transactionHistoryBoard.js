@@ -73,10 +73,10 @@ export default class TransactionHistoryBoard extends LightningElement {
       return;
     }
     if (data) {
+      this.wiredMethodCalled = true;
       this.startDate = this.inputStartDate(this.tstartDate);
       this.endDate = this.inputEndDate(this.tendDate);
       this.handleGetPersonAccount();
-      this.wiredMethodCalled = true;
     }
   }
 

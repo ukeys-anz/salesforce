@@ -117,6 +117,8 @@ export default class FinancialAccountParent extends LightningElement {
     }
     this.loading = true;
     if (data) {
+      this.wiredMethodCalled = true;
+
       //Added this to fetch ocvid of the joint owner from where the joint account called to get the ocvid - By Shivam, Oct'23
       this.ocvId = this.pageRef?.state?.c__ocvId
         ? this.pageRef.state.c__ocvId
@@ -152,7 +154,6 @@ export default class FinancialAccountParent extends LightningElement {
       if (!this.transactionData) {
         await this.getTransactionData();
       }
-      this.wiredMethodCalled = true;
     }
 
     this.loading = false;
