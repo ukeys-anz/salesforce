@@ -80,7 +80,7 @@ public with sharing class CCRMFinancialAccountRoleActions {
     }
 
     if (!financialAccounts.isEmpty()) {
-      DMLUtil.updateRecords(financialAccounts, true, true);
+      Database.update(financialAccounts, true, AccessLevel.USER_MODE);
     }
   }
 

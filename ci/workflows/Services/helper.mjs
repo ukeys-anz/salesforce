@@ -376,7 +376,7 @@ const uploadFile = (
   console.log(`Upload ${whatFile} File`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${fileName}" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}"`
+      `curl -H "Authorization: Bearer ${artifactorySecret}" -X PUT -T "${fileName}" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}"`
     ).toString("utf8")
   );
 };
@@ -390,7 +390,7 @@ const downloadFile = (
   console.log(`Download ${whatFile} File.`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}"`
+      `curl -H "Authorization: Bearer ${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}"`
     ).toString("utf8")
   );
 };
@@ -404,7 +404,7 @@ const downloadZipFile = (
   console.log(`Download ${whatFile} File.`);
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}.zip"`
+      `curl -H "Authorization: Bearer ${artifactorySecret}" -O "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${fileName}.zip"`
     ).toString("utf8")
   );
 };

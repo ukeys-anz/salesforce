@@ -482,7 +482,14 @@
       "IA-2415987": ["Assessment_Response__c"],
       "IA-2415983": ["Loan_Application__c"],
       "IA-2530753": ["Created_Date__c"],
-      "IA-2415840": ["External_Id__c"]
+      "IA-2415840": [
+        "External_Id__c",
+        "Loan_Application_Property__c",
+        "Ineligibility_Reason_Type_Code__c",
+        "Ineligibility_Reason_Subtype_Code__c",
+        "Ineligibility_Reason_Type__c",
+        "Ineligibility_Reason_Subtype__c"
+      ]
     },
     "Campaign": {
       "IA-2415860": [
@@ -1701,6 +1708,29 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
+    "Feature__c": {
+      "IA-2415860": [
+        "Account_Number__c",
+        "Open_Date__c",
+        "Closed_Date__c",
+        "Account_Key__c",
+        "Product_Type__c",
+        "Marketing_Code__c",
+        "OCV_Feature_Version__c",
+        "Force_Update__c"
+      ]
+    },
+    "FA_Feature_Relationship__c": {
+      "IA-2415860": [
+        "Feature__c",
+        "Financial_Account__c",
+        "Relationship_Status__c",
+        "Start_Date__c",
+        "End_Date__c",
+        "Relationship_Key__c",
+        "Financial_Account_Product__c"
+      ]
+    },
     "Financial_Summary_Calculation__e": {
       "IA-2530753": [
         "Last_Calculated_Time__c",
@@ -2302,18 +2332,39 @@
         "PropertyAddress",
         "Property_ID__c",
         "Property_Status__c",
-        "Property_Type__c",
-        "Year_Built__c"
+        "Year_Built__c",
+        "Address_Details__c"
       ],
+
       "IA-2530753": ["CreatedDate", "LastModifiedDate", "Last_Updated_Date__c"],
-      "IA-2594111": ["LoanApplicationId", "PropertyExtIdentifier"],
+      "IA-2594111": ["LoanApplicationId"],
       "IA-2594114": [
         "Primary_Valuation_Type__c",
         "Risk_Description__c",
         "Risk_Type__c",
         "Supporting_Valuation_Type__c"
       ],
-      "IA-2415983": ["PropertyValue"]
+      "IA-2415983": [
+        "PropertyValue",
+        "RequestedLoanAmount",
+        "Maximum_Lending_Amount__c",
+        "Property_Value__c"
+      ],
+      "IA-2415840": [
+        "Maximum_Allowable_LVR__c",
+        "Collateral_Assessment_Expiry_Time__c",
+        "Collateral_Assessment_Time__c",
+        "Collateral_Assessment_Enquiry_Type__c",
+        "PropertyExtIdentifier",
+        "Collateral_Assessment_ID__c",
+        "Property_Valuation_Type__c",
+        "Property_Risk_Code__c",
+        "Property_Risk_Description__c",
+        "Property_Subtype__c",
+        "Property_Type__c",
+        "Forecast_Standard_Deviation__c"
+      ],
+      "IA-2415855": ["Collateral_Assessment_Outcome__c"]
     },
     "Location": {
       "IA-2468715": [

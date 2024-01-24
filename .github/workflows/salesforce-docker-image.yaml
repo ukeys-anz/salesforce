@@ -41,7 +41,7 @@ jobs:
         uses: "google-github-actions/get-secretmanager-secrets@main"
         with:
           secrets: |-
-            artifactory_token:projects/anz-x-gha-prod-0f0d8b/secrets/ghr-salesforce-prod-artifactory-password/versions/latest
+            artifactory_token:projects/anz-x-gha-prod-0f0d8b/secrets/ghr-salesforce-prod-artifact-password/versions/latest
 
       #  Login to registry
       - name: "Registry Authentication"

@@ -9,6 +9,13 @@ public with sharing class AccountCommonActions {
   // This is used to revert the changes on accounts that resulted from lead conversion process
   private static Set<Id> convertedAccountIds = new Set<Id>();
   private static final String DELETED_IN_OCV_FLAG_ERROR_MSG = 'having multiple records with the Deleted_In_OCV__C flag set in a single transaction is not supported';
+  @TestVisible
+  private static final String CUSTOMER_LINKED_TO_KYC_QA_SUCCESS = 'Customer has been successfuly link to KYC QA Case.';
+  @TestVisible
+  private static final String CUSTOMER_LINKED_TO_KYC_QA_ERROR = 'Error occured while linking Customer to KYC QA Case.';
+  @TestVisible
+  public static Boolean forceDMLError = false; // This is to force a DML error to increase unit test coverage
+
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
    * @param records The Account records passed from Trigger.new()
@@ -553,6 +560,31 @@ public with sharing class AccountCommonActions {
       }
     }
 
-    update kycQACaseToUpdateList;
+    List<Database.SaveResult> results = DMLUtil.updateRecords(
+      kycQACaseToUpdateList,
+      DMLUtil.ALLOW_PARTIAL_UPDATE,
+      DMLUtil.SYSTEM_MODE
+    );
+    for (Integer i = 0; i < results.size(); i++) {
+      if (results[i].isSuccess() == false || forceDMLError == true) {
+        Logger.error(
+          CUSTOMER_LINKED_TO_KYC_QA_ERROR +
+          ' Persona ID: ' +
+          kycQACaseToUpdateList.get(i).PersonaId__c +
+          (results[i].getErrors().isEmpty()
+            ? ''
+            : ' Error: ' + results[i].getErrors().get(0)),
+          Logger.Severity.HIGH
+        );
+      } else {
+        Logger.debug(
+          CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+          ' Persona ID: ' +
+          kycQACaseToUpdateList.get(i).PersonaId__c
+        );
+      }
+    }
+
+    Logger.saveLog();
   }
 }
