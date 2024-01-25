@@ -64,6 +64,10 @@
         <apexClass>TwilioServiceUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <name>ANZx_Cancel_Messages</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>Interaction permission set with Read/Write for Twilio access.</description>
     <fieldPermissions>
         <editable>true</editable>
