@@ -76,6 +76,13 @@ public with sharing class GetHelpConstants {
 
   //Hold the multi-party account's ownership value
   public static final String MULTI_PARTY = 'Multi-party';
+
+  //Hold the joint account's ownership value
+  public static final String JOINT = 'Joint';
+
+  //Hold the single account's ownership value
+  public static final String SINGLE = 'Single';
+
   //Hold the value of Transaction Initiator for joint account's secondary owner.
   public static final String CO_OWNER = 'Co-Owner';
 
@@ -318,4 +325,9 @@ public with sharing class GetHelpConstants {
   }
   // String to formulate name of Store Interaction
   public static final String COACHING_LAB = 'Coaching Lab';
+  // Set of transactions type where the default value of Transaction Made By should be blank (Transaction Made By this is a field and column on transaction record page)
+  public static final Set<String> CARD_TRANSACTION_TYPES = new Set<String>{
+    'CARD',
+    'DEPOSIT_WITHDRAWAL'
+  };
 }

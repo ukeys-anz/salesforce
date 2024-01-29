@@ -933,7 +933,8 @@
       "IA-2415997": [
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c",
-        "Sub_Status__c"
+        "Sub_Status__c",
+        "Transaction_Made_By__c"
       ],
       "IA-2415998": [
         "Correct_Customer_Reference_Number__c",
@@ -989,6 +990,7 @@
         "SI_PSI_Source__c"
       ],
       "IA-2415720": [
+        "Account_Type__c",
         "Biller_Code__c",
         "Biller_Name__c",
         "Date_Account_Last_Debited__c",

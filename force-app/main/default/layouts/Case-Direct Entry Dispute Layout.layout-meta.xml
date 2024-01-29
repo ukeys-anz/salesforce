@@ -15,6 +15,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>ContactId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>ContactMobile</field>
             </layoutItems>
         </layoutColumns>
@@ -47,6 +51,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Transaction_UUID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Transaction_Made_By__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -202,10 +210,6 @@
         <editHeading>true</editHeading>
         <label>Other Information</label>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ContactId</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>SuppliedEmail</field>

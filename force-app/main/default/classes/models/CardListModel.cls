@@ -1,7 +1,9 @@
 /**
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
  */
-@SuppressWarnings('PMD.FieldNamingConventions, PMD.VariableNamingConventions')
+@SuppressWarnings(
+  'PMD.ExcessivePublicCount, PMD.FieldNamingConventions, PMD.VariableNamingConventions, PMD.TooManyFields, PMD.PropertyNamingConventions'
+)
 /**
  * @author Lance Shi
  * @since April 2021
@@ -45,12 +47,32 @@ public with sharing class CardListModel extends CalloutModel {
     public ExpiryDateCls expiry_date;
     @AuraEnabled
     public List<String> account_numbers;
+    /**
+     * @description concate account numbers and show on card details screen
+     */
+    // ANZX-128122 : Show Account Numbers on Card Details section.
+    @AuraEnabled
+    public String concatAccountNumber {
+      get {
+        String accountNumbers;
+        if (this.account_numbers != null && !this.account_numbers.isEmpty()) {
+          accountNumbers = (this.account_numbers.size() > 0)
+            ? String.join(this.account_numbers, ',')
+            : this.account_numbers[0];
+        }
+        return accountNumbers;
+      }
+      set;
+    }
+
     @AuraEnabled
     public List<String> eligibilities;
     @AuraEnabled
     public Map<String, Integer> wallets;
     @AuraEnabled
     public Boolean card_controls_enabled;
+    @AuraEnabled
+    public String accountType;
 
     /**
      * @description stores the card controls for the card
@@ -136,11 +158,60 @@ public with sharing class CardListModel extends CalloutModel {
   }
 
   /**
+   * @param cardmodel deserialized card model
+   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
+   * @return `CardListModel` return the cardlistmodel with accountType field updated
+   * @description This method updates the accountype field in the cardlistmodel
+   */
+  public static CardListModel updateAccountType(
+    CardListModel cardmodel,
+    Map<String, String> mapOfAccountNumberAndOwnership
+  ) {
+    List<CardCls> listOfCards = cardmodel.cards;
+    for (CardCls card : listOfCards) {
+      setAccountTypeOnEachCardCls(card, mapOfAccountNumberAndOwnership);
+    }
+    return cardmodel;
+  }
+
+  /**
+   * @param card Card Model object
+   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
+   * @description Sets accountType for each card data.
+   */
+  private static void setAccountTypeOnEachCardCls(
+    CardCls card,
+    Map<String, String> mapOfAccountNumberAndOwnership
+  ) {
+    if (card.account_numbers == null || card.account_numbers.isEmpty()) {
+      return;
+    }
+    for (String accnumber : card.account_numbers) {
+      if (mapOfAccountNumberAndOwnership.containsKey(accnumber)) {
+        card.accountType = mapOfAccountNumberAndOwnership.get(accnumber) ==
+          GetHelpConstants.MULTI_PARTY
+          ? GetHelpConstants.JOINT
+          : GetHelpConstants.SINGLE;
+        break;
+      }
+    }
+  }
+
+  /**
    * @param json input string to deserialize
+   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
    * @return `CardListModel`
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
-  public static CardListModel parse(String json) {
-    return (CardListModel) deserialize(json, CardListModel.class);
+  public static CardListModel parse(
+    String json,
+    Map<String, String> mapOfAccountNumberAndOwnership
+  ) {
+    CardListModel cardmodel = (CardListModel) deserialize(
+      json,
+      CardListModel.class
+    );
+
+    return updateAccountType(cardmodel, mapOfAccountNumberAndOwnership);
   }
 }

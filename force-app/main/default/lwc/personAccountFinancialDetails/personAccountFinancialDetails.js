@@ -24,10 +24,10 @@ import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAc
 
 import {
   CHECKING_ACCOUNT_RT_APINAME,
-  SAVINGS_ACCOUNT_RT_APINAME,
-  MULTI_PARTY,
-  JOINT
+  SAVINGS_ACCOUNT_RT_APINAME
 } from "c/financialAccountParent";
+
+import { MULTI_PARTY, JOINT } from "c/transactionHistoryService";
 
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;

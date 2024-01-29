@@ -39,68 +39,37 @@ public with sharing class TransactionHistoryController {
 
   /**
    * @description Get the data from the person account
-   * @param financialAccountId Financial Account Id related
-   * @return Map<String, Object> field-value map of the person account used as the primary owner of this financial account
+   * @param customerOCVId OCV Id of the Customer from where the dispute get raised
+   * @return Map<String, Object> field-value map of the person account used as the owner of this financial account
+   * Added changes for the parameters in order to handle Person Account details for Joint Account as well as Single Account
    */
   @AuraEnabled
-  public static Map<String, Object> getPersonAccount(
-    String financialAccountId
-  ) {
+  public static Map<String, Object> getPersonAccount(String customerOCVId) {
     Map<String, Object> returnMap = new Map<String, Object>();
-
-    if (
-      Account.SObjectType.getDescribe().isAccessible() &&
-      FinServ__FinancialAccount__c.SObjectType.getDescribe().isAccessible()
-    ) {
-      FinServ__FinancialAccount__c financialAccount = [
-        SELECT
-          Id,
-          FinServ__PrimaryOwner__r.Id,
-          FinServ__PrimaryOwner__r.BillingStreet,
-          FinServ__PrimaryOwner__r.BillingCity,
-          FinServ__PrimaryOwner__r.BillingState,
-          FinServ__PrimaryOwner__r.BillingPostalCode,
-          FinServ__PrimaryOwner__r.BillingCountry,
-          FinServ__PrimaryOwner__r.OCV_ID__c
-        FROM FinServ__FinancialAccount__c
-        WHERE Id = :financialAccountId
-        LIMIT 1
-      ];
-      returnMap.put('AccountId', financialAccount.FinServ__PrimaryOwner__r.Id);
-      returnMap.put(
-        'BillingStreet',
-        financialAccount.FinServ__PrimaryOwner__r.BillingStreet
-      );
-      returnMap.put(
-        'BillingCity',
-        financialAccount.FinServ__PrimaryOwner__r.BillingCity
-      );
-      returnMap.put(
-        'BillingState',
-        financialAccount.FinServ__PrimaryOwner__r.BillingState
-      );
-      returnMap.put(
-        'BillingPostalCode',
-        financialAccount.FinServ__PrimaryOwner__r.BillingPostalCode
-      );
-      returnMap.put(
-        'BillingCountry',
-        financialAccount.FinServ__PrimaryOwner__r.BillingCountry
-      );
-      returnMap.put(
-        'OCV_ID__c',
-        financialAccount.FinServ__PrimaryOwner__r.OCV_ID__c
-      );
-      Logger.debug(
-        'Person Account retrieved with Id: ' +
-        financialAccount.FinServ__PrimaryOwner__c
-      );
-      Logger.saveLog();
-      return returnMap;
-    }
-    Logger.debug('Unable to retrieve person account');
+    PermissionUtils.canQuery('Account');
+    Account personAccount = [
+      SELECT
+        Id,
+        BillingStreet,
+        BillingCity,
+        BillingState,
+        BillingPostalCode,
+        BillingCountry,
+        OCV_ID__c
+      FROM Account
+      WHERE OCV_ID__c = :customerOCVId
+      LIMIT 1
+    ];
+    returnMap.put('AccountId', personAccount.Id);
+    returnMap.put('BillingStreet', personAccount.BillingStreet);
+    returnMap.put('BillingCity', personAccount.BillingCity);
+    returnMap.put('BillingState', personAccount.BillingState);
+    returnMap.put('BillingPostalCode', personAccount.BillingPostalCode);
+    returnMap.put('BillingCountry', personAccount.BillingCountry);
+    returnMap.put('OCV_ID__c', personAccount.OCV_ID__c);
+    Logger.debug('Person Account retrieved with Id: ' + personAccount.Id);
     Logger.saveLog();
-    return null;
+    return returnMap;
   }
 
   /**
