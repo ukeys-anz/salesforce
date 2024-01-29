@@ -842,21 +842,21 @@ public with sharing class CommonUtil {
 
   /**
    * @description Get Profile by Profile Name
-   * @param profileNameList set of name of the Profile
+   * @param lstOfProfileName set of name of the Profile
    * @return Map<String,Id> ids of profiles.
    */
   public static Map<String, Id> getProfileByNames(
-    List<String> profileNameList
+    List<String> lstOfProfileName
   ) {
-    Map<String, Id> idToProfileMap = new Map<String, Id>();
+    Map<String, Id> mapOfProfileId = new Map<String, Id>();
     for (Profile prof : [
       SELECT Id, Name
       FROM Profile
-      WHERE Name IN :profileNameList
+      WHERE Name IN :lstOfProfileName
     ]) {
-      idToProfileMap.put(prof.Name, prof.Id);
+      mapOfProfileId.put(prof.Name, prof.Id);
     }
 
-    return idToProfileMap;
+    return mapOfProfileId;
   }
 }
