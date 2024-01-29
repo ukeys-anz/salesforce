@@ -559,14 +559,19 @@ public with sharing class CCRMLeadActions {
   ) {
     List<Lead> listOfLeads = new List<Lead>();
     for (Lead record : records) {
-      Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
       if (
-        (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA ||
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM ||
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) &&
-        record.SubStatus__c != oldRec.SubStatus__c
+        record.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID ||
+        record.RecordTypeId == CCRMConstants.MLCRM_LEAD_RT_ID
       ) {
-        listOfLeads.add(record);
+        Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
+        if (
+          (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA ||
+          record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM ||
+          record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) &&
+          record.SubStatus__c != oldRec.SubStatus__c
+        ) {
+          listOfLeads.add(record);
+        }
       }
     }
     if (listOfLeads.size() > 0) {
