@@ -382,6 +382,7 @@
       ]
     },
     "Activity": {
+      "IA-2530753": ["Pega_CDH_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
@@ -3240,8 +3241,7 @@
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
-      ],
-      "IA-2530753": ["Pega_CDH_Id__c"]
+      ]
     },
     "Traced_Application_Log__b": {
       "IA-2468710": [
