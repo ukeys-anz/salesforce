@@ -169,19 +169,32 @@ public with sharing class CardListModel extends CalloutModel {
   ) {
     List<CardCls> listOfCards = cardmodel.cards;
     for (CardCls card : listOfCards) {
-      if (card.account_numbers != null && !card.account_numbers.isEmpty()) {
-        for (String accnumber : card.account_numbers) {
-          if (mapOfAccountNumberAndOwnership.containsKey(accnumber)) {
-            card.accountType = mapOfAccountNumberAndOwnership.get(accnumber) ==
-              GetHelpConstants.MULTI_PARTY
-              ? GetHelpConstants.JOINT
-              : GetHelpConstants.SINGLE;
-            break;
-          }
-        }
-      }
+      setAccountTypeOnEachCardCls(card, mapOfAccountNumberAndOwnership);
     }
     return cardmodel;
+  }
+
+  /**
+   * @param card Card Model object
+   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
+   * @description Sets accountType for each card data.
+   */
+  private static void setAccountTypeOnEachCardCls(
+    CardCls card,
+    Map<String, String> mapOfAccountNumberAndOwnership
+  ) {
+    if (card.account_numbers == null || card.account_numbers.isEmpty()) {
+      return;
+    }
+    for (String accnumber : card.account_numbers) {
+      if (mapOfAccountNumberAndOwnership.containsKey(accnumber)) {
+        card.accountType = mapOfAccountNumberAndOwnership.get(accnumber) ==
+          GetHelpConstants.MULTI_PARTY
+          ? GetHelpConstants.JOINT
+          : GetHelpConstants.SINGLE;
+        break;
+      }
+    }
   }
 
   /**

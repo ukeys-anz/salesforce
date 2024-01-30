@@ -1547,7 +1547,8 @@
         "CreatedDate",
         "Id",
         "LastModifiedDate",
-        "VerificationType__c"
+        "VerificationType__c",
+        "Has_ID_Ops_Assistance_Cases__c"
       ]
     },
     "Customer_Profile_Updates__c": {
@@ -2051,7 +2052,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Date_Received__c"
       ],
       "IA-2415983": ["FinServ__ExpressedInterest__c"],
       "IA-2415984": [
@@ -2083,7 +2085,8 @@
         "Title",
         "Title__c",
         "Website",
-        "Work_Phone__c"
+        "Work_Phone__c",
+        "PostalCode__c"
       ],
       "IA-2415860": [
         "Business_ID__c",
@@ -2143,7 +2146,11 @@
         "Primary_Contact_Method__c",
         "SourceSystemId__c",
         "IsNewLead__c",
-        "Territory__c"
+        "Territory__c",
+        "OpportunityType__c",
+        "Contactpreferences__c",
+        "Is_BOH_Lead__c",
+        "Lead_Record_Name__c"
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],

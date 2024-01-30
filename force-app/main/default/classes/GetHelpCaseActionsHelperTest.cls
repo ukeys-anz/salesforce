@@ -24,28 +24,68 @@ public with sharing class GetHelpCaseActionsHelperTest {
   }
 
   private static void makeCOBData() {
+    List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
+    CustomerOnboardingApplication__c cobAppSTP = createCOBApp(
+      COBApplicationActionsHelper.VERIFICATION_TYPE_STP
+    );
+    cobApps.add(cobAppSTP);
+    CustomerOnboardingApplication__c cobAppAssisted = createCOBApp(
+      COBApplicationActionsHelper.VERIFICATION_TYPE_ASSISTED
+    );
+    cobApps.add(cobAppAssisted);
+    insert cobApps;
+
     List<Case> cases = new List<Case>();
 
     for (Integer i = 0; i < COB_CASES_COUNT; i++) {
       cases.add(
         createCase(
           GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS,
-          GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+          GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+          cobAppSTP.Id
         )
       );
 
       cases.add(
-        createCase(COB_CLOSED_STATUSES[i], GetHelpConstants.FRAUD_CHECK_RT_ID)
+        createCase(
+          COB_CLOSED_STATUSES[i],
+          GetHelpConstants.FRAUD_CHECK_RT_ID,
+          cobAppSTP.Id
+        )
       );
     }
+
+    Case newCase = createCase(
+      GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      cobAppAssisted.Id
+    );
+    cases.add(newCase);
     insert cases;
   }
 
-  private static Case createCase(String status, String recordTypeId) {
+  private static CustomerOnboardingApplication__c createCOBApp(
+    String verificationType
+  ) {
+    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
+      PersonaId__c = FAKER.randomString(15),
+      OCVId__c = FAKER.randomString(10),
+      SecurityMobile__c = FAKER.randomString(10),
+      VerificationType__c = verificationType,
+      EquifaxAttemptCount__c = 1
+    );
+    return cob;
+  }
+
+  private static Case createCase(
+    String status,
+    String recordTypeId,
+    String cobId
+  ) {
     Case c = new Case();
     c.Status = status;
     c.RecordTypeId = recordTypeId;
-
+    c.CustomerOnboardingApplication__c = cobId;
     return c;
   }
 
@@ -61,12 +101,14 @@ public with sharing class GetHelpCaseActionsHelperTest {
   private static void testIsStatusChanged() {
     Case oldRecord = createCase(
       GetHelpConstants.COB_DAON_FAILED_STATUS,
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      null
     );
 
     Case newRecord = createCase(
       GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      null
     );
 
     Boolean isStatusChanged = GetHelpCaseActionsHelper.isStatusChanged(
@@ -171,6 +213,20 @@ public with sharing class GetHelpCaseActionsHelperTest {
     Assert.isTrue(
       updatedIdOpsCases.isEmpty(),
       'There should be an empty list of cases.'
+    );
+  }
+
+  @isTest
+  private static void testGetCOBAppsHasIDOpsAssistanceCases() {
+    List<CustomerOnboardingApplication__c> cobApps = [
+      SELECT Id
+      FROM CustomerOnboardingApplication__c
+      WHERE Has_ID_Ops_Assistance_Cases__c = TRUE
+    ];
+    Assert.areEqual(
+      1,
+      cobApps.size(),
+      'Should has 1 COB Application records Has ID Ops Assistance Cases'
     );
   }
 }

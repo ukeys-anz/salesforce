@@ -3255,8 +3255,7 @@ private class CaseTriggerHandlerTest {
   // Test create Fraud Check Case when ID Ops Case changes to 'Potential Fraud' status
   @isTest
   public static void testCreateFraudCheckCase() {
-    User usr = TestUtil.getUserByFirstName('FraudXTest');
-
+    User usr = [SELECT Id FROM User WHERE FirstName = 'FraudXTest'];
     //create an onboarding application
     List<CustomerOnboardingApplication__c> cobs = new List<CustomerOnboardingApplication__c>();
 
@@ -3305,9 +3304,7 @@ private class CaseTriggerHandlerTest {
 
     Test.startTest();
 
-    System.runAs(usr) {
-      update idOpsAssistsCases;
-    }
+    update idOpsAssistsCases;
 
     //verify fraud check case gets created
     List<Case> fraudCheckCases = [

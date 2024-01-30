@@ -132,32 +132,10 @@ public with sharing class StravinskyController {
     //Added AccountType check in order to segregate the Individual and Joint Scenario.
     switch on caseRecord.Account_Type__c {
       when 'Individual' {
-        financialAccounts = [
-          SELECT
-            Id,
-            FinServ__FinancialAccountNumber__c,
-            Ownership__c,
-            OCV_ID__c,
-            RecordType.DeveloperName
-          FROM FinServ__FinancialAccount__c
-          WHERE
-            FinServ__PrimaryOwner__c = :caseRecord.AccountId
-            AND Ownership__c = :GetHelpConstants.SINGLE
-            AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
-        ];
+        financialAccounts = getListOfIndividualFinancialAccounts(caseRecord);
       }
       when 'Joint' {
-        financialAccountsRole = [
-          SELECT FinServ__FinancialAccount__c, FinServ__RelatedAccount__c
-          FROM FinServ__FinancialAccountRole__c
-          WHERE
-            FinServ__RelatedAccount__r.OCV_ID__c = :caseRecord.Account.OCV_Id__c
-            AND FinServ__Active__c = TRUE
-            AND FinServ__FinancialAccount__r.Ownership__c = :GetHelpConstants.MULTI_PARTY
-            AND FinServ__FinancialAccount__r.FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
-            AND (FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
-            OR FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME)
-        ];
+        financialAccountsRole = getListOfJointFinancialAccountRoles(caseRecord);
 
         //Added to throw exception if more than 1 Joint Account(One Savings and One Transactions) found. A Joint Account will always have one Savings and one Transactions financial account at Salesforce end.
         if (financialAccountsRole.size() > 2) {
@@ -171,17 +149,50 @@ public with sharing class StravinskyController {
           );
           e.setMessage(MORE_THAN_ONE_JOINT_ACCOUNT);
           throw e;
-        } else {
-          //Creating List Of Financial Accounts based on Financial Account Roles found
-          financialAccounts = getJointFinancialAccountsDetails(
-            financialAccountsRole,
-            customerOcvIdsList
-          );
         }
+        //Creating List Of Financial Accounts based on Financial Account Roles found
+        financialAccounts = getJointFinancialAccountsDetails(
+          financialAccountsRole,
+          customerOcvIdsList
+        );
       }
     }
 
     return financialAccounts;
+  }
+
+  private static List<FinServ__FinancialAccount__c> getListOfIndividualFinancialAccounts(
+    Case caseRecord
+  ) {
+    return [
+      SELECT
+        Id,
+        FinServ__FinancialAccountNumber__c,
+        Ownership__c,
+        OCV_ID__c,
+        RecordType.DeveloperName
+      FROM FinServ__FinancialAccount__c
+      WHERE
+        FinServ__PrimaryOwner__c = :caseRecord.AccountId
+        AND Ownership__c = :GetHelpConstants.SINGLE
+        AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
+    ];
+  }
+
+  private static List<FinServ__FinancialAccountRole__c> getListOfJointFinancialAccountRoles(
+    Case caseRecord
+  ) {
+    return [
+      SELECT FinServ__FinancialAccount__c, FinServ__RelatedAccount__c
+      FROM FinServ__FinancialAccountRole__c
+      WHERE
+        FinServ__RelatedAccount__r.OCV_ID__c = :caseRecord.Account.OCV_Id__c
+        AND FinServ__Active__c = TRUE
+        AND FinServ__FinancialAccount__r.Ownership__c = :GetHelpConstants.MULTI_PARTY
+        AND FinServ__FinancialAccount__r.FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
+        AND (FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
+        OR FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME)
+    ];
   }
 
   /**

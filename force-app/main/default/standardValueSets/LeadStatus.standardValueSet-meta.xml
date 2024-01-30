@@ -44,12 +44,6 @@
         <converted>false</converted>
     </standardValue>
     <standardValue>
-        <fullName>In progress</fullName>
-        <default>false</default>
-        <label>In progress</label>
-        <converted>false</converted>
-    </standardValue>
-    <standardValue>
         <fullName>Expired</fullName>
         <default>false</default>
         <label>Expired</label>
@@ -95,6 +89,18 @@
         <fullName>Outcome</fullName>
         <default>false</default>
         <label>Outcome</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed</fullName>
+        <default>false</default>
+        <label>Closed</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>In progress</fullName>
+        <default>false</default>
+        <label>In progress</label>
         <converted>false</converted>
     </standardValue>
 </StandardValueSet>
