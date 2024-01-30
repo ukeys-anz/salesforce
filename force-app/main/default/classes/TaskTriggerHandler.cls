@@ -50,6 +50,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRTaskActions.updateNotificationSubject(records);
     IDRTaskActions.beforeUpdateActions(records, (Map<Id, Task>) oldMap);
+    GetHelpTaskActions.beforeUpdateActions(records, (Map<Id, Task>) oldMap);
     //Added for CC-4053 Redaction
     TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
       records,
