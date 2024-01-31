@@ -257,9 +257,10 @@ export default class InitiateInteraction extends LightningElement {
 
   async handleReinitiate() {
     this.isLoadingCase = true;
-    this.objectApiName == "ResidentialLoanApplication"
-      ? (loanId = this.fields.loanId)
-      : (loanId = "");
+    let loanId =
+      this.objectApiName == "ResidentialLoanApplication"
+        ? this.fields.loanId
+        : "";
     let errorMessage =
       "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
     if (this.conversationSid) {
