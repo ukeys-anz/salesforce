@@ -1547,8 +1547,7 @@
         "CreatedDate",
         "Id",
         "LastModifiedDate",
-        "VerificationType__c",
-        "Has_ID_Ops_Assistance_Cases__c"
+        "VerificationType__c"
       ]
     },
     "Customer_Profile_Updates__c": {
