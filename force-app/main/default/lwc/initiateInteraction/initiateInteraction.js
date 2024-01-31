@@ -49,8 +49,7 @@ export default class InitiateInteraction extends LightningElement {
   contactCustomer = false;
   fields = {
     recordType: "General",
-    direction: "Outbound",
-    loanId: ""
+    direction: "Outbound"
   };
   objectFields = [];
   @api recordId;
