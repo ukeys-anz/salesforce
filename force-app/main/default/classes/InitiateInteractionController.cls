@@ -166,12 +166,7 @@ public with sharing class InitiateInteractionController {
         updateInteractionOwner(conversationSid);
       }
       // Update Loan_Application__c if chat initiated from Residential Loan Application
-      if (
-        String.isNotBlank(loanId) &&
-        Id.valueOf(loanId).getSObjectType().getDescribe().getName() ==
-        'ResidentialLoanApplication' &&
-        String.isNotBlank(conversationSid)
-      ) {
+      if (String.isNotBlank(loanId) && String.isNotBlank(conversationSid)) {
         updateInteractionLoanApplication(conversationSid, loanId);
       }
       return reinitiateChatModal;
