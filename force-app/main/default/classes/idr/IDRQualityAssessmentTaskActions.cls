@@ -133,7 +133,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
         }
         if (
           oAssessment.Corrective_actions_for_TM_CM__c !=
-          IDRConstants.CORRECTIVE_ACTIONS_NA
+          IDRConstants.CORRECTIVE_ACTIONS_NA &&
+          oAssessment.Corrective_actions_for_TM_CM__c !=null
         ) {
           correctiveActionsCQIds.add(oAssessment.Id);
         }
