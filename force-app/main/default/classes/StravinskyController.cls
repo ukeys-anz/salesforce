@@ -226,7 +226,13 @@ public with sharing class StravinskyController {
     for (
       FinServ__FinancialAccountRole__c finAccRole : financialAccountJointRoles
     ) {
-      customerOcvIdsList.add(finAccRole.FinServ__RelatedAccount__r.OCV_ID__c);
+      if (
+        !customerOcvIdsList.contains(
+          finAccRole.FinServ__RelatedAccount__r.OCV_ID__c
+        )
+      ) {
+        customerOcvIdsList.add(finAccRole.FinServ__RelatedAccount__r.OCV_ID__c);
+      }
       FinServ__FinancialAccount__c finAcc = new FinServ__FinancialAccount__c();
       finAcc.Id = finAccRole.FinServ__FinancialAccount__c;
       finAcc.FinServ__FinancialAccountNumber__c = finAccRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c;
