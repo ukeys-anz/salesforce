@@ -41,6 +41,16 @@ public with sharing class InitiateInteractionController {
     } else if (sobjectType == 'Lead' && PermissionUtils.canQuery('Lead')) {
       Lead l = [SELECT Id, MobilePhone FROM Lead WHERE Id = :sId];
       phoneNumber = l.MobilePhone;
+    } else if (
+      sobjectType == 'ResidentialLoanApplication' &&
+      PermissionUtils.canQuery('ResidentialLoanApplication')
+    ) {
+      ResidentialLoanApplication loanApplication = [
+        SELECT Id, Account.PersonMobilePhone
+        FROM ResidentialLoanApplication
+        WHERE Id = :sId
+      ];
+      phoneNumber = loanApplication.Account.PersonMobilePhone;
     }
     return phoneNumber;
   }
@@ -71,6 +81,7 @@ public with sharing class InitiateInteractionController {
         Contact_Mobile__c = fields.get('contactNumber'),
         Direction__c = fields.get('direction'),
         Interaction_Purpose__c = fields.get('reason'),
+        Loan_Application__c = fields.get('loanId'),
         StartTime = System.now()
       );
       insert newInteraction;
@@ -139,7 +150,8 @@ public with sharing class InitiateInteractionController {
   @AuraEnabled
   public static ReinitiateChatModel reinitiateChat(
     Id accountId,
-    String conversationSid
+    String conversationSid,
+    String loanId
   ) {
     CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
     ReinitiateChatModel reinitiateChatModal = null;
@@ -152,6 +164,15 @@ public with sharing class InitiateInteractionController {
       //Update Interaction Owner if new agent reinitiate chat
       if (reinitiateChatModal != null && String.isNotBlank(conversationSid)) {
         updateInteractionOwner(conversationSid);
+      }
+      // Update Loan_Application__c if chat initiated from Residential Loan Application
+      if (
+        String.isNotBlank(loanId) &&
+        Id.valueOf(loanId).getSObjectType().getDescribe().getName() ==
+        'ResidentialLoanApplication' &&
+        String.isNotBlank(conversationSid)
+      ) {
+        updateInteractionLoanApplication(conversationSid, loanId);
       }
       return reinitiateChatModal;
     } catch (CallCenterAPIRepository.CustomException e) {
@@ -206,6 +227,35 @@ public with sharing class InitiateInteractionController {
         false
       );
       Logger.error('Error occured while updating Interaction Owner', result);
+      Logger.saveLog();
+    }
+  }
+
+  /**
+   * @description Fetches Interaction details based on chatOrCallSid and update the Loan_Application__c
+   * @param chatOrCallSid the chatOrCallSid present in the interaction
+   * @param loanId the ResidentialLoanApplication record id
+   */
+  private static void updateInteractionLoanApplication(
+    String chatOrCallSid,
+    Id loanId
+  ) {
+    List<Interaction> interactionToUpdate = [
+      SELECT Id, OwnerId, Chat_or_Call_SID__c, Loan_Application__c
+      FROM Interaction
+      WHERE Chat_or_Call_SID__c = :chatOrCallSid
+      LIMIT 1
+    ];
+    if (!interactionToUpdate.isEmpty()) {
+      interactionToUpdate[0].Loan_Application__c = loanId;
+      Database.SaveResult result = Database.update(
+        interactionToUpdate[0],
+        false
+      );
+      Logger.error(
+        'Error occured while updating Interaction Loan_Application__c',
+        result
+      );
       Logger.saveLog();
     }
   }
