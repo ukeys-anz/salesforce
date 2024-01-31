@@ -22,6 +22,10 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
   callCloseCaseIP() {
     this.missingFields = [];
     this.modalMsg = "";
+    let shouldBreak = this.validateIssueTypeFieldValues();
+    if (shouldBreak) {
+      return;
+    }
     this.validateFields();
     if (this.missingFields.length > 0) {
       if (this.missingFields.length > 0) {
@@ -66,7 +70,27 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       });
     }
   }
-
+  validateIssueTypeFieldValues() {
+    let details = this.omniJsonData.Case;
+    let issueTypeCombinationMap = this.omniJsonData.issueTypeCombinationMap;
+    let proceed = false;
+    if (details.Type in issueTypeCombinationMap) {
+      let issueTypeArray = issueTypeCombinationMap[details.Type];
+      if (issueTypeArray.includes(details.IDR_Subsequent_Issue__c)) {
+        proceed = true;
+      } else {
+        proceed = false;
+      }
+    } else {
+      proceed = false;
+    }
+    if (proceed) {
+      this.showModal = true;
+      this.modalMsg =
+        "If editing or updating an issue type that triggers a collection stop, please make the amendment on the case record directly";
+    }
+    return proceed;
+  }
   // validate that all the required fields data has been provided
   validateFields() {
     let details = this.omniJsonData.Case;
