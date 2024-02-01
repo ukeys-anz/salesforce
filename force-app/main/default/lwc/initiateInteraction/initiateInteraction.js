@@ -5,7 +5,6 @@ import createInteraction from "@salesforce/apex/InitiateInteractionController.cr
 import getPhoneNumber from "@salesforce/apex/InitiateInteractionController.getPhoneNumber";
 import initiateChat from "@salesforce/apex/InitiateInteractionController.initiateChat";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
-import updateInteraction from "@salesforce/apex/InitiateInteractionController.updateInteractionLoanApplication";
 import voiceChannel from "@salesforce/messageChannel/InitiateOutboundCall__c";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import hasOutboundDialPermission from "@salesforce/customPermission/ANZx_Outbound_Dialling";
@@ -264,17 +263,9 @@ export default class InitiateInteraction extends LightningElement {
       try {
         let response = await reinitiateChat({
           accountId: this.fields.accountId,
-          conversationSid: this.conversationSid
+          conversationSid: this.conversationSid,
+          sObjectId: this.fields.loanId
         });
-        if (
-          this.objectApiName === "ResidentialLoanApplication" &&
-          response != null
-        ) {
-          updateInteraction({
-            conversationSid: this.conversationSid,
-            loanId: this.fields.loanId
-          });
-        }
         if (response?.executionSid) {
           this.executionSid = response.executionSid;
           this.handleShowContactTab();

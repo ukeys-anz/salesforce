@@ -150,7 +150,8 @@ public with sharing class InitiateInteractionController {
   @AuraEnabled
   public static ReinitiateChatModel reinitiateChat(
     Id accountId,
-    String conversationSid
+    String conversationSid,
+    String sObjectId
   ) {
     CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
     ReinitiateChatModel reinitiateChatModal = null;
@@ -162,7 +163,7 @@ public with sharing class InitiateInteractionController {
       );
       //Update Interaction Owner if new agent reinitiate chat
       if (reinitiateChatModal != null && String.isNotBlank(conversationSid)) {
-        updateInteractionOwner(conversationSid);
+        updateInteractionOwner(conversationSid, sObjectId);
       }
       return reinitiateChatModal;
     } catch (CallCenterAPIRepository.CustomException e) {
@@ -198,38 +199,11 @@ public with sharing class InitiateInteractionController {
   /**
    * @description Fetches Interaction details based on chatOrCallSid and update the owner on click
    * @param chatOrCallSid the chatOrCallSid present in the interaction
+   * @param sObjectId the sObjectId we needs to be updated on interaction
    */
-  private static void updateInteractionOwner(String chatOrCallSid) {
-    List<Interaction> interactionToUpdate = [
-      SELECT Id, OwnerId, Chat_or_Call_SID__c
-      FROM Interaction
-      WHERE Chat_or_Call_SID__c = :chatOrCallSid
-      LIMIT 1
-    ];
-    Id currentUserId = UserInfo.getUserId();
-    if (
-      !interactionToUpdate.isEmpty() &&
-      interactionToUpdate[0].OwnerId != currentUserId
-    ) {
-      interactionToUpdate[0].OwnerId = currentUserId;
-      Database.SaveResult result = Database.update(
-        interactionToUpdate[0],
-        false
-      );
-      Logger.error('Error occured while updating Interaction Owner', result);
-      Logger.saveLog();
-    }
-  }
-
-  /**
-   * @description Fetches Interaction details based on chatOrCallSid and update the Loan_Application__c
-   * @param chatOrCallSid the chatOrCallSid present in the interaction
-   * @param loanId the ResidentialLoanApplication record id
-   */
-  @AuraEnabled
-  public static void updateInteractionLoanApplication(
+  private static void updateInteractionOwner(
     String chatOrCallSid,
-    String loanId
+    String sObjectId
   ) {
     List<Interaction> interactionToUpdate = [
       SELECT Id, OwnerId, Chat_or_Call_SID__c, Loan_Application__c
@@ -237,17 +211,22 @@ public with sharing class InitiateInteractionController {
       WHERE Chat_or_Call_SID__c = :chatOrCallSid
       LIMIT 1
     ];
-    if (!interactionToUpdate.isEmpty() && String.isNotBlank(loanId)) {
-      interactionToUpdate[0].Loan_Application__c = loanId;
-      Database.SaveResult result = Database.update(
-        interactionToUpdate[0],
-        false
-      );
-      Logger.error(
-        'Error occured while updating Interaction Loan_Application__c',
-        result
-      );
-      Logger.saveLog();
+    Id currentUserId = UserInfo.getUserId();
+    if (interactionToUpdate.isEmpty()) {
+      return;
     }
+    if (interactionToUpdate[0].OwnerId != currentUserId) {
+      interactionToUpdate[0].OwnerId = currentUserId;
+    }
+    if (
+      String.isNotBlank(sObjectId) &&
+      Id.valueOf(sObjectId).getSobjectType().getDescribe().getName() ==
+      'ResidentialLoanApplication'
+    ) {
+      interactionToUpdate[0].Loan_Application__c = sObjectId;
+    }
+    Database.SaveResult result = Database.update(interactionToUpdate[0], false);
+    Logger.error('Error occured while updating Interaction Owner', result);
+    Logger.saveLog();
   }
 }
