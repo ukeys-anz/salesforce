@@ -264,8 +264,7 @@ export default class InitiateInteraction extends LightningElement {
       try {
         let response = await reinitiateChat({
           accountId: this.fields.accountId,
-          conversationSid: this.conversationSid,
-          loanId: loanId
+          conversationSid: this.conversationSid
         });
         if (
           this.objectApiName === "ResidentialLoanApplication" &&
