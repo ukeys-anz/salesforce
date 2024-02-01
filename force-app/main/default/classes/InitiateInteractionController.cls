@@ -228,7 +228,8 @@ public with sharing class InitiateInteractionController {
    * @param chatOrCallSid the chatOrCallSid present in the interaction
    * @param loanId the ResidentialLoanApplication record id
    */
-  private static void updateInteractionLoanApplication(
+  @AuraEnabled
+  public static void updateInteractionLoanApplication(
     String chatOrCallSid,
     String loanId
   ) {

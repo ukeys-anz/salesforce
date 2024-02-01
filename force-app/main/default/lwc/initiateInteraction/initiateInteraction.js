@@ -5,7 +5,7 @@ import createInteraction from "@salesforce/apex/InitiateInteractionController.cr
 import getPhoneNumber from "@salesforce/apex/InitiateInteractionController.getPhoneNumber";
 import initiateChat from "@salesforce/apex/InitiateInteractionController.initiateChat";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
-import updateInteraction from "salesforce/apex/InitiateInteractionController.updateInteractionLoanApplication";
+import updateInteraction from "@salesforce/apex/InitiateInteractionController.updateInteractionLoanApplication";
 import voiceChannel from "@salesforce/messageChannel/InitiateOutboundCall__c";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import hasOutboundDialPermission from "@salesforce/customPermission/ANZx_Outbound_Dialling";
