@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -29,10 +28,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-0efef79f-fb6c-4380-9c7c-80b37384e3a1</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
@@ -56,10 +55,10 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
+        <name>Facet-0efef79f-fb6c-4380-9c7c-80b37384e3a1</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-86631e2f-b31e-4f19-a61d-dcd7e9ee124f</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -70,40 +69,10 @@
                 <identifier>runtime_omnistudio_flexcard3</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-86631e2f-b31e-4f19-a61d-dcd7e9ee124f</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-3cc410da-a226-4a01-b230-2cd70a854e0a</name>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>ResidentialLoanApplication.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>LoanApplicationProperties</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>ADVGRID</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer7</identifier>
-            </componentInstance>
-        </itemInstances>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>Facet-3fa60617-8af4-4b1b-9688-1c44d04bd0be</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -114,10 +83,10 @@
                 <identifier>runtime_omnistudio_flexcard4</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-3fa60617-8af4-4b1b-9688-1c44d04bd0be</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-88412bd3-6030-47f6-b683-1dff8c71ce20</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -128,10 +97,10 @@
                 <identifier>runtime_omnistudio_flexcard</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-88412bd3-6030-47f6-b683-1dff8c71ce20</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-c4f09315-d328-41eb-8622-fe3d14f75748</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -142,10 +111,10 @@
                 <identifier>runtime_omnistudio_flexcard2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-c4f09315-d328-41eb-8622-fe3d14f75748</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-15b3ead2-7065-4356-b9c3-6444c0ca7deb</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -172,10 +141,10 @@
                 <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-15b3ead2-7065-4356-b9c3-6444c0ca7deb</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-2036833a-3773-4b2a-9ec7-4eb069f3352a</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -202,20 +171,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab8</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-3cc410da-a226-4a01-b230-2cd70a854e0a</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Property</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab11</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -274,20 +229,20 @@
                 <identifier>flexipage_tab10</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-2036833a-3773-4b2a-9ec7-4eb069f3352a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-ed372e84-8f42-4221-80d1-83c2672f263f</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
                 <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-ed372e84-8f42-4221-80d1-83c2672f263f</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-3af1241e-2c17-46c1-bb86-0ad9f7aa3f4b</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -302,10 +257,10 @@
                 <identifier>flexipage_tab</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-3af1241e-2c17-46c1-bb86-0ad9f7aa3f4b</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentName>toastEventListener</componentName>
@@ -333,10 +288,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-5ddbffea-17a0-4b8e-8ca3-683ef20ffe75</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -351,10 +306,10 @@
                 <identifier>forceKnowledge_articleSearchDesktop2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-5ddbffea-17a0-4b8e-8ca3-683ef20ffe75</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-188ec75d-eef8-43fd-ba29-e4fa7376d603</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -365,10 +320,10 @@
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-188ec75d-eef8-43fd-ba29-e4fa7376d603</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-9664952c-d594-4c30-92a3-8e145bad1204</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -401,10 +356,10 @@
                 <identifier>flexipage_tab2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-9664952c-d594-4c30-92a3-8e145bad1204</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -470,26 +425,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>actionNames</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>New</value>
-                        </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>adminFilters</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>RECORDTYPE|EQUALS|[&quot;Needs_Assessment&quot;]</value>
-                        </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>maxRecordsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>ResidentialLoanApplication.Id</value>
                 </componentInstanceProperties>
@@ -498,41 +433,19 @@
                     <value>Assessment_Responses__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>relatedListDisplayType</name>
-                    <value>ADVGRID</value>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>relatedListFieldAliases</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>NAME</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Assessment_Response__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Completed_By__c</value>
-                        </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListLabel</name>
-                    <value>Needs Assessment Responses</value>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
                     <value>true</value>
                 </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>sortFieldAlias</name>
-                    <value>__DEFAULT__</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>sortFieldOrder</name>
-                    <value>Default</value>
-                </componentInstanceProperties>
-                <componentName>lst:dynamicRelatedList</componentName>
-                <identifier>lst_dynamicRelatedList2</identifier>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer4</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -585,6 +498,32 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer6</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>ResidentialLoanApplication.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>LoanApplicationProperties</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer7</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -692,6 +631,9 @@
                             <value>Case.Update_DEH_Complaint_Details</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>MassChangeOwner</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>NewCase</value>
                         </valueListItems>
                     </valueList>
@@ -777,6 +719,7 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Residential Loan Application Record Page</masterLabel>

@@ -2,111 +2,22 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Property_Type__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_Property_Domain</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>Type of Property</description>
     <externalId>false</externalId>
     <label>Property Type</label>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Public</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
+        <restricted>false</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>FULLY_DETACHED_HOUSE</fullName>
+                <fullName>House/Unit</fullName>
                 <default>false</default>
-                <label>House</label>
-            </value>
-            <value>
-                <fullName>DUPLEX</fullName>
-                <default>false</default>
-                <label>Duplex</label>
-            </value>
-            <value>
-                <fullName>APARTMENT</fullName>
-                <default>false</default>
-                <label>Apartment / Unit</label>
-            </value>
-            <value>
-                <fullName>APT_BUILDING</fullName>
-                <default>false</default>
-                <label>Apartment Building</label>
-            </value>
-            <value>
-                <fullName>BEDSITTER_BACH_STUDIO</fullName>
-                <default>false</default>
-                <label>Bedsitter, Bachelor or Studio Apartments</label>
-            </value>
-            <value>
-                <fullName>BLOCK_OF_UNITS_FLATS</fullName>
-                <default>false</default>
-                <label>Block of Units / Flats</label>
-            </value>
-            <value>
-                <fullName>MULTI_DWELL_DEV</fullName>
-                <default>false</default>
-                <label>Multi-Dwelling Single Title</label>
-            </value>
-            <value>
-                <fullName>RETIREMENT_VLGE_UNIT</fullName>
-                <default>false</default>
-                <label>Retirement Village Unit</label>
-            </value>
-            <value>
-                <fullName>RETIREMENT_VILLAGE</fullName>
-                <default>false</default>
-                <label>Retirement Village</label>
-            </value>
-            <value>
-                <fullName>SERVICED_APT</fullName>
-                <default>false</default>
-                <label>Serviced Apartment</label>
-            </value>
-            <value>
-                <fullName>STUDENT_APT_BUILDING</fullName>
-                <default>false</default>
-                <label>Student Apartment Building</label>
-            </value>
-            <value>
-                <fullName>STUDENT_APT</fullName>
-                <default>false</default>
-                <label>Student Apartment</label>
-            </value>
-            <value>
-                <fullName>UNIT</fullName>
-                <default>false</default>
-                <label>Unit / Flat</label>
-            </value>
-            <value>
-                <fullName>TOWNHOUSE</fullName>
-                <default>false</default>
-                <label>Townhouse</label>
-            </value>
-            <value>
-                <fullName>WAREHOUSE_APARTMENT</fullName>
-                <default>false</default>
-                <label>Warehouse Apartment</label>
-            </value>
-            <value>
-                <fullName>HTL_MTL_RDEVELOPMENT</fullName>
-                <default>false</default>
-                <label>Hotel/Motel Re-development</label>
-            </value>
-            <value>
-                <fullName>VACANT_LAND</fullName>
-                <default>false</default>
-                <label>Vacant Land</label>
-            </value>
-            <value>
-                <fullName>ENGLOBO_LAND</fullName>
-                <default>false</default>
-                <label>Englobo Land</label>
-            </value>
-            <value>
-                <fullName>COMMERCIAL</fullName>
-                <default>false</default>
-                <label>Commercial Property</label>
+                <label>House/Unit</label>
             </value>
         </valueSetDefinition>
     </valueSet>
