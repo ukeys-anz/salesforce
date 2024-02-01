@@ -166,10 +166,6 @@ public with sharing class InitiateInteractionController {
       if (reinitiateChatModal != null && String.isNotBlank(conversationSid)) {
         updateInteractionOwner(conversationSid);
       }
-      // Update Loan_Application__c if chat initiated from Residential Loan Application
-      if (String.isNotBlank(loanId) && String.isNotBlank(conversationSid)) {
-        updateInteractionLoanApplication(conversationSid, loanId);
-      }
       return reinitiateChatModal;
     } catch (CallCenterAPIRepository.CustomException e) {
       throw new AuraHandledException(e.getMessage());
@@ -234,7 +230,7 @@ public with sharing class InitiateInteractionController {
    */
   private static void updateInteractionLoanApplication(
     String chatOrCallSid,
-    Id loanId
+    String loanId
   ) {
     List<Interaction> interactionToUpdate = [
       SELECT Id, OwnerId, Chat_or_Call_SID__c, Loan_Application__c
@@ -242,7 +238,7 @@ public with sharing class InitiateInteractionController {
       WHERE Chat_or_Call_SID__c = :chatOrCallSid
       LIMIT 1
     ];
-    if (!interactionToUpdate.isEmpty()) {
+    if (!interactionToUpdate.isEmpty() && String.isNotBlank(loanId)) {
       interactionToUpdate[0].Loan_Application__c = loanId;
       Database.SaveResult result = Database.update(
         interactionToUpdate[0],
