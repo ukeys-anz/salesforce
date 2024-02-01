@@ -145,6 +145,7 @@ public with sharing class InitiateInteractionController {
    * @description Reinitiates chat with customer
    * @param accountId the id of the customers account
    * @param conversationSid the id of the chat to reinitiate
+   * @param loanId the loan id which gets updated on interaction
    * @return `ReinitiateChatModel` Returns the response from the callout
    */
   @AuraEnabled
