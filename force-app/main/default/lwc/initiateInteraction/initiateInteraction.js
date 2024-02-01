@@ -268,7 +268,7 @@ export default class InitiateInteraction extends LightningElement {
           loanId: loanId
         });
         if (
-          this.objectApiName == "ResidentialLoanApplication" &&
+          this.objectApiName === "ResidentialLoanApplication" &&
           response != null
         ) {
           updateInteraction({
