@@ -221,11 +221,7 @@
                 <p class="slds-text-color_weak slds-align_absolute-center">
                   Linked Offset Account
                 </p>
-                <p
-                  lwc:if={singleFinAccount.loan_details.offsetAccount}
-                  class="slds-text-heading_small"
-                  data-test-id="offsetAccount"
-                >
+                <p class="slds-text-heading_small" data-test-id="offsetAccount">
                   <a
                     onclick={navigateToRecordViewPage}
                     data-id={singleFinAccount.loan_details.offsetAccount.recordId}

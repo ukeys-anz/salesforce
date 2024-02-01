@@ -31,7 +31,7 @@ public with sharing class HomeLoanController {
       FA_Feature_Relationship__c.SObjectType.getDescribe().isQueryable())
     ) {
       //Fetch the linked offset feature
-      List<FA_Feature_Relationship__c> featureId = [
+      FA_Feature_Relationship__c featureId = [
         SELECT Feature__c
         FROM FA_Feature_Relationship__c
         WHERE
@@ -39,29 +39,25 @@ public with sharing class HomeLoanController {
           AND Relationship_Status__c = 'Active'
       ];
 
-      if (featureId.size() > 0) {
-        //Retrieve the linked offset account
-        List<FA_Feature_Relationship__c> fafRelationship = [
-          SELECT
-            Id,
-            Financial_Account__c,
-            Financial_Account__r.FinServ__FinancialAccountNumber__c
-          FROM FA_Feature_Relationship__c
-          WHERE
-            Feature__c = :featureId[0].Feature__c
-            AND Financial_Account_Product__c = 'ANZ Plus'
-            AND Relationship_Status__c = 'Active'
-        ];
-        if (fafRelationship.size() > 0) {
-          //Populate the offset details for the account
-          for (HomeLoanModel.HomeLoanAccount acc : result.accounts) {
-            HomeLoanModel.OffsetDetails offsetDetails = new HomeLoanModel.OffsetDetails();
-            offsetDetails.accountNumber = fafRelationship[0]
-              .Financial_Account__r.FinServ__FinancialAccountNumber__c;
-            offsetDetails.recordId = fafRelationship[0].Financial_Account__c;
-            acc.loan_details.offsetAccount = offsetDetails;
-          }
-        }
+      //Retrieve the linked offset account
+      FA_Feature_Relationship__c fafRelationship = [
+        SELECT
+          Id,
+          Financial_Account__c,
+          Financial_Account__r.FinServ__FinancialAccountNumber__c
+        FROM FA_Feature_Relationship__c
+        WHERE
+          Feature__c = :featureId.Feature__c
+          AND Financial_Account_Product__c = 'ANZ Plus'
+          AND Relationship_Status__c = 'Active'
+      ];
+
+      //Populate the offset details for the account
+      for (HomeLoanModel.HomeLoanAccount acc : result.accounts) {
+        HomeLoanModel.OffsetDetails offsetDetails = new HomeLoanModel.OffsetDetails();
+        offsetDetails.accountNumber = fafRelationship.Financial_Account__r.FinServ__FinancialAccountNumber__c;
+        offsetDetails.recordId = fafRelationship.Financial_Account__c;
+        acc.loan_details.offsetAccount = offsetDetails;
       }
     }
     return result;
