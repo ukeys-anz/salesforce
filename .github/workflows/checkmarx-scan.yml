@@ -3,9 +3,9 @@ name: Checkmarx Scan
 
 on:
   pull_request:
-    branches: [master]
-  push:
     branches: [develop]
+  push:
+    branches: [epic/*]
   schedule:
     - cron: "0 9 * * 0-4" # Run every day between 8-9 pm
 
