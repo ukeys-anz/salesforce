@@ -73,6 +73,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     IDRTaskActions.afterUpdateActions(records);
+    GetHelpTaskActions.checkAndPublishTaskCloudEvent(records, oldMap);
     CCRMActionplanActions.updateActionPlanStatus(
       records,
       (Map<Id, Task>) oldMap

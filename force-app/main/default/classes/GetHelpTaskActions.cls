@@ -146,6 +146,49 @@ public with sharing class GetHelpTaskActions {
   }
 
   /**
+   * @description publish task cloud event if criteria is satisfied.
+   * @param records The Task record list.
+   * @param oldMap oldmap of the task record
+   */
+  public static void checkAndPublishTaskCloudEvent(
+    List<Task> records,
+    Map<Id, SObject> oldMap
+  ) {
+    List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
+    List<Id> accountIds = new List<Id>();
+    for (Task record : records) {
+      if (record.whoId != null) {
+        accountIds.add(record.whoId);
+      }
+    }
+    Map<ID, Account> accountMap = new Map<ID, Account>(
+      [
+        SELECT Id, Source_System_Name__c, Source_System_ID__c
+        FROM Account
+        WHERE Id IN :accountIds
+      ]
+    );
+    for (Task record : records) {
+      Task oldRec = (oldMap != null && oldMap.containsKey(record.Id))
+        ? (Task) oldMap.get(record.Id)
+        : null;
+      if (
+        record.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT &&
+        (record.Status == 'Actioned' &&
+        (oldRec == null ||
+        oldRec.Status != 'Actioned')) ||
+        (record.Status == 'Expired' &&
+        (oldRec == null ||
+        oldRec.Status != 'Expired'))
+      ) {
+        cloudEventModels.add(
+          new NudgeTaskCloudEventModel(record, accountMap.get(record.whoId))
+        );
+      }
+    }
+    CloudEventController.publishCloudEvents(cloudEventModels);
+  }
+  /**
    * @description beforeUpdateActions is called onBeforeUpdate. any logic that needs to be executed on before update is executed from here
    * @param records The Task record list.
    * @param oldMap The old map of task records.
