@@ -2,7 +2,11 @@ import { LightningElement, api, wire } from "lwc";
 import finalise from "@salesforce/apex/CreditAssessmentActionsController.finalise";
 import { handleErrorShowToast } from "c/utils";
 import { CloseActionScreenEvent } from "lightning/actions";
-import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import {
+  getRecord,
+  getFieldValue,
+  notifyRecordUpdateAvailable
+} from "lightning/uiRecordApi";
 import ASSESSMENT_OUTCOME_FIELD from "@salesforce/schema/Case.Assessment_Outcome__c";
 import CREDIT_REASSESS_FIELD from "@salesforce/schema/Case.Loan_Application__r.Credit_Reassess_Required__c";
 
@@ -81,8 +85,7 @@ export default class CreditFinalise extends LightningElement {
       if (resp) {
         this.isAssessed = true;
         this.showSubmitBtn = false;
-        /* eslint-disable no-eval */
-        eval("$A.get('e.force:refreshView').fire();");
+        notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
       }
     } catch (error) {
       handleErrorShowToast(

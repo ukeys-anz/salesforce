@@ -25,7 +25,7 @@ function convertSourceFormat() {
 
     # This error message means the artifact is empty, either ci changes only, or everything is forceignored
     ERROR_MSG="ERROR running force:source:convert:  No matching source was found within the package root directory:"
-    if result=$(sfdx force:source:convert -r "${DIR_PATH}/force-app" -d "$2" --loglevel debug 2>&1); then
+    if result=$(sf project convert source -r "${DIR_PATH}/force-app" -d "$2" --loglevel debug 2>&1); then
         echo "Conversion successful into $CONVERSION_DIR"
     else
         echo "$result"
@@ -204,7 +204,7 @@ function unzipDestructivePackage() {
     rm -f ./destructivePackage.zip
 }
 
-# copy files that are required by SFDX to run a conversion
+# copy files that are required by SF CLI to run a conversion
 function copyMandatoryFilesToPackage() {
     echo "copy to $1"
     cp sfdx-project.json .forceignore "$1"
