@@ -3,9 +3,13 @@ name: Checkmarx Scan
 
 on:
   pull_request:
-    branches: [master]
-  push:
-    branches: [develop]
+    branches:
+      - develop
+      - master
+      - epic/*
+    paths:
+      - force-app/**
+      - ci/apex-scripts/**
   schedule:
     - cron: "0 9 * * 0-4" # Run every day between 8-9 pm
 
