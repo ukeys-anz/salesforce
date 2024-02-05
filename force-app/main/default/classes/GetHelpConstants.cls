@@ -272,6 +272,11 @@ public with sharing class GetHelpConstants {
     .get('Email_Task')
     .getRecordTypeId();
 
+  // Task Record Type for Coach Nudge
+  public static final String COACH_NUDGE_RT = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Coach_Nudge')
+    .getRecordTypeId();
+
   // Email Task Description
   public static final String TASK_EMAIL_DESCRIPTION = 'Please send the customer the relevant closure email(s)';
 
