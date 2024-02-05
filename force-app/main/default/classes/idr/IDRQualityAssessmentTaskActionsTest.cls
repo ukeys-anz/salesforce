@@ -51,6 +51,19 @@ public class IDRQualityAssessmentTaskActionsTest {
 
       System.assertEquals(lstAssessments.size() * 2, lstTasks.size(), 'Count');
     }
+       Profile noAccessrProfile = CommonUtil.getProfileByName('No Access');
+      user noAcessUser =TestUtil.createTestUser(
+          new Map<String, Object>{
+              'FirstName' => 'noAcess_User',
+                  'ProfileId' => noAccessrProfile.Id,
+                  'UserRoleId' => ''
+                  }
+      );  
+      insert noAcessUser;
+      System.runAs(noAcessUser){    
+      IDRQualityAssessmentTaskActions.createComplianceTasks(null,null);
+      }
+      
   }
 
   /**
