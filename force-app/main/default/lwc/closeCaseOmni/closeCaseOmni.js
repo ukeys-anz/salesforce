@@ -73,18 +73,16 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
   validateIssueTypeFieldValues() {
     let details = this.omniJsonData.Case;
     let issueTypeCombinationMap = this.omniJsonData.issueTypeCombinationMap;
-    let originalValues = this.omniJsonData.originalValues;
     let proceed = false;
-    if (
-      originalValues.Type !== details.Type ||
-      originalValues.IDR_Subsequent_Issue__c !== details.IDR_Subsequent_Issue__c
-    ) {
-      if (details.Type in issueTypeCombinationMap) {
-        let issueTypeArray = issueTypeCombinationMap[details.Type];
-        if (issueTypeArray.includes(details.IDR_Subsequent_Issue__c)) {
-          proceed = true;
-        }
+    if (details.Type in issueTypeCombinationMap) {
+      let issueTypeArray = issueTypeCombinationMap[details.Type];
+      if (issueTypeArray.includes(details.IDR_Subsequent_Issue__c)) {
+        proceed = true;
+      } else {
+        proceed = false;
       }
+    } else {
+      proceed = false;
     }
     if (proceed) {
       this.showModal = true;
