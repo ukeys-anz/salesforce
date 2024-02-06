@@ -710,6 +710,14 @@
             <fullName>Further action recommended</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Review customer correspondence%2Fcontact centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Update internal records</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Credit_reporting_notice_obligations_met__c</picklist>
@@ -3023,6 +3031,10 @@
         </values>
         <values>
             <fullName>Further review recommended %28action for MMM%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA- no action required</fullName>
             <default>false</default>
         </values>
         <values>

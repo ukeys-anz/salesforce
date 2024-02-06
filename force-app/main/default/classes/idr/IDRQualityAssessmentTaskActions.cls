@@ -4,7 +4,7 @@
  * @description Quality Assessment task related actions for CMOS
  * @runTests IDRQualityAssessmentTaskActionsTest
  */
-
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRQualityAssessmentTaskActions {
   /**
    * @description For all Assessments going from Completed to Pending set their Compliance Tasks to Expired.
@@ -53,7 +53,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
           stUserIds.add(oAssessment.Case_Manager__c);
         }
       }
-      System.debug('PendingIds: ' + mpId2PendingAssessments);
       List<Task> lstUpdateTasks = new List<Task>();
       for (Task oTask : [
         SELECT Id, Status
@@ -116,26 +115,41 @@ public with sharing class IDRQualityAssessmentTaskActions {
   ) {
     Quality_Assessment__c oOldAssessment;
     Set<Id> stCompletedCQIds = new Set<Id>();
+    Set<Id> correctiveActionsCQIds = new Set<Id>();
+    if(!Task.SObjectType.getDescribe().isCreateable() &&
+    !Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
+    !Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
+    !Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
+    !Schema.SObjectType.Task.fields.Subject.isCreateable() &&
+    !Schema.SObjectType.Task.fields.WhatId.isCreateable()){
+      return;
+    }
     for (Quality_Assessment__c oAssessment : lstAssessments) {
       if (
         oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
         oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
         (mpOldAssessments == null ||
         (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) == null ||
-        oAssessment.Status__c != oOldAssessment.Status__c)
+        (oAssessment.Status__c != oOldAssessment.Status__c &&
+        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE) ||
+        (oAssessment.Corrective_actions_for_TM_CM__c !=
+        oOldAssessment.Corrective_actions_for_TM_CM__c &&
+        oAssessment.Corrective_actions_for_TM_CM__c != null))
       ) {
-        stCompletedCQIds.add(oAssessment.Id);
+        if (oOldAssessment != null) {
+          stCompletedCQIds.add(oAssessment.Id);
+        }
+        if (
+          oAssessment.Corrective_actions_for_TM_CM__c !=
+          IDRConstants.CORRECTIVE_ACTIONS_NA
+        ) {
+          correctiveActionsCQIds.add(oAssessment.Id);
+        }
       }
     }
-    System.debug('CompletedIds: ' + stCompletedCQIds);
     if (
-      stCompletedCQIds.size() > 0 &&
-      Task.SObjectType.getDescribe().isCreateable() &&
-      Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
-      Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
-      Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
-      Schema.SObjectType.Task.fields.Subject.isCreateable() &&
-      Schema.SObjectType.Task.fields.WhatId.isCreateable()
+      (stCompletedCQIds.size() > 0 ||
+      correctiveActionsCQIds.size() > 0) 
     ) {
       List<Quality_Assessment__c> lstCompletedCQAssessments = [
         SELECT
@@ -148,26 +162,24 @@ public with sharing class IDRQualityAssessmentTaskActions {
           Related_Case__r.CaseNumber__c
         FROM Quality_Assessment__c
         WHERE
-          Id IN :stCompletedCQIds
+          (Id IN :stCompletedCQIds
           AND TeamManager__c != NULL
-          AND Case_Manager__c != NULL
+          AND Case_Manager__c != NULL)
+          OR (Id IN :correctiveActionsCQIds
+          AND TeamManager__c != NULL)
       ];
       List<Task> lstComplianceTasks = new List<Task>();
       for (Quality_Assessment__c oAssessment : lstCompletedCQAssessments) {
-        lstComplianceTasks.add(
-          new Task(
-            RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID,
-            OwnerId = oAssessment.TeamManager__c,
-            WhatId = oAssessment.Id,
-            Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
-              oAssessment.Case_Manager__r.Name +
-              ' : case ' +
-              oAssessment.Related_Case__r.CaseNumber__c,
-            ActivityDate = Date.today().addDays(7),
-            Status = 'Open',
-            Priority = 'Normal'
-          )
-        );
+        if (stCompletedCQIds.contains(oAssessment.Id)) {
+          String strSubject  = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT + String.valueOf(oAssessment.Case_Manager__r.Name) + ': case' + String.valueOf(oAssessment.Related_Case__r.CaseNumber__c);
+		      lstComplianceTasks.add(getComplianceTask(oAssessment,'', strSubject));
+		      
+        }
+        if (correctiveActionsCQIds.contains(oAssessment.Id)) {
+          String strSubject  = IDRConstants.TASK_TM_ATTESTATION_SUBJECT + String.valueOf(oAssessment.Case_Manager__r.Name);
+          String strDescription = 'You must add a task comment detailing the action taken before marking this task as completed.';
+          lstComplianceTasks.add(getComplianceTask(oAssessment,strDescription, strSubject));
+        }
       }
       if (lstComplianceTasks.size() > 0) {
         try {
@@ -181,6 +193,25 @@ public with sharing class IDRQualityAssessmentTaskActions {
       }
     }
   }
+ /**
+   * @description method to write a common function to create a Task.
+   * @param oAssessment Quality Assessment object
+   * @param strDescription Description of the task
+   * @param strSubject Subject of the task
+   * @return Task object
+   */
+  public static Task getComplianceTask(Quality_Assessment__c oAssessment, String strDescription, String strSubject ){
+      Task taskObj = New Task();
+      taskObj.RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID;
+      taskObj.OwnerId = oAssessment.TeamManager__c;
+      taskObj.WhatId = oAssessment.Id;
+      taskObj.Subject = strSubject;
+      taskObj.Description = strDescription;
+      taskObj.ActivityDate = Date.today().addDays(7);
+      taskObj.Status = 'Open';
+      taskObj.Priority = 'Normal';
+    return taskObj;
+   }
   /**
    * @description method to apply apex sharing  if Quality Assessment record's status is changed to Completed
    * @param lstAssessments new Trigger values
@@ -215,19 +246,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
             )
           );
         }
-        if (
-          oAssessment.OwnerId != oAssessment.Case_Manager__c &&
-          oAssessment.Case_Manager__c != oAssessment.TeamManager__c
-        ) {
-          lstQAShare.add(
-            new Quality_Assessment__Share(
-              AccessLevel = 'Read',
-              ParentId = oAssessment.Id,
-              UserOrGroupId = oAssessment.Case_Manager__c
-            )
-          );
-        }
-        System.debug('Share: ' + lstQAShare);
+        // Quality_Assessment__Share record for CaseManager__c is created after a calculated delay.
+        // It is therefore handled by Quality_Assessment_CMOS.flow and not here.
       }
     }
 

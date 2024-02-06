@@ -191,6 +191,19 @@ public with sharing class IDRCaseAssignmentRules {
         return QUEUE_MAP.get('IDR_Spare'); // IDR Disputes & Scams
       }
 
+      // Simple Complaint on Unassisted Channel
+      if (
+        (rec.Origin == IDRConstants.CHANNEL_RECEIVED_ANZ_COM ||
+        rec.SuppliedEmail == System.Label.ANZ_com_Sender_Address) &&
+        (!rec.IDR_Second_Issue__c && !rec.IDR_Third_Issue__c) &&
+        IDRConstants.IDR_UNASSISTED_ISSUE_TYPE.contains(rec.Type) &&
+        IDRConstants.IDR_UNASSISTED_SUB_ISSUE_TYPE.contains(
+          rec.IDR_Subsequent_Issue__c
+        )
+      ) {
+        return QUEUE_MAP.get('IDR_Early_Resolution_Unassisted_Channel');
+      }
+
       // Early Resolution
       if (rec.Type == '13' || rec.Type == '12' || rec.Type == '9') {
         return QUEUE_MAP.get('IDR_Early_Resolution');
