@@ -253,6 +253,13 @@
         <value>https://www.anz.com.au/plus/pricing</value>
     </labels>
     <labels>
+        <fullName>MoreThanOneJointAccountFoundError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message if a customer is associated with more than 1 Joint Account.</shortDescription>
+        <value>Failed to perform account closure because there are more than one Joint Account associated with the customer</value>
+    </labels>
+    <labels>
         <fullName>MS_Account_Table</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -1052,6 +1059,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>CCRM_SelectResponsePrompt</shortDescription>
         <value>Select a Response Status and Outcome Reason to document your activity and progress the Lead.</value>
+    </labels>
+    <labels>
+        <fullName>CardsAccountTypeForSorting</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CardsAccountTypeForSorting</shortDescription>
+        <value>Single,Joint</value>
     </labels>
     <labels>
         <fullName>ML_AdobeLeadExpiryRemainder</fullName>
@@ -1899,5 +1913,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Fraudx Generic Customer OCVId</shortDescription>
         <value>Generic-FRX</value>
+    </labels>
+    <labels>
+        <fullName>Assisted_Raise_Dispute_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>For Raise Dispute Card Transactions</shortDescription>
+        <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
     </labels>
 </CustomLabels>

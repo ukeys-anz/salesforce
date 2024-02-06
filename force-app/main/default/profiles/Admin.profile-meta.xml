@@ -1437,6 +1437,10 @@
         <name>Lead_Stage_Automation__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>BOH_Lead_Auto_Closure_Mapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.CAC_Sub_Category__c</field>
@@ -4064,6 +4068,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_Made_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

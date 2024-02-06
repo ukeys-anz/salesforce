@@ -49,6 +49,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   lastDateInPayload;
   allTags;
   allMerchants;
+  wiredMethodCalled = false;
   @api componentTitle;
   @api tstartDate;
   @api tendDate;
@@ -68,7 +69,11 @@ export default class TransactionHistoryBoard extends LightningElement {
     fields: [FIN_ACCOUNT_TYPE]
   })
   wireRecord({ data }) {
+    if (this.wiredMethodCalled) {
+      return;
+    }
     if (data) {
+      this.wiredMethodCalled = true;
       this.startDate = this.inputStartDate(this.tstartDate);
       this.endDate = this.inputEndDate(this.tendDate);
       this.handleGetPersonAccount();
@@ -378,7 +383,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   // Getting person contact Id so we can pre-populated it on the data capture form
   handleGetPersonAccount() {
     getPersonAccount({
-      financialAccountId: this.recordId
+      customerOCVId: this.ocvId
     })
       .then((result) => {
         if (result != null) {

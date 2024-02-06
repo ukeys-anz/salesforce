@@ -1,17 +1,15 @@
 import { LightningElement, api, track, wire } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-
-import hasViewStatementsPermission from "@salesforce/customPermission/ANZx_View_Statements";
+import { CurrentPageReference } from "lightning/navigation";
 import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
 import getStatementUrl from "@salesforce/apex/StatementAPIRepository.getStatementUrlAura";
-
 import FINANCIAL_ACCOUNT_NUMBER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 import FINANCIAL_ACCOUNT_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Id";
 import PRODUCT_NAME_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Product_Name__c";
 import OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
-
+import hasViewStatementsPermission from "@salesforce/customPermission/ANZx_View_Statements";
 import { BANK_ACCOUNT_RT_APINAME } from "c/financialAccountParent";
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -77,6 +75,9 @@ export default class StatementsViewer extends LightningElement {
     return this.showLoadMoreButton;
   }
 
+  @wire(CurrentPageReference)
+  pageRef;
+
   @wire(getRecord, {
     recordId: "$recordId",
     fields: FIELDS
@@ -86,7 +87,9 @@ export default class StatementsViewer extends LightningElement {
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.accountId = data.fields.FinServ__PrimaryOwner__c.value;
       this.financialAccountId = data.fields.Id.value;
-      this.ocvId = data.fields.OCV_ID__c.value;
+      this.ocvId = this.pageRef?.state?.c__ocvId
+        ? this.pageRef.state.c__ocvId
+        : data.fields.OCV_ID__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
       if (this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME) {
         this.productName = "ANZ Plus Home Loan";

@@ -147,7 +147,8 @@ public class TransactionHistoryModelConverter {
       destTransaction.transactionInitiator = TransactionHistoryModelConverterHelper.convertPersonaIdtoTransactionInitiator(
         sourceTransaction.persona_id,
         mapPersonaIdAndCustomerName,
-        destTransaction.amount
+        destTransaction.amount,
+        destTransaction.type
       );
 
       //InternationalAmount Mapping

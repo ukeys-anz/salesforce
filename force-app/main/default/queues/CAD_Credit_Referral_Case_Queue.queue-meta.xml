@@ -6,6 +6,7 @@
         <roles>
             <role>Credit_Assessment_Officer</role>
             <role>Credit_Assessor_Lead</role>
+            <role>Coach_Lead</role>
         </roles>
     </queueMembers>
     <queueSobject>

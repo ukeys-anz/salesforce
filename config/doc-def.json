@@ -109,13 +109,6 @@
       "type": "system"
     },
     {
-      "name": "Apex Batch User",
-      "profile": "Integration User",
-      "permissionsetgroups": [],
-      "permissionsets": ["View_All_Files"],
-      "type": "system"
-    },
-    {
       "name": "Coach",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Coach"],
@@ -389,6 +382,18 @@
         "API_Only",
         "Splunk_Integration_Sec_Ops",
         "Splunk_Integration_Tech_Ops",
+        "Disable_MFA"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Splunk AWS Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Splunk_Integration_Tech_Ops",
+        "Password_Never_Expires",
         "Disable_MFA"
       ],
       "type": "system"
