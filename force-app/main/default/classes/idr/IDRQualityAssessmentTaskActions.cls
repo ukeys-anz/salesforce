@@ -136,9 +136,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
         oOldAssessment.Corrective_actions_for_TM_CM__c &&
         oAssessment.Corrective_actions_for_TM_CM__c != null))
       ) {
-       
+
           stCompletedCQIds.add(oAssessment.Id);
-        
+
         if (
           oAssessment.Corrective_actions_for_TM_CM__c !=
           IDRConstants.CORRECTIVE_ACTIONS_NA &&

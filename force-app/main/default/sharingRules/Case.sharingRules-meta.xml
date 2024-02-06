@@ -223,12 +223,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Complaint_RTs_BankerManager_RW</fullName>
+        <fullName>CMOS_Complaint_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Great Read write access to complaint records for Bankers and Line Managers</description>
-        <label>Complaint_RTs_BankerManager_RW</label>
+        <label>Complaint RTs BankerManager RW</label>
         <sharedTo>
-            <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+            <group>CMOS_Complaint_Edit_Access</group>
         </sharedTo>
         <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
@@ -336,12 +336,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Credit_Referral_Credit_Assessor_Lead</fullName>
+        <fullName>Credit_Referral_Leads</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Provide access to credit referral cases for Credit Assessor Leads</description>
-        <label>Credit Referral - Credit Assessor Lead</label>
+        <description>Credit referral access for credit referral lead group</description>
+        <label>Credit Referral - Leads</label>
         <sharedTo>
-            <role>Credit_Assessor_Lead</role>
+            <group>Credit_Referral_Lead_Group</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

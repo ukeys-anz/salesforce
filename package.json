@@ -24,6 +24,7 @@
     "@babel/core": "^7.21.3",
     "@babel/eslint-parser": "^7.13.14",
     "@babel/preset-env": "^7.10.4",
+    "@locker/eslint-config-locker": "^0.20.8",
     "@lwc/eslint-plugin-lwc": "^1.6.2",
     "@sa11y/jest": "^4.0.1",
     "@salesforce/eslint-config-lwc": "^3.4.0",

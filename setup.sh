@@ -17,7 +17,7 @@ function ctrl_c() {
     read -rp "${green}If the scratchOrg has not been created, or you want to delete it, please type y/Y : ${reset}" deleteScratchOrgFlag
     if [[ $deleteScratchOrgFlag == 'y' || $deleteScratchOrgFlag == 'Y' ]];then
         echo ""
-        sfdx force:org:delete -u $scratchorgalias | tee stderr
+        sf org delete scratch -o $scratchorgalias | tee stderr
         echo ""
     fi
     exit 1
@@ -43,13 +43,13 @@ echoMessageCreator "" $stepNo false
 
 # make a new scratchOrg step
 echoMessageCreator "Making scratchOrg out of the snapshot" $stepNo true
-sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 30 --setalias "$scratchorgalias" 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) == *'Error'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+sf org create scratch -f config/snapshot-scratch-def-template.json -d -y 30 -w 20 -a "$scratchorgalias" 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Some commands may not work as expected until the My Domain DNS propagation'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
     echo ""
     echo "${green}* please run the below command in another terminal tab"
     echo ""
     echo "${red}--------------------------------------"
-    echo "${green}sfdx force:org:create -f config/snapshot-scratch-def-template.json -d 30 --setdefaultusername -w 10 --setalias "$scratchorgalias" 2>&1 | tee stderr"
+    echo "${green}sf org create scratch -f config/snapshot-scratch-def-template.json -d -y 30 -w 20 -a "$scratchorgalias" 2>&1 | tee stderr"
     echo "${red}--------------------------------------"
     echo ""
     echo "${green}* do not worry about the tunnelSocket error."
@@ -63,14 +63,14 @@ ALL_START_TIME=$(date +%s)
 
 # check if the scratchOrg has been created out of th snapshot
 echoMessageCreator "check if the scratchOrg has been created out of the snapshot" $stepNo true
-sfdx force:org:list
+sf org list
 echo ""
 read -rp "${green}check if the scratchOrg with $scratchorgalias alias has been made(y/n)? " scratchMade
 if [[ $scratchMade == n || $scratchMade == N ]];then
     echo ""
     echo "${red}exit and re-run it again${reset}"
     echo ""
-    sfdx force:org:delete -u $scratchorgalias | tee stderr
+    sf org delete scratch -o $scratchorgalias | tee stderr
     exit 1
 fi
 echoMessageCreator "" $stepNo false
@@ -88,7 +88,7 @@ echoMessageCreator "manual steps" $stepNo true
 read -rp "${green}Do you want to open the scratch org (y/n)? " openOrg
 echo "${reset}"
 if [[ $openOrg == y || $openOrg == Y ]]; then
-    sfdx force:org:open -u $scratchorgalias 
+    sf org open -o $scratchorgalias 
 fi
 
 echo ""
@@ -105,7 +105,7 @@ read -rp "Do you want to continue (y/n)? " continueFlag
 if [[ $continueFlag == n || $continueFlag == N ]]; then
     echo ""
     echo "The diff metadata has not been deployed."
-    echo "You can run: sfdx force:source:deploy -u $scratchorgalias -p ./artefact/ | tee stderr"
+    echo "You can run: sf project deploy start -o $scratchorgalias -d ./artefact/ | tee stderr"
     echo ""
     exit 1
 fi
@@ -120,7 +120,7 @@ if [ -d "./artefact/" ]; then
     tryDeploying=true
     while [[ $tryDeploying == true ]]; do
         tryDeploying=false
-        sfdx force:mdapi:deploy -u $scratchorgalias -d artefact -w 10 | tee stderr
+        sf project deploy start -o $scratchorgalias -d artefact -w 10 | tee stderr
         if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
             
             # step: to if it is failed, make it to re-run, or try again, and you can check the stderr one
@@ -151,13 +151,16 @@ fi
 
 # assign a role to default user of scratchOrg
 echoMessageCreator "assign a role to default user of scratchOrg" $stepNo true
-sfdx force:apex:execute -f ./ci/apex-scripts/assignUserRole.apex
+sf apex run -f ./ci/apex-scripts/assignUserRole.apex | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+    cat stderr
+fi
 echoMessageCreator "" $stepNo false
 ###########################
 
 # apply perm sets
 echoMessageCreator "apply customer details perm set" $stepNo true
-sfdx force:user:permset:assign -n Read_Write_Customer_Details | tee stderr
+sf org assign permset -n Read_Write_Customer_Details | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
     cat stderr
 fi
@@ -168,11 +171,17 @@ echoMessageCreator "" $stepNo false
 case ${preloadANZPlusData:0:1} in
 y | Y)
     echoMessageCreator "Pre-loading sample anzx data" $stepNo true
-    sfdx force:apex:execute -f ./ci/apex-scripts/createTestData.apex
+    sf apex run -f ./ci/apex-scripts/createTestData.apex | tee stderr
+    if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+        cat stderr
+    fi
     echoMessageCreator "" $stepNo false
 
     echoMessageCreator "Creating test users (inactive by default) with different roles" $stepNo true
-    sfdx force:apex:execute -f ./ci/apex-scripts/createTestUsers.apex
+    sf apex run -f ./ci/apex-scripts/createTestUsers.apex | tee stderr
+    if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+        cat stderr
+    fi
     echoMessageCreator "" $stepNo false
     ;;
 *) echo "${green}Skipping ANZ plus test data preload${reset}" ;;
@@ -184,8 +193,7 @@ case ${preloadCMOSData:0:1} in
 y | Y)
     echoMessageCreator "Pre-loading sample cmos data" $stepNo true
     # Uncomment the next line (and comment the next) to import products without their related cases
-    #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
-    sfdx force:data:tree:import -p data/IDR-ProductFamily-Product2-Case-plan.json 2>&1 | tee stderr
+    sf data import tree -p data/IDR-ProductFamily-Product2-Case-plan.json 2>&1 | tee stderr
     if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
         exit 1
     fi
@@ -198,16 +206,15 @@ esac
 
 case ${ccrmpartycheck:0:1} in
 y | Y)
-    echoMessageCreator "Pre-loading CCRM data" $stepNo true
-    sfdx force:data:bulk:upsert --sobjecttype Industry__c --csvfile data/CCRM-Industry__c.csv --externalid Code__c --wait 2 2>&1 | tee stderr
-    sfdx force:data:tree:import -p data/Reciprocal-plan.json 2>&1 | tee stderr
+    echoMessageCreator "Pre-loading CCRM Industry data" $stepNo true
+    sf data upsert bulk --sobjecttype Industry__c --csvfile data/CCRM-Industry__c.csv --externalid Code__c --wait 2 2>&1 | tee stderr
     if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
         exit 1
     fi
 
     echoMessageCreator "" $stepNo false
     ;;
-*) echo "${green}Skipping CCRM data preload${reset}" ;;
+*) echo "${green}Skipping CCRM Industry data preload${reset}" ;;
 esac
 ###########################
 
@@ -217,12 +224,12 @@ echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
 
 # reset source tracking
 echoMessageCreator "Resetting source tracking" $stepNo true
-sfdx force:source:tracking:reset -p
+sf project reset tracking -p
 echoMessageCreator "" $stepNo false
 ###########################
 
 # open scratch org
 echoMessageCreator "Open scratch org" $stepNo true
-sfdx force:org:open
+sf org open
 echoMessageCreator "" $stepNo false
 ###########################
