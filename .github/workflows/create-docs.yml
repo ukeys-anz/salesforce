@@ -94,7 +94,7 @@ jobs:
 
       - name: Authenticate all orgs in SFDX CLI
         working-directory: salesforce
-        run: npx sf org login sfdx-url -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
+        run: npx sfdx force:auth:sfdxurl:store -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
 
       - if: "${{ github.event.inputs.DOC == 'sysl' }}"
         name: Generate Sysl docs
