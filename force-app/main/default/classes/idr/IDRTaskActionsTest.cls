@@ -71,6 +71,63 @@ private with sharing class IDRTaskActionsTest {
         psaList.add(TestUtil.createPSAssignment(idrL1User.Id, ps.Id));
       }
       insert psaList;
+    
+      Profile stdXUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+      Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
+      UserRole cqRole = CommonUtil.getUserRoleByDevName(
+        'Capability_Quality_C_Q_Team'
+      );
+      UserRole crplRole = CommonUtil.getUserRoleByDevName(
+        'Customer_Resolution_Leadership'
+      );
+
+      User oQAUser;
+      User oIDRUser;
+      List<User> lstUsers = new List<User>{
+        // Create QA user
+        oQAUser = TestUtil.createTestUser(
+          new Map<String, Object>{
+            'FirstName' => 'QA_User',
+            'ProfileId' => stdXUserProfile.Id,
+            'UserRoleId' => cqRole.Id
+          }
+        ),
+        // Create IDR user
+        oIDRUser = TestUtil.createTestUser(
+          new Map<String, Object>{
+            'FirstName' => 'IDR_User',
+            'ProfileId' => stdUserProfile.Id,
+            'UserRoleId' => crplRole.Id
+          }
+        )
+      };
+      insert lstUsers;
+
+      // Add IDR User permissions on test users
+      PermissionSet ps = CommonUtil.getPermissionSetByName('IDR_User');
+      List<PermissionSetAssignment> lstPSA = new List<PermissionSetAssignment>{
+        TestUtil.createPSAssignment(oQAUser.Id, ps.Id)
+      };
+
+      List<PermissionSetGroup> lstPSG = [
+        SELECT Id, DeveloperName
+        FROM PermissionSetGroup
+        WHERE DeveloperName IN ('CMOS_Quality_Assessor', 'IDR_Level_1')
+      ];
+      List<Id> lstPSGIds = new List<Id>();
+      for (PermissionSetGroup psg : lstPSG) {
+        lstPSGIds.add(psg.Id);
+        lstPSA.add(
+          new PermissionSetAssignment(
+            AssigneeId = oQAUser.Id,
+            PermissionSetGroupId = psg.Id
+          )
+        );
+      }
+
+      Test.calculatePermissionSetGroup(lstPSGIds);
+
+      insert lstPSA;
     }
   }
 
@@ -485,4 +542,82 @@ private with sharing class IDRTaskActionsTest {
     }
     Test.stopTest();
   }
+  @IsTest
+  static void validateComplianceTask(){
+    validateQAComplianceTask(true);
+  }
+
+  static void validateQAComplianceTask(Boolean fFillMandatoryFields){
+    User oQAUser = TestUtil.getUserByFirstName('QA_User');
+    User oIDRUser = TestUtil.getUserByFirstName('IDR_User');
+    Test.startTest();
+    Case[] newCases = new List<Case>();
+    System.runAs(oQAUser) {
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        newCases.add(
+          new Case(
+            RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+            IDR_Customer_Number__c = '1234567890',
+            Status = 'Closed'
+          )
+        );
+      }
+      insert newCases;
+
+      Quality_Assessment__c[] lstAssessments = new List<Quality_Assessment__c>();
+      Quality_Assessment__c oNewAssessment;
+      Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        lstAssessments.add(
+          oNewAssessment = new Quality_Assessment__c(
+            Status__c = QualityAssessmentActions.STATUS_PENDING,
+            Related_Case__c = newCases[i].Id,
+            Case_Manager__c = oQAUser.Id,
+            TeamManager__c = oIDRUser.Id,
+            C_Q_Specialist__c = oQAUser.Id,
+            RecordTypeId = IDRConstants.idrtCQQualityAssessment,
+            Corrective_actions_for_TM_CM__c = 'Update internal records'
+          )
+        );
+        if (fFillMandatoryFields) {
+          IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(oNewAssessment, mpAssessmentFieldSets);
+        }
+      }
+      insert lstAssessments;
+
+      Set<Id> stAssessmentIds = new Set<Id>();
+      for (Quality_Assessment__c oAssessment : lstAssessments) {
+        oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE; 
+        stAssessmentIds.add(oAssessment.Id);
+      }
+      update lstAssessments;
+        
+      Boolean fExceptionThrown = false;
+      for (Quality_Assessment__c oAssessment : lstAssessments) {
+        List<Task> lstTasks = [ SELECT Id, Status, WhatId, RecordType.DeveloperName,Subject
+                                FROM Task
+                                WHERE
+                                WhatId IN :stAssessmentIds
+                                AND Status = 'Open'
+                                AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
+                              ];
+        if(!lstTasks.IsEmpty()){
+          for(Task otask : lstTasks){
+              try{
+                otask.Status = 'Completed';
+               update otask;
+              }catch (DmlException ex) {
+                  System.debug('Catch');
+                fExceptionThrown = true;
+              }
+              System.assert(
+                fExceptionThrown,
+                'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response'
+              );
+           } 
+          }
+        }
+      }
+        Test.stopTest();
+    }
 }

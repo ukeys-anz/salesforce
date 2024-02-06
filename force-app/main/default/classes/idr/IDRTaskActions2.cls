@@ -159,16 +159,13 @@ public with sharing class IDRTaskActions2 {
                                                     Id IN :mpQualityAssessmentId2Tasks.keySet()
                                                     AND (Team_Manager_Response__c = NULL
                                                     OR Team_Manager_Comments__c = NULL)];
-    for (Quality_Assessment__c oAssessment : lstQAassessments) {
+     for (Quality_Assessment__c oAssessment : lstQAassessments) {
       if (
         (lstQATasks = mpQualityAssessmentId2Tasks.get(oAssessment.Id)) != null
       ) {
         for (Task oTask : lstQATasks) {
-          if(oTask.Subject==IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
-          oAssessment.Case_Manager__r.Name +
-          ' : case ' +
-          oAssessment.Related_Case__r.CaseNumber__c){
-          oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
+            if(oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)){
+              oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
           }
         }
       }
