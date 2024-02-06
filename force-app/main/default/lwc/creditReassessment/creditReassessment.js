@@ -1,6 +1,7 @@
 import { LightningElement, api } from "lwc";
 import reassess from "@salesforce/apex/CreditAssessmentActionsController.reassess";
 import { handleErrorShowToast, showToast } from "c/utils";
+import { notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
 
 export default class CreditReassessment extends LightningElement {
   _recordId;
@@ -33,8 +34,7 @@ export default class CreditReassessment extends LightningElement {
           "Success",
           ""
         );
-        /* eslint-disable no-eval */
-        eval("$A.get('e.force:refreshView').fire();");
+        notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
       }
     } catch (error) {
       handleErrorShowToast(
