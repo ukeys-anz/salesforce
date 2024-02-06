@@ -68,9 +68,11 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   async getHomeLoanResponse() {
     try {
       //No need to filter by accounts as we want all H1s
+      //No need for record id, only used in fin account record call
       let response = await getHomeLoanAccount({
         ocvId: this.ocvId,
-        accountNumbers: []
+        accountNumbers: [],
+        recordId: ""
       });
       //Need to stringify and send as the array consists of many objects and SF proxies it
       //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html

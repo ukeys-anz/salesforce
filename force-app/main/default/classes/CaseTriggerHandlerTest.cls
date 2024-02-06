@@ -268,7 +268,7 @@ private class CaseTriggerHandlerTest {
 
       Account fraudAcc = new Account(
         Name = 'Fraud Entitlement Account',
-        OCV_ID__c = faker.randomString(10)
+        OCV_ID__c = Label.Fraudx_Generic_Customer_OCV_Id
       );
       accnts.add(fraudAcc);
 
@@ -1656,6 +1656,7 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
     Case newCase = new Case();
     newCase.IDR_Customer_Number__c = '123456789012';
+    newCase.Origin = 'Phone';
     insert newCase;
 
     newCase.Status = 'Closed';

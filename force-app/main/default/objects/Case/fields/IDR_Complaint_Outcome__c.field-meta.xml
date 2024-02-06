@@ -13,6 +13,7 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Origin</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -31,6 +32,171 @@
                 <default>false</default>
                 <label>In favour of ANZ</label>
             </value>
+            <value>
+                <fullName>No response from Customer</fullName>
+                <default>false</default>
+                <label>No response from Customer</label>
+            </value>
+            <value>
+                <fullName>Outside of Rules</fullName>
+                <default>false</default>
+                <label>Outside of Rules</label>
+            </value>
+            <value>
+                <fullName>Merits Assessments</fullName>
+                <default>false</default>
+                <label>Merits Assessments</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Origination</controllingFieldValue>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>Survey</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Web</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>Ribbon Failed Task</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus App</controllingFieldValue>
+            <controllingFieldValue>Splunk Alert</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>KYC QA</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <controllingFieldValue>FalconX</controllingFieldValue>
+            <controllingFieldValue>Other ANZ Plus Profile</controllingFieldValue>
+            <controllingFieldValue>15</controllingFieldValue>
+            <controllingFieldValue>Other AR&amp;C Profile</controllingFieldValue>
+            <controllingFieldValue>16</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>17</controllingFieldValue>
+            <controllingFieldValue>Voice Call</controllingFieldValue>
+            <controllingFieldValue>18</controllingFieldValue>
+            <controllingFieldValue>Video Call</controllingFieldValue>
+            <controllingFieldValue>19</controllingFieldValue>
+            <controllingFieldValue>Appointment</controllingFieldValue>
+            <controllingFieldValue>20</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>21</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Falcon</controllingFieldValue>
+            <controllingFieldValue>Fraud Staff</controllingFieldValue>
+            <controllingFieldValue>Other ANZx Staff</controllingFieldValue>
+            <controllingFieldValue>OFI</controllingFieldValue>
+            <controllingFieldValue>Phone</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>8</controllingFieldValue>
+            <controllingFieldValue>Law Enforcement</controllingFieldValue>
+            <controllingFieldValue>App</controllingFieldValue>
+            <valueName>1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Origination</controllingFieldValue>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>Survey</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Web</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>Ribbon Failed Task</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus App</controllingFieldValue>
+            <controllingFieldValue>Splunk Alert</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>KYC QA</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <controllingFieldValue>FalconX</controllingFieldValue>
+            <controllingFieldValue>Other ANZ Plus Profile</controllingFieldValue>
+            <controllingFieldValue>15</controllingFieldValue>
+            <controllingFieldValue>Other AR&amp;C Profile</controllingFieldValue>
+            <controllingFieldValue>16</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>17</controllingFieldValue>
+            <controllingFieldValue>Voice Call</controllingFieldValue>
+            <controllingFieldValue>18</controllingFieldValue>
+            <controllingFieldValue>Video Call</controllingFieldValue>
+            <controllingFieldValue>19</controllingFieldValue>
+            <controllingFieldValue>Appointment</controllingFieldValue>
+            <controllingFieldValue>20</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>21</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Falcon</controllingFieldValue>
+            <controllingFieldValue>Fraud Staff</controllingFieldValue>
+            <controllingFieldValue>Other ANZx Staff</controllingFieldValue>
+            <controllingFieldValue>OFI</controllingFieldValue>
+            <controllingFieldValue>Phone</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>8</controllingFieldValue>
+            <controllingFieldValue>Law Enforcement</controllingFieldValue>
+            <controllingFieldValue>App</controllingFieldValue>
+            <valueName>2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Origination</controllingFieldValue>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>Survey</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Web</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>Ribbon Failed Task</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus App</controllingFieldValue>
+            <controllingFieldValue>Splunk Alert</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>KYC QA</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <controllingFieldValue>FalconX</controllingFieldValue>
+            <controllingFieldValue>Other ANZ Plus Profile</controllingFieldValue>
+            <controllingFieldValue>15</controllingFieldValue>
+            <controllingFieldValue>Other AR&amp;C Profile</controllingFieldValue>
+            <controllingFieldValue>16</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>17</controllingFieldValue>
+            <controllingFieldValue>Voice Call</controllingFieldValue>
+            <controllingFieldValue>18</controllingFieldValue>
+            <controllingFieldValue>Video Call</controllingFieldValue>
+            <controllingFieldValue>19</controllingFieldValue>
+            <controllingFieldValue>Appointment</controllingFieldValue>
+            <controllingFieldValue>20</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>21</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Falcon</controllingFieldValue>
+            <controllingFieldValue>Fraud Staff</controllingFieldValue>
+            <controllingFieldValue>Other ANZx Staff</controllingFieldValue>
+            <controllingFieldValue>OFI</controllingFieldValue>
+            <controllingFieldValue>Phone</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>8</controllingFieldValue>
+            <controllingFieldValue>Law Enforcement</controllingFieldValue>
+            <controllingFieldValue>App</controllingFieldValue>
+            <valueName>3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>No response from Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>Outside of Rules</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>Merits Assessments</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

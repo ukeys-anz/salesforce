@@ -117,13 +117,13 @@ public with sharing class IDRQualityAssessmentTaskActions {
     Set<Id> stCompletedCQIds = new Set<Id>();
     Set<Id> correctiveActionsCQIds = new Set<Id>();
     if(!Task.SObjectType.getDescribe().isCreateable() &&
-    !Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
-    !Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
-    !Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
-    !Schema.SObjectType.Task.fields.Subject.isCreateable() &&
-    !Schema.SObjectType.Task.fields.WhatId.isCreateable()){
-      return;
-    }
+       !Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
+       !Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
+       !Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
+       !Schema.SObjectType.Task.fields.Subject.isCreateable() &&
+       !Schema.SObjectType.Task.fields.WhatId.isCreateable()){
+        return;
+      }
     for (Quality_Assessment__c oAssessment : lstAssessments) {
       if (
         oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
@@ -136,12 +136,13 @@ public with sharing class IDRQualityAssessmentTaskActions {
         oOldAssessment.Corrective_actions_for_TM_CM__c &&
         oAssessment.Corrective_actions_for_TM_CM__c != null))
       ) {
-        if (oOldAssessment != null) {
+
           stCompletedCQIds.add(oAssessment.Id);
-        }
+
         if (
           oAssessment.Corrective_actions_for_TM_CM__c !=
-          IDRConstants.CORRECTIVE_ACTIONS_NA
+          IDRConstants.CORRECTIVE_ACTIONS_NA &&
+          oAssessment.Corrective_actions_for_TM_CM__c !=null
         ) {
           correctiveActionsCQIds.add(oAssessment.Id);
         }
@@ -149,7 +150,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
     }
     if (
       (stCompletedCQIds.size() > 0 ||
-      correctiveActionsCQIds.size() > 0) 
+      correctiveActionsCQIds.size() > 0)
     ) {
       List<Quality_Assessment__c> lstCompletedCQAssessments = [
         SELECT
@@ -173,7 +174,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
         if (stCompletedCQIds.contains(oAssessment.Id)) {
           String strSubject  = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT + String.valueOf(oAssessment.Case_Manager__r.Name) + ': case' + String.valueOf(oAssessment.Related_Case__r.CaseNumber__c);
 		      lstComplianceTasks.add(getComplianceTask(oAssessment,'', strSubject));
-		      
         }
         if (correctiveActionsCQIds.contains(oAssessment.Id)) {
           String strSubject  = IDRConstants.TASK_TM_ATTESTATION_SUBJECT + String.valueOf(oAssessment.Case_Manager__r.Name);
@@ -193,25 +193,25 @@ public with sharing class IDRQualityAssessmentTaskActions {
       }
     }
   }
- /**
+  /**
    * @description method to write a common function to create a Task.
-   * @param oAssessment Quality Assessment object
+   * @param oAssessment Quality Assessment Object
    * @param strDescription Description of the task
    * @param strSubject Subject of the task
    * @return Task object
    */
   public static Task getComplianceTask(Quality_Assessment__c oAssessment, String strDescription, String strSubject ){
-      Task taskObj = New Task();
-      taskObj.RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID;
-      taskObj.OwnerId = oAssessment.TeamManager__c;
-      taskObj.WhatId = oAssessment.Id;
-      taskObj.Subject = strSubject;
-      taskObj.Description = strDescription;
-      taskObj.ActivityDate = Date.today().addDays(7);
-      taskObj.Status = 'Open';
-      taskObj.Priority = 'Normal';
-    return taskObj;
-   }
+    Task taskObj = New Task();
+    taskObj.RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID;
+    taskObj.OwnerId = oAssessment.TeamManager__c;
+    taskObj.WhatId = oAssessment.Id;
+    taskObj.Subject = strSubject;
+    taskObj.Description = strDescription;
+    taskObj.ActivityDate = Date.today().addDays(7);
+    taskObj.Status = 'Open';
+    taskObj.Priority = 'Normal';
+  return taskObj;
+ }
   /**
    * @description method to apply apex sharing  if Quality Assessment record's status is changed to Completed
    * @param lstAssessments new Trigger values

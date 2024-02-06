@@ -4412,6 +4412,18 @@
             <fullName>3</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Merits Assessments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No response from Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outside of Rules</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Complaint_Remedy_2__c</picklist>
@@ -6395,6 +6407,21 @@
         </values>
         <values>
             <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Progressed_Status__c</picklist>
+        <values>
+            <fullName>Progressed - Customer Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Progressed - No Customer Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Progressed - No Offer</fullName>
             <default>false</default>
         </values>
     </picklistValues>
