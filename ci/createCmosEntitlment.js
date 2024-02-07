@@ -5,7 +5,7 @@ let accRecId = "";
 let entitlementProcessRec = "";
 // first create an account for entitlement
 exec(
-  "sfdx force:data:tree:import -p data/IDR-EntitlementAccCreate.json --json",
+  "sf data import tree -p data/IDR-EntitlementAccCreate.json --json",
   (err, stdout, stderr) => {
     if (err) {
       console.log(`error: ${err.message}`);
@@ -20,7 +20,7 @@ exec(
       }
       //extract the id of SlaProcess (I.e Entitlement Process) for complaint.
       exec(
-        "sfdx force:data:soql:query -q \"Select Id from SlaProcess Where Name= 'Complaints'\" --json",
+        "sf data query -q \"Select Id from SlaProcess Where Name= 'Complaints'\" --json",
         (err, stdout, stderr) => {
           if (err) {
             console.log(`error: ${err.message}`);
@@ -59,7 +59,7 @@ exec(
                 }
                 //create the entitlemnt record.
                 exec(
-                  "sfdx force:data:tree:import -p data/IDR-CreateCmosEntitlment.json --json",
+                  "sf data import tree -p data/IDR-CreateCmosEntitlment.json --json",
                   (err, stdout, stderr) => {
                     if (err) {
                       console.log(`error: ${err.message}`);
