@@ -187,6 +187,7 @@
       "permissionsets": [
         "API_Only",
         "Case_Read_Only_Dispute_Integration_GCP",
+        "Customer_Dispute_Management_Read_Only",
         "Disable_MFA",
         "Enforce_mTLS"
       ],
