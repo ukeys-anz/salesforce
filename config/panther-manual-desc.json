@@ -209,6 +209,7 @@
     "ContactRequest": "Represents a request made by the customer to connect with the coach",
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
+    "Customer_Dispute_Management__c": "To manage customer disputes, limiting creation of disputes. This object linked with Account based on related cases it manages disputes",
     "CustomerOnboardingApplication__c": "The main record maintaining Salesforce's copy of the state of a prospect's onboarding journey",
     "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
     "Deposit_Account__x": "External Direct Deposit financial accounts",
@@ -1484,6 +1485,14 @@
       ],
       "IA-2530753": ["Created__c", "Completed__c"],
       "IA-2415998": ["Eligible_to_Complete__c"]
+    },
+    "Customer_Dispute_Management__c": {
+      "IA-2415720": [
+        "Temporary_Block__c",
+        "Customer__c",
+        "Permanent_Block__c",
+        "Temporary_Block_Overridden__c"
+      ]
     },
     "CustomerOnboardingApplication__c": {
       "IA-2594111": [
