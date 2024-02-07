@@ -47,6 +47,11 @@
                 <default>false</default>
                 <label>Merits Assessments</label>
             </value>
+            <value>
+                <fullName>Merged</fullName>
+                <default>false</default>
+                <label>Merged</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Origination</controllingFieldValue>
@@ -197,6 +202,10 @@
         <valueSettings>
             <controllingFieldValue>11</controllingFieldValue>
             <valueName>Merits Assessments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>Merged</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

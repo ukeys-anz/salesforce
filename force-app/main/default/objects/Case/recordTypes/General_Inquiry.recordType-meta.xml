@@ -3854,6 +3854,10 @@
             <fullName>Outside of Rules</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Merged</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Complaint_Remedy_2__c</picklist>

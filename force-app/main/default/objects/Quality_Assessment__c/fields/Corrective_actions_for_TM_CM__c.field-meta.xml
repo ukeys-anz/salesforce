@@ -35,6 +35,11 @@
                 <default>false</default>
                 <label>Other further action recommended</label>
             </value>
+            <value>
+                <fullName>N/A- no action required</fullName>
+                <default>false</default>
+                <label>N/A- no action required</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>3</visibleLines>
