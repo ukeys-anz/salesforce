@@ -78,6 +78,8 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
     GetHelpCaseActions.updateCOBAppHasIDOpsAssistanceCases(records);
     System.enqueueJob(new QueueCaseMilestoneTargetDate(records));
+    //Update or Insert CDM record based on number of active self service dispute cases associated to the customer on case insert
+    CustomerDisputeManagementService.validateCustomerDisputeManagement(records,null);
     Logger.debug('On_After_Insert finished: ' + System.now());
     Logger.saveLog();
   }
@@ -190,6 +192,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         (Map<Id, Case>) oldMap
       )
     );
+    
+    //Update or Insert CDM record based on number of active self service dispute cases associated to the customer on case update
+    CustomerDisputeManagementService.validateCustomerDisputeManagement(records, (Map<Id, Case>) oldMap);
+
     Logger.debug('On_After_Update finished: ' + System.now());
     Logger.saveLog();
   }

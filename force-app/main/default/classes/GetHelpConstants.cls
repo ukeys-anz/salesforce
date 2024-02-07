@@ -267,6 +267,7 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
+  public static final String SELF_SERVICE_ORIGIN = 'App';
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
