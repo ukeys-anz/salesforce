@@ -3876,4 +3876,112 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
     verifyCaseSubject(theCase);
   }
+
+  @isTest
+  public static void testCdmRecordInsertion() {
+    // Cdm - Customer Dispute Managment Record
+    Test.startTest();
+    List<Case> listOfCases = createSelfServiceDisputeCases();
+    try {
+      insert listOfCases;
+    } catch (DmlException e) {
+      System.assert(false, 'Failed to create dispute case');
+    }
+    Test.stopTest();
+    Account insertedAccount = [
+      SELECT
+        Id,
+        Customer_Dispute_Management__c,
+        Customer_Dispute_Management__r.Id,
+        Customer_Dispute_Management__r.Temporary_Block__c
+      FROM Account
+      WHERE OCV_ID__c = 'OCV000000001'
+    ];
+    System.assertEquals(
+      !String.isEmpty(insertedAccount.Customer_Dispute_Management__c),
+      true,
+      'CDM record is created'
+    );
+    System.assertEquals(
+      insertedAccount.Customer_Dispute_Management__r.Temporary_Block__c,
+      true,
+      'Field Temporary Block should be true becuase total cases > 5'
+    );
+  }
+  @isTest
+  public static void testCdmRecordUpdate() {
+    // Cdm - Customer Dispute Managment Record
+    Test.startTest();
+    List<Case> listOfCases = createSelfServiceDisputeCases();
+    try {
+      insert listOfCases;
+      listOfCases[0].Status = 'Closed';
+      listOfCases[0].External_System__c = 'Pega_Smarts';
+      listOfCases[0].External_Case_ID__c = '542432fsd54';
+      update listOfCases[0];
+    } catch (DmlException e) {
+      System.assert(false, 'Failed to create dispute case');
+    }
+    Account insertedAccount = [
+      SELECT
+        Id,
+        Customer_Dispute_Management__c,
+        Customer_Dispute_Management__r.Id,
+        Customer_Dispute_Management__r.Temporary_Block__c
+      FROM Account
+      WHERE OCV_ID__c = 'OCV000000001'
+    ];
+    System.assertEquals(
+      !String.isEmpty(insertedAccount.Customer_Dispute_Management__c),
+      true,
+      'CDM record is created'
+    );
+    System.assertEquals(
+      insertedAccount.Customer_Dispute_Management__r.Temporary_Block__c,
+      false,
+      'Field Temporary Block should be false becuase total cases < 5'
+    );
+    Test.stopTest();
+  }
+
+  private static List<Case> createSelfServiceDisputeCases() {
+    String recordTypeDeveloperName = 'NPP_Dispute';
+    List<Account> accountsList = [
+      SELECT Id, OCV_ID__c, Customer_Dispute_Management__c
+      FROM Account
+      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
+    ];
+    Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
+    for (Account account : accountsList) {
+      ocvIDAndAccountMap.put(account.OCV_ID__c, account);
+    }
+    List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [
+      SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c
+      FROM FinServ__FinancialAccount__c
+      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
+    ];
+    Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+    for (
+      FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList
+    ) {
+      ocvIDAndFinSerAccountMap.put(
+        finServFinancialAccount.OCV_ID__c,
+        finServFinancialAccount
+      );
+    }
+    List<Case> listOfCases = new List<Case>();
+    for (Integer caseNumber = 1; caseNumber <= 5; caseNumber++) {
+      Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
+      theCase.Origin = 'App';
+      theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
+      theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
+          'OCV000000001'
+        )
+        .Id;
+      theCase.Payment_ID__c = 'MPS123123DFS';
+      theCase.Dispute_Reason_PayTo__c = 'Not as per agreement';
+      listOfCases.add(theCase);
+    }
+    return listOfCases;
+  }
 }
