@@ -78,7 +78,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
     GetHelpCaseActions.updateCOBAppHasIDOpsAssistanceCases(records);
     System.enqueueJob(new QueueCaseMilestoneTargetDate(records));
-    //Update or Insert CDM record based on number of active self service dispute cases associated to the customer on case insert
+    // Update or Insert CDM record based on number of active self service dispute cases associated to the customer on case insert
     CustomerDisputeManagementService.handleCustomerDisputeManagementActions(
       records,
       null
