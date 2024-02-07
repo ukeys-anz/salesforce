@@ -5,5 +5,5 @@
     <description>Disable Coach to Update Temporary Block Override if Temporary Block is not enabled.</description>
     <errorConditionFormula>AND($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,ISCHANGED(Temporary_Block_Overridden__c), Temporary_Block_Overridden__c , NOT(Temporary_Block__c))</errorConditionFormula>
     <errorDisplayField>Temporary_Block_Overridden__c</errorDisplayField>
-    <errorMessage>You cannot update the Temporary Block Override if Temporary Block is not enabled.</errorMessage>
+    <errorMessage>You cannot update the &quot;Temporary Block Overridden&quot; if &quot;Temporary Block&quot; is not enabled.</errorMessage>
 </ValidationRule>
