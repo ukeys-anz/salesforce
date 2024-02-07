@@ -278,6 +278,7 @@
         "Anniversary_Duration__c",
         "Collections__c",
         "Customer_Belongs_To__c",
+        "Customer_Dispute_Management__c",
         "FinServ__KYCStatus__c",
         "FinServ__Status__c",
         "Hardship__c",
@@ -424,7 +425,6 @@
       ],
       "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
       "IA-2415720": [
-        "Customer_Dispute_Management__c",
         "FinServ__Expectations__c",
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
