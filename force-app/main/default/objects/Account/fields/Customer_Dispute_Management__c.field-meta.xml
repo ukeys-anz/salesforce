@@ -11,6 +11,7 @@
     <relationshipLabel>Customers</relationshipLabel>
     <relationshipName>Customers</relationshipName>
     <required>false</required>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>

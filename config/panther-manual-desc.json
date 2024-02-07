@@ -424,6 +424,7 @@
       ],
       "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
       "IA-2415720": [
+        "Customer_Dispute_Management__c",
         "FinServ__Expectations__c",
         "FinServ__Household__c",
         "FinServ__NextSteps__c",

@@ -193,6 +193,19 @@
       "type": "system"
     },
     {
+      "name": "Disputes Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Write_Dispute_Integration",
+        "Customer_Dispute_Management_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
       "name": "EDW Integration User",
       "profile": "Integration User",
       "permissionsetgroups": ["IDR_EDW_User"],
