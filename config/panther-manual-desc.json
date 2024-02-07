@@ -1490,7 +1490,6 @@
     "Customer_Dispute_Management__c": {
       "IA-2415720": [
         "Temporary_Block__c",
-        "Customer__c",
         "Permanent_Block__c",
         "Temporary_Block_Overridden__c"
       ]
