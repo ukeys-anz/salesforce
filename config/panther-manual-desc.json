@@ -2321,7 +2321,11 @@
         "Risk_Type__c",
         "Supporting_Valuation_Type__c"
       ],
-      "IA-2415983": ["PropertyValue", "RequestedLoanAmount"]
+      "IA-2415983": [
+        "PropertyValue",
+        "RequestedLoanAmount",
+        "Property_Value__c"
+      ]
     },
     "Location": {
       "IA-2468715": [
