@@ -107,7 +107,7 @@ public with sharing class PermissionUtils {
 
   /**
    * @description Checks if the user has query permission on a specific object
-   * @param objectNames List of Name of the object which we need to check if the user has query permission on
+   * @param objectNames List of Name of the object which we need to check if the user has query permission
    * @return Boolean - True if the user has query permission, otherwise throws an error
    */
   public static Boolean canQueryAllObjects(List<String> objectNames) {

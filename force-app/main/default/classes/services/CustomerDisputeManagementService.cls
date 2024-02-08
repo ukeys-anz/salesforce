@@ -4,13 +4,13 @@
  * @description This is used to create or update the Customer Dispute Manangement record when a case is inserted or updated.
  */
 public with sharing class CustomerDisputeManagementService {
-  public static Integer disputeLimit = (Integer) Max_Open_Self_Service_Dispute__mdt.getAll()
+  public static Integer disputeLimit = (Integer) Customer_Dispute_Management_Setting__mdt.getAll()
     .get('Dispute_Limit')
     .Dispute_Limit__c;
 
   /**
    * @description check whether the Customer Dispute Management related to Account or not and then create the Customer Dispute Management Record to link with Customer
-   * @param newCaseRecords  Case records from trigger
+   * @param newCaseRecords  Case records from trigger on insert
    * @param  oldCaseRecords  Map<Id, Case> oldMap for after update
    */
   public static void handleCustomerDisputeManagementActions(

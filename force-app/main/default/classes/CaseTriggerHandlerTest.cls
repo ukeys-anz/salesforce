@@ -3920,7 +3920,7 @@ private class CaseTriggerHandlerTest {
       listOfCases[0].External_Case_ID__c = '542432fsd54';
       update listOfCases[0];
     } catch (DmlException e) {
-      System.assert(false, 'Failed to create dispute case');
+      System.assert(false, 'Failed to update dispute case');
     }
     Account insertedAccount = [
       SELECT
