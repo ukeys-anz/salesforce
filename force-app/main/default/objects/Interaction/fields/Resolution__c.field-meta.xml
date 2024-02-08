@@ -73,8 +73,16 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
             <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <valueName>Testing</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
             <controllingFieldValue>Other</controllingFieldValue>
             <controllingFieldValue>Testing</controllingFieldValue>
