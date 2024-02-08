@@ -6,6 +6,7 @@ const FAILURE_TO_RESPOND = "61";
 const REFERRED_TO_PRODUCT = "3";
 const OTHER = "99";
 const REMS = ["1", "10", "18"];
+
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
