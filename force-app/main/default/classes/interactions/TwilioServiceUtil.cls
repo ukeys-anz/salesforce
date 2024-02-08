@@ -65,7 +65,7 @@ public with sharing class TwilioServiceUtil {
         twilioDetailRecord.ANZ_Queue__c = res.queueName;
       }
       if (String.isNotBlank(res.agentEmail)) {
-        agentEmailList.add(res.agentEmail);
+        agentEmailList.add(res.agentEmail.toLowerCase());
       }
       twilioDetailRecordToInsertOrUpdate.add(twilioDetailRecord);
     }
@@ -79,7 +79,7 @@ public with sharing class TwilioServiceUtil {
         OR FederationIdentifier IN :agentEmailList)
         AND IsActive = TRUE
     ]) {
-      agentOwnerIdMap.put(agent.FederationIdentifier, agent.Id);
+      agentOwnerIdMap.put(agent.FederationIdentifier.toLowerCase(), agent.Id);
     }
 
     //create Twilio Details upsert list based on from which context it is called
