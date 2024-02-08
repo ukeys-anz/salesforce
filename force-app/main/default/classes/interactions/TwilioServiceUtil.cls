@@ -65,7 +65,7 @@ public with sharing class TwilioServiceUtil {
         twilioDetailRecord.ANZ_Queue__c = res.queueName;
       }
       if (String.isNotBlank(res.agentEmail)) {
-        agentEmailList.add(res.agentEmail.toLowerCase());
+        agentEmailList.add(res.agentEmail);
       }
       twilioDetailRecordToInsertOrUpdate.add(twilioDetailRecord);
     }
@@ -106,7 +106,7 @@ public with sharing class TwilioServiceUtil {
           interactionToBeUpdated.add(
             new Interaction(
               Id = payLoad.interactionId,
-              OwnerId = agentOwnerIdMap.get(payLoad.agentEmail),
+              OwnerId = agentOwnerIdMap.get(payLoad.agentEmail.toLowerCase()),
               TwilioDetailsID__c = twilioRecordUpserted.getId(),
               Status__c = getStatus(payLoad.chatOrCallStatus)
             )
