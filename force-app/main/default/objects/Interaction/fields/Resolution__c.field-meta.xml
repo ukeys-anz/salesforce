@@ -62,6 +62,11 @@
                 <label>Resolved</label>
             </value>
             <value>
+                <fullName>Testing</fullName>
+                <default>false</default>
+                <label>Testing</label>
+            </value>
+            <value>
                 <fullName>Voice Mail</fullName>
                 <default>false</default>
                 <label>Voice Mail</label>
