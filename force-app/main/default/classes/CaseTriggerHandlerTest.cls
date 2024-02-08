@@ -1656,6 +1656,7 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
     Case newCase = new Case();
     newCase.IDR_Customer_Number__c = '123456789012';
+    newCase.Origin = 'Phone';
     insert newCase;
 
     newCase.Status = 'Closed';

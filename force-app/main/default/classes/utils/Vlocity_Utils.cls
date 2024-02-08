@@ -26,9 +26,11 @@ global with sharing class Vlocity_Utils implements Callable {
       (new ComplaintResolutionActions())
         .deleteComplaintResolution(input, output, options);
     } else if ('createComplaintResolution'.equals(methodName)) {
-      (new ComplaintResolutionActions())
-        .createComplaintResolution(input, output, options);
+         createComplaintResolution(input, output, options);
     }
+        else if ('getLastModifiedDateOfField'.equals(methodName)){
+            getLastModifiedDateOfField(input, output, options);
+        }
     return true;
   }
 
@@ -95,42 +97,12 @@ global with sharing class Vlocity_Utils implements Callable {
   }
 
   /**
-   * @description To handle complaint resolution actions which are used in IP
-   */
-  private without sharing class ComplaintResolutionActions {
-    /**
-     * @description To delete Complaint Resolution
-     * @param input The input from IP CR Ids
-     * @param output The output to be passed to Integration procedure
-     * @param options The additional parameters required
-     */
-    public void deleteComplaintResolution(
-      Map<String, Object> input,
-      Map<String, Object> output,
-      Map<String, Object> options
-    ) {
-      List<Complaint_Resolution__c> crtodel = new List<Complaint_Resolution__c>();
-      List<Object> complaintRes = (List<Object>) input.get(
-        'ComplaintResolution'
-      );
-      for (Object c : complaintRes) {
-        Map<String, Object> cr = (Map<String, Object>) c;
-        if (cr.get('Remedy') == null) {
-          crtodel.add(new Complaint_Resolution__c(Id = (Id) cr.get('Id')));
-        }
-      } // loop through the CRs node from IP and delete records with blank fields, Remedy
-      if (!crtodel.isEmpty()) {
-        delete crtodel;
-      }
-    }
-
-    /**
      * @description To create Complaint Resolution
      * @param input The input from IP CR Ids
      * @param output The output to be passed to Integration procedure
      * @param options The additional parameters required
      */
-    public void createComplaintResolution(
+    public static void createComplaintResolution(
       Map<String, Object> input,
       Map<String, Object> output,
       Map<String, Object> options
@@ -173,6 +145,45 @@ global with sharing class Vlocity_Utils implements Callable {
         crtocreate.add(cr1);
       }
       if (!crtocreate.isEmpty()) {
+        (new ComplaintResolutionActions()).createResolutionrecords(crtocreate);
+    }
+  }
+
+  /**
+   * @description To handle complaint resolution actions which are used in IP
+   */
+  private without sharing class ComplaintResolutionActions {
+    /**
+     * @description To delete Complaint Resolution
+     * @param input The input from IP CR Ids
+     * @param output The output to be passed to Integration procedure
+     * @param options The additional parameters required
+     */
+    public void deleteComplaintResolution(
+      Map<String, Object> input,
+      Map<String, Object> output,
+      Map<String, Object> options
+    ) {
+      List<Complaint_Resolution__c> crtodel = new List<Complaint_Resolution__c>();
+      List<Object> complaintRes = (List<Object>) input.get(
+        'ComplaintResolution'
+      );
+      for (Object c : complaintRes) {
+        Map<String, Object> cr = (Map<String, Object>) c;
+        if (cr.get('Remedy') == null) {
+          crtodel.add(new Complaint_Resolution__c(Id = (Id) cr.get('Id')));
+        }
+      } // loop through the CRs node from IP and delete records with blank fields, Remedy
+      if (!crtodel.isEmpty()) {
+        delete crtodel;
+      }
+    }
+      
+/**
+   * @description To create complaint resolution records
+   * @param crtocreate list of Complaint_Resolution__c records to create
+   */
+    public void createResolutionrecords(List<Complaint_Resolution__c> crtocreate){
         List<Database.UpsertResult> results = new List<Database.UpsertResult>();
         DMLUtil.upsertRecords(
           crtocreate,
@@ -181,8 +192,42 @@ global with sharing class Vlocity_Utils implements Callable {
         );
       }
     }
-  }
 
+    /**
+    * @description To get the last modified date of a particular field for a particular Case.
+    * @param input The input from IP CR Ids
+    * @param output The output to be passed to Integration procedure
+    * @param options The additional parameters required
+    */
+    public void getLastModifiedDateOfField(
+        Map<String, Object> input,
+        Map<String, Object> output,
+        Map<String, Object> options
+    ) {
+        String fieldName = String.ValueOf(input.get('FieldName'));
+        String caseId = String.ValueOf(input.get('recordId'));
+        output.put('lastModifiedDate' + fieldName, 0);
+        List<CaseHistory> historyList = [
+            SELECT CreatedDate
+            FROM CaseHistory
+            WHERE Field = :fieldName AND CaseId = :caseId
+            ORDER BY CreatedDate DESC
+            LIMIT 1
+        ];
+        List<Case> cseList = [SELECT CreatedDate FROM Case WHERE ID =: caseId];
+        DateTime lastModifiedDate;
+        DateTime now = DateTime.now();
+        if (!historyList.isEmpty()){
+          lastModifiedDate = historyList[0].CreatedDate;
+        }
+        else if (!cseList.isEmpty()){
+          lastModifiedDate = cseList[0].CreatedDate;
+        }
+        if(lastModifiedDate != null){
+          Integer daysSinceLastUpdate = now.date().daysBetween(lastModifiedDate.date());
+          output.put('lastModifiedDate' + fieldName, Math.abs(daysSinceLastUpdate) + ' Days'); 
+        }
+    }
   /**
    * @description To deserialize the input from IP.
    */

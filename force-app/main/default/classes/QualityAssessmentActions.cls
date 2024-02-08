@@ -31,7 +31,10 @@ public with sharing class QualityAssessmentActions {
   public static final String GROUP_COACH_LEAD = 'Coach Lead Group';
   public static final String GROUP_JOIN_LEAD = 'Join Lead Group';
   public static final String CHATTER_FEED_STRING = 'There is a new item for review.';
-  public static final String EVALUATION_TYPE_DUPLICATE_ERROR = 'Only one of each Evaluation Type per Case allowed';
+  public static final String EVALUATION_TYPE_DUPLICATE_ERROR = 'A Quality Assessment has already been completed for this Complaint record. The evaluation types permitted for each Complaint record are 1 C&Q Assessment OR 1 Call Review and 1 Letter Review';
+  public static final String CALL_REVIEW_EVALUATION_TYPE = 'Call Review Assessment';
+  public static final String LETTER_REVIEW_EVALUATION_TYPE = 'Letter Review Assessment';
+  public static final String CQ_EVALUATION_TYPE = 'C & Q Assessment';
 
   private static final List<Id> DISPUTE_CASE_RT_IDS = new List<Id>{
     GetHelpConstants.GENERAL_INQUIRY_RT_ID,
@@ -346,11 +349,7 @@ public with sharing class QualityAssessmentActions {
           mpCaseId2Assessments.put(oAssessment.Related_Case__c, lstAssessments);
         }
         for (Quality_Assessment__c oAssessment2 : lstNewAssessments) {
-          if (
-            oAssessment2.Status__c != STATUS_WITHDRAWN &&
-            oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c &&
-            oAssessment2.Id != oAssessment.Id
-          ) {
+          if (isDuplicateEvaluationType(oAssessment2, oAssessment)) {
             oAssessment.addError(EVALUATION_TYPE_DUPLICATE_ERROR);
           }
         }
@@ -374,17 +373,38 @@ public with sharing class QualityAssessmentActions {
         )) != null
       ) {
         for (Quality_Assessment__c oAssessment2 : lstAssessments) {
-          if (
-            oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c &&
-            oAssessment2.Id != oAssessment.Id
-          ) {
+          if (isDuplicateEvaluationType(oAssessment2, oAssessment)) {
             oAssessment2.addError(EVALUATION_TYPE_DUPLICATE_ERROR);
           }
         }
       }
     }
   }
-
+  /**
+   * @description method to check if duplicate Quality Assessment forms are getting created per case
+   * @param oAssessment2 quality assessment being created/updated
+   * @param oAssessment existing quality assessment
+   * @return Boolean
+   */
+  public static Boolean isDuplicateEvaluationType(
+    Quality_Assessment__c oAssessment2,
+    Quality_Assessment__c oAssessment
+  ) {
+    Boolean duplicateEvalType = false;
+    if (
+      (oAssessment2.Evaluation_Type__c == oAssessment.Evaluation_Type__c ||
+      ((oAssessment2.Evaluation_Type__c == CALL_REVIEW_EVALUATION_TYPE ||
+      oAssessment2.Evaluation_Type__c == LETTER_REVIEW_EVALUATION_TYPE) &&
+      oAssessment.Evaluation_Type__c == CQ_EVALUATION_TYPE) ||
+      (oAssessment2.Evaluation_Type__c == CQ_EVALUATION_TYPE &&
+      (oAssessment.Evaluation_Type__c == CALL_REVIEW_EVALUATION_TYPE ||
+      oAssessment.Evaluation_Type__c == LETTER_REVIEW_EVALUATION_TYPE))) &&
+      oAssessment2.Id != oAssessment.Id
+    ) {
+      duplicateEvalType = true;
+    }
+    return duplicateEvalType;
+  }
   /**
    * @description method to create sharing record
    * @param records quality assessment records to update
