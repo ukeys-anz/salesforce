@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Priority_cannot_be_changed</fullName>
+    <active>true</active>
+    <description>Coach Nudge Tasks&apos;s Priority cannot be changed manually</description>
+    <errorConditionFormula>AND( RecordType.Name == &apos;Coach Nudge&apos;, ISCHANGED( Priority ) )</errorConditionFormula>
+    <errorDisplayField>Priority</errorDisplayField>
+    <errorMessage>Priority cannot be changed manually</errorMessage>
+</ValidationRule>
