@@ -277,16 +277,6 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.ContactId</fieldItem>
-                <identifier>RecordContactIdField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.ContactMobile</fieldItem>
                 <identifier>RecordContactMobileField</identifier>
             </fieldInstance>
