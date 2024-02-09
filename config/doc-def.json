@@ -388,6 +388,18 @@
       "type": "system"
     },
     {
+      "name": "Splunk AWS Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Splunk_Integration_Tech_Ops",
+        "Password_Never_Expires",
+        "Disable_MFA"
+      ],
+      "type": "system"
+    },
+    {
       "name": "SAF Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],

@@ -1,4 +1,5 @@
 import { LightningElement, api } from "lwc";
+import { notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
 import updateSubmitFlag from "@salesforce/apex/SubmitDisputeController.updateSubmitFlag";
 import verifyCardTokenNumber from "@salesforce/apex/SubmitDisputeController.verifyCardTokenNumber";
 
@@ -48,15 +49,7 @@ export default class SubmitDispute extends LightningElement {
             "Success",
             ""
           );
-          // Refresh the View once task created
-          /**
-           * LWC does not support refreshing of the other
-           * components on the page and this is the most
-           * elegant solution without doing window.refresh()
-           * which is much slower 02/09/2021
-           */
-          /* eslint-disable no-eval */
-          eval("$A.get('e.force:refreshView').fire();");
+          notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
         } else {
           this.loading = false;
           handleErrorShowToast(
