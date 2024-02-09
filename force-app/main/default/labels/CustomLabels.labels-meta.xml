@@ -77,7 +77,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Disputes cloud event type</shortDescription>
-        <value>anzx.salesforce.task.v1alpha1.interaction.coachnudge.</value>
+        <value>com.anzx.salesforce.interaction.v1alpha1.interaction.coachnudge.</value>
     </labels>
     <labels>
         <fullName>Anonymous_Complainant</fullName>
