@@ -49,8 +49,8 @@ jobs:
 
       - name: Authenticate BAU and Test orgs in SFDX CLI
         run: |
-          npx sfdx force:auth:sfdxurl:store -a plautiTEST --sfdxurlfile=./SFDX_URL_PLAUTI_TEST.txt
-          npx sfdx force:auth:sfdxurl:store -a plautiBAU --sfdxurlfile=./SFDX_URL_PLAUTI_BAU.txt
+          npx sf org login sfdx-url -a plautiTEST --sfdxurlfile=./SFDX_URL_PLAUTI_TEST.txt
+          npx sf org login sfdx-url -a plautiBAU --sfdxurlfile=./SFDX_URL_PLAUTI_BAU.txt
 
       - name: Run plauti
         run: |

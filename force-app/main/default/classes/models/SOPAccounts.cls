@@ -8,6 +8,7 @@ public class SOPAccounts {
   public string id;
   public string bsb;
   public string accountNumber;
+  public SOPProductDetails productDetails;
   /**
    * @description returns the last 4 digits of account number to display cardNumber UI in flexcard
    */
@@ -17,14 +18,22 @@ public class SOPAccounts {
     }
   }
   /**
-   * @description returns the product name from an account number
+   * @description child class to get the marketing name
+   */
+  public class SOPProductDetails {
+    public string marketingName;
+    
+  }
+  /**
+   * @description returns the product marketing name from an account number
    */
   public string productName {
     get {
-      FinServ__FinancialAccount__c finAcc = ResidentialLoanApplicationModel.accNumberToFinAccountMap.get(
-        this.accountNumber
-      );
-      return finAcc != null ? finAcc.Product_Name__c : '';
+      if(productDetails == Null)
+      {
+          return ''; 
+      }
+      return productDetails.marketingName;
     }
   }
   public string accountName;

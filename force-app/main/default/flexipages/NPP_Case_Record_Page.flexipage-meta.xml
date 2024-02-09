@@ -393,6 +393,16 @@
                 <identifier>RecordTransaction_UUID_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Transaction_Made_By__c</fieldItem>
+                <identifier>RecordTransaction_Made_By_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-68eebf63-cab1-4c30-a776-83695cd52164</name>
         <type>Facet</type>
     </flexiPageRegions>

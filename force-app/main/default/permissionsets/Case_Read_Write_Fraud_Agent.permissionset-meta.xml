@@ -998,6 +998,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Transaction_Made_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Transaction_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1125,7 +1130,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <name>TransferAnyCase</name>
         <enabled>true</enabled>
+        <name>TransferAnyCase</name>
     </userPermissions>
 </PermissionSet>

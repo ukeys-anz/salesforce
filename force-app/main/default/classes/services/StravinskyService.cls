@@ -18,35 +18,24 @@ public with sharing class StravinskyService extends Service {
 
   /**
    * @param ocvId customer id
-   * @param packageId package id
-   * @param checkingAccount the account number for the checking account
-   * @param savingsAccount the account number for the savings account
+   * @param closureCaseRecord Account Closure Wrapper record to be sent in the body
    * @return HttpCalloutResponse
    * @description stravinsky package closure api
    */
   public override HttpCalloutResponse closePackage(
     String ocvId,
-    String packageId,
-    String checkingAccount,
-    String savingsAccount
+    AccountClosurePackageWrapper closureCaseRecord
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
     headers.put('x-span-id', UniqueIdUtil.generateSpanId());
-
-    Map<String, String> callBody = new Map<String, String>{
-      'packageId' => packageId,
-      'closeDate' => String.valueOf(Date.today()),
-      'accountNumberA1' => checkingAccount,
-      'accountNumberS1' => savingsAccount
-    };
-
+    headers.put('Content-Type', 'application/json');
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.ST_Close_Package,
       HTTP_METHOD.HTTP_POST,
       headers,
-      JSON.serialize(callBody)
+      JSON.serialize(closureCaseRecord)
     );
 
     return response;

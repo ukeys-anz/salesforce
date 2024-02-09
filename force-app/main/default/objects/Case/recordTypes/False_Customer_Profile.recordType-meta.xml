@@ -51,15 +51,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>FalconX %E2%80%93 Auto Suspend</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Other ANZ Plus Profile</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other AR&amp;C Profile</fullName>
+            <fullName>OFI</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Other AR%26C Profile</fullName>
             <default>false</default>
         </values>
     </picklistValues>

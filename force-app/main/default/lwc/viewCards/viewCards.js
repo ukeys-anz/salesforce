@@ -17,6 +17,9 @@ import {
 import Id from "@salesforce/user/Id";
 import UserNameField from "@salesforce/schema/User.Name";
 
+//Added as part of ANZX-128123
+import CardsAccountTypeForSorting from "@salesforce/label/c.CardsAccountTypeForSorting";
+
 export default class ViewCards extends LightningElement {
   @api recordId;
   viewAllCards = false;
@@ -109,11 +112,16 @@ export default class ViewCards extends LightningElement {
       getCardList({ ocvId: this.ocvId })
         .then((result) => {
           if (result.cards && result.cards.length > 0) {
-            this.initialCardsDetails = this.mapCardDetails(result.cards);
-            this.cardDetails = [this.initialCardsDetails[0]];
+            //Sort the cards so that Single will be before Joint Cards- Added as part of ANZX-128123
+            this.initialCardsDetails = this.sortCardDetails(
+              this.mapCardDetails(result.cards)
+            );
+            //Added this in order to handle the expansion of card details if load more is already clicked
+            this.cardDetails = this.viewAllCards
+              ? this.initialCardsDetails
+              : [this.initialCardsDetails[0]];
             this.showViewAllButtonHandler();
             this.isInvalidCardHandler();
-
             this.showDetails = true;
           } else {
             this.noCards = true;
@@ -198,4 +206,19 @@ export default class ViewCards extends LightningElement {
     mappedCards.forEach((c) => (c.image = cardImageHandler(cardImages, c)));
     return mappedCards;
   };
+
+  //Sorting the order of cards based on type of accountType - Added as part of ANZX-128123
+  sortCardDetails(arrOfCards) {
+    return arrOfCards.sort((firstCard, otherCard) => {
+      const accountTypeOrder = CardsAccountTypeForSorting.split(",");
+      let sortValue = 0;
+      // Sort by AccountType
+      if (firstCard.accountType !== otherCard.accountType) {
+        sortValue =
+          accountTypeOrder.indexOf(firstCard.accountType) -
+          accountTypeOrder.indexOf(otherCard.accountType);
+      }
+      return sortValue;
+    });
+  }
 }
