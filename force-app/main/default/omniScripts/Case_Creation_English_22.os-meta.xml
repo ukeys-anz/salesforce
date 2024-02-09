@@ -186,8 +186,8 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.Origin&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateOriginPicklist&quot;,
+    &quot;type&quot; : &quot;Custom&quot;
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
