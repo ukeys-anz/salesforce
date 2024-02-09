@@ -1921,4 +1921,18 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>For Raise Dispute Card Transactions</shortDescription>
         <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
     </labels>
+    <labels>
+        <fullName>FinAccountProductToMap</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Products to Map for Classic Fin Acc Recs. Format- &apos;Code1&apos;,&apos;Code2&apos;,&apos;Code3&apos;</shortDescription>
+        <value>&apos;CAP-CIS:CDA&apos;,&apos;CAP-CIS:DDA&apos;,&apos;CAP-CIS:FM&apos;,&apos;CAP-CIS:ILS&apos;,&apos;CAP-CIS:OLL&apos;,&apos;CAP-CIS:PCA&apos;,&apos;CAP-CIS:PTF&apos;,&apos;CAP-CIS:RSV&apos;,&apos;CAP-CIS:SSI&apos;</value>
+    </labels>
+    <labels>
+        <fullName>MissingCodeMsgForClassicRecords</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing Code message while Mapping Classic FinAcc Records to Product</shortDescription>
+        <value>Missing Product Code Sub Code Found and the number of Financial Account Using the subcode.</value>
+    </labels>
 </CustomLabels>
