@@ -7975,17 +7975,6 @@
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
-        <layout>Assessment_Response__c-Assessment Response Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Assessment_Response__c-Assessment Response Layout</layout>
-        <recordType>Assessment_Response__c.Needs_Assessment</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Assessment_Response__c-Ineligible Reason Page</layout>
-        <recordType>Assessment_Response__c.Property_Collateral_Assessment</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Case-ATM Dispute Layout</layout>
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
@@ -8908,6 +8897,15 @@
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Order</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>OrgSnapshot</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

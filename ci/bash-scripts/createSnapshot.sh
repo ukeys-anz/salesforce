@@ -18,30 +18,28 @@ cd ../..
 
 # creating the scratchOrg
 echoMessageCreator "creating the scratchOrg" $stepNo true
-sfdx force:org:create -f config/project-scratch-def.json -a $scratchorgalias --setdefaultusername --durationdays 1
+sf org create scratch -f config/project-scratch-def.json -a $scratchorgalias -d -y 1
 echoMessageCreator "" $stepNo false
 ########################
 
 # check if the scratch org has been created
 echoMessageCreator "check if the scratch org has been created" $stepNo true
-sfdx force:org:list
+sf org list
+echo ""
+read -rp "${green}check if the scratchOrg with $scratchorgalias alias has been made(y/n)? " scratchMade
+if [[ $scratchMade == n || $scratchMade == N ]];then
+    echo ""
+    echo "${red}exit and re-run it again${reset}"
+    echo ""
+    sf org delete scratch -o $scratchorgalias | tee stderr
+    exit 1
+fi
 echoMessageCreator "" $stepNo false
 ########################
 
-# Pre-deploy steps for any package installation
-# manual steps
-echoMessageCreator "Pre-deploy steps for any package installation" $stepNo true
-read -rp "${green}Do you want to open the scratch org (y/n)? " openOrg
-echo "${reset}"
-if [[ $openOrg == y || $openOrg == Y ]]; then
-    sfdx force:org:open -u $scratchorgalias 
-fi
-continueTheJob
-echoMessageCreator "" $stepNo false
-
 # install managed packages
 echoMessageCreator "install managed packages" $stepNo true
-sfdx force:mdapi:deploy -d mdapi-source/packages/ | tee stderr
+sf project deploy start -o $scratchorgalias -d mdapi-source/packages/ | tee stderr
 continueTheJob
 echoMessageCreator "" $stepNo false
 ########################
@@ -53,7 +51,7 @@ waitToInstallPackages=false;
 echoMessageCreator "waiting step for a command" $stepNo true
 while [[ $waitToInstallPackages == false ]]; do
     echo ""
-    sfdx force:mdapi:deploy:report | tee stderr
+    sf project deploy start --metadata-dir | tee stderr
 
     if [[ ($(cat stderr) == *'InProgress'*) ]]; then
         echo "${green}"
@@ -76,10 +74,10 @@ echoMessageCreator "install unmanaged packages" $stepNo true
 # open http://industries.force.com/financialservicescloudextension
 # if it is not like below, change it to the new one
 apvId=04t1E000001Iql5
-sfdx force:package:install --package $apvId -w 20 --securitytype AllUsers | tee stderr
+sf package install -p $apvId -w 20 -s AllUsers | tee stderr
 continueTheJob
 
-sfdx force:package:install -p 04t2J000000IzriQAC --securitytype AdminsOnly | tee stderr
+sf package install -p 04t2J000000IzriQAC -s AdminsOnly | tee stderr
 continueTheJob
 
 echoMessageCreator "" $stepNo false
@@ -93,13 +91,13 @@ echoMessageCreator "" $stepNo false
 
 
 echoMessageCreator "check if you want to delete an existed snapshot" $stepNo true
-sfdx force:org:snapshot:list
+sf org snapshot list
 echo "${green}"
 read -rp "Do you want to delete ReleaseSnapshot snapshot (y/n)? " deleteSnapshot
 case ${deleteSnapshot:0:1} in
     y | Y)        
         snapshotName=ReleaseSnapshot
-        sfdx force:org:snapshot:delete -s $snapshotName
+        sf org delete snapshot -s $snapshotName
         echo "************************"
         ;;
     *)
@@ -114,11 +112,11 @@ echoMessageCreator "" $stepNo false
 echoMessageCreator "creating a new snapshot" $stepNo true
 name=ReleaseSnapshot
 developCommitSHA=$(git log develop --oneline --pretty=format:'%h' -1)
-sfdx force:org:snapshot:create -n $name -d "Snapshot from $developCommitSHA" -o $scratchorgalias -v $prodname
+sf org create snapshot -n $name -d "Snapshot from $developCommitSHA" -o $scratchorgalias -v $prodname
 waitTillSnapshotIsActive=false
 while [[ $waitTillSnapshotIsActive == *'false'* ]]; do
-    sfdx force:org:snapshot:list
-    snapshotList=$( sfdx force:org:snapshot:list --json )
+    sf org snapshot list
+    snapshotList=$( sf org snapshot list --json )
     if [[ $snapshotList == *"InProgress"* ]];then
         echo "${green}"
         echo "wait for another 1 mins"

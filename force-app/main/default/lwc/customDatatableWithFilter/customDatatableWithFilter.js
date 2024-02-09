@@ -366,6 +366,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       row.Status__c !== "Closed & Archived" &&
       row.Status__c !== "Active" &&
       row.Status__c !== "Resolved" &&
+      row.Status__c !== "Cancelled" &&
       hasOutboundChatPermission
     ) {
       actions = [

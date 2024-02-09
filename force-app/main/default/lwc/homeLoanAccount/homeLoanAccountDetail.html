@@ -203,7 +203,7 @@
                 </p>
               </div>
             </div>
-            <div class="slds-col slds-grid slds-size_1-of-3 rowgap">
+            <div class="slds-col slds-grid slds-size_2-of-3 rowgap">
               <div class="header-column">
                 <p class="slds-text-color_weak slds-align_absolute-center">
                   Settlement Date
@@ -213,29 +213,6 @@
                   data-test-id="settlementdate"
                 >
                   {singleFinAccount.settlementDate}
-                </p>
-              </div>
-            </div>
-            <div class="slds-col slds-grid slds-size_1-of-3 rowgap">
-              <div class="header-column">
-                <p class="slds-text-color_weak slds-align_absolute-center">
-                  Linked Offset Account
-                </p>
-                <p
-                  lwc:if={singleFinAccount.loan_details.offsetAccount}
-                  class="slds-text-heading_small"
-                  data-test-id="offsetAccount"
-                >
-                  <a
-                    onclick={navigateToRecordViewPage}
-                    data-id={singleFinAccount.loan_details.offsetAccount.recordId}
-                    class="slds-truncate"
-                    title={singleFinAccount.loan_details.offsetAccount.accountNumber}
-                  >
-                    <span
-                      >{singleFinAccount.loan_details.offsetAccount.accountNumber}</span
-                    >
-                  </a>
                 </p>
               </div>
             </div>

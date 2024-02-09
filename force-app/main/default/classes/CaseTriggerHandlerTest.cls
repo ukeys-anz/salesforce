@@ -3256,7 +3256,6 @@ private class CaseTriggerHandlerTest {
   @isTest
   public static void testCreateFraudCheckCase() {
     User usr = TestUtil.getUserByFirstName('FraudXTest');
-
     //create an onboarding application
     List<CustomerOnboardingApplication__c> cobs = new List<CustomerOnboardingApplication__c>();
 

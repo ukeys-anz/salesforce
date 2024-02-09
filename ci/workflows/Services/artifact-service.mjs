@@ -177,5 +177,6 @@ export {
   downloadArtifact,
   createDiffOnValidate,
   createDiffOnDeploy,
-  uploadToArtifactory
+  uploadToArtifactory,
+  renameForceignore
 };

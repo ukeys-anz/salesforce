@@ -98,17 +98,13 @@ public with sharing class StravinskyServiceMock extends Service {
 
   /**
    * @param ocvId customer id
-   * @param packageId package id
-   * @param checkingAccount the account number for the checking account
-   * @param savingsAccount the account number for the savings account
+   * @param closureCaseRecord Account Closure Wrapper record to be sent in the body
    * @return `HttpCalloutResponse` method response
    * @description stravinsky package closure api
    */
   public override HttpCalloutResponse closePackage(
     String ocvId,
-    String packageId,
-    String checkingAccount,
-    String savingsAccount
+    AccountClosurePackageWrapper closureCaseRecord
   ) {
     if (!preset) {
       response.body = CLOSE_PACKAGE_RESPONSE_ALL_FIELDS;

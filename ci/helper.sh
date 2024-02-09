@@ -122,10 +122,10 @@ function deployArtifact() {
     if [[ $1 == 'validate' ]]; then
         #validate metadata
         echo "**********Validating metadata"
-        npx sfdx force:mdapi:deploy -u $2 -c -d $DEPLOY_ROOT -l RunLocalTests -w -1 --loglevel debug
+        npx sf project deploy start --metadata-dir -u $2 -c -d $DEPLOY_ROOT -l RunLocalTests -w -1 --loglevel debug
     else
         #deploy metadata
         echo "**********Deploying metadata"
-        npx sfdx force:mdapi:deploy -u $2 -d $DEPLOY_ROOT -l RunLocalTests -w -1 --loglevel debug
+        npx sf project deploy start --metadata-dir -u $2 -d $DEPLOY_ROOT -l RunLocalTests -w -1 --loglevel debug
     fi
 }
