@@ -7,6 +7,7 @@
     <description>Flag to indicate that the coach has overridden the Temporary Block by manually setting this flag to true, to allow this customer to raise additional disputes even while the Temporary block flag is true
 This field will be set to false by the OnClose trigger if the number of open Self Service Disputes is &lt;  [max_open_self_service_disputes] custom setting</description>
     <externalId>false</externalId>
+    <inlineHelpText>Tick to override the temporary block to self-serve. This will allow customers to raise more than 5 disputes via self-service.</inlineHelpText>
     <label>Temporary Block Overridden</label>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
