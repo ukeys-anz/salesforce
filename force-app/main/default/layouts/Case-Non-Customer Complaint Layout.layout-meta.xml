@@ -552,6 +552,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>IDR_AFCA_Reference_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>IDR_AFCA_Date__c</field>
             </layoutItems>
             <layoutItems>
@@ -574,19 +578,43 @@
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Product_Type__c</field>
             </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_AFCA_Reference_Number__c</field>
+                <field>IDR_AFCA_EDR_impact__c</field>
             </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Due_Date__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_AFCA_EDR_impact__c</field>
+                <field>IDR_AFCA_Registration_Response_Provided__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Progressed_Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Case_Manager__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Teleconference_Call_TCC__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_AFCA_Information_Request_Due__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Preliminary_View_PV__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Determination_Due__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

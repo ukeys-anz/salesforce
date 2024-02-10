@@ -1143,6 +1143,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_AFCA_Case_Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_AFCA_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1153,7 +1158,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_AFCA_Information_Request_Due__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_AFCA_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_AFCA_Registration_Response_Provided__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1344,6 +1359,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Datetime_PSI_Ticked__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Determination_Due__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1631,6 +1651,11 @@
         <field>Case.IDR_Possible_Systemic_Issues__c</field>
         <readable>true</readable>
     </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Preliminary_View_PV__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Previously_raised_with_ANZ__c</field>
@@ -1649,6 +1674,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Product_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Progressed_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1724,6 +1754,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Systemic_Issue_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Teleconference_Call_TCC__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
