@@ -325,8 +325,7 @@
         "Read_Write_Customer_Details",
         "CCRM_Marketing_Integration_User",
         "Customer_Relationships_Read_Write",
-        "Disable_MFA",
-        "Feature_FA_Feature_Read_Write"
+        "Disable_MFA"
       ],
       "type": "system"
     },

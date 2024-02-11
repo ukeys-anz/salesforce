@@ -7381,6 +7381,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Transaction_Made_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Transaction_Status__c</field>
         <readable>false</readable>
     </fieldPermissions>

@@ -19,6 +19,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>ContactId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>ContactMobile</field>
             </layoutItems>
             <layoutItems>
@@ -143,10 +147,6 @@
         <editHeading>true</editHeading>
         <label>Other Information</label>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ContactId</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>SuppliedEmail</field>

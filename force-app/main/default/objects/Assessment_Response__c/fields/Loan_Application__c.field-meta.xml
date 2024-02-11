@@ -3,16 +3,15 @@
     <fullName>Loan_Application__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Loan Domain</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
     <description>Associated application</description>
     <externalId>false</externalId>
     <label>Loan Application</label>
     <referenceTo>ResidentialLoanApplication</referenceTo>
     <relationshipLabel>Needs Assessment Responses</relationshipLabel>
     <relationshipName>Assessment_Responses</relationshipName>
-    <relationshipOrder>0</relationshipOrder>
-    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>MasterDetail</type>
-    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    <type>Lookup</type>
 </CustomField>

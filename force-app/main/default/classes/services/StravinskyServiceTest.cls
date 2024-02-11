@@ -31,6 +31,21 @@ public inherited sharing class StravinskyServiceTest {
     '   \"message\": \"WorkflowId is not set on request.\"' +
     '}';
 
+  private static final String ACCOUNT_TYPE = 'Individual';
+
+  //Creating Dummy List for Test Class StravinskyServiceTest and StravinskyAPIRepositoryTest
+  public static final List<String> CHECKING_ACCOUNT_LIST = new List<String>{
+    '111111111'
+  };
+
+  public static final List<String> SAVINGS_ACCOUNT_LIST = new List<String>{
+    '000000000'
+  };
+
+  public static final List<String> CUSTOMER_OCVIDS_LIST = new List<String>{
+    '1011111111'
+  };
+
   @isTest
   static void getRealService() {
     Test.startTest();
@@ -49,8 +64,15 @@ public inherited sharing class StravinskyServiceTest {
     Faker faker = new Faker('AU');
     String ocvId = faker.randomString(10);
     String packageId = faker.randomString(10);
-    String checkingAccount = faker.randomString(10);
-    String savingsAccount = faker.randomString(10);
+
+    //Added in order to create a wrapper object to be sent to Mulesoft
+    AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
+    closureCaseRecord.packageId = packageId;
+    closureCaseRecord.closeDate = String.valueOf(Date.today());
+    closureCaseRecord.accountNumbersA1 = CHECKING_ACCOUNT_LIST;
+    closureCaseRecord.accountNumbersS1 = SAVINGS_ACCOUNT_LIST;
+    closureCaseRecord.ocvIds = CUSTOMER_OCVIDS_LIST;
+    closureCaseRecord.accountType = ACCOUNT_TYPE;
 
     Test.setMock(HttpCalloutMock.class, new MockClosePackageSuccess());
     //load forge staff token
@@ -65,9 +87,7 @@ public inherited sharing class StravinskyServiceTest {
     StravinskyService stravinskyService = new StravinskyService();
     HttpCalloutResponse response = stravinskyService.closePackage(
       ocvId,
-      packageId,
-      checkingAccount,
-      savingsAccount
+      closureCaseRecord
     );
 
     Test.stopTest();
@@ -85,8 +105,16 @@ public inherited sharing class StravinskyServiceTest {
 
     String ocvId = faker.randomString(10);
     String packageId = faker.randomString(10);
-    String checkingAccount = faker.randomString(10);
-    String savingsAccount = faker.randomString(10);
+
+    //Added in order to create a wrapper object to be sent to Mulesoft
+    AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
+    closureCaseRecord.packageId = packageId;
+    closureCaseRecord.closeDate = String.valueOf(Date.today());
+    closureCaseRecord.accountNumbersA1 = CHECKING_ACCOUNT_LIST;
+    closureCaseRecord.accountNumbersS1 = SAVINGS_ACCOUNT_LIST;
+    closureCaseRecord.ocvIds = CUSTOMER_OCVIDS_LIST;
+    closureCaseRecord.accountType = ACCOUNT_TYPE;
+
     //load forge staff token
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART +
@@ -100,9 +128,7 @@ public inherited sharing class StravinskyServiceTest {
     StravinskyService stravinskyService = new StravinskyService();
     HttpCalloutResponse response = stravinskyService.closePackage(
       ocvId,
-      packageId,
-      checkingAccount,
-      savingsAccount
+      closureCaseRecord
     );
     Test.stopTest();
 

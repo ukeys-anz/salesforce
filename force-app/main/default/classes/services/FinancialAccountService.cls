@@ -16,16 +16,15 @@ public with sharing class FinancialAccountService {
   ) {
     //fetching the financial account details which are not closed for the ocv id.
     List<FinServ__FinancialAccount__c> financialAccountList;
-    String financialAccountQuery = 'SELECT FinServ__FinancialAccountNumber__c, FinServ__Status__c from FinServ__FinancialAccount__c WHERE FinServ__PrimaryOwner__r.OCV_ID__c  =:ocvId';
+    String financialAccountQuery = 'SELECT FinServ__FinancialAccountNumber__c,Ownership__c, FinServ__Status__c from FinServ__FinancialAccount__c WHERE Id IN (Select FinServ__FinancialAccount__c from FinServ__FinancialAccountRole__c WHERE FinServ__RelatedAccount__r.OCV_ID__c =:ocvId AND FinServ__Active__c =true)';
 
-    if (!statusList.isEmpty()) {
+    if (statusList != null && !statusList.isEmpty()) {
       financialAccountQuery += ' AND FinServ__Status__c IN :statusList';
     }
 
     if (PermissionUtils.canQuery('FinServ__FinancialAccount__c')) {
       financialAccountList = Database.query(financialAccountQuery);
     }
-
     return financialAccountList;
   }
 

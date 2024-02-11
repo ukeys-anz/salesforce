@@ -44,11 +44,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Assessment_Response__c.Completed_By__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Assessment_Response__c.Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -59,27 +54,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Assessment_Response__c.Ineligibility_Reason_Subtype_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Assessment_Response__c.Ineligibility_Reason_Subtype__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Assessment_Response__c.Ineligibility_Reason_Type_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Assessment_Response__c.Ineligibility_Reason_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Assessment_Response__c.Loan_Application_Property__c</field>
+        <field>Assessment_Response__c.Loan_Application__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -120,71 +95,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Customer_Action__c.Task_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>FA_Feature_Relationship__c.End_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>FA_Feature_Relationship__c.Financial_Account_Product__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>FA_Feature_Relationship__c.Relationship_Key__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>FA_Feature_Relationship__c.Relationship_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>FA_Feature_Relationship__c.Start_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.Account_Key__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.Account_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.Closed_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.Force_Update__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.Marketing_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.OCV_Feature_Version__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.Open_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.Product_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -484,11 +394,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LoanApplicationProperty.Address_Details__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LoanApplicationProperty.Bathrooms__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -504,37 +409,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LoanApplicationProperty.Collateral_Assessment_Enquiry_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Collateral_Assessment_Expiry_Time__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Collateral_Assessment_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Collateral_Assessment_Outcome__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Collateral_Assessment_Time__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LoanApplicationProperty.Floor_Area__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Forecast_Standard_Deviation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -550,16 +425,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicationProperty.Last_Updated_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Maximum_Allowable_LVR__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Maximum_Lending_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -589,32 +454,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LoanApplicationProperty.Property_Risk_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Property_Risk_Description__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LoanApplicationProperty.Property_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LoanApplicationProperty.Property_Subtype__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LoanApplicationProperty.Property_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.Property_Valuation_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -625,11 +470,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicationProperty.Property_Version__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.RequestedLoanAmount</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1184,24 +1024,6 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>FA_Feature_Relationship__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>Feature__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
         <object>FinServ__FinancialAccount__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -1331,14 +1153,6 @@
         <object>UUID_Log_Entry__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Assessment_Response__c.Needs_Assessment</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Assessment_Response__c.Property_Collateral_Assessment</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>ResidentialLoanApplication.Loan_Application</recordType>
         <visible>true</visible>

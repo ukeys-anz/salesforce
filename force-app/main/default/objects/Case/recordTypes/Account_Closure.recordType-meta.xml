@@ -21,6 +21,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Account_Type__c</picklist>
+        <values>
+            <fullName>Individual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joint</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Additional_Type__c</picklist>
         <values>
             <fullName>App Support</fullName>
@@ -9218,6 +9229,17 @@
         </values>
         <values>
             <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Transaction_Made_By__c</picklist>
+        <values>
+            <fullName>Co-Owner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>This Customer</fullName>
             <default>false</default>
         </values>
     </picklistValues>
