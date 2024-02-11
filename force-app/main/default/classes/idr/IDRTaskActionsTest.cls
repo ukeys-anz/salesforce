@@ -601,20 +601,25 @@ private with sharing class IDRTaskActionsTest {
                                 AND Status = 'Open'
                                 AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
                               ];
+        system.debug('lstTasks'+lstTasks);
         if(!lstTasks.IsEmpty()){
-          for(Task otask : lstTasks){
-              try{
-                otask.Status = 'Completed';
-               update otask;
-              }catch (DmlException ex) {
-                  System.debug('Catch');
-                fExceptionThrown = true;
-              }
-              System.assert(
-                fExceptionThrown,
-                'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response'
-              );
-           } 
+            for(Task otask : lstTasks){
+                if(oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)){  
+                    otask.Status = 'Completed';
+                }
+            }
+            try{
+                update lstTasks;
+               }
+            catch( Exception ex){
+               System.debug(ex.getMessage()); 
+                if(
+                ex.getMessage().contains(IDRConstants.TASK_QA_CLOSE_ERROR)
+                ){
+                fExceptionThrown= true;
+                }
+            }
+              System.assertEquals(true,fExceptionThrown, 'Able to update the task'); 
           }
         }
       }
