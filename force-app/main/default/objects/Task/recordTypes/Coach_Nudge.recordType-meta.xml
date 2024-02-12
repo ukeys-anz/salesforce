@@ -1171,7 +1171,7 @@
     <picklistValues>
         <picklist>Status</picklist>
         <values>
-            <fullName>Completed</fullName>
+            <fullName>Actioned</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1179,28 +1179,8 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Failed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>New</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Not Started</fullName>
             <default>true</default>
-        </values>
-        <values>
-            <fullName>Not required</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Open</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
