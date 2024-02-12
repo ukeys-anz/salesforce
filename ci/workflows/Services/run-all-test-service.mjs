@@ -111,6 +111,11 @@ const runAllLocalTestsProgress = (
       process.exit(1);
     }
   });
+
+  runAllTestsProcess.on("exit", (code, signal) => {
+    if (code) console.log(`Process exit with code : ${code}`);
+    if (signal) console.log(`Process killed with signal : ${signal}`);
+  });
 };
 
 /////
