@@ -2,7 +2,6 @@
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Flexipage built for Message Interactions</description>
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -11,7 +10,7 @@
                         <valueListItems>
                             <value>Interaction.Reply_To_Customer</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>NE</operator>
@@ -26,6 +25,11 @@
                                     <leftValue>{!Record.Status__c}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>Resolved</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Cancelled</rightValue>
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Outbound_Chat}</leftValue>
@@ -69,20 +73,20 @@
                 <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-22617d85-3543-4ac5-aa4b-a00fbe710b56</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-22617d85-3543-4ac5-aa4b-a00fbe710b56</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-bkjeuszb0qw</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -101,10 +105,10 @@
                 <identifier>console_relatedRecord</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-bkjeuszb0qw</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-a3263fcf-ad50-4d78-9b3a-75c760ed531e</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -131,10 +135,10 @@
                 <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-a3263fcf-ad50-4d78-9b3a-75c760ed531e</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-fe4054c8-7bce-45d4-b00e-373573b096da</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -177,20 +181,20 @@
                 <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-fe4054c8-7bce-45d4-b00e-373573b096da</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-75e35a9e-3340-45f1-bbd2-8168d7be7f2f</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
                 <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-75e35a9e-3340-45f1-bbd2-8168d7be7f2f</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-02faaa89-6c34-4949-b326-185dbca0c5e4</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -209,10 +213,10 @@
                 <identifier>flexipage_tab2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-02faaa89-6c34-4949-b326-185dbca0c5e4</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -233,10 +237,10 @@
                 <identifier>flexipage_tabset3</identifier>
             </componentInstance>
         </itemInstances>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -289,6 +293,7 @@
                 <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Message - Interaction Record Page</masterLabel>

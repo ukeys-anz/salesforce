@@ -33,8 +33,14 @@ export function cardImageHandler(card_images, card) {
 
   if (card) {
     // When GCT_Global lock is applied, Status is still issued
+    //ANZX-128122 : Update the image of Joint account logo
     if (card.status == STATUS.Issued && !card.cardIsTempLocked) {
-      imagePath = card_images.active;
+      imagePath =
+        card.accountType === "Joint"
+          ? card_images.joint
+          : card.accountType === "Single"
+          ? card_images.active
+          : card_images.default;
     } else if (cardIsLockedForUse(card)) {
       imagePath = card_images.locked;
     } else if (cardIsDisabledForUse(card)) {

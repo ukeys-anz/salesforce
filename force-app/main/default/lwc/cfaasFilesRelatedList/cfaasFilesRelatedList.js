@@ -18,7 +18,7 @@ import CUSTOMER_OCV_ID_FIELD from "@salesforce/schema/CFaaS_File__c.Customer__r.
 import RESIDENTIAL_LOAN_OCV_ID_FIELD from "@salesforce/schema/CFaaS_File__c.Residential_Loan_Id__r.Account.OCV_Id__c";
 import FINANCIAL_ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/CFaas_File__c.Financial_Account__r.FinServ__PrimaryOwner__r.OCV_Id__c";
 
-const MAX_RECORD_COUNT = 2000;
+const MAX_RECORD_COUNT = 1999;
 const RECORD_PAGE_ROW_SIZE = 5;
 const EXPANDED_VIEW_DEFAULT_ROW_SIZE = 20;
 const RELATED_LIST_ID = "CFaaS_Files__r";

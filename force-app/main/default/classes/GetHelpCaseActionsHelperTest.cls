@@ -45,7 +45,6 @@ public with sharing class GetHelpCaseActionsHelperTest {
     Case c = new Case();
     c.Status = status;
     c.RecordTypeId = recordTypeId;
-
     return c;
   }
 

@@ -460,17 +460,13 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId customer id
-   * @param packageId package id
-   * @param checkingAccount the account number for the checking account
-   * @param savingsAccount the account number for the savings account
+   * @param closureCaseRecord Account Closure Wrapper record to be sent in the body
    * @return `PackageClosureParams` api response
    * @description virtual account buckets callout
    */
   public virtual HttpCalloutResponse closePackage(
     String ocvId,
-    String packageId,
-    String checkingAccount,
-    String savingsAccount
+    AccountClosurePackageWrapper closureCaseRecord
   ) {
     return null;
   }

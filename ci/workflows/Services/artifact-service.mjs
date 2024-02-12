@@ -128,7 +128,7 @@ const uploadArtifact = (
   loggerInStep("Upload Artifact");
   console.log(
     execSync(
-      `curl -H "X-JFrog-Art-Api:${artifactorySecret}" -X PUT -T "${zipFileName}.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${zipFileName}.zip"`
+      `curl -H "Authorization: Bearer ${artifactorySecret}" -X PUT -T "${zipFileName}.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${zipFileName}.zip"`
     ).toString("utf8")
   );
 };
@@ -177,5 +177,6 @@ export {
   downloadArtifact,
   createDiffOnValidate,
   createDiffOnDeploy,
-  uploadToArtifactory
+  uploadToArtifactory,
+  renameForceignore
 };

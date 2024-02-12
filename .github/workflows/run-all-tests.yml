@@ -49,7 +49,7 @@ jobs:
           secretName=$( node ci/workflows/Orchestrations/runAllTests.mjs )
           echo "$secretName"
           echo SECRET_NAME="$secretName" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifactory" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifact" >> $GITHUB_ENV
           echo WHICH_JOB="runAllTests" >> $GITHUB_ENV
 
       - name: Find GSM credential

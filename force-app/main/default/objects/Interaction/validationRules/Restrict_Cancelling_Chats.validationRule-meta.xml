@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Cancelling_Chats</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(OR(AND(NOT(ISNEW()), ISCHANGED(Status__c),  TEXT(Status__c) = &apos;Cancelled&apos;), AND(ISNEW(),  TEXT(Status__c) = &apos;Cancelled&apos;)), Record_Type__c = &apos;Message&apos;,  NOT( $Permission.ANZx_Cancel_Messages))</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Interaction status cannot be manually set to Cancelled</errorMessage>
+</ValidationRule>

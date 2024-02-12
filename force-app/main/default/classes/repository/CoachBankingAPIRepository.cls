@@ -164,12 +164,27 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    */
   public CardListModel getCardList(String ocvId) {
     CardListModel result;
+    List<FinServ__FinancialAccount__c> finanancialAccountList;
+    Map<String, String> mapOfAccountNumberAndOwnership = new Map<String, String>();
     if (FeatureManagement.checkPermission('ANZx_View_Cards')) {
       Service s = ServiceProvider.getService(FabricService.class);
       HttpCalloutResponse response = s.getCardList(ocvId);
       if (response.successful) {
         try {
-          result = CardListModel.parse(response.body);
+          finanancialAccountList = FinancialAccountService.fetchFinancialAccountsByStatus(
+            ocvId,
+            null
+          );
+          for (FinServ__FinancialAccount__c finAcc : finanancialAccountList) {
+            mapOfAccountNumberAndOwnership.put(
+              finAcc.FinServ__FinancialAccountNumber__c,
+              finAcc.Ownership__c
+            );
+          }
+          result = CardListModel.parse(
+            response.body,
+            mapOfAccountNumberAndOwnership
+          );
           CoachBankingAPIRepositoryHelper helper = new CoachBankingAPIRepositoryHelper();
           helper.handleCardIsValidCheck(result);
           // Adding this line to filter the card list based on the status as part of ANZX-112715 - By Shivam , Sept 2023

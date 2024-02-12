@@ -207,6 +207,11 @@
         <label>FalconX</label>
     </standardValue>
     <standardValue>
+        <fullName>Goods &amp; Services</fullName>
+        <default>false</default>
+        <label>Goods &amp; Services</label>
+    </standardValue>
+    <standardValue>
         <fullName>Other ANZ Plus Profile</fullName>
         <default>false</default>
         <label>Other ANZ Plus Profile</label>
@@ -215,5 +220,10 @@
         <fullName>Other AR&amp;C Profile</fullName>
         <default>false</default>
         <label>Other AR&amp;C Profile</label>
+    </standardValue>
+    <standardValue>
+        <fullName>FalconX – Auto Suspend</fullName>
+        <default>false</default>
+        <label>FalconX – Auto Suspend</label>
     </standardValue>
 </StandardValueSet>

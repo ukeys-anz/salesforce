@@ -7,7 +7,7 @@ import { LightningElement, track, api, wire } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
 import createTask from "@salesforce/apex/CaseLogCallController.createTask";
-import { getRecord } from "lightning/uiRecordApi";
+import { getRecord, notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import SUBJECT from "@salesforce/schema/Case.Subject";
 import AUTH_OPTIONS from "@salesforce/schema/Task.Authentication_Method__c";
@@ -166,15 +166,7 @@ export default class CaseLogACall extends NavigationMixin(LightningElement) {
     // Create Task using the Field Object
     createTask({ fields: this.fields })
       .then(() => {
-        // Refresh the View once task created
-        /**
-         * LWC does not support refreshing of the other
-         * components on the page and this is the most
-         * elegant solution without doing window.refresh()
-         * which is much slower 02/09/2021
-         */
-        /* eslint-disable no-eval */
-        eval("$A.get('e.force:refreshView').fire();");
+        notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
 
         this.showToast();
         this.fields = {

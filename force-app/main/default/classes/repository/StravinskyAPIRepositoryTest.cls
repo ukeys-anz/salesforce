@@ -30,19 +30,19 @@ public with sharing class StravinskyAPIRepositoryTest {
     Faker faker = new Faker('AU');
     Case newCase = new Case(
       AccountId = acc.Id,
+      Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
       Package_Id__c = faker.randomString(10)
     );
-    String checkingAccount = faker.randomString(15);
-    String savingsAccount = faker.randomString(15);
 
     Test.startTest();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
 
     PackageClosureModel response = stravinskyApi.packageClosure(
       newCase,
-      checkingAccount,
-      savingsAccount
+      StravinskyServiceTest.CHECKING_ACCOUNT_LIST,
+      StravinskyServiceTest.SAVINGS_ACCOUNT_LIST,
+      StravinskyServiceTest.CUSTOMER_OCVIDS_LIST
     );
     PackageClosureModel.Status status = response.status;
 
@@ -69,10 +69,9 @@ public with sharing class StravinskyAPIRepositoryTest {
     Faker faker = new Faker('AU');
     Case newCase = new Case(
       AccountId = acc.Id,
+      Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID
     );
-    String checkingAccount = faker.randomString(15);
-    String savingsAccount = faker.randomString(15);
 
     HttpCalloutResponse res = getInvalidResponse();
     Service s = ServiceProvider.getService(StravinskyService.class);
@@ -84,8 +83,9 @@ public with sharing class StravinskyAPIRepositoryTest {
     try {
       PackageClosureModel response = stravinskyApi.packageClosure(
         newCase,
-        checkingAccount,
-        savingsAccount
+        StravinskyServiceTest.CHECKING_ACCOUNT_LIST,
+        StravinskyServiceTest.SAVINGS_ACCOUNT_LIST,
+        StravinskyServiceTest.CUSTOMER_OCVIDS_LIST
       );
     } catch (Exception e) {
       resultException = e;
