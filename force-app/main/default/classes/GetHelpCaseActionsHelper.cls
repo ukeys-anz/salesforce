@@ -32,8 +32,6 @@ public with sharing class GetHelpCaseActionsHelper {
   private static final String MORE_THAN_TWO_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select more than two Additional Types.';
   private static final String SAME_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select a value in Additional Type that is already selected as the Primary Type.';
   private static final String NO_ENTITLEMENT_ERROR_MSG = 'No entitlement found for account.';
-  @TestVisible
-  private static final String VERIFICATION_TYPE_ASSISTED = 'ASSISTED';
 
   private static Id falseEntitlementAccountId {
     get {
@@ -60,6 +58,9 @@ public with sharing class GetHelpCaseActionsHelper {
   );
   public static UserRole creditAssessorLeadRole = CommonUtil.getUserRoleByDevName(
     'Credit_Assessor_Lead'
+  );
+  public static UserRole coachLeadRole = CommonUtil.getUserRoleByDevName(
+    'Coach_Lead'
   );
 
   public static Group cadReferralQueue = CommonUtil.getQueueByName(
@@ -834,7 +835,8 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     if (
       oldCase.OwnerId != newCase.OwnerId &&
-      UserInfo.getUserRoleId() == creditAssessorLeadRole.Id &&
+      (UserInfo.getUserRoleId() == creditAssessorLeadRole.Id ||
+      UserInfo.getUserRoleId() == coachLeadRole.Id) &&
       newCase.OwnerId.getSObjectType() != Group.SObjectType &&
       ((newCase.Owner_Role__c == bohCoachRole.Id &&
       newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD') ||
@@ -855,6 +857,7 @@ public with sharing class GetHelpCaseActionsHelper {
     if (
       oldCase.OwnerId != newCase.OwnerId &&
       UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
+      UserInfo.getUserRoleId() != coachLeadRole.Id &&
       ((oldCase.OwnerId == UserInfo.getUserId() &&
       (newCase.OwnerId != coachRefQueue.Id &&
       newCase.OwnerId != cadReferralQueue.Id)) ||
@@ -943,52 +946,5 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       record.addError(UNCHECK_IS_PAYTO_DISPUTE_ERROR);
     }
-  }
-
-  /**
-   * @description Get list of COB Application has Verification Type is Assisted, Equifax Attempt Count is 1, ID Ops Assistance Case in Equifax Fallout Status >=1.
-   * @param cobAppIds List of COB Application Ids
-   * @return List of COB Application records
-   */
-  public static List<CustomerOnboardingApplication__c> getCOBAppsHasIDOpsAssistanceCases(
-    Set<Id> cobAppIds
-  ) {
-    List<CustomerOnboardingApplication__c> cobAppsHasIDOpsAssistanceCases = new List<CustomerOnboardingApplication__c>();
-    if (cobAppIds.isEmpty()) {
-      return cobAppsHasIDOpsAssistanceCases;
-    }
-    List<CustomerOnboardingApplication__c> cobAppList = [
-      SELECT
-        Id,
-        Has_ID_Ops_Assistance_Cases__c,
-        (
-          SELECT Id
-          FROM Cases__r
-          WHERE
-            RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
-            AND Status = :GetHelpConstants.COB_EQUIFAX_FAILED_STATUS
-        )
-      FROM CustomerOnboardingApplication__c
-      WHERE
-        Id IN :cobAppIds
-        AND VerificationType__c = :VERIFICATION_TYPE_ASSISTED
-        AND EquifaxAttemptCount__c = 1
-    ];
-    for (CustomerOnboardingApplication__c cobApp : cobAppList) {
-      if (
-        cobApp.Cases__r.size() >= 1 &&
-        cobApp.Has_ID_Ops_Assistance_Cases__c == false
-      ) {
-        cobApp.Has_ID_Ops_Assistance_Cases__c = true;
-        cobAppsHasIDOpsAssistanceCases.add(cobApp);
-      } else if (
-        cobApp.Cases__r.size() == 0 &&
-        cobApp.Has_ID_Ops_Assistance_Cases__c == true
-      ) {
-        cobApp.Has_ID_Ops_Assistance_Cases__c = false;
-        cobAppsHasIDOpsAssistanceCases.add(cobApp);
-      }
-    }
-    return cobAppsHasIDOpsAssistanceCases;
   }
 }

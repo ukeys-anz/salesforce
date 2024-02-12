@@ -1556,8 +1556,7 @@
         "CreatedDate",
         "Id",
         "LastModifiedDate",
-        "VerificationType__c",
-        "Has_ID_Ops_Assistance_Cases__c"
+        "VerificationType__c"
       ]
     },
     "Customer_Profile_Updates__c": {
@@ -2365,6 +2364,7 @@
       "IA-2415983": [
         "PropertyValue",
         "RequestedLoanAmount",
+        "Property_Value__c",
         "Maximum_Lending_Amount__c",
         "Property_Value__c"
       ],

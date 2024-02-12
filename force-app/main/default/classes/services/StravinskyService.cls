@@ -29,7 +29,7 @@ public with sharing class StravinskyService extends Service {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
     headers.put('x-span-id', UniqueIdUtil.generateSpanId());
-
+    headers.put('Content-Type', 'application/json');
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.ST_Close_Package,

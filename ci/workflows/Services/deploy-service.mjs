@@ -1,4 +1,5 @@
 import { exec, execSync } from "child_process";
+import { renameForceignore } from "./artifact-service.mjs";
 import {
   runSfCommand,
   printContextFromFile,
@@ -98,6 +99,7 @@ const prodValidationWithAllTests = (
     "Artifactory"
   );
   unzipFile(artifactFolderName);
+  renameForceignore()
   return validateWithAllTests(targetOrg, artifactFolderName);
 };
 
@@ -114,6 +116,7 @@ const prodDeploymentWithAllTests = (
     "Artifactory"
   );
   unzipFile(artifactFolderName);
+  renameForceignore()
   return deployWithAllTests(targetOrg, artifactFolderName);
 };
 const uploadJobId = (

@@ -107,7 +107,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public void initMaps() {
     initPartyIdToAccountMap();
-    initAccNumberToFinAccountMap();
   }
 
   /**
@@ -157,40 +156,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       );
     }
     ResidentialLoanApplicationModel.currentSopId = this.sop.name; // keep the sop Id for later usage
-  }
-
-  /**
-   * @description initialize the financial account map
-   */
-  public void initAccNumberToFinAccountMap() {
-    if (ResidentialLoanApplicationModel.accNumberToFinAccountMap != null) {
-      return;
-    }
-    Set<String> accNumberSet = new Set<String>();
-    if (assetsSummary != null) {
-      for (SOPAsset asset : assetsSummary.assets) {
-        if (asset.account != null) {
-          accNumberSet.add(asset.account.accountNumber);
-        }
-      }
-    }
-    for (SOPDebt debt : liabilitiesSummary.liabilities) {
-      if (debt.account != null) {
-        accNumberSet.add(debt.account.accountNumber);
-      }
-    }
-    List<FinServ__FinancialAccount__c> finAccList = [
-      SELECT Name, FinServ__FinancialAccountNumber__c, Product_Name__c
-      FROM FinServ__FinancialAccount__c
-      WHERE FinServ__FinancialAccountNumber__c IN :accNumberSet
-    ];
-    ResidentialLoanApplicationModel.accNumberToFinAccountMap = new Map<String, FinServ__FinancialAccount__c>();
-    for (FinServ__FinancialAccount__c finAcc : finAccList) {
-      ResidentialLoanApplicationModel.accNumberToFinAccountMap.put(
-        finAcc.FinServ__FinancialAccountNumber__c,
-        finAcc
-      );
-    }
   }
 
   private Map<String, Expense_Control__c> getExpenseControlMap(
@@ -937,6 +902,15 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         } else {
           return N;
         }
+      }
+    }
+
+    /**
+     * @description a static and unchanging value of the income verified
+     */
+    public String staticIncomeVerified {
+      get {
+        return incomeVerified;
       }
     }
   }

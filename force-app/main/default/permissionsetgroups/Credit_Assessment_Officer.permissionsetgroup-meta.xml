@@ -6,6 +6,7 @@
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>BoH_Read_Only</permissionSets>
     <permissionSets>Case_Credit_Referral</permissionSets>
+    <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>CFaaS_File_Read_Only</permissionSets>
     <permissionSets>CFaaS_View_Files</permissionSets>
     <permissionSets>Chat_Read_Only</permissionSets>

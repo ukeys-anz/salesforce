@@ -268,12 +268,12 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
-        <fullName>MS_Create_Income</fullName>
+        <fullName>MS_Income</fullName>
         <categories>MS</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>MS_Create_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/createincome</value>
+        <shortDescription>MS_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/incomes</value>
     </labels>
     <labels>
         <fullName>MS_Create_Party</fullName>
@@ -394,14 +394,6 @@
         <protected>false</protected>
         <shortDescription>MS_Get_SOP</shortDescription>
         <value>callout:SF_MS_Fabric/credit-assessment/v1/sop/</value>
-    </labels>
-    <labels>
-        <fullName>MS_Delete_Income</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_Delete_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/deleteincome</value>
     </labels>
     <labels>
         <fullName>MS_Update_Expense</fullName>
@@ -713,14 +705,6 @@
         <protected>false</protected>
         <shortDescription>MS_Reinitiate_Chat</shortDescription>
         <value>/contact-centre-staff/reinit-chats</value>
-    </labels>
-    <labels>
-        <fullName>MS_Update_Income</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_Update_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/updateincome</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_New</fullName>
@@ -1920,5 +1904,19 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>For Raise Dispute Card Transactions</shortDescription>
         <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
+    </labels>
+    <labels>
+        <fullName>FinAccountProductToMap</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Products to Map for Classic Fin Acc Recs. Format- &apos;Code1&apos;,&apos;Code2&apos;,&apos;Code3&apos;</shortDescription>
+        <value>&apos;CAP-CIS:CDA&apos;,&apos;CAP-CIS:DDA&apos;,&apos;CAP-CIS:FM&apos;,&apos;CAP-CIS:ILS&apos;,&apos;CAP-CIS:OLL&apos;,&apos;CAP-CIS:PCA&apos;,&apos;CAP-CIS:PTF&apos;,&apos;CAP-CIS:RSV&apos;,&apos;CAP-CIS:SSI&apos;</value>
+    </labels>
+    <labels>
+        <fullName>MissingCodeMsgForClassicRecords</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing Code message while Mapping Classic FinAcc Records to Product</shortDescription>
+        <value>Missing Product Code Sub Code Found and the number of Financial Account Using the subcode.</value>
     </labels>
 </CustomLabels>
