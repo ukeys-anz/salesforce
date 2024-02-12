@@ -12,7 +12,7 @@
                 <field>Settlement_ID__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>Loan_Application_Number__c</field>
             </layoutItems>
             <layoutItems>

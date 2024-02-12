@@ -336,12 +336,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Credit_Referral_Credit_Assessor_Lead</fullName>
+        <fullName>Credit_Referral_Leads</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Provide access to credit referral cases for Credit Assessor Leads</description>
-        <label>Credit Referral - Credit Assessor Lead</label>
+        <description>Credit referral access for credit referral lead group</description>
+        <label>Credit Referral - Leads</label>
         <sharedTo>
-            <role>Credit_Assessor_Lead</role>
+            <group>Credit_Referral_Lead_Group</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

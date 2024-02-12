@@ -27,6 +27,14 @@ public with sharing class FinancialAccountServiceTest {
     financialAccountsList[1].Source_System_Status__c = 'CAPCISOP';
 
     insert financialAccountsList;
+
+    FinServ__FinancialAccountRole__c financialAccountRoleRecord = new FinServ__FinancialAccountRole__c(
+      FinServ__RelatedAccount__c = testAccount.Id,
+      FinServ__FinancialAccount__c = financialAccountsList[0].Id,
+      FinServ__Active__c = true,
+      Finserv__Role__c = 'Additional Owner'
+    );
+    insert financialAccountRoleRecord;
   }
 
   @isTest

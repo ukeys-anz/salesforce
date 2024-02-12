@@ -58,7 +58,7 @@ ERROR_MSG="No matching source was found within the package root directory"
 # Only generate artefacts where files are found
 if [ "${CHANGED_FILES}" -gt "0" ]; then
     cd ${DEPLOY_DIR}
-    if result=$(npx sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug 2>&1); then
+    if result=$(npx sf project convert source -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug 2>&1); then
         echo "Deploy conversion successful"
     else
         if [[ $result == *$ERROR_MSG* ]]; then
@@ -77,7 +77,7 @@ fi
 if [ "${DELETED_FILES}" -gt "0" ]; then
     cd ${DESTRUCTIVE_DIR}
 
-    if result=$(npx sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug 2>&1); then
+    if result=$(npx sf project convert source -r ./force-app -d tmp/ --loglevel debug 2>&1); then
         echo "Destroy conversion successful"
     else
         if [[ $result == *$ERROR_MSG* ]]; then

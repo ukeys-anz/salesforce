@@ -120,18 +120,24 @@ public with sharing class CCRMAccountActions {
       }
     }
     AccountCommonActionsHelper.LeadRetriever lr = new AccountCommonActionsHelper.LeadRetriever();
+    List<Lead> bohLeadsList = new List<Lead>();
     for (
       Lead l : lr.getPotentialMatchingCCRMLeads(accountByCapcisIdMap.keySet())
     ) {
       AccountCommonActionsHelper.putLeadsInMapByAccId(
         l,
         matchingLeadsByAccIdMap,
+        bohLeadsList,
         accountByCapcisIdMap.get(l.CAPCIS_ID__c)
       );
       leadIds.add(l.Id);
     }
     if (!leadIds.isEmpty()) {
       CCRMLeadPlatformEventHelper.leadTask = getRelatedTasks(leadIds);
+    }
+
+    if (!bohLeadsList.isEmpty() && Schema.sObjectType.Lead.isUpdateable()) {
+      Database.update(bohLeadsList);
     }
 
     return matchingLeadsByAccIdMap;
