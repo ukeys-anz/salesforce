@@ -247,6 +247,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
       String incomeVerified = (String) inputMap.get('incomeVerified');
+      String staticIncomeVerified = (String) inputMap.get(
+        'staticIncomeVerified'
+      );
+      Boolean incomeVerifiedChanged = staticIncomeVerified != incomeVerified;
 
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
@@ -256,7 +260,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         loanRec[0]?.Account?.OCV_ID__c,
         incomeVerified,
         JSON.serialize(model),
-        loanId
+        loanId,
+        incomeVerifiedChanged
       );
       publishRLARecordMonitoringToast(loanRec[0]);
       outMap.put('hasValidationError', false);

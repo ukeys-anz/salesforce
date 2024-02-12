@@ -268,12 +268,12 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
-        <fullName>MS_Create_Income</fullName>
+        <fullName>MS_Income</fullName>
         <categories>MS</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>MS_Create_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/createincome</value>
+        <shortDescription>MS_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/incomes</value>
     </labels>
     <labels>
         <fullName>MS_Create_Party</fullName>
@@ -394,14 +394,6 @@
         <protected>false</protected>
         <shortDescription>MS_Get_SOP</shortDescription>
         <value>callout:SF_MS_Fabric/credit-assessment/v1/sop/</value>
-    </labels>
-    <labels>
-        <fullName>MS_Delete_Income</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_Delete_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/deleteincome</value>
     </labels>
     <labels>
         <fullName>MS_Update_Expense</fullName>
@@ -713,14 +705,6 @@
         <protected>false</protected>
         <shortDescription>MS_Reinitiate_Chat</shortDescription>
         <value>/contact-centre-staff/reinit-chats</value>
-    </labels>
-    <labels>
-        <fullName>MS_Update_Income</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_Update_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/updateincome</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_New</fullName>

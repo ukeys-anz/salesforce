@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HIGH_FEATURE_VERSION</fullName>
+    <active>true</active>
+    <description>Validates that the feature version being received is sequential to the current version</description>
+    <errorConditionFormula>AND(
+ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ISCHANGED( OCV_Feature_Version__c),
+Force_Update__c = false,
+OR(
+ISNULL(PRIORVALUE(OCV_Feature_Version__c)),
+OCV_Feature_Version__c - PRIORVALUE(OCV_Feature_Version__c) &gt; 1
+)
+)</errorConditionFormula>
+    <errorMessage>HIGH VERSION</errorMessage>
+</ValidationRule>
