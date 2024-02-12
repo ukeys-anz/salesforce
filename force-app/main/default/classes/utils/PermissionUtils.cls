@@ -106,6 +106,18 @@ public with sharing class PermissionUtils {
   }
 
   /**
+   * @description Checks if the user has query permission on a specific object
+   * @param objectNames List of Name of the object which we need to check if the user has query permission
+   * @return Boolean - True if the user has query permission, otherwise throws an error
+   */
+  public static Boolean canQueryAllObjects(List<String> objectNames) {
+    for (String eachObject : objectNames) {
+      canQuery(eachObject);
+    }
+    return true;
+  }
+
+  /**
    * @description Checks whether the PermissionSetGroup is assigned to User or not
    * @param permissionSetGroupName Name of the permission set group
    * @return Boolean - True if user has the given permission set group assigned
