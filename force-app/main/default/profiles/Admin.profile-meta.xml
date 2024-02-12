@@ -1434,6 +1434,10 @@
     </classAccesses>
     <custom>false</custom>
     <customMetadataTypeAccesses>
+        <name>External_Case_Status_Mapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
         <name>Lead_Stage_Automation__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
