@@ -534,4 +534,85 @@ private with sharing class IDRCaseActionsTest {
       'Expected Knowledge Keyword 2 on update, however it did not'
     );
   }
+  @isTest
+  static void testProductAssetfinance(){
+      Product_Family__c testProductFamily = new Product_Family__c(
+      Name='Asset finance',
+      IDR_ANZ_com_Product_Category__c = 'Asset finance',
+      IDR_Workbasket__c = 'IDR_Business_Owners'
+      );
+      insert testProductFamily;
+      
+      List<Product2> prodlist = new list<Product2>();
+      Product2 testProduct = new Product2(
+          Name = 'Asset Finance',
+          IsActive = true,
+          IDR_Product_Family__c = testProductFamily.Id
+      );
+      prodlist.add(testProduct);
+      Product2 testProduct1 = new Product2(
+          Name = 'ANZ Flyer Card',
+          IsActive = true
+      );
+      prodlist.add(testProduct1); 
+      Product2 testProduct2 = new Product2(
+          Name = 'Test Product',
+          IsActive = true
+      );
+      prodlist.add(testProduct2); 
+      insert prodlist;
+      Case[] cases = new List<Case>();
+      
+    for(Product2 prod:prodlist){
+        cases.add(new Case(
+            RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+            IDR_Customer_Number__c = '1234567890',
+            Status = 'Open',
+            IDR_Account_Card_Policy_Number__c='N/A',
+            isEscalated = false,
+            IDR_Second_Issue__c = true,
+            IDR_Third_Issue__c = true,
+            Type = '4',
+            IDR_Issue_Type_2__c = '9',
+            IDR_Issue_Type_3__c = '17',
+            IDR_Subsequent_Issue__c = '20',
+            IDR_Subsequent_Issue_2__c = '57',
+            IDR_Subsequent_Issue_3__c = '24', 
+            Product__c = testProduct.Id,
+            IDR_Product_Category__c='Asset finance',
+            IDR_Product_2__c = testProduct1.Id,
+            IDR_Product_3__c = testProduct2.Id,
+            IDR_Account_Card_Policy_Number_2__c='N/A',
+            IDR_Account_Card_Policy_Number_3__c	='N/A',
+            Description='Test',
+            IDR_Complainant_Desired_Outcome__c='Test'
+        ));
+    }
+    insert cases;
+    Test.startTest();
+    Boolean isProductAssetfinance=false;
+    Set<Id> caseIds = (new Map<Id, Case>(cases)).keySet();
+    cases = [SELECT OwnerId, isEscalated FROM Case WHERE id IN :caseIds];
+    for (Case c : cases) {
+        c.Product__c = testProduct1.Id;
+    }
+    try{
+    update cases;
+    }catch(Exception e){
+        if (
+            e.getMessage()
+            .contains(
+                'You cannot change this Product/Service name as collections activity has been stopped on account(s) for this product/service.'
+            )
+          ){
+            isProductAssetfinance = true;
+           }
+    }
+    System.assertEquals(
+        true,
+        isProductAssetfinance,
+        'Expected to update Product, but the product doesnt belong to asset finance product family'
+    );
+    Test.stopTest();
+  }
 }
