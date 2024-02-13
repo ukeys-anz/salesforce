@@ -86,6 +86,12 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
           proceed = true;
         }
       }
+      if (originalValues.Type in issueTypeCombinationMap) {
+        let issueTypeArray = issueTypeCombinationMap[originalValues.Type];
+        if (issueTypeArray.includes(originalValues.IDR_Subsequent_Issue__c)) {
+          proceed = true;
+        }
+      }
     }
     if (proceed) {
       this.showModal = true;
