@@ -76,7 +76,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
-    GetHelpCaseActions.updateCOBAppHasIDOpsAssistanceCases(records);
     System.enqueueJob(new QueueCaseMilestoneTargetDate(records));
     // Update or Insert CDM record based on number of active self service dispute cases associated to the customer on case insert
     CustomerDisputeManagementService.handleCustomerDisputeManagementActions(
@@ -186,7 +185,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       (Map<Id, Case>) oldMap
     );
-    GetHelpCaseActions.updateCOBAppHasIDOpsAssistanceCases(records);
 
     ToastAlertService.publishRecordMonitoringEvent(
       new Map<String, Object>(),

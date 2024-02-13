@@ -124,13 +124,15 @@ public with sharing virtual class Service {
    * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
+   * @param incomeVerifiedChanged checks if the income verified value has changed
    * @return `HttpCalloutResponse` the api response
    * @description update income
    */
   public virtual HttpCalloutResponse updateIncome(
     String verification,
     String ocvId,
-    String incomeBody
+    String incomeBody,
+    Boolean incomeVerifiedChanged
   ) {
     return null;
   }

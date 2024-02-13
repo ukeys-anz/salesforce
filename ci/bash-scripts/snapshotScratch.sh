@@ -36,7 +36,7 @@ echoMessageCreator "Assign Permission sets" $stepNo true
 flag=true
 while [[ $flag = true ]];do
     flag=false
-    sfdx force:user:permset:assign -n "FinancialServicesCloudStandard,EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
+    sf org assign permset -n "FinancialServicesCloudStandard" -n "EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
     if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Duplicate PermissionSetAssignment'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
         flag=true
     fi
@@ -49,7 +49,7 @@ echoMessageCreator "Deploy settings and content assets" $stepNo true
 flag=true
 while [[ $flag = true ]];do
     flag=false
-    sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml,force-app/main/default/contentassets,force-app/main/default/objects/Case/fields/SLA_Status__c.field-meta.xml,force-app/main/default/settings/Entitlement.settings-meta.xml 2>&1 | tee stderr
+    sf project deploy start -d force-app/main/default/settings/BusinessHours.settings-meta.xml -d force-app/main/default/settings/Quote.settings-meta.xml -d force-app/main/default/settings/Forecasting.settings-meta.xml -d force-app/main/default/contentassets -d force-app/main/default/objects/Case/fields/SLA_Status__c.field-meta.xml -d force-app/main/default/settings/Entitlement.settings-meta.xml 2>&1 | tee stderr
     if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
         flag=true
     fi
@@ -59,11 +59,11 @@ echoMessageCreator "" $stepNo false
 
 # deploy bigObjects
 echoMessageCreator "Deploy bigObjects" $stepNo true
-sfdx force:source:deploy -p force-app/main/default/objects/Accessed_Record_Log__b
-sfdx force:source:deploy -p force-app/main/default/objects/Log_Record_Access__b
-sfdx force:source:deploy -p force-app/main/default/objects/Record_Access_Log__b
-sfdx force:source:deploy -p force-app/main/default/objects/Application_Trace_Log__b
-sfdx force:source:deploy -p force-app/main/default/objects/Traced_Application_Log__b
+sf project deploy start -d force-app/main/default/objects/Accessed_Record_Log__b
+sf project deploy start -d force-app/main/default/objects/Log_Record_Access__b
+sf project deploy start -d force-app/main/default/objects/Record_Access_Log__b
+sf project deploy start -d force-app/main/default/objects/Application_Trace_Log__b
+sf project deploy start -d force-app/main/default/objects/Traced_Application_Log__b
 echo -e "\nforce-app/main/default/objects/Accessed_Record_Log__b" >> .forceignore
 echo -e "\nforce-app/main/default/objects/Log_Record_Access__b" >> .forceignore
 echo -e "\nforce-app/main/default/objects/Record_Access_Log__b" >> .forceignore
@@ -141,7 +141,7 @@ echoMessageCreator "Push metadata" $stepNo true
 tryDeploying=true
 while [[ $tryDeploying == true ]]; do
     echo "${reset}"
-    sfdx force:source:push -f 2>&1 | tee stderr
+    sf project deploy start -o $scratchorgalias 2>&1 | tee stderr
 
     if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
         echo "${green}"
@@ -174,9 +174,10 @@ echoMessageCreator "" $stepNo false
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
 mv h.forceignore .forceignore
-sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules"
+sf project deploy start -o $scratchorgalias -d "force-app/main/default/sharingRules"
 
 git checkout .
+sf project deploy start -o $scratchorgalias -d force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
 
 echo "${red}-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 echo "Please open the scratchOrg"
@@ -196,10 +197,10 @@ if [[ $importPlan == Y || $importPlan == y ]];then
     flag=true
     while [[ $flag = true ]];do
         flag=false
-        sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
-        sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
+        sf data import tree -p data/Post-Plan.json 2>&1 | tee stderr
+        sf data import tree -p data/IDR-CustomSetting.json 2>&1 | tee stderr
         node ci/createCmosEntitlment.js 2>&1 | tee stderr
-        sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
+        sf data import tree -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
 
         if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
             flag=true
@@ -217,6 +218,6 @@ echo "${green}$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s.${reset}
 
 # reset source tracking
 echoMessageCreator "Resetting source tracking" $stepNo true
-sfdx force:source:tracking:reset -p
+sf project reset tracking -p
 echoMessageCreator "" $stepNo false
 ###########################

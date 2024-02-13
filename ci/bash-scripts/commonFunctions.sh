@@ -136,7 +136,7 @@ function waitForManualSteps(){
     read -rp "${green}Do you want to open the scratch org to do manual $2 steps (y/n)? " manualDeploySteps
     echo "${reset}"
     if [[ $manualDeploySteps == y || $manualDeploySteps == Y ]]; then
-        sfdx force:org:open -u $1 
+        sf org open -o $1 
     fi
 
     echo ""
@@ -170,7 +170,7 @@ function continueTheJob(){
         read -rp "Do you want to open the scratch org (y/n)? " manualDeploySteps
         echo "${reset}"
         if [[ $manualDeploySteps == y || $manualDeploySteps == Y ]]; then
-            sfdx force:org:open 
+            sf org open 
         fi
         echo ""
     fi
