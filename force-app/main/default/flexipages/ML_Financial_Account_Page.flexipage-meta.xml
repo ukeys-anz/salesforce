@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>Facet-bc9778e2-a09c-4db0-9d17-6ec65a446147</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -32,10 +31,10 @@
                 <identifier>RecordProduct_Name_Display_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-bc9778e2-a09c-4db0-9d17-6ec65a446147</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-8cf7a88c-a39c-4653-a20e-bb8e9c6a09f7</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -56,10 +55,10 @@
                 <identifier>RecordFinServ_Status_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-8cf7a88c-a39c-4653-a20e-bb8e9c6a09f7</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-be6ba413-ddd7-45df-aa3f-ef4516099cfb</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -80,10 +79,10 @@
                 <identifier>flexipage_column2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-be6ba413-ddd7-45df-aa3f-ef4516099cfb</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>facet-0fef767b-48b9-4965-8d9c-129b013b1272</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -102,10 +101,10 @@
                 <identifier>flexipage_fieldSection</identifier>
             </componentInstance>
         </itemInstances>
+        <name>facet-0fef767b-48b9-4965-8d9c-129b013b1272</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>facet-98f0852d-3d4f-408a-b92e-df7be396a8de</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -124,10 +123,10 @@
                 <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
+        <name>facet-98f0852d-3d4f-408a-b92e-df7be396a8de</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -193,6 +192,7 @@
                 <identifier>lst_dynamicRelatedList</identifier>
             </componentInstance>
         </itemInstances>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>ML Financial Account Page</masterLabel>

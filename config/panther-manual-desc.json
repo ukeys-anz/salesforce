@@ -360,7 +360,8 @@
         "Victim_External_ID__c",
         "Victim_Record_ID__c",
         "Date_Victim_Merged__c"
-      ]
+      ],
+      "IA-2486234": ["Sync_Status__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -447,6 +448,26 @@
         "Type__c"
       ],
       "IA-2468715": ["Name", "OwnerId"]
+    },
+    "Broker_Code__c": {
+      "IA-2415790": [
+        "Accreditation_End_Date__c",
+        "Accreditation_Start_Date__c",
+        "Accreditation_Type__c",
+        "Industry_Body_Member__c",
+        "Status__c",
+        "Status_Reason__c",
+        "TPMI_SAO_Code__c"
+      ],
+      "IA-2415984": ["Broker_Name__c"],
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2453350": ["External_Id__c"]
     },
     "BusinessHours": {
       "IA-2468715": [
@@ -1286,22 +1307,53 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
+        "Previous_Record_Type__c",
+        "OCV_Event_Version__c",
+        "OCV_ID__c",
         "RecordTypeId",
-        "Previous_Record_Type__c"
+        "Sync_Status__c"
       ],
       "IA-2415860": ["Occurrence_Number__c"],
+      "IA-2453350": ["External_Id__c"],
       "IA-2415984": [
         "Birthdate",
         "Email",
         "FinServ__MaritalStatus__c",
         "Gender__c",
         "Is_Preferred_Contact__c",
+        "Legal_Entity_Name__c",
         "MobilePhone",
+        "Notes_Interests__c",
         "OtherAddress",
         "Salutation",
         "Suffix__c"
       ],
-      "IA-2530753": ["Active_From__c", "Active_To__c", "Occurrence_Number__c"]
+      "IA-2530753": [
+        "Active_From__c",
+        "Active_To__c",
+        "After_Hours_Availability__c",
+        "Broker_Customer_Profile__c",
+        "Occurrence_Number__c",
+        "Preferred_Contact__c"
+      ],
+      "IA-2415790": [
+        "Accreditation_CompactLayout__c",
+        "Asset_Finance_Accreditation_Status__c",
+        "AssetFinanceTPMISAO__c",
+        "Broker_Accreditation_Type__c",
+        "Commercial_Accreditation_Status__c",
+        "CommercialTPMISAO__c",
+        "Industry_Body_Member__c",
+        "RecordTypeID",
+        "Retail_Accreditation_Status__c",
+        "RetailTPMISAO__c"
+      ],
+      "IA-2460507": [
+        "Lan_Id__c",
+        "Manager_Lan_Id__c",
+        "Manager_Email__c",
+        "Manager__c"
+      ]
     },
     "ContactPointAddress": {
       "IA-2530753": [
@@ -1320,6 +1372,7 @@
         "Previous_Related_Account__c",
         "RecordTypeId"
       ],
+      "IA-2415790": ["Persona_Type__c"],
       "IA-2415984": [
         "P_O_Box__c",
         "Street_Name__c",
@@ -1350,6 +1403,7 @@
         "Previous_Related_Account__c",
         "UsageType"
       ],
+      "IA-2415790": ["Persona_Type__c"],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
         "Verification_Status__c",
@@ -1371,6 +1425,7 @@
         "RecordTypeId",
         "UsageType"
       ],
+      "IA-2415790": ["Persona_Type__c"],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
         "Verification_Status__c",
@@ -1745,9 +1800,19 @@
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
     },
     "FinServ__ContactContactRelation__c": {
-      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
+      "IA-2415790": ["Retail_TPMI_SAO__c"],
+      "IA-2415984": [
+        "Email__c",
+        "Mobile__c",
+        "OCV_Role__c",
+        "Role_Description__c"
+      ],
       "IA-2453350": ["External_Id__c"],
-      "IA-2468715": ["Customer_Type__c", "Customer_SourceSystemId__c"],
+      "IA-2468715": [
+        "Customer_Type__c",
+        "Customer_SourceSystemId__c",
+        "OCV_ID__c"
+      ],
       "IA-2530753": [
         "CreatedById",
         "CreatedDate",
@@ -1755,7 +1820,12 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2594111": ["FinServ__Contact__c", "FinServ__RelatedContact__c"]
+      "IA-2594111": [
+        "Broker__c",
+        "FinServ__Contact__c",
+        "FinServ__RelatedContact__c",
+        "Staff__c"
+      ]
     },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
@@ -1776,6 +1846,7 @@
         "Force_Update__c",
         "Account_Number__c"
       ],
+      "IA-2415790": ["Assisted_Broker_TPMI_SAO__c", "Assisted_Broker__c"],
       "IA-2415720": [
         "BSB__c",
         "Branch_Code__c",
@@ -3461,6 +3532,8 @@
         "Lan_Id__c",
         "Leads_Count__c",
         "Team_Code__c",
+        "Manager_Email__c",
+        "Manager_Lan_Id__c",
         "Commercial_Segment__c"
       ],
       "IA-2468715": [

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>Broker_Contacts</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Contact records with Broker record type to Retail Brokers and
+            Subordinates.</description>
+        <label>Broker Contacts</label>
+        <sharedTo>
+            <roleAndSubordinates>Retail_Broker</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker,Staff</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Display_Contacts</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Display Contacts</label>

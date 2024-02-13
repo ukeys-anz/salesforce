@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ANZX_Broker_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Brokerdata cloud event type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Broker_Event_Proto_Data_Schema</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Data schema url for proto files for cloud event</shortDescription>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Staff_Issue_with_Valid_Owner_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Staff Issue with Valid Owner Id</shortDescription>
+        <value>Issue with valid owner id!</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Staff_No_Lan_Id_for_Staff</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker-Staff No Lan Id for Staff</shortDescription>
+        <value>No Lan Id found on Staff contact.</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Staff_No_User_for_Staff_s_Lan_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker-Staff No User for Staff&apos;s Lan Id</shortDescription>
+        <value>No User found for staff&apos;s contact&apos;s Lan Id.</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Staff_User_as_Owner_of_Staff_BDM_records</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Staff User as Owner of Staff - BDM records</shortDescription>
+        <value>OCV Integration User</value>
+    </labels>
+    <labels>
         <fullName>Reactive_logging_keywords</fullName>
         <categories>Contains keywords used for reactive logging for data masking</categories>
         <language>en_US</language>
