@@ -6,6 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>Manual flag that a coach can use to permanently block a customer from raising a dispute.This flag will not auto unset.</description>
     <externalId>false</externalId>
+    <inlineHelpText> Use to permanently block the customer from raising any self-service transaction disputes.</inlineHelpText>
     <label>Permanent Block</label>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>

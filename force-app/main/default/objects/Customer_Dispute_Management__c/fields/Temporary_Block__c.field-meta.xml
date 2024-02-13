@@ -6,6 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>Automatically set flag that will indicate that the customer has &gt;= the maximum number of active disputes</description>
     <externalId>false</externalId>
+    <inlineHelpText>If a customer has 5 active transaction disputes via self-service they will be automatically blocked from raising more.</inlineHelpText>
     <label>Temporary Block</label>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
