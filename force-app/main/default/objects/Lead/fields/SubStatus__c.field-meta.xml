@@ -12,7 +12,7 @@
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
-        <restricted>false</restricted>
+        <controllingField>Status</controllingField>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -20,7 +20,92 @@
                 <default>false</default>
                 <label>Accepted</label>
             </value>
+            <value>
+                <fullName>1st attempt made</fullName>
+                <default>false</default>
+                <label>1st attempt made</label>
+            </value>
+            <value>
+                <fullName>2nd attempt made</fullName>
+                <default>false</default>
+                <label>2nd attempt made</label>
+            </value>
+            <value>
+                <fullName>3rd attempt made</fullName>
+                <default>false</default>
+                <label>3rd attempt made</label>
+            </value>
+            <value>
+                <fullName>Follow up required</fullName>
+                <default>false</default>
+                <label>Follow up required</label>
+            </value>
+            <value>
+                <fullName>Opportunity identified</fullName>
+                <default>false</default>
+                <label>Opportunity identified</label>
+            </value>
+            <value>
+                <fullName>Referred to Classic</fullName>
+                <default>false</default>
+                <label>Referred to Classic</label>
+            </value>
+            <value>
+                <fullName>Not interested</fullName>
+                <default>false</default>
+                <label>Not interested</label>
+            </value>
+            <value>
+                <fullName>Not contactable</fullName>
+                <default>false</default>
+                <label>Not contactable</label>
+            </value>
+            <value>
+                <fullName>Auto-closed</fullName>
+                <default>false</default>
+                <label>Auto-closed</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
+            <valueName>Opportunity identified</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
+            <valueName>Referred to Classic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Nurturing</controllingFieldValue>
+            <valueName>1st attempt made</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Nurturing</controllingFieldValue>
+            <valueName>2nd attempt made</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Nurturing</controllingFieldValue>
+            <valueName>3rd attempt made</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Nurturing</controllingFieldValue>
+            <valueName>Follow up required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
+            <valueName>Not interested</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
+            <valueName>Not contactable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <controllingFieldValue>Converted</controllingFieldValue>
+            <valueName>Auto-closed</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>
-    

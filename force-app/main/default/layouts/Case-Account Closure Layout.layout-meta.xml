@@ -23,6 +23,10 @@
                 <behavior>Required</behavior>
                 <field>Origin</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Account_Type__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

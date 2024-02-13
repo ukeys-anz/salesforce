@@ -152,6 +152,7 @@ public with sharing class IDRConstants {
   //Message Text
   public static final String RESTRICTED_ACTION_MESSAGE = 'You are not authorised to perform this action.';
   public static final String CANNOT_CHANGE_ISSUE_MESSAGE = 'You cannot change a collections issue to a non collections issue.';
+  public static final String CANNOT_CHANGE_PRODUCT_MESSAGE = 'You cannot change this Product/Service name as collections activity has been stopped on account(s) for this product/service.';
 
   //Milestone Sla
   public static final String MILESTONE_SLA_NORMAL = 'Normal';

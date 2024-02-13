@@ -4,11 +4,11 @@
     <description>Lead process for specific lead status values for ANZX leads</description>
     <isActive>true</isActive>
     <values>
-        <fullName>Converted</fullName>
+        <fullName>Closed</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Declined</fullName>
+        <fullName>Converted</fullName>
         <default>false</default>
     </values>
     <values>
