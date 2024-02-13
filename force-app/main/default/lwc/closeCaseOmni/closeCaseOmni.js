@@ -99,6 +99,18 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
     let details = this.omniJsonData.Case;
     this.checkFields(details, this.omniJsonData.closeReqMap);
     if (
+      details.Type === undefined ||
+      details.Type === null ||
+      details.Type === ""
+    )
+      this.missingFields.push("Issue Type");
+    if (
+      details.IDR_Subsequent_Issue__c === undefined ||
+      details.IDR_Subsequent_Issue__c === null ||
+      details.IDR_Subsequent_Issue__c === ""
+    )
+      this.missingFields.push("Subsequent Issue Type");
+    if (
       details.ComplaintRemedy1 === REFERRED_TO_PRODUCT &&
       !details.detailsOfComplaint1
     )
