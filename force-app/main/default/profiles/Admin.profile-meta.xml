@@ -10906,6 +10906,10 @@
         <recordType>Task.IDR_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Coach Nudge Layout</layout>
+        <recordType>Task.Coach_Nudge</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Task-SI Task Layout</layout>
         <recordType>Task.Systemic_Issue_Task</recordType>
     </layoutAssignments>
@@ -12276,6 +12280,11 @@
         <default>false</default>
         <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
         <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.Coach_Nudge</recordType>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
