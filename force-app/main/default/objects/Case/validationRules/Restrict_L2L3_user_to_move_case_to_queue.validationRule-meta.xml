@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_L2L3_user_to_move_case_to_queue</fullName>
+    <active>true</active>
+    <description>L2/L3 users cannot assign the case directly to any CR workbasket. Please Escalate this case by setting status field to &apos;Escalated&apos;.</description>
+    <errorConditionFormula>AND(
+NOT($Setup.Salesforce_Library_Settings__c.Disable_VRs__c),
+NOT(ISCHANGED( Status )),
+OR(
+ $UserRole.DeveloperName = &apos;Banker&apos;,
+ $UserRole.DeveloperName = &apos;Banker_Line_Manager&apos;
+),
+ ISCHANGED(  OwnerId ),
+ BEGINS(OwnerId , &apos;00G&apos;),
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;General_Inquiry&apos;
+)
+)</errorConditionFormula>
+    <errorMessage>L2/L3 users cannot assign the case directly to any CR workbasket. Please Escalate this case by setting status field to &apos;Escalated&apos;.</errorMessage>
+</ValidationRule>
