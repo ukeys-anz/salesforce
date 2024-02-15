@@ -249,6 +249,7 @@ public with sharing class GetHelpConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String ESCALATED_STATUS = 'Escalated';
+  public static final String PROVISIONALLY_CLOSED_STATUS = 'Provisionally Closed';
   public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
   public static final String CLOSED_STATUS_EDUCATED = 'Closed - Customer Educated';
   public static final String CLOSED_STATUS_FUTURE_RELEASE = 'Closed - Future Release';
@@ -271,7 +272,7 @@ public with sharing class GetHelpConstants {
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
 
-  //UUID Log Status
+  // UUID Log Status
   public static final String IN_PROGRESS_STATUS = 'In Progress';
 
   // Task Record Type for Email Case
