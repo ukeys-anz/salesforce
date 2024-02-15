@@ -26,7 +26,6 @@
     <label>My Direct Reports&apos; Complaints</label>
     <sharedTo>
         <role>ANZ_Mobile_Lending_Team</role>
-        <role>ANZ_Plus_Operations_Read_Only</role>
         <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
         <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
     </sharedTo>

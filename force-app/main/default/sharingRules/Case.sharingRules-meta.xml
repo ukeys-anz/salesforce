@@ -223,12 +223,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>CMOS_Complaint_RW</fullName>
+        <fullName>Complaint_RTs_BankerManager_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Great Read write access to complaint records for Bankers and Line Managers</description>
-        <label>Complaint RTs BankerManager RW</label>
+        <label>Complaint_RTs_BankerManager_RW</label>
         <sharedTo>
-            <group>CMOS_Complaint_Edit_Access</group>
+            <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
         </sharedTo>
         <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
