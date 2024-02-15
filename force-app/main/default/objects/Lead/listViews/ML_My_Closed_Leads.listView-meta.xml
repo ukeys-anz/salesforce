@@ -10,6 +10,7 @@
     <columns>LEAD.CREATED_DATE</columns>
     <columns>Expiry_Date__c</columns>
     <columns>Expiry_Indicator__c</columns>
+    <columns>Lead_Owner_Link__c</columns>
     <filters>
         <field>LEAD.RECORDTYPE</field>
         <operation>equals</operation>

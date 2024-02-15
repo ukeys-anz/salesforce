@@ -19,7 +19,11 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     AccountCommonActions.populateFieldsValue(records);
+    MLCRMAccountActions.validateDateOfBirth(records, null);
     CCRMAccountActions.setControllingPost(records, null);
+    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      CCRMAccountActions.validateCustomerInformation(records, null);
+    }
   }
 
   /**
@@ -39,8 +43,8 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
-    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
+    MLCRMAccountActions.validateDateOfBirth(records, (Map<Id, Account>) oldMap);
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
       records
     );
     Boolean isAllowedProfileCheck = CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging();
@@ -52,6 +56,10 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
 
       CCRMCustomerProfileUpdateHelper.restrictEdit(
         existingOrProspectAccounts.existingAccounts.values(),
+        (Map<Id, Account>) oldMap
+      );
+      CCRMAccountActions.validateCustomerInformation(
+        records,
         (Map<Id, Account>) oldMap
       );
     }

@@ -3,9 +3,11 @@
  * @since Feb 2020
  * @description virtual service class for all API callouts
  * @group Services
- * Suppressing ExcessivePublicCount rule to allow for added callouts
+ * Suppressing ExcessivePublicCount rule to allow for added callouts, CyclomaticComplexity to allow additional services
  */
-@SuppressWarnings('PMD.ExcessivePublicCount')
+@SuppressWarnings(
+  'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
+)
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
   protected Boolean preset = false;
@@ -433,6 +435,37 @@ public with sharing virtual class Service {
    * @description virtual fetches address details
    */
   public virtual HttpCalloutResponse getSelectedAddressV2(
+    String globalAddressKey
+  ) {
+    return null;
+  }
+
+  /**
+   * @param lookupString from address search bar
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches addresses list
+   */
+  public virtual HttpCalloutResponse getAddressesV3(String lookupString) {
+    return null;
+  }
+
+  /**
+   * @param globalAddressKey from selected address
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches address details
+   */
+  public virtual HttpCalloutResponse getSelectedAddressV3(
+    String globalAddressKey
+  ) {
+    return null;
+  }
+
+  /**
+   * @param globalAddressKey from selected address
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches address details
+   */
+  public virtual HttpCalloutResponse getSelectedAddressWithANZLayoutV3(
     String globalAddressKey
   ) {
     return null;

@@ -23500,7 +23500,7 @@
         <layout>CalculationMatrixVersion-Decision Matrix Version Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Campaign-Campaign Layout</layout>
+        <layout>Campaign-DCRM Campaign Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>CampaignMember-Campaign Member Page Layout</layout>
@@ -23740,7 +23740,7 @@
         <layout>ContractLineItem-Contract Line Item Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Controlling_Post__c-Controlling Post Layout</layout>
+        <layout>Controlling_Post__c-DCRM Controlling Post Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>CspTrustedSite-Content Security Policy Trusted Site Layout</layout>

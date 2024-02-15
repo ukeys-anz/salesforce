@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PersonAccount</fullName>
     <active>true</active>
-    <compactLayoutAssignment>Person_Account_Compact_Layout</compactLayoutAssignment>
+    <compactLayoutAssignment>DCRM_Individual_Compact_Layout</compactLayoutAssignment>
     <label>Individual</label>
     <picklistValues>
         <picklist>AccountSource</picklist>
@@ -4270,6 +4270,125 @@
         </values>
         <values>
             <fullName>Reseller</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Name</picklist>
+        <values>
+            <fullName>Adm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Capt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Col</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dame</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lady</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lord</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Madam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maj</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Major</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Master</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mdm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miss</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mrs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mx</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pastor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prof</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pst</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rabbi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rev</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sir</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sr</fullName>
             <default>false</default>
         </values>
     </picklistValues>

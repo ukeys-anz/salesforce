@@ -20,16 +20,6 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>Account.Create_Lead</value>
-                            <visibilityRule>
-                                <criteria>
-                                    <leftValue>{!Record.OCV_Event_Version__c}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>0</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
                             <value>Global.Create_Task_ML</value>
                             <visibilityRule>
                                 <criteria>
@@ -219,6 +209,16 @@
                 <identifier>RecordOccupation_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Employment_Type__c</fieldItem>
+                <identifier>RecordEmployment_Type_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-227a031b-c644-4b01-a1aa-4c18d2a4c6be</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -231,6 +231,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Employer_Name__c</fieldItem>
                 <identifier>RecordEmployer_Name_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Self_Employed__c</fieldItem>
+                <identifier>RecordSelf_Employed_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-91c57b69-3a36-4300-ba1e-3a3119df904d</name>
@@ -938,6 +948,14 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>CustomButton.Lead.New_ML</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
                     <value>10</value>
                 </componentInstanceProperties>
@@ -1070,6 +1088,9 @@
                         <valueListItems>
                             <value>Role_Type__c|EQUALS|[&quot;AD1&quot;,&quot;AD2&quot;,&quot;AD3&quot;,&quot;AUN&quot;,&quot;AUV&quot;,&quot;BCG&quot;,&quot;BCH&quot;,&quot;BEN&quot;,&quot;ITF&quot;,&quot;ITO&quot;,&quot;PAE&quot;,&quot;PCH&quot;,&quot;POA&quot;,&quot;TPS&quot;]</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>FinServ__Active__c|EQUALS|true</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1149,6 +1170,9 @@
                         <valueListItems>
                             <value>Role_Type__c|EQUALS|[&quot;SOL&quot;,&quot;COF&quot;,&quot;COO&quot;,&quot;PRI&quot;,&quot;TSF&quot;,&quot;TSO&quot;,&quot;DBN&quot;,&quot;PCC&quot;,&quot;GTR&quot;,&quot;BCC&quot;,&quot;CLG&quot;,&quot;UNO&quot;]</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>FinServ__Active__c|EQUALS|true</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1223,6 +1247,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Role_Type__c|EQUALS|[&quot;SOL&quot;,&quot;COF&quot;,&quot;COO&quot;,&quot;PRI&quot;,&quot;TSF&quot;,&quot;TSO&quot;,&quot;DBN&quot;,&quot;PCC&quot;,&quot;GTR&quot;,&quot;BCC&quot;,&quot;CLG&quot;,&quot;UNO&quot;]</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>FinServ__Active__c|EQUALS|true</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -1299,6 +1326,9 @@
                         <valueListItems>
                             <value>Role_Type__c|EQUALS|[&quot;SOL&quot;,&quot;COF&quot;,&quot;COO&quot;,&quot;PRI&quot;,&quot;TSF&quot;,&quot;TSO&quot;,&quot;DBN&quot;,&quot;PCC&quot;,&quot;GTR&quot;,&quot;BCC&quot;,&quot;CLG&quot;,&quot;UNO&quot;]</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>FinServ__Active__c|EQUALS|true</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1373,6 +1403,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Role_Type__c|EQUALS|[&quot;SOL&quot;,&quot;COF&quot;,&quot;COO&quot;,&quot;PRI&quot;,&quot;TSF&quot;,&quot;TSO&quot;,&quot;DBN&quot;,&quot;PCC&quot;,&quot;GTR&quot;,&quot;BCC&quot;,&quot;CLG&quot;,&quot;UNO&quot;]</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>FinServ__Active__c|EQUALS|true</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

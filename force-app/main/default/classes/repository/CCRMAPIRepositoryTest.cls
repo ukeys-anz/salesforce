@@ -131,4 +131,32 @@ public with sharing class CCRMAPIRepositoryTest {
       'address result should return'
     );
   }
+
+  @isTest
+  static void testGetAddressesLwcV3() {
+    CCRMValidateAddressModelV3 getAddressesLWC = CCRMAPIRepository.getAddressesLwcV3(
+      '005357522'
+    );
+
+    // Verify response received contains fake values
+    System.assertNotEquals(
+      null,
+      getAddressesLWC.result,
+      'address suggestions should return'
+    );
+  }
+
+  @isTest
+  static void testGetSelectedAddressLwcV3() {
+    CCRMGetSelectedAddressModelV3 getAddressesLWC = CCRMAPIRepository.getSelectedAddressLwcV3(
+      '005357522'
+    );
+
+    // Verify response received contains fake values
+    System.assertNotEquals(
+      null,
+      getAddressesLWC.result,
+      'address result should return'
+    );
+  }
 }

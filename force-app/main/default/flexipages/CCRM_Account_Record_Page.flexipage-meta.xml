@@ -112,7 +112,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Industry__c</fieldItem>
                 <identifier>RecordIndustry_cField</identifier>

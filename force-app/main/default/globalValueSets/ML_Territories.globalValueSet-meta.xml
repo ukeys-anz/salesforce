@@ -772,5 +772,5 @@
     </customValue>
     <description>global value set for list of territories</description>
     <masterLabel>ML Territories</masterLabel>
-    <sorted>false</sorted>
+    <sorted>true</sorted>
 </GlobalValueSet>

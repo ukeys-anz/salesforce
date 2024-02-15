@@ -2,16 +2,16 @@ import { createElement } from "lwc";
 import { setImmediate } from "timers";
 import AddressLookupUtil from "c/addressLookupUtil";
 
-import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV2";
-import getSelectedAddress from "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLwcV2";
+import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV3";
+import getSelectedAddress from "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLwcV3";
 
-const mockGetValidAddresses = require("./data/mock_ccrmQasSuccessResponseV2.json");
+const mockGetValidAddresses = require("./data/mock_ccrmQasSuccessResponseV3.json");
 const mockGetSelectedAddress = require("./data/mock_ccrmQasSelectedAddressResponseV2.json");
 
 const flushPromises = () => new Promise(setImmediate);
 
 jest.mock(
-  "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV2",
+  "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV3",
   () => {
     return {
       default: jest.fn()
@@ -21,7 +21,7 @@ jest.mock(
 );
 
 jest.mock(
-  "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLwcV2",
+  "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLwcV3",
   () => {
     return {
       default: jest.fn()

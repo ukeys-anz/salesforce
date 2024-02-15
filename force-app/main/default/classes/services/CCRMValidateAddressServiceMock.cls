@@ -52,6 +52,26 @@ public with sharing class CCRMValidateAddressServiceMock extends Service {
   }
 
   /**
+   * @param globalAddressKey selected address id
+   * @return HttpCalloutResponse
+   * @description fetches address details
+   */
+  public override HttpCalloutResponse getSelectedAddressWithANZLayoutV3(
+    String globalAddressKey
+  ) {
+    if (!preset) {
+      StaticResource sr = [
+        SELECT Body
+        FROM StaticResource
+        WHERE Name = 'mock_ccrmQaSelectedAddressResponse'
+        WITH SECURITY_ENFORCED
+      ];
+      response.body = sr.Body.toString();
+    }
+    return response;
+  }
+
+  /**
    * @param lookupString from address search bar
    * @return HttpCalloutResponse
    * @description fetches valid addresses
@@ -75,6 +95,44 @@ public with sharing class CCRMValidateAddressServiceMock extends Service {
    * @description fetches address details
    */
   public override HttpCalloutResponse getSelectedAddressV2(
+    String globalAddressKey
+  ) {
+    if (!preset) {
+      StaticResource sr = [
+        SELECT Body
+        FROM StaticResource
+        WHERE Name = 'mock_ccrmQasSelectedAddressResponseV2'
+        WITH SECURITY_ENFORCED
+      ];
+      response.body = sr.Body.toString();
+    }
+    return response;
+  }
+
+  /**
+   * @param lookupString from address search bar
+   * @return HttpCalloutResponse
+   * @description fetches valid addresses
+   */
+  public override HttpCalloutResponse getAddressesV3(String lookupString) {
+    if (!preset) {
+      StaticResource sr = [
+        SELECT Body
+        FROM StaticResource
+        WHERE Name = 'mock_ccrmQasSuccessResponse'
+        WITH SECURITY_ENFORCED
+      ];
+      response.body = sr.Body.toString();
+    }
+    return response;
+  }
+
+  /**
+   * @param globalAddressKey selected address id
+   * @return HttpCalloutResponse
+   * @description fetches address details
+   */
+  public override HttpCalloutResponse getSelectedAddressV3(
     String globalAddressKey
   ) {
     if (!preset) {

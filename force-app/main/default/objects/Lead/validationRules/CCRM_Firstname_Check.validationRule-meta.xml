@@ -5,8 +5,9 @@
     <description>CCRM Check if firstname is provided.  It is a mandatory field in source system.</description>
     <errorConditionFormula>AND(
         $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,NOT(CONTAINS( $User.Username,$Label.UnicaIntegrationUserName)),
-        OR(RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
-           RecordType.DeveloperName = &apos;MLCRM_Lead&apos;),
+NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
+        OR(AND(RecordType.DeveloperName = &apos;CCRM_Lead&apos;,Text(Status) != &apos;Outcome&apos;,Text(Lead_Outcome__c) != &apos;Expired&apos;),
+AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;)),
         ISBLANK( FirstName )
     )</errorConditionFormula>
     <errorDisplayField>FirstName</errorDisplayField>

@@ -118,6 +118,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.PreferredName__c</fieldItem>
                 <identifier>RecordML_PreferredName_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PreferredName__c</fieldItem>
+                <identifier>RecordPreferredName_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -128,6 +152,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__RelatedAccount__c</fieldItem>
                 <identifier>RecordFinServ_RelatedAccount_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.FinServ__RelatedAccount__c</fieldItem>
+                <identifier>RecordFinServ_RelatedAccount_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -138,6 +186,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.AdvertisingIndicator__c</fieldItem>
                 <identifier>RecordML_AdvertisingIndicator_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Customer_Status__c</fieldItem>
+                <identifier>RecordCustomer_Status_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-ebb17461-fec4-40a5-859a-c9a34c79124a</name>
@@ -152,6 +210,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.MobilePhone</fieldItem>
                 <identifier>RecordMobilePhoneField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.MobilePhone</fieldItem>
+                <identifier>RecordMobilePhoneField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -162,6 +244,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Home_Phone__c</fieldItem>
                 <identifier>RecordHome_Phone_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Home_Phone__c</fieldItem>
+                <identifier>RecordHome_Phone_cField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -172,6 +278,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Work_Phone__c</fieldItem>
                 <identifier>RecordWork_Phone_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Work_Phone__c</fieldItem>
+                <identifier>RecordWork_Phone_cField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -182,6 +312,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Email</fieldItem>
                 <identifier>RecordEmailField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Email</fieldItem>
+                <identifier>RecordEmailField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -236,7 +390,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Followup_Date__c</fieldItem>
                 <identifier>RecordFollowup_Date_cField</identifier>
@@ -330,7 +484,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.LeadSource</fieldItem>
                 <identifier>RecordLeadSourceField2</identifier>
@@ -340,7 +494,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Associated_Source_Detail__c</fieldItem>
                 <identifier>RecordAssociated_Source_Detail_cField2</identifier>
@@ -653,30 +807,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.FinServ__ReferredByContact__c</fieldItem>
-                <identifier>RecordFinServ_ReferredByContact_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.LeadSource}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>External Referral</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Associated_Source_Detail__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Client Referral</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Referrer_Name__c</fieldItem>
                 <identifier>RecordML_Referrer_Name_cField</identifier>
@@ -726,7 +857,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Referrer_Email__c</fieldItem>
                 <identifier>RecordML_Referrer_Email_cField</identifier>
@@ -827,7 +958,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.SourceSystemId__c</fieldItem>
                 <identifier>RecordML_SourceSystemId_cField</identifier>
@@ -847,7 +978,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.SourceSystem__c</fieldItem>
                 <identifier>RecordML_SourceSystem_cField</identifier>
@@ -1416,16 +1547,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>hideHeader</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListQuickLinksContainer</componentName>
-                <identifier>force_relatedListQuickLinksContainer</identifier>
-            </componentInstance>
-        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>warningLeadMistmatchCustomer</componentName>

@@ -141,7 +141,7 @@
         <type>Default</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>ML_Customer_Relationship_Compact_Layout</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
@@ -162,8 +162,28 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Customer Relationships</pluralLabel>
+    <profileSearchLayouts>
+        <fields>Customer__c</fields>
+        <fields>Suburb__c</fields>
+        <fields>Postal_Code__c</fields>
+        <fields>DOB__c</fields>
+        <fields>Email__c</fields>
+        <fields>Mobile__c</fields>
+        <fields>Territory__c</fields>
+        <fields>Relationship_Owner__c</fields>
+        <profileName>ANZ ML Standard User</profileName>
+    </profileSearchLayouts>
     <searchLayouts>
         <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <searchResultsAdditionalFields>Customer__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Suburb__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Postal_Code__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>DOB__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Email__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Mobile__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Territory__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Relationship_Owner__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>

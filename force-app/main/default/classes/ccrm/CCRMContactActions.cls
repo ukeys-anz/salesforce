@@ -38,11 +38,8 @@ public with sharing class CCRMContactActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
-    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
-      accList
-    );
-
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(accList);
+    
     for (Contact record : records) {
       if (
         existingOrProspectAccounts.prospectAccounts.containsKey(

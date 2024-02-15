@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>top</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>enableInlineEdit</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>entityName</name>
@@ -36,7 +35,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>enableInlineEdit</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>entityName</name>
@@ -62,6 +61,7 @@
                 <identifier>flexipage_filterListCard2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>top</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -73,7 +73,6 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:todayTaskContainer</componentName>
@@ -86,6 +85,7 @@
                 <identifier>home_recentRecordContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>ML CRM Home Page</masterLabel>

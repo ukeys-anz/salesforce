@@ -160,12 +160,12 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Customer Updates to Pending Details</label>
+    <label>Pending Updates to Customer Details</label>
     <nameField>
         <label>Customer Profile Updates Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Customer Updates to Pending Details</pluralLabel>
+    <pluralLabel>Pending Updates to Customer Details</pluralLabel>
     <searchLayouts/>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>

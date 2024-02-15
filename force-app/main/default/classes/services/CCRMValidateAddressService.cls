@@ -123,4 +123,91 @@ public with sharing class CCRMValidateAddressService extends Service {
       )
     );
   }
+
+  /**
+   * @param lookupString search address value entered by the user
+   * @return HttpCalloutResponse
+   * @description fetches valid addresses
+   */
+  public override HttpCalloutResponse getAddressesV3(String lookupString) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('client_id', '{!$Credential.Username}');
+    headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('Content-Type', 'application/json');
+    String endPoint = 'callout:SF_MS_CCRM' + Label.MS_Get_Qas_Address_V3;
+    return calloutService.makeRestCallout(
+      endPoint,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      JSON.serialize(
+        new Map<String, Object>{
+          'country_iso' => 'AUS',
+          'datasets' => new List<String>{ 'au-address' },
+          'max_suggestions' => 10,
+          'components' => new Map<String, Object>{
+            'unspecified' => new List<String>{ lookupString }
+          }
+        }
+      )
+    );
+  }
+
+  /**
+   * @param globalAddressKey
+   * @return HttpCalloutResponse
+   * @description fetches valid addresses
+   */
+  public override HttpCalloutResponse getSelectedAddressV3(
+    String globalAddressKey
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('client_id', '{!$Credential.Username}');
+    headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('Content-Type', 'application/json');
+    headers.put('Add-Components', 'true');
+    String endPoint =
+      'callout:SF_MS_CCRM' +
+      Label.MS_Get_Qas_AddressById_V3 +
+      globalAddressKey;
+    return calloutService.makeRestCallout(
+      endPoint,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      JSON.serialize(
+        new Map<String, Object>{ 'layouts' => new List<String>{ 'default' } }
+      )
+    );
+  }
+
+  /**
+   * @param globalAddressKey
+   * @return HttpCalloutResponse
+   * @description fetches valid addresses
+   */
+  public override HttpCalloutResponse getSelectedAddressWithANZLayoutV3(
+    String globalAddressKey
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('client_id', '{!$Credential.Username}');
+    headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('Content-Type', 'application/json');
+    headers.put('Add-Components', 'true');
+    String endPoint =
+      'callout:SF_MS_CCRM' +
+      Label.MS_Get_Qas_AddressById_V3 +
+      globalAddressKey;
+    return calloutService.makeRestCallout(
+      endPoint,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      JSON.serialize(
+        new Map<String, Object>{
+          'layouts' => new List<String>{ 'ANZ-DataServiceHub-Gen-V1-NE' }
+        }
+      )
+    );
+  }
 }
