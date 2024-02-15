@@ -451,5 +451,6 @@ export {
   salesforceDestructiveChanges,
   salesforceFileChanges,
   salesforceIgnoredFileChanges,
-  findAllArgvs
+  findAllArgvs,
+  readFileLines
 };

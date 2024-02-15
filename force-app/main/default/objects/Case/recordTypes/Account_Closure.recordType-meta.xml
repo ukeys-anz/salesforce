@@ -166,6 +166,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Consolidation of accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Customer did not mean to proceed to account opening</fullName>
             <default>false</default>
         </values>
@@ -183,6 +187,14 @@
         </values>
         <values>
             <fullName>Other - please specify</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor experience via Coach channel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product mis-sold in branch</fullName>
             <default>false</default>
         </values>
         <values>

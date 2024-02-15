@@ -6,11 +6,11 @@
     <columns>Email__c</columns>
     <columns>Mobile__c</columns>
     <columns>Retail_TPMI_SAO__c</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>FinServ__Active__c</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Brokers</label>
 </ListView>

@@ -45,13 +45,41 @@
     <name>DRCaseClose</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom1684</globalKey>
+        <inputFieldName>Case:IDR_Subsequent_Issue__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRCaseClose</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Subsequent_Issue__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom6255</globalKey>
+        <inputFieldName>Case:Type</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Type</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8908</globalKey>
         <inputFieldName>Case:IDR_Issue_Type_3__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Issue_Type_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -59,13 +87,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom5330</globalKey>
         <inputFieldName>Case:ComplaintSubRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Complaint_Sub_Remedy_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -73,13 +101,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2703</globalKey>
         <inputFieldName>Case:detailsOfComplaint3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Provided_details_to_Prod_Manufacturer_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -87,7 +115,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:IsthisComplaintAboutComplaint &quot;Yes&quot; == var:Case:ReviewOutcome &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -97,6 +124,7 @@
         <globalKey>DRCaseCloseCustom7475</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -104,13 +132,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom1474</globalKey>
         <inputFieldName>Case:ComplaintSubRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Complaint_Sub_Remedy__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -118,13 +146,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3227</globalKey>
         <inputFieldName>Case:avoidableEscalationReason</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Avoidable_Escalation_Reason__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -132,7 +160,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy2 &quot;16&quot; == var:Case:ComplaintSubRemedy2 &quot;20&quot; == || var:Case:ComplaintSubRemedy2 &quot;Repayment/\/\/arrangement&quot; == || var:Case:durationOfRemedy2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -142,6 +169,7 @@
         <globalKey>DRCaseCloseCustom91</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -149,7 +177,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:isSystemicIssue &quot;Yes&quot; == var:Case:WhyIsThisPossibleSystemicIssue &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -159,6 +186,7 @@
         <globalKey>DRCaseCloseCustom299</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -166,7 +194,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:avoidableEscalation &quot;Yes&quot; == true false IF</formulaConverted>
@@ -176,6 +203,7 @@
         <globalKey>DRCaseCloseCustom7337</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -183,13 +211,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2145</globalKey>
         <inputFieldName>Case:Id</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -197,13 +225,13 @@
         <upsertKey>true</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom5115</globalKey>
         <inputFieldName>Case:CAC</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>CAC_Sub_Category__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -211,13 +239,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom1392</globalKey>
         <inputFieldName>Case:ComplaintRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Complaint_Remedy_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -225,7 +253,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy1 &quot;Reward/\/\/points&quot; == var:Case:rewardPoints1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -235,6 +262,7 @@
         <globalKey>DRCaseCloseCustom6749</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -242,7 +270,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ThirdComplaintCheckbox &quot;Yes&quot; == var:Case:ComplaintRemedy3 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -252,6 +279,7 @@
         <globalKey>DRCaseCloseCustom7608</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -259,13 +287,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseClose7222211729647365</globalKey>
         <inputFieldName>Case:ComplaintOutcome</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Complaint_Outcome__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -273,13 +301,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6289</globalKey>
         <inputFieldName>Case:otherRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Other_Remedy_Provided_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -287,7 +315,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintRemedy2 &quot;1&quot; == var:Case:ComplaintSubRemedy1 &quot;10&quot; == || var:Case:ComplaintSubRemedy1 &quot;18&quot; == || var:Case:PaymentAmountProvided2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -297,6 +324,7 @@
         <globalKey>DRCaseCloseCustom9845</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -304,13 +332,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom5802</globalKey>
         <inputFieldName>Case:PaymentAmountProvided2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Compensation_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -318,13 +346,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2746</globalKey>
         <inputFieldName>Case:product3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Product_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -332,7 +360,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -340,6 +367,7 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -347,13 +375,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6393</globalKey>
         <inputFieldName>Case:IDR_Issue_Type_2__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Issue_Type_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -361,13 +389,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseClose7266949143908095</globalKey>
         <inputFieldName>Case:realFormRequired</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Real_Form_Req__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -375,13 +403,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2837</globalKey>
         <inputFieldName>Case:ReviewOutcome</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Review_Outcome__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -389,8 +417,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:IsthisComplaintAboutComplaint &quot;Yes&quot; == var:Case:ParentCase-Block:Id &apos;$Vlocity.NULL&apos; IF</formulaConverted>
         <formulaExpression>IF(Case:IsthisComplaintAboutComplaint==&quot;Yes&quot;,%Case:ParentCase-Block:Id%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
@@ -399,6 +426,7 @@
         <globalKey>DRCaseCloseCustom7728</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -406,13 +434,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2360</globalKey>
         <inputFieldName>Case:isSystemicIssue</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Is_Common__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -420,13 +448,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom1935</globalKey>
         <inputFieldName>Case:IDR_Subsequent_Issue_3__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Subsequent_Issue_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -434,13 +462,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7286</globalKey>
         <inputFieldName>Case:REALFormMAXID</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Real_Form_Ref_No__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -448,13 +476,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom887</globalKey>
         <inputFieldName>Case:DescriptionOutcome</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Description_of_Outcome__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -462,13 +490,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom5977</globalKey>
         <inputFieldName>Case:IsthisComplaintAboutComplaint</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Is_this_a_complaint_about_a_complaint__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -476,7 +504,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy1 &quot;16&quot; == var:Case:ComplaintSubRemedy1 &quot;20&quot; == || var:Case:ComplaintSubRemedy1 &quot;Repayment/\/\/arrangement&quot; == || var:Case:durationOfRemedy1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -486,6 +513,7 @@
         <globalKey>DRCaseCloseCustom9168</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -493,13 +521,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8290</globalKey>
         <inputFieldName>Case:secondIssue</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Second_Issue__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -507,13 +535,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7384</globalKey>
         <inputFieldName>Case:otherRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Other_Remedy_Provided__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -521,13 +549,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6889</globalKey>
         <inputFieldName>Case:detailsOfComplaint1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Provided_details_to_Product_Manufacturer__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -535,13 +563,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom9466</globalKey>
         <inputFieldName>Case:IDR_Subsequent_Issue_2__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Subsequent_Issue_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -549,13 +577,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom9056</globalKey>
         <inputFieldName>Case:durationOfRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Duration_of_Remedy_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -563,13 +591,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8772</globalKey>
         <inputFieldName>Case:PaymentAmountProvided3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Compensation_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -577,13 +605,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2779</globalKey>
         <inputFieldName>Case:accountNumber3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Account_Card_Policy_Number_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -591,13 +619,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7893</globalKey>
         <inputFieldName>Case:ParentCase-Block:Id</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ParentId</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -605,13 +633,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom9796</globalKey>
         <inputFieldName>Case:WhyIsThisPossibleSystemicIssue</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Systemic_Issue_Description__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -619,13 +647,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7857</globalKey>
         <inputFieldName>avoidEsc</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Avoidable_Escalation__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -633,7 +661,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:avoidableEscalation &quot;Yes&quot; == var:Case:avoidableEscalationReason &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -643,6 +670,7 @@
         <globalKey>DRCaseCloseCustom5782</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -650,13 +678,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6853</globalKey>
         <inputFieldName>Case:product2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Product_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -664,7 +692,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy2 &quot;Reward/\/\/points&quot; == var:Case:rewardPoints2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -674,6 +701,7 @@
         <globalKey>DRCaseCloseCustom1948</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -681,13 +709,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom9515</globalKey>
         <inputFieldName>Case:otherRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Other_Remedy_Provided_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -695,13 +723,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7647</globalKey>
         <inputFieldName>Case:accountNumber2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Account_Card_Policy_Number_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -709,7 +737,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy3 &quot;16&quot; == var:Case:ComplaintSubRemedy3 &quot;20&quot; == || var:Case:ComplaintSubRemedy3 &quot;Repayment/\/\/arrangement&quot; == || var:Case:durationOfRemedy3 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -719,6 +746,7 @@
         <globalKey>DRCaseCloseCustom3440</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -726,13 +754,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom4096</globalKey>
         <inputFieldName>Case:durationOfRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Duration_of_Remedy__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -740,7 +768,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:SecondComplaintCheckbox &quot;Yes&quot; == var:Case:ComplaintSubRemedy2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -750,6 +777,7 @@
         <globalKey>DRCaseCloseCustom2948</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -757,13 +785,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseClose6058771135014032</globalKey>
         <inputFieldName>Case:ComplaintStatus</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Status</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -771,7 +799,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:realFormRequired &quot;Yes&quot; == var:Case:REALFormMAXID &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -781,6 +808,7 @@
         <globalKey>DRCaseCloseCustom6281</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -788,13 +816,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8674</globalKey>
         <inputFieldName>Case:durationOfRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Duration_of_Remedy_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -802,7 +830,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy2 &quot;99&quot; == var:Case:otherRemedy2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -812,6 +839,7 @@
         <globalKey>DRCaseCloseCustom2601</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -819,13 +847,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7097</globalKey>
         <inputFieldName>Case:rewardPoints2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Remedy_Points_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -833,7 +861,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy3 &quot;Reward/\/\/points&quot; == var:Case:rewardPoints3 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -843,6 +870,7 @@
         <globalKey>DRCaseCloseCustom9882</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -850,13 +878,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3360</globalKey>
         <inputFieldName>Case:ComplaintRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Complaint_Remedy__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -864,13 +892,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8373</globalKey>
         <inputFieldName>Case:WhichAdditionalIssuesaereSystemic</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Possible_Systemic_Issues__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -878,13 +906,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom738</globalKey>
         <inputFieldName>Case:thirdIssue</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Third_Issue__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -892,7 +920,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ThirdComplaintCheckbox &quot;Yes&quot; == var:Case:ComplaintSubRemedy3 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -902,6 +929,7 @@
         <globalKey>DRCaseCloseCustom7946</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -909,13 +937,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2498</globalKey>
         <inputFieldName>Case:rewardPoints1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Remedy_Points__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -923,13 +951,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3966</globalKey>
         <inputFieldName>Case:PossibleSystemicIssueCategory</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Systemic_Issue_Category__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -937,7 +965,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:isSystemicIssue &quot;Yes&quot; == var:Case:PossibleSystemicIssueCategory &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -947,6 +974,7 @@
         <globalKey>DRCaseCloseCustom3101</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -954,13 +982,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6049</globalKey>
         <inputFieldName>Case:ComplaintSubRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Complaint_Sub_Remedy_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -968,13 +996,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6655</globalKey>
         <inputFieldName>Case:detailsOfComplaint2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Provided_details_to_Prod_Manufacturer_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -982,7 +1010,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy3 &quot;99&quot; == var:Case:otherRemedy3 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -992,6 +1019,7 @@
         <globalKey>DRCaseCloseCustom6814</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -999,13 +1027,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2559</globalKey>
         <inputFieldName>Case:rewardPoints3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Remedy_Points_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -1013,7 +1041,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:isSystemicIssue &quot;Yes&quot; == var:Case:WhichAdditionalIssuesaereSystemic &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -1023,6 +1050,7 @@
         <globalKey>DRCaseCloseCustom5608</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -1030,7 +1058,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintSubRemedy1 &quot;99&quot; == var:Case:otherRemedy1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -1040,6 +1067,7 @@
         <globalKey>DRCaseCloseCustom5875</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -1047,13 +1075,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom4250</globalKey>
         <inputFieldName>Case:ComplaintRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Complaint_Remedy_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -1061,13 +1089,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom336</globalKey>
         <inputFieldName>Case:PaymentAmountProvided1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Compensation__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -1075,7 +1103,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:SecondComplaintCheckbox &quot;Yes&quot; == var:Case:ComplaintRemedy2 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -1085,6 +1112,7 @@
         <globalKey>DRCaseCloseCustom2356</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -1092,7 +1120,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:IsthisComplaintAboutComplaint &quot;Yes&quot; == var:Case:CAC &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -1102,6 +1129,7 @@
         <globalKey>DRCaseCloseCustom1631</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -1109,7 +1137,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintRemedy1 &quot;1&quot; == var:Case:ComplaintSubRemedy1 &quot;10&quot; == || var:Case:ComplaintSubRemedy1 &quot;18&quot; == || var:Case:PaymentAmountProvided1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -1119,6 +1146,7 @@
         <globalKey>DRCaseCloseCustom2231</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -1126,7 +1154,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintRemedy3 &quot;1&quot; == var:Case:ComplaintSubRemedy1 &quot;10&quot; == || var:Case:ComplaintSubRemedy1 &quot;18&quot; == || var:Case:PaymentAmountProvided3 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
@@ -1136,6 +1163,7 @@
         <globalKey>DRCaseCloseCustom9344</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>

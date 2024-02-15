@@ -14,6 +14,21 @@ public with sharing class ComplaintResolutionTriggerHandler extends Lib_TriggerH
   }
 
   /**
+   * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
+   */
+  public override void onApplyDefaults() {
+    for (
+      Complaint_Resolution__c record : (List<Complaint_Resolution__c>) records
+    ) {
+      CommonUtil.handleMasking(
+        record,
+        null,
+        SObjectType.Complaint_Resolution__c.FieldSets.CMOS_Masked_Fields.getFields()
+      );
+    }
+  }
+
+  /**
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
@@ -31,6 +46,15 @@ public with sharing class ComplaintResolutionTriggerHandler extends Lib_TriggerH
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    for (
+      Complaint_Resolution__c record : (List<Complaint_Resolution__c>) records
+    ) {
+      CommonUtil.handleMasking(
+        record,
+        null,
+        SObjectType.Complaint_Resolution__c.FieldSets.CMOS_Masked_Fields.getFields()
+      );
+    }
     IDRComplaintResolutionActions.populateDependentFields(records);
   }
 

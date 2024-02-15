@@ -96,4 +96,48 @@ public class Vlocity_UtilsTest {
     );
     obj.call(action, args);
   }
+  /**
+   * @description : To test the Last Modified Date count of a particualr field on Case.
+   */
+  @isTest
+  static void testGetLastModifiedDateOfField() {
+    Case testCase = [SELECT ID, CreatedDate FROM Case LIMIT 1];
+    CaseHistory caseHistory = new CaseHistory(
+      CaseId = testCase.Id,
+      Field = 'Status'
+    );
+    insert caseHistory;
+    caseHistory = [
+      SELECT CreatedDate
+      FROM CaseHistory
+      WHERE CaseId = :testCase.Id AND Field = 'Status'
+    ];
+    Map<String, Object> input = new Map<String, Object>{
+      'FieldName' => 'Status',
+      'recordId' => testCase.Id
+    };
+    Map<String, Object> output = new Map<String, Object>();
+    Map<String, Object> options = new Map<String, Object>();
+    Vlocity_Utils obj = new Vlocity_Utils();
+    obj.invokeMethod('getLastModifiedDateOfField', input, output, options);
+    Integer expectedDays = Math.abs(
+      Datetime.now().date().daysBetween(caseHistory.CreatedDate.date())
+    );
+    System.assertEquals(
+      expectedDays + ' Days',
+      output.get('lastModifiedDateStatus')
+    );
+    input = new Map<String, Object>{
+      'FieldName' => 'Type',
+      'recordId' => testCase.Id
+    };
+    obj.invokeMethod('getLastModifiedDateOfField', input, output, options);
+    expectedDays = Math.abs(
+      Datetime.now().date().daysBetween(testCase.CreatedDate.date())
+    );
+    System.assertEquals(
+      expectedDays + ' Days',
+      output.get('lastModifiedDateStatus')
+    );
+  }
 }
