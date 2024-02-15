@@ -2051,6 +2051,34 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
     </labels>
     <labels>
+        <fullName>MS_ForgeV2_Token</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ForgeV2_Token</shortDescription>
+        <value>/forge/oauth/v2/customer/token?anz_token_type=</value>
+    </labels>
+    <labels>
+        <fullName>MS_GetDeviceWithBiometric</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_GetDeviceWithBiometric</shortDescription>
+        <value>/aegis-portal/v1/users/{userInternalId}/authenticators?status=ACTIVE&amp;sortField=created&amp;appCorrelationId={appCorrelationId}&amp;sortAscending=false</value>
+    </labels>
+    <labels>
+        <fullName>MS_GetDeviceWithoutBiometric</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_GetDeviceWithoutBiometric</shortDescription>
+        <value>/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
+    </labels>
+    <labels>
+        <fullName>MS_SearchCustomer_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_SearchCustomer_API</shortDescription>
+        <value>/aegis-portal/v1/coaches/persons?_queryFilter=true&amp;</value>
+    </labels>
+    <labels>
         <fullName>FinAccountProductToMap</fullName>
         <language>en_US</language>
         <protected>false</protected>

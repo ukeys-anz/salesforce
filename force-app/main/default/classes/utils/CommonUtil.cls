@@ -243,6 +243,27 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Generates a traceParent Identifier
+   * @return A traceParent, e.g.  00-0af7651916cd43dd8448eb211c80319c-00f067aa0ba902b7-01
+   */
+  public static String generateTraceParent() {
+    String traceParent;
+    String traceId = EncodingUtil.convertToHex(Crypto.generateAesKey(128));
+    String version = '00';
+    String parentId = EncodingUtil.convertToHex(Crypto.generateAesKey(128));
+    String traceFlags = '01';
+    traceParent =
+      version +
+      '-' +
+      traceId +
+      '-' +
+      parentId.SubString(0, 16) +
+      '-' +
+      traceFlags;
+    return traceParent;
+  }
+
+  /**
    * @param toShaHash value arg to hash
    * @description performs hashing of input value using sha algorithm
    * @return encoded hash
