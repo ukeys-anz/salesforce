@@ -501,10 +501,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMGetSelectedAddressModelV2</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMHideContactInvocable</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -705,15 +701,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMValidateAddressModel</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMValidateAddressModelTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMValidateAddressModelV2</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

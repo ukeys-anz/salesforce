@@ -24,6 +24,7 @@
     <filterScope>Mine</filterScope>
     <label>My Closed Leads</label>
     <sharedTo>
+        <role>Business_Admin</role>
         <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
     </sharedTo>
 </ListView>

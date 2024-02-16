@@ -14,6 +14,7 @@
     <permissionSets>MLCRM_Create_and_Edit_Opportunities</permissionSets>
     <permissionSets>MLCRM_Create_and_View_Diary_Notes</permissionSets>
     <permissionSets>MLCRM_Modify_Territory_Sharing_Access</permissionSets>
+    <permissionSets>MLCRM_Run_reports_and_dashboards</permissionSets>
     <permissionSets>MLCRM_Transfer_ML_Records</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

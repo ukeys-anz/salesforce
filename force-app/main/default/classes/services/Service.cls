@@ -461,46 +461,6 @@ public with sharing virtual class Service {
    * @return `HttpCalloutResponse` api response
    * @description virtual fetches addresses list
    */
-  public virtual HttpCalloutResponse getAddresses(String lookupString) {
-    return null;
-  }
-
-  /**
-   * @param encodedAddressId from selected address
-   * @return `HttpCalloutResponse` api response
-   * @description virtual fetches address details
-   */
-  public virtual HttpCalloutResponse getSelectedAddress(
-    String encodedAddressId
-  ) {
-    return null;
-  }
-
-  /**
-   * @param lookupString from address search bar
-   * @return `HttpCalloutResponse` api response
-   * @description virtual fetches addresses list
-   */
-  public virtual HttpCalloutResponse getAddressesV2(String lookupString) {
-    return null;
-  }
-
-  /**
-   * @param globalAddressKey from selected address
-   * @return `HttpCalloutResponse` api response
-   * @description virtual fetches address details
-   */
-  public virtual HttpCalloutResponse getSelectedAddressV2(
-    String globalAddressKey
-  ) {
-    return null;
-  }
-
-  /**
-   * @param lookupString from address search bar
-   * @return `HttpCalloutResponse` api response
-   * @description virtual fetches addresses list
-   */
   public virtual HttpCalloutResponse getAddressesV3(String lookupString) {
     return null;
   }

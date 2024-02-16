@@ -77,8 +77,8 @@ public with sharing class CCRMAPIRepositoryTest {
   }
 
   @isTest
-  static void testGetAddressesLWC() {
-    CCRMValidateAddressModel getAddressesLWC = CCRMAPIRepository.getAddressesLWC(
+  static void testGetAddressesLWCV3Test() {
+    CCRMValidateAddressModelV3 getAddressesLWC = CCRMAPIRepository.getAddressesLwcV3(
       '005357522'
     );
 
@@ -105,34 +105,6 @@ public with sharing class CCRMAPIRepositoryTest {
   }
 
   @isTest
-  static void testGetAddressesLwcV2() {
-    CCRMValidateAddressModelV2 getAddressesLWC = CCRMAPIRepository.getAddressesLwcV2(
-      '005357522'
-    );
-
-    // Verify response received contains fake values
-    System.assertNotEquals(
-      null,
-      getAddressesLWC.result.suggestions,
-      'address suggestions should return'
-    );
-  }
-
-  @isTest
-  static void testGetSelectedAddressLwcV2() {
-    CCRMGetSelectedAddressModelV2 getAddressesLWC = CCRMAPIRepository.getSelectedAddressLwcV2(
-      '005357522'
-    );
-
-    // Verify response received contains fake values
-    System.assertNotEquals(
-      null,
-      getAddressesLWC.result,
-      'address result should return'
-    );
-  }
-
-  @isTest
   static void testGetAddressesLwcV3() {
     CCRMValidateAddressModelV3 getAddressesLWC = CCRMAPIRepository.getAddressesLwcV3(
       '005357522'
@@ -141,7 +113,7 @@ public with sharing class CCRMAPIRepositoryTest {
     // Verify response received contains fake values
     System.assertNotEquals(
       null,
-      getAddressesLWC.result,
+      getAddressesLWC.result[0].address,
       'address suggestions should return'
     );
   }
