@@ -66,6 +66,66 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>filterOnRecordId</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>height</name>
+                    <value>300</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sfAdvancedFilter</name>
+                    <value>Account.OCV_ID__c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showTabs</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showToolbar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabAdvancedFilter</name>
+                    <value>Ocv Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>vizUrl</name>
+                    <value>{!$Label.ANZX_Marketing_Consent_Tableau_Url}</value>
+                </componentInstanceProperties>
+                <componentName>tab:tableauViz</componentName>
+                <identifier>tab_tableauViz</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-22538c53-d42a-4d80-8127-8f82fcf7c017</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-22538c53-d42a-4d80-8127-8f82fcf7c017</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Offers and Promotions</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>name</name>
+                    <value>accordionSection1</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:accordionSection</componentName>
+                <identifier>flexipage_accordionSection</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-077c1a56-74fc-4788-a21b-c3cec418d2e5</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentName>initiateInteraction</componentName>
                 <identifier>initiateInteraction</identifier>
                 <visibilityRule>
@@ -197,6 +257,16 @@
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
                 <identifier>wave_waveDashboard</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>accordionSections</name>
+                    <value>Facet-077c1a56-74fc-4788-a21b-c3cec418d2e5</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:accordion</componentName>
+                <identifier>flexipage_accordion</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
