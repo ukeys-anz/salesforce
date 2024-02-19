@@ -155,8 +155,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   }
 
   getAddresses() {
-    let lookupString = encodeURIComponent(this.searchString);
-    getValidAddresses({ lookupString: lookupString })
+    getValidAddresses({ lookupString: this.searchString })
       .then((result) => {
         this.addressList = result.result;
         if (this.addressList === undefined || this.addressList.length === 0) {
