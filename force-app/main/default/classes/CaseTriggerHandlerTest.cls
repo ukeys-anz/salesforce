@@ -1,5 +1,6 @@
 // CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
 // NcssTypeCount Surpressed : The line of code for this test is more than it is expected.
+
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssTypeCount')
 @IsTest
 private class CaseTriggerHandlerTest {
@@ -3878,5 +3879,50 @@ private class CaseTriggerHandlerTest {
     );
     Test.stopTest();
     verifyCaseSubject(theCase);
+  }
+
+  @isTest
+  public static void testCaseProvisionallyClosedDateTimeUpdateScenario() {
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    Case c = TestDataFactory.createCase('Card_Dispute');
+    c.AccountId = acc.Id;
+    c.Status = 'Open';
+    c.External_System__c = 'Pega_Smarts';
+    c.External_Case_ID__c = 'C-1234';
+    insert c;
+    Test.startTest();
+    c.Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS;
+    update c;
+    c = [
+      SELECT ID, Date_Time_Provisionally_Closed__c
+      FROM Case
+      WHERE ID = :c.Id
+    ];
+    System.assert(
+      c.Date_Time_Provisionally_Closed__c != null,
+      'Provisionally Closed Date Time must be present.'
+    );
+    Test.stopTest();
+  }
+  @isTest
+  public static void testCaseProvisionallyClosedDateTimeInsertScenario() {
+    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
+    Case c = TestDataFactory.createCase('Card_Dispute');
+    c.AccountId = acc.Id;
+    c.Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS;
+    c.External_System__c = 'Pega_Smarts';
+    c.External_Case_ID__c = 'C-1234';
+    Test.startTest();
+    insert c;
+    c = [
+      SELECT ID, Date_Time_Provisionally_Closed__c
+      FROM Case
+      WHERE ID = :c.Id
+    ];
+    System.assert(
+      c.Date_Time_Provisionally_Closed__c != null,
+      'Provisionally Closed Date Time must be present.'
+    );
+    Test.stopTest();
   }
 }

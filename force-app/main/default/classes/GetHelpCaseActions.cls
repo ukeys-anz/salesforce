@@ -3,7 +3,7 @@
  * @author Boobalakrishnan Duraisamy
  * @since 04/2020
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
- * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+ * CyclomaticComplexity Surpressed: The complexity of this test class is more than it is expected.
  * StdCyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  * ExcessiveClassLength Surpressed : To handle extra lines on this class
  */
@@ -13,15 +13,10 @@
 public with sharing class GetHelpCaseActions {
   public static final String FALSE_CUSTOMER_PROFILE_CASE_SUBJECT = 'False Onboarding';
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
-
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
-
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
-
   private static List<Case> notificationCaseList = new List<Case>();
-
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
-
   public static final String SLA_BREACH = 'Breached';
   public static final String SLA_WARNING = 'Warning';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
@@ -68,7 +63,6 @@ public with sharing class GetHelpCaseActions {
       ) {
         updateCaseDurationTime(record);
       }
-
       GetHelpCaseActionsHelper.checkPaytoDisputeValidations(record, oldRecord);
 
       if (record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
@@ -1031,6 +1025,35 @@ public with sharing class GetHelpCaseActions {
         caseRecord.Is_PayTo_Dispute__c = caseRecord.Payment_ID__c.startsWith(
           PAY_TO_DISPUTE_PAYMENTID_PREFIX
         );
+      }
+    }
+  }
+  /**
+   * @description Handles populating the Provisionally closed field.
+   * @param oldRecordMap Old Map of Records from Trigger, only in case of Update.
+   * @param records Case records from trigger
+   */
+  public static void handleProvisionallyClosedDateTimeField(
+    Map<Id, SObject> oldRecordMap,
+    List<Case> records
+  ) {
+    if (Trigger.isUpdate) {
+      Case oldRecord;
+      for (Case record : records) {
+        oldRecord = (Case) oldRecordMap.get(record.Id);
+        if (
+          oldRecord.Status != GetHelpConstants.PROVISIONALLY_CLOSED_STATUS &&
+          record.Status == GetHelpConstants.PROVISIONALLY_CLOSED_STATUS
+        ) {
+          record.Date_Time_Provisionally_Closed__c = DateTime.now();
+        }
+      }
+    }
+    if (Trigger.isInsert) {
+      for (Case record : records) {
+        if (record.Status == GetHelpConstants.PROVISIONALLY_CLOSED_STATUS) {
+          record.Date_Time_Provisionally_Closed__c = DateTime.now();
+        }
       }
     }
   }
