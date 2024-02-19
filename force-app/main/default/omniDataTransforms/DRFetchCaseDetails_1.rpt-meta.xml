@@ -916,7 +916,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom8299</globalKey>
@@ -944,6 +943,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom7809</globalKey>
