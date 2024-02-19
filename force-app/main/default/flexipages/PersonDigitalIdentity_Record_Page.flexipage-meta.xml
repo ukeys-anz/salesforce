@@ -42,6 +42,9 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
+                            <value>PersonDigitalIdentity__x.Update_OCV_Number</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>PersonDigitalIdentity__x.Suspend</value>
                             <visibilityRule>
                                 <criteria>
