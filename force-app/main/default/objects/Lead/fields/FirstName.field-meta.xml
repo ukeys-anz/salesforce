@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Qualtrics;Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Captures the prospects First name</description>
+    <encryptionScheme>None</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
