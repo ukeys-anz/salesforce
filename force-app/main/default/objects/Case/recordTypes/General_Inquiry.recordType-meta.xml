@@ -11586,6 +11586,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Application Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Bankruptcy</fullName>
             <default>false</default>
         </values>
@@ -11683,6 +11687,10 @@
         </values>
         <values>
             <fullName>Document Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Explore Enquiry</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11811,6 +11819,10 @@
         </values>
         <values>
             <fullName>Savings and goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Settlement Enquiry</fullName>
             <default>false</default>
         </values>
         <values>

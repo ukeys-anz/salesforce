@@ -3,16 +3,15 @@
     <fullName>Settlement__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
     <description>Reference of associated Settlement Id (Salesforce ID)</description>
     <externalId>false</externalId>
     <label>Settlement Name</label>
     <referenceTo>Settlement__c</referenceTo>
     <relationshipLabel>Customer Actions</relationshipLabel>
     <relationshipName>Customer_Actions</relationshipName>
-    <relationshipOrder>0</relationshipOrder>
-    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>MasterDetail</type>
-    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    <type>Lookup</type>
 </CustomField>
