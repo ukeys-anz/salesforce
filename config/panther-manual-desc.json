@@ -2730,6 +2730,7 @@
       "IA-2415840": [
         "Additional_Feedback__c",
         "Alerting_Reason__c",
+        "Case_Queue__c",
         "qualtrics__Date_Responded__c",
         "Customer_Feedback__c",
         "Create_Case__c",

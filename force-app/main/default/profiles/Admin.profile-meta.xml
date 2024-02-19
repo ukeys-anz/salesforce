@@ -9480,6 +9480,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Case_Queue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Reason_Outcome__c.External_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
