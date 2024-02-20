@@ -56,21 +56,6 @@
                 <default>false</default>
                 <label>Other - please specify</label>
             </value>
-            <value>
-                <fullName>Consolidation of accounts</fullName>
-                <default>false</default>
-                <label>Consolidation of accounts</label>
-            </value>
-            <value>
-                <fullName>Product mis-sold in branch</fullName>
-                <default>false</default>
-                <label>Product mis-sold in branch</label>
-            </value>
-            <value>
-                <fullName>Poor experience via Coach channel</fullName>
-                <default>false</default>
-                <label>Poor experience via Coach channel</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
