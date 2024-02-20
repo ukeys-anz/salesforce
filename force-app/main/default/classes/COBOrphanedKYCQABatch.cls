@@ -23,10 +23,10 @@ public with sharing class COBOrphanedKYCQABatch implements Database.Batchable<SO
     }
     return Database.getQueryLocator(
       'SELECT Id, CustomerOnboardingApplication__c, CustomerOnboardingApplication__r.PersonaId__c, ' +
-      'CustomerOnboardingApplication__r.OCVId__c, CustomerOnboardingApplication__r.SecurityMobile__c, Status ' +
-      'FROM Case ' +
-      'WHERE RecordType.DeveloperName = \'KYC_QA\' ' +
-      'AND AccountId = NULL AND CustomerOnboardingApplication__c != NULL'
+        'CustomerOnboardingApplication__r.OCVId__c, CustomerOnboardingApplication__r.SecurityMobile__c, Status ' +
+        'FROM Case ' +
+        'WHERE RecordType.DeveloperName = \'KYC_QA\' ' +
+        'AND AccountId = NULL AND CustomerOnboardingApplication__c != NULL'
     );
   }
 
@@ -170,8 +170,8 @@ public with sharing class COBOrphanedKYCQABatch implements Database.Batchable<SO
       }
       Logger.error(
         'Error occured while linking Customer to KYC QA Case. Persona ID: ' +
-        lstUpdates.get(i).CustomerOnboardingApplication__r.PersonaId__c +
-        getDetailedError(results[i].getErrors()),
+          lstUpdates.get(i).CustomerOnboardingApplication__r.PersonaId__c +
+          getDetailedError(results[i].getErrors()),
         Logger.Severity.HIGH
       );
     }

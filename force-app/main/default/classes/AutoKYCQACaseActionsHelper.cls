@@ -100,9 +100,7 @@ public with sharing class AutoKYCQACaseActionsHelper {
       c.OwnerId = PENDING_KYC_QA_WO_CUSTOMER.Id;
 
       Logger.debug(
-        'Case ' +
-        c.Id +
-        ' moved to Pending KYC QA - No Customer queue'
+        'Case ' + c.Id + ' moved to Pending KYC QA - No Customer queue'
       );
       Logger.saveLog();
     }

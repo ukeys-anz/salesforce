@@ -383,11 +383,11 @@ public with sharing class BOHLeadActions {
         if (!lcr.isSuccess()) {
           Logger.error(
             'Account_Id: ' +
-            lcr.getAccountId() +
-            '; Lead_Id: ' +
-            lcr.getLeadId() +
-            '; Error_Message: ' +
-            lcr.getErrors()[0].getMessage()
+              lcr.getAccountId() +
+              '; Lead_Id: ' +
+              lcr.getLeadId() +
+              '; Error_Message: ' +
+              lcr.getErrors()[0].getMessage()
           );
         } else {
           contactList.add(new Contact(Id = lcr.getContactId()));

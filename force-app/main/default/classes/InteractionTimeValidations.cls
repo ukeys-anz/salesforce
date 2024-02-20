@@ -121,8 +121,8 @@ public with sharing class InteractionTimeValidations {
           } else {
             interact.addError(
               existingUniqueInteractions[0].Owner.Name +
-              ' ' +
-              System.Label.Other_Coach_Existing_Interaction_Error_Message
+                ' ' +
+                System.Label.Other_Coach_Existing_Interaction_Error_Message
             );
           }
         }
