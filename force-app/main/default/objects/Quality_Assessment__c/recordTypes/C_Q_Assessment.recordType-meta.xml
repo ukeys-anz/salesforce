@@ -973,15 +973,15 @@
     <picklistValues>
         <picklist>Has_a_complaint_LOA_been_loaded_to_PCC__c</picklist>
         <values>
-            <fullName>N%2FA - No POA</fullName>
+            <fullName>N%2FA - No LOA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>No - POA not loaded</fullName>
+            <fullName>No - LOA not loaded</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes - POA loaded</fullName>
+            <fullName>Yes - LOA loaded</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1130,7 +1130,7 @@
     <picklistValues>
         <picklist>If_unlicensed_did_communication_stop__c</picklist>
         <values>
-            <fullName>N%2FA - no LOA%2C or LOA licensed</fullName>
+            <fullName>N%2FA %E2%80%93 no DMF%2C or DMF licenced</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3018,6 +3018,10 @@
     </picklistValues>
     <picklistValues>
         <picklist>Were_the_CM_s_calls_recorded__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>No</fullName>
             <default>false</default>
