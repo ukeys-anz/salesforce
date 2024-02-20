@@ -80,7 +80,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     // Update or Insert CDM record based on number of active self service dispute cases associated to the customer on case insert
     CustomerDisputeManagementService.handleCustomerDisputeManagementActions(
       records,
-      null
+      new Map<Id, Case>()
     );
     Logger.debug('On_After_Insert finished: ' + System.now());
     Logger.saveLog();

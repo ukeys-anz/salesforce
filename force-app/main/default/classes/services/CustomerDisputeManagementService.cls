@@ -18,7 +18,6 @@ public with sharing class CustomerDisputeManagementService {
     Map<Id, Case> oldCaseRecords
   ) {
     try {
-      //Added to filter out Cases to process and return Unique Customer Ids
       Set<Id> customerIds = filterCasesAndReturnUniqueCustomerIds(
         newCaseRecords,
         oldCaseRecords
@@ -29,24 +28,17 @@ public with sharing class CustomerDisputeManagementService {
         return;
       }
 
-      //Query the Customers and it's related Customer Dispute Management record details and active Self Service Dispute Cases
       List<Account> masterAccountList = queryCustomer(customerIds);
 
-      //Added to upsert CDM records and fetch the upserted result
-      List<Database.UpsertResult> cdmRecordsUpsertedResult = fetchCDMRecordsUpsertedList(
+      List<Database.UpsertResult> cdmRecordsUpsertedResult = upsertCDMRecordsAndReturnUpsertedList(
         masterAccountList
       );
 
       //Added to fetch the Account list in which CDM record does not exist
-      List<Account> accountsToBeUpdated = updateAccountsWithMissingCDM(
+      List<Account> accountsToBeUpdated = getAccountsWithMissingCDM(
         masterAccountList,
         cdmRecordsUpsertedResult
       );
-
-      //Return if no updation of Account needed
-      if (accountsToBeUpdated.isEmpty()) {
-        return;
-      }
 
       //Added to update Accounts to link CDM if does not exist
       new UpdateAccountsToLinkCDM()
@@ -66,6 +58,7 @@ public with sharing class CustomerDisputeManagementService {
    * @param oldCaseRecords Map of cases updated
    * @return customerIds Set of Customer Ids to process
    */
+  @TestVisible
   private static Set<Id> filterCasesAndReturnUniqueCustomerIds(
     List<Case> newCaseRecords,
     Map<Id, Case> oldCaseRecords
@@ -73,19 +66,17 @@ public with sharing class CustomerDisputeManagementService {
     Set<Id> customerIds = new Set<Id>();
     for (Case caseRecord : newCaseRecords) {
       if (
-        CheckCaseRecordType.isDispute(caseRecord) &&
-        GetHelpConstants.SELF_SERVICE_ORIGIN.contains(caseRecord.Origin)
+        !CheckCaseRecordType.isDispute(caseRecord) &&
+        !GetHelpConstants.SELF_SERVICE_ORIGIN.contains(caseRecord.Origin)
       ) {
-        if (
-          (Trigger.isAfter && Trigger.isUpdate) &&
-          caseRecord.IsClosed != oldCaseRecords.get(caseRecord.Id).IsClosed
-        ) {
-          //Do the transaction only when the status is changed in after update of the case
-          customerIds.add(caseRecord.AccountId);
-        } else if (Trigger.isAfter && Trigger.isInsert) {
-          //Handle after insert of the Self Service Dispute cases
-          customerIds.add(caseRecord.AccountId);
-        }
+        continue;
+      }
+      if (
+        (oldCaseRecords.isEmpty()) ||
+        (!oldCaseRecords.isEmpty() &&
+        caseRecord.IsClosed != oldCaseRecords.get(caseRecord.Id).IsClosed)
+      ) {
+        customerIds.add(caseRecord.AccountId);
       }
     }
 
@@ -97,10 +88,8 @@ public with sharing class CustomerDisputeManagementService {
    * @param customerIds set of customer Ids
    * @return List<Account> list of customer with all the related details
    */
+  @TestVisible
   private static List<Account> queryCustomer(Set<Id> customerIds) {
-    PermissionUtils.canQueryAllObjects(
-      new List<String>{ 'Case', 'Account', 'Customer_Dispute_Management__c' }
-    );
     //Query Customer to find number of active cases and CDM record exist
     return [
       SELECT
@@ -119,6 +108,7 @@ public with sharing class CustomerDisputeManagementService {
         )
       FROM Account
       WHERE Id IN :customerIds
+      WITH SECURITY_ENFORCED
     ];
   }
 
@@ -127,7 +117,8 @@ public with sharing class CustomerDisputeManagementService {
    * @param masterAccountList master list of customers with all the related detail
    * @return List<Database.UpsertResult>  cdm records upserted result
    */
-  private static List<Database.UpsertResult> fetchCDMRecordsUpsertedList(
+  @TestVisible
+  private static List<Database.UpsertResult> upsertCDMRecordsAndReturnUpsertedList(
     List<Account> masterAccountList
   ) {
     List<Customer_Dispute_Management__c> cdmRecordsToBeUpserted = new List<Customer_Dispute_Management__c>();
@@ -158,7 +149,8 @@ public with sharing class CustomerDisputeManagementService {
    * @param cdmRecordToInsertOrUpdate cdm record for insertion and updation before changes
    * @return cdmRecordToInsertOrUpdate cdm record for insertion and updation after changes
    */
-  public static Customer_Dispute_Management__c setCdmBlockFlags(
+  @TestVisible
+  private static Customer_Dispute_Management__c setCdmBlockFlags(
     Integer activeCaseCount,
     Customer_Dispute_Management__c cdmRecordToInsertOrUpdate
   ) {
@@ -179,7 +171,8 @@ public with sharing class CustomerDisputeManagementService {
    * @param cdmRecordsUpsertedResult <Database.UpsertResult> of CDM Records upserted
    * @return accountToBeUpdated list of account to be update to link CDM
    */
-  private static List<Account> updateAccountsWithMissingCDM(
+  @TestVisible
+  private static List<Account> getAccountsWithMissingCDM(
     List<Account> masterAccountList,
     List<Database.UpsertResult> cdmRecordsUpsertedResult
   ) {
@@ -201,11 +194,13 @@ public with sharing class CustomerDisputeManagementService {
   /**
    * @description private without sharing class to bypass account sharing setting to link CDM with Account in System mode
    */
+  @TestVisible
   private without sharing class UpdateAccountsToLinkCDM {
     /**
      * @description update account records to link CDM record which does not have existing CDM record
      * @param customerToUpdateList A list of account for which newly created CDM record needs to link
      */
+    @TestVisible
     private void updateAccountsMissingCDM(List<Account> customerToUpdateList) {
       DMLUtil.updateRecords(customerToUpdateList, false, false);
     }
