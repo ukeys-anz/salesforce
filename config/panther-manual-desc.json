@@ -406,7 +406,8 @@
         "Queue__c",
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
-        "Task_Sub_Type__c"
+        "Task_Sub_Type__c",
+        "My_extended_team_s_tasks__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
@@ -882,7 +883,8 @@
         "Provided_details_to_Prod_Manufacturer_3__c",
         "Has_complaint_met_RG_271_delay_criteria__c",
         "How_has_delay_criteria_been_met_not_met__c",
-        "Date_Time_Provisionally_Closed__c"
+        "Date_Time_Provisionally_Closed__c",
+        "My_extended_team_s_cases__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
