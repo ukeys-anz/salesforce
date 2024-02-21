@@ -2092,4 +2092,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>Missing Code message while Mapping Classic FinAcc Records to Product</shortDescription>
         <value>Missing Product Code Sub Code Found and the number of Financial Account Using the subcode.</value>
     </labels>
+    <labels>
+        <fullName>ANZX_Marketing_Consent_Tableau_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Marketing_Consent_Tableau_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/Marketingconsent/Marketingconsent</value>
+    </labels>
 </CustomLabels>

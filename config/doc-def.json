@@ -28,6 +28,7 @@
     "ContentVersion",
     "Controlling_Post__c",
     "CustomerOnboardingApplication__c",
+    "Customer_Dispute_Management__c",
     "EmailMessage",
     "Entitlement",
     "Event",
@@ -207,6 +208,20 @@
       "permissionsets": [
         "API_Only",
         "Case_Read_Only_Dispute_Integration_GCP",
+        "Customer_Dispute_Management_Read_Only",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Disputes Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Write_Dispute_Integration",
+        "Customer_Dispute_Management_Read_Write",
         "Disable_MFA",
         "Enforce_mTLS"
       ],
