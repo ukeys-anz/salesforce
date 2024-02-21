@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Final_Letter_Outcome__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Personal Information;Source - Salesforce</complianceGroup>
+    <description>Depenedent picklist</description>
+    <externalId>false</externalId>
+    <label>Final Letter Outcome</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_Is_Hardship_Resolution_Letter_Sent__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Declined financial assistance</fullName>
+                <default>false</default>
+                <label>Declined financial assistance</label>
+            </value>
+            <value>
+                <fullName>Delay to assess request for financial assistance</fullName>
+                <default>false</default>
+                <label>Delay to assess request for financial assistance</label>
+            </value>
+            <value>
+                <fullName>Arrangement considered not suitable</fullName>
+                <default>false</default>
+                <label>Arrangement considered not suitable</label>
+            </value>
+            <value>
+                <fullName>Not Financial Difficulty or Hardship Complaint</fullName>
+                <default>false</default>
+                <label>Not Financial Difficulty or Hardship Complaint</label>
+            </value>
+            <value>
+                <fullName>Terms and Conditions of hardship assistance</fullName>
+                <default>false</default>
+                <label>Terms and Conditions of hardship assistance</label>
+            </value>
+            <value>
+                <fullName>Feedback only requested/customer not expecting response</fullName>
+                <default>false</default>
+                <label>Feedback only requested/customer not expecting response</label>
+            </value>
+            <value>
+                <fullName>Customer requested no further communication</fullName>
+                <default>false</default>
+                <label>Customer requested no further communication</label>
+            </value>
+            <value>
+                <fullName>Customer Resolution - Quality Compliance team intervention</fullName>
+                <default>false</default>
+                <label>Customer Resolution - Quality Compliance team intervention</label>
+            </value>
+            <value>
+                <fullName>Customer not satisfied with outcome</fullName>
+                <default>false</default>
+                <label>Customer not satisfied with outcome</label>
+            </value>
+            <value>
+                <fullName>Missed Hardship Triggers</fullName>
+                <default>false</default>
+                <label>Missed Hardship Triggers</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response Letter Sent</controllingFieldValue>
+            <valueName>Declined financial assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response Letter Sent</controllingFieldValue>
+            <valueName>Delay to assess request for financial assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response Letter Sent</controllingFieldValue>
+            <valueName>Arrangement considered not suitable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response Letter Sent</controllingFieldValue>
+            <controllingFieldValue>Complaint Re-Opened</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response not required</controllingFieldValue>
+            <valueName>Not Financial Difficulty or Hardship Complaint</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response not required</controllingFieldValue>
+            <valueName>Terms and Conditions of hardship assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response not required</controllingFieldValue>
+            <valueName>Feedback only requested/customer not expecting response</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response not required</controllingFieldValue>
+            <valueName>Customer requested no further communication</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hardship Written Response not required</controllingFieldValue>
+            <valueName>Customer Resolution - Quality Compliance team intervention</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaint Re-Opened</controllingFieldValue>
+            <valueName>Customer not satisfied with outcome</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Complaint Re-Opened</controllingFieldValue>
+            <valueName>Missed Hardship Triggers</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>
