@@ -132,4 +132,22 @@ public with sharing class FinancialAccountControllerTest {
       );
     }
   }
+
+  @isTest
+  public static void testFetchOCVIdFromAccount() {
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    try {
+      Test.startTest();
+      String ocvId = FinancialAccountController.fetchOCVIdFromAccount(
+        accountId
+      );
+      Test.stopTest();
+    } catch (Exception exceptionObj) {
+      System.assertEquals(
+        'List has no rows for assignment to SObject',
+        exceptionObj.getMessage(),
+        'OCV Id cannot be queried with mock Account record Id'
+      );
+    }
+  }
 }

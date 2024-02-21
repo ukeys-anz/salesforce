@@ -1,11 +1,13 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { handleErrorShowToast } from "c/utils";
+import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
 import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 import getTransactionHistoryAura from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
+import fetchOCVIdFromAccount from "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount";
 
 import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
@@ -48,6 +50,7 @@ export {
 };
 
 export default class FinancialAccountParent extends LightningElement {
+  @wire(EnclosingTabId) tabId;
   @api recordId;
   @api objectApiName;
   accountData = [];
@@ -120,13 +123,15 @@ export default class FinancialAccountParent extends LightningElement {
       this.wiredMethodCalled = true;
 
       //Added this to fetch ocvid of the joint owner from where the joint account called to get the ocvid - By Shivam, Oct'23
-      this.ocvId = this.pageRef?.state?.c__ocvId
-        ? this.pageRef.state.c__ocvId
-        : data.fields.OCV_ID__c.value;
+      // Check if primary tab is account.
+      this.accountOwnershipType = data.fields.Ownership__c.value;
+      this.ocvId = await this.getOcvId(data);
+      if (!this.ocvId) {
+        return;
+      }
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
-      this.accountOwnershipType = data.fields.Ownership__c.value;
       if (
         this.ocvId &&
         this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME &&
@@ -155,8 +160,43 @@ export default class FinancialAccountParent extends LightningElement {
         await this.getTransactionData();
       }
     }
-
     this.loading = false;
+  }
+  // Implmented as part of [ANZX-143917], This method extract OCV Id from Data fields if there is Single account
+  // In case of Multy party, OCV Id extracted from Page Reference
+  // It fetches OCV Id from DB, if primaryTab is Account and FA opened in subtab
+  async getOcvId(data) {
+    let ocvId =
+      this.accountOwnershipType === "Single"
+        ? data.fields.OCV_ID__c.value
+        : this.pageRef?.state?.c__ocvId;
+    if (ocvId) {
+      return ocvId;
+    }
+    if (!this.tabId) {
+      return null;
+    }
+    let tabInfo = await getTabInfo(this.tabId);
+    let primaryTabInfo = tabInfo.isSubtab
+      ? await getTabInfo(tabInfo.parentTabId)
+      : undefined;
+    ocvId = data.fields.OCV_ID__c.value;
+    try {
+      if (primaryTabInfo?.recordId?.startsWith("001")) {
+        ocvId = await fetchOCVIdFromAccount({
+          accountRecordId: primaryTabInfo.recordId
+        });
+      }
+    } catch (error) {
+      handleErrorShowToast(
+        this,
+        "Failed to get customer with OCV Id",
+        error,
+        "Failed to get customer with OCV Id. Please refresh and try again. If issue persists please contact your System Administrator",
+        "pester"
+      );
+    }
+    return ocvId;
   }
 
   connectedCallback() {

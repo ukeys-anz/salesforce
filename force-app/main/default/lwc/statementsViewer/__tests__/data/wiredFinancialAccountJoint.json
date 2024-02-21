@@ -20,7 +20,7 @@
     },
     "Ownership__c": {
       "displayValue": null,
-      "value": "Single"
+      "value": "Multi-Party"
     },
     "RecordType": {
       "displayValue": null,

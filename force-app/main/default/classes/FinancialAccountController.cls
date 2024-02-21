@@ -233,6 +233,23 @@ public with sharing class FinancialAccountController {
   }
 
   /**
+   * @description
+   * This method is useful for fetching the account OCV Id based on the Account record Id
+   * @param accountRecordId accountRecordId from lwc
+   * @return Id ocvId
+   */
+  @AuraEnabled(cacheable=true)
+  public static String fetchOCVIdFromAccount(Id accountRecordId) {
+    Account accRecord = [
+      SELECT OCV_ID__c
+      FROM Account
+      WHERE Id = :accountRecordId
+      WITH SECURITY_ENFORCED
+    ];
+    return accRecord.OCV_ID__c;
+  }
+
+  /**
    * @description The Financial Account component uses this method to differentiate between the type of account.
    * This method takes in marketing code as input and returns the label of the corresponding record type
    * The reason this method is required, is to avoid having to query database when fabric response is received,
