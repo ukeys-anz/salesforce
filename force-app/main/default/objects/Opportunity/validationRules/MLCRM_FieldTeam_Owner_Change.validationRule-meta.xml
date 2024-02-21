@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_FieldTeam_Owner_Change</fullName>
+    <active>true</active>
+    <description>ML Field Team should be able to change owner only</description>
+    <errorConditionFormula>AND( $Permission.ML_Field_Team_Owner_Change ,
+NOT(ISCHANGED( OwnerId ) )
+)</errorConditionFormula>
+    <errorMessage>You only have the permission to change the owner</errorMessage>
+</ValidationRule>

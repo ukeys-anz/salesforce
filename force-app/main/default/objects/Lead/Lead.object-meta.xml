@@ -266,6 +266,8 @@
         <fields>FULL_NAME</fields>
         <fields>Priority__c</fields>
         <fields>LEAD.STATUS</fields>
+        <fields>Campaign_Name__c</fields>
+        <fields>Territory__c</fields>
         <fields>Followup_Date__c</fields>
         <fields>LEAD.CREATED_DATE</fields>
         <fields>Expiry_Date__c</fields>
@@ -289,6 +291,7 @@
         <excludedStandardButtons>MassCreateCallList</excludedStandardButtons>
         <excludedStandardButtons>SendListEmailAction</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <excludedStandardButtons>IntelligenceView</excludedStandardButtons>
         <excludedStandardButtons>MassAccept</excludedStandardButtons>
         <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>LEAD.COMPANY</lookupDialogsAdditionalFields>

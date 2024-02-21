@@ -144,6 +144,8 @@ public with sharing class HomeLoanModel extends CalloutModel {
         throw new AuraHandledException(e.getMessage());
       }
     }
+    @AuraEnabled
+    public OffsetDetails offsetAccount;
   }
 
   /**
@@ -229,6 +231,16 @@ public with sharing class HomeLoanModel extends CalloutModel {
     public Integer year;
     public Integer month;
     public Integer day;
+  }
+
+  /**
+   * @description offset account details in Salesforce
+   */
+  public class OffsetDetails {
+    @AuraEnabled
+    public String accountNumber;
+    @AuraEnabled
+    public String recordId;
   }
 
   /**

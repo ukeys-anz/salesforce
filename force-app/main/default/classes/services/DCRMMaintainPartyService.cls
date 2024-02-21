@@ -14,6 +14,7 @@ public with sharing class DCRMMaintainPartyService extends Service {
   private static final String LEGAL_NAME = 'Legal Name';
   private static final String EMAIL_VALUE = 'Email';
   private static final String PRIMARY_RESIDENTAIL = 'Primary Residential';
+  private static final String ADVERTISING_INDICATOR = 'Advertising Indicator';
   /**
    * @param record OCVRequestPayloadWrapper payload from the lwc component
    * @return HttpCalloutResponse
@@ -107,7 +108,7 @@ public with sharing class DCRMMaintainPartyService extends Service {
     Names name = new Names();
     name.source = CRM;
     name.nameUsageType = LEGAL_NAME;
-    name.title = String.isNotBlank(record.strSalutation)
+    name.prefix = String.isNotBlank(record.strSalutation)
       ? record.strSalutation
       : null;
     name.firstName = String.isNotBlank(record.strFirstName)
@@ -135,12 +136,31 @@ public with sharing class DCRMMaintainPartyService extends Service {
       maintainPartyReq.emails.add(email);
     }
 
+    //Add Preferences as part of CC-6745
+    if (String.isNotBlank(record.strAdvertisingIndicator)) {
+      Preferences pref = new Preferences();
+      pref.source = CRM;
+      pref.preferenceType = ADVERTISING_INDICATOR;
+      pref.preferenceValue = record.strAdvertisingIndicator;
+      pref.preferenceReason = record.strAdvertisingIndicator == 'Y'
+        ? 'Allowed'
+        : 'Not Allowed';
+      pref.startDate = String.valueOf(System.today());
+      pref.endDate = '';
+      maintainPartyReq.preferences.add(pref);
+    }
+
     //add address
     if (record.isValidStreet) {
       Addresses address = new Addresses();
       address.source = CRM;
       address.addressUsageType = PRIMARY_RESIDENTAIL;
-      address.addressLineOne = record.strStreet;
+      Map<Integer, String> streetAddressMap = CommonUtil.getStreetAddress(
+        record.strStreet
+      );
+      address.addressLineOne = streetAddressMap.get(1);
+      address.addressLineTwo = streetAddressMap.get(2);
+      address.addressLineThree = streetAddressMap.get(3);
       address.city = record.strCity;
       address.state = record.strState;
       address.country = record.strCountry;
@@ -162,6 +182,7 @@ public with sharing class DCRMMaintainPartyService extends Service {
     private List<Phones> phones = new List<Phones>();
     private List<Emails> emails = new List<Emails>();
     private List<Addresses> addresses = new List<Addresses>();
+    private List<Preferences> preferences = new List<Preferences>(); //Added as part of CC-6745
   }
 
   /**
@@ -171,6 +192,8 @@ public with sharing class DCRMMaintainPartyService extends Service {
     private String source; //CRM
     private String addressUsageType; //Primary Residential
     private String addressLineOne; //56-M
+    private String addressLineTwo; //56-M
+    private String addressLineThree; //56-M
     private String city; //Melbourne
     private String state; //VIC
     private String postalCode; //3168
@@ -202,10 +225,23 @@ public with sharing class DCRMMaintainPartyService extends Service {
    */
   private class Names {
     private String source; //CRM
-    private String title; //Mr
+    private String prefix; //Mr
     private String nameUsageType; //Legal Name
     private String firstName; //MARY
     private String middleName; //JOHN
     private String lastName; //NAPOLI
+  }
+
+  /**
+   * @description  Wrapper class to build the body
+   *  Added as part of CC-6745
+   */
+  private class Preferences {
+    private String source; //CRM
+    private String preferenceType; //Advertising Indicator
+    private String preferenceValue; //Y
+    private String preferenceReason; //"Not Allowed"/"Allowed"
+    private String startDate; //1901-01-01
+    private String endDate; // Blank value
   }
 }

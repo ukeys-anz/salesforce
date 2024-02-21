@@ -251,11 +251,18 @@ public with sharing class CCRMLeadPlatformEventHelper {
 
     //For lead conversion tasks are fetched for leads in LeadConversion class and assigned to leadTask
     if (!mapOfOpportunityId.isEmpty()) {
+      Datetime maxCreatedDate = Date.newInstance(1901, 1, 1);
       for (Task leadTask : leadTask) {
-        mapLeadSubStatus.put(
-          mapOfOpportunityId.get(leadTask.WhoId),
-          leadTask.Response_Type__r.Unica_Lead_SubStatus__c
-        );
+        if (
+          leadTask.Response_Type__c != null &&
+          leadTask.CreatedDate > maxCreatedDate
+        ) {
+          maxCreatedDate = leadTask.CreatedDate;
+          mapLeadSubStatus.put(
+            mapOfOpportunityId.get(leadTask.WhoId),
+            leadTask.Response_Type__r.Unica_Lead_SubStatus__c
+          );
+        }
       }
     } else {
       //For lead update fetch task for leads

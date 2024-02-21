@@ -341,7 +341,8 @@ export default class FinancialAccountParent extends LightningElement {
       //Filter to only get H1 account we are viewing
       let response = await getHomeLoanAccount({
         ocvId: this.ocvId,
-        accountNumbers: [this.accountNumber]
+        accountNumbers: [this.accountNumber],
+        recordId: this.recordId
       });
       //Need to stringify and send as the array consists of many objects and SF proxies it
       //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html

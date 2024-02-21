@@ -32,6 +32,11 @@ public with sharing class CommonUtilTest {
       'The generated UUIDs should be unique from each other'
     );
   }
+  @isTest
+  static void testgenerateTraceParent() {
+    String traceParent = CommonUtil.generateTraceParent();
+    Assert.areNotEqual(null, traceParent, 'Trace Parent value is generated');
+  }
 
   @isTest
   static void logAndThrowIAETest() {

@@ -279,7 +279,7 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <userPermissions>
-        <name>TransferAnyLead</name>
         <enabled>false</enabled>
+        <name>TransferAnyLead</name>
     </userPermissions>
 </PermissionSet>

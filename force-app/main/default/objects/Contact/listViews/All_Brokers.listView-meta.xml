@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Brokers</fullName>
+    <columns>OCV_ID__c</columns>
+    <columns>FULL_NAME</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>CONTACT.PHONE3</columns>
+    <columns>Broker_Accreditation_Type__c</columns>
+    <filters>
+        <field>Broker_Accreditation_Type__c</field>
+        <operation>includes</operation>
+        <value>Asset Finance,Retail Broker,Commercial Broker</value>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>All Brokers</label>
+</ListView>

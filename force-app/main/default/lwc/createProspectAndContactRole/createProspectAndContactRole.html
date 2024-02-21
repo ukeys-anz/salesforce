@@ -54,7 +54,7 @@
               label="Salutation"
               value={createProspectPayload.strSalutation}
               placeholder="--None--"
-              options={salutationPicklistValue}
+              options={salutationPicklistValues}
               onchange={handleChange}
             >
             </lightning-combobox>
@@ -161,7 +161,7 @@
         </lightning-datatable>
       </div>
     </template>
-    <template if:false={showProgressScreen}>
+    <template lwc:if={enableButtons}>
       <div slot="footer">
         <lightning-button
           variant="neutral"

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -78,10 +77,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>subheader</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -97,10 +96,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>subheader</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-ebb17461-fec4-40a5-859a-c9a34c79124a</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -119,6 +118,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.PreferredName__c</fieldItem>
                 <identifier>RecordML_PreferredName_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PreferredName__c</fieldItem>
+                <identifier>RecordPreferredName_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -129,6 +152,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__RelatedAccount__c</fieldItem>
                 <identifier>RecordFinServ_RelatedAccount_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.FinServ__RelatedAccount__c</fieldItem>
+                <identifier>RecordFinServ_RelatedAccount_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -141,10 +188,20 @@
                 <identifier>RecordML_AdvertisingIndicator_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Customer_Status__c</fieldItem>
+                <identifier>RecordCustomer_Status_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-ebb17461-fec4-40a5-859a-c9a34c79124a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-1c9f26a1-ef84-4fd8-ab1f-1005ed7a2594</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -153,6 +210,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.MobilePhone</fieldItem>
                 <identifier>RecordMobilePhoneField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.MobilePhone</fieldItem>
+                <identifier>RecordMobilePhoneField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -163,6 +244,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Home_Phone__c</fieldItem>
                 <identifier>RecordHome_Phone_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Home_Phone__c</fieldItem>
+                <identifier>RecordHome_Phone_cField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -173,6 +278,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Work_Phone__c</fieldItem>
                 <identifier>RecordWork_Phone_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Work_Phone__c</fieldItem>
+                <identifier>RecordWork_Phone_cField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -183,6 +312,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Email</fieldItem>
                 <identifier>RecordEmailField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Email</fieldItem>
+                <identifier>RecordEmailField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -195,10 +348,10 @@
                 <identifier>RecordAddressField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-1c9f26a1-ef84-4fd8-ab1f-1005ed7a2594</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-0f17cf14-9b28-4279-8782-4a5fe02dbb00</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -219,10 +372,10 @@
                 <identifier>flexipage_column12</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-0f17cf14-9b28-4279-8782-4a5fe02dbb00</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-1c719c52-33bf-4055-aa7d-7260340c09cf</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -237,7 +390,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Followup_Date__c</fieldItem>
                 <identifier>RecordFollowup_Date_cField</identifier>
@@ -283,10 +436,10 @@
                 <identifier>RecordDescriptionField2</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-1c719c52-33bf-4055-aa7d-7260340c09cf</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-68838da7-eb35-41db-89fa-c82b92f18a51</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -331,7 +484,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.LeadSource</fieldItem>
                 <identifier>RecordLeadSourceField2</identifier>
@@ -341,7 +494,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Associated_Source_Detail__c</fieldItem>
                 <identifier>RecordAssociated_Source_Detail_cField2</identifier>
@@ -407,10 +560,10 @@
                 <identifier>RecordTerritory_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-68838da7-eb35-41db-89fa-c82b92f18a51</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-bd9bfee3-e263-4424-ad77-8208948c78c7</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -431,10 +584,10 @@
                 <identifier>flexipage_column14</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-bd9bfee3-e263-4424-ad77-8208948c78c7</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-333b4905-f9bf-4d93-8748-f1f59804e0cb</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -455,10 +608,10 @@
                 <identifier>RecordNameField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-333b4905-f9bf-4d93-8748-f1f59804e0cb</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-246eb774-76b4-4dbb-9ae7-34c13f58164a</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -499,10 +652,10 @@
                 <identifier>RecordEmailField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-246eb774-76b4-4dbb-9ae7-34c13f58164a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-791d42a9-cd8a-40b2-97e0-4bf6a86cf8c8</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -523,10 +676,10 @@
                 <identifier>flexipage_column2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-791d42a9-cd8a-40b2-97e0-4bf6a86cf8c8</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-215101ad-4c76-4377-875c-81e35b7dab67</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -547,10 +700,10 @@
                 <identifier>RecordTerritory_cField2</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-215101ad-4c76-4377-875c-81e35b7dab67</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-3e20eb68-21f1-4028-b3c2-5ea8fd3c68c4</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -594,10 +747,10 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-3e20eb68-21f1-4028-b3c2-5ea8fd3c68c4</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-e41c0a51-a5d7-4298-bb27-c83e71c375da</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -618,10 +771,10 @@
                 <identifier>flexipage_column4</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-e41c0a51-a5d7-4298-bb27-c83e71c375da</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-8ca9a028-89f1-4b28-ac81-42c4fe5ef09f</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -654,30 +807,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.FinServ__ReferredByContact__c</fieldItem>
-                <identifier>RecordFinServ_ReferredByContact_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.LeadSource}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>External Referral</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Associated_Source_Detail__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Client Referral</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Referrer_Name__c</fieldItem>
                 <identifier>RecordML_Referrer_Name_cField</identifier>
@@ -719,15 +849,15 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-8ca9a028-89f1-4b28-ac81-42c4fe5ef09f</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-de4ca42f-aee8-4f7e-aefe-3e7426b49205</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Referrer_Email__c</fieldItem>
                 <identifier>RecordML_Referrer_Email_cField</identifier>
@@ -786,10 +916,10 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-de4ca42f-aee8-4f7e-aefe-3e7426b49205</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-87d809e1-66b5-4adb-8c0c-93e30ff449b7</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -810,10 +940,10 @@
                 <identifier>flexipage_column8</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-87d809e1-66b5-4adb-8c0c-93e30ff449b7</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-e08e611d-f73f-4105-a308-2efc8fdaa615</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -828,7 +958,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.SourceSystemId__c</fieldItem>
                 <identifier>RecordML_SourceSystemId_cField</identifier>
@@ -848,16 +978,16 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.SourceSystem__c</fieldItem>
                 <identifier>RecordML_SourceSystem_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-e08e611d-f73f-4105-a308-2efc8fdaa615</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-fea38a4c-35c1-49e5-a4b8-19dda8805147</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -878,10 +1008,10 @@
                 <identifier>RecordLastModifiedByIdField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-fea38a4c-35c1-49e5-a4b8-19dda8805147</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-69e673ca-6a07-4c64-9b56-c28a2c160737</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -902,10 +1032,10 @@
                 <identifier>flexipage_column16</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-69e673ca-6a07-4c64-9b56-c28a2c160737</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-ce19e0ad-f0ac-47c4-bdee-cc76d1a6c25c</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -916,10 +1046,10 @@
                 <identifier>RecordDescriptionField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-ce19e0ad-f0ac-47c4-bdee-cc76d1a6c25c</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-11de9197-9812-401d-ba8e-d4b30b02e408</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -930,10 +1060,10 @@
                 <identifier>flexipage_column5</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-11de9197-9812-401d-ba8e-d4b30b02e408</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>detailTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1103,10 +1233,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>detailTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-203b0124-dd78-44bc-a0d7-9a6181138c57</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1117,10 +1247,10 @@
                 <identifier>runtime_omnistudio_flexcard</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-203b0124-dd78-44bc-a0d7-9a6181138c57</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-513dd932-068a-404b-9f71-d764a031b815</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1173,10 +1303,10 @@
                 <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-513dd932-068a-404b-9f71-d764a031b815</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-01ecac83-80e7-41dc-a228-e27b462bfcf5</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1203,10 +1333,10 @@
                 <identifier>force_relatedListSingleContainer5</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-01ecac83-80e7-41dc-a228-e27b462bfcf5</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>tabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1264,10 +1394,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>tabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1279,10 +1409,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-96ddc6b7-de00-4b24-ac50-1c262448943f</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1293,10 +1423,10 @@
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-96ddc6b7-de00-4b24-ac50-1c262448943f</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-ffc1f942-491d-4235-aece-9dac25482b22</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1311,10 +1441,10 @@
                 <identifier>detailTab2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-ffc1f942-491d-4235-aece-9dac25482b22</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>relatedListTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1326,10 +1456,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>relatedListTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-9368f82e-7889-4cfc-a608-0b0613117ef8</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1344,10 +1474,10 @@
                 <identifier>industries_common_timeline</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-9368f82e-7889-4cfc-a608-0b0613117ef8</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-fqobd72repv</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1358,10 +1488,10 @@
                 <identifier>forceChatter_exposedFeed</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-fqobd72repv</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebartabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1413,20 +1543,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>sidebartabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>hideHeader</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListQuickLinksContainer</componentName>
-                <identifier>force_relatedListQuickLinksContainer</identifier>
-            </componentInstance>
-        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>warningLeadMistmatchCustomer</componentName>
@@ -1486,6 +1606,7 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>MLCRM Lead Page</masterLabel>

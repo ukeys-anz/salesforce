@@ -5,6 +5,7 @@
  */
 trigger ContactToContactTrigger on FinServ__ContactContactRelation__c(
   before insert,
+  before update,
   after update
 ) {
   ContactToContactTriggerHandler handler = new ContactToContactTriggerHandler();

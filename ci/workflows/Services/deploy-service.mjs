@@ -99,7 +99,7 @@ const prodValidationWithAllTests = (
     "Artifactory"
   );
   unzipFile(artifactFolderName);
-  renameForceignore()
+  renameForceignore();
   return validateWithAllTests(targetOrg, artifactFolderName);
 };
 
@@ -116,7 +116,7 @@ const prodDeploymentWithAllTests = (
     "Artifactory"
   );
   unzipFile(artifactFolderName);
-  renameForceignore()
+  renameForceignore();
   return deployWithAllTests(targetOrg, artifactFolderName);
 };
 const uploadJobId = (

@@ -26,11 +26,14 @@ public with sharing class ML_UserActions {
     String strUserIds = null;
     for (User objUser : lstOfUsers) {
       if (
+        // user is an ML franchise user
         objUser.Profile_Name__c == 'ANZ ML Standard User' &&
         objUser.UserRoleId == mlRoleId &&
+        // user is new and has role or territory populated
         ((oldMapUsers == null &&
         objUser.ML_Territories__c != null &&
         objUser.ML_Role__c != null) ||
+        // OR, user has isActive, ML territory, ML role, userRole, profile updated
         (oldMapUsers != null &&
         (oldMapUsers.get(objUser.Id).IsActive != objUser.IsActive ||
         oldMapUsers.get(objUser.Id).ML_Territories__c !=

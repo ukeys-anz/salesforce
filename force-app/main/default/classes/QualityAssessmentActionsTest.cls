@@ -196,11 +196,10 @@ private class QualityAssessmentActionsTest {
 
       Quality_Assessment__c qaRecord = new Quality_Assessment__c(
         RecordTypeId = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
-          .get('C_Q_Assessment')
+          .get('Call_Letter_Review_Assessment')
           .getRecordTypeId(),
         Related_Case__c = caseRecord.Id,
-        Team_Manager_Response__c = 'Accepted by TM',
-        Evaluation_Type__c = 'C & Q Assessment',
+        Evaluation_Type__c = 'Letter Review Assessment',
         Status__c = 'Complete'
       );
       Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
@@ -223,15 +222,16 @@ private class QualityAssessmentActionsTest {
         qaRecord,
         mpAssessmentFieldSets
       );
-
       insert qaRecord;
 
       Test.stopTest();
+
       qaRecord = [
         SELECT Id, Case_Manager_Score__c, Business_score__c
         FROM Quality_Assessment__c
         WHERE Id = :qaRecord.Id
       ];
+      System.Debug('Result++ ' + qaRecord);
       System.assertEquals(
         100,
         qaRecord.Case_Manager_Score__c,
@@ -242,6 +242,30 @@ private class QualityAssessmentActionsTest {
         qaRecord.Business_score__c,
         'Business Score Mismatch'
       );
+
+      Quality_Assessment__c qaRecordCQ = new Quality_Assessment__c(
+        RecordTypeId = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+          .get('C_Q_Assessment')
+          .getRecordTypeId(),
+        Related_Case__c = caseRecord.Id,
+        Team_Manager_Response__c = 'Accepted by TM',
+        Evaluation_Type__c = 'C & Q Assessment',
+        Status__c = 'Complete'
+      );
+      Map<String, FieldSet> mpAssessmentFieldSetsCQ = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
+      IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(
+        qaRecordCQ,
+        mpAssessmentFieldSetsCQ
+      );
+      try {
+        insert qaRecordCQ;
+      } catch (Exception e) {
+        System.assert(
+          true,
+          e.getMessage()
+            .contains('A Quality Assessment has already been completed')
+        );
+      }
     }
   }
 }

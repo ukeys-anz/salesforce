@@ -148,6 +148,10 @@
             <fullName>Resolved</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Testing</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Status__c</picklist>

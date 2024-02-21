@@ -49,8 +49,21 @@ public class IDRQualityAssessmentTaskActionsTest {
           AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
       ];
 
-      System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
+      System.assertEquals(lstAssessments.size() * 2, lstTasks.size(), 'Count');
     }
+       Profile noAccessrProfile = CommonUtil.getProfileByName('No Access');
+      user noAcessUser =TestUtil.createTestUser(
+          new Map<String, Object>{
+              'FirstName' => 'noAcess_User',
+                  'ProfileId' => noAccessrProfile.Id,
+                  'UserRoleId' => ''
+                  }
+      );  
+      insert noAcessUser;
+      System.runAs(noAcessUser){    
+      IDRQualityAssessmentTaskActions.createComplianceTasks(null,null);
+      }
+      
   }
 
   /**
@@ -144,7 +157,8 @@ public class IDRQualityAssessmentTaskActionsTest {
             Related_Case__c = newCases[i].Id,
             Case_Manager__c = oQAUser.Id,
             TeamManager__c = oIDRUser.Id,
-            RecordTypeId = IDRConstants.idrtCQQualityAssessment
+            RecordTypeId = IDRConstants.idrtCQQualityAssessment,
+            Corrective_actions_for_TM_CM__c = 'Update internal records'
           )
         );
         if (fFillMandatoryFields) {
@@ -157,10 +171,8 @@ public class IDRQualityAssessmentTaskActionsTest {
       for (Quality_Assessment__c oAssessment : lstAssessments) {
         oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
         oAssessment.Case_Manager__c = null;
-
         stAssessmentIds.add(oAssessment.Id);
       }
-
       Boolean fExceptionThrown = false;
       try {
         update lstAssessments;
@@ -190,7 +202,7 @@ public class IDRQualityAssessmentTaskActionsTest {
       ];
 
       System.debug('Tasks: ' + lstTasks);
-      System.assertEquals(lstAssessments.size(), lstTasks.size(), 'Count');
+      System.assertEquals(lstAssessments.size() * 2, lstTasks.size(), 'Count');
     }
     return oQAUser;
   }

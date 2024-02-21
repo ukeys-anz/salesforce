@@ -5,10 +5,10 @@
     <description>CC-3472: Lead record must be editable only when lead status in New/InProgress/Opportunity Identified.</description>
     <errorConditionFormula>AND(
         $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,NOT(CONTAINS( $User.Username,$Label.UnicaIntegrationUserName)),
+NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
         RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,
         NOT($Profile.Name = &quot;System Administrator&quot;),
         NOT(ISCHANGED(Skip_Validations__c)),
-        NOT(Skip_Validations__c = &apos;ConvertLead&apos;),         
         OR(
             ISPICKVAL(PRIORVALUE(Status), &quot;No Opportunity&quot;),
             ISPICKVAL(PRIORVALUE(Status), &quot;Converted&quot;),

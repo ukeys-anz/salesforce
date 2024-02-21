@@ -228,11 +228,11 @@ public with sharing class AccountCommonActions {
     if (!matchingLeadsByAccIdMap.isEmpty()) {
       LeadDMLOperator dmlOperator = new LeadDMLOperator();
       CCRMLeadPlatformEventHelper.leadTask = [
-        SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId
+        SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId, CreatedDate
         FROM Task
         WHERE WhoId = :leadRec.Id
         WITH SECURITY_ENFORCED
-        ORDER BY createddate DESC
+        ORDER BY CreatedDate DESC
       ];
       mapOfOpportunityId = dmlOperator.convertLeads(matchingLeadsByAccIdMap);
     }

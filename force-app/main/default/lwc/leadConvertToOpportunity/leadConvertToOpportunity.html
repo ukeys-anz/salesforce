@@ -17,7 +17,7 @@
             {leadTitle}
           </h1>
         </div>
-        <template if:false={validLead}>
+        <template lwc:if={invalidLead}>
           <div class="slds-modal__content slds-p-around_medium contentDiv">
             <lightning-card>
               <p class="modalSubText">{modalBodySubText}</p>
@@ -269,7 +269,7 @@
                 title="Cancel"
                 onclick={cancelAction}
               ></lightning-button>
-              <template if:false={noDataFound}>
+              <template lwc:if={searchResults}>
                 <lightning-button
                   class="slds-button"
                   variant="brand"

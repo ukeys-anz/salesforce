@@ -284,6 +284,35 @@ public class AuthTokenCacheUtilTest {
   }
 
   /**
+   * @description test method for getForgeJWTToken when successful
+   */
+  @isTest
+  public static void testGetStaffTokenV2() {
+    User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + anzxTestUser.Id,
+      AuthServiceTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.idType = Service.IdType.OCVID;
+    staffModelWrapper.idValue = '1111';
+    String idToken = 'xxxxxxxx';
+    Test.startTest();
+    System.runAs(anzxTestUser) {
+      String accessToken = AuthTokenCacheUtil.getStaffToken(staffModelWrapper);
+      Assert.areEqual(
+        accessToken,
+        'xxxxx',
+        'The accessToken should be as expected.'
+      );
+    }
+    Test.stopTest();
+  }
+
+  /**
    * @description test method for getCustomerNameFromStaffToken
    */
   @isTest

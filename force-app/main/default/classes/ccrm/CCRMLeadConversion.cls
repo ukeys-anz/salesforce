@@ -33,6 +33,7 @@ public without sharing class CCRMLeadConversion {
           MobilePhone,
           Home_Phone__c,
           Work_Phone__c,
+          AdvertisingIndicator__c,
           FinServ__ExpressedInterest__c,
           New_to_Bank__c,
           FinServ__RelatedAccount__c,
@@ -139,11 +140,11 @@ public without sharing class CCRMLeadConversion {
     }
 
     List<Task> task = [
-      SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId
+      SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId, CreatedDate
       FROM Task
       WHERE WhoId = :recordId
       WITH SECURITY_ENFORCED
-      ORDER BY createddate DESC
+      ORDER BY CreatedDate DESC
       LIMIT 1
     ];
 
