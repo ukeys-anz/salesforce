@@ -12,10 +12,11 @@ public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batc
   public Database.QueryLocator start(Database.BatchableContext bc) {
     return Database.getQueryLocator(
       [
-        SELECT Id, Status, CompletedDateTime, ActivityDate
+        SELECT Id, Status, OwnerId
         FROM Task
         WHERE
           ActivityDate < TODAY
+          AND ActivityDate = LAST_N_DAYS:3
           AND Status = 'Not Started'
           AND RecordTypeId = :GetHelpConstants.COACH_NUDGE_RT
       ]
@@ -31,8 +32,10 @@ public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batc
   public void execute(Database.BatchableContext bc, List<Task> taskRecords) {
     List<Task> tasksToUpdate = new List<Task>();
     for (Task taskRecord : taskRecords) {
-      taskRecord.Status = 'Expired';
-      tasksToUpdate.add(taskRecord);
+      if (String.valueOf(taskRecord.OwnerId).startsWith('00G')) {
+        taskRecord.Status = 'Expired';
+        tasksToUpdate.add(taskRecord);
+      }
     }
     DMLUtil.updateRecords(
       tasksToUpdate,
