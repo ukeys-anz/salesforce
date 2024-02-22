@@ -139,6 +139,10 @@ public with sharing class FinancialAccountControllerTest {
     Test.startTest();
     String ocvId = FinancialAccountController.fetchOCVIdFromAccount(accountId);
     Test.stopTest();
-    System.assertEquals(null, null, 'OCV Id is null');
+    System.assertEquals(
+      null,
+      null,
+      'Ocv Id should be null as we are passing fake record Id'
+    );
   }
 }
