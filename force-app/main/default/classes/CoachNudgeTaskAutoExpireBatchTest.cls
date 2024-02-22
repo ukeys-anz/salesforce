@@ -34,6 +34,8 @@ public with sharing class CoachNudgeTaskAutoExpireBatchTest {
       insert psa;
     }
 
+    Group coachQueue = CommonUtil.getQueueByName('BOH_Coach_Queue');
+
     Faker faker = new Faker('AU');
 
     // create an ANZx Customer
@@ -57,12 +59,12 @@ public with sharing class CoachNudgeTaskAutoExpireBatchTest {
       Type = 'Home Loan Ineligible Nudge',
       Status = 'Not Started',
       Priority = 'Normal',
-      ActivityDate = Date.today().addDays(-5),
+      ActivityDate = Date.today().addDays(-2),
       WhoId = acc.PersonContactId,
       WhatId = rla.Id,
       Description = 'Outbound',
       Subject = 'ANZPlus-Data-Customer - Coach task',
-      OwnerId = coachUser.Id
+      OwnerId = coachQueue.Id
     );
     insert coachNudgeTask;
   }
