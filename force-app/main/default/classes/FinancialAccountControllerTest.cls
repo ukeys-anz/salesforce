@@ -141,7 +141,7 @@ public with sharing class FinancialAccountControllerTest {
     Test.stopTest();
     System.assertEquals(
       null,
-      null,
+      ocvId,
       'Ocv Id should be null as we are passing fake record Id'
     );
   }
