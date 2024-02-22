@@ -181,7 +181,6 @@ public with sharing class SurveyResponseTriggerHandlerTest {
         WHERE OCV_ID__c = :OCV_ID_1 OR OCV_ID__c = :OCV_ID_2
       ]
     );
-
     for (Group queue : [SELECT Id, Name FROM Group WHERE Type = 'Queue']) {
       queueMap.put(queue.Name, queue.Id);
     }
@@ -278,16 +277,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       Test.stopTest();
 
       List<Case> cases = [
-        SELECT
-          Id,
-          AccountId,
-          Advocacy_Score__c,
-          Alerting_Reason__c,
-          Description,
-          OwnerId,
-          Priority,
-          Subject,
-          Survey_Response__c
+        SELECT OwnerId
         FROM Case
         WHERE Alerting_Reason__c = 'Some alerting reason'
       ];
