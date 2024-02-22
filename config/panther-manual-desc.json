@@ -606,6 +606,8 @@
         "Bank_ATM__c",
         "Card_In_Possession_During_Transaction__c",
         "Date_Closed__c",
+        "Previous_Case_Owner__c",
+        "Date_Case_allocated_to_CM__c",
         "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",

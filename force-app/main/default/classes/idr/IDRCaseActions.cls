@@ -169,11 +169,10 @@ public with sharing class IDRCaseActions {
         ) {
           record.addError(IDRConstants.CANNOT_CHANGE_ISSUE_MESSAGE);
         }
-        if(getProductAssetfinance(record,oldRecord))
-        {
+        if (getProductAssetfinance(record, oldRecord)) {
           record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
-        populateHardshipUpdateDate(records,(Map<Id, Case>) OldMap);
+        populateHardshipUpdateDate(records, (Map<Id, Case>) OldMap);
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -203,6 +202,7 @@ public with sharing class IDRCaseActions {
           SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
         );
       }
+      populateOwnerChangeFields(record, oldMap);
     }
     preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
@@ -213,6 +213,33 @@ public with sharing class IDRCaseActions {
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
       updateDateTimePsiTicked(updatePsiTicked);
+    }
+  }
+
+  /**
+   * @description populateOwnerChangeFields(record, oldMap) method handles the following
+   * 1. Assigns old owner to Previous Case Owner
+   * 2. Assigns the date/time to Date Case Allocated to CM.   
+   * @param record from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values.
+   */
+  public static void populateOwnerChangeFields(
+    Case record,
+    Map<ID, SObject> oldMap
+  ) {
+    if (record.OwnerId != (Id) oldMap.get(record.Id).get('OwnerId')) {
+      ID oldOwner = (Id) oldMap.get(record.Id).get('OwnerId');
+      ID newOwner = record.OwnerId;
+      if (oldOwner.getSObjectType() == Group.SObjectType) {
+        record.Previous_Case_Owner__c = null;
+      } else {
+        record.Previous_Case_Owner__c = oldOwner;
+      }
+      if (newOwner.getSObjectType() == User.SObjectType) {
+        record.Date_Case_allocated_to_CM__c = DateTime.now();
+      } else {
+        record.Date_Case_allocated_to_CM__c = null;
+      }
     }
   }
 
@@ -886,64 +913,77 @@ public with sharing class IDRCaseActions {
     }
   }
   /**
-  * @description Getting product from Asset finance Product family
-  * @param record  List of cases from the trigger
-  * @param oldRecord List of cases from trigger
-  * @return Boolean value that returns true if the Product Family is Asset finance 
-  */
-  private static Boolean getProductAssetfinance(Case record, Case oldRecord){
+   * @description Getting product from Asset finance Product family
+   * @param record  List of cases from the trigger
+   * @param oldRecord List of cases from trigger
+   * @return Boolean value that returns true if the Product Family is Asset finance
+   */
+  private static Boolean getProductAssetfinance(Case record, Case oldRecord) {
     Map<Id, Product2> productMap = new Map<Id, Product2>();
-    List<Product2> products = [SELECT Id,Name,IDR_Product_Family__c,IDR_Product_Family__r.Name from Product2 where IDR_Product_Family__r.Name='Asset finance'];
-    
-    for(Product2 prod:products){
-        productMap.put(prod.Id,prod);  
+    List<Product2> products = [
+      SELECT Id, Name, IDR_Product_Family__c, IDR_Product_Family__r.Name
+      FROM Product2
+      WHERE IDR_Product_Family__r.Name = 'Asset finance'
+    ];
+
+    for (Product2 prod : products) {
+      productMap.put(prod.Id, prod);
     }
-    
-    for(Id prod : productMap.keyset()){  
-      if(isIDRComplaintType(record) && oldRecord != null) {
-        if((IDRCollectionActions.isCollectionsIssue(
+
+    for (Id prod : productMap.keyset()) {
+      if (isIDRComplaintType(record) && oldRecord != null) {
+        if (
+          (IDRCollectionActions.isCollectionsIssue(
             oldRecord.Type,
-            oldRecord.IDR_Subsequent_Issue__c)) &&
-            (
-                String.isNotBlank(oldRecord.Product__c) &&
-                oldRecord.Product__c != record.Product__c &&
-                productMap.containsKey(oldRecord.Product__c) 
-            )){
-                return true;
-            }
-        if((IDRCollectionActions.isCollectionsIssue(
+            oldRecord.IDR_Subsequent_Issue__c
+          )) &&
+          (String.isNotBlank(oldRecord.Product__c) &&
+          oldRecord.Product__c != record.Product__c &&
+          productMap.containsKey(oldRecord.Product__c))
+        ) {
+          return true;
+        }
+        if (
+          (IDRCollectionActions.isCollectionsIssue(
             oldRecord.IDR_Issue_Type_2__c,
-            oldRecord.IDR_Subsequent_Issue_2__c)) &&
-            (
-                String.isNotBlank(oldRecord.IDR_Product_2__c) &&
-                oldRecord.IDR_Product_2__c!=record.IDR_Product_2__c &&
-                productMap.containsKey(oldRecord.IDR_Product_2__c) 
-            )){
-                return true;
-            }
-        if((IDRCollectionActions.isCollectionsIssue(
+            oldRecord.IDR_Subsequent_Issue_2__c
+          )) &&
+          (String.isNotBlank(oldRecord.IDR_Product_2__c) &&
+          oldRecord.IDR_Product_2__c != record.IDR_Product_2__c &&
+          productMap.containsKey(oldRecord.IDR_Product_2__c))
+        ) {
+          return true;
+        }
+        if (
+          (IDRCollectionActions.isCollectionsIssue(
             oldRecord.IDR_Issue_Type_3__c,
-            oldRecord.IDR_Subsequent_Issue_3__c)) &&
-            (
-                String.isNotBlank(oldRecord.IDR_Product_3__c) &&
-                oldRecord.IDR_Product_3__c != record.IDR_Product_3__c &&
-                productMap.containsKey(oldRecord.IDR_Product_3__c) 
-            )){
-                return true;
-            }    
+            oldRecord.IDR_Subsequent_Issue_3__c
+          )) &&
+          (String.isNotBlank(oldRecord.IDR_Product_3__c) &&
+          oldRecord.IDR_Product_3__c != record.IDR_Product_3__c &&
+          productMap.containsKey(oldRecord.IDR_Product_3__c))
+        ) {
+          return true;
+        }
       }
-    } 
+    }
     return false;
   }
- /**
-  * @description Populate modified date when the picklist value is updated
-  * @param records  List of cases from the trigger
-  * @param oldMap Map of pre-update cases supplied from the trigger as well, will be null on beforeInsert
-  */
-  private static void populateHardshipUpdateDate(List<Case> records,Map<Id, Case> oldMap){
-    for(Case c: records){
-      if(c.IDR_Is_Hardship_Resolution_Letter_Sent__c != oldMap.get(c.Id).IDR_Is_Hardship_Resolution_Letter_Sent__c){
-          c.IDR_Hardship_Response_updated_on__c = System.now();
+  /**
+   * @description Populate modified date when the picklist value is updated
+   * @param records  List of cases from the trigger
+   * @param oldMap Map of pre-update cases supplied from the trigger as well, will be null on beforeInsert
+   */
+  private static void populateHardshipUpdateDate(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    for (Case c : records) {
+      if (
+        c.IDR_Is_Hardship_Resolution_Letter_Sent__c !=
+        oldMap.get(c.Id).IDR_Is_Hardship_Resolution_Letter_Sent__c
+      ) {
+        c.IDR_Hardship_Response_updated_on__c = System.now();
       }
     }
   }
