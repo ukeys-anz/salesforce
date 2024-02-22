@@ -13,7 +13,7 @@ public with sharing class AccountQueryHelper {
     List<Account> accounts = [
       SELECT OCV_ID__c, PPID__c
       FROM Account
-      WHERE Id = :accountId
+      WHERE Id = :accountId AND ANZx_Customer__c = TRUE
     ];
     return accounts;
   }
@@ -55,6 +55,7 @@ public with sharing class AccountQueryHelper {
       WHERE
         OCV_ID__c = :ocvId
         AND RecordTypeId = :GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+        AND ANZx_Customer__c = TRUE
     ]) {
       mapOcvIdAccount.put(acc.OCV_ID__c, acc);
     }

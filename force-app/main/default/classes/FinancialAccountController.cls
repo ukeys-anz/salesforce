@@ -240,13 +240,12 @@ public with sharing class FinancialAccountController {
    */
   @AuraEnabled(cacheable=true)
   public static String fetchOCVIdFromAccount(Id accountRecordId) {
-    Account accRecord = [
-      SELECT OCV_ID__c
-      FROM Account
-      WHERE Id = :accountRecordId
-      WITH SECURITY_ENFORCED
-    ];
-    return accRecord.OCV_ID__c;
+    List<Account> listOfAccounts = new AccountQueryHelper()
+      .findAccountsByAccountId(accountRecordId);
+    if (listOfAccounts.isEmpty()) {
+      return null;
+    }
+    return listOfAccounts.get(0).OCV_ID__c;
   }
 
   /**
