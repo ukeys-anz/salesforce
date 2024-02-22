@@ -170,6 +170,7 @@ public with sharing class MLCRMOpportunityActions {
     record.strHomePhone = '';
     record.strWorkPhone = '';
     record.strGender = '';
+    record.strAdvertisingIndicator = ''; //added as part of CC-6745
     return record;
   }
 }

@@ -2,6 +2,11 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ANZx Standard User</fullName>
     <applicationVisibilities>
+        <application>BDM_Workbench</application>
+        <default>false</default>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>standard__Insights</application>
         <default>false</default>
         <visible>false</visible>
@@ -113,6 +118,10 @@
     </applicationVisibilities>
     <classAccesses>
         <apexClass>AuthTokenCacheUtil</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ContactPointObjectsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -8077,6 +8086,14 @@
         <layout>COBPrimaryIDDocument__c-COB Primary ID Document Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Contact-Contact Layout</layout>
+        <recordType>Contact.Broker</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contact-Staff</layout>
+        <recordType>Contact.Staff</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>ContactPointPhone-ANZX Contact Point Phone Layout</layout>
         <recordType>ContactPointPhone.Hidden</recordType>
     </layoutAssignments>
@@ -8099,6 +8116,13 @@
     <layoutAssignments>
         <layout>ContactPointEmail-ANZX Contact Point Email Layout</layout>
         <recordType>ContactPointEmail.Organisation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>FinServ__ContactContactRelation__c-Broker Staff</layout>
+        <recordType>FinServ__ContactContactRelation__c.Broker_Staff</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>FinServ__ContactContactRelation__c-FinServ__Contact Contact Relation Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
@@ -9152,6 +9176,11 @@
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Contact.Staff</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <default>false</default>
         <recordType>Event.FinServ__AdvisorEvent</recordType>
         <visible>false</visible>
@@ -9189,6 +9218,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>FinServ__ChargesAndFees__c.FinServ__Debit</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__ContactContactRelation__c.Broker_Staff</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -9338,6 +9372,10 @@
     <tabVisibilities>
         <tab>FinServ__ChargesAndFees__c</tab>
         <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>FinServ__ContactContactRelation__c</tab>
+        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>FinServ__Education__c</tab>

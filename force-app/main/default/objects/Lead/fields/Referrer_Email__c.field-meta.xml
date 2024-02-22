@@ -5,7 +5,6 @@
     <complianceGroup>Integrity_Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Email address of the ANZ Staff who referred the Lead Details to ML</description>
     <externalId>false</externalId>
-    <inlineHelpText>Enter the email address of the ANZ staff member who referred this Lead</inlineHelpText>
     <label>Referrer Email</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

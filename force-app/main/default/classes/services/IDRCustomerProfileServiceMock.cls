@@ -19,7 +19,7 @@ public with sharing class IDRCustomerProfileServiceMock extends Service {
     '  \"profile\": {' +
     '    \"customerId\": \"4021733054\",' +
     '    \"ocvId\": \"1000001034\",' +
-    '    \"cpId\": null,' +
+    '    \"cpId\": \"C7601\",' +
     '    \"complainantType\": \"Individual\",' +
     '    \"businessName\": null,' +
     '    \"companyName\": null,' +

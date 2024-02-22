@@ -1,0 +1,34 @@
+[
+  {
+    "Address": {
+      "city": "MELBOURNE",
+      "country": "AU",
+      "postalCode": "3004",
+      "state": "VIC",
+      "street": "L 6  549 St Kilda Rd"
+    },
+    "AddressType": "Primary Residential",
+    "FullAddress": "L 6  549 St Kilda Rd MELBOURNE VIC 3004 AU",
+    "Id": "8lW8s0000001HDJEA2",
+    "IsDefault": true,
+    "IsPreferred": "Yes",
+    "ParentId": "0018s00000OdQ1fAAF",
+    "Persona_Type__c": "Broker"
+  },
+  {
+    "Address": {
+      "city": "Sydney",
+      "country": "Australia",
+      "postalCode": "2000",
+      "state": "NSW",
+      "street": "200 Pitt Street"
+    },
+    "AddressType": "Primary Residential",
+    "FullAddress": "200 Pitt Street Sydney NSW 2000 Australia",
+    "Id": "8lW8s0000001KpVEAU",
+    "IsDefault": false,
+    "IsPreferred": "No",
+    "ParentId": "0018s00000OdQ1fAAF",
+    "Persona_Type__c": "Broker"
+  }
+]

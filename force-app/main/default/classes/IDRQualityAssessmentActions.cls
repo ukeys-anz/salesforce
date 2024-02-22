@@ -68,9 +68,7 @@ public with sharing class IDRQualityAssessmentActions {
             }
           }
           QA_CMOS_Scoring_Table__mdt ruleRecord = getHelpRules.get(
-            fieldSetName +
-            '_' +
-            ratingApiConversion
+            fieldSetName + '_' + ratingApiConversion
           );
           if (ruleRecord != null && ruleRecord.Case_Manager_Score__c != null) {
             caseManagerScore += ruleRecord.Case_Manager_Score__c;

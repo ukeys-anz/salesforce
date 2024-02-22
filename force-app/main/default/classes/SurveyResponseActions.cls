@@ -59,11 +59,11 @@ public with sharing class SurveyResponseActions {
         sr.addError(INVALID_OCV_ID_ERROR);
         Logger.info(
           'OCV ID: ' +
-          ocvId +
-          '; Q_SurveyID: ' +
-          sr.SurveyId__c +
-          '; Q_Recipient ID: ' +
-          sr.RecipientId__c
+            ocvId +
+            '; Q_SurveyID: ' +
+            sr.SurveyId__c +
+            '; Q_Recipient ID: ' +
+            sr.RecipientId__c
         );
       }
     }

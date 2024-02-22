@@ -105,5 +105,10 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
         false
       );
     }
+
+    ContactOCVSyncProcessor.updateRecordsForOCVVersionChanged(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
   }
 }

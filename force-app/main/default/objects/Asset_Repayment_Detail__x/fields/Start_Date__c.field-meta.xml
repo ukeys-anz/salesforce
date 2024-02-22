@@ -10,7 +10,9 @@
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Start Date</label>
+    <length>50</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <type>DateTime</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

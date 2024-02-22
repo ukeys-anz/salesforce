@@ -129,15 +129,15 @@ public without sharing class AccessRequestFlowHandler {
 
     Logger.error(
       'Error occured in PAM ' +
-      flowInstance.processType +
-      ' flow. Related to' +
-      ' request ' +
-      par.Access_Request__r.Name +
-      ' requesting ' +
-      par.Access_Request__r.Access_Type__c +
-      ' access.' +
-      ' More details: ' +
-      errorMessage
+        flowInstance.processType +
+        ' flow. Related to' +
+        ' request ' +
+        par.Access_Request__r.Name +
+        ' requesting ' +
+        par.Access_Request__r.Access_Type__c +
+        ' access.' +
+        ' More details: ' +
+        errorMessage
     );
     Logger.saveLog();
 
@@ -179,11 +179,11 @@ public without sharing class AccessRequestFlowHandler {
     } catch (Exception e) {
       Logger.error(
         'Error occured while updating actual ' +
-        processType +
-        ' timestamp on PAR record ' +
-        parId +
-        '. More details: ' +
-        e.getMessage()
+          processType +
+          ' timestamp on PAR record ' +
+          parId +
+          '. More details: ' +
+          e.getMessage()
       );
 
       Logger.saveLog();
@@ -204,11 +204,11 @@ public without sharing class AccessRequestFlowHandler {
   ) {
     Logger.info(
       'PAM request ' +
-      par.Access_Request__r.Name +
-      ' requesting ' +
-      par.Access_Request__r.Access_Type__c +
-      ' access has been ' +
-      actionName,
+        par.Access_Request__r.Name +
+        ' requesting ' +
+        par.Access_Request__r.Access_Type__c +
+        ' access has been ' +
+        actionName,
       par
     );
 

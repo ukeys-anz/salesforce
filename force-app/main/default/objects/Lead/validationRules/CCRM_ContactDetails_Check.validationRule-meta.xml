@@ -5,8 +5,10 @@
     <description>Validate if at-least one type of valid contact detail is mentioned.</description>
     <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-    NOT(CONTAINS( $User.Username,'unica.integration@anzx.com')),
+    NOT(CONTAINS( $User.Username,&apos;unica.integration@anzx.com&apos;)),
     RecordType.DeveloperName = &apos;CCRM_Lead&apos;, 
+    Text(Status) != &apos;Outcome&apos;,
+    Text(Lead_Outcome__c) != &apos;Expired&apos;,
     ISBLANK( Email ) , 
     ISBLANK( MobilePhone ) , 
     ISBLANK( Home_Phone__c ) , 

@@ -1,0 +1,13 @@
+{
+  "accounts": [
+    {
+      "accountNumber": "391102388",
+      "accountName": "REDDY",
+      "productCode": "ILS",
+      "subProductCode": "HVC",
+      "status": "Open",
+      "dateLoanIssued": "2015-09-22T00:00:00",
+      "accountBalance": -100639.8
+    }
+  ]
+}

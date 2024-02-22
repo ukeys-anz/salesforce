@@ -488,6 +488,21 @@
                 <label>HL Signing Authority Update</label>
             </value>
             <value>
+                <fullName>Explore Enquiry</fullName>
+                <default>false</default>
+                <label>Explore Enquiry</label>
+            </value>
+            <value>
+                <fullName>Application Enquiry</fullName>
+                <default>false</default>
+                <label>Application Enquiry</label>
+            </value>
+            <value>
+                <fullName>Settlement Enquiry</fullName>
+                <default>false</default>
+                <label>Settlement Enquiry</label>
+            </value>
+            <value>
                 <fullName>Manage PayTo</fullName>
                 <default>false</default>
                 <label>Manage PayTo</label>
@@ -785,6 +800,18 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>HL Signing Authority Update</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Explore Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Application Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Settlement Enquiry</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>

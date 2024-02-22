@@ -89,6 +89,13 @@
       "type": "user"
     },
     {
+      "name": "BOH Coach",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["BOH_Coach"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "Business Admin",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Business_Admin"],
@@ -150,6 +157,20 @@
       "permissionsetgroups": [],
       "permissionsets": ["Enforce_mTLS", "COSMOS_Integration", "Disable_MFA"],
       "type": "system"
+    },
+    {
+      "name": "Credit Assessor Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Credit_Assessor_Lead"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Credit Assessment Officer",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Credit_Assessment_Officer"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     },
     {
       "name": "Customer Onboarding Integration User",
@@ -305,6 +326,27 @@
       "type": "user"
     },
     {
+      "name": "Join Batch Automation User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "Case_Read_Write_KYC_QA_Integration"],
+      "type": "system"
+    },
+    {
+      "name": "Onboarding Support",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Onboarding_Support_Read_Only"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Statutory Compliance Agent",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Statutory_Compliance_Agent"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "Systemic Issue Team",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_SI_User"],
@@ -341,6 +383,7 @@
         "CCRM_Marketing_Integration_User",
         "Customer_Relationships_Read_Write",
         "Disable_MFA",
+        "Broker_Details_Read_Write",
         "Feature_FA_Feature_Read_Write"
       ],
       "type": "system"
@@ -420,6 +463,20 @@
       "permissionsetgroups": [],
       "permissionsets": ["API_Access_SAF", "API_Only", "Disable_MFA"],
       "type": "system"
+    },
+    {
+      "name": "Settlement Officer",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Settlement_Officer"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Settlement Officer Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Settlement_Officer_Lead"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     },
     {
       "name": "Shared Administrator",

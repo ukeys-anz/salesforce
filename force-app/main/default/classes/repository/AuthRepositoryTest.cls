@@ -36,4 +36,34 @@ public inherited sharing class AuthRepositoryTest {
       'The accessToken should be as expected.'
     );
   }
+
+  /**
+   * @description test method for getForgeStaffToken when successful
+   */
+  @isTest
+  public static void testGetForgeStaffTokenv2() {
+    //TestHelper.addAzureTokenToCache();
+    Id userId = UserInfo.getUserId();
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + userId,
+      AuthServiceTest.IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.idType = Service.IdType.OCVID;
+    staffModelWrapper.idValue = '1111';
+    String idToken = 'xxxxxxxx';
+    Test.startTest();
+    AuthRepository authRepo = new AuthRepository();
+    IdentityModel respModel = authRepo.getForgeStaffToken(staffModelWrapper);
+    String accessToken = respModel.accessToken;
+    Test.stopTest();
+    Assert.areEqual(
+      accessToken,
+      'xxxxx',
+      'The accessToken should be as expected.'
+    );
+  }
 }

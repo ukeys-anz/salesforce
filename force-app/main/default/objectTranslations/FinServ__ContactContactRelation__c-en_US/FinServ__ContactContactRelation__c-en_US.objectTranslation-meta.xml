@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Contact Relationship</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Contact Relations</value>
+    </caseValues>
     <fieldSets>
         <name>WM_Client_RelatedContacts</name>
         <label/>
@@ -8,6 +16,8 @@
         <name>WM_Household_RelatedContacts</name>
         <label/>
     </fieldSets>
+    <nameFieldLabel>Contact Relation</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
     <validationRules>
         <name>FinServ__CCRCanOnlyBeDeactivated</name>
         <errorMessage/>

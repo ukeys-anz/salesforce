@@ -6,6 +6,7 @@
     <errorConditionFormula>AND(
 ISCHANGED( LeadSource ),!ISNEW(),
 NOT(CONTAINS( $User.Username,$Label.UnicaIntegrationUserName)),
+NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,
 OR(TEXT(Lead_Originator__c) = &apos;Unica&apos;,

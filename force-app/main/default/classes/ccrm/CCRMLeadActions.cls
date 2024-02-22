@@ -287,8 +287,8 @@ public with sharing class CCRMLeadActions {
       ? integer.valueOf(System.Label.CCRM_MinDaysExpiryDateExtends)
       : integer.valueOf(System.Label.ML_MinDaysExpiryDateExtends);
     Integer maxdays = CCRMLeadUtil.isCCRMLeadType(record)
-      ? integer.valueOf(System.Label.CCRM_MinDaysExpiryDateExtends)
-      : integer.valueOf(System.Label.ML_MinDaysExpiryDateExtends);
+      ? integer.valueOf(System.Label.CCRM_MaxDaysExpiryDateExtends)
+      : integer.valueOf(System.Label.ML_MaxDaysExpiryDateExtends);
 
     if (task != null && task.ActivityDate != null) {
       newExpiryDate = task.ActivityDate.addDays(minDays) >
@@ -803,7 +803,8 @@ public with sharing class CCRMLeadActions {
         record.Status == MLCRMConstants.STATUS_NEW &&
         record.Skip_Validations__c ==
         oldMap.get(record.Id).Skip_Validations__c &&
-        !record.isNewLead__c
+        !record.isNewLead__c &&
+        OldMap.get(record.Id).Status == record.Status
       ) {
         record.Status = MLCRMConstants.STATUS_IN_PROGRESS;
         record.Skip_Validations__c = MLCRMConstants.LEAD_NEW_TO_INPROGRESS;

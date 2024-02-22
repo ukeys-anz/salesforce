@@ -284,12 +284,15 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
         //fieldPopulated - It will store the set of Field API Name for which value are previously present on the record
         //and also for which the value are currently present after made a change.
         fieldPopulated.addAll(record.getPopulatedFieldsAsMap().keySet());
-        fieldPopulated.addAll(
-          oldMap.get((Id) record.get('Id')).getPopulatedFieldsAsMap().keySet()
-        );
+        if (oldMap != null) {
+          fieldPopulated.addAll(
+            oldMap.get((Id) record.get('Id')).getPopulatedFieldsAsMap().keySet()
+          );
+        }
         String recordTypeName = recordTypeInfoMap
           .get((Id) record.get('RecordTypeId'))
           .getDeveloperName();
+        String objectRecordTypeKey = objectInfo.name + '-' + recordTypeName;
 
         //It will check that particular field value changes & if that field is present in FieldSet
         //and not there in objectFieldsMap which means it is a KYC Field then it will throw error.
@@ -300,20 +303,18 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
         for (String populatedfieldName : fieldPopulated) {
           if (
             allowedFieldsToUpdateInFieldSets.contains(populatedfieldName) &&
-            allowedFieldsToUpdateInCustomMetadata.containsKey(
-              objectInfo.name +
-              '-' +
-              recordTypeName
+            (!allowedFieldsToUpdateInCustomMetadata.containsKey(
+              objectRecordTypeKey
+            ) ||
+            (allowedFieldsToUpdateInCustomMetadata.containsKey(
+              objectRecordTypeKey
             ) &&
-            !allowedFieldsToupdateInCustomMetadata.get(
-                objectInfo.name +
-                '-' +
-                recordTypeName
-              )
-              .contains(populatedfieldName) &&
-            String.valueOf(record.get(populatedfieldName)) !=
-            String.valueOf(
-              oldMap.get((Id) record.get('Id')).get(populatedfieldName)
+            !allowedFieldsToupdateInCustomMetadata.get(objectRecordTypeKey)
+              .contains(populatedfieldName))) &&
+            MLCRMCustomerProfileUpdateHelper.isFieldChanged(
+              record,
+              oldMap,
+              populatedfieldName
             )
           ) {
             record.addError(populatedfieldName, KYC_EDIT_ERROR);

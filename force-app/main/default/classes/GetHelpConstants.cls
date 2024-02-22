@@ -212,6 +212,11 @@ public with sharing class GetHelpConstants {
     .get('Loan_Application')
     .getRecordTypeId();
 
+  // Contact Relationship (FinServ__ContactContactRelation__c )
+  public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
+    .get('Broker_Staff')
+    .getRecordTypeId();
+
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
   public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';

@@ -13,6 +13,15 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
     MLCRMContactPointPhoneActions.copyParentIdToCustomerName(records);
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      MLCRMContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new MLCRMContactPointPhoneActions.ContactPointPhoneWrapper();
+      existingOrProspectAccountsCPP = MLCRMContactPointPhoneActions.getExistingOrProspectCPP(
+        records
+      );
+
+      CCRMCustomerProfileUpdateHelper.restrictEdit(
+        existingOrProspectAccountsCPP.existingCPP,
+        null
+      );
       MLCRMContactPointPhoneActions.validatePhones(records);
       MLCRMContactPointPhoneActions.checkExistingPhoneOnIndividualRecords(
         records

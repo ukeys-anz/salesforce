@@ -374,8 +374,8 @@ public with sharing class SurveyResponseTriggerHandlerTest {
     );
     System.assertEquals(
       surveyResponse.Alerting_Reason__c +
-      ' - ' +
-      SurveyResponseActionsHelper.feedbackType,
+        ' - ' +
+        SurveyResponseActionsHelper.feedbackType,
       caseRec.Subject,
       'Subject should match.'
     );

@@ -11,7 +11,9 @@
 	OR(
 		ISBLANK(Company), 
 		ISPICKVAL(Registered_Company__c, &apos;&apos;)
-	)
+	),
+Text(Status) != &apos;Outcome&apos;,
+Text(Lead_Outcome__c) != &apos;Expired&apos;
 )</errorConditionFormula>
     <errorMessage>The Registered Company and Company name are required to proceed.</errorMessage>
 </ValidationRule>
