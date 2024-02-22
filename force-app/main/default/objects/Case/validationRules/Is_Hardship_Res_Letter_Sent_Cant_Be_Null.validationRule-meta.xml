@@ -9,7 +9,8 @@ OR(
 RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
 RecordType.DeveloperName = &quot;Non_Customer_Complaint&quot;
 ),
-NOT(ISNEW()), 
+NOT(ISNEW()),
+ISPICKVAL( Type , &apos;4&apos;),
 ISCHANGED( IDR_Is_Hardship_Resolution_Letter_Sent__c ),
 NOT(ISBLANK(TEXT(PRIORVALUE(IDR_Is_Hardship_Resolution_Letter_Sent__c)))),
 ISBLANK(TEXT(IDR_Is_Hardship_Resolution_Letter_Sent__c))
