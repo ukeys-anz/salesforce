@@ -187,8 +187,17 @@ public with sharing class IDRCaseAssignmentRules {
       }
 
       // Fraud & Scams
-      if (rec.Type == '14' || rec.Type == 'Fraud' || rec.Type == 'Scam') {
-        return QUEUE_MAP.get('IDR_Spare'); // IDR Disputes & Scams
+      if ((rec.Type == 'Fraud' || rec.Type == 'Scam' ) && rec.IDR_Subsequent_Issue__c == '109') {
+        return QUEUE_MAP.get('IDR_Spare'); // IDR Disputes
+      }
+
+      if ((rec.Type == 'Fraud' || rec.Type == 'Scam' ) && rec.IDR_Subsequent_Issue__c != '109') {
+        return QUEUE_MAP.get('IDR_Scams'); // IDR Scams
+      }
+      
+      //Deceased Estates
+      if (rec.Type == '16' && rec.IDR_Subsequent_Issue__c == '80') {
+        return QUEUE_MAP.get('IDR_Deceased_Estates'); // IDR Deceased Estates
       }
 
       // Simple Complaint on Unassisted Channel

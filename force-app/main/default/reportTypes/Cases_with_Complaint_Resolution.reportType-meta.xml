@@ -4,7 +4,7 @@
     <category>other</category>
     <deployed>true</deployed>
     <description>Complaint Resolution</description>
-    <join>
+    <join> 
         <outerJoin>false</outerJoin>
         <relationship>Complaint_Resolutions__r</relationship>
     </join>
@@ -1943,6 +1943,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IDR_Systemic_Issue_Description__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>My_extended_team_s_cases__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Date_Time_Provisionally_Closed__c</field>
             <table>Case</table>
         </columns>
         <columns>

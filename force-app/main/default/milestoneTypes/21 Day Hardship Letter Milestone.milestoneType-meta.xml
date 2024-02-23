@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MilestoneType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This milestone is to ensure letters auto-allocated to CR are actioned within the 21 day regulatory timeframe.</description>
+    <recurrenceType>none</recurrenceType>
+</MilestoneType>
