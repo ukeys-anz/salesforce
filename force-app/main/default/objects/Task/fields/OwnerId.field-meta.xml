@@ -6,6 +6,6 @@
     <description>The Salesforce user that the task is assigned to. If an open task, the user responsible for carrying out the activity.</description>
     <inlineHelpText>Type in and select the user you would like to assign the task to.</inlineHelpText>
     <securityClassification>Confidential</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Lookup</type>
 </CustomField>

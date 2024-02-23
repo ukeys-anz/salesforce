@@ -15,6 +15,12 @@ public with sharing class GetHelpTaskActions {
   public static final String CALL_SID_IDENTIFIER = 'Call Sid: CA';
   public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
   public static final Integer CALL_SID_LENGTH = 34;
+  public static final String TASK_STATUS_EXPIRED = 'Expired';
+  public static final Id COACH_NUDGE_RECORD_TYPE_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Coach_Nudge')
+    .getRecordTypeId();
+  @TestVisible
+  public static final String TASK_STATUS_EXPIRED_ERROR_MESSAGE = 'Status Cannot be changed to \'Expired\' manually.';
 
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
@@ -126,7 +132,9 @@ public with sharing class GetHelpTaskActions {
       if (lableIndex >= 0) {
         String voiceCallSID = comments.substring(
           lableIndex + CALL_SID_PREFIX_LENGTH,
-          lableIndex + CALL_SID_PREFIX_LENGTH + CALL_SID_LENGTH
+          lableIndex +
+          CALL_SID_PREFIX_LENGTH +
+          CALL_SID_LENGTH
         );
         // Re-validate Voice Call SID length
         if (!voiceCallSID.containsWhitespace() && voiceCallSID.length() == 34) {
@@ -135,5 +143,82 @@ public with sharing class GetHelpTaskActions {
       }
     }
     return callSID;
+  }
+
+  /**
+   * @description publish task cloud event if criteria is satisfied.
+   * @param records The Task record list.
+   * @param oldMap oldmap of the task record
+   */
+  public static void checkAndPublishTaskCloudEvent(
+    List<Task> records,
+    Map<Id, SObject> oldMap
+  ) {
+    List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
+    List<Id> accountIds = new List<Id>();
+    for (Task record : records) {
+      if (record.whoId != null) {
+        accountIds.add(record.whoId);
+      }
+    }
+    Map<ID, Account> accountMap = new Map<ID, Account>(
+      [
+        SELECT Id, Source_System_Name__c, Source_System_ID__c
+        FROM Account
+        WHERE Id IN :accountIds
+      ]
+    );
+    for (Task record : records) {
+      Task oldRec = (oldMap != null && oldMap.containsKey(record.Id))
+        ? (Task) oldMap.get(record.Id)
+        : null;
+      if (
+        record.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT &&
+        (record.Status == 'Actioned' &&
+        (oldRec == null ||
+        oldRec.Status != 'Actioned')) ||
+        (record.Status == 'Expired' &&
+        (oldRec == null ||
+        oldRec.Status != 'Expired'))
+      ) {
+        cloudEventModels.add(
+          new NudgeTaskCloudEventModel(record, accountMap.get(record.whoId))
+        );
+      }
+    }
+    CloudEventController.publishCloudEvents(cloudEventModels);
+  }
+  /**
+   * @description beforeUpdateActions is called onBeforeUpdate. any logic that needs to be executed on before update is executed from here
+   * @param records The Task record list.
+   * @param oldMap The old map of task records.
+   */
+  public static void beforeUpdateActions(
+    List<Task> records,
+    Map<Id, Task> oldMap
+  ) {
+    beforeUpdateValidations(records, oldMap);
+  }
+
+  /**
+   * @description All the validations for the tasks for get help tasks
+   * @param records The Task record list.
+   * @param oldMap The old map of task records.
+   */
+  private static void beforeUpdateValidations(
+    List<Task> records,
+    Map<Id, Task> oldMap
+  ) {
+    for (Task tsk : records) {
+      Task oldTask = oldMap.get(tsk.Id);
+      if (
+        !System.isBatch() &&
+        tsk.RecordTypeId == COACH_NUDGE_RECORD_TYPE_ID &&
+        tsk.Status == TASK_STATUS_EXPIRED &&
+        tsk.Status != oldTask.Status
+      ) {
+        tsk.addError(TASK_STATUS_EXPIRED_ERROR_MESSAGE);
+      }
+    }
   }
 }

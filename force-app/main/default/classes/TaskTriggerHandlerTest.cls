@@ -38,6 +38,33 @@ private class TaskTriggerHandlerTest {
 
   @testSetup
   static void setup() {
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    // Create coach user
+    System.runAs(TestDataFactory.thisUser) {
+      User coachUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'TestCoachUser',
+          'ProfileId' => stdUserProfile.Id,
+          'UserRoleId' => coachRole.Id
+        }
+      );
+      insert coachUser;
+      //Assign Permission set group as coach
+      PermissionSetGroup psgCoach = [
+        SELECT Id
+        FROM PermissionSetGroup
+        WHERE DeveloperName = 'Coach'
+        LIMIT 1
+      ];
+      Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = coachUser.Id,
+        PermissionSetGroupId = psgCoach.Id
+      );
+      insert psa;
+    }
+
     Faker faker = new Faker('AU');
 
     // create an ANZx Customer
@@ -433,5 +460,46 @@ private class TaskTriggerHandlerTest {
       outboundTask.Subject,
       'Call Log Subject should have the Case Subject, if Case Type was not available while creating an outbound call log'
     );
+  }
+
+  @isTest
+  public static void testCoachNudgeValidation() {
+    Account acc = [SELECT Id, PersonContactId FROM Account LIMIT 1];
+    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
+
+    ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
+      'Test'
+    );
+    rla.Credit_ID__c = '000-000-000-00';
+    rla.AccountId = acc.Id;
+    insert rla;
+
+    Task coachNudgeTask = new Task(
+      RecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+        .get('Coach_Nudge')
+        .getRecordTypeId(),
+      Type = 'Home Loan Ineligible Nudge',
+      Status = 'Not Started',
+      Priority = 'Normal',
+      ActivityDate = Date.today().addDays(5),
+      WhoId = acc.PersonContactId,
+      WhatId = rla.Id,
+      Description = 'Outbound',
+      Subject = 'ANZPlus-Data-Customer - Coach task',
+      OwnerId = coachUser.Id
+    );
+    insert coachNudgeTask;
+    System.runAs(coachUser) {
+      try {
+        coachNudgeTask.Status = 'Expired';
+        update coachNudgeTask;
+      } catch (Exception exp) {
+        Assert.isTrue(
+          exp.getMessage()
+            .contains(GetHelpTaskActions.TASK_STATUS_EXPIRED_ERROR_MESSAGE),
+          'Error message does not match'
+        );
+      }
+    }
   }
 }

@@ -41,6 +41,16 @@ public with sharing class InitiateInteractionController {
     } else if (sobjectType == 'Lead' && PermissionUtils.canQuery('Lead')) {
       Lead l = [SELECT Id, MobilePhone FROM Lead WHERE Id = :sId];
       phoneNumber = l.MobilePhone;
+    } else if (
+      sobjectType == 'ResidentialLoanApplication' &&
+      PermissionUtils.canQuery('ResidentialLoanApplication')
+    ) {
+      ResidentialLoanApplication loanApplication = [
+        SELECT Id, Account.PersonMobilePhone
+        FROM ResidentialLoanApplication
+        WHERE Id = :sId
+      ];
+      phoneNumber = loanApplication.Account.PersonMobilePhone;
     }
     return phoneNumber;
   }
@@ -71,6 +81,7 @@ public with sharing class InitiateInteractionController {
         Contact_Mobile__c = fields.get('contactNumber'),
         Direction__c = fields.get('direction'),
         Interaction_Purpose__c = fields.get('reason'),
+        Loan_Application__c = fields.get('loanId'),
         StartTime = System.now()
       );
       insert newInteraction;
@@ -134,12 +145,14 @@ public with sharing class InitiateInteractionController {
    * @description Reinitiates chat with customer
    * @param accountId the id of the customers account
    * @param conversationSid the id of the chat to reinitiate
+   * @param sObjectId the sObjectid of the chat to update on interaction
    * @return `ReinitiateChatModel` Returns the response from the callout
    */
   @AuraEnabled
   public static ReinitiateChatModel reinitiateChat(
     Id accountId,
-    String conversationSid
+    String conversationSid,
+    String sObjectId
   ) {
     CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
     ReinitiateChatModel reinitiateChatModal = null;
@@ -151,7 +164,7 @@ public with sharing class InitiateInteractionController {
       );
       //Update Interaction Owner if new agent reinitiate chat
       if (reinitiateChatModal != null && String.isNotBlank(conversationSid)) {
-        updateInteractionOwner(conversationSid);
+        updateInteractionOwner(conversationSid, sObjectId);
       }
       return reinitiateChatModal;
     } catch (CallCenterAPIRepository.CustomException e) {
@@ -187,26 +200,34 @@ public with sharing class InitiateInteractionController {
   /**
    * @description Fetches Interaction details based on chatOrCallSid and update the owner on click
    * @param chatOrCallSid the chatOrCallSid present in the interaction
+   * @param sObjectId the sObjectId we needs to be updated on interaction
    */
-  private static void updateInteractionOwner(String chatOrCallSid) {
+  private static void updateInteractionOwner(
+    String chatOrCallSid,
+    String sObjectId
+  ) {
     List<Interaction> interactionToUpdate = [
-      SELECT Id, OwnerId, Chat_or_Call_SID__c
+      SELECT Id, OwnerId, Chat_or_Call_SID__c, Loan_Application__c
       FROM Interaction
       WHERE Chat_or_Call_SID__c = :chatOrCallSid
       LIMIT 1
     ];
     Id currentUserId = UserInfo.getUserId();
-    if (
-      !interactionToUpdate.isEmpty() &&
-      interactionToUpdate[0].OwnerId != currentUserId
-    ) {
-      interactionToUpdate[0].OwnerId = currentUserId;
-      Database.SaveResult result = Database.update(
-        interactionToUpdate[0],
-        false
-      );
-      Logger.error('Error occured while updating Interaction Owner', result);
-      Logger.saveLog();
+    if (interactionToUpdate.isEmpty()) {
+      return;
     }
+    if (interactionToUpdate[0].OwnerId != currentUserId) {
+      interactionToUpdate[0].OwnerId = currentUserId;
+    }
+    if (
+      String.isNotBlank(sObjectId) &&
+      Id.valueOf(sObjectId).getSobjectType().getDescribe().getName() ==
+      'ResidentialLoanApplication'
+    ) {
+      interactionToUpdate[0].Loan_Application__c = sObjectId;
+    }
+    Database.SaveResult result = Database.update(interactionToUpdate[0], false);
+    Logger.error('Error occured while updating Interaction Owner', result);
+    Logger.saveLog();
   }
 }
