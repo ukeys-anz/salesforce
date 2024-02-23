@@ -32,8 +32,8 @@ public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHa
     ]) {
       this.mapDisputeStatusVsInternalDesc.put(
         mapping.PEGA_Dispute_Status__c +
-          '_' +
-          mapping.PEGA_Investigation_Outcome__c,
+        '_' +
+        mapping.PEGA_Investigation_Outcome__c,
         mapping.Internal_Description__c
       );
       this.mapExternalStatusToCaseStatus.put(
@@ -155,14 +155,14 @@ public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHa
       if (
         this.mapDisputeStatusVsInternalDesc.containsKey(
           externalCaseStatus.External_Status__c +
-            '_' +
-            externalCaseStatus.Result_Message__c
+          '_' +
+          externalCaseStatus.Result_Message__c
         )
       ) {
         externalCaseStatus.Internal_Description__c = this.mapDisputeStatusVsInternalDesc.get(
           externalCaseStatus.External_Status__c +
-            '_' +
-            externalCaseStatus.Result_Message__c
+          '_' +
+          externalCaseStatus.Result_Message__c
         );
       }
     }
