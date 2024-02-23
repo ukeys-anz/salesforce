@@ -16,7 +16,8 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;General_Inquiry&apos;
-)
+),
+NOT( Owner:Queue.DeveloperName = &quot;Hardship_IDR_Letter&quot;)
 )</errorConditionFormula>
     <errorMessage>L2/L3 users cannot assign the case directly to any CR workbasket. Please Escalate this case by setting status field to &apos;Escalated&apos;.</errorMessage>
 </ValidationRule>
