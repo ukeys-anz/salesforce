@@ -24,6 +24,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Event.Coach_Action__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Event.Type</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -40,6 +45,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.Case_Age_in_Days__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Coach_Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
