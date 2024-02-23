@@ -211,18 +211,24 @@ public class MLCRMFinancialAccountActionsTest {
 
       for (FinServ__FinancialAccount__c fa : finAccounts) {
         if (fa.Product_SubCode__c != null && fa.Product_Type__c != null) {
-          if (
+          if (!validPdtSubCodeAndType.contains(fa.Product_Type__c)) {
+            system.assertEquals(
+              null,
+              fa.FinServ__ProductName__c,
+              'Scenario: ProductType is invalid. Result: FA not mapped using SubProduct Value'
+            );
+          } else if (
             ocvSubProductKeyToProductIdMap.containsKey(fa.Product_SubCode__c)
           ) {
             system.assertEquals(
-              fa.FinServ__ProductName__c,
               ocvSubProductKeyToProductIdMap.get(fa.Product_SubCode__c).Id,
+              fa.FinServ__ProductName__c,
               'Scenario: Both ProductSubCode, ProductType is Populated and Product Exists with Matching OCV Code. Result: FA not mapped using SubProduct Value'
             );
           } else {
             system.assertEquals(
-              fa.FinServ__ProductName__c,
               null,
+              fa.FinServ__ProductName__c,
               'Scenario: Both ProductSubCode, ProductType is Populated and Product not Exists with Matching OCV sub Code. Result: FA mapped to wrong Product'
             );
           }
@@ -232,8 +238,8 @@ public class MLCRMFinancialAccountActionsTest {
           ocvSubProductKeyToProductIdMap.containsKey(fa.Product_SubCode__c)
         ) {
           system.assertEquals(
+            null,
             fa.FinServ__ProductName__c,
-            ocvSubProductKeyToProductIdMap.get(fa.Product_SubCode__c).Id,
             'Scenario: ProductSubCode is populated, ProductType is not Populated and Product Exists with Matching OCV Code. Result: FA not mapped using ProductSubCode value'
           );
         } else if (
@@ -242,8 +248,8 @@ public class MLCRMFinancialAccountActionsTest {
           !ocvSubProductKeyToProductIdMap.containsKey(fa.Product_SubCode__c)
         ) {
           system.assertEquals(
-            fa.FinServ__ProductName__c,
             null,
+            fa.FinServ__ProductName__c,
             'Scenario: ProductSubCode is populated, ProductType is not Populated and Product not Exists with Matching OCV Code. Result: FA mapped with wrong Product'
           );
         } else if (
@@ -252,8 +258,8 @@ public class MLCRMFinancialAccountActionsTest {
           ocvSubProductKeyToProductIdMap.containsKey(fa.Product_Type__c)
         ) {
           system.assertEquals(
-            fa.FinServ__ProductName__c,
             ocvSubProductKeyToProductIdMap.get(fa.Product_Type__c).Id,
+            fa.FinServ__ProductName__c,
             'Scenario: ProductSubCode is not populated, ProductType is Populated and Product Exists with Matching OCV Code. Result: FA not mapped using ProductType value'
           );
         } else if (
@@ -262,8 +268,8 @@ public class MLCRMFinancialAccountActionsTest {
           !ocvSubProductKeyToProductIdMap.containsKey(fa.Product_Type__c)
         ) {
           system.assertEquals(
-            fa.FinServ__ProductName__c,
             null,
+            fa.FinServ__ProductName__c,
             'Scenario: ProductSubCode is not populated, ProductType is Populated and Product not Exists with Matching OCV Code. Result: FA mapped to wrong Product'
           );
         }
@@ -272,14 +278,14 @@ public class MLCRMFinancialAccountActionsTest {
         totalRecordsFailed += pdtFailCount;
       }
       system.assertEquals(
-        4,
+        2,
         totalRecordsMapped,
         'Total Mapped Records count is not correct'
       );
       system.assertEquals(
-        5,
+        1,
         totalRecordsFailed,
-        'Total non-mapped/faild records count is not correct'
+        'Total non-mapped/failed records count is not correct'
       );
     }
   }

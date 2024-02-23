@@ -12,7 +12,8 @@ public class FinAccountSetProductLookupBatch implements Database.Batchable<sObje
   private Map<string, integer> ignoreList = new Map<String, Integer>(); // Stores FA ProductSubCode/ProductType for which no Product Exist with the count
   private integer totalRecordsMapped = 0;
   private String pdtSubCodeNotFoundMsg = System.Label.MissingCodeMsgForClassicRecords;
-  private String productsToMap = System.Label.FinAccountProductToMap;
+  private String lastId = '';
+  private String newLastId = '';
 
   /**
    * @description default constructor to initialize values
@@ -51,6 +52,27 @@ public class FinAccountSetProductLookupBatch implements Database.Batchable<sObje
   }
 
   /**
+   * @description default constructor to initialize values
+   * @name FinAccountSetProductLookupBatch
+   * @param givenRunSize passed runSize
+   * @param givenChainLimit passed chainLevel
+   * @param givenBatchSize passed batchSize
+   * @param givenLastId passed lastId
+   */
+  public FinAccountSetProductLookupBatch(
+    Integer givenRunSize,
+    Integer givenChainLimit,
+    Integer givenBatchSize,
+    Id givenLastId
+  ) {
+    initializeValues();
+    runSize = givenRunSize;
+    batchSize = givenBatchSize;
+    chainLevel = givenChainLimit;
+    lastId = givenLastId;
+  }
+
+  /**
    * @description initialize values for the Batch
    * @name initializeValues
    */
@@ -75,14 +97,12 @@ public class FinAccountSetProductLookupBatch implements Database.Batchable<sObje
   public Database.QueryLocator start(Database.BatchableContext bc) {
     Id faBankingAcctRT = GetHelpConstants.BANK_ACCOUNT_RT_ID;
     String qry =
-      'SELECT Id, Name, FinServ__ProductName__c, Product_SubCode__c, Product_Type__c from FinServ__FinancialAccount__c WHERE ' +
+      'SELECT Id, FinServ__ProductName__c, Product_SubCode__c, Product_Type__c from FinServ__FinancialAccount__c WHERE ' +
       'RecordTypeId = \'' +
       String.escapeSingleQuotes(faBankingAcctRT) +
-      '\' AND FinServ__ProductName__c = null AND  ' +
-      ' Product_Type__c IN (' +
-      productsToMap +
-      ') ' +
-      ' ORDER BY Product_SubCode__c LIMIT ' +
+      '\'' +
+      (lastId == '' ? '' : ' AND Id > \'' + Id.valueOf(lastId) + '\'') +
+      ' ORDER BY Id LIMIT ' +
       String.valueOf(runSize);
     return Database.getQueryLocator(qry);
   }
@@ -99,19 +119,29 @@ public class FinAccountSetProductLookupBatch implements Database.Batchable<sObje
   ) {
     try {
       Set<Id> idsOfMappedRecords = new Set<Id>();
+      newLastId = '';
       Integer recordsUpdated = MLCRMFinancialAccountActions.populateANZProductForLegacyRecords(
         records,
         prodCatMap,
         ignoreList
       );
+
+      List<FinServ__FinancialAccount__c> updateFinAccounts = new List<FinServ__FinancialAccount__c>();
       for (FinServ__FinancialAccount__c fa : records) {
         if (fa.FinServ__ProductName__c != null) {
           idsOfMappedRecords.add(fa.Id);
+          updateFinAccounts.add(fa);
         }
       }
-
+      // get the last id of current batch to pass into next batch
+      if (!records.isEmpty()) {
+        newLastId = records.get(records.size() - 1).Id;
+      }
       // Allow Partial update of Records and Log record with Error detatils.
-      Database.SaveResult[] lstResult = database.update(records, false);
+      Database.SaveResult[] lstResult = database.update(
+        updateFinAccounts,
+        false
+      );
       for (Integer i = 0; i < lstResult.size(); i++) {
         if (!lstResult.get(i).isSuccess()) {
           Logger.error(
@@ -152,13 +182,15 @@ public class FinAccountSetProductLookupBatch implements Database.Batchable<sObje
     Logger.error('Total Records Mapped ' + String.valueOf(totalRecordsMapped));
 
     // spawn job chain if chain level is within bound
-    if (chainLevel > 0) {
+    if (chainLevel > 0 && newLastId != '') {
       chainLevel--;
       FinAccountSetProductLookupBatch setNextProdLookUp = new FinAccountSetProductLookupBatch(
         runSize,
         chainLevel,
-        batchSize
+        batchSize,
+        newLastId
       );
+
       ID batchprocessid = Database.executeBatch(setNextProdLookUp, batchSize);
       Logger.error(
         'Batch job Id ' +
