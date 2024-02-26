@@ -535,8 +535,8 @@ private class AccountTriggerHandlerTest {
 
     List<LogEntry__c> logEntryList = Database.query(
       'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
-      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
-      '%\''
+        AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+        '%\''
     );
 
     Assert.areEqual(
@@ -586,8 +586,8 @@ private class AccountTriggerHandlerTest {
 
     List<LogEntry__c> logEntryList = Database.query(
       'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
-      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
-      '%\''
+        AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+        '%\''
     );
 
     Assert.areEqual(
@@ -637,8 +637,8 @@ private class AccountTriggerHandlerTest {
 
     List<LogEntry__c> logEntryList = Database.query(
       'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
-      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
-      '%\''
+        AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+        '%\''
     );
 
     Assert.areEqual(
@@ -688,8 +688,8 @@ private class AccountTriggerHandlerTest {
 
     List<LogEntry__c> logEntryList = Database.query(
       'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
-      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
-      '%\''
+        AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
+        '%\''
     );
 
     Assert.areEqual(
@@ -735,8 +735,8 @@ private class AccountTriggerHandlerTest {
 
     List<LogEntry__c> logEntryList = Database.query(
       'SELECT ID, Log__c, LogMessage__c FROM LogEntry__c WHERE LogMessage__c LIKE \'%' +
-      AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_ERROR +
-      '%\''
+        AccountCommonActions.CUSTOMER_LINKED_TO_KYC_QA_ERROR +
+        '%\''
     );
 
     Assert.areEqual(

@@ -316,11 +316,11 @@ public with sharing class AccountCommonActions {
         if (!lcr.isSuccess()) {
           Logger.error(
             'Account_Id: ' +
-            lcr.getAccountId() +
-            '; Lead_Id: ' +
-            lcr.getLeadId() +
-            '; Error_Message: ' +
-            lcr.getErrors()[0].getMessage()
+              lcr.getAccountId() +
+              '; Lead_Id: ' +
+              lcr.getLeadId() +
+              '; Error_Message: ' +
+              lcr.getErrors()[0].getMessage()
           );
         }
       }
@@ -569,18 +569,18 @@ public with sharing class AccountCommonActions {
       if (results[i].isSuccess() == false || forceDMLError == true) {
         Logger.error(
           CUSTOMER_LINKED_TO_KYC_QA_ERROR +
-          ' Persona ID: ' +
-          kycQACaseToUpdateList.get(i).PersonaId__c +
-          (results[i].getErrors().isEmpty()
-            ? ''
-            : ' Error: ' + results[i].getErrors().get(0)),
+            ' Persona ID: ' +
+            kycQACaseToUpdateList.get(i).PersonaId__c +
+            (results[i].getErrors().isEmpty()
+              ? ''
+              : ' Error: ' + results[i].getErrors().get(0)),
           Logger.Severity.HIGH
         );
       } else {
         Logger.debug(
           CUSTOMER_LINKED_TO_KYC_QA_SUCCESS +
-          ' Persona ID: ' +
-          kycQACaseToUpdateList.get(i).PersonaId__c
+            ' Persona ID: ' +
+            kycQACaseToUpdateList.get(i).PersonaId__c
         );
       }
     }
