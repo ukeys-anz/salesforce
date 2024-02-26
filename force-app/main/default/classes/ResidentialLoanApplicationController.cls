@@ -329,7 +329,17 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> options
   ) {
     try {
-      SOPEditExpenseModel expenseModel = createEditExpensesModel(inputMap);
+      Map<String, Object> expenseModel = (Map<String, Object>) JSON.deserializeUntyped(
+        JSON.serialize(createEditExpensesModel(inputMap))
+      );
+      for (
+        Object expense : (List<Object>) expenseModel.get('monthlyExpenses')
+      ) {
+        Map<String, Object> expenseItem = (Map<String, Object>) expense;
+        if (expenseItem.get('justificationCode') == null) {
+          expenseItem.remove('justificationCode');
+        }
+      }
 
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
@@ -601,6 +611,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       monthlyExpense.etag = (String) inputMap.get('etag' + i);
       monthlyExpense.hemState = (String) inputMap.get('hemState' + i);
+      monthlyExpense.justificationCode = (String) inputMap.get(
+        'justificationCode' + i
+      );
+
       monthlyExpenses.add(monthlyExpense);
     }
 
