@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Permanent_Block__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>Manual flag that a coach can use to permanently block a customer from raising a dispute.This flag will not auto unset.</description>
+    <externalId>false</externalId>
+    <inlineHelpText> Use to permanently block the customer from raising any self-service transaction disputes.</inlineHelpText>
+    <label>Permanent Block</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
