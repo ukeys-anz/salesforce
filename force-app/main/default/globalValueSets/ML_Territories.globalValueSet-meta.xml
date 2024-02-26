@@ -76,9 +76,9 @@
         <label>Wentworthville (NSW)</label>
     </customValue>
     <customValue>
-        <fullName>Coffs Harbour (QLD)</fullName>
+        <fullName>Coffs Harbour (NSW)</fullName>
         <default>false</default>
-        <label>Coffs Harbour (QLD)</label>
+        <label>Coffs Harbour (NSW)</label>
     </customValue>
     <customValue>
         <fullName>Geelong North (VIC)</fullName>
@@ -551,9 +551,9 @@
         <label>Ringwood (VIC)</label>
     </customValue>
     <customValue>
-        <fullName>Riverina (NSW)</fullName>
+        <fullName>Riverina (VIC)</fullName>
         <default>false</default>
-        <label>Riverina (NSW)</label>
+        <label>Riverina (VIC)</label>
     </customValue>
     <customValue>
         <fullName>Rowville (VIC)</fullName>
@@ -770,7 +770,212 @@
         <default>false</default>
         <label>Kew (VIC)</label>
     </customValue>
+     <customValue>
+        <fullName>Balgowlah (NSW)</fullName>
+        <default>false</default>
+        <label>Balgowlah (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Baulkham Hills (NSW)</fullName>
+        <default>false</default>
+        <label>Baulkham Hills (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Belconnen (ACT)</fullName>
+        <default>false</default>
+        <label>Belconnen (ACT)</label>
+    </customValue>
+    <customValue>
+        <fullName>Blue Mountains (NSW)</fullName>
+        <default>false</default>
+        <label>Blue Mountains (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Browns Plains (QLD)</fullName>
+        <default>false</default>
+        <label>Browns Plains (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Cairns (QLD)</fullName>
+        <default>false</default>
+        <label>Cairns (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Caloundra (QLD)</fullName>
+        <default>false</default>
+        <label>Caloundra (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Casuarina (NT)</fullName>
+        <default>false</default>
+        <label>Casuarina (NT)</label>
+    </customValue>
+    <customValue>
+        <fullName>Central (NSW)</fullName>
+        <default>false</default>
+        <label>Central (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Chadstone (VIC)</fullName>
+        <default>false</default>
+        <label>Chadstone (VIC)</label>
+    </customValue>
+    <customValue>
+        <fullName>Coorparoo (QLD)</fullName>
+        <default>false</default>
+        <label>Coorparoo (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Darlinghurst (NSW)</fullName>
+        <default>false</default>
+        <label>Darlinghurst (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Dee Why (NSW)</fullName>
+        <default>false</default>
+        <label>Dee Why (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Frenchs Forest (NSW)</fullName>
+        <default>false</default>
+        <label>Frenchs Forest (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Gosford (NSW)</fullName>
+        <default>false</default>
+        <label>Gosford (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Hunter Region (NSW)</fullName>
+        <default>false</default>
+        <label>Hunter Region (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Ipswich (QLD)</fullName>
+        <default>false</default>
+        <label>Ipswich (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Lake Macquarie (NSW)</fullName>
+        <default>false</default>
+        <label>Lake Macquarie (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Lismore (NSW)</fullName>
+        <default>false</default>
+        <label>Lismore (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Macedon Ranges (VIC)</fullName>
+        <default>false</default>
+        <label>Macedon Ranges (VIC)</label>
+    </customValue>
+    <customValue>
+        <fullName>Manly (NSW)</fullName>
+        <default>false</default>
+        <label>Manly (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Mona Vale (NSW)</fullName>
+        <default>false</default>
+        <label>Mona Vale (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Mosman (NSW)</fullName>
+        <default>false</default>
+        <label>Mosman (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Mount Gravatt (QLD)</fullName>
+        <default>false</default>
+        <label>Mount Gravatt (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Newcastle (NSW)</fullName>
+        <default>false</default>
+        <label>Newcastle (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Newcastle West (NSW)</fullName>
+        <default>false</default>
+        <label>Newcastle West (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Padstow (NSW)</fullName>
+        <default>false</default>
+        <label>Padstow (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Port Stephens (NSW)</fullName>
+        <default>false</default>
+        <label>Port Stephens (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Redlands Bayside (QLD)</fullName>
+        <default>false</default>
+        <label>Redlands Bayside (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Rockhampton (QLD)</fullName>
+        <default>false</default>
+        <label>Rockhampton (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>South Moreton (QLD)</fullName>
+        <default>false</default>
+        <label>South Moreton (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Southern Gippsland (VIC)</fullName>
+        <default>false</default>
+        <label>Southern Gippsland (VIC)</label>
+    </customValue>
+    <customValue>
+        <fullName>South West (WA)</fullName>
+        <default>false</default>
+        <label>South West (WA)</label>
+    </customValue>
+    <customValue>
+        <fullName>Sutherland (NSW)</fullName>
+        <default>false</default>
+        <label>Sutherland (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Terrigal (NSW)</fullName>
+        <default>false</default>
+        <label>Terrigal (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Toowong (QLD)</fullName>
+        <default>false</default>
+        <label>Toowong (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Toowoomba (QLD)</fullName>
+        <default>false</default>
+        <label>Toowoomba (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Umina Beach (NSW)</fullName>
+        <default>false</default>
+        <label>Umina Beach (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Unley (SA)</fullName>
+        <default>false</default>
+        <label>Unley (SA)</label>
+    </customValue>
+    <customValue>
+        <fullName>Wanneroo (WA)</fullName>
+        <default>false</default>
+        <label>Wanneroo (WA)</label>
+    </customValue>
+    <customValue>
+        <fullName>Wollongong (NSW)</fullName>
+        <default>false</default>
+        <label>Wollongong (NSW)</label>
+    </customValue>
     <description>global value set for list of territories</description>
     <masterLabel>ML Territories</masterLabel>
-    <sorted>false</sorted>
+    <sorted>true</sorted>
 </GlobalValueSet>

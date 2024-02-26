@@ -1,15 +1,20 @@
 import { createElement } from "lwc";
 import statementsViewer from "c/statementsViewer";
 import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
+import fetchOCVIdFromAccount from "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount";
 import { getRecord } from "lightning/uiRecordApi";
 import { setImmediate } from "timers";
-
+import {
+  EnclosingTabId,
+  getTabInfo,
+  getFocusedTabInfo
+} from "lightning/platformWorkspaceApi";
 const RECORD_ID = "a0c2O000002XttOQAS";
-
 const APEX_GET_STATEMENTS_SUCCESS = require("./data/statements.json");
 const STATEMENTS_SORTED = require("./data/statementsSorted.json");
 const APEX_CALLOUT_ERROR = require("./data/apexError.json");
 const WIRED_FINANCIAL_ACCOUNT = require("./data/wiredFinancialAccount.json");
+const WIRED_FINANCIAL_ACCOUNT_JOINT = require("./data/wiredFinancialAccountJoint.json");
 
 jest.mock(
   "@salesforce/apex/StatementAPIRepository.getStatementsAura",
@@ -23,6 +28,16 @@ jest.mock(
 
 jest.mock(
   "@salesforce/apex/StatementAPIRepository.getStatementsUrlAura",
+  () => {
+    return {
+      default: jest.fn()
+    };
+  },
+  { virtual: true }
+);
+
+jest.mock(
+  "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount",
   () => {
     return {
       default: jest.fn()
@@ -144,5 +159,25 @@ describe("c-statements-viewer", () => {
     await flushPromises();
 
     expect(dataTableEl.data).toStrictEqual(STATEMENTS_SORTED);
+  });
+
+  it("fetch OCV Id from primary tab", async () => {
+    getStatements.mockResolvedValue(APEX_GET_STATEMENTS_SUCCESS);
+    getTabInfo.mockResolvedValue({
+      tabId: "tab0",
+      isSubtab: true,
+      recordId: "001accId"
+    });
+    fetchOCVIdFromAccount.mockResolvedValue("OCVID");
+    const element = createElement("c-statements-viewer", {
+      is: statementsViewer
+    });
+    element.recordId = RECORD_ID;
+    document.body.appendChild(element);
+    EnclosingTabId.emit("tab0");
+    getRecord.emit(WIRED_FINANCIAL_ACCOUNT_JOINT);
+    expect(getTabInfo).toHaveBeenCalled();
+    await flushPromises();
+    expect(fetchOCVIdFromAccount).toHaveBeenCalled();
   });
 });

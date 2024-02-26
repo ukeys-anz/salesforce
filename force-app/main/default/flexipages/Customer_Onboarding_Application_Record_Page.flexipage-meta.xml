@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -28,20 +27,20 @@
                 <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>detailTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>detailTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>maintabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -60,10 +59,10 @@
                 <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
+        <name>maintabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -74,10 +73,10 @@
                 <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-f75fd8d5-9f04-4ede-8d0b-62a2f9caf837</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -499,10 +498,10 @@
                 <identifier>lst_dynamicRelatedList4</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-f75fd8d5-9f04-4ede-8d0b-62a2f9caf837</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-3a783312-8ca5-4ffe-be55-97e8c2b0e17f</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -521,10 +520,10 @@
                 <identifier>flexipage_accordionSection</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-3a783312-8ca5-4ffe-be55-97e8c2b0e17f</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -552,6 +551,7 @@
                 <identifier>flexipage_accordion</identifier>
             </componentInstance>
         </itemInstances>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Customer Onboarding Application Record Page</masterLabel>

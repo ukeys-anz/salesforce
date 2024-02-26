@@ -1,13 +1,16 @@
 import { LightningElement, api, track, wire } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 import { CurrentPageReference } from "lightning/navigation";
 import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
 import getStatementUrl from "@salesforce/apex/StatementAPIRepository.getStatementUrlAura";
+import fetchOCVIdFromAccount from "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount";
 import FINANCIAL_ACCOUNT_NUMBER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 import FINANCIAL_ACCOUNT_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Id";
 import PRODUCT_NAME_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Product_Name__c";
 import OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
+import FIN_ACCOUNT_OWNERSHIP_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.Ownership__c";
 import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
 import hasViewStatementsPermission from "@salesforce/customPermission/ANZx_View_Statements";
 import { BANK_ACCOUNT_RT_APINAME } from "c/financialAccountParent";
@@ -20,7 +23,8 @@ const FIELDS = [
   FINANCIAL_ACCOUNT_ID_FIELD,
   PRODUCT_NAME_FIELD,
   OCV_ID_FIELD,
-  FIN_ACCOUNT_RT_APINAME
+  FIN_ACCOUNT_RT_APINAME,
+  FIN_ACCOUNT_OWNERSHIP_TYPE
 ];
 
 const columns = [
@@ -44,7 +48,7 @@ const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 export default class StatementsViewer extends LightningElement {
   @api recordId;
   @track statements;
-
+  @wire(EnclosingTabId) tabId;
   accountId;
   financialAccountId;
   ocvId;
@@ -82,14 +86,16 @@ export default class StatementsViewer extends LightningElement {
     recordId: "$recordId",
     fields: FIELDS
   })
-  wiredFinancialAccount({ data, error }) {
+  async wiredFinancialAccount({ data, error }) {
     if (data) {
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.accountId = data.fields.FinServ__PrimaryOwner__c.value;
       this.financialAccountId = data.fields.Id.value;
-      this.ocvId = this.pageRef?.state?.c__ocvId
-        ? this.pageRef.state.c__ocvId
-        : data.fields.OCV_ID__c.value;
+      this.accountOwnershipType = data.fields.Ownership__c.value;
+      this.ocvId = await this.getOcvId(data);
+      if (!this.ocvId) {
+        return;
+      }
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
       if (this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME) {
         this.productName = "ANZ Plus Home Loan";
@@ -104,6 +110,34 @@ export default class StatementsViewer extends LightningElement {
     } else if (error) {
       this.handleError(error);
     }
+  }
+
+  // Implmented as part of [ANZX-143917], This method extract OCV Id from Data fields if there is Single account
+  // In case of Multy party, OCV Id extracted from Page Reference
+  // It fetches OCV Id from DB, if primaryTab is Account and FA opened in subtab
+  async getOcvId(data) {
+    let ocvId =
+      this.accountOwnershipType === "Single"
+        ? data.fields.OCV_ID__c.value
+        : this.pageRef?.state?.c__ocvId;
+    if (ocvId) {
+      return ocvId;
+    }
+    if (!this.tabId) {
+      return null;
+    }
+    let tabInfo = await getTabInfo(this.tabId);
+    let primaryTabInfo = tabInfo.isSubtab
+      ? await getTabInfo(tabInfo.parentTabId)
+      : undefined;
+    ocvId = data.fields.OCV_ID__c.value;
+    if (!primaryTabInfo?.recordId?.startsWith("001")) {
+      return ocvId;
+    }
+    ocvId = await fetchOCVIdFromAccount({
+      accountRecordId: primaryTabInfo.recordId
+    });
+    return ocvId;
   }
 
   async getStatementsData(ocvId, accountNumber, pageSize) {

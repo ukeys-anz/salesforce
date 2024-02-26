@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Opportunity_Pipeline</fullName>
+    <booleanFilter>(1 OR 2)</booleanFilter>
+    <filters>
+        <field>OPPORTUNITY.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>OPPORTUNITY.CLOSE_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>LAST_N_DAYS:30</value>
+    </filters>
+    <filterScope>Mine</filterScope>
+    <label>Opportunity Pipeline</label>
+    <sharedTo>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+        <roleAndSubordinates>Capability_Quality_C_Q_Team</roleAndSubordinates>
+        <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        <roleAndSubordinates>Data_Analyst</roleAndSubordinates>
+        <roleAndSubordinates>IDR_Content_Writer</roleAndSubordinates>
+        <roleAndSubordinates>Systemic_Issue_Team</roleAndSubordinates>
+        <roleAndSubordinates>Tech_Support</roleAndSubordinates>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinates>Engineer</roleAndSubordinates>
+        <roleAndSubordinates>SVP_Customer_Experience</roleAndSubordinates>
+    </sharedTo>
+</ListView>

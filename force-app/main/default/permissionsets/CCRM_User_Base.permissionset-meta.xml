@@ -703,6 +703,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Controlling_Post__c.CPID_Start_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Controlling_Post__c.CPID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -753,6 +758,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Controlling_Post__c.User_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Controlling_Post__c.CPID_Address__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Controlling_Post__c.Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -784,32 +799,42 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Controlling_Post__c.CPID_CancelFag__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Controlling_Post__c.CPID_Incumbent__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Controlling_Post__c.CPID_Phone__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Controlling_Post__c.CPID_Title__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Controlling_Post__c.CPID_Type__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Controlling_Post__c.CPID_LanID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Controlling_Post__c.CPID_User__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Controlling_Post__c.District_CTA__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -1209,6 +1234,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Territory__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.AdvertisingIndicator__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

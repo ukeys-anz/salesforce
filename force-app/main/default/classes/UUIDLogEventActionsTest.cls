@@ -24,8 +24,7 @@ public with sharing class UUIDLogEventActionsTest {
 
     System.assertEquals(
       uuid,
-      [SELECT UUID__c FROM UUID_Log_Entry__c WHERE UUID__c = :uuid]
-      .UUID__c,
+      [SELECT UUID__c FROM UUID_Log_Entry__c WHERE UUID__c = :uuid].UUID__c,
       'UUID Log Entry record should have been created'
     );
   }

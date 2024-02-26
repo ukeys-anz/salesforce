@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Accreditation_CompactLayout__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <description>Formaula to display accrediation type value in compact layout</description>
+    <externalId>false</externalId>
+    <formula>IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Asset Finance&quot;), &quot;Asset Finance&quot; + &quot;, &quot;, NULL) + 
+IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Retail Broker&quot;), &quot;Retail Broker&quot; + &quot;, &quot;, NULL) + 
+IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Commercial Broker&quot;), &quot;Commercial Broker&quot; , NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Accreditation Type</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

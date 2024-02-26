@@ -5,7 +5,6 @@
     <complianceGroup>Integrity_Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Name of the ANZ staff not on Salesforce</description>
     <externalId>false</externalId>
-    <inlineHelpText>Optional Field to capture the ANZ staff who referred the Lead</inlineHelpText>
     <label>Referrer Name</label>
     <length>255</length>
     <required>false</required>

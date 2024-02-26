@@ -15,12 +15,20 @@
         <value xsi:type="xsd:string">In progress</value>
     </values>
     <values>
+        <field>Outcome_Type__c</field>
+        <value xsi:type="xsd:string">Opportunity Identified</value>
+    </values>
+    <values>
         <field>Response_Status__c</field>
         <value xsi:type="xsd:string">Contact Attempted</value>
     </values>
     <values>
         <field>Response_Type_CreateOpportunity__c</field>
         <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>What_happens_next__c</field>
+        <value xsi:type="xsd:string">Your response will be recorded and the Lead will progress to the next stage.</value>
     </values>
     <values>
         <field>isActive__c</field>

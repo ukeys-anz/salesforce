@@ -877,4 +877,62 @@ public with sharing class MLCRMCommonUtils {
       }
     }
   }
+
+  /**
+   * @description This method check if Delete opeation is allowed on ContentDocument for ML User. Used in Outlook-SF Integration.
+   * @param em EmailMessage record
+   * @return Boolean
+   * @US CC-1893
+   */
+  public static Boolean isContentDocumentDeleteAllowed(EmailMessage em) {
+    return em.Incoming == true ||
+      (checkFromAddressExists(em.FromAddress, em.ToAddress) ||
+      checkFromAddressExists(em.FromAddress, em.CcAddress));
+  }
+
+  /**
+   * @description Checks if FromAddress exisist in TargetAddress (Scenario - checks if FromAddress exists in either ccAddress or TO Address)
+   * @param fromAddress EmailMessage fromAddress String value
+   * @param addressToCheck EmailMessage targetAddress to check(Ex- ccAddress, ToAddress)
+   * @return Boolean
+   * @US CC-1893
+   */
+  private static Boolean checkFromAddressExists(
+    String fromAddress,
+    String addressToCheck
+  ) {
+    if (addressToCheck == null) {
+      return false;
+    }
+    if (addressToCheck.contains(';')) {
+      // multiple address exists. Format:  abc.xyz@anz.com; pqr.mnp@anz.com
+      return addressToCheck.containsIgnoreCase('; ' + fromAddress) ||
+        addressToCheck.containsIgnoreCase(fromAddress + ';');
+    }
+    // single address only condition
+    return addressToCheck.equalsIgnoreCase(fromAddress);
+  }
+
+  /**
+   * @description return EmailMessage Map using profileName and List of Ids
+   * @param emailMessageIds List of EmailMessage Ids
+   * @param profileName profileName of EmailMessage Creator
+   * @return Map<Id, EmailMessage>
+   * @US CC-1893
+   */
+  public static Map<Id, EmailMessage> getEmailMessageUsingProfileName(
+    List<Id> emailMessageIds,
+    String profileName
+  ) {
+    if (emailMessageIds.isEmpty()) {
+      return new Map<Id, EmailMessage>();
+    }
+    return new Map<Id, EmailMessage>(
+      [
+        SELECT Id, FromAddress, CcAddress, ToAddress, Incoming
+        FROM EmailMessage
+        WHERE Createdby.profile.name = :profileName AND Id IN :emailMessageIds
+      ]
+    );
+  }
 }

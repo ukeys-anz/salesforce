@@ -146,6 +146,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   @track misMatchLeadDetailsMessage = null; //CC-857
   columns = columns;
   columnsIndividual = columnsIndividual;
+  leadCommonValidationMatrix = leadCommonValidationMatrix;
   searchResults = [];
   leadSearchResultRows = [];
   isLoading = false;
@@ -188,10 +189,10 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   };
 
   fields = [
-    "FirstName",
-    "LastName",
     "ABN__c",
     "ACN__c",
+    "FirstName",
+    "LastName",
     "MobilePhone",
     "Home_Phone__c",
     "Email",
@@ -330,22 +331,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
 
     //# Setting Modal Title
     //CC-4587 ML Showcase Observations - Lead Conversion - company is not needed for ML
-    if (
-      this.leadConvertData.leadRecord.RecordType.DeveloperName ===
-        "CCRM_Lead" &&
-      this.leadConvertData.leadRecord.Company !== null &&
-      this.leadConvertData.leadRecord.Company !== undefined
-    ) {
-      this.leadTitle =
-        "Converting " +
-        this.leadConvertData.leadRecord.Company +
-        " into an Opportunity.";
-    } else {
-      this.leadTitle =
-        "Converting " +
-        this.leadConvertData.leadRecord.Name +
-        " into an Opportunity.";
-    }
+    this.updateModalTitle();
     if (
       this.leadConvertData.leadRecord.FinServ__RelatedAccount__c === null ||
       this.leadConvertData.leadRecord.FinServ__RelatedAccount__c === undefined
@@ -744,11 +730,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       this.isConvertLead = true;
       this.isModalOpen = true;
       this.progress = 0;
-      //this.isLoading = true;
-      this.leadTitle =
-        "Converting Lead " +
-        this.leadConvertData.leadRecord.Name +
-        " into an Opportunity.";
+      this.updateModalTitle();
       createParty({
         record: this.leadConvertData.leadRecord
       })
@@ -787,6 +769,25 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         .catch((error) => {
           this.handleError(error);
         });
+    }
+  }
+
+  updateModalTitle() {
+    if (
+      this.leadConvertData.leadRecord.RecordType.DeveloperName ===
+        "CCRM_Lead" &&
+      this.leadConvertData.leadRecord.Company !== null &&
+      this.leadConvertData.leadRecord.Company !== undefined
+    ) {
+      this.leadTitle =
+        "Converting " +
+        this.leadConvertData.leadRecord.Company +
+        " into an Opportunity.";
+    } else {
+      this.leadTitle =
+        "Converting " +
+        this.leadConvertData.leadRecord.Name +
+        " into an Opportunity.";
     }
   }
 
@@ -878,5 +879,10 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     this.isConvertLeadButton = false;
     this.setSelectedRow = [];
     this.noMatchSelected = event.target.value;
+  }
+
+  get invalidLead() {
+    // If this.validLead is false, return a value of true
+    return this.validLead ? false : true;
   }
 }

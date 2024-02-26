@@ -102,6 +102,7 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
   protected virtual HttpCalloutResponse makeCallout() {
     return null;
   }
+
   /**
    * @description get UTC datetime from GMT+10 datetime
    * @param localTime localTime
@@ -120,5 +121,29 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
       return utcTime;
     }
     return localTime;
+  }
+
+  /**
+   * @description Format DateTime as DateTime
+   * @param dateTimeParam DateTime param
+   * @return String formatted datetime
+   */
+  protected String formatDateTime(DateTime dateTimeParam) {
+    if (dateTimeParam == null) {
+      return null;
+    }
+    return dateTimeParam.format('dd/MM/yyyy hh:mm a');
+  }
+
+  /**
+   * @description Format DateTime as Date
+   * @param dateTimeParam DateTime param
+   * @return String formatted date
+   */
+  protected String formatDate(DateTime dateTimeParam) {
+    if (dateTimeParam == null) {
+      return null;
+    }
+    return dateTimeParam.format('dd/MM/yyyy');
   }
 }

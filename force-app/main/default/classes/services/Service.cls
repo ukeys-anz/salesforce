@@ -3,9 +3,12 @@
  * @since Feb 2020
  * @description virtual service class for all API callouts
  * @group Services
- * Suppressing ExcessivePublicCount rule to allow for added callouts
+ * Suppressing ExcessivePublicCount rule to allow for added callouts, CyclomaticComplexity to allow additional services
  */
-@SuppressWarnings('PMD.ExcessivePublicCount')
+
+@SuppressWarnings(
+  'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
+)
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
   protected Boolean preset = false;
@@ -13,7 +16,9 @@ public with sharing virtual class Service {
     OCVID,
     PERSONAID,
     SOPID,
-    CREDITID
+    CREDITID,
+    IDENTIFIER,
+    UUID
   }
 
   /**
@@ -124,13 +129,15 @@ public with sharing virtual class Service {
    * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
+   * @param incomeVerifiedChanged checks if the income verified value has changed
    * @return `HttpCalloutResponse` the api response
    * @description update income
    */
   public virtual HttpCalloutResponse updateIncome(
     String verification,
     String ocvId,
-    String incomeBody
+    String incomeBody,
+    Boolean incomeVerifiedChanged
   ) {
     return null;
   }
@@ -170,6 +177,20 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse getForgeJWTToken(
     Service.IdType idType,
     String idValue,
+    String idToken,
+    Forgerock_Auth__mdt forgeAuth
+  ) {
+    return null;
+  }
+  /**
+   * @param staffModelWrapper wrapper for forgeV2 api
+   * @param idToken id token as the bearer token
+   * @param forgeAuth custom metadata which contains the client id and secret
+   * @return `HttpCalloutResponse` api response
+   * @description fetches response from forge api
+   */
+  public virtual HttpCalloutResponse getForgeJWTToken(
+    StaffTokenRequestModel staffModelWrapper,
     String idToken,
     Forgerock_Auth__mdt forgeAuth
   ) {
@@ -261,8 +282,25 @@ public with sharing virtual class Service {
     Map<String, String> headers
   ) {
     String serializedToken = AuthTokenCacheUtil.getStaffToken(idType, idValue);
-    headers.put('Authorization', 'Bearer ' + serializedToken);
+    if (serializedToken != null) {
+      headers.put('Authorization', 'Bearer ' + serializedToken);
+    }
     return headers;
+  }
+
+  /**
+   * @param staffModelWrapper wrapper for forgeV2 api
+   * @return headers Map<String, String>
+   * @description sets Authorization required for a callout
+   */
+  public Map<String, String> setAuthorizationCommonHeaders(
+    StaffTokenRequestModel staffModelWrapper
+  ) {
+    String serializedToken = AuthTokenCacheUtil.getStaffToken(
+      staffModelWrapper
+    );
+    staffModelWrapper.headers.put('Authorization', 'Bearer ' + serializedToken);
+    return staffModelWrapper.headers;
   }
 
   /**
@@ -300,6 +338,20 @@ public with sharing virtual class Service {
     Map<String, String> headers
   ) {
     headers = setAuthorizationCommonHeaders(idType, idValue, headers);
+    headers = setMuleCommonHeaders(headers);
+    return headers;
+  }
+
+  /**
+   * @param staffModelWrapper wrapper for forgeV2 api
+   * @return `Map<String, String>` header map
+   * @description sets all headers required for a callout
+   */
+  public Map<String, String> setCalloutCommonHeaders(
+    StaffTokenRequestModel staffModelWrapper
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    headers = setAuthorizationCommonHeaders(staffModelWrapper);
     headers = setMuleCommonHeaders(headers);
     return headers;
   }
@@ -401,27 +453,7 @@ public with sharing virtual class Service {
    * @return `HttpCalloutResponse` api response
    * @description virtual fetches addresses list
    */
-  public virtual HttpCalloutResponse getAddresses(String lookupString) {
-    return null;
-  }
-
-  /**
-   * @param encodedAddressId from selected address
-   * @return `HttpCalloutResponse` api response
-   * @description virtual fetches address details
-   */
-  public virtual HttpCalloutResponse getSelectedAddress(
-    String encodedAddressId
-  ) {
-    return null;
-  }
-
-  /**
-   * @param lookupString from address search bar
-   * @return `HttpCalloutResponse` api response
-   * @description virtual fetches addresses list
-   */
-  public virtual HttpCalloutResponse getAddressesV2(String lookupString) {
+  public virtual HttpCalloutResponse getAddressesV3(String lookupString) {
     return null;
   }
 
@@ -430,7 +462,18 @@ public with sharing virtual class Service {
    * @return `HttpCalloutResponse` api response
    * @description virtual fetches address details
    */
-  public virtual HttpCalloutResponse getSelectedAddressV2(
+  public virtual HttpCalloutResponse getSelectedAddressV3(
+    String globalAddressKey
+  ) {
+    return null;
+  }
+
+  /**
+   * @param globalAddressKey from selected address
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches address details
+   */
+  public virtual HttpCalloutResponse getSelectedAddressWithANZLayoutV3(
     String globalAddressKey
   ) {
     return null;
@@ -754,6 +797,63 @@ public with sharing virtual class Service {
     String requestBody,
     String ocvId
   ) {
+    return null;
+  }
+  /**
+   * @param staffModel wrapper class having all the variables
+   * @return headers
+   * @description fetches staff JWT from mule api and get the valid profiles
+   */
+  public virtual Map<String, String> getValidStaffToken(
+    StaffTokenRequestModel staffModel
+  ) {
+    return null;
+  }
+  /**
+   * @param staffModel wrapper class having all the variables
+   * @return Boolean response stating action is valid or invalid
+   * @description fetches staff JWT from mule api and get the valid profiles
+   */
+  public virtual HttpCalloutResponse searchCustAPI(
+    StaffTokenRequestModel staffModel
+  ) {
+    return null;
+  }
+  /**
+   * @param staffModel wrapper class having all the variables
+   * @param userInternalId Internal User Id that we receive from SearchCustomer API
+   * @param deviceResourceId Resource Id for the device
+   * @return api response
+   * @description gets the Customer's device details without biometrics
+   */
+  public virtual HttpCalloutResponse getDeviceDetailsWithoutBiometric(
+    StaffTokenRequestModel staffModel,
+    String userInternalId,
+    String deviceResourceId
+  ) {
+    return null;
+  }
+  /**
+   * @param staffModel wrapper class having all the variables
+   * @param userInternalId Internal User Id that we receive from SearchCustomer API
+   * @param appCorrelationId AppCorrelation Id for the device
+   * @return api response
+   * @description gets the Customer's device details with biometrics
+   */
+  public virtual HttpCalloutResponse getDeviceDetailsWithBiometric(
+    StaffTokenRequestModel staffModel,
+    String userInternalId,
+    String appCorrelationId
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId ocv Id
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches ListConsentHistory from Lighthouse through mule
+   */
+  public virtual HttpCalloutResponse getConsentHistoryList(String ocvId) {
     return null;
   }
 }

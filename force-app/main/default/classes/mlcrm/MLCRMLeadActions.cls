@@ -83,6 +83,7 @@ public with sharing class MLCRMLeadActions {
       if (
         objLead.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID &&
         oldMap != null &&
+        objLead.Territory__c != null &&
         objLead.Territory__c != oldMap.get(objLead.Id).Territory__c
       ) {
         idsOfTerritory.add(objLead.Territory__c);
@@ -106,6 +107,7 @@ public with sharing class MLCRMLeadActions {
       for (Lead objLead : lstOfLead) {
         if (
           objLead.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID &&
+          objLead.Territory__c != null &&
           mapOfUserTerritories.containsKey(objLead.Territory__c)
         ) {
           objLead.Primary_Franchise_Owner__c = mapOfUserTerritories.get(

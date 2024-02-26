@@ -1,0 +1,10 @@
+POST https://anypoint.mulesoft.com/mocking/api/v1/links/30ef21db-9334-4fa2-b134-475e130cf39b/accounts/deposit-accounts HTTP/1.1
+ms2-example: dda-success-with-multiple-accounts
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, dr
+Content-Length: 2
+
+{
+   "accounts": ["DDA-4034567890"]
+}

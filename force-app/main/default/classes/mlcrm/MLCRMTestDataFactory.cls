@@ -346,12 +346,12 @@ public with sharing class MLCRMTestDataFactory {
     Boolean doInsert
   ) {
     count = count == null || count == 0 ? 1 : count;
-
     List<Territory__c> lstOfNewTerritory = new List<Territory__c>();
     for (Integer i = 1; i <= count; i++) {
       Territory__c objTerritory = new Territory__c();
       objTerritory.Access_Scope__c = 'Restricted';
       objTerritory.Name = 'Melbourne';
+      objTerritory.Primary_Franchise_Owner__c = userInfo.getUserId();
       objTerritory.OwnerId = ownerUser.Id == null
         ? UserInfo.getUserId()
         : ownerUser.Id;
@@ -378,7 +378,6 @@ public with sharing class MLCRMTestDataFactory {
     Id idTerritory
   ) {
     count = count == null || count == 0 ? 1 : count;
-
     List<User_Territory__c> lstOfNewUserTerritory = new List<User_Territory__c>();
     for (Integer i = 1; i <= count; i++) {
       User_Territory__c objUserTerritory = new User_Territory__c();
@@ -496,7 +495,7 @@ public with sharing class MLCRMTestDataFactory {
       accnt.BillingCity = 'Docklands';
       accnt.BillingPostalCode = '3008';
       accnt.BillingState = 'Victoria';
-      accnt.BillingCountry = 'Australia';
+      accnt.BillingCountry = 'AUS';
       accnt.FinServ__Status__c = 'Prospect';
       accnt.Source_System_Name__c = CCRMConstants.SOURCE_SYSTEM_NAME;
       accnt.ANZx_Customer__c = false;

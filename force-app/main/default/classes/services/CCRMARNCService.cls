@@ -331,6 +331,9 @@ public with sharing class CCRMARNCService extends Service {
             false,
             true
           );
+        } else {
+          Logger.error('Error : ' + response.error);
+          Logger.saveLog();
         }
         return result.containsKey('securityCode')
           ? (String) result.get('securityCode')
@@ -404,6 +407,9 @@ public with sharing class CCRMARNCService extends Service {
       );
       if (response.statusCode == 200 && String.isNotBlank(response.body)) {
         result = (Map<String, Object>) JSON.deserializeUntyped(response.body);
+      } else {
+        Logger.error('Error : ' + response.error);
+        Logger.saveLog();
       }
     } catch (Exception e) {
       Logger.error(e.getMessage());
@@ -457,6 +463,9 @@ public with sharing class CCRMARNCService extends Service {
             false,
             true
           );
+        } else {
+          Logger.error('Error : ' + response.error);
+          Logger.saveLog();
         }
         return result.containsKey('status')
           ? (String) result.get('status') ==

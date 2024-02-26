@@ -1,0 +1,43 @@
+{
+  "href": "http://fake/anzx/fake/rest/v1/users/fake/authenticators/fake-CdkQyjdQ",
+  "id": "fake-CdkQyjdQ",
+  "authenticatorId": "MTE0NTc3RUYtODJDRC00QzVGLUJGM0UtN0NCRjExNEQwfake",
+  "updated": "2023-10-20T05:38:41.744+00:00",
+  "archived": "2023-10-20T05:38:41.744+00:00",
+  "created": "2023-06-27T23:42:38.792+00:00",
+  "logicalName": "iPhone",
+  "make": "Apple",
+  "model": "iPhone 12 Mini",
+  "osVersion": "16.3",
+  "appVersion": "4.6.0.40",
+  "authenticatorCounter": 0,
+  "publicKeyId": "MTE0NTc3RUYtODJDRC00QzVGLUJGM0UtN0NCRjExNEQwfake",
+  "publicKey": "MIIDeTCCAmOgAwIBAfake",
+  "status": "ARCHIVED",
+  "fidoDeregistrationRequest": "[{\"header\":{\"upv\":{\"major\":1,\"minor\":0},\"op\":\"Dereg\",\"appID\":\"https://fido-fake.com\"},\"authenticators\":[{\"aaid\":\"D409#2A01\",\"keyID\":\"MTE0NTfake\"}]}]",
+  "type": "FI",
+  "originalRegistrationData": "{\"deviceInfo\":{\"appId\":\"4C71E364-DE92-41AC-8FDA-fake\",\"deviceId\":\"63DA46E1-A361-4915-B8A5-fake\",\"make\":\"Apple\",\"model\":\"iPhone 12 Mini\",\"osVersion\":\"16.3\",\"sdkVersion\":\"4.6.0.40\",\"name\":\"iPhone\",\"notificationToken\":\"NA\",\"location\":{\"method\":\"Not available from device\"}},\"attestation\":{\"form\":\"SURROGATE_BASIC\"}}",
+  "attestation": "SB",
+  "deviceCorrelationId": "63DA46E1-A361-4915-B8A5-fake",
+  "appCorrelationId": "4C71E364-DE92-41AC-8FDA-403A8406D092",
+  "authenticatorAttestationId": "D409#2A01",
+  "facetId": "ios:bundle-id:com.fake.LotusApplication",
+  "user": {
+    "href": "http://fake/anzx/fake/rest/v1/users/fake"
+  },
+  "tenant": {
+    "href": "http://fake/fake/rest/v1/tenants/fake"
+  },
+  "registrationChallenge": {
+    "href": "http://fake/anzx/fake/rest/v1/registrationChallenges/0pmFLNWGXcWO0UBafake-A"
+  },
+  "application": {
+    "href": "http://fake/anzx/fake/rest/v1/applications/QTAztet5d8MOfake_a0Kgi5Iw"
+  },
+  "registration": {
+    "href": "http://fake/anzx/fake/rest/v1/registrations/QTAzpaQgvZGZgfake_upjppQ"
+  },
+  "authenticatorType": {
+    "href": "http://fake/anzx/fake/rest/v1/authenticatorTypes/ldxZdKrofake-3L2xpQ"
+  }
+}

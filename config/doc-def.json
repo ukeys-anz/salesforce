@@ -28,6 +28,7 @@
     "ContentVersion",
     "Controlling_Post__c",
     "CustomerOnboardingApplication__c",
+    "Customer_Dispute_Management__c",
     "EmailMessage",
     "Entitlement",
     "Event",
@@ -84,6 +85,13 @@
       "name": "ANZ Plus Operations - Read Only",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["ANZ_Plus_Operations_Read_Only"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "BOH Coach",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["BOH_Coach"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
@@ -151,6 +159,20 @@
       "type": "system"
     },
     {
+      "name": "Credit Assessor Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Credit_Assessor_Lead"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Credit Assessment Officer",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Credit_Assessment_Officer"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "Customer Onboarding Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
@@ -186,6 +208,20 @@
       "permissionsets": [
         "API_Only",
         "Case_Read_Only_Dispute_Integration_GCP",
+        "Customer_Dispute_Management_Read_Only",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Disputes Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Write_Dispute_Integration",
+        "Customer_Dispute_Management_Read_Write",
         "Disable_MFA",
         "Enforce_mTLS"
       ],
@@ -290,6 +326,27 @@
       "type": "user"
     },
     {
+      "name": "Join Batch Automation User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "Case_Read_Write_KYC_QA_Integration"],
+      "type": "system"
+    },
+    {
+      "name": "Onboarding Support",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Onboarding_Support_Read_Only"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Statutory Compliance Agent",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Statutory_Compliance_Agent"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "Systemic Issue Team",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_SI_User"],
@@ -325,7 +382,9 @@
         "Read_Write_Customer_Details",
         "CCRM_Marketing_Integration_User",
         "Customer_Relationships_Read_Write",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Broker_Details_Read_Write",
+        "Feature_FA_Feature_Read_Write"
       ],
       "type": "system"
     },
@@ -404,6 +463,20 @@
       "permissionsetgroups": [],
       "permissionsets": ["API_Access_SAF", "API_Only", "Disable_MFA"],
       "type": "system"
+    },
+    {
+      "name": "Settlement Officer",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Settlement_Officer"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Settlement Officer Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Settlement_Officer_Lead"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     },
     {
       "name": "Shared Administrator",

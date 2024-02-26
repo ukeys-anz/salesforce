@@ -18,11 +18,7 @@
     <picklistValues>
         <picklist>UsageType</picklist>
         <values>
-            <fullName>Fax Business</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fax Home</fullName>
+            <fullName>Business Phone</fullName>
             <default>false</default>
         </values>
         <values>
@@ -30,23 +26,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Primary Business Telephone</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Primary Home Telephone</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Secondary Business Telephone</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Secondary Home Telephone</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Security Mobile</fullName>
             <default>false</default>
         </values>
     </picklistValues>

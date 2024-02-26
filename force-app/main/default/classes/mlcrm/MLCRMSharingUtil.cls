@@ -101,7 +101,15 @@ public without sharing class MLCRMSharingUtil {
 
       if (!lstOfLeadShareToInsert.isEmpty()) {
         //inserting the share records for original record owner in order of owner change to avoid temporary record lose access on UI.
-        insert lstOfLeadShareToInsert;
+        try {
+          insert lstOfLeadShareToInsert;
+        } catch (Exception ex) {
+          Logger.error(
+            'Error while creating share record for original user',
+            ex
+          );
+          Logger.saveLog();
+        }
       }
       if (objTerritoryEvt != null && objTerritoryEvt.Record_Ids__c != null) {
         Database.SaveResult results = EventBus.publish(objTerritoryEvt);
@@ -323,34 +331,39 @@ public without sharing class MLCRMSharingUtil {
       }
 
       for (sObject objSobject : lstOfSobject) {
-        for (
-          User_Territory__c objUT : mapOfFranchiseToUsers.get(
-            mapOfTerritory.get((Id) objSobject.get('Territory__c'))
-              .Primary_Franchise_Owner__c
-          )
+        if (
+          mapOfTerritory.get((Id) objSobject.get('Territory__c'))
+            .Primary_Franchise_Owner__c != null
         ) {
-          Sobject objShareObject = getNewSObject(objMtd.Sharing_Object__c);
-          if (
-            !objMtd.IsParentIdField__c &&
-            (Id) objSobject.get('OwnerId') != objUT.User__c
+          for (
+            User_Territory__c objUT : mapOfFranchiseToUsers.get(
+              mapOfTerritory.get((Id) objSobject.get('Territory__c'))
+                .Primary_Franchise_Owner__c
+            )
           ) {
-            objShareObject.put(
-              objMtd.Object_Name__c + 'Id',
-              (Id) objSobject.get('Id')
-            );
-            objShareObject.put(objMtd.Object_Name__c + 'AccessLevel', 'Edit');
-            objShareObject.put('UserOrGroupId', objUT.User__c);
-            objShareObject.put('RowCause', objMtd.Row_Cause__c);
-            lstOfShareRecord.add(objShareObject);
-          } else if (
-            objMtd.IsParentIdField__c &&
-            (Id) objSobject.get('OwnerId') != objUT.User__c
-          ) {
-            objShareObject.put('ParentId', (Id) objSobject.get('Id'));
-            objShareObject.put('AccessLevel', 'Edit');
-            objShareObject.put('UserOrGroupId', objUT.User__c);
-            objShareObject.put('RowCause', objMtd.Row_Cause__c);
-            lstOfShareRecord.add(objShareObject);
+            Sobject objShareObject = getNewSObject(objMtd.Sharing_Object__c);
+            if (
+              !objMtd.IsParentIdField__c &&
+              (Id) objSobject.get('OwnerId') != objUT.User__c
+            ) {
+              objShareObject.put(
+                objMtd.Object_Name__c + 'Id',
+                (Id) objSobject.get('Id')
+              );
+              objShareObject.put(objMtd.Object_Name__c + 'AccessLevel', 'Edit');
+              objShareObject.put('UserOrGroupId', objUT.User__c);
+              objShareObject.put('RowCause', objMtd.Row_Cause__c);
+              lstOfShareRecord.add(objShareObject);
+            } else if (
+              objMtd.IsParentIdField__c &&
+              (Id) objSobject.get('OwnerId') != objUT.User__c
+            ) {
+              objShareObject.put('ParentId', (Id) objSobject.get('Id'));
+              objShareObject.put('AccessLevel', 'Edit');
+              objShareObject.put('UserOrGroupId', objUT.User__c);
+              objShareObject.put('RowCause', objMtd.Row_Cause__c);
+              lstOfShareRecord.add(objShareObject);
+            }
           }
         }
       }
@@ -457,8 +470,8 @@ public without sharing class MLCRMSharingUtil {
           Database.Error error = lstOfDeleteResults.get(i).getErrors().get(0);
           lstOfSharingError.add(
             new WrapSharingError(
-              (String) lstOfSobjectToDelete[i].get(strWhereClause),
-              (String) lstOfSobjectToDelete[i].get('UserOrGroupId'),
+              (String) lstOfSobjectShareToDelete[i].get(strWhereClause),
+              (String) lstOfSobjectShareToDelete[i].get('UserOrGroupId'),
               error.getMessage()
             )
           );

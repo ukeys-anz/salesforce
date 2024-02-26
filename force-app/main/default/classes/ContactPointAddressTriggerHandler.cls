@@ -12,6 +12,15 @@ public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerH
     CCRMContactPointAddressActions.copyParentIdToCustomerName(records);
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      CCRMContactPointAddressActions.ContactPointAddressWrapper existingOrProspectAccountsCPA = new CCRMContactPointAddressActions.ContactPointAddressWrapper();
+      existingOrProspectAccountsCPA = CCRMContactPointAddressActions.getExistingOrProspectCPA(
+        records
+      );
+
+      CCRMCustomerProfileUpdateHelper.restrictEdit(
+        existingOrProspectAccountsCPA.existingCPA,
+        null
+      );
       CCRMContactPointAddressActions.checkExistingAddressOnProspectOrExistingCust(
         records
       );

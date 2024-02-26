@@ -106,7 +106,7 @@
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
-                  <name>uiBehavior</name>
+                    <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Duration_of_Remedy__c</fieldItem>
