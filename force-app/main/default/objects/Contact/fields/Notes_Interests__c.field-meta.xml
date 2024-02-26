@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notes_Interests__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_OCV</complianceGroup>
+    <description>Notes for BDM to add about the Broker such as personal interests (Broker barracks for Richmond AFL team)</description>
+    <externalId>false</externalId>
+    <label>Notes &amp; Interests</label>
+    <length>32768</length>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

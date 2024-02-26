@@ -243,6 +243,27 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Generates a traceParent Identifier
+   * @return A traceParent, e.g.  00-0af7651916cd43dd8448eb211c80319c-00f067aa0ba902b7-01
+   */
+  public static String generateTraceParent() {
+    String traceParent;
+    String traceId = EncodingUtil.convertToHex(Crypto.generateAesKey(128));
+    String version = '00';
+    String parentId = EncodingUtil.convertToHex(Crypto.generateAesKey(128));
+    String traceFlags = '01';
+    traceParent =
+      version +
+      '-' +
+      traceId +
+      '-' +
+      parentId.SubString(0, 16) +
+      '-' +
+      traceFlags;
+    return traceParent;
+  }
+
+  /**
    * @param toShaHash value arg to hash
    * @description performs hashing of input value using sha algorithm
    * @return encoded hash
@@ -858,5 +879,41 @@ public with sharing class CommonUtil {
     }
 
     return idToProfileMap;
+  }
+
+  /**
+   * @description Get list of street addresses by breaking street address in list of 40 each
+   * @param streetAddress street address
+   * @return Map<Integer,String> streets address map
+   */
+  public static Map<Integer, String> getStreetAddress(String streetAddress) {
+    Map<Integer, String> streetAddressMap = new Map<Integer, String>{
+      1 => '',
+      2 => '',
+      3 => ''
+    };
+    streetAddressMap.put(
+      1,
+      (streetAddress.length() >= 40
+        ? streetAddress.substring(0, 39)
+        : streetAddress)
+    );
+    streetAddressMap.put(
+      2,
+      (streetAddress.length() >= 80
+        ? streetAddress.substring(40, 79)
+        : streetAddress.length() > 40
+            ? streetAddress.substring(40, (streetAddress.length() - 1))
+            : null)
+    );
+    streetAddressMap.put(
+      3,
+      (streetAddress.length() >= 120
+        ? streetAddress.substring(80, 119)
+        : streetAddress.length() > 80
+            ? streetAddress.substring(80, (streetAddress.length() - 1))
+            : null)
+    );
+    return streetAddressMap;
   }
 }

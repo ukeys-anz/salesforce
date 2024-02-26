@@ -904,6 +904,15 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
       }
     }
+
+    /**
+     * @description a static and unchanging value of the income verified
+     */
+    public String staticIncomeVerified {
+      get {
+        return incomeVerified;
+      }
+    }
   }
   /**
    * @description Income detail class

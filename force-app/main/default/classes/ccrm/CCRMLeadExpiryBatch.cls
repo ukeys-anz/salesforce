@@ -16,6 +16,7 @@ public with sharing class CCRMLeadExpiryBatch implements Database.Batchable<sObj
     Set<String> leadStatuses = new Set<String>{
       CCRMConstants.STATUS_ASSIGNED,
       CCRMConstants.STATUS_IN_PROGRESS,
+      MLCRMConstants.STATUS_OPPORTUNITY_INDENTIFIED,
       CCRMConstants.STATUS_NEW
     };
     return Database.getQueryLocator(

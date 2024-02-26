@@ -32,7 +32,7 @@
             <value>
                 <fullName>U</fullName>
                 <default>false</default>
-                <label>Prefer not to say</label>
+                <label>Unknown / Prefer not to say</label>
             </value>
         </valueSetDefinition>
     </valueSet>

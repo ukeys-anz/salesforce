@@ -84,9 +84,7 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
       'Incorrect value for Attendees__c'
     );
     System.assertEquals(
-      '{"userIdToDetails":{"' +
-      userData.Id +
-      '":"Coach"}}',
+      '{"userIdToDetails":{"' + userData.Id + '":"Coach"}}',
       parentInteraction.Attendees_and_Roles__c,
       'Incorrect value for Attendees_and_Roles__c'
     );

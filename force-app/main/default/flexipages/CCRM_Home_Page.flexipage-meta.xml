@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <name>top</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -76,20 +77,20 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>top</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <mode>Replace</mode>
         <name>bottomLeft</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <mode>Replace</mode>
-        <name>bottomRight</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>bottomRight</name>
+        <mode>Replace</mode>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:todayTaskContainer</componentName>
@@ -103,7 +104,6 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>CCRM Home Page</masterLabel>

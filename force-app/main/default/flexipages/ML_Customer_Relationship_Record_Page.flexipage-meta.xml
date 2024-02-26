@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -43,10 +42,21 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>relatedTabContent</name>
+        <itemInstances>
+            <componentInstance>
+                <componentName>force:detailPanel</componentName>
+                <identifier>force_detailPanel</identifier>
+            </componentInstance>
+        </itemInstances>
+        <mode>Replace</mode>
+        <name>detailTabContent</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -66,35 +76,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>relatedTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>detailTabContent</name>
-        <itemInstances>
-            <componentInstance>
-                <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
-            </componentInstance>
-        </itemInstances>
-        <mode>Replace</mode>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>maintabs</name>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>relatedTabContent</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Standard.Tab.relatedLists</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>relatedListsTab</identifier>
-            </componentInstance>
-        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -113,11 +98,25 @@
                 <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>relatedTabContent</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.relatedLists</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>relatedListsTab</identifier>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
+        <name>maintabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -129,10 +128,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>activityTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -144,10 +143,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>activityTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-0559cd2e-b8e1-49f0-8c8a-f8934d130581</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -162,10 +161,10 @@
                 <identifier>industries_common_timeline</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-0559cd2e-b8e1-49f0-8c8a-f8934d130581</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-8175e26a-77b6-4554-8296-7cfc51c643eb</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -176,10 +175,10 @@
                 <identifier>forceChatter_exposedFeed</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-8175e26a-77b6-4554-8296-7cfc51c643eb</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebartabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -227,10 +226,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>sidebartabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -242,6 +241,7 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>ML Customer Relationship Record Page</masterLabel>

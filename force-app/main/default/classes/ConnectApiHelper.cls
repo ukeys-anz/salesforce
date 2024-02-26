@@ -129,9 +129,7 @@ global class ConnectApiHelper {
   ) {
     if (formattedText == null || formattedText.trim().length() == 0) {
       throw new InvalidParameterException(
-        'The ' +
-        textParameterName +
-        ' parameter must be non-empty.'
+        'The ' + textParameterName + ' parameter must be non-empty.'
       );
     }
 

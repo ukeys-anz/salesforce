@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Temporary_Block_Overridden__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>Flag to indicate that the coach has overridden the Temporary Block by manually setting this flag to true, to allow this customer to raise additional disputes even while the Temporary block flag is true
+This field will be set to false by the OnClose trigger if the number of open Self Service Disputes is &lt;  [max_open_self_service_disputes] custom setting</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Tick to override the temporary block to self-serve. This will allow customers to raise more than 5 disputes via self-service.</inlineHelpText>
+    <label>Override Temporary Block</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

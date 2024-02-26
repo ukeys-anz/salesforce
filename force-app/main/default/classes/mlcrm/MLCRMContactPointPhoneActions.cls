@@ -145,10 +145,7 @@ public with sharing class MLCRMContactPointPhoneActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
-    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
-      accList
-    );
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(accList);
 
     for (ContactPointPhone record : records) {
       if (

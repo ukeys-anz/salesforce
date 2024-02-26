@@ -10,62 +10,13 @@ public with sharing class CCRMValidateAddressService extends Service {
    * @return HttpCalloutResponse
    * @description fetches valid addresses
    */
-  public override HttpCalloutResponse getAddresses(String lookupString) {
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    Map<String, String> headers = new Map<String, String>();
-    headers.put('client_id', '{!$Credential.Username}');
-    headers.put('client_secret', '{!$Credential.Password}');
-    String endPoint =
-      'callout:SF_MS_CCRM' +
-      Label.MS_Get_Qas_Address +
-      lookupString +
-      '&country=AUS&limit=10&engine=Intuitive';
-    return calloutService.makeRestCallout(
-      endPoint,
-      HTTP_METHOD.HTTP_GET,
-      headers,
-      null
-    );
-  }
-
-  /**
-   * @param encodedAddressId
-   * @return HttpCalloutResponse
-   * @description fetches valid addresses
-   */
-  public override HttpCalloutResponse getSelectedAddress(
-    String encodedAddressId
-  ) {
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    Map<String, String> headers = new Map<String, String>();
-    headers.put('Content-Type', 'application/json');
-    headers.put('client_id', '{!$Credential.Username}');
-    headers.put('client_secret', '{!$Credential.Password}');
-    headers.put('Content-Type', 'application/json');
-    String endPoint =
-      'callout:SF_MS_CCRM' +
-      Label.MS_Get_Qas_AddressById +
-      encodedAddressId;
-    return calloutService.makeRestCallout(
-      endPoint,
-      HTTP_METHOD.HTTP_GET,
-      headers,
-      null
-    );
-  }
-
-  /**
-   * @param lookupString search address value entered by the user
-   * @return HttpCalloutResponse
-   * @description fetches valid addresses
-   */
-  public override HttpCalloutResponse getAddressesV2(String lookupString) {
+  public override HttpCalloutResponse getAddressesV3(String lookupString) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('Content-Type', 'application/json');
-    String endPoint = 'callout:SF_MS_CCRM' + Label.MS_Get_Qas_Address_V2;
+    String endPoint = 'callout:SF_MS_CCRM' + Label.MS_Get_Qas_Address_V3;
     return calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_POST,
@@ -77,16 +28,6 @@ public with sharing class CCRMValidateAddressService extends Service {
           'max_suggestions' => 10,
           'components' => new Map<String, Object>{
             'unspecified' => new List<String>{ lookupString }
-          },
-          'options' => new List<Object>{
-            new Map<String, String>{
-              'name' => 'search_type',
-              'value' => 'singleline'
-            },
-            new Map<String, String>{
-              'name' => 'intensity',
-              'value' => 'Extensive'
-            }
           }
         }
       )
@@ -98,7 +39,7 @@ public with sharing class CCRMValidateAddressService extends Service {
    * @return HttpCalloutResponse
    * @description fetches valid addresses
    */
-  public override HttpCalloutResponse getSelectedAddressV2(
+  public override HttpCalloutResponse getSelectedAddressV3(
     String globalAddressKey
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
@@ -109,7 +50,35 @@ public with sharing class CCRMValidateAddressService extends Service {
     headers.put('Add-Components', 'true');
     String endPoint =
       'callout:SF_MS_CCRM' +
-      Label.MS_Get_Qas_AddressById_V2 +
+      Label.MS_Get_Qas_AddressById_V3 +
+      globalAddressKey;
+    return calloutService.makeRestCallout(
+      endPoint,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      JSON.serialize(
+        new Map<String, Object>{ 'layouts' => new List<String>{ 'default' } }
+      )
+    );
+  }
+
+  /**
+   * @param globalAddressKey
+   * @return HttpCalloutResponse
+   * @description fetches valid addresses
+   */
+  public override HttpCalloutResponse getSelectedAddressWithANZLayoutV3(
+    String globalAddressKey
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('client_id', '{!$Credential.Username}');
+    headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('Content-Type', 'application/json');
+    headers.put('Add-Components', 'true');
+    String endPoint =
+      'callout:SF_MS_CCRM' +
+      Label.MS_Get_Qas_AddressById_V3 +
       globalAddressKey;
     return calloutService.makeRestCallout(
       endPoint,
@@ -117,8 +86,7 @@ public with sharing class CCRMValidateAddressService extends Service {
       headers,
       JSON.serialize(
         new Map<String, Object>{
-          'layouts' => new List<String>{ 'default' },
-          'layout_format' => 'address_lines'
+          'layouts' => new List<String>{ 'ANZ-DataServiceHub-Gen-V1-NE' }
         }
       )
     );

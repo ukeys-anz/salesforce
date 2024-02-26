@@ -151,8 +151,8 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
       expectedCaseCount,
       mobileByCaseIdMap.size(),
       'Should be ' +
-      expectedCaseCount +
-      ' KYC QA Cases by COB App Mobile numbers'
+        expectedCaseCount +
+        ' KYC QA Cases by COB App Mobile numbers'
     );
   }
 
@@ -180,8 +180,8 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
       CUSTOMER_MATCHING_MOBILE_NUMBERS.size(),
       accountsByMobileMap.size(),
       'Should be ' +
-      CUSTOMER_MATCHING_MOBILE_NUMBERS.size() +
-      ' Accounts matched by Mobile Numbers'
+        CUSTOMER_MATCHING_MOBILE_NUMBERS.size() +
+        ' Accounts matched by Mobile Numbers'
     );
   }
 
@@ -287,8 +287,8 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
       COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
       casesWithNoCustomer.size(),
       'Should be ' +
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases by with No Customer'
+        COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
+        ' KYC QA Cases by with No Customer'
     );
   }
 }

@@ -68,7 +68,12 @@ public with sharing class CCRMCreatePartyService extends Service {
     //add address
     if (record.Is_Valid_Address__c) {
       Address address = new Address();
-      address.addressLine1 = record.Street;
+      Map<Integer, String> streetAddressMap = CommonUtil.getStreetAddress(
+        record.Street
+      );
+      address.addressLine1 = streetAddressMap.get(1);
+      address.addressLine2 = streetAddressMap.get(2);
+      address.addressLine3 = streetAddressMap.get(3);
       address.city = record.City;
       address.postCode = record.PostalCode;
       address.state = record.State;
@@ -136,6 +141,8 @@ public with sharing class CCRMCreatePartyService extends Service {
    */
   public class Address {
     public String addressLine1;
+    public String addressLine2;
+    public String addressLine3;
     public String city;
     public String postCode;
     public String state;

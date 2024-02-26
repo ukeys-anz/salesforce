@@ -35,4 +35,21 @@ public with sharing class AuthServiceMock extends Service {
     }
     return response;
   }
+  /**
+   * @param staffModelWrapper wrapper for forgeV2 api
+   * @param idToken id token as the bearer token
+   * @param forgeAuth custom metadata which contains the client id and secret
+   * @return `HttpCalloutResponse` api response
+   * @description fetches response from forge api
+   */
+  public override HttpCalloutResponse getForgeJWTToken(
+    StaffTokenRequestModel staffModelWrapper,
+    String idToken,
+    Forgerock_Auth__mdt forgeAuth
+  ) {
+    if (!preset) {
+      response.body = AuthServiceMock.FORGE_TOKEN_RESPONSE;
+    }
+    return response;
+  }
 }

@@ -270,9 +270,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
     Assert.areEqual(
       OCV_IDS_COUNT,
       ocvIdsKYCQACases.size(),
-      'There should be ' +
-      OCV_IDS_COUNT +
-      ' cases in the map.'
+      'There should be ' + OCV_IDS_COUNT + ' cases in the map.'
     );
   }
 

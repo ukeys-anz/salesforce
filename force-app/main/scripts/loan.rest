@@ -1,0 +1,15 @@
+POST https://anypoint.mulesoft.com/mocking/api/v1/links/54c91032-c934-4e38-ad35-0e7d4f11181c/accounts?productCode=ILS HTTP/1.1
+ms2-example: ils-success-with-multiple-accounts
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, dr
+Content-Length: 2
+
+{
+  "accounts": [
+    {
+      "productCode": "DDA", 
+      "accountNumbers": ["4034567890", "4034567891", "4034567893"]
+    }
+  ]
+}

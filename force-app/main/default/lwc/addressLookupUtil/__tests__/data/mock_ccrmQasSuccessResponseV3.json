@@ -1,0 +1,13 @@
+{
+  "count": 7,
+  "result": [
+    {
+      "global_address_key": "global_address_key_1",
+      "address": "Unit 1  8 Main Avenue, LIDCOMBE  NSW  2141"
+    },
+    {
+      "global_address_key": "global_address_key_2",
+      "address": "Unit 2  8 Main Avenue, LIDCOMBE  NSW  2141"
+    }
+  ]
+}

@@ -11,4 +11,8 @@
     <columns>Relationship_Owner__c</columns>
     <filterScope>Everything</filterScope>
     <label>All Customers</label>
+    <sharedTo>
+        <role>Business_Admin</role>
+        <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+    </sharedTo>
 </ListView>

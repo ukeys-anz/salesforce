@@ -11,7 +11,7 @@
             <operation>equals</operation>
             <sortOrder>1</sortOrder>
             <table>Lead</table>
-            <value>Mobile Lending CRM Lead</value>
+            <value>Mobile Lending Lead</value>
         </duplicateRuleFilterItems>
         <duplicateRuleFilterItems>
             <field>Status</field>

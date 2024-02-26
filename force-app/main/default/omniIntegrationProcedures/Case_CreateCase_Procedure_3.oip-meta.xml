@@ -42,11 +42,12 @@
     <language>Procedure</language>
     <name>CreateCase</name>
     <omniProcessElements>
+        <name>ComplaintResLoopBlock</name>
         <childElements>
+            <name>DRCreateComplaintResolution</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>DRCreateComplaintResolution</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true &amp;&amp; (Case:ResolutionInformation:ComplaintStatus==\&quot;Closed\&quot; || Case:ResolutionInformation:ComplaintStatus==\&quot;Provisionally Closed\&quot;)&quot;,
@@ -85,7 +86,6 @@
         <isActive>false</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ComplaintResLoopBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;TransformCaseDetails:ComplaintRes&quot;,
@@ -99,11 +99,12 @@
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>CRLoopBlock</name>
         <childElements>
+            <name>DRUpdateComplaintResolution</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>DRUpdateComplaintResolution</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
@@ -143,7 +144,6 @@
         <isActive>false</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>CRLoopBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;TransformClosecase:ComplaintRes&quot;,
@@ -157,10 +157,10 @@
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>DeleteComplaintResolution</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DeleteComplaintResolution</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
@@ -193,11 +193,11 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>DRCloseCase</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DRCloseCase</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
@@ -225,11 +225,11 @@
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>DRCreateCase</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DRCreateCase</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true&quot;,
@@ -257,10 +257,10 @@
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>RACreateComplaintResolution</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>RACreateComplaintResolution</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true &amp;&amp; (Case:ResolutionInformation:ComplaintStatus==\&quot;Closed\&quot; || Case:ResolutionInformation:ComplaintStatus==\&quot;Provisionally Closed\&quot;)&quot;,
@@ -294,10 +294,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>RAUpdateComplaintRes</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>RAUpdateComplaintRes</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%=true&quot;,
@@ -331,11 +331,11 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ResponseAction</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ResponseAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -358,11 +358,11 @@
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>TransformCaseDetails</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>TransformCaseDetails</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%!=true&quot;,
@@ -391,10 +391,10 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>TransformClosecase</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>TransformClosecase</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,

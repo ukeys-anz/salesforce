@@ -228,10 +228,6 @@
         <apexClass>EmailTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <customPermissions>
-        <name>CCRM_System_Role_Access</name>
-        <enabled>true</enabled>
-    </customPermissions>
     <description>Baseline PS for using the Mobile Lending CRM app.</description>
     <fieldPermissions>
         <editable>true</editable>
@@ -519,6 +515,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Self_Employed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Employment_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Campaign.Channel__c</field>
         <readable>true</readable>
@@ -800,6 +806,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Controlling_Post__c.CPID_LanID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Controlling_Post__c.CPID_User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Controlling_Post__c.District_CTA__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -816,6 +832,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Controlling_Post__c.Last_CAP_Load_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Controlling_Post__c.User_Segment__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1111,6 +1132,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Customer_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Customer_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1835,6 +1861,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>User.ML_Role__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.ML_Territories__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User.Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2153,9 +2189,9 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
-        <allowCreate>true</allowCreate>
+        <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>true</allowEdit>
+        <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Contact</object>
@@ -2406,10 +2442,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>PersonAccount.PersonAccount</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Task.Lead_Response</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

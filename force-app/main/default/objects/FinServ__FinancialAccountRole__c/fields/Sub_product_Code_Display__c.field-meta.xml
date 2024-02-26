@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Formular field to display product2 reference data for sub product code</description>
     <externalId>false</externalId>
-    <formula>FinServ__FinancialAccount__r.FinServ__ProductName__r.Sub_Product_Code__c</formula>
+    <formula>IF( NOT(ISBLANK(FinServ__FinancialAccount__r.FinServ__ProductName__c)), FinServ__FinancialAccount__r.FinServ__ProductName__r.Sub_Product_Code__c, FinServ__FinancialAccount__r.Product_SubCode__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Sub Product Code</label>
     <required>false</required>

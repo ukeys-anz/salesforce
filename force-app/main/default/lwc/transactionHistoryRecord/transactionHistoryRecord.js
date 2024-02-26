@@ -120,6 +120,13 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     return this.transactionRecord.pay_anyone?.npp_customer_reference_number;
   }
 
+  get showTransactionPuid() {
+    return (
+      this.transactionRecord.type === "BSB_ACC_NUM" ||
+      this.transactionRecord.type === "PAYID"
+    );
+  }
+
   // Tooltip for Raise Dispute button if disabled
   get disputeButtonTooltip() {
     switch (true) {
