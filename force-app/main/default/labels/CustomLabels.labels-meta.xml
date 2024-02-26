@@ -1294,6 +1294,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Id, FinServ__RelatedAccount__r.Name, FirstName, LastName, Title__c, Work_Phone__c, Email, MobilePhone, Home_Phone__c, RecordTypeId, (SELECT CampaignId FROM CampaignMembers)</value>
     </labels>
     <labels>
+        <fullName>LightHouse_Get_List_Consent_History</fullName>
+        <categories>LH</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LightHouse ListConsentHistory</shortDescription>
+        <value>/lighthouse/v1/connect-id/consent-histories</value>
+    </labels>
+    <labels>
         <fullName>MLCRM_LeadDetailsSubText</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
