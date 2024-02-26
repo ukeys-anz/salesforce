@@ -229,6 +229,39 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>buttonName</name>
+                    <value>Go to ConnectID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>iconName</name>
+                    <value>custom:custom91</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>stateParams</name>
+                    <value>[{&quot;key&quot;:&quot;c__ocvid&quot;,&quot;field&quot;:&quot;Account.OCV_ID__c&quot;}]</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabName</name>
+                    <value>ConnectID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>ConnectID</value>
+                </componentInstanceProperties>
+                <componentName>clickToAction</componentName>
+                <identifier>c_clickToAction1</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_View_ConnectID}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <name>leftsidebar</name>
         <type>Region</type>
     </flexiPageRegions>
