@@ -146,9 +146,9 @@ public class FinAccountSetProductLookupBatch implements Database.Batchable<sObje
         if (!lstResult.get(i).isSuccess()) {
           Logger.error(
             'ERROR while updating - ' +
-            lstResult.get(i).getId() +
-            '. ErrorMessage - ' +
-            lstResult.get(i).getErrors()
+              lstResult.get(i).getId() +
+              '. ErrorMessage - ' +
+              lstResult.get(i).getErrors()
           );
           if (idsOfMappedRecords.contains(lstResult.get(i).getId())) {
             recordsUpdated -= 1; // as Error occoured while updating mapped record so reducing the count
@@ -172,10 +172,10 @@ public class FinAccountSetProductLookupBatch implements Database.Batchable<sObje
     for (String pdtCode : ignoreList.keySet()) {
       Logger.error(
         pdtSubCodeNotFoundMsg +
-        ' <' +
-        pdtCode +
-        '> = ' +
-        ignoreList.get(pdtCode)
+          ' <' +
+          pdtCode +
+          '> = ' +
+          ignoreList.get(pdtCode)
       );
     }
     // Log Total Records Mapped
@@ -194,11 +194,11 @@ public class FinAccountSetProductLookupBatch implements Database.Batchable<sObje
       ID batchprocessid = Database.executeBatch(setNextProdLookUp, batchSize);
       Logger.error(
         'Batch job Id ' +
-        batchprocessid +
-        ' sent to queue. Chain level: ' +
-        String.valueOf(chainLevel) +
-        '. Batch size: ' +
-        String.valueOf(batchSize)
+          batchprocessid +
+          ' sent to queue. Chain level: ' +
+          String.valueOf(chainLevel) +
+          '. Batch size: ' +
+          String.valueOf(batchSize)
       );
     }
     Logger.saveLog();
