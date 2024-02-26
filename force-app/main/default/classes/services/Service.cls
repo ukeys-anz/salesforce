@@ -9,7 +9,6 @@
 @SuppressWarnings(
   'PMD.ExcessivePublicCount,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
 )
-
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
   protected Boolean preset = false;
@@ -297,18 +296,11 @@ public with sharing virtual class Service {
   public Map<String, String> setAuthorizationCommonHeaders(
     StaffTokenRequestModel staffModelWrapper
   ) {
-    try {
-      String serializedToken = AuthTokenCacheUtil.getStaffToken(
-        staffModelWrapper
-      );
-      staffModelWrapper.headers.put(
-        'Authorization',
-        'Bearer ' + serializedToken
-      );
-      return staffModelWrapper.headers;
-    } catch (Exception ex) {
-      return null;
-    }
+    String serializedToken = AuthTokenCacheUtil.getStaffToken(
+      staffModelWrapper
+    );
+    staffModelWrapper.headers.put('Authorization', 'Bearer ' + serializedToken);
+    return staffModelWrapper.headers;
   }
 
   /**
@@ -323,12 +315,12 @@ public with sharing virtual class Service {
     headers.put(
       'x-correlation-id',
       UniqueIdUtil.getVersion() +
-      '-' +
-      UniqueIdUtil.getTraceId() +
-      '-' +
-      UniqueIdUtil.generateSpanId() +
-      '-' +
-      UniqueIdUtil.getTraceFlag()
+        '-' +
+        UniqueIdUtil.getTraceId() +
+        '-' +
+        UniqueIdUtil.generateSpanId() +
+        '-' +
+        UniqueIdUtil.getTraceFlag()
     );
     return headers;
   }
@@ -360,7 +352,7 @@ public with sharing virtual class Service {
   ) {
     Map<String, String> headers = new Map<String, String>();
     headers = setAuthorizationCommonHeaders(staffModelWrapper);
-    //headers = setMuleCommonHeaders(headers);
+    headers = setMuleCommonHeaders(headers);
     return headers;
   }
 
@@ -853,6 +845,15 @@ public with sharing virtual class Service {
     String userInternalId,
     String appCorrelationId
   ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId ocv Id
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches ListConsentHistory from Lighthouse through mule
+   */
+  public virtual HttpCalloutResponse getConsentHistoryList(String ocvId) {
     return null;
   }
 }

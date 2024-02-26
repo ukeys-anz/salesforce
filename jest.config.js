@@ -22,6 +22,8 @@ module.exports = {
     "^lightning/modalBody$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/modalBody",
     "^lightning/modalFooter$":
-      "<rootDir>/force-app/tests/jest-mocks/lightning/modalFooter"
+      "<rootDir>/force-app/tests/jest-mocks/lightning/modalFooter",
+    "^lightning/platformWorkspaceApi$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/platformWorkspaceApi"
   }
 };

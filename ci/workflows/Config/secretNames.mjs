@@ -43,7 +43,8 @@ const salesforceSecretNames = {
   "epic/inapp-complaint": "h-salesforce-np-inappcomp",
   "epic/bohleads": "h-salesforce-np-bohleads",
   "epic/disputes": "h-salesforce-np-disputes",
-  "epic/coachnudges": "h-salesforce-np-coachnudge"
+  "epic/coachnudges": "h-salesforce-np-coachnudge",
+  "epic/connectid": "h-salesforce-np-connectid"
 };
 
 const brokerSecretNames = {
