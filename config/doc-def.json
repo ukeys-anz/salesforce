@@ -393,7 +393,7 @@
       "permissionsets": [
         "API_Only",
         "Splunk_Integration_Tech_Ops",
-        "Password_Never_Expires",
+        "Logs_Monitoring",
         "Disable_MFA"
       ],
       "type": "system"
