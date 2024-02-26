@@ -89,10 +89,20 @@ public class MLCRMFinancialAccountActions {
     Map<string, integer> ignoreList
   ) {
     Integer totalRecordsMapped = 0;
+    List<String> lstProdToMap = System.Label.FinAccountProductToMap.split(',');
 
     for (FinServ__FinancialAccount__c objFinancialAccount : records) {
       String accountPdtSubCode = objFinancialAccount.Product_SubCode__c;
       String accountPdtType = objFinancialAccount.Product_Type__c;
+      Id accountPdtId = objFinancialAccount.FinServ__ProductName__c;
+
+      // next record if product type not in scope of run
+      if (
+        accountPdtId != null ||
+        !lstProdToMap.contains('\'' + accountPdtType + '\'')
+      ) {
+        continue;
+      }
 
       // If ProductSubCode is populated in FinAcc
       if (accountPdtSubCode != null) {
