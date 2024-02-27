@@ -1020,6 +1020,7 @@
         "SI_PSI_Source__c"
       ],
       "IA-2415720": [
+        "ANZx_Customer_Account__c",
         "Account_Type__c",
         "Biller_Code__c",
         "Biller_Name__c",
@@ -1050,7 +1051,8 @@
         "Application_Status__c",
         "Assessment_Outcome__c",
         "Assessment_Id__c",
-        "Collateral_Assessment_ID__c"
+        "Collateral_Assessment_ID__c",
+        "TestedDate__c"
       ],
       "IA-2415860": [
         "Package_Id__c",
@@ -1063,7 +1065,8 @@
         "PersonaId__c",
         "PersonID__c",
         "Fraud_PersonID__c"
-      ]
+      ],
+      "IA-2468710": ["SLATesting__c"]
     },
     "Case_Product__c": {
       "IA-2468715": ["Product__c"]
@@ -1610,7 +1613,8 @@
         "EquifaxDVSResult__c",
         "EquifaxAECResult__c",
         "EquifaxCRAResult__c",
-        "EquifaxOverallResult__c"
+        "EquifaxOverallResult__c",
+        "EquifaxESDResult__c"
       ],
       "IA-2530753": [
         "OwnerId",

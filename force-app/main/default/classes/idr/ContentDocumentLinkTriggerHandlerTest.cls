@@ -285,6 +285,10 @@ public class ContentDocumentLinkTriggerHandlerTest {
     }
     List<ContentDocument> cdListNew = [SELECT Id FROM ContentDocument];
     // As new attachment is deleted, list size should not change.
-    system.assertEquals(cdListOld.size(), cdListNew.size(), 'ML email attachment not deleted'); 
+    system.assertEquals(
+      cdListOld.size(),
+      cdListNew.size(),
+      'ML email attachment not deleted'
+    );
   }
 }

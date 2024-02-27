@@ -125,7 +125,7 @@
         <field>Case.IDR_AFCA_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_AFCA_Registration_Response_Provided__c</field>
         <readable>true</readable>
@@ -520,7 +520,7 @@
         <field>Case.IDR_Previously_raised_with_ANZ__c</field>
         <readable>true</readable>
     </fieldPermissions>
-   <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Product_2__c</field>
         <readable>true</readable>

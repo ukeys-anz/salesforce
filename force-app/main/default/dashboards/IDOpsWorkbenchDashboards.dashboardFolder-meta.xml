@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DashboardFolder xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>IDOps Workbench Dashboards</name>
     <folderShares>
         <accessLevel>View</accessLevel>
         <sharedTo>FraudX_Agent</sharedTo>
@@ -10,5 +11,4 @@
         <sharedTo>Join_Lead</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
-    <name>IDOps Workbench Dashboards</name>
 </DashboardFolder>

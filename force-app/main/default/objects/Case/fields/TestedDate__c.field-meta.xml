@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_Determination_Due__c</fullName>
+    <fullName>TestedDate__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Captures due date for stage when the case progresses through post AFCA Response- to Determination.</description>
+    <description>Captures the Data and Time the very first time  all of the KYC QA tests have any values (either yes or no, not blank)</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Determination Due</label>
+    <label>Tested Date</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Date</type>
+    <type>DateTime</type>
 </CustomField>

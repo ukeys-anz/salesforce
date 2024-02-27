@@ -732,6 +732,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.SLATesting__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Signed_Instructions_Supplied__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -748,6 +753,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Subject</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.TestedDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
