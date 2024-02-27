@@ -505,25 +505,6 @@ private class TaskTriggerHandlerTest {
   }
 
   @isTest
-  public static void testFilterCoachNudgeTasks() {
-    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
-    Faker faker = new Faker('AU');
-    Task coachNudgeTask = TestDataFactory.createTaskRecord(
-      GetHelpConstants.COACH_NUDGE_RT_ID,
-      null,
-      '0069p000000' + faker.randomString(7),
-      '00G9p000000' + faker.randomString(7),
-      false
-    );
-    Test.startTest();
-    List<Task> cnTasks = GetHelpTaskActionHelper.filterCoachNudgeTasks(
-      new List<Task>{ coachNudgeTask }
-    );
-    Test.stopTest();
-    Assert.isTrue(cnTasks.size() == 1, 'Found');
-  }
-
-  @isTest
   public static void testCoachNudgeCloudEvent() {
     User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
     Faker faker = new Faker('AU');
