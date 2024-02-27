@@ -45,7 +45,6 @@ public with sharing class GetHelpTaskActionHelper {
         SELECT Id, Source_System_Name__c, Source_System_ID__c
         FROM Account
         WHERE Id IN :accountIdSet
-        WITH SECURITY_ENFORCED
       ]
     );
   }
