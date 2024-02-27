@@ -31,17 +31,14 @@ public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batc
 
   public void execute(Database.BatchableContext bc, List<Task> taskRecords) {
     List<Task> tasksToUpdate = new List<Task>();
-    for (Task taskRecord : taskRecords) {
-      if (String.valueOf(taskRecord.OwnerId).startsWith('00G')) {
-        taskRecord.Status = 'Expired';
-        tasksToUpdate.add(taskRecord);
-      }
+    tasksToUpdate = checkAndUpdateTaskRecords(taskRecords);
+    if (!tasksToUpdate.isEmpty()) {
+      DMLUtil.updateRecords(
+        tasksToUpdate,
+        DMLUtil.ALLOW_PARTIAL_UPDATE,
+        DMLUtil.SYSTEM_MODE
+      );
     }
-    DMLUtil.updateRecords(
-      tasksToUpdate,
-      DMLUtil.ALLOW_PARTIAL_UPDATE,
-      DMLUtil.SYSTEM_MODE
-    );
   }
 
   /**
@@ -58,5 +55,21 @@ public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batc
   public void execute(SchedulableContext sc) {
     CoachNudgeTaskAutoExpireBatch batch = new CoachNudgeTaskAutoExpireBatch();
     Database.executeBatch(batch);
+  }
+
+  /**
+   * @description execute method to run batch class
+   * @param taskRecords task records
+   * @return List<Task> task records after updating
+   */
+  public static List<Task> checkAndUpdateTaskRecords(List<Task> taskRecords) {
+    List<Task> tasksToUpdate = new List<Task>();
+    for (Task taskRecord : taskRecords) {
+      if (String.valueOf(taskRecord.OwnerId).startsWith('00G')) {
+        taskRecord.Status = 'Expired';
+        tasksToUpdate.add(taskRecord);
+      }
+    }
+    return tasksToUpdate;
   }
 }

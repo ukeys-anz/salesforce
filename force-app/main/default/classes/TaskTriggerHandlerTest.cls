@@ -464,35 +464,28 @@ private class TaskTriggerHandlerTest {
 
   @isTest
   public static void testCoachNudgeValidation() {
-    Account acc = [SELECT Id, PersonContactId FROM Account LIMIT 1];
     User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
-
-    ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
-      'Test'
+    Faker faker = new Faker('AU');
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      null,
+      '0069p000000' + faker.randomString(7),
+      '00G9p000000' + faker.randomString(7),
+      false
     );
-    rla.Credit_ID__c = '000-000-000-00';
-    rla.AccountId = acc.Id;
-    insert rla;
-
-    Task coachNudgeTask = new Task(
-      RecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-        .get('Coach_Nudge')
-        .getRecordTypeId(),
-      Type = 'Home Loan Ineligible Nudge',
-      Status = 'Not Started',
-      Priority = 'Normal',
-      ActivityDate = Date.today().addDays(5),
-      WhoId = acc.PersonContactId,
-      WhatId = rla.Id,
-      Description = 'Outbound',
-      Subject = 'ANZPlus-Data-Customer - Coach task',
-      OwnerId = coachUser.Id
-    );
-    insert coachNudgeTask;
+    Test.startTest();
     System.runAs(coachUser) {
       try {
-        coachNudgeTask.Status = 'Expired';
-        update coachNudgeTask;
+        GetHelpTaskActions.checkAndPublishTaskCloudEvent(
+          new List<Task>{ coachNudgeTask },
+          new Map<Id, Task>{ coachNudgeTask.Id => coachNudgeTask }
+        );
+        Task newCoachNudgeTask = coachNudgeTask;
+        newCoachNudgeTask.Status = 'Expired';
+        GetHelpTaskActions.beforeUpdateActions(
+          new List<Task>{ newCoachNudgeTask },
+          new Map<Id, Task>{ coachNudgeTask.Id => coachNudgeTask }
+        );
       } catch (Exception exp) {
         Assert.isTrue(
           exp.getMessage()
@@ -500,6 +493,59 @@ private class TaskTriggerHandlerTest {
           'Error message does not match'
         );
       }
+      Test.stopTest();
     }
+  }
+
+  @isTest
+  public static void testFilterCoachNudgeTasks() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
+    Faker faker = new Faker('AU');
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      null,
+      '0069p000000' + faker.randomString(7),
+      '00G9p000000' + faker.randomString(7),
+      false
+    );
+    Test.startTest();
+    List<Task> cnTasks = GetHelpTaskActionHelper.filterCoachNudgeTasks(
+      new List<Task>{ coachNudgeTask }
+    );
+    Test.stopTest();
+    Assert.isTrue(cnTasks.size() == 1, 'Found');
+  }
+
+  @isTest
+  public static void testCoachNudgeCloudEvent() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
+    Faker faker = new Faker('AU');
+    Id accId = '0019p000000' + faker.randomString(7);
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      accId,
+      '0069p000000' + faker.randomString(7),
+      '00G9p000000' + faker.randomString(7),
+      false
+    );
+    Test.startTest();
+    List<Task> coachNudgeRecords = GetHelpTaskActionHelper.filterCoachNudgeTasks(
+      new List<Task>{ coachNudgeTask }
+    );
+    Set<Id> accountIds = GetHelpTaskActionHelper.getWhoIdFromTask(
+      coachNudgeRecords
+    );
+    Map<ID, Account> accountMap = GetHelpTaskActionHelper.getAccountMap(
+      accountIds
+    );
+    List<CloudEventModel> cloudEventModels = GetHelpTaskActionHelper.getCloudEventModelForCoachNudge(
+      coachNudgeRecords,
+      new Map<Id, Task>{ coachNudgeTask.Id => coachNudgeTask },
+      accountMap
+    );
+    Test.stopTest();
+    Assert.isTrue(coachNudgeRecords.size() == 1, 'Found');
+    Assert.isTrue(accountIds.contains(accId), 'Found');
+    Assert.isTrue(cloudEventModels != null, 'Found');
   }
 }
