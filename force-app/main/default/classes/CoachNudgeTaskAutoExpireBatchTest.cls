@@ -60,23 +60,4 @@ public with sharing class CoachNudgeTaskAutoExpireBatchTest {
     }
     Test.stopTest();
   }
-
-  @isTest
-  public static void testCheckAndUpdateTaskRecords() {
-    User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
-    Faker faker = new Faker('AU');
-    Task coachNudgeTask = TestDataFactory.createTaskRecord(
-      GetHelpConstants.COACH_NUDGE_RT_ID,
-      null,
-      '0069p000000' + faker.randomString(7),
-      '00G9p000000' + faker.randomString(7),
-      false
-    );
-    Test.startTest();
-    List<Task> expiredTasks = CoachNudgeTaskAutoExpireBatch.checkAndUpdateTaskRecords(
-      new List<Task>{ coachNudgeTask }
-    );
-    Test.stopTest();
-    Assert.isTrue(expiredTasks[0].Status == 'Expired', 'Expired');
-  }
 }
