@@ -132,7 +132,9 @@ public with sharing class GetHelpTaskActions {
       if (lableIndex >= 0) {
         String voiceCallSID = comments.substring(
           lableIndex + CALL_SID_PREFIX_LENGTH,
-          lableIndex + CALL_SID_PREFIX_LENGTH + CALL_SID_LENGTH
+          lableIndex +
+          CALL_SID_PREFIX_LENGTH +
+          CALL_SID_LENGTH
         );
         // Re-validate Voice Call SID length
         if (!voiceCallSID.containsWhitespace() && voiceCallSID.length() == 34) {
@@ -171,7 +173,7 @@ public with sharing class GetHelpTaskActions {
         ? (Task) oldMap.get(record.Id)
         : null;
       if (
-        record.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT &&
+        record.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID &&
         (record.Status == 'Actioned' &&
         (oldRec == null ||
         oldRec.Status != 'Actioned')) ||

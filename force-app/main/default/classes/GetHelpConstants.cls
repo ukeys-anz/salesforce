@@ -290,7 +290,7 @@ public with sharing class GetHelpConstants {
     .getRecordTypeId();
 
   // Task Record Type for Coach Nudge
-  public static final String COACH_NUDGE_RT = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+  public static final String COACH_NUDGE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Coach_Nudge')
     .getRecordTypeId();
 

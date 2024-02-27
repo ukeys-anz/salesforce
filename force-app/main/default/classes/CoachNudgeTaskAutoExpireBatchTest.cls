@@ -55,7 +55,7 @@ public with sharing class CoachNudgeTaskAutoExpireBatchTest {
     insert rla;
 
     Task coachNudgeTask = new Task(
-      RecordTypeId = GetHelpConstants.COACH_NUDGE_RT,
+      RecordTypeId = GetHelpConstants.COACH_NUDGE_RT_ID,
       Type = 'Home Loan Ineligible Nudge',
       Status = 'Not Started',
       Priority = 'Normal',
@@ -87,7 +87,7 @@ public with sharing class CoachNudgeTaskAutoExpireBatchTest {
         FROM Task
         WHERE
           ActivityDate < TODAY
-          AND RecordTypeId = :GetHelpConstants.COACH_NUDGE_RT
+          AND RecordTypeId = :GetHelpConstants.COACH_NUDGE_RT_ID
         LIMIT 1
       ][0]
       .Status == 'Expired',
