@@ -3,7 +3,7 @@
  * @since 01/2024
  * @description  Expire All the Coach Nudge Task if due date is reached.
  */
-public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batchable<sObject> {
+public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batchable<sObject>, schedulable {
   /**
    * @description Get all coach nudge task for due date in past
    * @param bc Database.BatchableContext
@@ -18,7 +18,7 @@ public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batc
           ActivityDate < TODAY
           AND ActivityDate = LAST_N_DAYS:3
           AND Status = 'Not Started'
-          AND RecordTypeId = :GetHelpConstants.COACH_NUDGE_RT
+          AND RecordTypeId = :GetHelpConstants.COACH_NUDGE_RT_ID
       ]
     );
   }
@@ -49,5 +49,14 @@ public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batc
    * @param bc Database.BatchableContext
    */
   public void finish(Database.BatchableContext bc) {
+  }
+
+  /**
+   * @description execute method to run batch class
+   * @param sc SchedulableContext
+   */
+  public void execute(SchedulableContext sc) {
+    CoachNudgeTaskAutoExpireBatch batch = new CoachNudgeTaskAutoExpireBatch();
+    Database.executeBatch(batch);
   }
 }
