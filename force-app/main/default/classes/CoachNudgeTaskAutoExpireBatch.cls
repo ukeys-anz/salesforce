@@ -3,7 +3,7 @@
  * @since 01/2024
  * @description  Expire All the Coach Nudge Task if due date is reached.
  */
-public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batchable<sObject>, schedulable {
+public with sharing class CoachNudgeTaskAutoExpireBatch implements Database.Batchable<sObject>, Schedulable {
   /**
    * @description Get all coach nudge task for due date in past
    * @param bc Database.BatchableContext
