@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>PEGA_Dispute_Status__c</field>
-        <value xsi:type="xsd:string">Pending Error</value>
+        <value xsi:type="xsd:string">Pending-Error</value>
     </values>
     <values>
         <field>PEGA_Investigation_Outcome__c</field>
