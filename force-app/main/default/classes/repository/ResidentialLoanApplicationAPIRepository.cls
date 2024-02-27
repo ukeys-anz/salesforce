@@ -59,20 +59,23 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
    * @param verification whether the income is verified
    * @param incomeBody post data of income information
    * @param loanId of the working loan application
+   * @param incomeVerifiedChanged checks if the income verified value has changed
    * @description fetches a list of assets from flex for a sop, deserialized to a model
    */
   public void updateIncome(
     String ocvId,
     String verification,
     String incomeBody,
-    String loanId
+    String loanId,
+    Boolean incomeVerifiedChanged
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
     UUIDLog uuidLog = new UUIDLog(incomeBody);
     HttpCalloutResponse response = s.updateIncome(
       verification,
       ocvId,
-      uuidLog.attachUUID(incomeBody)
+      uuidLog.attachUUID(incomeBody),
+      incomeVerifiedChanged
     );
     if (response.successful == false) {
       uuidLog.insertUUID(loanId, 'BOH - SOP - Update Income');

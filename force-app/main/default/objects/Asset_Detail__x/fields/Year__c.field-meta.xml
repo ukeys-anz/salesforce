@@ -10,10 +10,9 @@
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Year</label>
-    <precision>4</precision>
+    <length>4</length>
     <required>false</required>
-    <scale>0</scale>
     <securityClassification>Confidential</securityClassification>
-    <type>Number</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

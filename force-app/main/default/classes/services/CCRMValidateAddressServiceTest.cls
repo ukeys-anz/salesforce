@@ -12,7 +12,7 @@ public with sharing class CCRMValidateAddressServiceTest {
 
     Test.startTest();
     CCRMValidateAddressService service = new CCRMValidateAddressService();
-    HttpCalloutResponse response = service.getAddresses('Melbourne');
+    HttpCalloutResponse response = service.getAddressesV3('Melbourne');
     Test.stopTest();
 
     System.assertEquals(

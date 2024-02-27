@@ -35,8 +35,8 @@ public without sharing class ManageInactiveFinancialAccountRole {
     } catch (Exception e) {
       Logger.error(
         'Error occured while deleting inactive financial account role records. ' +
-        'More details: ' +
-        e.getMessage()
+          'More details: ' +
+          e.getMessage()
       );
       Logger.saveLog();
     }

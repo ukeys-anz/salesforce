@@ -272,8 +272,7 @@ public with sharing class IDREmailServiceTest {
       //Asserts
       System.assertEquals(
         createdCases[0].Id,
-        [SELECT ParentId FROM EmailMessage LIMIT 1]
-        .ParentId,
+        [SELECT ParentId FROM EmailMessage LIMIT 1].ParentId,
         'Case not updated with email'
       );
     }

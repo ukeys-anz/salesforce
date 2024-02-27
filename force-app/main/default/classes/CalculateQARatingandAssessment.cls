@@ -216,8 +216,8 @@ public with sharing class CalculateQARatingandAssessment {
     for (String keyVal : scoringTable.keySet()) {
       scoringMap.put(
         scoringTable.get(keyVal).Evaluation_Type__c +
-        scoringTable.get(keyVal).CX_Criteria_Field__c +
-        scoringTable.get(keyVal).Rating__c,
+          scoringTable.get(keyVal).CX_Criteria_Field__c +
+          scoringTable.get(keyVal).Rating__c,
         scoringTable.get(keyVal).Score__c
       );
     }
@@ -236,8 +236,8 @@ public with sharing class CalculateQARatingandAssessment {
     for (String keyVal : scoringTable.keySet()) {
       scoringMap.put(
         scoringTable.get(keyVal).Evaluation_Type__c +
-        scoringTable.get(keyVal).CX_Criteria_Field__c +
-        scoringTable.get(keyVal).Rating__c,
+          scoringTable.get(keyVal).CX_Criteria_Field__c +
+          scoringTable.get(keyVal).Rating__c,
         scoringTable.get(keyVal).Score__c
       );
     }

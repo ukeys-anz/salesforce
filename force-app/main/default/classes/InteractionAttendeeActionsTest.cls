@@ -61,9 +61,7 @@ public with sharing class InteractionAttendeeActionsTest {
     newRoleMap.addAttendee(userData.Id, userData.UserRole.Name);
     String serializedString = JSON.serialize(newRoleMap);
     System.assertEquals(
-      '{"userIdToDetails":{"' +
-      userData.Id +
-      '":"Coach"}}',
+      '{"userIdToDetails":{"' + userData.Id + '":"Coach"}}',
       serializedString,
       'RoleMapping does not match.'
     );
@@ -87,10 +85,10 @@ public with sharing class InteractionAttendeeActionsTest {
     String serializedString = JSON.serialize(newRoleMap);
     System.assertEquals(
       '{"userIdToDetails":{"' +
-      fraudUser.Id +
-      '":"FraudX Agent","' +
-      cardUser.Id +
-      '":"Card Dispute Agent"}}',
+        fraudUser.Id +
+        '":"FraudX Agent","' +
+        cardUser.Id +
+        '":"Card Dispute Agent"}}',
       serializedString,
       'RoleMapping record does not match'
     );
@@ -172,10 +170,10 @@ public with sharing class InteractionAttendeeActionsTest {
     testAttendeesRoles = JSON.serialize(newRoleMap);
     System.assertEquals(
       '{"userIdToDetails":{"' +
-      cardUser.Id +
-      '":"Card Dispute Agent","' +
-      fraudUser.Id +
-      '":"FraudX Agent"}}',
+        cardUser.Id +
+        '":"Card Dispute Agent","' +
+        fraudUser.Id +
+        '":"FraudX Agent"}}',
       testAttendeesRoles,
       'RoleMapping record does not match'
     );

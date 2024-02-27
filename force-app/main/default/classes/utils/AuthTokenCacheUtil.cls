@@ -235,7 +235,46 @@ public with sharing class AuthTokenCacheUtil {
     );
     return staffToken;
   }
+  /**
+   * @description retrieves staff token from forgerock via mulesoft
+   * @param staffModelWrapper wrapper for forgeV2 api
+   * @return String staff token
+   * @exception TokenCacheException throws when no token is found
+   */
+  public static String getStaffToken(StaffTokenRequestModel staffModelWrapper) {
+    String staffToken = (String) Cache.Session.get(
+      STAFFPART +
+      'forgeJWTToken' +
+      TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue)
+    );
 
+    if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
+      return staffToken;
+    }
+
+    Integer expiresIn = 300; // default minimum value
+    try {
+      AuthRepository authRepo = new AuthRepository();
+      IdentityModel responseModel = authRepo.getForgeStaffToken(
+        staffModelWrapper
+      );
+      staffToken = responseModel.accessToken;
+      expiresIn = responseModel.expiresIn.intValue();
+    } catch (Exception e) {
+      Logger.error('Unable to retrieve staff token. ' + e.getMessage(), e);
+      Logger.saveLog();
+      throw new TokenCacheException(e.getMessage());
+    }
+
+    Cache.Session.put(
+      STAFFPART +
+      'forgeJWTToken' +
+      TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue),
+      staffToken,
+      expiresIn
+    );
+    return staffToken;
+  }
   /**
    * @description checks expiry date contained in a jwt
    * @param token the JWT to examine, could be azure id token or forge staff token

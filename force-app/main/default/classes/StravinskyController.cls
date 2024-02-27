@@ -175,7 +175,6 @@ public with sharing class StravinskyController {
       WHERE
         FinServ__PrimaryOwner__c = :caseRecord.AccountId
         AND Ownership__c = :GetHelpConstants.SINGLE
-        AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
     ];
   }
 
@@ -189,7 +188,6 @@ public with sharing class StravinskyController {
         FinServ__RelatedAccount__r.OCV_ID__c = :caseRecord.Account.OCV_Id__c
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Ownership__c = :GetHelpConstants.MULTI_PARTY
-        AND FinServ__FinancialAccount__r.FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
         AND (FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
         OR FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME)
     ];

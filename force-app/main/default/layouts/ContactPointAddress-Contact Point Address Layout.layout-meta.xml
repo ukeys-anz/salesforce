@@ -20,6 +20,10 @@
                 <behavior>Edit</behavior>
                 <field>IsDefault</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Persona_Type__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

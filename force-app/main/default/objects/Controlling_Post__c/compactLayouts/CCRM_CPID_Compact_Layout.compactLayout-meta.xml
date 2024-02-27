@@ -4,9 +4,5 @@
     <fields>CPID_Incumbent__c</fields>
     <fields>CPID_Title__c</fields>
     <fields>CPID_Phone__c</fields>
-    <fields>Responsible_Employee_Name__c</fields>
-    <fields>Segment__c</fields>
-    <fields>Area_Code__c</fields>
-    <fields>Is_Active__c</fields>
     <label>CCRM CPID Compact Layout</label>
 </CompactLayout>

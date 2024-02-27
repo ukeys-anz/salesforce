@@ -8,25 +8,13 @@
 public with sharing class CCRMValidateAddressModelTest {
   @isTest
   static void testParseGetAddresses() {
-    CCRMValidateAddressModel obj = CCRMValidateAddressModel.parse(
+    CCRMValidateAddressModelV3 obj = CCRMValidateAddressModelV3.parse(
       Service.getStaticResource('mock_ccrmQasSuccessResponse')
     );
     System.assertNotEquals(
       null,
       obj,
-      'JSON string must be parsed to CCRMValidateAddressModel'
-    );
-  }
-
-  @isTest
-  static void testParseGetAddressesV2() {
-    CCRMValidateAddressModelV2 obj = CCRMValidateAddressModelV2.parse(
-      Service.getStaticResource('mock_ccrmQasSuccessResponseV2')
-    );
-    System.assertNotEquals(
-      null,
-      obj,
-      'JSON string must be parsed to CCRMValidateAddressModelV2'
+      'JSON string must be parsed to CCRMValidateAddressModelV3'
     );
   }
 
@@ -43,14 +31,14 @@ public with sharing class CCRMValidateAddressModelTest {
   }
 
   @isTest
-  static void testParseGetSelectedAddressV2() {
-    CCRMGetSelectedAddressModelV2 obj = CCRMGetSelectedAddressModelV2.parse(
+  static void testParseGetSelectedAddressV3() {
+    CCRMGetSelectedAddressModelV3 obj = CCRMGetSelectedAddressModelV3.parse(
       Service.getStaticResource('mock_ccrmQasSelectedAddressResponseV2')
     );
     System.assertNotEquals(
       null,
       obj,
-      'JSON string must be parsed to CCRMGetSelectedAddressModelV2'
+      'JSON string must be parsed to CCRMGetSelectedAddressModelV3'
     );
   }
 }

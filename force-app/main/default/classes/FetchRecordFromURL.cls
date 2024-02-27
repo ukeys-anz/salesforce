@@ -61,8 +61,8 @@ global without sharing class FetchRecordFromURL implements omnistudio.VlocityOpe
         if (sObjectName.equals('Account')) {
           SObject recordFromDB = Database.query(
             'Select Id, Name From ' +
-            sObjectName +
-            ' WHERE Id = :extractedRecordId'
+              sObjectName +
+              ' WHERE Id = :extractedRecordId'
           );
           recordIdFromDB = String.valueOf(recordFromDB.get('Id'));
           recordNameFromDB = String.valueOf(recordFromDB.get('Name'));
@@ -71,8 +71,8 @@ global without sharing class FetchRecordFromURL implements omnistudio.VlocityOpe
         ) {
           SObject recordFromDB = Database.query(
             'Select AccountId, Account.Name From ' +
-            sObjectName +
-            ' WHERE Id = :extractedRecordId'
+              sObjectName +
+              ' WHERE Id = :extractedRecordId'
           );
           recordIdFromDB = String.valueOf(recordFromDB.get('AccountId'));
           recordNameFromDB = String.valueOf(

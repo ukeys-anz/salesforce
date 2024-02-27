@@ -20,6 +20,6 @@
     </values>
     <values>
         <field>Profile_Name__c</field>
-        <value xsi:type="xsd:string">ANZ ML Standard User;ANZ CCRM Standard User</value>
+        <value xsi:type="xsd:string">ANZ CCRM Standard User</value>
     </values>
 </CustomMetadata>

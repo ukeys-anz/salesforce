@@ -12,6 +12,10 @@ public class ExternalCaseStatusTriggerHandlerTest {
     theCase1.AccountId = newAccount.Id;
     theCase1.FinServ__FinancialAccount__c = newFinServFinancialAccount.Id;
     theCases.add(theCase1);
+    Case theCase2 = TestDataFactory.createCase('NPP_Dispute');
+    theCase2.AccountId = newAccount.Id;
+    theCase2.FinServ__FinancialAccount__c = newFinServFinancialAccount.Id;
+    theCases.add(theCase2);
     insert theCases;
   }
 
@@ -201,6 +205,91 @@ public class ExternalCaseStatusTriggerHandlerTest {
       'Closed',
       theCase.Status,
       'Case status should be Closed'
+    );
+  }
+
+  @isTest
+  private static void testNppExternalCaseStatus() {
+    String recordTypeDeveloperName = 'NPP_Dispute';
+    String predicate =
+      'RecordType.DeveloperName = \'' +
+      recordTypeDeveloperName +
+      '\'';
+    Case theCase = CommonUtil.getCaseRecordWithAllFields(
+      recordTypeDeveloperName,
+      predicate
+    );
+
+    Map<String, Object> dataMap = new Map<String, Object>{
+      'External_System__c' => 'Pega_PRS',
+      'External_Case_Id__c' => 'ABC1234',
+      'Status' => 'Open'
+    };
+    theCase = TestDataFactory.updateCase(theCase, dataMap);
+
+    theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
+    External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
+      Case__c = theCase.Id,
+      External_Status__c = 'Pending Investigation',
+      Status_Event_ID__c = 'Status_Event_ID__c_0'
+    );
+    Test.startTest();
+    insert externalCaseStatus;
+    theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
+    External_Case_Status__c theExternalCaseStatus = [
+      SELECT Id, Internal_Description__c
+      FROM External_Case_Status__c
+      WHERE Id = :externalCaseStatus.Id
+      LIMIT 1
+    ];
+    Test.stopTest();
+    Assert.areEqual('On Hold', theCase.Status, 'Case status should be on hold');
+    Assert.areEqual(
+      'Under investigation',
+      theExternalCaseStatus.Internal_Description__c,
+      'Internal Description should be under investigation'
+    );
+  }
+
+  @isTest
+  private static void testNppDisputeUpdate() {
+    String recordTypeDeveloperName = 'NPP_Dispute';
+    String predicate =
+      'RecordType.DeveloperName = \'' +
+      recordTypeDeveloperName +
+      '\'';
+    Case theCase = CommonUtil.getCaseRecordWithAllFields(
+      recordTypeDeveloperName,
+      predicate
+    );
+
+    Map<String, Object> dataMap = new Map<String, Object>{
+      'External_System__c' => 'Pega_PRS',
+      'External_Case_Id__c' => 'ABC1234'
+    };
+    theCase = TestDataFactory.updateCase(theCase, dataMap);
+
+    theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
+    External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
+      Case__c = theCase.Id,
+      External_Status__c = 'Resolved-Duplicate',
+      Status_Event_ID__c = 'Status_Event_ID__c_0'
+    );
+    Test.startTest();
+    insert externalCaseStatus;
+    theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
+    External_Case_Status__c theExternalCaseStatus = [
+      SELECT Id, Internal_Description__c
+      FROM External_Case_Status__c
+      WHERE Id = :externalCaseStatus.Id
+      LIMIT 1
+    ];
+    Test.stopTest();
+    Assert.areEqual('Closed', theCase.Status, 'Case status should be closed');
+    Assert.areEqual(
+      'Closed as duplicate dispute',
+      theExternalCaseStatus.Internal_Description__c,
+      'Internal Description should be Closed as duplicate dispute'
     );
   }
 }

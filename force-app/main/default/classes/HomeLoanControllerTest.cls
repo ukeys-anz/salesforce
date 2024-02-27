@@ -35,22 +35,24 @@ public inherited sharing class HomeLoanControllerTest {
     finAccounts[0].FinServ__FinancialAccountNumber__c = '111111111';
 
     insert finAccounts;
+  }
+
+  @isTest
+  static void testHomeLoanAccountRetrieve() {
     Set<String> permissionSetAssigned = TestUtil.getUserPermissionSets(
       UserInfo.getUserId()
     );
     if (!permissionSetAssigned.contains('BoH_Read_Only')) {
       TestUtil.addPermissionSets(new List<String>{ 'BoH_Read_Only' });
     }
-  }
 
-  @isTest
-  static void testHomeLoanAccountRetrieve() {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();
       HomeLoanModel response = HomeLoanController.getHomeLoanAccount(
         '2222',
-        null
+        null,
+        ''
       );
 
       Test.stopTest();

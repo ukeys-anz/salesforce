@@ -99,7 +99,7 @@ export default class CustomerInformation extends LightningElement {
     fields[LAST_NAME.fieldApiName] = this.customerInfo.last_name;
     fields[MIDDLE_NAME.fieldApiName] = this.customerInfo.middlename;
     fields[OCV_ID.fieldApiName] = this.customerInfo.ocvId;
-    fields[CP_ID.fieldApiName] = this.customerInfo.capId;
+    fields[CP_ID.fieldApiName] = this.customerInfo.cpId;
     fields[RM_COMPLAINT.fieldApiName] = this.customerInfo.isRmPresent;
     fields[EMAIL_FIELD.fieldApiName] = this.customerInfo.email;
 

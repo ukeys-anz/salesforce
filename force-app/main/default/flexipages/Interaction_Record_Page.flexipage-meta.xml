@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -46,20 +45,20 @@
                 <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-a6a8b7b6-013e-47e4-99a4-c0a0d060f00d</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-a6a8b7b6-013e-47e4-99a4-c0a0d060f00d</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-bkjeuszb0qw</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -78,10 +77,10 @@
                 <identifier>console_relatedRecord</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-bkjeuszb0qw</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-a3263fcf-ad50-4d78-9b3a-75c760ed531e</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -108,10 +107,10 @@
                 <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-a3263fcf-ad50-4d78-9b3a-75c760ed531e</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-fe4054c8-7bce-45d4-b00e-373573b096da</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -154,20 +153,20 @@
                 <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-fe4054c8-7bce-45d4-b00e-373573b096da</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-e2c486af-34eb-4978-9311-b79c470960b0</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
                 <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-e2c486af-34eb-4978-9311-b79c470960b0</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-fc797838-e342-4114-a162-a5d689e36abf</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -186,10 +185,10 @@
                 <identifier>flexipage_tab</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-fc797838-e342-4114-a162-a5d689e36abf</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -210,10 +209,10 @@
                 <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>initiateInteraction</componentName>
@@ -312,6 +311,7 @@
                 <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Call - Interaction Record Page</masterLabel>

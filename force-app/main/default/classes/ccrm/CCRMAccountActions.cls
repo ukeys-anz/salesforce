@@ -6,6 +6,87 @@
  * @runTests CCRMAccountActionsTest
  */
 public with sharing class CCRMAccountActions {
+  private static final List<AccountFieldValidation> ACCOUNT_FIELD_VALIDATION_WRAPPER = new List<AccountFieldValidation>{
+    new AccountFieldValidation(
+      'Name',
+      System.Label.CCRM_NameLengthCheck,
+      40,
+      false,
+      new Set<String>{
+        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+      }
+    ),
+    new AccountFieldValidation(
+      'FinServ__CustomerType__c',
+      System.Label.CCRM_CustomerTypeLengthCheck,
+      2,
+      false,
+      new Set<String>{
+        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+      }
+    ),
+    new AccountFieldValidation(
+      'BillingCity',
+      System.Label.CCRM_CityLengthCheck,
+      15,
+      false,
+      new Set<String>{
+        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+      }
+    ),
+    new AccountFieldValidation(
+      'BillingState',
+      System.Label.CCRM_StateLengthCheck,
+      15,
+      false,
+      new Set<String>{
+        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID)
+      }
+    ),
+    new AccountFieldValidation(
+      'BillingPostalCode',
+      System.Label.CCRM_PostalCodeLengthCheck,
+      9,
+      false,
+      new Set<String>{
+        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+      }
+    ),
+    new AccountFieldValidation(
+      'Sic',
+      System.Label.CCRM_SicCodeLengthCheck,
+      4,
+      false,
+      new Set<String>{
+        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+      }
+    ),
+    new AccountFieldValidation(
+      'ABN__c',
+      System.Label.CCRM_ABNLengthCheck,
+      11,
+      true,
+      new Set<String>{
+        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+      }
+    ),
+    new AccountFieldValidation(
+      'BillingCountry',
+      System.Label.CCRM_CountryCodeLengthCheck,
+      3,
+      true,
+      new Set<String>{
+        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+      }
+    )
+  };
   /**
    * @description This method will update Controlling Post field depending on the CPID provided in Account.
    * @name setControllingPost
@@ -150,11 +231,11 @@ public with sharing class CCRMAccountActions {
    */
   private static List<Task> getRelatedTasks(Set<Id> leadIds) {
     List<Task> taskList = [
-      SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId
+      SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId, CreatedDate
       FROM Task
       WHERE WhoId = :leadIds
       WITH SECURITY_ENFORCED
-      ORDER BY createddate DESC
+      ORDER BY CreatedDate DESC
     ];
     return taskList;
   }
@@ -263,24 +344,6 @@ public with sharing class CCRMAccountActions {
     }
   }
 
-  /**
-   * @description getExistingOrProspectAccounts to check if the Account is an active/inactive or Prospect account
-   * @param accList List of Account
-   * @return AccountWrapper return List of Propsect and Active Account
-   */
-  public static AccountWrapper getExistingOrProspectAccounts(
-    List<Account> accList
-  ) {
-    AccountWrapper accountWrapper = new AccountWrapper();
-    for (Account acc : accList) {
-      if (acc.Is_Prospect__c) {
-        accountWrapper.prospectAccounts.put(acc.Id, acc);
-      } else if (isExistingCustomer(acc)) {
-        accountWrapper.existingAccounts.put(acc.Id, acc);
-      }
-    }
-    return accountWrapper;
-  }
 
   /**
    * @description isExistingCustomer to check if the Account is an active/inactive account or not
@@ -318,6 +381,98 @@ public with sharing class CCRMAccountActions {
   }
 
   /**
+   * @description fetchAccounts fetch List of accounts
+   * @param recordList List of account records,
+   * @param oldMap map of old accounts
+   */
+  public static void validateCustomerInformation(
+    List<Account> recordList,
+    Map<Id, Account> oldMap
+  ) {
+    String newFieldValue = '';
+    String oldFieldValue = '';
+
+    //iterate over modified customer records
+    for (Account iterator : recordList) {
+      //iterate of field list for validation
+      for (
+        AccountFieldValidation accFieldValidationIterator : ACCOUNT_FIELD_VALIDATION_WRAPPER
+      ) {
+        //skip to next record if not a valid record type
+        if (
+          !accFieldValidationIterator.customerRecordTypeSet.contains(
+            iterator.RecordTypeId
+          )
+        ) {
+          continue;
+        }
+        //get updated field value and trim extra spaces if required to check length
+        newFieldValue = String.isNotBlank(newFieldValue)
+          ? accFieldValidationIterator.trimSpaces
+              ? (String.valueOf(
+                    iterator.get(accFieldValidationIterator.fieldName)
+                  ))
+                  .replace(' ', '')
+              : String.valueOf(
+                  iterator.get(accFieldValidationIterator.fieldName)
+                )
+          : '';
+        //get old field value
+        oldFieldValue = oldMap != null
+          ? String.valueOf(
+              oldMap.get(iterator.Id).get(accFieldValidationIterator.fieldName)
+            )
+          : '';
+        //check if length is greater than specified field length
+        //and add error
+        if (
+          (String.isBlank(oldFieldValue) || newFieldValue != oldFieldValue) &&
+          newFieldValue.length() > accFieldValidationIterator.fieldLength
+        ) {
+          iterator.addError(accFieldValidationIterator.validationMessage);
+        }
+      }
+    }
+  }
+
+  /**
+   * @author Ankita
+   * @since  09/2023
+   * @group CCRM (Commercial CRM)
+   * @description AccountFieldValidation wrapper class to maintain field validation for Account
+   * @name AccountFieldValidation
+   */
+  private class AccountFieldValidation {
+    String fieldName;
+    String validationMessage;
+    Integer fieldLength;
+    Boolean trimSpaces;
+    Set<String> customerRecordTypeSet;
+
+    /**
+     * @description AccountFieldValidation wrapper class to maintain field validation for Account
+     * @param fieldName Field Name
+     * @param validationMessage Field validation message
+     * @param fieldLength Field length
+     * @param trimSpaces Replace value
+     * @param customerRecordTypeSet list of allowed record types
+     */
+    private AccountFieldValidation(
+      String fieldName,
+      String validationMessage,
+      Integer fieldLength,
+      Boolean trimSpaces,
+      Set<String> customerRecordTypeSet
+    ) {
+      this.fieldName = fieldName;
+      this.fieldLength = fieldLength;
+      this.validationMessage = validationMessage;
+      this.trimSpaces = trimSpaces;
+      this.customerRecordTypeSet = new Set<String>(customerRecordTypeSet);
+    }
+  }
+
+  /**
    * @author Naman Garg
    * @since  09/2023
    * @group CCRM (Commercial CRM)
@@ -327,6 +482,20 @@ public with sharing class CCRMAccountActions {
   public class AccountWrapper {
     public Map<Id, Account> prospectAccounts = new Map<Id, Account>();
     public Map<Id, Account> existingAccounts = new Map<Id, Account>();
+
+  /**
+   * @description AccountWrapper constructor to check if the Account is an active/inactive or Prospect account
+   * @param accList List of Account
+   */
+    public AccountWrapper(List<Account> accList){
+      for (Account acc : accList) {
+        if (acc.Is_Prospect__c) {
+          prospectAccounts.put(acc.Id, acc);
+        } else if (isExistingCustomer(acc)) {
+          existingAccounts.put(acc.Id, acc);
+        }
+      }
+    }
   }
 
   /**

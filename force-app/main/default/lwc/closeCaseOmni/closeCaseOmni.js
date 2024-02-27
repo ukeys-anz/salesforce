@@ -6,6 +6,7 @@ const FAILURE_TO_RESPOND = "61";
 const REFERRED_TO_PRODUCT = "3";
 const OTHER = "99";
 const REMS = ["1", "10", "18"];
+
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -22,6 +23,10 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
   callCloseCaseIP() {
     this.missingFields = [];
     this.modalMsg = "";
+    let shouldBreak = this.validateIssueTypeFieldValues();
+    if (shouldBreak) {
+      return;
+    }
     this.validateFields();
     if (this.missingFields.length > 0) {
       if (this.missingFields.length > 0) {
@@ -66,11 +71,51 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       });
     }
   }
-
+  validateIssueTypeFieldValues() {
+    let details = this.omniJsonData.Case;
+    let issueTypeCombinationMap = this.omniJsonData.issueTypeCombinationMap;
+    let originalValues = this.omniJsonData.originalValues;
+    let proceed = false;
+    if (
+      originalValues.Type !== details.Type ||
+      originalValues.IDR_Subsequent_Issue__c !== details.IDR_Subsequent_Issue__c
+    ) {
+      if (details.Type in issueTypeCombinationMap) {
+        let issueTypeArray = issueTypeCombinationMap[details.Type];
+        if (issueTypeArray.includes(details.IDR_Subsequent_Issue__c)) {
+          proceed = true;
+        }
+      }
+      if (originalValues.Type in issueTypeCombinationMap) {
+        let issueTypeArray = issueTypeCombinationMap[originalValues.Type];
+        if (issueTypeArray.includes(originalValues.IDR_Subsequent_Issue__c)) {
+          proceed = true;
+        }
+      }
+    }
+    if (proceed) {
+      this.showModal = true;
+      this.modalMsg =
+        "If editing or updating an issue type that triggers a collection stop, please make the amendment on the case record directly";
+    }
+    return proceed;
+  }
   // validate that all the required fields data has been provided
   validateFields() {
     let details = this.omniJsonData.Case;
     this.checkFields(details, this.omniJsonData.closeReqMap);
+    if (
+      details.Type === undefined ||
+      details.Type === null ||
+      details.Type === ""
+    )
+      this.missingFields.push("Issue Type");
+    if (
+      details.IDR_Subsequent_Issue__c === undefined ||
+      details.IDR_Subsequent_Issue__c === null ||
+      details.IDR_Subsequent_Issue__c === ""
+    )
+      this.missingFields.push("Subsequent Issue Type");
     if (
       details.ComplaintRemedy1 === REFERRED_TO_PRODUCT &&
       !details.detailsOfComplaint1

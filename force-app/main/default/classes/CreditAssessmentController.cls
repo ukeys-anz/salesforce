@@ -198,8 +198,8 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     //Remove null as a potential check so we dont get random users with no fed ids
     List<User> userList = systemActions.query(
       'SELECT Name, FederationIdentifier FROM User WHERE FederationIdentifier != null AND FederationIdentifier IN (' +
-      emails +
-      ')'
+        emails +
+        ')'
     );
 
     for (User user : userList) {

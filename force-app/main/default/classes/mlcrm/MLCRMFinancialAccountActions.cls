@@ -74,4 +74,65 @@ public class MLCRMFinancialAccountActions {
       }
     }
   }
+
+  /**
+   * @description map Product to Finacial Account for Legacy/Existint Data. It will do value change in Place, update statement is inside batch.
+   * @name populateANZProductForLegacyRecords
+   * @param records The Financial Account records passed from FinAccountSetProductLookupBatch
+   * @param mapOfSubCodeToProduct Map of ProductCode to Product
+   * @param ignoreList  map productCode which are not found in existing Product records. ProductCode -> Total Occurance.
+   * @return return totalMapped Records.
+   */
+  public static Integer populateANZProductForLegacyRecords(
+    List<FinServ__FinancialAccount__c> records,
+    Map<String, Product2> mapOfSubCodeToProduct,
+    Map<string, integer> ignoreList
+  ) {
+    Integer totalRecordsMapped = 0;
+
+    for (FinServ__FinancialAccount__c objFinancialAccount : records) {
+      String accountPdtSubCode = objFinancialAccount.Product_SubCode__c;
+      String accountPdtType = objFinancialAccount.Product_Type__c;
+
+      // If ProductSubCode is populated in FinAcc
+      if (accountPdtSubCode != null) {
+        // There exists Product matching with Subcode, map this Product to FinAcc
+        if (mapOfSubCodeToProduct.containsKey(accountPdtSubCode)) {
+          objFinancialAccount.FinServ__ProductName__c = mapOfSubCodeToProduct.get(
+              accountPdtSubCode
+            )
+            .Id;
+          totalRecordsMapped += 1;
+        } else {
+          // Else: Move this productCode to ignoreList
+          if (ignoreList.containsKey(accountPdtSubCode)) {
+            ignoreList.put(
+              accountPdtSubCode,
+              ignoreList.get(accountPdtSubCode) + 1
+            );
+          } else {
+            ignoreList.put(accountPdtSubCode, 1);
+          }
+        }
+      } else if (accountPdtType != null) {
+        // If ProductCode is not Populated and ProductType is Populated
+        // If Product Exists with Matching ProductType then map FinAcc with this Product
+        if (mapOfSubCodeToProduct.containsKey(accountPdtType)) {
+          objFinancialAccount.FinServ__ProductName__c = mapOfSubCodeToProduct.get(
+              accountPdtType
+            )
+            .Id;
+          totalRecordsMapped += 1;
+        } else {
+          // Else Move Product Type to ignore list
+          if (ignoreList.containsKey(accountPdtType)) {
+            ignoreList.put(accountPdtType, ignoreList.get(accountPdtType) + 1);
+          } else {
+            ignoreList.put(accountPdtType, 1);
+          }
+        }
+      }
+    }
+    return totalRecordsMapped;
+  }
 }

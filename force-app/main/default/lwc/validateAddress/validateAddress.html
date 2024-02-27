@@ -38,8 +38,8 @@
                 <template lwc:if={displayAddresses}>
                   <template for:each={addressList} for:item="addr">
                     <li
-                      key={addr.encodedAddressId}
-                      data-id={addr.encodedAddressId}
+                      key={addr.global_address_key}
+                      data-id={addr.global_address_key}
                       onmousedown={selectAddress}
                       role="presentation"
                       class={addr.background}

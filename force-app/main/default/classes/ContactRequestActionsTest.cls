@@ -192,9 +192,9 @@ public with sharing class ContactRequestActionsTest {
       expectedEndDate,
       newInteraction.EndTime,
       'The end time of the interaction must be ' +
-      duration +
-      ' minutes after the start time ' +
-      appointmentDate
+        duration +
+        ' minutes after the start time ' +
+        appointmentDate
     );
 
     System.assertEquals(
@@ -349,9 +349,9 @@ public with sharing class ContactRequestActionsTest {
       expectedEndDate,
       newInteraction.EndTime,
       'The end time of the interaction must be ' +
-      duration +
-      ' minutes after the start time ' +
-      appointmentDate
+        duration +
+        ' minutes after the start time ' +
+        appointmentDate
     );
 
     System.assertEquals(

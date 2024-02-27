@@ -92,9 +92,7 @@ public with sharing class GetHelpCaseActionsHelperTest {
     Assert.areEqual(
       COB_CASES_COUNT,
       casesByIds.size(),
-      'There should be ' +
-      COB_CASES_COUNT +
-      ' cases.'
+      'There should be ' + COB_CASES_COUNT + ' cases.'
     );
   }
 
