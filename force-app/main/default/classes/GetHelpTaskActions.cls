@@ -16,9 +16,6 @@ public with sharing class GetHelpTaskActions {
   public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
   public static final Integer CALL_SID_LENGTH = 34;
   public static final String TASK_STATUS_EXPIRED = 'Expired';
-  public static final Id COACH_NUDGE_RECORD_TYPE_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-    .get('Coach_Nudge')
-    .getRecordTypeId();
   @TestVisible
   public static final String TASK_STATUS_EXPIRED_ERROR_MESSAGE = 'Status Cannot be changed to \'Expired\' manually.';
 
@@ -152,40 +149,23 @@ public with sharing class GetHelpTaskActions {
     List<Task> records,
     Map<Id, SObject> oldMap
   ) {
-    List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
-    List<Id> accountIds = new List<Id>();
-    for (Task record : records) {
-      if (record.whoId != null) {
-        accountIds.add(record.whoId);
-      }
-    }
-    Map<ID, Account> accountMap = new Map<ID, Account>(
-      [
-        SELECT Id, Source_System_Name__c, Source_System_ID__c
-        FROM Account
-        WHERE Id IN :accountIds
-      ]
+    List<Task> coachNudgeRecords = GetHelpTaskActionHelper.filterCoachNudgeTasks(
+      records
     );
-    for (Task record : records) {
-      Task oldRec = (oldMap != null && oldMap.containsKey(record.Id))
-        ? (Task) oldMap.get(record.Id)
-        : null;
-      if (
-        record.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT &&
-        (record.Status == 'Actioned' &&
-        (oldRec == null ||
-        oldRec.Status != 'Actioned')) ||
-        (record.Status == 'Expired' &&
-        (oldRec == null ||
-        oldRec.Status != 'Expired'))
-      ) {
-        cloudEventModels.add(
-          new NudgeTaskCloudEventModel(record, accountMap.get(record.whoId))
-        );
-      }
-    }
+    Set<Id> accountIds = GetHelpTaskActionHelper.getWhoIdFromTask(
+      coachNudgeRecords
+    );
+    Map<ID, Account> accountMap = GetHelpTaskActionHelper.getAccountMap(
+      accountIds
+    );
+    List<CloudEventModel> cloudEventModels = GetHelpTaskActionHelper.getCloudEventModelForCoachNudge(
+      coachNudgeRecords,
+      (Map<Id, Task>) oldMap,
+      accountMap
+    );
     CloudEventController.publishCloudEvents(cloudEventModels);
   }
+
   /**
    * @description beforeUpdateActions is called onBeforeUpdate. any logic that needs to be executed on before update is executed from here
    * @param records The Task record list.
@@ -211,7 +191,7 @@ public with sharing class GetHelpTaskActions {
       Task oldTask = oldMap.get(tsk.Id);
       if (
         !System.isBatch() &&
-        tsk.RecordTypeId == COACH_NUDGE_RECORD_TYPE_ID &&
+        tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID &&
         tsk.Status == TASK_STATUS_EXPIRED &&
         tsk.Status != oldTask.Status
       ) {

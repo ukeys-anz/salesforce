@@ -3,8 +3,13 @@
  * @since  01/2024
  * @description Wrapper Class for Tasks' metadata and data
  */
-@SuppressWarnings('PMD.ApexDoc, PMD.PropertyNamingConventions')
+@SuppressWarnings('PMD.PropertyNamingConventions')
 public virtual without sharing class TaskCloudEventModel extends CloudEventModel {
+  /**
+   * @description Constructor
+   * @param theTask The task record
+   * @param theAccount the account record
+   */
   public TaskCloudEventModel(Task theTask, Account theAccount) {
     super();
     ce_source = 'com.anzx.salesforce.interaction.v1alpha1';
