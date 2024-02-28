@@ -226,9 +226,7 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
         if (profileNameSet.contains(CURRENT_USER_PROFILE.Name)) {
           mapObjectField = populateObjectFieldMap(
             mapObjectField,
-            custIdenIter.Object_Name__c +
-            '-' +
-            custIdenIter.RecordType_Name__c,
+            custIdenIter.Object_Name__c + '-' + custIdenIter.RecordType_Name__c,
             custIdenIter.Field_Name__c
           );
         }

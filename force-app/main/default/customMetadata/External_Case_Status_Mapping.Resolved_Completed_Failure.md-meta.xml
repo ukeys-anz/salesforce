@@ -8,7 +8,7 @@
     </values>
     <values>
         <field>Internal_Description__c</field>
-        <value xsi:type="xsd:string">Funds not able to be returned to the sender.</value>
+        <value xsi:type="xsd:string">Dispute Unsuccessful</value>
     </values>
     <values>
         <field>PEGA_Dispute_Status__c</field>

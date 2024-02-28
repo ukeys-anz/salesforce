@@ -15,8 +15,8 @@ public with sharing class IDRComplaintResolutionMigrationBatch implements Databa
   public Database.QueryLocator start(Database.BatchableContext bc) {
     return Database.getQueryLocator(
       'SELECT Id, IDR_Complaint_Remedy__c, IDR_Complaint_Remedy_2__c, IDR_Complaint_Remedy_3__c, IDR_Complaint_Sub_Remedy__c, IDR_Complaint_Sub_Remedy_2__c, IDR_Complaint_Sub_Remedy_3__c, IDR_Other_Remedy_Provided__c, IDR_Other_Remedy_Provided_2__c, IDR_Other_Remedy_Provided_3__c, IDR_Financial_Compensation__c, IDR_Financial_Compensation_2__c, IDR_Financial_Compensation_3__c, IDR_Financial_Remedy_Points__c, IDR_Financial_Remedy_Points_2__c, IDR_Financial_Remedy_Points_3__c, Provided_details_to_Product_Manufacturer__c, Provided_details_to_Prod_Manufacturer_2__c, Provided_details_to_Prod_Manufacturer_3__c, IDR_Duration_of_Remedy__c, IDR_Duration_of_Remedy_2__c, IDR_Duration_of_Remedy_3__c, IDR_Total_Financial_Amount__c ' +
-      'FROM Case ' +
-      'WHERE ( IDR_Other_Remedy_Provided__c != null OR IDR_Financial_Remedy_Points__c != null OR IDR_Financial_Compensation__c != null OR IDR_Duration_of_Remedy__c != null OR IDR_Complaint_Sub_Remedy__c != null OR IDR_Complaint_Remedy__c != null ) AND (RecordType.Name = \'Customer Complaint\' OR RecordType.Name = \'Non-Customer Complaint\') AND LastModifiedBy.Email != \'adnanuddin.mohammed@anz.com\''
+        'FROM Case ' +
+        'WHERE ( IDR_Other_Remedy_Provided__c != null OR IDR_Financial_Remedy_Points__c != null OR IDR_Financial_Compensation__c != null OR IDR_Duration_of_Remedy__c != null OR IDR_Complaint_Sub_Remedy__c != null OR IDR_Complaint_Remedy__c != null ) AND (RecordType.Name = \'Customer Complaint\' OR RecordType.Name = \'Non-Customer Complaint\') AND LastModifiedBy.Email != \'adnanuddin.mohammed@anz.com\''
     );
   }
 

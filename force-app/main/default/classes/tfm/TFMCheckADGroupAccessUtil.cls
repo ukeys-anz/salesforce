@@ -8,7 +8,7 @@ public with sharing class TFMCheckADGroupAccessUtil {
   /**
    * @param func Enum for specifying which type of fuction user wants to perform
    * @param token ocv id or persona Id or Mobile
-   * @return Boolean validating the user
+   * @return String validating the user
    * @description sets Authorization required for a callout
    */
   public static String checkADGroupWithfunctionality(
@@ -18,7 +18,7 @@ public with sharing class TFMCheckADGroupAccessUtil {
     String validUser = 'false';
     //strip jwt header
     List<String> tokenParts = token.split('\\.');
-    //decode claims to json map, the first part is header, second part is claims
+    //decode token to json map, the first part is header
     String decodedString = EncodingUtil.base64Decode(
         CommonUtil.base64URLToBase64(tokenParts[1])
       )
@@ -39,12 +39,10 @@ public with sharing class TFMCheckADGroupAccessUtil {
     List<String> adGroupsValueList = groupWithFuncMdt.AssociatedGroups__c.split(
       ','
     );
-    for (String adGroup : adGroupsValueList) {
-      for (String role : rolesAsStrings) {
-        if (adGroup.equals(role)) {
-          validUser = 'true';
-          return validUser;
-        }
+    for (String roleInClaim : adGroupsValueList) {
+      if (rolesAsStrings.contains(roleInClaim)) {
+        validUser = 'true';
+        return validUser;
       }
     }
     return validUser;
