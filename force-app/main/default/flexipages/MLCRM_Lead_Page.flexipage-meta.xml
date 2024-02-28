@@ -210,30 +210,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.MobilePhone</fieldItem>
                 <identifier>RecordMobilePhoneField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.MobilePhone</fieldItem>
-                <identifier>RecordMobilePhoneField3</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -244,30 +220,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Home_Phone__c</fieldItem>
                 <identifier>RecordHome_Phone_cField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Home_Phone__c</fieldItem>
-                <identifier>RecordHome_Phone_cField3</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -278,30 +230,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Work_Phone__c</fieldItem>
                 <identifier>RecordWork_Phone_cField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Work_Phone__c</fieldItem>
-                <identifier>RecordWork_Phone_cField3</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -312,30 +240,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Email</fieldItem>
                 <identifier>RecordEmailField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Email</fieldItem>
-                <identifier>RecordEmailField3</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
