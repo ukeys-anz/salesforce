@@ -42,6 +42,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
     GetHelpCaseActions.populateOCVOnComplaint(records);
+    GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
     AutoKYCQACaseActions kycCaseActions = new AutoKYCQACaseActions(
       (List<Case>) records,
       new Map<Id, Case>()
@@ -95,6 +96,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
+    GetHelpCaseActions.handleProvisionallyClosedDateTimeField(oldMap, records);
     GetHelpCaseActions.updateEntitlementOnConvertedCase(
       (Map<Id, Case>) oldMap,
       (List<Case>) records
@@ -142,7 +144,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     );
 
     autoKYCQACaseActions.onBeforeUpdate();
-
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }

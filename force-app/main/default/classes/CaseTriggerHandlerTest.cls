@@ -1,5 +1,6 @@
 // CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
 // NcssTypeCount Surpressed : The line of code for this test is more than it is expected.
+
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssTypeCount')
 @IsTest
 private class CaseTriggerHandlerTest {
@@ -3473,8 +3474,8 @@ private class CaseTriggerHandlerTest {
       insert externalCaseStatus;
 
       theCase.Status = 'Closed';
-      update theCase;
       Test.stopTest();
+      update theCase;
     }
 
     String taskRecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()

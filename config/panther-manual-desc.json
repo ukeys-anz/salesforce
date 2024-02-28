@@ -907,7 +907,8 @@
         "Provided_details_to_Prod_Manufacturer_2__c",
         "Provided_details_to_Prod_Manufacturer_3__c",
         "Has_complaint_met_RG_271_delay_criteria__c",
-        "How_has_delay_criteria_been_met_not_met__c"
+        "How_has_delay_criteria_been_met_not_met__c",
+        "Date_Time_Provisionally_Closed__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",

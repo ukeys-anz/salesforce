@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Customer_Action_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read only for anzx roles</description>
+        <label>Customer Action Read Only</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Created__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Settlement_Role_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Access for settlement officer and settlement lead</description>
+        <label>Settlement Role Read/Write</label>
+        <sharedTo>
+            <roleAndSubordinates>Settlement_Officer_Lead</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Created__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>
