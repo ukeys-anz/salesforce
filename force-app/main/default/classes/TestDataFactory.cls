@@ -640,4 +640,40 @@ public without sharing class TestDataFactory {
     insert finAccount;
     return finAccount;
   }
+
+  /**
+   * @description to create task record
+   * @param recordTypeId Id
+   * @param whoId Id
+   * @param whatId Id
+   * @param ownerId Id
+   * @param isInsert Boolean
+   * @return Task record
+   */
+  public static Task createTaskRecord(
+    Id recordTypeId,
+    Id whoId,
+    Id whatId,
+    Id ownerId,
+    Boolean isInsert
+  ) {
+    Faker faker = new Faker('AU');
+    Task tsk = new Task();
+    tsk.recordtypeId = recordTypeId;
+    tsk.Status = 'Not Started';
+    tsk.Priority = 'Low';
+    tsk.Subject = faker.randomString(15);
+    tsk.WhatId = whatId;
+    tsk.WhoId = whoId;
+    tsk.OwnerId = ownerId;
+    tsk.ActivityDate = null;
+    tsk.Description = faker.randomString(30);
+
+    if (isInsert) {
+      insert tsk;
+    } else {
+      tsk.Id = '00TAD000005' + faker.randomString(7);
+    }
+    return tsk;
+  }
 }

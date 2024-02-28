@@ -4097,6 +4097,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Task.Coach_Action__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Task.Completed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4208,6 +4213,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.PSI_or_DSI__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Pega_CDH_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -279,6 +279,9 @@ public with sharing class GetHelpConstants {
     'ANZ Plus App'
   };
 
+  // Permission Set Group Name
+  public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
+
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
 
@@ -288,6 +291,11 @@ public with sharing class GetHelpConstants {
   // Task Record Type for Email Case
   public static final String TASK_EMAIL_RT = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Email_Task')
+    .getRecordTypeId();
+
+  // Task Record Type for Coach Nudge
+  public static final String COACH_NUDGE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Coach_Nudge')
     .getRecordTypeId();
 
   // Email Task Description

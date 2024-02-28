@@ -1758,6 +1758,10 @@
         <recordType>Task.IDR_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Coach Nudge Layout</layout>
+        <recordType>Task.Coach_Nudge</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Task-SI Task Layout</layout>
         <recordType>Task.Systemic_Issue_Task</recordType>
     </layoutAssignments>
