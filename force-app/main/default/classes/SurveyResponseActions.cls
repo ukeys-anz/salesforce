@@ -78,14 +78,18 @@ public with sharing class SurveyResponseActions {
     List<qualtrics__Survey_Response__c> records
   ) {
     Set<Id> accountIds = new Set<Id>();
+    Set<String> queueNames = new Set<String>();
     List<Case> casesToCreate = new List<Case>();
     List<qualtrics__Survey_Response__c> responsesRequireCase = new List<qualtrics__Survey_Response__c>();
+    Map<String, String> queueNameToIdMap = new Map<String, String>();
     for (qualtrics__Survey_Response__c record : records) {
       if (record.Create_Case__c) {
         accountIds.add(record.qualtrics__Account__c);
         responsesRequireCase.add(record);
+        queueNames.add(record.Case_Queue__c);
       }
     }
+    queueNameToIdMap = fetchQueueNameAndId(queueNames);
 
     if (accountIds.size() > 0 && responsesRequireCase.size() > 0) {
       Map<Id, Account> accountsMap = new Map<Id, Account>(
@@ -94,13 +98,36 @@ public with sharing class SurveyResponseActions {
 
       casesToCreate = SurveyResponseActionsHelper.buildCaseList(
         accountsMap,
-        responsesRequireCase
+        responsesRequireCase,
+        queueNameToIdMap
       );
 
       List<Database.SaveResult> results = Database.Insert(casesToCreate, false);
       Logger.error('', results);
       Logger.saveLog();
     }
+  }
+
+  /**
+   * @description fetchQueueNameAndId to map the queue name and its Id for assigning the case owner
+   * @param queueNames Holds the name of the queue.
+   * @return Map<String, String> queue name and queue Id
+   */
+  private static Map<String, String> fetchQueueNameAndId(
+    Set<String> queueNames
+  ) {
+    Map<String, String> queueNameToIdMap = new Map<String, String>();
+    for (Group queue : [
+      SELECT Id, Name
+      FROM Group
+      WHERE
+        Type = 'Queue'
+        AND (DeveloperName IN :queueNames
+        OR Name IN :queueNames)
+    ]) {
+      queueNameToIdMap.put(queue.Name, queue.Id);
+    }
+    return queueNameToIdMap;
   }
 
   /**

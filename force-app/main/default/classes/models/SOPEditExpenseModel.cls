@@ -23,5 +23,6 @@ public class SOPEditExpenseModel {
     public Boolean leafNode;
     public String etag;
     public String hemState;
+    public String justificationCode;
   }
 }
