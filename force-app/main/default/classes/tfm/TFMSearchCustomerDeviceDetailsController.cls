@@ -59,13 +59,6 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    List<String> deviceIdsList = new List<String>();
-    String deviceResourceId;
-    String appCorrelationId;
-    String dRName;
-    Map<String, Object> responseMap = new Map<String, Object>();
-    Map<String, Object> transformedDeviceDetails = new Map<String, Object>();
-    List<Map<String, Object>> transformedDeviceDetailsList = new List<Map<String, Object>>();
     PersonDigtialIdentity digitalIdentity = new PersonDigtialIdentity();
     String recordId = (String) input.get('recordId');
     if (Test.isRunningTest()) {
@@ -103,51 +96,7 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
       //removing valid action from header
       headers.remove('isValidAction');
       if (isValid == 'true') {
-        deviceIdsList = digitalIdentity.credentialsResId.split(',');
-        for (String deviceId : deviceIdsList) {
-          if (deviceId.startsWith(DEVICEIDPREFIX)) {
-            deviceResourceId = deviceId.removeStartIgnoreCase(DEVICEIDPREFIX);
-            HttpCalloutResponse response = apiRep.getDeviceDetailsWithoutBiometric(
-              staffModel,
-              digitalIdentity.internalUserId,
-              deviceResourceId
-            );
-            responseMap = (Map<String, Object>) JSON.deserializeUntyped(
-              response.body
-            );
-            dRName = DRNAMEWITHOUTBIOMETRIC;
-          } else if (deviceId.startsWith(APPCORRELATIONIDPREFIX)) {
-            List<Map<String, Object>> biometricAttestationIdConstantsList = getBiometricAttestationIdConstants();
-            appCorrelationId = deviceId.subString(
-              4,
-              deviceId.indexOfIgnoreCase('(')
-            );
-            deviceResourceId = deviceId.substring(
-              deviceId.indexOfIgnoreCase('(') + 1,
-              deviceId.indexOfIgnoreCase(')')
-            );
-            HttpCalloutResponse response = apiRep.getDeviceDetailsWithBiometric(
-              staffModel,
-              digitalIdentity.internalUserId,
-              appCorrelationId
-            );
-            responseMap = (Map<String, Object>) JSON.deserializeUntyped(
-              response.body
-            );
-            responseMap.put('deviceResourceId', deviceResourceId);
-            responseMap.put(
-              'biometricConstants',
-              (Object) biometricAttestationIdConstantsList
-            );
-            dRName = DRNAMEWITHBIOMETRIC;
-          }
-          transformedDeviceDetails = transformAPIResponseToUIResponse(
-            responseMap,
-            dRName
-          );
-          transformedDeviceDetailsList.add(transformedDeviceDetails);
-        }
-        output.put('devices', transformedDeviceDetailsList);
+        output.put('devices', getDetails(digitalIdentity, apiRep, staffModel));
         return true;
       } else {
         output.put('noDevices', true);
@@ -157,15 +106,80 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
   }
 
   /**
+   * @param digitalIdentity PersonDigtialIdentity record
+   * @param apiRep TFMSearchCustomerAPIRepository response
+   * @param staffModel StaffTokenRequestModel wrapper class details
+   * @return `List<Map<String, Object>>`
+   * @description called from getDeviceDetails for fetching Biometric details
+   */
+  private List<Map<String, Object>> getDetails(
+    PersonDigtialIdentity digitalIdentity,
+    TFMSearchCustomerAPIRepository apiRep,
+    StaffTokenRequestModel staffModel
+  ) {
+    Map<String, Object> transformedDeviceDetails = new Map<String, Object>();
+    List<Map<String, Object>> transformedDeviceDetailsList = new List<Map<String, Object>>();
+    List<String> deviceIdsList = new List<String>();
+    String deviceResourceId;
+    String dRName;
+    String appCorrelationId;
+    Map<String, Object> responseMap = new Map<String, Object>();
+    deviceIdsList = digitalIdentity.credentialsResId.split(',');
+    for (String deviceId : deviceIdsList) {
+      if (deviceId.startsWith(DEVICEIDPREFIX)) {
+        deviceResourceId = deviceId.removeStartIgnoreCase(DEVICEIDPREFIX);
+        HttpCalloutResponse response = apiRep.getDeviceDetailsWithoutBiometric(
+          staffModel,
+          digitalIdentity.internalUserId,
+          deviceResourceId
+        );
+        responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+          response.body
+        );
+        dRName = DRNAMEWITHOUTBIOMETRIC;
+      } else if (deviceId.startsWith(APPCORRELATIONIDPREFIX)) {
+        List<Map<String, Object>> biometricAttestationIdConstantsList = getBiometricAttestationIdConstants();
+        appCorrelationId = deviceId.subString(
+          4,
+          deviceId.indexOfIgnoreCase('(')
+        );
+        deviceResourceId = deviceId.substring(
+          deviceId.indexOfIgnoreCase('(') + 1,
+          deviceId.indexOfIgnoreCase(')')
+        );
+        HttpCalloutResponse response = apiRep.getDeviceDetailsWithBiometric(
+          staffModel,
+          digitalIdentity.internalUserId,
+          appCorrelationId
+        );
+        responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+          response.body
+        );
+        responseMap.put('deviceResourceId', deviceResourceId);
+        responseMap.put(
+          'biometricConstants',
+          (Object) biometricAttestationIdConstantsList
+        );
+        dRName = DRNAMEWITHBIOMETRIC;
+      }
+      transformedDeviceDetails = transformAPIResponseToUIResponse(
+        responseMap,
+        dRName
+      );
+      transformedDeviceDetailsList.add(transformedDeviceDetails);
+    }
+    return transformedDeviceDetailsList;
+  }
+
+  /**
    * @return List<Map<String,Object>>
    * @description gets the Biometric Attestation ID constants from Custom Metadata
    */
   private List<Map<String, Object>> getBiometricAttestationIdConstants() {
     List<Map<String, Object>> biometricAttestationIdConstantsList = new List<Map<String, Object>>();
-    List<String> biometricConstantsList = TFMBiometricAttestationIdConstants__mdt.getInstance(
-        'Constants'
-      )
-      .Constants__c.split(',');
+    List<String> biometricConstantsList = System.Label.TFMBiometricAttestationIdConstants.split(
+      ','
+    );
     for (String biometricConstant : biometricConstantsList) {
       biometricAttestationIdConstantsList.add(
         new Map<String, Object>{ 'constant' => (Object) biometricConstant }

@@ -612,8 +612,9 @@ public without sharing class IDRTaskActions {
         oldMap != null &&
         oldMap.containsKey(record.Id) &&
         IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
-        record.IDR_Is_Common__c == 'Yes' //is case PSI
+        record.IDR_Is_Common__c == 'Yes'
       ) {
+        //is case PSI
         caseIds.add(record.Id);
       }
     }
@@ -705,8 +706,9 @@ public without sharing class IDRTaskActions {
       (oldRec.Status != record.Status &&
       (!(siCaseTasks.containsKey(record.Id)))) || // Status is changing from non-closed to closed status means when L1 or higher is closing this case,
       //This could be a Reopen to closure scenario therefore make sure another task is not created.
-      oldRec.IDR_Is_Common__c != record.IDR_Is_Common__c) // when case is already closed and L1 updates PSI flag to yes
+      oldRec.IDR_Is_Common__c != record.IDR_Is_Common__c)
     ) {
+      // when case is already closed and L1 updates PSI flag to yes
       return true;
     } else {
       return false;

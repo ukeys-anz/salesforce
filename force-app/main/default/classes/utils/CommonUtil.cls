@@ -416,8 +416,8 @@ public with sharing class CommonUtil {
     } catch (Exception e) {
       Logger.error(
         'Problem sending in app notification: ' +
-        wrapperRecord.recipientList +
-        e.getMessage(),
+          wrapperRecord.recipientList +
+          e.getMessage(),
         e
       );
       Logger.saveLog();
@@ -693,9 +693,9 @@ public with sharing class CommonUtil {
     String fields = getDisputeCaseFieldsString(recordTypeDeveloperName);
     List<SObject> sObjectList = Database.query(
       'Select Id, ' +
-      String.escapeSingleQuotes(fields) +
-      ' From Case Where ' +
-      predicate
+        String.escapeSingleQuotes(fields) +
+        ' From Case Where ' +
+        predicate
     );
     Case theCase;
     if (sObjectList.size() > 0) {

@@ -30,14 +30,15 @@ public with sharing class TFMSearchCustomerService extends Service {
     Map<String, String> headers = new Map<String, String>();
     String token;
     if (!Test.isRunningTest()) {
-      headers = setCalloutCommonHeaders(staffModel);
-      if (headers != null || !headers.isEmpty()) {
+      try {
+        headers = setCalloutCommonHeaders(staffModel);
         token = headers.get(AUTHORIZATION);
+      } catch (Exception e) {
+        return null;
       }
     } else {
       token = staffModel.headers.get(AUTHORIZATION);
     }
-
     isValidAction = TFMCheckADGroupAccessUtil.checkADGroupWithfunctionality(
       staffModel.action,
       token.substringAfter('')
@@ -54,17 +55,13 @@ public with sharing class TFMSearchCustomerService extends Service {
   public override HttpCalloutResponse searchCustAPI(
     StaffTokenRequestModel staffModel
   ) {
-    staffModel.headers.put('client_id', '{!$Credential.Username}');
-    staffModel.headers.put('client_secret', '{!$Credential.Password}');
-    staffModel.headers.put('x-correlation-id', CommonUtil.generateUUID());
-    staffModel.headers.put('x-anz-application-id', 'aegis-admin-portal');
-    staffModel.headers.put('traceparent', CommonUtil.generateTraceParent());
+    staffModel.headers.putAll(setCommonHeadersInMap());
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_ForgeV2_Token' +
-      System.Label.MS_SearchCustomer_API +
-      +IDTYPEMAP.get(staffModel.idType) +
-      staffModel.idValue,
+        System.Label.MS_SearchCustomer_API +
+        +IDTYPEMAP.get(staffModel.idType) +
+        staffModel.idValue,
       HTTP_METHOD.HTTP_GET,
       staffModel.headers,
       null
@@ -83,11 +80,7 @@ public with sharing class TFMSearchCustomerService extends Service {
     String userInternalId,
     String deviceResourceId
   ) {
-    staffModel.headers.put('client_id', '{!$Credential.Username}');
-    staffModel.headers.put('client_secret', '{!$Credential.Password}');
-    staffModel.headers.put('x-correlation-id', CommonUtil.generateUUID());
-    staffModel.headers.put('x-anz-application-id', 'aegis-admin-portal');
-    staffModel.headers.put('traceparent', CommonUtil.generateTraceParent());
+    staffModel.headers.putAll(setCommonHeadersInMap());
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_ForgeV2_Token' +
@@ -114,11 +107,7 @@ public with sharing class TFMSearchCustomerService extends Service {
     String userInternalId,
     String appCorrelationId
   ) {
-    staffModel.headers.put('client_id', '{!$Credential.Username}');
-    staffModel.headers.put('client_secret', '{!$Credential.Password}');
-    staffModel.headers.put('x-correlation-id', CommonUtil.generateUUID());
-    staffModel.headers.put('x-anz-application-id', 'aegis-admin-portal');
-    staffModel.headers.put('traceparent', CommonUtil.generateTraceParent());
+    staffModel.headers.putAll(setCommonHeadersInMap());
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_ForgeV2_Token' +
@@ -132,5 +121,118 @@ public with sharing class TFMSearchCustomerService extends Service {
       null
     );
     return response;
+  }
+
+  /**
+   * @param headers headers to call api
+   * @param accountId  accountId value of the joint account
+   * @param emailEnabled joint account status
+   * @return HttpCalloutResponse response
+   * @description get and modify the joint account notifications
+   */
+  public override HttpCalloutResponse getORModifyJointAccountNotificationAPI(
+    map<string, string> headers,
+    string accountId,
+    boolean emailEnabled
+  ) {
+    headers.putAll(setCommonHeadersInMap());
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    if (!string.isBlank(accountId) && emailEnabled != null) {
+      headers.put('Content-Type', 'application/json');
+      String payload =
+        '{"account_id":"' +
+        accountId +
+        '","email_enabled":' +
+        emailEnabled +
+        '}';
+
+      HttpCalloutResponse response = calloutService.makeRestCallout(
+        'callout:SF_MS_ForgeV2_Token' +
+        System.Label.MS_JointNotificationSettingAPI,
+        HTTP_METHOD.HTTP_POST,
+        headers,
+        payload
+      );
+      return response;
+    } else {
+      HttpCalloutResponse response = calloutService.makeRestCallout(
+        'callout:SF_MS_ForgeV2_Token' +
+        System.Label.MS_JointNotificationSettingAPI,
+        HTTP_METHOD.HTTP_GET,
+        headers,
+        null
+      );
+      return response;
+    }
+  }
+
+  /**
+   * @param bsb bsb value of the joint account
+   * @param accountNumber joint account number
+   * @param enabled disclosure status
+   * @param headers headers to call api
+   * @return HttpCalloutResponse response
+   * @description gets the Customer's device details with biometrics
+   */
+  public override HttpCalloutResponse updatedisclosureStatus(
+    String bsb,
+    String accountNumber,
+    Boolean enabled,
+    Map<String, String> headers
+  ) {
+    headers.putAll(setCommonHeadersInMap());
+    headers.put('Content-Type', 'application/json');
+    String payload =
+      '{"bsb":"' +
+      bsb +
+      '","account_number":"' +
+      accountNumber +
+      '","enabled":' +
+      enabled +
+      '}';
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_ForgeV2_Token' + System.Label.MS_Update_Disclosure_Status,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      payload
+    );
+
+    return response;
+  }
+
+  /**
+   * @param headers headers to call api
+   * @return HttpCalloutResponse response
+   * @description gets Joint Accounts List
+   */
+  public override HttpCalloutResponse getJointAccountPermissions(
+    Map<String, String> headers
+  ) {
+    headers.putAll(setCommonHeadersInMap());
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_ForgeV2_Token' +
+      System.Label.MS_GetJointAccountPermissions_API,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+
+    return response;
+  }
+  /**
+   * @description method is setting common headers used in api callout
+   * @return Map<String, String>
+   */
+  public static Map<String, String> setCommonHeadersInMap() {
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('client_id', '{!$Credential.Username}');
+    headers.put('client_secret', '{!$Credential.Password}');
+    headers.put('x-correlation-id', CommonUtil.generateUUID());
+    headers.put('x-anz-application-id', 'aegis-admin-portal');
+    headers.put('traceparent', CommonUtil.generateTraceParent());
+    return headers;
   }
 }

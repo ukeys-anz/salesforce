@@ -18,7 +18,11 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     TFMSearchCustomerAPIRepository repo = new TFMSearchCustomerAPIRepository();
     Test.startTest();
     headers = repo.getValidStaffToken(staffModel);
-    Assert.areNotEqual(headers, null, 'headers not null');
+    Assert.areNotEqual(
+      null,
+      headers,
+      'Headers not returned while getting staff token'
+    );
     Test.stopTest();
   }
 
@@ -31,8 +35,12 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     staffModel.action = 'SearchCustomer';
     TFMSearchCustomerAPIRepository repo = new TFMSearchCustomerAPIRepository();
     Test.startTest();
-    HttpCalloutResponse response = repo.searchCustAPI(staffModel);
-    Assert.areNotEqual(response, null, 'response not null');
+    TFMPersonDigitalIdentityModel response = repo.searchCustAPI(staffModel);
+    Assert.areNotEqual(
+      null,
+      response.result,
+      'Valid data is not returned in response'
+    );
     Test.stopTest();
   }
 }

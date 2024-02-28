@@ -11,13 +11,19 @@ public class TFMCheckADGroupAccessUtilTest {
   @isTest
   static void testcheckADGroupWithfunctionality() {
     String func = 'SearchCustomer';
-    String token = 'eyJ0eXAiOiJKV1QiLCJraWQiOiJmSzJIU041anVFT1B6SXpsdmppZzUxdnFHRVU9IiwiYWxnIjoiUlM1MTIifQ.eyJzdWIiOiJhZWdpc191c2VyMkBhbnpucC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXVkaXRUcmFja2luZ0lkIjoiNDIzNjM2YTEtMTNmMC00MWRiLTg1MTUtMzZhYjM2ODY1Y2I1LTY3NjUzMCIsInN1Ym5hbWUiOiJzcGEtZWEiLCJpc3MiOiJodHRwczovL2lkZW50aXR5LXNlcnZpY2VzLXNpdC1pbnQtZ3cuYXBwcy1pbnQueC5nY3BucC5hbnovYW0vb2F1dGgyL2N1c3RvbWVyIiwidG9rZW5OYW1lIjoiYWNjZXNzX3Rva2VuIiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImF1dGhHcmFudElkIjoiclp2WFZLZVhNZWhxZUh1N1hMZGJYSmh1RE13IiwiYXVkIjoic3BhLWVhIiwibmJmIjoxNzA0Nzg0MjA5LCJncmFudF90eXBlIjoiY2xpZW50X2NyZWRlbnRpYWxzIiwic2NvcGUiOiJhZWdpcy1pbnRyb3NwZWN0IGF1X2FuenhfZnJhdWR4X29wc19hZG1pbiIsImF1dGhfdGltZSI6MTcwNDc4NDIwOSwicmVhbG0iOiIvY3VzdG9tZXIiLCJleHAiOjE3MDQ3ODc4MDksImlhdCI6MTcwNDc4NDIwOSwiZXhwaXJlc19pbiI6MzYwMCwianRpIjoickp0c3JLQ0hzSDdwa1RzZHFab2JNYnNWZlRvIiwicnFmIjp7InN1YiI6IjdmNzcyYzJkLTljMjUtNDFhZi05YWY3LTU0ZGY2ODZhY2JjNCIsInBlcnNvbmEiOnsiX2lkIjoiYmRiNTcyYzgtNGJlZS00ZDMwLWI2MTQtODk3MGY3ODQ4Y2I3IiwidHlwZSI6InJldGFpbCJ9LCJvY3ZpZCI6IjEwMDEwODg3MDMifSwiYWNyIjoiSUFMNC5BQUwzLkZBTDIiLCJhY3QiOnsic3ViIjoic3BhLWVhIn0sImFtciI6WyJwd2QiXSwiYW56X3Rva2VuX3R5cGUiOiJzdGFmZlJxZkN1c3RvbWVyIiwibm9uY2UiOiJlOWUwOTQ1NzM3Iiwic2NvcGVzIjpbImFlZ2lzLWludHJvc3BlY3QiLCJhdV9hbnp4X2ZyYXVkeF9vcHNfYWRtaW4iXX0.FAYZYwnrTjzKSlNDNhjWe--d4qOr8WcsAdFlkeisCnj1ZS4-7mkG7GKtSHbl8vNj0IhsQKKvnIHF0fceCiZjMXLqUOE-if_-BJYWvEoLqHqMh5CLFne9EiJfRIzScZyiYqR8gvVg4GPn8FExRHr-Ct1LSUNqI9PM-7O2hui11sOfCzpifsNW83cTnHingiOWpkKQdzDVYRORN_rAPQgqM6cx1kUk5Lqme8fqU64qC8QMedNaHVEbHctcJuIW_JwgQfeeJBhPORuKdnR75k2f9zPUFZwrqYCqzeOPFhprAEnfASn2J8y6F6cNSunHw1zff9U-F4X6cZtZlUe7Xxs0OA';
+    String headerJson = '{"typ":"JWT","kid":"fK2HSN5juEOPzIzlvjig51vqGEU=","alg":"RS512"}';
+    String payloadJson = '{"sub":"aegis_user2@anznp.com","cts":"OAUTH2_STATELESS_GRANT","auditTrackingId":"423636a1-13f0-41db-8515-36ab36865cb5-676530","subname":"spa-ea","iss":"https://identity-services-sit-int-gw.apps-int.x.gcpnp.anz/am/oauth2/customer","tokenName":"access_token","token_type":"Bearer","authGrantId":"rZvXVKeXMehqeHu7XLdbXJhuDMw","aud":"spa-ea","nbf":1704784209,"grant_type":"client_credentials","scope":"aegis-introspect au_anzx_fraudx_ops_admin","auth_time":1704784209,"realm":"/customer","exp":1704787809,"iat":1704784209,"expires_in":3600,"jti":"rJtsrKCHsH7pkTsdqZobMbsVfTo","rqf":{"sub":"7f772c2d-9c25-41af-9af7-54df686acbc4","persona":{"_id":"bdb572c8-4bee-4d30-b614-8970f7848cb7","type":"retail"},"ocvid":"1001088703"},"acr":"IAL4.AAL3.FAL2","act":{"sub":"spa-ea"},"amr":["pwd"],"anz_token_type":"staffRqfCustomer","nonce":"e9e0945737","scopes":["aegis-introspect","au_anzx_fraudx_ops_admin"]}';
+    String encodedHeader = EncodingUtil.base64Encode(Blob.valueOf(headerJson))
+      .toString();
+    String encodedPayload = EncodingUtil.base64Encode(Blob.valueOf(payloadJson))
+      .toString();
+    String jwtToken = encodedHeader + '.' + encodedPayload;
     Test.startTest();
     String checkValid = TFMCheckADGroupAccessUtil.checkADGroupWithfunctionality(
       func,
-      token
+      jwtToken
     );
-    Assert.areEqual(checkValid, 'true', 'The value should be true.');
+    Assert.areEqual('true', checkValid, 'User is not part of allowed AD group');
     Test.stopTest();
   }
 }

@@ -296,11 +296,18 @@ public with sharing virtual class Service {
   public Map<String, String> setAuthorizationCommonHeaders(
     StaffTokenRequestModel staffModelWrapper
   ) {
-    String serializedToken = AuthTokenCacheUtil.getStaffToken(
-      staffModelWrapper
-    );
-    staffModelWrapper.headers.put('Authorization', 'Bearer ' + serializedToken);
-    return staffModelWrapper.headers;
+    try {
+      String serializedToken = AuthTokenCacheUtil.getStaffToken(
+        staffModelWrapper
+      );
+      staffModelWrapper.headers.put(
+        'Authorization',
+        'Bearer ' + serializedToken
+      );
+      return staffModelWrapper.headers;
+    } catch (Exception ex) {
+      return null;
+    }
   }
 
   /**
@@ -315,12 +322,12 @@ public with sharing virtual class Service {
     headers.put(
       'x-correlation-id',
       UniqueIdUtil.getVersion() +
-      '-' +
-      UniqueIdUtil.getTraceId() +
-      '-' +
-      UniqueIdUtil.generateSpanId() +
-      '-' +
-      UniqueIdUtil.getTraceFlag()
+        '-' +
+        UniqueIdUtil.getTraceId() +
+        '-' +
+        UniqueIdUtil.generateSpanId() +
+        '-' +
+        UniqueIdUtil.getTraceFlag()
     );
     return headers;
   }
@@ -844,6 +851,49 @@ public with sharing virtual class Service {
     StaffTokenRequestModel staffModel,
     String userInternalId,
     String appCorrelationId
+  ) {
+    return null;
+  }
+
+  /**
+   * @param headers headers to call api
+   * @param accountId  accountId value of the joint account
+   * @param emailEnabled joint account status
+   * @return HttpCalloutResponse response
+   * @description get and modify the joint account notifications
+   */
+  public virtual HttpCalloutResponse getORModifyJointAccountNotificationAPI(
+    Map<string, string> headers,
+    string accountId,
+    boolean emailEnabled
+  ) {
+    return null;
+  }
+
+  /**
+   * @param bsb bsb value of the joint account
+   * @param accountNumber joint account number
+   * @param enabled disclosure status
+   * @param headers headers to call api
+   * @return HttpCalloutResponse response
+   * @description gets the Customer's device details with biometrics
+   */
+  public virtual HttpCalloutResponse updatedisclosureStatus(
+    String bsb,
+    String accountNumber,
+    Boolean enabled,
+    Map<String, String> headers
+  ) {
+    return null;
+  }
+
+  /**
+   * @param headers headers to call api
+   * @return HttpCalloutResponse response
+   * @description gets the Joint Accounts List
+   */
+  public virtual HttpCalloutResponse getJointAccountPermissions(
+    Map<String, String> headers
   ) {
     return null;
   }

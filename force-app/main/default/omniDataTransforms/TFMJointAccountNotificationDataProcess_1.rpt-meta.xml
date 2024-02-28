@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;jointAccountNotificationsettings&quot; : [ {
+    &quot;accountId&quot; : &quot;c0535179-4782-5649-9898&quot;,
+    &quot;accountInfo&quot; : {
+      &quot;bsb&quot; : &quot;04123&quot;,
+      &quot;accountNumber&quot; : &quot;3910034&quot;,
+      &quot;accountDisplayName&quot; : &quot;ANZ Save&quot;,
+      &quot;isClosed&quot; : false,
+      &quot;isEligible&quot; : true,
+      &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;
+    },
+    &quot;emailEnabled&quot; : &quot;true&quot;
+  }, {
+    &quot;accountId&quot; : &quot;c09898-4782-5649-9898-fe6d133ba602&quot;,
+    &quot;accountInfo&quot; : {
+      &quot;bsb&quot; : &quot;0003&quot;,
+      &quot;accountNumber&quot; : &quot;1230034&quot;,
+      &quot;accountDisplayName&quot; : &quot;ANZ data&quot;,
+      &quot;isEligible&quot; : true,
+      &quot;reason&quot; : &quot;REASON&quot;
+    },
+    &quot;emailEnabled&quot; : true
+  } ]
+}</expectedInputJson>
+    <expectedOutputJson>{
+  &quot;bsb&quot; : &quot;04123&quot;,
+  &quot;accountNumber&quot; : &quot;3910034&quot;,
+  &quot;accountDisplayName&quot; : &quot;ANZ Save&quot;,
+  &quot;isClosed&quot; : &quot;true&quot;,
+  &quot;isEligible&quot; : true,
+  &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;
+}</expectedOutputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMJointAccountNotificationDataProcess</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcess3703658830283738</globalKey>
+        <inputFieldName>accountInfo:reason</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>reason</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:accountInfo:isAccountClosed &quot;Closed&quot; &quot;Open&quot; IF</formulaConverted>
+        <formulaExpression>IF(accountInfo:isAccountClosed,&quot;Closed&quot;,&quot;Open&quot;)</formulaExpression>
+        <formulaResultPath>accountStatus</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>TFMJointAccountNotificationDataProcess08441460844886683</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:accountInfo:bsb &apos;/\/\/&apos; var:accountInfo:accountNumber CONCAT</formulaConverted>
+        <formulaExpression>CONCAT(accountInfo:bsb,&apos; &apos;,accountInfo:accountNumber)</formulaExpression>
+        <formulaResultPath>accountNumber</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TFMJointAccountNotificationDataProcess8865865782891003</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcess3254082527033668</globalKey>
+        <inputFieldName>accountNumber</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>accountNumber</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcess47829235420164196</globalKey>
+        <inputFieldName>accountInfo:accountDisplayName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>accountName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcess13775023621176907</globalKey>
+        <inputFieldName>accountId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>accountId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcessCustom4664</globalKey>
+        <inputFieldName>IDValue</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDValue</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcess2813642105131171</globalKey>
+        <inputFieldName>accountStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>accountStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcess6079146017665069</globalKey>
+        <inputFieldName>availableForDataSharing</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>availableForDataSharing</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcess5088098719077374</globalKey>
+        <inputFieldName>emailNotificationStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>emailNotificationStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:accountInfo:isEligible &quot;Available&quot; &quot;Unavailable&quot; IF</formulaConverted>
+        <formulaExpression>IF(accountInfo:isEligible,&quot;Available&quot;,&quot;Unavailable&quot;)</formulaExpression>
+        <formulaResultPath>availableForDataSharing</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>TFMJointAccountNotificationDataProcess15826722210120647</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:emailEnabled &quot;Enabled&quot; &quot;Disabled&quot; IF</formulaConverted>
+        <formulaExpression>IF(emailEnabled,&quot;Enabled&quot;,&quot;Disabled&quot;)</formulaExpression>
+        <formulaResultPath>emailNotificationStatus</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>TFMJointAccountNotificationDataProcess5355637911755669</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>[ {
+  &quot;accountId&quot; : &quot;c0535179-4782-5649-9898&quot;,
+  &quot;accountInfo&quot; : {
+    &quot;bsb&quot; : &quot;04123&quot;,
+    &quot;accountNumber&quot; : &quot;3910034&quot;,
+    &quot;accountDisplayName&quot; : &quot;ANZ Save&quot;,
+    &quot;isAccountClosed&quot; : false,
+    &quot;isEligible&quot; : true,
+    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;
+  },
+  &quot;emailEnabled&quot; : &quot;true&quot;
+}, {
+  &quot;accountId&quot; : &quot;c09898-4782-5649-9898-fe6d133ba602&quot;,
+  &quot;accountInfo&quot; : {
+    &quot;bsb&quot; : &quot;0003&quot;,
+    &quot;accountNumber&quot; : &quot;1230034&quot;,
+    &quot;accountDisplayName&quot; : &quot;ANZ data&quot;,
+    &quot;isEligible&quot; : false,
+    &quot;reason&quot; : &quot;REASON&quot;
+  },
+  &quot;emailEnabled&quot; : false
+} ]</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMJointAccountNotificationDataProcess_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

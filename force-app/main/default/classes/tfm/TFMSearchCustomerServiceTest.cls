@@ -51,6 +51,81 @@ public inherited sharing class TFMSearchCustomerServiceTest {
     );
   }
 
+  @isTest
+  static void testGetJointAccountPermissions() {
+    StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
+    Map<String, String> headers = new Map<String, String>();
+
+    Test.setMock(HttpCalloutMock.class, new MockSerachCustomerResponse());
+    Test.startTest();
+    TFMSearchCustomerService service = new TFMSearchCustomerService();
+    HttpCalloutResponse response = service.getJointAccountPermissions(headers);
+
+    Test.stopTest();
+    Assert.areNotEqual(
+      response.body,
+      null,
+      'Response body should not be null.'
+    );
+  }
+
+  @isTest
+  static void testupdatedisclosureStatus() {
+    StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
+    Map<String, String> headers = new Map<String, String>();
+    String bsb;
+    String accountNumber;
+    Boolean enabled;
+    Test.setMock(HttpCalloutMock.class, new MockSerachCustomerResponse());
+    Test.startTest();
+    TFMSearchCustomerService service = new TFMSearchCustomerService();
+    HttpCalloutResponse response = service.updatedisclosureStatus(
+      bsb,
+      accountNumber,
+      enabled,
+      headers
+    );
+
+    Test.stopTest();
+    Assert.areNotEqual(
+      response.body,
+      null,
+      'Response body should not be null.'
+    );
+  }
+
+  @isTest
+  static void testgetORModifyJointAccountNotificationAPI() {
+    StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
+    Map<String, String> headers = new Map<String, String>();
+    String bsb;
+    String accountNumber;
+    Boolean enabled;
+    Test.setMock(HttpCalloutMock.class, new MockSerachCustomerResponse());
+    Test.startTest();
+    TFMSearchCustomerService service = new TFMSearchCustomerService();
+    HttpCalloutResponse response = service.getORModifyJointAccountNotificationAPI(
+      headers,
+      'testing',
+      false
+    );
+    HttpCalloutResponse response1 = service.getORModifyJointAccountNotificationAPI(
+      headers,
+      '',
+      false
+    );
+    Test.stopTest();
+    Assert.areNotEqual(
+      response.body,
+      null,
+      'Response body should not be null.'
+    );
+    Assert.areNotEqual(
+      response1.body,
+      null,
+      'Response body should not be null.'
+    );
+  }
   class MockSerachCustomerResponse implements HttpCalloutMock {
     /**
      * @description mock response for callout
