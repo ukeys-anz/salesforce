@@ -383,11 +383,13 @@
       ]
     },
     "Activity": {
+      "IA-2530753": ["Pega_CDH_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
         "Action__c",
         "Authentication_Method__c",
+        "Coach_Action__c",
         "Completed_Date__c",
         "Due_in_Days__c",
         "IDR_Collection_Number__c",
@@ -1305,7 +1307,6 @@
         "IDR_Provided_details_to_Manufacturer__c"
       ]
     },
-
     "Contact": {
       "IA-2468715": [
         "AccountId",
@@ -4359,7 +4360,6 @@
       "LicenceNumber__c": "1:1 Transformation",
       "MiddleNamesOCRClient__c": "1:1 Transformation",
       "MiddleNamesOCRMatch__c": "",
-
       "MiddleNamesOCRServer__c": "1:1 Transformation",
       "MiddleNames__c": "1:1 Transformation",
       "PassportNumberOCRClientTransform__c": "Always set to 'fpe.personal-identifier'",

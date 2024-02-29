@@ -113,7 +113,8 @@ export default class InteractionRecordService extends NavigationMixin(
         "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
       reinitiateChat({
         accountId: accountId,
-        conversationSid: this.chatOrCallSid
+        conversationSid: this.chatOrCallSid,
+        sObjectId: ""
       })
         .then((result) => {
           if (result) {
