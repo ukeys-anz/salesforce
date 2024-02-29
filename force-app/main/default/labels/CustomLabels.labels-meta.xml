@@ -1901,6 +1901,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/pause-mandate</value>
     </labels>
     <labels>
+        <fullName>MS_Upadte_Signing_Authority</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Upadte Signing Authority</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/accounts/{accountId}:alterSignMode</value>
+    </labels>
+    <labels>
         <fullName>PayTo_Fraud_Description</fullName>
         <categories>ST</categories>
         <language>en_US</language>

@@ -21,6 +21,8 @@ public virtual class CalloutModel {
     'set' => 'category_set',
     'closed_at' => 'closed_date',
     'limit' => 'limitAmount',
+    '@type' => 'gcpMessageType',
+    'error_code' => 'errorCode',
     '_ref' => 'ref',
     '_refResourceCollection' => 'refResourceCollection',
     '_refResourceId' => 'refResourceId',

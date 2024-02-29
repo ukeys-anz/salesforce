@@ -9,9 +9,24 @@
             <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
-            <field>Created__c</field>
-            <operation>notEqual</operation>
-            <value/>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Action</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Financial_Account_Signatory_Update</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>To share the Customer Action record created for Number of Signatory update</description>
+        <label>Financial Account Signatory Update</label>
+        <sharedTo>
+            <group>Update_Signatory_Customer_Action_Sharing</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Pending Financial Account Updates</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -24,9 +39,9 @@
             <roleAndSubordinates>Settlement_Officer_Lead</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
-            <field>Created__c</field>
-            <operation>notEqual</operation>
-            <value/>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Action</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
