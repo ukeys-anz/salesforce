@@ -101,11 +101,25 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.disputes.v1alpha1</value>
     </labels>
     <labels>
+        <fullName>ANZX_Coach_Nudge_Event_Proto_Data_Schema</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Data schema url for proto files for coach nudge event</shortDescription>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.interaction.v1alpha1</value>
+    </labels>
+    <labels>
         <fullName>ANZX_Disputes_event_ce_type</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Disputes cloud event type</shortDescription>
         <value>anzx.salesforce.case.v1alpha1.dispute.</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Coach_Nudge_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disputes cloud event type</shortDescription>
+        <value>com.anzx.salesforce.interaction.v1alpha1.interaction.coachnudge.</value>
     </labels>
     <labels>
         <fullName>Anonymous_Complainant</fullName>
@@ -1885,6 +1899,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>MS Pause Mandate</shortDescription>
         <value>callout:SF_MS_Fabric/coach-banking/v1/mandates/pause-mandate</value>
+    </labels>
+    <labels>
+        <fullName>MS_Upadte_Signing_Authority</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Upadte Signing Authority</shortDescription>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/accounts/{accountId}:alterSignMode</value>
     </labels>
     <labels>
         <fullName>PayTo_Fraud_Description</fullName>

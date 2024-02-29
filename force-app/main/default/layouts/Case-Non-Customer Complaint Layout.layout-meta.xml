@@ -680,6 +680,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>Date_Time_Provisionally_Closed__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>ClosedDate</field>
             </layoutItems>
             <layoutItems>

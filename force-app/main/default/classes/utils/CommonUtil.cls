@@ -609,6 +609,7 @@ public with sharing class CommonUtil {
     caseFields.add('Merchant_Description__c');
     caseFields.add('Refund_Request_Date__c');
     caseFields.add('Regular_Payment_Cancellation_Date__c');
+    caseFields.add('Status');
     return caseFields;
   }
 

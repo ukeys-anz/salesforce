@@ -58,7 +58,8 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
       "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
     reinitiateChat({
       accountId: this.accountId,
-      conversationSid: this.chatOrCallSid
+      conversationSid: this.chatOrCallSid,
+      sObjectId: ""
     })
       .then((result) => {
         if (result) {

@@ -385,11 +385,13 @@
       ]
     },
     "Activity": {
+      "IA-2530753": ["Pega_CDH_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
         "Action__c",
         "Authentication_Method__c",
+        "Coach_Action__c",
         "Completed_Date__c",
         "Due_in_Days__c",
         "IDR_Collection_Number__c",
@@ -907,7 +909,8 @@
         "Provided_details_to_Prod_Manufacturer_2__c",
         "Provided_details_to_Prod_Manufacturer_3__c",
         "Has_complaint_met_RG_271_delay_criteria__c",
-        "How_has_delay_criteria_been_met_not_met__c"
+        "How_has_delay_criteria_been_met_not_met__c",
+        "Date_Time_Provisionally_Closed__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -1310,7 +1313,6 @@
         "IDR_Provided_details_to_Manufacturer__c"
       ]
     },
-
     "Contact": {
       "IA-2468715": [
         "AccountId",
@@ -1552,7 +1554,16 @@
         "Role__c"
       ],
       "IA-2530753": ["Created__c", "Completed__c"],
-      "IA-2415998": ["Eligible_to_Complete__c"]
+      "IA-2415998": ["Eligible_to_Complete__c"],
+      "IA-2415720": [
+        "Action__c",
+        "Error_Description__c",
+        "Customer__c",
+        "Financial_Account__c",
+        "New_Value__c",
+        "Old_Value__c",
+        "Triggered_From__c"
+      ]
     },
     "Customer_Dispute_Management__c": {
       "IA-2415720": [
@@ -4373,7 +4384,6 @@
       "LicenceNumber__c": "1:1 Transformation",
       "MiddleNamesOCRClient__c": "1:1 Transformation",
       "MiddleNamesOCRMatch__c": "",
-
       "MiddleNamesOCRServer__c": "1:1 Transformation",
       "MiddleNames__c": "1:1 Transformation",
       "PassportNumberOCRClientTransform__c": "Always set to 'fpe.personal-identifier'",

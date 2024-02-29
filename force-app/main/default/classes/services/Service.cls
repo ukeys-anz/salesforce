@@ -906,4 +906,19 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse getConsentHistoryList(String ocvId) {
     return null;
   }
+
+  /**
+   * @param financialAccountNumber financial account number
+   * @param signMode sign mode of the account
+   * @param ocvId required to make the callout to Mulesoft
+   * @return `HttpCalloutResponse` the api response
+   * @description changes number of signature for financial account through mule
+   */
+  public virtual HttpCalloutResponse updateSigningAutority(
+    String financialAccountNumber,
+    Integer signMode,
+    String ocvId
+  ) {
+    return null;
+  }
 }
