@@ -492,12 +492,12 @@ public with sharing class GetHelpCaseActions {
     ) {
       Logger.info(
         'CaseNumber: ' +
-        record.CaseNumber +
-        '; Description: ' +
-        record.Description +
-        '; Notes: ' +
-        record.Comments +
-        '; Reason for logging: User entered long digits without needing to mask'
+          record.CaseNumber +
+          '; Description: ' +
+          record.Description +
+          '; Notes: ' +
+          record.Comments +
+          '; Reason for logging: User entered long digits without needing to mask'
       );
       Logger.saveLog();
     }
@@ -916,6 +916,10 @@ public with sharing class GetHelpCaseActions {
       oldMap
     );
 
+    if (mapClosedCases.isEmpty()) {
+      return;
+    }
+
     Set<String> externalCaseStatusSet = new Set<String>{
       'Resolved-PreArbGranted',
       'Resolved-PreArbAccepted',
@@ -1037,27 +1041,32 @@ public with sharing class GetHelpCaseActions {
     Map<Id, SObject> oldRecordMap,
     List<Case> records
   ) {
-    if (Trigger.isUpdate) {
-      Case oldRecord;
-      for (Case record : records) {
-        oldRecord = (Case) oldRecordMap.get(record.Id);
-        if (
-          oldRecord.Status != GetHelpConstants.PROVISIONALLY_CLOSED_STATUS &&
-          record.Status == GetHelpConstants.PROVISIONALLY_CLOSED_STATUS
-        ) {
-          record.Date_Time_Provisionally_Closed__c = DateTime.now();
-        }
-      }
+    Case oldRecord;
+    if (oldRecordMap == null) {
+      oldRecordMap = new Map<Id, SObject>();
     }
-    if (Trigger.isInsert) {
-      for (Case record : records) {
-        if (record.Status == GetHelpConstants.PROVISIONALLY_CLOSED_STATUS) {
-          record.Date_Time_Provisionally_Closed__c = DateTime.now();
-        }
+    Boolean check = false;
+    for (Case record : records) {
+      oldRecord = (Case) oldRecordMap.get(record.Id);
+      check = false;
+      if (
+        oldRecord != null &&
+        oldRecord.Status != GetHelpConstants.PROVISIONALLY_CLOSED_STATUS &&
+        record.Status == GetHelpConstants.PROVISIONALLY_CLOSED_STATUS
+      ) {
+        check = true;
+      }
+      if (
+        oldRecord == null &&
+        record.Status == GetHelpConstants.PROVISIONALLY_CLOSED_STATUS
+      ) {
+        check = true;
+      }
+      if (check) {
+        record.Date_Time_Provisionally_Closed__c = DateTime.now();
       }
     }
   }
-
   /**
    * @description Handles populating fields and assigning ownership for BOH related fraud cases
    * @param records Case records from trigger

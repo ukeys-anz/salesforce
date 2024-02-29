@@ -29,9 +29,7 @@ public with sharing class CCRMLeadPlatformEventHelper {
     ) {
       if (String.isNotBlank(lstRec.Outcome_Type__c)) {
         leadStatusTransMap.put(
-          lstRec.Lead_Status__c +
-          '-' +
-          lstRec.Outcome_Type__c,
+          lstRec.Lead_Status__c + '-' + lstRec.Outcome_Type__c,
           lstRec
         );
       } else {
@@ -177,9 +175,7 @@ public with sharing class CCRMLeadPlatformEventHelper {
             leadResponseEvent.put(
               mapping.Platform_Event_Field_API_Name__c,
               leadStatusTransMap.get(
-                  record.Status +
-                  '-' +
-                  record.Lead_Outcome__c
+                  record.Status + '-' + record.Lead_Outcome__c
                 )
                 .UNICA_Lead_Status__c
             );
@@ -251,11 +247,18 @@ public with sharing class CCRMLeadPlatformEventHelper {
 
     //For lead conversion tasks are fetched for leads in LeadConversion class and assigned to leadTask
     if (!mapOfOpportunityId.isEmpty()) {
+      Datetime maxCreatedDate = Date.newInstance(1901, 1, 1);
       for (Task leadTask : leadTask) {
-        mapLeadSubStatus.put(
-          mapOfOpportunityId.get(leadTask.WhoId),
-          leadTask.Response_Type__r.Unica_Lead_SubStatus__c
-        );
+        if (
+          leadTask.Response_Type__c != null &&
+          leadTask.CreatedDate > maxCreatedDate
+        ) {
+          maxCreatedDate = leadTask.CreatedDate;
+          mapLeadSubStatus.put(
+            mapOfOpportunityId.get(leadTask.WhoId),
+            leadTask.Response_Type__r.Unica_Lead_SubStatus__c
+          );
+        }
       }
     } else {
       //For lead update fetch task for leads

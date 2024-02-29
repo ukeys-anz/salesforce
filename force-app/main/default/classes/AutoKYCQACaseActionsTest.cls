@@ -262,8 +262,8 @@ public with sharing class AutoKYCQACaseActionsTest {
       COB_MATCHING_MOBILE_NUMBERS.size(),
       casesLinkedWithAccount.size(),
       'Should be ' +
-      COB_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
+        COB_MATCHING_MOBILE_NUMBERS.size() +
+        ' KYC QA Cases with Matched Person Accounts'
     );
   }
 
@@ -289,8 +289,8 @@ public with sharing class AutoKYCQACaseActionsTest {
       COB_MATCHING_MOBILE_NUMBERS.size(),
       casesLinkedWithAccount.size(),
       'Should be ' +
-      COB_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
+        COB_MATCHING_MOBILE_NUMBERS.size() +
+        ' KYC QA Cases with Matched Person Accounts'
     );
   }
 
@@ -317,8 +317,8 @@ public with sharing class AutoKYCQACaseActionsTest {
       COB_MATCHING_MOBILE_NUMBERS.size(),
       casesLinkedWithAccount.size(),
       'Should be ' +
-      COB_MATCHING_MOBILE_NUMBERS.size() +
-      ' KYC QA Cases with Matched Person Accounts'
+        COB_MATCHING_MOBILE_NUMBERS.size() +
+        ' KYC QA Cases with Matched Person Accounts'
     );
 
     List<Case> casesWithNoAccount = getCasesWithNoAccount();
@@ -329,8 +329,8 @@ public with sharing class AutoKYCQACaseActionsTest {
         AutoKYCQACaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id,
         c.OwnerId,
         'KYC QA Cases should move to ' +
-        AutoKYCQACaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
-        'queue'
+          AutoKYCQACaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
+          'queue'
       );
     }
   }
@@ -362,8 +362,8 @@ public with sharing class AutoKYCQACaseActionsTest {
         AutoKYCQACaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id,
         c.OwnerId,
         'KYC QA Cases should remain in ' +
-        AutoKYCQACaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
-        'queue'
+          AutoKYCQACaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
+          'queue'
       );
     }
   }

@@ -105,6 +105,7 @@ public with sharing class DCRMMaintainPartyServiceTest {
     ocvRequest.strLastName = 'LastName';
     ocvRequest.strGender = 'F';
     ocvRequest.strRecordId = '';
+    ocvRequest.strAdvertisingIndicator = 'Y';
     return ocvRequest;
   }
 }

@@ -9,20 +9,17 @@ public class ML_UserActionsTest {
   static void setup() {
     User adminUser = MLCRMTestDataFactory.createAdminUser();
     System.runAs(adminUser) {
-      Territory__c objTerritory = new Territory__c();
-      objTerritory.Name = 'Canberra Inner South (ACT)';
-      objTerritory.Access_Scope__c = 'Unrestricted';
-      insert objTerritory;
-
-      Territory__c objTerritory1 = new Territory__c();
-      objTerritory1.Name = 'Central Coast North (NSW)';
-      objTerritory1.Access_Scope__c = 'Unrestricted';
-      insert objTerritory1;
-
-      Territory__c objTerritory2 = new Territory__c();
-      objTerritory2.Name = 'Canberra Southside (ACT)';
-      objTerritory2.Access_Scope__c = 'Unrestricted';
-      insert objTerritory2;
+      List<Territory__c> territoriesToInsert = new List<Territory__c>();
+      territoriesToInsert.add(
+        createTerritory('Canberra Inner South (ACT)', 'Unrestricted')
+      );
+      territoriesToInsert.add(
+        createTerritory('Central Coast North (NSW)', 'Unrestricted')
+      );
+      territoriesToInsert.add(
+        createTerritory('Canberra Southside (ACT)', 'Unrestricted')
+      );
+      insert territoriesToInsert;
     }
     Test.startTest();
     MLCRMTestDataFactory.createListOfMLCRMBaseUser(10);
@@ -35,7 +32,7 @@ public class ML_UserActionsTest {
     List<User_Territory__c> lstOfUserTerritory = [
       SELECT Id
       FROM User_Territory__c
-      WHERE ML_Role__c = 'Franchise Owner'
+      WHERE ML_Role__c = 'Franchise Owner' AND Status__c = 'Active'
     ];
     System.assertEquals(20, lstOfUserTerritory.size());
   }
@@ -54,14 +51,25 @@ public class ML_UserActionsTest {
     List<User_Territory__c> lstOfUserTerritory = [
       SELECT Id
       FROM User_Territory__c
-      WHERE ML_Role__c = 'Admin'
+      WHERE ML_Role__c = 'Admin' AND Status__c = 'Active'
     ];
     System.assertEquals(20, lstOfUserTerritory.size());
     List<User_Territory__c> lstOfInactiveUserTerritory = [
       SELECT Id
       FROM User_Territory__c
-      WHERE ML_Role__c = 'Franchise Owner' AND Status__c = 'Inactive'
+      WHERE ML_Role__c = 'Admin' AND Status__c = 'Inactive'
     ];
     System.assertEquals(10, lstOfInactiveUserTerritory.size());
+  }
+
+  static Territory__c createTerritory(
+    String territoryName,
+    String accessScope
+  ) {
+    Territory__c recordTerritory = new Territory__c();
+    recordTerritory.Name = territoryName;
+    recordTerritory.Access_Scope__c = accessScope;
+    recordTerritory.Primary_Franchise_Owner__c = userInfo.getUserId();
+    return recordTerritory;
   }
 }

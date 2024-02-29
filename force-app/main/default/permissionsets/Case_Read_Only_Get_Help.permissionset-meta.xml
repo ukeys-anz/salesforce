@@ -839,6 +839,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.SLATesting__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.SRE_Team__c</field>
         <readable>true</readable>
@@ -866,6 +871,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Survey_Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.TestedDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

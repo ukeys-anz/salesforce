@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <description>DR to sort the list of consents in descending order based on the created date.</description>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;activeConsents&quot; : [ {
+    &quot;LoopBlockIterationIndex&quot; : 1,
+    &quot;LoopBlockIterationStatus&quot; : true,
+    &quot;DRTransformConsentStatus&quot; : true,
+    &quot;expires&quot; : &quot;2023-09-05&quot;,
+    &quot;from&quot; : &quot;2023-08-05&quot;,
+    &quot;isCreator&quot; : &quot;Yes&quot;,
+    &quot;state&quot; : &quot;Active&quot;,
+    &quot;consentName&quot; : &quot;grow by MockMock Brand Name&quot;
+  }, {
+    &quot;LoopBlockIterationIndex&quot; : 2,
+    &quot;LoopBlockIterationStatus&quot; : true,
+    &quot;DRTransformConsentStatus&quot; : true,
+    &quot;expires&quot; : &quot;2023-09-05&quot;,
+    &quot;from&quot; : &quot;2023-09-05&quot;,
+    &quot;isCreator&quot; : &quot;Yes&quot;,
+    &quot;state&quot; : &quot;Pending&quot;,
+    &quot;consentName&quot; : &quot;grow by Mock Brand Name&quot;
+  } ]
+}</expectedInputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMSortConsents</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>TFMSortConsents</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:consentsList LIST &apos;createTime&apos; &apos;[:DSC]&apos; SORTBY</formulaConverted>
+        <formulaExpression>SORTBY(LIST(consentsList), &apos;createTime&apos;, &apos;[:DSC]&apos;)</formulaExpression>
+        <formulaResultPath>sortedConsents</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TFMSortConsents6005623618053948</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSortConsents</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSortConsents4564995105717595</globalKey>
+        <inputFieldName>sortedConsents</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>sortedConsents</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;consentsList&quot; : [ {
+    &quot;LoopBlockIterationIndex&quot; : 1,
+    &quot;LoopBlockIterationStatus&quot; : true,
+    &quot;DRTransformConsentStatus&quot; : true,
+    &quot;expires&quot; : &quot;2023-09-05&quot;,
+    &quot;from&quot; : &quot;2023-08-05&quot;,
+    &quot;isCreator&quot; : &quot;Yes&quot;,
+    &quot;state&quot; : &quot;Active&quot;,
+    &quot;consentName&quot; : &quot;grow by MockMock Brand Name&quot;
+  }, {
+    &quot;LoopBlockIterationIndex&quot; : 2,
+    &quot;LoopBlockIterationStatus&quot; : true,
+    &quot;DRTransformConsentStatus&quot; : true,
+    &quot;expires&quot; : &quot;2023-09-05&quot;,
+    &quot;from&quot; : &quot;2023-09-05&quot;,
+    &quot;isCreator&quot; : &quot;Yes&quot;,
+    &quot;state&quot; : &quot;Pending&quot;,
+    &quot;consentName&quot; : &quot;grow by Mock Brand Name&quot;
+  } ]
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMSortConsents_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

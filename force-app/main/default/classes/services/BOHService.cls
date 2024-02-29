@@ -22,9 +22,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_SOP +
-      sopId +
-      '/consolidate',
+      System.Label.MS_Get_SOP + sopId + '/consolidate',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -55,9 +53,7 @@ public with sharing class BOHService extends Service {
     }
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Create_Income +
-      '?income-verification=' +
-      verificationStr,
+      System.Label.MS_Income + '?income-verification=' + verificationStr,
       HTTP_METHOD.HTTP_POST,
       headers,
       incomeBody
@@ -92,13 +88,15 @@ public with sharing class BOHService extends Service {
    * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
+   * @param incomeVerifiedChanged checks if the income verified value has changed
    * @return `HttpCalloutResponse` the api response
    * @description update income
    */
   public override HttpCalloutResponse updateIncome(
     String verification,
     String ocvId,
-    String incomeBody
+    String incomeBody,
+    Boolean incomeVerifiedChanged
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
@@ -110,9 +108,11 @@ public with sharing class BOHService extends Service {
     }
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Update_Income +
-      '?income-verification=' +
-      verificationStr,
+      System.Label.MS_Income +
+        '?income-verification=' +
+        verificationStr +
+        '&isIncomeChanged=' +
+        incomeVerifiedChanged,
       HTTP_METHOD.HTTP_PATCH,
       headers,
       incomeBody
@@ -174,9 +174,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      Label.MS_Get_Credit_Assessments +
-      creditId,
+      'callout:SF_MS_Fabric' + Label.MS_Get_Credit_Assessments + creditId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -231,11 +229,7 @@ public with sharing class BOHService extends Service {
       'callout:SF_MS_Fabric' + Label.MS_Submit_Credit_Finalisation,
       HTTP_METHOD.HTTP_POST,
       headers,
-      '{"creditEnquiryId":"' +
-      creditId +
-      '", "id":"' +
-      assessmentId +
-      '"}'
+      '{"creditEnquiryId":"' + creditId + '", "id":"' + assessmentId + '"}'
     );
 
     return response;
@@ -263,12 +257,12 @@ public with sharing class BOHService extends Service {
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      Label.MS_Delete_Referral_Outcome +
-      creditId +
-      '/assessments/' +
-      assessmentId +
-      '/outcomes/' +
-      outcomeCode,
+        Label.MS_Delete_Referral_Outcome +
+        creditId +
+        '/assessments/' +
+        assessmentId +
+        '/outcomes/' +
+        outcomeCode,
       HTTP_METHOD.HTTP_DELETE,
       headers,
       null
@@ -425,9 +419,9 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Delete_Income +
-      '?etag=' +
-      SOPDeleteIncomeModel.parse(deleIncomeModel).etag,
+      System.Label.MS_Income +
+        '?etag=' +
+        SOPDeleteIncomeModel.parse(deleIncomeModel).etag,
       HTTP_METHOD.HTTP_DELETE,
       headers,
       deleIncomeModel

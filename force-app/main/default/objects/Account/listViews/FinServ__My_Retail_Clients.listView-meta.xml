@@ -8,14 +8,20 @@
     <columns>FinServ__WalletShare__c</columns>
     <columns>FinServ__LastInteraction__c</columns>
     <columns>FinServ__NextInteraction__c</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>ACCOUNT.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Account.FinServ__IndustriesIndividual</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Retail Clients</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+        <roleAndSubordinates>Capability_Quality_C_Q_Team</roleAndSubordinates>
+        <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        <roleAndSubordinates>Data_Analyst</roleAndSubordinates>
+        <roleAndSubordinates>IDR_Content_Writer</roleAndSubordinates>
+        <roleAndSubordinates>Systemic_Issue_Team</roleAndSubordinates>
+        <roleAndSubordinates>Tech_Support</roleAndSubordinates>
     </sharedTo>
 </ListView>

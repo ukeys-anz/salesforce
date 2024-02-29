@@ -198,5 +198,31 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 #CC-5856 Remove "Conversion Status" from Lead. Manual deletion to prevent class failures during deployment
 force-app/main/default/objects/Lead/fields/Conversion_Status__c.field-meta.xml
 force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml
-
 force-app/main/default/profiles/ANZ CCRM Standard User.profile-meta.xml
+
+# ANZX-97676 These coponents will be taken up as post deploy steps because of dependencies
+force-app/main/default/objects/PersonDigitalIdentity__x
+
+# ANZX-123338 These coponents will be taken up as post deploy steps because of dependencies
+force-app/main/default/flexipages/TFMManageOpenBankingPage.flexipage-meta.xml
+force-app/main/default/tabs/TFMManageOpenBankingPage.tab-meta.xml
+
+# ANZX-97676 These coponents will be taken up as post deploy steps because of dependencies
+force-app/main/default/classes/tfm/TFMSearchCustomerDeviceDetailsController.cls
+force-app/main/default/classes/tfm/TFMSearchCustomerDeviceDetailsController.cls-meta.xml
+force-app/main/default/classes/tfm/TFMSearchCustomerDeviceDetailsCtrlTest.cls
+force-app/main/default/classes/tfm/TFMSearchCustomerDeviceDetailsCtrlTest.cls-meta.xml
+force-app/main/default/flexipages/PersonDigitalIdentity_Record_Page.flexipage-meta.xml
+force-app/main/default/objects/PersonDigitalIdentity__x
+force-app/main/default/layouts/PersonDigitalIdentity__x-PersonDigitalIdentity Layout.layout-meta.xml
+force-app/main/default/permissionsetgroups/FraudX_Agent.permissionsetgroup-meta.xml
+force-app/main/default/permissionsets/IDOps_Workbench.permissionset-meta.xml
+force-app/main/default/permissionsets/PersonDigitalEntityReadOnly.permissionset-meta.xml
+force-app/main/default/quickActions/PersonDigitalIdentity__x.Archive_User.quickAction-meta.xml
+force-app/main/default/quickActions/PersonDigitalIdentity__x.Data_Sharing.quickAction-meta.xml
+force-app/main/default/quickActions/PersonDigitalIdentity__x.Lock_PIN.quickAction-meta.xml
+force-app/main/default/quickActions/PersonDigitalIdentity__x.Suspend.quickAction-meta.xml
+force-app/main/default/quickActions/PersonDigitalIdentity__x.Unlock_PIN.quickAction-meta.xml
+force-app/main/default/quickActions/PersonDigitalIdentity__x.Unsuspend.quickAction-meta.xml
+force-app/main/default/quickActions/PersonDigitalIdentity__x.Update_OCV_Number.quickAction-meta.xml
+force-app/main/default/quickActions/PersonDigitalIdentity__x.DataSharing.quickAction-meta.xml

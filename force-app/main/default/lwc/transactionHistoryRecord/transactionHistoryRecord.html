@@ -185,6 +185,10 @@
             </template>
           </div>
         </div>
+        <div class={dynamicColumnClass} lwc:if={showTransactionPuid}>
+          <div class="slds-grid slds-form-element__label">PUID</div>
+          <div class="slds-grid">{transactionRecord.pay_anyone.payment_id}</div>
+        </div>
       </div>
 
       <template lwc:if={transactionRecord.merchantDetails}>

@@ -537,9 +537,7 @@ public with sharing class QualityAssessmentActions {
         ConnectApiHelper.postFeedItemWithMentions(
           null,
           qa.Id,
-          CHATTER_FEED_STRING +
-          '   ' +
-          mentionGroups
+          CHATTER_FEED_STRING + '   ' + mentionGroups
         );
       }
     }

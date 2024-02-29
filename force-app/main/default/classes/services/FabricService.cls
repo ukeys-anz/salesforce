@@ -283,4 +283,39 @@ public with sharing class FabricService extends Service {
 
     return response;
   }
+
+  /**
+   * @param financialAccountNumber financial account number on which update is required
+   * @param signMode sing mode that need to be updated
+   * @param ocvId required to make the callout to Mulesoft
+   * @return `HttpCalloutResponse` the api response
+   * @description updates the number of signature on financial account
+   */
+  public override HttpCalloutResponse updateSigningAutority(
+    String financialAccountNumber,
+    Integer signMode,
+    String ocvId
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      Label.MS_Upadte_Signing_Authority.replace(
+        '{accountId}',
+        financialAccountNumber
+      ),
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      '{"account": "' +
+      financialAccountNumber +
+      '"' +
+      ',' +
+      '"sign_mode": ' +
+      signMode +
+      '}'
+    );
+
+    return response;
+  }
 }

@@ -69,7 +69,7 @@
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Interaction</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -78,7 +78,7 @@
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>EmailMessage</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>

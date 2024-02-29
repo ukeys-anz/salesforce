@@ -514,6 +514,9 @@ public with sharing class CCRMLeadConversionActionsHelper {
     ocvRequest.strLastName = record.LastName;
     ocvRequest.strGender = record.Gender__c;
     ocvRequest.strRecordId = record.Id;
+    ocvRequest.strAdvertisingIndicator = record.AdvertisingIndicator__c
+      ? 'Y'
+      : 'N'; //added as part of CC-6745
     return ocvRequest;
   }
 }

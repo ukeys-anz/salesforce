@@ -184,3 +184,10 @@ force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml
 
 #PR-8811 Skip field destruction in merge
 force-app/main/default/objects/Lead/fields/Conversion_Status__c
+
+# ANZX-97676 These coponents will be taken up as post deploy steps because of dependencies
+force-app/main/default/objects/PersonDigitalIdentity__x
+
+# ANZX-123338 These coponents will be taken up as post deploy steps because of dependencies
+force-app/main/default/flexipages/TFMManageOpenBankingPage.flexipage-meta.xml
+force-app/main/default/tabs/TFMManageOpenBankingPage.tab-meta.xml

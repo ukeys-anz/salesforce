@@ -13,6 +13,15 @@ public with sharing class CCRMContactPointEmailActions {
   );
   private static final Boolean IS_CCRM_USER = (CURRENT_USER_PROFILE?.Name ==
   Label.CCRM_Profile_Name);
+  private static Map<Id, Account> relatedAccMap = new Map<Id, Account>();
+
+  /**
+   * @description CCRMContactPointEmailActions constructor to assign values to relatedAccMap
+   * @param accMap Mapp AccountId to Account Record
+   */
+  public CCRMContactPointEmailActions(Map<Id, Account> accMap) {
+    relatedAccMap = accMap;
+  }
 
   /**
    * @description Copy ParentId to Customer_Name__c field.
@@ -51,22 +60,14 @@ public with sharing class CCRMContactPointEmailActions {
    * @param records List of CPE Records
    * @return ContactPointEmailWrapper return List of Existing or Prospect CPE
    */
-  public static ContactPointEmailWrapper getExistingOrProspectCPE(
+  public ContactPointEmailWrapper getExistingOrProspectCPE(
     List<ContactPointEmail> records
   ) {
     ContactPointEmailWrapper cpeWrapper = new ContactPointEmailWrapper();
 
-    Set<Id> accIdsSet = new Set<Id>();
-    for (ContactPointEmail record : records) {
-      if (record.Customer_Name__c != null) {
-        accIdsSet.add(record.Customer_Name__c);
-      }
-    }
+    List<Account> accList = relatedAccMap.values();
 
-    List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
-
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
-    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
       accList
     );
 
@@ -161,11 +162,11 @@ public with sharing class CCRMContactPointEmailActions {
    * @description Validate If the Organisation Email record is created against Business_Account and Individual Email Record is created against PersonAccount or not.
    * @param records the list of email record to validate
    */
-  public static void validateOrgIndividualEmailsLinking(
+  public void validateOrgIndividualEmailsLinking(
     List<ContactPointEmail> records
   ) {
     Set<Id> accountIds = new Set<Id>();
-    Map<Id, Account> accMap;
+    Map<Id, Account> accMap = relatedAccMap;
     if (CCRMConstants.SKIP_CUSTOM_VALIDATION_RULES) {
       return;
     }
@@ -175,9 +176,7 @@ public with sharing class CCRMContactPointEmailActions {
       }
     }
 
-    if (!accountIds.isEmpty()) {
-      accMap = getAccountMap(accountIds);
-
+    if (!accMap.isEmpty()) {
       for (ContactPointEmail record : records) {
         // if ContactPointEmail record type is Organisation and account record type is NOT Business_Account
         // OR if ContactPointEmail record type is Individual and account record type is NOT PersonAccount
@@ -204,7 +203,15 @@ public with sharing class CCRMContactPointEmailActions {
   public static Map<Id, Account> getAccountMap(Set<Id> accountIds) {
     return new Map<Id, Account>(
       [
-        SELECT Id, RecordType.DeveloperName, RecordTypeId
+        SELECT
+          Id,
+          RecordType.DeveloperName,
+          RecordTypeId,
+          Is_Prospect__c,
+          isPersonAccount,
+          FinServ__Status__c,
+          Source_System_Name__c,
+          ANZx_Customer__c
         FROM Account
         WHERE Id IN :accountIds
       ]
@@ -221,5 +228,27 @@ public with sharing class CCRMContactPointEmailActions {
   public class ContactPointEmailWrapper {
     public List<ContactPointEmail> prospectCPE = new List<ContactPointEmail>();
     public List<ContactPointEmail> existingCPE = new List<ContactPointEmail>();
+  }
+
+  /**
+   * @description get map of Account
+   * @param records list of ContactPointEmailRecords from Trigger
+   * @return Map<Id, Account> map of Related Account( accId -> AccRecord map)
+   */
+  public static Map<Id, Account> getRelatedAccountMap(
+    List<ContactPointEmail> records
+  ) {
+    Set<Id> accountIds = new Set<Id>();
+    Map<Id, Account> accMap = new Map<Id, Account>();
+
+    for (ContactPointEmail record : records) {
+      if (record.Customer_Name__c != null) {
+        accountIds.add(record.Customer_Name__c);
+      }
+    }
+    if (!accountIds.isEmpty()) {
+      accMap = getAccountMap(accountIds);
+    }
+    return accMap;
   }
 }

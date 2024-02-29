@@ -79,7 +79,7 @@ public with sharing class TwilioServiceUtil {
         OR FederationIdentifier IN :agentEmailList)
         AND IsActive = TRUE
     ]) {
-      agentOwnerIdMap.put(agent.FederationIdentifier, agent.Id);
+      agentOwnerIdMap.put(agent.FederationIdentifier.toLowerCase(), agent.Id);
     }
 
     //create Twilio Details upsert list based on from which context it is called
@@ -106,7 +106,7 @@ public with sharing class TwilioServiceUtil {
           interactionToBeUpdated.add(
             new Interaction(
               Id = payLoad.interactionId,
-              OwnerId = agentOwnerIdMap.get(payLoad.agentEmail),
+              OwnerId = agentOwnerIdMap.get(payLoad.agentEmail.toLowerCase()),
               TwilioDetailsID__c = twilioRecordUpserted.getId(),
               Status__c = getStatus(payLoad.chatOrCallStatus)
             )

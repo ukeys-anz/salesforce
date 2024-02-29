@@ -5,9 +5,11 @@
     <description>Validation to check Mobile is entered in correct format.</description>
     <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+NOT(CONTAINS( $User.Username,$Label.UnicaIntegrationUserName)),
+NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
     OR(
-        RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
-        RecordType.DeveloperName = &apos;MLCRM_Lead&apos;
+        AND(RecordType.DeveloperName = &apos;CCRM_Lead&apos;,Text(Status) != &apos;Outcome&apos;,Text(Lead_Outcome__c) != &apos;Expired&apos;),
+        AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;,OR(ISNEW(),ISCHANGED(MobilePhone)))
     ), 
     NOT ISBLANK( MobilePhone ) ,
         AND(NOT REGEX( MobilePhone , &quot;^\\+614[0-9]{8}+$&quot; ),

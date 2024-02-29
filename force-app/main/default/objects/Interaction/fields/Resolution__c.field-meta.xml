@@ -62,14 +62,27 @@
                 <label>Resolved</label>
             </value>
             <value>
+                <fullName>Testing</fullName>
+                <default>false</default>
+                <label>Testing</label>
+            </value>
+            <value>
                 <fullName>Voice Mail</fullName>
                 <default>false</default>
                 <label>Voice Mail</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
             <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <valueName>Testing</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
             <controllingFieldValue>Other</controllingFieldValue>
             <controllingFieldValue>Testing</controllingFieldValue>

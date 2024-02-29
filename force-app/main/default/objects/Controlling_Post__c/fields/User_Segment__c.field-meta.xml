@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>User_Segment__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Accurate;Source_Salesforce</complianceGroup>
+    <description>This will store the user&apos;s commercial segment.</description>
+    <externalId>false</externalId>
+    <formula>TEXT(CPID_User__r.Commercial_Segment__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Segment</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

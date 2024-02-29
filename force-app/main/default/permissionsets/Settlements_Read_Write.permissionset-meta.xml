@@ -209,4 +209,8 @@
         <object>Settlement__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>Customer_Action__c.Customer_Action</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
 </PermissionSet>

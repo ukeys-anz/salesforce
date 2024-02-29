@@ -200,7 +200,7 @@ public with sharing class IDRConstants {
   public static final String TASK_CORRESPONDENCE_SUBJECT = 'New Correspondence received on a Closed Complaint added by';
   public static final String TASK_CORRESPONDENCE_DESCRIPTION = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
   public static final String TASK_QA_COMPLIANCE_SUBJECT = 'Review Required: Quality Assessment Completed for ';
-  public static final String TASK_TM_ATTESTATION_SUBJECT ='Team Manager Corrective Actions- Attestation- ';
+  public static final String TASK_TM_ATTESTATION_SUBJECT = 'Team Manager Corrective Actions- Attestation- ';
   public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
 
   //Quality Assessment Constants
@@ -405,7 +405,7 @@ public with sharing class IDRConstants {
     '18'
   };
 
-  public static final List<String> IDR_UNASSISTED_ISSUE_TYPE = new List<String> {
+  public static final List<String> IDR_UNASSISTED_ISSUE_TYPE = new List<String>{
     '18',
     '13',
     '12',
@@ -415,35 +415,35 @@ public with sharing class IDRConstants {
   };
 
   public static final List<String> IDR_UNASSISTED_SUB_ISSUE_TYPE = new List<String>{
-  // Account Set-up & Maintenance
+    // Account Set-up & Maintenance
     '11', // Account/Profile set up
     '12', // Account/Profile Maintenance
     '63', // Statement Issue
-  // Channel Accessibility
-    '2',  // Branch queues / wait time
-    '3',  // Call queues / wait time
-    '4',  // Trading hours/ location/ closures
-    '5',  // Design/ layout/ content
-    '6',  // System fault/ outage
-    '9',  // Digital
+    // Channel Accessibility
+    '2', // Branch queues / wait time
+    '3', // Call queues / wait time
+    '4', // Trading hours/ location/ closures
+    '5', // Design/ layout/ content
+    '6', // System fault/ outage
+    '9', // Digital
     'Not working on device',
     'No direct phone line',
     'Not enough stores',
     'Digital only service',
-  // Organisational Structure & Marketing
+    // Organisational Structure & Marketing
     '54', // About ANZ organisational structure
     '55', // Media releases
     '56', // Marketing campaigns
     '10', // Other
-  // Product Features, Offers, Sales
+    // Product Features, Offers, Sales
     '73', // Marketing contact not requested/ required
-  // Service Quality
+    // Service Quality
     '57', // Tone or manner of response
     '59', // Call transferred, disconnected or not returned
     '60', // Appointment not made/ upheld
     '62', // Failure to respond to customer request for info
     'Request won\'t be actioned',
-  // Transactions & Payments
-    '50'  // Payment system fault/outage
+    // Transactions & Payments
+    '50' // Payment system fault/outage
   };
 }
