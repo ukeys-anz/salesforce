@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Offset_Feature</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Offset Feature</label>
+        <sharedTo>
+            <group>Offset_Feature_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Closed_Date__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

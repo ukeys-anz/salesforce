@@ -1,0 +1,51 @@
+{
+  "consents": [
+    {
+      "txn": "ec3db4e9-aec7-4c66-ac3c-7872d10a2d91",
+      "relyingParty": {
+        "displayName": "EnergyX",
+        "logoUri": "https://images.squarespace-cdn.com/content/v1/5b5780aed274cb32d2dd06cd/1548365580641-TDUH2GL2J3L14FD9GG5M/energyX_logo.png?format=1500w"
+      },
+      "purpose": "Opening An Account",
+      "claims": [
+        "CLAIM_KEY_NAME",
+        "CLAIM_KEY_GIVEN_NAME",
+        "CLAIM_KEY_MIDDLE_NAME",
+        "CLAIM_KEY_FAMILY_NAME",
+        "CLAIM_KEY_PHONE_NUMBER",
+        "CLAIM_KEY_EMAIL",
+        "CLAIM_KEY_ADDRESS",
+        "CLAIM_KEY_BIRTHDATE",
+        "CLAIM_KEY_OVER_25"
+      ],
+      "createdTime": "2023-11-23T23:56:48.553866Z"
+    },
+    {
+      "txn": "2a7ca440-314f-4e03-99e6-9bc32916c240",
+      "relyingParty": {
+        "displayName": "Dan Murphys",
+        "logoUri": "https://upload.wikimedia.org/wikipedia/en/a/a1/Dan-murphy%27s-brand.png"
+      },
+      "purpose": "Verifying An Account",
+      "claims": ["CLAIM_KEY_NAME", "CLAIM_KEY_BIRTHDATE"],
+      "createdTime": "2023-12-06T02:30:10.756457Z"
+    },
+    {
+      "claims": [
+        "CLAIM_KEY_GIVEN_NAME",
+        "CLAIM_KEY_FAMILY_NAME",
+        "CLAIM_KEY_BIRTHDATE",
+        "CLAIM_KEY_OVER_18"
+      ],
+      "purpose": "Opening An Account",
+      "createdTime": "2023-11-16T04:50:53.122729Z",
+      "relyingParty": {
+        "displayName": "BWS",
+        "logoUri": "https://edgmedia.bws.com.au/bws/media/assets/backgrounds/icon2.png"
+      },
+      "txn": "2597d849-6b74-4310-9824-bc0030551ab3"
+    }
+  ],
+  "count": "3",
+  "total": "3"
+}

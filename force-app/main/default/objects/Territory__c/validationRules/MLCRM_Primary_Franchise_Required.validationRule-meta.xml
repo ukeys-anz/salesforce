@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MLCRM_Primary_Franchise_Required</fullName>
+    <active>true</active>
+    <description>This validation rule is used to make primary franchise owner field required</description>
+    <errorConditionFormula>isBlank(Primary_Franchise_Owner__c)</errorConditionFormula>
+    <errorDisplayField>Primary_Franchise_Owner__c</errorDisplayField>
+    <errorMessage>Primary franchise owner is required</errorMessage>
+</ValidationRule>

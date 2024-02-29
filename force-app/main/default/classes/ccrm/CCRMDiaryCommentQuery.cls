@@ -126,7 +126,7 @@ public with sharing class CCRMDiaryCommentQuery extends CCRMExternalObjectQueryB
           row.put('Branch', calloutResponse.permanentComment.branch);
           row.put(
             'DatePlaced',
-            calloutResponse.permanentComment.datePlaced.format('dd/MM/yyyy')
+            formatDate(calloutResponse.permanentComment.datePlaced)
           );
           row.put(
             'ModifiedDate',
@@ -168,10 +168,10 @@ public with sharing class CCRMDiaryCommentQuery extends CCRMExternalObjectQueryB
             index
           );
           row.put('Description', cd.comment);
-          row.put('ExpiryDate', cd.dateExpires.format('dd/MM/yyyy'));
+          row.put('ExpiryDate', formatDate(cd.dateExpires));
           row.put('Branch', cd.branch);
           row.put('Operator', cd.operatorId);
-          row.put('DatePlaced', cd.datePlaced.format('dd/MM/yyyy hh:mm a'));
+          row.put('DatePlaced', formatDateTime(cd.datePlaced));
           row.put('WorkQueue', cd.workQueue);
           row.put('CycleCode', cd.cycleCode);
           row.put('PromptDate', adjustUTCDateTime(cd.datePrompt));

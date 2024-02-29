@@ -37,17 +37,30 @@ global class MLCRM_TerritoryConfigSharingBatch implements Database.Batchable<sOb
     String strQuery;
     String strWhereClause;
     Set<Id> setOfEligibleRT;
+    String strLookupFields = '';
+    String strExpiredWhereClause = '';
+    if (this.objShareMetadata.Object_Name__c == 'Lead') {
+      strExpiredWhereClause = ' AND Status != \'Expired\'';
+    }
     if (this.objShareMetadata.Eligible_Record_Types__c != null) {
       setOfEligibleRT = MLCRMCommonUtils.getRecordTypeIdsByDeveloperName(
         this.objShareMetadata.Object_Name__c,
         this.objShareMetadata.Eligible_Record_Types__c.split(';')
       );
-      strWhereClause = ' WHERE Territory__c IN :idsOfTerritory AND RecordTypeId IN :setOfEligibleRT';
+      strWhereClause =
+        ' WHERE Territory__c IN :idsOfTerritory AND RecordTypeId IN :setOfEligibleRT ' +
+        strExpiredWhereClause;
     } else {
-      strWhereClause = ' WHERE Territory__c IN :idsOfTerritory';
+      strWhereClause =
+        ' WHERE Territory__c IN :idsOfTerritory ' + strExpiredWhereClause;
+    }
+    if (objShareMetadata.Lookup_Fields__c != null) {
+      strLookupFields =
+        String.join(objShareMetadata.Lookup_Fields__c.split(';'), ',') + ',';
     }
     strQuery =
       'SELECT Id,OwnerId,  ' +
+      strLookupFields +
       String.escapeSingleQuotes(this.objShareMetadata.Territory_Field__c) +
       ' FROM ' +
       String.escapeSingleQuotes(this.objShareMetadata.Object_Name__c) +

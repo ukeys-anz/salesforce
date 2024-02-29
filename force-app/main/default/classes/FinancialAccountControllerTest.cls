@@ -132,4 +132,17 @@ public with sharing class FinancialAccountControllerTest {
       );
     }
   }
+
+  @isTest
+  public static void testFetchOCVIdFromAccount() {
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    Test.startTest();
+    String ocvId = FinancialAccountController.fetchOCVIdFromAccount(accountId);
+    Test.stopTest();
+    System.assertEquals(
+      null,
+      ocvId,
+      'Ocv Id should be null as we are passing fake record Id'
+    );
+  }
 }

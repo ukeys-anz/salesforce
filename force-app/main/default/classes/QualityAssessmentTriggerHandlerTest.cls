@@ -142,9 +142,7 @@ private class QualityAssessmentTriggerHandlerTest {
       System.assertEquals(
         Integer.valueOf(Label.Test_Bulk_Size),
         newTasks.size(),
-        'Should have ' +
-        Label.Test_Bulk_Size +
-        ' new Tasks.'
+        'Should have ' + Label.Test_Bulk_Size + ' new Tasks.'
       );
 
       for (Task record : newTasks) {
@@ -239,9 +237,7 @@ private class QualityAssessmentTriggerHandlerTest {
       System.assertEquals(
         Integer.valueOf(Label.Test_Bulk_Size),
         newTasks.size(),
-        'Should have ' +
-        Label.Test_Bulk_Size +
-        ' new Tasks.'
+        'Should have ' + Label.Test_Bulk_Size + ' new Tasks.'
       );
 
       for (Task record : newTasks) {

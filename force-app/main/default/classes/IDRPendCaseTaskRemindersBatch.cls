@@ -14,18 +14,18 @@ public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batc
   public Database.QueryLocator start(Database.BatchableContext bc) {
     return Database.getQueryLocator(
       'SELECT Id, ActivityDate, OwnerId, WhatId, Subject, Due_in_Days__c ' +
-      'FROM Task ' +
-      'WHERE Type = \'' +
-      IDRConstants.TASK_TYPE_PEND_CASE +
-      '\'' +
-      ' AND WhatId != null AND Owner.Type = \'User\' AND Status != \'' +
-      IDRConstants.TASK_STATUS_COMPLETED +
-      '\'' +
-      ' AND Due_in_Days__c <= ' +
-      Label.IDR_Max_Window_For_Task_Reminders +
-      ' AND RecordTypeId = \'' +
-      IDRConstants.IDR_TASK_RT_ID +
-      '\''
+        'FROM Task ' +
+        'WHERE Type = \'' +
+        IDRConstants.TASK_TYPE_PEND_CASE +
+        '\'' +
+        ' AND WhatId != null AND Owner.Type = \'User\' AND Status != \'' +
+        IDRConstants.TASK_STATUS_COMPLETED +
+        '\'' +
+        ' AND Due_in_Days__c <= ' +
+        Label.IDR_Max_Window_For_Task_Reminders +
+        ' AND RecordTypeId = \'' +
+        IDRConstants.IDR_TASK_RT_ID +
+        '\''
     );
   }
 

@@ -1,6 +1,8 @@
 import { LightningElement, wire, api } from "lwc";
-import { getPicklistValues } from "lightning/uiObjectInfoApi";
+import { getPicklistValues, getObjectInfo } from "lightning/uiObjectInfoApi";
 import role from "@salesforce/schema/OpportunityContactRole.Role";
+import salutation from "@salesforce/schema/Lead.Salutation";
+import Lead_OBJECT from "@salesforce/schema/Lead";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import createProspectFromOpportunity from "@salesforce/apex/MLCRMOpportunityActions.createProspectFromOpportunity";
@@ -32,6 +34,7 @@ export default class CreateProspectAndContactRole extends LightningElement {
   existingCustomerId;
   isCreatingProspect = false;
   @api recordId;
+  recordTypeId;
 
   // getting opportunity contact default recordtype role picklist value
   @wire(getPicklistValues, {
@@ -40,28 +43,22 @@ export default class CreateProspectAndContactRole extends LightningElement {
   })
   rolePicklistValues;
 
-  salutationPicklistValue = [
-    {
-      label: "Mr.",
-      value: "Mr."
-    },
-    {
-      label: "Ms.",
-      value: "Ms."
-    },
-    {
-      label: "Dr.",
-      value: "Dr."
-    },
-    {
-      label: "Mr.",
-      value: "Mr."
-    },
-    {
-      label: "Prof.",
-      value: "Prof."
+  @wire(getObjectInfo, { objectApiName: Lead_OBJECT })
+  getobjectInfo(result) {
+    if (result.data) {
+      const rtis = result.data.recordTypeInfos;
+      this.recordTypeId = Object.keys(rtis).find(
+        (rti) => rtis[rti].name === "Mobile Lending Lead"
+      );
     }
-  ];
+  }
+
+  // getting Salautation personaccount recordtype role picklist value
+  @wire(getPicklistValues, {
+    recordTypeId: "$recordTypeId",
+    fieldApiName: salutation
+  })
+  salutationPicklistValue;
 
   // Table header column for existing customer table
   columnsIndividual = [
@@ -102,6 +99,13 @@ export default class CreateProspectAndContactRole extends LightningElement {
       : [];
   }
 
+  // getter method for salautaion picklist
+  get salutationPicklistValues() {
+    return this.salutationPicklistValue.data
+      ? this.salutationPicklistValue.data.values
+      : [];
+  }
+
   connectedCallback() {
     this.createProspectPayload.strRole = "Applicant";
     this.headerText = this.label.MLCRM_CreateProspect_Header;
@@ -117,6 +121,11 @@ export default class CreateProspectAndContactRole extends LightningElement {
   // method to hide warning banner
   hideBanner() {
     this.showWarningBanner = false;
+  }
+
+  get enableButtons() {
+    // If this.showProgressScreen is false, return a value of true
+    return this.showProgressScreen ? false : true;
   }
 
   // handling change event on input field and store values in wrapper

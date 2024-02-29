@@ -201,14 +201,16 @@ public with sharing class ChatterMigrationServiceTest {
     );
     List<FeedItem> feedOld = systemAction.query(
       'SELECT Body, BestCommentId, CommentCount, LikeCount, Type FROM FeedItem WHERE ParentId = \'' +
-      ChatterMigrationService.getAccountIdFromExternalId(VICTIM_EXTERNAL_ID) +
-      '\''
+        ChatterMigrationService.getAccountIdFromExternalId(VICTIM_EXTERNAL_ID) +
+        '\''
     );
 
     List<FeedItem> feedNew = systemAction.query(
       'SELECT Body, BestCommentId, CommentCount, LikeCount, Type FROM FeedItem WHERE ParentId = \'' +
-      ChatterMigrationService.getAccountIdFromExternalId(SURVIVOR_EXTERNAL_ID) +
-      '\''
+        ChatterMigrationService.getAccountIdFromExternalId(
+          SURVIVOR_EXTERNAL_ID
+        ) +
+        '\''
     );
 
     List<FeedComment> feedComments = systemAction.query(

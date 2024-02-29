@@ -50,7 +50,8 @@ public with sharing class TransactionHistoryControllerTest {
       FirstName = 'Steve',
       LastName = 'Rogers',
       OCV_ID__c = '123456',
-      External_Id__c = 'a#@sjaf0832'
+      External_Id__c = 'a#@sjaf0832',
+      ANZx_Customer__c = true
     );
     insert acc;
 

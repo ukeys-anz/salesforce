@@ -9,7 +9,8 @@ import { handleErrorShowToast } from "c/utils";
 
 const fields = [
   "Interaction.Chat_or_Call_SID__c",
-  "Interaction.Account.OCV_ID__c"
+  "Interaction.Account.OCV_ID__c",
+  "Interaction.TwilioDetailsID__r.Chat_or_Call_SID__c"
 ];
 
 export default class ViewTranscriptForInteraction extends LightningElement {
@@ -50,16 +51,14 @@ export default class ViewTranscriptForInteraction extends LightningElement {
   @wire(getRecord, { recordId: "$_recordId", fields })
   interactionRecord({ data, error }) {
     if (data) {
-      if (data.fields && data.fields.Chat_or_Call_SID__c.value) {
-        this.chatOrCallSid = data.fields.Chat_or_Call_SID__c.value;
-        if (this.isExecuting) {
-          const message = { channelSID: this.chatOrCallSid };
-          this.publishLightningMessage(
-            chatHistoryChannel,
-            message,
-            "Error occurred while displaying related Chat History"
-          );
-        }
+      this.chatOrCallSid = this.extractChatOrCallSidFromRecord(data);
+      if (this.isExecuting) {
+        const message = { channelSID: this.chatOrCallSid };
+        this.publishLightningMessage(
+          chatHistoryChannel,
+          message,
+          "Error occurred while displaying related Chat History"
+        );
       }
     } else if (error) {
       console.error(
@@ -95,5 +94,15 @@ export default class ViewTranscriptForInteraction extends LightningElement {
       variant: "success"
     });
     this.dispatchEvent(event);
+  }
+
+  //This method extract chatOrCallSid from Data fields of Interaction or Related Twilio Details record
+  extractChatOrCallSidFromRecord(data) {
+    let chatOrCallSidFromInteraction = data.fields?.Chat_or_Call_SID__c?.value;
+    let chatOrCallSidFromRelatedTwilioDetail =
+      data.fields?.TwilioDetailsID__r?.value?.fields?.Chat_or_Call_SID__c
+        ?.value;
+
+    return chatOrCallSidFromInteraction || chatOrCallSidFromRelatedTwilioDetail;
   }
 }

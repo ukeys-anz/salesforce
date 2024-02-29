@@ -57,7 +57,7 @@ public with sharing class TransactionHistoryController {
         BillingCountry,
         OCV_ID__c
       FROM Account
-      WHERE OCV_ID__c = :customerOCVId
+      WHERE OCV_ID__c = :customerOCVId AND ANZx_Customer__c = TRUE
       LIMIT 1
     ];
     returnMap.put('AccountId', personAccount.Id);
@@ -84,15 +84,15 @@ public with sharing class TransactionHistoryController {
       .getName();
     Logger.error(
       'Failed to automatically infer dispute type for transaction ' +
-      logDetails.get('transactionId') +
-      ' of type ' +
-      logDetails.get('transactionType') +
-      '. Using ' +
-      recordTypeName +
-      ' as a result. Financial account: ' +
-      logDetails.get('financialAccountId') +
-      ' | User Id: ' +
-      UserInfo.getUserId()
+        logDetails.get('transactionId') +
+        ' of type ' +
+        logDetails.get('transactionType') +
+        '. Using ' +
+        recordTypeName +
+        ' as a result. Financial account: ' +
+        logDetails.get('financialAccountId') +
+        ' | User Id: ' +
+        UserInfo.getUserId()
     );
     Logger.saveLog();
   }

@@ -26,6 +26,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <custom>true</custom>
+    <customMetadataTypeAccesses>
+        <name>External_Case_Status_Mapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Baseline profile for integration users, AKA service accounts. Shall be extended
         with permission sets according to the least privilege principle,</description>
     <fieldPermissions>

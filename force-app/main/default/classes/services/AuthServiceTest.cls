@@ -35,4 +35,53 @@ public inherited sharing class AuthServiceTest {
       'Response body should not be null.'
     );
   }
+
+  /**
+   * @description test method for getForgeJWTToken when successful
+   */
+  @isTest
+  public static void testGetForgeJWTTokenv2() {
+    Forgerock_Auth__mdt forgeAuth = Forgerock_Auth__mdt.getInstance('ForgeV2');
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = forgeAuth.Forgev2_subject_token_type__c;
+    staffModelWrapper.idType = Service.IdType.OCVID;
+    staffModelWrapper.idValue = '1111';
+    Test.startTest();
+    Service authService = (Service) ServiceProvider.getService(
+      AuthService.class
+    );
+
+    HttpCalloutResponse response = authService.getForgeJWTToken(
+      staffModelWrapper,
+      IDTESTVALUE,
+      forgeAuth
+    );
+    Test.stopTest();
+    Assert.areNotEqual(
+      response.body,
+      null,
+      'Response body should not be null.'
+    );
+  }
+
+  /**
+   * @description test method for getForgeJWTToken when successful
+   */
+  @isTest
+  public static void testGetForgeJWTPayload() {
+    String idToken = IDTESTVALUE;
+    Forgerock_Auth__mdt forgeAuth = Forgerock_Auth__mdt.getInstance('ForgeV2');
+    StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
+    staffModelWrapper.anzTokenType = forgeAuth.Forgev2_subject_token_type__c;
+    staffModelWrapper.idType = Service.IdType.OCVID;
+    staffModelWrapper.idValue = '1111';
+    Test.startTest();
+    String payload = AuthService.getJWT2Payload(
+      staffModelWrapper,
+      idToken,
+      forgeAuth
+    );
+    Test.stopTest();
+    Assert.areNotEqual(payload, null, 'Response body should not be null.');
+  }
 }

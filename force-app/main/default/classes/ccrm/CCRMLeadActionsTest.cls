@@ -1047,7 +1047,6 @@ private class CCRMLeadActionsTest {
         WHERE RecordTypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID AND status = 'New'
       ];
       for (Lead objLead : lstOfLead) {
-        objLead.LastName = 'test lastname';
         objLead.IsNewLead__c = false;
       }
       update lstOfLead;

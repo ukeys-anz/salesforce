@@ -20,6 +20,7 @@ import CCRM_SelectResponsePrompt from "@salesforce/label/c.CCRM_SelectResponsePr
 import CCRM_ConversationGuideHeading from "@salesforce/label/c.CCRM_ConversationGuideHeading";
 import CCRM_WhatHappensNextHeading from "@salesforce/label/c.CCRM_WhatHappensNextHeading";
 import CCRM_ConversationGuideBody from "@salesforce/label/c.CCRM_ConversationGuideBody";
+import ML_ConversationGuideBody from "@salesforce/label/c.ML_ConversationGuideBody";
 import ML_MaxExpiryDateErrorMessage from "@salesforce/label/c.ML_MaxExpiryDateErrorMessage";
 import ML_LeadQualityRequiredValues from "@salesforce/label/c.ML_LeadQualityRequiredValues";
 import CCRM_LeadQualityRequiredValues from "@salesforce/label/c.CCRM_LeadQualityRequiredValues";
@@ -31,6 +32,7 @@ export default class LeadLogAResponse extends LightningElement {
   @api recordId;
   @api recordTypeId;
   @track hasError = false;
+  @track hasNoError = true;
   @track errorMessage;
   @track dependentPicklistWrapper;
   @track outcomeReasonDetailMap = [];
@@ -60,36 +62,43 @@ export default class LeadLogAResponse extends LightningElement {
     CCRM_ConversationGuideHeading,
     CCRM_WhatHappensNextHeading,
     CCRM_ConversationGuideBody,
+    ML_ConversationGuideBody,
     ML_MaxExpiryDateErrorMessage,
     ML_LeadQualityRequiredValues,
     CCRM_LeadQualityRequiredValues
   };
 
-  connectedCallback() {
-    this.setConversationGuidanceUrl();
-  }
   setConversationGuidanceUrl() {
     getLeadResponseGuidanceMapping({
       leadId: this.recordId
     })
       .then((result) => {
         this.leadResponseGuidanceMapping = JSON.parse(result);
-        this.conversationGuidanceURL = this.label.CCRM_ConversationGuideBody;
-        if (
-          this.leadResponseGuidanceMapping.campaignLeadsLink !== undefined &&
-          this.leadResponseGuidanceMapping.campaignLeadsLink !== ""
-        ) {
-          this.conversationGuidanceURL = this.label.CCRM_ConversationGuideBody.replace(
-            "Campaign Leads",
-            "<a href=" +
-              this.leadResponseGuidanceMapping.campaignLeadsLink +
-              ' target="_blank">Campaign Leads</a>'
-          ).replace(
-            "Customer Conversation Guides.",
+        if (this.recordTypeName === MOBILE_LENDING_RECORDTYPE) {
+          this.conversationGuidanceURL = this.label.ML_ConversationGuideBody.replace(
+            "Max",
             "<a href=" +
               this.leadResponseGuidanceMapping.customerConversationGuideLink +
-              ' target="_blank">Customer Conversation Guides.</a>'
+              ' target="_blank">Max</a>'
           );
+        } else if (this.recordTypeName === CCRM_RECORDTYPE) {
+          this.conversationGuidanceURL = this.label.CCRM_ConversationGuideBody;
+          if (
+            this.leadResponseGuidanceMapping.campaignLeadsLink !== undefined &&
+            this.leadResponseGuidanceMapping.campaignLeadsLink !== ""
+          ) {
+            this.conversationGuidanceURL = this.label.CCRM_ConversationGuideBody.replace(
+              "Campaign Leads",
+              "<a href=" +
+                this.leadResponseGuidanceMapping.campaignLeadsLink +
+                ' target="_blank">Campaign Leads</a>'
+            ).replace(
+              "Customer Conversation Guides.",
+              "<a href=" +
+                this.leadResponseGuidanceMapping.customerConversationGuideLink +
+                ' target="_blank">Customer Conversation Guides.</a>'
+            );
+          }
         }
       })
       .catch((error) => {
@@ -109,6 +118,7 @@ export default class LeadLogAResponse extends LightningElement {
       this.leadStatus = data.fields.Status.value;
       this.recordTypeName =
         data.fields.RecordType.value.fields.DeveloperName.value;
+      this.setConversationGuidanceUrl();
     }
     if (error) {
       this.handleError(error);
@@ -284,7 +294,11 @@ export default class LeadLogAResponse extends LightningElement {
             this.selectedResponseTypeId = this.outcomeReasonDetailMap[
               key
             ].ResponseTypeId;
-            whatsNextKey = this.selectedResponseStatusValue + createOpportunity;
+            whatsNextKey =
+              this.selectedResponseStatusValue +
+              (this.recordTypeName === MOBILE_LENDING_RECORDTYPE
+                ? ""
+                : createOpportunity);
             if (
               this.leadResponseGuidanceMapping
                 .mapOfLeadStatusReasonAndNextDetail[whatsNextKey] !==
@@ -296,6 +310,7 @@ export default class LeadLogAResponse extends LightningElement {
                 whatsNextKey
               ];
               if (this.whatHappensNextInfo === "") {
+                this.showWhatHappensNext = false;
                 return;
               }
               if (this.whatHappensNextInfo.includes(this.leadStatus + ":")) {
@@ -453,5 +468,13 @@ export default class LeadLogAResponse extends LightningElement {
     if (this.resetValidationError) {
       this.resetValidationError = false;
     }
+  }
+  get enableComboBox() {
+    // If this.resetValidationError is false, return a value of true
+    return !this.resetValidationError;
+  }
+  get enableFollowUpDateComboBox() {
+    // If this.followUpDateDisable is false, return a value of true
+    return !this.followUpDateDisable;
   }
 }

@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Status of Interaction</description>
     <externalId>false</externalId>
-    <inlineHelpText>The current status of the appointment.</inlineHelpText>
+    <inlineHelpText>The current status of the chat / appointment.</inlineHelpText>
     <label>Status</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

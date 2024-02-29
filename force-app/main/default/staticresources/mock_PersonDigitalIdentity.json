@@ -1,0 +1,250 @@
+{
+  "result": [
+    {
+      "_id": "4b5c3dcf-c60b-442c-b614-cc8993dd2787",
+      "_rev": "141",
+      "ocvId": "1001292844",
+      "status": "active",
+      "preferredName": "Jenny",
+      "securityEmail": "ms.yalitan@gmail.com",
+      "createDateTime": "2023-09-07T03:28:14.793757Z",
+      "securityMobile": "00610477123667",
+      "idxInternalUserId": "QTAz5v2UNd-tEyW_v_WTaToTfg",
+      "identityAssuranceLevel": 4,
+      "persona": [
+        {
+          "_ref": "managed/persona/b39ea11b-d5f7-43cf-978b-cb0525477aca",
+          "_refResourceCollection": "managed/persona",
+          "_refResourceId": "b39ea11b-d5f7-43cf-978b-cb0525477aca",
+          "_refProperties": {
+            "_id": "1fa4e334-fc4d-4a06-a73d-7b8c9aae17f5",
+            "_rev": "0"
+          },
+          "_id": "b39ea11b-d5f7-43cf-978b-cb0525477aca",
+          "_rev": "0",
+          "type": "retail",
+          "status": "active",
+          "createDateTime": "2023-09-07T03:28:15.389095Z"
+        }
+      ],
+      "credential": [
+        {
+          "_ref": "managed/credential/QTAzcCaxncctGHKuTySauJN-vA",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzcCaxncctGHKuTySauJN-vA",
+          "_refProperties": {
+            "_id": "e92435aa-dc91-4ed6-a16b-2e24eb6ca20b",
+            "_rev": "0"
+          },
+          "_id": "QTAzcCaxncctGHKuTySauJN-vA",
+          "appCorrelationId": "F7AE26D3-5AFA-427D-9DDC-FFBE0B599CC4",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-19T07:36:04.677722Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzFTr6eSzrFn1TZWf-jpK8aQ",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzFTr6eSzrFn1TZWf-jpK8aQ",
+          "_refProperties": {
+            "_id": "3904013d-dbf6-4a3c-bd48-17f6c63648ce",
+            "_rev": "0"
+          },
+          "_id": "QTAzFTr6eSzrFn1TZWf-jpK8aQ",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-19T07:12:56.609867Z"
+        },
+        {
+          "_ref": "managed/credential/42c8e728-8a7d-402a-a9da-a138a701ed42",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "42c8e728-8a7d-402a-a9da-a138a701ed42",
+          "_refProperties": {
+            "_id": "cf7d9e4b-f6da-42f4-a17a-516f4c10eca5",
+            "_rev": "0"
+          },
+          "_id": "42c8e728-8a7d-402a-a9da-a138a701ed42",
+          "_rev": "0",
+          "type": "pin",
+          "status": "active",
+          "provider": "idrepo",
+          "createDateTime": "2023-09-07T03:28:15.15812Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzPeEiDrJAi1IbclP9_uJ76Q",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzPeEiDrJAi1IbclP9_uJ76Q",
+          "_refProperties": {
+            "_id": "1871b0c9-c09a-483d-bb35-5a082deeb57c",
+            "_rev": "0"
+          },
+          "_id": "QTAzPeEiDrJAi1IbclP9_uJ76Q",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-13T04:15:26.166539Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzN-8g0avjPZwCz2J5_kPJCg",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzN-8g0avjPZwCz2J5_kPJCg",
+          "_refProperties": {
+            "_id": "c2277bc6-0135-490d-a469-02b016a43b5a",
+            "_rev": "0"
+          },
+          "_id": "QTAzN-8g0avjPZwCz2J5_kPJCg",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-15T00:48:41.387797Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzYJU8VeyY1COeNGgKAlhgdQ",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzYJU8VeyY1COeNGgKAlhgdQ",
+          "_refProperties": {
+            "_id": "a0b32e90-cd85-4e40-a8e4-97d660890eb5",
+            "_rev": "0"
+          },
+          "_id": "QTAzYJU8VeyY1COeNGgKAlhgdQ",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-15T02:55:07.898072Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzukQ02fFVVZZom89p0P-4dA",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzukQ02fFVVZZom89p0P-4dA",
+          "_refProperties": {
+            "_id": "21dd9b0b-37f0-4f9c-a026-9593755938a4",
+            "_rev": "0"
+          },
+          "_id": "QTAzukQ02fFVVZZom89p0P-4dA",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-20T07:27:50.908182Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzPNeKza5XcEaAF3MT6iJZ3Q",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzPNeKza5XcEaAF3MT6iJZ3Q",
+          "_refProperties": {
+            "_id": "eb5dcfc7-7b49-4e0d-896b-cc338457c303",
+            "_rev": "0"
+          },
+          "_id": "QTAzPNeKza5XcEaAF3MT6iJZ3Q",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-18T06:11:52.022321Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzR6ClbkAOb1Vkx1H94hahrA",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzR6ClbkAOb1Vkx1H94hahrA",
+          "_refProperties": {
+            "_id": "90307295-a816-4b8d-ac72-7ea0e7b5c442",
+            "_rev": "0"
+          },
+          "_id": "QTAzR6ClbkAOb1Vkx1H94hahrA",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-15T00:11:29.921346Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzKE-BTMUeUCfIDez22REXIQ",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzKE-BTMUeUCfIDez22REXIQ",
+          "_refProperties": {
+            "_id": "18653d5e-0f5d-4baa-8e2e-89e9fa72a48a",
+            "_rev": "0"
+          },
+          "_id": "QTAzKE-BTMUeUCfIDez22REXIQ",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-08T00:51:19.992777Z"
+        },
+        {
+          "_ref": "managed/credential/QTAziO9AII-Ci1zqFe5jbV3Evw",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAziO9AII-Ci1zqFe5jbV3Evw",
+          "_refProperties": {
+            "_id": "7e0f7351-d691-4bbc-b88f-1b7584f30e0e",
+            "_rev": "0"
+          },
+          "_id": "QTAziO9AII-Ci1zqFe5jbV3Evw",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-08T00:41:11.782817Z"
+        },
+        {
+          "_ref": "managed/credential/QTAz7MUzVeykrabkxPMUMcgAkw",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAz7MUzVeykrabkxPMUMcgAkw",
+          "_refProperties": {
+            "_id": "3f8803fa-6401-4da4-8dd0-ef6719ac4716",
+            "_rev": "0"
+          },
+          "_id": "QTAz7MUzVeykrabkxPMUMcgAkw",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-07T04:53:12.25101Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzKj1zkr1CKh0qN5rhp1-5yw",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzKj1zkr1CKh0qN5rhp1-5yw",
+          "_refProperties": {
+            "_id": "05c0d247-53cf-4e53-b474-2552afdfd2ea",
+            "_rev": "0"
+          },
+          "_id": "QTAzKj1zkr1CKh0qN5rhp1-5yw",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-07T07:19:51.001803Z"
+        },
+        {
+          "_ref": "managed/credential/QTAzKijr7HAB61yMoGVA6XsG1w",
+          "_refResourceCollection": "managed/credential",
+          "_refResourceId": "QTAzKijr7HAB61yMoGVA6XsG1w",
+          "_refProperties": {
+            "_id": "83373fc5-7e7e-4221-b897-937780efa47f",
+            "_rev": "0"
+          },
+          "_id": "QTAzKijr7HAB61yMoGVA6XsG1w",
+          "_rev": "0",
+          "type": "device-reg",
+          "status": "active",
+          "provider": "idx",
+          "createDateTime": "2023-09-07T03:28:18.114052Z"
+        }
+      ]
+    }
+  ],
+  "resultCount": 1,
+  "pagedResultsCookie": null,
+  "totalPagedResultsPolicy": "NONE",
+  "totalPagedResults": -1,
+  "remainingPagedResults": -1
+}

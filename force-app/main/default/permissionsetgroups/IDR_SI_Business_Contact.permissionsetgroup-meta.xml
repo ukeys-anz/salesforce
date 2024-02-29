@@ -4,12 +4,12 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR SI Business Contact</label>
     <permissionSets>Chatter_User_with_License</permissionSets>
+    <permissionSets>dupcheck_CMOS</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_3</permissionSets>
     <permissionSets>IDR_User_SIBU</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Systemic_Issue_Read_Only</permissionSets>
-    <permissionSets>dupcheck_CMOS</permissionSets>
-    <permissionSets>force__OmniStudioExecution</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

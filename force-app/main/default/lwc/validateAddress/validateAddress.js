@@ -3,7 +3,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import { getRecord } from "lightning/uiRecordApi";
 import { NavigationMixin } from "lightning/navigation";
-import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLWC";
+import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV3";
 import getSelectedAddress from "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLWC";
 import LEAD_STREET from "@salesforce/schema/Lead.Street";
 import LEAD_CITY from "@salesforce/schema/Lead.City";
@@ -103,7 +103,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
             this.strStreet !== this.streetFullName ||
             this.strCity !== this.selectedAddress.city ||
             this.strState !== this.selectedAddress.state ||
-            this.strCountry !== this.selectedAddress.countryCode ||
+            this.strCountry !== this.selectedAddress.countryCodeThree ||
             this.strPostalCode !== this.selectedAddress.postalCode
           ) {
             fields.Is_Valid_Address__c = false;
@@ -155,8 +155,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   }
 
   getAddresses() {
-    let lookupString = encodeURIComponent(this.searchString);
-    getValidAddresses({ lookupString: lookupString })
+    getValidAddresses({ lookupString: this.searchString })
       .then((result) => {
         this.addressList = result.result;
         if (this.addressList === undefined || this.addressList.length === 0) {
@@ -207,7 +206,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
           this.strStreet = this.streetFullName;
           this.strCity = this.selectedAddress.city;
           this.strState = this.selectedAddress.state;
-          this.strCountry = this.selectedAddress.countryCode;
+          this.strCountry = this.selectedAddress.countryCodeThree;
           this.strPostalCode = this.selectedAddress.postalCode;
           this.strLatitude = this.selectedAddress.latitude;
           this.strLongitude = this.selectedAddress.longitude;

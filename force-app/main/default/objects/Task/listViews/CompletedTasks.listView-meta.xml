@@ -38,4 +38,17 @@
     </filters>
     <filterScope>Mine</filterScope>
     <label>Recently Completed Tasks</label>
+    <sharedTo>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+        <roleAndSubordinates>Capability_Quality_C_Q_Team</roleAndSubordinates>
+        <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        <roleAndSubordinates>Data_Analyst</roleAndSubordinates>
+        <roleAndSubordinates>IDR_Content_Writer</roleAndSubordinates>
+        <roleAndSubordinates>Systemic_Issue_Team</roleAndSubordinates>
+        <roleAndSubordinates>Tech_Support</roleAndSubordinates>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinates>Engineer</roleAndSubordinates>
+        <roleAndSubordinates>SVP_Customer_Experience</roleAndSubordinates>
+    </sharedTo>
 </ListView>

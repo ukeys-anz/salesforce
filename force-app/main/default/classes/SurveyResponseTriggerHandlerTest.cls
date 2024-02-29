@@ -143,6 +143,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
   @isTest
   static void testBuildCaseFromSurveyResponse() {
     List<qualtrics__Survey_Response__c> responsesRequireCase = new List<qualtrics__Survey_Response__c>();
+    Map<String, String> queueMap = new Map<String, String>();
 
     Faker faker = new Faker('AU');
     Account accnt = new Account();
@@ -160,6 +161,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
     sr1.Alerting_Reason__c = 'Test alerting reason - 1';
     sr1.qualtrics__Net_Promoter_Score__c = 2;
     sr1.Customer_Feedback__c = 'Customer Feedback - 1';
+
     responsesRequireCase.add(sr1);
 
     Account accnt2 = [SELECT Id FROM Account WHERE OCV_ID__c = :OCV_ID_2];
@@ -183,7 +185,8 @@ public with sharing class SurveyResponseTriggerHandlerTest {
     Test.startTest();
     List<Case> returnedCases = SurveyResponseActionsHelper.buildCaseList(
       accountsMap,
-      responsesRequireCase
+      responsesRequireCase,
+      queueMap
     );
     Test.stopTest();
 
@@ -238,6 +241,49 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       Account acc = [SELECT Id FROM Account WHERE OCV_ID__c = :OCV_ID_1];
 
       assertCaseFields(acc.Id, sr, cases[0]);
+    }
+  }
+
+  @isTest
+  static void testCreateCaseForSurveyResponseCaseOwnerCheck() {
+    User qualtricsIntegrationUser = [
+      SELECT Id
+      FROM User
+      WHERE Firstname = 'Qualtrics_Intergration_User'
+    ];
+
+    Group supportCoachQueue = CommonUtil.getQueueByName(
+      GetHelpConstants.SUPPORT_COACH_QUEUE
+    );
+    System.runAs(qualtricsIntegrationUser) {
+      List<qualtrics__Survey_Response__c> surveyResponseList = new List<qualtrics__Survey_Response__c>();
+      // Run as Qualtrics Integration User as the matching logic will be executed by this user in reality
+      qualtrics__Survey_Response__c sr = new qualtrics__Survey_Response__c();
+      sr.OCV_ID__c = OCV_ID_1;
+      sr.qualtrics__Net_Promoter_Score__c = 2;
+      sr.Customer_Feedback__c = 'Customer Feedback';
+      sr.Other_Feedback__c = 'Some other feedback';
+      sr.qualtrics__Overall_Satisfaction__c = 'Satisfied';
+      sr.Alerting_Reason__c = 'Some alerting reason';
+      sr.Create_Case__c = true;
+      sr.Case_Queue__c = 'Support Coach Queue';
+
+      surveyResponseList.add(sr);
+      Test.startTest();
+      SurveyResponseActions.createCaseForSurveyResponse(surveyResponseList);
+      Test.stopTest();
+
+      List<Case> cases = [
+        SELECT OwnerId
+        FROM Case
+        WHERE Alerting_Reason__c = 'Some alerting reason'
+      ];
+
+      System.assertEquals(
+        supportCoachQueue.Id,
+        cases[0].OwnerId,
+        'Support Coach queue should be the owner'
+      );
     }
   }
 
@@ -315,8 +361,8 @@ public with sharing class SurveyResponseTriggerHandlerTest {
     );
     System.assertEquals(
       surveyResponse.Alerting_Reason__c +
-      ' - ' +
-      SurveyResponseActionsHelper.feedbackType,
+        ' - ' +
+        SurveyResponseActionsHelper.feedbackType,
       caseRec.Subject,
       'Subject should match.'
     );

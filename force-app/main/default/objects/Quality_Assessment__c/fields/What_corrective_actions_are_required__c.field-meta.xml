@@ -36,6 +36,11 @@
                 <default>false</default>
                 <label>Further review recommended (action for MMM)</label>
             </value>
+            <value>
+                <fullName>N/A- no action required</fullName>
+                <default>false</default>
+                <label>N/A- no action required</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

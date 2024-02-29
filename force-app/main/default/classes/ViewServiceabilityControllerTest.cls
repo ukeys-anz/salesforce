@@ -165,9 +165,7 @@ private class ViewServiceabilityControllerTest {
     String ocvId = '1000990280';
     BOHService serv = new BOHService();
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
     Test.startTest();

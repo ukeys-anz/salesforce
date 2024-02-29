@@ -41,7 +41,9 @@ const salesforceSecretNames = {
   "epic/loan-app": "h-salesforce-np-loan-app",
   "epic/search-customer": "h-salesforce-np-searchcustomer",
   "epic/inapp-complaint": "h-salesforce-np-inappcomp",
-  "epic/bohleads": "h-salesforce-np-bohleads"
+  "epic/bohleads": "h-salesforce-np-bohleads",
+  "epic/disputes": "h-salesforce-np-disputes",
+  "epic/connectid": "h-salesforce-np-connectid"
 };
 
 const brokerSecretNames = {

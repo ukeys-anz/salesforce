@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PersonAccountLinkContact</fullName>
+    <active>true</active>
+    <description>Validation to check if person account is linked with contact.</description>
+    <errorConditionFormula>OR(AND(ISBLANK(Broker_Customer_Profile__r.Id),UPPER(RecordType.DeveloperName) =&quot;BROKER&quot;),
+AND(
+NOT(ISBLANK(Broker_Customer_Profile__r.Name)),
+UPPER(Broker_Customer_Profile__r.RecordType.DeveloperName)&lt;&gt; &quot;PERSONACCOUNT&quot;, UPPER(RecordType.DeveloperName) =&quot;BROKER&quot;))</errorConditionFormula>
+    <errorDisplayField>Broker_Customer_Profile__c</errorDisplayField>
+    <errorMessage>Associated Customer Profile not found</errorMessage>
+</ValidationRule>

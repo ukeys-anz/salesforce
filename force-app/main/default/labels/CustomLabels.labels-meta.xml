@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>ANZX_Broker_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Brokerdata cloud event type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Broker_Event_Proto_Data_Schema</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Data schema url for proto files for cloud event</shortDescription>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Staff_Issue_with_Valid_Owner_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Staff Issue with Valid Owner Id</shortDescription>
+        <value>Issue with valid owner id!</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Staff_No_Lan_Id_for_Staff</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker-Staff No Lan Id for Staff</shortDescription>
+        <value>No Lan Id found on Staff contact.</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Staff_No_User_for_Staff_s_Lan_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker-Staff No User for Staff&apos;s Lan Id</shortDescription>
+        <value>No User found for staff&apos;s contact&apos;s Lan Id.</value>
+    </labels>
+    <labels>
+        <fullName>Broker_Staff_User_as_Owner_of_Staff_BDM_records</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Staff User as Owner of Staff - BDM records</shortDescription>
+        <value>OCV Integration User</value>
+    </labels>
+    <labels>
         <fullName>Reactive_logging_keywords</fullName>
         <categories>Contains keywords used for reactive logging for data masking</categories>
         <language>en_US</language>
@@ -268,12 +310,12 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
-        <fullName>MS_Create_Income</fullName>
+        <fullName>MS_Income</fullName>
         <categories>MS</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>MS_Create_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/createincome</value>
+        <shortDescription>MS_Income</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/incomes</value>
     </labels>
     <labels>
         <fullName>MS_Create_Party</fullName>
@@ -396,14 +438,6 @@
         <value>callout:SF_MS_Fabric/credit-assessment/v1/sop/</value>
     </labels>
     <labels>
-        <fullName>MS_Delete_Income</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_Delete_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/deleteincome</value>
-    </labels>
-    <labels>
         <fullName>MS_Update_Expense</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -444,6 +478,14 @@
         <value>/qas/v1/address/search</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Qas_Address_V3</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Qas_Address</shortDescription>
+        <value>/sfdc/addresses/v3/addresses/search</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Qas_AddressById</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -458,6 +500,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_AddressById_V2</shortDescription>
         <value>/qas/v1/address/format/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Qas_AddressById_V3</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Qas_AddressById_V3</shortDescription>
+        <value>/sfdc/addresses/v3/addresses/format/</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>
@@ -713,14 +763,6 @@
         <protected>false</protected>
         <shortDescription>MS_Reinitiate_Chat</shortDescription>
         <value>/contact-centre-staff/reinit-chats</value>
-    </labels>
-    <labels>
-        <fullName>MS_Update_Income</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_Update_Income</shortDescription>
-        <value>callout:SF_MS_Fabric/credit-assessment/v1/updateincome</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_New</fullName>
@@ -1252,6 +1294,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Id, FinServ__RelatedAccount__r.Name, FirstName, LastName, Title__c, Work_Phone__c, Email, MobilePhone, Home_Phone__c, RecordTypeId, (SELECT CampaignId FROM CampaignMembers)</value>
     </labels>
     <labels>
+        <fullName>LightHouse_Get_List_Consent_History</fullName>
+        <categories>LH</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LightHouse ListConsentHistory</shortDescription>
+        <value>/lighthouse/v1/connect-id/consent-histories</value>
+    </labels>
+    <labels>
         <fullName>MLCRM_LeadDetailsSubText</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -1297,7 +1347,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Campaign code of Default Campaign</shortDescription>
-        <value>IKCMP-1579</value>
+        <value>IKCMP-1670</value>
     </labels>
     <labels>
         <fullName>CCRM_LeadQualityRequiredValues</fullName>
@@ -1892,6 +1942,70 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords?:iid=5&amp;ocv_id=</value>
     </labels>
     <labels>
+        <fullName>CCRM_CityLengthCheck</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_CityLengthCheck</shortDescription>
+        <value>City cannot be greater than 25 chars.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_StateLengthCheck</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_StateLengthCheck</shortDescription>
+        <value>State cannot be greater than 15 chars.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CountryCodeLengthCheck</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_CountryCodeLengthCheck</shortDescription>
+        <value>Country Code cannot be greater than 3 chars.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_PostalCodeLengthCheck</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_PostalCodeLengthCheck</shortDescription>
+        <value>Postal Code cannot be greater than 9 chars.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_SicCodeLengthCheck</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_SicCodeLengthCheck</shortDescription>
+        <value>Sic Code cannot be greater than 4 chars.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ABNLengthCheck</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_ABNLengthCheck</shortDescription>
+        <value>ABN cannot be greater than 11 chars.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_NameLengthCheck</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_NameLengthCheck</shortDescription>
+        <value>Name cannot be greater than 40 chars.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CustomerTypeLengthCheck</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_CustomerTypeLengthCheck</shortDescription>
+        <value>Customer Type cannot be greater than 2 chars.</value>
+    </labels>
+    <labels>
         <fullName>ML_ConversationGuideBody</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -1915,11 +2029,62 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Generic-FRX</value>
     </labels>
     <labels>
+        <fullName>ML_Outlook_Attachment_Delete_Delay</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML Outlook Attachment Delete Delay in minutes</shortDescription>
+        <value>2</value>
+    </labels>
+    <labels>
+        <fullName>AdobeIntegrationUserName</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AdobeIntegrationUserName</shortDescription>
+        <value>adobe.integration@anzx.com</value>
+    </labels>
+    <labels>
+        <fullName>ML_DateOfBirth_ErrorMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ML_DateOfBirth_ErrorMessage</shortDescription>
+        <value>Date of Birth cannot be in the future.</value>
+    </labels>
+    <labels>
         <fullName>Assisted_Raise_Dispute_Error_Message</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>For Raise Dispute Card Transactions</shortDescription>
         <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
+    </labels>
+    <labels>
+        <fullName>MS_ForgeV2_Token</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ForgeV2_Token</shortDescription>
+        <value>/forge/oauth/v2/customer/token?anz_token_type=</value>
+    </labels>
+    <labels>
+        <fullName>MS_GetDeviceWithBiometric</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_GetDeviceWithBiometric</shortDescription>
+        <value>/aegis-portal/v1/users/{userInternalId}/authenticators?status=ACTIVE&amp;sortField=created&amp;appCorrelationId={appCorrelationId}&amp;sortAscending=false</value>
+    </labels>
+    <labels>
+        <fullName>MS_GetDeviceWithoutBiometric</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_GetDeviceWithoutBiometric</shortDescription>
+        <value>/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
+    </labels>
+    <labels>
+        <fullName>MS_SearchCustomer_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_SearchCustomer_API</shortDescription>
+        <value>/aegis-portal/v1/coaches/persons?_queryFilter=true&amp;</value>
     </labels>
     <labels>
         <fullName>FinAccountProductToMap</fullName>
@@ -1934,5 +2099,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Missing Code message while Mapping Classic FinAcc Records to Product</shortDescription>
         <value>Missing Product Code Sub Code Found and the number of Financial Account Using the subcode.</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Marketing_Consent_Tableau_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Marketing_Consent_Tableau_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
     </labels>
 </CustomLabels>

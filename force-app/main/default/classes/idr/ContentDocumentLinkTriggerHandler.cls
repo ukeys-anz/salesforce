@@ -5,6 +5,7 @@
  * without sharing: used to query the cases related to the Content Document as the banker may not have to all case records
  * @runTests ContentDocumentLinkTriggerHandlerTest
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description onAfterInsert to manage after insert actions to handle notifications
@@ -16,6 +17,73 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
   public override void onBeforeDelete() {
     logFileDelete((List<ContentDocumentLink>) records);
   }
+
+  /**
+   * @description onBeforeInsert to manage before insert actions
+   */
+  public override void onBeforeInsert() {
+    restrictOutlookAttachments((List<ContentDocumentLink>) records);
+  }
+
+  /**
+   * @description Restrict Attachments and show erro when EmailMessae is created from Outlook with attachments.
+   * @param cdlList ContentDocumentLink records in current trigger context
+   */
+  public static void restrictOutlookAttachments(
+    List<ContentDocumentLink> cdlList
+  ) {
+    List<Id> emailMessageIdList = new List<Id>();
+    String mlProifleName = MLCRMConstants.ML_PROFILE_NAME;
+    Id mlStandardProfileId = [
+      SELECT Id
+      FROM Profile
+      WHERE Name = :mlProifleName
+    ]
+    .Id;
+
+    for (ContentDocumentLink cdl : cdlList) {
+      if (cdl.LinkedEntityId.getSObjectType() == EmailMessage.sObjectType) {
+        emailMessageIdList.add(cdl.LinkedEntityId);
+      }
+    }
+
+    try {
+      if (emailMessageIdList.isEmpty()) {
+        return;
+      }
+      Map<Id, EmailMessage> outlookMessages = MLCRMCommonUtils.getEmailMessageUsingProfileName(
+        emailMessageIdList,
+        mlProifleName
+      );
+      // If CDL is not linked to Outlook Email Message then return
+      if (outlookMessages.isEmpty()) {
+        return;
+      }
+
+      Set<Id> outlookEmailMessagIds = outlookMessages.keySet();
+      List<Id> contentDocsToDelete = new List<Id>();
+      for (ContentDocumentLink cdl : cdlList) {
+        if (outlookEmailMessagIds.contains(cdl.LinkedEntityId)) {
+          EmailMessage em = outlookMessages.get(cdl.LinkedEntityId);
+          if (MLCRMCommonUtils.isContentDocumentDeleteAllowed(em)) {
+            contentDocsToDelete.add(cdl.ContentDocumentId);
+          }
+        }
+      }
+      System.enqueueJob(
+        new MLCRMContentDocDeleteQueueable(contentDocsToDelete),
+        integer.valueof(System.Label.ML_Outlook_Attachment_Delete_Delay)
+      ); // delete attachment async with Delay mention in CustomLabel
+    } catch (Exception err) {
+      Logger.error(
+        'Error while Restricting Outlook Attachment for ML Users :' +
+        err.getMessage(),
+        err
+      );
+      Logger.saveLog();
+    }
+  }
+
   /**
    * @description Assesses whether or not to generate a log (generate only for CMOS complaint and enquiry) and creates a log entry.
    * @param records ContentDocumentLink records in current trigger context

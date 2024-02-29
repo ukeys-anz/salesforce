@@ -55,7 +55,7 @@ public with sharing class BOHService extends Service {
     }
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Create_Income +
+      System.Label.MS_Income +
       '?income-verification=' +
       verificationStr,
       HTTP_METHOD.HTTP_POST,
@@ -92,13 +92,15 @@ public with sharing class BOHService extends Service {
    * @param verification whether the income is verified
    * @param ocvId ocv id of the customer account
    * @param incomeBody post data of income information
+   * @param incomeVerifiedChanged checks if the income verified value has changed
    * @return `HttpCalloutResponse` the api response
    * @description update income
    */
   public override HttpCalloutResponse updateIncome(
     String verification,
     String ocvId,
-    String incomeBody
+    String incomeBody,
+    Boolean incomeVerifiedChanged
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
@@ -110,9 +112,11 @@ public with sharing class BOHService extends Service {
     }
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Update_Income +
+      System.Label.MS_Income +
       '?income-verification=' +
-      verificationStr,
+      verificationStr +
+      '&isIncomeChanged=' +
+      incomeVerifiedChanged,
       HTTP_METHOD.HTTP_PATCH,
       headers,
       incomeBody
@@ -425,7 +429,7 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Delete_Income +
+      System.Label.MS_Income +
       '?etag=' +
       SOPDeleteIncomeModel.parse(deleIncomeModel).etag,
       HTTP_METHOD.HTTP_DELETE,

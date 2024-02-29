@@ -521,7 +521,7 @@ public with sharing class CCRMTestDataFactory {
       accnt.BillingCity = 'Docklands';
       accnt.BillingPostalCode = '3008';
       accnt.BillingState = 'Victoria';
-      accnt.BillingCountry = 'Australia';
+      accnt.BillingCountry = 'AUS';
       accnt.FinServ__Status__c = 'Prospect';
       accountList.add(accnt);
     }
@@ -645,7 +645,7 @@ public with sharing class CCRMTestDataFactory {
    * @return Prospect Business Account Business account
    */
   public static Account createProspectBusinessAccount(Id ownerId) {
-    Faker faker = new Faker('AU');
+    Faker faker = new Faker('AUS');
 
     List<Industry__c> createIndustries = createIndustries(1);
     Account accnt = new Account();
@@ -659,7 +659,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.BillingCity = faker.address.city();
     accnt.BillingPostalCode = faker.address.stateCode();
     accnt.BillingState = faker.address.state();
-    accnt.BillingCountry = faker.address.country();
+    accnt.BillingCountry = 'AUS';
     accnt.Source_System_ID__c = faker.randomString(10);
     accnt.Source_System_Name__c = Label.CCRM_Source_System_Name;
     accnt.FinServ__Status__c = 'Prospect';
@@ -698,7 +698,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.BillingCity = 'Docklands';
     accnt.BillingPostalCode = '3008';
     accnt.BillingState = 'VIC';
-    accnt.BillingCountry = 'Australia';
+    accnt.BillingCountry = 'AUS';
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = 'CAP';
     accnt.Finserv__KYCStatus__c = 'CO';

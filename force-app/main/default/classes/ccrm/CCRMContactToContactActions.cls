@@ -58,6 +58,9 @@ public with sharing class CCRMContactToContactActions {
   public static void setExternalId(
     List<FinServ__ContactContactRelation__c> records
   ) {
+    if (records.size() == 0) {
+      return;
+    }
     Map<String, FinServ__ContactContactRelation__c> contactToContactMap = getExistingExternalIds(
       records
     );

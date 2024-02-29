@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "limit": 20,
+    "page": 1,
+    "totalCount": 2
+  },
+  "paging": {
+    "first": null,
+    "previous": null,
+    "next": null,
+    "last": null
+  },
+  "href": "http://fake/anzx/fake/rest/v1/fake/QTAzomOdyeMU4jPlnLoDjsYbuw/authenticators?status=ACTIVE&sortField=created&sortAscending=false&fake=fake-5AFA-427D-9DDC-fake",
+  "items": [
+    {
+      "href": "http://fake/anzx/fake/rest/v1/fake/QTAzomOdyeMU4jPlnLoDjsYbuw/fake/fake",
+      "id": "QTAzwQ9wh0k9EYfake",
+      "authenticatorId": "Q0RDNENGNEEtMkEwOS00MUVDLTfake",
+      "lastUsed": "2023-06-08T01:58:42.395+00:00",
+      "updated": "2023-06-08T01:58:42.397+00:00",
+      "created": "2023-06-08T01:57:59.302+00:00",
+      "logicalName": "iPhone",
+      "make": "Apple",
+      "model": "iPhone SE 2nd Gen",
+      "osVersion": "16.1.1",
+      "appVersion": "4.6.0.40",
+      "authenticatorCounter": 1,
+      "publicKeyId": "Q0RDNENGNEEtMkEwOS00fake",
+      "status": "ACTIVE",
+      "type": "FI",
+      "attestation": "SB",
+      "deviceCorrelationId": "36503955-5AAB-4A68-88F9-fake",
+      "appCorrelationId": "F7AE26D3-5AFA-427D-9DDC-fake",
+      "authenticatorAttestationId": "D409#2101",
+      "facetId": "ios:bundle-id:com.fake",
+      "user": {
+        "href": "http://fake/anzx/fake/rest/v1/users/QTAzomOdyeMU4jPlnLfake"
+      },
+      "tenant": {
+        "href": "http://fake/fake/rest/v1/tenants/5HA9kTibjOLfake"
+      },
+      "registrationChallenge": {
+        "href": "http://fake/anzx/fake/rest/v1/registrationChallenges/wOkrUfakew"
+      },
+      "application": {
+        "href": "http://fake/anzx/fake/rest/v1/applications/QTAztet5d8MOfake"
+      },
+      "registration": {
+        "href": "http://fake/anzx/fake/rest/v1/registrations/QTAzlRbDZc9Z2QJsfNof-fake"
+      },
+      "authenticatorType": {
+        "href": "http://fake/anzx/fake/rest/v1/authenticatorTypes/fake"
+      }
+    },
+    {
+      "href": "http://fake/anzx/fake/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw/fake/QTAz2P6EN05GvFfake",
+      "id": "QTAzfakevFTYmCt3Z_qADQ",
+      "authenticatorId": "RTA1ODJEMkItRERDNS00Njc1LTlBMzktRTRGfakeGREYw",
+      "lastUsed": "2023-06-08T01:58:37.762+00:00",
+      "updated": "2023-06-08T01:58:37.765+00:00",
+      "created": "2023-06-08T01:54:03.819+00:00",
+      "logicalName": "iPhone",
+      "make": "Apple",
+      "model": "iPhone SE 2nd Gen",
+      "osVersion": "16.1.1",
+      "appVersion": "4.6.0.40",
+      "authenticatorCounter": 9,
+      "publicKeyId": "RTA1ODJEMkItRERDNS00Njc1LTlBMzkfakeRGREYw",
+      "status": "ACTIVE",
+      "type": "FI",
+      "attestation": "SB",
+      "deviceCorrelationId": "36503955-5AAB-4A68-88F9-fake",
+      "appCorrelationId": "F7AE26D3-5AFA-427D-9DDC-fake",
+      "authenticatorAttestationId": "D409#2A01",
+      "facetId": "ios:bundle-id:fake",
+      "user": {
+        "href": "http://fake/anzx/fake/rest/v1/users/QTAzomOdyefake"
+      },
+      "tenant": {
+        "href": "http://fake/fake/rest/v1/tenants/5HA9kTibjOLnfake"
+      },
+      "registrationChallenge": {
+        "href": "http://fake/anzx/fake/rest/v1/registrationChallenges/pehfkvfake"
+      },
+      "application": {
+        "href": "http://fake/anzx/fake/rest/v1/applications/fake"
+      },
+      "registration": {
+        "href": "http://fake/anzx/fake/rest/v1/registrations/QTAzlRbDZc9Z2QJsfNof-fake"
+      },
+      "authenticatorType": {
+        "href": "http://fake/anzx/fake/rest/v1/authenticatorTypes/fake"
+      }
+    }
+  ]
+}

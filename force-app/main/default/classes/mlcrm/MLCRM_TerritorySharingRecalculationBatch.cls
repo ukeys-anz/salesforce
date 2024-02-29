@@ -32,6 +32,7 @@ global class MLCRM_TerritorySharingRecalculationBatch implements Database.Batcha
   global Database.QueryLocator start(Database.BatchableContext objBatchable) {
     String strQuery;
     String strWhereClause;
+    String strLookupFields = '';
     DateTime objDateTime = System.Now()
       .addHours(
         (-1) * Integer.valueOf(this.objShareMetadata.Recalculation_Timeframe__c)
@@ -48,8 +49,13 @@ global class MLCRM_TerritorySharingRecalculationBatch implements Database.Batcha
     } else {
       strWhereClause = ' WHERE CreatedDate >=:objDateTime AND CreatedById IN: setOfExcludedUsers';
     }
+    if (objShareMetadata.Lookup_Fields__c != null) {
+      strLookupFields =
+        String.join(objShareMetadata.Lookup_Fields__c.split(';'), ',') + ',';
+    }
     strQuery =
       'SELECT Id,OwnerId, ' +
+      strLookupFields +
       String.escapeSingleQuotes(this.objShareMetadata.Territory_Field__c) +
       ' FROM ' +
       String.escapeSingleQuotes(this.objShareMetadata.Object_Name__c) +

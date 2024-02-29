@@ -94,9 +94,7 @@ private class PayToControllerTest {
     Account acc = [SELECT Id, OCV_Id__c FROM Account LIMIT 1];
     PayToService serv = new PayToService();
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      acc.OCV_Id__c,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + acc.OCV_Id__c,
       AuthServiceTest.IDTESTVALUE
     );
     Test.startTest();
@@ -159,9 +157,7 @@ private class PayToControllerTest {
 
     PayToService serv = new PayToService();
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      acc.OCV_Id__c,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + acc.OCV_Id__c,
       AuthServiceTest.IDTESTVALUE
     );
     Test.startTest();
@@ -231,9 +227,7 @@ private class PayToControllerTest {
     Account acc = [SELECT Id, OCV_Id__c FROM Account LIMIT 1];
     PayToFraudxService serv = new PayToFraudxService();
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      acc.OCV_Id__c,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + acc.OCV_Id__c,
       AuthServiceTest.IDTESTVALUE
     );
 

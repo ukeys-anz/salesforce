@@ -148,7 +148,15 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>URL__c</fields>
         <relatedList>Campaign_Document__c.Campaign__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Response_Status__c</fields>
+        <fields>Outcome_Reason__c</fields>
+        <fields>Display_Order__c</fields>
+        <relatedList>Response_Type__c.Campaign__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>OPPORTUNITY.NAME</fields>

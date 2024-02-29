@@ -22,16 +22,14 @@ public class SOPAccounts {
    */
   public class SOPProductDetails {
     public string marketingName;
-    
   }
   /**
    * @description returns the product marketing name from an account number
    */
   public string productName {
     get {
-      if(productDetails == Null)
-      {
-          return ''; 
+      if (productDetails == null) {
+        return '';
       }
       return productDetails.marketingName;
     }

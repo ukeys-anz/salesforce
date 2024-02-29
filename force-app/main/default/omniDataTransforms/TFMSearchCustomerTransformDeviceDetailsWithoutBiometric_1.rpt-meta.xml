@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <description>DRTransform to transform device details from API response to UI response</description>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzH5vHVIWToFIDw8b2g0AaSw/authenticators/QTAzPOFQMViUl0gXz-CdkQyjdQ&quot;,
+  &quot;id&quot; : &quot;QTAzPOFQMViUl0gXz-CdkQyjdQ&quot;,
+  &quot;authenticatorId&quot; : &quot;MTE0NTc3RUYtODJDRC00QzVGLUJGM0UtN0NCRjExNEQwMUZG&quot;,
+  &quot;updated&quot; : &quot;2023-10-20T05:38:41.744+00:00&quot;,
+  &quot;archived&quot; : &quot;2023-10-20T05:38:41.744+00:00&quot;,
+  &quot;created&quot; : &quot;2023-06-27T23:42:38.792+00:00&quot;,
+  &quot;logicalName&quot; : &quot;iPhone&quot;,
+  &quot;make&quot; : &quot;Apple&quot;,
+  &quot;model&quot; : &quot;iPhone 12 Mini&quot;,
+  &quot;osVersion&quot; : &quot;16.3&quot;,
+  &quot;appVersion&quot; : &quot;4.6.0.40&quot;,
+  &quot;authenticatorCounter&quot; : 0,
+  &quot;publicKeyId&quot; : &quot;MTE0NTc3RUYtODJDRC00QzVGLUJGM0UtN0NCRjExNEQwMUZG&quot;,
+  &quot;publicKey&quot; : &quot;MIIDeTCCAmOgAwIBAgIGKs4noX+CMAsGCSqGSIb3DQEBCzBCMRAwDgYDVQQDDAdEYW9uIENBMRIwEAYDVQQLDAlJZGVudGl0eVgxDTALBgNVBAoMBERhb24xCzAJBgNVBAYTAklFMB4XDTIzMDYyNzIzNDIzOFoXDTQzMDYyMjIzNDIzOFowgeYxKDAmBgNVBAMMH1FUQXpINXZIVklXVG9GSUR3OGIyZzBBYVN3LTIwMTIxGjAYBgoJkiaJk/IsZAEZFgoxMDExNzkzMjYzMUAwPgYKCZImiZPyLGQBGRYwTVRFME5UYzNSVVl0T0RKRFJDMDBRelZHTFVKR00wVXROME5DUmpFeE5FUXdNVVpHMSYwJAYKCZImiZPyLGQBGRYWbGR4WmRLcm9RbENEN1JELTNMMnhwUTETMBEGA1UECwwKMTAwMDAwMDAwMzEfMB0GA1UECgwWNUhBOWtUaWJqT0xuU0ZzY2hXR1lzQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABANtsocG1dJYH7wTazQ9R6OxHqY4CVf6+QhM9UqHkJlOyb3N7JvqqqJi6XmpkbjI9qjP5uYcyjGAzXY6LQ3V61OjgZ4wgZswegYDVR0jBHMwcYAU03XFomRS26DyljZxUnLO9WR+yB6hRqREMEIxEDAOBgNVBAMMB0Rhb24gQ0ExEjAQBgNVBAsMCUlkZW50aXR5WDENMAsGA1UECgwERGFvbjELMAkGA1UEBhMCSUWCEQDN2+mgWOJIV715PCulEZISMB0GA1UdDgQWBBTTdcWiZFLboPKWNnFScs71ZH7IHjALBgkqhkiG9w0BAQsDggEBAJSx/XapGqHEwph28NCZl/gkMLPebHk8X3pDOBYO3IVgFG0DOJIVXvo2N/jEfK0d5MZZ61qsIFWQdPaE/8KQ+uqwHMHBTPdZcK8IVIbOIYctxwAfJHl3nVkj6Qg91XuvDbeKfYhqu1grtIVkoiYmQPawMQYUklSjfykHPk0fgbmHVTa5F9yQFGzADDFUlQ5La4crNJs3yPnoQ1qf8cWvsTkU0lPgtid3fUDocIEzw2kjasSgRpCcqqQ86ttPajtsVJKBvxtZtCvmO038h1mXD+w+74qvnpeNkodL69DjDewd+ID4xe3Sm47o5wlclL2wB3LyIlTRhsY4xONbPRKdGbE=&quot;,
+  &quot;status&quot; : &quot;ARCHIVED&quot;,
+  &quot;fidoDeregistrationRequest&quot; : &quot;[{\&quot;header\&quot;:{\&quot;upv\&quot;:{\&quot;major\&quot;:1,\&quot;minor\&quot;:0},\&quot;op\&quot;:\&quot;Dereg\&quot;,\&quot;appID\&quot;:\&quot;https://fido-aegis.anz.com\&quot;},\&quot;authenticators\&quot;:[{\&quot;aaid\&quot;:\&quot;D409#2A01\&quot;,\&quot;keyID\&quot;:\&quot;MTE0NTc3RUYtODJDRC00QzVGLUJGM0UtN0NCRjExNEQwMUZG\&quot;}]}]&quot;,
+  &quot;type&quot; : &quot;FI&quot;,
+  &quot;originalRegistrationData&quot; : &quot;{\&quot;deviceInfo\&quot;:{\&quot;appId\&quot;:\&quot;4C71E364-DE92-41AC-8FDA-403A8406D092\&quot;,\&quot;deviceId\&quot;:\&quot;63DA46E1-A361-4915-B8A5-EFFCC3EE999B\&quot;,\&quot;make\&quot;:\&quot;Apple\&quot;,\&quot;model\&quot;:\&quot;iPhone 12 Mini\&quot;,\&quot;osVersion\&quot;:\&quot;16.3\&quot;,\&quot;sdkVersion\&quot;:\&quot;4.6.0.40\&quot;,\&quot;name\&quot;:\&quot;iPhone\&quot;,\&quot;notificationToken\&quot;:\&quot;NA\&quot;,\&quot;location\&quot;:{\&quot;method\&quot;:\&quot;Not available from device\&quot;}},\&quot;attestation\&quot;:{\&quot;form\&quot;:\&quot;SURROGATE_BASIC\&quot;}}&quot;,
+  &quot;attestation&quot; : &quot;SB&quot;,
+  &quot;deviceCorrelationId&quot; : &quot;63DA46E1-A361-4915-B8A5-EFFCC3EE999B&quot;,
+  &quot;appCorrelationId&quot; : &quot;4C71E364-DE92-41AC-8FDA-403A8406D092&quot;,
+  &quot;authenticatorAttestationId&quot; : &quot;D409#2A01&quot;,
+  &quot;facetId&quot; : &quot;ios:bundle-id:com.anz.anzx.LotusApplication&quot;,
+  &quot;user&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzH5vHVIWToFIDw8b2g0AaSw&quot;
+  },
+  &quot;tenant&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/IdentityXServices/rest/v1/tenants/5HA9kTibjOLnSFschWGYsA&quot;
+  },
+  &quot;registrationChallenge&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrationChallenges/0pmFLNWGXcWO0UBaPdkk-A&quot;
+  },
+  &quot;application&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/applications/QTAztet5d8MONRmyo_a0Kgi5Iw&quot;
+  },
+  &quot;registration&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrations/QTAzpaQgvZGZguEHi9C_upjppQ&quot;
+  },
+  &quot;authenticatorType&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/authenticatorTypes/ldxZdKroQlCD7RD-3L2xpQ&quot;
+  }
+}</expectedInputJson>
+    <expectedOutputJson>{
+  &quot;deviceRegistrationDate&quot; : &quot;2023-06-08T01:54:03.819+00:00&quot;,
+  &quot;deviceUpdatedDate&quot; : &quot;2023-06-08T01:58:37.765+00:00&quot;,
+  &quot;deviceCorrelationId&quot; : &quot;36503955-5AAB-4A68-88F9-429775128955&quot;,
+  &quot;deviceModel&quot; : &quot;iPhone SE 2nd Gen&quot;,
+  &quot;deviceLastUsedDate&quot; : &quot;2023-06-08T01:58:37.762+00:00&quot;,
+  &quot;biometricStatus&quot; : &quot;ACTIVE&quot;,
+  &quot;deviceName&quot; : &quot;iPhone&quot;,
+  &quot;deviceOsVersion&quot; : &quot;16.1.1&quot;,
+  &quot;deviceMake&quot; : &quot;Apple&quot;,
+  &quot;deviceAppCorrelationId&quot; : &quot;F7AE26D3-5AFA-427D-9DDC-FFBE0B599CC4&quot;
+}</expectedOutputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom484</globalKey>
+        <inputFieldName>model</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceModel</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom6693</globalKey>
+        <inputFieldName>make</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceMake</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom3228</globalKey>
+        <inputFieldName>logicalName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom5882</globalKey>
+        <inputFieldName>deviceCorrelationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceCorrelationId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom1860</globalKey>
+        <inputFieldName>lastUsedFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceLastUsedDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom3608</globalKey>
+        <inputFieldName>updatedFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceUpdatedDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:updated &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(updated, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>updatedFormatted</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom4061</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom9773</globalKey>
+        <inputFieldName>createdFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceRegistrationDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom3963</globalKey>
+        <inputFieldName>appCorrelationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceAppCorrelationId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <defaultValue>DISABLED</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom4791</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>biometricStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom9240</globalKey>
+        <inputFieldName>osVersion</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceOsVersion</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:lastUsed &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(lastUsed, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>lastUsedFormatted</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom8467</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:created &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(created, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>createdFormatted</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom5318</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzH5vHVIWToFIDw8b2g0AaSw/authenticators/QTAzPOFQMViUl0gXz-CdkQyjdQ&quot;,
+  &quot;id&quot; : &quot;QTAzPOFQMViUl0gXz-CdkQyjdQ&quot;,
+  &quot;authenticatorId&quot; : &quot;MTE0NTc3RUYtODJDRC00QzVGLUJGM0UtN0NCRjExNEQwMUZG&quot;,
+  &quot;updated&quot; : &quot;2023-10-20T05:38:41.744+00:00&quot;,
+  &quot;archived&quot; : &quot;2023-10-20T05:38:41.744+00:00&quot;,
+  &quot;created&quot; : &quot;2023-06-27T23:42:38.792+00:00&quot;,
+  &quot;logicalName&quot; : &quot;iPhone&quot;,
+  &quot;make&quot; : &quot;Apple&quot;,
+  &quot;model&quot; : &quot;iPhone 12 Mini&quot;,
+  &quot;osVersion&quot; : &quot;16.3&quot;,
+  &quot;appVersion&quot; : &quot;4.6.0.40&quot;,
+  &quot;authenticatorCounter&quot; : 0,
+  &quot;publicKeyId&quot; : &quot;MTE0NTc3RUYtODJDRC00QzVGLUJGM0UtN0NCRjExNEQwMUZG&quot;,
+  &quot;publicKey&quot; : &quot;MIIDeTCCAmOgAwIBAgIGKs4noX+CMAsGCSqGSIb3DQEBCzBCMRAwDgYDVQQDDAdEYW9uIENBMRIwEAYDVQQLDAlJZGVudGl0eVgxDTALBgNVBAoMBERhb24xCzAJBgNVBAYTAklFMB4XDTIzMDYyNzIzNDIzOFoXDTQzMDYyMjIzNDIzOFowgeYxKDAmBgNVBAMMH1FUQXpINXZIVklXVG9GSUR3OGIyZzBBYVN3LTIwMTIxGjAYBgoJkiaJk/IsZAEZFgoxMDExNzkzMjYzMUAwPgYKCZImiZPyLGQBGRYwTVRFME5UYzNSVVl0T0RKRFJDMDBRelZHTFVKR00wVXROME5DUmpFeE5FUXdNVVpHMSYwJAYKCZImiZPyLGQBGRYWbGR4WmRLcm9RbENEN1JELTNMMnhwUTETMBEGA1UECwwKMTAwMDAwMDAwMzEfMB0GA1UECgwWNUhBOWtUaWJqT0xuU0ZzY2hXR1lzQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABANtsocG1dJYH7wTazQ9R6OxHqY4CVf6+QhM9UqHkJlOyb3N7JvqqqJi6XmpkbjI9qjP5uYcyjGAzXY6LQ3V61OjgZ4wgZswegYDVR0jBHMwcYAU03XFomRS26DyljZxUnLO9WR+yB6hRqREMEIxEDAOBgNVBAMMB0Rhb24gQ0ExEjAQBgNVBAsMCUlkZW50aXR5WDENMAsGA1UECgwERGFvbjELMAkGA1UEBhMCSUWCEQDN2+mgWOJIV715PCulEZISMB0GA1UdDgQWBBTTdcWiZFLboPKWNnFScs71ZH7IHjALBgkqhkiG9w0BAQsDggEBAJSx/XapGqHEwph28NCZl/gkMLPebHk8X3pDOBYO3IVgFG0DOJIVXvo2N/jEfK0d5MZZ61qsIFWQdPaE/8KQ+uqwHMHBTPdZcK8IVIbOIYctxwAfJHl3nVkj6Qg91XuvDbeKfYhqu1grtIVkoiYmQPawMQYUklSjfykHPk0fgbmHVTa5F9yQFGzADDFUlQ5La4crNJs3yPnoQ1qf8cWvsTkU0lPgtid3fUDocIEzw2kjasSgRpCcqqQ86ttPajtsVJKBvxtZtCvmO038h1mXD+w+74qvnpeNkodL69DjDewd+ID4xe3Sm47o5wlclL2wB3LyIlTRhsY4xONbPRKdGbE=&quot;,
+  &quot;status&quot; : &quot;ARCHIVED&quot;,
+  &quot;fidoDeregistrationRequest&quot; : &quot;[{\&quot;header\&quot;:{\&quot;upv\&quot;:{\&quot;major\&quot;:1,\&quot;minor\&quot;:0},\&quot;op\&quot;:\&quot;Dereg\&quot;,\&quot;appID\&quot;:\&quot;https://fido-aegis.anz.com\&quot;},\&quot;authenticators\&quot;:[{\&quot;aaid\&quot;:\&quot;D409#2A01\&quot;,\&quot;keyID\&quot;:\&quot;MTE0NTc3RUYtODJDRC00QzVGLUJGM0UtN0NCRjExNEQwMUZG\&quot;}]}]&quot;,
+  &quot;type&quot; : &quot;FI&quot;,
+  &quot;originalRegistrationData&quot; : &quot;{\&quot;deviceInfo\&quot;:{\&quot;appId\&quot;:\&quot;4C71E364-DE92-41AC-8FDA-403A8406D092\&quot;,\&quot;deviceId\&quot;:\&quot;63DA46E1-A361-4915-B8A5-EFFCC3EE999B\&quot;,\&quot;make\&quot;:\&quot;Apple\&quot;,\&quot;model\&quot;:\&quot;iPhone 12 Mini\&quot;,\&quot;osVersion\&quot;:\&quot;16.3\&quot;,\&quot;sdkVersion\&quot;:\&quot;4.6.0.40\&quot;,\&quot;name\&quot;:\&quot;iPhone\&quot;,\&quot;notificationToken\&quot;:\&quot;NA\&quot;,\&quot;location\&quot;:{\&quot;method\&quot;:\&quot;Not available from device\&quot;}},\&quot;attestation\&quot;:{\&quot;form\&quot;:\&quot;SURROGATE_BASIC\&quot;}}&quot;,
+  &quot;attestation&quot; : &quot;SB&quot;,
+  &quot;deviceCorrelationId&quot; : &quot;63DA46E1-A361-4915-B8A5-EFFCC3EE999B&quot;,
+  &quot;appCorrelationId&quot; : &quot;4C71E364-DE92-41AC-8FDA-403A8406D092&quot;,
+  &quot;authenticatorAttestationId&quot; : &quot;D409#2A01&quot;,
+  &quot;facetId&quot; : &quot;ios:bundle-id:com.anz.anzx.LotusApplication&quot;,
+  &quot;user&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzH5vHVIWToFIDw8b2g0AaSw&quot;
+  },
+  &quot;tenant&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/IdentityXServices/rest/v1/tenants/5HA9kTibjOLnSFschWGYsA&quot;
+  },
+  &quot;registrationChallenge&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrationChallenges/0pmFLNWGXcWO0UBaPdkk-A&quot;
+  },
+  &quot;application&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/applications/QTAztet5d8MONRmyo_a0Kgi5Iw&quot;
+  },
+  &quot;registration&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrations/QTAzpaQgvZGZguEHi9C_upjppQ&quot;
+  },
+  &quot;authenticatorType&quot; : {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/authenticatorTypes/ldxZdKroQlCD7RD-3L2xpQ&quot;
+  }
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>
