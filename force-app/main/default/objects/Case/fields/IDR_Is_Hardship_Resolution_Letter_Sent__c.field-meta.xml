@@ -3,8 +3,9 @@
     <fullName>IDR_Is_Hardship_Resolution_Letter_Sent__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Personal Information;Source - Salesforce</complianceGroup>
-    <description>Picklist field to determine the Hardship letter sent</description>
+    <description>This field will allow the Hardship IDR Written Response Team to monitor and track Hardship Written Responses.</description>
     <externalId>false</externalId>
+    <inlineHelpText>This field should only be updated by Customer Resolution (CR) if a complaint has been closed within 5 days by Frontline.</inlineHelpText>
     <label>Is Hardship Resolution Letter Sent?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

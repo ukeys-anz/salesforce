@@ -3,7 +3,7 @@
     <fullName>IDR_Hardship_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
-    <description>To display flag based on the date received of Case</description>
+    <description>This field displays a flag based on the Case received date.</description>
     <externalId>false</externalId>
     <formula>IF( 
    TODAY()- DATEVALUE(CreatedDate)&lt;=2, IMAGE(&quot;/img/samples/flag_green.gif&quot;,&quot;/s.gif&quot;,26,20),

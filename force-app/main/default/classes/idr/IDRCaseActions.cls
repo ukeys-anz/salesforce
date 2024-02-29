@@ -202,7 +202,7 @@ public with sharing class IDRCaseActions {
           SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
         );
       }
-      populateOwnerChangeFields(record, oldMap);
+populateOwnerChangeFields(record, oldMap);
     }
     preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
@@ -288,6 +288,7 @@ public with sharing class IDRCaseActions {
   ) {
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
+    Set<Id> hardshipCases = new Set<Id>();
     for (Case c : records) {
       if (isIDRComplaintType(c)) {
         Case oldCase = (oldMap.containsKey(c.Id))
@@ -308,6 +309,9 @@ public with sharing class IDRCaseActions {
           (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
         ) {
           maxTimeFrameCases.add(c.Id);
+        }
+        if(oldCase !=null && c.isClosed && c.IDR_Is_Hardship_Resolution_Letter_Sent__c !=null){
+          hardshipCases.add(c.Id);
         }
       }
     }
@@ -331,11 +335,19 @@ public with sharing class IDRCaseActions {
           '30-day IDR Response Due',
           'Open_Escalation_Time',
           'AFCA Response Due',
-          'FPR 5 Business Day Resolution target'
+          'FPR 5 Business Day Resolution target'         
         },
         System.now()
       );
       IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
+    }
+
+    if(!hardshipCases.isEmpty()){
+      MilestoneUtils.completeMilestones(
+        hardshipCases,
+        new List<String>{'21 Day Hardship Letter Milestone'},
+        System.now()
+      );
     }
   }
 
@@ -913,11 +925,11 @@ public with sharing class IDRCaseActions {
     }
   }
   /**
-   * @description Getting product from Asset finance Product family
-   * @param record  List of cases from the trigger
-   * @param oldRecord List of cases from trigger
-   * @return Boolean value that returns true if the Product Family is Asset finance
-   */
+  * @description Getting product from Asset finance Product family
+  * @param record  List of cases from the trigger
+  * @param oldRecord List of cases from trigger
+  * @return Boolean value that returns true if the Product Family is Asset finance 
+  */
   private static Boolean getProductAssetfinance(Case record, Case oldRecord) {
     Map<Id, Product2> productMap = new Map<Id, Product2>();
     List<Product2> products = [
@@ -925,55 +937,55 @@ public with sharing class IDRCaseActions {
       FROM Product2
       WHERE IDR_Product_Family__r.Name = 'Asset finance'
     ];
-
+    
     for (Product2 prod : products) {
-      productMap.put(prod.Id, prod);
+        productMap.put(prod.Id, prod);  
     }
-
-    for (Id prod : productMap.keyset()) {
+    
+    for (Id prod : productMap.keyset()) {  
       if (isIDRComplaintType(record) && oldRecord != null) {
         if (
           (IDRCollectionActions.isCollectionsIssue(
             oldRecord.Type,
             oldRecord.IDR_Subsequent_Issue__c
           )) &&
-          (String.isNotBlank(oldRecord.Product__c) &&
-          oldRecord.Product__c != record.Product__c &&
-          productMap.containsKey(oldRecord.Product__c))
+            (String.isNotBlank(oldRecord.Product__c) &&
+                oldRecord.Product__c != record.Product__c &&
+                productMap.containsKey(oldRecord.Product__c))
         ) {
-          return true;
-        }
+                return true;
+            }
         if (
           (IDRCollectionActions.isCollectionsIssue(
             oldRecord.IDR_Issue_Type_2__c,
             oldRecord.IDR_Subsequent_Issue_2__c
           )) &&
-          (String.isNotBlank(oldRecord.IDR_Product_2__c) &&
-          oldRecord.IDR_Product_2__c != record.IDR_Product_2__c &&
-          productMap.containsKey(oldRecord.IDR_Product_2__c))
+            (String.isNotBlank(oldRecord.IDR_Product_2__c) &&
+                oldRecord.IDR_Product_2__c != record.IDR_Product_2__c &&
+                productMap.containsKey(oldRecord.IDR_Product_2__c))
         ) {
-          return true;
-        }
+                return true;
+            }
         if (
           (IDRCollectionActions.isCollectionsIssue(
             oldRecord.IDR_Issue_Type_3__c,
             oldRecord.IDR_Subsequent_Issue_3__c
           )) &&
-          (String.isNotBlank(oldRecord.IDR_Product_3__c) &&
-          oldRecord.IDR_Product_3__c != record.IDR_Product_3__c &&
-          productMap.containsKey(oldRecord.IDR_Product_3__c))
+            (String.isNotBlank(oldRecord.IDR_Product_3__c) &&
+                oldRecord.IDR_Product_3__c != record.IDR_Product_3__c &&
+                productMap.containsKey(oldRecord.IDR_Product_3__c))
         ) {
-          return true;
-        }
+                return true;
+            }    
       }
-    }
+    } 
     return false;
   }
-  /**
-   * @description Populate modified date when the picklist value is updated
-   * @param records  List of cases from the trigger
-   * @param oldMap Map of pre-update cases supplied from the trigger as well, will be null on beforeInsert
-   */
+ /**
+  * @description Populate modified date when the picklist value is updated
+  * @param records  List of cases from the trigger
+  * @param oldMap Map of pre-update cases supplied from the trigger as well, will be null on beforeInsert
+  */
   private static void populateHardshipUpdateDate(
     List<Case> records,
     Map<Id, Case> oldMap
@@ -983,7 +995,7 @@ public with sharing class IDRCaseActions {
         c.IDR_Is_Hardship_Resolution_Letter_Sent__c !=
         oldMap.get(c.Id).IDR_Is_Hardship_Resolution_Letter_Sent__c
       ) {
-        c.IDR_Hardship_Response_updated_on__c = System.now();
+          c.IDR_Hardship_Response_updated_on__c = System.now();
       }
     }
   }
