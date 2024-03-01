@@ -1,19 +1,18 @@
-runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="jointAccEnable"]
-  .slds-radio_button__label {
-  background-color: #0176d3;
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="jointAccEnable"] .slds-radio_button__label{
+    BACKGROUND-COLOR:#0176D3;
 }
 
-runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="jointAccEnable"]
-  .slds-radio_faux {
-  color: #ffffff;
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="jointAccEnable"] .slds-radio_faux
+{
+    COLOR: #FFFFFF;
 }
 
-runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="jointAccDisable"]
-  .slds-radio_button__label {
-  background-color: #0176d3;
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="jointAccDisable"] .slds-radio_button__label{
+    BACKGROUND-COLOR:#0176D3;
 }
 
-runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="jointAccDisable"]
-  .slds-radio_faux {
-  color: #ffffff;
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="jointAccDisable"] .slds-radio_faux
+{
+    COLOR: #FFFFFF;
 }
+
