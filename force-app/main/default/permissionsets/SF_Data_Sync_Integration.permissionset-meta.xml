@@ -1292,6 +1292,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_AFCA_Registration_Response_Provided__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_AFCA_Reference_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
