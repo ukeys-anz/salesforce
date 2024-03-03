@@ -286,9 +286,6 @@ public with sharing class GetHelpConstants {
   // Permission Set Group Name
   public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
 
-  // Permission Set Group Name
-  public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
-
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
 
