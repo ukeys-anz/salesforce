@@ -17,7 +17,7 @@ public class TFMSearchCustDataSourceConnectionTest {
     Test.startTest();
     List<DataSource.Table> result = conn.sync();
     Test.stopTest();
-    Assert.areNotEqual(result, null, 'Result is not null');
+    Assert.areNotEqual(null, result, 'Connection is not established');
   }
 
   @isTest
@@ -35,8 +35,12 @@ public class TFMSearchCustDataSourceConnectionTest {
     context.tableSelection.filter.columnValue = '00610477123667';
     DataSource.TableResult result = conn.query(context);
     Test.stopTest();
-    Assert.areEqual(result.success, true, 'Error');
-    Assert.areEqual(result.tableName, 'PersonDigitalIdentity', 'Error');
+    Assert.areEqual(true, result.success, 'Table did not return data result');
+    Assert.areEqual(
+      'PersonDigitalIdentity',
+      result.tableName,
+      'Table name is not correct, expected: PersonDigitalIdentity'
+    );
   }
 
   @isTest
@@ -78,8 +82,12 @@ public class TFMSearchCustDataSourceConnectionTest {
     context.tableSelection.filter.columnValue = '1001292844';
     DataSource.TableResult result = conn.query(context);
     Test.stopTest();
-    Assert.areEqual(result.success, true, 'Error');
-    Assert.areEqual(result.tableName, 'PersonDigitalIdentity', 'Error');
+    Assert.areEqual(true, result.success, 'Table did not return data result');
+    Assert.areEqual(
+      'PersonDigitalIdentity',
+      result.tableName,
+      'Table name is not correct, expected:PersonDigitalIdentity'
+    );
   }
 
   @isTest
@@ -100,8 +108,16 @@ public class TFMSearchCustDataSourceConnectionTest {
     context.tableSelections = tableSelectionList;
     List<DataSource.TableResult> result = conn.search(context);
     Test.stopTest();
-    Assert.areEqual(result[0].success, true, 'Error');
-    Assert.areEqual(result[0].tableName, 'PersonDigitalIdentity', 'Error');
+    Assert.areEqual(
+      true,
+      result[0].success,
+      'Table did not return data result'
+    );
+    Assert.areEqual(
+      'PersonDigitalIdentity',
+      result[0].tableName,
+      'Table name is not correct, expected:PersonDigitalIdentity'
+    );
   }
 
   @isTest

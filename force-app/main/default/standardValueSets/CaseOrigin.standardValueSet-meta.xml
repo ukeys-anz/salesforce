@@ -226,4 +226,9 @@
         <default>false</default>
         <label>FalconX – Auto Suspend</label>
     </standardValue>
+    <standardValue>
+        <fullName>ConnectID</fullName>
+        <default>false</default>
+        <label>ConnectID</label>
+    </standardValue>
 </StandardValueSet>

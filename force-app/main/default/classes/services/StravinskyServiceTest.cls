@@ -77,9 +77,7 @@ public inherited sharing class StravinskyServiceTest {
     Test.setMock(HttpCalloutMock.class, new MockClosePackageSuccess());
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -117,9 +115,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
     Test.setMock(HttpCalloutMock.class, new MockClosePackageFailure());
@@ -147,9 +143,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      newCase.PersonaId__c,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + newCase.PersonaId__c,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -178,9 +172,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      newCase.PersonaId__c,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + newCase.PersonaId__c,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -211,9 +203,7 @@ public inherited sharing class StravinskyServiceTest {
 
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
-      '{\"caseId\":\"' +
-      mockId +
-      '\"}',
+      '{\"caseId\":\"' + mockId + '\"}',
       payload,
       'Payload is not correct.'
     );
@@ -253,9 +243,7 @@ public inherited sharing class StravinskyServiceTest {
 
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
-      '{\"caseId\":\"' +
-      mockId +
-      '\"}',
+      '{\"caseId\":\"' + mockId + '\"}',
       payload,
       'Payload is not correct.'
     );
@@ -303,9 +291,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -352,9 +338,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -402,9 +386,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -453,9 +435,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -484,9 +464,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -527,9 +505,7 @@ public inherited sharing class StravinskyServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -560,16 +536,16 @@ public inherited sharing class StravinskyServiceTest {
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
       '{' +
-      '\"values\":[' +
-      '{' +
-      '\"transform\":\"' +
-      COBTaxResidencyModel.TIN_TRANSFORM +
-      '",' +
-      '\"tokenized":\"' +
-      taxResidency.TaxIdentificationNumber__c +
-      '"}' +
-      ']' +
-      '}',
+        '\"values\":[' +
+        '{' +
+        '\"transform\":\"' +
+        COBTaxResidencyModel.TIN_TRANSFORM +
+        '",' +
+        '\"tokenized":\"' +
+        taxResidency.TaxIdentificationNumber__c +
+        '"}' +
+        ']' +
+        '}',
       payload,
       'Payload is not correct.'
     );

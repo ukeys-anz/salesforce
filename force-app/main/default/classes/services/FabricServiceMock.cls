@@ -249,4 +249,22 @@ public with sharing class FabricServiceMock extends Service {
     }
     return response;
   }
+
+  /**
+   * @param financialAccountNumber financial account number on which update is required
+   * @param signMode sing mode that need to be updated
+   * @param ocvId required to make the callout to Mulesoft
+   * @return `HttpCalloutResponse` the api response
+   * @description updates the number of signature on financial account
+   */
+  public override HttpCalloutResponse updateSigningAutority(
+    String financialAccountNumber,
+    Integer signMode,
+    String ocvId
+  ) {
+    if (!preset) {
+      response.body = null;
+    }
+    return response;
+  }
 }

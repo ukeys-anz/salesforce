@@ -7,7 +7,11 @@ import { RefreshEvent } from "lightning/refresh";
 // Util methods
 import { handleErrorShowToast } from "c/utils";
 
-const fields = ["Interaction.Chat_or_Call_SID__c", "Interaction.AccountId"];
+const fields = [
+  "Interaction.Chat_or_Call_SID__c",
+  "Interaction.AccountId",
+  "Interaction.TwilioDetailsID__r.Chat_or_Call_SID__c"
+];
 
 export default class ReplyToCustomerForInteraction extends LightningElement {
   _recordId;
@@ -37,16 +41,10 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
   @wire(getRecord, { recordId: "$_recordId", fields })
   interactionRecord({ data, error }) {
     if (data) {
-      if (
-        data.fields &&
-        data.fields.Chat_or_Call_SID__c.value &&
-        data.fields.AccountId.value
-      ) {
-        this.chatOrCallSid = data.fields.Chat_or_Call_SID__c.value;
-        this.accountId = data.fields.AccountId.value;
-        if (this.isExecuting) {
-          this.reinitiateChat();
-        }
+      this.chatOrCallSid = this.extractChatOrCallSidFromRecord(data);
+      this.accountId = data.fields?.AccountId?.value;
+      if (this.isExecuting) {
+        this.reinitiateChat();
       }
     } else if (error) {
       console.error(
@@ -93,5 +91,15 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
 
   beginRefresh() {
     this.dispatchEvent(new RefreshEvent());
+  }
+
+  //This method extract chatOrCallSid from Data fields of Interaction or Related Twilio Details record
+  extractChatOrCallSidFromRecord(data) {
+    let chatOrCallSidFromInteraction = data.fields?.Chat_or_Call_SID__c?.value;
+    let chatOrCallSidFromRelatedTwilioDetail =
+      data.fields?.TwilioDetailsID__r?.value?.fields?.Chat_or_Call_SID__c
+        ?.value;
+
+    return chatOrCallSidFromInteraction || chatOrCallSidFromRelatedTwilioDetail;
   }
 }

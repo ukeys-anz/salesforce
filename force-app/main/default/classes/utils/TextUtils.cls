@@ -176,10 +176,10 @@ public with sharing class TextUtils {
               : '';
             Logger.info(
               loggerInitialString +
-              fieldName +
-              ': ' +
-              (String) record.get(fieldName) +
-              '; Reason for logging: User entered long digits without needing to mask'
+                fieldName +
+                ': ' +
+                (String) record.get(fieldName) +
+                '; Reason for logging: User entered long digits without needing to mask'
             );
             Logger.saveLog();
           }
@@ -336,9 +336,7 @@ public with sharing class TextUtils {
           ) + matchedText.right(unmaskLength);
       //replace first occurrence of standalone pattern
       inputText = inputText.replaceFirst(
-        '(?<![A-Za-z\\d+])' +
-        origMatchedText +
-        '(?![A-Za-z\\d])',
+        '(?<![A-Za-z\\d+])' + origMatchedText + '(?![A-Za-z\\d])',
         redactedText
       );
     }

@@ -6383,7 +6383,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-     <picklistValues>
+    <picklistValues>
         <picklist>IDR_Progressed_Status__c</picklist>
         <values>
             <fullName>Progressed - Customer Declined</fullName>
@@ -6397,7 +6397,7 @@
             <fullName>Progressed - No Offer</fullName>
             <default>false</default>
         </values>
-  </picklistValues>
+    </picklistValues>
     <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>

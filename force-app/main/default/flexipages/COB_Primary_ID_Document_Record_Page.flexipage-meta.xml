@@ -9,7 +9,7 @@
                         <valueListItems>
                             <value>COBPrimaryIDDocument__c.View</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2</booleanFilter>
+                                <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
                                     <operator>EQUAL</operator>
@@ -20,12 +20,22 @@
                                     <operator>NE</operator>
                                     <rightValue>Onboarding_Support_Read_Only</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.CustomerOnboardingApplication__r.CXOnboardingStage__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Assisted Electronic Verification</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>COBPrimaryIDDocument__c.Edit</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2</booleanFilter>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Edit_COB_Primary_ID_Document}</leftValue>
                                     <operator>EQUAL</operator>
@@ -35,6 +45,11 @@
                                     <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>Onboarding_Support_Read_Only</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.CustomerOnboardingApplication__r.CXOnboardingStage__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Assisted Electronic Verification</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

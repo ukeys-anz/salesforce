@@ -33,8 +33,8 @@ public class IDRCFMSDataMaskingBatch implements Database.Batchable<sObject> {
     } catch (Exception e) {
       Logger.error(
         'Problem in masking cfms record from batch job : ' +
-        bc.getJobId() +
-        e.getMessage(),
+          bc.getJobId() +
+          e.getMessage(),
         e
       );
       Logger.saveLog();

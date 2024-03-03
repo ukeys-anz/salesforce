@@ -19,7 +19,7 @@ public with sharing class CCRMContactPointEmailActions {
    * @description CCRMContactPointEmailActions constructor to assign values to relatedAccMap
    * @param accMap Mapp AccountId to Account Record
    */
-  public CCRMContactPointEmailActions(Map<Id, Account> accMap){
+  public CCRMContactPointEmailActions(Map<Id, Account> accMap) {
     relatedAccMap = accMap;
   }
 
@@ -64,10 +64,12 @@ public with sharing class CCRMContactPointEmailActions {
     List<ContactPointEmail> records
   ) {
     ContactPointEmailWrapper cpeWrapper = new ContactPointEmailWrapper();
-    
+
     List<Account> accList = relatedAccMap.values();
 
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(accList);
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
+      accList
+    );
 
     for (ContactPointEmail record : records) {
       if (
@@ -201,12 +203,15 @@ public with sharing class CCRMContactPointEmailActions {
   public static Map<Id, Account> getAccountMap(Set<Id> accountIds) {
     return new Map<Id, Account>(
       [
-        SELECT Id, RecordType.DeveloperName, RecordTypeId,
-        Is_Prospect__c,
-        isPersonAccount,
-        FinServ__Status__c,
-        Source_System_Name__c,
-        ANZx_Customer__c
+        SELECT
+          Id,
+          RecordType.DeveloperName,
+          RecordTypeId,
+          Is_Prospect__c,
+          isPersonAccount,
+          FinServ__Status__c,
+          Source_System_Name__c,
+          ANZx_Customer__c
         FROM Account
         WHERE Id IN :accountIds
       ]
@@ -230,7 +235,9 @@ public with sharing class CCRMContactPointEmailActions {
    * @param records list of ContactPointEmailRecords from Trigger
    * @return Map<Id, Account> map of Related Account( accId -> AccRecord map)
    */
-  public static Map<Id, Account> getRelatedAccountMap(List<ContactPointEmail> records){
+  public static Map<Id, Account> getRelatedAccountMap(
+    List<ContactPointEmail> records
+  ) {
     Set<Id> accountIds = new Set<Id>();
     Map<Id, Account> accMap = new Map<Id, Account>();
 
