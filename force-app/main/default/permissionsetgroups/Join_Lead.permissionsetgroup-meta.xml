@@ -11,6 +11,7 @@
     <permissionSets>Case_Send_Communication</permissionSets>
     <permissionSets>CFaaS_File_Read_Only</permissionSets>
     <permissionSets>CFaaS_View_Files</permissionSets>
+    <permissionSets>Customer_Dispute_Management_Read_Write</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>

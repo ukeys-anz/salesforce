@@ -344,7 +344,6 @@ public with sharing class CCRMAccountActions {
     }
   }
 
-
   /**
    * @description isExistingCustomer to check if the Account is an active/inactive account or not
    * @param accRec accountRec
@@ -483,11 +482,11 @@ public with sharing class CCRMAccountActions {
     public Map<Id, Account> prospectAccounts = new Map<Id, Account>();
     public Map<Id, Account> existingAccounts = new Map<Id, Account>();
 
-  /**
-   * @description AccountWrapper constructor to check if the Account is an active/inactive or Prospect account
-   * @param accList List of Account
-   */
-    public AccountWrapper(List<Account> accList){
+    /**
+     * @description AccountWrapper constructor to check if the Account is an active/inactive or Prospect account
+     * @param accList List of Account
+     */
+    public AccountWrapper(List<Account> accList) {
       for (Account acc : accList) {
         if (acc.Is_Prospect__c) {
           prospectAccounts.put(acc.Id, acc);

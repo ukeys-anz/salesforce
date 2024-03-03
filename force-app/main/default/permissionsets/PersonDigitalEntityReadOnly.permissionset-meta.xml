@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
+        <apexClass>Service</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMRemoteActionUtility</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMSearchCustMockClass</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMSearchCustomerAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TFMSearchCustomerDataQueryImpl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -14,6 +30,18 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TFMSearchCustomerDataSourceService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMSearchCustomerDeviceDetailsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMSearchCustomerService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMSearchCustomerServiceMock</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <description>This PS will assign read access to External Object- PersonDigitalIdentity</description>

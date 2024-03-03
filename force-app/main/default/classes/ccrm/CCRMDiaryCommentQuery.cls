@@ -136,9 +136,7 @@ public with sharing class CCRMDiaryCommentQuery extends CCRMExternalObjectQueryB
           row.put('Description', calloutResponse.permanentComment.comment);
           row.put(
             'DisplayUrl',
-            URL.getOrgDomainUrl().toExternalForm() +
-            '/DiaryComment-' +
-            index
+            URL.getOrgDomainUrl().toExternalForm() + '/DiaryComment-' + index
           );
           result.queryResult.add(row);
         }
@@ -163,9 +161,7 @@ public with sharing class CCRMDiaryCommentQuery extends CCRMExternalObjectQueryB
         ) {
           row.put(
             'DisplayUrl',
-            URL.getOrgDomainUrl().toExternalForm() +
-            '/DiaryComment-' +
-            index
+            URL.getOrgDomainUrl().toExternalForm() + '/DiaryComment-' + index
           );
           row.put('Description', cd.comment);
           row.put('ExpiryDate', formatDate(cd.dateExpires));
@@ -258,9 +254,7 @@ public with sharing class CCRMDiaryCommentQuery extends CCRMExternalObjectQueryB
   private String getNextPageIdCacheKey() {
     if (String.isNotBlank(this.parentId)) {
       String key = this.parentId.right(
-          this.parentId.length() -
-          this.parentId.indexOf('|') -
-          1
+          this.parentId.length() - this.parentId.indexOf('|') - 1
         )
         .remove('-')
         .remove('_');

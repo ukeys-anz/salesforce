@@ -99,6 +99,11 @@
                 <default>false</default>
                 <label>Signed Mortgage Document</label>
             </value>
+            <value>
+                <fullName>Update Signing Authority</fullName>
+                <default>false</default>
+                <label>Update Signing Authority</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

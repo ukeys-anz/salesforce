@@ -9829,6 +9829,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Case_Queue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Reason_Outcome__c.External_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11086,6 +11091,17 @@
     <layoutAssignments>
         <layout>ContentVersion-Content Version</layout>
         <recordType>ContentVersion.Systemic_Issue_File</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Action__c-Customer Action Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Action__c-Customer Action Layout</layout>
+        <recordType>Customer_Action__c.Customer_Action</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Action__c-Pending Financial Accounts Update Layout</layout>
+        <recordType>Customer_Action__c.Pending_Financial_Account_Updates</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>CustomerOnboardingApplication__c-Customer Onboarding Application Layout</layout>
@@ -12516,6 +12532,16 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>ContentVersion.Systemic_Issue_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Customer_Action__c.Customer_Action</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Customer_Action__c.Pending_Financial_Account_Updates</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

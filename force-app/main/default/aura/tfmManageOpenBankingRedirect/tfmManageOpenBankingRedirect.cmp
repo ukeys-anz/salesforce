@@ -1,0 +1,11 @@
+<!--
+  @description       : Aura Container to redirect to manage open banking lightning page
+  @author            : Akshat Khandelwal
+  @created           : December 2023  
+-->
+<aura:component
+  implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,lightning:isUrlAddressable,force:hasRecordId"
+>
+  <lightning:workspaceAPI aura:id="workspace" />
+  <aura:handler name="init" value="{!this}" action="{!c.handleInit}" />
+</aura:component>

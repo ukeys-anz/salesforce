@@ -29,9 +29,7 @@ public with sharing class CCRMLeadPlatformEventHelper {
     ) {
       if (String.isNotBlank(lstRec.Outcome_Type__c)) {
         leadStatusTransMap.put(
-          lstRec.Lead_Status__c +
-          '-' +
-          lstRec.Outcome_Type__c,
+          lstRec.Lead_Status__c + '-' + lstRec.Outcome_Type__c,
           lstRec
         );
       } else {
@@ -177,9 +175,7 @@ public with sharing class CCRMLeadPlatformEventHelper {
             leadResponseEvent.put(
               mapping.Platform_Event_Field_API_Name__c,
               leadStatusTransMap.get(
-                  record.Status +
-                  '-' +
-                  record.Lead_Outcome__c
+                  record.Status + '-' + record.Lead_Outcome__c
                 )
                 .UNICA_Lead_Status__c
             );

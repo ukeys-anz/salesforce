@@ -1,9 +1,9 @@
 <!--
-  @description       : 
-  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @description       : The is a placeholder component, functionalities to be added in upcoming releases
+  @author            : Anuj Jain
   @group             : 
-  @last modified on  : 11-21-2023
-  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  @last modified on  : 21 Nov 2023
+  @last modified by  : Anuj Jain
 -->
 <aura:component implements="force:lightningQuickActionWithoutHeader">
 </aura:component>

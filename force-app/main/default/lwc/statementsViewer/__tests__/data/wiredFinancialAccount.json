@@ -18,6 +18,10 @@
       "displayValue": null,
       "value": "fDKLSfQFtV1"
     },
+    "Ownership__c": {
+      "displayValue": null,
+      "value": "Single"
+    },
     "RecordType": {
       "displayValue": null,
       "value": {

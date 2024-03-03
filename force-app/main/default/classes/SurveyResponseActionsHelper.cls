@@ -16,11 +16,13 @@ public with sharing class SurveyResponseActionsHelper {
    * @description Build a case record with information from a survey response record
    * @param surveyResponse The survey response record of which the data is used to build the case
    * @param personContactId The account's contact Id
+   * @param queueNameToIdMap Holds queue name and queue Id
    * @return Case The case record that is built from the survey response's data
    */
   private static Case buildCaseFromSurveyResponse(
     qualtrics__Survey_Response__c surveyResponse,
-    String personContactId
+    String personContactId,
+    Map<String, String> queueNameToIdMap
   ) {
     Case newCase = new Case();
     newCase.AccountId = surveyResponse.qualtrics__Account__c;
@@ -28,7 +30,10 @@ public with sharing class SurveyResponseActionsHelper {
     newCase.Alerting_Reason__c = surveyResponse.Alerting_Reason__c;
     newCase.ContactId = personContactId;
     newCase.Description = surveyResponse.Customer_Feedback__c;
-    newCase.OwnerId = coachQueue.Id;
+    newCase.OwnerId = String.isNotBlank(surveyResponse.Case_Queue__c) &&
+      !queueNameToIdMap.isEmpty()
+      ? queueNameToIdMap.get(surveyResponse.Case_Queue__c)
+      : coachQueue.Id;
     newCase.Priority = 'Medium';
     newCase.RecordTypeId = GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID;
     newCase.Subject = surveyResponse.Alerting_Reason__c + ' - ' + feedbackType;
@@ -41,18 +46,21 @@ public with sharing class SurveyResponseActionsHelper {
    * @description Build a list of case records with information from survey responses and an account map
    * @param accountsMap A map of accounts and their Ids
    * @param responsesRequireCase A list of survey responses that require cases
+   * @param queueNameToIdMap Holds queue name and queue Id
    * @return List<Case> List of cases to insert
    */
   public static List<Case> buildCaseList(
     Map<Id, Account> accountsMap,
-    List<qualtrics__Survey_Response__c> responsesRequireCase
+    List<qualtrics__Survey_Response__c> responsesRequireCase,
+    Map<String, String> queueNameToIdMap
   ) {
     List<Case> casesToCreate = new List<Case>();
     for (qualtrics__Survey_Response__c record : responsesRequireCase) {
       casesToCreate.add(
         buildCaseFromSurveyResponse(
           record,
-          accountsMap.get(record.qualtrics__Account__c)?.PersonContactId
+          accountsMap.get(record.qualtrics__Account__c)?.PersonContactId,
+          queueNameToIdMap
         )
       );
     }

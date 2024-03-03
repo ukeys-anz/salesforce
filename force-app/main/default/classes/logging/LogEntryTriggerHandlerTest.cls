@@ -23,7 +23,10 @@ private class LogEntryTriggerHandlerTest {
         'UserRoleId' => engineerRole.Id
       }
     );
+
+    Test.startTest();
     insert engineerUser;
+    Test.stopTest();
     // enable the engineer to create Cases
     TestUtil.assignPermissionSetGroups(
       new List<String>{ 'IDR_Level_1' },
@@ -84,6 +87,8 @@ private class LogEntryTriggerHandlerTest {
 
       delete cdl;
 
+      Test.startTest();
+
       List<LogEntry__c> lstLogEntries = [
         SELECT
           Id,
@@ -120,7 +125,7 @@ private class LogEntryTriggerHandlerTest {
         LIMIT 1
       ];
 
-      System.debug('ContentDocument: ' + lstContentDocument);
+      Test.stopTest();
       System.assertEquals(
         0,
         lstContentDocument.size(),

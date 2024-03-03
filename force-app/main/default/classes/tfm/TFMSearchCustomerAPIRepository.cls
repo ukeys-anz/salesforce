@@ -27,21 +27,21 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
 
   /**
    * @param staffModel wrapper class having all the required inputs
-   * @return HttpCalloutResponse response
+   * @return TFMPersonDigitalIdentityModel model
    * @description fetches customer details
    */
-  public HttpCalloutResponse searchCustAPI(StaffTokenRequestModel staffModel) {
+  public TFMPersonDigitalIdentityModel searchCustAPI(
+    StaffTokenRequestModel staffModel
+  ) {
+    TFMPersonDigitalIdentityModel model;
     Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
     HttpCalloutResponse response = s.searchCustAPI(staffModel);
-    try {
-      if (response.successful == false) {
-        throw response.error;
-      }
-      return response;
-    } catch (Exception e) {
-      handleErrors(response, e, TFMSearchCustomerAPIRepository.class);
+    if (!response.successful) {
+      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
       return null;
     }
+    model = TFMPersonDigitalIdentityModel.parse(response.body);
+    return model;
   }
   /**
    * @param staffModel wrapper class having all the required inputs
@@ -61,15 +61,11 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
       userInternalId,
       deviceResourceId
     );
-    try {
-      if (response.successful == false) {
-        throw response.error;
-      }
-      return response;
-    } catch (Exception e) {
-      handleErrors(response, e, TFMSearchCustomerAPIRepository.class);
+    if (!response.successful) {
+      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
       return null;
     }
+    return response;
   }
   /**
    * @param staffModel wrapper class having all the required inputs
@@ -89,14 +85,80 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
       userInternalId,
       appCorrelationId
     );
-    try {
-      if (response.successful == false) {
-        throw response.error;
-      }
-      return response;
-    } catch (Exception e) {
-      handleErrors(response, e, TFMSearchCustomerAPIRepository.class);
+    if (!response.successful) {
+      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
       return null;
     }
+    return response;
+  }
+
+  /**
+   * @param headers headers to call api
+   * @param accountId  accountId value of the joint account
+   * @param emailEnabled joint account status
+   * @return HttpCalloutResponse response
+   * @description get and modify the joint account notifications
+   */
+  public HttpCalloutResponse getORModifyJointAccountNotificationAPI(
+    map<string, string> headers,
+    string accountId,
+    boolean emailEnabled
+  ) {
+    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    HttpCalloutResponse response = s.getORModifyJointAccountNotificationAPI(
+      headers,
+      accountId,
+      emailEnabled
+    );
+    if (!response.successful) {
+      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * @param bsb bsb value of the joint account
+   * @param accountNumber joint account number
+   * @param enabled disclosure status
+   * @param headers headers to call api
+   * @return HttpCalloutResponse response
+   * @description gets the Customer's device details with biometrics
+   */
+  public HttpCalloutResponse updatedisclosureStatus(
+    String bsb,
+    String accountNumber,
+    Boolean enabled,
+    Map<String, String> headers
+  ) {
+    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    HttpCalloutResponse response = s.updatedisclosureStatus(
+      bsb,
+      accountNumber,
+      enabled,
+      headers
+    );
+    if (!response.successful) {
+      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
+      return null;
+    }
+    return response;
+  }
+
+  /**
+   * @param headers headers to call api
+   * @return HttpCalloutResponse response
+   * @description gets gets Joint Accounts List
+   */
+  public HttpCalloutResponse getJointAccountPermissions(
+    Map<String, String> headers
+  ) {
+    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    HttpCalloutResponse response = s.getJointAccountPermissions(headers);
+    if (!response.successful) {
+      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
+      return null;
+    }
+    return response;
   }
 }

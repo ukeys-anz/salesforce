@@ -89,19 +89,20 @@ public class CCRMLeadExpiryHandlerTest {
   }
   @IsTest
   static void validateMLleadUpdateTest() {
-    List<String> lstOfMLUser = new List<String>{'MLCRM','MLCRM1'};
-    User objMLUser ;
+    List<String> lstOfMLUser = new List<String>{ 'MLCRM', 'MLCRM1' };
+    User objMLUser;
     User objMLUser1;
-    for(User objUser : [SELECT Id, LastName, FirstName
+    for (User objUser : [
+      SELECT Id, LastName, FirstName
       FROM User
-      WHERE LastName IN: lstOfMLUser]) {
-        if(objUser.LastName == 'MLCRM') {
-          objMLUser = objUser;
-        }
-        else {
-          objMLUser1 = objUser;
-        }
+      WHERE LastName IN :lstOfMLUser
+    ]) {
+      if (objUser.LastName == 'MLCRM') {
+        objMLUser = objUser;
+      } else {
+        objMLUser1 = objUser;
       }
+    }
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
       Test.startTest();
       List<Lead> lstOfLead = MLCRMTestDataFactory.createLeadRecords(
@@ -139,7 +140,11 @@ public class CCRMLeadExpiryHandlerTest {
           FROM Lead
           WHERE recordtypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
         ];
-        System.assertEquals(LeadsCount, 0, 'Expired ML lead still visible to user1');
+        System.assertEquals(
+          LeadsCount,
+          0,
+          'Expired ML lead still visible to user1'
+        );
       }
 
       System.runAs(objMLUser) {
@@ -148,7 +153,11 @@ public class CCRMLeadExpiryHandlerTest {
           FROM Lead
           WHERE recordtypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
         ];
-        System.assertEquals(LeadsCount, 0, 'Expired ML lead still visible to user');
+        System.assertEquals(
+          LeadsCount,
+          0,
+          'Expired ML lead still visible to user'
+        );
       }
       //Asserts
       //Checking by searching records with Status 'Expired'.

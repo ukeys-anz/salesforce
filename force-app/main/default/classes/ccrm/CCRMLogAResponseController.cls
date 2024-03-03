@@ -215,8 +215,8 @@ public with sharing class CCRMLogAResponseController {
       if (Label.CCRM_NonEditableLeadStages.contains(validateLeadState.Status)) {
         return JSON.serialize(
           'Warning Message: Responses cannot be logged for Leads on ' +
-          Label.CCRM_NonEditableLeadStages +
-          ' Stages.'
+            Label.CCRM_NonEditableLeadStages +
+            ' Stages.'
         );
       }
       // Validate Lead before logging response of Referred Status.
