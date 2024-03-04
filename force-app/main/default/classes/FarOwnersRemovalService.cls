@@ -68,7 +68,8 @@ global with sharing class FarOwnersRemovalService {
         personContactIds.add(acc.PersonContactId);
       }
     }
-    handleDelete(
+    List<SObject> recordsToDelete = new List<SObject>();
+    recordsToDelete.addAll(
       [
         SELECT Id
         FROM FinServ__ContactContactRelation__c
@@ -78,6 +79,17 @@ global with sharing class FarOwnersRemovalService {
         WITH USER_MODE
       ]
     );
+    recordsToDelete.addAll(
+      [
+        SELECT Id
+        FROM FinServ__AccountAccountRelation__c
+        WHERE
+          FinServ__Account__c IN :accounts
+          OR FinServ__RelatedAccount__c IN :accounts
+        WITH USER_MODE
+      ]
+    );
+    handleDelete(recordsToDelete);
   }
 
   /**
@@ -128,6 +140,16 @@ global with sharing class FarOwnersRemovalService {
         SELECT Id
         FROM ContactPointPhone
         WHERE ParentId IN :accounts OR Customer_Name__c IN :accounts
+        WITH USER_MODE
+      ]
+    );
+    recordsToDelete.addAll(
+      [
+        SELECT Id
+        FROM Contact
+        WHERE
+          AccountId IN :accounts
+          AND RecordTypeId = :CCRMConstants.CONTACT_BUSINESS_RT_ID
         WITH USER_MODE
       ]
     );

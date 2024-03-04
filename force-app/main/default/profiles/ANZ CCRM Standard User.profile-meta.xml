@@ -23294,10 +23294,6 @@
     </fieldPermissions>
     <flowAccesses>
         <enabled>false</enabled>
-        <flow>CCRM_Hide_Expired_Contacts_Schedule</flow>
-    </flowAccesses>
-    <flowAccesses>
-        <enabled>false</enabled>
         <flow>IDR_update_overdue_SI_Task_status_to_expired</flow>
     </flowAccesses>
     <flowAccesses>

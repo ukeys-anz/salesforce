@@ -40,7 +40,7 @@ public with sharing class CCRMConstants {
   public static final String INACTIVE_STATUS = 'Inactive';
   public static final String ACC_RT = 'Business_Account';
   public static final String ACC_PERSON_RT = 'PersonAccount';
-  public static final String CON_RT = 'IndustriesBusiness';
+  public static final String CON_RT = 'Organisation';
   public static final String CPE_RT = 'Organisation';
   public static final String CPE_IND_RT = 'Individual';
   public static final String CPA_RT = 'Organisation';
@@ -133,7 +133,7 @@ public with sharing class CCRMConstants {
 
   //Contact - Business Record Type Id
   public static final Id CONTACT_BUSINESS_RT_ID = Schema.SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('IndustriesBusiness')
+    .get('Organisation')
     .getRecordTypeId();
 
   //Contact - Hidden Record Type Id
@@ -146,6 +146,11 @@ public with sharing class CCRMConstants {
     .get('ContactRole')
     .getRecordTypeId();
 
+  //FinServ__ReciprocalRole__c Contact Role Record Type Id
+  public static final Id RECIPROCAL_ACCOUNT_ROLE_RT_ID = Schema.SObjectType.FinServ__ReciprocalRole__c.getRecordTypeInfosByDeveloperName()
+    .get('AccountRole')
+    .getRecordTypeId();
+
   //Financial Account Role - System Role Record Type Id
   public static final Id FAR_SYSTEM_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
     .get('System_Role')
@@ -154,6 +159,11 @@ public with sharing class CCRMConstants {
   //Financial Account Role - Contact Role Record Type Id
   public static final Id FAR_CONTACT_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
     .get('ContactRole')
+    .getRecordTypeId();
+
+  //Financial Account Role - Contact Role Record Type Id
+  public static final Id FAR_ACCOUNT_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
+    .get('AccountRole')
     .getRecordTypeId();
 
   //Contact Point Email - Organisation Record Type Id
