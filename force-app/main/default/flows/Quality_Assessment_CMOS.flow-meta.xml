@@ -2,9 +2,6 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <name>Send_In_App_Notification</name>
-        <label>Send In-App Notification</label>
-        <locationX>336</locationX>
-        <locationY>1427</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -38,14 +35,13 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
-       <label>Send In-App Notification</label>
+        <label>Send In-App Notification</label>
         <locationX>336</locationX>
-       </actionCalls>
+        <locationY>1427</locationY>
+    </actionCalls>
+    <apiVersion>59.0</apiVersion>
+    <assignments>
         <name>Assignment_Quality_Assessment_Share</name>
-        <label>Assignment Quality Assessment Share</label>
-        <locationX>336</locationX>
-        <locationY>1103</locationY>
-
         <assignmentItems>
             <assignToReference>Quality_Assessment_Share_Record.ParentId</assignToReference>
             <operator>Assign</operator>
@@ -77,7 +73,6 @@
         <connector>
             <targetReference>Create_Assessment_Share_records</targetReference>
         </connector>
-
         <label>Assignment Quality Assessment Share</label>
         <locationX>336</locationX>
         <locationY>1103</locationY>
@@ -87,15 +82,20 @@
         <defaultConnector>
             <targetReference>Get_Permission_Set_Group</targetReference>
         </defaultConnector>
-
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Is Assessment Owned by Case Manager</label>
         <locationX>270</locationX>
-
+        <locationY>671</locationY>
+        <rules>
             <name>Assessment_is_Owned_by_Case_Manager</name>
             <conditionLogic>and</conditionLogic>
+            <conditions>
                 <leftValueReference>$Record.Case_Manager__c</leftValueReference>
                 <operator>EqualTo</operator>
+                <rightValue>
                     <elementReference>$Record.OwnerId</elementReference>
                 </rightValue>
+            </conditions>
             <label>Assessment is Owned by Case Manager</label>
         </rules>
     </decisions>
@@ -121,20 +121,34 @@
             <label>This is Call/Letter Review</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Is_Case_Manager_Level_1</name>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is Case Manager Level 1</label>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <locationX>468</locationX>
+        <locationY>995</locationY>
+        <rules>
+            <name>Case_Manager_is_Level_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Permission_Set_Assignment.Id</leftValueReference>
                 <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assignment_Quality_Assessment_Share</targetReference>
             </connector>
+            <label>Case Manager is Level 1</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_This_C_Q_Assessment</name>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is This C&amp;Q Assessment</label>
         <locationX>490</locationX>
         <locationY>276</locationY>
-
-        <label>Is This C&amp;Q Assessment</label>
-        <locationX>490</locationX>
-        <locationY>276</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-
         <rules>
             <name>This_is_C_Q_Assessment</name>
             <conditionLogic>and</conditionLogic>
@@ -175,31 +189,16 @@
     <processType>AutoLaunchedFlow</processType>
     <recordCreates>
         <name>Create_Assessment_Share_records</name>
-<<<<<<< HEAD
-=======
-        <label>Create Assessment Share records</label>
-        <locationX>336</locationX>
-        <locationY>1211</locationY>
->>>>>>> epic/cmos-a
         <connector>
             <targetReference>Get_Notification_Type</targetReference>
         </connector>
         <inputReference>Quality_Assessment_Share_Record</inputReference>
-<<<<<<< HEAD
         <label>Create Assessment Share records</label>
         <locationX>336</locationX>
         <locationY>1211</locationY>
     </recordCreates>
     <recordLookups>
         <name>Get_Notification_Type</name>
-=======
-    </recordCreates>
-    <recordLookups>
-        <name>Get_Notification_Type</name>
-        <label>Get Notification Type</label>
-        <locationX>336</locationX>
-        <locationY>1319</locationY>
->>>>>>> epic/cmos-a
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Send_In_App_Notification</targetReference>
@@ -213,23 +212,14 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
-<<<<<<< HEAD
         <label>Get Notification Type</label>
         <locationX>336</locationX>
         <locationY>1319</locationY>
-=======
->>>>>>> epic/cmos-a
         <object>CustomNotificationType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Permission_Set_Assignment</name>
-<<<<<<< HEAD
-=======
-        <label>Get Permission Set Assignment</label>
-        <locationX>468</locationX>
-        <locationY>887</locationY>
->>>>>>> epic/cmos-a
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Case_Manager_Level_1</targetReference>
@@ -250,23 +240,14 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
-<<<<<<< HEAD
         <label>Get Permission Set Assignment</label>
         <locationX>468</locationX>
         <locationY>887</locationY>
-=======
->>>>>>> epic/cmos-a
         <object>PermissionSetAssignment</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Permission_Set_Group</name>
-<<<<<<< HEAD
-=======
-        <label>Get Permission Set Group</label>
-        <locationX>468</locationX>
-        <locationY>779</locationY>
->>>>>>> epic/cmos-a
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Permission_Set_Assignment</targetReference>
@@ -280,21 +261,13 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
-<<<<<<< HEAD
         <label>Get Permission Set Group</label>
         <locationX>468</locationX>
         <locationY>779</locationY>
-=======
->>>>>>> epic/cmos-a
         <object>PermissionSetGroup</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
-<<<<<<< HEAD
-=======
-        <locationX>144</locationX>
-        <locationY>0</locationY>
->>>>>>> epic/cmos-a
         <connector>
             <targetReference>Is_Call_Letter_Review</targetReference>
         </connector>
@@ -307,11 +280,8 @@
                 <stringValue>Complete</stringValue>
             </value>
         </filters>
-<<<<<<< HEAD
         <locationX>144</locationX>
         <locationY>0</locationY>
-=======
->>>>>>> epic/cmos-a
         <object>Quality_Assessment__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>
