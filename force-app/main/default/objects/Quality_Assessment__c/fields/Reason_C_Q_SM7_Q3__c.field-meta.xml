@@ -65,7 +65,7 @@
             <valueName>CM receiving the review did not make the request for information the subject of the not met.</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
+            <controllingFieldValue>N/A</controllingFieldValue>
             <valueName>No additional information was required to address key issues.</valueName>
         </valueSettings>
         <valueSettings>
