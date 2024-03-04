@@ -933,6 +933,7 @@ populateOwnerChangeFields(record, oldMap);
    * @description Getting product from sset finance Product family
    * @param record  List of cases from the trigger
    * @param oldRecord List of cases from trigger
+   * @param productMap Map of products belonging to asset finance family
    * @return Boolean value that returns true if the Product Family is Asset finance 
    */
    @TestVisible
