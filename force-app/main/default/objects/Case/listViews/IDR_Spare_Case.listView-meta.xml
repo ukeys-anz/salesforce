@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Spare_Case</fullName>
-    <booleanFilter>1 OR 2</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>CASES.STATUS</columns>
     <columns>IDR_Date_Received__c</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
-    <filters>
-        <field>Queue__c</field>
-        <operation>equals</operation>
-        <value>IDR Spare</value>
-    </filters>
-    <filters>
-        <field>Queue__c</field>
-        <operation>equals</operation>
-        <value>IDR Disputes &amp; Scams</value>
-    </filters>
     <filterScope>Everything</filterScope>
-    <label>IDR Disputes &amp; Scams</label>
+    <filters>
+        <field>Queue__c</field>
+        <operation>equals</operation>
+        <value>IDR Disputes</value>
+    </filters>
+    <label>IDR Disputes</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>

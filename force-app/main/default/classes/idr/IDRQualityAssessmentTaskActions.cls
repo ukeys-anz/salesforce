@@ -144,20 +144,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
           oAssessment.Corrective_actions_for_TM_CM__c !=
           IDRConstants.CORRECTIVE_ACTIONS_NA &&
           oAssessment.Corrective_actions_for_TM_CM__c != null
-        ) {
-          correctiveActionsCQIds.add(oAssessment.Id);
-        }
-      }
-    }
-    if ((stCompletedCQIds.size() > 0 || correctiveActionsCQIds.size() > 0)) {
-      List<Quality_Assessment__c> lstCompletedCQAssessments = [
-        SELECT
-          Id,
-          OwnerId,
-          TeamManager__c,
-          TeamManager__r.Name,
-          Case_Manager__c,
-          Case_Manager__r.Name,
+    ) {
           Related_Case__r.CaseNumber__c
         FROM Quality_Assessment__c
         WHERE
@@ -170,23 +157,13 @@ public with sharing class IDRQualityAssessmentTaskActions {
       List<Task> lstComplianceTasks = new List<Task>();
       for (Quality_Assessment__c oAssessment : lstCompletedCQAssessments) {
         if (stCompletedCQIds.contains(oAssessment.Id)) {
-          String strSubject =
-            IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
-            String.valueOf(oAssessment.Case_Manager__r.Name) +
-            ': case' +
-            String.valueOf(oAssessment.Related_Case__r.CaseNumber__c);
-          lstComplianceTasks.add(
-            getComplianceTask(oAssessment, '', strSubject)
-          );
+          String strSubject  = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT + String.valueOf(oAssessment.Case_Manager__r.Name) + ': case' + String.valueOf(oAssessment.Related_Case__r.CaseNumber__c);
+		      lstComplianceTasks.add(getComplianceTask(oAssessment,'', strSubject));
         }
         if (correctiveActionsCQIds.contains(oAssessment.Id)) {
-          String strSubject =
-            IDRConstants.TASK_TM_ATTESTATION_SUBJECT +
-            String.valueOf(oAssessment.Case_Manager__r.Name);
+          String strSubject  = IDRConstants.TASK_TM_ATTESTATION_SUBJECT + String.valueOf(oAssessment.Case_Manager__r.Name);
           String strDescription = 'You must add a task comment detailing the action taken before marking this task as completed.';
-          lstComplianceTasks.add(
-            getComplianceTask(oAssessment, strDescription, strSubject)
-          );
+          lstComplianceTasks.add(getComplianceTask(oAssessment,strDescription, strSubject));
         }
       }
       if (lstComplianceTasks.size() > 0) {
@@ -208,12 +185,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
    * @param strSubject Subject of the task
    * @return Task object
    */
-  public static Task getComplianceTask(
-    Quality_Assessment__c oAssessment,
-    String strDescription,
-    String strSubject
-  ) {
-    Task taskObj = new Task();
+  public static Task getComplianceTask(Quality_Assessment__c oAssessment, String strDescription, String strSubject ){
+    Task taskObj = New Task();
     taskObj.RecordTypeId = GetHelpConstants.TASK_COMPLIANCE_RT_ID;
     taskObj.OwnerId = oAssessment.TeamManager__c;
     taskObj.WhatId = oAssessment.Id;

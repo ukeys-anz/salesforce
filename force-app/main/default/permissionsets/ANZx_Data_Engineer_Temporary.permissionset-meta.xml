@@ -1301,6 +1301,11 @@
         <field>Case.IDR_Systemic_Issue_Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
+     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Teleconference_Call_TCC__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Teleconference_Call_TCC__c</field>

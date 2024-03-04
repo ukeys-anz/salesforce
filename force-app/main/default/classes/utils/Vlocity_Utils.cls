@@ -30,6 +30,9 @@ global with sharing class Vlocity_Utils implements Callable {
     } else if ('getLastModifiedDateOfField'.equals(methodName)) {
       getLastModifiedDateOfField(input, output, options);
     }
+        else if ('getLastModifiedDateOfField'.equals(methodName)){
+            getLastModifiedDateOfField(input, output, options);
+        }
     return true;
   }
 
@@ -189,9 +192,42 @@ global with sharing class Vlocity_Utils implements Callable {
         DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
         DMLUtil.SYSTEM_MODE
       );
-    }
-  }
 
+      for (Object c : complaintRes) {
+        RemedyDependentValues remedyValues = (RemedyDependentValues) JSON.deserialize(
+          JSON.serialize(c),
+          RemedyDependentValues.class
+        );
+        if (remedyValues.remedy == null) {
+          continue;
+        }
+        Complaint_Resolution__c cr1 = new Complaint_Resolution__c(
+          IDR_Complaint__c = (Id) input.get('ComplaintId'),
+    ) {
+        String fieldName = String.ValueOf(input.get('FieldName'));
+        String caseId = String.ValueOf(input.get('recordId'));
+        output.put('lastModifiedDate' + fieldName, 0);
+        List<CaseHistory> historyList = [
+            SELECT CreatedDate
+            FROM CaseHistory
+            WHERE Field = :fieldName AND CaseId = :caseId
+            ORDER BY CreatedDate DESC
+            LIMIT 1
+        ];
+        List<Case> cseList = [SELECT CreatedDate FROM Case WHERE ID =: caseId];
+        DateTime lastModifiedDate;
+        DateTime now = DateTime.now();
+        if (!historyList.isEmpty()){
+          lastModifiedDate = historyList[0].CreatedDate;
+        }
+        else if (!cseList.isEmpty()){
+          lastModifiedDate = cseList[0].CreatedDate;
+        }
+        if(lastModifiedDate != null){
+          Integer daysSinceLastUpdate = now.date().daysBetween(lastModifiedDate.date());
+          output.put('lastModifiedDate' + fieldName, Math.abs(daysSinceLastUpdate) + ' Days'); 
+        }
+    }
   /**
    * @description To get the last modified date of a particular field for a particular Case.
    * @param input The input from IP CR Ids

@@ -187,8 +187,30 @@ public with sharing class IDRCaseAssignmentRules {
       }
 
       // Fraud & Scams
-      if (rec.Type == '14' || rec.Type == 'Fraud' || rec.Type == 'Scam') {
-        return QUEUE_MAP.get('IDR_Spare'); // IDR Disputes & Scams
+      if ((rec.Type == 'Fraud' || rec.Type == 'Scam' ) && rec.IDR_Subsequent_Issue__c == '109') {
+        return QUEUE_MAP.get('IDR_Spare'); // IDR Disputes
+      }
+
+      if ((rec.Type == 'Fraud' || rec.Type == 'Scam' ) && rec.IDR_Subsequent_Issue__c != '109') {
+        return QUEUE_MAP.get('IDR_Scams'); // IDR Scams
+      }
+      
+      //Deceased Estates
+      if (rec.Type == '16' && rec.IDR_Subsequent_Issue__c == '80') {
+        return QUEUE_MAP.get('IDR_Deceased_Estates'); // IDR Deceased Estates
+      }
+
+      // Simple Complaint on Unassisted Channel
+      if (
+        (rec.Origin == IDRConstants.CHANNEL_RECEIVED_ANZ_COM ||
+        rec.SuppliedEmail == System.Label.ANZ_com_Sender_Address) &&
+        (!rec.IDR_Second_Issue__c && !rec.IDR_Third_Issue__c) &&
+        IDRConstants.IDR_UNASSISTED_ISSUE_TYPE.contains(rec.Type) &&
+        IDRConstants.IDR_UNASSISTED_SUB_ISSUE_TYPE.contains(
+          rec.IDR_Subsequent_Issue__c
+        )
+      ) {
+        return QUEUE_MAP.get('IDR_Early_Resolution_Unassisted_Channel');
       }
 
       // Simple Complaint on Unassisted Channel

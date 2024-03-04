@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Is_Hardship_Resolution_Letter_Sent__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Personal Information;Source - Salesforce</complianceGroup>
+    <description>This field will allow the Hardship IDR Written Response Team to monitor and track Hardship Written Responses.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field should only be updated by Customer Resolution (CR) if a complaint has been closed within 5 days by Frontline.</inlineHelpText>
+    <label>Is Hardship Resolution Letter Sent?</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Hardship Written Response Letter Sent</fullName>
+                <default>false</default>
+                <label>Hardship Written Response Letter Sent</label>
+            </value>
+            <value>
+                <fullName>Hardship Written Response not required</fullName>
+                <default>false</default>
+                <label>Hardship Written Response not required</label>
+            </value>
+            <value>
+                <fullName>Complaint Re-Opened</fullName>
+                <default>false</default>
+                <label>Complaint Re-Opened</label>
+            </value>
+            <value>
+                <fullName>Related Complaint In-Flight (no action taken)</fullName>
+                <default>false</default>
+                <label>Related Complaint In-Flight (no action taken)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
