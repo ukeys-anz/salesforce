@@ -3381,6 +3381,21 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Final_Letter_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Hardship_Response_updated_on__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Hardship_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Inbox_Email_Address__c</field>
         <readable>true</readable>
@@ -3388,6 +3403,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Is_Common__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Is_Hardship_Resolution_Letter_Sent__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7513,6 +7533,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Proposed_resolution_is_fair_reasonable__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.REAL_form_Comments__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

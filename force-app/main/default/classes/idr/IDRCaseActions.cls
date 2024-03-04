@@ -177,6 +177,7 @@ public with sharing class IDRCaseActions {
         {
           record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
+        populateHardshipUpdateDate(records, (Map<Id, Case>) OldMap);
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -206,6 +207,7 @@ public with sharing class IDRCaseActions {
           SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
         );
       }
+populateOwnerChangeFields(record, oldMap);
     }
     preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
@@ -216,6 +218,33 @@ public with sharing class IDRCaseActions {
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
       updateDateTimePsiTicked(updatePsiTicked);
+    }
+  }
+
+  /**
+   * @description populateOwnerChangeFields(record, oldMap) method handles the following
+   * 1. Assigns old owner to Previous Case Owner
+   * 2. Assigns the date/time to Date Case Allocated to CM.   
+   * @param record from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values.
+   */
+  public static void populateOwnerChangeFields(
+    Case record,
+    Map<ID, SObject> oldMap
+  ) {
+    if (record.OwnerId != (Id) oldMap.get(record.Id).get('OwnerId')) {
+      ID oldOwner = (Id) oldMap.get(record.Id).get('OwnerId');
+      ID newOwner = record.OwnerId;
+      if (oldOwner.getSObjectType() == Group.SObjectType) {
+        record.Previous_Case_Owner__c = null;
+      } else {
+        record.Previous_Case_Owner__c = oldOwner;
+      }
+      if (newOwner.getSObjectType() == User.SObjectType) {
+        record.Date_Case_allocated_to_CM__c = DateTime.now();
+      } else {
+        record.Date_Case_allocated_to_CM__c = null;
+      }
     }
   }
 
@@ -264,6 +293,7 @@ public with sharing class IDRCaseActions {
   ) {
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
+    Set<Id> hardshipCases = new Set<Id>();
     for (Case c : records) {
       if (isIDRComplaintType(c)) {
         Case oldCase = (oldMap.containsKey(c.Id))
@@ -284,6 +314,9 @@ public with sharing class IDRCaseActions {
           (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
         ) {
           maxTimeFrameCases.add(c.Id);
+        }
+        if(oldCase !=null && c.isClosed && c.IDR_Is_Hardship_Resolution_Letter_Sent__c !=null){
+          hardshipCases.add(c.Id);
         }
       }
     }
@@ -307,11 +340,19 @@ public with sharing class IDRCaseActions {
           '30-day IDR Response Due',
           'Open_Escalation_Time',
           'AFCA Response Due',
-          'FPR 5 Business Day Resolution target'
+          'FPR 5 Business Day Resolution target'         
         },
         System.now()
       );
       IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
+    }
+
+    if(!hardshipCases.isEmpty()){
+      MilestoneUtils.completeMilestones(
+        hardshipCases,
+        new List<String>{'21 Day Hardship Letter Milestone'},
+        System.now()
+      );
     }
   }
 
@@ -892,7 +933,6 @@ public with sharing class IDRCaseActions {
    * @description Getting product from sset finance Product family
    * @param record  List of cases from the trigger
    * @param oldRecord List of cases from trigger
-   * @param productMap This Map<Id, Product2> contains the map which holds the Id of product and Product family is Asset finance
    * @return Boolean value that returns true if the Product Family is Asset finance 
    */
    @TestVisible
@@ -917,5 +957,25 @@ public with sharing class IDRCaseActions {
            return true;
           }  
       return false;
+  }
+  
+  /**
+  * @description Populate modified date when the picklist value is updated
+  * @param records  List of cases from the trigger
+  * @param oldMap Map of pre-update cases supplied from the trigger as well, will be null on beforeInsert
+  */
+  private static void populateHardshipUpdateDate(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    for (Case c : records) {
+      if (
+        c.IDR_Is_Hardship_Resolution_Letter_Sent__c !=
+        oldMap.get(c.Id).IDR_Is_Hardship_Resolution_Letter_Sent__c
+      ) {
+          c.IDR_Hardship_Response_updated_on__c = System.now();
+      }
+    }
+
   }
 }
