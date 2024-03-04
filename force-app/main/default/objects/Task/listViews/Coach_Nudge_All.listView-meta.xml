@@ -8,6 +8,7 @@
     <columns>DUE_DATE</columns>
     <columns>STATUS</columns>
     <columns>PRIORITY</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
