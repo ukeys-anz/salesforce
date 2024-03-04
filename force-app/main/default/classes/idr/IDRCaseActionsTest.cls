@@ -615,7 +615,7 @@ private with sharing class IDRCaseActionsTest {
       return caseRecord;
           
    }
-}
+
     @isTest
     static void testHardshipUpdateDate(){
         
@@ -645,5 +645,5 @@ private with sharing class IDRCaseActionsTest {
             cs.IDR_Hardship_Response_updated_on__c!=null,
             'Date/Time flag should have been populated');
         Test.stopTest();
-    }
+ }
 }
