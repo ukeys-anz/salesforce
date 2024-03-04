@@ -116,16 +116,14 @@ public with sharing class IDRQualityAssessmentTaskActions {
     Quality_Assessment__c oOldAssessment;
     Set<Id> stCompletedCQIds = new Set<Id>();
     Set<Id> correctiveActionsCQIds = new Set<Id>();
-    if (
-      !Task.SObjectType.getDescribe().isCreateable() &&
-      !Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
-      !Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
-      !Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
-      !Schema.SObjectType.Task.fields.Subject.isCreateable() &&
-      !Schema.SObjectType.Task.fields.WhatId.isCreateable()
-    ) {
-      return;
-    }
+    if(!Task.SObjectType.getDescribe().isCreateable() &&
+       !Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
+       !Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
+       !Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
+       !Schema.SObjectType.Task.fields.Subject.isCreateable() &&
+       !Schema.SObjectType.Task.fields.WhatId.isCreateable()){
+        return;
+      }
     for (Quality_Assessment__c oAssessment : lstAssessments) {
       if (
         oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
@@ -138,13 +136,30 @@ public with sharing class IDRQualityAssessmentTaskActions {
         oOldAssessment.Corrective_actions_for_TM_CM__c &&
         oAssessment.Corrective_actions_for_TM_CM__c != null))
       ) {
-        stCompletedCQIds.add(oAssessment.Id);
-
+       
+          stCompletedCQIds.add(oAssessment.Id);
+        
         if (
           oAssessment.Corrective_actions_for_TM_CM__c !=
           IDRConstants.CORRECTIVE_ACTIONS_NA &&
-          oAssessment.Corrective_actions_for_TM_CM__c != null
+          oAssessment.Corrective_actions_for_TM_CM__c !=null
+        ) {
+          correctiveActionsCQIds.add(oAssessment.Id);
+        }
+      }
+    }
+    if (
+      (stCompletedCQIds.size() > 0 ||
+      correctiveActionsCQIds.size() > 0)
     ) {
+      List<Quality_Assessment__c> lstCompletedCQAssessments = [
+        SELECT
+          Id,
+          OwnerId,
+          TeamManager__c,
+          TeamManager__r.Name,
+          Case_Manager__c,
+          Case_Manager__r.Name,
           Related_Case__r.CaseNumber__c
         FROM Quality_Assessment__c
         WHERE
@@ -195,8 +210,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
     taskObj.ActivityDate = Date.today().addDays(7);
     taskObj.Status = 'Open';
     taskObj.Priority = 'Normal';
-    return taskObj;
-  }
+  return taskObj;
+ }
   /**
    * @description method to apply apex sharing  if Quality Assessment record's status is changed to Completed
    * @param lstAssessments new Trigger values
