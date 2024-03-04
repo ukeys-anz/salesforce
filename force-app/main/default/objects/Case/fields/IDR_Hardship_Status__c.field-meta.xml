@@ -6,9 +6,9 @@
     <description>This field displays a flag based on the Case received date.</description>
     <externalId>false</externalId>
     <formula>IF( 
-   TODAY()- DATEVALUE(CreatedDate)&lt;=2, IMAGE(&quot;/img/samples/flag_green.gif&quot;,&quot;/s.gif&quot;,26,20),
+   TODAY()- DATEVALUE(IDR_Date_Received__c)&lt;=2, IMAGE(&quot;/img/samples/flag_green.gif&quot;,&quot;/s.gif&quot;,26,20),
    IF( 
-    TODAY()- DATEVALUE(CreatedDate)&lt;=10, IMAGE(&quot;/img/samples/flag_yellow.gif&quot;,&quot;/s.gif&quot;,26,20),
+    TODAY()- DATEVALUE(IDR_Date_Received__c)&lt;=10, IMAGE(&quot;/img/samples/flag_yellow.gif&quot;,&quot;/s.gif&quot;,26,20),
       IMAGE(&quot;/img/samples/flag_red.gif&quot;,&quot;/s.gif&quot;,26,20))
      )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
