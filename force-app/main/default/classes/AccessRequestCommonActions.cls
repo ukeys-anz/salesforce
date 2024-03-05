@@ -95,8 +95,8 @@ public without sharing class AccessRequestCommonActions {
         if (!overlappingRequests.isEmpty()) {
           record.addError(
             'The request overlaps with an existing Privilaged Access Request: ' +
-            overlappingRequests[0].Access_Request__r.Name +
-            '. Please double check the start time and duration to ensure they do not overlap'
+              overlappingRequests[0].Access_Request__r.Name +
+              '. Please double check the start time and duration to ensure they do not overlap'
           );
         }
       }
@@ -257,13 +257,13 @@ public without sharing class AccessRequestCommonActions {
       if (isRequestSubmitted(newRequest, oldRecordMap)) {
         Logger.info(
           'PAM request ' +
-          newRequest.Name +
-          ' requesting ' +
-          newRequest.Access_Type__c +
-          ' access has been submitted for approval by ' +
-          newRequest.Requestor__c +
-          ', and awaiting approval by ' +
-          newRequest.Approver__c,
+            newRequest.Name +
+            ' requesting ' +
+            newRequest.Access_Type__c +
+            ' access has been submitted for approval by ' +
+            newRequest.Requestor__c +
+            ', and awaiting approval by ' +
+            newRequest.Approver__c,
           newRequest
         );
         newRequest.Trace_Id__c = uniquePamTraceId;
@@ -287,11 +287,11 @@ public without sharing class AccessRequestCommonActions {
       if (!String.isBlank(approvalDecision)) {
         Logger.info(
           'PAM request ' +
-          newRequest.Name +
-          ' requesting ' +
-          newRequest.Access_Type__c +
-          ' access has been ' +
-          approvalDecision,
+            newRequest.Name +
+            ' requesting ' +
+            newRequest.Access_Type__c +
+            ' access has been ' +
+            approvalDecision,
           newRequest
         );
       }

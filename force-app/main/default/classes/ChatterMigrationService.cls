@@ -52,9 +52,9 @@ public with sharing class ChatterMigrationService {
       );
       List<FeedItem> items = systemAction.query(
         'SELECT Body, BestCommentId, CommentCount, LikeCount, Type, ParentId, CreatedById, CreatedDate FROM FeedItem ' +
-        'WHERE Type IN (\'ContentPost\', \'LinkPost\', \'TextPost\') AND ParentId = \'' +
-        victimAccountId +
-        '\''
+          'WHERE Type IN (\'ContentPost\', \'LinkPost\', \'TextPost\') AND ParentId = \'' +
+          victimAccountId +
+          '\''
       );
 
       if (items.size() == 0) {
@@ -146,8 +146,8 @@ public with sharing class ChatterMigrationService {
 
     List<FeedComment> feedComments = systemAction.query(
       'SELECT CommentBody, CreatedById, CreatedDate, FeedItemId, CommentType From FeedComment WHERE FeedItemID IN (' +
-      feedIds +
-      ')'
+        feedIds +
+        ')'
     );
 
     Map<Id, Id> originalFeedIdMapping = new Map<Id, Id>{};
@@ -191,8 +191,8 @@ public with sharing class ChatterMigrationService {
     );
     List<Account> account = systemAction.query(
       'SELECT Id FROM Account WHERE External_Id__c = \'' +
-      externalId +
-      '\' LIMIT 1'
+        externalId +
+        '\' LIMIT 1'
     );
 
     if (account.isEmpty()) {

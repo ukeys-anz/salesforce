@@ -66,6 +66,10 @@
             <fullName>Other AR%26C Profile</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>ConnectID</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Fraud_ID_Compromise_Type__c</picklist>

@@ -9,13 +9,13 @@
     <name>DRFetchProductService</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
+        <name>DRFetchProductService</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchProductServiceCustom8227</globalKey>
         <inputFieldName>Product:Id</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchProductService</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -23,13 +23,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchProductService</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchProductService5615688184882477</globalKey>
         <inputFieldName>Product:Name</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchProductService</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Name</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -37,13 +37,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchProductService</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchProductServiceCustom5693</globalKey>
         <inputFieldName>Product:IDR_Allow_Account_Policy_Number__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchProductService</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>AllowAccountPolicyNumber</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -51,6 +51,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchProductService</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -60,7 +61,6 @@
         <inputObjectName>Product2</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchProductService</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Product</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -68,6 +68,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchProductService</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>LIKE</filterOperator>
@@ -77,7 +78,6 @@
         <inputObjectName>Product2</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchProductService</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Product</outputFieldName>
         <outputObjectName>json</outputObjectName>

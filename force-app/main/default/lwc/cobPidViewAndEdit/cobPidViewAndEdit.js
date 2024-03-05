@@ -9,7 +9,8 @@ import updateCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.updat
 const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.IdDocumentType__c",
   "COBPrimaryIDDocument__c.PersonaId__c",
-  "COBPrimaryIDDocument__c.CustomerOnboardingApplication__r.EquifaxAttemptCount__c"
+  "COBPrimaryIDDocument__c.CustomerOnboardingApplication__r.EquifaxAttemptCount__c",
+  "COBPrimaryIDDocument__c.CustomerOnboardingApplication__r.CXOnboardingStage__c"
 ];
 
 export default class CobPidViewAndEdit extends LightningElement {
@@ -33,7 +34,10 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   get allowEdit() {
-    return hasEditPermission;
+    return (
+      hasEditPermission &&
+      this.data?.CXOnboardingStage__c === "Assisted Electronic Verification"
+    );
   }
 
   get disableSave() {
@@ -89,7 +93,10 @@ export default class CobPidViewAndEdit extends LightningElement {
     if (data) {
       this.data = {
         ...this.data,
-        IdDocumentType__c: data.fields.IdDocumentType__c.value
+        IdDocumentType__c: data.fields.IdDocumentType__c.value,
+        CXOnboardingStage__c:
+          data.fields.CustomerOnboardingApplication__r.value.fields
+            .CXOnboardingStage__c.value
       };
       this._personaId = data.fields.PersonaId__c.value;
       this._equifaxAttemptCount =

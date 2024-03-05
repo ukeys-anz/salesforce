@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission required for the user to view the ConnectID button</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx View View ConnectID</label>
+</CustomPermission>

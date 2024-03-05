@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <description>DRTransform to transform device and biometric details from API response to UI response.</description>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;metadata&quot; : {
+    &quot;limit&quot; : 20,
+    &quot;page&quot; : 1,
+    &quot;totalCount&quot; : 2
+  },
+  &quot;paging&quot; : {
+    &quot;first&quot; : null,
+    &quot;previous&quot; : null,
+    &quot;next&quot; : null,
+    &quot;last&quot; : null
+  },
+  &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw/authenticators?status=ACTIVE&amp;sortField=created&amp;sortAscending=false&amp;appCorrelationId=F7AE26D3-5AFA-427D-9DDC-FFBE0B599CC4&quot;,
+  &quot;items&quot; : [ {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw/authenticators/QTAzwQ9wh0k9EYMBt4vmYSo4yg&quot;,
+    &quot;id&quot; : &quot;QTAzwQ9wh0k9EYMBt4vmYSo4yg&quot;,
+    &quot;authenticatorId&quot; : &quot;Q0RDNENGNEEtMkEwOS00MUVDLTg5QkEtNDBDMEU3NUU3MUU5&quot;,
+    &quot;lastUsed&quot; : &quot;2023-06-08T01:58:42.395+00:00&quot;,
+    &quot;updated&quot; : &quot;2023-06-08T01:58:42.397+00:00&quot;,
+    &quot;created&quot; : &quot;2023-06-08T01:57:59.302+00:00&quot;,
+    &quot;logicalName&quot; : &quot;iPhone&quot;,
+    &quot;make&quot; : &quot;Apple&quot;,
+    &quot;model&quot; : &quot;iPhone SE 2nd Gen&quot;,
+    &quot;osVersion&quot; : &quot;16.1.1&quot;,
+    &quot;appVersion&quot; : &quot;4.6.0.40&quot;,
+    &quot;authenticatorCounter&quot; : 1,
+    &quot;publicKeyId&quot; : &quot;Q0RDNENGNEEtMkEwOS00MUVDLTg5QkEtNDBDMEU3NUU3MUU5&quot;,
+    &quot;status&quot; : &quot;ACTIVE&quot;,
+    &quot;type&quot; : &quot;FI&quot;,
+    &quot;attestation&quot; : &quot;SB&quot;,
+    &quot;deviceCorrelationId&quot; : &quot;36503955-5AAB-4A68-88F9-429775128955&quot;,
+    &quot;appCorrelationId&quot; : &quot;F7AE26D3-5AFA-427D-9DDC-FFBE0B599CC4&quot;,
+    &quot;authenticatorAttestationId&quot; : &quot;D409#2101&quot;,
+    &quot;facetId&quot; : &quot;ios:bundle-id:com.anz.anzx.LotusApplication&quot;,
+    &quot;user&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw&quot;
+    },
+    &quot;tenant&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/IdentityXServices/rest/v1/tenants/5HA9kTibjOLnSFschWGYsA&quot;
+    },
+    &quot;registrationChallenge&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrationChallenges/wOkrU1DtBMHkmSYBZRDDTw&quot;
+    },
+    &quot;application&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/applications/QTAztet5d8MONRmyo_a0Kgi5Iw&quot;
+    },
+    &quot;registration&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrations/QTAzlRbDZc9Z2QJsfNof-HpeVQ&quot;
+    },
+    &quot;authenticatorType&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/authenticatorTypes/nUxUZtK3ech1T_3XKVJ2FQ&quot;
+    }
+  }, {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw/authenticators/QTAz2P6EN05GvFTYmCt3Z_qADQ&quot;,
+    &quot;id&quot; : &quot;QTAz2P6EN05GvFTYmCt3Z_qADQ&quot;,
+    &quot;authenticatorId&quot; : &quot;RTA1ODJEMkItRERDNS00Njc1LTlBMzktRTRGQzBGRURGREYw&quot;,
+    &quot;lastUsed&quot; : &quot;2023-06-08T01:58:37.762+00:00&quot;,
+    &quot;updated&quot; : &quot;2023-06-08T01:58:37.765+00:00&quot;,
+    &quot;created&quot; : &quot;2023-06-08T01:54:03.819+00:00&quot;,
+    &quot;logicalName&quot; : &quot;iPhone&quot;,
+    &quot;make&quot; : &quot;Apple&quot;,
+    &quot;model&quot; : &quot;iPhone SE 2nd Gen&quot;,
+    &quot;osVersion&quot; : &quot;16.1.1&quot;,
+    &quot;appVersion&quot; : &quot;4.6.0.40&quot;,
+    &quot;authenticatorCounter&quot; : 9,
+    &quot;publicKeyId&quot; : &quot;RTA1ODJEMkItRERDNS00Njc1LTlBMzktRTRGQzBGRURGREYw&quot;,
+    &quot;status&quot; : &quot;ACTIVE&quot;,
+    &quot;type&quot; : &quot;FI&quot;,
+    &quot;attestation&quot; : &quot;SB&quot;,
+    &quot;deviceCorrelationId&quot; : &quot;36503955-5AAB-4A68-88F9-429775128955&quot;,
+    &quot;appCorrelationId&quot; : &quot;F7AE26D3-5AFA-427D-9DDC-FFBE0B599CC4&quot;,
+    &quot;authenticatorAttestationId&quot; : &quot;D409#2A01&quot;,
+    &quot;facetId&quot; : &quot;ios:bundle-id:com.anz.anzx.LotusApplication&quot;,
+    &quot;user&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw&quot;
+    },
+    &quot;tenant&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/IdentityXServices/rest/v1/tenants/5HA9kTibjOLnSFschWGYsA&quot;
+    },
+    &quot;registrationChallenge&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrationChallenges/pehfkvq0SExl6SLBLGGvsQ&quot;
+    },
+    &quot;application&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/applications/QTAztet5d8MONRmyo_a0Kgi5Iw&quot;
+    },
+    &quot;registration&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrations/QTAzlRbDZc9Z2QJsfNof-HpeVQ&quot;
+    },
+    &quot;authenticatorType&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/authenticatorTypes/7W0dUb9B_4JUT3MHDm7SLQ&quot;
+    }
+  } ],
+  &quot;deviceResourceId&quot; : &quot;QTAz2P6EN05GvFTYmCt3Z_qADQ&quot;,
+  &quot;biometricConstants&quot; : [ {
+    &quot;constant&quot; : &quot;D409#2101&quot;
+  }, {
+    &quot;constant&quot; : &quot;D409#2204&quot;
+  }, {
+    &quot;constant&quot; : &quot;D409#0102&quot;
+  } ]
+}</expectedInputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:deviceDetails:lastUsed &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(deviceDetails:lastUsed, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>deviceDetailsLastUsedFormatted</formulaResultPath>
+        <formulaSequence>8.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom5433</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:deviceDetails:created &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(deviceDetails:created, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>deviceDetailsCreatedFormatted</formulaResultPath>
+        <formulaSequence>7.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom797</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:biometricDetails:lastUsed &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(biometricDetails:lastUsed, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>biometricDetailsLastUsedFormatted</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom6305</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom9120</globalKey>
+        <inputFieldName>deviceDetailsUpdatedFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceUpdatedDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom8444</globalKey>
+        <inputFieldName>deviceDetailsCreatedFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceRegistrationDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom8709</globalKey>
+        <inputFieldName>deviceDetailsLastUsedFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceLastUsedDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom3869</globalKey>
+        <inputFieldName>deviceDetails:make</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceMake</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:biometricDetails var:biometricDetails:status &apos;DISABLED&apos; IF</formulaConverted>
+        <formulaExpression>IF(biometricDetails, biometricDetails:status, &apos;DISABLED&apos;)</formulaExpression>
+        <formulaResultPath>biometricStatus</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom3557</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom4036</globalKey>
+        <inputFieldName>biometricDetailsUpdatedFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>biometricUpdatedDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom6046</globalKey>
+        <inputFieldName>biometricDetailsCreatedFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>biometricRegistrationDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:biometricDetails:created &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(biometricDetails:created, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>biometricDetailsCreatedFormatted</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom8762</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom9468</globalKey>
+        <inputFieldName>biometricDetailsLastUsedFormatted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>biometricLastUsedDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom4699</globalKey>
+        <inputFieldName>biometricDetails:id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>biometricId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom9897</globalKey>
+        <inputFieldName>biometricDetails</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>biometricDetails</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:items LIST &apos;authenticatorAttestationId/\/\/==/\/\/&quot;&apos; var:biometricConstants|1:constant + &apos;&quot;/\/\/||/\/\/authenticatorAttestationId/\/\/==/\/\/&quot;&apos; + var:biometricConstants|2:constant + &apos;&quot;/\/\/||/\/\/authenticatorAttestationId/\/\/==/\/\/&quot;&apos; + var:biometricConstants|3:constant + &apos;&quot;&apos; + FILTER</formulaConverted>
+        <formulaExpression>FILTER(LIST(items), &apos;authenticatorAttestationId == &quot;&apos; + biometricConstants|1:constant + &apos;&quot; || authenticatorAttestationId == &quot;&apos; + biometricConstants|2:constant + &apos;&quot; || authenticatorAttestationId == &quot;&apos; + biometricConstants|3:constant + &apos;&quot;&apos;)</formulaExpression>
+        <formulaResultPath>biometricDetails</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom8157</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:deviceDetails:updated &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(deviceDetails:updated, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>deviceDetailsUpdatedFormatted</formulaResultPath>
+        <formulaSequence>9.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom6646</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom5996</globalKey>
+        <inputFieldName>deviceDetails</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceDetails</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom2590</globalKey>
+        <inputFieldName>biometricStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>biometricStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom9160</globalKey>
+        <inputFieldName>deviceDetails:appCorrelationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceAppCorrelationId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom7385</globalKey>
+        <inputFieldName>deviceDetails:logicalName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:items|1:id var:deviceResourceId == var:items|1 var:items|2 IF</formulaConverted>
+        <formulaExpression>IF(items|1:id == deviceResourceId, items|1, items|2)</formulaExpression>
+        <formulaResultPath>deviceDetails</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom822</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom6053</globalKey>
+        <inputFieldName>deviceDetails:deviceCorrelationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceCorrelationId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom3477</globalKey>
+        <inputFieldName>deviceDetails:osVersion</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceOsVersion</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom4299</globalKey>
+        <inputFieldName>deviceDetails:model</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceModel</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:biometricDetails:updated &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(biometricDetails:updated, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
+        <formulaResultPath>biometricDetailsUpdatedFormatted</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom4827</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;metadata&quot; : {
+    &quot;limit&quot; : 20,
+    &quot;page&quot; : 1,
+    &quot;totalCount&quot; : 2
+  },
+  &quot;paging&quot; : {
+    &quot;first&quot; : null,
+    &quot;previous&quot; : null,
+    &quot;next&quot; : null,
+    &quot;last&quot; : null
+  },
+  &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw/authenticators?status=ACTIVE&amp;sortField=created&amp;sortAscending=false&amp;appCorrelationId=F7AE26D3-5AFA-427D-9DDC-FFBE0B599CC4&quot;,
+  &quot;items&quot; : [ {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw/authenticators/QTAzwQ9wh0k9EYMBt4vmYSo4yg&quot;,
+    &quot;id&quot; : &quot;QTAzwQ9wh0k9EYMBt4vmYSo4yg&quot;,
+    &quot;authenticatorId&quot; : &quot;Q0RDNENGNEEtMkEwOS00MUVDLTg5QkEtNDBDMEU3NUU3MUU5&quot;,
+    &quot;lastUsed&quot; : &quot;2023-06-08T01:58:42.395+00:00&quot;,
+    &quot;updated&quot; : &quot;2023-06-08T01:58:42.397+00:00&quot;,
+    &quot;created&quot; : &quot;2023-06-08T01:57:59.302+00:00&quot;,
+    &quot;logicalName&quot; : &quot;iPhone&quot;,
+    &quot;make&quot; : &quot;Apple&quot;,
+    &quot;model&quot; : &quot;iPhone SE 2nd Gen&quot;,
+    &quot;osVersion&quot; : &quot;16.1.1&quot;,
+    &quot;appVersion&quot; : &quot;4.6.0.40&quot;,
+    &quot;authenticatorCounter&quot; : 1,
+    &quot;publicKeyId&quot; : &quot;Q0RDNENGNEEtMkEwOS00MUVDLTg5QkEtNDBDMEU3NUU3MUU5&quot;,
+    &quot;status&quot; : &quot;ACTIVE&quot;,
+    &quot;type&quot; : &quot;FI&quot;,
+    &quot;attestation&quot; : &quot;SB&quot;,
+    &quot;deviceCorrelationId&quot; : &quot;36503955-5AAB-4A68-88F9-429775128955&quot;,
+    &quot;appCorrelationId&quot; : &quot;F7AE26D3-5AFA-427D-9DDC-FFBE0B599CC4&quot;,
+    &quot;authenticatorAttestationId&quot; : &quot;D409#2101&quot;,
+    &quot;facetId&quot; : &quot;ios:bundle-id:com.anz.anzx.LotusApplication&quot;,
+    &quot;user&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw&quot;
+    },
+    &quot;tenant&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/IdentityXServices/rest/v1/tenants/5HA9kTibjOLnSFschWGYsA&quot;
+    },
+    &quot;registrationChallenge&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrationChallenges/wOkrU1DtBMHkmSYBZRDDTw&quot;
+    },
+    &quot;application&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/applications/QTAztet5d8MONRmyo_a0Kgi5Iw&quot;
+    },
+    &quot;registration&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrations/QTAzlRbDZc9Z2QJsfNof-HpeVQ&quot;
+    },
+    &quot;authenticatorType&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/authenticatorTypes/nUxUZtK3ech1T_3XKVJ2FQ&quot;
+    }
+  }, {
+    &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw/authenticators/QTAz2P6EN05GvFTYmCt3Z_qADQ&quot;,
+    &quot;id&quot; : &quot;QTAz2P6EN05GvFTYmCt3Z_qADQ&quot;,
+    &quot;authenticatorId&quot; : &quot;RTA1ODJEMkItRERDNS00Njc1LTlBMzktRTRGQzBGRURGREYw&quot;,
+    &quot;lastUsed&quot; : &quot;2023-06-08T01:58:37.762+00:00&quot;,
+    &quot;updated&quot; : &quot;2023-06-08T01:58:37.765+00:00&quot;,
+    &quot;created&quot; : &quot;2023-06-08T01:54:03.819+00:00&quot;,
+    &quot;logicalName&quot; : &quot;iPhone&quot;,
+    &quot;make&quot; : &quot;Apple&quot;,
+    &quot;model&quot; : &quot;iPhone SE 2nd Gen&quot;,
+    &quot;osVersion&quot; : &quot;16.1.1&quot;,
+    &quot;appVersion&quot; : &quot;4.6.0.40&quot;,
+    &quot;authenticatorCounter&quot; : 9,
+    &quot;publicKeyId&quot; : &quot;RTA1ODJEMkItRERDNS00Njc1LTlBMzktRTRGQzBGRURGREYw&quot;,
+    &quot;status&quot; : &quot;ACTIVE&quot;,
+    &quot;type&quot; : &quot;FI&quot;,
+    &quot;attestation&quot; : &quot;SB&quot;,
+    &quot;deviceCorrelationId&quot; : &quot;36503955-5AAB-4A68-88F9-429775128955&quot;,
+    &quot;appCorrelationId&quot; : &quot;F7AE26D3-5AFA-427D-9DDC-FFBE0B599CC4&quot;,
+    &quot;authenticatorAttestationId&quot; : &quot;D409#2A01&quot;,
+    &quot;facetId&quot; : &quot;ios:bundle-id:com.anz.anzx.LotusApplication&quot;,
+    &quot;user&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzomOdyeMU4jPlnLoDjsYbuw&quot;
+    },
+    &quot;tenant&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/IdentityXServices/rest/v1/tenants/5HA9kTibjOLnSFschWGYsA&quot;
+    },
+    &quot;registrationChallenge&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrationChallenges/pehfkvq0SExl6SLBLGGvsQ&quot;
+    },
+    &quot;application&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/applications/QTAztet5d8MONRmyo_a0Kgi5Iw&quot;
+    },
+    &quot;registration&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/registrations/QTAzlRbDZc9Z2QJsfNof-HpeVQ&quot;
+    },
+    &quot;authenticatorType&quot; : {
+      &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/authenticatorTypes/7W0dUb9B_4JUT3MHDm7SLQ&quot;
+    }
+  } ],
+  &quot;deviceResourceId&quot; : &quot;QTAz2P6EN05GvFTYmCt3Z_qADQ&quot;,
+  &quot;biometricConstants&quot; : [ {
+    &quot;constant&quot; : &quot;D409#2204&quot;
+  }, {
+    &quot;constant&quot; : &quot;D409#0102&quot;
+  }, {
+    &quot;constant&quot; : &quot;D409#2101&quot;
+  } ]
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMSearchCustomerTransformDeviceDetailsWithBiometric_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

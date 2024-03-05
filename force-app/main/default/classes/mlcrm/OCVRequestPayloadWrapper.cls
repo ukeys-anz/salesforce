@@ -37,5 +37,7 @@ public class OCVRequestPayloadWrapper {
   @AuraEnabled
   public String strGender;
   @AuraEnabled
+  public String strAdvertisingIndicator; //added as part of CC-6745
+  @AuraEnabled
   public String strRecordId;
 }

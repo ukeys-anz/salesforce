@@ -7408,6 +7408,17 @@
         <recordType>Account.FinServ__IndustriesIndividual</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Account-MLCRM Account Layout</layout>
+        <recordType>Account.CLG</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-MLCRM Account Layout</layout>
+        <recordType>Account.Business_Account</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Campaign-DCRM Campaign Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Customer_Profile_Updates__c-DCRM Customer Profile Updates Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -7464,7 +7475,10 @@
         <recordType>ContactPointAddress.Organisation</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Controlling_Post__c-MLCRM Controlling Post Layout</layout>
+        <layout>Controlling_Post__c-DCRM Controlling Post Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Relationship__c-MLCRM Customer Relationship Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
@@ -7512,10 +7526,13 @@
         <layout>OrderItem-Order Product Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Outlook-Outlook Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Global-ML Global Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Task-DCRM Task Layout</layout>
+        <layout>Task-MLCRM Task Layout</layout>
         <recordType>Task.MLCRM_Task</recordType>
     </layoutAssignments>
     <objectPermissions>

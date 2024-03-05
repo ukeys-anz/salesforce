@@ -17,7 +17,8 @@ public with sharing class CustomerRelationNotesTriggerActions {
     Map<Id, Customer_Relationship__c> oldMap,
     List<Customer_Relationship__c> records
   ) {
-    Set<Id> idsOfTerritory = new Set<Id>();
+    Set<Id> idsOfPrimaryOwner = new Set<Id>();
+    Set<Id> idsOfCustomer = new Set<Id>();
     String strNotesPrimaryKey;
     for (Customer_Relationship__c objRelationship : records) {
       if (
@@ -29,23 +30,16 @@ public with sharing class CustomerRelationNotesTriggerActions {
         oldMap.get(objRelationship.Id).Territory__c !=
         objRelationship.Territory__c)))
       ) {
-        idsOfTerritory.add(objRelationship.Territory__c);
+        idsOfCustomer.add(objRelationship.Customer__c);
       }
     }
-    if (!idsOfTerritory.isEmpty()) {
-      Map<Id, Territory__c> mapOfTerritory = new Map<Id, Territory__c>(
-        [
-          SELECT Id, Primary_Franchise_Owner__c, Primary_Franchise_Owner__r.Name
-          FROM Territory__c
-          WHERE ID IN :idsOfTerritory
-        ]
-      );
+    if (!idsOfCustomer.isEmpty()) {
       Map<String, Integer> mapOfPrimaryNotes = new Map<String, Integer>();
       for (Customer_Relationship__c objRelation : [
         SELECT Id, Customer__c, Territory__r.Primary_Franchise_Owner__c
         FROM Customer_Relationship__c
         WHERE
-          Territory__c IN :idsOfTerritory
+          Customer__c IN :idsOfCustomer
           AND Relationship_To_Franchise__c = 'Primary'
       ]) {
         strNotesPrimaryKey =
@@ -57,7 +51,20 @@ public with sharing class CustomerRelationNotesTriggerActions {
           Integer counter = mapOfPrimaryNotes.get(strNotesPrimaryKey);
           mapOfPrimaryNotes.put(strNotesPrimaryKey, counter + 1);
         }
+        if (objRelation.Territory__r.Primary_Franchise_Owner__c != null) {
+          idsOfPrimaryOwner.add(
+            objRelation.Territory__r.Primary_Franchise_Owner__c
+          );
+        }
       }
+
+      Map<Id, Territory__c> mapOfTerritory = new Map<Id, Territory__c>(
+        [
+          SELECT Id, Primary_Franchise_Owner__c
+          FROM Territory__c
+          WHERE Primary_Franchise_Owner__c IN :idsOfPrimaryOwner
+        ]
+      );
       for (Customer_Relationship__c objRelationship : records) {
         String strFranchiseOwnerId = mapOfTerritory.get(
             objRelationship.Territory__c

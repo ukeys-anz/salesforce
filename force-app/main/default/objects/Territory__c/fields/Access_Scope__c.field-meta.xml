@@ -17,7 +17,7 @@
             <sorted>false</sorted>
             <value>
                 <fullName>Restricted</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>Restricted</label>
             </value>
             <value>

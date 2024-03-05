@@ -543,11 +543,11 @@ private with sharing class IDRTaskActionsTest {
     Test.stopTest();
   }
   @IsTest
-  static void validateComplianceTask(){
+  static void validateComplianceTask() {
     validateQAComplianceTask(true);
   }
 
-  static void validateQAComplianceTask(Boolean fFillMandatoryFields){
+  static void validateQAComplianceTask(Boolean fFillMandatoryFields) {
     User oQAUser = TestUtil.getUserByFirstName('QA_User');
     User oIDRUser = TestUtil.getUserByFirstName('IDR_User');
     Test.startTest();
@@ -580,49 +580,56 @@ private with sharing class IDRTaskActionsTest {
           )
         );
         if (fFillMandatoryFields) {
-          IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(oNewAssessment, mpAssessmentFieldSets);
+          IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(
+            oNewAssessment,
+            mpAssessmentFieldSets
+          );
         }
       }
       insert lstAssessments;
 
       Set<Id> stAssessmentIds = new Set<Id>();
       for (Quality_Assessment__c oAssessment : lstAssessments) {
-        oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE; 
+        oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
         stAssessmentIds.add(oAssessment.Id);
       }
       update lstAssessments;
-        
+
       Boolean fExceptionThrown = false;
       for (Quality_Assessment__c oAssessment : lstAssessments) {
-        List<Task> lstTasks = [ SELECT Id, Status, WhatId, RecordType.DeveloperName,Subject
-                                FROM Task
-                                WHERE
-                                WhatId IN :stAssessmentIds
-                                AND Status = 'Open'
-                                AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
-                              ];
-        system.debug('lstTasks'+lstTasks);
-        if(!lstTasks.IsEmpty()){
-            for(Task otask : lstTasks){
-                if(oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)){  
-                    otask.Status = 'Completed';
-                }
+        List<Task> lstTasks = [
+          SELECT Id, Status, WhatId, RecordType.DeveloperName, Subject
+          FROM Task
+          WHERE
+            WhatId IN :stAssessmentIds
+            AND Status = 'Open'
+            AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
+        ];
+        system.debug('lstTasks' + lstTasks);
+        if (!lstTasks.IsEmpty()) {
+          for (Task otask : lstTasks) {
+            if (
+              oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)
+            ) {
+              otask.Status = 'Completed';
             }
-            try{
-                update lstTasks;
-               }
-            catch( Exception ex){
-               System.debug(ex.getMessage()); 
-                if(
-                ex.getMessage().contains(IDRConstants.TASK_QA_CLOSE_ERROR)
-                ){
-                fExceptionThrown= true;
-                }
-            }
-              System.assertEquals(true,fExceptionThrown, 'Able to update the task'); 
           }
+          try {
+            update lstTasks;
+          } catch (Exception ex) {
+            System.debug(ex.getMessage());
+            if (ex.getMessage().contains(IDRConstants.TASK_QA_CLOSE_ERROR)) {
+              fExceptionThrown = true;
+            }
+          }
+          System.assertEquals(
+            true,
+            fExceptionThrown,
+            'Able to update the task'
+          );
         }
       }
-        Test.stopTest();
     }
+    Test.stopTest();
+  }
 }

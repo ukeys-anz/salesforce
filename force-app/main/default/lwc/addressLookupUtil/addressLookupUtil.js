@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from "lwc";
-import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV2";
-import getSelectedAddress from "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLwcV2";
+import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV3";
+import getSelectedAddress from "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLwcV3";
 import { handleErrorShowToast } from "c/utils";
 
 const SELECT_ADDRESS_ERROR =
@@ -110,7 +110,7 @@ export default class AddressLookupUtil extends LightningElement {
           lookupString: searchString
         });
 
-        this.addressList = response.result.suggestions;
+        this.addressList = response.result;
         if (this.addressList === undefined || this.addressList.length === 0) {
           this.message = "No results found. Please enter address manually";
           this.displayAddresses = false;

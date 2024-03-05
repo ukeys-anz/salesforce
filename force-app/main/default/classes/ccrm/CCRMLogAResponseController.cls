@@ -58,9 +58,11 @@ public with sharing class CCRMLogAResponseController {
       ) {
         mapOfLeadStatusResponseAndNextStep.put(
           iterator.Response_Status__c +
-          (iterator.Response_Type_CreateOpportunity__c != null
-            ? iterator.Response_Type_CreateOpportunity__c
-            : 'false'),
+          (leadInstance.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID
+            ? iterator.Response_Type_CreateOpportunity__c != null
+                ? iterator.Response_Type_CreateOpportunity__c
+                : 'false'
+            : ''),
           iterator.What_happens_next__c
         );
       }
@@ -213,8 +215,8 @@ public with sharing class CCRMLogAResponseController {
       if (Label.CCRM_NonEditableLeadStages.contains(validateLeadState.Status)) {
         return JSON.serialize(
           'Warning Message: Responses cannot be logged for Leads on ' +
-          Label.CCRM_NonEditableLeadStages +
-          ' Stages.'
+            Label.CCRM_NonEditableLeadStages +
+            ' Stages.'
         );
       }
       // Validate Lead before logging response of Referred Status.

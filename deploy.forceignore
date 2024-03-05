@@ -198,5 +198,11 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 #CC-5856 Remove "Conversion Status" from Lead. Manual deletion to prevent class failures during deployment
 force-app/main/default/objects/Lead/fields/Conversion_Status__c.field-meta.xml
 force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml
-
 force-app/main/default/profiles/ANZ CCRM Standard User.profile-meta.xml
+
+# ANZX-97676 These coponents will be taken up as post deploy steps because of dependencies
+force-app/main/default/objects/PersonDigitalIdentity__x
+
+# ANZX-123338 These coponents will be taken up as post deploy steps because of dependencies
+force-app/main/default/flexipages/TFMManageOpenBankingPage.flexipage-meta.xml
+force-app/main/default/tabs/TFMManageOpenBankingPage.tab-meta.xml

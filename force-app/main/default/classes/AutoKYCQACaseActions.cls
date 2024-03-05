@@ -69,6 +69,7 @@ public with sharing class AutoKYCQACaseActions {
   public void onBeforeUpdate() {
     linkKYCQACasesToAccount();
     validateKYCQACases();
+    updateTestedDate();
   }
 
   /**
@@ -647,5 +648,33 @@ public with sharing class AutoKYCQACaseActions {
         kycCase.addError(CANT_MOVE_NOT_CLOSED_CASE);
       }
     }
+  }
+
+  /**
+   * @description If all 10 fields are not empty then capture the current date
+   */
+  private void updateTestedDate() {
+    for (Case oCase : newKYCCasesList) {
+      if (
+        oCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
+        canPopulateTestedDate(oCase)
+      ) {
+        oCase.TestedDate__c = System.now();
+      }
+    }
+  }
+
+  private Boolean canPopulateTestedDate(Case oCase) {
+    return oCase.TestedDate__c == null &&
+      String.isNotEmpty(oCase.Fraud_Customer_Details__c) &&
+      String.isNotEmpty(oCase.Fraud_MiddleNameCheck__c) &&
+      String.isNotEmpty(oCase.Fraud_Selfie_Comparison_Match__c) &&
+      String.isNotEmpty(oCase.Fraud_PO_Box__c) &&
+      String.isNotEmpty(oCase.Fraud_Address_Valid__c) &&
+      String.isNotEmpty(oCase.Fraud_Restraint_Status__c) &&
+      String.isNotEmpty(oCase.Fraud_ID_Legible__c) &&
+      String.isNotEmpty(oCase.Fraud_Customer_Photo_Modified__c) &&
+      String.isNotEmpty(oCase.Fraud_ID_Not_Picture__c) &&
+      String.isNotEmpty(oCase.Fraud_Security_Features__c);
   }
 }

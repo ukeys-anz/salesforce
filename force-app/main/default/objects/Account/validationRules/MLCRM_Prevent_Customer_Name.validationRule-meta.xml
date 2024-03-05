@@ -16,6 +16,5 @@ ISCHANGED(Suffix),
 ISCHANGED(Suffix__pc),
 ISCHANGED(PersonTitle))
 )</errorConditionFormula>
-    <errorDisplayField>Name</errorDisplayField>
     <errorMessage>Customer Name cannot be updated.</errorMessage>
 </ValidationRule>

@@ -164,8 +164,8 @@ public with sharing class IDRTaskActions2 {
         (lstQATasks = mpQualityAssessmentId2Tasks.get(oAssessment.Id)) != null
       ) {
         for (Task oTask : lstQATasks) {
-            if(oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)){
-              oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
+          if (oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)) {
+            oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
           }
         }
       }

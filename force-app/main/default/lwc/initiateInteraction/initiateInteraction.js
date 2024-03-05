@@ -18,6 +18,7 @@ import CASE_ACC from "@salesforce/schema/Case.AccountId";
 import CS_ACC from "@salesforce/schema/Coaching_Summary__c.Account__c";
 import CS_LEAD from "@salesforce/schema/Coaching_Summary__c.Lead__c";
 import LEAD_MP from "@salesforce/schema/Lead.MobilePhone";
+import RESI_LOAN_APPLICATION_ACCOUNTID from "@salesforce/schema/ResidentialLoanApplication.AccountId";
 
 const NORMAL_TAB = "slds-tabs_scoped__item";
 const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
@@ -108,6 +109,14 @@ export default class InitiateInteraction extends LightningElement {
           this.fields.leadId = this.recordId;
           this.fields.reason = "Non-Customer";
           break;
+        case "ResidentialLoanApplication":
+          this.fields.loanId = this.recordId;
+          this.fields.accountId = data.fields.AccountId.value;
+          this.fields.reason = "Customer";
+          this.contactCustomer = true;
+          this.showMessageCustomer = true;
+          this.handleShowContactTab();
+          break;
         default:
       }
     } else {
@@ -132,6 +141,9 @@ export default class InitiateInteraction extends LightningElement {
         break;
       case "Lead":
         this.objectFields = [LEAD_MP];
+        break;
+      case "ResidentialLoanApplication":
+        this.objectFields = [RESI_LOAN_APPLICATION_ACCOUNTID];
         break;
       default:
     }
@@ -251,7 +263,8 @@ export default class InitiateInteraction extends LightningElement {
       try {
         let response = await reinitiateChat({
           accountId: this.fields.accountId,
-          conversationSid: this.conversationSid
+          conversationSid: this.conversationSid,
+          sObjectId: this.fields.loanId
         });
         if (response?.executionSid) {
           this.executionSid = response.executionSid;

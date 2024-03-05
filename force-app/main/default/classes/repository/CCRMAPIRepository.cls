@@ -54,42 +54,6 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @param lookupString from address search bar
-   * @return CCRMValidateAddressModel result
-   * @description called from validateAddress lwc during address search
-   */
-  @AuraEnabled(cacheable=false)
-  public static CCRMValidateAddressModel getAddressesLWC(String lookupString) {
-    CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
-    try {
-      return ccrmapi.getAddresses(lookupString);
-    } catch (Exception e) {
-      throw new AuraHandledException(e.getMessage());
-    }
-  }
-
-  /**
-   * @param lookupString from address search bar
-   * @return CCRMValidateAddressModel result
-   * @description calls the service class methods for integration/callout
-   */
-  public CCRMValidateAddressModel getAddresses(String lookupString) {
-    CCRMValidateAddressModel result;
-    Service s = ServiceProvider.getService(CCRMValidateAddressService.class);
-    HttpCalloutResponse response = s.getAddresses(lookupString);
-    if (response.successful) {
-      try {
-        result = CCRMValidateAddressModel.parse(response.body);
-      } catch (Exception e) {
-        handleErrors(null, e, CCRMAPIRepository.class);
-      }
-    } else {
-      handleErrors(response, null, CCRMAPIRepository.class);
-    }
-    return result;
-  }
-
-  /**
    * @param encodedAddressId from selected address record
    * @return CCRMGetSelectedAddressModel result
    * @description called from validateAddress lwc during address search
@@ -108,7 +72,7 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
 
   /**
    * @param encodedAddressId from selected address record
-   * @return CCRMValidateAddressModel result
+   * @return CCRMGetSelectedAddressModel result
    * @description calls the service class methods for integration/callout
    */
   public CCRMGetSelectedAddressModel getSelectedAddress(
@@ -116,7 +80,9 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
   ) {
     CCRMGetSelectedAddressModel result;
     Service s = ServiceProvider.getService(CCRMValidateAddressService.class);
-    HttpCalloutResponse response = s.getSelectedAddress(encodedAddressId);
+    HttpCalloutResponse response = s.getSelectedAddressWithANZLayoutV3(
+      encodedAddressId
+    );
     if (response.successful) {
       try {
         result = CCRMGetSelectedAddressModel.parse(response.body);
@@ -131,16 +97,16 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
 
   /**
    * @param lookupString from address search bar
-   * @return CCRMValidateAddressModelV2 result
+   * @return CCRMValidateAddressModelV3 result
    * @description called from validateAddress lwc during address search
    */
   @AuraEnabled(cacheable=true)
-  public static CCRMValidateAddressModelV2 getAddressesLwcV2(
+  public static CCRMValidateAddressModelV3 getAddressesLwcV3(
     String lookupString
   ) {
     CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
     try {
-      return ccrmapi.getAddressesV2(lookupString);
+      return ccrmapi.getAddressesV3(lookupString);
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
@@ -148,16 +114,16 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
 
   /**
    * @param lookupString from address search bar
-   * @return CCRMValidateAddressModelV2 result
+   * @return CCRMValidateAddressModelV3 result
    * @description calls the service class methods for integration/callout
    */
-  public CCRMValidateAddressModelV2 getAddressesV2(String lookupString) {
-    CCRMValidateAddressModelV2 result;
+  public CCRMValidateAddressModelV3 getAddressesV3(String lookupString) {
+    CCRMValidateAddressModelV3 result;
     Service s = ServiceProvider.getService(CCRMValidateAddressService.class);
-    HttpCalloutResponse response = s.getAddressesV2(lookupString);
+    HttpCalloutResponse response = s.getAddressesV3(lookupString);
     if (response.successful) {
       try {
-        result = CCRMValidateAddressModelV2.parse(response.body);
+        result = CCRMValidateAddressModelV3.parse(response.body);
       } catch (Exception e) {
         handleErrors(null, e, CCRMAPIRepository.class);
       }
@@ -169,16 +135,16 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
 
   /**
    * @param globalAddressKey from selected address record
-   * @return CCRMGetSelectedAddressModelV2 result
+   * @return CCRMGetSelectedAddressModelV3 result
    * @description called from validateAddress lwc during address search
    */
   @AuraEnabled(cacheable=true)
-  public static CCRMGetSelectedAddressModelV2 getSelectedAddressLwcV2(
+  public static CCRMGetSelectedAddressModelV3 getSelectedAddressLwcV3(
     String globalAddressKey
   ) {
     CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
     try {
-      return ccrmapi.getSelectedAddressV2(globalAddressKey);
+      return ccrmapi.getSelectedAddressV3(globalAddressKey);
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
@@ -186,18 +152,18 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
 
   /**
    * @param globalAddressKey from selected address record
-   * @return CCRMGetSelectedAddressModelV2 result
+   * @return CCRMGetSelectedAddressModelV3 result
    * @description calls the service class methods for integration/callout
    */
-  public CCRMGetSelectedAddressModelV2 getSelectedAddressV2(
+  public CCRMGetSelectedAddressModelV3 getSelectedAddressV3(
     String globalAddressKey
   ) {
-    CCRMGetSelectedAddressModelV2 result;
+    CCRMGetSelectedAddressModelV3 result;
     Service s = ServiceProvider.getService(CCRMValidateAddressService.class);
-    HttpCalloutResponse response = s.getSelectedAddressV2(globalAddressKey);
+    HttpCalloutResponse response = s.getSelectedAddressV3(globalAddressKey);
     if (response.successful) {
       try {
-        result = CCRMGetSelectedAddressModelV2.parse(response.body);
+        result = CCRMGetSelectedAddressModelV3.parse(response.body);
       } catch (Exception e) {
         handleErrors(null, e, CCRMAPIRepository.class);
       }

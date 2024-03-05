@@ -212,6 +212,15 @@ public with sharing class GetHelpConstants {
     .get('Loan_Application')
     .getRecordTypeId();
 
+  // Contact Relationship (FinServ__ContactContactRelation__c )
+  public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
+    .get('Broker_Staff')
+    .getRecordTypeId();
+  // Customer Action - Pending Financial Account Updates
+  public static final Id CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID = Schema.SObjectType.Customer_Action__c.getRecordTypeInfosByDeveloperName()
+    .get('Pending_Financial_Account_Updates')
+    .getRecordTypeId();
+
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
   public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';
@@ -268,6 +277,14 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
+  // Case Origins for Self Service Dispute Cases
+  public static final Set<String> SELF_SERVICE_ORIGIN = new Set<String>{
+    'App',
+    'ANZ Plus App'
+  };
+
+  // Permission Set Group Name
+  public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
@@ -278,6 +295,11 @@ public with sharing class GetHelpConstants {
   // Task Record Type for Email Case
   public static final String TASK_EMAIL_RT = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Email_Task')
+    .getRecordTypeId();
+
+  // Task Record Type for Coach Nudge
+  public static final String COACH_NUDGE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Coach_Nudge')
     .getRecordTypeId();
 
   // Email Task Description

@@ -451,9 +451,7 @@ global with sharing class ChatContextService {
         generateErrorResponse(
           acc.OCV_ID__c,
           acc.External_Id__c,
-          'Unable to find a matching Type for sub type "' +
-          subtype +
-          '".',
+          'Unable to find a matching Type for sub type "' + subtype + '".',
           ''
         )
       );
@@ -468,8 +466,8 @@ global with sharing class ChatContextService {
           acc.OCV_ID__c,
           acc.External_Id__c,
           'The sub type "' +
-          subtype +
-          '" has more than 1 type associated to it.',
+            subtype +
+            '" has more than 1 type associated to it.',
           ''
         )
       );

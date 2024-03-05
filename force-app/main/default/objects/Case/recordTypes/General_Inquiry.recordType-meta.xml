@@ -11586,6 +11586,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Assisted Transfer Enquiries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assisted Transfer Requests</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Bankruptcy</fullName>
             <default>false</default>
         </values>
@@ -11622,11 +11634,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Create or Manage PayID</fullName>
+            <fullName>Correction Request</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit Reporting</fullName>
+            <fullName>Create or Manage PayID</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11686,11 +11698,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Explore Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Extra Care</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Falcon transaction confirmation</fullName>
+            <fullName>Fee Reversals</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11722,19 +11738,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Information Access request</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Interest</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Large Value Transfer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Large Value Transfer requests</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Legal Name Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loan Auto Repayment %28DLP%29</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11778,6 +11794,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Payout Quote</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Email PayID already registered</fullName>
             <default>false</default>
         </values>
@@ -11806,11 +11826,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Reinstate Home Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Renewal and Restructures</fullName>
             <default>false</default>
         </values>
         <values>
+            <fullName>Repayment Reversals</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Savings and goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Settlement Enquiry</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11831,6 +11863,10 @@
         </values>
         <values>
             <fullName>Transaction Disputes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unapplied Funds</fullName>
             <default>false</default>
         </values>
         <values>

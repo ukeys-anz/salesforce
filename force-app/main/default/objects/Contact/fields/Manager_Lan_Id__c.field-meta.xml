@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Manager_Lan_Id__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_OCV</complianceGroup>
+    <description>LAN ID of the user who captured the response or who the lead was routed to (if available).</description>
+    <externalId>false</externalId>
+    <label>Manager Lan-Id</label>
+    <length>20</length>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

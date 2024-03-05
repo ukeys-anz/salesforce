@@ -12,16 +12,28 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
     CCRMContactPointEmailActions.copyParentIdToCustomerName(records);
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      CCRMContactPointEmailActions.ContactPointEmailWrapper existingOrProspectAccountsCPE = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
-      existingOrProspectAccountsCPE = CCRMContactPointEmailActions.getExistingOrProspectCPE(
+      Map<Id, Account> relatedAccMap = CCRMContactPointEmailActions.getRelatedAccountMap(
         records
+      );
+      CCRMContactPointEmailActions contactPointEmailActionsVar = new CCRMContactPointEmailActions(
+        relatedAccMap
+      );
+
+      CCRMContactPointEmailActions.ContactPointEmailWrapper existingOrProspectAccountsCPE = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
+      existingOrProspectAccountsCPE = contactPointEmailActionsVar.getExistingOrProspectCPE(
+        records
+      );
+
+      CCRMCustomerProfileUpdateHelper.restrictEdit(
+        existingOrProspectAccountsCPE.existingCPE,
+        null
       );
 
       List<ContactPointEmail> conPointEmailList = new List<ContactPointEmail>();
       conPointEmailList.addAll(existingOrProspectAccountsCPE.prospectCPE);
       conPointEmailList.addAll(existingOrProspectAccountsCPE.existingCPE);
 
-      CCRMContactPointEmailActions.validateOrgIndividualEmailsLinking(records);
+      contactPointEmailActionsVar.validateOrgIndividualEmailsLinking(records);
 
       CCRMContactPointEmailActions.validateExistingOrProspectEmails(
         conPointEmailList
@@ -38,8 +50,15 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
    */
   public override void onAfterInsert() {
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      Map<Id, Account> relatedAccMap = CCRMContactPointEmailActions.getRelatedAccountMap(
+        records
+      );
+      CCRMContactPointEmailActions contactPointEmailActionsVar = new CCRMContactPointEmailActions(
+        relatedAccMap
+      );
+
       CCRMContactPointEmailActions.ContactPointEmailWrapper existingOrProspectAccountsCPE = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
-      existingOrProspectAccountsCPE = CCRMContactPointEmailActions.getExistingOrProspectCPE(
+      existingOrProspectAccountsCPE = contactPointEmailActionsVar.getExistingOrProspectCPE(
         records
       );
 
@@ -62,8 +81,15 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    Map<Id, Account> relatedAccMap = CCRMContactPointEmailActions.getRelatedAccountMap(
+      records
+    );
+    CCRMContactPointEmailActions contactPointEmailActionsVar = new CCRMContactPointEmailActions(
+      relatedAccMap
+    );
+
     CCRMContactPointEmailActions.ContactPointEmailWrapper existingOrProspectAccountsCPE = new CCRMContactPointEmailActions.ContactPointEmailWrapper();
-    existingOrProspectAccountsCPE = CCRMContactPointEmailActions.getExistingOrProspectCPE(
+    existingOrProspectAccountsCPE = contactPointEmailActionsVar.getExistingOrProspectCPE(
       records
     );
 

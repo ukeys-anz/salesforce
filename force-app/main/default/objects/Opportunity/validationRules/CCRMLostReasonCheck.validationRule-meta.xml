@@ -2,13 +2,16 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CCRMLostReasonCheck</fullName>
     <active>true</active>
-    <description>Checks if Lost Reason is not blank if Stage is Opportunity Lost</description>
-    <errorConditionFormula>AND(   
-$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-RecordType.DeveloperName = &apos;Commercial_Opportunity&apos;,
-ISCHANGED(StageName),
-ISBLANK( TEXT(Lost_Reason__c) ),
-ISPICKVAL(StageName , &apos;Opportunity Lost&apos;) 
+    <description>For CCRM - Checks if Lost Reason is not blank if Stage is Opportunity Lost
+For MLCRM - Checks if Lost Reason is not blank if Stage is Lost</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    ISCHANGED(StageName),
+    ISBLANK(TEXT(Lost_Reason__c)),
+    OR(
+        AND(RecordType.DeveloperName = &apos;Commercial_Opportunity&apos;, ISPICKVAL(StageName, &apos;Opportunity Lost&apos;)),
+        AND(RecordType.DeveloperName = &apos;MLCRM_Opportunity&apos;, ISPICKVAL(StageName, &apos;Lost&apos;))
+    )
 )</errorConditionFormula>
     <errorDisplayField>Lost_Reason__c</errorDisplayField>
     <errorMessage>Please select a valid Lost Reason.</errorMessage>

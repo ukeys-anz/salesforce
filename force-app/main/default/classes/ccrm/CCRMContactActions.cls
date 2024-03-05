@@ -38,8 +38,7 @@ public with sharing class CCRMContactActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper();
-    existingOrProspectAccounts = CCRMAccountActions.getExistingOrProspectAccounts(
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
       accList
     );
 

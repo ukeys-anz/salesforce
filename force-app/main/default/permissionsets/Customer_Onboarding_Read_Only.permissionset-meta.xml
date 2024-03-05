@@ -232,17 +232,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>COBPrimaryIDDocument__c.ExpiryDateOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>COBPrimaryIDDocument__c.ExpiryDateOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>COBPrimaryIDDocument__c.ExpiryDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>COBPrimaryIDDocument__c.ExpiryDateOCRMatch__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -497,6 +497,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.ANZx_Customer_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>CustomerOnboardingApplication__c.AustralianTaxResident__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -507,12 +512,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>CustomerOnboardingApplication__c.CXOnboardingStage__c</field>
+        <field>CustomerOnboardingApplication__c.CXOnboardingStageChangeReason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>CustomerOnboardingApplication__c.CXOnboardingStageChangeReason__c</field>
+        <field>CustomerOnboardingApplication__c.CXOnboardingStage__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -603,6 +608,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>CustomerOnboardingApplication__c.EquifaxDVSResult__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CustomerOnboardingApplication__c.EquifaxESDResult__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -3,7 +3,7 @@
   <template lwc:if={hasError}>
     <c-error message={errorMessage}></c-error>
   </template>
-  <template if:false={hasError}>
+  <template lwc:if={hasNoError}>
     <section
       role="dialog"
       tabindex="-1"
@@ -79,7 +79,7 @@
               </lightning-layout-item>
               <lightning-layout-item size="6" padding="around-small">
                 <lightning-combobox
-                  if:false={resetValidationError}
+                  lwc:if={enableComboBox}
                   name="Outcome Reason"
                   class="outcomeReason"
                   label="Outcome Reason"
@@ -94,7 +94,7 @@
               </lightning-layout-item>
               <lightning-layout-item size="6" padding="around-small">
                 <lightning-combobox
-                  if:false={resetValidationError}
+                  lwc:if={enableComboBox}
                   name="Lead Quality"
                   class="leadQuality"
                   label="Lead Quality"
@@ -107,10 +107,10 @@
                 >
                 </lightning-combobox>
               </lightning-layout-item>
-              <template if:false={followUpDateDisable}>
+              <template lwc:if={enableFollowUpDateComboBox}>
                 <lightning-layout-item size="6" padding="around-small">
                   <lightning-input
-                    if:false={resetValidationError}
+                    lwc:if={enableComboBox}
                     name="followUpDate"
                     data-id="followUpDate"
                     class="followUpDate"
@@ -130,7 +130,7 @@
               <template lwc:if={displayDueDate}>
                 <lightning-layout-item size="6" padding="around-small">
                   <lightning-input
-                    if:false={resetValidationError}
+                    lwc:if={enableComboBox}
                     name="dueDate"
                     class="dueDate"
                     data-id="get-due-date"

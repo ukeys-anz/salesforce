@@ -112,9 +112,7 @@ public with sharing class InteractionAttendeeActions {
           roleName = attendant.User.UserRole.Name;
         } else {
           Logger.error(
-            'User ' +
-            attendant.UserId +
-            ' has no role in Salesforce.'
+            'User ' + attendant.UserId + ' has no role in Salesforce.'
           );
         }
         if (Trigger.isAfter && Trigger.isInsert) {

@@ -102,6 +102,7 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
   protected virtual HttpCalloutResponse makeCallout() {
     return null;
   }
+
   /**
    * @description get UTC datetime from GMT+10 datetime
    * @param localTime localTime
@@ -113,12 +114,34 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
       TimeZone tz = TimeZone.getTimeZone('Australia/Sydney');
       //getOffset returns the value in ms, we need it in seconds.
       DateTime utcTime = localTime.addSeconds(
-        -1 *
-        tz.getOffset(localTime) /
-        1000
+        -1 * tz.getOffset(localTime) / 1000
       );
       return utcTime;
     }
     return localTime;
+  }
+
+  /**
+   * @description Format DateTime as DateTime
+   * @param dateTimeParam DateTime param
+   * @return String formatted datetime
+   */
+  protected String formatDateTime(DateTime dateTimeParam) {
+    if (dateTimeParam == null) {
+      return null;
+    }
+    return dateTimeParam.format('dd/MM/yyyy hh:mm a');
+  }
+
+  /**
+   * @description Format DateTime as Date
+   * @param dateTimeParam DateTime param
+   * @return String formatted date
+   */
+  protected String formatDate(DateTime dateTimeParam) {
+    if (dateTimeParam == null) {
+      return null;
+    }
+    return dateTimeParam.format('dd/MM/yyyy');
   }
 }

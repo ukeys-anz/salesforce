@@ -43,11 +43,10 @@ public class SOPExpense {
    */
   public String otherJustificationText {
     get {
-      if(otherJustificationText != null && reason == 'Other') {
+      if (otherJustificationText != null && reason == 'Other') {
         return otherJustificationText;
       }
       return '';
     }
-    
   }
 }

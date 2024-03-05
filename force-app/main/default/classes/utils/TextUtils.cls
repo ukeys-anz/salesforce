@@ -14,8 +14,8 @@ public with sharing class TextUtils {
   private static final Integer UNMASK_LENGTH = 4;
 
   //start - added for CC-4053
-  private static final String EXT_PATTERN_CC = '(?<!\\+)\\b\\d[0-9 -]{13,}\\d\\b';
-  private static final String EXT_PATTERN_8PLUSLENGTH_EX_PHONE = '\\b(?<!\\+)\\b\\d(?:[ -]?\\d){7,14}\\b';
+  private static final String EXT_PATTERN_CC = '\\b(?<!\\+)\\b\\d(?:[0-9 -]*\\d){14,}\\b';
+  private static final String EXT_PATTERN_8PLUSLENGTH_EX_PHONE = '\\b(?<!\\+)\\b\\d(?:[ -]?\\d){8,13}\\b';
   private static final String EXT_PATTERN_PASSPORT = '\\b(?=[A-Za-z]*\\d)(?=\\d*[A-Za-z])[A-Za-z\\d]{6,15}\\b';
   private static Pattern extendRedactCCPattern = Pattern.compile(
     EXT_PATTERN_CC
@@ -176,10 +176,10 @@ public with sharing class TextUtils {
               : '';
             Logger.info(
               loggerInitialString +
-              fieldName +
-              ': ' +
-              (String) record.get(fieldName) +
-              '; Reason for logging: User entered long digits without needing to mask'
+                fieldName +
+                ': ' +
+                (String) record.get(fieldName) +
+                '; Reason for logging: User entered long digits without needing to mask'
             );
             Logger.saveLog();
           }
@@ -297,13 +297,13 @@ public with sharing class TextUtils {
     }
     redactedText = maskStringANZExtended(
       redactedText,
-      extendRedactEightPlusExPhonePattern,
+      extendRedactPassportPattern,
       0
     );
 
     redactedText = maskStringANZExtended(
       redactedText,
-      extendRedactPassportPattern,
+      extendRedactEightPlusExPhonePattern,
       0
     );
 
@@ -334,7 +334,11 @@ public with sharing class TextUtils {
             matchedText.substring(0, matchedText.length() - unmaskLength)
               .length()
           ) + matchedText.right(unmaskLength);
-      inputText = inputText.replaceFirst(origMatchedText, redactedText);
+      //replace first occurrence of standalone pattern
+      inputText = inputText.replaceFirst(
+        '(?<![A-Za-z\\d+])' + origMatchedText + '(?![A-Za-z\\d])',
+        redactedText
+      );
     }
     return inputText;
   }

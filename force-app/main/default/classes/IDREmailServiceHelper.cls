@@ -63,13 +63,13 @@ public with sharing class IDREmailServiceHelper {
     if (acw.inAccessibleFields != null) {
       Logger.error(
         'No create access to fields --' +
-        acw.inAccessibleFields +
-        ' From: ' +
-        fromEmail +
-        ' Subject: ' +
-        email.subject +
-        ' To: ' +
-        senderEmail
+          acw.inAccessibleFields +
+          ' From: ' +
+          fromEmail +
+          ' Subject: ' +
+          email.subject +
+          ' To: ' +
+          senderEmail
       );
       Logger.saveLog();
     } else {
@@ -78,11 +78,11 @@ public with sharing class IDREmailServiceHelper {
       } catch (Exception err) {
         Logger.error(
           'From: ' +
-          fromEmail +
-          ' Subject: ' +
-          email.subject +
-          ' To: ' +
-          senderEmail,
+            fromEmail +
+            ' Subject: ' +
+            email.subject +
+            ' To: ' +
+            senderEmail,
           err
         );
         Logger.saveLog();
@@ -137,8 +137,8 @@ public with sharing class IDREmailServiceHelper {
       emailIngestionFailure = true;
       Logger.error(
         'EmailServiceException: ' +
-        'Error in creating email message from service class, which needs to be attached to existing case : CMOS-' +
-        caseNumber,
+          'Error in creating email message from service class, which needs to be attached to existing case : CMOS-' +
+          caseNumber,
         caseId,
         err
       );
@@ -232,11 +232,11 @@ public with sharing class IDREmailServiceHelper {
           attachmentFailureDetected = true;
           Logger.error(
             'CMOS-' +
-            caseNumber +
-            ': Discarded an attachment as the type was unsupported => filename : ' +
-            tAttachment.fileName +
-            ' , mimesubtype : ' +
-            tAttachment.mimeTypeSubType,
+              caseNumber +
+              ': Discarded an attachment as the type was unsupported => filename : ' +
+              tAttachment.fileName +
+              ' , mimesubtype : ' +
+              tAttachment.mimeTypeSubType,
             caseId
           );
         }
@@ -281,11 +281,11 @@ public with sharing class IDREmailServiceHelper {
           attachmentFailureDetected = true;
           Logger.error(
             'CMOS-' +
-            caseNumber +
-            ': Discarded a binary attachment as the type was unsupported => filename : ' +
-            bAttachment.fileName +
-            ' , mimesubtype : ' +
-            bAttachment.mimeTypeSubType,
+              caseNumber +
+              ': Discarded a binary attachment as the type was unsupported => filename : ' +
+              bAttachment.fileName +
+              ' , mimesubtype : ' +
+              bAttachment.mimeTypeSubType,
             caseId
           );
         }

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;accountNumber&quot; : &quot;BSB 1235544&quot;,
+  &quot;accountName&quot; : &quot;ANZ Home&quot;,
+  &quot;accountStatus&quot; : &quot;Open&quot;,
+  &quot;availableForDataSharing&quot; : &quot;Available&quot;,
+  &quot;emailNotificationStatus&quot; : &quot;Enabled&quot;
+}</expectedInputJson>
+    <expectedOutputJson>{
+  &quot;response&quot; : {
+    &quot;accountNumber&quot; : &quot;BSB 1235544&quot;,
+    &quot;accountName&quot; : &quot;ANZ Home&quot;,
+    &quot;accountStatus&quot; : &quot;Open&quot;,
+    &quot;availableForDataSharing&quot; : &quot;Available&quot;,
+    &quot;emailNotificationStatus&quot; : &quot;Enabled&quot;
+  }
+}</expectedOutputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMProcessEmailPreferenceDR</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMProcessEmailPreferenceDRCustom3153</globalKey>
+        <inputFieldName>accountStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:accountStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMProcessEmailPreferenceDRCustom5786</globalKey>
+        <inputFieldName>accountName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:accountName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMProcessEmailPreferenceDRCustom4960</globalKey>
+        <inputFieldName>availableForDataSharing</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:availableForDataSharing</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMProcessEmailPreferenceDRCustom9216</globalKey>
+        <inputFieldName>accountNumber</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:accountNumber</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMProcessEmailPreferenceDRCustom8440</globalKey>
+        <inputFieldName>emailNotificationStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:emailNotificationStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;accountNumber&quot; : &quot;BSB 1235544&quot;,
+  &quot;accountName&quot; : &quot;ANZ Home&quot;,
+  &quot;accountStatus&quot; : &quot;Open&quot;,
+  &quot;availableForDataSharing&quot; : &quot;Available&quot;,
+  &quot;emailNotificationStatus&quot; : &quot;Enabled&quot;
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMProcessEmailPreferenceDR_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

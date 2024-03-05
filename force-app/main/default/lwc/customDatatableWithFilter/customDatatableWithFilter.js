@@ -388,7 +388,8 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
         "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
       reinitiateChat({
         accountId: accountId,
-        conversationSid: chatOrCallSid
+        conversationSid: chatOrCallSid,
+        sObjectId: ""
       })
         .then((result) => {
           if (result) {

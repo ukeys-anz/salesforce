@@ -2,15 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fraud_Selfie_Comparison_Match__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Check: 
-
-The person in the selfie image is the same person as photographed on the ID document image.</description>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>The person in the selfie image appear to be the same person photographed in the ID document image.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Check: 
-
-The person in the selfie image is the same person as photographed on the ID document image.</inlineHelpText>
-    <label>Selfie Comparison Match</label>
+    <inlineHelpText>The person in the selfie image appear to be the same person photographed in the ID document image.</inlineHelpText>
+    <label>Selfie Comparison Check</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

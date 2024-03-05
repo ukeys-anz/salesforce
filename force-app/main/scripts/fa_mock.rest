@@ -1,0 +1,15 @@
+POST https://anypoint.mulesoft.com/mocking/api/v1/links/ceee94ab-534a-4054-91c3-344a6a91bcc6/account-search HTTP/1.1
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, dr
+
+{
+
+ "crn": "12345",
+
+ "accounts": [
+    "1234567890",
+    "1234567891"
+  ]
+
+}

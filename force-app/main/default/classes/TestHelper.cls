@@ -34,9 +34,7 @@ public with sharing class TestHelper {
    */
   public static void addForgeTokenToCache(String ocvId) {
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
   }
