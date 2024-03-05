@@ -11646,6 +11646,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Customer offboarding</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Damaged card</fullName>
             <default>false</default>
         </values>

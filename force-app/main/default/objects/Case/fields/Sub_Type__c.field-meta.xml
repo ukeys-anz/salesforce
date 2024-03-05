@@ -557,6 +557,11 @@
                 <default>false</default>
                 <label>Information Access request</label>
             </value>
+            <value>
+                <fullName>Customer offboarding</fullName>
+                <default>false</default>
+                <label>Customer offboarding</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -734,6 +739,10 @@
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>EOFY</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Customer offboarding</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
