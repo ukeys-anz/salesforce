@@ -114,10 +114,7 @@ public with sharing class ContactToContactTriggerHandler extends Lib_TriggerHand
         masterCRs.add(cr);
       }
     }
-    CCRMContactToContactActions.checkRelationshipStatus(
-      masterCRs,
-      (Map<Id, FinServ__ContactContactRelation__c>) oldMap
-    );
+    CCRMContactToContactActions.checkRelationshipStatus(masterCRs);
   }
 
   /**
