@@ -7,6 +7,8 @@
 public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHandler {
   private Map<String, String> mapDisputeStatusVsInternalDesc;
   private Map<String, String> mapExternalStatusToCaseStatus;
+  public static final String DEFAULT_NPP_INTERNAL_DESCRIPTION = 'Status Unknown - Refer to Pega PRS';
+  public static final String DEFAULT_NPP_CASE_STATUS = 'On Hold';
 
   /**
    * @description Constructor to initialise Trigger Handler library
@@ -21,7 +23,7 @@ public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHa
   public void getExternalCaseStatusMapping() {
     this.mapDisputeStatusVsInternalDesc = new Map<String, String>();
     this.mapExternalStatusToCaseStatus = new Map<String, String>();
-    for (External_Case_Status_Mapping__mdt mapping : [
+    List<External_Case_Status_Mapping__mdt> mappingList = [
       SELECT
         PEGA_Dispute_Status__c,
         PEGA_Investigation_Outcome__c,
@@ -29,11 +31,12 @@ public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHa
         Internal_Description__c,
         Id
       FROM External_Case_Status_Mapping__mdt
-    ]) {
+    ];
+    for (External_Case_Status_Mapping__mdt mapping : mappingList) {
       this.mapDisputeStatusVsInternalDesc.put(
-        mapping.PEGA_Dispute_Status__c +
+        mapping.PEGA_Dispute_Status__c.toLowerCase() +
           '_' +
-          mapping.PEGA_Investigation_Outcome__c,
+          mapping.PEGA_Investigation_Outcome__c?.toLowerCase(),
         mapping.Internal_Description__c
       );
       this.mapExternalStatusToCaseStatus.put(
@@ -152,19 +155,26 @@ public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHa
     List<External_Case_Status__c> externalCaseStatuses
   ) {
     for (External_Case_Status__c externalCaseStatus : externalCaseStatuses) {
-      if (
-        this.mapDisputeStatusVsInternalDesc.containsKey(
-          externalCaseStatus.External_Status__c +
-            '_' +
-            externalCaseStatus.Result_Message__c
-        )
-      ) {
+      String combinedKey =
+        externalCaseStatus.External_Status__c.toLowerCase() +
+        '_' +
+        externalCaseStatus.Result_Message__c?.toLowerCase();
+      if (this.mapDisputeStatusVsInternalDesc.containsKey(combinedKey)) {
         externalCaseStatus.Internal_Description__c = this.mapDisputeStatusVsInternalDesc.get(
-          externalCaseStatus.External_Status__c +
-            '_' +
-            externalCaseStatus.Result_Message__c
+          combinedKey
         );
+        continue;
       }
+
+      String statusKey =
+        externalCaseStatus.External_Status__c.toLowerCase() + '_';
+      if (this.mapDisputeStatusVsInternalDesc.containsKey(statusKey)) {
+        externalCaseStatus.Internal_Description__c = this.mapDisputeStatusVsInternalDesc.get(
+          statusKey
+        );
+        continue;
+      }
+      externalCaseStatus.Internal_Description__c = DEFAULT_NPP_INTERNAL_DESCRIPTION;
     }
   }
 
@@ -175,28 +185,68 @@ public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHa
   private void updateRelatedNPPCases(
     List<External_Case_Status__c> externalCaseStatuses
   ) {
-    List<Case> theCases = new List<Case>();
     Map<Id, String> caseIdToExternalStatus = getCaseIds(externalCaseStatuses);
     if (caseIdToExternalStatus.isEmpty()) {
       return;
     }
-    for (
-      Case record : getParentCases(
-        new List<Id>(caseIdToExternalStatus.keySet())
-      )
-    ) {
-      if (
-        this.mapExternalStatusToCaseStatus.containsKey(
-          caseIdToExternalStatus.get(record.Id)
-        ) && record.RecordTypeId == GetHelpConstants.NPP_DISPUTE_RT_ID
-      ) {
-        record.Status = this.mapExternalStatusToCaseStatus.get(
-          caseIdToExternalStatus.get(record.Id)
-        );
-        theCases.add(record);
-      }
+
+    List<Id> caseIdList = new List<Id>(caseIdToExternalStatus.keySet());
+    List<Id> recordTypeIdList = new List<Id>{
+      GetHelpConstants.NPP_DISPUTE_RT_ID
+    };
+    List<Case> parentCaseList = getRecordTypeFilteredCase(
+      caseIdList,
+      recordTypeIdList
+    );
+    if (parentCaseList.isEmpty()) {
+      return;
     }
-    DMLUtil.updateRecords(theCases, false, false);
+    List<Case> caseToUpdateList = updateNPPCaseRecords(
+      parentCaseList,
+      caseIdToExternalStatus
+    );
+    DMLUtil.updateRecords(caseToUpdateList, false, false);
+  }
+
+  /**
+   * @description get Case details based on Ids and Record Type Ids
+   * @param recordIdList list of case ids
+   * @param recordTypeIdList list of recordtype ids
+   * @return List<Case> all the cases based on the filter
+   */
+  public static List<Case> getRecordTypeFilteredCase(
+    List<Id> recordIdList,
+    List<Id> recordTypeIdList
+  ) {
+    List<Case> caseList = [
+      SELECT Id, Status, RecordTypeId
+      FROM Case
+      WHERE Id IN :recordIdList AND RecordTypeId IN :recordTypeIdList
+    ];
+    return caseList;
+  }
+
+  /**
+   * @description to update the case status based on mapping
+   * @param parentCaseList List of cases to be updated
+   * @param caseIdToExternalStatus map of case id to external case status value
+   * @return List<Case> updated case list
+   */
+  public List<Case> updateNPPCaseRecords(
+    List<Case> parentCaseList,
+    Map<Id, String> caseIdToExternalStatus
+  ) {
+    List<Case> caseToUpdateList = new List<Case>();
+    for (Case record : parentCaseList) {
+      String key = caseIdToExternalStatus.get(record.Id);
+      if (this.mapExternalStatusToCaseStatus.containsKey(key)) {
+        record.Status = this.mapExternalStatusToCaseStatus.get(key);
+      } else {
+        record.Status = DEFAULT_NPP_CASE_STATUS;
+      }
+      caseToUpdateList.add(record);
+    }
+    return caseToUpdateList;
   }
 
   /**
