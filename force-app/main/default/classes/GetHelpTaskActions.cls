@@ -17,6 +17,7 @@ public with sharing class GetHelpTaskActions {
   public static final Integer CALL_SID_LENGTH = 34;
   public static final String TASK_STATUS_EXPIRED = 'Expired';
   public static final String TASK_STATUS_NOT_STARTED = 'Not Started';
+  @TestVisible
   public static final String TASK_STATUS_EXPIRED_ERROR_MESSAGE = 'Status Cannot be changed to \'Expired\' manually.';
 
   /**
