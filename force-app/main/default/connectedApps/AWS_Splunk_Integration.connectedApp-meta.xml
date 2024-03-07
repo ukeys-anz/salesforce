@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>anzx-salesforce@anz.com</contactEmail>
+    <description>Connected app for AWS Splunk Integration.</description>
+    <label>AWS Splunk Integration</label>
+    <oauthConfig>
+        <callbackUrl>https://anzplus.splunkcloud.com/en-GB/app/Splunk_TA_salesforce/splunk_ta_salesforce_redirect</callbackUrl>
+        <isAdminApproved>true</isAdminApproved>
+        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
+        <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
+        <scopes>Api</scopes>
+        <scopes>Full</scopes>
+        <scopes>RefreshToken</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>ENFORCE</ipRelaxation>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+    </oauthPolicy>
+    <permissionSetName>Splunk Integration Tech Ops</permissionSetName>
+    <profileName>Minimum Access - External Apps</profileName>
+</ConnectedApp>

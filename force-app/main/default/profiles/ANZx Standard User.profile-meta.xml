@@ -8118,6 +8118,17 @@
         <recordType>ContactPointEmail.Organisation</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Customer_Action__c-Customer Action Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Action__c-Customer Action Layout</layout>
+        <recordType>Customer_Action__c.Customer_Action</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Action__c-Pending Financial Accounts Update Layout</layout>
+        <recordType>Customer_Action__c.Pending_Financial_Account_Updates</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>FinServ__ContactContactRelation__c-Broker Staff</layout>
         <recordType>FinServ__ContactContactRelation__c.Broker_Staff</recordType>
     </layoutAssignments>

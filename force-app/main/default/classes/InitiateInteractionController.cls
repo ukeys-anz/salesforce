@@ -6,6 +6,7 @@
 public with sharing class InitiateInteractionController {
   public static final String PERMISSIONS_ERROR = 'Please check you have the permissions to create an Interaction';
   public static final String SEND_MESSAGE_ERROR = 'Failed to send the outbound chat message. Please try sending it again. Raise a fault through TechAssist if the problem persists.';
+  public static final String RESIDENTIAL_LOAN_APPLICATION_OBJECT_NAME = 'ResidentialLoanApplication';
 
   /**
    * @description Retrieves the phone number based on record context for the initiateInteraction LWC
@@ -42,8 +43,8 @@ public with sharing class InitiateInteractionController {
       Lead l = [SELECT Id, MobilePhone FROM Lead WHERE Id = :sId];
       phoneNumber = l.MobilePhone;
     } else if (
-      sobjectType == 'ResidentialLoanApplication' &&
-      PermissionUtils.canQuery('ResidentialLoanApplication')
+      sobjectType == RESIDENTIAL_LOAN_APPLICATION_OBJECT_NAME &&
+      PermissionUtils.canQuery(RESIDENTIAL_LOAN_APPLICATION_OBJECT_NAME)
     ) {
       ResidentialLoanApplication loanApplication = [
         SELECT Id, Account.PersonMobilePhone
@@ -212,17 +213,14 @@ public with sharing class InitiateInteractionController {
       WHERE Chat_or_Call_SID__c = :chatOrCallSid
       LIMIT 1
     ];
-    Id currentUserId = UserInfo.getUserId();
     if (interactionToUpdate.isEmpty()) {
       return;
     }
-    if (interactionToUpdate[0].OwnerId != currentUserId) {
-      interactionToUpdate[0].OwnerId = currentUserId;
-    }
+    interactionToUpdate[0].OwnerId = UserInfo.getUserId();
     if (
       String.isNotBlank(sObjectId) &&
       Id.valueOf(sObjectId).getSobjectType().getDescribe().getName() ==
-      'ResidentialLoanApplication'
+      RESIDENTIAL_LOAN_APPLICATION_OBJECT_NAME
     ) {
       interactionToUpdate[0].Loan_Application__c = sObjectId;
     }

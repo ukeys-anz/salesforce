@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;initiatedBy&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;,
+  &quot;accountNumber&quot; : &quot;014111 391077071&quot;,
+  &quot;workflowExpiresOn&quot; : &quot;02/07/2024&quot;,
+  &quot;accountName&quot; : &quot;ANZ Plus&quot;,
+  &quot;availableForDataSharing&quot; : &quot;Available&quot;,
+  &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+  &quot;accountState&quot; : &quot;PENDING&quot;,
+  &quot;accountStatus&quot; : &quot;Open&quot;
+}</expectedInputJson>
+    <expectedOutputJson>{
+  &quot;response&quot; : {
+    &quot;accountNumber&quot; : &quot;BSB 1235544&quot;,
+    &quot;accountName&quot; : &quot;ANZ Home&quot;,
+    &quot;accountStatus&quot; : &quot;Open&quot;,
+    &quot;availableForDataSharing&quot; : &quot;Available&quot;,
+    &quot;emailNotificationStatus&quot; : &quot;Enabled&quot;
+  }
+}</expectedOutputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMJointAccountPermissionDR</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>TFMJointAccountPermissionDR</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountPermissionDRCustom0jIBm0000002vmzMAAItem3</globalKey>
+        <inputFieldName>accountNumber</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:accountNumber</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMJointAccountPermissionDR</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountPermissionDRCustom0jIBm0000002vmzMAAItem2</globalKey>
+        <inputFieldName>workflowExpiresOn</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:workflowExpiresOn</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMJointAccountPermissionDR</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountPermissionDRCustom0jIBm0000002vmzMAAItem4</globalKey>
+        <inputFieldName>availableForDataSharing</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:availableForDataSharing</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMJointAccountPermissionDR</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountPermissionDRCustom0jIBm0000002vmzMAAItem1</globalKey>
+        <inputFieldName>accountName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:accountName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMJointAccountPermissionDR</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountPermissionDRCustom3648</globalKey>
+        <inputFieldName>reason</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:reason</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMJointAccountPermissionDR</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountPermissionDRCustom2303</globalKey>
+        <inputFieldName>accountState</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:accountState</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMJointAccountPermissionDR</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountPermissionDRCustom0jIBm0000002vmzMAAItem0</globalKey>
+        <inputFieldName>initiatedBy</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:initiatedBy</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMJointAccountPermissionDR</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountPermissionDRCustom9216</globalKey>
+        <inputFieldName>accountStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:accountStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;initiatedBy&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;,
+  &quot;accountNumber&quot; : &quot;014111 391077071&quot;,
+  &quot;workflowExpiresOn&quot; : &quot;02/07/2024&quot;,
+  &quot;accountName&quot; : &quot;ANZ Plus&quot;,
+  &quot;availableForDataSharing&quot; : &quot;Available&quot;,
+  &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+  &quot;accountState&quot; : &quot;PENDING&quot;,
+  &quot;accountStatus&quot; : &quot;Open&quot;
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMJointAccountPermissionDR_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

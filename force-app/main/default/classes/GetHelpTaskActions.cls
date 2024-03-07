@@ -16,6 +16,7 @@ public with sharing class GetHelpTaskActions {
   public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
   public static final Integer CALL_SID_LENGTH = 34;
   public static final String TASK_STATUS_EXPIRED = 'Expired';
+  public static final String TASK_STATUS_NOT_STARTED = 'Not Started';
   @TestVisible
   public static final String TASK_STATUS_EXPIRED_ERROR_MESSAGE = 'Status Cannot be changed to \'Expired\' manually.';
 
@@ -175,22 +176,28 @@ public with sharing class GetHelpTaskActions {
     List<Task> records,
     Map<Id, Task> oldMap
   ) {
-    beforeUpdateValidations(records, oldMap);
+    if (
+      !System.isBatch() &&
+      !PermissionUtils.hasPermissionSetGroupAssigned(
+        GetHelpConstants.BUSINESS_ADMIN_PSG
+      )
+    ) {
+      preventManualExpiry(records, oldMap);
+    }
   }
 
   /**
-   * @description All the validations for the tasks for get help tasks
+   * @description preventManualExpiry prenevents users from changing the status manually to Expired
    * @param records The Task record list.
    * @param oldMap The old map of task records.
    */
-  private static void beforeUpdateValidations(
+  private static void preventManualExpiry(
     List<Task> records,
     Map<Id, Task> oldMap
   ) {
     for (Task tsk : records) {
       Task oldTask = oldMap.get(tsk.Id);
       if (
-        !System.isBatch() &&
         tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID &&
         tsk.Status == TASK_STATUS_EXPIRED &&
         tsk.Status != oldTask.Status

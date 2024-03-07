@@ -25,6 +25,18 @@ public with sharing class TFMSearchCustomerServiceMock extends Service {
   private static final String DEVICE_DETAILS_WITH_BIOMETRIC = Service.getStaticResource(
     'mock_DeviceDetailsWithBiometric'
   );
+  @TestVisible
+  private static final String JOINT_ACCOUNT_PERMISSIONS_LIST = Service.getStaticResource(
+    'mock_JointAccountPermissionsSample'
+  );
+  @TestVisible
+  private static final String MODIFY_ACCOUNT_PERMISSIONS = Service.getStaticResource(
+    'mock_ModifyJointAccountSample'
+  );
+  @TestVisible
+  private static final String EMAIL_JOINT_ACCOUNT_NOTIFICATION = Service.getStaticResource(
+    'mock_EmailNotificationJointAccount'
+  );
   /**
    * @param staffModel wrapper class having all the variables
    * @return headers
@@ -83,6 +95,58 @@ public with sharing class TFMSearchCustomerServiceMock extends Service {
   ) {
     if (!preset) {
       response.body = PERSON_IDENTITY_ROWS_JSON;
+    }
+    return response;
+  }
+
+  /**
+   * @param headers headers with data
+   * @return api response
+   * @description gets the Joint Accounts
+   */
+  public override HttpCalloutResponse getJointAccountPermissions(
+    Map<String, String> headers
+  ) {
+    if (!preset) {
+      response.body = JOINT_ACCOUNT_PERMISSIONS_LIST;
+    }
+    return response;
+  }
+
+  /**
+   * @param bsb bsb value of the joint account
+   * @param accountNumber joint account number
+   * @param enabled disclosure status
+   * @param headers headers to call api
+   * @return api response
+   * @description modify the Joint Accounts
+   */
+  public override HttpCalloutResponse updatedisclosureStatus(
+    String bsb,
+    String accountNumber,
+    Boolean enabled,
+    Map<String, String> headers
+  ) {
+    if (!preset) {
+      response.body = MODIFY_ACCOUNT_PERMISSIONS;
+    }
+    return response;
+  }
+
+  /**
+   * @param headers headers with data
+   * @param accountId  accountId value of the joint account
+   * @param emailEnabled joint account status
+   * @return api response
+   * @description modify the Joint Accounts
+   */
+  public override HttpCalloutResponse getORModifyJointAccountNotificationAPI(
+    Map<String, String> headers,
+    String accountId,
+    Boolean emailEnabled
+  ) {
+    if (!preset) {
+      response.body = EMAIL_JOINT_ACCOUNT_NOTIFICATION;
     }
     return response;
   }

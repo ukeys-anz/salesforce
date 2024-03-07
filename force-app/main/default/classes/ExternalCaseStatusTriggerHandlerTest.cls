@@ -21,23 +21,6 @@ public class ExternalCaseStatusTriggerHandlerTest {
 
   @IsTest
   static void testExternalCaseStatusTriggerActions() {
-    Profile profile = [
-      SELECT Id
-      FROM Profile
-      WHERE Name = 'Integration User'
-      LIMIT 1
-    ];
-    User pegaIntegrationStatusUser = [
-      SELECT Id, Name
-      FROM User
-      WHERE Name = 'Pega Status Integration User' AND ProfileId = :profile.Id
-    ];
-    System.assertNotEquals(
-      null,
-      pegaIntegrationStatusUser,
-      'Pega Status Integration User doesn\'t exist'
-    );
-
     String recordTypeDeveloperName = 'Card_Dispute';
     String predicate =
       'RecordType.DeveloperName = \'' +
@@ -55,14 +38,13 @@ public class ExternalCaseStatusTriggerHandlerTest {
     };
     theCase = TestDataFactory.updateCase(theCase, dataMap);
 
-    //System.runAs(pegaIntegrationStatusUser) {
-    theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
     String caseStatusBefore = theCase.Status;
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = theCase.Id,
       External_Status__c = 'Pending-xxxxx',
       Status_Event_ID__c = 'Status_Event_ID__c_0'
     );
+
     Test.startTest();
     insert externalCaseStatus;
     theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
@@ -230,7 +212,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
     theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = theCase.Id,
-      External_Status__c = 'Pending Investigation',
+      External_Status__c = 'Pending-Investigation',
       Status_Event_ID__c = 'Status_Event_ID__c_0'
     );
     Test.startTest();

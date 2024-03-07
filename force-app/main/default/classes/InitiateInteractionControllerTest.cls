@@ -112,12 +112,10 @@ public with sharing class InitiateInteractionControllerTest {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Account testAcc = [SELECT Id FROM Account LIMIT 1];
-      ResidentialLoanApplication rla = new ResidentialLoanApplication();
-      rla.Name = 'Test Loan Application';
-      rla.AccountId = testAcc.Id;
-      rla.SOP_ID__c = '1234';
-      insert rla;
       Faker faker = new Faker('AU');
+      ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication();
+      rla.Id = '0cd9p000000' + faker.randomString(7);
+
       Test.startTest();
       ReinitiateChatModel response = InitiateInteractionController.reinitiateChat(
         testAcc.Id,

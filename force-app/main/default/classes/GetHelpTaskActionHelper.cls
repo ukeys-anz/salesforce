@@ -40,13 +40,18 @@ public with sharing class GetHelpTaskActionHelper {
    * @return Map<Id, Account> a map containing Id to Account details
    */
   public static Map<Id, Account> getAccountMap(Set<Id> accountIdSet) {
-    return new Map<ID, Account>(
+    Map<Id, Account> accountMap = new Map<Id, Account>();
+    if (accountIdSet.isEmpty()) {
+      return accountMap;
+    }
+    accountMap = new Map<ID, Account>(
       [
         SELECT Id, Source_System_Name__c, Source_System_ID__c
         FROM Account
         WHERE Id IN :accountIdSet
       ]
     );
+    return accountMap;
   }
 
   /**

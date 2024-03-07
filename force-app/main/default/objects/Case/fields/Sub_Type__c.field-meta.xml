@@ -78,6 +78,11 @@
                 <label>Create or Manage PayID</label>
             </value>
             <value>
+                <fullName>Correction Request</fullName>
+                <default>false</default>
+                <label>Correction Request</label>
+            </value>
+            <value>
                 <fullName>Credit Reporting</fullName>
                 <default>false</default>
                 <label>Credit Reporting</label>
@@ -333,6 +338,11 @@
                 <label>Large Value Transfer enquiries</label>
             </value>
             <value>
+                <fullName>Assisted Transfer Enquiries</fullName>
+                <default>false</default>
+                <label>Assisted Transfer Enquiries</label>
+            </value>
+            <value>
                 <fullName>Proof of Amount</fullName>
                 <default>false</default>
                 <label>Proof of Amount</label>
@@ -443,6 +453,11 @@
                 <label>Large Value Transfer requests</label>
             </value>
             <value>
+                <fullName>Assisted Transfer Requests</fullName>
+                <default>false</default>
+                <label>Assisted Transfer Requests</label>
+            </value>
+            <value>
                 <fullName>EOFY</fullName>
                 <default>false</default>
                 <label>EOFY</label>
@@ -507,6 +522,41 @@
                 <default>false</default>
                 <label>Manage PayTo</label>
             </value>
+            <value>
+                <fullName>Reinstate Home Loan</fullName>
+                <default>false</default>
+                <label>Reinstate Home Loan</label>
+            </value>
+            <value>
+                <fullName>Loan Auto Repayment (DLP)</fullName>
+                <default>false</default>
+                <label>Loan Auto Repayment (DLP)</label>
+            </value>
+            <value>
+                <fullName>Payout Quote</fullName>
+                <default>false</default>
+                <label>Payout Quote</label>
+            </value>
+            <value>
+                <fullName>Unapplied Funds</fullName>
+                <default>false</default>
+                <label>Unapplied Funds</label>
+            </value>
+            <value>
+                <fullName>Fee Reversals</fullName>
+                <default>false</default>
+                <label>Fee Reversals</label>
+            </value>
+            <value>
+                <fullName>Repayment Reversals</fullName>
+                <default>false</default>
+                <label>Repayment Reversals</label>
+            </value>
+            <value>
+                <fullName>Information Access request</fullName>
+                <default>false</default>
+                <label>Information Access request</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -531,10 +581,6 @@
         <valueSettings>
             <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
             <valueName>Transaction</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Profile</controllingFieldValue>
-            <valueName>Credit Reporting</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
@@ -563,6 +609,10 @@
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
             <valueName>Legal Name Change</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Information Access request</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
@@ -695,11 +745,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Withholding Tax and TFN enquiry</valueName>
+            <valueName>Large Value Transfer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Large Value Transfer</valueName>
+            <valueName>Assisted Transfer Enquiries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Withholding Tax and TFN enquiry</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
@@ -763,6 +817,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Assisted Transfer Requests</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Manage PayTo</valueName>
         </valueSettings>
         <valueSettings>
@@ -800,6 +858,30 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>HL Signing Authority Update</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Loan Auto Repayment (DLP)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Payout Quote</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Unapplied Funds</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Reinstate Home Loan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Fee Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Repayment Reversals</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
@@ -884,6 +966,14 @@
         <valueSettings>
             <controllingFieldValue>Join / KYC</controllingFieldValue>
             <valueName>Re-Joining</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Credit Reporting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Correction Request</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>My Security</controllingFieldValue>

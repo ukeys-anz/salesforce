@@ -135,7 +135,15 @@ public with sharing class IDRCaseActions {
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Id entitlementId = getEntitlement();
+    Map<Id, Product2> productMap = new Map<Id, Product2>(
+      [
+        SELECT Id, IDR_Product_Family__c, IDR_Product_Family__r.Name
+        FROM Product2
+        WHERE IDR_Product_Family__r.Name = 'Asset finance'
+      ]
+    );
     Case[] updatePsiTicked = new List<Case>();
+
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
@@ -168,6 +176,9 @@ public with sharing class IDRCaseActions {
           )))
         ) {
           record.addError(IDRConstants.CANNOT_CHANGE_ISSUE_MESSAGE);
+        }
+        if (isProductAssetfinance(record, oldRecord, productMap)) {
+          record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
@@ -879,5 +890,53 @@ public with sharing class IDRCaseActions {
           subsequentIssueTypeMap.get(c.IDR_Subsequent_Issue_3__c);
       }
     }
+  }
+  /**
+   * @description Getting product from sset finance Product family
+   * @param record  List of cases from the trigger
+   * @param oldRecord List of cases from trigger
+   * @param productMap This Map<Id, Product2> contains the map which holds the Id of product and Product family is Asset finance
+   * @return Boolean value that returns true if the Product Family is Asset finance
+   */
+  @TestVisible
+  private static Boolean isProductAssetfinance(
+    Case record,
+    Case oldRecord,
+    Map<Id, Product2> productMap
+  ) {
+    if (
+      (IDRCollectionActions.isCollectionsIssue(
+        oldRecord.Type,
+        oldRecord.IDR_Subsequent_Issue__c
+      )) &&
+      (String.isNotBlank(oldRecord.Product__c) &&
+      oldRecord.Product__c != record.Product__c &&
+      productMap.containsKey(oldRecord.Product__c))
+    ) {
+      return true;
+    }
+    if (
+      (IDRCollectionActions.isCollectionsIssue(
+        oldRecord.IDR_Issue_Type_2__c,
+        oldRecord.IDR_Subsequent_Issue_2__c
+      )) &&
+      (String.isNotBlank(oldRecord.IDR_Product_2__c) &&
+      oldRecord.IDR_Product_2__c != record.IDR_Product_2__c &&
+      productMap.containsKey(oldRecord.IDR_Product_2__c))
+    ) {
+      return true;
+    }
+    if (
+      (IDRCollectionActions.isCollectionsIssue(
+        oldRecord.IDR_Issue_Type_3__c,
+        oldRecord.IDR_Subsequent_Issue_3__c
+      )) &&
+      (String.isNotBlank(oldRecord.IDR_Product_3__c) &&
+      oldRecord.IDR_Product_3__c != record.IDR_Product_3__c &&
+      productMap.containsKey(oldRecord.IDR_Product_3__c))
+    ) {
+      return true;
+    }
+    return false;
   }
 }
