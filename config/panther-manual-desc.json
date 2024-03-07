@@ -37,6 +37,9 @@
     },
     "FinServ__AccountAccountRelation__c": {
       "FinServ__Account__c": "The main customer of the relationship",
+      "FinServ__Active__c": "Indicate whether the relationship is currently active",
+      "FinServ__EndDate__c": "Date when the relationship ends",
+      "FinServ__StartDate__c": "Date when the relationship begins",
       "FinServ__RelatedAccount__c": "The related customer of the relationship"
     },
     "FinServ__ContactContactRelation__c": {
@@ -287,6 +290,7 @@
         "Was_ANZx_Customer__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
+      "IA-2415997": ["PI_Score__c"],
       "IA-2468715": [
         "AccountNumber",
         "External_Id__c",
@@ -316,6 +320,8 @@
         "Employment_Type__c",
         "Establishment_Date__c",
         "Mailing_Name__c",
+        "Mailing_Title_1__c",
+        "Mailing_Title_2__c",
         "Name",
         "Industry__c",
         "Occupation__c",
@@ -385,11 +391,13 @@
       ]
     },
     "Activity": {
+      "IA-2530753": ["Pega_CDH_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
         "Action__c",
         "Authentication_Method__c",
+        "Coach_Action__c",
         "Completed_Date__c",
         "Due_in_Days__c",
         "IDR_Collection_Number__c",
@@ -907,7 +915,8 @@
         "Provided_details_to_Prod_Manufacturer_2__c",
         "Provided_details_to_Prod_Manufacturer_3__c",
         "Has_complaint_met_RG_271_delay_criteria__c",
-        "How_has_delay_criteria_been_met_not_met__c"
+        "How_has_delay_criteria_been_met_not_met__c",
+        "Date_Time_Provisionally_Closed__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -1020,6 +1029,7 @@
         "SI_PSI_Source__c"
       ],
       "IA-2415720": [
+        "ANZx_Customer_Account__c",
         "Account_Type__c",
         "Biller_Code__c",
         "Biller_Name__c",
@@ -1050,7 +1060,8 @@
         "Application_Status__c",
         "Assessment_Outcome__c",
         "Assessment_Id__c",
-        "Collateral_Assessment_ID__c"
+        "Collateral_Assessment_ID__c",
+        "TestedDate__c"
       ],
       "IA-2415860": [
         "Package_Id__c",
@@ -1063,7 +1074,8 @@
         "PersonaId__c",
         "PersonID__c",
         "Fraud_PersonID__c"
-      ]
+      ],
+      "IA-2468710": ["SLATesting__c"]
     },
     "Case_Product__c": {
       "IA-2468715": ["Product__c"]
@@ -1307,7 +1319,6 @@
         "IDR_Provided_details_to_Manufacturer__c"
       ]
     },
-
     "Contact": {
       "IA-2468715": [
         "AccountId",
@@ -1340,6 +1351,8 @@
       "IA-2530753": [
         "Active_From__c",
         "Active_To__c",
+        "External_Id__c",
+        "Occurrence_Number__c",
         "After_Hours_Availability__c",
         "Broker_Customer_Profile__c",
         "Occurrence_Number__c",
@@ -1549,7 +1562,16 @@
         "Role__c"
       ],
       "IA-2530753": ["Created__c", "Completed__c"],
-      "IA-2415998": ["Eligible_to_Complete__c"]
+      "IA-2415998": ["Eligible_to_Complete__c"],
+      "IA-2415720": [
+        "Action__c",
+        "Error_Description__c",
+        "Customer__c",
+        "Financial_Account__c",
+        "New_Value__c",
+        "Old_Value__c",
+        "Triggered_From__c"
+      ]
     },
     "Customer_Dispute_Management__c": {
       "IA-2415720": [
@@ -1610,7 +1632,8 @@
         "EquifaxDVSResult__c",
         "EquifaxAECResult__c",
         "EquifaxCRAResult__c",
-        "EquifaxOverallResult__c"
+        "EquifaxOverallResult__c",
+        "EquifaxESDResult__c"
       ],
       "IA-2530753": [
         "OwnerId",
@@ -1620,7 +1643,8 @@
         "CreatedDate",
         "Id",
         "LastModifiedDate",
-        "VerificationType__c"
+        "VerificationType__c",
+        "Has_ID_Ops_Assistance_Cases__c"
       ]
     },
     "Customer_Profile_Updates__c": {
@@ -1815,6 +1839,15 @@
       ]
     },
     "FinServ__AccountAccountRelation__c": {
+      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
+      "IA-2453350": ["External_Id__c"],
+      "IA-2530753": [
+        "Name",
+        "FinServ__Active__c",
+        "FinServ__EndDate__c",
+        "FinServ__StartDate__c",
+        "System_Individual_Relationship__c"
+      ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
     },
     "FinServ__ContactContactRelation__c": {
@@ -1851,6 +1884,7 @@
         "FinServ__FinancialAccountNumber__c",
         "FinServ__PrimaryOwner__c",
         "FinServ__RecordTypeName__c",
+        "FinServ__Status__c",
         "Force_Update__c",
         "Marketing_Code__c",
         "OCV_ID__c",
@@ -1873,7 +1907,6 @@
         "FinServ__FinancialAccountType__c",
         "FinServ__InterestRate__c",
         "FinServ__OpenDate__c",
-        "FinServ__Status__c",
         "Number_Of_Signatures__c",
         "Interest_Accrued__c",
         "Total_Number_of_Cards__c",
@@ -4369,7 +4402,6 @@
       "LicenceNumber__c": "1:1 Transformation",
       "MiddleNamesOCRClient__c": "1:1 Transformation",
       "MiddleNamesOCRMatch__c": "",
-
       "MiddleNamesOCRServer__c": "1:1 Transformation",
       "MiddleNames__c": "1:1 Transformation",
       "PassportNumberOCRClientTransform__c": "Always set to 'fpe.personal-identifier'",

@@ -416,8 +416,8 @@ public with sharing class CommonUtil {
     } catch (Exception e) {
       Logger.error(
         'Problem sending in app notification: ' +
-        wrapperRecord.recipientList +
-        e.getMessage(),
+          wrapperRecord.recipientList +
+          e.getMessage(),
         e
       );
       Logger.saveLog();
@@ -609,6 +609,7 @@ public with sharing class CommonUtil {
     caseFields.add('Merchant_Description__c');
     caseFields.add('Refund_Request_Date__c');
     caseFields.add('Regular_Payment_Cancellation_Date__c');
+    caseFields.add('Status');
     return caseFields;
   }
 
@@ -693,9 +694,9 @@ public with sharing class CommonUtil {
     String fields = getDisputeCaseFieldsString(recordTypeDeveloperName);
     List<SObject> sObjectList = Database.query(
       'Select Id, ' +
-      String.escapeSingleQuotes(fields) +
-      ' From Case Where ' +
-      predicate
+        String.escapeSingleQuotes(fields) +
+        ' From Case Where ' +
+        predicate
     );
     Case theCase;
     if (sObjectList.size() > 0) {
@@ -863,22 +864,22 @@ public with sharing class CommonUtil {
 
   /**
    * @description Get Profile by Profile Name
-   * @param profileNameList set of name of the Profile
+   * @param lstOfProfileName set of name of the Profile
    * @return Map<String,Id> ids of profiles.
    */
   public static Map<String, Id> getProfileByNames(
-    List<String> profileNameList
+    List<String> lstOfProfileName
   ) {
-    Map<String, Id> idToProfileMap = new Map<String, Id>();
+    Map<String, Id> mapOfProfileId = new Map<String, Id>();
     for (Profile prof : [
       SELECT Id, Name
       FROM Profile
-      WHERE Name IN :profileNameList
+      WHERE Name IN :lstOfProfileName
     ]) {
-      idToProfileMap.put(prof.Name, prof.Id);
+      mapOfProfileId.put(prof.Name, prof.Id);
     }
 
-    return idToProfileMap;
+    return mapOfProfileId;
   }
 
   /**

@@ -445,18 +445,64 @@ public with sharing class CCRMTestDataFactory {
    * @name createReciprocalRole
    * @param name Name of Role
    * @param inverseRole Inverse Role
+   * @param recordTypeId Record Type
    * @return FinServ__ReciprocalRole__c Reciprocal Role
    */
   public static FinServ__ReciprocalRole__c createReciprocalRole(
     String name,
-    String inverseRole
+    String inverseRole,
+    Id recordTypeId
   ) {
-    FinServ__ReciprocalRole__c reciprocalRole = new FinServ__ReciprocalRole__c();
-    reciprocalRole.Name = name;
-    reciprocalRole.FinServ__InverseRole__c = inverseRole;
-    reciprocalRole.FinServ__CreateInverseRole__c = false;
-    insert reciprocalRole;
+    List<FinServ__ReciprocalRole__c> roles = new List<FinServ__ReciprocalRole__c>();
+    FinServ__ReciprocalRole__c reciprocalRole = new FinServ__ReciprocalRole__c(
+      Name = name,
+      OCV_Role__c = name,
+      RecordTypeId = recordTypeId,
+      FinServ__InverseRole__c = inverseRole,
+      FinServ__CreateInverseRole__c = false
+    );
+    roles.add(reciprocalRole);
+    if (name != inverseRole) {
+      roles.add(
+        new FinServ__ReciprocalRole__c(
+          Name = inverseRole,
+          OCV_Role__c = inverseRole,
+          RecordTypeId = recordTypeId,
+          FinServ__InverseRole__c = name,
+          FinServ__CreateInverseRole__c = false
+        )
+      );
+    }
+    insert roles;
+    if (name != inverseRole) {
+      roles[0].FinServ__InverseRelationship__c = roles[1].Id;
+      roles[1].FinServ__InverseRelationship__c = roles[0].Id;
+      update roles;
+    }
     return reciprocalRole;
+  }
+
+  /**
+   * @description Create non-reciprocal role records
+   * @name createNonReciprocalRole
+   * @param name [Optional] the name of the reciprocal role
+   * @param recordTypeId Record Type
+   * @return FinServ__ReciprocalRole__c the newly created record
+   */
+  public static FinServ__ReciprocalRole__c createNonReciprocalRole(
+    String name,
+    Id recordTypeId
+  ) {
+    name = name == null ? new Faker('AU').randomString(10) : name;
+    FinServ__ReciprocalRole__c nonReciprocalRole = new FinServ__ReciprocalRole__c(
+      RecordTypeId = recordTypeId,
+      Name = name,
+      FinServ__InverseRole__c = name,
+      OCV_Role__c = name,
+      FinServ__CreateInverseRole__c = false
+    );
+    insert nonReciprocalRole;
+    return nonReciprocalRole;
   }
 
   /**
@@ -604,9 +650,7 @@ public with sharing class CCRMTestDataFactory {
     insert accnt;
 
     Contact contact = new Contact();
-    contact.recordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByDevelopername()
-      .get('IndustriesBusiness')
-      .getRecordTypeId();
+    contact.recordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID;
     contact.FirstName = 'conFname';
     contact.LastName = 'conLname';
     contact.Email = 'con@test.com';
@@ -1045,6 +1089,7 @@ public with sharing class CCRMTestDataFactory {
     List<Contact> conList = new List<Contact>();
     for (Integer i = 1; i <= count; i++) {
       Contact contact = new Contact();
+      contact.RecordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID;
       contact.FirstName = faker.person.firstName();
       contact.LastName = faker.randomString(10);
       if (withContactDetails) {
@@ -1135,25 +1180,5 @@ public with sharing class CCRMTestDataFactory {
     insert contact;
 
     return accnt;
-  }
-  /**
-   * @description Create non-reciprocal role records
-   * @name createNonReciprocalRole
-   * @param name [Optional] the name of the reciprocal role
-   * @return FinServ__ReciprocalRole__c the newly created record
-   */
-  public static FinServ__ReciprocalRole__c createNonReciprocalRole(
-    String name
-  ) {
-    name = name == null ? new Faker('AU').randomString(10) : name;
-    FinServ__ReciprocalRole__c nonReciprocalRole = new FinServ__ReciprocalRole__c(
-      RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID,
-      Name = name,
-      FinServ__InverseRole__c = name,
-      OCV_Role__c = name,
-      FinServ__CreateInverseRole__c = false
-    );
-    insert nonReciprocalRole;
-    return nonReciprocalRole;
   }
 }

@@ -216,6 +216,10 @@ public with sharing class GetHelpConstants {
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
     .getRecordTypeId();
+  // Customer Action - Pending Financial Account Updates
+  public static final Id CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID = Schema.SObjectType.Customer_Action__c.getRecordTypeInfosByDeveloperName()
+    .get('Pending_Financial_Account_Updates')
+    .getRecordTypeId();
 
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
@@ -254,6 +258,7 @@ public with sharing class GetHelpConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String ESCALATED_STATUS = 'Escalated';
+  public static final String PROVISIONALLY_CLOSED_STATUS = 'Provisionally Closed';
   public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
   public static final String CLOSED_STATUS_EDUCATED = 'Closed - Customer Educated';
   public static final String CLOSED_STATUS_FUTURE_RELEASE = 'Closed - Future Release';
@@ -278,15 +283,23 @@ public with sharing class GetHelpConstants {
     'ANZ Plus App'
   };
 
+  // Permission Set Group Name
+  public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
+
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
 
-  //UUID Log Status
+  // UUID Log Status
   public static final String IN_PROGRESS_STATUS = 'In Progress';
 
   // Task Record Type for Email Case
   public static final String TASK_EMAIL_RT = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Email_Task')
+    .getRecordTypeId();
+
+  // Task Record Type for Coach Nudge
+  public static final String COACH_NUDGE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Coach_Nudge')
     .getRecordTypeId();
 
   // Email Task Description

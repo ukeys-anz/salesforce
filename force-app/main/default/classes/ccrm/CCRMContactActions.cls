@@ -38,8 +38,10 @@ public with sharing class CCRMContactActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(accList);
-    
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
+      accList
+    );
+
     for (Contact record : records) {
       if (
         existingOrProspectAccounts.prospectAccounts.containsKey(
@@ -164,34 +166,36 @@ public with sharing class CCRMContactActions {
   }
 
   /**
-   * @description Hide commercial contacts by setting Active To Date and Record Type = Hidden on contact
+   * @description Delete commercial contacts when fax, mobile and phone are blank
    * when Phone and Mobile and Fax deleted from commercial contact
    * @param records List of new contacts records
-   * @param oldRecordsMap Map of contacts old records
    */
-  public static void hideCommercialContacts(
-    List<Contact> records,
-    Map<Id, Contact> oldRecordsMap
+  public static void deleteCommercialContactsWithoutContactDetails(
+    List<Contact> records
   ) {
-    List<Contact> recordsToUpdate = new List<Contact>();
+    Set<Id> recordIdsToDelete = new Set<Id>();
     for (Contact record : records) {
-      Contact contactOldRec = oldRecordsMap != null
-        ? oldRecordsMap.get(record.id)
-        : new Contact();
       if (
         record.RecordTypeId == CCRMConstants.CONTACT_BUSINESS_RT_ID &&
-        ((!String.isBlank(contactOldRec.Phone) ||
-        !String.isBlank(contactOldRec.MobilePhone) ||
-        !String.isBlank(contactOldRec.Fax)) &&
-        (String.isBlank(record.Phone) &&
+        String.isBlank(record.Phone) &&
         String.isBlank(record.MobilePhone) &&
-        String.isBlank(record.Fax)))
+        String.isBlank(record.Fax)
       ) {
-        record.Active_To__c = System.today();
-        recordsToUpdate.add(record);
+        recordIdsToDelete.add(record.Id);
       }
     }
-    hideContacts(recordsToUpdate);
+    if (!recordIdsToDelete.isEmpty()) {
+      deleteCommercialContactAsync(recordIdsToDelete);
+    }
+  }
+
+  @future
+  private static void deleteCommercialContactAsync(Set<Id> recordIds) {
+    DMLUtil.deleteRecords(
+      [SELECT Id FROM Contact WHERE Id IN :recordIds],
+      true,
+      false
+    );
   }
 
   /**

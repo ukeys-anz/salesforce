@@ -164,6 +164,11 @@ private class FarOwnersRemovalServiceTest {
       [SELECT COUNT() FROM ContactPointPhone WHERE ParentId = :customer.Id],
       'ContactPointAddress related to the provided customer should be deleted'
     );
+    Assert.areEqual(
+      0,
+      [SELECT COUNT() FROM Contact WHERE AccountId = :customer.Id],
+      'Contact related to the provided customer should be deleted'
+    );
   }
 
   @IsTest
@@ -182,7 +187,8 @@ private class FarOwnersRemovalServiceTest {
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
       String ocvReciprocalRole = faker.randomString(10);
       FinServ__ReciprocalRole__c nonReciprocalRole = CCRMTestDataFactory.createNonReciprocalRole(
-        ocvReciprocalRole
+        ocvReciprocalRole,
+        CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
       );
       insert new List<SObject>{
         new FinServ__ContactContactRelation__c(

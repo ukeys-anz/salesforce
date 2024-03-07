@@ -74,10 +74,10 @@ public with sharing class CustomerDisputeManagementServiceTest {
 
     Test.startTest();
     System.runAs(integrationUser) {
-        CustomerDisputeManagementService.handleCustomerDisputeManagementActions(
-          newNppCases,
-          oldMapOfCases
-        );
+      CustomerDisputeManagementService.handleCustomerDisputeManagementActions(
+        newNppCases,
+        oldMapOfCases
+      );
     }
     Test.stopTest();
   }
@@ -97,7 +97,7 @@ public with sharing class CustomerDisputeManagementServiceTest {
         System.assertEquals(
           'Attempt to de-reference a null object',
           e.getMessage(),
-           'Error in Customer Dispute Management Service'
+          'Error in Customer Dispute Management Service'
         );
       }
     }

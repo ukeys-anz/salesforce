@@ -770,7 +770,7 @@
         <default>false</default>
         <label>Kew (VIC)</label>
     </customValue>
-     <customValue>
+    <customValue>
         <fullName>Balgowlah (NSW)</fullName>
         <default>false</default>
         <label>Balgowlah (NSW)</label>

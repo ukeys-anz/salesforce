@@ -6,7 +6,7 @@
     <description>Financial account status as available in source system</description>
     <externalId>false</externalId>
     <label>Source System Status Display</label>
-    <length>50</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>

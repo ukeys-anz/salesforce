@@ -59,7 +59,9 @@ public with sharing class CCRMContactPointAddressActions {
 
     List<Account> accList = CCRMAccountActions.fetchAccounts(accIdsSet);
 
-    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(accList);
+    CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
+      accList
+    );
 
     for (ContactPointAddress record : records) {
       if (

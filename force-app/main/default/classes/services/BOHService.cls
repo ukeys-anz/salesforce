@@ -22,9 +22,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_SOP +
-      sopId +
-      '/consolidate',
+      System.Label.MS_Get_SOP + sopId + '/consolidate',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -55,9 +53,7 @@ public with sharing class BOHService extends Service {
     }
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Income +
-      '?income-verification=' +
-      verificationStr,
+      System.Label.MS_Income + '?income-verification=' + verificationStr,
       HTTP_METHOD.HTTP_POST,
       headers,
       incomeBody
@@ -113,10 +109,10 @@ public with sharing class BOHService extends Service {
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_Income +
-      '?income-verification=' +
-      verificationStr +
-      '&isIncomeChanged=' +
-      incomeVerifiedChanged,
+        '?income-verification=' +
+        verificationStr +
+        '&isIncomeChanged=' +
+        incomeVerifiedChanged,
       HTTP_METHOD.HTTP_PATCH,
       headers,
       incomeBody
@@ -178,9 +174,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      Label.MS_Get_Credit_Assessments +
-      creditId,
+      'callout:SF_MS_Fabric' + Label.MS_Get_Credit_Assessments + creditId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -235,11 +229,7 @@ public with sharing class BOHService extends Service {
       'callout:SF_MS_Fabric' + Label.MS_Submit_Credit_Finalisation,
       HTTP_METHOD.HTTP_POST,
       headers,
-      '{"creditEnquiryId":"' +
-      creditId +
-      '", "id":"' +
-      assessmentId +
-      '"}'
+      '{"creditEnquiryId":"' + creditId + '", "id":"' + assessmentId + '"}'
     );
 
     return response;
@@ -267,12 +257,12 @@ public with sharing class BOHService extends Service {
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      Label.MS_Delete_Referral_Outcome +
-      creditId +
-      '/assessments/' +
-      assessmentId +
-      '/outcomes/' +
-      outcomeCode,
+        Label.MS_Delete_Referral_Outcome +
+        creditId +
+        '/assessments/' +
+        assessmentId +
+        '/outcomes/' +
+        outcomeCode,
       HTTP_METHOD.HTTP_DELETE,
       headers,
       null
@@ -430,8 +420,8 @@ public with sharing class BOHService extends Service {
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_Income +
-      '?etag=' +
-      SOPDeleteIncomeModel.parse(deleIncomeModel).etag,
+        '?etag=' +
+        SOPDeleteIncomeModel.parse(deleIncomeModel).etag,
       HTTP_METHOD.HTTP_DELETE,
       headers,
       deleIncomeModel
