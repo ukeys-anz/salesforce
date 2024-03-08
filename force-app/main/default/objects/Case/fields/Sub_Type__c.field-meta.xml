@@ -562,6 +562,11 @@
                 <default>false</default>
                 <label>Customer offboarding</label>
             </value>
+            <value>
+                <fullName>Signing Authority Update (ANZ Plus/Save)</fullName>
+                <default>false</default>
+                <label>Signing Authority Update (ANZ Plus/Save)</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -667,6 +672,10 @@
         <valueSettings>
             <controllingFieldValue>Other Enquiries</controllingFieldValue>
             <valueName>Refer a Friend</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <valueName>Signing Authority Update (ANZ Plus/Save)</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
