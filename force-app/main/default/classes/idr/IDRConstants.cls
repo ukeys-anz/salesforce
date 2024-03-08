@@ -117,7 +117,12 @@ public with sharing class IDRConstants {
     '17',
     '19'
   };
-
+  
+  public static final Set<String> FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS = new Set<String>{
+    'Fraud', 
+    'Scam'
+  };
+  
   public static final Set<String> SUB_ISSUE_TYPE_COLLECTIONS = new Set<String>{
     '20',
     '21',
