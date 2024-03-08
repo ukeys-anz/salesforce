@@ -177,7 +177,7 @@ public with sharing class IDRCaseActions {
         {
           record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
-        populateHardshipUpdateDate(records, (Map<Id, Case>) OldMap);
+        populateHardshipUpdateDate(record, oldRecord);
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -315,7 +315,7 @@ populateOwnerChangeFields(record, oldMap);
         ) {
           maxTimeFrameCases.add(c.Id);
         }
-        if(oldCase !=null && c.isClosed && c.IDR_Is_Hardship_Resolution_Letter_Sent__c !=null){
+        if(c.isClosed && String.isNotBlank(c.IDR_Is_Hardship_Resolution_Letter_Sent__c)){
           hardshipCases.add(c.Id);
         }
       }
@@ -958,25 +958,25 @@ populateOwnerChangeFields(record, oldMap);
            return true;
           }  
       return false;
-  }
-  
-  /**
-  * @description Populate modified date when the picklist value is updated
-  * @param records  List of cases from the trigger
-  * @param oldMap Map of pre-update cases supplied from the trigger as well, will be null on beforeInsert
-  */
-  private static void populateHardshipUpdateDate(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    for (Case c : records) {
-      if (
-        c.IDR_Is_Hardship_Resolution_Letter_Sent__c !=
-        oldMap.get(c.Id).IDR_Is_Hardship_Resolution_Letter_Sent__c
-      ) {
-          c.IDR_Hardship_Response_updated_on__c = System.now();
-      }
-    }
 
+  }
+
+ /**
+  * @description Populate modified date when the picklist value is updated
+  * @param record  from the trigger
+  * @param oldCaserecord Old Record from the trigger
+  */
+  @TestVisible
+  private static void populateHardshipUpdateDate(
+    Case record,
+    Case oldCaserecord
+  ) {
+    if (
+      record.IDR_Is_Hardship_Resolution_Letter_Sent__c == oldCaserecord.IDR_Is_Hardship_Resolution_Letter_Sent__c
+    ) {
+        return;
+    }
+    record.IDR_Hardship_Response_updated_on__c = System.now();
+    
   }
 }

@@ -4930,6 +4930,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Customer Resolution - Quality Compliance team intervention</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer not satisfied with outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Customer requested no further communication</fullName>
             <default>false</default>
         </values>
@@ -4946,7 +4954,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Missed Hardship Triggers</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Not Financial Difficulty or Hardship Complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>

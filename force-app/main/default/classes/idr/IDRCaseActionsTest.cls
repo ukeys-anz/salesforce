@@ -585,8 +585,38 @@ private with sharing class IDRCaseActionsTest {
       System.assertEquals(isProductAssetfinance,true);
     
   }
-  
-   /**
+  @isTest
+  static void testHardshipUpdateDate(){
+      
+      Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+      
+      Case caseRecord = createCaseWithIssueTyes();
+      caseRecord.Id = caseRecordId; 
+      
+      Case caseRecord1 = createCaseWithIssueTyes();
+      caseRecord1.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Hardship Written Response Letter Sent';
+      caseRecord1.IDR_Final_Letter_Outcome__c = 'Declined financial assistance';
+      caseRecord1.Id = caseRecordId;  
+      
+      Case caseRecord2 = createCaseWithIssueTyes();
+      caseRecord2.Id = caseRecordId;
+                 
+      Test.startTest();
+      
+      IDRCaseActions.populateHardshipUpdateDate(caseRecord1, caseRecord);
+      IDRCaseActions.populateHardshipUpdateDate(caseRecord2, caseRecord);
+      
+      Test.stopTest(); 
+      
+      System.assertNotEquals(null,
+          caseRecord1.IDR_Hardship_Response_updated_on__c,
+          'Date/time flag should be updated');
+
+      System.assertEquals(null,
+          caseRecord2.IDR_Hardship_Response_updated_on__c,
+          'Date/time flag should be null');
+  }
+      /**
    * @description Create Case record with different issue types
    * @return Case
    */
@@ -615,35 +645,4 @@ private with sharing class IDRCaseActionsTest {
       return caseRecord;
           
    }
-
-    @isTest
-    static void testHardshipUpdateDate(){
-        
-        Product2 testProduct = new Product2(
-            Name = 'Test Product',
-            IsActive = true
-        );
-        insert testProduct;
-        Case c = new Case(
-            RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-            Type = '4',
-            IDR_Subsequent_Issue__c = '20',
-            Product__c = testProduct.Id,
-            Description='Test',
-            IDR_Complainant_Desired_Outcome__c='Test',
-            Status = 'Closed',
-            IDR_Complaint_Outcome__c='1',
-            IDR_Description_of_Outcome__c='Test',
-            IDR_Is_Common__c='No'
-        );
-        insert c;
-        Test.startTest();
-        c.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Hardship Written Response Letter Sent';
-        update c;
-        Case cs = [SELECT IDR_Hardship_Response_updated_on__c FROM Case LIMIT 1];
-        System.assert(
-            cs.IDR_Hardship_Response_updated_on__c!=null,
-            'Date/Time flag should have been populated');
-        Test.stopTest();
- }
 }

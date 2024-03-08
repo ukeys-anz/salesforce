@@ -144,6 +144,12 @@ public with sharing class IDRConstants {
     '96'
   };
 
+  public static final Set<String> IDR_EARLY_RESOLUTION = new Set<String>{
+    '8',
+    '11',
+    'Email'        
+  };
+
   //NotificationHandler Status
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
