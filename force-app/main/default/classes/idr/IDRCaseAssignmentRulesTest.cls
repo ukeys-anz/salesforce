@@ -122,6 +122,8 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Priority = 'Financial Hardship',
         Type = '17',
         Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+        IDR_AFCA_Status__c = '10',
+        IDR_AFCA_Due_Date__c = System.TODAY(),
         Description = 'EDR_Hardship'
       )
     );
@@ -139,6 +141,8 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Type = '5',
         IDR_Subsequent_Issue__c = '38',
         Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+        IDR_AFCA_Status__c = '10',
+        IDR_AFCA_Due_Date__c = System.TODAY(),
         Description = 'Specialised_EarlyRes_Responsible_Lending'
       )
     );
@@ -262,4 +266,57 @@ private with sharing class IDRCaseAssignmentRulesTest {
       'Product Category should be Home loans'
     );
   }
+  /**
+   * @description : This is to test if Product is assigned to escalated IDR Everyday Banking to Customer Complaint.
+   */
+  @IsTest
+  private static void testProduct(){
+
+    Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Id productFamilyId = Lib_FakeIdGenerator.getMockId(Product_Family__c.SObjectType);
+
+      Product_Family__c testProductFamily = new Product_Family__c(
+      Name= 'FX - Spot, Value Today and Value Tomorrow',
+      IDR_Workbasket__c = 'IDR_Everyday_Banking'
+    );
+      
+      Product_Family__c testProductFamily1 = new Product_Family__c(
+      Name= 'Test',
+      IDR_Workbasket__c = 'IDR_Early_Resolution'
+    );
+
+      Product2 testProduct = new Product2(
+      Name = 'FX - Spot, Value Today and Value Tomorrow',
+      ANZ_Product_Code__c ='231',
+      IDR_Product_Family__c = testProductFamily.Id
+    );
+    
+      Product2 testProduct1 = new Product2(
+      Name = 'Test Product',
+      ANZ_Product_Code__c ='223',
+      IDR_Product_Family__c = testProductFamily1.Id
+    );
+
+    Case newcase = new Case(
+      Id = caseRecordId,
+      RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
+      Product__c = testProduct.Id
+    );
+      
+    Case newcase1 = new Case(
+      Id = caseRecordId,
+      Status = IDRConstants.ESCALATED_STATUS
+    );
+
+    Test.startTest();
+      String workbasketId = IDRCaseAssignmentRules.getOwnerId(newcase1,testProductFamily,newcase);
+      String workbasketId1 = IDRCaseAssignmentRules.getOwnerId(newcase1,testProductFamily1,newcase);
+    Test.stopTest();
+
+    System.assertEquals(IDRCaseAssignmentRules.QUEUE_MAP.get('IDR_Everyday_Banking'),
+                        workbasketId,'It should return the expected map');
+    System.assertNotEquals(IDRCaseAssignmentRules.QUEUE_MAP.get('IDR_Everyday_Banking'),
+                        workbasketId1,'It should not return the expected map');
+ }
 }

@@ -8,7 +8,10 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity,PMD.CyclomaticComplexity')
 public with sharing class IDRCaseAssignmentRules {
+
+  @TestVisible
   private static final Map<String, Id> QUEUE_MAP = getWorkbaskets();
+  private static final List<Product2> PRODUCT_LIST = [SELECT ID, ANZ_Product_Code__c from Product2 WHERE ANZ_Product_Code__c='231'];
   /**
    * @description method to call the Case assignment rules
    * @param cases Records in the current context
@@ -16,7 +19,6 @@ public with sharing class IDRCaseAssignmentRules {
    */
   public static void assignCases(Case[] cases, Map<Id, Case> oldMap) {
     Map<Id, Product_Family__c> productFamilyMap = getProductFamilies(cases);
-
     for (Case c : cases) {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
@@ -114,6 +116,7 @@ public with sharing class IDRCaseAssignmentRules {
   @SuppressWarnings(
     'PMD.NcssMethodCount,PMD.StdCyclomaticComplexity,PMD.CyclomaticComplexity'
   )
+  @TestVisible
   private static Id getOwnerId(
     Case rec,
     Product_Family__c oProductFamily,
@@ -121,6 +124,10 @@ public with sharing class IDRCaseAssignmentRules {
   ) {
     String productWorkbasketName = oProductFamily?.IDR_Workbasket__c;
     String strProductFamily = oProductFamily?.Name;
+    String productCode;
+    if(!PRODUCT_LIST.isEmpty()){
+       productCode = PRODUCT_LIST[0].ANZ_Product_Code__c; 
+    }
     //rules to run only on escalation
     if (
       rec.Status == IDRConstants.ESCALATED_STATUS &&
@@ -132,6 +139,10 @@ public with sharing class IDRCaseAssignmentRules {
       //CEO or Board
       if (rec.Origin == '9' || rec.Origin == '10') {
         return QUEUE_MAP.get('IDR_CEO');
+      }
+
+      if(String.isNotBlank(productCode)){
+        return QUEUE_MAP.get('IDR_Everyday_Banking');
       }
 
       // Hardship
