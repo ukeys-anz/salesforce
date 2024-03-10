@@ -7,6 +7,53 @@
     <description>Record a new complaint, for a non existing customer.</description>
     <label>Non-Customer Complaint</label>
     <picklistValues>
+        <picklist>AFCA_Stage__c</picklist>
+        <values>
+            <fullName>Case Management Level 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Case Management Level 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm Resolution With Complainant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Case Management Level 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Preliminary View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preliminary View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rules Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workflow</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>ANZx_Product__c</picklist>
         <values>
             <fullName>ANZ Money - Everyday Account</fullName>
@@ -3971,46 +4018,6 @@
         </values>
         <values>
             <fullName>11</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>12</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>13</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>14</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>3</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>5</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>6</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>7</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>8</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>9</fullName>
             <default>false</default>
         </values>
     </picklistValues>

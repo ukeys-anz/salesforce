@@ -77,6 +77,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
+
     System.enqueueJob(new QueueCaseMilestoneTargetDate(records));
     // Update or Insert CDM record based on number of active self service dispute cases associated to the customer on case insert
     CustomerDisputeManagementService.handleCustomerDisputeManagementActions(
@@ -95,6 +96,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     Logger.debug('On_Before_Update started: ' + System.now());
     GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     IDRCaseActions.beforeUpdate(oldMap, records);
+    IDRCaseActions.populateAfcaRegistrationResponseDate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(oldMap, records);
     GetHelpCaseActions.updateEntitlementOnConvertedCase(

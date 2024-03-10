@@ -564,6 +564,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>AFCA_Stage__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>IDR_AFCA_Reference_Number__c</field>
             </layoutItems>
             <layoutItems>
@@ -603,6 +607,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Registration_Response_Provided__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Date_time_Registration_Response_Provided__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

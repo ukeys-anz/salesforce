@@ -137,9 +137,8 @@ public with sharing class IDRCaseActions {
     Id entitlementId = getEntitlement();
     Map<Id, Product2> productMap = new Map<Id, Product2>([SELECT Id, IDR_Product_Family__c, IDR_Product_Family__r.Name
                                                          FROM Product2
-                                                          WHERE IDR_Product_Family__r.Name = 'Asset finance']);
+                                                          WHERE IDR_Product_Family__r.Name = 'Asset finance']);                                                  
     Case[] updatePsiTicked = new List<Case>();
-   
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
@@ -938,7 +937,6 @@ populateOwnerChangeFields(record, oldMap);
    */
    @TestVisible
    private static Boolean isProductAssetfinance(Case record, Case oldRecord, Map<Id, Product2> productMap) {
-  
     if((IDRCollectionActions.isCollectionsIssue(oldRecord.Type,oldRecord.IDR_Subsequent_Issue__c)) &&
         (String.isNotBlank(oldRecord.Product__c) &&
           oldRecord.Product__c != record.Product__c && productMap.containsKey(oldRecord.Product__c))
@@ -977,8 +975,24 @@ populateOwnerChangeFields(record, oldMap);
           c.IDR_Hardship_Response_updated_on__c = System.now();
       }
     }
-
+  }
+  /**
+   * @description Populate Date/time Registration Response Provided when AFCA Registration Response Provided is checked
+   * @param oldRecordMap Map of pre-update cases supplied from the trigger as well   
+   * @param records List of cases from the trigger
+   */
+  public static void populateAfcaRegistrationResponseDate( Map<Id, SObject> oldRecordMap, List<Case> records){  
+    for (Case record : records) {
+      if(!record.IDR_AFCA_Registration_Response_Provided__c){
+        continue;
+      }
+      if(oldRecordMap.containskey(record.Id)){
+        Case oldRecord = (Case) oldRecordMap.get(record.Id);       
+        if(oldRecord.IDR_AFCA_Registration_Response_Provided__c != record.IDR_AFCA_Registration_Response_Provided__c && 
+          record.IDR_AFCA_Registration_Response_Provided__c ) {
+              record.Date_time_Registration_Response_Provided__c = DateTime.now();
+          }
+      }   
+    } 
   }
 }
-
-

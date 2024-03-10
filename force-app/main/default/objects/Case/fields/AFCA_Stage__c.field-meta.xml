@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_AFCA_Status__c</fullName>
+    <fullName>AFCA_Stage__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
-    <description>The status of the issue with the Australian Financial Complaints Authority</description>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Capture AFCA stage</description>
     <externalId>false</externalId>
-    <label>AFCA Registration Category</label>
+    <label>AFCA Stage</label>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
@@ -17,72 +17,57 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>1</fullName>
-                <default>false</default>
-                <label>Yes</label>
-            </value>
-            <value>
-                <fullName>2</fullName>
-                <default>false</default>
-                <label>No</label>
-            </value>
-            <value>
-                <fullName>3</fullName>
+                <fullName>Case Management Level 1</fullName>
                 <default>false</default>
                 <label>Case Management Level 1</label>
             </value>
             <value>
-                <fullName>4</fullName>
+                <fullName>Case Management Level 2</fullName>
                 <default>false</default>
                 <label>Case Management Level 2</label>
             </value>
             <value>
-                <fullName>5</fullName>
+                <fullName>Confirm Resolution With Complainant</fullName>
                 <default>false</default>
                 <label>Confirm Resolution With Complainant</label>
             </value>
             <value>
-                <fullName>6</fullName>
+                <fullName>Decision</fullName>
                 <default>false</default>
                 <label>Decision</label>
             </value>
             <value>
-                <fullName>7</fullName>
+                <fullName>Fast Track - Case Management Level 1</fullName>
                 <default>false</default>
                 <label>Fast Track - Case Management Level 1</label>
             </value>
             <value>
-                <fullName>8</fullName>
+                <fullName>Fast Track - Decision</fullName>
                 <default>false</default>
                 <label>Fast Track - Decision</label>
             </value>
             <value>
-                <fullName>9</fullName>
+                <fullName>Fast Track - Preliminary View</fullName>
                 <default>false</default>
                 <label>Fast Track - Preliminary View</label>
             </value>
             <value>
-                <fullName>10</fullName>
-                <default>false</default>
-                <label>IDR Referral</label>
-            </value>
-            <value>
-                <fullName>11</fullName>
-                <default>false</default>
-                <label>Post-IDR Referral</label>
-            </value>
-            <value>
-                <fullName>12</fullName>
+                <fullName>Preliminary View</fullName>
                 <default>false</default>
                 <label>Preliminary View</label>
             </value>
             <value>
-                <fullName>13</fullName>
+                <fullName>Registration</fullName>
                 <default>false</default>
-                <label>Rules review</label>
+                <label>Registration</label>
             </value>
             <value>
-                <fullName>14</fullName>
+                <fullName>Rules Review</fullName>
+                <default>false</default>
+                <label>Rules Review</label>
+            </value>
+            <value>
+                <fullName>Workflow</fullName>
                 <default>false</default>
                 <label>Workflow</label>
             </value>

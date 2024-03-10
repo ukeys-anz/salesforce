@@ -1795,6 +1795,8 @@ private class CaseTriggerHandlerTest {
         new Case(
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_AFCA_Status__c = '10',
+          IDR_AFCA_Due_Date__c = System.TODAY(),
           IDR_Customer_Number__c = '1234567890',
           Priority = 'Financial Hardship',
           Type = '9',
@@ -1841,6 +1843,8 @@ private class CaseTriggerHandlerTest {
         new Case(
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_AFCA_Status__c = '10',
+          IDR_AFCA_Due_Date__c = System.TODAY(),
           IDR_Customer_Number__c = '1234567890',
           Priority = 'Standard',
           Type = '5',
@@ -1892,6 +1896,8 @@ private class CaseTriggerHandlerTest {
     Case parentCase = new Case(
       RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
       Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+      IDR_AFCA_Status__c = '10',
+      IDR_AFCA_Due_Date__c = System.TODAY(),
       IDR_Customer_Number__c = '1234567890',
       Priority = 'Standard',
       Type = '5',
@@ -1904,6 +1910,8 @@ private class CaseTriggerHandlerTest {
         new Case(
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_AFCA_Status__c = '10',
+          IDR_AFCA_Due_Date__c = System.TODAY(),
           IDR_Customer_Number__c = '1234567890',
           Priority = 'Standard',
           Type = '5',
@@ -1939,6 +1947,8 @@ private class CaseTriggerHandlerTest {
     Case custCompCase = new Case(
       RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
       Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+      IDR_AFCA_Status__c = '10',
+      IDR_AFCA_Due_Date__c = System.TODAY(),
       IDR_Customer_Number__c = '1234567890',
       Priority = 'Standard',
       Type = '5',
@@ -3867,7 +3877,6 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
     verifyCaseSubject(theCase);
   }
-
   @isTest
   public static void testCaseProvisionallyClosedDateTimeUpdateScenario() {
     Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];

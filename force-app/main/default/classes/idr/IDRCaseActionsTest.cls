@@ -7,7 +7,6 @@
 
 @isTest
 private with sharing class IDRCaseActionsTest {
-
   @isTest
   static void testFormatedCaseNumber() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
@@ -615,34 +614,66 @@ private with sharing class IDRCaseActionsTest {
             'Date/Time flag should have been populated');
         Test.stopTest();
     }
-  
-   /**
-   * @description Create Case record with different issue types
-   * @return Case
-   */
-
-    private static Case createCaseWithIssueTyes(){
+  @isTest
+  static void testpopulateAfcaRegistrationResponseDate(){
       
-      Case caseRecord = new Case();
-      caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-      caseRecord.IDR_Customer_Number__c = '1234567890';
-      caseRecord.Status = 'Open';
-      caseRecord.IDR_Account_Card_Policy_Number__c='N/A';
-      caseRecord.isEscalated = false;
-      caseRecord.IDR_Second_Issue__c = true;
-      caseRecord.IDR_Third_Issue__c = true;
-      caseRecord.Type = '4';
-      caseRecord.IDR_Issue_Type_2__c = '9';
-      caseRecord.IDR_Issue_Type_3__c = '17';
-      caseRecord.IDR_Subsequent_Issue__c = '20';
-      caseRecord.IDR_Subsequent_Issue_2__c = '57';
-      caseRecord.IDR_Subsequent_Issue_3__c = '24';
-      caseRecord.IDR_Product_Category__c='Asset finance';
-      caseRecord.IDR_Account_Card_Policy_Number_2__c='N/A';
-      caseRecord.IDR_Account_Card_Policy_Number_3__c ='N/A';
-      caseRecord.Description='Test';
-      caseRecord.IDR_Complainant_Desired_Outcome__c='Test';
-      return caseRecord;
-          
+      Id caseRecordId1 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);  
+      Id caseRecordId2 = Lib_FakeIdGenerator.getMockId(Case.SObjectType); 
+      Case caseRecord1 = createCaseWithIssueTyes();
+      caseRecord1.Id = caseRecordId1; 
+      caseRecord1.IDR_AFCA_Registration_Response_Provided__c = true;
+      Case caseRecord2 = createCaseWithIssueTyes();
+      caseRecord2.Id = caseRecordId1; 
+      caseRecord2.IDR_AFCA_Registration_Response_Provided__c = false;
+      Case caseRecord3 = createCaseWithIssueTyes();
+      caseRecord3.IDR_AFCA_Registration_Response_Provided__c = false;
+      caseRecord3.Id = caseRecordId2;
+      Case caseRecord4 = createCaseWithIssueTyes();
+      caseRecord4.IDR_AFCA_Registration_Response_Provided__c = false;
+      caseRecord4.Id = caseRecordId2;        
+      List<Case> cases = new List<Case>{caseRecord1,caseRecord3};
+          Map<Id, Case> caseMap = new Map<Id, Case>{
+              caseRecord2.Id =>caseRecord2
+                  };
+      Test.startTest();
+      IDRCaseActions.populateAfcaRegistrationResponseDate(caseMap,cases); 
+      Test.stopTest();
+        System.assertNotEquals(null,
+          caseRecord1.Date_time_Registration_Response_Provided__c,
+          'Date/time flag should be updated');
+        System.assertEquals(null,
+          caseRecord3.Date_time_Registration_Response_Provided__c,
+          'Date/time flag should be null');
+        
    }
+   
+     /**
+  * @description Create Case record with different issue types
+  * @return Case
+  */
+
+   private static Case createCaseWithIssueTyes(){
+     
+     Case caseRecord = new Case();
+     caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
+     caseRecord.IDR_Customer_Number__c = '1234567890';
+     caseRecord.Status = 'Open';
+     caseRecord.IDR_Account_Card_Policy_Number__c='N/A';
+     caseRecord.isEscalated = false;
+     caseRecord.IDR_Second_Issue__c = true;
+     caseRecord.IDR_Third_Issue__c = true;
+     caseRecord.Type = '4';
+     caseRecord.IDR_Issue_Type_2__c = '9';
+     caseRecord.IDR_Issue_Type_3__c = '17';
+     caseRecord.IDR_Subsequent_Issue__c = '20';
+     caseRecord.IDR_Subsequent_Issue_2__c = '57';
+     caseRecord.IDR_Subsequent_Issue_3__c = '24';
+     caseRecord.IDR_Product_Category__c='Asset finance';
+     caseRecord.IDR_Account_Card_Policy_Number_2__c='N/A';
+     caseRecord.IDR_Account_Card_Policy_Number_3__c ='N/A';
+     caseRecord.Description='Test';
+     caseRecord.IDR_Complainant_Desired_Outcome__c='Test';
+     return caseRecord;
+        
+  }
 }

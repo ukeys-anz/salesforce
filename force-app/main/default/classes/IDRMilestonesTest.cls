@@ -48,6 +48,9 @@ public class IDRMilestonesTest {
         new Case(
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_AFCA_Status__c = '10',
+          IDR_AFCA_Due_Date__c = System.TODAY().addDays(40),
+          IDR_Date_Received__c = System.TODAY().addDays(-1),
           IDR_Customer_Number__c = '1234567890',
           Priority = 'Standard',
           Type = '5',
@@ -120,9 +123,9 @@ public class IDRMilestonesTest {
       WHERE CaseId = :newCases[1].Id AND IsCompleted = TRUE
     ];
     System.assertEquals(
-      2,
+      3,
       cmList2.size(),
-      'Both escalation and Max Timeframe milestone should be completed'
+      'All Milestones should be completed'
     );
     Test.stopTest();
   }
@@ -191,6 +194,9 @@ public class IDRMilestonesTest {
         new Case(
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_AFCA_Status__c = '10',
+          IDR_AFCA_Due_Date__c = System.TODAY().addDays(40),
+          IDR_Date_Received__c = System.TODAY().addDays(-1),
           IDR_Customer_Number__c = '1234567890',
           Priority = 'Standard',
           Type = '4',

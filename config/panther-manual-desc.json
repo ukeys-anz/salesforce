@@ -972,7 +972,9 @@
         "Has_complaint_met_RG_271_delay_criteria__c",
         "How_has_delay_criteria_been_met_not_met__c",
         "Date_Time_Provisionally_Closed__c",
-        "My_extended_team_s_cases__c"
+        "My_extended_team_s_cases__c",
+        "AFCA_Stage__c",
+        "Date_time_Registration_Response_Provided__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
