@@ -4,6 +4,7 @@
  * @description Util Class to handle incoming requests from Twilio for Twilio Details Upsert and Interaction Update.
  */
 public with sharing class TwilioServiceUtil {
+  public static Map<String, Id> agentOwnerIdMap = new Map<String, Id>();
   public static Map<String, String> interactionTwilioStatusMap = new Map<String, String>();
   static {
     //Fetch Status Mapping for Twilio and Interaction
@@ -22,23 +23,21 @@ public with sharing class TwilioServiceUtil {
   /**
    * @description method passing incoming twilio context in to Salesforce.
    * @param twilioContextRequest Twilio Context Request
-   * @return InteractionContextServiceUpdate.TwilioContextResponse to send the response back to Twilio
+   * @return TwilioContextResponse to send the response back to Twilio
    */
-  public static List<InteractionContextServiceUpdate.TwilioContextResponse> upsertTwilioDetailsRecord(
-    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioContextRequest
+  public static List<TwilioContextResponse> upsertTwilioDetailsRecord(
+    List<UpdateInteractionByTwilioPayload> twilioContextRequest
   ) {
     List<Interaction> interactionToBeUpdated = new List<Interaction>();
-    List<InteractionContextServiceUpdate.TwilioContextResponse> responseList = new List<InteractionContextServiceUpdate.TwilioContextResponse>();
+    List<TwilioContextResponse> responseList = new List<TwilioContextResponse>();
     List<Twilio_Details__c> twilioDetailRecordToInsertOrUpdate = new List<Twilio_Details__c>();
     List<Database.UpsertResult> lstUpsertResult = new List<Database.UpsertResult>();
     Set<String> agentEmailList = new Set<String>();
-    Map<String, Id> agentOwnerIdMap = new Map<String, Id>();
+
     for (
       Integer intCount = 0; intCount < twilioContextRequest.size(); intCount++
     ) {
-      InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload res = twilioContextRequest.get(
-        intCount
-      );
+      UpdateInteractionByTwilioPayload res = twilioContextRequest.get(intCount);
       Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
       //Checking whether the transaction made for Update or Insert.
       if (String.isNotBlank(res.twilioDetailRecordId)) {
@@ -97,29 +96,14 @@ public with sharing class TwilioServiceUtil {
       Database.UpsertResult twilioRecordUpserted = lstUpsertResult.get(
         intUpsertCount
       );
-      InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload payLoad = twilioContextRequest.get(
+      UpdateInteractionByTwilioPayload payLoad = twilioContextRequest.get(
         intUpsertCount
       );
 
       if (twilioRecordUpserted.isSuccess()) {
-        if (!String.isBlank(payLoad.agentEmail)) {
-          interactionToBeUpdated.add(
-            new Interaction(
-              Id = payLoad.interactionId,
-              OwnerId = agentOwnerIdMap.get(payLoad.agentEmail.toLowerCase()),
-              TwilioDetailsID__c = twilioRecordUpserted.getId(),
-              Status__c = getStatus(payLoad.chatOrCallStatus)
-            )
-          );
-        } else {
-          interactionToBeUpdated.add(
-            new Interaction(
-              Id = payLoad.interactionId,
-              TwilioDetailsID__c = twilioRecordUpserted.getId(),
-              Status__c = getStatus(payLoad.chatOrCallStatus)
-            )
-          );
-        }
+        interactionToBeUpdated.add(
+          createInteractionDetailInstance(payLoad, twilioRecordUpserted)
+        );
       } else {
         List<Database.Error> err = twilioRecordUpserted.getErrors();
         String errorvalues = String.join(err, '/n');
@@ -134,10 +118,10 @@ public with sharing class TwilioServiceUtil {
 
   /**
    * @description Method to generate a response instance
-   * @return `InteractionContextServiceUpdate.TwilioContextResponse`
+   * @return `TwilioContextResponse`
    */
-  private static InteractionContextServiceUpdate.TwilioContextResponse generateResponse() {
-    InteractionContextServiceUpdate.TwilioContextResponse response = new InteractionContextServiceUpdate.TwilioContextResponse();
+  private static TwilioContextResponse generateResponse() {
+    TwilioContextResponse response = new TwilioContextResponse();
     response.success = true;
     response.statusCode = 200;
     return response;
@@ -146,12 +130,10 @@ public with sharing class TwilioServiceUtil {
   /**
    * @description Method to generate a response instance
    * @param errMsg error message for twilio response
-   * @return `InteractionContextServiceUpdate.TwilioContextResponse`
+   * @return `TwilioContextResponse`
    */
-  private static InteractionContextServiceUpdate.TwilioContextResponse generateErrorResponse(
-    String errMsg
-  ) {
-    InteractionContextServiceUpdate.TwilioContextResponse response = new InteractionContextServiceUpdate.TwilioContextResponse();
+  private static TwilioContextResponse generateErrorResponse(String errMsg) {
+    TwilioContextResponse response = new TwilioContextResponse();
     response.errorMessage = errMsg;
     response.success = false;
     response.statusCode = 400;
@@ -176,10 +158,10 @@ public with sharing class TwilioServiceUtil {
    * @param interactionToBeUpdatedList list of interaction
    * @return It will return the response list.
    */
-  public static List<InteractionContextServiceUpdate.TwilioContextResponse> updateInteraction(
+  public static List<TwilioContextResponse> updateInteraction(
     List<Interaction> interactionToBeUpdatedList
   ) {
-    List<InteractionContextServiceUpdate.TwilioContextResponse> responseList = new List<InteractionContextServiceUpdate.TwilioContextResponse>();
+    List<TwilioContextResponse> responseList = new List<TwilioContextResponse>();
     List<Database.SaveResult> results = Database.update(
       interactionToBeUpdatedList,
       false
@@ -250,5 +232,54 @@ public with sharing class TwilioServiceUtil {
           .TwilioDetailsID__c = twilioRecordInserted.getId();
       }
     }
+  }
+
+  /**
+   * @description Method to check whether it is a normal call or conference call
+   * @param twilioContextRequest TwilioContextRequest from Twilio
+   * @return return true if it's a conference call
+   */
+  public static Boolean checkIsConference(
+    UpdateInteractionByTwilioPayload twilioContextRequest
+  ) {
+    return twilioContextRequest.isConference != null &&
+      twilioContextRequest.isConference;
+  }
+  /**
+   * @description Method to check whether it is a normal chat or transfer chat
+   * @param twilioContextRequest TwilioContextRequest from Twilio
+   * @return return true if it's a Transfer chat
+   */
+  private static Boolean checkIsTransfer(
+    UpdateInteractionByTwilioPayload twilioContextRequest
+  ) {
+    return twilioContextRequest.transfer != null &&
+      String.isNotBlank(twilioContextRequest.transfer);
+  }
+  /**
+   * @description Method to create Interaction instance for owner update if needed
+   * @param payLoad TwilioContextRequest from Twilio
+   * @param twilioRecordUpserted twilioRecord upserted result
+   * @return return Interaction instance to be updated
+   */
+  private static Interaction createInteractionDetailInstance(
+    UpdateInteractionByTwilioPayload payLoad,
+    Database.UpsertResult twilioRecordUpserted
+  ) {
+    Interaction interactionToUpsert = new Interaction();
+    interactionToUpsert.Id = payLoad.interactionId;
+    interactionToUpsert.TwilioDetailsID__c = twilioRecordUpserted.getId();
+    interactionToUpsert.Status__c = getStatus(payLoad.chatOrCallStatus);
+    if (String.isNotBlank(payLoad.agentEmail) && !checkIsConference(payLoad)) {
+      interactionToUpsert.OwnerId = agentOwnerIdMap.get(
+        payLoad.agentEmail.toLowerCase()
+      );
+    }
+    if (checkIsTransfer(payLoad)) {
+      interactionToUpsert.Chat_Queue__c = payLoad.queueName;
+      interactionToUpsert.Transfer__c = payLoad.transfer;
+    }
+
+    return interactionToUpsert;
   }
 }

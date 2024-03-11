@@ -2063,7 +2063,9 @@
         "Focus_Area__c",
         "Twilio_ID__c",
         "TwilioDetailsID__c",
-        "Video_Call__c"
+        "Video_Call__c",
+        "Transfer__c",
+        "Chat_Queue__c"
       ],
       "IA-2468715": [
         "Loan_Application__c",
@@ -2095,8 +2097,15 @@
         "LastModifiedDate"
       ]
     },
-    "Interaction_Attendee": {
-      "IA-2468715": ["AttendeeType", "UserId", "Time__c"]
+    "InteractionAttendee": {
+      "IA-2468715": ["AttendeeType", "UserId", "Time__c"],
+      "IA-2415984": [
+        "Attendee_Phone__c",
+        "Attendee_Name__c",
+        "UniqueKeyForInteractionAttendee__c"
+      ],
+      "IA-2415860": ["Attendee_Name_Formula__c"],
+      "IA-2530753": ["Conversation_Sid__c"]
     },
     "Known_Issues__c": {
       "IA-2468715": [
