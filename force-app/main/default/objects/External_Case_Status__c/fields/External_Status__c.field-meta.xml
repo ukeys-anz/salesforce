@@ -530,6 +530,16 @@
                 <default>false</default>
                 <label>Pending-Error</label>
             </value>
+            <value>
+                <fullName>Resolved-System</fullName>
+                <default>false</default>
+                <label>Resolved-System</label>
+            </value>
+            <value>
+                <fullName>Resolved-SystemError</fullName>
+                <default>false</default>
+                <label>Resolved-SystemError</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
