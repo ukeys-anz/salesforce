@@ -16,13 +16,13 @@ public with sharing class FinancialAccountTriggerHandlerTest {
       Profile integrationProfile = CommonUtil.getProfileByName(
         'Integration User'
       );
-      UserRole anzRole = CommonUtil.getUserRoleByDevName('ANZ');
+      UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
       User contractEventIntegrationUser = TestUtil.createTestUser(
         new Map<String, Object>{
           'FirstName' => 'Contract Event',
           'LastName' => 'Integration User',
           'ProfileId' => integrationProfile.Id,
-          'UserRoleId' => anzRole.Id
+          'UserRoleId' => anzxRole.Id
         }
       );
 
