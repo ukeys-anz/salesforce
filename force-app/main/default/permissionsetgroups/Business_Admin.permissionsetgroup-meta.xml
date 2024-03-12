@@ -4,6 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Business_Admin</label>
     <permissionSets>Author_Reports_and_Dashboards</permissionSets>
+    <permissionSets>Export_Reports</permissionSets>
     <permissionSets>Manage_Users</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
