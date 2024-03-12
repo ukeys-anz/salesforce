@@ -133,7 +133,7 @@ public with sharing class InteractionAttendeeActionsTest {
 
     System.assertEquals(
       true,
-      interactionAttendeeList == null,
+      interactionAttendeeList.isEmpty(),
       'Interaction Attendee instance will not be created'
     );
   }
@@ -146,7 +146,7 @@ public with sharing class InteractionAttendeeActionsTest {
     List<InteractionAttendee> attendeeList = (List<InteractionAttendee>) interactionList[0]
       .Attendees;
     Test.startTest();
-    Map<Id, Set<String>> createInteractionAndAttendeeRoleMap = InteractionAttendeeActions.createInteractionAndAttendeeRoleMap(
+    Map<Id, String> createInteractionAndAttendeeRoleMap = InteractionAttendeeActions.createInteractionAndAttendeeRoleMap(
       attendeeList
     );
     Test.stopTest();
@@ -236,7 +236,7 @@ public with sharing class InteractionAttendeeActionsTest {
     Map<Id, Set<String>> createInteractionAttendeeMap = InteractionAttendeeActions.createInteractionAttendeeMap(
       interactionAttendeeList
     );
-    Map<Id, Set<String>> createInteractionAndAttendeeRoleMap = InteractionAttendeeActions.createInteractionAndAttendeeRoleMap(
+    Map<Id, String> createInteractionAndAttendeeRoleMap = InteractionAttendeeActions.createInteractionAndAttendeeRoleMap(
       interactionAttendeeList
     );
 
@@ -253,7 +253,7 @@ public with sharing class InteractionAttendeeActionsTest {
       'Attendees__c On Interaction Updated With Desiserd Values'
     );
     System.assertEquals(
-      'Coach',
+      '{"005Bm000006ZzmlIAC":"Coach"}',
       interactionUpdatedList[0].Attendees_and_Roles__c,
       'Attendees_and_Roles__c On Interaction Updated With Desiserd Values'
     );

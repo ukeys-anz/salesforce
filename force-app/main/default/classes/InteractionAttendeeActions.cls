@@ -41,14 +41,14 @@ public with sharing class InteractionAttendeeActions {
     Map<Id, Set<String>> interactionAndAttendeeMap = createInteractionAttendeeMap(
       attendeeList
     );
-    Map<Id, Set<String>> interactionAndAttendeeRoleMap = createInteractionAndAttendeeRoleMap(
+    Map<Id, String> createInteractionAndAttendeeRoleMap = createInteractionAndAttendeeRoleMap(
       attendeeList
     );
 
     List<Interaction> lstInteractionTobeUpdated = updateAttendeeAndRoleOnInteraction(
       interactionMap,
       interactionAndAttendeeMap,
-      interactionAndAttendeeRoleMap
+      createInteractionAndAttendeeRoleMap
     );
 
     DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
@@ -261,11 +261,12 @@ public with sharing class InteractionAttendeeActions {
     UpdateInteractionByTwilioPayload twilioContextRequest,
     Map<String, Id> agentOwnerIdMap
   ) {
+    List<InteractionAttendee> interactionAttendeeList = new List<InteractionAttendee>();
+
     if (!TwilioServiceUtil.checkIsConference(twilioContextRequest)) {
-      return null;
+      return interactionAttendeeList;
     }
 
-    List<InteractionAttendee> interactionAttendeeList = new List<InteractionAttendee>();
     InteractionAttendee intattendee = new InteractionAttendee();
     intattendee.AttendeeType = fetchAttendeeType(
       twilioContextRequest.agentEmail
@@ -366,24 +367,21 @@ public with sharing class InteractionAttendeeActions {
    * @return Map of Interaction Id and Set of InteractionAttendee of Interaction.
    */
   @TestVisible
-  private static Map<Id, Set<String>> createInteractionAndAttendeeRoleMap(
+  private static Map<Id, String> createInteractionAndAttendeeRoleMap(
     List<InteractionAttendee> attendeeList
   ) {
-    Map<Id, Set<String>> interactionAndAttendeeRoleMap = new Map<Id, Set<String>>();
+    Map<Id, String> internalUserIdAndAttendeeRoleMap = new Map<Id, String>();
     for (InteractionAttendee attendant : attendeeList) {
       if (attendant.AttendeeType != InteractionConstants.INTERNAL) {
         continue;
       }
-      if (!interactionAndAttendeeRoleMap.containsKey(attendant.InteractionId)) {
-        interactionAndAttendeeRoleMap.put(
-          attendant.InteractionId,
-          new Set<String>()
-        );
-      }
-      interactionAndAttendeeRoleMap.get(attendant.InteractionId)
-        .add(attendant.User.UserRole.Name);
+
+      internalUserIdAndAttendeeRoleMap.put(
+        attendant.UserId,
+        attendant.User.UserRole.Name
+      );
     }
-    return interactionAndAttendeeRoleMap;
+    return internalUserIdAndAttendeeRoleMap;
   }
 
   /**
@@ -422,28 +420,25 @@ public with sharing class InteractionAttendeeActions {
    * @description create List<Interaction> to be updated for adding new attendees and attendees role
    * @param interactionMap Map of Interaction with Attendee Details
    * @param interactionAndAttendeeMap Map of Interaction Id and Set of Attendees
-   * @param interactionAndAttendeeRoleMap Map of Interaction Id and Set of Attendees Role
+   * @param createInteractionAndAttendeeRoleMap Map of User Id and Attendees Role
    * @return List<Interaction> to be updated
    */
   @TestVisible
   private static List<Interaction> updateAttendeeAndRoleOnInteraction(
     Map<Id, Interaction> interactionMap,
     Map<Id, Set<String>> interactionAndAttendeeMap,
-    Map<Id, Set<String>> interactionAndAttendeeRoleMap
+    Map<Id, String> createInteractionAndAttendeeRoleMap
   ) {
     List<Interaction> lstInteractionToBeUpdated = new List<Interaction>();
     for (Interaction interact : interactionMap.values()) {
       Set<String> uniqueAttendees = interactionAndAttendeeMap.get(interact.Id);
-      Set<String> uniqueAttendeesRoles = interactionAndAttendeeRoleMap.get(
-        interact.Id
-      );
+
       String strUniqueAttendees = String.join(
         new List<String>(uniqueAttendees),
         ','
       );
-      String strUniqueRoles = String.join(
-        new List<String>(uniqueAttendeesRoles),
-        ','
+      String strUniqueRoles = JSON.serialize(
+        createInteractionAndAttendeeRoleMap
       );
 
       lstInteractionToBeUpdated.add(
