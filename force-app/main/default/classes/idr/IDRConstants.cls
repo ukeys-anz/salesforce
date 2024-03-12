@@ -117,7 +117,12 @@ public with sharing class IDRConstants {
     '17',
     '19'
   };
-
+  
+  public static final Set<String> FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS = new Set<String>{
+    'Fraud', 
+    'Scam'
+  };
+  
   public static final Set<String> SUB_ISSUE_TYPE_COLLECTIONS = new Set<String>{
     '20',
     '21',
@@ -142,6 +147,12 @@ public with sharing class IDRConstants {
     '22',
     '23',
     '96'
+  };
+
+  public static final Set<String> IDR_EARLY_RESOLUTION = new Set<String>{
+    '8',
+    '11',
+    'Email'        
   };
 
   //NotificationHandler Status
@@ -313,8 +324,10 @@ public with sharing class IDRConstants {
           'EDR_Hardship',
           'EDR_Wealth',
           'IDR_Satellite',
-          'IDR_Spare', //IDR Disputes & Scams
-          'EDR_CM_Everyday_Banking_Wealth' // EDR Scams
+          'IDR_Spare', //IDR Disputes
+          'EDR_CM_Everyday_Banking_Wealth', // EDR Scams
+          'IDR_Scams', // IDR Scams
+          'IDR_Deceased_Estates'
         };
       }
       return workBasketNames;

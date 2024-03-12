@@ -417,7 +417,8 @@
         "Queue__c",
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
-        "Task_Sub_Type__c"
+        "Task_Sub_Type__c",
+        "My_extended_team_s_tasks__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
@@ -643,6 +644,8 @@
         "Bank_ATM__c",
         "Card_In_Possession_During_Transaction__c",
         "Date_Closed__c",
+        "Previous_Case_Owner__c",
+        "Date_Case_allocated_to_CM__c",
         "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",
@@ -677,6 +680,10 @@
         "IDR_Date_Received__c",
         "IDR_Determination_Due__c",
         "IDR_Document_Count__c",
+        "IDR_Final_Letter_Outcome__c",
+        "IDR_Hardship_Status__c",
+        "IDR_Hardship_Response_updated_on__c",
+        "IDR_Is_Hardship_Resolution_Letter_Sent__c",
         "IDR_Parent_Systemic_Issue__c",
         "IDR_Progressed_Status__c",
         "IDR_Teleconference_Call_TCC__c",
@@ -916,7 +923,8 @@
         "Provided_details_to_Prod_Manufacturer_3__c",
         "Has_complaint_met_RG_271_delay_criteria__c",
         "How_has_delay_criteria_been_met_not_met__c",
-        "Date_Time_Provisionally_Closed__c"
+        "Date_Time_Provisionally_Closed__c",
+        "My_extended_team_s_cases__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -3089,6 +3097,7 @@
         "Review_Period_Month__c",
         "Review_Period_Year__c",
         "REaL_form_categories__c",
+        "REAL_form_Comments__c",
         "REaL_form_receipt_no__c",
         "Relevant_internal_information_obtained__c",
         "Risk_and_Compliance_Category__c",

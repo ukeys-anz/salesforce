@@ -69,6 +69,11 @@
                 <default>false</default>
                 <label>IDR Early Resolution</label>
             </value>
+            <value>
+                <fullName>IDR_Deceased_Estates</fullName>
+                <default>false</default>
+                <label>IDR Deceased Estates</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
