@@ -287,7 +287,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
             <fullName>Amount not received by payee</fullName>
@@ -479,7 +479,7 @@
             <default>true</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Fraud_Address_Valid__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -490,7 +490,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
         <values>
             <fullName>Customer Overseas</fullName>
@@ -2435,7 +2435,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Fraud_ID_Legible__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -2511,7 +2511,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Fraud_Middle_Initial__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -2533,7 +2533,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Fraud_PIN_Status__c</picklist>
         <values>
             <fullName>Forgot PIN</fullName>
@@ -2566,7 +2566,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Fraud_Provided_Document_Type__c</picklist>
         <values>
             <fullName>Drivers Licence</fullName>
@@ -4359,7 +4359,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>IDR_Complainant_Type__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -4388,7 +4388,7 @@
             <fullName>3</fullName>
             <default>false</default>
         </values>
-                <values>
+        <values>
             <fullName>Merits Assessments</fullName>
             <default>false</default>
         </values>
@@ -4400,7 +4400,7 @@
             <fullName>Outside of Rules</fullName>
             <default>false</default>
         </values>
-<values>
+        <values>
             <fullName>Merged</fullName>
             <default>false</default>
         </values>
@@ -4863,7 +4863,7 @@
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
-                <values>
+        <values>
             <fullName>21</fullName>
             <default>false</default>
         </values>
@@ -4895,7 +4895,7 @@
             <fullName>28</fullName>
             <default>false</default>
         </values>
-<values>
+        <values>
             <fullName>18</fullName>
             <default>false</default>
         </values>
@@ -6455,7 +6455,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -7937,7 +7937,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>1</fullName>

@@ -36,16 +36,14 @@ public class ExternalCaseStatusTriggerHandlerTest {
       'External_Case_Id__c' => 'ABC1234',
       'Status' => 'Under Investigation'
     };
+    Test.startTest();
     theCase = TestDataFactory.updateCase(theCase, dataMap);
-
     String caseStatusBefore = theCase.Status;
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = theCase.Id,
       External_Status__c = 'Pending-xxxxx',
       Status_Event_ID__c = 'Status_Event_ID__c_0'
     );
-
-    Test.startTest();
     insert externalCaseStatus;
     theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
     System.assertEquals(
@@ -74,11 +72,10 @@ public class ExternalCaseStatusTriggerHandlerTest {
       'External_Case_Id__c' => 'ABC1234',
       'Status' => 'Under Investigation'
     };
+    Test.startTest();
     theCase = TestDataFactory.updateCase(theCase, dataMap);
 
     theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
-
-    Test.startTest();
     verifyRelatedCaseUpdate(theCase);
     Test.stopTest();
   }

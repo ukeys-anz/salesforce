@@ -410,7 +410,7 @@
         <field>Case.IDR_Description_of_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Determination_Due__c</field>
         <readable>true</readable>

@@ -485,16 +485,12 @@ private with sharing class IDRCaseActionsTest {
       LIMIT 1
     ];
     System.assertEquals(
-      c.IDR_Issue_Type_2__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
       c.IDR_Knowledge_Keyword_1__c,
       'Expected Knowledge Keyword 1 to complete on case create, however it did not'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
       c.IDR_Knowledge_Keyword_2__c,
       'Expected Knowledge Keyword 2 to complete on case create, however it did not'
     );
@@ -520,160 +516,156 @@ private with sharing class IDRCaseActionsTest {
     ];
 
     System.assertEquals(
-      c.IDR_Issue_Type_2__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
       c.IDR_Knowledge_Keyword_1__c,
       'Expected Knowledge Keyword 1 on update, however it did not'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
       c.IDR_Knowledge_Keyword_2__c,
       'Expected Knowledge Keyword 2 on update, however it did not'
     );
   }
   @isTest
-  static void testProductAssetfinance(){
-      
-      String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-      
-      Product_Family__c testProductFamily = new Product_Family__c();
-      testProductFamily.Name='Asset finance';
-      testProductFamily.IDR_ANZ_com_Product_Category__c = 'Asset finance';
-      testProductFamily.IDR_Workbasket__c = 'IDR_Business_Owners';
-      testProductFamily.Id = Lib_FakeIdGenerator.getMockId(Product_Family__c.SObjectType);
-      
-      Product2 testProduct = new Product2();
-      testProduct.Name = 'Asset Finance';
-      testProduct.IsActive = true;
-      testProduct.IDR_Product_Family__c = testProductFamily.Id;
-      testProduct.Id =Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-      
-      Product2 testProduct1 = new Product2();
-      testProduct1.Name = 'ANZ Flyer Card';
-      testProduct1.IsActive = true;
-      testProduct1.Id =Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-      
-      Product2 testProduct2 = new Product2();
-      testProduct2.Name = 'Test Product';
-      testProduct2.IsActive = true;
-      testProduct2.Id =Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-      
-      Map<Id, Product2> productMap = new Map<Id, Product2>{
-        testProduct.Id =>testProduct,testProduct1.Id =>testProduct1,testProduct2.Id =>testProduct2
-      };
-      
-      Case[] cases = new List<Case>();
-      Case caseRecord = createCaseWithIssueTyes();
-      caseRecord.Product__c = testProduct.Id;
-      caseRecord.IDR_Product_2__c = testProduct1.Id;
-      caseRecord.IDR_Product_3__c = testProduct2.Id;
-      caseRecord.Id = caseRecordId;
-      
-      
-      Case caseRecord1 = createCaseWithIssueTyes();
-      caseRecord1.Product__c = testProduct1.Id;
-      caseRecord1.Id = caseRecordId;
-      
-      Test.startTest();
-        Boolean isProductAssetfinance = IDRCaseActions.isProductAssetfinance(caseRecord, caseRecord1, productMap);
-      Test.stopTest();
-      
-      System.assertEquals(isProductAssetfinance,true);
-    
+  static void testProductAssetfinance() {
+    String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Product_Family__c testProductFamily = new Product_Family__c();
+    testProductFamily.Name = 'Asset finance';
+    testProductFamily.IDR_ANZ_com_Product_Category__c = 'Asset finance';
+    testProductFamily.IDR_Workbasket__c = 'IDR_Business_Owners';
+    testProductFamily.Id = Lib_FakeIdGenerator.getMockId(
+      Product_Family__c.SObjectType
+    );
+
+    Product2 testProduct = new Product2();
+    testProduct.Name = 'Asset Finance';
+    testProduct.IsActive = true;
+    testProduct.IDR_Product_Family__c = testProductFamily.Id;
+    testProduct.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+
+    Product2 testProduct1 = new Product2();
+    testProduct1.Name = 'ANZ Flyer Card';
+    testProduct1.IsActive = true;
+    testProduct1.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+
+    Product2 testProduct2 = new Product2();
+    testProduct2.Name = 'Test Product';
+    testProduct2.IsActive = true;
+    testProduct2.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+
+    Map<Id, Product2> productMap = new Map<Id, Product2>{
+      testProduct.Id => testProduct,
+      testProduct1.Id => testProduct1,
+      testProduct2.Id => testProduct2
+    };
+
+    Case[] cases = new List<Case>();
+    Case caseRecord = createCaseWithIssueTyes();
+    caseRecord.Product__c = testProduct.Id;
+    caseRecord.IDR_Product_2__c = testProduct1.Id;
+    caseRecord.IDR_Product_3__c = testProduct2.Id;
+    caseRecord.Id = caseRecordId;
+
+    Case caseRecord1 = createCaseWithIssueTyes();
+    caseRecord1.Product__c = testProduct1.Id;
+    caseRecord1.Id = caseRecordId;
+
+    Test.startTest();
+    Boolean isProductAssetfinance = IDRCaseActions.isProductAssetfinance(
+      caseRecord,
+      caseRecord1,
+      productMap
+    );
+    Test.stopTest();
+
+    System.assertEquals(isProductAssetfinance, true);
   }
   @isTest
-    static void testHardshipUpdateDate(){
-        
-        Product2 testProduct = new Product2(
-            Name = 'Test Product',
-            IsActive = true
-        );
-        insert testProduct;
-        Case c = new Case(
-            RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-            Type = '4',
-            IDR_Subsequent_Issue__c = '20',
-            Product__c = testProduct.Id,
-            Description='Test',
-            IDR_Complainant_Desired_Outcome__c='Test',
-            Status = 'Closed',
-            IDR_Complaint_Outcome__c='1',
-            IDR_Description_of_Outcome__c='Test',
-            IDR_Is_Common__c='No'
-        );
-        insert c;
-        Test.startTest();
-        c.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Hardship Written Response Letter Sent';
-        update c;
-        Case cs = [SELECT IDR_Hardship_Response_updated_on__c FROM Case LIMIT 1];
-        System.assert(
-            cs.IDR_Hardship_Response_updated_on__c!=null,
-            'Date/Time flag should have been populated');
-        Test.stopTest();
-    }
+  static void testHardshipUpdateDate() {
+    Product2 testProduct = new Product2(Name = 'Test Product', IsActive = true);
+    insert testProduct;
+    Case c = new Case(
+      RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+      Type = '4',
+      IDR_Subsequent_Issue__c = '20',
+      Product__c = testProduct.Id,
+      Description = 'Test',
+      IDR_Complainant_Desired_Outcome__c = 'Test',
+      Status = 'Closed',
+      IDR_Complaint_Outcome__c = '1',
+      IDR_Description_of_Outcome__c = 'Test',
+      IDR_Is_Common__c = 'No'
+    );
+    insert c;
+    Test.startTest();
+    c.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Hardship Written Response Letter Sent';
+    update c;
+    Case cs = [SELECT IDR_Hardship_Response_updated_on__c FROM Case LIMIT 1];
+    System.assert(
+      cs.IDR_Hardship_Response_updated_on__c != null,
+      'Date/Time flag should have been populated'
+    );
+    Test.stopTest();
+  }
   @isTest
-  static void testpopulateAfcaRegistrationResponseDate(){
-      
-      Id caseRecordId1 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);  
-      Id caseRecordId2 = Lib_FakeIdGenerator.getMockId(Case.SObjectType); 
-      Case caseRecord1 = createCaseWithIssueTyes();
-      caseRecord1.Id = caseRecordId1; 
-      caseRecord1.IDR_AFCA_Registration_Response_Provided__c = true;
-      Case caseRecord2 = createCaseWithIssueTyes();
-      caseRecord2.Id = caseRecordId1; 
-      caseRecord2.IDR_AFCA_Registration_Response_Provided__c = false;
-      Case caseRecord3 = createCaseWithIssueTyes();
-      caseRecord3.IDR_AFCA_Registration_Response_Provided__c = false;
-      caseRecord3.Id = caseRecordId2;
-      Case caseRecord4 = createCaseWithIssueTyes();
-      caseRecord4.IDR_AFCA_Registration_Response_Provided__c = false;
-      caseRecord4.Id = caseRecordId2;        
-      List<Case> cases = new List<Case>{caseRecord1,caseRecord3};
-          Map<Id, Case> caseMap = new Map<Id, Case>{
-              caseRecord2.Id =>caseRecord2
-                  };
-      Test.startTest();
-      IDRCaseActions.populateAfcaRegistrationResponseDate(caseMap,cases); 
-      Test.stopTest();
-        System.assertNotEquals(null,
-          caseRecord1.Date_time_Registration_Response_Provided__c,
-          'Date/time flag should be updated');
-        System.assertEquals(null,
-          caseRecord3.Date_time_Registration_Response_Provided__c,
-          'Date/time flag should be null');
-        
-   }
-   
-     /**
-  * @description Create Case record with different issue types
-  * @return Case
-  */
+  static void testpopulateAfcaRegistrationResponseDate() {
+    Id caseRecordId1 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Id caseRecordId2 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Case caseRecord1 = createCaseWithIssueTyes();
+    caseRecord1.Id = caseRecordId1;
+    caseRecord1.IDR_AFCA_Registration_Response_Provided__c = true;
+    Case caseRecord2 = createCaseWithIssueTyes();
+    caseRecord2.Id = caseRecordId1;
+    caseRecord2.IDR_AFCA_Registration_Response_Provided__c = false;
+    Case caseRecord3 = createCaseWithIssueTyes();
+    caseRecord3.IDR_AFCA_Registration_Response_Provided__c = false;
+    caseRecord3.Id = caseRecordId2;
+    Case caseRecord4 = createCaseWithIssueTyes();
+    caseRecord4.IDR_AFCA_Registration_Response_Provided__c = false;
+    caseRecord4.Id = caseRecordId2;
+    List<Case> cases = new List<Case>{ caseRecord1, caseRecord3 };
+    Map<Id, Case> caseMap = new Map<Id, Case>{ caseRecord2.Id => caseRecord2 };
+    Test.startTest();
+    IDRCaseActions.populateAfcaRegistrationResponseDate(caseMap, cases);
+    Test.stopTest();
+    System.assertNotEquals(
+      null,
+      caseRecord1.Date_time_Registration_Response_Provided__c,
+      'Date/time flag should be updated'
+    );
+    System.assertEquals(
+      null,
+      caseRecord3.Date_time_Registration_Response_Provided__c,
+      'Date/time flag should be null'
+    );
+  }
 
-   private static Case createCaseWithIssueTyes(){
-     
-     Case caseRecord = new Case();
-     caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-     caseRecord.IDR_Customer_Number__c = '1234567890';
-     caseRecord.Status = 'Open';
-     caseRecord.IDR_Account_Card_Policy_Number__c='N/A';
-     caseRecord.isEscalated = false;
-     caseRecord.IDR_Second_Issue__c = true;
-     caseRecord.IDR_Third_Issue__c = true;
-     caseRecord.Type = '4';
-     caseRecord.IDR_Issue_Type_2__c = '9';
-     caseRecord.IDR_Issue_Type_3__c = '17';
-     caseRecord.IDR_Subsequent_Issue__c = '20';
-     caseRecord.IDR_Subsequent_Issue_2__c = '57';
-     caseRecord.IDR_Subsequent_Issue_3__c = '24';
-     caseRecord.IDR_Product_Category__c='Asset finance';
-     caseRecord.IDR_Account_Card_Policy_Number_2__c='N/A';
-     caseRecord.IDR_Account_Card_Policy_Number_3__c ='N/A';
-     caseRecord.Description='Test';
-     caseRecord.IDR_Complainant_Desired_Outcome__c='Test';
-     return caseRecord;
-        
+  /**
+   * @description Create Case record with different issue types
+   * @return Case
+   */
+
+  private static Case createCaseWithIssueTyes() {
+    Case caseRecord = new Case();
+    caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
+    caseRecord.IDR_Customer_Number__c = '1234567890';
+    caseRecord.Status = 'Open';
+    caseRecord.IDR_Account_Card_Policy_Number__c = 'N/A';
+    caseRecord.isEscalated = false;
+    caseRecord.IDR_Second_Issue__c = true;
+    caseRecord.IDR_Third_Issue__c = true;
+    caseRecord.Type = '4';
+    caseRecord.IDR_Issue_Type_2__c = '9';
+    caseRecord.IDR_Issue_Type_3__c = '17';
+    caseRecord.IDR_Subsequent_Issue__c = '20';
+    caseRecord.IDR_Subsequent_Issue_2__c = '57';
+    caseRecord.IDR_Subsequent_Issue_3__c = '24';
+    caseRecord.IDR_Product_Category__c = 'Asset finance';
+    caseRecord.IDR_Account_Card_Policy_Number_2__c = 'N/A';
+    caseRecord.IDR_Account_Card_Policy_Number_3__c = 'N/A';
+    caseRecord.Description = 'Test';
+    caseRecord.IDR_Complainant_Desired_Outcome__c = 'Test';
+    return caseRecord;
   }
 }

@@ -287,7 +287,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
             <fullName>Amount not received by payee</fullName>
@@ -2435,7 +2435,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Fraud_ID_Legible__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -4431,7 +4431,7 @@
             <fullName>Outside of Rules</fullName>
             <default>false</default>
         </values>
-<values>
+        <values>
             <fullName>Merged</fullName>
             <default>false</default>
         </values>
@@ -4894,7 +4894,7 @@
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
-                <values>
+        <values>
             <fullName>21</fullName>
             <default>false</default>
         </values>
@@ -6482,7 +6482,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -7964,7 +7964,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>1</fullName>
@@ -13227,7 +13227,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-<picklistValues>
+    <picklistValues>
         <picklist>Transaction_Made_By__c</picklist>
         <values>
             <fullName>Co-Owner</fullName>
