@@ -5,15 +5,67 @@
  */
 @isTest
 public with sharing class StravinskyAPIRepositoryTest {
+  private static final Faker FAKER = new Faker('AU');
+  private static final String EXPECTED_RESPONSE_STAGE_ACK_ID_CHECK_JSON =
+    '{' +
+    '    \"code\": \"failed_precondition\",' +
+    '    \"message\": \"assisted request not expected\", ' +
+    '    \"details\": [' +
+    '        {' +
+    '            \"type\": \"ribbon.service.assistance.v1alpha1.ErrorDetails\",' +
+    '            \"value\": \"CAI\",' +
+    '            \"debug\": {' +
+    '                \"@type\": \"type.googleapis.com/ribbon.service.assistance.v1alpha1.ErrorDetails\",' +
+    '                \"cxOnboardingStage\": \"STAGE_ACK_ID_CHECK\"' +
+    '            }' +
+    '        }' +
+    '    ]' +
+    '}';
+
+  private static final String FAILED_REASON = 'Selfie fail - selfie image is not clear enough to match';
+  private static final String EXPECTED_RESPONSE_STAGE_TNC_JSON =
+    '{' +
+    '    \"code\": \"failed_precondition\",' +
+    '    \"message\": \"assisted request not expected\", ' +
+    '    \"details\": [' +
+    '        {' +
+    '            \"type\": \"ribbon.service.assistance.v1alpha1.ErrorDetails\",' +
+    '            \"value\": \"CAI\",' +
+    '            \"debug\": {' +
+    '                \"@type\": \"type.googleapis.com/ribbon.service.assistance.v1alpha1.ErrorDetails\",' +
+    '                \"cxOnboardingStage\": \"STAGE_TNC\", ' +
+    '                \"retryReason\": \"' +
+    FAILED_REASON +
+    '\"' +
+    '            }' +
+    '        }' +
+    '    ]' +
+    '}';
+
+  private static final String DUMMY_RESPONSE_JSON =
+    '{' +
+    '    \"code\": \"failed_precondition\",' +
+    '    \"message\": \"assisted request not expected\", ' +
+    '    \"details\": [' +
+    '        {' +
+    '            \"type\": \"ribbon.service.assistance.v1alpha1.ErrorDetails\",' +
+    '            \"value\": \"CAI\",' +
+    '            \"debug\": {' +
+    '                \"@type\": \"type.googleapis.com/ribbon.service.assistance.v1alpha1.ErrorDetails\",' +
+    '                \"cxOnboardingStage\": \"DUMMY\" ' +
+    '            }' +
+    '        }' +
+    '    ]' +
+    '}';
+
   @testSetup
   static void setup() {
-    Faker faker = new Faker('AU');
     Account acc = new Account(
       Name = 'TestAccount',
       Display_Name__c = 'TestAccount',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = FAKER.randomString(10),
       ANZx_Customer__c = true,
-      External_Id__c = faker.randomString(10)
+      External_Id__c = FAKER.randomString(10)
     );
 
     insert acc;
@@ -27,12 +79,11 @@ public with sharing class StravinskyAPIRepositoryTest {
       WHERE Display_Name__c = 'TestAccount'
     ];
 
-    Faker faker = new Faker('AU');
     Case newCase = new Case(
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-      Package_Id__c = faker.randomString(10)
+      Package_Id__c = FAKER.randomString(10)
     );
 
     Test.startTest();
@@ -66,14 +117,13 @@ public with sharing class StravinskyAPIRepositoryTest {
       WHERE Display_Name__c = 'TestAccount'
     ];
 
-    Faker faker = new Faker('AU');
     Case newCase = new Case(
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID
     );
 
-    HttpCalloutResponse res = getInvalidResponse();
+    HttpCalloutResponse res = getMockedResponse(false, 500, null);
     Service s = ServiceProvider.getService(StravinskyService.class);
     s.setCalloutResponse(res);
     Exception resultException;
@@ -103,15 +153,13 @@ public with sharing class StravinskyAPIRepositoryTest {
    */
   @isTest
   static void testTriggerTemporalCaseWorkflowFailureResponse() {
-    Faker faker = new Faker('AU');
     Case newCase = new Case(
-      Id = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
       RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-      PersonaId__c = faker.randomString(15),
+      PersonaId__c = FAKER.randomString(15),
       Status = GetHelpConstants.COB_DAON_FAILED_STATUS
     );
 
-    HttpCalloutResponse res = getInvalidResponse();
+    HttpCalloutResponse res = getMockedResponse(false, 500, null);
     Service s = ServiceProvider.getService(StravinskyService.class);
     s.setCalloutResponse(res);
 
@@ -131,18 +179,6 @@ public with sharing class StravinskyAPIRepositoryTest {
       resultException.getMessage(),
       'Exception was expected'
     );
-  }
-
-  /**
-   * @description Mock exception response
-   * @return HttpCalloutResponse
-   */
-  private static HttpCalloutResponse getInvalidResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('exception occured');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
   }
 
   @isTest
@@ -195,7 +231,7 @@ public with sharing class StravinskyAPIRepositoryTest {
       COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS
     );
 
-    HttpCalloutResponse res = getInvalidResponse();
+    HttpCalloutResponse res = getMockedResponse(false, 500, null);
     Service s = ServiceProvider.getService(StravinskyService.class);
     s.setCalloutResponse(res);
 
@@ -277,7 +313,7 @@ public with sharing class StravinskyAPIRepositoryTest {
       cobPid
     );
 
-    HttpCalloutResponse res = getInvalidResponse();
+    HttpCalloutResponse res = getMockedResponse(false, 500, null);
     Service s = ServiceProvider.getService(StravinskyService.class);
     s.setCalloutResponse(res);
 
@@ -297,5 +333,195 @@ public with sharing class StravinskyAPIRepositoryTest {
       resultException.getMessage(),
       'Exception was expected'
     );
+  }
+
+  @isTest
+  static void testHandleTemporalWorkflowResponseSuccessfull() {
+    //Set successfull mock response
+    HttpCalloutResponse response = getMockedResponse(true, 200, null);
+
+    Exception resultException = null;
+
+    Test.startTest();
+    StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
+    StravinskyAPIRepository.CxStageWrapper cobStage;
+    try {
+      cobStage = temporalCaseWorkflowAPI.handleTemporalWorkflowResponse(
+        response
+      );
+    } catch (Exception e) {
+      resultException = e;
+    }
+    Test.stopTest();
+
+    Assert.areEqual(
+      null,
+      resultException,
+      'Exception should not have been thrown'
+    );
+
+    Assert.areEqual(
+      StravinskyAPIRepository.COB_UPDATED,
+      cobStage.cxOnboardingStage,
+      'COB stage should have been: ' + StravinskyAPIRepository.COB_UPDATED
+    );
+  }
+
+  @isTest
+  static void testHandleTemporalWorkflowResponseExpectedResponseStageOnly() {
+    //Set un-successfull expected mock response
+    HttpCalloutResponse response = getMockedResponse(
+      false,
+      412,
+      EXPECTED_RESPONSE_STAGE_ACK_ID_CHECK_JSON
+    );
+
+    Exception resultException = null;
+
+    Test.startTest();
+    StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
+    StravinskyAPIRepository.CxStageWrapper cobStage;
+    try {
+      cobStage = temporalCaseWorkflowAPI.handleTemporalWorkflowResponse(
+        response
+      );
+    } catch (Exception e) {
+      resultException = e;
+    }
+    Test.stopTest();
+
+    Assert.areEqual(
+      null,
+      resultException,
+      'Exception should not have been thrown'
+    );
+    Assert.areEqual(
+      StravinskyAPIRepository.STAGE_ACK_ID_CHECK,
+      cobStage.cxOnboardingStage,
+      'COB stage should have been: ' +
+      StravinskyAPIRepository.STAGE_ACK_ID_CHECK
+    );
+    Assert.isNull(cobStage.retryReason, 'Failed reason should be null');
+  }
+
+  @isTest
+  static void testHandleTemporalWorkflowResponseExpectedResponseStageAndReason() {
+    //Set un-successfull expected mock response
+    HttpCalloutResponse response = getMockedResponse(
+      false,
+      412,
+      EXPECTED_RESPONSE_STAGE_TNC_JSON
+    );
+
+    Exception resultException = null;
+
+    Test.startTest();
+    StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
+    StravinskyAPIRepository.CxStageWrapper cobStage;
+    try {
+      cobStage = temporalCaseWorkflowAPI.handleTemporalWorkflowResponse(
+        response
+      );
+    } catch (Exception e) {
+      resultException = e;
+    }
+    Test.stopTest();
+
+    Assert.areEqual(
+      null,
+      resultException,
+      'Exception should not have been thrown'
+    );
+    Assert.areEqual(
+      StravinskyAPIRepository.STAGE_TNC,
+      cobStage.cxOnboardingStage,
+      'COB stage should have been: ' + StravinskyAPIRepository.STAGE_TNC
+    );
+    Assert.areEqual(
+      FAILED_REASON,
+      cobStage.retryReason,
+      'Failed reason should have been: ' + FAILED_REASON
+    );
+  }
+
+  @isTest
+  static void testHandleTemporalWorkflowResponseNotExpectedResponse() {
+    //Set un-successfull un-expected mock response
+    HttpCalloutResponse response = getMockedResponse(
+      false,
+      412,
+      DUMMY_RESPONSE_JSON
+    );
+
+    Exception resultException = null;
+
+    Test.startTest();
+    StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
+    StravinskyAPIRepository.CxStageWrapper cobStage;
+    try {
+      cobStage = temporalCaseWorkflowAPI.handleTemporalWorkflowResponse(
+        response
+      );
+    } catch (Exception e) {
+      resultException = e;
+    }
+    Test.stopTest();
+
+    Assert.isNotNull(
+      resultException,
+      'Exception should have been thrown due to not expected response'
+    );
+  }
+
+  @isTest
+  static void testHandleTemporalWorkflowResponseException() {
+    //Set un-successfull mock response
+    HttpCalloutResponse response = getMockedResponse(false, 401, null);
+
+    Exception resultException = null;
+
+    Test.startTest();
+    StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
+    StravinskyAPIRepository.CxStageWrapper cobStage;
+    try {
+      cobStage = temporalCaseWorkflowAPI.handleTemporalWorkflowResponse(
+        response
+      );
+    } catch (Exception e) {
+      resultException = e;
+    }
+    Test.stopTest();
+
+    Assert.isNotNull(
+      resultException,
+      'Exception should have been thrown due to unsuccesfull response'
+    );
+  }
+
+  /**
+   * @param successfull true for a successfull mocked response, false for unsuccess,
+   * @param statusCode mocked status code
+   * @param body body of the mocked response
+   * @description Mock exception response
+   * @return HttpCalloutResponse
+   */
+  private static HttpCalloutResponse getMockedResponse(
+    Boolean successfull,
+    Integer statusCode,
+    String body
+  ) {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    if (statusCode == 500) {
+      response.error = new CalloutException('exception occured');
+    } else if (statusCode == 412) {
+      response.error = new CalloutException(body);
+    } else {
+      response.body = body;
+    }
+
+    response.statusCode = statusCode;
+    response.successful = successfull;
+
+    return response;
   }
 }

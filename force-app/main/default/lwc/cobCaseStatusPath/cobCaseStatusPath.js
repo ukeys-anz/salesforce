@@ -18,6 +18,8 @@ const CASE_STATUS_UPDATE_ERROR =
   "Case update failed. Please check Status Update Error field for details";
 const SAME_CASE_STATUS_WARNING =
   "Case can't be updated with the same status. Please select a different status";
+const NOT_MATCHING_VERIFICATION_FAILED_REASON_WARNING =
+  "This case was previously completed, it is now updated with the correct data, you can close this tab now.";
 
 export default class CobCaseStatusPath extends LightningElement {
   @api recordId;
@@ -170,11 +172,11 @@ export default class CobCaseStatusPath extends LightningElement {
               this._newStatus !== FAILED_OK ? undefined : this._newFailedReason,
             ParentId: this.parentId
           };
-          let isCaseUpdated = await updateStatus({
+          let cobCaseUpdateStatus = await updateStatus({
             currentStatus: this.currentStatus,
             cobCase: cobCase
           });
-          if (isCaseUpdated) {
+          if (cobCaseUpdateStatus.isCaseUpdated) {
             this.error = undefined;
             showToast(
               this,
@@ -184,6 +186,22 @@ export default class CobCaseStatusPath extends LightningElement {
               "success",
               ""
             );
+            if (
+              this._newStatus === FAILED_OK &&
+              cobCaseUpdateStatus.cobVerificationFailedReason !== undefined &&
+              cobCaseUpdateStatus.cobVerificationFailedReason !== null &&
+              cobCaseUpdateStatus.cobVerificationFailedReason !==
+                this._newFailedReason
+            ) {
+              showToast(
+                this,
+                "Warning",
+                NOT_MATCHING_VERIFICATION_FAILED_REASON_WARNING,
+                "",
+                "warning",
+                ""
+              );
+            }
           } else {
             showToast(
               this,
@@ -202,7 +220,6 @@ export default class CobCaseStatusPath extends LightningElement {
           this.error = error;
           this.isModalLoading = false;
           this.isModalButtonDisable = false;
-
           showToast(this, "Error!", handleErrors(error), "", "error", "");
         }
       }
