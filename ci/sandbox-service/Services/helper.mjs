@@ -128,6 +128,65 @@ const changeCertsOnFiles = (files) => {
 
 const discardGitChanges = () => runCommand(`git checkout .`);
 
+const findAllUsernamesFromAlias = (usernameOrAlias) => {
+  if (usernameOrAlias.includes("@anzx.com")) return usernameOrAlias;
+  let aliasJsonFile = runCommand(`sf alias list --json`);
+  aliasJsonFile = JSON.parse(aliasJsonFile);
+  if (aliasJsonFile.result.length === 0) {
+    console.error("No authenticated org found.");
+    process.exit(1);
+  }
+
+  return aliasJsonFile.result.filter((re) => re.alias === usernameOrAlias)[0]
+    ?.value;
+};
+
+const nonProdUsernameValidation = (usernameOrAlias) => {
+  const username = findAllUsernamesFromAlias(usernameOrAlias);
+  if (!username) {
+    console.error(
+      `No authenticated org with ${usernameOrAlias} username/alias is found.`
+    );
+    process.exit(1);
+  }
+
+  const lowerCaseUsername = username.toLowerCase();
+  console.log(
+    `The username which trys to remove secrets is: ${lowerCaseUsername}`
+  );
+
+  if (
+    lowerCaseUsername.includes("@anzx.com") &&
+    !lowerCaseUsername.includes("@anzx.com.")
+  ) {
+    console.error("ERROR: You should not remove secrets on Production.");
+    process.exit(1);
+  }
+};
+
+const instanceUrlValidation = (usernameOrAlias) => {
+  let orgDisplayUserJson = runCommand(
+    `sf org display user -o ${usernameOrAlias} --json`
+  );
+  orgDisplayUserJson = JSON.parse(orgDisplayUserJson);
+  if (orgDisplayUserJson.result.length === 0) {
+    console.error("No authenticated org found.");
+    process.exit(1);
+  }
+
+  const instanceURL = orgDisplayUserJson.result.instanceUrl;
+  console.log(`The instance url is: ${instanceURL}`);
+  if (!instanceURL.includes("sandbox")) {
+    console.error("ERROR: You should not remove secrets on Production.");
+    process.exit(1);
+  }
+};
+
+const nonProdChangeValidation = (usernameOrAlias) => {
+  nonProdUsernameValidation(usernameOrAlias);
+  instanceUrlValidation(usernameOrAlias);
+};
+
 export {
   findAllFiles,
   deployFile,
@@ -135,5 +194,7 @@ export {
   retrieveComponent,
   changeCertsOnFiles,
   removeCert,
-  discardGitChanges
+  discardGitChanges,
+  runCommand,
+  nonProdChangeValidation
 };

@@ -8,7 +8,8 @@ import {
   changeCertsOnFiles,
   removeCert,
   discardGitChanges,
-  deployFile
+  deployFile,
+  nonProdChangeValidation
 } from "../Services/helper.mjs";
 ///////////
 
@@ -23,16 +24,16 @@ const USER_NAME = "PLATFORM";
 const retrieveComponents = (username) => {
   changeForceIgnoreFile("Change");
   retrieveComponent(
-    "ci/secret-service/Config/certificatePackage.xml",
+    "ci/sandbox-service/Config/certificatePackage.xml",
     username
   );
   retrieveComponent(
-    "ci/secret-service/Config/connectedAppPackage.xml",
+    "ci/sandbox-service/Config/connectedAppPackage.xml",
     username
   );
-  retrieveComponent("ci/secret-service/Config/mTLSPackage.xml", username);
+  retrieveComponent("ci/sandbox-service/Config/mTLSPackage.xml", username);
   retrieveComponent(
-    "ci/secret-service/Config/namedCredentialPackage.xml",
+    "ci/sandbox-service/Config/namedCredentialPackage.xml",
     username
   );
   changeForceIgnoreFile("Revert");
@@ -73,6 +74,7 @@ const uploadDummyCert = (username) => {
 /// Run Orchestration
 
 const removeSensitiveInformation = (username) => {
+  nonProdChangeValidation(username);
   uploadDummyCert(username);
   retrieveComponents(username);
   changeCert(username);
