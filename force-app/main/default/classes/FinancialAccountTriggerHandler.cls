@@ -36,10 +36,11 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
       records,
       (Map<Id, FinServ__FinancialAccount__c>) oldMap
     );
-    GetHelpFinancialAccountActions.onBeforeUpdateValidations(
-      records,
-      (Map<Id, FinServ__FinancialAccount__c>) oldMap
-    );
+    // Removing the below line of code due to incidents
+    // GetHelpFinancialAccountActions.onBeforeUpdateValidations(
+    //   records,
+    //   (Map<Id, FinServ__FinancialAccount__c>) oldMap
+    // );
   }
 
   /**
