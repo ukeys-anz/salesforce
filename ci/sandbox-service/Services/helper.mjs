@@ -137,8 +137,7 @@ const findAllUsernamesFromAlias = (usernameOrAlias) => {
     process.exit(1);
   }
 
-  return aliasJsonFile.result.filter((re) => re.alias === usernameOrAlias)[0]
-    ?.value;
+  return aliasJsonFile.result.find((re) => re.alias === usernameOrAlias)?.value;
 };
 
 const nonProdUsernameValidation = (usernameOrAlias) => {
