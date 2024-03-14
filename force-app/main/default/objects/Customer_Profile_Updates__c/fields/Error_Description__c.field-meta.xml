@@ -4,12 +4,12 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Error Description in case of failures.</description>
-    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Error Description</label>
-    <length>2000</length>
+    <length>255</length>
+    <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>LongTextArea</type>
-    <visibleLines>25</visibleLines>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
