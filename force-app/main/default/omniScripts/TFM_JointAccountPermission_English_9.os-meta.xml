@@ -10,11 +10,12 @@
     <language>English</language>
     <name>TFMJointAccountPermissionOS</name>
     <omniProcessElements>
+        <name>ActionRequestToEnable</name>
         <childElements>
+            <name>CustomLWC3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -36,10 +37,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>jointAccActionReqToEnable</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>jointAccActionReqToEnable</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -85,7 +86,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ActionRequestToEnable</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Joint Account Details&quot;,
@@ -152,11 +152,12 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ApprovalRequestpage</name>
         <childElements>
+            <name>jointAccDisable</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>jointAccDisable</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 2,
@@ -201,10 +202,10 @@
             <type>Radio</type>
         </childElements>
         <childElements>
+            <name>jointAccEnable</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>jointAccEnable</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 1,
@@ -249,10 +250,10 @@
             <type>Radio</type>
         </childElements>
         <childElements>
+            <name>Messaging6</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging6</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -279,10 +280,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>RemoteAction1</name>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>RemoteAction1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
@@ -338,10 +339,10 @@
             <type>Remote Action</type>
         </childElements>
         <childElements>
+            <name>TextBlock3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -357,10 +358,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>TextBlock4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -376,10 +377,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>TextBlock5</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock5</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -395,10 +396,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>TextBlock6</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock6</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -416,7 +417,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ApprovalRequestpage</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Enable Data Sharing?&quot;,
@@ -483,10 +483,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>IntegrationProcedureAction1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>IntegrationProcedureAction1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -552,10 +552,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>IPSendUpdatedDisclosure</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>IPSendUpdatedDisclosure</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -664,11 +664,12 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>JointAccountPermissionDisable</name>
         <childElements>
+            <name>CustomLWC2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;customAttributes&quot; : [ {
@@ -690,10 +691,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>jointAccDisabledError</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>jointAccDisabledError</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -739,7 +740,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>JointAccountPermissionDisable</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -802,11 +802,12 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>JointAccountPermissionEnable</name>
         <childElements>
+            <name>CustomLWC1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -828,10 +829,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>jointAccEnabledError</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>jointAccEnabledError</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -877,7 +878,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>JointAccountPermissionEnable</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Joint Account Details&quot;,
@@ -940,10 +940,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>NavigateActionToParentOS</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>NavigateActionToParentOS</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -991,11 +991,12 @@
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>RequestToDisable</name>
         <childElements>
+            <name>TextBlock2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -1013,7 +1014,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>RequestToDisable</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -1076,11 +1076,12 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>RequestToEnable</name>
         <childElements>
+            <name>TextBlock1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1098,7 +1099,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>RequestToEnable</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Request to Enable&quot;,
@@ -1161,10 +1161,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetErrors1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetErrors1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1196,10 +1196,10 @@
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetValues1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetValues1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1220,10 +1220,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetValues2</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetValues2</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1243,10 +1243,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetValues3</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetValues3</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1266,11 +1266,12 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>Step1</name>
         <childElements>
+            <name>CustomLWC4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;customAttributes&quot; : [ {
@@ -1292,10 +1293,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>Messaging1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;showMessageAs&quot; : &quot;toast&quot;,
@@ -1321,10 +1322,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>Messaging2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1351,7 +1352,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>Step1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -1418,11 +1418,12 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>Step2</name>
         <childElements>
+            <name>TextBlock7</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock7</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1440,7 +1441,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>Step2</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Insufficient Access&quot;,
