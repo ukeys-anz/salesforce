@@ -30,7 +30,7 @@ public with sharing class IDR_CaseReportingCalculations {
     Map<ID, Case> oldRecordMap
   ) {
     List<Case> recordsToProcess = getRecordsToProcess(newRecords, oldRecordMap);
-    if (!recordsToProcess.isEmpty()) {
+    if (recordsToProcess.isEmpty()) {
       return;
     }
     Map<ID, Case_Reporting_Field__c> caseIdToFieldMap = getReportingFieldForCases(
@@ -43,8 +43,8 @@ public with sharing class IDR_CaseReportingCalculations {
     );
     DMLUtil.upsertRecords(
       reportingFields,
-      DMLUtil.ALLOW_PARTIAL_UPDATE,
-      DMLUtil.USER_MODE
+      DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+      DMLUtil.SYSTEM_MODE
     );
   }
   /**
@@ -97,6 +97,10 @@ public with sharing class IDR_CaseReportingCalculations {
     if (
       (openCaseStatusRG271.contains(newCase.Status) &&
       !openCaseStatusRG271.contains(oldCase.Status)) ||
+      (!openCaseStatusRG271.contains(newCase.Status) &&
+      openCaseStatusRG271.contains(oldCase.Status)) ||
+      (!openCaseStatus.contains(newCase.Status) &&
+      openCaseStatus.contains(oldCase.Status)) ||
       (openCaseStatus.contains(newCase.Status) &&
       !openCaseStatus.contains(oldCase.Status))
     ) {
