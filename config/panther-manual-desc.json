@@ -3101,6 +3101,8 @@
         "TeamManager__c",
         "Team_Manager_Comments__c",
         "Team_Manager_Response__c",
+        "TM_Response_to_C_Q_Manager_Review__c",
+        "TM_Comments_for_C_Q_Manager_Review__c",
         "Verbal_customer_comms_organised_etc__c",
         "TM_Attestation_feedback_provided_to_CM__c",
         "Was_the_DMF_paid_rep_licensed__c",

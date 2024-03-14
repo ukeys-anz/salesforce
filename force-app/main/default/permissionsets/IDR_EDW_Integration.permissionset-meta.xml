@@ -1452,6 +1452,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.TM_Comments_for_C_Q_Manager_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.TM_Response_to_C_Q_Manager_Review__c</field>
+		<readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Verbal_customer_comms_organised_etc__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1573,7 +1583,7 @@
         <name>AssignPermissionSets</name>
         <enabled>true</enabled>
     </userPermissions>
-    <userPermissions>   
+    <userPermissions>
         <name>DataExport</name>
         <enabled>true</enabled>
     </userPermissions>

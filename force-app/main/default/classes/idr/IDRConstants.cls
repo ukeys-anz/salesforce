@@ -202,9 +202,27 @@ public with sharing class IDRConstants {
   public static final String TASK_QA_COMPLIANCE_SUBJECT = 'Review Required: Quality Assessment Completed for ';
   public static final String TASK_TM_ATTESTATION_SUBJECT = 'Team Manager Corrective Actions- Attestation- ';
   public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
+  public static final Id TASK_COMPLIANCE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Compliance_Task')
+    .getRecordTypeId();
+
+  //QA Dispute Tasks Constants
+  public static final String TEAM_MANAGER_REJECTION_RESPONSE = 'Rejected by TM';
+  public static final String TM_REJECTS_CQ_MANAGER_RESPONSE = 'TM Rejects C&Q Manager\'s review';
+  public static final String TM_REJECTS_CQ_REVIEW_TASK_SUBJECT = 'Team Manager has rejected review of ';
+  public static final String TM_REJECTS_CQ_REVIEW_TASK_DESC = 'Please review the Quality Assessment and complete the C&Q Manager Response and C&Q Manager Comments fields on the Assessment Outcome tab.';
+  public static final String CQ_MANAGER_REV_COMPLETED_TASK_SUBJECT = 'C&Q Manager review completed on ';
+  public static final String CQ_MANAGER_REV_COMPLETED_TASK_DESC = 'Please review the Quality Assessment and complete the TM response to Q&C Manager review and TM Comments on C&Q Manager review on the Assessment Outcome tab.';
+  public static final String TM_REJECTS_CQ_MANAGER_REV_TASK_SUBJECT = 'C&Q Manager review rejected on ';
+  public static final String TM_REJECTS_CQ_MANAGER_REV_TASK_DESC = 'Please review the Quality Assessment and complete the C&Q Lead Response and C&Q Lead Comments fields on the Assessment Outcome tab.';
+  public static final String CQ_LEAD_RESPONSE_TASK_SUBJECT = 'C&Q Lead review completed on ';
+  public static final String CQ_LEAD_RESPONSE_TASK_DESC = 'Please review the comments left on the Assessment Outcome tab of the Quality Assessment';
 
   //Quality Assessment Constants
   public static final String CORRECTIVE_ACTIONS_NA = 'N/A- no action required';
+
+  //Quality Assessment Fieldset Name
+  public static final String CQ_EDITABLE_RESPONSE_FIELDS = 'CQAssessment_Editable_Response_Fields';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
@@ -407,7 +425,7 @@ public with sharing class IDRConstants {
     '18'
   };
 
-  public static final List<String> IDR_UNASSISTED_ISSUE_TYPE = new List<String> {
+  public static final List<String> IDR_UNASSISTED_ISSUE_TYPE = new List<String>{
     '18',
     '13',
     '12',
