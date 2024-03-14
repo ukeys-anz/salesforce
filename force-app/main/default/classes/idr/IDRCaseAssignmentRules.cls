@@ -11,7 +11,7 @@ public with sharing class IDRCaseAssignmentRules {
 
   @TestVisible
   private static final Map<String, Id> QUEUE_MAP = getWorkbaskets();
-  private static final List<Product2> PRODUCT_LIST = [SELECT ID, ANZ_Product_Code__c from Product2 WHERE ANZ_Product_Code__c='231'];
+  private static Map<Id, Product2> productMap = new Map<Id, Product2>();
   /**
    * @description method to call the Case assignment rules
    * @param cases Records in the current context
@@ -39,9 +39,8 @@ public with sharing class IDRCaseAssignmentRules {
    * @param oldMap old map of case record in current trigger context
    */
   public static void assignProductFamily(Case[] cases, Map<Id, Case> oldMap) {
-    Map<Id, Product2> productMap = getProductNames(cases);
     Map<String, Product_Family__c> categoryMap = getProductCategory(cases);
-
+    productMap = getProductNames(cases);
     for (Case c : cases) {
       Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
       if (
@@ -124,10 +123,8 @@ public with sharing class IDRCaseAssignmentRules {
   ) {
     String productWorkbasketName = oProductFamily?.IDR_Workbasket__c;
     String strProductFamily = oProductFamily?.Name;
-    String productCode;
-    if(!PRODUCT_LIST.isEmpty()){
-       productCode = PRODUCT_LIST[0].ANZ_Product_Code__c; 
-    }
+    Product2 oProduct = productMap?.get(rec.Product__c);
+    String productCode = oProduct?.ANZ_Product_Code__c;
     //rules to run only on escalation
     if (
       rec.Status == IDRConstants.ESCALATED_STATUS &&
@@ -139,10 +136,6 @@ public with sharing class IDRCaseAssignmentRules {
       //CEO or Board
       if (rec.Origin == '9' || rec.Origin == '10') {
         return QUEUE_MAP.get('IDR_CEO');
-      }
-
-      if(String.isNotBlank(productCode)){
-        return QUEUE_MAP.get('IDR_Everyday_Banking');
       }
 
       // Hardship
@@ -241,7 +234,11 @@ public with sharing class IDRCaseAssignmentRules {
       if (rec.Type == '13' || rec.Type == '12' || rec.Type == '9') {
         return QUEUE_MAP.get('IDR_Early_Resolution');
       }
-
+	
+      if(!String.isBlank(productCode) && productCode.Equals('231')){
+            return QUEUE_MAP.get('IDR_Everyday_Banking');
+        }
+      
       //Product-based rules
       if (productWorkbasketName != null) {
         return QUEUE_MAP.get(productWorkbasketName);
@@ -346,7 +343,7 @@ public with sharing class IDRCaseAssignmentRules {
       for (Product2 p : [
         SELECT
           Name,
-          IDR_Product_Family__c,
+          IDR_Product_Family__c,ANZ_Product_Code__c,
           IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c
         FROM Product2
         WHERE Id IN :productIds
