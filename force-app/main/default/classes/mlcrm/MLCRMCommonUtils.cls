@@ -25,15 +25,17 @@ public with sharing class MLCRMCommonUtils {
     Map<Id, sObject> oldMapSobject,
     List<sObject> lstOfSobject
   ) {
+    Boolean hasSkipPermission = FeatureManagement.checkPermission('CCRM_Skip_Validation');
     for (sObject objSobject : lstOfSobject) {
       if (validateSobjectRecord(objSobject)) {
         getProfileId(lstOfSobject);
         if (
-          mapOfProfileId != null &&
+          (mapOfProfileId != null &&
           userInfo.getProfileId() ==
-          mapOfProfileId.get(MLCRMConstants.ADMIN_PROFILE_NAME)
+          mapOfProfileId.get(MLCRMConstants.ADMIN_PROFILE_NAME)) ||
+          hasSkipPermission
         ) {
-          continue;
+          return;
         }
         // validate if territory remains blank for any record then add error.
         if (objSobject.get('Territory__c') == null) {

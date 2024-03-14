@@ -41,6 +41,7 @@ public with sharing class MLCRMConstants {
   public static final String CONTACTPOINTEMAIL = 'ContactPointEmail';
   public static final String CONTACTPOINTPHONE = 'ContactPointPhone';
   public static final String INDIVIDUAL_RT = 'Individual';
+  public static final String ML_BUSINESS_ADMIN_ROLE_NAME = 'Business_Admin';
   public static final String ML_ROLE_DEV_NAME = 'Mobile_Lending_Franchise_Users';
   public static final String INACTIVE_STATUS = 'Inactive';
   public static final String SOBJECT_RELATIONSHIP_NOTES = 'Customer_Relationship__c';
@@ -51,6 +52,11 @@ public with sharing class MLCRMConstants {
   public static final String STR_PARENT_OBJECT = 'Parent Object';
   public static final String YES = 'Y';
   public static final String SECONDARY = 'Secondary';
+  public static final String ML_SUPER_USER_PSG_NAME = 'MLCRM_Super_User';
+  public static final String BUSINESS_ADMIN_USER_PSG_NAME = 'Business_Admin';
+  public static final String ENGINEER_PSG_NAME = 'Engineer';
+  public static final String LOAN_WRITER_PSG_NAME = 'MLCRM_Loan_Writer';
+  public static final String ARC_USER_ROLE = 'AR_C';
 
   //MLCRM Lead record type Ids
   public static final Id MLCRM_LEAD_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()

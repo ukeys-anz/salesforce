@@ -80,11 +80,6 @@ public with sharing class MLCRMContactPointPhoneActionsTest {
       testContactPointPhone.ParentId = acc.Id;
       testContactPointPhone.UsageType = 'Home';
       insert testContactPointPhone;
-      ContactPointPhone testContactPointPhone2 = new ContactPointPhone();
-      testContactPointPhone2.TelephoneNumber = '+61512345678';
-      testContactPointPhone2.ParentId = acc.Id;
-      testContactPointPhone2.UsageType = MLCRMConstants.PHONETYPE_MOBILE;
-      insert testContactPointPhone2;
 
       String expMsg = System.Label.MLCRM_ExistingContactPointPhoneError;
       String actualMsg = '';
