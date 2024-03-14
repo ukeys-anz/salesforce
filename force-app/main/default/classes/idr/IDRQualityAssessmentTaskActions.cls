@@ -56,7 +56,11 @@ public with sharing class IDRQualityAssessmentTaskActions {
       List<Task> lstUpdateTasks = getUpdatedTasks(
         mpId2PendingAssessments.keySet()
       );
-      DMLUtil.updateRecords(lstUpdateTasks, false, true);
+      DMLUtil.updateRecords(
+        lstUpdateTasks,
+        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+        DMLUtil.SYSTEM_MODE
+      );
       List<Quality_Assessment__Share> lstQAShare = new List<Quality_Assessment__Share>();
       Quality_Assessment__c oQAssessment;
       for (Quality_Assessment__Share oQAShare : [
@@ -86,7 +90,11 @@ public with sharing class IDRQualityAssessmentTaskActions {
         }
       }
       if (!lstQAShare.isEmpty()) {
-        DMLUtil.deleteRecords(lstQAShare, false, true);
+        DMLUtil.deleteRecords(
+          lstQAShare,
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
+        );
       }
     }
   }
@@ -135,7 +143,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         }
       }
     }
-    if ((stCompletedCQIds.size() > 0 || correctiveActionsCQIds.size() > 0)) {
+    if ((!stCompletedCQIds.isEmpty() || !correctiveActionsCQIds.isEmpty())) {
       List<Quality_Assessment__c> lstCompletedCQAssessments = [
         SELECT
           Id,
@@ -175,15 +183,12 @@ public with sharing class IDRQualityAssessmentTaskActions {
           );
         }
       }
-      if (lstComplianceTasks.size() > 0) {
-        try {
-          insert lstComplianceTasks;
-        } catch (Exception e) {
-          Logger.error(
-            'Error creating Quality Assessment Tasks: ' + e.getMessage()
-          );
-          Logger.saveLog();
-        }
+      if (!lstComplianceTasks.isEmpty()) {
+        DMLUtil.insertRecords(
+          lstComplianceTasks,
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
+        );
       }
     }
   }
@@ -281,7 +286,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
     for (Task oTask : [
       SELECT Id, Status, Subject
       FROM Task
-      WHERE Status = 'Open' AND WhatId IN :pendingAssessmentKeySet
+      WHERE
+        Status = :IDRConstants.OPEN_STATUS
+        AND WhatId IN :pendingAssessmentKeySet
     ]) {
       if (!isValidSubject(oTask.Subject)) {
         continue;

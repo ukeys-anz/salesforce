@@ -28,7 +28,11 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
       changedFieldOnRecord,
       listUpdatedCQAssessments
     );
-    DMLUtil.insertRecords(lstDisputeTasks, false, true);
+    DMLUtil.insertRecords(
+      lstDisputeTasks,
+      DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+      DMLUtil.SYSTEM_MODE
+    );
   }
   /**
    * @description method to get Quality Assessment Details for all the QA records updated
