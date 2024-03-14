@@ -52,9 +52,15 @@ public with sharing class IDREmailServiceHandler {
   ) {
     Case caseToUpd;
     List<Case> caseToUpdList;
+    Set<String> caseStatus = new Set<String>{
+      IDRConstants.CLOSED_STATUS,
+      IDRConstants.PROVISIONALLY_CLOSED_STATUS,
+      IDRConstants.RESOLVED_STATUS,
+      IDRConstants.WITHDRAWN_STATUS
+    };
     Task[] assiTasks = new List<Task>();
     if (Case.SObjectType.getDescribe().isQueryable()) {
-      String queryString = 'SELECT Id, CaseNumber, OwnerId, IDR_NC_First_Name__c, IDR_NC_Last_Name__c FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status!= \'Provisionally Closed\' AND Status != \'Resolved\' AND Status !=\'Withdrawn\' LIMIT 1';
+      String queryString = 'SELECT Id, CaseNumber, OwnerId, IDR_NC_First_Name__c, IDR_NC_Last_Name__c FROM Case WHERE CaseNumber = :caseNo AND Status NOT IN:caseStatus LIMIT 1';
       caseToUpdList = Database.query(queryString);
     }
     if (caseToUpdList.size() > 0) {

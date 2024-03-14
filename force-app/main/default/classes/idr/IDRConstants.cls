@@ -14,6 +14,7 @@ public with sharing class IDRConstants {
   public static final String PROVISIONALLY_CLOSED_STATUS = 'Provisionally Closed';
   public static final String CLOSED_STATUS = 'Closed';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
+  public static final String RESOLVED_STATUS = 'Resolved';
 
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
