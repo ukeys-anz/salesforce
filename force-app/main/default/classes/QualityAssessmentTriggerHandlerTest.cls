@@ -573,13 +573,14 @@ private class QualityAssessmentTriggerHandlerTest {
         );
         insert groups;
       } else {
+        //Only insert group members if the groups are already created.
         List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
-          for (CollaborationGroup cg : groups) {
-            CollaborationGroupMember member = new CollaborationGroupMember();
-            member.MemberId = UserInfo.getuserId();
-            member.CollaborationGroupId = cg.Id;
-            collGroupMembers.add(member);
-          }
+        for (CollaborationGroup cg : groups) {
+          CollaborationGroupMember member = new CollaborationGroupMember();
+          member.MemberId = UserInfo.getuserId();
+          member.CollaborationGroupId = cg.Id;
+          collGroupMembers.add(member);
+        }
         insert collGroupMembers;
       }
 
