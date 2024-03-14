@@ -123,7 +123,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Type = '17',
         Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
         IDR_AFCA_Status__c = '10',
-        IDR_AFCA_Due_Date__c = System.TODAY() ,
+        IDR_AFCA_Due_Date__c = System.TODAY(),
         Description = 'EDR_Hardship'
       )
     );
@@ -266,4 +266,87 @@ private with sharing class IDRCaseAssignmentRulesTest {
       'Product Category should be Home loans'
     );
   }
+  /**
+   * @description : This is to test if Product is assigned to escalated IDR Everyday Banking to Customer Complaint.
+   */
+  @IsTest
+  private static void testOwnerisEverydayBanking() {
+      
+    Id productFamilyId = Lib_FakeIdGenerator.getMockId(Product_Family__c.SObjectType);
+
+    Product_Family__c testProductFamily = new Product_Family__c(
+    Name= 'Test',
+    IDR_Workbasket__c='IDR_Everyday_Banking'
+    );
+    List<Case> cases= testOwnerAssignedonCase('231'); 
+    Case oldcase=cases[0];
+    Case newcase=cases[1];     
+
+    Test.startTest();
+    String workbasketId = IDRCaseAssignmentRules.getownerId(newcase,testProductFamily, oldcase);
+    Test.stopTest();
+    System.assertEquals(
+      workbasketId,
+      IDRCaseAssignmentRules.QUEUE_MAP.get('IDR_Everyday_Banking'),
+      'It should return the expected map'
+    );
+  }
+  /**
+   * @description : This is to test if Product is not assigned to escalated IDR Everyday Banking to Customer Complaint.
+   */
+  @IsTest
+  private static void testOwnerisNotEverydayBanking() {
+    
+     Id productFamilyId = Lib_FakeIdGenerator.getMockId(Product_Family__c.SObjectType);
+
+     Product_Family__c testProductFamily = new Product_Family__c(
+     Name= 'Test1',
+     IDR_Workbasket__c='Test'
+    );
+    List<Case> cases= testOwnerAssignedonCase('1'); 
+    Case oldcase=cases[0];
+    Case newcase=cases[1];
+     
+    Test.startTest();
+    String workbasketId = IDRCaseAssignmentRules.getOwnerId(newcase,testProductFamily,oldcase);
+    Test.stopTest();
+    System.assertNotEquals(
+      workbasketId,
+      IDRCaseAssignmentRules.QUEUE_MAP.get('IDR_Everyday_Banking'),
+      'It should not return the expected map'
+    );
+  }
+  /**
+   * @description : This is common method to get product and cases.
+   * @param productCode Product code of product
+   * @return List<Case> list of cases
+   */
+
+  private static List<Case> testOwnerAssignedonCase(String productCode) {
+     Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Product2 testProduct = new Product2(
+      Name = 'Test Product',
+      ANZ_Product_Code__c = productCode
+    );
+    insert testProduct;
+
+    Case oldcase = new Case(
+      Id = caseRecordId,
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID
+    );
+
+    Case newcase = new Case(
+      Id = caseRecordId,
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      Product__c = testProduct.Id,
+      Status = IDRConstants.ESCALATED_STATUS
+    );
+
+    List<Case> cases = new List<Case>();
+    cases.add(oldcase);
+    cases.add(newcase);
+
+    return cases;    
+  }  
 }

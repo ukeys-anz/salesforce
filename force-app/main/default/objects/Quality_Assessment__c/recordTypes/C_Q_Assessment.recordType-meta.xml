@@ -553,7 +553,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>TM rejects C%26Q Team Lead</fullName>
+            <fullName>C%26Q Lead rejects the TM%27s review</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2926,6 +2926,17 @@
         </values>
         <values>
             <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TM_Response_to_C_Q_Manager_Review__c</picklist>
+        <values>
+            <fullName>TM Accepts C%26Q Manager%27s review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TM Rejects C%26Q Manager%27s review</fullName>
             <default>false</default>
         </values>
     </picklistValues>

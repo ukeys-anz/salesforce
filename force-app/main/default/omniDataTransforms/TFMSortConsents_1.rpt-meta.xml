@@ -31,7 +31,6 @@
     <name>TFMSortConsents</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <name>TFMSortConsents</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:consentsList LIST &apos;createTime&apos; &apos;[:DSC]&apos; SORTBY</formulaConverted>
@@ -41,6 +40,7 @@
         <globalKey>TFMSortConsents6005623618053948</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMSortConsents</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -48,13 +48,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>TFMSortConsents</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMSortConsents4564995105717595</globalKey>
         <inputFieldName>sortedConsents</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMSortConsents</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
         <outputFieldName>sortedConsents</outputFieldName>

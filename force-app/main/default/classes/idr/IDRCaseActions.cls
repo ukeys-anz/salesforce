@@ -137,9 +137,8 @@ public with sharing class IDRCaseActions {
     Id entitlementId = getEntitlement();
     Map<Id, Product2> productMap = new Map<Id, Product2>([SELECT Id, IDR_Product_Family__c, IDR_Product_Family__r.Name
                                                          FROM Product2
-                                                          WHERE IDR_Product_Family__r.Name = 'Asset finance']);
+                                                          WHERE IDR_Product_Family__r.Name = 'Asset finance']);                                                  
     Case[] updatePsiTicked = new List<Case>();
-   
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
@@ -177,7 +176,6 @@ public with sharing class IDRCaseActions {
         {
           record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
-        populateHardshipUpdateDate(record, oldRecord);
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -198,6 +196,10 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
           updatePsiTicked.add(record);
         }
+       record.Date_time_Registration_Response_Provided__c = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+          oldRecord,
+          record
+        );
       } else if (
         record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
       ) {
@@ -938,7 +940,6 @@ populateOwnerChangeFields(record, oldMap);
    */
    @TestVisible
    private static Boolean isProductAssetfinance(Case record, Case oldRecord, Map<Id, Product2> productMap) {
-  
     if((IDRCollectionActions.isCollectionsIssue(oldRecord.Type,oldRecord.IDR_Subsequent_Issue__c)) &&
         (String.isNotBlank(oldRecord.Product__c) &&
           oldRecord.Product__c != record.Product__c && productMap.containsKey(oldRecord.Product__c))
@@ -958,25 +959,5 @@ populateOwnerChangeFields(record, oldMap);
            return true;
           }  
       return false;
-
-  }
-
- /**
-  * @description Populate modified date when the picklist value is updated
-  * @param record  from the trigger
-  * @param oldCaserecord Old Record from the trigger
-  */
-  @TestVisible
-  private static void populateHardshipUpdateDate(
-    Case record,
-    Case oldCaserecord
-  ) {
-    if (
-      record.IDR_Is_Hardship_Resolution_Letter_Sent__c == oldCaserecord.IDR_Is_Hardship_Resolution_Letter_Sent__c
-    ) {
-        return;
-    }
-    record.IDR_Hardship_Response_updated_on__c = System.now();
-    
   }
 }

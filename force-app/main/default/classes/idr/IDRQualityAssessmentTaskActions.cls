@@ -53,16 +53,14 @@ public with sharing class IDRQualityAssessmentTaskActions {
           stUserIds.add(oAssessment.Case_Manager__c);
         }
       }
-      List<Task> lstUpdateTasks = new List<Task>();
-      for (Task oTask : [
-        SELECT Id, Status
-        FROM Task
-        WHERE Status = 'Open' AND WhatId IN :mpId2PendingAssessments.keySet()
-      ]) {
-        oTask.Status = IDRConstants.TASK_STATUS_EXPIRED;
-        lstUpdateTasks.add(oTask);
-      }
-      update lstUpdateTasks;
+      List<Task> lstUpdateTasks = getUpdatedTasks(
+        mpId2PendingAssessments.keySet()
+      );
+      DMLUtil.updateRecords(
+        lstUpdateTasks,
+        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+        DMLUtil.SYSTEM_MODE
+      );
       List<Quality_Assessment__Share> lstQAShare = new List<Quality_Assessment__Share>();
       Quality_Assessment__c oQAssessment;
       for (Quality_Assessment__Share oQAShare : [
@@ -91,16 +89,12 @@ public with sharing class IDRQualityAssessmentTaskActions {
           lstQAShare.add(oQAShare);
         }
       }
-      if (lstQAShare.size() > 0) {
-        try {
-          delete lstQAShare;
-        } catch (Exception e) {
-          Logger.error(
-            'Error deleting Quality Assessment Sharing records: ' +
-            e.getMessage()
-          );
-          Logger.saveLog();
-        }
+      if (!lstQAShare.isEmpty()) {
+        DMLUtil.deleteRecords(
+          lstQAShare,
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
+        );
       }
     }
   }
@@ -149,7 +143,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         }
       }
     }
-    if ((stCompletedCQIds.size() > 0 || correctiveActionsCQIds.size() > 0)) {
+    if ((!stCompletedCQIds.isEmpty() || !correctiveActionsCQIds.isEmpty())) {
       List<Quality_Assessment__c> lstCompletedCQAssessments = [
         SELECT
           Id,
@@ -189,15 +183,12 @@ public with sharing class IDRQualityAssessmentTaskActions {
           );
         }
       }
-      if (lstComplianceTasks.size() > 0) {
-        try {
-          insert lstComplianceTasks;
-        } catch (Exception e) {
-          Logger.error(
-            'Error creating Quality Assessment Tasks: ' + e.getMessage()
-          );
-          Logger.saveLog();
-        }
+      if (!lstComplianceTasks.isEmpty()) {
+        DMLUtil.insertRecords(
+          lstComplianceTasks,
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
+        );
       }
     }
   }
@@ -285,4 +276,39 @@ public with sharing class IDRQualityAssessmentTaskActions {
       }
     }
   }
+  /**
+   * @description Get List Of Updated Tasks
+   */
+  private static List<Task> getUpdatedTasks(Set<ID> pendingAssessmentKeySet) {
+    List<Task> lstUpdateTasks = new List<Task>();
+    for (Task oTask : [
+      SELECT Id, Status, Subject
+      FROM Task
+      WHERE
+        Status = :IDRConstants.OPEN_STATUS
+        AND WhatId IN :pendingAssessmentKeySet
+    ]) {
+      if (!isValidSubject(oTask.Subject)) {
+        continue;
+      }
+      oTask.Status = IDRConstants.TASK_STATUS_EXPIRED;
+      lstUpdateTasks.add(oTask);
+    }
+    return lstUpdateTasks;
+  }
+  /**
+   * @description Check if subject of the task is valid for the task to get expired
+   * @param subject Subject of the Task
+   * @return Boolean is the subject is valid
+   */
+  private static boolean isValidSubject(String subject) {
+    if (
+      subject.startsWith(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT) ||
+      subject.startsWith(IDRConstants.TASK_TM_ATTESTATION_SUBJECT)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
 }

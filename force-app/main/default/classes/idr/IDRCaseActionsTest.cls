@@ -7,7 +7,6 @@
 
 @isTest
 private with sharing class IDRCaseActionsTest {
-
   @isTest
   static void testFormatedCaseNumber() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
@@ -486,16 +485,12 @@ private with sharing class IDRCaseActionsTest {
       LIMIT 1
     ];
     System.assertEquals(
-      c.IDR_Issue_Type_2__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
       c.IDR_Knowledge_Keyword_1__c,
       'Expected Knowledge Keyword 1 to complete on case create, however it did not'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
       c.IDR_Knowledge_Keyword_2__c,
       'Expected Knowledge Keyword 2 to complete on case create, however it did not'
     );
@@ -521,16 +516,12 @@ private with sharing class IDRCaseActionsTest {
     ];
 
     System.assertEquals(
-      c.IDR_Issue_Type_2__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
       c.IDR_Knowledge_Keyword_1__c,
       'Expected Knowledge Keyword 1 on update, however it did not'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
       c.IDR_Knowledge_Keyword_2__c,
       'Expected Knowledge Keyword 2 on update, however it did not'
     );
@@ -621,28 +612,26 @@ private with sharing class IDRCaseActionsTest {
    * @return Case
    */
 
-    private static Case createCaseWithIssueTyes(){
-      
-      Case caseRecord = new Case();
-      caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-      caseRecord.IDR_Customer_Number__c = '1234567890';
-      caseRecord.Status = 'Open';
-      caseRecord.IDR_Account_Card_Policy_Number__c='N/A';
-      caseRecord.isEscalated = false;
-      caseRecord.IDR_Second_Issue__c = true;
-      caseRecord.IDR_Third_Issue__c = true;
-      caseRecord.Type = '4';
-      caseRecord.IDR_Issue_Type_2__c = '9';
-      caseRecord.IDR_Issue_Type_3__c = '17';
-      caseRecord.IDR_Subsequent_Issue__c = '20';
-      caseRecord.IDR_Subsequent_Issue_2__c = '57';
-      caseRecord.IDR_Subsequent_Issue_3__c = '24';
-      caseRecord.IDR_Product_Category__c='Asset finance';
-      caseRecord.IDR_Account_Card_Policy_Number_2__c='N/A';
-      caseRecord.IDR_Account_Card_Policy_Number_3__c ='N/A';
-      caseRecord.Description='Test';
-      caseRecord.IDR_Complainant_Desired_Outcome__c='Test';
-      return caseRecord;
-          
-   }
+  private static Case createCaseWithIssueTyes() {
+    Case caseRecord = new Case();
+    caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
+    caseRecord.IDR_Customer_Number__c = '1234567890';
+    caseRecord.Status = 'Open';
+    caseRecord.IDR_Account_Card_Policy_Number__c = 'N/A';
+    caseRecord.isEscalated = false;
+    caseRecord.IDR_Second_Issue__c = true;
+    caseRecord.IDR_Third_Issue__c = true;
+    caseRecord.Type = '4';
+    caseRecord.IDR_Issue_Type_2__c = '9';
+    caseRecord.IDR_Issue_Type_3__c = '17';
+    caseRecord.IDR_Subsequent_Issue__c = '20';
+    caseRecord.IDR_Subsequent_Issue_2__c = '57';
+    caseRecord.IDR_Subsequent_Issue_3__c = '24';
+    caseRecord.IDR_Product_Category__c = 'Asset finance';
+    caseRecord.IDR_Account_Card_Policy_Number_2__c = 'N/A';
+    caseRecord.IDR_Account_Card_Policy_Number_3__c = 'N/A';
+    caseRecord.Description = 'Test';
+    caseRecord.IDR_Complainant_Desired_Outcome__c = 'Test';
+    return caseRecord;
+  }
 }
