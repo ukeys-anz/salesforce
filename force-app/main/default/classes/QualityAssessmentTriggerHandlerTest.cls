@@ -573,6 +573,16 @@ private class QualityAssessmentTriggerHandlerTest {
         );
         insert groups;
       }
+
+      List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
+      for (CollaborationGroup cg : groups) {
+        CollaborationGroupMember member = new CollaborationGroupMember();
+        member.MemberId = UserInfo.getuserId();
+        member.CollaborationGroupId = cg.Id;
+        collGroupMembers.add(member);
+      }
+      insert collGroupMembers;
+
       List<Quality_Assessment__c> qaRecords = new List<Quality_Assessment__c>();
       List<Case> testCases = new List<Case>();
       testCases.add(new Case(RecordTypeId = GetHelpConstants.FRAUD_RT_ID));
