@@ -573,7 +573,8 @@ private class QualityAssessmentTriggerHandlerTest {
         );
         insert groups;
       } else {
-        //Only insert group members if the groups are already created.
+        //Only insert group members if the groups are already created. because if the groups are inserted from test class,
+        //system takes care of adding the running user as Group Members
         List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
         for (CollaborationGroup cg : groups) {
           CollaborationGroupMember member = new CollaborationGroupMember();
