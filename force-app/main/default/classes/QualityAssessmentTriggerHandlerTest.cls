@@ -572,16 +572,16 @@ private class QualityAssessmentTriggerHandlerTest {
           )
         );
         insert groups;
+      } else {
+        List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
+          for (CollaborationGroup cg : groups) {
+            CollaborationGroupMember member = new CollaborationGroupMember();
+            member.MemberId = UserInfo.getuserId();
+            member.CollaborationGroupId = cg.Id;
+            collGroupMembers.add(member);
+          }
+        insert collGroupMembers;
       }
-
-      List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
-      for (CollaborationGroup cg : groups) {
-        CollaborationGroupMember member = new CollaborationGroupMember();
-        member.MemberId = UserInfo.getuserId();
-        member.CollaborationGroupId = cg.Id;
-        collGroupMembers.add(member);
-      }
-      insert collGroupMembers;
 
       List<Quality_Assessment__c> qaRecords = new List<Quality_Assessment__c>();
       List<Case> testCases = new List<Case>();
