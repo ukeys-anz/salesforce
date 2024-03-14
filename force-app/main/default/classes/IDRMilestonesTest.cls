@@ -76,20 +76,12 @@ public class IDRMilestonesTest {
       FROM Case
       WHERE Id IN :newCases
     ];
-    System.assert(
-      cList[0].EntitlementId != null,
-      'Entitlement Id should not be null.'
-    );
 
     List<CaseMilestone> cmList = [
       SELECT Id
       FROM CaseMilestone
       WHERE CaseId IN :newCases
     ];
-    System.assert(
-      cmList.size() > 0,
-      'The caseMilestone List should have members.'
-    );
 
     newCases[0].Status = 'Escalated';
     newCases[0].IDR_Escalated_to__c = '1';
@@ -104,11 +96,6 @@ public class IDRMilestonesTest {
         CaseId = :newCases[0].Id
         AND MilestoneType.Name = 'Open_Escalation_Time'
     ];
-    System.assertEquals(
-      true,
-      cmList1[0].IsCompleted,
-      'Escalation milestone should be closed'
-    );
 
     newCases[1].Status = 'Closed';
     newCases[1].IDR_Complaint_Outcome__c = '1';
@@ -122,12 +109,26 @@ public class IDRMilestonesTest {
       FROM CaseMilestone
       WHERE CaseId = :newCases[1].Id AND IsCompleted = TRUE
     ];
+    Test.stopTest();
+    System.assertNotEquals(
+      null,
+      cList[0].EntitlementId,
+      'Entitlement Id should not be null.'
+    );
+    System.assert(
+      cmList.size() > 0,
+      'The caseMilestone List should have members.'
+    );
+    System.assertEquals(
+      true,
+      cmList1[0].IsCompleted,
+      'Escalation milestone should be closed'
+    );
     System.assertEquals(
       3,
       cmList2.size(),
       'All Milestones should be completed'
     );
-    Test.stopTest();
   }
   /*GIVEN a CMOS Case
   WHEN the case gets created or its issue+sub issue types get updated

@@ -99,7 +99,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     Logger.debug('On_Before_Update started: ' + System.now());
     GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     IDRCaseActions.beforeUpdate(oldMap, records);
-    IDRCaseActions.populateAfcaRegistrationResponseDate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(oldMap, records);
     GetHelpCaseActions.updateEntitlementOnConvertedCase(

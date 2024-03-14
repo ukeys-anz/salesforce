@@ -176,7 +176,6 @@ public with sharing class IDRCaseActions {
         {
           record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
-        populateHardshipUpdateDate(records, (Map<Id, Case>) OldMap);
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -197,6 +196,10 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
           updatePsiTicked.add(record);
         }
+       record.Date_time_Registration_Response_Provided__c = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+          oldRecord,
+          record
+        );
       } else if (
         record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
       ) {
@@ -956,43 +959,5 @@ populateOwnerChangeFields(record, oldMap);
            return true;
           }  
       return false;
-  }
-   
- /**
-  * @description Populate modified date when the picklist value is updated
-  * @param records  List of cases from the trigger
-  * @param oldMap Map of pre-update cases supplied from the trigger as well, will be null on beforeInsert
-  */
-  private static void populateHardshipUpdateDate(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    for (Case c : records) {
-      if (
-        c.IDR_Is_Hardship_Resolution_Letter_Sent__c !=
-        oldMap.get(c.Id).IDR_Is_Hardship_Resolution_Letter_Sent__c
-      ) {
-          c.IDR_Hardship_Response_updated_on__c = System.now();
-      }
-    }
-  }
-  /**
-   * @description Populate Date/time Registration Response Provided when AFCA Registration Response Provided is checked
-   * @param oldRecordMap Map of pre-update cases supplied from the trigger as well   
-   * @param records List of cases from the trigger
-   */
-  public static void populateAfcaRegistrationResponseDate( Map<Id, SObject> oldRecordMap, List<Case> records){  
-    for (Case record : records) {
-      if(!record.IDR_AFCA_Registration_Response_Provided__c){
-        continue;
-      }
-      if(oldRecordMap.containskey(record.Id)){
-        Case oldRecord = (Case) oldRecordMap.get(record.Id);       
-        if(oldRecord.IDR_AFCA_Registration_Response_Provided__c != record.IDR_AFCA_Registration_Response_Provided__c && 
-          record.IDR_AFCA_Registration_Response_Provided__c ) {
-              record.Date_time_Registration_Response_Provided__c = DateTime.now();
-          }
-      }   
-    } 
   }
 }

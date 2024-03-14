@@ -1788,23 +1788,16 @@ private class CaseTriggerHandlerTest {
       FROM Group
       WHERE DeveloperName = 'EDR_Early_Resolution' AND Type = 'Queue'
     ];
-
     Test.startTest();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-          IDR_AFCA_Status__c = '10',
-          IDR_AFCA_Due_Date__c = System.TODAY(),
-          IDR_Customer_Number__c = '1234567890',
-          Priority = 'Financial Hardship',
-          Type = '9',
-          IDR_Subsequent_Issue__c = '57',
-          Status = 'Escalated',
-          IDR_Escalation_Reason__c = '1'
-        )
+      Case csObj = IDRTestDataFactory.createAfcaCustomerComplaintCase(
+        'Financial Hardship',
+        '9',
+        '57'
       );
+      csObj.Status = 'Escalated';
+      csObj.IDR_Escalation_Reason__c = '1';
+      newCases.add(csObj);
     }
     insert newCases;
     for (Case c : [SELECT Id, OwnerId FROM Case WHERE id IN :newCases]) {
@@ -1893,29 +1886,20 @@ private class CaseTriggerHandlerTest {
 
   @isTest
   static void testCaseNotifiationAfterUpdate() {
-    Case parentCase = new Case(
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-      IDR_AFCA_Status__c = '10',
-      IDR_AFCA_Due_Date__c = System.TODAY(),
-      IDR_Customer_Number__c = '1234567890',
-      Priority = 'Standard',
-      Type = '5',
-      IDR_Subsequent_Issue__c = '38'
+    Case parentCase = IDRTestDataFactory.createAfcaCustomerComplaintCase(
+      'Standard',
+      '5',
+      '38'
     );
+
     insert parentCase;
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-          IDR_AFCA_Status__c = '10',
-          IDR_AFCA_Due_Date__c = System.TODAY(),
-          IDR_Customer_Number__c = '1234567890',
-          Priority = 'Standard',
-          Type = '5',
-          IDR_Subsequent_Issue__c = '38'
+        IDRTestDataFactory.createAfcaCustomerComplaintCase(
+          'Standard',
+          '5',
+          '38'
         )
       );
     }
@@ -1944,17 +1928,12 @@ private class CaseTriggerHandlerTest {
   @isTest
   static void testGetStartCollectionMap() {
     //Create a customer complaint
-    Case custCompCase = new Case(
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-      IDR_AFCA_Status__c = '10',
-      IDR_AFCA_Due_Date__c = System.TODAY(),
-      IDR_Customer_Number__c = '1234567890',
-      Priority = 'Standard',
-      Type = '5',
-      IDR_Subsequent_Issue__c = '38',
-      IDR_Collection_Number__c = '1234567890'
+    Case custCompCase = IDRTestDataFactory.createAfcaCustomerComplaintCase(
+      'Standard',
+      '5',
+      '38'
     );
+    custCompCase.IDR_Collection_Number__c = '1234567890';
     insert custCompCase;
     Set<String> collectionAcctsList = new Set<String>();
     collectionAcctsList.add(custCompCase.IDR_Collection_Number__c);

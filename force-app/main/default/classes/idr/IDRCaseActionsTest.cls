@@ -581,66 +581,6 @@ private with sharing class IDRCaseActionsTest {
 
     System.assertEquals(isProductAssetfinance, true);
   }
-  @isTest
-  static void testHardshipUpdateDate() {
-    Product2 testProduct = new Product2(Name = 'Test Product', IsActive = true);
-    insert testProduct;
-    Case c = new Case(
-      RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-      Type = '4',
-      IDR_Subsequent_Issue__c = '20',
-      Product__c = testProduct.Id,
-      Description = 'Test',
-      IDR_Complainant_Desired_Outcome__c = 'Test',
-      Status = 'Closed',
-      IDR_Complaint_Outcome__c = '1',
-      IDR_Description_of_Outcome__c = 'Test',
-      IDR_Is_Common__c = 'No'
-    );
-    insert c;
-    Test.startTest();
-    c.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Hardship Written Response Letter Sent';
-    update c;
-    Case cs = [SELECT IDR_Hardship_Response_updated_on__c FROM Case LIMIT 1];
-    System.assert(
-      cs.IDR_Hardship_Response_updated_on__c != null,
-      'Date/Time flag should have been populated'
-    );
-    Test.stopTest();
-  }
-  @isTest
-  static void testpopulateAfcaRegistrationResponseDate() {
-    Id caseRecordId1 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Id caseRecordId2 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Case caseRecord1 = createCaseWithIssueTyes();
-    caseRecord1.Id = caseRecordId1;
-    caseRecord1.IDR_AFCA_Registration_Response_Provided__c = true;
-    Case caseRecord2 = createCaseWithIssueTyes();
-    caseRecord2.Id = caseRecordId1;
-    caseRecord2.IDR_AFCA_Registration_Response_Provided__c = false;
-    Case caseRecord3 = createCaseWithIssueTyes();
-    caseRecord3.IDR_AFCA_Registration_Response_Provided__c = false;
-    caseRecord3.Id = caseRecordId2;
-    Case caseRecord4 = createCaseWithIssueTyes();
-    caseRecord4.IDR_AFCA_Registration_Response_Provided__c = false;
-    caseRecord4.Id = caseRecordId2;
-    List<Case> cases = new List<Case>{ caseRecord1, caseRecord3 };
-    Map<Id, Case> caseMap = new Map<Id, Case>{ caseRecord2.Id => caseRecord2 };
-    Test.startTest();
-    IDRCaseActions.populateAfcaRegistrationResponseDate(caseMap, cases);
-    Test.stopTest();
-    System.assertNotEquals(
-      null,
-      caseRecord1.Date_time_Registration_Response_Provided__c,
-      'Date/time flag should be updated'
-    );
-    System.assertEquals(
-      null,
-      caseRecord3.Date_time_Registration_Response_Provided__c,
-      'Date/time flag should be null'
-    );
-  }
-
   /**
    * @description Create Case record with different issue types
    * @return Case
