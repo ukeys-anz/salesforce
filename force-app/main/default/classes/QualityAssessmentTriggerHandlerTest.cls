@@ -572,7 +572,19 @@ private class QualityAssessmentTriggerHandlerTest {
           )
         );
         insert groups;
+      } else {
+        //Only insert group members if the groups are already created. because if the groups are inserted from test class,
+        //system takes care of adding the running user as Group Members
+        List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
+        for (CollaborationGroup cg : groups) {
+          CollaborationGroupMember member = new CollaborationGroupMember();
+          member.MemberId = UserInfo.getuserId();
+          member.CollaborationGroupId = cg.Id;
+          collGroupMembers.add(member);
+        }
+        insert collGroupMembers;
       }
+
       List<Quality_Assessment__c> qaRecords = new List<Quality_Assessment__c>();
       List<Case> testCases = new List<Case>();
       testCases.add(new Case(RecordTypeId = GetHelpConstants.FRAUD_RT_ID));
