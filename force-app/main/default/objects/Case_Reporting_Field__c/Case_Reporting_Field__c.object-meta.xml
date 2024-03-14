@@ -159,7 +159,7 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Case Reporting Fields</pluralLabel>
-    <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

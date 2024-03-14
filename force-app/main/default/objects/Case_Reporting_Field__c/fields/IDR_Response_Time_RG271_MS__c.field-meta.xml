@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Response_Time_RG271_MS__c</fullName>
-    <externalId>false</externalId>
-    <label>IDR Response Time (RG271) MS</label>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Records the time in MilliSeconds</description>
-    <securityClassification>Public</securityClassification>
+    <externalId>false</externalId>
+    <label>IDR Response Time (RG271) MS</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
+    <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>
