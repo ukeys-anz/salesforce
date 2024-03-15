@@ -176,7 +176,7 @@ public with sharing class GetHelpTaskActions {
     Map<Id, Task> oldMap
   ) {
     if (
-      !System.isBatch() &&
+      !System.isScheduled() &&
       !PermissionUtils.hasPermissionSetGroupAssigned(
         GetHelpConstants.BUSINESS_ADMIN_PSG
       )
