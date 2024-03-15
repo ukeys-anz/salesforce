@@ -66,7 +66,12 @@ public with sharing class IDRCaseActionsHelper {
       return null;
     }
   }
-
+  /**
+   * @description Populate Date/time Registration Response Provided when AFCA Registration Response Provided is checked
+   * @param oldRecord old Record of pre-update cases supplied from the trigger as well
+   * @param newRecord new Record of cases from the trigger
+   * @return DateTime
+   */
   public static DateTime populateAfcaRegistrationResponseDate(
     Case oldRecord,
     Case newRecord
