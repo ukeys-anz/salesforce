@@ -300,7 +300,7 @@
                             <value>Name</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Attendee_Name__c</value>
+                            <value>Attendee_Name_Formula__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>AttendeeType</value>

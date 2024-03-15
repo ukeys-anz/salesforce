@@ -6,7 +6,7 @@
     <description>A formula field to determine Attendee name when Attendee Type is &quot;Internal&quot; and &quot;Customer&quot;</description>
     <externalId>false</externalId>
     <formula>&apos;PLACEHOLDER_FORMULA&apos;</formula>
-    <label>Attendee Name Formula</label>
+    <label>Attendee Name</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
