@@ -176,6 +176,10 @@ public with sharing class IDRCaseActions {
         {
           record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
+        record.IDR_Hardship_Response_updated_on__c = IDRCaseActionsHelper.populateHardshipUpdateDate(
+          record,
+          oldRecord
+        );
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -189,6 +193,14 @@ public with sharing class IDRCaseActions {
         handleAnonymousNames(record);
         handleEntitlementForUpdate(record, oldRecord, entitlementId);
         identifyOwnerChangeRecords(record, (oldRecord).OwnerId);
+        record.Previous_Case_Owner__c = IDRCaseActionsHelper.populateOldOwnerID(
+          record,
+          oldRecord
+        );
+        record.Date_Case_allocated_to_CM__c = IDRCaseActionsHelper.populateDateCaseAllocatedToCM(
+          record,
+          oldRecord
+        );
         if (record.Status != oldRecord.Status) {
           handleCaseStatusChanges(record);
         }
@@ -284,7 +296,7 @@ populateOwnerChangeFields(record, oldMap);
     preventTaskOwnerChange(records, oldMap);
   }
 
-  /**
+ /**
    * @description Complete the CMOS Complaints Milestone when case is escalated or closed
    * @param records from the trigger
    * @param oldMap previous values of cases in current context of trigger
@@ -296,33 +308,40 @@ populateOwnerChangeFields(record, oldMap);
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
     Set<Id> hardshipCases = new Set<Id>();
+    Set<String> caseStatus = new Set<String>{
+      IDRConstants.PROVISIONALLY_CLOSED_STATUS,
+      IDRConstants.CLOSED_STATUS
+    };
     for (Case c : records) {
       if (isIDRComplaintType(c)) {
         Case oldCase = (oldMap.containsKey(c.Id))
           ? (Case) oldMap.get(c.Id)
           : null;
         if (
-          (oldCase != null &&
           ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
           c.Status == IDRConstants.ESCALATED_STATUS) ||
           (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
-          c.IDR_Milestone_Sla__c == 'Completed'))
+          c.IDR_Milestone_Sla__c == 'Completed')
         ) {
           escalationCases.add(c.Id);
         }
+        if (!caseStatus.contains(c.Status)) {
+          continue;
+        }
         if (
-          (oldCase != null &&
           (!oldCase.isClosed &&
-          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
+          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS))
         ) {
           maxTimeFrameCases.add(c.Id);
         }
-        if(c.isClosed && String.isNotBlank(c.IDR_Is_Hardship_Resolution_Letter_Sent__c)){
+        if (
+          c.isClosed &&
+          String.isNotBlank(c.IDR_Is_Hardship_Resolution_Letter_Sent__c)
+        ) {
           hardshipCases.add(c.Id);
         }
       }
     }
-
     if (!escalationCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         escalationCases,
@@ -333,7 +352,6 @@ populateOwnerChangeFields(record, oldMap);
         System.now()
       );
     }
-
     if (!maxTimeFrameCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         maxTimeFrameCases,
@@ -342,20 +360,18 @@ populateOwnerChangeFields(record, oldMap);
           '30-day IDR Response Due',
           'Open_Escalation_Time',
           'AFCA Response Due',
-          'FPR 5 Business Day Resolution target'         
+          'FPR 5 Business Day Resolution target'
         },
         System.now()
       );
       IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
     }
 
-    if(!hardshipCases.isEmpty()){
-      MilestoneUtils.completeMilestones(
-        hardshipCases,
-        new List<String>{'21 Day Hardship Letter Milestone'},
-        System.now()
-      );
-    }
+    MilestoneUtils.completeMilestones(
+      hardshipCases,
+      new List<String>{ '21 Day Hardship Letter Milestone' },
+      System.now()
+    );
   }
 
   /**

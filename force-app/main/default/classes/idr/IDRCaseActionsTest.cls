@@ -576,38 +576,8 @@ private with sharing class IDRCaseActionsTest {
       System.assertEquals(isProductAssetfinance,true);
     
   }
-  @isTest
-  static void testHardshipUpdateDate(){
-      
-      Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-      
-      Case caseRecord = createCaseWithIssueTyes();
-      caseRecord.Id = caseRecordId; 
-      
-      Case caseRecord1 = createCaseWithIssueTyes();
-      caseRecord1.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Hardship Written Response Letter Sent';
-      caseRecord1.IDR_Final_Letter_Outcome__c = 'Declined financial assistance';
-      caseRecord1.Id = caseRecordId;  
-      
-      Case caseRecord2 = createCaseWithIssueTyes();
-      caseRecord2.Id = caseRecordId;
-                 
-      Test.startTest();
-      
-      IDRCaseActions.populateHardshipUpdateDate(caseRecord1, caseRecord);
-      IDRCaseActions.populateHardshipUpdateDate(caseRecord2, caseRecord);
-      
-      Test.stopTest(); 
-      
-      System.assertNotEquals(null,
-          caseRecord1.IDR_Hardship_Response_updated_on__c,
-          'Date/time flag should be updated');
-
-      System.assertEquals(null,
-          caseRecord2.IDR_Hardship_Response_updated_on__c,
-          'Date/time flag should be null');
-  }
-      /**
+    
+  /**
    * @description Create Case record with different issue types
    * @return Case
    */
