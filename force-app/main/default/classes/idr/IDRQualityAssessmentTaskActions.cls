@@ -278,6 +278,8 @@ public with sharing class IDRQualityAssessmentTaskActions {
   }
   /**
    * @description Get List Of Updated Tasks
+   * @param pendingAssessmentKeySet Ids Of QA Records that are moved to 'Pending/Withdrawn' status from 'Complete'
+   * @return lstUpdateTasks list of updated related tasks for these QA records
    */
   private static List<Task> getUpdatedTasks(Set<ID> pendingAssessmentKeySet) {
     List<Task> lstUpdateTasks = new List<Task>();
@@ -310,5 +312,4 @@ public with sharing class IDRQualityAssessmentTaskActions {
     }
     return false;
   }
-
 }
