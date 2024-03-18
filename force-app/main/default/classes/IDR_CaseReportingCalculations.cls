@@ -111,8 +111,8 @@ public with sharing class IDR_CaseReportingCalculations {
   /**
    * @description checkStatusChange method is used to handle the case status changes as follows
    * Removes unwanted records from processing further
-   * @param newStatus The new case status from the trigger
-   * @param oldStatus The old case status from the trigger
+   * @param statusFrom The new case status from the trigger
+   * @param statusTo The old case status from the trigger
    * @param caseStatusList case Status List
    * @return boolean returns true if the status is valid.
    */
