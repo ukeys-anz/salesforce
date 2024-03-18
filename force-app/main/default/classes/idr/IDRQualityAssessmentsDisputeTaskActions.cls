@@ -259,25 +259,24 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    * @param fieldAPIName field which has updated
    * @param changedFieldsOnRecord map of record Id, and field API Name
    * @param mpOldAssessments map of old records
-   * @return Map<Id, String> mpOldAssessments Map of record Id, and field API Name
+   * @return Map of record Id, and field API Name
    */
   private static Map<Id, String> getChangedFieldsOnRecord(
     Quality_Assessment__c oAssessment,
-    String fieldApiName,
+    String fieldAPIName,
     Map<Id, String> changedFieldsOnRecord,
     Map<Id, Quality_Assessment__c> mpOldAssessments
   ) {
     Map<Id, String> updatedFieldsOnRecord = new Map<Id, String>();
-    String fieldName = fieldApiName;
     if (!changedFieldsOnRecord.isEmpty()) {
       return updatedFieldsOnRecord;
     }
     if (
-      oAssessment.get(fieldApiName) !=
-      mpOldAssessments.get(oAssessment.Id).get(fieldApiName) &&
-      oAssessment.get(fieldApiName) != null
+      oAssessment.get(fieldAPIName) !=
+      mpOldAssessments.get(oAssessment.Id).get(fieldAPIName) &&
+      oAssessment.get(fieldAPIName) != null
     ) {
-      updatedFieldsOnRecord.put(oAssessment.Id, fieldApiName);
+      updatedFieldsOnRecord.put(oAssessment.Id, fieldAPIName);
     }
     return updatedFieldsOnRecord;
   }
