@@ -257,8 +257,8 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    * @description Method to check if field on record changed for a particular value, if yes put it on map
    * @param oAssessment Updated Quality Assessment record
    * @param fieldAPIName field which has updated
-   * @param changedFieldsOnRecord record Id, and field API Name
-   * @param mpOldAssessments map of old
+   * @param changedFieldsOnRecord map of record Id, and field API Name
+   * @param mpOldAssessments map of old records
    * @return Map<Id, String> mpOldAssessments Map of record Id, and field API Name
    */
   private static Map<Id, String> getChangedFieldsOnRecord(
