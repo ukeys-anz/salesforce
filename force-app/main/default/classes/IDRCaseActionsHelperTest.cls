@@ -10,22 +10,19 @@ private with sharing class IDRCaseActionsHelperTest {
   static void testHardshipUpdateDateTimeFlagUpdated() {
     Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
-    Case caseRecord = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord.Id = caseRecordId;
+    Case oldCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    oldCase.Id = caseRecordId;
 
-    Case caseRecord1 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord1.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Test1';
-    caseRecord1.IDR_Final_Letter_Outcome__c = 'Test2';
-    caseRecord1.Id = caseRecordId;
-
-    Case caseRecord2 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord2.Id = caseRecordId;
+    Case newCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    newCase.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Test1';
+    newCase.IDR_Final_Letter_Outcome__c = 'Test2';
+    newCase.Id = caseRecordId;
 
     Test.startTest();
 
     Datetime dt = IDRCaseActionsHelper.populateHardshipUpdateDate(
-      caseRecord1,
-      caseRecord
+      newCase,
+      oldCase
     );
 
     Test.stopTest();
@@ -37,17 +34,17 @@ private with sharing class IDRCaseActionsHelperTest {
   static void testHardshipUpdateDateTimeFlagNotUpdated() {
     Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
-    Case caseRecord = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord.Id = caseRecordId;
+    Case oldCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    oldCase.Id = caseRecordId;
 
-    Case caseRecord2 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord2.Id = caseRecordId;
+    Case newCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    newCase.Id = caseRecordId;
 
     Test.startTest();
 
     Datetime dt = IDRCaseActionsHelper.populateHardshipUpdateDate(
-      caseRecord2,
-      caseRecord
+      newCase,
+      oldCase
     );
 
     Test.stopTest();
