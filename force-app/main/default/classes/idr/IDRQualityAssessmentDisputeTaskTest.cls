@@ -66,7 +66,7 @@ public class IDRQualityAssessmentDisputeTaskTest {
   static List<Quality_Assessment__c> getQAData() {
     List<Quality_Assessment__c> cQAssessments = new List<Quality_Assessment__c>();
     User oQAUser = [
-      SELECT ID, Name
+      SELECT Id, Name
       FROM User
       WHERE FirstName = 'DummyCQSpecialist'
       ORDER BY CreatedDate DESC
@@ -113,10 +113,10 @@ public class IDRQualityAssessmentDisputeTaskTest {
    * @description Method get Map of Id Quality Assessment record
    * @return Map of ID and Quality Assessment
    */
-  static Map<ID, Quality_Assessment__c> getQAOldRecordData() {
-    Map<ID, Quality_Assessment__c> mpOldQARecords = new Map<ID, Quality_Assessment__c>();
+  static Map<Id, Quality_Assessment__c> getQAOldRecordData() {
+    Map<Id, Quality_Assessment__c> mpOldQARecords = new Map<Id, Quality_Assessment__c>();
     User oQAUser = [
-      SELECT ID, Name
+      SELECT Id, Name
       FROM User
       WHERE FirstName = 'DummyCQSpecialist'
       ORDER BY CreatedDate DESC
@@ -150,19 +150,18 @@ public class IDRQualityAssessmentDisputeTaskTest {
   @isTest
   static void testGenerateChangeFieldOnRecordMap() {
     Test.startTest();
-    Map<ID, String> rcdMap = IDRQualityAssessmentsDisputeTaskActions.generateChangeFieldOnRecordMap(
+    Map<Id, String> rcdMap = IDRQualityAssessmentsDisputeTaskActions.generateChangeFieldOnRecordMap(
       getQAData(),
       getQAOldRecordData()
     );
     Test.stopTest();
-    System.assertEquals(0, rcdMap.size(), 'Mocked Data , No Field Map Created');
+    System.assertEquals(1, rcdMap.size(), 'One Field Changed in the Record');
   }
   /**
    * @description test generateDisputeTask()
    */
   @isTest
   static void testGenerateDisputeTask() {
-    Test.startTest();
     List<Quality_Assessment__c> qaList = getQAData();
     qaList[0]
       .Team_Manager_Response__c = IDRConstants.TEAM_MANAGER_REJECTION_RESPONSE;
@@ -170,8 +169,9 @@ public class IDRQualityAssessmentDisputeTaskTest {
     qaList[2]
       .TM_Response_to_C_Q_Manager_Review__c = IDRConstants.TM_REJECTS_CQ_MANAGER_RESPONSE;
     qaList[3].C_Q_Lead_Response__c = 'Test CQ Lead Response';
+
     List<Task> disputeTasks = IDRQualityAssessmentsDisputeTaskActions.generateDisputeTask(
-      new Map<ID, String>{
+      new Map<Id, String>{
         qaList[0].Id => 'Team_Manager_Response__c',
         qaList[1].Id => 'C_Q_Manager_Response__c',
         qaList[2].Id => 'TM_Response_to_C_Q_Manager_Review__c',
@@ -179,22 +179,24 @@ public class IDRQualityAssessmentDisputeTaskTest {
       },
       qaList
     );
-    Test.stopTest();
-    Assert.isNull(disputeTasks, 'No Dispute Task Actually Created');
+    System.assertEquals(
+      4,
+      disputeTasks.size(),
+      'Tasks Created for All Qa Records'
+    );
   }
   /**
    * @description test createDisputeTasks()
    */
   @isTest
   static void testCreateDisputeTasks() {
-    Test.startTest();
     List<Quality_Assessment__c> qaList = getQAData();
     List<Quality_Assessment__c> qaListOld = getQAData();
     qaList[0]
       .TM_Response_to_C_Q_Manager_Review__c = IDRConstants.TM_REJECTS_CQ_MANAGER_RESPONSE;
     IDRQualityAssessmentsDisputeTaskActions.createDisputeTasks(
       new List<Quality_Assessment__c>{ qaList[0] },
-      new Map<ID, Quality_Assessment__c>{ qaListOld[0].Id => qaListOld[0] }
+      new Map<Id, Quality_Assessment__c>{ qaListOld[0].Id => qaListOld[0] }
     );
     List<Task> disputeTasks = [
       SELECT Id, Status, WhatId, RecordType.DeveloperName
@@ -203,7 +205,6 @@ public class IDRQualityAssessmentDisputeTaskTest {
         WhatId = :qaList[0].Id
         AND RecordTypeId = :IDRConstants.TASK_COMPLIANCE_RT_ID
     ];
-    Test.stopTest();
     System.assertNotEquals(
       1,
       disputeTasks.size(),
