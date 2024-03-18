@@ -35,7 +35,7 @@ public class IDRTestDataFactory {
    * @description Create Case record with different issue types
    * @return Case
    */
-  public static Case createCaseWithIssueTyes() {
+  public static Case createComplaint() {
     Case caseRecord = new Case();
     caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
     caseRecord.IDR_Customer_Number__c = '1234567890';
