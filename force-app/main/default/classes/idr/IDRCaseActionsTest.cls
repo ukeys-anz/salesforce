@@ -581,7 +581,6 @@ private with sharing class IDRCaseActionsTest {
 
     System.assertEquals(isProductAssetfinance, true);
   }
-
   /**
    * @description Create Case record with different issue types
    * @return Case

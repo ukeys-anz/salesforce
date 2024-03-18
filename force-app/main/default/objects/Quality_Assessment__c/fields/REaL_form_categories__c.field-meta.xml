@@ -60,6 +60,51 @@
                 <default>false</default>
                 <label>Other: [free text field following]&quot;</label>
             </value>
+            <value>
+                <fullName>RG271.54(a) – FR does not identify/address issues</fullName>
+                <default>false</default>
+                <label>RG271.54(a) – FR does not identify/address issues</label>
+            </value>
+            <value>
+                <fullName>RG271.54(b) – FR does not give findings</fullName>
+                <default>false</default>
+                <label>RG271.54(b) – FR does not give findings</label>
+            </value>
+            <value>
+                <fullName>RG271.54(c) – FR does not give enough details for decision</fullName>
+                <default>false</default>
+                <label>RG271.54(c) – FR does not give enough details for decision</label>
+            </value>
+            <value>
+                <fullName>RG271.53 – FR fully in customer favour but does not inform of outcome</fullName>
+                <default>false</default>
+                <label>RG271.53 – FR fully in customer favour but does not inform of outcome</label>
+            </value>
+            <value>
+                <fullName>Factual inaccuracy in final response</fullName>
+                <default>false</default>
+                <label>Factual inaccuracy in final response</label>
+            </value>
+            <value>
+                <fullName>CR issue – Privacy/confidentiality</fullName>
+                <default>false</default>
+                <label>CR issue – Privacy/confidentiality</label>
+            </value>
+            <value>
+                <fullName>CR issue – Hardship/debt collection obligations</fullName>
+                <default>false</default>
+                <label>CR issue – Hardship/debt collection obligations</label>
+            </value>
+            <value>
+                <fullName>CR issue – Other</fullName>
+                <default>false</default>
+                <label>CR issue – Other</label>
+            </value>
+            <value>
+                <fullName>Non-CR issue</fullName>
+                <default>false</default>
+                <label>Non-CR issue</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>3</visibleLines>

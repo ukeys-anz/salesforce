@@ -122,6 +122,8 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Priority = 'Financial Hardship',
         Type = '17',
         Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+        IDR_AFCA_Status__c = '10',
+        IDR_AFCA_Due_Date__c = System.TODAY() ,
         Description = 'EDR_Hardship'
       )
     );
@@ -139,6 +141,8 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Type = '5',
         IDR_Subsequent_Issue__c = '38',
         Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+        IDR_AFCA_Status__c = '10',
+        IDR_AFCA_Due_Date__c = System.TODAY(),
         Description = 'Specialised_EarlyRes_Responsible_Lending'
       )
     );

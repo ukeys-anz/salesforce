@@ -206,3 +206,6 @@ force-app/main/default/objects/PersonDigitalIdentity__x
 # ANZX-123338 These coponents will be taken up as post deploy steps because of dependencies
 force-app/main/default/flexipages/TFMManageOpenBankingPage.flexipage-meta.xml
 force-app/main/default/tabs/TFMManageOpenBankingPage.tab-meta.xml
+
+#CC-6285 ignore for manual delete
+force-app/main/default/flows/CCRM_Hide_Expired_Contacts_Schedule.flow-meta.xml

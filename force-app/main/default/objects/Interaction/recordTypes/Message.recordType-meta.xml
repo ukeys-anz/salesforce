@@ -527,4 +527,19 @@
             <default>false</default>
         </values>
     </picklistValues>
+    <picklistValues>
+        <picklist>Transfer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>To Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To Queue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

@@ -1947,6 +1947,16 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>My_extended_team_s_cases__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Date_Time_Provisionally_Closed__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>SI_Workflow_Step__c</field>
             <table>Case</table>
         </columns>

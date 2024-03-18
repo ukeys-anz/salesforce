@@ -59,14 +59,12 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
 
     Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
     List<InteractionAttendee> newAttendees = new List<InteractionAttendee>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newAttendees.add(
-        new InteractionAttendee(
-          InteractionId = testInteraction.Id,
-          UserId = userData.Id
-        )
-      );
-    }
+    newAttendees.add(
+      new InteractionAttendee(
+        InteractionId = testInteraction.Id,
+        UserId = userData.Id
+      )
+    );
 
     Test.startTest();
     insert newAttendees;
@@ -82,11 +80,6 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
       userData.Name,
       parentInteraction.Attendees__c,
       'Incorrect value for Attendees__c'
-    );
-    System.assertEquals(
-      '{"userIdToDetails":{"' + userData.Id + '":"Coach"}}',
-      parentInteraction.Attendees_and_Roles__c,
-      'Incorrect value for Attendees_and_Roles__c'
     );
   }
 

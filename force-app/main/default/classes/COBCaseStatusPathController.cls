@@ -4,8 +4,10 @@
  * @since 12/2022
  */
 public with sharing class COBCaseStatusPathController {
+  @TestVisible
   private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
-  private static final String PERSONA_ID_ERROR = 'Persona ID is missing on case. Please check again.';
+  @TestVisible
+  private static final String PERSONA_ID_ERROR = 'Persona ID is missing on a case. Please check again.';
 
   // Statuses with Callout API
   private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
@@ -20,10 +22,13 @@ public with sharing class COBCaseStatusPathController {
    * @description Trigger Temporal workflow based on case status
    * @param currentStatus Current status to revert to if update fails
    * @param cobCase Case with new fields data to be updated
-   * @return Boolean True - If case is successfully updated, False - if successfuly updated with a callout or DML error
+   * @return COBCaseUpdateStatus: isUpdated -  True - If case is successfully updated, False - if successfuly updated with a callout or DML error; cobVerificationFailedReason to compare on client side
    */
   @AuraEnabled
-  public static Boolean updateStatus(String currentStatus, Case cobCase) {
+  public static COBCaseUpdateStatus updateStatus(
+    String currentStatus,
+    Case cobCase
+  ) {
     if (String.isEmpty(cobCase.PersonaId__c)) {
       throwException(PERSONA_ID_ERROR);
     }
@@ -38,7 +43,10 @@ public with sharing class COBCaseStatusPathController {
 
     Boolean isCalloutSucccesful = makeTemporalCallout(currentStatus, cobCase);
     Boolean isCaseUpdated = handleCaseUpdate(cobCase);
-    return isCalloutSucccesful && isCaseUpdated;
+    return new COBCaseUpdateStatus(
+      isCalloutSucccesful && isCaseUpdated,
+      cobCase.OnboardingVerificationFailedReason__c
+    );
   }
 
   /**
@@ -60,7 +68,12 @@ public with sharing class COBCaseStatusPathController {
     }
 
     try {
-      temporalCaseWorkflowAPI.triggerTemporalCaseWorkflow(cobCase);
+      StravinskyAPIRepository.CxStageWrapper cobStage = temporalCaseWorkflowAPI.triggerTemporalCaseWorkflow(
+        cobCase
+      );
+      if (cobStage.cxOnboardingStage != StravinskyAPIRepository.COB_UPDATED) {
+        setCaseStatusFromTemporalResult(cobCase, cobStage);
+      }
     } catch (Exception e) {
       Logger.error(
         'Failed Temporal Callout to update status: ' + cobCase.Status,
@@ -68,14 +81,52 @@ public with sharing class COBCaseStatusPathController {
       );
       Logger.saveLog();
 
-      cobCase.Status = currentStatus;
-      cobCase.OnboardingVerificationFailedReason__c = '';
-      cobCase.Status_Update_Error__c = String.isBlank(e.getMessage())
-        ? CALLOUT_ERROR
-        : e.getMessage();
+      setCaseStatusFromTemporalError(cobCase, currentStatus, e.getMessage());
     }
 
     return String.isBlank(cobCase.Status_Update_Error__c);
+  }
+
+  /**
+   * @description Sets the Case status according to expected onboarding stage
+   * @param cobCase Case to update the status field
+   * @param cobStage COB expected Onbording stage and Onboarding Verification Failed Reason in case it's STAGE_TNC)
+   */
+  @TestVisible
+  private static void setCaseStatusFromTemporalResult(
+    Case cobCase,
+    StravinskyAPIRepository.CxStageWrapper cobStage
+  ) {
+    Map<String, String> stageStatusMap = new Map<String, String>{
+      StravinskyAPIRepository.STAGE_ASSISTED_SELFIE => GetHelpConstants.COB_DAON_FAILED_STATUS,
+      StravinskyAPIRepository.STAGE_ASSISTED_KYC => GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
+      StravinskyAPIRepository.STAGE_ACK_ID_CHECK => GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
+      StravinskyAPIRepository.STAGE_TNC => GetHelpConstants.COB_FAILED_OK_STATUS
+    };
+    cobCase.Status = stageStatusMap.get(cobStage.cxOnboardingStage);
+    cobCase.OnboardingVerificationFailedReason__c = cobStage.retryReason;
+  }
+
+  /**
+   * @description Sets the Case status and Status update error if exist up to 255 characters
+   * @param cobCase Case to update the status field and status update error
+   * @param currentStatus Current status to revert to if update fails
+   * @param errorMessage Error message from response
+   */
+  @TestVisible
+  private static void setCaseStatusFromTemporalError(
+    Case cobCase,
+    String currentStatus,
+    String errorMessage
+  ) {
+    cobCase.Status = currentStatus;
+    cobCase.OnboardingVerificationFailedReason__c = '';
+    if (String.isBlank(errorMessage)) {
+      errorMessage = CALLOUT_ERROR;
+    }
+    cobCase.Status_Update_Error__c = errorMessage.length() <= 255
+      ? errorMessage
+      : errorMessage.substring(0, 255);
   }
 
   /**
@@ -106,5 +157,40 @@ public with sharing class COBCaseStatusPathController {
     Logger.error('Failed to update COB case', e);
     Logger.saveLog();
     throw e;
+  }
+
+  /**
+   * @description Wrapper class for COB Case Update Status w/o Verification Failed Reason
+   */
+  public class COBCaseUpdateStatus {
+    /**
+     * @description isCaseUpdated
+     */
+    @AuraEnabled
+    public Boolean isCaseUpdated { get; set; }
+    /**
+     * @description cobVerificationFailedReason
+     */
+    @AuraEnabled
+    public String cobVerificationFailedReason { get; set; }
+
+    /**
+     * @description Constructor with args, for server-side Apex -> client-side JavaScript
+     * @param isCaseUpdated
+     * @param cobVerificationFailedReason
+     */
+    public COBCaseUpdateStatus(
+      Boolean isCaseUpdated,
+      String cobVerificationFailedReason
+    ) {
+      this.isCaseUpdated = isCaseUpdated;
+      this.cobVerificationFailedReason = cobVerificationFailedReason;
+    }
+
+    /**
+     * @description No-arg constructor, for client-side -> server-side
+     */
+    public COBCaseUpdateStatus() {
+    }
   }
 }

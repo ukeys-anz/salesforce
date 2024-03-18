@@ -137,7 +137,11 @@ public with sharing class CCRMLegalEntityActionsTest {
     Faker faker = new Faker('AU');
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
       //GIVEN
-      role = CCRMTestDataFactory.createReciprocalRole('CG', 'INVCG');
+      role = CCRMTestDataFactory.createReciprocalRole(
+        'CG',
+        'INVCG',
+        CCRMConstants.RECIPROCAL_ACCOUNT_ROLE_RT_ID
+      );
       Test.startTest();
       //Account 2
       Account firstAccount = new Account();
@@ -219,7 +223,11 @@ public with sharing class CCRMLegalEntityActionsTest {
     Faker faker = new Faker('AU');
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
       //GIVEN
-      role = CCRMTestDataFactory.createReciprocalRole('CG', 'INVCG');
+      role = CCRMTestDataFactory.createReciprocalRole(
+        'CG',
+        'INVCG',
+        CCRMConstants.RECIPROCAL_ACCOUNT_ROLE_RT_ID
+      );
       //Create Opportunity
       List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
         1,

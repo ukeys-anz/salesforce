@@ -21,6 +21,13 @@ global with sharing class InteractionContextServiceUpdate {
       twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
         contextRequests
       );
+      //Interaction attendee addition logic for conference scenario
+      List<InteractionAttendee> conferenceAttendeeList = InteractionAttendeeActions.insertTwilioConferenceAttendee(
+        contextRequests[0],
+        TwilioServiceUtil.agentOwnerIdMap
+      );
+
+      DMLUtil.insertRecords(conferenceAttendeeList, false, false);
     } catch (Exception e) {
       Logger.error('Error upserting Twilio Details and Interaction', e);
       Logger.saveLog();
@@ -30,63 +37,5 @@ global with sharing class InteractionContextServiceUpdate {
     RestContext.response.addHeader('Content-Type', 'application/json');
     RestContext.response.responseBody = Blob.valueOf(jsonRes);
     RestContext.response.statusCode = finalStatus;
-  }
-
-  /**
-   * @author Shivam Swaraj
-   * @since  July 2023
-   * @description Wrapper class to store Twilio Context Response parameters
-   */
-  global class UpdateInteractionByTwilioPayload {
-    /**
-     * @description Interaction ID
-     */
-    public Id interactionId { get; set; }
-    /**
-     * @description twilioId
-     */
-    public String twilioId { get; set; }
-    /**
-     * @description chatOrCallId
-     */
-    public String chatOrCallId { get; set; }
-    /**
-     * @description chatOrCallStatus
-     */
-    public String chatOrCallStatus { get; set; }
-    /**
-     * @description callRecordingId
-     */
-    public String callRecordingId { get; set; }
-    /**
-     * @description queueName
-     */
-    public String queueName { get; set; }
-    /**
-     * @description agentEmail
-     */
-    public String agentEmail { get; set; }
-    /**
-     * @description store the id of the Twilio Detail
-     */
-    public String twilioDetailRecordId { get; set; }
-  }
-
-  /**
-   * @description Wrapper class to store Twilio Context Response parameters
-   */
-  global class TwilioContextResponse {
-    /**
-     * @description Response result (true or false)
-     */
-    public Boolean success { get; set; }
-    /**
-     * @description Response code. 200 for success. 400 for failure.
-     */
-    public Integer statusCode { get; set; }
-    /**
-     * @description Error Message for failure response
-     */
-    public String errorMessage { get; set; }
   }
 }
