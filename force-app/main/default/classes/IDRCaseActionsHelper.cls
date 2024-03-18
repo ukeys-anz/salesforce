@@ -19,7 +19,7 @@ public with sharing class IDRCaseActionsHelper {
       record.IDR_Is_Hardship_Resolution_Letter_Sent__c ==
       oldCaserecord.IDR_Is_Hardship_Resolution_Letter_Sent__c
     ) {
-      return null;
+      record.IDR_Hardship_Response_updated_on__c;
     }
     return DateTime.now();
   }
