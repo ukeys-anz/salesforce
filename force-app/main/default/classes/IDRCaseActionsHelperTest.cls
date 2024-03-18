@@ -112,18 +112,17 @@ private with sharing class IDRCaseActionsHelperTest {
 
   @isTest
   static void testpopulateAfcaRegistrationResponseDate() {
-    Id caseRecordId1 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Id caseRecordId2 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Case caseRecord1 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord1.Id = caseRecordId1;
-    caseRecord1.IDR_AFCA_Registration_Response_Provided__c = false;
-    Case caseRecord2 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord2.Id = caseRecordId2;
-    caseRecord2.IDR_AFCA_Registration_Response_Provided__c = true;
+    Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Case oldCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    oldCase.Id = caseRecordId;
+    oldCase.IDR_AFCA_Registration_Response_Provided__c = false;
+    Case newCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    newCase.Id = caseRecordId;
+    newCase.IDR_AFCA_Registration_Response_Provided__c = true;
     Test.startTest();
     DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
-      caseRecord1,
-      caseRecord2
+      oldCase,
+      newCase
     );
     Test.stopTest();
     System.assertNotEquals(
@@ -135,18 +134,17 @@ private with sharing class IDRCaseActionsHelperTest {
 
   @isTest
   static void testAfcaDueDateNotPopulate() {
-    Id caseRecordId1 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Id caseRecordId2 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Case caseRecord1 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord1.Id = caseRecordId1;
-    caseRecord1.IDR_AFCA_Registration_Response_Provided__c = false;
-    Case caseRecord2 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord2.Id = caseRecordId2;
-    caseRecord2.IDR_AFCA_Registration_Response_Provided__c = false;
+    Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Case oldCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    oldCase.Id = caseRecordId;
+    oldCase.IDR_AFCA_Registration_Response_Provided__c = false;
+    Case newCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    newCase.Id = caseRecordId;
+    newCase.IDR_AFCA_Registration_Response_Provided__c = false;
     Test.startTest();
     DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
-      caseRecord1,
-      caseRecord2
+      oldCase,
+      newCase
     );
     Test.stopTest();
     System.assertEquals(
@@ -157,18 +155,17 @@ private with sharing class IDRCaseActionsHelperTest {
   }
   @isTest
   static void testAfcaDueDatewithResponseUncheckedPopulate() {
-    Id caseRecordId1 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Id caseRecordId2 = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Case caseRecord1 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord1.Id = caseRecordId1;
-    caseRecord1.IDR_AFCA_Registration_Response_Provided__c = true;
-    Case caseRecord2 = IDRTestDataFactory.createCaseWithIssueTyes();
-    caseRecord2.Id = caseRecordId2;
-    caseRecord2.IDR_AFCA_Registration_Response_Provided__c = false;
+    Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Case oldCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    oldCase.Id = caseRecordId;
+    oldCase.IDR_AFCA_Registration_Response_Provided__c = true;
+    Case newCase = IDRTestDataFactory.createCaseWithIssueTyes();
+    newCase.Id = caseRecordId;
+    newCase.IDR_AFCA_Registration_Response_Provided__c = false;
     Test.startTest();
     DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
-      caseRecord1,
-      caseRecord2
+      oldCase,
+      newCase
     );
     Test.stopTest();
     System.assertEquals(
