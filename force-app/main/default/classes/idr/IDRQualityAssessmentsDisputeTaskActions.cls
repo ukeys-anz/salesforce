@@ -206,8 +206,8 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
   }
   /**
    * @description Wrapper Class to wrap task fields
-   * @param oAssessment Subject of the Task
-   * @param subject case manager of QA record
+   * @param oAssessment quality assessment record
+   * @param subject Subject of the Task
    * @param ownerId Owner of the Task
    * @param description description of the task
    * @return TaskWrapper Object
