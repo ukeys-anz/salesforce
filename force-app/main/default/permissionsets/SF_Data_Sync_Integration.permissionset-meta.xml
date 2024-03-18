@@ -1292,6 +1292,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_AFCA_Registration_Response_Provided__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_AFCA_Reference_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3042,6 +3047,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Chat_Queue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Chat_or_Call_SID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3222,6 +3232,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Transfer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.TwilioDetailsID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3233,6 +3248,36 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Video_Call__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.AttendeeType</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.Attendee_Name_Formula__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.Attendee_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.Attendee_Phone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.Conversation_Sid__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionAttendee.UniqueKeyForInteractionAttendee__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
