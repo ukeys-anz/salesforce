@@ -34,7 +34,7 @@ public virtual without sharing class NudgeTaskCloudEventModel extends TaskCloudE
     /**
      * @description outcome time
      */
-    public String outcomeTime { get; set; }
+    public DateTime outcomeTime { get; set; }
 
     /**
      * @description Constructor
@@ -43,8 +43,14 @@ public virtual without sharing class NudgeTaskCloudEventModel extends TaskCloudE
     public NudgeTaskCloudEventDataModel(Task theTask) {
       this.interactionReference = theTask.Pega_CDH_Id__c;
       this.actionReference = theTask.IDR_COR_ID__c;
-      this.outcome = theTask.Status;
-      this.outcomeTime = String.valueOf(theTask.CompletedDateTime);
+      this.outcomeTime = theTask.CompletedDateTime;
+      if (
+        GetHelpConstants.COACH_NUDGE_TASK_STATUS.containsKey(theTask.Status)
+      ) {
+        this.outcome = GetHelpConstants.COACH_NUDGE_TASK_STATUS.get(
+          theTask.Status
+        );
+      }
     }
   }
 }

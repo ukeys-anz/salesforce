@@ -353,4 +353,9 @@ public with sharing class GetHelpConstants {
     'CARD',
     'DEPOSIT_WITHDRAWAL'
   };
+
+  public static final Map<String, String> COACH_NUDGE_TASK_STATUS = new Map<String, String>{
+    'Actioned' => 'STATUS_ACTIONED',
+    'Expired' => 'STATUS_EXPIRED'
+  };
 }
