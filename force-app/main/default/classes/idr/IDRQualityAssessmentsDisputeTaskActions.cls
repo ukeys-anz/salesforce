@@ -140,7 +140,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    * @description method to generate a map with changes fields in current list of updated Assessments
    * @param lstAssessments List Of Assessments
    * @param mpOldAssessments Map of Old Assessments
-   * @return Map<ID, String> Map of Changed Fields
+   * @return Map<Id, String> changedFieldsOnRecord Map of Changed Fields
    */
   @TestVisible
   private static Map<ID, String> generateChangeFieldOnRecordMap(
@@ -234,8 +234,8 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    * @param oAssessment Updated Quality Assessment record
    * @param fieldAPIName field which has updated
    * @param fieldValue value of the updated field
-   * @param mpOldAssessments map of old
-   * @return Map<Id, Quality_Assessment__c> mpOldAssessments Map of record Id, and field API Name
+   * @param mpOldAssessments map of old assessment record
+   * @return Map<Id, String> mpOldAssessments Map of record Id, and field API Name
    */
   private static Map<Id, String> getChangedFieldsWithSpecificValue(
     Quality_Assessment__c oAssessment,
@@ -259,7 +259,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    * @param fieldAPIName field which has updated
    * @param changedFieldsOnRecord record Id, and field API Name
    * @param mpOldAssessments map of old
-   * @return Map<Id, Quality_Assessment__c> mpOldAssessments Map of record Id, and field API Name
+   * @return Map<Id, String> mpOldAssessments Map of record Id, and field API Name
    */
   private static Map<Id, String> getChangedFieldsOnRecord(
     Quality_Assessment__c oAssessment,
