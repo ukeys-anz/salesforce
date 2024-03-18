@@ -73,14 +73,14 @@ public with sharing class IDR_CaseReportingCalculations {
       if (!recordTypes.contains(cse.RecordTypeId)) {
         continue;
       }
-      if (
-        oldCase != null &&
-        oldCase.get('Status') != cse.get('Status') &&
-        checkValidStatus(oldCase, cse)
-      ) {
-        recordsToProcess.add(cse);
-      }
       if (oldCase == null) {
+        recordsToProcess.add(cse);
+        continue;
+      }
+      if (oldCase.Status == cse.Status) {
+        continue;
+      }
+      if (checkValidStatus(oldCase.Status, cse.Status)) {
         recordsToProcess.add(cse);
       }
     }
@@ -89,20 +89,40 @@ public with sharing class IDR_CaseReportingCalculations {
   /**
    * @description  checkValidStatus method is used to handle the case status changes as follows
    * Removes unwanted records from processing further
-   * @param newCase The actual case record from the trigger
-   * @param oldCase The old case record from the trigger
+   * @param newStatus The new case status from the trigger
+   * @param oldStatus The old case status from the trigger
    * @return boolean returns true if the status is valid.
    */
-  private static boolean checkValidStatus(Case newCase, Case oldCase) {
+  private static boolean checkValidStatus(String newStatus, String oldStatus) {
     if (
-      (openCaseStatusRG271.contains(newCase.Status) &&
-      !openCaseStatusRG271.contains(oldCase.Status)) ||
-      (!openCaseStatusRG271.contains(newCase.Status) &&
-      openCaseStatusRG271.contains(oldCase.Status)) ||
-      (!openCaseStatus.contains(newCase.Status) &&
-      openCaseStatus.contains(oldCase.Status)) ||
-      (openCaseStatus.contains(newCase.Status) &&
-      !openCaseStatus.contains(oldCase.Status))
+      checkStatusChange(newStatus, oldStatus, openCaseStatusRG271) ||
+      checkStatusChange(oldStatus, newStatus, openCaseStatusRG271)
+    ) {
+      return true;
+    }
+    if (
+      checkStatusChange(newStatus, oldStatus, openCaseStatus) ||
+      checkStatusChange(oldStatus, newStatus, openCaseStatus)
+    ) {
+      return true;
+    }
+    return false;
+  }
+  /**
+   * @description checkStatusChange method is used to handle the case status changes as follows
+   * Removes unwanted records from processing further
+   * @param newStatus The new case status from the trigger
+   * @param oldStatus The old case status from the trigger
+   * @param caseStatusList case Status List
+   * @return boolean returns true if the status is valid.
+   */
+  private static boolean checkStatusChange(
+    String statusFrom,
+    String statusTo,
+    List<String> caseStatusList
+  ) {
+    if (
+      caseStatusList.contains(statusFrom) && !caseStatusList.contains(statusTo)
     ) {
       return true;
     }
@@ -115,10 +135,11 @@ public with sharing class IDR_CaseReportingCalculations {
    */
   private static Long calculateOpenTime(DateTime lastOpenedDate) {
     Long timeDifferenceMilliseconds = 0;
-    if (lastOpenedDate != null) {
-      timeDifferenceMilliseconds =
-        DateTime.now().getTime() - lastOpenedDate.getTime();
+    if (lastOpenedDate == null) {
+      return timeDifferenceMilliseconds;
     }
+    timeDifferenceMilliseconds =
+      DateTime.now().getTime() - lastOpenedDate.getTime();
     return timeDifferenceMilliseconds;
   }
 
@@ -136,8 +157,7 @@ public with sharing class IDR_CaseReportingCalculations {
   ) {
     if (
       (oldCase != null &&
-      statusToCheck.contains(newCase.Status) &&
-      !statusToCheck.contains(oldCase.Status)) ||
+      checkStatusChange(newCase.Status, oldCase.Status, openCaseStatus)) ||
       (oldCase == null && statusToCheck.contains(newCase.Status))
     ) {
       return true;
@@ -164,34 +184,47 @@ public with sharing class IDR_CaseReportingCalculations {
         ? (Case) oldRecordMap.get(cse.Id)
         : null;
       crf = caseIdToFieldMap.get(cse.Id);
-      if (checkLastOpenedDatePopulation(cse, oldCase, OpenCaseStatusRG271)) {
-        crf.Case_Last_Opened_RG271__c = DateTime.now();
-      }
-      if (checkLastOpenedDatePopulation(cse, oldCase, OpenCaseStatus)) {
-        crf.Case_Last_Opened__c = DateTime.now();
-      }
-      if (oldCase == null) {
-        continue;
-      }
-      if (
-        !openCaseStatusRG271.contains(cse.Status) &&
-        openCaseStatusRG271.contains(oldCase.Status)
-      ) {
-        crf.IDR_Response_Time_RG271_MS__c += calculateOpenTime(
-          crf.Case_Last_Opened_RG271__c
-        );
-        crf.Case_Last_Opened_RG271__c = null;
-      }
-      if (
-        !openCaseStatus.contains(cse.Status) &&
-        openCaseStatus.contains(oldCase.Status)
-      ) {
-        crf.Total_Open_Time_MS__c += calculateOpenTime(crf.Case_Last_Opened__c);
-        crf.Case_Last_Opened__c = null;
-      }
+      crf = calculateRG271Values(cse, oldCase, crf);
+      crf = calculateOpenTimeValues(cse, oldCase, crf);
       caseIdToFieldMap.put(cse.Id, crf);
     }
     return caseIdToFieldMap.values();
+  }
+  private static Case_Reporting_Field__c calculateRG271Values(
+    Case cse,
+    Case oldCase,
+    Case_Reporting_Field__c crf
+  ) {
+    if (checkLastOpenedDatePopulation(cse, oldCase, OpenCaseStatusRG271)) {
+      crf.Case_Last_Opened_RG271__c = DateTime.now();
+    }
+    if (oldCase == null) {
+      return crf;
+    }
+    if (checkStatusChange(oldCase.Status, cse.Status, openCaseStatusRG271)) {
+      crf.IDR_Response_Time_RG271_MS__c += calculateOpenTime(
+        crf.Case_Last_Opened_RG271__c
+      );
+      crf.Case_Last_Opened_RG271__c = null;
+    }
+    return crf;
+  }
+  private static Case_Reporting_Field__c calculateOpenTimeValues(
+    Case cse,
+    Case oldCase,
+    Case_Reporting_Field__c crf
+  ) {
+    if (checkLastOpenedDatePopulation(cse, oldCase, OpenCaseStatus)) {
+      crf.Case_Last_Opened__c = DateTime.now();
+    }
+    if (oldCase == null) {
+      return crf;
+    }
+    if (checkStatusChange(oldCase.Status, cse.Status, openCaseStatus)) {
+      crf.Total_Open_Time_MS__c += calculateOpenTime(crf.Case_Last_Opened__c);
+      crf.Case_Last_Opened__c = null;
+    }
+    return crf;
   }
   /**
    * @description  getReportingFieldForCases method is used query and get the map of reporting fields, and generate new reporting field records if they are not present in the database.
