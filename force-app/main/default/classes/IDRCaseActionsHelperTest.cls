@@ -119,12 +119,10 @@ private with sharing class IDRCaseActionsHelperTest {
     Case newCase = IDRTestDataFactory.createComplaint();
     newCase.Id = caseRecordId;
     newCase.IDR_AFCA_Registration_Response_Provided__c = true;
-    Test.startTest();
     DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
       oldCase,
       newCase
     );
-    Test.stopTest();
     System.assertNotEquals(
       null,
       responseProvided,
@@ -141,12 +139,10 @@ private with sharing class IDRCaseActionsHelperTest {
     Case newCase = IDRTestDataFactory.createComplaint();
     newCase.Id = caseRecordId;
     newCase.IDR_AFCA_Registration_Response_Provided__c = false;
-    Test.startTest();
     DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
       oldCase,
       newCase
     );
-    Test.stopTest();
     System.assertEquals(
       null,
       responseProvided,
@@ -162,12 +158,10 @@ private with sharing class IDRCaseActionsHelperTest {
     Case newCase = IDRTestDataFactory.createComplaint();
     newCase.Id = caseRecordId;
     newCase.IDR_AFCA_Registration_Response_Provided__c = false;
-    Test.startTest();
     DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
       oldCase,
       newCase
     );
-    Test.stopTest();
     System.assertEquals(
       null,
       responseProvided,
