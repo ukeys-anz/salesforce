@@ -33,10 +33,10 @@ public with sharing class IDRCaseActionsHelper {
    * @return Id
    */
   public static Id populateOldOwnerID(Case record, Case oldRecord) {
-    if (record.OwnerId == oldRecord.OwnerId) {
+    ID oldOwner = oldRecord.OwnerId;
+    if (record.OwnerId == oldOwner) {
       return record.Previous_Case_Owner__c;
     }
-    ID oldOwner = oldRecord.OwnerId;
     if (oldOwner.getSObjectType() == Group.SObjectType) {
       return null;
     }
@@ -55,10 +55,10 @@ public with sharing class IDRCaseActionsHelper {
     Case record,
     Case oldRecord
   ) {
-    if (record.OwnerId == oldRecord.OwnerId) {
+    ID newOwner = record.OwnerId;
+    if (newOwner == oldRecord.OwnerId) {
       return record.Date_Case_allocated_to_CM__c;
     }
-    ID newOwner = record.OwnerId;
     if (newOwner.getSObjectType() == User.SObjectType) {
       return DateTime.now();
     }
