@@ -39,9 +39,8 @@ public with sharing class IDRCaseActionsHelper {
     ID oldOwner = oldRecord.OwnerId;
     if (oldOwner.getSObjectType() == Group.SObjectType) {
       return null;
-    } else {
-      return oldOwner;
     }
+    return oldOwner;
   }
 
   /**
@@ -62,9 +61,8 @@ public with sharing class IDRCaseActionsHelper {
     ID newOwner = record.OwnerId;
     if (newOwner.getSObjectType() == User.SObjectType) {
       return DateTime.now();
-    } else {
-      return null;
     }
+    return null;
   }
   /**
    * @description Populate Date/time Registration Response Provided when AFCA Registration Response Provided is checked
