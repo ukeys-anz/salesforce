@@ -18,14 +18,12 @@ private with sharing class IDRCaseActionsHelperTest {
     newCase.IDR_Final_Letter_Outcome__c = 'Test2';
     newCase.Id = caseRecordId;
 
-    Test.startTest();
 
     Datetime dt = IDRCaseActionsHelper.populateHardshipUpdateDate(
       newCase,
       oldCase
     );
 
-    Test.stopTest();
 
     System.assertNotEquals(null, dt, 'Date/time flag should be updated');
   }
@@ -40,14 +38,13 @@ private with sharing class IDRCaseActionsHelperTest {
     Case newCase = IDRTestDataFactory.createComplaint();
     newCase.Id = caseRecordId;
 
-    Test.startTest();
+
 
     Datetime dt = IDRCaseActionsHelper.populateHardshipUpdateDate(
       newCase,
       oldCase
     );
 
-    Test.stopTest();
 
     System.assertEquals(null, dt, 'Date/time flag should be null');
   }
@@ -67,7 +64,6 @@ private with sharing class IDRCaseActionsHelperTest {
     Case caseRecord2 = IDRTestDataFactory.createComplaint();
     caseRecord2.Id = caseRecordId;
     caseRecord2.OwnerId = groupRecordID;
-    Test.startTest();
     DateTime dt1 = IDRCaseActionsHelper.populateDateCaseAllocatedToCM(
       caseRecord1,
       caseRecord
@@ -76,7 +72,6 @@ private with sharing class IDRCaseActionsHelperTest {
       caseRecord2,
       caseRecord
     );
-    Test.stopTest();
 
     System.assertNotEquals(null, dt1, 'Date/time flag should be updated');
     System.assertEquals(
@@ -100,9 +95,7 @@ private with sharing class IDRCaseActionsHelperTest {
     Case caseRecord2 = IDRTestDataFactory.createComplaint();
     caseRecord2.Id = caseRecordId;
     caseRecord2.OwnerId = groupRecordID;
-    Test.startTest();
     ID pco = IDRCaseActionsHelper.populateOldOwnerID(caseRecord1, caseRecord);
-    Test.stopTest();
     System.assertEquals(
       userRecordID,
       pco,
