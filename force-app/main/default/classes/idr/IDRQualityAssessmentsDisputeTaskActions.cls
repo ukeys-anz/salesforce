@@ -235,7 +235,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    * @param fieldAPIName field which has updated
    * @param fieldValue value of the updated field
    * @param mpOldAssessments map of old
-   * @return Map of record Id, and field API Name
+   * @return Map<Id, Quality_Assessment__c> mpOldAssessments Map of record Id, and field API Name
    */
   private static Map<Id, String> getChangedFieldsWithSpecificValue(
     Quality_Assessment__c oAssessment,
@@ -259,7 +259,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    * @param fieldAPIName field which has updated
    * @param changedFieldsOnRecord record Id, and field API Name
    * @param mpOldAssessments map of old
-   * @return Map of record Id, and field API Name
+   * @return Map<Id, Quality_Assessment__c> mpOldAssessments Map of record Id, and field API Name
    */
   private static Map<Id, String> getChangedFieldsOnRecord(
     Quality_Assessment__c oAssessment,
