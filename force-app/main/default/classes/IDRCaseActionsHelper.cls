@@ -70,7 +70,7 @@ public with sharing class IDRCaseActionsHelper {
    * @param newRecord new Record of cases from the trigger
    * @return DateTime
    */
-  public static DateTime populateAfcaRegistrationResponseDate(
+  public static void populateAfcaRegistrationResponseDate(
     Case oldRecord,
     Case newRecord
   ) {
@@ -78,12 +78,12 @@ public with sharing class IDRCaseActionsHelper {
       oldRecord.IDR_AFCA_Registration_Response_Provided__c ==
       newRecord.IDR_AFCA_Registration_Response_Provided__c
     ) {
-      return newRecord.Date_time_Registration_Response_Provided__c;
+      //return newRecord.Date_time_Registration_Response_Provided__c;
     }
 
     if (!newRecord.IDR_AFCA_Registration_Response_Provided__c) {
-      return newRecord.Date_time_Registration_Response_Provided__c;
+      //return newRecord.Date_time_Registration_Response_Provided__c;
     }
-    return DateTime.now();
+    //return DateTime.now();
   }
 }
