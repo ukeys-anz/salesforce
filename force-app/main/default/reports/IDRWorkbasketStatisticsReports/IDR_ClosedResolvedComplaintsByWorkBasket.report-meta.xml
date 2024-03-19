@@ -44,7 +44,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
-            <value>IDR,Hardship,CCR</value>
+            <value>IDR,Hardship,CCR,Simplification</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

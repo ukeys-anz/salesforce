@@ -137,9 +137,8 @@ public with sharing class IDRCaseActions {
     Id entitlementId = getEntitlement();
     Map<Id, Product2> productMap = new Map<Id, Product2>([SELECT Id, IDR_Product_Family__c, IDR_Product_Family__r.Name
                                                          FROM Product2
-                                                          WHERE IDR_Product_Family__r.Name = 'Asset finance']);
+                                                          WHERE IDR_Product_Family__r.Name = 'Asset finance']);                                                  
     Case[] updatePsiTicked = new List<Case>();
-   
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
@@ -177,7 +176,10 @@ public with sharing class IDRCaseActions {
         {
           record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
-        populateHardshipUpdateDate(record, oldRecord);
+        record.IDR_Hardship_Response_updated_on__c = IDRCaseActionsHelper.populateHardshipUpdateDate(
+          record,
+          oldRecord
+        );
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -191,6 +193,14 @@ public with sharing class IDRCaseActions {
         handleAnonymousNames(record);
         handleEntitlementForUpdate(record, oldRecord, entitlementId);
         identifyOwnerChangeRecords(record, (oldRecord).OwnerId);
+        record.Previous_Case_Owner__c = IDRCaseActionsHelper.populateOldOwnerID(
+          record,
+          oldRecord
+        );
+        record.Date_Case_allocated_to_CM__c = IDRCaseActionsHelper.populateDateCaseAllocatedToCM(
+          record,
+          oldRecord
+        );
         if (record.Status != oldRecord.Status) {
           handleCaseStatusChanges(record);
         }
@@ -198,6 +208,10 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
           updatePsiTicked.add(record);
         }
+       record.Date_time_Registration_Response_Provided__c = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+          oldRecord,
+          record
+        );
       } else if (
         record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
       ) {
@@ -282,7 +296,7 @@ populateOwnerChangeFields(record, oldMap);
     preventTaskOwnerChange(records, oldMap);
   }
 
-  /**
+ /**
    * @description Complete the CMOS Complaints Milestone when case is escalated or closed
    * @param records from the trigger
    * @param oldMap previous values of cases in current context of trigger
@@ -294,33 +308,40 @@ populateOwnerChangeFields(record, oldMap);
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
     Set<Id> hardshipCases = new Set<Id>();
+    Set<String> caseStatus = new Set<String>{
+      IDRConstants.PROVISIONALLY_CLOSED_STATUS,
+      IDRConstants.CLOSED_STATUS
+    };
     for (Case c : records) {
       if (isIDRComplaintType(c)) {
         Case oldCase = (oldMap.containsKey(c.Id))
           ? (Case) oldMap.get(c.Id)
           : null;
         if (
-          (oldCase != null &&
           ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
           c.Status == IDRConstants.ESCALATED_STATUS) ||
           (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
-          c.IDR_Milestone_Sla__c == 'Completed'))
+          c.IDR_Milestone_Sla__c == 'Completed')
         ) {
           escalationCases.add(c.Id);
         }
+        if (!caseStatus.contains(c.Status)) {
+          continue;
+        }
         if (
-          (oldCase != null &&
           (!oldCase.isClosed &&
-          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
+          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS))
         ) {
           maxTimeFrameCases.add(c.Id);
         }
-        if(c.isClosed && String.isNotBlank(c.IDR_Is_Hardship_Resolution_Letter_Sent__c)){
+        if (
+          c.isClosed &&
+          String.isNotBlank(c.IDR_Is_Hardship_Resolution_Letter_Sent__c)
+        ) {
           hardshipCases.add(c.Id);
         }
       }
     }
-
     if (!escalationCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         escalationCases,
@@ -331,7 +352,6 @@ populateOwnerChangeFields(record, oldMap);
         System.now()
       );
     }
-
     if (!maxTimeFrameCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         maxTimeFrameCases,
@@ -340,20 +360,18 @@ populateOwnerChangeFields(record, oldMap);
           '30-day IDR Response Due',
           'Open_Escalation_Time',
           'AFCA Response Due',
-          'FPR 5 Business Day Resolution target'         
+          'FPR 5 Business Day Resolution target'
         },
         System.now()
       );
       IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
     }
 
-    if(!hardshipCases.isEmpty()){
-      MilestoneUtils.completeMilestones(
-        hardshipCases,
-        new List<String>{'21 Day Hardship Letter Milestone'},
-        System.now()
-      );
-    }
+    MilestoneUtils.completeMilestones(
+      hardshipCases,
+      new List<String>{ '21 Day Hardship Letter Milestone' },
+      System.now()
+    );
   }
 
   /**
@@ -938,7 +956,6 @@ populateOwnerChangeFields(record, oldMap);
    */
    @TestVisible
    private static Boolean isProductAssetfinance(Case record, Case oldRecord, Map<Id, Product2> productMap) {
-  
     if((IDRCollectionActions.isCollectionsIssue(oldRecord.Type,oldRecord.IDR_Subsequent_Issue__c)) &&
         (String.isNotBlank(oldRecord.Product__c) &&
           oldRecord.Product__c != record.Product__c && productMap.containsKey(oldRecord.Product__c))
@@ -958,25 +975,5 @@ populateOwnerChangeFields(record, oldMap);
            return true;
           }  
       return false;
-
-  }
-
- /**
-  * @description Populate modified date when the picklist value is updated
-  * @param record  from the trigger
-  * @param oldCaserecord Old Record from the trigger
-  */
-  @TestVisible
-  private static void populateHardshipUpdateDate(
-    Case record,
-    Case oldCaserecord
-  ) {
-    if (
-      record.IDR_Is_Hardship_Resolution_Letter_Sent__c == oldCaserecord.IDR_Is_Hardship_Resolution_Letter_Sent__c
-    ) {
-        return;
-    }
-    record.IDR_Hardship_Response_updated_on__c = System.now();
-    
   }
 }

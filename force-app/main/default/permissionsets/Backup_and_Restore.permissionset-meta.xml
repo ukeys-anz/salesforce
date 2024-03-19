@@ -1819,11 +1819,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_AFCA_Information_Request_Due__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.IDR_AFCA_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8720,6 +8715,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>trailheadapp__User_Trailmix__c.trailheadapp__User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.AFCA_Stage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Date_time_Registration_Response_Provided__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

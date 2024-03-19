@@ -7,7 +7,6 @@
 
 @isTest
 private with sharing class IDRCaseActionsTest {
-
   @isTest
   static void testFormatedCaseNumber() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
@@ -486,16 +485,12 @@ private with sharing class IDRCaseActionsTest {
       LIMIT 1
     ];
     System.assertEquals(
-      c.IDR_Issue_Type_2__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
       c.IDR_Knowledge_Keyword_1__c,
       'Expected Knowledge Keyword 1 to complete on case create, however it did not'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
       c.IDR_Knowledge_Keyword_2__c,
       'Expected Knowledge Keyword 2 to complete on case create, however it did not'
     );
@@ -521,16 +516,12 @@ private with sharing class IDRCaseActionsTest {
     ];
 
     System.assertEquals(
-      c.IDR_Issue_Type_2__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
       c.IDR_Knowledge_Keyword_1__c,
       'Expected Knowledge Keyword 1 on update, however it did not'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
       c.IDR_Knowledge_Keyword_2__c,
       'Expected Knowledge Keyword 2 on update, however it did not'
     );
@@ -567,82 +558,21 @@ private with sharing class IDRCaseActionsTest {
       };
       
       Case[] cases = new List<Case>();
-      Case caseRecord = createCaseWithIssueTyes();
+      Case caseRecord = IDRTestDataFactory.createComplaint();
       caseRecord.Product__c = testProduct.Id;
       caseRecord.IDR_Product_2__c = testProduct1.Id;
       caseRecord.IDR_Product_3__c = testProduct2.Id;
       caseRecord.Id = caseRecordId;
       
       
-      Case caseRecord1 = createCaseWithIssueTyes();
+      Case caseRecord1 = IDRTestDataFactory.createComplaint();
       caseRecord1.Product__c = testProduct1.Id;
       caseRecord1.Id = caseRecordId;
       
-      Test.startTest();
-        Boolean isProductAssetfinance = IDRCaseActions.isProductAssetfinance(caseRecord, caseRecord1, productMap);
-      Test.stopTest();
+      Boolean isProductAssetfinance = IDRCaseActions.isProductAssetfinance(caseRecord, caseRecord1, productMap);    
       
       System.assertEquals(isProductAssetfinance,true);
     
   }
-  @isTest
-  static void testHardshipUpdateDate(){
-      
-      Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-      
-      Case caseRecord = createCaseWithIssueTyes();
-      caseRecord.Id = caseRecordId; 
-      
-      Case caseRecord1 = createCaseWithIssueTyes();
-      caseRecord1.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Hardship Written Response Letter Sent';
-      caseRecord1.IDR_Final_Letter_Outcome__c = 'Declined financial assistance';
-      caseRecord1.Id = caseRecordId;  
-      
-      Case caseRecord2 = createCaseWithIssueTyes();
-      caseRecord2.Id = caseRecordId;
-                 
-      Test.startTest();
-      
-      IDRCaseActions.populateHardshipUpdateDate(caseRecord1, caseRecord);
-      IDRCaseActions.populateHardshipUpdateDate(caseRecord2, caseRecord);
-      
-      Test.stopTest(); 
-      
-      System.assertNotEquals(null,
-          caseRecord1.IDR_Hardship_Response_updated_on__c,
-          'Date/time flag should be updated');
-
-      System.assertEquals(null,
-          caseRecord2.IDR_Hardship_Response_updated_on__c,
-          'Date/time flag should be null');
-  }
-      /**
-   * @description Create Case record with different issue types
-   * @return Case
-   */
-
-    private static Case createCaseWithIssueTyes(){
-      
-      Case caseRecord = new Case();
-      caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-      caseRecord.IDR_Customer_Number__c = '1234567890';
-      caseRecord.Status = 'Open';
-      caseRecord.IDR_Account_Card_Policy_Number__c='N/A';
-      caseRecord.isEscalated = false;
-      caseRecord.IDR_Second_Issue__c = true;
-      caseRecord.IDR_Third_Issue__c = true;
-      caseRecord.Type = '4';
-      caseRecord.IDR_Issue_Type_2__c = '9';
-      caseRecord.IDR_Issue_Type_3__c = '17';
-      caseRecord.IDR_Subsequent_Issue__c = '20';
-      caseRecord.IDR_Subsequent_Issue_2__c = '57';
-      caseRecord.IDR_Subsequent_Issue_3__c = '24';
-      caseRecord.IDR_Product_Category__c='Asset finance';
-      caseRecord.IDR_Account_Card_Policy_Number_2__c='N/A';
-      caseRecord.IDR_Account_Card_Policy_Number_3__c ='N/A';
-      caseRecord.Description='Test';
-      caseRecord.IDR_Complainant_Desired_Outcome__c='Test';
-      return caseRecord;
-          
-   }
+    
 }

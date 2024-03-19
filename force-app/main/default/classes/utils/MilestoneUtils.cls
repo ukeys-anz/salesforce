@@ -59,6 +59,10 @@ public with sharing class MilestoneUtils {
     List<String> milestoneNames,
     DateTime complDate
   ) {
+    
+    if(caseIds.isEmpty()){
+       return;
+    }
     List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
     for (CaseMilestone cm : [
       SELECT Id, CompletionDate
@@ -89,3 +93,4 @@ public with sharing class MilestoneUtils {
     }
   }
 }
+
