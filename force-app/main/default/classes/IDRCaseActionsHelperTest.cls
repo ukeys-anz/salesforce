@@ -18,12 +18,10 @@ private with sharing class IDRCaseActionsHelperTest {
     newCase.IDR_Final_Letter_Outcome__c = 'Test2';
     newCase.Id = caseRecordId;
 
-
     Datetime dt = IDRCaseActionsHelper.populateHardshipUpdateDate(
       newCase,
       oldCase
     );
-
 
     System.assertNotEquals(null, dt, 'Date/time flag should be updated');
   }
@@ -38,13 +36,10 @@ private with sharing class IDRCaseActionsHelperTest {
     Case newCase = IDRTestDataFactory.createComplaint();
     newCase.Id = caseRecordId;
 
-
-
     Datetime dt = IDRCaseActionsHelper.populateHardshipUpdateDate(
       newCase,
       oldCase
     );
-
 
     System.assertEquals(null, dt, 'Date/time flag should be null');
   }
