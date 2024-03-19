@@ -415,20 +415,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Comments_feedback_suggestions__c</fieldItem>
-                <identifier>RecordC_Q_Comments_feedback_suggestions_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-a0032747-a595-41d3-b970-ff0f5d0f17b0</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <name>Facet-c16a0d72-af80-4f19-b705-8a6780eec005</name>
         <type>Facet</type>
     </flexiPageRegions>

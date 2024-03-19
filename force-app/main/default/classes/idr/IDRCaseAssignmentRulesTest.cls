@@ -123,7 +123,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Type = '17',
         Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
         IDR_AFCA_Status__c = '10',
-        IDR_AFCA_Due_Date__c = System.TODAY() ,
+        IDR_AFCA_Due_Date__c = System.TODAY(),
         Description = 'EDR_Hardship'
       )
     );
