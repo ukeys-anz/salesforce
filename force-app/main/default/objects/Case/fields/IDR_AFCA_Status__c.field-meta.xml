@@ -5,7 +5,7 @@
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
     <description>The status of the issue with the Australian Financial Complaints Authority</description>
     <externalId>false</externalId>
-    <label>AFCA Status</label>
+    <label>AFCA Registration Category</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

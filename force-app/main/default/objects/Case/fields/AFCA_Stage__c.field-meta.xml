@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AFCA_Stage__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Capture AFCA stage</description>
+    <externalId>false</externalId>
+    <label>AFCA Stage</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Case Management Level 1</fullName>
+                <default>false</default>
+                <label>Case Management Level 1</label>
+            </value>
+            <value>
+                <fullName>Case Management Level 2</fullName>
+                <default>false</default>
+                <label>Case Management Level 2</label>
+            </value>
+            <value>
+                <fullName>Confirm Resolution With Complainant</fullName>
+                <default>false</default>
+                <label>Confirm Resolution With Complainant</label>
+            </value>
+            <value>
+                <fullName>Decision</fullName>
+                <default>false</default>
+                <label>Decision</label>
+            </value>
+            <value>
+                <fullName>Fast Track - Case Management Level 1</fullName>
+                <default>false</default>
+                <label>Fast Track - Case Management Level 1</label>
+            </value>
+            <value>
+                <fullName>Fast Track - Decision</fullName>
+                <default>false</default>
+                <label>Fast Track - Decision</label>
+            </value>
+            <value>
+                <fullName>Fast Track - Preliminary View</fullName>
+                <default>false</default>
+                <label>Fast Track - Preliminary View</label>
+            </value>
+            <value>
+                <fullName>Preliminary View</fullName>
+                <default>false</default>
+                <label>Preliminary View</label>
+            </value>
+            <value>
+                <fullName>Registration</fullName>
+                <default>false</default>
+                <label>Registration</label>
+            </value>
+            <value>
+                <fullName>Rules Review</fullName>
+                <default>false</default>
+                <label>Rules Review</label>
+            </value>
+            <value>
+                <fullName>Workflow</fullName>
+                <default>false</default>
+                <label>Workflow</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
