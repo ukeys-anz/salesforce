@@ -18,6 +18,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
       lstAssessments,
       mpOldAssessments
     );
+
     if (changedFieldOnRecord.isEmpty()) {
       return;
     }
@@ -28,7 +29,6 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
       changedFieldOnRecord,
       listUpdatedCQAssessments
     );
-
     DMLUtil.insertRecords(
       lstDisputeTasks,
       DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
@@ -75,7 +75,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
     taskObj.WhatId = oAssessment.Id;
     taskObj.Subject = taskFields.strSubject;
     taskObj.Description = taskFields.strDescription;
-    taskObj.ActivityDate = Date.today().addDays(taskFields.daysDueIn);
+    taskObj.ActivityDate = getTaskDueDate(taskFields.daysDueIn);
     taskObj.Status = 'Open';
     taskObj.Priority = 'Normal';
     return taskObj;
@@ -163,13 +163,15 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
         IDRConstants.TEAM_MANAGER_REJECTION_RESPONSE,
         mpOldAssessmentsRec
       );
+      if (!changedFieldsOnRecord.isEmpty()) {
+        continue;
+      }
       changedFieldsOnRecord = getChangedFieldsOnRecord(
         oAssessment,
         'C_Q_Manager_Response__c',
         changedFieldsOnRecord,
         mpOldAssessmentsRec
       );
-
       if (!changedFieldsOnRecord.isEmpty()) {
         continue;
       }
@@ -179,6 +181,9 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
         IDRConstants.TM_REJECTS_CQ_MANAGER_RESPONSE,
         mpOldAssessmentsRec
       );
+      if (!changedFieldsOnRecord.isEmpty()) {
+        continue;
+      }
       changedFieldsOnRecord = getChangedFieldsOnRecord(
         oAssessment,
         'C_Q_Lead_Response__c',
@@ -279,6 +284,19 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
       updatedFieldsOnRecord.put(oAssessment.Id, fieldAPIName);
     }
     return updatedFieldsOnRecord;
+  }
+  /**
+   * @description Method to return TaskdDueDate after adding certain business days
+   * @param businessDaysToAdd number of business days to add
+   * @return TaskdDueDate
+   */
+  private static Date getTaskDueDate(Integer businessDaysToAdd) {
+    DateTime expectedDueDate = DateTimeUtils.addBusinessDays(
+      CommonUtil.getBusinessHours().Id,
+      DateTime.Now(),
+      businessDaysToAdd
+    );
+    return Date.valueOf(expectedDueDate);
   }
   /**
    * @description Wrapper Class to wrap task fields
