@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>My team&apos;s daily allocations</name>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
@@ -43,10 +44,10 @@
         <field>Case.Queue__c</field>
     </columns>
     <columns>
-        <field>PC_FIRST_NAME</field>
+        <field>Case.IDR_NC_Last_Name__c</field>
     </columns>
     <columns>
-        <field>PC_LAST_NAME</field>
+        <field>Case.IDR_NC_First_Name__c</field>
     </columns>
     <columns>
         <field>DESCRIPTION</field>
@@ -81,7 +82,6 @@
         <field>OWNER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>My team&apos;s daily allocations</name>
     <params>
         <name>units</name>
         <value>h</value>
