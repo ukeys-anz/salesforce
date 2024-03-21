@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Client Initiated Backend Authentication</label>
+    <protected>false</protected>
+    <values>
+        <field>Algorithm__c</field>
+        <value xsi:type="xsd:string">RS256</value>
+    </values>
+    <values>
+        <field>Audience__c</field>
+        <value xsi:type="xsd:string">https://identity-services-sit-int-gw.apps-int.x.gcpnp.anz/am/oauth2/customer</value>
+    </values>
+    <values>
+        <field>AuthContext__c</field>
+        <value xsi:type="xsd:string">mca</value>
+    </values>
+    <values>
+        <field>BindingMessage__c</field>
+        <value xsi:type="xsd:string">Salesforce request to Approve Authorisation</value>
+    </values>
+    <values>
+        <field>Issuer__c</field>
+        <value xsi:type="xsd:string">salesforce</value>
+    </values>
+    <values>
+        <field>KeyIdentification__c</field>
+        <value xsi:type="xsd:string">60a74368-725e-d9b6-6599-0f3848a030fb</value>
+    </values>
+    <values>
+        <field>LoginHint__c</field>
+        <value xsi:type="xsd:string">ocvId!{0}</value>
+    </values>
+    <values>
+        <field>Scope__c</field>
+        <value xsi:type="xsd:string">openid aegis-introspect</value>
+    </values>
+    <values>
+        <field>SigningCertificateDeveloperName__c</field>
+        <value xsi:type="xsd:string">sf_np_callout_anz_com</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">jwt</value>
+    </values>
+    <values>
+        <field>ValidFor__c</field>
+        <value xsi:type="xsd:double">500.0</value>
+    </values>
+</CustomMetadata>

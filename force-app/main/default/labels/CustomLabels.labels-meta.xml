@@ -1313,7 +1313,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LightHouse ListConsentHistory</shortDescription>
-        <value>/lighthouse/v1/connect-id/consent-histories</value>
+        <value>callout:SF_MS_Fabric/lighthouse/v1/connect-id/consent-histories</value>
     </labels>
     <labels>
         <fullName>MLCRM_LeadDetailsSubText</fullName>
@@ -2079,6 +2079,34 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>For Raise Dispute Card Transactions</shortDescription>
         <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
+    </labels>
+    <labels>
+        <fullName>CIBA_AccessTokenRequestEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_AccessTokenRequestEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/customer/access-token</value>
+    </labels>
+    <labels>
+        <fullName>CIBA_AuthorisationRequestEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_AuthorisationRequestEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/customer/bc-authorize</value>
+    </labels>
+    <labels>
+        <fullName>CIBA_getForgePublicKeyEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_getForgePublicKeyEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/forge/jwk-uri?kid=</value>
+    </labels>
+    <labels>
+        <fullName>Grant_Type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Grant_Type</shortDescription>
+        <value>urn:openid:params:grant-type:ciba</value>
     </labels>
     <labels>
         <fullName>MS_ForgeV2_Token</fullName>

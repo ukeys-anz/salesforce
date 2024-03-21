@@ -917,4 +917,41 @@ public with sharing class CommonUtil {
     );
     return streetAddressMap;
   }
+  /**
+   * @description This function will encode the blob input to base64 url encoded
+   * @param blobInput blob input to be base64URLencode
+   * @return String base64 url encoded value
+   */
+  public static String base64URLencode(Blob blobInput) {
+    String output = EncodingUtil.base64Encode(blobInput);
+    output = output.replace('+', '-');
+    output = output.replace('/', '_');
+    while (output.endsWith('=')) {
+      output = output.subString(0, output.length() - 1);
+    }
+    return output;
+  }
+
+  /**
+   * @description This function will convert the input string into blob and then encode the blob input to base64 url encoded
+   * @param stringInput string input to be base64URLencode
+   * @return String base64 url encoded value
+   */
+  public static String base64URLencode(String stringInput) {
+    return base64URLencode(Blob.valueOf(stringInput));
+  }
+
+  /**
+   * @description This function will provide the RSA algorithm name for given hash
+   * @param hash algorithm hash
+   * @return String Algorithm for the given hash
+   */
+  public static string getAlgorithmNamefromHash(String hash) {
+    if (hash == 'RS256') {
+      return 'RSA-SHA256';
+    } else if (hash == 'RS512') {
+      return 'RSA-SHA512';
+    }
+    return '';
+  }
 }
