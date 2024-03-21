@@ -18,6 +18,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
       lstAssessments,
       mpOldAssessments
     );
+
     if (changedFieldOnRecord.isEmpty()) {
       return;
     }
@@ -74,7 +75,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
     taskObj.WhatId = oAssessment.Id;
     taskObj.Subject = taskFields.strSubject;
     taskObj.Description = taskFields.strDescription;
-    taskObj.ActivityDate = Date.today().addDays(taskFields.daysDueIn);
+    taskObj.ActivityDate = getTaskDueDate(taskFields.daysDueIn);
     taskObj.Status = 'Open';
     taskObj.Priority = 'Normal';
     return taskObj;
@@ -87,58 +88,48 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    */
   @TestVisible
   private static List<Task> generateDisputeTask(
-    Map<ID, String> changedFieldOnRecord,
+    Map<Id, String> changedFieldOnRecord,
     List<Quality_Assessment__c> listUpdatedCQAssessments
   ) {
     List<Task> lstDisputeTasks = new List<Task>();
-
-    TaskWrapper taskFields;
+    String cqLeadQueueId = getCQLeadQueueId();
     for (Quality_Assessment__c oAssessment : listUpdatedCQAssessments) {
-      //don't think this stement is required
-      if (!(changedFieldOnRecord.keyset().contains(oAssessment.Id))) {
-        return null;
+      if (!(changedFieldOnRecord.containsKey(oAssessment.Id))) {
+        continue;
       }
-      taskFields = new TaskWrapper();
+      TaskWrapper taskFields = new TaskWrapper();
       switch on changedFieldOnRecord.get(oAssessment.Id) {
         when 'Team_Manager_Response__c' {
-          taskFields.strSubject =
-            IDRConstants.TM_REJECTS_CQ_REVIEW_TASK_SUBJECT +
-            oAssessment.Name +
-            ' for ' +
-            String.valueOf(oAssessment.Case_Manager__r.Name);
-          taskFields.strDescription = IDRConstants.TM_REJECTS_CQ_REVIEW_TASK_DESC;
-          taskFields.ownerId = oAssessment.C_Q_Specialist__r.ManagerId;
-          taskFields.daysDueIn = 5;
+          taskfields = populateTaskWrapper(
+            oAssessment,
+            IDRConstants.TM_REJECTS_CQ_REVIEW_TASK_SUBJECT,
+            oAssessment.C_Q_Specialist__r.ManagerId,
+            IDRConstants.TM_REJECTS_CQ_REVIEW_TASK_DESC
+          );
         }
         when 'C_Q_Manager_Response__c' {
-          taskFields.strSubject =
-            IDRConstants.CQ_MANAGER_REV_COMPLETED_TASK_SUBJECT +
-            oAssessment.Name +
-            ' for ' +
-            String.valueOf(oAssessment.Case_Manager__r.Name);
-          taskFields.strDescription = IDRConstants.CQ_MANAGER_REV_COMPLETED_TASK_DESC;
-          taskFields.ownerId = oAssessment.TeamManager__c;
-          taskFields.daysDueIn = 5;
+          taskfields = populateTaskWrapper(
+            oAssessment,
+            IDRConstants.CQ_MANAGER_REV_COMPLETED_TASK_SUBJECT,
+            oAssessment.TeamManager__c,
+            IDRConstants.CQ_MANAGER_REV_COMPLETED_TASK_DESC
+          );
         }
         when 'TM_Response_to_C_Q_Manager_Review__c' {
-          taskFields.strSubject =
-            IDRConstants.TM_REJECTS_CQ_MANAGER_REV_TASK_SUBJECT +
-            oAssessment.Name +
-            ' for ' +
-            String.valueOf(oAssessment.Case_Manager__r.Name);
-          taskFields.strDescription = IDRConstants.TM_REJECTS_CQ_MANAGER_REV_TASK_DESC;
-          taskFields.ownerId = getCQLeadQueueId();
-          taskFields.daysDueIn = 5;
+          taskfields = populateTaskWrapper(
+            oAssessment,
+            IDRConstants.TM_REJECTS_CQ_MANAGER_REV_TASK_SUBJECT,
+            cqLeadQueueId,
+            IDRConstants.TM_REJECTS_CQ_MANAGER_REV_TASK_DESC
+          );
         }
         when 'C_Q_Lead_Response__c' {
-          taskFields.strSubject =
-            IDRConstants.CQ_LEAD_RESPONSE_TASK_SUBJECT +
-            oAssessment.Name +
-            ' for ' +
-            String.valueOf(oAssessment.Case_Manager__r.Name);
-          taskFields.strDescription = IDRConstants.CQ_LEAD_RESPONSE_TASK_DESC;
-          taskFields.ownerId = oAssessment.TeamManager__c;
-          taskFields.daysDueIn = 5;
+          taskfields = populateTaskWrapper(
+            oAssessment,
+            IDRConstants.CQ_LEAD_RESPONSE_TASK_SUBJECT,
+            oAssessment.TeamManager__c,
+            IDRConstants.CQ_LEAD_RESPONSE_TASK_DESC
+          );
         }
       }
       lstDisputeTasks.add(getDisputeTask(oAssessment, taskFields));
@@ -149,57 +140,58 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    * @description method to generate a map with changes fields in current list of updated Assessments
    * @param lstAssessments List Of Assessments
    * @param mpOldAssessments Map of Old Assessments
-   * @return Map<ID, String> Map of Changed Fields
+   * @return Map<Id, String> changedFieldsOnRecord Map of Changed Fields
    */
   @TestVisible
   private static Map<ID, String> generateChangeFieldOnRecordMap(
     List<Quality_Assessment__c> lstAssessments,
     Map<Id, Quality_Assessment__c> mpOldAssessments
   ) {
-    Map<Id, String> changedFieldOnRecord = new Map<Id, String>();
-
+    Map<Id, String> changedFieldsOnRecord = new Map<Id, String>();
+    Map<Id, Quality_Assessment__c> mpOldAssessmentsRec = mpOldAssessments;
     for (Quality_Assessment__c oAssessment : lstAssessments) {
       if (
-        !(oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
-        oAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE &&
-        (mpOldAssessments.get(oAssessment.Id) != null ||
-        mpOldAssessments != null))
+        (oAssessment.RecordTypeId != IDRConstants.idrtCQQualityAssessment) ||
+        (mpOldAssessments.get(oAssessment.Id) == null) ||
+        (oAssessment.Status__c != QualityAssessmentActions.STATUS_COMPLETE)
       ) {
-        return new Map<ID, String>();
+        continue;
       }
-      if (
-        oAssessment.Team_Manager_Response__c !=
-        mpOldAssessments.get(oAssessment.Id).Team_Manager_Response__c &&
-        oAssessment.Team_Manager_Response__c ==
-        IDRConstants.TEAM_MANAGER_REJECTION_RESPONSE
-      ) {
-        changedFieldOnRecord.put(oAssessment.Id, 'Team_Manager_Response__c');
-      } else if (
-        oAssessment.C_Q_Manager_Response__c !=
-        mpOldAssessments.get(oAssessment.Id).C_Q_Manager_Response__c &&
-        oAssessment.C_Q_Manager_Response__c != null
-      ) {
-        changedFieldOnRecord.put(oAssessment.Id, 'C_Q_Manager_Response__c');
-      } else if (
-        oAssessment.TM_Response_to_C_Q_Manager_Review__c !=
-        mpOldAssessments.get(oAssessment.Id)
-          .TM_Response_to_C_Q_Manager_Review__c &&
-        oAssessment.TM_Response_to_C_Q_Manager_Review__c ==
-        IDRConstants.TM_REJECTS_CQ_MANAGER_RESPONSE
-      ) {
-        changedFieldOnRecord.put(
-          oAssessment.Id,
-          'TM_Response_to_C_Q_Manager_Review__c'
-        );
-      } else if (
-        oAssessment.C_Q_Lead_Response__c !=
-        mpOldAssessments.get(oAssessment.Id).C_Q_Lead_Response__c &&
-        oAssessment.C_Q_Lead_Response__c != null
-      ) {
-        changedFieldOnRecord.put(oAssessment.Id, 'C_Q_Lead_Response__c');
+      changedFieldsOnRecord = getChangedFieldsWithSpecificValue(
+        oAssessment,
+        'Team_Manager_Response__c',
+        IDRConstants.TEAM_MANAGER_REJECTION_RESPONSE,
+        mpOldAssessmentsRec
+      );
+      if (!changedFieldsOnRecord.isEmpty()) {
+        continue;
       }
+      changedFieldsOnRecord = getChangedFieldsOnRecord(
+        oAssessment,
+        'C_Q_Manager_Response__c',
+        changedFieldsOnRecord,
+        mpOldAssessmentsRec
+      );
+      if (!changedFieldsOnRecord.isEmpty()) {
+        continue;
+      }
+      changedFieldsOnRecord = getChangedFieldsWithSpecificValue(
+        oAssessment,
+        'TM_Response_to_C_Q_Manager_Review__c',
+        IDRConstants.TM_REJECTS_CQ_MANAGER_RESPONSE,
+        mpOldAssessmentsRec
+      );
+      if (!changedFieldsOnRecord.isEmpty()) {
+        continue;
+      }
+      changedFieldsOnRecord = getChangedFieldsOnRecord(
+        oAssessment,
+        'C_Q_Lead_Response__c',
+        changedFieldsOnRecord,
+        mpOldAssessmentsRec
+      );
     }
-    return changedFieldOnRecord;
+    return changedFieldsOnRecord;
   }
   /**
    * @description Get Queue details for CQ Leads
@@ -219,27 +211,116 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
   }
   /**
    * @description Wrapper Class to wrap task fields
+   * @param oAssessment quality assessment record
+   * @param subject Subject of the Task
+   * @param ownerId Owner of the Task
+   * @param description description of the task
+   * @return TaskWrapper Object
+   */
+  private static TaskWrapper populateTaskWrapper(
+    Quality_Assessment__c oAssessment,
+    String subject,
+    String ownerId,
+    String description
+  ) {
+    TaskWrapper taskFields = new TaskWrapper();
+    taskFields.strSubject =
+      subject +
+      oAssessment.Name +
+      ' for ' +
+      String.valueOf(oAssessment.Case_Manager__r.Name);
+    taskFields.strDescription = description;
+    taskFields.ownerId = ownerId;
+    taskFields.daysDueIn = 5;
+    return taskFields;
+  }
+  /**
+   * @description Method to check if field on record changed for a particular value, if yes put it on map
+   * @param oAssessment Updated Quality Assessment record
+   * @param fieldAPIName field which has updated
+   * @param fieldValue value of the updated field
+   * @param mpOldAssessments map of old assessment record
+   * @return Map<Id, String> mpOldAssessments Map of record Id, and field API Name
+   */
+  private static Map<Id, String> getChangedFieldsWithSpecificValue(
+    Quality_Assessment__c oAssessment,
+    String fieldAPIName,
+    String fieldValue,
+    Map<Id, Quality_Assessment__c> mpOldAssessments
+  ) {
+    Map<Id, String> changedFieldsOnRecord = new Map<Id, String>();
+    if (
+      oAssessment.get(fieldAPIName) !=
+      mpOldAssessments.get(oAssessment.Id).get(fieldAPIName) &&
+      oAssessment.get(fieldAPIName) == fieldValue
+    ) {
+      changedFieldsOnRecord.put(oAssessment.Id, fieldAPIName);
+    }
+    return changedFieldsOnRecord;
+  }
+  /**
+   * @description Method to check if field on record changed for a particular value, if yes put it on map
+   * @param oAssessment Updated Quality Assessment record
+   * @param fieldAPIName field which has updated
+   * @param changedFieldsOnRecord map of record Id, and field API Name
+   * @param mpOldAssessments map of old records
+   * @return Map of record Id, and field API Name
+   */
+  private static Map<Id, String> getChangedFieldsOnRecord(
+    Quality_Assessment__c oAssessment,
+    String fieldAPIName,
+    Map<Id, String> changedFieldsOnRecord,
+    Map<Id, Quality_Assessment__c> mpOldAssessments
+  ) {
+    Map<Id, String> updatedFieldsOnRecord = new Map<Id, String>();
+    if (!changedFieldsOnRecord.isEmpty()) {
+      return updatedFieldsOnRecord;
+    }
+    if (
+      oAssessment.get(fieldAPIName) !=
+      mpOldAssessments.get(oAssessment.Id).get(fieldAPIName) &&
+      oAssessment.get(fieldAPIName) != null
+    ) {
+      updatedFieldsOnRecord.put(oAssessment.Id, fieldAPIName);
+    }
+    return updatedFieldsOnRecord;
+  }
+  /**
+   * @description Method to return TaskdDueDate after adding certain business days
+   * @param businessDaysToAdd number of business days to add
+   * @return TaskdDueDate
+   */
+  private static Date getTaskDueDate(Integer businessDaysToAdd) {
+    DateTime expectedDueDate = DateTimeUtils.addBusinessDays(
+      CommonUtil.getBusinessHours().Id,
+      DateTime.Now(),
+      businessDaysToAdd
+    );
+    return Date.valueOf(expectedDueDate);
+  }
+  /**
+   * @description Wrapper Class to wrap task fields
    * @param strSubject Subject of the Task
    * @param strDescription Description of the Task
    * @param ownerId Owner of the Task
    * @param daysDueIn Days in which Task is Due
    */
-  class TaskWrapper {
+  public class TaskWrapper {
     /**
      * @description Subject of the Task
      */
-    String strSubject { get; set; }
+    public String strSubject { get; set; }
     /**
      * @description Description of the Task
      */
-    String strDescription { get; set; }
+    public String strDescription { get; set; }
     /**
      * @description Owner of the Task
      */
-    String ownerId { get; set; }
+    public String ownerId { get; set; }
     /**
      * @description Days in which Task is Due
      */
-    Integer daysDueIn { get; set; }
+    public Integer daysDueIn { get; set; }
   }
 }
