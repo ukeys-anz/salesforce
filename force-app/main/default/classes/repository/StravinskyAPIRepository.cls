@@ -11,6 +11,23 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   private static final String MOCK_ERROR = 'Mock Error'; // This is to force an exception to increase unit test coverage as current mock framework only returns positive response. A PDR will be raised to extend the mock framework if similar instances arise.
 
   /**
+   * Internal stage
+   */
+  public static final String COB_UPDATED = 'COB_UPDATED';
+  public static final String STAGE_ASSISTED_SELFIE = 'STAGE_ASSISTED_SELFIE';
+  public static final String STAGE_ASSISTED_KYC = 'STAGE_ASSISTED_KYC';
+  public static final String STAGE_ACK_ID_CHECK = 'STAGE_ACK_ID_CHECK';
+  public static final String STAGE_TNC = 'STAGE_TNC';
+
+  @TestVisible
+  private static final Set<String> EXPECTED_STAGES_SET = new Set<String>{
+    STAGE_ASSISTED_SELFIE,
+    STAGE_ASSISTED_KYC,
+    STAGE_ACK_ID_CHECK,
+    STAGE_TNC
+  };
+
+  /**
    * @param caseRecord contains ocv id and package id
    * @param checkingAccount the account numbers for the checking account
    * @param savingsAccount the account numbers for the savings account
@@ -57,14 +74,51 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
 
   /**
    * @param caseRecord COB Case to be updated
+   * @return String representing an onboarding stage of the expected Temporal API error response, otherwise throws exception
    * @description triggers Temporal Case Workflow API
    */
-  public void triggerTemporalCaseWorkflow(Case caseRecord) {
+  public CxStageWrapper triggerTemporalCaseWorkflow(Case caseRecord) {
     Service s = ServiceProvider.getService(StravinskyService.class);
     HttpCalloutResponse response = s.triggerTemporalCaseWorkflow(caseRecord);
-    if (!response.successful || throwException == true) {
-      handleErrors(response, mockException(), StravinskyService.class);
+    return handleTemporalWorkflowResponse(response);
+  }
+
+  /**
+   * @param response HttpCalloutResponse to be handled
+   * @return CxStageWrapper Onboarding stage of the expected Temporal API error response, otherwise throws exception
+   * @description Handles Temporal Workflow successfull, expected unsuccessfull and unsuccessfull responses.
+   */
+  @TestVisible
+  private CxStageWrapper handleTemporalWorkflowResponse(
+    HttpCalloutResponse response
+  ) {
+    CxStageWrapper cobStage = new CxStageWrapper();
+    if (response.successful == true) {
+      cobStage.cxOnboardingStage = COB_UPDATED;
+    } else if (response.successful == false && response.statusCode == 412) {
+      COBRASErrorModel parsedResponse;
+      try {
+        parsedResponse = COBRASErrorModel.parse(response.error.getMessage());
+      } catch (Exception e) {
+        handleErrors(response, e, StravinskyService.class);
+      }
+
+      for (COBRASErrorModel.Details errDetail : parsedResponse.details) {
+        String errorStage = errDetail.debug?.cxOnboardingStage;
+        if (EXPECTED_STAGES_SET.contains(errorStage)) {
+          cobStage.cxOnboardingStage = errorStage;
+          cobStage.retryReason = errDetail.debug?.retryReason;
+          break;
+        }
+      }
+      if (String.isBlank(cobStage.cxOnboardingStage)) {
+        handleErrors(response, null, StravinskyService.class);
+      }
+    } else {
+      handleErrors(response, null, StravinskyService.class);
     }
+
+    return cobStage;
   }
 
   /**
@@ -140,6 +194,20 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     }
 
     return ex;
+  }
+
+  /**
+   * @description Wrapper class for COB Stage w/o Onboarding Stage Change Reason
+   */
+  public class CxStageWrapper {
+    /**
+     * @description cxOnboardingStage
+     */
+    public String cxOnboardingStage { get; set; }
+    /**
+     * @description retryReason
+     */
+    public String retryReason { get; set; }
   }
 
   /**

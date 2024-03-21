@@ -180,6 +180,10 @@ public with sharing class IDRCaseActions {
         if (isProductAssetfinance(record, oldRecord, productMap)) {
           record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
         }
+        record.IDR_Hardship_Response_updated_on__c = IDRCaseActionsHelper.populateHardshipUpdateDate(
+          record,
+          oldRecord
+        );
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -193,6 +197,14 @@ public with sharing class IDRCaseActions {
         handleAnonymousNames(record);
         handleEntitlementForUpdate(record, oldRecord, entitlementId);
         identifyOwnerChangeRecords(record, (oldRecord).OwnerId);
+        record.Previous_Case_Owner__c = IDRCaseActionsHelper.populateOldOwnerID(
+          record,
+          oldRecord
+        );
+        record.Date_Case_allocated_to_CM__c = IDRCaseActionsHelper.populateDateCaseAllocatedToCM(
+          record,
+          oldRecord
+        );
         if (record.Status != oldRecord.Status) {
           handleCaseStatusChanges(record);
         }
@@ -267,30 +279,41 @@ public with sharing class IDRCaseActions {
   ) {
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
+    Set<Id> hardshipCases = new Set<Id>();
+    Set<String> caseStatus = new Set<String>{
+      IDRConstants.PROVISIONALLY_CLOSED_STATUS,
+      IDRConstants.CLOSED_STATUS
+    };
     for (Case c : records) {
       if (isIDRComplaintType(c)) {
         Case oldCase = (oldMap.containsKey(c.Id))
           ? (Case) oldMap.get(c.Id)
           : null;
         if (
-          (oldCase != null &&
           ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
           c.Status == IDRConstants.ESCALATED_STATUS) ||
           (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
-          c.IDR_Milestone_Sla__c == 'Completed'))
+          c.IDR_Milestone_Sla__c == 'Completed')
         ) {
           escalationCases.add(c.Id);
         }
+        if (!caseStatus.contains(c.Status)) {
+          continue;
+        }
         if (
-          (oldCase != null &&
           (!oldCase.isClosed &&
-          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
+          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS))
         ) {
           maxTimeFrameCases.add(c.Id);
         }
+        if (
+          c.isClosed &&
+          String.isNotBlank(c.IDR_Is_Hardship_Resolution_Letter_Sent__c)
+        ) {
+          hardshipCases.add(c.Id);
+        }
       }
     }
-
     if (!escalationCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         escalationCases,
@@ -301,7 +324,6 @@ public with sharing class IDRCaseActions {
         System.now()
       );
     }
-
     if (!maxTimeFrameCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         maxTimeFrameCases,
@@ -316,6 +338,12 @@ public with sharing class IDRCaseActions {
       );
       IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
     }
+
+    MilestoneUtils.completeMilestones(
+      hardshipCases,
+      new List<String>{ '21 Day Hardship Letter Milestone' },
+      System.now()
+    );
   }
 
   /**

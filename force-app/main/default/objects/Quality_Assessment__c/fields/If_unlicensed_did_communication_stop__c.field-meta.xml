@@ -28,9 +28,9 @@
                 <label>No - we did not stop</label>
             </value>
             <value>
-                <fullName>N/A - no LOA, or LOA licensed</fullName>
+                <fullName>N/A – no DMF, or DMF licenced</fullName>
                 <default>false</default>
-                <label>N/A - no LOA, or LOA licensed</label>
+                <label>N/A – no DMF, or DMF licenced</label>
             </value>
         </valueSetDefinition>
     </valueSet>

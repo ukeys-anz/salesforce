@@ -108,7 +108,6 @@ public with sharing class CustomerDisputeManagementService {
         )
       FROM Account
       WHERE Id IN :customerIds
-      WITH SECURITY_ENFORCED
     ];
   }
 
