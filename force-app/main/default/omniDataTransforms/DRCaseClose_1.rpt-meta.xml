@@ -80,7 +80,6 @@
         <inputFieldName>Case:IDR_Subsequent_Issue__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Subsequent_Issue__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -88,13 +87,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom6255</globalKey>
         <inputFieldName>Case:Type</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Type</outputFieldName>
         <outputObjectName>Case</outputObjectName>

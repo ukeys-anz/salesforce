@@ -134,6 +134,7 @@ public with sharing class AppointmentNotificationTest {
 
   @isTest
   static void testCreatingAppointmentNotificationEventForLead() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
     Id leadRecordTypeId = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
       .get('General')
       .getRecordTypeId();
@@ -147,9 +148,7 @@ public with sharing class AppointmentNotificationTest {
       '.' +
       testLead.LastName +
       '@test.test';
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      insert testLead;
-    }
+    insert testLead;
 
     Schema.Location loc = new Schema.location();
     loc.Name = 'Test Location';
@@ -163,9 +162,7 @@ public with sharing class AppointmentNotificationTest {
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      insert interactionSubject;
-    }
+    insert interactionSubject;
 
     test.startTest();
     interactionSubject = [

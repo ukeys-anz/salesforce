@@ -126,7 +126,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     ];
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
-    InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
+    UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
       interactionRecord.Id,
       'TW' + faker.randomString(10),
       'CH1123141516161616',
@@ -181,7 +181,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       LIMIT 1
     ];
 
-    InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
+    UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
       interactionRecord.Id,
       'TW' + faker.randomString(10),
       'CH1123141516161616',
@@ -236,7 +236,7 @@ public with sharing class InteractionContextServiceUpdateTest {
 
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
-    InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
+    UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
       interactionRecord.Id,
       'TW' + faker.randomString(10),
       'CH1123141516161617',
@@ -265,6 +265,232 @@ public with sharing class InteractionContextServiceUpdateTest {
       'Interaction Owner will not remain same'
     );
   }
+  @isTest
+  static void testConferenceAttendeeCreationInternal() {
+    Faker faker = new Faker('AU');
+    String chatOrCallSid = 'CH1123141516161617';
+
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+
+    Interaction interactionRecord = [
+      SELECT Id, Chat_or_Call_SID__c, RecordTypeId, OwnerId, TwilioDetailsID__c
+      FROM Interaction
+      WHERE RecordTypeId = :GetHelpConstants.INTERACTION_GENERAL_RT_ID
+      LIMIT 1
+    ];
+
+    User agentRecord = [
+      SELECT Id, FederationIdentifier
+      FROM User
+      WHERE FirstName = 'Coach Test ICT012'
+      LIMIT 1
+    ];
+
+    // WHEN Twilio API user send a request with valid OCV ID
+    // Prepare request test data
+    UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
+      interactionRecord.Id,
+      'TW' + faker.randomString(10),
+      chatOrCallSid,
+      '',
+      'CR' + faker.randomString(10),
+      'QName' + faker.randomString(8),
+      agentRecord.FederationIdentifier
+    );
+    twilioContexts.isConference = true;
+    twilioContexts.transfer = '';
+    twilioContexts.attendeeName = faker.randomString(10);
+    twilioContexts.attendeePhoneNumber = '9797997779';
+
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextServiceUpdate.doPost(twilioContexts);
+    }
+    Test.stopTest();
+
+    List<InteractionAttendee> interactionAttendeeList = [
+      SELECT Id, Conversation_Sid__c
+      FROM InteractionAttendee
+      WHERE
+        Conversation_Sid__c = :chatOrCallSid
+        AND AttendeeType = :InteractionConstants.INTERNAL
+      LIMIT 1
+    ];
+
+    System.assertEquals(
+      interactionAttendeeList.size() >= 1,
+      true,
+      'Interaction Attendee will be successfully created of Internal attendee type'
+    );
+  }
+  @isTest
+  static void testConferenceAttendeeCreationExternal() {
+    Faker faker = new Faker('AU');
+    String chatOrCallSid = 'CH1123141516161617';
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+
+    Interaction interactionRecord = [
+      SELECT Id, Chat_or_Call_SID__c, RecordTypeId, OwnerId, TwilioDetailsID__c
+      FROM Interaction
+      WHERE RecordTypeId = :GetHelpConstants.INTERACTION_GENERAL_RT_ID
+      LIMIT 1
+    ];
+
+    // WHEN Twilio API user send a request with valid OCV ID
+    // Prepare request test data
+    UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
+      interactionRecord.Id,
+      'TW' + faker.randomString(10),
+      chatOrCallSid,
+      '',
+      'CR' + faker.randomString(10),
+      'QName' + faker.randomString(8),
+      ''
+    );
+    twilioContexts.isConference = true;
+    twilioContexts.transfer = '';
+    twilioContexts.attendeeName = faker.randomString(10);
+    twilioContexts.attendeePhoneNumber = '9797997779';
+
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextServiceUpdate.doPost(twilioContexts);
+    }
+    Test.stopTest();
+
+    List<InteractionAttendee> interactionAttendeeList = [
+      SELECT Id, Conversation_Sid__c
+      FROM InteractionAttendee
+      WHERE
+        Conversation_Sid__c = :chatOrCallSid
+        AND AttendeeType = :InteractionConstants.EXTERNAL
+      LIMIT 1
+    ];
+
+    System.assertEquals(
+      interactionAttendeeList.size() >= 1,
+      true,
+      'Interaction Attendee will be successfully created of External attendee type'
+    );
+  }
+
+  @isTest
+  static void testIsChatTransferPositive() {
+    Faker faker = new Faker('AU');
+    String chatOrCallSid = 'CH1123141516161616';
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+
+    Interaction interactionRecord = [
+      SELECT
+        Id,
+        Chat_or_Call_SID__c,
+        RecordTypeId,
+        OwnerId,
+        TwilioDetailsID__c,
+        Transfer__c,
+        Chat_Queue__c
+      FROM Interaction
+      WHERE RecordTypeId = :GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+      LIMIT 1
+    ];
+
+    // Prepare request test data
+    UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
+      interactionRecord.Id,
+      'TW' + faker.randomString(10),
+      chatOrCallSid,
+      '',
+      'CR' + faker.randomString(10),
+      'ChatQueue',
+      ''
+    );
+    twilioContexts.transfer = 'To Agent';
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextServiceUpdate.doPost(twilioContexts);
+    }
+    Test.stopTest();
+
+    List<Interaction> interactionList = [
+      SELECT Id, Chat_or_Call_SID__c, Transfer__c, Chat_Queue__c
+      FROM Interaction
+      WHERE Chat_or_Call_SID__c = :chatOrCallSid
+      LIMIT 1
+    ];
+
+    System.assertEquals(
+      twilioContexts.transfer,
+      interactionList[0].Transfer__c,
+      'Transfer Value Will Be Populated Same As Twilio Context Transfer value '
+    );
+    System.assertEquals(
+      twilioContexts.queueName,
+      interactionList[0].Chat_Queue__c,
+      'Chat Queue field Will Be Populated Same As Twilio Context QueueName value '
+    );
+  }
+  @isTest
+  static void testIsChatTransferNegative() {
+    Faker faker = new Faker('AU');
+    String chatOrCallSid = 'CH1123141516161616';
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+
+    Interaction interactionRecord = [
+      SELECT
+        Id,
+        Chat_or_Call_SID__c,
+        RecordTypeId,
+        OwnerId,
+        TwilioDetailsID__c,
+        Transfer__c,
+        Chat_Queue__c
+      FROM Interaction
+      WHERE RecordTypeId = :GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+      LIMIT 1
+    ];
+
+    // Prepare request test data
+    UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
+      interactionRecord.Id,
+      'TW' + faker.randomString(10),
+      chatOrCallSid,
+      '',
+      'CR' + faker.randomString(10),
+      'ChatQueue',
+      ''
+    );
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextServiceUpdate.doPost(twilioContexts);
+    }
+    Test.stopTest();
+
+    List<Interaction> interactionList = [
+      SELECT Id, Chat_or_Call_SID__c, Transfer__c, Chat_Queue__c
+      FROM Interaction
+      WHERE Chat_or_Call_SID__c = :chatOrCallSid
+      LIMIT 1
+    ];
+
+    System.assertEquals(
+      'No',
+      interactionList[0].Transfer__c,
+      'Transfer Value will remain same as default value '
+    );
+    System.assertEquals(
+      true,
+      String.isBlank(interactionList[0].Chat_Queue__c),
+      'Chat Queue field will be blank '
+    );
+  }
 
   /**
    * @description Method to prepare REST requests for test scenarios.
@@ -275,11 +501,11 @@ public with sharing class InteractionContextServiceUpdateTest {
    * @param callRecordingId call recording id
    * @param queueName queueName from Twilio
    * @param agentEmail agentEmail from Twilio
-   * @return `List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>` List of 'InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload'
+   * @return `List<UpdateInteractionByTwilioPayload>` List of 'UpdateInteractionByTwilioPayload'
    */
   //Suppress warnings for parameters to prepare request
   @SuppressWarnings('PMD.ExcessiveParameterList')
-  public static InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload prepareRequest(
+  public static UpdateInteractionByTwilioPayload prepareRequest(
     String interactionId,
     String twilioId,
     String chatOrCallId,
@@ -288,7 +514,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     String queueName,
     String agentEmail
   ) {
-    InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload contextReq = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
+    UpdateInteractionByTwilioPayload contextReq = new UpdateInteractionByTwilioPayload();
     contextReq.interactionId = interactionId;
     contextReq.chatOrCallId = chatOrCallId;
     contextReq.twilioId = twilioId;
@@ -308,7 +534,6 @@ public with sharing class InteractionContextServiceUpdateTest {
     //Assign to context
     RestContext.request = req;
     RestContext.response = res;
-
     return contextReq;
   }
 }

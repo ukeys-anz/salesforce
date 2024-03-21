@@ -17,5 +17,6 @@
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>PayTo_View_Agreements</permissionSets>
+    <permissionSets>Update_Signing_Authority</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

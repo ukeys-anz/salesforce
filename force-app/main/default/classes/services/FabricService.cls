@@ -41,10 +41,7 @@ public with sharing class FabricService extends Service {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      financialAccountApiEndpoint +
-      '?' +
-      urlParam,
+      'callout:SF_MS_Fabric' + financialAccountApiEndpoint + '?' + urlParam,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -74,9 +71,7 @@ public with sharing class FabricService extends Service {
 
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      transactionApiEndpoint +
-      paramUrl,
+      'callout:SF_MS_Fabric' + transactionApiEndpoint + paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -119,10 +114,7 @@ public with sharing class FabricService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      Label.MS_Temp_Lock_Card +
-      cardNumber +
-      '/set',
+      'callout:SF_MS_Fabric' + Label.MS_Temp_Lock_Card + cardNumber + '/set',
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"card_controls" : [{ "control_type": "GCT_GLOBAL"}]}'
@@ -148,15 +140,10 @@ public with sharing class FabricService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      Label.MS_Replace_Card +
-      cardNumber +
-      '/replace',
+      'callout:SF_MS_Fabric' + Label.MS_Replace_Card + cardNumber + '/replace',
       HTTP_METHOD.HTTP_POST,
       headers,
-      '{"reason":"REASON_' +
-      reason.toUpperCase() +
-      '"}'
+      '{"reason":"REASON_' + reason.toUpperCase() + '"}'
     );
     return response;
   }
@@ -181,11 +168,11 @@ public with sharing class FabricService extends Service {
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"page_size":' +
-      pageSize +
-      ',' +
-      '"account_numbers": ["' +
-      accountNumber +
-      '"]}'
+        pageSize +
+        ',' +
+        '"account_numbers": ["' +
+        accountNumber +
+        '"]}'
     );
     return response;
   }
@@ -204,9 +191,7 @@ public with sharing class FabricService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('cache-control', 'no-store');
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      Label.MS_Get_StatementUrl +
-      statementId,
+      'callout:SF_MS_Fabric' + Label.MS_Get_StatementUrl + statementId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -228,9 +213,7 @@ public with sharing class FabricService extends Service {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      Label.MS_Get_Account_Buckets +
-      paramUrl,
+      'callout:SF_MS_Fabric' + Label.MS_Get_Account_Buckets + paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -273,9 +256,9 @@ public with sharing class FabricService extends Service {
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      Label.MS_Get_Tokenized_Card +
-      transactionId +
-      '/tokenized-card',
+        Label.MS_Get_Tokenized_Card +
+        transactionId +
+        '/tokenized-card',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -308,12 +291,12 @@ public with sharing class FabricService extends Service {
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"account": "' +
-      financialAccountNumber +
-      '"' +
-      ',' +
-      '"sign_mode": ' +
-      signMode +
-      '}'
+        financialAccountNumber +
+        '"' +
+        ',' +
+        '"sign_mode": ' +
+        signMode +
+        '}'
     );
 
     return response;

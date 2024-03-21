@@ -22,11 +22,11 @@ public virtual without sharing class NudgeTaskCloudEventModel extends TaskCloudE
     /**
      * @description interaction referance
      */
-    public String interaction_reference { get; set; }
+    public String interactionReference { get; set; }
     /**
      * @description action referance
      */
-    public String action_reference { get; set; }
+    public String actionReference { get; set; }
     /**
      * @description outcome
      */
@@ -34,17 +34,23 @@ public virtual without sharing class NudgeTaskCloudEventModel extends TaskCloudE
     /**
      * @description outcome time
      */
-    public String outcome_time { get; set; }
+    public DateTime outcomeTime { get; set; }
 
     /**
      * @description Constructor
      * @param theTask The task record
      */
     public NudgeTaskCloudEventDataModel(Task theTask) {
-      this.interaction_reference = theTask.Pega_CDH_Id__c;
-      this.action_reference = theTask.IDR_COR_ID__c;
-      this.outcome = theTask.Status;
-      this.outcome_time = String.valueOf(theTask.CompletedDateTime);
+      this.interactionReference = theTask.Pega_CDH_Id__c;
+      this.actionReference = theTask.IDR_COR_ID__c;
+      this.outcomeTime = theTask.CompletedDateTime;
+      if (
+        GetHelpConstants.COACH_NUDGE_TASK_STATUS.containsKey(theTask.Status)
+      ) {
+        this.outcome = GetHelpConstants.COACH_NUDGE_TASK_STATUS.get(
+          theTask.Status
+        );
+      }
     }
   }
 }

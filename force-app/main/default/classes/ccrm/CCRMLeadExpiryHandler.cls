@@ -12,6 +12,19 @@ public with sharing class CCRMLeadExpiryHandler {
    * @param leadList list of lead records that are having Expiry_Date__C passed are needed to be updated.
    */
   public static void updateExpiredLeads(List<Lead> leadList) {
+    List<Lead> updatedLeads = markLeadAsExpired(leadList);
+    saveUpdatedLeads(updatedLeads);
+  }
+
+  /**
+   * @description This method returns a list of leads that has been updated as expired
+   * @name markLeadAsExpired
+   * @param leadList list of records to be expired
+   * @return list of updated leads
+   * @author Ashish Kumar
+   */
+  @TestVisible
+  private static List<Lead> markLeadAsExpired(List<Lead> leadList) {
     List<Lead> updatedLeads = new List<Lead>();
     Group objGrp;
     Set<Id> idsOfMLExpiredLead = new Set<Id>();
@@ -34,7 +47,17 @@ public with sharing class CCRMLeadExpiryHandler {
       }
       updatedLeads.add(leadRecord);
     }
+    return updatedLeads;
+  }
 
+  /**
+   * @description This method returns a list of leads that has been updated to expiry
+   * @name saveUpdatedLeads
+   * @param updatedLeads list of updated leads
+   * @author Ashish Kumar
+   */
+  @TestVisible
+  private static void saveUpdatedLeads(List<Lead> updatedLeads) {
     try {
       if (Schema.sObjectType.Lead.isUpdateable() && !updatedLeads.isEmpty()) {
         List<Database.SaveResult> results = Database.update(
@@ -42,44 +65,24 @@ public with sharing class CCRMLeadExpiryHandler {
           false,
           AccessLevel.USER_MODE
         );
-        Logger.error(
-          'Error occured while updating Lead Status to Expired.',
-          results
-        );
-        Logger.saveLog();
-      }
-      if (idsOfMLExpiredLead.isEmpty()) {
-        return;
-      }
-      List<LeadShare> lstOfLeadShare = [
-        SELECT Id
-        FROM LeadShare
-        WHERE LeadId IN :idsOfMLExpiredLead AND rowcause = 'Manual'
-      ];
-      List<Database.DeleteResult> lstOfDeleteResults = Database.Delete(
-        lstOfLeadShare,
-        false,
-        AccessLevel.USER_MODE
-      );
-      List<WrapSharingError> lstOfSharingError = new List<WrapSharingError>();
-      for (integer i = 0; i < lstOfDeleteResults.size(); i++) {
-        if (!lstOfDeleteResults.get(i).isSuccess()) {
-          Database.Error error = lstOfDeleteResults.get(i).getErrors().get(0);
-          lstOfSharingError.add(
-            new WrapSharingError(
-              (String) lstOfLeadShare[i].get('LeadId'),
-              (String) lstOfLeadShare[i].get('UserOrGroupId'),
-              error.getMessage()
-            )
-          );
+        List<WrapSharingError> lstOfSharingError;
+        for (Database.SaveResult saveResult : results) {
+          if (!saveResult.isSuccess()) {
+            lstOfSharingError = new List<WrapSharingError>();
+            for (Database.Error error : saveResult.getErrors()) {
+              lstOfSharingError.add(
+                new WrapSharingError(saveResult.getId(), error.getMessage())
+              );
+            }
+          }
         }
-      }
-      if (!lstOfSharingError.isEmpty()) {
-        Logger.error(
-          'Error occured while deleting LeadShare record',
-          processSharingException(lstOfSharingError)
-        );
-        Logger.saveLog();
+        if (lstOfSharingError != null && !lstOfSharingError.isEmpty()) {
+          Logger.error(
+            'Error occured while updating Lead Status to Expired.',
+            processSharingException(lstOfSharingError)
+          );
+          Logger.saveLog();
+        }
       }
     } catch (Exception e) {
       Logger.error(
@@ -120,21 +123,18 @@ public with sharing class CCRMLeadExpiryHandler {
    */
   public class WrapSharingError {
     public String recordId;
-    public String userId;
     public String errMsg;
 
     /**
      * @description This is constructor to create JSON in userid and recordid mapping
      * @name WrapSharingError
      * @param recordId sobject recordid for which sharing failed
-     * @param userId user id for which sharing failed
      * @param errMsg error message
      * @author Ashish Kumar
      * @US CC-4418
      */
-    public WrapSharingError(String recordId, String userId, String errMsg) {
+    public WrapSharingError(String recordId, String errMsg) {
       this.recordId = recordId;
-      this.userId = userId;
       this.errMsg = errMsg;
     }
   }

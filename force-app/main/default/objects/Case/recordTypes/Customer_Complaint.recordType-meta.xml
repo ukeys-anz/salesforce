@@ -287,7 +287,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-    <picklistValues>
+        <picklistValues>
         <picklist>Dispute_Reason__c</picklist>
         <values>
             <fullName>Amount not received by payee</fullName>
@@ -2435,7 +2435,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-    <picklistValues>
+        <picklistValues>
         <picklist>Fraud_ID_Legible__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -4431,7 +4431,7 @@
             <fullName>Outside of Rules</fullName>
             <default>false</default>
         </values>
-        <values>
+<values>
             <fullName>Merged</fullName>
             <default>false</default>
         </values>
@@ -4894,7 +4894,7 @@
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
-        <values>
+                <values>
             <fullName>21</fullName>
             <default>false</default>
         </values>
@@ -4964,6 +4964,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Customer Resolution - Quality Compliance team intervention</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer not satisfied with outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Customer requested no further communication</fullName>
             <default>false</default>
         </values>
@@ -4980,7 +4988,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Missed Hardship Triggers</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Not Financial Difficulty or Hardship Complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6412,6 +6428,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Deceased Estates</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Foreign exchange</fullName>
             <default>false</default>
         </values>
@@ -6482,7 +6502,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-    <picklistValues>
+        <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -7964,7 +7984,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-    <picklistValues>
+        <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>1</fullName>
@@ -13227,7 +13247,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-    <picklistValues>
+<picklistValues>
         <picklist>Transaction_Made_By__c</picklist>
         <values>
             <fullName>Co-Owner</fullName>

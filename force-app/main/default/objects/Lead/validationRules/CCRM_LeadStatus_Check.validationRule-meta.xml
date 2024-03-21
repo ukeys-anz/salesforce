@@ -12,7 +12,8 @@ Manual update of Leads are not allowed.</description>
         ISCHANGED(Status),
         NOT(ISCHANGED(Skip_Validations__c)),
         NOT(Skip_Validations__c = &apos;ConvertLead&apos;),
-        NOT($Profile.Name = &quot;System Administrator&quot;))</errorConditionFormula>
+        NOT($Profile.Name = &quot;System Administrator&quot;),
+        NOT($Permission.CCRM_Skip_Validation ))</errorConditionFormula>
     <errorDisplayField>Status</errorDisplayField>
     <errorMessage>Lead Status cannot be updated manually. Please Log A Response to update Lead Status.</errorMessage>
 </ValidationRule>

@@ -13,33 +13,46 @@ public class CCRMLeadExpiryHandlerTest {
     User adminUser = CCRMTestDataFactory.createAdminUser();
     User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
     User mlUser1 = MLCRMTestDataFactory.createMLCRMBaseUser();
-    mlUser1.lastName = 'MLCRM1';
-    update mlUser1;
-    System.runAs(adminUser) {
-      insert new Salesforce_Library_Settings__c(
-        SetupOwnerId = UserInfo.getOrganizationId(),
-        Disable_VRs__c = true
-      );
+    User mlBusinessAdminUser = MLCRMTestDataFactory.createMLBusinessAdminUser();
+    User iiQUser = MLCRMTestDataFactory.createIIQBaseUser();
+    User batchUser = MLCRMTestDataFactory.createCRMBatchUser();
+    System.runAs(mlBusinessAdminUser) {
       List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
         1,
-        adminUser,
+        mlBusinessAdminUser,
         true
       );
-      territory__share obj = new territory__share();
-      obj.UserOrGroupId = mlUser.id;
-      obj.ParentId = lstOfTerritory[0].id;
-      obj.AccessLevel = 'read';
-      insert obj;
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        1,
-        mlUser.Id,
-        lstOfTerritory[0].Id
-      );
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        1,
-        mlUser1.Id,
-        lstOfTerritory[0].Id
-      );
+      List<Territory__Share> lstOfTerritoryShare = new List<Territory__Share>();
+      Territory__Share objShare = new Territory__Share();
+      objShare.parentId = lstOfTerritory[0].Id;
+      objShare.accesslevel = 'Edit';
+      objShare.userOrgroupid = mlUser1.Id;
+      lstOfTerritoryShare.add(objShare);
+
+      Territory__Share objShare1 = new Territory__Share();
+      objShare1.parentId = lstOfTerritory[0].Id;
+      objShare1.accesslevel = 'Edit';
+      objShare1.userOrgroupid = mlUser.Id;
+      lstOfTerritoryShare.add(objShare1);
+
+      insert lstOfTerritoryShare;
+    }
+
+    //update ml user record so that user trigger creates corresponding user territory record
+    System.runAs(iiQUser) {
+      Test.startTest();
+      List<User> lstofUserToUpdate = new List<User>();
+      mlUser.ML_Territories__c = 'Melbourne CBD (VIC)';
+      mlUser.ML_Role__c = 'Loan Writer';
+      lstofUserToUpdate.add(mlUser);
+
+      mlUser1.ML_Territories__c = 'Melbourne CBD (VIC)';
+      mlUser1.ML_Role__c = 'Franchise Owner';
+      mlUser1.lastName = 'MLCRM1';
+      lstofUserToUpdate.add(mlUser1);
+
+      update lstofUserToUpdate;
+      Test.stopTest();
     }
     // CCRM Test Data Setup
     System.runAs(ccrmUser) {
@@ -49,27 +62,58 @@ public class CCRMLeadExpiryHandlerTest {
 
   @IsTest
   static void leadUpdateTest() {
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      CCRMTestDataFactory.getCCRMBaseUser();
+    List<String> lstOfMLUser = new List<String>{ 'Batch User', 'Admin' };
+    User objBatchUser;
+    User adminUser;
+    for (User objUser : [
+      SELECT Id, LastName, FirstName
+      FROM User
+      WHERE LastName IN :lstOfMLUser
+    ]) {
+      if (objUser.LastName == 'Batch User') {
+        objBatchUser = objUser;
+      } else {
+        adminUser = objUser;
+      }
+    }
+
+    // admin user to update expiry date to past date for testing purpose.
+    System.runAs(adminUser) {
+      insert new Salesforce_Library_Settings__c(
+        SetupOwnerId = adminUser.Id,
+        Disable_VRs__c = true
+      );
       //Update Expired lead
       List<Lead> updatedLeads = new List<Lead>();
       for (Lead leadRecord : [
         SELECT Id, Name, Expiry_Date__c, OwnerId
         FROM Lead
+        WHERE recordtypeId = :CCRMConstants.CCRM_LEAD_RT_ID
       ]) {
         leadRecord.Expiry_Date__c = System.today() - 2;
         updatedLeads.add(leadRecord);
       }
-
       Database.update(updatedLeads);
+    }
+    System.runAs(objBatchUser) {
+      List<lead> updatedLeads = [
+        SELECT Id, Name, Expiry_Date__c, OwnerId
+        FROM Lead
+        WHERE recordtypeId = :CCRMConstants.CCRM_LEAD_RT_ID
+      ];
       Test.startTest();
       SchedulableContext sc = null;
       CCRMLeadExpiryScheduler schedule = new CCRMLeadExpiryScheduler();
       schedule.execute(sc);
       Test.stopTest();
+    }
 
-      //Asserts
-      //Checking by searching records with Status 'Expired'.
+    System.runAs(adminUser) {
+      List<lead> updatedLeads = [
+        SELECT Id, Name, Expiry_Date__c, OwnerId
+        FROM Lead
+        WHERE recordtypeId = :CCRMConstants.CCRM_LEAD_RT_ID
+      ];
       Integer expiredLeadsCount = [
         SELECT COUNT()
         FROM Lead
@@ -78,45 +122,51 @@ public class CCRMLeadExpiryHandlerTest {
           AND Lead_Outcome__c = :CCRMConstants.STATUS_EXPIRED)
           OR Status = :CCRMConstants.STATUS_EXPIRED
       ];
-
       System.assertEquals(
         updatedLeads.size(),
         expiredLeadsCount,
         'Expired Leads were not updated properly.'
       );
     }
-
   }
   @IsTest
   static void validateMLleadUpdateTest() {
-    List<String> lstOfMLUser = new List<String>{ 'MLCRM', 'MLCRM1' };
+    List<String> lstOfMLUser = new List<String>{
+      'Batch User',
+      'Admin',
+      'MLCRM'
+    };
+    User objBatchUser;
+    User adminUser;
     User objMLUser;
-    User objMLUser1;
     for (User objUser : [
       SELECT Id, LastName, FirstName
       FROM User
-      WHERE LastName IN :lstOfMLUser
+      WHERE LastName IN :lstOfMLUser AND IsActive = TRUE
     ]) {
-      if (objUser.LastName == 'MLCRM') {
-        objMLUser = objUser;
+      if (objUser.LastName == 'Batch User') {
+        objBatchUser = objUser;
+      } else if (objUser.LastName == 'Admin') {
+        adminUser = objUser;
       } else {
-        objMLUser1 = objUser;
+        objMLUser = objUser;
       }
     }
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      Test.startTest();
+
+    System.runAs(objMLUser) {
       List<Lead> lstOfLead = MLCRMTestDataFactory.createLeadRecords(
         10,
         objMLUser
       );
-      // Explicitly creating lead share record for other MLUser to check same gets deleted after batch runs
-      LeadShare objShare = new LeadShare();
-      objShare.LeadId = lstOfLead[0].Id;
-      objShare.LeadAccessLevel = 'Read';
-      objShare.RowCause = 'Manual';
-      objShare.UserOrGroupId = objMLUser1.Id;
-      insert objShare;
+    }
 
+    // admin user to update expiry date to past date for testing purpose.
+    System.runAs(adminUser) {
+      insert new Salesforce_Library_Settings__c(
+        SetupOwnerId = adminUser.Id,
+        Disable_VRs__c = true
+      );
+      //Update Expired lead
       List<Lead> updatedLeads = new List<Lead>();
       for (Lead leadRecord : [
         SELECT Id, Name, Expiry_Date__c, OwnerId
@@ -126,47 +176,35 @@ public class CCRMLeadExpiryHandlerTest {
         leadRecord.Expiry_Date__c = System.today() - 2;
         updatedLeads.add(leadRecord);
       }
-
       Database.update(updatedLeads);
+    }
+    System.runAs(objBatchUser) {
+      List<lead> updatedLeads = [
+        SELECT Id, Name, Expiry_Date__c, OwnerId
+        FROM Lead
+        WHERE recordtypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
+      ];
+
+      Test.startTest();
       SchedulableContext sc = null;
       CCRMLeadExpiryScheduler schedule = new CCRMLeadExpiryScheduler();
       schedule.execute(sc);
       Test.stopTest();
+    }
 
-      //checking MLCRM user has lost the access after expiry batch has runs
-      System.runAs(objMLUser1) {
-        Integer leadsCount = [
-          SELECT COUNT()
-          FROM Lead
-          WHERE recordtypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
-        ];
-        System.assertEquals(
-          LeadsCount,
-          0,
-          'Expired ML lead still visible to user1'
-        );
-      }
-
-      System.runAs(objMLUser) {
-        Integer leadsCount = [
-          SELECT COUNT()
-          FROM Lead
-          WHERE recordtypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
-        ];
-        System.assertEquals(
-          LeadsCount,
-          0,
-          'Expired ML lead still visible to user'
-        );
-      }
-      //Asserts
-      //Checking by searching records with Status 'Expired'.
+    System.runAs(adminUser) {
+      List<lead> updatedLeads = [
+        SELECT Id, Name, Expiry_Date__c, OwnerId
+        FROM Lead
+        WHERE recordtypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
+      ];
       Integer expiredLeadsCount = [
         SELECT COUNT()
         FROM Lead
-        WHERE Status = :CCRMConstants.STATUS_EXPIRED
+        WHERE
+          Status = :CCRMConstants.STATUS_EXPIRED
+          AND recordtypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
       ];
-
       System.assertEquals(
         updatedLeads.size(),
         expiredLeadsCount,
@@ -184,6 +222,7 @@ public class CCRMLeadExpiryHandlerTest {
         WHERE recordtypeId = :MLCRMConstants.MLCRM_LEAD_RT_ID
       ];
       for (Lead objLead : lstOfMlLead) {
+        // asserting that owner is updated to queue
         System.assertEquals(
           objLead.OwnerId,
           objGrp.Id,

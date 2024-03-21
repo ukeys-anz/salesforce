@@ -557,6 +557,16 @@
                 <default>false</default>
                 <label>Information Access request</label>
             </value>
+            <value>
+                <fullName>Customer offboarding</fullName>
+                <default>false</default>
+                <label>Customer offboarding</label>
+            </value>
+            <value>
+                <fullName>Signing Authority Update (ANZ Plus/Save)</fullName>
+                <default>false</default>
+                <label>Signing Authority Update (ANZ Plus/Save)</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -664,6 +674,10 @@
             <valueName>Refer a Friend</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <valueName>Signing Authority Update (ANZ Plus/Save)</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
             <valueName>Digital Support</valueName>
         </valueSettings>
@@ -734,6 +748,10 @@
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>EOFY</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Customer offboarding</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>

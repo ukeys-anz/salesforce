@@ -86,6 +86,11 @@
                 <default>false</default>
                 <label>Not product related</label>
             </value>
+            <value>
+                <fullName>Deceased Estates</fullName>
+                <default>false</default>
+                <label>Deceased Estates</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

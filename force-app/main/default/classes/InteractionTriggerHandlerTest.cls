@@ -654,6 +654,132 @@ public with sharing class InteractionTriggerHandlerTest {
   }
 
   @isTest
+  private static void testInsertCustomerTypeInteractionAttendee() {
+    List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
+    Map<Id, Interaction> oldInteraction = new Map<Id, Interaction>();
+
+    //Integration Test
+    Test.startTest();
+    InteractionAttendeeActions.insertCustomerTypeInteractionAttendee(
+      interactionList,
+      oldInteraction
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  private static void testfilterInteractions() {
+    List<Interaction> interactions = TestInteractionMock.createMockInteraction();
+    Test.startTest();
+    List<Interaction> interactionlist = InteractionAttendeeActions.filterInteractions(
+      interactions
+    );
+    Test.stopTest();
+    System.assertEquals(
+      3,
+      interactions.size(),
+      'Expected size of Interaction List before filtering should be 3'
+    );
+    System.assertEquals(
+      2,
+      interactionlist.size(),
+      'Expected size of Interaction List after filtering should be 2'
+    );
+  }
+
+  @isTest
+  private static void testqueryInteractions() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
+    List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
+    List<interaction> fetchInteractionRecorddetails;
+    Test.startTest();
+    System.runAs(coachUser) {
+      fetchInteractionRecorddetails = InteractionAttendeeActions.queryInteractions(
+        interactionList
+      );
+    }
+    Test.stopTest();
+    System.assertEquals(
+      0,
+      fetchInteractionRecorddetails.size(),
+      'Interaction records should not be retrieved'
+    );
+  }
+
+  @isTest
+  private static void testcreateCustomerTypeInteractionAttendee() {
+    User coachUser = TestUtil.getUserByFirstName('TestCoachInter894');
+    List<Interaction> interactionList = TestInteractionMock.createMockInteraction();
+    Map<Id, Interaction> oldMapInteraction = new Map<Id, Interaction>();
+    List<InteractionAttendee> interactionAttendeelist;
+    Test.startTest();
+    System.runAs(coachUser) {
+      interactionAttendeelist = InteractionAttendeeActions.createCustomerTypeInteractionAttendee(
+        interactionList,
+        oldMapInteraction
+      );
+    }
+    Test.stopTest();
+    System.assertEquals(
+      3,
+      interactionAttendeelist.size(),
+      '3 Interaction Attendee Records should be inserted'
+    );
+  }
+
+  @isTest
+  private static void testFieldBeingPrepopulated() {
+    List<Interaction> interactionList = TestInteractionMock.createMockInteractionWithAttendeeRecord();
+    List<InteractionAttendee> interactionAttendeeList = (List<InteractionAttendee>) interactionList[0]
+      .Attendees;
+    System.assertEquals(
+      true,
+      String.isBlank(interactionAttendeeList[0].Attendee_Name__c),
+      'Attendee Name of the interaction should be blank'
+    );
+    System.assertEquals(
+      true,
+      String.isBlank(
+        interactionAttendeeList[0].UniqueKeyForInteractionAttendee__c
+      ),
+      'UniqueKeyForInteractionAttendee__c of the interaction should be blank'
+    );
+    Test.startTest();
+    InteractionAttendeeActions.validateAttendees(interactionAttendeeList);
+    Test.stopTest();
+    System.assertEquals(
+      false,
+      String.isBlank(interactionAttendeeList[0].Attendee_Name__c),
+      'Attendee Name of the interaction should be blank'
+    );
+    System.assertEquals(
+      false,
+      String.isBlank(
+        interactionAttendeeList[0].UniqueKeyForInteractionAttendee__c
+      ),
+      'UniqueKeyForInteractionAttendee__c of the interaction should be blank'
+    );
+  }
+
+  @isTest
+  private static void testupdateUniqueKeyForInteraction() {
+    List<Interaction> interactionList = TestInteractionMock.createMockInteractionWithAttendeeRecord();
+    List<InteractionAttendee> interactionAttendeeList = (List<InteractionAttendee>) interactionList[0]
+      .Attendees;
+    InteractionAttendee interactionAttendeeRecord = interactionAttendeeList[0];
+    Test.startTest();
+    String uniqueKey = InteractionAttendeeActions.updateUniqueKeyForInteraction(
+      interactionAttendeeRecord
+    );
+    Test.stopTest();
+    System.assertEquals(
+      true,
+      String.isNotBlank(uniqueKey),
+      'UniqueKey should get populated'
+    );
+  }
+
+  @isTest
   static void testAttendeeOnChangeOwner() {
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
     UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');

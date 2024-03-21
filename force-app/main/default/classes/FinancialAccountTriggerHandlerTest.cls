@@ -16,13 +16,13 @@ public with sharing class FinancialAccountTriggerHandlerTest {
       Profile integrationProfile = CommonUtil.getProfileByName(
         'Integration User'
       );
-      UserRole anzRole = CommonUtil.getUserRoleByDevName('ANZ');
+      UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
       User contractEventIntegrationUser = TestUtil.createTestUser(
         new Map<String, Object>{
           'FirstName' => 'Contract Event',
           'LastName' => 'Integration User',
           'ProfileId' => integrationProfile.Id,
-          'UserRoleId' => anzRole.Id
+          'UserRoleId' => anzxRole.Id
         }
       );
 
@@ -126,44 +126,6 @@ public with sharing class FinancialAccountTriggerHandlerTest {
   }
 
   @isTest
-  public static void testSignatoryUpdateFailure() {
-    User contractEventIntegrationUser = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'Contract Event'
-      LIMIT 1
-    ];
-    FinServ__FinancialAccount__c finAcc = [
-      SELECT Id, Number_Of_Signatures__c
-      FROM FinServ__FinancialAccount__c
-      LIMIT 1
-    ];
-
-    Customer_Action__c ca = [
-      SELECT Id, Status__c
-      FROM Customer_Action__c
-      WHERE Financial_Account__c = :finAcc.Id
-    ];
-    ca.Status__c = GetHelpFinancialAccountActions.CUSTOMER_ACTION_STATUS_COMPLETED;
-    update ca;
-
-    System.runAs(contractEventIntegrationUser) {
-      try {
-        finAcc.Number_Of_Signatures__c = '2';
-        update finAcc;
-      } catch (Exception exp) {
-        Assert.isTrue(
-          exp.getMessage()
-            .contains(
-              GetHelpFinancialAccountActions.SIGNATORY_UPDATE_ERROR_MESSAGE
-            ),
-          'Number of Signatory cannot be updated directly'
-        );
-      }
-    }
-  }
-
-  @isTest
   public static void testCheckPendingCustomerActionExist() {
     Faker faker = new Faker('AU');
     Account accnt = new Account();
@@ -172,7 +134,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     accnt.OCV_ID__c = faker.randomString(10);
     accnt.ANZx_Customer__c = true;
     accnt.External_Id__c = faker.randomString(10);
-    accnt.Id = '0019p000000' + faker.randomString(7);
+    accnt.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
 
     FinServ__FinancialAccount__c finAccount = TestDataFactory.createFinancialAccountRecord(
       GetHelpConstants.CHECKING_ACCOUNT_RT_ID,

@@ -23,14 +23,24 @@ public with sharing class MLCRMTestDataFactory {
       MLCRMConstants.ML_ROLE_DEV_NAME
     )
     ?.Id;
+  private static Id mlBusinessAdminRoleId = CommonUtil.getUserRoleByDevName(
+      MLCRMConstants.ML_BUSINESS_ADMIN_ROLE_NAME
+    )
+    ?.Id;
   public static Id anzIIQUser = CommonUtil.getProfileByName(
       'Minimum Access - External Apps'
     )
     .Id;
+  private static Id arcRoleId = CommonUtil.getUserRoleByDevName(
+      MLCRMConstants.ARC_USER_ROLE
+    )
+    ?.Id;
   private static User adminUser;
   private static User mlcrmBaseUser;
   private static User mlcrmIntegrationUser;
   private static User minimumAccessBaseUser;
+  private static User mlBusinessAdminUser;
+  private static User ccrmBatchUser;
   public static UserRole bankerRole = CommonUtil.getUserRoleByDevName('Banker');
   /**
    * @description Create a MLCRM Base User
@@ -43,12 +53,15 @@ public with sharing class MLCRMTestDataFactory {
     mlcrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
     mlcrmBaseUser.FirstName = 'BaseUser' + staticNumber;
     mlcrmBaseUser.LastName = 'MLCRM';
-    mlcrmBaseUser.UserRoleId = bankerRole.Id;
+    mlcrmBaseUser.UserRoleId = mlRoleId;
     mlcrmBaseUser.ProfileId = anzStandardProfileId;
     mlcrmBaseUser.IsActive = true;
     mlcrmBaseUser.Lan_Id__c = 'testMLBaseUL' + (Math.random() * 10);
     insert mlcrmBaseUser;
-    addMLCRMUserPS(mlcrmBaseUser.id, 'MLCRM_Base');
+    TestUtil.assignPermissionSetGroups(
+      new List<String>{ MLCRMConstants.LOAN_WRITER_PSG_NAME },
+      new List<User>{ mlcrmBaseUser }
+    );
     return mlcrmBaseUser;
   }
 
@@ -350,7 +363,7 @@ public with sharing class MLCRMTestDataFactory {
     for (Integer i = 1; i <= count; i++) {
       Territory__c objTerritory = new Territory__c();
       objTerritory.Access_Scope__c = 'Restricted';
-      objTerritory.Name = 'Melbourne';
+      objTerritory.Name = 'Melbourne CBD (VIC)';
       objTerritory.Primary_Franchise_Owner__c = userInfo.getUserId();
       objTerritory.OwnerId = ownerUser.Id == null
         ? UserInfo.getUserId()
@@ -420,6 +433,9 @@ public with sharing class MLCRMTestDataFactory {
       objOpportunity.CloseDate = system.Today() + 10;
       objOpportunity.Description = 'Test Opportunity';
       objOpportunity.RecordTypeId = MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID;
+      objOpportunity.OwnerId = ownerUser.Id == null
+        ? UserInfo.getUserId()
+        : ownerUser.Id;
       newOpps.add(objOpportunity);
     }
     if (doInsert) {
@@ -515,5 +531,53 @@ public with sharing class MLCRMTestDataFactory {
     Customer_Relationship__c objRelation = new Customer_Relationship__c();
     objRelation.Relationship_To_Franchise__c = 'Primary';
     insert objRelation;
+  }
+
+  /**
+   * @description Create a ML Business Admin User
+   * @name createMLBusinessAdminUser
+   * @return ML Business Admin User with MLCRM Business Admin User Permission Set Group.
+   */
+  public static User createMLBusinessAdminUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    mlBusinessAdminUser = (User) FakerFactory.make(new FakerUserFactory());
+    mlBusinessAdminUser.FirstName = 'AdminUser' + staticNumber;
+    mlBusinessAdminUser.LastName = 'BusinessAdmin';
+    mlBusinessAdminUser.UserRoleId = mlBusinessAdminRoleId;
+    mlBusinessAdminUser.ProfileId = anzStandardProfileId;
+    mlBusinessAdminUser.IsActive = true;
+    mlBusinessAdminUser.Lan_Id__c =
+      'testMLBusinessAdminUL' + (Math.random() * 10);
+    insert mlBusinessAdminUser;
+    TestUtil.assignPermissionSetGroups(
+      new List<String>{
+        MLCRMConstants.ML_SUPER_USER_PSG_NAME,
+        MLCRMConstants.BUSINESS_ADMIN_USER_PSG_NAME,
+        MLCRMConstants.ENGINEER_PSG_NAME
+      },
+      new List<User>{ mlBusinessAdminUser }
+    );
+    return mlBusinessAdminUser;
+  }
+
+  /**
+   * @description Create a CCRM Batch User
+   * @name createCRMBatchUser
+   * @return CCRM Batch User 
+   */
+  public static User createCRMBatchUser() {
+    String staticNumber = Datetime.now().format('MMddHHmmss');
+    ccrmBatchUser = (User) FakerFactory.make(new FakerUserFactory());
+    ccrmBatchUser.FirstName = 'CRM' + staticNumber;
+    ccrmBatchUser.LastName = 'Batch User';
+    ccrmBatchUser.UserRoleId = arcRoleId;
+    ccrmBatchUser.ProfileId = integrationProfileId;
+    insert ccrmBatchUser;
+    addMLCRMUserPS(ccrmBatchUser.id, 'API_Only');
+    addMLCRMUserPS(ccrmBatchUser.id, 'Validation_Bypass');
+    addMLCRMUserPS(ccrmBatchUser.id, 'CCRM_User_Base');
+    addMLCRMUserPS(ccrmBatchUser.id, 'MLCRM_Base_Read_Only');
+    return ccrmBatchUser;
   }
 }

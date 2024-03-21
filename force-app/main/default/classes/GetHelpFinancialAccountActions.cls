@@ -7,50 +7,6 @@ public class GetHelpFinancialAccountActions {
   public static final String CUSTOMER_ACTION_STATUS_PEDING = 'STATE_PENDING';
   public static final String CUSTOMER_ACTION_ERROR = 'Error';
   public static final String CUSTOMER_ACTION_STATUS_COMPLETED = 'Completed';
-  public static final String SIGNATORY_UPDATE_ERROR_MESSAGE = 'No pending request for update exist.';
-
-  /**
-   * @description To perform all the validations before update
-   * @param records FinServ__FinancialAccount__c new updated records
-   * @param oldMap FinServ__FinancialAccount__c map of old records
-   */
-  public static void onBeforeUpdateValidations(
-    List<FinServ__FinancialAccount__c> records,
-    Map<Id, FinServ__FinancialAccount__c> oldMap
-  ) {
-    try {
-      Map<Id, Customer_Action__c> finAccIdToCustActionMap = getPendingCustomerAction(
-        oldMap.keySet()
-      );
-      checkPendingCustomerActionExist(records, oldMap, finAccIdToCustActionMap);
-    } catch (Exception exp) {
-      Logger.error(exp.getMessage(), exp);
-      Logger.saveLog();
-    }
-  }
-
-  /**
-   * @description To check if pending customer Action should be there
-   * @param records FinServ__FinancialAccount__c new updated records
-   * @param oldMap FinServ__FinancialAccount__c map of old records
-   * @param finAccIdToCustActionMap Financial Account Id to Customer Action Map
-   */
-  @TestVisible
-  private static void checkPendingCustomerActionExist(
-    List<FinServ__FinancialAccount__c> records,
-    Map<Id, FinServ__FinancialAccount__c> oldMap,
-    Map<Id, Customer_Action__c> finAccIdToCustActionMap
-  ) {
-    for (FinServ__FinancialAccount__c finAcc : records) {
-      FinServ__FinancialAccount__c oldFinAcc = oldMap.get(finAcc.Id);
-      if (
-        oldFinAcc.Number_Of_Signatures__c != finAcc.Number_Of_Signatures__c &&
-        finAccIdToCustActionMap.get(finAcc.Id) == null
-      ) {
-        finAcc.addError(SIGNATORY_UPDATE_ERROR_MESSAGE);
-      }
-    }
-  }
 
   /**
    * @description To update the Cutomer_Action__c record
@@ -97,7 +53,10 @@ public class GetHelpFinancialAccountActions {
     List<Customer_Action__c> customerActionToUpdateList = new List<Customer_Action__c>();
     for (FinServ__FinancialAccount__c finAcc : records) {
       FinServ__FinancialAccount__c oldFinAcc = oldMap.get(finAcc.Id);
-      if (oldFinAcc.Number_Of_Signatures__c != finAcc.Number_Of_Signatures__c) {
+      if (
+        oldFinAcc.Number_Of_Signatures__c != finAcc.Number_Of_Signatures__c &&
+        finAccIdToCustActionMap.get(finAcc.Id) != null
+      ) {
         Customer_Action__c ca = finAccIdToCustActionMap.get(finAcc.Id);
         ca.Status__c = CUSTOMER_ACTION_STATUS_COMPLETED;
         customerActionToUpdateList.add(ca);

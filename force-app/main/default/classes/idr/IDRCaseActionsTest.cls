@@ -527,85 +527,52 @@ private with sharing class IDRCaseActionsTest {
     );
   }
   @isTest
-  static void testProductAssetfinance() {
-    String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-
-    Product_Family__c testProductFamily = new Product_Family__c();
-    testProductFamily.Name = 'Asset finance';
-    testProductFamily.IDR_ANZ_com_Product_Category__c = 'Asset finance';
-    testProductFamily.IDR_Workbasket__c = 'IDR_Business_Owners';
-    testProductFamily.Id = Lib_FakeIdGenerator.getMockId(
-      Product_Family__c.SObjectType
-    );
-
-    Product2 testProduct = new Product2();
-    testProduct.Name = 'Asset Finance';
-    testProduct.IsActive = true;
-    testProduct.IDR_Product_Family__c = testProductFamily.Id;
-    testProduct.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-
-    Product2 testProduct1 = new Product2();
-    testProduct1.Name = 'ANZ Flyer Card';
-    testProduct1.IsActive = true;
-    testProduct1.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-
-    Product2 testProduct2 = new Product2();
-    testProduct2.Name = 'Test Product';
-    testProduct2.IsActive = true;
-    testProduct2.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-
-    Map<Id, Product2> productMap = new Map<Id, Product2>{
-      testProduct.Id => testProduct,
-      testProduct1.Id => testProduct1,
-      testProduct2.Id => testProduct2
-    };
-
-    Case[] cases = new List<Case>();
-    Case caseRecord = createCaseWithIssueTyes();
-    caseRecord.Product__c = testProduct.Id;
-    caseRecord.IDR_Product_2__c = testProduct1.Id;
-    caseRecord.IDR_Product_3__c = testProduct2.Id;
-    caseRecord.Id = caseRecordId;
-
-    Case caseRecord1 = createCaseWithIssueTyes();
-    caseRecord1.Product__c = testProduct1.Id;
-    caseRecord1.Id = caseRecordId;
-
-    Test.startTest();
-    Boolean isProductAssetfinance = IDRCaseActions.isProductAssetfinance(
-      caseRecord,
-      caseRecord1,
-      productMap
-    );
-    Test.stopTest();
-
-    System.assertEquals(isProductAssetfinance, true);
+  static void testProductAssetfinance(){
+      
+      String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+      
+      Product_Family__c testProductFamily = new Product_Family__c();
+      testProductFamily.Name='Asset finance';
+      testProductFamily.IDR_ANZ_com_Product_Category__c = 'Asset finance';
+      testProductFamily.IDR_Workbasket__c = 'IDR_Business_Owners';
+      testProductFamily.Id = Lib_FakeIdGenerator.getMockId(Product_Family__c.SObjectType);
+      
+      Product2 testProduct = new Product2();
+      testProduct.Name = 'Asset Finance';
+      testProduct.IsActive = true;
+      testProduct.IDR_Product_Family__c = testProductFamily.Id;
+      testProduct.Id =Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+      
+      Product2 testProduct1 = new Product2();
+      testProduct1.Name = 'ANZ Flyer Card';
+      testProduct1.IsActive = true;
+      testProduct1.Id =Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+      
+      Product2 testProduct2 = new Product2();
+      testProduct2.Name = 'Test Product';
+      testProduct2.IsActive = true;
+      testProduct2.Id =Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+      
+      Map<Id, Product2> productMap = new Map<Id, Product2>{
+        testProduct.Id =>testProduct,testProduct1.Id =>testProduct1,testProduct2.Id =>testProduct2
+      };
+      
+      Case[] cases = new List<Case>();
+      Case caseRecord = IDRTestDataFactory.createComplaint();
+      caseRecord.Product__c = testProduct.Id;
+      caseRecord.IDR_Product_2__c = testProduct1.Id;
+      caseRecord.IDR_Product_3__c = testProduct2.Id;
+      caseRecord.Id = caseRecordId;
+      
+      
+      Case caseRecord1 = IDRTestDataFactory.createComplaint();
+      caseRecord1.Product__c = testProduct1.Id;
+      caseRecord1.Id = caseRecordId;
+      
+      Boolean isProductAssetfinance = IDRCaseActions.isProductAssetfinance(caseRecord, caseRecord1, productMap);    
+      
+      System.assertEquals(isProductAssetfinance,true);
+    
   }
-  /**
-   * @description Create Case record with different issue types
-   * @return Case
-   */
-
-  private static Case createCaseWithIssueTyes() {
-    Case caseRecord = new Case();
-    caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-    caseRecord.IDR_Customer_Number__c = '1234567890';
-    caseRecord.Status = 'Open';
-    caseRecord.IDR_Account_Card_Policy_Number__c = 'N/A';
-    caseRecord.isEscalated = false;
-    caseRecord.IDR_Second_Issue__c = true;
-    caseRecord.IDR_Third_Issue__c = true;
-    caseRecord.Type = '4';
-    caseRecord.IDR_Issue_Type_2__c = '9';
-    caseRecord.IDR_Issue_Type_3__c = '17';
-    caseRecord.IDR_Subsequent_Issue__c = '20';
-    caseRecord.IDR_Subsequent_Issue_2__c = '57';
-    caseRecord.IDR_Subsequent_Issue_3__c = '24';
-    caseRecord.IDR_Product_Category__c = 'Asset finance';
-    caseRecord.IDR_Account_Card_Policy_Number_2__c = 'N/A';
-    caseRecord.IDR_Account_Card_Policy_Number_3__c = 'N/A';
-    caseRecord.Description = 'Test';
-    caseRecord.IDR_Complainant_Desired_Outcome__c = 'Test';
-    return caseRecord;
-  }
+    
 }

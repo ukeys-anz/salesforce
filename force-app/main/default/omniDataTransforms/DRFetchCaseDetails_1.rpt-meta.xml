@@ -950,7 +950,6 @@
         <inputFieldName>Case:IDR_Account_Card_Policy_Number__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:accountPolicyNumber</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -958,13 +957,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom7117</globalKey>
         <inputFieldName>Case:Origin</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:ChannelReceived</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -1124,26 +1123,20 @@
         <inputFieldName>Case:Type</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-
-        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>originalValues:Type</outputFieldName>
+        <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-<<<<<<< HEAD
         <name>DRFetchCaseDetails</name>
-=======
->>>>>>> epic/cmos-a
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom7765</globalKey>
         <inputFieldName>Case:IDR_Subsequent_Issue__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-<<<<<<< HEAD
-=======
-        <name>DRFetchCaseDetails</name>
->>>>>>> epic/cmos-a
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>originalValues:IDR_Subsequent_Issue__c</outputFieldName>
         <outputObjectName>json</outputObjectName>

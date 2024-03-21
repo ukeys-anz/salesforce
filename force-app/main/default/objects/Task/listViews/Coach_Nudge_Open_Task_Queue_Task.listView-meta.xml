@@ -20,7 +20,7 @@
         <value>Not Started</value>
     </filters>
     <filterScope>Queue</filterScope>
-    <label>Coach Nudge Open Task Queue</label>
+    <label>Coach Nudge Unassigned</label>
     <queue>Coach_Nudge_Open_Task_Queue</queue>
     <sharedTo>
         <allInternalUsers/>

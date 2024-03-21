@@ -75,7 +75,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
-    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    InteractionContextRequest contextReq = new InteractionContextRequest();
     contextReq.ocvId = 'OCVID887766';
     contextReq.chatOrCallId = 'CH' + faker.randomString(32);
     contextReq.issueSubtype = 'Fraud';
@@ -87,9 +87,7 @@ public with sharing class InteractionContextServiceTest {
     contextReq.callRecordingId = 'CR' + faker.randomString(10);
     contextReq.chatOrCallStatus = 'assigned';
 
-    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
-      contextReq
-    );
+    InteractionContextRequest intContexts = prepareRequest(contextReq);
 
     Test.startTest();
     System.runAs(usr) {
@@ -126,7 +124,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request with valid OCV ID and invalid Direction
     // Prepare request test data
-    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    InteractionContextRequest contextReq = new InteractionContextRequest();
     contextReq.ocvId = 'OCVID887766';
     contextReq.chatOrCallId = 'CH' + faker.randomString(32);
     contextReq.issueSubtype = 'Fraud';
@@ -138,9 +136,7 @@ public with sharing class InteractionContextServiceTest {
     contextReq.callRecordingId = 'CR' + faker.randomString(10);
     contextReq.chatOrCallStatus = 'Created';
 
-    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
-      contextReq
-    );
+    InteractionContextRequest intContexts = prepareRequest(contextReq);
 
     Test.startTest();
     System.runAs(usr) {
@@ -172,7 +168,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request with phoneNumber
     // Prepare request test data
-    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    InteractionContextRequest contextReq = new InteractionContextRequest();
     contextReq.ocvId = '';
     contextReq.chatOrCallId = 'CH' + faker.randomString(32);
     contextReq.issueSubtype = '';
@@ -184,9 +180,7 @@ public with sharing class InteractionContextServiceTest {
     contextReq.callRecordingId = 'CR' + faker.randomString(10);
     contextReq.chatOrCallStatus = '';
 
-    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
-      contextReq
-    );
+    InteractionContextRequest intContexts = prepareRequest(contextReq);
 
     Test.startTest();
     System.runAs(usr) {
@@ -222,7 +216,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request without valid OCV ID
     // Prepare request test data
-    InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
+    InteractionContextRequest contextReq = new InteractionContextRequest();
     contextReq.ocvId = '';
     contextReq.chatOrCallId = 'CH' + faker.randomString(32);
     contextReq.issueSubtype = '';
@@ -234,9 +228,7 @@ public with sharing class InteractionContextServiceTest {
     contextReq.callRecordingId = 'CR' + faker.randomString(10);
     contextReq.chatOrCallStatus = '';
 
-    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
-      contextReq
-    );
+    InteractionContextRequest intContexts = prepareRequest(contextReq);
 
     Test.startTest();
     System.runAs(usr) {
@@ -260,11 +252,11 @@ public with sharing class InteractionContextServiceTest {
 
   /**
    * @description Method to prepare REST requests for test scenarios.
-   * @param interactionContextService InteractionContextService.InteractionContextRequest
-   * @return 'InteractionContextService.InteractionContextRequest'
+   * @param interactionContextService InteractionContextRequest
+   * @return 'InteractionContextRequest'
    */
-  public static InteractionContextService.InteractionContextRequest prepareRequest(
-    InteractionContextService.InteractionContextRequest interactionContextService
+  public static InteractionContextRequest prepareRequest(
+    InteractionContextRequest interactionContextService
   ) {
     //Setup request
     RestRequest req = new RestRequest();
