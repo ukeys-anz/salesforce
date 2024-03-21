@@ -14,6 +14,11 @@
     </classAccesses>
     <description>Permissions for CMOS Data analyst user to access complaint mgt app and export data from salesforce.</description>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Date_Case_allocated_to_CM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_DEH_Current_Status__c</field>
         <readable>true</readable>
@@ -35,7 +40,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.IDR_Total_Financial_Amount__c</field>
+        <field>Case.IDR_Final_Letter_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Hardship_Response_updated_on__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -45,12 +55,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.IDR_Final_Letter_Outcome__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IDR_Hardship_Response_updated_on__c</field>
+        <field>Case.IDR_Total_Financial_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -444,16 +449,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Previous_Case_Owner__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Date_Case_allocated_to_CM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Quality_Assessment__c.Has_a_complaint_LOA_been_loaded_to_PCC__c</field>
         <readable>true</readable>
@@ -785,6 +780,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.TM_Comments_for_C_Q_Manager_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.TM_Response_to_C_Q_Manager_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.TeamManager__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -796,16 +801,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Quality_Assessment__c.Team_Manager_Response__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Quality_Assessment__c.TM_Comments_for_C_Q_Manager_Review__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Quality_Assessment__c.TM_Response_to_C_Q_Manager_Review__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
