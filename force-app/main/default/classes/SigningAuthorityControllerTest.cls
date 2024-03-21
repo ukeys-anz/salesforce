@@ -59,7 +59,7 @@ private class SigningAuthorityControllerTest {
     accnt.OCV_ID__c = faker.randomString(10);
     accnt.ANZx_Customer__c = true;
     accnt.External_Id__c = faker.randomString(10);
-    accnt.Id = '0019p000000' + faker.randomString(7);
+    accnt.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
 
     FinServ__FinancialAccount__c finAccount = TestDataFactory.createFinancialAccountRecord(
       GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
@@ -109,7 +109,7 @@ private class SigningAuthorityControllerTest {
     accnt.OCV_ID__c = faker.randomString(10);
     accnt.ANZx_Customer__c = true;
     accnt.External_Id__c = faker.randomString(10);
-    accnt.Id = '0019p000000' + faker.randomString(7);
+    accnt.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
 
     FinServ__FinancialAccount__c finAccount = TestDataFactory.createFinancialAccountRecord(
       GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
@@ -144,7 +144,7 @@ private class SigningAuthorityControllerTest {
     accnt.OCV_ID__c = faker.randomString(10);
     accnt.ANZx_Customer__c = true;
     accnt.External_Id__c = faker.randomString(10);
-    accnt.Id = '0019p000000' + faker.randomString(7);
+    accnt.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
 
     FinServ__FinancialAccount__c finAccount = TestDataFactory.createFinancialAccountRecord(
       GetHelpConstants.CHECKING_ACCOUNT_RT_ID,

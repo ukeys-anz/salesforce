@@ -9,6 +9,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    * @description override of the onAfterInsert to create Events & Interaction Summaries
    */
   public override void onAfterInsert() {
+    Map<Id, Interaction> oldMap = new Map<Id, Interaction>();
     List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
     );
@@ -55,13 +56,15 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     InteractionSetters.setInteractionIds(apptInteractions);
     InteractionSetters.setExternalIds(apptIds);
     InteractionAttendeeActions.insertDefaultAttendee(records);
+    InteractionAttendeeActions.insertCustomerTypeInteractionAttendee(
+      records,
+      oldMap
+    );
 
     //Add Interaction Number for Store too.
 
     generalInteractions.addAll(storeInteractions);
 
-    System.debug('generalInteractions ' + generalInteractions);
-    System.debug('storeInteractions ' + storeInteractions);
     //Add Interaction Number for Chat too
     generalInteractions.addAll(chatInteractions);
 
@@ -106,7 +109,10 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     InteractionAttendeeActions.insertOwnerChangeAttendee(
       changedOwnerInteractions
     );
-
+    InteractionAttendeeActions.insertCustomerTypeInteractionAttendee(
+      records,
+      (Map<Id, Interaction>) oldMap
+    );
     createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
       userOwnedInteractions
     );

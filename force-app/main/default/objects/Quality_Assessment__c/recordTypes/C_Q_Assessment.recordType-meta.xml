@@ -973,15 +973,15 @@
     <picklistValues>
         <picklist>Has_a_complaint_LOA_been_loaded_to_PCC__c</picklist>
         <values>
-            <fullName>N%2FA - No POA</fullName>
+            <fullName>N%2FA - No LOA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>No - POA not loaded</fullName>
+            <fullName>No - LOA not loaded</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes - POA loaded</fullName>
+            <fullName>Yes - LOA loaded</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -1130,7 +1130,7 @@
     <picklistValues>
         <picklist>If_unlicensed_did_communication_stop__c</picklist>
         <values>
-            <fullName>N%2FA - no LOA%2C or LOA licensed</fullName>
+            <fullName>N%2FA %E2%80%93 no DMF%2C or DMF licenced</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1804,39 +1804,39 @@
     <picklistValues>
         <picklist>REaL_form_categories__c</picklist>
         <values>
-            <fullName>%22Part or full decline 1 - identify and address issues</fullName>
+            <fullName>CR issue %E2%80%93 Hardship%2Fdebt collection obligations</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Application for hardship not responded to within 21 days</fullName>
+            <fullName>CR issue %E2%80%93 Other</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Breach of debt collection obligations</fullName>
+            <fullName>CR issue %E2%80%93 Privacy%2Fconfidentiality</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Breach of privacy obligations</fullName>
+            <fullName>Factual inaccuracy in final response</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Breach of responsible lending obligations</fullName>
+            <fullName>Non-CR issue</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other%3A %5Bfree text field following%5D%22</fullName>
+            <fullName>RG271%2E53 %E2%80%93 FR fully in customer favour but does not inform of outcome</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Part of full decline 3 - insufficient details for decision</fullName>
+            <fullName>RG271%2E54%28a%29 %E2%80%93 FR does not identify%2Faddress issues</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Part or full decline 2 - findings and reference</fullName>
+            <fullName>RG271%2E54%28b%29 %E2%80%93 FR does not give findings</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Resolution outcome was not implemented in a timely manner when a complaint is closed</fullName>
+            <fullName>RG271%2E54%28c%29 %E2%80%93 FR does not give enough details for decision</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3018,6 +3018,10 @@
     </picklistValues>
     <picklistValues>
         <picklist>Were_the_CM_s_calls_recorded__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>No</fullName>
             <default>false</default>

@@ -105,7 +105,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Data schema url for proto files for coach nudge event</shortDescription>
-        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.interaction.v1alpha1</value>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.interaction.v1alpha1#CoachNudge</value>
     </labels>
     <labels>
         <fullName>ANZX_Disputes_event_ce_type</fullName>

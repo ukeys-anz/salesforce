@@ -1142,9 +1142,7 @@ public with sharing class InteractionActionsTest {
       RecordTypeId = GetHelpConstants.LEAD_GENERAL_RT_ID
     );
     testLead.MobilePhone = String.valueOf(faker.randomDecimal(10, 0));
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      insert testLead;
-    }
+    insert testLead;
 
     String financialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(

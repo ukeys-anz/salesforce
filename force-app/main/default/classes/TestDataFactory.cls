@@ -668,7 +668,9 @@ public without sharing class TestDataFactory {
     if (isInsert) {
       insert finAccount;
     } else {
-      finAccount.Id = 'a0F9p000000' + faker.randomString(7);
+      finAccount.Id = Lib_FakeIdGenerator.getMockId(
+        FinServ__FinancialAccount__c.SObjectType
+      );
     }
     return finAccount;
   }
@@ -701,7 +703,7 @@ public without sharing class TestDataFactory {
     if (isInsert) {
       insert ca;
     } else {
-      ca.Id = 'a2j9p000000' + faker.randomString(7);
+      ca.Id = Lib_FakeIdGenerator.getMockId(Customer_Action__c.SObjectType);
     }
     return ca;
   }
@@ -737,7 +739,7 @@ public without sharing class TestDataFactory {
     if (isInsert) {
       insert tsk;
     } else {
-      tsk.Id = '00TAD000005' + faker.randomString(7);
+      tsk.Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType);
     }
     return tsk;
   }

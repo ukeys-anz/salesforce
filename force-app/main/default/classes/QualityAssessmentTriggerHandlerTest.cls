@@ -540,64 +540,50 @@ private class QualityAssessmentTriggerHandlerTest {
   //method to test createChatterPost method, need SeeAllData=true to test ConnectApi
   @isTest(SeeAllData=true)
   private static void testCreateChatterPost() {
-    User groupUser = TestUtil.createTestUserWithProfile('System Administrator');
-    insert groupUser;
-    List<String> groupPSs = new List<String>{
-      'Quality_Assessment_Read_Write',
-      'Case Read/Write - Quality Analyst'
-    };
-    List<PermissionSet> groupPsList = [
-      SELECT Id
-      FROM PermissionSet
-      WHERE Name IN :groupPSs
-    ];
-    List<PermissionSetAssignment> groupPsaList = new List<PermissionSetAssignment>();
-    for (PermissionSet ps : groupPsList) {
-      groupPsaList.add(TestUtil.createPSAssignment(groupUser.id, ps.Id));
-    }
-    insert groupPsaList;
-    //create chatter groups if missing
-    List<CollaborationGroup> groups = [
-      SELECT Id
-      FROM CollaborationGroup
-      WHERE
-        Name IN (
-          :QualityAssessmentActions.GROUP_ASSURANCE_TEAM,
-          :QualityAssessmentActions.GROUP_COACH_LEAD,
-          :QualityAssessmentActions.GROUP_JOIN_LEAD
-        )
-    ];
-    if (groups.size() == 0) {
-      groups.add(
-        new CollaborationGroup(
-          Name = QualityAssessmentActions.GROUP_ASSURANCE_TEAM,
-          CollaborationType = 'Private'
-        )
-      );
-      groups.add(
-        new CollaborationGroup(
-          Name = QualityAssessmentActions.GROUP_COACH_LEAD,
-          CollaborationType = 'Private'
-        )
-      );
-      groups.add(
-        new CollaborationGroup(
-          Name = QualityAssessmentActions.GROUP_JOIN_LEAD,
-          CollaborationType = 'Private'
-        )
-      );
-      insert groups;
-    }
-
-    System.runAs(groupUser) {
-      List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
-      for (CollaborationGroup cg : groups) {
-        CollaborationGroupMember member = new CollaborationGroupMember();
-        member.MemberId = groupUser.Id;
-        member.CollaborationGroupId = cg.Id;
-        collGroupMembers.add(member);
+    System.runAs(new User(Id = UserInfo.getUserId())) {
+      //create chatter groups if missing
+      List<CollaborationGroup> groups = [
+        SELECT Id
+        FROM CollaborationGroup
+        WHERE
+          Name IN (
+            :QualityAssessmentActions.GROUP_ASSURANCE_TEAM,
+            :QualityAssessmentActions.GROUP_COACH_LEAD,
+            :QualityAssessmentActions.GROUP_JOIN_LEAD
+          )
+      ];
+      if (groups.size() == 0) {
+        groups.add(
+          new CollaborationGroup(
+            Name = QualityAssessmentActions.GROUP_ASSURANCE_TEAM,
+            CollaborationType = 'Private'
+          )
+        );
+        groups.add(
+          new CollaborationGroup(
+            Name = QualityAssessmentActions.GROUP_COACH_LEAD,
+            CollaborationType = 'Private'
+          )
+        );
+        groups.add(
+          new CollaborationGroup(
+            Name = QualityAssessmentActions.GROUP_JOIN_LEAD,
+            CollaborationType = 'Private'
+          )
+        );
+        insert groups;
+      } else {
+        //Only insert group members if the groups are already created. because if the groups are inserted from test class,
+        //system takes care of adding the running user as Group Members
+        List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
+        for (CollaborationGroup cg : groups) {
+          CollaborationGroupMember member = new CollaborationGroupMember();
+          member.MemberId = UserInfo.getuserId();
+          member.CollaborationGroupId = cg.Id;
+          collGroupMembers.add(member);
+        }
+        insert collGroupMembers;
       }
-      upsert collGroupMembers;
 
       List<Quality_Assessment__c> qaRecords = new List<Quality_Assessment__c>();
       List<Case> testCases = new List<Case>();
@@ -671,7 +657,7 @@ private class QualityAssessmentTriggerHandlerTest {
       Email = faker.randomString(6) + '@testtest.com',
       MobilePhone = faker.person.phone()
     );
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(new User(Id = UserInfo.getUserId())) {
       insert testLead;
     }
 

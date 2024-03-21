@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Final_Letter_Outcome_Mandatory</fullName>
+    <active>true</active>
+    <description>Populate Final Letter Outcome if &apos;Is Hardship Resolution Letter Sent&apos; is not null</description>
+    <errorConditionFormula>AND(
+NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
+OR(
+RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
+RecordType.DeveloperName = &quot;Non_Customer_Complaint&quot;
+),
+NOT(ISNEW()),
+ISPICKVAL( Type , &apos;4&apos;),
+NOT(ISBLANK(TEXT(IDR_Is_Hardship_Resolution_Letter_Sent__c ))),
+NOT(ISPICKVAL(IDR_Is_Hardship_Resolution_Letter_Sent__c,&quot;Related Complaint In-Flight (no action taken)&quot;)),
+ISBLANK(TEXT(IDR_Final_Letter_Outcome__c))
+)</errorConditionFormula>
+    <errorDisplayField>IDR_Final_Letter_Outcome__c</errorDisplayField>
+    <errorMessage>When &quot;Is Hardship Resolution Letter Sent&quot; is populated  &quot; Final Letter Outcome&quot; is mandatory.</errorMessage>
+</ValidationRule>

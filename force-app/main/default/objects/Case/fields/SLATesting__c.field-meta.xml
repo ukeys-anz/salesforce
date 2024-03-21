@@ -9,7 +9,11 @@
   IF ( DATEVALUE(TestedDate__c) &lt; DATEVALUE(CreatedDate),
     &apos;0 days&apos;,
     IF ( DATEVALUE(TestedDate__c) = DATEVALUE(CreatedDate),
-      &apos;1 day&apos;,
+      IF( OR(
+          WEEKDAY(DATEVALUE(TestedDate__c)) = 1,  /* Sunday */
+          WEEKDAY(DATEVALUE(TestedDate__c)) = 7),  /* Saturday */
+        &apos;0 days&apos;,
+        &apos;1 day&apos;),
       TEXT(CASE(MOD(DATEVALUE(CreatedDate) - DATE(1900,1,8),7), /* 8 Jan 1900 is a Monday */
         0 , CASE( MOD( DATEVALUE(TestedDate__c) - DATEVALUE(CreatedDate),7),1,2,2,3,3,4,4,5,5,5,6,5,1), /* CreatedDate is a Monday */
         1 , CASE( MOD( DATEVALUE(TestedDate__c) - DATEVALUE(CreatedDate),7),1,2,2,3,3,4,4,4,5,4,6,5,1), /* Tuesday */

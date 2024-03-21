@@ -139,6 +139,16 @@
       "IDR_ANZ_com_Product_Category__c": "Personal loan",
       "IDR_ANZ_com_Unique_Product_Indicator__c": "Personal loan",
       "IDR_Workbasket__c": "IDR_Everyday_Banking"
+    },
+    {
+        "attributes": {
+            "type": "Product_Family__c",
+            "referenceId": "Product_Family__cRef15"
+        },
+        "Name": "Deceased Estates Family",
+        "IDR_ANZ_com_Product_Category__c": "Deceased Estates",
+        "IDR_ANZ_com_Unique_Product_Indicator__c": "Deceased Estates",
+        "IDR_Workbasket__c": "IDR Deceased Estates"
     }
   ]
 }
