@@ -924,7 +924,9 @@
         "Has_complaint_met_RG_271_delay_criteria__c",
         "How_has_delay_criteria_been_met_not_met__c",
         "Date_Time_Provisionally_Closed__c",
-        "My_extended_team_s_cases__c"
+        "My_extended_team_s_cases__c",
+        "AFCA_Stage__c",
+        "Date_time_Registration_Response_Provided__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -1084,6 +1086,17 @@
         "Fraud_PersonID__c"
       ],
       "IA-2468710": ["SLATesting__c"]
+    },
+    "Case_Reporting_Field__c": {
+      "IA-2453595": [
+        "Case__c",
+        "Case_Last_Opened__c",
+        "Case_Last_Opened_RG271__c",
+        "IDR_Response_Time_RG271__c",
+        "IDR_Response_Time_RG271_MS__c",
+        "Total_Open_Time__c",
+        "Total_Open_Time_MS__c"
+      ]
     },
     "Case_Product__c": {
       "IA-2468715": ["Product__c"]
@@ -1847,15 +1860,6 @@
       ]
     },
     "FinServ__AccountAccountRelation__c": {
-      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
-      "IA-2453350": ["External_Id__c"],
-      "IA-2530753": [
-        "Name",
-        "FinServ__Active__c",
-        "FinServ__EndDate__c",
-        "FinServ__StartDate__c",
-        "System_Individual_Relationship__c"
-      ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
     },
     "FinServ__ContactContactRelation__c": {
@@ -2482,7 +2486,6 @@
         "Year_Built__c",
         "Address_Details__c"
       ],
-
       "IA-2530753": ["CreatedDate", "LastModifiedDate", "Last_Updated_Date__c"],
       "IA-2594111": ["LoanApplicationId"],
       "IA-2594114": [
@@ -3116,6 +3119,8 @@
         "TeamManager__c",
         "Team_Manager_Comments__c",
         "Team_Manager_Response__c",
+        "TM_Response_to_C_Q_Manager_Review__c",
+        "TM_Comments_for_C_Q_Manager_Review__c",
         "Verbal_customer_comms_organised_etc__c",
         "TM_Attestation_feedback_provided_to_CM__c",
         "Was_the_DMF_paid_rep_licensed__c",

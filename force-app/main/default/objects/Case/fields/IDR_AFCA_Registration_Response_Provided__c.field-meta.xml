@@ -6,7 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>Checkbox to indicate that a response has been provided within the required timeframe.</description>
     <externalId>false</externalId>
-    <inlineHelpText>AFCA Response has been provided to customer within the required time-frame and the case has progressed</inlineHelpText>
+    <inlineHelpText>AFCA Response has been provided to the customer today</inlineHelpText>
     <label>AFCA Registration Response Provided</label>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

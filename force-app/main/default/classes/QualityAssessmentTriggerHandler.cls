@@ -64,6 +64,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    IDRQualityAssessmentsDisputeTaskActions.createDisputeTasks(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
     IDRQualityAssessmentTaskActions.checkOnReversionFromComplete(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
