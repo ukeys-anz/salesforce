@@ -69,17 +69,17 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case_Reporting_Field__c.Case_Last_Opened_RG271__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case_Reporting_Field__c.Case_Last_Opened__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case_Reporting_Field__c.IDR_Response_Time_RG271_MS__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -89,7 +89,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case_Reporting_Field__c.Total_Open_Time_MS__c</field>
         <readable>true</readable>
     </fieldPermissions>

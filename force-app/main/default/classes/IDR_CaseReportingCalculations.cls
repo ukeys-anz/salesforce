@@ -4,7 +4,7 @@
  * @description IDR_CaseReportingCalculations is class to handle all the reporting field actions that will be used for reporting.
  * @group IDR(Internal Dispute Resolution)
  */
-public with sharing class IDR_CaseReportingCalculations {
+public without sharing class IDR_CaseReportingCalculations {
   private static List<String> openCaseStatusRG271 = new List<String>{
     IDRConstants.OPEN_STATUS,
     IDRConstants.UNDER_INVESTIGATION_STATUS,
