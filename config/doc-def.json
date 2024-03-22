@@ -692,7 +692,12 @@
       "name": "SFDataSync User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "SF_Data_Sync_Integration", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "SF_Data_Sync_Integration",
+        "Disable_MFA",
+        "Mortgage"
+      ],
       "type": "system"
     },
     {
