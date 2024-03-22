@@ -190,6 +190,7 @@
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
     "Assessment_Response__c": "Needs Assessment response completed by the loan applicant",
+    "AuthenticationHistory__c": "Help user to view the history/information of Auth Request made on an Interaction",
     "BusinessHours": "Specifies the business hours of your support organization.",
     "Campaign": "Represents and tracks a marketing campaign.",
     "Balance_History__x": "Balance history external object",
@@ -459,6 +460,19 @@
         "Type__c"
       ],
       "IA-2468715": ["Name", "OwnerId"]
+    },
+    "AuthenticationHistory__c": {
+      "IA-2415860": [
+        "UUID__c",
+        "Status__c",
+        "Interaction__c",
+        "ValidAccessToken__c",
+        "VerificationDate__c"
+      ],
+      "IA-2594111": ["AuthorisationRequestID__c"],
+      "IA-2530753": ["InternalAttendee__c"],
+      "IA-2571531": ["ErrorMessages__c"],
+      "IA-2468705": ["AuthenticationMethod__c"]
     },
     "Broker_Code__c": {
       "IA-2415790": [
@@ -2114,6 +2128,21 @@
       ],
       "IA-2415860": ["Attendee_Name_Formula__c"],
       "IA-2530753": ["Conversation_Sid__c"]
+    },
+    "JSONWebTokenAttributes__mdt": {
+      "IA-2415860": [
+        "Algorithm__c",
+        "Audience__c",
+        "AuthContext__c",
+        "BindingMessage__c",
+        "Issuer__c",
+        "KeyIdentification__c",
+        "LoginHint__c",
+        "Scope__c",
+        "SigningCertificateDeveloperName__c",
+        "Type__c",
+        "ValidFor__c"
+      ]
     },
     "Known_Issues__c": {
       "IA-2468715": [

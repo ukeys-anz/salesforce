@@ -5,6 +5,7 @@
     "Account",
     "Appointment_Commitment__c",
     "Activity",
+    "AuthenticationHistory__c",
     "Campaign",
     "CampaignMember",
     "Campaign_Document__c",

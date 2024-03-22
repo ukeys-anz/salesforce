@@ -296,18 +296,12 @@ public with sharing virtual class Service {
   public Map<String, String> setAuthorizationCommonHeaders(
     StaffTokenRequestModel staffModelWrapper
   ) {
-    try {
-      String serializedToken = AuthTokenCacheUtil.getStaffToken(
-        staffModelWrapper
-      );
-      staffModelWrapper.headers.put(
-        'Authorization',
-        'Bearer ' + serializedToken
-      );
-      return staffModelWrapper.headers;
-    } catch (Exception ex) {
-      return null;
-    }
+    Map<String, String> headers = new Map<String, String>();
+    String serializedToken = AuthTokenCacheUtil.getStaffToken(
+      staffModelWrapper
+    );
+    headers.put('Authorization', 'Bearer ' + serializedToken);
+    return headers;
   }
 
   /**

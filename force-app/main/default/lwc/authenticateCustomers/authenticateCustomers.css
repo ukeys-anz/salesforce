@@ -1,0 +1,56 @@
+.authenticateCustomers {
+  min-height: 200px;
+}
+
+.card-title {
+  background: #eef1f5;
+  width: 100%;
+  min-height: 28px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 0.25em;
+  font-weight: bold;
+  position: relative;
+  bottom: 24px;
+}
+
+.option-selecion {
+  font-size: 12px;
+  margin-left: 15px;
+}
+
+.user-message {
+  font-size: 12px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.icon-left {
+  margin-right: 1rem;
+}
+
+.success-icon {
+  --slds-c-icon-color-background: green;
+}
+
+.close-icon {
+  --slds-c-icon-color-background: red;
+}
+
+.btnGroup {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+.btnWidth {
+  margin: 5px 0;
+}
+.btn {
+  display: grid;
+  width: 75%;
+  --sds-c-icon-color-foreground-default: #0070d2;
+}
+
+.btnWidthAuthenticateAgain {
+  margin: 35px 0;
+}
