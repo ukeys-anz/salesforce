@@ -5,32 +5,30 @@ private class AccountTriggerHandlerTest {
 
   @TestSetup
   static void makeData() {
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      Lead l = new Lead();
-      l.Firstname = 'John';
-      l.Lastname = 'Something';
-      l.Email = 'john.something@gmail.com';
-      l.MobilePhone = '0401123123';
-      l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
+    Lead l = new Lead();
+    l.Firstname = 'John';
+    l.Lastname = 'Something';
+    l.Email = 'john.something@gmail.com';
+    l.MobilePhone = '0401123123';
+    l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
 
-      insert l;
+    insert l;
 
-      CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
-        PersonaId__c = 'dsfsadfasdf',
-        OCVId__c = '4324234234',
-        SecurityMobile__c = '0401123123'
-      );
-      insert cob;
+    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
+      PersonaId__c = 'dsfsadfasdf',
+      OCVId__c = '4324234234',
+      SecurityMobile__c = '0401123123'
+    );
+    insert cob;
 
-      Case kycqa = new Case(
-        CustomerOnboardingApplication__c = cob.Id,
-        RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-        Type = 'KYC QA Sample',
-        OCV_Id__c = '4324234234',
-        PersonaId__c = '123456789'
-      );
-      insert kycqa;
-    }
+    Case kycqa = new Case(
+      CustomerOnboardingApplication__c = cob.Id,
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      Type = 'KYC QA Sample',
+      OCV_Id__c = '4324234234',
+      PersonaId__c = '123456789'
+    );
+    insert kycqa;
 
     User ocvIntegrationUser = CCRMTestDataFactory.createOCVIntegrationUser();
     System.runAs(ocvIntegrationUser) {
@@ -347,9 +345,7 @@ private class AccountTriggerHandlerTest {
       l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
       matchingLeads.add(l);
     }
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      insert matchingLeads;
-    }
+    insert matchingLeads;
 
     Account testAccount = new Account(
       FirstName = firstName,
