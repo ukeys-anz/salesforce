@@ -1860,6 +1860,15 @@
       ]
     },
     "FinServ__AccountAccountRelation__c": {
+      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
+      "IA-2453350": ["External_Id__c"],
+      "IA-2530753": [
+        "Name",
+        "FinServ__Active__c",
+        "FinServ__EndDate__c",
+        "FinServ__StartDate__c",
+        "System_Individual_Relationship__c"
+      ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
     },
     "FinServ__ContactContactRelation__c": {
