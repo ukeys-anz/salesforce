@@ -724,7 +724,10 @@ public with sharing class GetHelpCaseActionsHelper {
         fraudCheckCase.Status
       );
 
-      if (idOpsCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS) {
+      if (
+        idOpsCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS ||
+        idOpsCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+      ) {
         idOpsCase.OnboardingVerificationFailedReason__c = fraudCheckCase.OnboardingVerificationFailedReason__c;
       }
     }

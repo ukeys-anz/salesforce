@@ -148,6 +148,61 @@ export const dateOptions = {
 
 export const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
+export const dateTimeOptions = {
+  weekday: "short",
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit"
+};
+
 function isTransactionsV1() {
   return TransactionAPIUpliftedToV1 === "True";
 }
+
+//https://github.com/anzx/apis/blob/7d0b87fc98b728bccc3548113e9e0afc83012045/anz/fabricapis/fabric/service/transactions/v1/transaction.proto#L225C1-L235C2
+export const CARD_METHOD = {
+  CARD_METHOD_UNSPECIFIED: "CARD_METHOD_UNSPECIFIED", // Default assignment for this enum
+  MANUAL: "MANUAL", // Manual invocation of a card
+  SWIPE: "SWIPE", // Card was swiped through a reader
+  CHIP: "CHIP", // Card chip was inserted into a reader
+  CONTACTLESS: "CONTACTLESS", // Contactless Payment
+  CARD_ON_FILE: "CARD_ON_FILE", // Merchant has card on file which they use to invoke
+  IN_APP: "IN_APP", // Card invoked in application
+  ONLINE: "ONLINE", // Card invoked in a website
+  DIGITAL: "DIGITAL" // Card invoked via digital wallet
+};
+
+//https://github.com/anzx/apis/blob/7d0b87fc98b728bccc3548113e9e0afc83012045/anz/fabricapis/fabric/service/transactions/v1/transaction.proto#L249-L260
+export const CARD_WALLET = {
+  CARD_WALLET_UNSPECIFIED: "CARD_WALLET_UNSPECIFIED", // Default assignment for this enum
+  APPLE_PAY: "APPLE_PAY", // Apple Wallet
+  GOOGLE_PAY: "GOOGLE_PAY", // Google Wallet
+  SAMSUNG_PAY: "SAMSUNG_PAY", // Samsung Wallet
+  FITBIT: "FITBIT", // Fitbit Wallet
+  GARMIN: "GARMIN", // Garmin Wallet
+  PAYPAL: "PAYPAL", // Paypal Wallet
+  VISA_ECOM_ENABLER: "VISA_ECOM_ENABLER",
+  VISA_COF_ECOM: "VISA_COF_ECOM",
+  OTHER_NFC_WALLET: "OTHER_NFC_WALLET",
+  EFTPOS_MTR: "EFTPOS_MTR"
+};
+
+export const CARD_TRANSACTION_METHOD = {
+  Apple_Pay_payWave: "Apple Pay payWave",
+  Google_Pay_payWave: "Google Pay payWave",
+  Samsung_Pay_payWave: "Samsung Pay payWave",
+  Apple_Pay_Online_or_In_App: "Apple Pay Online or In-App",
+  Google_Pay_Online_or_In_App: "Google Pay Online or In-App",
+  Samsung_Pay_Online_or_In_App: "Samsung Pay Online or In-App",
+  Apple_Pay_Recurring_Billing: "Apple Pay Recurring Billing",
+  Google_Pay_Recurring_Billing: "Google Pay Recurring Billing",
+  Samsung_Pay_Recurring_Billing: "Samsung Pay Recurring Billing",
+  Card_Chip_PIN: "Card Chip & PIN",
+  Card_payWave: "Card payWave",
+  Card_Magnetic_Swipe: "Card Magnetic Swipe",
+  Card_Saved_on_File_With_Merchant: "Card Saved on File With Merchant",
+  Card_Manually_Keyed_in_to_Terminal: "Card Manually Keyed in to Terminal",
+  Card_Manually_Keyed_in_to_Website: "Card Manually Keyed in to Website"
+};
