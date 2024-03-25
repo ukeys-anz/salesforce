@@ -15,11 +15,7 @@ public class PicklistUtil {
     }
     return ((PicklistCache) Cache.Org.get(
       PicklistCache.class,
-      'local.Utility.' +
-      objectName +
-      '-' +
-      picklistName +
-      '-picklist'
+      'local.Utility.' + objectName + '-' + picklistName + '-picklist'
     ));
   }
   /**
@@ -239,5 +235,35 @@ public class PicklistUtil {
       }
     }
     return outputMap;
+  }
+
+  /**
+   * @description Adds a value to a multi-select picklist
+   * @param existingValues existing values in the multi-select picklist
+   * @param newValues values to add to the multi-select picklist
+   * @return `String` the new value of the multi-select picklist
+   */
+  public static String addMultiPicklistValues(
+    String existingValues,
+    List<String> newValues
+  ) {
+    List<String> values = String.isBlank(existingValues)
+      ? new List<String>()
+      : existingValues.split(';');
+    values.addAll(newValues);
+    return String.join(values, ';');
+  }
+
+  /**
+   * @description Adds a value to a multi-select picklist
+   * @param existingValues existing values in the multi-select picklist
+   * @param newValue value to add to the multi-select picklist
+   * @return `String` the new value of the multi-select picklist
+   */
+  public static String addMultiPicklistValue(
+    String existingValues,
+    String newValue
+  ) {
+    return addMultiPicklistValues(existingValues, new List<String>{ newValue });
   }
 }

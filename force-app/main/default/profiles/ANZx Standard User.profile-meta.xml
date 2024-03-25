@@ -4,7 +4,7 @@
     <applicationVisibilities>
         <application>BDM_Workbench</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__Insights</application>

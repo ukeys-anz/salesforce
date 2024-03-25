@@ -15,17 +15,17 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Retail TPMI-SAO</fullName>
+                <fullName>Retail</fullName>
                 <default>false</default>
                 <label>Retail</label>
             </value>
             <value>
-                <fullName>Commercial TPMI-SAO</fullName>
+                <fullName>Commercial</fullName>
                 <default>false</default>
                 <label>Commercial</label>
             </value>
             <value>
-                <fullName>Asset Finance TPMI-SAO</fullName>
+                <fullName>Asset Finance</fullName>
                 <default>false</default>
                 <label>Asset Finance</label>
             </value>

@@ -86,11 +86,6 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
         false
       );
     }
-
-    AccountOCVSyncProcessor.updateRecordsForOCVVersionChanged(
-      records,
-      (Map<Id, Account>) oldMap
-    );
   }
 
   /**
