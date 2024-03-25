@@ -12,9 +12,7 @@ public with sharing class LeadValidationTest {
   @isTest
   static void testLeadsV1Rule() {
     Lead l = createLead();
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      insert l;
-    }
+    insert l;
 
     try {
       l.Status = 'Converted';
@@ -40,9 +38,7 @@ public with sharing class LeadValidationTest {
     Test.startTest();
 
     try {
-      System.runAs(CCRMTestDataFactory.getAdminUser()) {
-        insert l;
-      }
+      insert l;
       System.assert(
         false,
         'Failed to prevent against user creating lead when mobile number is missing'
@@ -63,9 +59,7 @@ public with sharing class LeadValidationTest {
     Test.startTest();
 
     try {
-      System.runAs(CCRMTestDataFactory.getAdminUser()) {
-        insert l;
-      }
+      insert l;
     } catch (DmlException e) {
       System.assertEquals(null, e, 'Error message should be null.');
     }
@@ -86,9 +80,7 @@ public with sharing class LeadValidationTest {
     Test.startTest();
 
     try {
-      System.runAs(CCRMTestDataFactory.getAdminUser()) {
-        insert l;
-      }
+      insert l;
       System.assert(
         false,
         'Failed to prevent against user creating lead when email address is missing.'
@@ -110,9 +102,7 @@ public with sharing class LeadValidationTest {
     Test.startTest();
 
     try {
-      System.runAs(CCRMTestDataFactory.getAdminUser()) {
-        insert l;
-      }
+      insert l;
     } catch (DmlException e) {
       System.assertEquals(null, e, 'Error message should be null.');
     }
