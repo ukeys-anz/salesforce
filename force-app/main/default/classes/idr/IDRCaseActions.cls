@@ -211,7 +211,7 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
           updatePsiTicked.add(record);
         }
-        record.Date_time_Registration_Response_Provided__c = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+        record.Date_time_Registration_Response_Provided__c = (DateTime) IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
           oldRecord,
           record
         );
