@@ -185,7 +185,7 @@ public with sharing class CCRMARNCService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCommonHeaders(headers);
-    String endPoint = 'callout:SF_MS_Party' + Label.Diary_Comments_Endpoint;
+    String endPoint = Label.Diary_Comments_Endpoint;
     String parentId;
     String parentValue;
     if (params.containsKey(parent)) {
@@ -307,7 +307,7 @@ public with sharing class CCRMARNCService extends Service {
       '{capcisid}',
       getSourceSystemId(customerId)
     );
-    String endPoint = 'callout:SF_MS_Party' + param;
+    String endPoint = param;
     Map<String, Object> result = new Map<String, Object>();
     if (
       Schema.sObjectType.Account.isUpdateable() &&
@@ -391,7 +391,6 @@ public with sharing class CCRMARNCService extends Service {
     req.customer = customer;
     payload = JSON.serialize(req);
     String endPoint =
-      'callout:SF_MS_Party' +
       Label.Diary_Comments_Endpoint +
       '?customer-id=' +
       capcisId;
@@ -439,7 +438,7 @@ public with sharing class CCRMARNCService extends Service {
       '{capcisid}',
       getSourceSystemId(customerId)
     );
-    String endPoint = 'callout:SF_MS_Party' + param;
+    String endPoint = param;
     Map<String, Object> result = new Map<String, Object>();
     if (
       Schema.sObjectType.Account.isUpdateable() &&

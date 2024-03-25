@@ -149,7 +149,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + System.Label.MS_Get_View_UMI,
+      System.Label.MS_Get_View_UMI,
       HTTP_METHOD.HTTP_POST,
       headers,
       Json.serialize(requestBody, true)
@@ -174,7 +174,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_Credit_Assessments + creditId,
+      Label.MS_Get_Credit_Assessments + creditId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -199,7 +199,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Submit_Credit_Reassessment,
+      Label.MS_Submit_Credit_Reassessment,
       HTTP_METHOD.HTTP_POST,
       headers,
       payload
@@ -226,7 +226,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Submit_Credit_Finalisation,
+      Label.MS_Submit_Credit_Finalisation,
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"creditEnquiryId":"' + creditId + '", "id":"' + assessmentId + '"}'
@@ -256,8 +256,7 @@ public with sharing class BOHService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-        Label.MS_Delete_Referral_Outcome +
+      Label.MS_Delete_Referral_Outcome +
         creditId +
         '/assessments/' +
         assessmentId +
@@ -287,7 +286,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Submit_Referral_Outcome,
+      Label.MS_Submit_Referral_Outcome,
       HTTP_METHOD.HTTP_POST,
       headers,
       payload
@@ -457,7 +456,7 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Verify_Insurance,
+      Label.MS_Verify_Insurance,
       HTTP_METHOD.HTTP_POST,
       headers,
       requestBody

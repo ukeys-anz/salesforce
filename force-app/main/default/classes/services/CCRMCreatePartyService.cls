@@ -39,7 +39,7 @@ public with sharing class CCRMCreatePartyService extends Service {
       'Authorization',
       'Bearer ' + CCRMARNCService.generateJWTToken()
     );
-    String endPoint = 'callout:SF_MS_Party' + Label.MS_Create_Party;
+    String endPoint = Label.MS_Create_Party;
     return calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_POST,

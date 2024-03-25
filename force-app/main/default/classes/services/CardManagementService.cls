@@ -42,7 +42,7 @@ public with sharing class CardManagementService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Fraud_Lock_Card,
+      Label.MS_Fraud_Lock_Card,
       HTTP_METHOD.HTTP_POST,
       headers,
       callBody

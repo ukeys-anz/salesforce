@@ -58,8 +58,7 @@ public with sharing class TFMSearchCustomerService extends Service {
     staffModel.headers.putAll(setCommonHeadersInMap());
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_ForgeV2_Token' +
-        System.Label.MS_SearchCustomer_API +
+      System.Label.MS_SearchCustomer_API +
         +IDTYPEMAP.get(staffModel.idType) +
         staffModel.idValue,
       HTTP_METHOD.HTTP_GET,
@@ -83,7 +82,6 @@ public with sharing class TFMSearchCustomerService extends Service {
     staffModel.headers.putAll(setCommonHeadersInMap());
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_ForgeV2_Token' +
       System.Label.MS_GetDeviceWithoutBiometric.replace(
           '{userInternalId}',
           userInternalId
@@ -110,7 +108,6 @@ public with sharing class TFMSearchCustomerService extends Service {
     staffModel.headers.putAll(setCommonHeadersInMap());
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_ForgeV2_Token' +
       System.Label.MS_GetDeviceWithBiometric.replace(
           '{userInternalId}',
           userInternalId
@@ -147,7 +144,6 @@ public with sharing class TFMSearchCustomerService extends Service {
         '}';
 
       HttpCalloutResponse response = calloutService.makeRestCallout(
-        'callout:SF_MS_ForgeV2_Token' +
         System.Label.MS_JointNotificationSettingAPI,
         HTTP_METHOD.HTTP_POST,
         headers,
@@ -156,7 +152,6 @@ public with sharing class TFMSearchCustomerService extends Service {
       return response;
     } else {
       HttpCalloutResponse response = calloutService.makeRestCallout(
-        'callout:SF_MS_ForgeV2_Token' +
         System.Label.MS_JointNotificationSettingAPI,
         HTTP_METHOD.HTTP_GET,
         headers,
@@ -193,7 +188,7 @@ public with sharing class TFMSearchCustomerService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_ForgeV2_Token' + System.Label.MS_Update_Disclosure_Status,
+      System.Label.MS_Update_Disclosure_Status,
       HTTP_METHOD.HTTP_POST,
       headers,
       payload
@@ -213,7 +208,6 @@ public with sharing class TFMSearchCustomerService extends Service {
     headers.putAll(setCommonHeadersInMap());
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_ForgeV2_Token' +
       System.Label.MS_GetJointAccountPermissions_API,
       HTTP_METHOD.HTTP_GET,
       headers,

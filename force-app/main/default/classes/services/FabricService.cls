@@ -41,7 +41,7 @@ public with sharing class FabricService extends Service {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + financialAccountApiEndpoint + '?' + urlParam,
+      financialAccountApiEndpoint + '?' + urlParam,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -71,7 +71,7 @@ public with sharing class FabricService extends Service {
 
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + transactionApiEndpoint + paramUrl,
+      transactionApiEndpoint + paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -90,7 +90,7 @@ public with sharing class FabricService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_Cards,
+      Label.MS_Get_Cards,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -114,7 +114,7 @@ public with sharing class FabricService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Temp_Lock_Card + cardNumber + '/set',
+      Label.MS_Temp_Lock_Card + cardNumber + '/set',
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"card_controls" : [{ "control_type": "GCT_GLOBAL"}]}'
@@ -140,7 +140,7 @@ public with sharing class FabricService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Replace_Card + cardNumber + '/replace',
+      Label.MS_Replace_Card + cardNumber + '/replace',
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"reason":"REASON_' + reason.toUpperCase() + '"}'
@@ -164,7 +164,7 @@ public with sharing class FabricService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('Content-Type', 'application/json');
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_StatementList,
+      Label.MS_Get_StatementList,
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"page_size":' +
@@ -191,7 +191,7 @@ public with sharing class FabricService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('cache-control', 'no-store');
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_StatementUrl + statementId,
+      Label.MS_Get_StatementUrl + statementId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -213,7 +213,7 @@ public with sharing class FabricService extends Service {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_Account_Buckets + paramUrl,
+      Label.MS_Get_Account_Buckets + paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -232,7 +232,7 @@ public with sharing class FabricService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_Card_Control_List,
+      Label.MS_Get_Card_Control_List,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -255,10 +255,7 @@ public with sharing class FabricService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-        Label.MS_Get_Tokenized_Card +
-        transactionId +
-        '/tokenized-card',
+      Label.MS_Get_Tokenized_Card + transactionId + '/tokenized-card',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
