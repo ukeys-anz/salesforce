@@ -212,8 +212,8 @@ public with sharing class IDRCaseActions {
           updatePsiTicked.add(record);
         }
         DateTime dt = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
-          oldRecord,
-          record
+          (Case) oldRecord,
+          (Case) record
         );
         record.Date_time_Registration_Response_Provided__c = dt;
       } else if (
