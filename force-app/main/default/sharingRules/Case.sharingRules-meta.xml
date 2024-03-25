@@ -162,7 +162,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure,ID Ops Assistance,Fraud Check,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity,False Customer Profile</value>
+            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure,ID Ops Assistance,Fraud Check,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -533,7 +533,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY,Profile Update</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -673,7 +673,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -830,7 +830,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile</value>
+            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
