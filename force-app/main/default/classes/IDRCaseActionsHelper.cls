@@ -70,7 +70,10 @@ public with sharing class IDRCaseActionsHelper {
    * @param newRecord new Record of cases from the trigger
    * @return DateTime
    */
-  public static DateTime populateAfcaRRDate(Case oldRecord, Case newRecord) {
+  public static DateTime populateAfcaRegistrationResponseDate(
+    Case oldRecord,
+    Case newRecord
+  ) {
     if (
       oldRecord.IDR_AFCA_Registration_Response_Provided__c ==
       newRecord.IDR_AFCA_Registration_Response_Provided__c

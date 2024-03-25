@@ -211,9 +211,9 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
           updatePsiTicked.add(record);
         }
-        record.Date_time_Registration_Response_Provided__c = IDRCaseActionsHelper.populateAfcaRRDate(
-          (Case) oldRecord,
-          (Case) record
+        record.Date_time_Registration_Response_Provided__c = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+          oldRecord,
+          record
         );
       } else if (
         record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
