@@ -40,6 +40,27 @@ public with sharing class CommonUtil {
       mapPermissionSetByName.put(ps.Name, ps);
     }
   }
+
+  /**
+   * @description Get all the business hours
+   */
+  public static BusinessHours anzBusinessHours {
+    public get {
+      if (
+        anzBusinessHours == null &&
+        BusinessHours.SObjectType.getDescribe().isQueryable()
+      ) {
+        anzBusinessHours = [
+          SELECT Id
+          FROM BusinessHours
+          WHERE Name = 'ANZx Case Business Hours'
+          LIMIT 1
+        ];
+      }
+      return anzBusinessHours;
+    }
+    private set;
+  }
   /**
    * @description Get a picklist labels by values (API names).
    * @param field The picklist field, for example Case.Type
@@ -55,23 +76,6 @@ public with sharing class CommonUtil {
       labelsByValues.put(f.getValue(), f.getLabel());
     }
     return labelsByValues;
-  }
-
-  /**
-   * @description Get all the business hours
-   * @return list of business hours
-   */
-  public static BusinessHours getBusinessHours() {
-    if (BusinessHours.sObjectType.getDescribe().isQueryable()) {
-      BusinessHours bh = [
-        SELECT Id
-        FROM BusinessHours
-        WHERE Name = 'ANZx Case Business Hours'
-        LIMIT 1
-      ];
-      return bh;
-    }
-    return null;
   }
 
   /**

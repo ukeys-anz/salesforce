@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>ID Ops Queue</name>
+    <name>ID Ops Followup Queue</name>
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <queueMembers>
         <roles>
@@ -12,8 +12,5 @@
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
-    </queueSobject>
-    <queueSobject>
-        <sobjectType>Task</sobjectType>
     </queueSobject>
 </Queue>
