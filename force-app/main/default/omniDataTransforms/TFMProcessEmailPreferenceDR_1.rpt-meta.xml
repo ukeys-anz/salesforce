@@ -25,13 +25,13 @@
     <name>TFMProcessEmailPreferenceDR</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <name>TFMProcessEmailPreferenceDR</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMProcessEmailPreferenceDRCustom3153</globalKey>
         <inputFieldName>accountStatus</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>response:accountStatus</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -39,13 +39,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>TFMProcessEmailPreferenceDR</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMProcessEmailPreferenceDRCustom5786</globalKey>
         <inputFieldName>accountName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>response:accountName</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -53,13 +53,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>TFMProcessEmailPreferenceDR</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMProcessEmailPreferenceDRCustom4960</globalKey>
         <inputFieldName>availableForDataSharing</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>response:availableForDataSharing</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -67,13 +67,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>TFMProcessEmailPreferenceDR</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMProcessEmailPreferenceDRCustom9216</globalKey>
         <inputFieldName>accountNumber</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>response:accountNumber</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -81,13 +81,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>TFMProcessEmailPreferenceDR</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMProcessEmailPreferenceDRCustom8440</globalKey>
         <inputFieldName>emailNotificationStatus</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMProcessEmailPreferenceDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>response:emailNotificationStatus</outputFieldName>
         <outputObjectName>json</outputObjectName>

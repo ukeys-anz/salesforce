@@ -1,0 +1,32 @@
+{
+  "consentAccDetails": [
+      {
+        "accountNumber": "014111 391077004",
+        "accountType": "Individual Account",
+        "accountName": "ANZ Plus",
+        "sharingStatus": "ELIGIBLE",
+        "accountStatus": "Open"
+      },
+      {
+        "accountNumber": "014111 391077012",
+        "accountType": "Individual Account",
+        "accountName": "ANZ Save",
+        "sharingStatus": "ELIGIBLE",
+        "accountStatus": "Open"
+      },
+      {
+        "accountNumber": "014111 391077071",
+        "accountType": "Joint Account",
+        "accountName": "ANZ Plus",
+        "sharingStatus": "STOPPED",
+        "accountStatus": "Open"
+      },
+      {
+        "accountNumber": "014111 391077098",
+        "accountType": "Joint Account",
+        "accountName": "ANZ Save",
+        "sharingStatus": "STOPPED",
+        "accountStatus": "Open"
+      }
+    ]
+  }

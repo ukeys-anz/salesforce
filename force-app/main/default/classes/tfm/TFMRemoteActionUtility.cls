@@ -1,46 +1,22 @@
 /**
- * @description       :
+ * @description       : class contains method that is used in IP/OS to invoke OB-Data out functionality
  * @author            : Anuj jain
- * @group             :
- * @last modified on  : 02-27-2024
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             : TFM
+ * @last modified on  : 03-05-2024
  **/
 global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOpenInterface, Callable {
-  private static final string COL_HEADER_BSB = 'bsb';
-  private static final string COL_HEADER_DISPLAYNAME = 'displayName';
-  private static final string COL_HEADER_ACCOUNTNUMBER = 'accountNumber';
-  private static final string COL_HEADER_CLOSED = 'closed';
-  private static final string COL_HEADER_JOINTACCOUNT = 'jointAccount';
-  private static final string COL_HEADER_STATE = 'state';
-  private static final string COL_HEADER_ACCOUNTNAME = 'accountName';
-  private static final string COL_HEADER_ACCOUNTSTATUS = 'accountStatus';
-  private static final string COL_HEADER_ACCOUNTTYPE = 'accountType';
-  private static final string COL_HEADER_SHARINGSTATUS = 'sharingStatus';
-  private static final String ANZTOKENTYPE = 'staffRqfCustomer';
-  private static final String ISVALIDACTION = 'isValidAction';
-  private static final String LABELTRUE = 'true';
-  private static final String IDVALUE = 'IDValue';
-  private static final String ACCOUNTID = 'accountId';
-  private static final String ENABLED = 'enabled';
-  private static final String ACCOUNTS = 'accounts';
-  private static final String CONSENTID = 'consentId';
-  private static final String ARRANGEMENTID = 'arrangementId';
-
   // Remote methods
   private static final String UPDATEDISCLOUSURESTATUS = 'updatedisclosureStatus';
   private static final String GETORMODIFYJOINTACCOUNTNOTIFICATIONAPI = 'getORModifyJointAccountNotificationAPI';
   private static final String GETJOINTACCOUNTPERMISSIONSLIST = 'getJointAccountPermissionsList';
   private static final String GETCONSENTACCOUNTLIST = 'getConsentAccountList';
   private static final String REVOKECONSENT = 'revokeConsent';
-  private static final String JOINTACCOUNTNOTIFICATION = 'JointAccountNotification';
-  private static final String JOINTACCOUNTACTION = 'JointAccountPermissions';
-  private static final String FROMANZPLUSACTION = 'FromANZPlus';
   private static final String GETCONSENTLIST = 'getConsentsList';
   private static final String CONSENTMANAGEMENTACTION = 'consentMgmtAccountList';
 
   /**
    * @param action String value of local method to invoke
-   * @param args arg map that will contain input, output and options map
+   * @param args arg Map that will contain input, output and options Map
    * @return `Object`
    * @description flex card invokeable method overridden by callable interface
    */
@@ -71,6 +47,12 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       return updatedisclosureStatus(input, output, options);
     } else if (methodName.equals(GETJOINTACCOUNTPERMISSIONSLIST)) {
       return getJointAccountPermissionsList(input, output, options);
+    } else if (methodName.equals(REVOKECONSENT)) {
+      return revokeConsent(input, output, options);
+    } else if (methodName.equals(GETCONSENTACCOUNTLIST)) {
+      return getConsentAccountList(input, output, options);
+    } else if (methodName.equals(GETCONSENTLIST)) {
+      return getConsentsList(input, output, options);
     }
     return false;
   }
@@ -87,50 +69,35 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    string accountId = (string) input.get(ACCOUNTID);
-    boolean emailEnabled = (boolean) input.get(ENABLED);
-    Map<String, String> headers = new Map<String, String>();
-    map<string, object> responseMap = new Map<string, object>();
-    string action;
-    if (!string.isBlank(accountId) && emailEnabled != null) {
-      action = JOINTACCOUNTACTION;
-    } else {
-      action = JOINTACCOUNTNOTIFICATION;
-    }
-    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
-    headers = setCommonStaffTokenRequest(
-      (String) input.get(IDVALUE),
-      action,
-      api
+    String accountId = (String) input.get(TFMConstants.ACCOUNTID);
+    Boolean emailEnabled = (boolean) input.get(TFMConstants.ENABLED);
+    Map<String, Object> responseMap = new Map<String, Object>();
+    StaffTokenRequestModel staffModel = setStaffModel(
+      (String) input.get(TFMConstants.IDVALUE)
     );
-    String isValid;
-    if (Test.isRunningTest()) {
-      isValid = LABELTRUE;
-    } else {
-      isValid = headers.get(ISVALIDACTION);
-    }
-    if (headers != null && isValid == LABELTRUE) {
-      //removing valid action from header
-      headers.remove(ISVALIDACTION);
+    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
+    try {
       HttpCalloutResponse response = api.getORModifyJointAccountNotificationAPI(
-        headers,
+        staffModel,
         accountId,
         emailEnabled
       );
-
-      if (response != null) {
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        output.put('isValid', false);
+      } else {
         responseMap = (Map<String, Object>) JSON.deserializeUntyped(
           response.body
         );
         output.put('jointAccNotifications', responseMap);
         output.put('showSuccessToast', true);
-        output.put('isValid', isValid);
-        return true;
-      } else {
-        output.put('showSuccessToast', false);
+        output.put('isValid', true);
       }
+    } catch (Exception e) {
+      output.put('showSuccessToast', false);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
     }
-    return false;
+    return true;
   }
 
   /**
@@ -140,48 +107,44 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
    * @return `Boolean`
    * @description returns ui options for Joint Account Permission Details
    */
-  private boolean updatedisclosureStatus(
+  private Boolean updatedisclosureStatus(
     Map<String, Object> input,
     Map<String, Object> output,
     Map<String, Object> options
   ) {
     Map<String, Object> responseMap = new Map<String, Object>();
-    Map<String, String> headers = new Map<String, String>();
-    Map<String, Object> jsonResp = new Map<String, Object>();
     TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
-    headers = setCommonStaffTokenRequest(
-      (String) input.get(IDVALUE),
-      JOINTACCOUNTACTION,
-      api
-    );
-    String inputVar = (string) input.get(COL_HEADER_ACCOUNTNUMBER);
+    String inputVar = (String) input.get(TFMConstants.ACCOUNTNUMBER);
+    //input in format XXX XXXXXXX
     List<String> inputs = inputVar.split(' ');
     String accountNumber = inputs[1];
     String bsb = inputs[0];
-    Boolean enabled = Boolean.valueOf((String) input.get(ENABLED));
-    String isValid;
-    if (Test.isRunningTest()) {
-      isValid = LABELTRUE;
-    } else {
-      isValid = headers.get(ISVALIDACTION);
-    }
-    if (headers != null && isValid == LABELTRUE) {
-      //removing valid action from header
-      headers.remove(ISVALIDACTION);
+    Boolean enabled = Boolean.valueOf((String) input.get(TFMConstants.ENABLED));
+    StaffTokenRequestModel staffModel = setStaffModel(
+      (String) input.get(TFMConstants.IDVALUE)
+    );
+    try {
       HttpCalloutResponse response = api.updatedisclosureStatus(
         bsb,
         accountNumber,
         enabled,
-        headers
+        staffModel
       );
-      responseMap = (Map<String, Object>) JSON.deserializeUntyped(
-        response.body
-      );
-      output.put('responseMap', responseMap);
-      output.put('isValid', isValid);
-      return true;
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        output.put('isValid', false);
+      } else {
+        responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+          response.body
+        );
+        output.put('responseMap', responseMap);
+        output.put('isValid', true);
+      }
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      return false;
     }
-    return false;
+    return true;
   }
 
   /**
@@ -196,54 +159,222 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    Map<string, object> responseMap = new Map<string, object>();
-    Map<String, String> headers = new Map<String, String>();
-    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
-    headers = setCommonStaffTokenRequest(
-      (String) input.get(IDVALUE),
-      JOINTACCOUNTACTION,
-      api
+    Map<String, Object> responseMap = new Map<String, Object>();
+    StaffTokenRequestModel staffModel = setStaffModel(
+      (String) input.get(TFMConstants.IDVALUE)
     );
-    String isValid;
-    if (Test.isRunningTest()) {
-      isValid = LABELTRUE;
-    } else {
-      isValid = headers.get(ISVALIDACTION);
+    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
+    try {
+      HttpCalloutResponse response = api.getJointAccountPermissions(staffModel);
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        output.put('isValid', false);
+      } else {
+        responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+          response.body
+        );
+        output.put('getJointAccountPermissions', responseMap);
+        output.put('isValid', true);
+      }
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      return false;
     }
-    if (headers != null && isValid == LABELTRUE) {
-      //removing valid action from header
-      headers.remove(ISVALIDACTION);
-      HttpCalloutResponse response = api.getJointAccountPermissions(headers);
+    return true;
+  }
 
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
+   * @description returns ui options for Consent Account
+   */
+  private boolean getConsentAccountList(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    Map<String, Object> responseMap = new Map<String, Object>();
+    String dataScopevalue = String.valueOf(input.get('dataScope'));
+    Map<String, String> dataScope = transformDataScopes(dataScopevalue);
+    List<Object> consentAccountRecords = (List<Object>) JSON.deserializeUntyped(
+      String.valueOf(input.get(TFMConstants.ACCOUNTS))
+    );
+    String consentId = (String) input.get(TFMConstants.CONSENTID);
+    StaffTokenRequestModel staffModel = setStaffModel(
+      (String) input.get(TFMConstants.IDVALUE)
+    );
+    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
+    try {
+      HttpCalloutResponse response = api.getConsentAccountList(
+        staffModel,
+        setConsentAccountListJson(consentAccountRecords, consentId)
+      );
       responseMap = (Map<String, Object>) JSON.deserializeUntyped(
         response.body
       );
-      output.put('getJointAccountPermissions', responseMap);
-      output.put('isValid', isValid);
-      return true;
+      output.put('consentAccountList', responseMap);
+      output.put('dataScope', dataScope);
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      return false;
     }
-    return false;
+    return true;
   }
+
   /**
-   * @param idValue value for staffModel.idValue
-   * @param action value  forstaffModel.action
-   * @param api TFMSearchCustomerAPIRepository instance
-   * @return `map<string,string>`
+   * @param consentAccountRecords list of Object
+   * @param consentId consentId
+   * @return `String`
+   * @description returns api response when user revoke consent for data sharing
+   */
+  private String setConsentAccountListJson(
+    List<Object> consentAccountRecords,
+    String consentId
+  ) {
+    List<TFMConsentAccountWrapper.ConsentAccountsWrapper> consentAccountsWrapperList = new List<TFMConsentAccountWrapper.ConsentAccountsWrapper>();
+    for (Object obj : consentAccountRecords) {
+      Map<String, Object> resultMap = (Map<String, Object>) obj;
+      TFMConsentAccountWrapper.ConsentAccountsWrapper consentAccountsWrapperObj = new TFMConsentAccountWrapper.ConsentAccountsWrapper(
+        String.valueOf(resultMap.get(TFMConstants.BSB)),
+        String.valueOf(resultMap.get(TFMConstants.ACCOUNTNUMBER))
+      );
+      consentAccountsWrapperList.add(consentAccountsWrapperObj);
+    }
+    TFMConsentAccountWrapper consentAccParents = new TFMConsentAccountWrapper(
+      consentId,
+      consentAccountsWrapperList
+    );
+    return JSON.serialize(consentAccParents);
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
+   * @description returns api response when user revoke consent for data sharing
+   */
+  private boolean revokeConsent(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    StaffTokenRequestModel staffModel = setStaffModel(
+      (String) input.get(TFMConstants.IDVALUE)
+    );
+    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
+    String arrangementId = (String) input.get(TFMConstants.ARRANGEMENTID);
+    try {
+      HttpCalloutResponse response = api.revokeConsent(
+        arrangementId,
+        staffModel
+      );
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        output.put('isValid', false);
+      } else {
+        output.put('result', 'Success');
+        output.put('isValid', true);
+      }
+    } catch (Exception e) {
+      output.put('showSuccessToast', false);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    }
+    return true;
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
    * @description returns ui options for Joint Account Permission Details
    */
-  public static map<string, string> setCommonStaffTokenRequest(
-    string idValue,
-    string action,
-    TFMSearchCustomerAPIRepository api
+  private boolean getConsentsList(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
   ) {
+    Map<String, Object> responseMap = new Map<String, Object>();
+
+    StaffTokenRequestModel staffModel = setStaffModel(
+      (String) input.get(TFMConstants.IDVALUE)
+    );
+    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
+    try {
+      HttpCalloutResponse response = api.getConsentsList(staffModel);
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        output.put('isValid', false);
+      } else {
+        responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+          response.body
+        );
+        output.put('consentsList', responseMap);
+        output.put('isValid', true);
+      }
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @return `Map<String, Object>`
+   * @description returns ui options for Joint Account Permission Details
+   */
+  public static Map<String, Object> getConsentDataSharingHistory(
+    Map<String, Object> input
+  ) {
+    Map<String, Object> responseMap = new Map<String, Object>();
+    StaffTokenRequestModel staffModel = setStaffModel(
+      (String) input.get(TFMConstants.IDVALUE)
+    );
+    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
+    HttpCalloutResponse response = api.getConsentDataSharingHistory(
+      String.valueOf(input.get(TFMConstants.CONSENTIDSTRING)),
+      String.valueOf(input.get(TFMConstants.ORGINALCREATETIMEVALUE)),
+      String.valueOf(input.get(TFMConstants.ORIGINALEXPIRETIMEVALUE)),
+      staffModel
+    );
+    responseMap = (Map<String, Object>) JSON.deserializeUntyped(response.body);
+    return responseMap;
+  }
+
+  /**
+   * @param dataScope value for transformDataScopes
+   * @return `dataScopeMap`
+   * @description returns dataScopeMap
+   */
+  public static Map<String, String> transformDataScopes(String dataScope) {
+    Map<String, String> dataScopeMap = new Map<String, String>();
+    list<String> dataScopeValueList = dataScope.subString(
+        1,
+        dataScope.length() - 1
+      )
+      .split(',');
+    for (String str : dataScopeValueList) {
+      String tempStr = str.replaceAll('(\\s+)', '');
+      dataScopeMap.put(tempStr.replace(':', '').replace('.', ''), 'true');
+    }
+    return dataScopeMap;
+  }
+
+  /**
+   * @param idValue value for staffModel.idValue
+   * @return `StaffTokenRequestModel`
+   * @description set StaffTokenRequestModel class instance
+   */
+  public static StaffTokenRequestModel setStaffModel(String idValue) {
     StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
-    Map<String, String> headers = new Map<String, String>();
-    staffModel.headers = headers;
     staffModel.idType = Service.IdType.UUID;
     staffModel.idValue = idValue;
-    staffModel.anzTokenType = ANZTOKENTYPE;
-    staffModel.action = action;
-    headers = api.getValidStaffToken(staffModel);
-    return headers;
+    staffModel.anzTokenType = TFMConstants.ANZTOKENTYPE;
+    return staffModel;
   }
 }

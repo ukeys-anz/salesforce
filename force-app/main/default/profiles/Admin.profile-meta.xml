@@ -5310,6 +5310,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ContentVersion.Internal_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContentVersion.Wealth_Product_Manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>

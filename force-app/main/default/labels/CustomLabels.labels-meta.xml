@@ -2158,11 +2158,39 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>/aegis-portal/v1/coaches/joint-accounts/notification-settings</value>
     </labels>
     <labels>
+        <fullName>MS_Revoke_Consent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Revoke_Consent</shortDescription>
+        <value>/aegis-portal/v1/coaches/consents/revocation</value>
+    </labels>
+    <labels>
         <fullName>TFMBiometricAttestationIdConstants</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>TFMBiometricAttestationIdConstants</shortDescription>
         <value>D409#2101,D409#2204,D409#0102</value>
+    </labels>
+    <labels>
+        <fullName>MS_ConsentsDataSharingHistory_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ConsentsDataSharingHistory_API</shortDescription>
+        <value>/aegis-portal/v1/coaches/consents/customer/data?consent_id=</value>
+    </labels>
+    <labels>
+        <fullName>MS_ConsentList_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ConsentList_API</shortDescription>
+        <value>/aegis-portal/v1/coaches/consents</value>
+    </labels>
+    <labels>
+        <fullName>MS_consentMgmtAccountList</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_consentMgmtAccountList</shortDescription>
+        <value>/aegis-portal/v1/coaches/consents/accounts</value>
     </labels>
     <labels>
         <fullName>FinAccountProductToMap</fullName>

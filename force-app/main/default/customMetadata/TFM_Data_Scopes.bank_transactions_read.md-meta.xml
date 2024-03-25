@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>bank:transactions:read</label>
+    <protected>false</protected>
+    <values>
+        <field>Closed_Accounts_Disclaimer__c</field>
+        <value xsi:type="xsd:string">For a closed account, only transaction data up to 12 months prior to closure will be shared.</value>
+    </values>
+    <values>
+        <field>Data_Cluster_Details__c</field>
+        <value xsi:type="xsd:string">Incoming and outgoing transactions, Amounts, Dates, Descriptions of transactions, Who you have sent money to and received money from (e.g. their name)</value>
+    </values>
+    <values>
+        <field>Data_Cluster_Title__c</field>
+        <value xsi:type="xsd:string">Transaction details</value>
+    </values>
+    <values>
+        <field>Open_Accounts_Disclaimer__c</field>
+        <value xsi:type="xsd:string">The above transaction details may include data that dates back to 21 July 2021.</value>
+    </values>
+    <values>
+        <field>Open_and_Closed_Accounts_Disclaimer__c</field>
+        <value xsi:type="xsd:string">The above transaction details may include data that dates back to 21 July 2021.
+For a closed account, only transaction data up to 12 months prior to closure will be shared.</value>
+    </values>
+    <values>
+        <field>Scope_ID__c</field>
+        <value xsi:type="xsd:string">bank:transactions:read</value>
+    </values>
+</CustomMetadata>

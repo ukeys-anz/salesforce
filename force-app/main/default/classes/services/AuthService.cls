@@ -82,8 +82,8 @@ public with sharing class AuthService extends Service {
     String payload = getJWT2Payload(staffModelWrapper, idToken, forgeAuth);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_ForgeV2_Token' +
-      Label.MS_ForgeV2_Token +
-      staffModelWrapper.anzTokenType,
+        Label.MS_ForgeV2_Token +
+        staffModelWrapper.anzTokenType,
       HTTP_METHOD.HTTP_POST,
       headers,
       payload

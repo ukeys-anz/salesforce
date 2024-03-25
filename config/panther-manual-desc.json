@@ -1525,7 +1525,8 @@
         "Title",
         "UUID__c",
         "Wealth_Product_Manufacturer__c",
-        "Sent_Created_Party_Details__c"
+        "Sent_Created_Party_Details__c",
+        "Internal_Description__c"
       ],
       "IA-2468715": [
         "Id",
