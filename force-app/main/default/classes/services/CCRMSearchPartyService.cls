@@ -23,10 +23,7 @@ public with sharing class CCRMSearchPartyService extends Service {
       'Bearer ' + CCRMARNCService.generateJWTToken()
     );
     String body = getBody(record);
-    String endPoint =
-      'callout:SF_MS_Party' +
-      Label.MS_Search_Party +
-      Label.MS_Search_Party_Params;
+    String endPoint = Label.MS_Search_Party + Label.MS_Search_Party_Params;
     return calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_POST,

@@ -23,7 +23,7 @@ public with sharing class ConnectIDService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + System.Label.LightHouse_Get_List_Consent_History,
+      System.Label.LightHouse_Get_List_Consent_History,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
