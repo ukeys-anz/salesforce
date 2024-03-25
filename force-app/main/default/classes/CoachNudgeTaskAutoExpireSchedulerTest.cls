@@ -11,8 +11,8 @@ public with sharing class CoachNudgeTaskAutoExpireSchedulerTest {
     Task coachNudgeTask = TestDataFactory.createTaskRecord(
       GetHelpConstants.COACH_NUDGE_RT_ID,
       null,
-      '0069p000000' + faker.randomString(7),
-      '00G9p000000' + faker.randomString(7),
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
       false
     );
     Test.startTest();

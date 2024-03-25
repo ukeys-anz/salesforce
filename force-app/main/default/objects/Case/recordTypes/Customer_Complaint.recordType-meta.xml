@@ -4894,7 +4894,7 @@
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Escalation_Reason__c</picklist>
-                <values>
+        <values>
             <fullName>21</fullName>
             <default>false</default>
         </values>
@@ -6503,7 +6503,7 @@
         </values>
     </picklistValues>
     <picklistValues>
-    <picklist>IDR_Reason_for_re_opening__c</picklist>
+        <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
             <fullName>1</fullName>
             <default>false</default>
@@ -7984,7 +7984,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-        <picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>1</fullName>

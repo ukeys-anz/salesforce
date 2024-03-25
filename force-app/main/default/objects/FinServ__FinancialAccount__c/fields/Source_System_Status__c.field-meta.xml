@@ -15,119 +15,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>CAPCIS01</fullName>
+                <fullName>ACTIVE</fullName>
                 <default>false</default>
-                <label>CAPCIS01 - New</label>
-            </value>
-            <value>
-                <fullName>CAPCIS03</fullName>
-                <default>false</default>
-                <label>CAPCIS03 - Inactive</label>
-            </value>
-            <value>
-                <fullName>CAPCIS05</fullName>
-                <default>false</default>
-                <label>CAPCIS05 - Dormant</label>
-            </value>
-            <value>
-                <fullName>CAPCIS06</fullName>
-                <default>false</default>
-                <label>CAPCIS06 - Unclaimed</label>
-            </value>
-            <value>
-                <fullName>CAPCIS07</fullName>
-                <default>false</default>
-                <label>CAPCIS07 - Closed</label>
-            </value>
-            <value>
-                <fullName>CAPCIS08</fullName>
-                <default>false</default>
-                <label>CAPCIS08 - Purgeable</label>
-            </value>
-            <value>
-                <fullName>CAPCIS11</fullName>
-                <default>false</default>
-                <label>CAPCIS11 - Matured not renewable</label>
-            </value>
-            <value>
-                <fullName>CAPCIS12</fullName>
-                <default>false</default>
-                <label>CAPCIS12 - In Process of Close</label>
-            </value>
-            <value>
-                <fullName>CAPCIS80</fullName>
-                <default>false</default>
-                <label>CAPCIS80 - SSA Active</label>
-            </value>
-            <value>
-                <fullName>CAPCIS82</fullName>
-                <default>false</default>
-                <label>CAPCIS82 - SSA Inactive</label>
-            </value>
-            <value>
-                <fullName>CAPCIS99</fullName>
-                <default>false</default>
-                <label>CAPCIS99 - Active</label>
-            </value>
-            <value>
-                <fullName>CAPCISBYP</fullName>
-                <default>false</default>
-                <label>CAPCISBYP - Bypass the Account for Loans Batch Processing</label>
-            </value>
-            <value>
-                <fullName>CAPCISCO</fullName>
-                <default>false</default>
-                <label>CAPCISCO - Charged Off (written off)</label>
-            </value>
-            <value>
-                <fullName>CAPCISCAN</fullName>
-                <default>false</default>
-                <label>CAPCISCAN - Cancelled</label>
-            </value>
-            <value>
-                <fullName>CAPCISNON</fullName>
-                <default>false</default>
-                <label>CAPCISNON - Downgraded to Non-accrual</label>
-            </value>
-            <value>
-                <fullName>CAPCISPO</fullName>
-                <default>false</default>
-                <label>CAPCISPO - Paid Off</label>
-            </value>
-            <value>
-                <fullName>CAPCISRI</fullName>
-                <default>false</default>
-                <label>CAPCISRI - Downgraded  to Reserved Interest</label>
-            </value>
-            <value>
-                <fullName>CAPCISOP</fullName>
-                <default>false</default>
-                <label>CAPCISOP - Open</label>
-            </value>
-            <value>
-                <fullName>CAPCISCL</fullName>
-                <default>false</default>
-                <label>CAPCISCL - Closed</label>
-            </value>
-            <value>
-                <fullName>CAPCISCP</fullName>
-                <default>false</default>
-                <label>CAPCISCP - Close Pending</label>
-            </value>
-            <value>
-                <fullName>CAPCISACL</fullName>
-                <default>false</default>
-                <label>CAPCISACL - Policy In Force, In Claim</label>
-            </value>
-            <value>
-                <fullName>CAPCISACT</fullName>
-                <default>false</default>
-                <label>CAPCISACT - Policy In Force</label>
-            </value>
-            <value>
-                <fullName>CAPCISIPR</fullName>
-                <default>false</default>
-                <label>CAPCISIPR - Policy In Proposal</label>
+                <label>Active</label>
             </value>
             <value>
                 <fullName>CACHE01</fullName>
@@ -173,6 +63,241 @@
                 <fullName>CACHE12</fullName>
                 <default>false</default>
                 <label>CACHE12 - Ready to close</label>
+            </value>
+            <value>
+                <fullName>CAPCIS01</fullName>
+                <default>false</default>
+                <label>CAPCIS01 - New</label>
+            </value>
+            <value>
+                <fullName>CAPCIS03</fullName>
+                <default>false</default>
+                <label>CAPCIS03 - Inactive</label>
+            </value>
+            <value>
+                <fullName>CAPCIS05</fullName>
+                <default>false</default>
+                <label>CAPCIS05 - Dormant</label>
+            </value>
+            <value>
+                <fullName>CAPCIS06</fullName>
+                <default>false</default>
+                <label>CAPCIS06 - Unclaimed moneys</label>
+            </value>
+            <value>
+                <fullName>CAPCIS07</fullName>
+                <default>false</default>
+                <label>CAPCIS07 - Closed</label>
+            </value>
+            <value>
+                <fullName>CAPCIS08</fullName>
+                <default>false</default>
+                <label>CAPCIS08 - Purgeable</label>
+            </value>
+            <value>
+                <fullName>CAPCIS11</fullName>
+                <default>false</default>
+                <label>CAPCIS11 - Matured not renewable</label>
+            </value>
+            <value>
+                <fullName>CAPCIS12</fullName>
+                <default>false</default>
+                <label>CAPCIS12 - In process of close</label>
+            </value>
+            <value>
+                <fullName>CAPCIS8</fullName>
+                <default>false</default>
+                <label>CAPCIS8 - Closed (12 months with zero balance and activity)</label>
+            </value>
+            <value>
+                <fullName>CAPCIS80</fullName>
+                <default>false</default>
+                <label>CAPCIS80 - Superannuation Savings account</label>
+            </value>
+            <value>
+                <fullName>CAPCIS82</fullName>
+                <default>false</default>
+                <label>CAPCIS82 - Superannuation Savings account in process of close</label>
+            </value>
+            <value>
+                <fullName>CAPCIS88</fullName>
+                <default>false</default>
+                <label>CAPCIS88 - In process of close</label>
+            </value>
+            <value>
+                <fullName>CAPCIS9</fullName>
+                <default>false</default>
+                <label>CAPCIS9 - Purged</label>
+            </value>
+            <value>
+                <fullName>CAPCIS99</fullName>
+                <default>false</default>
+                <label>CAPCIS99 - Active</label>
+            </value>
+            <value>
+                <fullName>CAPCISA</fullName>
+                <default>false</default>
+                <label>CAPCISA - Active</label>
+            </value>
+            <value>
+                <fullName>CAPCISACL</fullName>
+                <default>false</default>
+                <label>CAPCISACL - Policy In Force, In Claim</label>
+            </value>
+            <value>
+                <fullName>CAPCISACT</fullName>
+                <default>false</default>
+                <label>CAPCISACT - Active</label>
+            </value>
+            <value>
+                <fullName>CAPCISBNK</fullName>
+                <default>false</default>
+                <label>CAPCISBNK - Bankrupt (personal loans only)</label>
+            </value>
+            <value>
+                <fullName>CAPCISBYP</fullName>
+                <default>false</default>
+                <label>CAPCISBYP - Bypass the account for loans batch processing</label>
+            </value>
+            <value>
+                <fullName>CAPCISC-O</fullName>
+                <default>false</default>
+                <label>CAPCISC-O - Charged off</label>
+            </value>
+            <value>
+                <fullName>CAPCISCAN</fullName>
+                <default>false</default>
+                <label>CAPCISCAN - Cancelled</label>
+            </value>
+            <value>
+                <fullName>CAPCISCL</fullName>
+                <default>false</default>
+                <label>CAPCISCL - Closed</label>
+            </value>
+            <value>
+                <fullName>CAPCISCO</fullName>
+                <default>false</default>
+                <label>CAPCISCO - Charged Off (written off)</label>
+            </value>
+            <value>
+                <fullName>CAPCISCP</fullName>
+                <default>false</default>
+                <label>CAPCISCP - Close Pending</label>
+            </value>
+            <value>
+                <fullName>CAPCISD</fullName>
+                <default>false</default>
+                <label>CAPCISD - Dormant</label>
+            </value>
+            <value>
+                <fullName>CAPCISDEL</fullName>
+                <default>false</default>
+                <label>CAPCISDEL - Deleted</label>
+            </value>
+            <value>
+                <fullName>CAPCISDRW</fullName>
+                <default>false</default>
+                <label>CAPCISDRW - Invalid Status</label>
+            </value>
+            <value>
+                <fullName>CAPCISF</fullName>
+                <default>false</default>
+                <label>CAPCISF - Fraud Transfer</label>
+            </value>
+            <value>
+                <fullName>CAPCISI</fullName>
+                <default>false</default>
+                <label>CAPCISI - Inactive</label>
+            </value>
+            <value>
+                <fullName>CAPCISINA</fullName>
+                <default>false</default>
+                <label>CAPCISINA - Inactive</label>
+            </value>
+            <value>
+                <fullName>CAPCISIPR</fullName>
+                <default>false</default>
+                <label>CAPCISIPR - Policy In Proposal</label>
+            </value>
+            <value>
+                <fullName>CAPCISN</fullName>
+                <default>false</default>
+                <label>CAPCISN - New Account</label>
+            </value>
+            <value>
+                <fullName>CAPCISNON</fullName>
+                <default>false</default>
+                <label>CAPCISNON - Non - accrual</label>
+            </value>
+            <value>
+                <fullName>CAPCISOP</fullName>
+                <default>false</default>
+                <label>CAPCISOP - Open</label>
+            </value>
+            <value>
+                <fullName>CAPCISP</fullName>
+                <default>false</default>
+                <label>CAPCISP - Account To Purge</label>
+            </value>
+            <value>
+                <fullName>CAPCISP-O</fullName>
+                <default>false</default>
+                <label>CAPCISP-O - Paid off</label>
+            </value>
+            <value>
+                <fullName>CAPCISPD</fullName>
+                <default>false</default>
+                <label>CAPCISPD - Pending Completion</label>
+            </value>
+            <value>
+                <fullName>CAPCISPO</fullName>
+                <default>false</default>
+                <label>CAPCISPO - Paid Off</label>
+            </value>
+            <value>
+                <fullName>CAPCISQ</fullName>
+                <default>false</default>
+                <label>CAPCISQ - Lost/Stolen Transfer in</label>
+            </value>
+            <value>
+                <fullName>CAPCISR</fullName>
+                <default>false</default>
+                <label>CAPCISR - Lost/Stolen Transfer out</label>
+            </value>
+            <value>
+                <fullName>CAPCISRI</fullName>
+                <default>false</default>
+                <label>CAPCISRI - Reserved interest</label>
+            </value>
+            <value>
+                <fullName>CAPCIST</fullName>
+                <default>false</default>
+                <label>CAPCIST - Lost/Stolen Transfer</label>
+            </value>
+            <value>
+                <fullName>CAPCISU</fullName>
+                <default>false</default>
+                <label>CAPCISU - IPT/Consolidation</label>
+            </value>
+            <value>
+                <fullName>CAPCISW</fullName>
+                <default>false</default>
+                <label>CAPCISW - IPT/Consolidation Transfer</label>
+            </value>
+            <value>
+                <fullName>CAPCISY</fullName>
+                <default>false</default>
+                <label>CAPCISY - IPT/Consolidation Transfer Out</label>
+            </value>
+            <value>
+                <fullName>CAPCISZ</fullName>
+                <default>false</default>
+                <label>CAPCISZ - Charged-off</label>
+            </value>
+            <value>
+                <fullName>Open</fullName>
+                <default>false</default>
+                <label>Opened</label>
             </value>
         </valueSetDefinition>
     </valueSet>

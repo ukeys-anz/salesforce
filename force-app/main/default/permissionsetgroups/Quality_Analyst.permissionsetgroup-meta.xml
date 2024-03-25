@@ -17,6 +17,7 @@
     <permissionSets>CFaaS_View_Files</permissionSets>
     <permissionSets>Chat_Read_Only</permissionSets>
     <permissionSets>Chatter_User</permissionSets>
+    <permissionSets>Coach_Nudge_Task_Access</permissionSets>
     <permissionSets>Compliance_Task_R_W</permissionSets>
     <permissionSets>Customer_Dispute_Management_Read_Write</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>

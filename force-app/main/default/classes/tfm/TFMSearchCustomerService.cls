@@ -59,8 +59,8 @@ public with sharing class TFMSearchCustomerService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_SearchCustomer_API +
-      +IDTYPEMAP.get(staffModel.idType) +
-      staffModel.idValue,
+        +IDTYPEMAP.get(staffModel.idType) +
+        staffModel.idValue,
       HTTP_METHOD.HTTP_GET,
       staffModel.headers,
       null

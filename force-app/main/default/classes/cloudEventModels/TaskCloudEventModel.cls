@@ -18,11 +18,7 @@ public virtual without sharing class TaskCloudEventModel extends CloudEventModel
     ce_type =
       System.Label.ANZX_Coach_Nudge_event_ce_type +
       theTask.Status.toLowerCase();
-    ce_dataschema =
-      System.Label.ANZX_Coach_Nudge_Event_Proto_Data_Schema +
-      '#CoachNudgeStatus' +
-      theTask.Status +
-      'Event';
+    ce_dataschema = System.Label.ANZX_Coach_Nudge_Event_Proto_Data_Schema;
     String sourceSystemName = '';
     if (
       theAccount?.Source_System_Name__c != null &&

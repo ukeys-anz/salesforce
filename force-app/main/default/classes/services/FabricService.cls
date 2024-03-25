@@ -41,9 +41,7 @@ public with sharing class FabricService extends Service {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      financialAccountApiEndpoint +
-      '?' +
-      urlParam,
+      financialAccountApiEndpoint + '?' + urlParam,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -116,9 +114,7 @@ public with sharing class FabricService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Temp_Lock_Card +
-      cardNumber +
-      '/set',
+      Label.MS_Temp_Lock_Card + cardNumber + '/set',
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"card_controls" : [{ "control_type": "GCT_GLOBAL"}]}'
@@ -144,14 +140,10 @@ public with sharing class FabricService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Replace_Card +
-      cardNumber +
-      '/replace',
+      Label.MS_Replace_Card + cardNumber + '/replace',
       HTTP_METHOD.HTTP_POST,
       headers,
-      '{"reason":"REASON_' +
-      reason.toUpperCase() +
-      '"}'
+      '{"reason":"REASON_' + reason.toUpperCase() + '"}'
     );
     return response;
   }
@@ -176,11 +168,11 @@ public with sharing class FabricService extends Service {
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"page_size":' +
-      pageSize +
-      ',' +
-      '"account_numbers": ["' +
-      accountNumber +
-      '"]}'
+        pageSize +
+        ',' +
+        '"account_numbers": ["' +
+        accountNumber +
+        '"]}'
     );
     return response;
   }
@@ -263,9 +255,7 @@ public with sharing class FabricService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Get_Tokenized_Card +
-      transactionId +
-      '/tokenized-card',
+      Label.MS_Get_Tokenized_Card + transactionId + '/tokenized-card',
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -298,12 +288,12 @@ public with sharing class FabricService extends Service {
       HTTP_METHOD.HTTP_POST,
       headers,
       '{"account": "' +
-      financialAccountNumber +
-      '"' +
-      ',' +
-      '"sign_mode": ' +
-      signMode +
-      '}'
+        financialAccountNumber +
+        '"' +
+        ',' +
+        '"sign_mode": ' +
+        signMode +
+        '}'
     );
 
     return response;

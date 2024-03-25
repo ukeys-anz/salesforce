@@ -9,6 +9,7 @@
     <columns>Status__c</columns>
     <columns>Direction__c</columns>
     <columns>StartTime</columns>
+    <columns>Transfer__c</columns>
     <columns>Attendees__c</columns>
     <filters>
         <field>RecordType</field>

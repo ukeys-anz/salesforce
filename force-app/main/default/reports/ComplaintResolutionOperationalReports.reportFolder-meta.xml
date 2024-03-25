@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ReportFolder xmlns="http://soap.sforce.com/2006/04/metadata">
-    <folderShares>
-        <accessLevel>Manage</accessLevel>
-        <sharedTo>piyushkumar.singh@anzx.com</sharedTo>
-        <sharedToType>User</sharedToType>
-    </folderShares>
+    <name>Complaint Resolution Operational Reports</name>
     <folderShares>
         <accessLevel>Manage</accessLevel>
         <sharedTo>Customer_Resolution</sharedTo>
@@ -25,5 +21,4 @@
         <sharedTo>Data_Analyst</sharedTo>
         <sharedToType>Role</sharedToType>
     </folderShares>
-    <name>Complaint Resolution Operational Reports</name>
 </ReportFolder>

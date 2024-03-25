@@ -271,19 +271,24 @@ private with sharing class IDRCaseAssignmentRulesTest {
    */
   @IsTest
   private static void testOwnerisEverydayBanking() {
-      
-    Id productFamilyId = Lib_FakeIdGenerator.getMockId(Product_Family__c.SObjectType);
+    Id productFamilyId = Lib_FakeIdGenerator.getMockId(
+      Product_Family__c.SObjectType
+    );
 
     Product_Family__c testProductFamily = new Product_Family__c(
-    Name= 'Test',
-    IDR_Workbasket__c='IDR_Everyday_Banking'
+      Name = 'Test',
+      IDR_Workbasket__c = 'IDR_Everyday_Banking'
     );
-    List<Case> cases= testOwnerAssignedonCase('231'); 
-    Case oldcase=cases[0];
-    Case newcase=cases[1];     
+    List<Case> cases = testOwnerAssignedonCase('231');
+    Case oldcase = cases[0];
+    Case newcase = cases[1];
 
     Test.startTest();
-    String workbasketId = IDRCaseAssignmentRules.getownerId(newcase,testProductFamily, oldcase);
+    String workbasketId = IDRCaseAssignmentRules.getownerId(
+      newcase,
+      testProductFamily,
+      oldcase
+    );
     Test.stopTest();
     System.assertEquals(
       workbasketId,
@@ -296,19 +301,24 @@ private with sharing class IDRCaseAssignmentRulesTest {
    */
   @IsTest
   private static void testOwnerisNotEverydayBanking() {
-    
-     Id productFamilyId = Lib_FakeIdGenerator.getMockId(Product_Family__c.SObjectType);
-
-     Product_Family__c testProductFamily = new Product_Family__c(
-     Name= 'Test1',
-     IDR_Workbasket__c='Test'
+    Id productFamilyId = Lib_FakeIdGenerator.getMockId(
+      Product_Family__c.SObjectType
     );
-    List<Case> cases= testOwnerAssignedonCase('1'); 
-    Case oldcase=cases[0];
-    Case newcase=cases[1];
-     
+
+    Product_Family__c testProductFamily = new Product_Family__c(
+      Name = 'Test1',
+      IDR_Workbasket__c = 'Test'
+    );
+    List<Case> cases = testOwnerAssignedonCase('1');
+    Case oldcase = cases[0];
+    Case newcase = cases[1];
+
     Test.startTest();
-    String workbasketId = IDRCaseAssignmentRules.getOwnerId(newcase,testProductFamily,oldcase);
+    String workbasketId = IDRCaseAssignmentRules.getOwnerId(
+      newcase,
+      testProductFamily,
+      oldcase
+    );
     Test.stopTest();
     System.assertNotEquals(
       workbasketId,
@@ -323,7 +333,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
    */
 
   private static List<Case> testOwnerAssignedonCase(String productCode) {
-     Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
     Product2 testProduct = new Product2(
       Name = 'Test Product',
@@ -347,6 +357,6 @@ private with sharing class IDRCaseAssignmentRulesTest {
     cases.add(oldcase);
     cases.add(newcase);
 
-    return cases;    
-  }  
+    return cases;
+  }
 }

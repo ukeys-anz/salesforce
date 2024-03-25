@@ -4,7 +4,7 @@
     <category>other</category>
     <deployed>true</deployed>
     <description>Complaint Resolution</description>
-    <join> 
+    <join>
         <outerJoin>false</outerJoin>
         <relationship>Complaint_Resolutions__r</relationship>
     </join>

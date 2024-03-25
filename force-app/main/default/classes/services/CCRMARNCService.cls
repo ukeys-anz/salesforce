@@ -108,9 +108,7 @@ public with sharing class CCRMARNCService extends Service {
     String payload = JSON.serialize(queryParams);
 
     response = calloutService.makeRestCallout(
-      Label.Financial_Account_Endpoint +
-      productCategory +
-      '-accounts',
+      Label.Financial_Account_Endpoint + productCategory + '-accounts',
       HTTP_METHOD.HTTP_POST,
       headers,
       payload

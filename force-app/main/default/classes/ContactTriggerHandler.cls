@@ -59,6 +59,8 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
         false
       );
     }
+
+    CCRMContactActions.deleteCommercialContactsWithoutContactDetails(records);
   }
   /**
    * @description Before Update Action of Contact.
@@ -88,11 +90,6 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
       );
     }
 
-    CCRMContactActions.hideCommercialContacts(
-      records,
-      (Map<Id, Contact>) oldMap
-    );
-
     if (isAllowedProfileCheck) {
       CCRMCustomerProfileUpdateHelper.restrictEdit(
         existingOrProspectContacts.existingContacts,
@@ -110,5 +107,7 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Contact>) oldMap
     );
+
+    CCRMContactActions.deleteCommercialContactsWithoutContactDetails(records);
   }
 }
