@@ -70,7 +70,7 @@ public with sharing class IDRCaseActionsHelper {
    * @param newRecord new Record of cases from the trigger
    * @return DateTime
    */
-  public static DateTime populateAfcaRegistrationResponseDate(
+  public DateTime populateAfcaRegistrationResponseDate(
     Case oldRecord,
     Case newRecord
   ) {
