@@ -8071,6 +8071,10 @@
         <recordType>Case.NPP_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Profile Update Layout</layout>
+        <recordType>Case.Profile_Update</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Recipient%2FMule Layout</layout>
         <recordType>Case.Recipient_Mule</recordType>
     </layoutAssignments>

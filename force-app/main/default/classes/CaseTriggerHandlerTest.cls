@@ -1768,7 +1768,7 @@ private class CaseTriggerHandlerTest {
     }
 
     Test.startTest();
-    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(newCases);
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(newCases, null);
     Test.stopTest();
 
     // THEN Contact Name lookup should be auto-populated
@@ -2334,7 +2334,7 @@ private class CaseTriggerHandlerTest {
       Description = 'Charged more than once for same purchase',
       Effective_Date__c = Date.valueof(System.today()),
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.getBusinessHours().Id
+      BusinessHoursId = CommonUtil.anzBusinessHours.Id
     );
 
     // WHEN
@@ -2376,7 +2376,7 @@ private class CaseTriggerHandlerTest {
       Origin = '1',
       Priority = 'Medium',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.getBusinessHours().Id
+      BusinessHoursId = CommonUtil.anzBusinessHours.Id
     );
 
     // WHEN
@@ -2472,7 +2472,7 @@ private class CaseTriggerHandlerTest {
       Origin = '1',
       Priority = 'Medium',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.getBusinessHours().Id,
+      BusinessHoursId = CommonUtil.anzBusinessHours.Id,
       Description = 'sample issue description',
       External_System__c = 'CARBe',
       External_Case_ID__c = '45234234',
