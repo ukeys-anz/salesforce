@@ -81,6 +81,7 @@ public with sharing class CCRMConstants {
   public static final String OPPORTUNITY_OBJ_PREFIX = '006';
   public static final String STATUS_OPEN = 'Open';
   public static final String DORMANT_STATUS = 'Dormant';
+  public static final String NO_AVAILABLE_BALANCE = 'No available balance';
 
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
     'Business_Account'
@@ -184,6 +185,16 @@ public with sharing class CCRMConstants {
   //Contact Point Address - Individual Record Type Id
   public static final Id CPA_IND_RT_ID = Schema.SObjectType.ContactPointAddress.getRecordTypeInfosByDeveloperName()
     .get('Individual')
+    .getRecordTypeId();
+
+  //Financial Account record type Ids
+  public static final Id FA_RT_ID = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
+    .get('BankingAccount')
+    .getRecordTypeId();
+
+  //Financial Account Role record type Ids
+  public static final Id FAR_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
+    .get('AccountRole')
     .getRecordTypeId();
 
   /**

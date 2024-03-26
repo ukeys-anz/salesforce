@@ -3784,7 +3784,6 @@
         "Account_Status__c",
         "ANZ_Plus_Identifier__c",
         "Balance__c",
-        "CPID__c",
         "Credit_Limit__c",
         "Customer__c",
         "Interest_Rate__c",

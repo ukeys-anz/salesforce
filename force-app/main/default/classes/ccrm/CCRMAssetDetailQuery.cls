@@ -17,7 +17,7 @@ public with sharing class CCRMAssetDetailQuery extends CCRMFinancialAccountQuery
     public Decimal purchasePrice;
     public String compositePhysicalAssetId;
     public Decimal ecvAmount;
-    public String ecvDate;
+    public DateTime ecvDate;
     public String ecvValuer;
   }
 
@@ -44,7 +44,7 @@ public with sharing class CCRMAssetDetailQuery extends CCRMFinancialAccountQuery
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (AssetDetailCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (AssetDetailCalloutResponse) CalloutModel.deserialize(
       responseBody,
       AssetDetailCalloutResponse.class
     );
@@ -84,12 +84,7 @@ public with sharing class CCRMAssetDetailQuery extends CCRMFinancialAccountQuery
       row.put('PurchasePrice', asset.purchasePrice);
       row.put('SerialNo', asset.serialNumber);
       row.put('ECV', asset.ecvAmount);
-      row.put(
-        'ECVDate',
-        String.isNotBlank(asset.ecvDate)
-          ? adjustUTCDateTime(Date.valueOf(asset.ecvDate))
-          : null
-      );
+      row.put('ECVDate', formatDate(asset.ecvDate));
       row.put('ECVValuer', asset.ecvValuer);
       row.put('AssetNo', asset.assetNumber);
       result.queryResult.add(row);

@@ -47,7 +47,7 @@ public with sharing class CCRMPortfolioOfLoanQuery extends CCRMFinancialAccountQ
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (PortfolioOfLoanCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (PortfolioOfLoanCalloutResponse) CalloutModel.deserialize(
       responseBody,
       PortfolioOfLoanCalloutResponse.class
     );
@@ -84,9 +84,9 @@ public with sharing class CCRMPortfolioOfLoanQuery extends CCRMFinancialAccountQ
       row.put('SubProductCode', fa.subProductCode);
       row.put('LoanTermMonth', fa.loanTermMonth);
       row.put('LoanTermYears', fa.loanTermYears);
-      row.put('Expires', adjustUTCDateTime(fa.maturityDate));
+      row.put('Expires', formatDate(fa.maturityDate));
       row.put('Limit', fa.accountLimit);
-      row.put('DateOpened', adjustUTCDateTime(fa.openDate));
+      row.put('DateOpened', formatDate(fa.openDate));
       row.put('UndrawnBalance', fa.undrawnBalance);
       row.put('PurposeCode', fa.purposeCode);
       row.put('TPMI', fa.tpmiCode);

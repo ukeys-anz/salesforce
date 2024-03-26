@@ -39,7 +39,7 @@ public with sharing class CCRMInactiveIndemnityGuaranteeQuery extends CCRMFinanc
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (IndemnityGuaranteeCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (IndemnityGuaranteeCalloutResponse) CalloutModel.deserialize(
       responseBody,
       IndemnityGuaranteeCalloutResponse.class
     );

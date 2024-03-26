@@ -9,7 +9,7 @@
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Fee Rate</label>
+    <label>Fee Rate (%)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

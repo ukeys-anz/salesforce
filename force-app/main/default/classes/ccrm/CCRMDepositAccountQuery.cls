@@ -12,6 +12,7 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
   /**
    * @description Deposit account Model class
    */
+  @testVisible
   private class CCRMDepositAccountModel extends CCRMFinancialAccountModelBase {
     public String anzsicCode;
     public Boolean accountRestraint;
@@ -85,7 +86,7 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (DepositAccountCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (DepositAccountCalloutResponse) CalloutModel.deserialize(
       responseBody,
       DepositAccountCalloutResponse.class
     );
@@ -129,7 +130,7 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
       row.put('CPID', fa.controllingPostId);
       row.put('ProductCode', fa.productCode);
       row.put('SubProductCode', fa.subProductCode);
-      row.put('OpenedDate', adjustUTCDateTime(fa.openDate));
+      row.put('OpenedDate', formatDate(fa.openDate));
       row.put('OverdraftLimit', fa.odLimit);
       row.put('PledgeAmount', fa.pledgeAmount);
       row.put('Pledge', fa.pledge);
@@ -146,7 +147,7 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
         'OverdraftLimitInterestRepaymentFrequency',
         fa.tempODInterestRepaymentFrequency
       );
-      row.put('ExpiryDate', fa.tempODExpirytDate);
+      row.put('OverdraftExpiryDate', formatDate(fa.tempODExpirytDate));
       row.put('BSB', fa.bsbCode);
       row.put('NumberOfSignatures', fa.noOfSignatures);
       row.put('StopPayNumber', fa.restrainsStopPayNumber);
@@ -157,7 +158,7 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
         if (fa.seasonalLimits[0].endDate != null) {
           row.put(
             'FluctuatingSeasonalExpiryDate',
-            fa.seasonalLimits[0].endDate
+            formatDate(fa.seasonalLimits[0].endDate)
           );
         }
         if (fa.seasonalLimits[0].seasonalLimit != null) {
@@ -169,7 +170,7 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
         if (fa.seasonalLimits[0].startDate != null) {
           row.put(
             'FluctuatingSeasonalStartDate',
-            fa.seasonalLimits[0].startDate
+            formatDate(fa.seasonalLimits[0].startDate)
           );
         }
       }

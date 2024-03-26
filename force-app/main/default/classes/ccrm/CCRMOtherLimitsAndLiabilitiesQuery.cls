@@ -38,7 +38,7 @@ public with sharing class CCRMOtherLimitsAndLiabilitiesQuery extends CCRMFinanci
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (CCRMOLLCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (CCRMOLLCalloutResponse) CalloutModel.deserialize(
       responseBody,
       CCRMOLLCalloutResponse.class
     );
@@ -75,7 +75,7 @@ public with sharing class CCRMOtherLimitsAndLiabilitiesQuery extends CCRMFinanci
       row.put('AccountStatus', fa.status);
       row.put('OLLType', fa.ollType);
       row.put('Branch', fa.branch);
-      row.put('DateOpened', adjustUTCDateTime(fa.openingDate));
+      row.put('DateOpened', formatDate(fa.openingDate));
       row.put('CPID', fa.controllingPostId);
       row.put('Limit', fa.accountLimit);
       result.queryResult.add(row);

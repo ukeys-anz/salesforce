@@ -1181,4 +1181,210 @@ public with sharing class CCRMTestDataFactory {
 
     return accnt;
   }
+  /**
+   * @description Create non-reciprocal role records
+   * @name createNonReciprocalRole
+   * @param name [Optional] the name of the reciprocal role
+   * @return FinServ__ReciprocalRole__c the newly created record
+   */
+  public static FinServ__ReciprocalRole__c createNonReciprocalRole(
+    String name
+  ) {
+    name = name == null ? new Faker('AU').randomString(10) : name;
+    FinServ__ReciprocalRole__c nonReciprocalRole = new FinServ__ReciprocalRole__c(
+      RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID,
+      Name = name,
+      FinServ__InverseRole__c = name,
+      OCV_Role__c = name,
+      FinServ__CreateInverseRole__c = false
+    );
+    insert nonReciprocalRole;
+    return nonReciprocalRole;
+  }
+
+  /**
+   * @description Create Users with lan id
+   * @name createUsersWithLanId
+   * @param setOfLanId Lan IDs
+   * @return `List<User>`
+   */
+  public static List<User> createUsersWithLanId(Set<String> setOfLanId) {
+    List<User> newUsers = new List<User>();
+    for (String key : setOfLanId) {
+      User ccrmUser = (User) FakerFactory.make(new FakerUserFactory());
+      ccrmUser.UserRoleId = commercialBankerRole.Id;
+      ccrmUser.ProfileId = anzStandardProfileId;
+      ccrmUser.Lan_Id__c = key;
+      newUsers.add(ccrmUser);
+    }
+    Database.insert(newUsers);
+    return newUsers;
+  }
+
+  /**
+   * @description Create Controlling Posts with Lan ID
+   * @name createControllingPostsWithLanId
+   * @param setOfLanId Lan IDs
+   * @return `List<Controlling_Post__c>`
+   */
+  public static List<Controlling_Post__c> createControllingPostsWithLanId(
+    Set<String> setOfLanId
+  ) {
+    List<Controlling_Post__c> newCPs = new List<Controlling_Post__c>();
+    for (String key : setOfLanId) {
+      Controlling_Post__c cp1 = new Controlling_Post__c();
+      cp1.Is_Active__c = true;
+      cp1.CPID_CancelFag__c = false;
+      cp1.Name = 'Controlling Post ' + key;
+      cp1.CPID_LanID__c = key;
+      newCPs.add(cp1);
+    }
+    Database.insert(newCPs);
+    return newCPs;
+  }
+  /**
+   * @description Create Deposit Account test context
+   * @name createDepositAccountContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createDepositAccountContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMDepositAccountTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'DepositAccount'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+  /**
+   * @description Create Credit Card test context
+   * @name createDepositAccountContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createCreditCardContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMCreditCardQueryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'CreditCard'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMDepositAccountTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_depositResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'dda-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMCreditCardQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_creditCardResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'pcb-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class GetTotalCustomerBalanceMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_totalBalanceResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'mock-header');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class GetTotalTerminalsMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_totalTerminalResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'mock-header');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class GetTotalAssetFinanceBalanceMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource(
+        'mock_totalAssetBalanceResponse'
+      );
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'mock-header');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
 }
