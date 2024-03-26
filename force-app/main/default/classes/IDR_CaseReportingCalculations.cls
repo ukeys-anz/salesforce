@@ -157,7 +157,7 @@ public without sharing class IDR_CaseReportingCalculations {
   ) {
     if (
       (oldCase != null &&
-      checkStatusChange(newCase.Status, oldCase.Status, openCaseStatus)) ||
+      checkStatusChange(newCase.Status, oldCase.Status, statusToCheck)) ||
       (oldCase == null && statusToCheck.contains(newCase.Status))
     ) {
       return true;
