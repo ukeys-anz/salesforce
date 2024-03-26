@@ -7,20 +7,28 @@
 private class CCRMAccountActionsTest {
   @testSetup
   static void setup() {
-    User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
-    CCRMTestDataFactory.createCCRMBaseUser();
+    User ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
     CCRMTestDataFactory.createTwilioIntegrationUser();
-
-    System.runAs(ccrmAdmin) {
-      Account acc;
+    Account acc;
+    Account prospectAcc;
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
       //GIVEN a active account
       acc = CCRMTestDataFactory.createBusinessAccountWithOwner(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
-      Set<String> setOfEmployeeId = new Set<String>{ '30456789', '10456790' };
-      CCRMTestDataFactory.createUsersWithEmployeeId(setOfEmployeeId);
+
+      prospectAcc = CCRMTestDataFactory.createProspectBusinessAccount(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
+      );
     }
-    System.runAs(ccrmAdmin) {
+
+    CCRMTestDataFactory.createAccountShare(acc.Id, ccrmBaseUser.Id);
+    CCRMTestDataFactory.createAccountShare(prospectAcc.Id, ccrmBaseUser.Id);
+
+    Set<String> setOfEmployeeId = new Set<String>{ '30456789', '10456790' };
+    CCRMTestDataFactory.createUsersWithEmployeeId(setOfEmployeeId);
+
+    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
       Map<String, String> values = new Map<String, String>{
         'L7601' => '30456789',
         'L7602' => '30456790'
@@ -181,7 +189,7 @@ private class CCRMAccountActionsTest {
 
     Test.startTest();
     // WHEN this account is inserted by OCV Integration User
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getOCVIntegrationUser()) {
       insert testAccount;
     }
     Test.stopTest();
@@ -202,13 +210,17 @@ private class CCRMAccountActionsTest {
 
   @IsTest
   static void testTrackProspectAccountChanges() {
-    Account acc;
     //GIVEN a prospect account
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      acc = CCRMTestDataFactory.createProspectBusinessAccount(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
-      );
-    }
+    Account acc = [
+      SELECT Id, Name, ABN__c, ACN__c, ARBN__c
+      FROM Account
+      WHERE
+        FinServ__Status__c = 'Prospect'
+        AND RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
+        AND ABN__c = '50 110 219 460'
+        AND Source_System_Name__c = 'CAP-CIS'
+      LIMIT 1
+    ];
     //WHEN the account is updated by banker
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
@@ -245,15 +257,18 @@ private class CCRMAccountActionsTest {
 
   @IsTest
   static void findAndConvertLeadCCRMTest() {
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
-      Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
-        .Id;
-      USER usr = (USER) FakerFactory.make(new FakerUserFactory());
-      usr.Email = 'test@mltest.anz.com';
-      usr.ProfileId = adminProfileId;
-      usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
-      insert usr;
-
+    User mlUser = MLCRMTestDataFactory.getMLCRMBaseUser();
+    System.runAs(mlUser) {
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+        1,
+        mlUser,
+        true
+      );
+      MLCRMTestDataFactory.createUserTerritoryRecords(
+        10,
+        mlUser.Id,
+        lstOfTerritory[0].Id
+      );
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
       insert leadRec;
       Faker faker = new Faker('AU');

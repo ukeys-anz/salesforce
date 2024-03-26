@@ -19,6 +19,10 @@ public with sharing class CCRMTestDataFactory {
       'Minimum Access - Salesforce'
     )
     .Id;
+  public static Id minAccessExternalProfileId = CommonUtil.getProfileByName(
+      'Minimum Access - External Apps'
+    )
+    .Id;
   public static UserRole commercialBankerRole = CommonUtil.getUserRoleByDevName(
     'Commercial_Banking'
   );
@@ -30,11 +34,15 @@ public with sharing class CCRMTestDataFactory {
     'Small_Business_Banking'
   );
 
+  public static UserRole arcRole = CommonUtil.getUserRoleByDevName('AR_C');
+
   private static User adminUser;
   private static User ccrmBaseUser;
   private static User ccrmIntegrationUser;
   private static User twilioIntegrationUser;
   private static User ocvIntegrationUser;
+  private static User sailPointUser;
+  private static User batchUser;
 
   /**
    * @description Create a CCRM System Admin User
@@ -86,6 +94,28 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Get a CCRM System Admin User, if such user not exists yet then create one
+   * @name getAdminUser
+   * @return System Administrator User
+   */
+  public static User getBatchUser() {
+    if (batchUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE ProfileId = :integrationProfileId AND LastName = 'CCRM Batch'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        batchUser = createBatchUser();
+      } else {
+        batchUser = users[0];
+      }
+    }
+    return batchUser;
+  }
+
+  /**
    * @description Create a CCRM Base User
    * @name createCCRMBaseUser
    * @return ANZ Standard User with CCRM Base User Permission Set.
@@ -101,6 +131,45 @@ public with sharing class CCRMTestDataFactory {
     insert ccrmBaseUser;
     addCCRMUserPS(ccrmBaseUser.id, 'CCRM_User_Base');
     return ccrmBaseUser;
+  }
+
+  /**
+   * @description Create a Sailpoint User
+   * @name createSailPointUser
+   * @return Sailpoint User with API Only And User Provisioning permission set.
+   */
+  public static User createSailPointUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    sailPointUser = (User) FakerFactory.make(new FakerUserFactory());
+    sailPointUser.FirstName = 'Sailpoint' + staticNumber;
+    sailPointUser.LastName = 'Integration User';
+    sailPointUser.ProfileId = minAccessExternalProfileId;
+    insert sailPointUser;
+    addCCRMUserPS(sailPointUser.id, 'API_Only');
+    addCCRMUserPS(sailPointUser.id, 'User_Provisioning');
+    return sailPointUser;
+  }
+
+  /**
+   * @description Create a Batch User
+   * @name createSailPointUser
+   * @return Sailpoint User with API Only And User Provisioning permission set.
+   */
+  public static User createBatchUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    batchUser = (User) FakerFactory.make(new FakerUserFactory());
+    batchUser.FirstName = 'User' + staticNumber;
+    batchUser.LastName = 'CRM Batch';
+    batchUser.ProfileId = integrationProfileId;
+    batchUser.UserRoleId = arcRole.Id;
+    insert batchUser;
+    addCCRMUserPS(batchUser.id, 'API_Only');
+    addCCRMUserPS(batchUser.id, 'CCRM_User_Base');
+    addCCRMUserPS(batchUser.id, 'MLCRM_Base_Read_Only');
+    addCCRMUserPS(batchUser.id, 'Validation_Bypass');
+    return batchUser;
   }
 
   /**
@@ -159,6 +228,31 @@ public with sharing class CCRMTestDataFactory {
       }
     }
     return ccrmBaseUser;
+  }
+
+  /**
+   * @description Get a CCRM Base User, if such user not exists yet then create one
+   * @name getSailPointUser
+   * @return ANZ Standard User with CCRM Base User Permission Set.
+   */
+  public static User getSailPointUser() {
+    if (sailPointUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE
+          ProfileId = :minAccessExternalProfileId
+          AND LastName = 'Integration User'
+          AND FirstName = 'Sailpoint'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        sailPointUser = createSailPointUser();
+      } else {
+        sailPointUser = users[0];
+      }
+    }
+    return sailPointUser;
   }
 
   /**
@@ -250,7 +344,8 @@ public with sharing class CCRMTestDataFactory {
         'Read_Write_Customer_Details',
         'Moderate_Chatter',
         'Customer_Relationships_Read_Write',
-        'FinancialServicesCloudStandard'
+        'FinancialServicesCloudStandard',
+        'CCRM_Marketing_Integration_User'
       },
       new List<User>{ ocvIntegrationUser }
     );
@@ -511,8 +606,9 @@ public with sharing class CCRMTestDataFactory {
    * @param accountId Account Id
    * @param relatedAccountId Related Account Id
    * @param role Reciprocal Role Id
+   * @return FinServ__AccountAccountRelation__c accToAccRelationship
    */
-  public static void createAccountToAccountWithClgRelationship(
+  public static FinServ__AccountAccountRelation__c createAccountToAccountWithClgRelationship(
     Id accountId,
     Id relatedAccountId,
     Id role
@@ -523,6 +619,7 @@ public with sharing class CCRMTestDataFactory {
     accToAccRelationship.FinServ__Active__c = true;
     accToAccRelationship.FinServ__Role__c = role;
     insert accToAccRelationship;
+    return accToAccRelationship;
   }
 
   /**
@@ -1200,6 +1297,39 @@ public with sharing class CCRMTestDataFactory {
     insert contact;
 
     return accnt;
+  }
+ /**
+   * @description Create a account share record to provide access to business user
+   * @name createAccountShare
+   * @param accId Account record to be share
+   * @param userId User to be share with
+   */
+  @future
+  public static void createAccountShare(Id accId, Id userId) {
+    AccountShare shareAccount = new AccountShare();
+    shareAccount.AccountId = accId;
+    shareAccount.AccountAccessLevel = 'Edit';
+    shareAccount.ContactAccessLevel = 'Edit';
+    shareAccount.CaseAccessLevel = 'Read';
+    shareAccount.OpportunityAccessLevel = 'Read';
+    shareAccount.RowCause = 'Manual';
+    shareAccount.UserOrGroupId = userId;
+    insert shareAccount;
+  }
+  /**
+   * @description Create a account account relation share record to provide access to ccrm user
+   * @name createAccountAccountRelationShare
+   * @param recordId record Id to share
+   * @param userId User to be share with
+   */
+  @future
+  public static void createAccountAccountRelationShare(Id recordId, Id userId) {
+    FinServ__AccountAccountRelation__Share sv = new FinServ__AccountAccountRelation__Share();
+    sv.ParentId = recordId;
+    sv.AccessLevel = 'Read';
+    sv.RowCause = 'Manual';
+    sv.UserOrGroupId = userId;
+    insert sv;
   }
   /**
    * @description Create non-reciprocal role records

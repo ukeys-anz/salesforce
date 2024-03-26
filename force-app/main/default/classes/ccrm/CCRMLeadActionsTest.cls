@@ -10,8 +10,9 @@ private class CCRMLeadActionsTest {
     CCRMTestDataFactory.createAdobeIntegrationUser();
     CCRMTestDataFactory.createUnicaIntegrationUser();
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
-    User ccrmAdminUser = CCRMTestDataFactory.createAdminUser();
+    User iiQUser = MLCRMTestDataFactory.createIIQBaseUser();
     User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
+    User mlBusinessAdminUser = MLCRMTestDataFactory.createMLBusinessAdminUser();
     User integrationUser = CCRMTestDataFactory.getCCRMIntegrationUser();
 
     //CREATE Test Lead Records
@@ -25,24 +26,32 @@ private class CCRMLeadActionsTest {
       );
       CCRMTestDataFactory.createResponseTypeRecords(campaignRecord[0]);
     }
-
-    System.runAs(ccrmAdminUser) {
-      createUsersWithEmployeeID();
-    }
-
-    System.runAs(mlUser) {
+    System.runAs(mlBusinessAdminUser) {
       List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
-        10,
-        mlUser,
+        1,
+        mlBusinessAdminUser,
         true
       );
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        10,
-        mlUser.Id,
-        lstOfTerritory[0].Id
+      MLCRMTestDataFactory.createTerritoryShare(
+        mlUser.id,
+        lstOfTerritory,
+        true
       );
-      MLCRMTestDataFactory.createLeadRecords(10, mlUser);
     }
+    //update ml user record so that user trigger creates corresponding user territory record
+    System.runAs(iiQUser) {
+      createUsersWithEmployeeID();
+      Test.startTest();
+      mlUser.ML_Territories__c = 'Melbourne CBD (VIC)';
+      mlUser.ML_Role__c = 'Loan Writer';
+      update mlUser;
+      Test.stopTest();
+    }
+    //CREATE Test Lead Records
+    System.runAs(mlUser) {
+      MLCRMTestDataFactory.createManualLeadRecords(10, mlUser, true);
+    }
+
   }
 
   @isTest
@@ -219,7 +228,7 @@ private class CCRMLeadActionsTest {
     leadRecord3.Status = CCRMConstants.STATUS_ASSIGNED;
     leadRecord3.OwnerId = ccrmUser3.Id;
 
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       CCRMControllingPostActions.retrieveControllingPost(
         new List<Lead>{ leadRecord, leadRecord2, leadRecord3 },
         null
@@ -922,7 +931,7 @@ private class CCRMLeadActionsTest {
     Test.startTest();
     Id leadId;
     Campaign campaign;
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       campaign = [
         SELECT Id
         FROM Campaign
@@ -953,7 +962,7 @@ private class CCRMLeadActionsTest {
       leadId = leadRecord.Id;
     }
 
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       List<CampaignMember> members = [
         SELECT Id
         FROM CampaignMember
@@ -967,7 +976,8 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testMLLeadCreationWithReferrerEmail() {
     Test.startTest();
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    User iiQUser = MLCRMTestDataFactory.createIIQBaseUser();
+    System.runAs(iiQUser) {
       Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
         .Id;
       USER usr = (USER) FakerFactory.make(new FakerUserFactory());
@@ -975,13 +985,20 @@ private class CCRMLeadActionsTest {
       usr.ProfileId = adminProfileId;
       usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
       insert usr;
-
+    }
+    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
       leadRec.Referrer_Email__c = 'test@mltest.anz.com';
       leadRec.Referrer_Name__c = 'Test Referrer Name';
       leadRec.LeadSource = MLCRMConstants.INTERNAL_REFERRAL;
       insert leadRec;
 
+      User testUser1 = [
+        SELECT id, Email
+        FROM User
+        WHERE Email = 'test@mltest.anz.com'
+        LIMIT 1
+      ];
       Lead leadRecord = [
         SELECT id, FinServ__ReferredByUser__c
         FROM lead
@@ -990,7 +1007,7 @@ private class CCRMLeadActionsTest {
       ];
       System.assertEquals(
         leadRecord.FinServ__ReferredByUser__c,
-        usr.Id,
+        testUser1.Id,
         'Referrrer is populated'
       );
     }
@@ -1000,7 +1017,7 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testMLLeadCreationWithoutExistingReferrer() {
     Test.startTest();
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
       leadRec.Referrer_Email__c = 'test@mltest2.anz.com';
       leadRec.Referrer_Name__c = 'Test Referrer Name';
@@ -1025,7 +1042,7 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testBulkMLLeadCreation() {
     Test.startTest();
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
       List<Lead> leadsList = new List<Lead>();
       for (Integer i = 0; i < 50; i++) {
         leadsList.add((Lead) FakerFactory.make(new FakerLeadFactory()));
@@ -1071,7 +1088,8 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testMLLeadCreationWithReferrer() {
     Test.startTest();
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    User iiQUser = MLCRMTestDataFactory.createIIQBaseUser();
+    System.runAs(iiQUser) {
       Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
         .Id;
       USER usr = (USER) FakerFactory.make(new FakerUserFactory());
@@ -1079,9 +1097,16 @@ private class CCRMLeadActionsTest {
       usr.ProfileId = adminProfileId;
       usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
       insert usr;
-
+    }
+    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
-      leadRec.FinServ__ReferredByUser__c = usr.Id;
+      User testUser1 = [
+        SELECT id, Email
+        FROM User
+        WHERE Email = 'test@mltest.anz.com'
+        LIMIT 1
+      ];
+      leadRec.FinServ__ReferredByUser__c = testUser1.Id;
       insert leadRec;
 
       Lead leadRecord = [
@@ -1092,7 +1117,7 @@ private class CCRMLeadActionsTest {
       ];
       System.assertEquals(
         leadRecord.Referrer_Email__c,
-        usr.Email,
+        testUser1.Email,
         'Referrrer is populated'
       );
     }

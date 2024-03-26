@@ -7,20 +7,27 @@
 public class MLCRM_TerritoryRecalculationBatchTest {
   @testSetup
   static void setup() {
-    User adminUser = MLCRMTestDataFactory.createAdminUser();
+    User mlBusinessAdminUser = MLCRMTestDataFactory.createMLBusinessAdminUser();
     User mlUser1 = MLCRMTestDataFactory.createMLCRMBaseUser();
     User mlUser2 = MLCRMTestDataFactory.createMLCRMBaseUser();
     User mlUser3 = MLCRMTestDataFactory.createMLCRMBaseUser();
+    User iiQUser = MLCRMTestDataFactory.createIIQBaseUser();
+    User adobeUser = MLCRMTestDataFactory.getMLCRMIntegrationUser(
+      'Adobe.Integration@anzx.com'
+    );
     mlUser3.LastName = 'test mluser3';
     update mlUser3;
-    adminUser.username = 'Adobe.IntegrationTest@anzx.com';
-    update adminUser;
     //Create Test Lead Records
-    System.runAs(adminUser) {
+    System.runAs(mlBusinessAdminUser) {
       List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
         1,
-        mlUser1,
+        mlBusinessAdminUser,
         true
+      ); /*
+      MLCRMTestDataFactory.createUserTerritoryRecords(
+        1,
+        mlUser1.Id,
+        lstOfTerritory[0].Id
       );
       MLCRMTestDataFactory.createUserTerritoryRecords(
         1,
@@ -31,10 +38,50 @@ public class MLCRM_TerritoryRecalculationBatchTest {
         1,
         mlUser3.Id,
         lstOfTerritory[0].Id
-      );
+      ); */
+      List<Territory__Share> lstOfTerritoryShare = new List<Territory__Share>();
+      Territory__Share objShare = new Territory__Share();
+      objShare.parentId = lstOfTerritory[0].Id;
+      objShare.accesslevel = 'Edit';
+      objShare.userOrgroupid = mlUser1.Id;
+      lstOfTerritoryShare.add(objShare);
+      Territory__Share objShare1 = new Territory__Share();
+      objShare1.parentId = lstOfTerritory[0].Id;
+      objShare1.accesslevel = 'Edit';
+      objShare1.userOrgroupid = mlUser2.Id;
+      lstOfTerritoryShare.add(objShare1);
+      Territory__Share objShare2 = new Territory__Share();
+      objShare2.parentId = lstOfTerritory[0].Id;
+      objShare2.accesslevel = 'Edit';
+      objShare2.userOrgroupid = mlUser3.Id;
+      lstOfTerritoryShare.add(objShare2);
+      insert lstOfTerritoryShare;
+    }
+    //update ml user record so that user trigger creates corresponding user territory record
+    System.runAs(iiQUser) {
       Test.startTest();
-      MLCRMTestDataFactory.createManualLeadRecords(10, mlUser2);
+      List<User> lstofUserToUpdate = new List<User>();
+      mlUser1.ML_Territories__c = 'Melbourne CBD (VIC)';
+      mlUser1.ML_Role__c = 'Loan Writer';
+      lstofUserToUpdate.add(mlUser1);
+
+      mlUser2.ML_Territories__c = 'Melbourne CBD (VIC)';
+      mlUser2.ML_Role__c = 'Franchise Owner';
+      mlUser2.lastName = 'MLCRM11';
+      lstofUserToUpdate.add(mlUser2);
+      mlUser3.ML_Territories__c = 'Melbourne CBD (VIC)';
+      mlUser3.ML_Role__c = 'Franchise Owner';
+      lstofUserToUpdate.add(mlUser3);
+
+      update lstofUserToUpdate;
       Test.stopTest();
+    }
+    System.runAs(adobeUser) {
+      MLCRMTestDataFactory.createManualLeadRecords(10, mlUser2);
+    }
+    //Create Test customer relationship notes Records
+    System.runAs(mlUser1) {
+      MLCRMTestDataFactory.createCustomerRelationNotes();
     }
   }
 
@@ -44,7 +91,7 @@ public class MLCRM_TerritoryRecalculationBatchTest {
     user objUser = [
       SELECT Id
       FROM User
-      WHERE username = 'Adobe.IntegrationTest@anzx.com'
+      WHERE username = 'Adobe.Integration@anzx.com'
       LIMIT 1
     ];
     user objMlUser = [SELECT Id FROM User WHERE LastName = 'test mluser3'];
