@@ -34,10 +34,6 @@
                 <field>OwnerId</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>RecordTypeId</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Followup_State__c</field>
             </layoutItems>
@@ -67,7 +63,7 @@
         <label>Customer Details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>AccountId</field>
             </layoutItems>
             <layoutItems>

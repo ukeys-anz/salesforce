@@ -6,11 +6,10 @@
     <externalId>false</externalId>
     <formula>IF(OR(
     ISBLANK( Customer_First_Contacted__c ),
-    ISPICKVAL(Status, &apos;Closed&apos;)),
+    ISPICKVAL(Status, &apos;Closed&apos;)
+  ),
   NULL,
-  IF(AND(
-      ISPICKVAL(Status, &apos;Customer Update Pending&apos;),
-      TODAY() - DATEVALUE(Customer_First_Contacted__c) &lt;= 7),
+  IF( TODAY() - DATEVALUE(Customer_First_Contacted__c) &lt;= 7,
     IMAGE(&apos;/img/samples/flag_green.gif&apos;,&apos;Green Flag&apos;),
     IF(TODAY() - DATEVALUE(Customer_First_Contacted__c) &lt;= 14,
       IMAGE(&apos;/img/msg_icons/warning16.png&apos;,&apos;Yellow Flag&apos;),
