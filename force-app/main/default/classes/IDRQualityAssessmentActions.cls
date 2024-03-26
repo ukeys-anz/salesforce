@@ -140,6 +140,9 @@ public with sharing class IDRQualityAssessmentActions {
     String strFieldSetId;
     Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
     Map<String, SObjectField> mpAssessmentFields = Schema.SObjectType.Quality_Assessment__c.fields.getMap();
+    List<String> cqEditableFields = fetchFieldsFromQAFieldset(
+      IDRConstants.CQ_EDITABLE_RESPONSE_FIELDS
+    );
     Schema.FieldSet oFieldSet;
     Boolean fLoggerUsed = false;
     for (Quality_Assessment__c oAssessment : lstNewAssessments) {
@@ -172,15 +175,6 @@ public with sharing class IDRQualityAssessmentActions {
           ) {
             //Set Assessment Completion date to current date and time on assessment closure.
             oAssessment.Assessment_Completion_Date__c = System.now();
-            /*
-            if (
-              oAssessment.RecordTypeId ==
-              IDRConstants.idrtCQQualityAssessment &&
-              String.isEmpty(oAssessment.Team_Manager_Response__c)
-            ) {
-              oAssessment.addError(COMPLETION_ERROR);
-            }
-*/
             for (Schema.FieldSetMember field : oFieldSet.getFields()) {
               if (((SObject) oAssessment).get(field.getFieldPath()) == null) {
                 oAssessment.addError(
@@ -202,16 +196,14 @@ public with sharing class IDRQualityAssessmentActions {
               if (
                 oAssessment.RecordTypeId ==
                 IDRConstants.idrtCQQualityAssessment &&
-                (strFieldName == 'Team_Manager_Response__c' ||
-                strFieldName == 'Team_Manager_Comments__c')
+                cqEditableFields.contains(strFieldName)
               ) {
-                // These fields can be changed.
-              } else {
-                oAssessment.addError(
-                  mpAssessmentFields.get(strFieldName),
-                  'Cannot be modified'
-                );
+                continue;
               }
+              oAssessment.addError(
+                mpAssessmentFields.get(strFieldName),
+                'Cannot be modified'
+              );
             }
           }
         }
@@ -221,5 +213,19 @@ public with sharing class IDRQualityAssessmentActions {
     if (fLoggerUsed) {
       Logger.saveLog();
     }
+  }
+  /**
+   * @description Fetch all the fields of a specified FieldSet
+   * @param fieldSetName Name of the fieldSet from which fields should be extracted
+   * @return list of Fields
+   */
+  private static List<String> fetchFieldsFromQAFieldset(String fieldSetName) {
+    Schema.FieldSet fieldSet = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap()
+      .get(fieldSetName);
+    List<String> fieldsInFieldSet = new List<String>();
+    for (Schema.FieldSetMember field : fieldSet.getFields()) {
+      fieldsInFieldSet.add(field.getFieldPath().toLowerCase());
+    }
+    return fieldsInFieldSet;
   }
 }

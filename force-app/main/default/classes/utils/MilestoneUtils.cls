@@ -59,7 +59,7 @@ public with sharing class MilestoneUtils {
     List<String> milestoneNames,
     DateTime complDate
   ) {
-      if(caseIds.isEmpty()){
+    if (caseIds.isEmpty()) {
       return;
     }
     List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();

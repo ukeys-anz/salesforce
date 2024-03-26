@@ -16,7 +16,7 @@ public with sharing class CCRMValidateAddressService extends Service {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('Content-Type', 'application/json');
-    String endPoint = 'callout:SF_MS_CCRM' + Label.MS_Get_Qas_Address_V3;
+    String endPoint = Label.MS_Get_Qas_Address_V3;
     return calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_POST,
@@ -48,10 +48,7 @@ public with sharing class CCRMValidateAddressService extends Service {
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('Content-Type', 'application/json');
     headers.put('Add-Components', 'true');
-    String endPoint =
-      'callout:SF_MS_CCRM' +
-      Label.MS_Get_Qas_AddressById_V3 +
-      globalAddressKey;
+    String endPoint = Label.MS_Get_Qas_AddressById_V3 + globalAddressKey;
     return calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_POST,
@@ -76,10 +73,7 @@ public with sharing class CCRMValidateAddressService extends Service {
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('Content-Type', 'application/json');
     headers.put('Add-Components', 'true');
-    String endPoint =
-      'callout:SF_MS_CCRM' +
-      Label.MS_Get_Qas_AddressById_V3 +
-      globalAddressKey;
+    String endPoint = Label.MS_Get_Qas_AddressById_V3 + globalAddressKey;
     return calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_POST,

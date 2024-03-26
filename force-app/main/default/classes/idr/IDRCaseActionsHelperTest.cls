@@ -10,25 +10,18 @@ private with sharing class IDRCaseActionsHelperTest {
   static void testHardshipUpdateDateTimeFlagUpdated() {
     Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
-    Case caseRecord = createCaseWithIssueTyes();
-    caseRecord.Id = caseRecordId;
+    Case oldCase = IDRTestDataFactory.createComplaint();
+    oldCase.Id = caseRecordId;
 
-    Case caseRecord1 = createCaseWithIssueTyes();
-    caseRecord1.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Test1';
-    caseRecord1.IDR_Final_Letter_Outcome__c = 'Test2';
-    caseRecord1.Id = caseRecordId;
-
-    Case caseRecord2 = createCaseWithIssueTyes();
-    caseRecord2.Id = caseRecordId;
-
-    Test.startTest();
+    Case newCase = IDRTestDataFactory.createComplaint();
+    newCase.IDR_Is_Hardship_Resolution_Letter_Sent__c = 'Test1';
+    newCase.IDR_Final_Letter_Outcome__c = 'Test2';
+    newCase.Id = caseRecordId;
 
     Datetime dt = IDRCaseActionsHelper.populateHardshipUpdateDate(
-      caseRecord1,
-      caseRecord
+      newCase,
+      oldCase
     );
-
-    Test.stopTest();
 
     System.assertNotEquals(null, dt, 'Date/time flag should be updated');
   }
@@ -37,49 +30,18 @@ private with sharing class IDRCaseActionsHelperTest {
   static void testHardshipUpdateDateTimeFlagNotUpdated() {
     Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
-    Case caseRecord = createCaseWithIssueTyes();
-    caseRecord.Id = caseRecordId;
+    Case oldCase = IDRTestDataFactory.createComplaint();
+    oldCase.Id = caseRecordId;
 
-    Case caseRecord2 = createCaseWithIssueTyes();
-    caseRecord2.Id = caseRecordId;
-
-    Test.startTest();
+    Case newCase = IDRTestDataFactory.createComplaint();
+    newCase.Id = caseRecordId;
 
     Datetime dt = IDRCaseActionsHelper.populateHardshipUpdateDate(
-      caseRecord2,
-      caseRecord
+      newCase,
+      oldCase
     );
 
-    Test.stopTest();
-
     System.assertEquals(null, dt, 'Date/time flag should be null');
-  }
-  /**
-   * @description Create Case record with different issue types
-   * @return Case
-   */
-
-  private static Case createCaseWithIssueTyes() {
-    Case caseRecord = new Case();
-    caseRecord.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-    caseRecord.IDR_Customer_Number__c = '1234567890';
-    caseRecord.Status = 'Open';
-    caseRecord.IDR_Account_Card_Policy_Number__c = 'N/A';
-    caseRecord.isEscalated = false;
-    caseRecord.IDR_Second_Issue__c = true;
-    caseRecord.IDR_Third_Issue__c = true;
-    caseRecord.Type = '4';
-    caseRecord.IDR_Issue_Type_2__c = '9';
-    caseRecord.IDR_Issue_Type_3__c = '17';
-    caseRecord.IDR_Subsequent_Issue__c = '20';
-    caseRecord.IDR_Subsequent_Issue_2__c = '57';
-    caseRecord.IDR_Subsequent_Issue_3__c = '24';
-    caseRecord.IDR_Product_Category__c = 'Asset finance';
-    caseRecord.IDR_Account_Card_Policy_Number_2__c = 'N/A';
-    caseRecord.IDR_Account_Card_Policy_Number_3__c = 'N/A';
-    caseRecord.Description = 'Test';
-    caseRecord.IDR_Complainant_Desired_Outcome__c = 'Test';
-    return caseRecord;
   }
 
   @isTest
@@ -88,16 +50,15 @@ private with sharing class IDRCaseActionsHelperTest {
     ID userRecordID = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     ID userRecordID2 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     ID groupRecordID = Lib_FakeIdGenerator.getMockId(Group.SObjectType);
-    Case caseRecord = createCaseWithIssueTyes();
+    Case caseRecord = IDRTestDataFactory.createComplaint();
     caseRecord.Id = caseRecordId;
     caseRecord.OwnerId = userRecordID;
-    Case caseRecord1 = createCaseWithIssueTyes();
+    Case caseRecord1 = IDRTestDataFactory.createComplaint();
     caseRecord1.Id = caseRecordId;
     caseRecord1.OwnerId = userRecordID2;
-    Case caseRecord2 = createCaseWithIssueTyes();
+    Case caseRecord2 = IDRTestDataFactory.createComplaint();
     caseRecord2.Id = caseRecordId;
     caseRecord2.OwnerId = groupRecordID;
-    Test.startTest();
     DateTime dt1 = IDRCaseActionsHelper.populateDateCaseAllocatedToCM(
       caseRecord1,
       caseRecord
@@ -106,7 +67,6 @@ private with sharing class IDRCaseActionsHelperTest {
       caseRecord2,
       caseRecord
     );
-    Test.stopTest();
 
     System.assertNotEquals(null, dt1, 'Date/time flag should be updated');
     System.assertEquals(
@@ -121,22 +81,79 @@ private with sharing class IDRCaseActionsHelperTest {
     ID userRecordID = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     ID userRecordID2 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
     ID groupRecordID = Lib_FakeIdGenerator.getMockId(Group.SObjectType);
-    Case caseRecord = createCaseWithIssueTyes();
+    Case caseRecord = IDRTestDataFactory.createComplaint();
     caseRecord.Id = caseRecordId;
     caseRecord.OwnerId = userRecordID;
-    Case caseRecord1 = createCaseWithIssueTyes();
+    Case caseRecord1 = IDRTestDataFactory.createComplaint();
     caseRecord1.Id = caseRecordId;
     caseRecord1.OwnerId = userRecordID2;
-    Case caseRecord2 = createCaseWithIssueTyes();
+    Case caseRecord2 = IDRTestDataFactory.createComplaint();
     caseRecord2.Id = caseRecordId;
     caseRecord2.OwnerId = groupRecordID;
-    Test.startTest();
     ID pco = IDRCaseActionsHelper.populateOldOwnerID(caseRecord1, caseRecord);
-    Test.stopTest();
     System.assertEquals(
       userRecordID,
       pco,
       'Previous Case Owner must be User Record 1'
+    );
+  }
+
+  @isTest
+  static void testpopulateAfcaRegistrationResponseDate() {
+    Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Case oldCase = IDRTestDataFactory.createComplaint();
+    oldCase.Id = caseRecordId;
+    oldCase.IDR_AFCA_Registration_Response_Provided__c = false;
+    Case newCase = IDRTestDataFactory.createComplaint();
+    newCase.Id = caseRecordId;
+    newCase.IDR_AFCA_Registration_Response_Provided__c = true;
+    DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+      oldCase,
+      newCase
+    );
+    System.assertNotEquals(
+      null,
+      responseProvided,
+      'Date/time flag should be updated'
+    );
+  }
+
+  @isTest
+  static void testAfcaDueDateNotPopulate() {
+    Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Case oldCase = IDRTestDataFactory.createComplaint();
+    oldCase.Id = caseRecordId;
+    oldCase.IDR_AFCA_Registration_Response_Provided__c = false;
+    Case newCase = IDRTestDataFactory.createComplaint();
+    newCase.Id = caseRecordId;
+    newCase.IDR_AFCA_Registration_Response_Provided__c = false;
+    DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+      oldCase,
+      newCase
+    );
+    System.assertEquals(
+      null,
+      responseProvided,
+      'Date/time flag should be null'
+    );
+  }
+  @isTest
+  static void testAfcaDueDatewithResponseUncheckedPopulate() {
+    Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Case oldCase = IDRTestDataFactory.createComplaint();
+    oldCase.Id = caseRecordId;
+    oldCase.IDR_AFCA_Registration_Response_Provided__c = true;
+    Case newCase = IDRTestDataFactory.createComplaint();
+    newCase.Id = caseRecordId;
+    newCase.IDR_AFCA_Registration_Response_Provided__c = false;
+    DateTime responseProvided = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+      oldCase,
+      newCase
+    );
+    System.assertEquals(
+      null,
+      responseProvided,
+      'Date/time flag should be null'
     );
   }
 }

@@ -34,9 +34,7 @@ public with sharing class HomeLoanService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
-      Label.MS_Get_HomeLoanAccountUrl +
-      urlParam,
+      Label.MS_Get_HomeLoanAccountUrl + urlParam,
       HTTP_METHOD.HTTP_GET,
       headers,
       null

@@ -14,7 +14,6 @@ public inherited sharing class TwilioServiceTest {
       AuthServiceTest.IDTESTVALUE
     );
     String endPoint =
-      'callout:SF_MS_Twilio' +
       Label.MS_Get_CustomerChatChannels +
       '4017640246' +
       '/channels';

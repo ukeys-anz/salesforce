@@ -52,7 +52,7 @@ public with sharing class DCRMMaintainPartyService extends Service {
       throw new CustomException(Label.MLCRM_User_LAN_Id_Error);
     }
     String body = getBody(record);
-    String endPoint = 'callout:SF_MS_Party' + Label.MS_Maintain_Party;
+    String endPoint = Label.MS_Maintain_Party;
     return calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_POST,

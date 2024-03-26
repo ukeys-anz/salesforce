@@ -77,7 +77,7 @@ public with sharing class CommonUtil {
     }
     return labelsByValues;
   }
-
+ 
   /**
    * @description getAvailableRecordTypeNamesForSObject(input) method is used to get available record types for a certain sobject.
    * This method will only return the record types that are available to the current user

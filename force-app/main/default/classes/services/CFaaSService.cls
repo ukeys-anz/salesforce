@@ -33,7 +33,7 @@ public with sharing class CFaaSService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Get_CFaaS_Download_Url,
+      Label.MS_Get_CFaaS_Download_Url,
       HTTP_METHOD.HTTP_POST,
       headers,
       JSON.serialize(callBody)

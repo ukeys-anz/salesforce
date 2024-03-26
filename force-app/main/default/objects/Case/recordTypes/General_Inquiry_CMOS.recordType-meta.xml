@@ -7,6 +7,53 @@
     <description>Unauthenticated Enquiry Record Type</description>
     <label>Unauthenticated Enquiry</label>
     <picklistValues>
+        <picklist>AFCA_Stage__c</picklist>
+        <values>
+            <fullName>Case Management Level 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Case Management Level 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm Resolution With Complainant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Case Management Level 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Preliminary View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preliminary View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rules Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workflow</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Has_complaint_met_RG_271_delay_criteria__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -989,6 +1036,17 @@
         <values>
             <fullName>Customer%2FBusiness CAP ID</fullName>
             <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_AFCA_Status__c</picklist>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
