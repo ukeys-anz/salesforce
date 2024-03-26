@@ -140,7 +140,7 @@ const findAllUsernamesFromAlias = (usernameOrAlias) => {
   return aliasJsonFile.result.find((re) => re.alias === usernameOrAlias)?.value;
 };
 
-const nonProdUsernameValidation = (usernameOrAlias) => {
+const isNPUsernameValid = (usernameOrAlias) => {
   const username = findAllUsernamesFromAlias(usernameOrAlias);
   if (!username) {
     console.error(
@@ -150,20 +150,14 @@ const nonProdUsernameValidation = (usernameOrAlias) => {
   }
 
   const lowerCaseUsername = username.toLowerCase();
-  console.log(
-    `The username which trys to remove secrets is: ${lowerCaseUsername}`
-  );
-
-  if (
+  console.log(`The username is: ${lowerCaseUsername}`);
+  return (
     lowerCaseUsername.includes("@anzx.com") &&
-    !lowerCaseUsername.includes("@anzx.com.")
-  ) {
-    console.error("ERROR: You should not remove secrets on Production.");
-    process.exit(1);
-  }
+    lowerCaseUsername.includes("@anzx.com.")
+  );
 };
 
-const instanceUrlValidation = (usernameOrAlias) => {
+const isNPInstanceUrlValid = (usernameOrAlias) => {
   let orgDisplayUserJson = runCommand(
     `sf org display user -o ${usernameOrAlias} --json`
   );
@@ -175,15 +169,40 @@ const instanceUrlValidation = (usernameOrAlias) => {
 
   const instanceURL = orgDisplayUserJson.result.instanceUrl;
   console.log(`The instance url is: ${instanceURL}`);
-  if (!instanceURL.includes("sandbox")) {
-    console.error("ERROR: You should not remove secrets on Production.");
+  return instanceURL.includes("sandbox");
+};
+
+const nonProdChangeValidation = (usernameOrAlias) => {
+  if (
+    !isNPUsernameValid(usernameOrAlias) ||
+    !isNPInstanceUrlValid(usernameOrAlias)
+  ) {
+    console.error(`ERROR: ${usernameOrAlias} is a Production username/alias`);
     process.exit(1);
   }
 };
 
-const nonProdChangeValidation = (usernameOrAlias) => {
-  nonProdUsernameValidation(usernameOrAlias);
-  instanceUrlValidation(usernameOrAlias);
+const prodChangeValidation = (usernameOrAlias) => {
+  if (
+    isNPUsernameValid(usernameOrAlias) ||
+    isNPInstanceUrlValid(usernameOrAlias)
+  ) {
+    console.error(
+      `ERROR: ${usernameOrAlias} is not a Production username/alias`
+    );
+    process.exit(1);
+  }
+};
+
+const licenceTypeValidation = (licenceType) => {
+  const validLicences = ["Developer", "Developer_Pro"];
+  if (!validLicences.includes(licenceType)) {
+    console.error(`Licence Type is not valid: ${licenceType}`);
+    console.error(
+      'Licence Type should be either "Developer" or "Developer_Pro"'
+    );
+    process.exit(1);
+  }
 };
 
 export {
@@ -195,5 +214,7 @@ export {
   removeCert,
   discardGitChanges,
   runCommand,
-  nonProdChangeValidation
+  nonProdChangeValidation,
+  prodChangeValidation,
+  licenceTypeValidation
 };
