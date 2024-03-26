@@ -34,6 +34,21 @@
         <name>TFMSortConsents</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSortConsents4564995105717595</globalKey>
+        <inputFieldName>sortedConsents</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>sortedConsents</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSortConsents</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:consentsList LIST &apos;stateUpdatedTime&apos; &apos;createTime&apos; &apos;[:DSC]&apos; SORTBY</formulaConverted>
         <formulaExpression>SORTBY(LIST(consentsList),&apos;stateUpdatedTime&apos;, &apos;createTime&apos;, &apos;[:DSC]&apos;)</formulaExpression>
         <formulaResultPath>sortedConsents</formulaResultPath>
@@ -44,18 +59,6 @@
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMSortConsents</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMSortConsents4564995105717595</globalKey>
-        <inputFieldName>sortedConsents</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
