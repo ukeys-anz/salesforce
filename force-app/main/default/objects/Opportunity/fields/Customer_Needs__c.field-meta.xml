@@ -72,9 +72,9 @@
                 <label>Home Loan - Bridging Finance</label>
             </value>
             <value>
-                <fullName>Home Loan – Construction</fullName>
+                <fullName>Home Loan - Construction</fullName>
                 <default>false</default>
-                <label>Home Loan – Construction</label>
+                <label>Home Loan - Construction</label>
             </value>
             <value>
                 <fullName>Home Loan - Refinance + Purchase</fullName>

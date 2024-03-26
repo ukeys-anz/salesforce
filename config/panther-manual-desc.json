@@ -2381,6 +2381,12 @@
       "IA-2530753": ["User_Role__c", "Profile__c"],
       "IA-2415993": ["Conversation_Guide_URL__c", "Campaign_Lead_URL__c"]
     },
+    "DCRM_CountryMapping__mdt": {
+      "IA-2415984": ["Country_Code__c"]
+    },
+    "DCRM_StateMapping__mdt": {
+      "IA-2415984": ["State_Code__c"]
+    },
     "Lead_Status_Transformation__mdt": {
       "IA-2415860": [
         "Lead_Status__c",

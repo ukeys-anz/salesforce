@@ -802,6 +802,30 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param state
+   * @param postcode
+   * @param suburb
+   * @return HttpCalloutResponse api response
+   * @description validate manual address details
+   */
+  public virtual HttpCalloutResponse getValidateAddressV3(
+    String state,Integer postcode,String suburb
+  ) {
+    return null;
+  }
+    
+  /**
+   * @param postcode
+   * @return HttpCalloutResponse api response
+   * @description validate manual address details
+   */
+  public virtual HttpCalloutResponse getPostcodeLookupV3 (
+    Integer postcode
+  ) {
+    return null;
+  }
+  
+  /**
    * @param ocvId ocv Id
    * @return `HttpCalloutResponse` the api response
    * @description fetches ListConsentHistory from Lighthouse through mule

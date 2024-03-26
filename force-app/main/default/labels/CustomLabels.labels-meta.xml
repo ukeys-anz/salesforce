@@ -2213,4 +2213,25 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>ANZX_Marketing_Consent_Tableau_Url</shortDescription>
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
     </labels>
+    <labels>
+        <fullName>MS_Postcode_Lookup_V3</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Postcode Lookup V3</shortDescription>
+        <value>/sfdc/addresses/v3/addresses/lookup?postcode=</value>
+    </labels>
+    <labels>
+        <fullName>MS_Validate_Address_V3</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Validate Address V3</shortDescription>
+        <value>/sfdc/addresses/v3/addresses/validate</value>
+    </labels>
+     <labels>
+        <fullName>CCRM_Validate_Manual_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM Validate Manual Address</shortDescription>
+        <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
+    </labels>
 </CustomLabels>

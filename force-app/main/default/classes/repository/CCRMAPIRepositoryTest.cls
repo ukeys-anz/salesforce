@@ -131,4 +131,20 @@ public with sharing class CCRMAPIRepositoryTest {
       'address result should return'
     );
   }
+
+  @isTest
+  static void testvalidateManualAddressesV3LWC() {
+    CCRMValidateManualAddressModel getAddressesLWC = MLCRMAPIRepository.validateManualAddressesV3LWC(
+      'VIC',
+       3000,
+      'MELBOURNE'
+    );
+
+    // Verify response received contains fake values
+    System.assertNotEquals(
+      null,
+      getAddressesLWC.result,
+      'The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.'
+    );
+  }
 }

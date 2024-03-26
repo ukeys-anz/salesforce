@@ -164,6 +164,14 @@
         <apexClass>MLCRMCommonUtils</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>DCRM_CountryMapping__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>DCRM_StateMapping__mdt</name>
+    </customMetadataTypeAccesses>
     <description>Baseline pset for using the AR&amp;C Commercial CRM app. </description>
     <fieldPermissions>
         <editable>true</editable>
