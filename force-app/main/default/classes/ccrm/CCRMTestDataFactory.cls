@@ -1010,7 +1010,9 @@ public with sharing class CCRMTestDataFactory {
       objOpportunity.CloseDate = system.Today() + 3;
       objOpportunity.Description = '987654321';
       objOpportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
-
+      if (ownerUser != null) {
+        objOpportunity.OwnerId = ownerUser.Id;
+      }
       newOpps.add(objOpportunity);
     }
     if (doInsert) {
@@ -1123,21 +1125,39 @@ public with sharing class CCRMTestDataFactory {
       LIMIT 1
     ];
 
-    ActionPlanTemplateItem apTempItems = new ActionPlanTemplateItem();
-    apTempItems.ActionPlanTemplateVersionId = apTempVer.Id;
-    apTempItems.Name = 'Google';
-    apTempItems.IsActive = true;
-    apTempItems.IsRequired = false;
-    apTempItems.ItemEntityType = 'Task';
+    List<ActionPlanTemplateItem> apTempItems = new List<ActionPlanTemplateItem>();
+    ActionPlanTemplateItem apTempItem1 = new ActionPlanTemplateItem();
+    apTempItem1.ActionPlanTemplateVersionId = apTempVer.Id;
+    apTempItem1.Name = 'Google';
+    apTempItem1.IsActive = true;
+    apTempItem1.IsRequired = false;
+    apTempItem1.ItemEntityType = 'Task';
+    apTempItems.add(apTempItem1);
 
+    ActionPlanTemplateItem apTempItem2 = new ActionPlanTemplateItem();
+    apTempItem2.ActionPlanTemplateVersionId = apTempVer.Id;
+    apTempItem2.Name = 'Test';
+    apTempItem2.IsActive = true;
+    apTempItem2.IsRequired = true;
+    apTempItem2.ItemEntityType = 'Task';
+    apTempItems.add(apTempItem2);
     insert apTempItems;
 
-    ActionPlanTemplateItemValue apTempItemValue = new ActionPlanTemplateItemValue();
-    apTempItemValue.ActionPlanTemplateItemId = apTempItems.Id;
-    apTempItemValue.ItemEntityFieldName = 'Task.Subject';
-    apTempItemValue.Name = 'Test Name';
-    apTempItemValue.ValueLiteral = 'Sample';
-    insert apTempItemValue;
+    List<ActionPlanTemplateItemValue> values = new List<ActionPlanTemplateItemValue>();
+    ActionPlanTemplateItemValue apTempItemValue1 = new ActionPlanTemplateItemValue();
+    apTempItemValue1.ActionPlanTemplateItemId = apTempItems[0].Id;
+    apTempItemValue1.ItemEntityFieldName = 'Task.Subject';
+    apTempItemValue1.Name = 'Test';
+    apTempItemValue1.ValueLiteral = 'Sample';
+    values.add(apTempItemValue1);
+
+    ActionPlanTemplateItemValue apTempItemValue2 = new ActionPlanTemplateItemValue();
+    apTempItemValue2.ActionPlanTemplateItemId = apTempItems[1].Id;
+    apTempItemValue2.ItemEntityFieldName = 'Task.Subject';
+    apTempItemValue2.Name = 'Subject';
+    apTempItemValue2.ValueLiteral = 'Search';
+    values.add(apTempItemValue2);
+    insert values;
 
     apTempVer.Status = 'Final';
     update apTempVer;
@@ -1242,6 +1262,53 @@ public with sharing class CCRMTestDataFactory {
     Database.insert(newCPs);
     return newCPs;
   }
+
+  /**
+   * @description Create a CCRM Base User with commercial Segment
+   * @name createCCRMBaseUserWithCS
+   * @param commercialSegment commercial segment of the user
+   * @return ANZ CCRM Standard User with CCRM Base User Permission Set & Opportunity Access
+   */
+  public static User createCCRMBaseUserWithCS(String commercialSegment) {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
+    ccrmBaseUser.FirstName = 'BaseUser' + staticNumber;
+    ccrmBaseUser.LastName = 'CCRM ' + commercialSegment;
+    ccrmBaseUser.UserRoleId = commercialBankerRole.Id;
+    ccrmBaseUser.ProfileId = anzStandardProfileId;
+    ccrmBaseUser.Commercial_Segment__c = commercialSegment;
+    insert ccrmBaseUser;
+    TestUtil.assignPermissionSetGroups(
+      new List<String>{ 'CCRM_Banker' },
+      new List<User>{ ccrmBaseUser }
+    );
+    return ccrmBaseUser;
+  }
+
+  /**
+   * @description Create a static opp
+   * @name createStaticOpportunityData
+   * @param oppId opportunity Id
+   * @param oppName opportunity name
+   * @param recordTypeId opportunity record type Id
+   * @param stageName opportunity stage name
+   * @return Opportunity
+   */
+  public static Opportunity createStaticOpportunityData(
+    String oppId,
+    String oppName,
+    String recordTypeId,
+    String stageName
+  ) {
+    Opportunity opp = new Opportunity();
+    opp.Id = oppId;
+    opp.Name = oppName;
+    opp.StageName = stageName;
+    opp.RecordTypeId = recordTypeId;
+    return opp;
+  }
+
   /**
    * @description Create Deposit Account test context
    * @name createDepositAccountContext
@@ -1272,7 +1339,7 @@ public with sharing class CCRMTestDataFactory {
    * @name createDepositAccountContext
    * @return Returns DataSource.QueryContext context
    */
-  public static DataSource.QueryContext createCreditCardContext() {
+    public static DataSource.QueryContext createCreditCardContext() {
     Test.setMock(
       HttpCalloutMock.class,
       new CCRMTestDataFactory.CCRMCreditCardQueryTestMock()

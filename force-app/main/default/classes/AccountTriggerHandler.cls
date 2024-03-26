@@ -21,9 +21,6 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     AccountCommonActions.populateFieldsValue(records);
     MLCRMAccountActions.validateDateOfBirth(records, null);
     CCRMAccountActions.setControllingPost(records, null);
-    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      CCRMAccountActions.validateCustomerInformation(records, null);
-    }
   }
 
   /**

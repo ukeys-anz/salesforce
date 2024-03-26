@@ -2333,7 +2333,12 @@
         "Rating"
       ],
       "IA-2425399": ["Referrer_Email__c", "Referrer_Phone__c"],
-      "IA-2460507": ["Referrer_Name__c"],
+      "IA-2460507": [
+        "Referrer_Name__c",
+        "My_Sub_Team__c",
+        "My_Team__c",
+        "Lead_Owner_Teamcode__c"
+      ],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
       "IA-2618706": [
         "PreferredName__c",
@@ -2383,12 +2388,15 @@
         "UNICA_Lead_Status__c"
       ]
     },
-    "CCRM_Action_Plan_Template_Selection__mdt": {
-      "IA-2415860": [
+    "CCRM_Commercial_Stage_Action_Plan__mdt": {
+      "IA-2460507": [
+        "Next_Stage__c",
+        "Previous_Stage__c",
         "Commercial_Segment__c",
         "Opportunity_Record_Type__c",
         "Template_Name__c",
-        "Opportunity_Stage_Name__c"
+        "Opportunity_Stage_Name__c",
+        "Current_Stage__c"
       ]
     },
     "Loan_Applicant_Group__c": {
@@ -2672,7 +2680,6 @@
       "IA-2415860": [
         "Associated_Source_Detail__c",
         "BBD_Application_Number__c",
-        "BCOP_Email_sent__c",
         "Broker_Involved__c",
         "CLP_Credit_Case_Number__c",
         "Customer_Needs__c",
@@ -2695,7 +2702,8 @@
         "Contact__c",
         "Lead_Converted__c",
         "Has_Close_Date_Changed__c",
-        "CLG__c"
+        "CLG__c",
+        "My_Notes__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -2744,7 +2752,13 @@
         "Total_Mortgage_Lending__c",
         "Waiting_Indicator__c",
         "Waiting_Flag__c"
-      ]
+      ],
+      "IA-2460507": [
+        "My_Sub_Team__c",
+        "My_Team__c",
+        "Opportunity_Owner_Teamcode__c"
+      ],
+      "IA-2530753": ["Opportunity_Owner__c"]
     },
     "OpportunityLineItem": {
       "IA-2415987": [
@@ -2767,7 +2781,7 @@
         "UnitPrice",
         "ServiceDate"
       ],
-      "IA-2415860": ["Funding_purpose__c"]
+      "IA-2415860": ["Funding_purpose__c", "Interest_Rate_Quoted__c"]
     },
     "Process_Effectiveness__c": {
       "IA-2415840": [
@@ -3635,6 +3649,8 @@
         "Lan_Id__c",
         "Leads_Count__c",
         "Team_Code__c",
+        "Commercial_Segment__c",
+        "Sub_Team_Code__c",
         "Manager_Email__c",
         "Manager_Lan_Id__c",
         "Commercial_Segment__c"

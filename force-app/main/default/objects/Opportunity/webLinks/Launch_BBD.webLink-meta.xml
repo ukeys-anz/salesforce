@@ -9,5 +9,5 @@
     <masterLabel>Launch BBD</masterLabel>
     <openType>noSidebar</openType>
     <protected>false</protected>
-    <url>https://bbd.csp.service.anz/#/customers/{!Account.Source_System_ID__c}?source=iKnow&amp;opportunityId={!Opportunity.Opp_Id__c}</url>
+    <url>https://bbd.csp.service.anz/#/customers/{!Account.Source_System_ID__c}?source=CRM&amp;opportunityId={!Opportunity.Opp_Id__c}</url>
 </WebLink>

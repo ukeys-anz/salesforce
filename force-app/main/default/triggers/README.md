@@ -41,28 +41,28 @@ public with sharing class SObjectTriggerHandler extends Lib_TriggerHandler {
 
 Now that we have the hollow handler class, we need to overwrite the relevant methods.
 
-| Hook            | Method to Override | Argument(s)               |
-| --------------- |:------------------:|:-------------------------:|
-| before insert   | onBeforeInsert     |                           |
-| after insert    | onAfterInsert      |                           |
-| before update   | onBeforeUpdate     | Map<Id, SObject> oldMap() |
-| after update    | onAfterUpdate      | Map<Id, SObject> oldMap() |
-| before delete   | onBeforeDelete     |                           |
-| after delete    | onAfterDelete      |                           |
-| before undelete | onBeforeUndelete   |                           |
-| after undelete  | onAfterUndelete    |                           |
+| Hook            | Method to Override |        Argument(s)        |
+| --------------- | :----------------: | :-----------------------: |
+| before insert   |   onBeforeInsert   |                           |
+| after insert    |   onAfterInsert    |                           |
+| before update   |   onBeforeUpdate   | Map<Id, SObject> oldMap() |
+| after update    |   onAfterUpdate    | Map<Id, SObject> oldMap() |
+| before delete   |   onBeforeDelete   |                           |
+| after delete    |   onAfterDelete    |                           |
+| before undelete |  onBeforeUndelete  |                           |
+| after undelete  |  onAfterUndelete   |                           |
 
 As well as there are two other methods that can be overriden:
 
-| Method Name     | Argument(s)               | Description                                                         |
-| --------------- |:-------------------------:|:-------------------------------------------------------------------:|
-| onValidate      |                           | Run validtion logic (only on current trigger context)               |
+| Method Name     |        Argument(s)        |                             Description                             |
+| --------------- | :-----------------------: | :-----------------------------------------------------------------: |
+| onValidate      |                           |        Run validtion logic (only on current trigger context)        |
 | onValidate      | Map<Id, SObject> oldMap() | Run validation logic (where prior value is required for comparison) |
-| onApplyDefaults |                           | Set default values progrmmatically                                  |
+| onApplyDefaults |                           |                 Set default values progrmmatically                  |
 
 If you want to see the order in which these run, you can look at the `Lib_TriggerHandler.cls` file within the `library/` directory in `classes/`.
 
-Once a handler has been established with the relevant overrides, we should be *calling well name methods* from a `CommonActions` class so that the orchestration within each hook is very easy to establish and read.
+Once a handler has been established with the relevant overrides, we should be _calling well name methods_ from a `CommonActions` class so that the orchestration within each hook is very easy to establish and read.
 
 So an example handler class:
 

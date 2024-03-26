@@ -17919,11 +17919,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.BCOP_Email_sent__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Opportunity.Broker_Involved__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -23332,7 +23327,7 @@
         <layout>Access_Request__c-Access Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Account-Account %28Business%29 Legal Entity Layout</layout>
+        <layout>Account-CCRM Account Layout</layout>
         <recordType>Account.Business_Account</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -23640,7 +23635,7 @@
         <recordType>Contact.Hidden</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Contact-FinServ__Contact %28Business%29 Layout</layout>
+        <layout>Contact-CCRM Contact Business Layout</layout>
         <recordType>Contact.FinServ__IndustriesBusiness</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -24266,7 +24261,7 @@
         <layout>User-User Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>UserAlt-User Profile Layout</layout>
+        <layout>UserAlt-New User Profile Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>UserAppMenuItem-Application Layout</layout>

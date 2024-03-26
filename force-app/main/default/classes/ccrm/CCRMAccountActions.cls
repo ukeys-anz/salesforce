@@ -6,85 +6,39 @@
  * @runTests CCRMAccountActionsTest
  */
 public with sharing class CCRMAccountActions {
+  private static final Set<String> RECORD_TYPE_SET = new Set<String>{
+    String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+    String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+  };
+
   private static final List<AccountFieldValidation> ACCOUNT_FIELD_VALIDATION_WRAPPER = new List<AccountFieldValidation>{
     new AccountFieldValidation(
       'Name',
       System.Label.CCRM_NameLengthCheck,
       40,
       false,
-      new Set<String>{
-        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
-        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
-      }
+      RECORD_TYPE_SET
     ),
     new AccountFieldValidation(
       'FinServ__CustomerType__c',
       System.Label.CCRM_CustomerTypeLengthCheck,
       2,
       false,
-      new Set<String>{
-        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
-        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
-      }
-    ),
-    new AccountFieldValidation(
-      'BillingCity',
-      System.Label.CCRM_CityLengthCheck,
-      15,
-      false,
-      new Set<String>{
-        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
-        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
-      }
-    ),
-    new AccountFieldValidation(
-      'BillingState',
-      System.Label.CCRM_StateLengthCheck,
-      15,
-      false,
-      new Set<String>{
-        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID)
-      }
-    ),
-    new AccountFieldValidation(
-      'BillingPostalCode',
-      System.Label.CCRM_PostalCodeLengthCheck,
-      9,
-      false,
-      new Set<String>{
-        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
-        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
-      }
+      RECORD_TYPE_SET
     ),
     new AccountFieldValidation(
       'Sic',
       System.Label.CCRM_SicCodeLengthCheck,
       4,
       false,
-      new Set<String>{
-        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
-        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
-      }
+      RECORD_TYPE_SET
     ),
     new AccountFieldValidation(
       'ABN__c',
       System.Label.CCRM_ABNLengthCheck,
       11,
       true,
-      new Set<String>{
-        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
-        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
-      }
-    ),
-    new AccountFieldValidation(
-      'BillingCountry',
-      System.Label.CCRM_CountryCodeLengthCheck,
-      3,
-      true,
-      new Set<String>{
-        String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
-        String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
-      }
+      RECORD_TYPE_SET
     )
   };
   /**
@@ -337,7 +291,10 @@ public with sharing class CCRMAccountActions {
       if (isShellAccount(rec)) {
         rec.addError(Label.ML_ShellProspect_Update_ErrorMessage);
       } else if (
-        rec.isPersonAccount && rec.OCV_ID__c != oldMap.get(rec.id)?.OCV_ID__c
+        (rec.isPersonAccount ||
+        rec.RecordTypeId ==
+        CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID) &&
+        rec.OCV_ID__c != oldMap.get(rec.id)?.OCV_ID__c
       ) {
         rec.addError(Label.ML_OCV_ID_Update_ErrorMessage);
       }
@@ -388,48 +345,41 @@ public with sharing class CCRMAccountActions {
     List<Account> recordList,
     Map<Id, Account> oldMap
   ) {
-    String newFieldValue = '';
-    String oldFieldValue = '';
-
+    String errorMessage = '';
+    String oldFieldVal = '';
+    String newFieldVal = '';
     //iterate over modified customer records
     for (Account iterator : recordList) {
+      errorMessage = '';
       //iterate of field list for validation
       for (
         AccountFieldValidation accFieldValidationIterator : ACCOUNT_FIELD_VALIDATION_WRAPPER
       ) {
+        //get new field val
+        newFieldVal = (String) iterator.get(
+          accFieldValidationIterator.fieldName
+        );
         //skip to next record if not a valid record type
         if (
-          !accFieldValidationIterator.customerRecordTypeSet.contains(
-            iterator.RecordTypeId
-          )
+          !RECORD_TYPE_SET.contains(iterator.RecordTypeId) ||
+          String.isBlank(newFieldVal)
         ) {
           continue;
         }
-        //get updated field value and trim extra spaces if required to check length
-        newFieldValue = String.isNotBlank(newFieldValue)
-          ? accFieldValidationIterator.trimSpaces
-              ? (String.valueOf(
-                    iterator.get(accFieldValidationIterator.fieldName)
-                  ))
-                  .replace(' ', '')
-              : String.valueOf(
-                  iterator.get(accFieldValidationIterator.fieldName)
-                )
-          : '';
-        //get old field value
-        oldFieldValue = oldMap != null
-          ? String.valueOf(
-              oldMap.get(iterator.Id).get(accFieldValidationIterator.fieldName)
-            )
-          : '';
-        //check if length is greater than specified field length
-        //and add error
-        if (
-          (String.isBlank(oldFieldValue) || newFieldValue != oldFieldValue) &&
-          newFieldValue.length() > accFieldValidationIterator.fieldLength
-        ) {
-          iterator.addError(accFieldValidationIterator.validationMessage);
-        }
+        //get old value
+        oldFieldVal = (String) oldMap.get(iterator.Id)
+          .get(accFieldValidationIterator.fieldName);
+
+        //get error messages
+        errorMessage += (accFieldValidationIterator.validateLength(
+          newFieldVal,
+          oldFieldVal,
+          iterator.RecordTypeId
+        ) + '\n');
+      }
+      //add error message
+      if (String.isNotBlank(errorMessage)) {
+        iterator.addError(errorMessage.removeEnd('\n'));
       }
     }
   }
@@ -441,6 +391,7 @@ public with sharing class CCRMAccountActions {
    * @description AccountFieldValidation wrapper class to maintain field validation for Account
    * @name AccountFieldValidation
    */
+  @testVisible
   private class AccountFieldValidation {
     String fieldName;
     String validationMessage;
@@ -450,12 +401,13 @@ public with sharing class CCRMAccountActions {
 
     /**
      * @description AccountFieldValidation wrapper class to maintain field validation for Account
-     * @param fieldName Field Name
+     * @param fieldName name of the field being validated
      * @param validationMessage Field validation message
      * @param fieldLength Field length
      * @param trimSpaces Replace value
      * @param customerRecordTypeSet list of allowed record types
      */
+    @testVisible
     private AccountFieldValidation(
       String fieldName,
       String validationMessage,
@@ -463,11 +415,34 @@ public with sharing class CCRMAccountActions {
       Boolean trimSpaces,
       Set<String> customerRecordTypeSet
     ) {
-      this.fieldName = fieldName;
       this.fieldLength = fieldLength;
       this.validationMessage = validationMessage;
       this.trimSpaces = trimSpaces;
       this.customerRecordTypeSet = new Set<String>(customerRecordTypeSet);
+      this.fieldName = fieldName;
+    }
+    /**
+     * @description fetchAccounts fetch List of accounts
+     * @param newVal new Account field val,
+     * @param oldVal old field value
+     * @param recordTypeId record type id of Account
+     * @return if field had any error message
+     */
+    @testVisible
+    private String validateLength(
+      String newVal,
+      String oldVal,
+      String recordTypeId
+    ) {
+      String newTrimmedVal = this.trimSpaces ? newVal.replace(' ', '') : newVal;
+      if (
+        (this.customerRecordTypeSet).contains(recordTypeId) &&
+        (newVal != oldVal) &&
+        newTrimmedVal.length() > this.fieldLength
+      ) {
+        return this.validationMessage;
+      }
+      return '';
     }
   }
 

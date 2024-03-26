@@ -299,4 +299,64 @@ private class CCRMAccountActionsTest {
       '1 Customer_Profile_Updates__c record should be created when advertising & disclosure indicator are updated'
     );
   }
+
+  @isTest
+  static void testValidateCustomerInformation() {
+    Faker faker = new Faker('AU');
+    Database.SaveResult result;
+    //GIVEN A active account with ABN as  50 110 219 460
+    Account testAccount = [SELECT Id FROM Account WHERE Name = 'Test Pty Ltd'];
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
+      //WHEN the account is updated by a Banker user to change ABN with value greater than 11
+      testAccount.ABN__c = '50 110 219 460 56';
+      result = Database.update(testAccount, false);
+      Test.stopTest();
+    }
+
+    //THEN an error should be added to the record for change in ABN
+    // Verify
+    System.assertEquals(
+      2,
+      result.getErrors().size(),
+      'ABN should not be greater than 11 characters'
+    );
+  }
+
+  @isTest
+  static void testValidatelength() {
+    //GIVEN A active account with ABN as  50 110 219 460
+    String newValue = 'Business';
+    String oldvalue = 'BA';
+    String recordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    String errorMessage = '';
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
+      //WHEN the account is updated by a Banker user to change ABN with value greater than 11
+      //CCRMAccountActions acountActionsInstance = new CCRMAccountActions();
+      CCRMAccountActions.AccountFieldValidation accValidationInstance = new CCRMAccountActions.AccountFieldValidation(
+        'FinServ__CustomerType__c',
+        System.Label.CCRM_CustomerTypeLengthCheck,
+        2,
+        false,
+        new Set<String>{
+          String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+          String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+        }
+      );
+      errorMessage = accValidationInstance.validateLength(
+        newValue,
+        oldvalue,
+        recordTypeId
+      );
+      Test.stopTest();
+    }
+    //THEN an error should be added to the record for change in ABN
+    // Verify
+    System.assertEquals(
+      errorMessage,
+      System.Label.CCRM_CustomerTypeLengthCheck,
+      'Customer Type Length cannot be greater than 2 characters.'
+    );
+  }
 }

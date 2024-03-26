@@ -9,7 +9,7 @@
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -340,6 +340,11 @@
                 <fullName>Zurich</fullName>
                 <default>false</default>
                 <label>Zurich</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
             </value>
         </valueSetDefinition>
     </valueSet>

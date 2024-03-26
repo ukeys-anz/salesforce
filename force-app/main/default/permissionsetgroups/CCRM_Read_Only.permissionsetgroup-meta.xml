@@ -5,7 +5,9 @@
     <label>CCRM Read Only</label>
     <permissionSets>CCRM_User_Read_Only</permissionSets>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__ActionPlans</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>View_C360_Financial_Accounts</permissionSets>
     <permissionSets>View_C360_Financial_Summary</permissionSets>

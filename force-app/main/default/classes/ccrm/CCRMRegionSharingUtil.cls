@@ -125,6 +125,8 @@ public without sharing class CCRMRegionSharingUtil {
         AND Area_Code__c != NULL
         AND (Id IN :oldOwnerIdSet
         OR Id IN :newOwnerIdSet)
+        AND (Commercial_Segment__c = :CCRMConstants.SBB_SEGMENT
+        OR Commercial_Segment__c = :CCRMConstants.BB_SEGMENT)
     ]) {
       if (oldOwnerIdSet.contains(userIterator.Id)) {
         leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.add(
@@ -191,6 +193,8 @@ public without sharing class CCRMRegionSharingUtil {
         AND Area_Code__c != NULL
         AND (Id IN :oldOwnerIdSet
         OR Id IN :newOwnerIdSet)
+        AND (Commercial_Segment__c = :CCRMConstants.SBB_SEGMENT
+        OR Commercial_Segment__c = :CCRMConstants.BB_SEGMENT)
     ]) {
       if (oldOwnerIdSet.contains(userIterator.Id)) {
         leadOpportunityAccessWrapperInst.usersToRemoveFromRegion.add(
@@ -389,7 +393,12 @@ public without sharing class CCRMRegionSharingUtil {
         [
           SELECT Id, Area_Code__c, Commercial_Segment__c
           FROM User
-          WHERE IsActive = TRUE AND Area_Code__c != NULL AND Id IN :ownerIds
+          WHERE
+            IsActive = TRUE
+            AND Area_Code__c != NULL
+            AND Id IN :ownerIds
+            AND (Commercial_Segment__c = :CCRMConstants.SBB_SEGMENT
+            OR Commercial_Segment__c = :CCRMConstants.BB_SEGMENT)
         ]
       );
     }
@@ -406,9 +415,7 @@ public without sharing class CCRMRegionSharingUtil {
         mapAreaCodeToRecordIds.get(segment + '_' + areaCode).add(record.Id);
       } else {
         mapAreaCodeToRecordIds.put(
-          segment +
-          '_' +
-          areaCode,
+          segment + '_' + areaCode,
           new Set<Id>{ record.Id }
         );
       }
@@ -486,11 +493,11 @@ public without sharing class CCRMRegionSharingUtil {
     //so there's no need to cross-check with origin mapping of recordId <-> regionId
     String query = String.format(
       'SELECT Id ' +
-      'FROM {0} ' +
-      'WHERE {1} IN :recordIds ' +
-      ' AND RowCause = \'Manual\' ' +
-      ' AND {2} = \'Edit\' ' +
-      ' AND UserOrGroupId IN :regionIds',
+        'FROM {0} ' +
+        'WHERE {1} IN :recordIds ' +
+        ' AND RowCause = \'Manual\' ' +
+        ' AND {2} = \'Edit\' ' +
+        ' AND UserOrGroupId IN :regionIds',
       new List<String>{
         shareObjectInfo.name,
         shareObjectInfo.recordIdField,
@@ -537,9 +544,7 @@ public without sharing class CCRMRegionSharingUtil {
         );
       } else {
         newAreaCodes.add(
-          record.Commercial_Segment__c +
-          '_' +
-          record.Area_Code__c
+          record.Commercial_Segment__c + '_' + record.Area_Code__c
         );
       }
     }
