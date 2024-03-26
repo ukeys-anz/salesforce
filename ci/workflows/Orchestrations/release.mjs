@@ -13,6 +13,7 @@ import {
 import {
   prodValidationWithAllTests,
   prodDeploymentWithAllTests,
+  prodQuickDeployment,
   deployWithoutTest,
   deployProgress,
   deployReport,
@@ -105,7 +106,7 @@ const prodDeployment = () => {
     DEPLOY_USER_USERNAME,
     PROD_URL
   );
-  const deployment = prodDeploymentWithAllTests(
+  const deployment = prodQuickDeployment(
     SOURCE_DIR,
     ARTIFACTORY_SECRET_VALUE,
     ARTIFACTORY_REPO_NAME,
