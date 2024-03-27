@@ -2162,7 +2162,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Revoke_Consent</shortDescription>
-        <value>/aegis-portal/v1/coaches/consents/revocation</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/revocation</value>
     </labels>
     <labels>
         <fullName>TFMBiometricAttestationIdConstants</fullName>
@@ -2176,21 +2176,21 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_ConsentsDataSharingHistory_API</shortDescription>
-        <value>/aegis-portal/v1/coaches/consents/customer/data?consent_id=</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/customer/data?consent_id=</value>
     </labels>
     <labels>
         <fullName>MS_ConsentList_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_ConsentList_API</shortDescription>
-        <value>/aegis-portal/v1/coaches/consents</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents</value>
     </labels>
     <labels>
         <fullName>MS_consentMgmtAccountList</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_consentMgmtAccountList</shortDescription>
-        <value>/aegis-portal/v1/coaches/consents/accounts</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/accounts</value>
     </labels>
     <labels>
         <fullName>FinAccountProductToMap</fullName>
@@ -2218,16 +2218,16 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Postcode Lookup V3</shortDescription>
-        <value>/sfdc/addresses/v3/addresses/lookup?postcode=</value>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/lookup?postcode=</value>
     </labels>
     <labels>
         <fullName>MS_Validate_Address_V3</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Validate Address V3</shortDescription>
-        <value>/sfdc/addresses/v3/addresses/validate</value>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/validate</value>
     </labels>
-     <labels>
+    <labels>
         <fullName>CCRM_Validate_Manual_Address</fullName>
         <language>en_US</language>
         <protected>false</protected>
