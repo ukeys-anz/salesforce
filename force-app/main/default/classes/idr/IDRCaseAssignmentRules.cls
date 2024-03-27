@@ -210,15 +210,13 @@ public with sharing class IDRCaseAssignmentRules {
         return QUEUE_MAP.get('IDR_Deceased_Estates'); // IDR Deceased Estates
       }
       // Simple Complaint on Unassisted Channel
-      if (
-        (IDRConstants.IDR_EARLY_RESOLUTION.contains(rec.Origin) ||
-        rec.SuppliedEmail == System.Label.ANZ_com_Sender_Address) &&
-        (!rec.IDR_Second_Issue__c && !rec.IDR_Third_Issue__c) &&
-        IDRConstants.IDR_UNASSISTED_ISSUE_TYPE.contains(rec.Type) &&
-        IDRConstants.IDR_UNASSISTED_SUB_ISSUE_TYPE.contains(
-          rec.IDR_Subsequent_Issue__c
-        )
-      ) {
+      if (IDRConstants.IDR_EARLY_RESOLUTION.contains(rec.Origin) &&
+         String.isNotBlank(rec.IDR_Inbox_Email_Address__c) &&
+         (!rec.IDR_Second_Issue__c && !rec.IDR_Third_Issue__c) &&
+         IDRConstants.IDR_UNASSISTED_ISSUE_TYPE.contains(rec.Type) &&
+         IDRConstants.IDR_UNASSISTED_SUB_ISSUE_TYPE.contains(
+          rec.IDR_Subsequent_Issue__c)
+        ) {
         return QUEUE_MAP.get('IDR_Early_Resolution_Unassisted_Channel');
       }
 
