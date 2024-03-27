@@ -38,20 +38,22 @@ const {
   SPECIFIED_TEST_PR,
   PR_NUMBER,
   WORKING_DIR,
-  REPO_NAME
+  REPO_NAME,
+  JOB_NAME
 } = process.env;
 
 const SOURCE_DIR = renameItem(`artifact-${BRANCH_NAME}`);
 const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases-np`;
 const CLASS_FOLDER_PATH = `${SOURCE_DIR}/force-app/main/default/classes`;
-const JOB_ID_FILE_NAME = renameItem(`${BASE_REF}-${PR_NUMBER}`);
+const JOB_ID_FILE_NAME =
+  renameItem(`${BASE_REF}-${PR_NUMBER}`) +
+  (JOB_NAME ? `${JOB_NAME.replace("h-salesforce-np", "")}` : "");
 const ANZX_CI_PACKAGE_XML =
   WORKING_DIR + "/ci/workflows/Config/ANZxCIPackage.xml";
 const ARTIFACT_PACKAGE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/package/package.xml";
 const ARTIFACT_DESTRUCTIVE_XML =
   WORKING_DIR + "/" + SOURCE_DIR + "/destructiveChanges/destructiveChanges.xml";
-
 const args = findAllArgvs();
 const SFDX_URL = args[0];
 const ARTIFACTORY_SECRET_VALUE = args[1];

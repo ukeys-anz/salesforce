@@ -164,7 +164,11 @@ const cancel = (
     jobIdFileName,
     "| Cancel previous job."
   );
-  if (!pastJobId || pastJobId.includes("File not found")) {
+  if (
+    !pastJobId ||
+    pastJobId.includes("File not found") ||
+    pastJobId.includes("Invalid deploy ID")
+  ) {
     console.log("No Running Job Found.");
     return;
   }
