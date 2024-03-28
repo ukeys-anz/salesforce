@@ -4,9 +4,5 @@
     <entityName>Case</entityName>
     <fieldName>Status</fieldName>
     <masterLabel>Profile Update</masterLabel>
-    <pathAssistantSteps>
-        <fieldNames>Sub_Status__c</fieldNames>
-        <picklistValueName>Closed</picklistValueName>
-    </pathAssistantSteps>
     <recordTypeName>Profile_Update</recordTypeName>
 </PathAssistant>
