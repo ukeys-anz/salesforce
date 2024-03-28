@@ -501,14 +501,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMHideContactInvocable</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMHideContactInvocableTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMLeadActions</apexClass>
         <enabled>false</enabled>
     </classAccesses>
