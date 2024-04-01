@@ -8,7 +8,8 @@
 public with sharing class DCRMMaintainPartyModelTest {
   @isTest
   static void testParse() {
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    User ocvIntegrationUser = CCRMTestDataFactory.createOCVIntegrationUser();
+    System.runAs(ocvIntegrationUser) {
       StaticResource sr = [
         SELECT Body
         FROM StaticResource

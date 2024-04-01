@@ -2,14 +2,14 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sub_Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
-    <description>Determines the status of a case more granularly</description>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Determines the status of a case with greater granularity</description>
     <externalId>false</externalId>
     <label>Sub Status</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -22,10 +22,28 @@
                 <default>false</default>
                 <label>No Defect</label>
             </value>
+            <value>
+                <fullName>No Longer Required</fullName>
+                <default>false</default>
+                <label>No Longer Required</label>
+            </value>
+            <value>
+                <fullName>Customer Not Responding</fullName>
+                <default>false</default>
+                <label>Customer Not Responding</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <valueName>No Defect</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>No Longer Required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
+            <valueName>Customer Not Responding</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

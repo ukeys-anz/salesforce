@@ -4,6 +4,7 @@
  * @description ContactTriggerHandler is the handler class for Contact Trigger which extends Lib_TriggerHandler from the trigger framework used.
  * @runTests CCRMContactActionsTest
  */
+
 public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Before Insert Action of Contact.
@@ -102,11 +103,6 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
         false
       );
     }
-
-    ContactOCVSyncProcessor.updateRecordsForOCVVersionChanged(
-      records,
-      (Map<Id, Contact>) oldMap
-    );
 
     CCRMContactActions.deleteCommercialContactsWithoutContactDetails(records);
   }

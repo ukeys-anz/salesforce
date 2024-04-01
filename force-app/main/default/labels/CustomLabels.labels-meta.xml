@@ -337,7 +337,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Create_Party</shortDescription>
-        <value>/dcrm/customers/v1/customers/organisations</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations</value>
     </labels>
     <labels>
         <fullName>MS_Maintain_Party</fullName>
@@ -345,7 +345,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Maintain_Party</shortDescription>
-        <value>/dcrm/customers/v1/customers/individuals</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/individuals</value>
     </labels>
     <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
@@ -353,7 +353,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Fraud_Lock_Card</shortDescription>
-        <value>/card-management/v1/cards</value>
+        <value>callout:SF_MS_Fabric/card-management/v1/cards</value>
     </labels>
     <labels>
         <fullName>MS_Get_Credit_Assessments</fullName>
@@ -361,7 +361,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Credit_Assessments</shortDescription>
-        <value>/credit-assessment/v1/listreferraloutcome/</value>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/listreferraloutcome/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Abr_Abn</fullName>
@@ -369,7 +369,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Abr_Abn</shortDescription>
-        <value>/abr/v1/abn/</value>
+        <value>callout:SF_MS_CCRM/abr/v1/abn/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Abr_Acn</fullName>
@@ -377,7 +377,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Abr_Acn</shortDescription>
-        <value>/abr/v1/acn/</value>
+        <value>callout:SF_MS_CCRM/abr/v1/acn/</value>
     </labels>
     <labels>
         <fullName>MS_Forge_Token</fullName>
@@ -385,7 +385,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Forge_Token</shortDescription>
-        <value>/anz-sys-forge-oauth-api/api/v1/token</value>
+        <value>callout:SF_MS_Fabric/anz-sys-forge-oauth-api/api/v1/token</value>
     </labels>
     <labels>
         <fullName>MS_Get_Account_Buckets</fullName>
@@ -393,7 +393,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Account_Buckets</shortDescription>
-        <value>/coach-banking/v1beta1/accounts/buckets</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1beta1/accounts/buckets</value>
     </labels>
     <labels>
         <fullName>MS_Get_Cards</fullName>
@@ -401,7 +401,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Cards</shortDescription>
-        <value>/coach-banking/v1beta1/cards</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1beta1/cards</value>
     </labels>
     <labels>
         <fullName>MS_Get_Card_Control_List</fullName>
@@ -409,7 +409,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Card_Control_List</shortDescription>
-        <value>/coach-banking/v1beta2/cardcontrols</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1beta2/cardcontrols</value>
     </labels>
     <labels>
         <fullName>MS_Get_CaseChatChannel</fullName>
@@ -417,7 +417,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_CaseChatChannel</shortDescription>
-        <value>/contact-centre/v1/chat/channels/</value>
+        <value>callout:SF_MS_Twilio/contact-centre/v1/chat/channels/</value>
     </labels>
     <labels>
         <fullName>MS_Get_CFaaS_Download_Url</fullName>
@@ -425,7 +425,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_CFaaS_Download_Url</shortDescription>
-        <value>/cfaas/read/getdownloadurl</value>
+        <value>callout:SF_MS_Fabric/cfaas/read/getdownloadurl</value>
     </labels>
     <labels>
         <fullName>MS_Get_Customer</fullName>
@@ -433,7 +433,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
-        <value>/anz-exp-sfdc-customers-api/api/v2/public/customers/search?relationship_manager_required=true&amp;all_accounts_required=true</value>
+        <value>callout:Mulesoft/anz-exp-sfdc-customers-api/api/v2/public/customers/search?relationship_manager_required=true&amp;all_accounts_required=true</value>
     </labels>
     <labels>
         <fullName>MS_Get_CustomerChatChannels</fullName>
@@ -441,7 +441,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_CustomerChatChannels</shortDescription>
-        <value>/contact-centre/v1/chat/users/</value>
+        <value>callout:SF_MS_Twilio/contact-centre/v1/chat/users/</value>
     </labels>
     <labels>
         <fullName>MS_Get_SOP</fullName>
@@ -465,7 +465,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Transactions</shortDescription>
-        <value>/coach-banking/v1beta1/transactions</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1beta1/transactions</value>
     </labels>
     <labels>
         <fullName>MS_Get_TransactionsV1</fullName>
@@ -473,7 +473,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_TransactionsV1</shortDescription>
-        <value>/coach-banking/v1/transactions</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/transactions</value>
     </labels>
     <labels>
         <fullName>MS_Get_Qas_Address</fullName>
@@ -497,7 +497,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_Address</shortDescription>
-        <value>/sfdc/addresses/v3/addresses/search</value>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/search</value>
     </labels>
     <labels>
         <fullName>MS_Get_Qas_AddressById</fullName>
@@ -521,7 +521,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_AddressById_V3</shortDescription>
-        <value>/sfdc/addresses/v3/addresses/format/</value>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/format/</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>
@@ -529,7 +529,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Replace_Card</shortDescription>
-        <value>/coach-banking/v1beta1/cards/</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1beta1/cards/</value>
     </labels>
     <labels>
         <fullName>MS_Search_Party</fullName>
@@ -537,7 +537,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Search_Party</shortDescription>
-        <value>/dcrm/customers/v1/customers/organisations/search-results?</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations/search-results?</value>
     </labels>
     <labels>
         <fullName>MS_Search_Party_Params</fullName>
@@ -553,7 +553,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Temp_Lock_Card</shortDescription>
-        <value>/coach-banking/v1beta2/cardcontrols/</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1beta2/cardcontrols/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Financial_Accounts</fullName>
@@ -561,7 +561,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Financial_Accounts</shortDescription>
-        <value>/coach-banking/v1beta1/accounts</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1beta1/accounts</value>
     </labels>
     <labels>
         <fullName>MS_Get_Financial_AccountsV1</fullName>
@@ -569,7 +569,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Financial_AccountsV1</shortDescription>
-        <value>/coach-banking/v1/accounts</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/accounts</value>
     </labels>
     <labels>
         <fullName>MS_Get_Tokenized_Card</fullName>
@@ -577,7 +577,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Tokenized_Card</shortDescription>
-        <value>/coach-banking/v1/disputes/transactions/</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/disputes/transactions/</value>
     </labels>
     <labels>
         <fullName>MS_Get_StatementList</fullName>
@@ -585,7 +585,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_StatementList</shortDescription>
-        <value>/document-management/v1beta2/statements/list</value>
+        <value>callout:SF_MS_Fabric/document-management/v1beta2/statements/list</value>
     </labels>
     <labels>
         <fullName>MS_Get_StatementUrl</fullName>
@@ -593,7 +593,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_StatementUrl</shortDescription>
-        <value>/document-management/v1beta2/statements/signed_url/</value>
+        <value>callout:SF_MS_Fabric/document-management/v1beta2/statements/signed_url/</value>
     </labels>
     <labels>
         <fullName>MS_Get_HomeLoanAccountUrl</fullName>
@@ -601,7 +601,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_HomeLoanAccountUrl</shortDescription>
-        <value>/coach-banking/v1/accounts</value>
+        <value>callout:SF_MS_Fabric/coach-banking/v1/accounts</value>
     </labels>
     <labels>
         <fullName>ST_Close_Package</fullName>
@@ -609,7 +609,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ST_Close_Package</shortDescription>
-        <value>/account-closure/v1/packages</value>
+        <value>callout:SF_MS_Fabric/account-closure/v1/packages</value>
     </labels>
     <labels>
         <fullName>Test_Bulk_Size</fullName>
@@ -768,7 +768,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Initiate_Chat</shortDescription>
-        <value>/contact-centre-staff/chats</value>
+        <value>callout:SF_MS_Twilio/contact-centre-staff/chats</value>
     </labels>
     <labels>
         <fullName>MS_Reinitiate_Chat</fullName>
@@ -776,7 +776,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Reinitiate_Chat</shortDescription>
-        <value>/contact-centre-staff/reinit-chats</value>
+        <value>callout:SF_MS_Twilio/contact-centre-staff/reinit-chats</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_New</fullName>
@@ -1028,7 +1028,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Onboarding Retry API</shortDescription>
-        <value>/customer-onboarding/v1/retryStage</value>
+        <value>callout:SF_MS_Fabric/customer-onboarding/v1/retryStage</value>
     </labels>
     <labels>
         <fullName>ST_ApproveSelfieIDCheck</fullName>
@@ -1036,7 +1036,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Onboarding Approve Selfie ID Check API</shortDescription>
-        <value>/customer-onboarding/v1/approveSelfieIdCheck</value>
+        <value>callout:SF_MS_Fabric/customer-onboarding/v1/approveSelfieIdCheck</value>
     </labels>
     <labels>
         <fullName>ST_Confirm_Fraud</fullName>
@@ -1044,7 +1044,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Onboarding Confirm Fraud API</shortDescription>
-        <value>/customer-onboarding/v1/confirmFraud</value>
+        <value>callout:SF_MS_Fabric/customer-onboarding/v1/confirmFraud</value>
     </labels>
     <labels>
         <fullName>ST_Detokenize</fullName>
@@ -1052,7 +1052,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Onboarding Detokenize COBPID API</shortDescription>
-        <value>/customer-info/v1/detokenize</value>
+        <value>callout:SF_MS_Fabric/customer-info/v1/detokenize</value>
     </labels>
     <labels>
         <fullName>ST_Approve_ID_Verification</fullName>
@@ -1060,7 +1060,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Onboarding Approve ID Verification API</shortDescription>
-        <value>/customer-onboarding/v1/approveIdVerification</value>
+        <value>callout:SF_MS_Fabric/customer-onboarding/v1/approveIdVerification</value>
     </labels>
     <labels>
         <fullName>ST_UpdatePrimaryIdDocument</fullName>
@@ -1068,7 +1068,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Onboarding UpdatePrimaryIdDocument API</shortDescription>
-        <value>/customer-onboarding/v1/updatePrimaryIdDocument</value>
+        <value>callout:SF_MS_Fabric/customer-onboarding/v1/updatePrimaryIdDocument</value>
     </labels>
     <labels>
         <fullName>ANZX_CustomerValidation_Event_Proto_Data_Schema</fullName>
@@ -1313,7 +1313,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LightHouse ListConsentHistory</shortDescription>
-        <value>/lighthouse/v1/connect-id/consent-histories</value>
+        <value>callout:SF_MS_Fabric/lighthouse/v1/connect-id/consent-histories</value>
     </labels>
     <labels>
         <fullName>MLCRM_LeadDetailsSubText</fullName>
@@ -1755,7 +1755,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Security Code Endpoint</shortDescription>
-        <value>/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
     </labels>
     <labels>
         <fullName>Diary_Comments_Endpoint</fullName>
@@ -1763,7 +1763,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Diary Comments Endpoint</shortDescription>
-        <value>/dcrm/customers/v1/diary-comments</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/diary-comments</value>
     </labels>
     <labels>
         <fullName>MLCRM_Lead_MisMatch_Warning_Message</fullName>
@@ -1819,7 +1819,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Get View Umi API</shortDescription>
-        <value>/credit-assessment/v1/umi</value>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/umi</value>
     </labels>
     <labels>
         <fullName>MS_Submit_Credit_Reassessment</fullName>
@@ -1827,7 +1827,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Submit_Credit_Reassessment</shortDescription>
-        <value>/credit-assessment/v1/reassessment</value>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/reassessment</value>
     </labels>
     <labels>
         <fullName>MS_Submit_Credit_Finalisation</fullName>
@@ -1835,7 +1835,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Submit_Credit_Finalisation</shortDescription>
-        <value>/credit-assessment/v1/confirmassessment</value>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/confirmassessment</value>
     </labels>
     <labels>
         <fullName>MS_Submit_Referral_Outcome</fullName>
@@ -1843,7 +1843,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Submit_Referral_Outcome</shortDescription>
-        <value>/credit-assessment/v1/providereferraloutcome</value>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/providereferraloutcome</value>
     </labels>
     <labels>
         <fullName>MS_Delete_Referral_Outcome</fullName>
@@ -1851,7 +1851,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Delete_Referral_Outcome</shortDescription>
-        <value>/credit-assessment/v1/creditenquiries/</value>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/creditenquiries/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Mandate_List</fullName>
@@ -1954,7 +1954,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Verify_Insurance</shortDescription>
-        <value>/credit-assessment/v1/settlements/proof-of-insurance/verification</value>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/settlements/proof-of-insurance/verification</value>
     </labels>
     <labels>
         <fullName>ANZX_Customer_Comm_Url</fullName>
@@ -2081,53 +2081,88 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
     </labels>
     <labels>
+        <fullName>CIBA_AccessTokenRequestEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_AccessTokenRequestEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/customer/access-token</value>
+    </labels>
+    <labels>
+        <fullName>CIBA_AuthorisationRequestEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_AuthorisationRequestEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/customer/bc-authorize</value>
+    </labels>
+    <labels>
+        <fullName>CIBA_getForgePublicKeyEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_getForgePublicKeyEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/forge/jwk-uri?kid=</value>
+    </labels>
+    <labels>
+        <fullName>Grant_Type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Grant_Type</shortDescription>
+        <value>urn:openid:params:grant-type:ciba</value>
+    </labels>
+    <labels>
         <fullName>MS_ForgeV2_Token</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_ForgeV2_Token</shortDescription>
-        <value>/forge/oauth/v2/customer/token?anz_token_type=</value>
+        <value>callout:SF_MS_ForgeV2_Token/forge/oauth/v2/customer/token?anz_token_type=</value>
     </labels>
     <labels>
         <fullName>MS_GetDeviceWithBiometric</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_GetDeviceWithBiometric</shortDescription>
-        <value>/aegis-portal/v1/users/{userInternalId}/authenticators?status=ACTIVE&amp;sortField=created&amp;appCorrelationId={appCorrelationId}&amp;sortAscending=false</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/users/{userInternalId}/authenticators?status=ACTIVE&amp;sortField=created&amp;appCorrelationId={appCorrelationId}&amp;sortAscending=false</value>
     </labels>
     <labels>
         <fullName>MS_GetDeviceWithoutBiometric</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_GetDeviceWithoutBiometric</shortDescription>
-        <value>/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
     </labels>
     <labels>
         <fullName>MS_SearchCustomer_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_SearchCustomer_API</shortDescription>
-        <value>/aegis-portal/v1/coaches/persons?_queryFilter=true&amp;</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/persons?_queryFilter=true&amp;</value>
     </labels>
     <labels>
         <fullName>MS_GetJointAccountPermissions_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_GetJointAccountPermissions_API</shortDescription>
-        <value>/aegis-portal/v1/coaches/disclosure-state</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/disclosure-state</value>
     </labels>
     <labels>
         <fullName>MS_Update_Disclosure_Status</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Update_Disclosure_Status</shortDescription>
-        <value>/aegis-portal/v1/coaches/disclosure-state</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/disclosure-state</value>
     </labels>
     <labels>
         <fullName>MS_JointNotificationSettingAPI</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_JointNotificationSettingAPI</shortDescription>
-        <value>/aegis-portal/v1/coaches/joint-accounts/notification-settings</value>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/joint-accounts/notification-settings</value>
+    </labels>
+    <labels>
+        <fullName>MS_Revoke_Consent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Revoke_Consent</shortDescription>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/revocation</value>
     </labels>
     <labels>
         <fullName>TFMBiometricAttestationIdConstants</fullName>
@@ -2135,6 +2170,27 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>TFMBiometricAttestationIdConstants</shortDescription>
         <value>D409#2101,D409#2204,D409#0102</value>
+    </labels>
+    <labels>
+        <fullName>MS_ConsentsDataSharingHistory_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ConsentsDataSharingHistory_API</shortDescription>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/customer/data?consent_id=</value>
+    </labels>
+    <labels>
+        <fullName>MS_ConsentList_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ConsentList_API</shortDescription>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents</value>
+    </labels>
+    <labels>
+        <fullName>MS_consentMgmtAccountList</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_consentMgmtAccountList</shortDescription>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/accounts</value>
     </labels>
     <labels>
         <fullName>FinAccountProductToMap</fullName>
@@ -2156,5 +2212,26 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>ANZX_Marketing_Consent_Tableau_Url</shortDescription>
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
+    </labels>
+    <labels>
+        <fullName>MS_Postcode_Lookup_V3</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Postcode Lookup V3</shortDescription>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/lookup?postcode=</value>
+    </labels>
+    <labels>
+        <fullName>MS_Validate_Address_V3</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Validate Address V3</shortDescription>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/validate</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Validate_Manual_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM Validate Manual Address</shortDescription>
+        <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
 </CustomLabels>

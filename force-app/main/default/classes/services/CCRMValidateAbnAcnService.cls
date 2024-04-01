@@ -19,7 +19,7 @@ public with sharing class CCRMValidateAbnAcnService extends Service {
     Map<String, String> headers = new Map<String, String>();
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
-    String endPoint = 'callout:SF_MS_CCRM' + calloutUrl + abnOrAcn;
+    String endPoint = calloutUrl + abnOrAcn;
     return calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_GET,

@@ -38,7 +38,7 @@ public with sharing class CCRMCommercialBillFeeQuery extends CCRMFinancialAccoun
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (FeeTableCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (FeeTableCalloutResponse) CalloutModel.deserialize(
       responseBody,
       FeeTableCalloutResponse.class
     );

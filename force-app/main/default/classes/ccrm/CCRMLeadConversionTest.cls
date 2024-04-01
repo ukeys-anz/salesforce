@@ -143,23 +143,23 @@ public class CCRMLeadConversionTest {
     List<Lead> leads = [SELECT Id FROM Lead];
     CCRMLogAResponseController.LeadResponseWrapper leadResponseData1 = new CCRMLogAResponseController.LeadResponseWrapper();
     leadResponseData1.leadId = leads[0].Id;
-
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    String result;
+    User batchUser = CCRMTestDataFactory.getBatchUser();
+    System.runAs(batchUser) {
       update new Lead(
         Id = leads[0].Id,
         Status = CCRMConstants.STATUS_OUTCOME,
-        Lead_Outcome__c = CCRMConstants.STATUS_EXPIRED
+        Lead_Outcome__c = CCRMConstants.STATUS_EXPIRED,
+        Expiry_Date__c = System.today()
       );
     }
-
-    String result;
-    Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
       result = CCRMLogAResponseController.createResponseRecord(
         JSON.serialize(leadResponseData1)
       );
+      Test.stopTest();
     }
-    Test.stopTest();
 
     System.assert(
       !String.isBlank(result) &&
@@ -208,15 +208,18 @@ public class CCRMLeadConversionTest {
 
   @IsTest
   static void findAndConvertLeadCCRMTest() {
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
-      Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
-        .Id;
-      USER usr = (USER) FakerFactory.make(new FakerUserFactory());
-      usr.Email = 'test@mltest.anz.com';
-      usr.ProfileId = adminProfileId;
-      usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
-      insert usr;
-
+    User mlUser = MLCRMTestDataFactory.getMLCRMBaseUser();
+    System.runAs(mlUser) {
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+        1,
+        mlUser,
+        true
+      );
+      MLCRMTestDataFactory.createUserTerritoryRecords(
+        10,
+        mlUser.Id,
+        lstOfTerritory[0].Id
+      );
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
       insert leadRec;
       Faker faker = new Faker('AU');

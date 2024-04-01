@@ -2,14 +2,15 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Note__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy_Non-Sensitive_Personal_Information;Source - Salesforce</complianceGroup>
     <description>Additional Notes of a Lead record.</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Notes</label>
     <length>32768</length>
+    <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>LongTextArea</type>
-    <securityClassification>Internal</securityClassification>
-    <visibleLines>3</visibleLines>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
 </CustomField>

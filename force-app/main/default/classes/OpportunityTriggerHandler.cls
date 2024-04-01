@@ -20,11 +20,18 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     CCRMOpportunityActions.populateFields(records, null);
     CCRMOpportunityActions.populateClgAccount(records, null);
-    CCRMOpportunityActions.mandatoryFieldAndSkipStageCheck(
+
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
       records,
       null,
-      true,
       false
+    );
+
+    //checks for validations on opportunities
+    CCRMOpportunityActionsSkipStageHelper.validateCCRMOpportunity(
+      oppWrapper.filteredOpps,
+      oppWrapper.stageUpdatedOpps,
+      true
     );
     //CC-4528 validate Opportunity for MLCRM
     MLCRMOpportunityActions.validateMLCRMOpportunity(records, null);
@@ -45,6 +52,14 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     TextUtils.maskSObjectDataANZExtended(
       wrapperData.dcrmRecordList,
       'Description'
+    );
+    TextUtils.RecordListWrapper wrapperDataCCRM = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{ CCRMConstants.CCRM_OPP_RT_ID }
+    );
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperDataCCRM.dcrmRecordList,
+      'My_Notes__c'
     );
     MLCRMCommonUtils.referrerPrefill(records, null);
   }
@@ -76,11 +91,21 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
         (Map<Id, Opportunity>) oldMap
       );
     }
-    CCRMOpportunityActions.mandatoryFieldAndSkipStageCheck(
+    CCRMOpportunityActions.transferOpportunityOwnership(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
+
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
       records,
       (Map<Id, Opportunity>) oldMap,
-      false,
       true
+    );
+
+    CCRMOpportunityActions.mandatoryFieldAndSkipStageCheck(
+      oppWrapper,
+      (Map<Id, Opportunity>) oldMap,
+      false
     );
     //CC-4528 validate Opportunity for MLCRM
     MLCRMOpportunityActions.validateMLCRMOpportunity(
@@ -92,12 +117,14 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
 
-    CCRMOpportunityActions.populateOppName(
-      records,
-      (Map<Id, Opportunity>) oldMap,
-      false,
-      true
-    );
+    if (!CCRMOpportunityActions.insertOpportunityContext) {
+      CCRMOpportunityActions.populateOppName(
+        records,
+        (Map<Id, Opportunity>) oldMap,
+        false,
+        true
+      );
+    }
 
     //CC-4053 Redaction
     TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
@@ -113,6 +140,14 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       wrapperData.dcrmRecordList,
       'Description'
     );
+    TextUtils.RecordListWrapper wrapperDataCCRM = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{ CCRMConstants.CCRM_OPP_RT_ID }
+    );
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperDataCCRM.dcrmRecordList,
+      'My_Notes__c'
+    );
     MLCRMCommonUtils.referrerPrefill(records, oldMap);
   }
 
@@ -126,8 +161,16 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Opportunity>) oldMap
     );
-    CCRMActionPlanActions.insertActionPlans(
+
+    //gets CCRM Opportunities
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
       records,
+      (Map<Id, Opportunity>) oldMap,
+      true
+    );
+
+    CCRMActionPlanActions.validateAndInsertActionPlans(
+      oppWrapper,
       (Map<Id, Opportunity>) oldMap
     );
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy

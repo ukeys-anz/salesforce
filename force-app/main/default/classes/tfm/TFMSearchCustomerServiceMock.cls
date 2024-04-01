@@ -4,7 +4,7 @@
  * @description Mock implementation of TFMSearchCustomerServic api service, automatically injected if Non_Prod_Settings__c.MockCallouts__c is set or if the application is running in Tests
  * @group Services
  */
-public with sharing class TFMSearchCustomerServiceMock extends Service {
+public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomerService {
   /**
    * @description constructor which sets default status code and successful
    */
@@ -12,6 +12,13 @@ public with sharing class TFMSearchCustomerServiceMock extends Service {
     response.statusCode = 200;
     response.successful = true;
   }
+  @TestVisible
+  public static Boolean isError = false;
+  @TestVisible
+  public static final String AUTHENTICATION_ERROR_RESPONSE =
+    '{' +
+    '   \"error\": \"16 UNAUTHENTICATED: authentication failed\"' +
+    '}';
 
   @TestVisible
   private static final String PERSON_IDENTITY_ROWS_JSON = Service.getStaticResource(
@@ -37,20 +44,19 @@ public with sharing class TFMSearchCustomerServiceMock extends Service {
   private static final String EMAIL_JOINT_ACCOUNT_NOTIFICATION = Service.getStaticResource(
     'mock_EmailNotificationJointAccount'
   );
-  /**
-   * @param staffModel wrapper class having all the variables
-   * @return headers
-   * @description to get StaffJWT token
-   */
-  public override Map<String, String> getValidStaffToken(
-    StaffTokenRequestModel staffModel
-  ) {
-    Map<String, String> headers = new Map<String, String>();
-    if (!preset) {
-      headers.put('Token', AuthServiceTest.IDTESTVALUE);
-    }
-    return headers;
-  }
+  @TestVisible
+  private static final String GET_CONSENT_ACCOUNT_LIST = Service.getStaticResource(
+    'mock_ConsentAccountList'
+  );
+  @TestVisible
+  private static final String GET_CONSENTS_LIST = Service.getStaticResource(
+    'mock_ConsentsList'
+  );
+  @TestVisible
+  private static final String GET_DATASHARING_HISTORY = Service.getStaticResource(
+    'mock_DataSharingHistory'
+  );
+
   /**
    * @param staffModel wrapper class having all the variables
    * @return Boolean response stating action is valid or invalid
@@ -77,7 +83,7 @@ public with sharing class TFMSearchCustomerServiceMock extends Service {
     String deviceResourceId
   ) {
     if (!preset) {
-      response.body = PERSON_IDENTITY_ROWS_JSON;
+      response.body = DEVICE_DETAILS_WITHOUT_BIOMETRIC;
     }
     return response;
   }
@@ -94,20 +100,22 @@ public with sharing class TFMSearchCustomerServiceMock extends Service {
     String appCorrelationId
   ) {
     if (!preset) {
-      response.body = PERSON_IDENTITY_ROWS_JSON;
+      response.body = DEVICE_DETAILS_WITH_BIOMETRIC;
     }
     return response;
   }
 
   /**
-   * @param headers headers with data
+   * @param staffModel staffModel with data
    * @return api response
    * @description gets the Joint Accounts
    */
   public override HttpCalloutResponse getJointAccountPermissions(
-    Map<String, String> headers
+    StaffTokenRequestModel staffModel
   ) {
-    if (!preset) {
+    if (isError) {
+      response = setMockErrorResponse();
+    } else if (!preset) {
       response.body = JOINT_ACCOUNT_PERMISSIONS_LIST;
     }
     return response;
@@ -117,7 +125,7 @@ public with sharing class TFMSearchCustomerServiceMock extends Service {
    * @param bsb bsb value of the joint account
    * @param accountNumber joint account number
    * @param enabled disclosure status
-   * @param headers headers to call api
+   * @param staffModel staffModel to call api
    * @return api response
    * @description modify the Joint Accounts
    */
@@ -125,29 +133,133 @@ public with sharing class TFMSearchCustomerServiceMock extends Service {
     String bsb,
     String accountNumber,
     Boolean enabled,
-    Map<String, String> headers
+    StaffTokenRequestModel staffModel
   ) {
-    if (!preset) {
+    if (isError) {
+      response = setMockErrorResponse();
+    } else if (!preset) {
       response.body = MODIFY_ACCOUNT_PERMISSIONS;
     }
     return response;
   }
 
   /**
-   * @param headers headers with data
+   * @param staffModel staffModel with data
    * @param accountId  accountId value of the joint account
    * @param emailEnabled joint account status
    * @return api response
    * @description modify the Joint Accounts
    */
   public override HttpCalloutResponse getORModifyJointAccountNotificationAPI(
-    Map<String, String> headers,
+    StaffTokenRequestModel staffModel,
     String accountId,
     Boolean emailEnabled
   ) {
-    if (!preset) {
+    if (isError) {
+      response = setMockErrorResponse();
+    } else if (!preset) {
       response.body = EMAIL_JOINT_ACCOUNT_NOTIFICATION;
     }
+    return response;
+  }
+  /**
+   * @param arrangementId arrangementId of the record
+   * @param staffModel staffModel to call api
+   * @return HttpCalloutResponse response
+   * @description it will hit the api to stop consent
+   */
+  public override HttpCalloutResponse revokeConsent(
+    String arrangementId,
+    StaffTokenRequestModel staffModel
+  ) {
+    if (isError) {
+      response = setMockErrorResponse();
+    } else if (!preset) {
+      Test.setMock(HttpCalloutMock.class, new MockRevokeService());
+    }
+    return response;
+  }
+
+  /**
+   * @param staffModel staffModel to call api
+   * @param  consentAccounts value of the joint account
+   * @return HttpCalloutResponse response
+   * @description get and modify the joint account notifications
+   */
+  public override HttpCalloutResponse getConsentAccountList(
+    StaffTokenRequestModel staffModel,
+    string consentAccounts
+  ) {
+    if (isError) {
+      response = setMockErrorResponse();
+    } else if (!preset) {
+      response.body = GET_CONSENT_ACCOUNT_LIST;
+    }
+    return response;
+  }
+
+  /**
+   * @param staffModel staffModel with data
+   * @return api response
+   * @description gets the Get Consents List
+   */
+  public override HttpCalloutResponse getConsentsList(
+    StaffTokenRequestModel staffModel
+  ) {
+    if (isError) {
+      response = setMockErrorResponse();
+    } else if (!preset) {
+      response.body = GET_CONSENTS_LIST;
+    }
+    return response;
+  }
+
+  /**
+   * @param consentId consentId pass as api param
+   * @param fromTimestamp fromTimestamp pass as api param
+   * @param toTimestamp toTimestamp pass as api param
+   * @param staffModel staffModel with data
+   * @return api response
+   * @description gets the Data Sharing History
+   */
+  public override HttpCalloutResponse getConsentDataSharingHistory(
+    String consentId,
+    String fromTimestamp,
+    String toTimestamp,
+    StaffTokenRequestModel staffModel
+  ) {
+    if (isError) {
+      response = setMockErrorResponse();
+    } else if (!preset) {
+      response.body = GET_DATASHARING_HISTORY;
+    }
+    return response;
+  }
+
+  class MockRevokeService implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse valid response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      return res;
+    }
+  }
+
+  /**
+   * @description mock response for callout
+   * @return HttpCalloutResponse invalid response
+   */
+  public static HttpCalloutResponse setMockErrorResponse() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.body = AUTHENTICATION_ERROR_RESPONSE;
+    response.statusCode = 500;
+    response.successful = false;
+    response.error = new CalloutException('UNAUTHORIZED');
     return response;
   }
 }

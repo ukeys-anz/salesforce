@@ -41,7 +41,7 @@ public with sharing class CCRMIndemnityGuaranteeQuery extends CCRMFinancialAccou
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (IndemnityGuaranteeCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (IndemnityGuaranteeCalloutResponse) CalloutModel.deserialize(
       responseBody,
       IndemnityGuaranteeCalloutResponse.class
     );
@@ -85,7 +85,7 @@ public with sharing class CCRMIndemnityGuaranteeQuery extends CCRMFinancialAccou
       row.put('Limit', fa.accountLimit);
       row.put('ProductCode', fa.productCode);
       row.put('OLLType', fa.ollType);
-      row.put('OpenedDate', adjustUTCDateTime(fa.openedDate));
+      row.put('OpenedDate', formatDate(fa.openedDate));
       row.put('UndrawnBalance', fa.undrawnBalance);
       row.put('SecurityType', fa.securityType);
       result.queryResult.add(row);

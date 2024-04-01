@@ -42,23 +42,7 @@ private class CCRMDepositAccountQueryTest {
   @isTest
   static void createDepositAccountsTest() {
     Test.startTest();
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMDepositAccountQueryTest.CCRMDepositAccountTestMock()
-    );
-    //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
-      null
-    );
-    conn.sync();
-    //query
-    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
-      'DepositAccount'
-    );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
-      null
-    );
-    aConn.query(context);
+    DataSource.QueryContext context = CCRMTestDataFactory.createDepositAccountContext();
     CCRMDepositAccountQuery depositAcct = new CCRMDepositAccountQuery();
     CCRMExternalObjectQueryBase.ExternalQueryResult result = depositAcct.execute(
       context
@@ -81,23 +65,59 @@ private class CCRMDepositAccountQueryTest {
       'Number mismatch'
     );
   }
+  @isTest
+  static void getProductCodeTest() {
+    Test.startTest();
+    DataSource.QueryContext context = CCRMTestDataFactory.createDepositAccountContext();
+    CCRMDepositAccountQuery depositAcct = new CCRMDepositAccountQuery();
+    CCRMExternalObjectQueryBase.ExternalQueryResult result = depositAcct.execute(
+      context
+    );
 
-  /**
-   * @description create HTTP mock response for testing
-   */
-  public class CCRMDepositAccountTestMock implements HttpCalloutMock {
-    /**
-     * @description HTTP mock response
-     * @param req HTTP request
-     * @return HTTPResponse
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      String jsonBody = Service.getStaticResource('mock_depositResponse');
-      HTTPResponse res = new HTTPResponse();
-      res.setHeader('ms2-example', 'dda-success-with-multiple-accounts');
-      res.setBody(jsonBody);
-      res.setStatusCode(200);
-      return res;
-    }
+    CCRMDepositAccountQuery.CCRMDepositAccountModel accountModel = new CCRMDepositAccountQuery.CCRMDepositAccountModel();
+    accountModel.accountNumber = '3424909811';
+    accountModel.accountName = 'Denis Lai';
+    accountModel.productCode = 'DDA';
+    accountModel.status = 'Active';
+    String productCode = depositAcct.getProductCode(accountModel);
+    Test.stopTest();
+    System.assertEquals('DDA', productCode, 'Product code mismatch');
+  }
+  @isTest
+  static void getExternalIdTest() {
+    Test.startTest();
+    DataSource.QueryContext context = CCRMTestDataFactory.createDepositAccountContext();
+    CCRMDepositAccountQuery depositAcct = new CCRMDepositAccountQuery();
+    CCRMExternalObjectQueryBase.ExternalQueryResult result = depositAcct.execute(
+      context
+    );
+
+    CCRMDepositAccountQuery.CCRMDepositAccountModel accountModel = new CCRMDepositAccountQuery.CCRMDepositAccountModel();
+    accountModel.accountNumber = '3424909811';
+    accountModel.accountName = 'Denis Lai';
+    accountModel.productCode = 'DDA';
+    accountModel.status = 'Active';
+    String externalId = depositAcct.getExternalId(accountModel);
+    Test.stopTest();
+    System.assert(
+      externalId.contains('DDA-3424909811'),
+      'external id mismatch'
+    );
+  }
+  @isTest
+  static void getAccountKeyTest() {
+    Test.startTest();
+    DataSource.QueryContext context = CCRMTestDataFactory.createDepositAccountContext();
+    CCRMDepositAccountQuery depositAcct = new CCRMDepositAccountQuery();
+    CCRMExternalObjectQueryBase.ExternalQueryResult result = depositAcct.execute(
+      context
+    );
+    String accountKey = depositAcct.getAccountKey('3424909811', 'DDA');
+    Test.stopTest();
+    System.assertEquals(
+      '4011643101-3424909811|DDA-3424909811',
+      accountKey,
+      'account Key mismatch'
+    );
   }
 }

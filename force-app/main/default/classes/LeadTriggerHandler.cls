@@ -61,6 +61,14 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     // Method will check if lead is BOH Lead
     BOHLeadActions.getInstance().setBOHLeadFlag(records);
     BOHLeadActions.populateExistingCustomer(records);
+    TextUtils.RecordListWrapper wrapperDataCCRM = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{ CCRMConstants.CCRM_LEAD_RT_ID }
+    );
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperDataCCRM.dcrmRecordList,
+      'Note__c'
+    );
   }
 
   /**
@@ -117,6 +125,14 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     TextUtils.maskSObjectDataANZExtended(
       wrapperData.dcrmRecordList,
       'Description'
+    );
+    TextUtils.RecordListWrapper wrapperDataCCRM = TextUtils.checkRecordTypeRedactionMethod(
+      records,
+      new List<Id>{ CCRMConstants.CCRM_LEAD_RT_ID }
+    );
+    TextUtils.maskSObjectDataANZExtended(
+      wrapperDataCCRM.dcrmRecordList,
+      'Note__c'
     );
   }
 

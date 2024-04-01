@@ -21,7 +21,7 @@ public with sharing class IDRCustomerProfileService extends Service {
     headers.put('Content-type', 'application/json');
     String body = getBody(customerId, customerIdentifier);
     return calloutService.makeRestCallout(
-      'callout:Mulesoft' + Label.MS_Get_Customer,
+      Label.MS_Get_Customer,
       HTTP_METHOD.HTTP_POST,
       headers,
       body

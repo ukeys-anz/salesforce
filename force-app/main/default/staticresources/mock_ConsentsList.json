@@ -1,0 +1,33 @@
+{
+    "consents": [
+        {
+            "arrangementId": "ssss-ss-ss-ss-ssss",
+            "id": "fake-ss-4cb1-a23d-237c1c1aeb3a",
+            "registeredSoftwareProduct": {
+                "clientId": "fake-ss-sss-b987-64d6671ef4df",
+                "clientName": "fake",
+                "logoUri": "https://m.fake-ssss.com/images/I/91hrbype4aL._AC_SY450_.jpg"
+            },
+            "brandName": "Fake Company Name",
+            "ownerPersonaId": "fake-b17e-4bed-b3b6-1146e2c421a2",
+            "dataScopes": [
+                "bank:accounts.basic:read",
+                "bank:accounts.detail:read"
+            ],
+            "state": "STATE_STOPPED",
+            "stateUpdatedTime": "2024-02-28T06:42:17.424Z",
+            "createTime": "2024-02-28T06:37:45Z",
+            "expireTime": "2024-02-29T06:37:45Z",
+            "accounts": [
+                {
+                    "bsb": "11111",
+                    "accountNumber": "1111111"
+                },
+                {
+                    "bsb": "11111",
+                    "accountNumber": "11111"
+                }
+            ]
+        }
+    ]
+}

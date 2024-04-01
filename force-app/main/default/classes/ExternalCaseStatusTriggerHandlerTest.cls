@@ -38,7 +38,6 @@ public class ExternalCaseStatusTriggerHandlerTest {
     };
     Test.startTest();
     theCase = TestDataFactory.updateCase(theCase, dataMap);
-
     String caseStatusBefore = theCase.Status;
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = theCase.Id,
@@ -73,11 +72,10 @@ public class ExternalCaseStatusTriggerHandlerTest {
       'External_Case_Id__c' => 'ABC1234',
       'Status' => 'Under Investigation'
     };
+    Test.startTest();
     theCase = TestDataFactory.updateCase(theCase, dataMap);
 
     theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
-
-    Test.startTest();
     verifyRelatedCaseUpdate(theCase);
     Test.stopTest();
   }

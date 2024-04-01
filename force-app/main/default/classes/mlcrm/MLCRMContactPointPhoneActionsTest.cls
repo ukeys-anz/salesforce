@@ -6,19 +6,43 @@
  */
 @isTest
 public with sharing class MLCRMContactPointPhoneActionsTest {
-  @isTest
-  static void testUpdateContactPointPhoneMobile() {
-    System.runAs(MLCRMTestDataFactory.getAdminUser()) {
+  @testSetup
+  static void setup() {
+    User ocvIntegrationUser = CCRMTestDataFactory.createOCVIntegrationUser();
+    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
+    System.runAs(ocvIntegrationUser) {
       //GIVEN
       Faker faker = new Faker('AU');
-      Account acc = TestDataFactory.createAccount(
-        faker.person.firstName(),
-        true
-      );
-      ContactPointPhone testContactPointPhone = new ContactPointPhone();
-      testContactPointPhone.TelephoneNumber = '+61512345678';
-      testContactPointPhone.ParentId = acc.Id;
-      testContactPointPhone.UsageType = MLCRMConstants.PHONETYPE_MOBILE;
+      List<Account> accList = new List<Account>();
+      accList.add(TestDataFactory.createAccount('firstName', false));
+      insert accList;
+    }
+    System.runAs(mlUser) {
+      Account acc = MLCRMTestDataFactory.createAccountRecords(1, null, true)[0];
+    }
+    System.runAs(ocvIntegrationUser) {
+      Account acc = [SELECT id FROM account WHERE LastName = 'surname' LIMIT 1];
+      ContactPointPhone testContactPointPhone = MLCRMTestDataFactory.getContactPointPhoneRecords(
+        1,
+        '+61212345688',
+        acc.Id,
+        'Home'
+      )[0];
+      insert testContactPointPhone;
+    }
+
+  }
+  @isTest
+  static void testUpdateContactPointPhoneMobile() {
+    System.runAs(CCRMTestDataFactory.getOCVIntegrationUser()) {
+      //GIVEN
+      Account acc = [SELECT id FROM account WHERE name = 'firstName' LIMIT 1];
+      ContactPointPhone testContactPointPhone = MLCRMTestDataFactory.getContactPointPhoneRecords(
+        1,
+        '+61512345678',
+        acc.Id,
+        MLCRMConstants.PHONETYPE_MOBILE
+      )[0];
       insert testContactPointPhone;
 
       //WHEN
@@ -29,6 +53,8 @@ public with sharing class MLCRMContactPointPhoneActionsTest {
       ContactPointPhone cpp = [
         SELECT ParentId, Previous_Related_Account__c
         FROM ContactPointPhone
+        WHERE Previous_Related_Account__c != NULL
+        LIMIT 1
       ];
       System.assertEquals(null, cpp.ParentId, 'Parent Id set to null');
 
@@ -40,15 +66,16 @@ public with sharing class MLCRMContactPointPhoneActionsTest {
     }
   }
   @isTest
-  static void testUnlinkProspectParentOnDeactivation() {
-    System.runAs(MLCRMTestDataFactory.getAdminUser()) {
+  static void unlinkProspectParentOnDeactivationTest() {
+    System.runAs(CCRMTestDataFactory.getOCVIntegrationUser()) {
       //GIVEN
-      Faker faker = new Faker('AU');
-      Account acc = MLCRMTestDataFactory.createAccountRecords(1, null, true)[0];
-      ContactPointPhone testContactPointPhone = new ContactPointPhone();
-      testContactPointPhone.TelephoneNumber = '+61212345678';
-      testContactPointPhone.ParentId = acc.Id;
-      testContactPointPhone.UsageType = 'Home';
+      Account acc = [SELECT id FROM account WHERE LastName = 'surname' LIMIT 1];
+      ContactPointPhone testContactPointPhone = MLCRMTestDataFactory.getContactPointPhoneRecords(
+        1,
+        '+61212345678',
+        acc.Id,
+        'Home'
+      )[0];
       insert testContactPointPhone;
 
       //WHEN
@@ -59,6 +86,8 @@ public with sharing class MLCRMContactPointPhoneActionsTest {
       ContactPointPhone cpp = [
         SELECT ParentId, Previous_Related_Account__c
         FROM ContactPointPhone
+        WHERE Previous_Related_Account__c != NULL
+        LIMIT 1
       ];
       System.assertEquals(null, cpp.ParentId, 'Parent Id set to null');
 
@@ -73,22 +102,17 @@ public with sharing class MLCRMContactPointPhoneActionsTest {
   static void testUpdateContactPointPhoneExisting() {
     System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
       //GIVEN
-      Faker faker = new Faker('AU');
-      Account acc = MLCRMTestDataFactory.createAccountRecords(1, null, true)[0];
-      ContactPointPhone testContactPointPhone = new ContactPointPhone();
-      testContactPointPhone.TelephoneNumber = '+61212345678';
-      testContactPointPhone.ParentId = acc.Id;
-      testContactPointPhone.UsageType = 'Home';
-      insert testContactPointPhone;
-
+      Account acc = [SELECT id FROM account WHERE LastName = 'surname' LIMIT 1];
       String expMsg = System.Label.MLCRM_ExistingContactPointPhoneError;
       String actualMsg = '';
       Test.startTest();
       try {
-        ContactPointPhone testContactPointPhone3 = new ContactPointPhone();
-        testContactPointPhone3.TelephoneNumber = '+61212345678';
-        testContactPointPhone3.ParentId = acc.Id;
-        testContactPointPhone3.UsageType = 'Home';
+        ContactPointPhone testContactPointPhone3 = MLCRMTestDataFactory.getContactPointPhoneRecords(
+          1,
+          '+61212345688',
+          acc.Id,
+          'Home'
+        )[0];
         insert testContactPointPhone3;
       } catch (DMLException e) {
         actualMsg = e.getDmlMessage(0);
@@ -102,20 +126,26 @@ public with sharing class MLCRMContactPointPhoneActionsTest {
     }
   }
   @isTest
-  static void testUpdateContactPointPhonePatternError() {
+  static void validatePhonesTestPatternHomePhoneError() {
     System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
       //GIVEN
-      Faker faker = new Faker('AU');
-      Account acc = MLCRMTestDataFactory.createAccountRecords(1, null, true)[0];
-
+      Account accRecord = MLCRMTestDataFactory.createAccountRecords(
+        1,
+        null,
+        false
+      )[0];
+      accRecord.OCV_ID__c = 'OCV12123';
+      insert accRecord;
       String expMsg = 'Please enter Phone Number in +61212345678 format.';
       String actualMsg = '';
       Test.startTest();
       try {
-        ContactPointPhone testContactPointPhone2 = new ContactPointPhone();
-        testContactPointPhone2.TelephoneNumber = '+6112345678';
-        testContactPointPhone2.ParentId = acc.Id;
-        testContactPointPhone2.UsageType = 'Home';
+        ContactPointPhone testContactPointPhone2 = MLCRMTestDataFactory.getContactPointPhoneRecords(
+          1,
+          '+6112345678',
+          accRecord.Id,
+          'Home'
+        )[0];
         insert testContactPointPhone2;
       } catch (DMLException e) {
         actualMsg = e.getDmlMessage(0);
@@ -130,18 +160,23 @@ public with sharing class MLCRMContactPointPhoneActionsTest {
   }
 
   @isTest
-  static void testUpdateContactPointPhonePatternMobileError() {
+  static void validatePhonesTestPatternMobileError() {
     System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
       //GIVEN
-      Faker faker = new Faker('AU');
-      Account acc = MLCRMTestDataFactory.createAccountRecords(1, null, true)[0];
+      Account accRecord = MLCRMTestDataFactory.createAccountRecords(
+        1,
+        null,
+        false
+      )[0];
+      accRecord.OCV_ID__c = 'OCV12321';
+      insert accRecord;
       String expMsg = 'Please enter Mobile Number in +61412345678/+61512345678 format.';
       String actualMsg = '';
       Test.startTest();
       try {
         ContactPointPhone testContactPointPhone2 = new ContactPointPhone();
         testContactPointPhone2.TelephoneNumber = '+6112345678';
-        testContactPointPhone2.ParentId = acc.Id;
+        testContactPointPhone2.ParentId = accRecord.Id;
         testContactPointPhone2.UsageType = MLCRMConstants.PHONETYPE_MOBILE;
         insert testContactPointPhone2;
       } catch (DMLException e) {

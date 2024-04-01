@@ -139,7 +139,7 @@ public with sharing class COBCaseStatusPathControllerTest {
     );
     Assert.areEqual(
       FAILED_REASON,
-      cobCase.OnboardingVerificationFailedReason__c,
+      updatedCobCase.OnboardingVerificationFailedReason__c,
       'Case Onboarding Verification Failed Reason should have been updated with: ' +
       FAILED_REASON
     );
@@ -309,7 +309,7 @@ public with sharing class COBCaseStatusPathControllerTest {
   }
 
   @isTest
-  private static void testSetCaseStatusFromTemporalResultDaonFalloutStageAssistedKyc() {
+  private static void testSetCaseStatusFromTemporalResultDaonFalloutStageAssistedSelfie() {
     Case cobCase = getCOBCase(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
 
     Test.startTest();
@@ -407,6 +407,34 @@ public with sharing class COBCaseStatusPathControllerTest {
       FAILED_REASON,
       cobCase.OnboardingVerificationFailedReason__c,
       'Failed reason should have been: ' + FAILED_REASON
+    );
+  }
+
+  @isTest
+  private static void testSetCaseStatusFromTemporalResultConfirmedFraud() {
+    Case cobCase = getCOBCase(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
+    cobCase.status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS;
+
+    Test.startTest();
+    StravinskyAPIRepository.CxStageWrapper cobStage = new StravinskyAPIRepository.CxStageWrapper();
+    cobStage.cxOnboardingStage = StravinskyAPIRepository.COB_UPDATED;
+    COBCaseStatusPathController.setCaseStatusFromTemporalResult(
+      cobCase,
+      cobStage
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS,
+      cobCase.Status,
+      'The COB case status should remain: ' +
+      GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    );
+    Assert.areEqual(
+      COBCaseStatusPathController.CONFIRMED_FRAUD_REASON,
+      cobCase.OnboardingVerificationFailedReason__c,
+      'Failed reason should have been: ' +
+      COBCaseStatusPathController.CONFIRMED_FRAUD_REASON
     );
   }
 

@@ -40,6 +40,27 @@ public with sharing class CommonUtil {
       mapPermissionSetByName.put(ps.Name, ps);
     }
   }
+
+  /**
+   * @description Get all the business hours
+   */
+  public static BusinessHours anzBusinessHours {
+    public get {
+      if (
+        anzBusinessHours == null &&
+        BusinessHours.SObjectType.getDescribe().isQueryable()
+      ) {
+        anzBusinessHours = [
+          SELECT Id
+          FROM BusinessHours
+          WHERE Name = 'ANZx Case Business Hours'
+          LIMIT 1
+        ];
+      }
+      return anzBusinessHours;
+    }
+    private set;
+  }
   /**
    * @description Get a picklist labels by values (API names).
    * @param field The picklist field, for example Case.Type
@@ -56,24 +77,7 @@ public with sharing class CommonUtil {
     }
     return labelsByValues;
   }
-
-  /**
-   * @description Get all the business hours
-   * @return list of business hours
-   */
-  public static BusinessHours getBusinessHours() {
-    if (BusinessHours.sObjectType.getDescribe().isQueryable()) {
-      BusinessHours bh = [
-        SELECT Id
-        FROM BusinessHours
-        WHERE Name = 'ANZx Case Business Hours'
-        LIMIT 1
-      ];
-      return bh;
-    }
-    return null;
-  }
-
+ 
   /**
    * @description getAvailableRecordTypeNamesForSObject(input) method is used to get available record types for a certain sobject.
    * This method will only return the record types that are available to the current user
@@ -916,5 +920,42 @@ public with sharing class CommonUtil {
             : null)
     );
     return streetAddressMap;
+  }
+  /**
+   * @description This function will encode the blob input to base64 url encoded
+   * @param blobInput blob input to be base64URLencode
+   * @return String base64 url encoded value
+   */
+  public static String base64URLencode(Blob blobInput) {
+    String output = EncodingUtil.base64Encode(blobInput);
+    output = output.replace('+', '-');
+    output = output.replace('/', '_');
+    while (output.endsWith('=')) {
+      output = output.subString(0, output.length() - 1);
+    }
+    return output;
+  }
+
+  /**
+   * @description This function will convert the input string into blob and then encode the blob input to base64 url encoded
+   * @param stringInput string input to be base64URLencode
+   * @return String base64 url encoded value
+   */
+  public static String base64URLencode(String stringInput) {
+    return base64URLencode(Blob.valueOf(stringInput));
+  }
+
+  /**
+   * @description This function will provide the RSA algorithm name for given hash
+   * @param hash algorithm hash
+   * @return String Algorithm for the given hash
+   */
+  public static string getAlgorithmNamefromHash(String hash) {
+    if (hash == 'RS256') {
+      return 'RSA-SHA256';
+    } else if (hash == 'RS512') {
+      return 'RSA-SHA512';
+    }
+    return '';
   }
 }

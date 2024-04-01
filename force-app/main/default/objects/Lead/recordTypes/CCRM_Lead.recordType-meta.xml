@@ -7,6 +7,44 @@
     <description>Create a new AR&amp;C commercial lead</description>
     <label>Commercial CRM Lead</label>
     <picklistValues>
+        <picklist>ABN_Validation_Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Validation Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Validation in progress</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ACN_Validation_Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Validation Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Validation in progress</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Associated_Source_Detail__c</picklist>
         <values>
             <fullName>ANZ - BBM</fullName>
@@ -56,9 +94,41 @@
             <fullName>Non-ANZ Customer</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>ANZ - Mobile Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - NBC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Diversified %26 Specialist Industries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Institution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Circle of Influence %28COI%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Professionals</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Entity_Type__c</picklist>
+        <values>
+            <fullName>Individual</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>01</fullName>
             <default>false</default>
@@ -111,7 +181,7 @@
     <picklistValues>
         <picklist>FinServ__ExpressedInterest__c</picklist>
         <values>
-            <fullName>Assist with Business Cashflow</fullName>
+            <fullName>Assist with Business Working Capital%2FTemporary Finance</fullName>
             <default>false</default>
         </values>
         <values>
@@ -131,23 +201,23 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Refinance</fullName>
+            <fullName>Refinance from Other Financial Institutions</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Purchase Vacant Land</fullName>
+            <fullName>Purchasing Vacant Land</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Development and Renovation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
+            <fullName>Construction and Renovation</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Set up a new Business %28Start Up%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transactional Services %28inc%2E IB4B%2C Account opening and Merchant services%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2564,15 +2634,7 @@
     <picklistValues>
         <picklist>LeadSource</picklist>
         <values>
-            <fullName>ANZ%2Ecom</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>External Referral</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Go Biz</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2581,6 +2643,18 @@
         </values>
         <values>
             <fullName>Self-Sourced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call Back Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Exception Process %28DEP%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2728,6 +2802,10 @@
         </values>
         <values>
             <fullName>Treasurer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chief Executive Officer</fullName>
             <default>false</default>
         </values>
     </picklistValues>

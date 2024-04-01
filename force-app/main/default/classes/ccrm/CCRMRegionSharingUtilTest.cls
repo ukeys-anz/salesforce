@@ -25,7 +25,8 @@ private class CCRMRegionSharingUtilTest {
     List<Group> groups = getTestGroups();
 
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    // Sailpoint users to update area code on Users for testing purpose.
+    System.runAs(CCRMTestDataFactory.getSailPointUser()) {
       //WHEN added to existing Region
       for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
         users[i].Area_Code__c = 'Standard ' + String.valueOf(i).leftPad(6, '0');
@@ -52,14 +53,18 @@ private class CCRMRegionSharingUtilTest {
     bypassUserUpdateTrigger();
     //GIVEN users with new area codes (that don't have matched region public group yet)
     List<User> users = getTestUsers();
-    for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-      users[i].Area_Code__c =
-        'NewAreaCode ' + String.valueOf(i).leftPad(6, '0');
+    // Sailpoint users to update area code on Users for testing purpose.
+    System.runAs(CCRMTestDataFactory.getSailPointUser()) {
+      for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
+        users[i].Area_Code__c =
+          'NewAreaCode ' + String.valueOf(i).leftPad(6, '0');
+      }
+      update users;
     }
-    update users;
 
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       //WHEN added to new region
       CCRMRegionSharingUtil.addUsersToRegion(users);
     }
@@ -98,11 +103,14 @@ private class CCRMRegionSharingUtilTest {
     List<Group> groups = getTestGroups();
     List<Lead> leads;
 
-    //set owner regions (existing region public groups)
-    for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-      users[i].Area_Code__c = 'Standard Area Code';
+    // Sailpoint users to update area code on Users for testing purpose.
+    System.runAs(CCRMTestDataFactory.getSailPointUser()) {
+      //set owner regions (existing region public groups)
+      for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
+        users[i].Area_Code__c = 'Standard Area Code';
+      }
+      update users;
     }
-    update users;
 
     System.runAs(ccrmUser) {
       //GIVEN lead records
@@ -152,11 +160,14 @@ private class CCRMRegionSharingUtilTest {
     List<Group> groups = getTestGroups();
     List<Opportunity> opportunityList;
 
-    //set owner regions (existing region public groups)
-    for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-      users[i].Area_Code__c = 'Standard Area Code';
+    // Sailpoint users to update area code on Users for testing purpose.
+    System.runAs(CCRMTestDataFactory.getSailPointUser()) {
+      //set owner regions (existing region public groups)
+      for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
+        users[i].Area_Code__c = 'Standard Area Code';
+      }
+      update users;
     }
-    update users;
 
     System.runAs(ccrmUser) {
       //GIVEN lead records
@@ -196,14 +207,17 @@ private class CCRMRegionSharingUtilTest {
     List<Lead> leads;
 
     bypassUserUpdateTrigger();
-    //set owner regions (region public groups not exist yet)
-    for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-      users[i].Area_Code__c =
-        'NewAreaCode ' + String.valueOf(i).leftPad(6, '0');
+    // Sailpoint users to update area code on Users for testing purpose.
+    System.runAs(CCRMTestDataFactory.getSailPointUser()) {
+      //set owner regions (region public groups not exist yet)
+      for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
+        users[i].Area_Code__c =
+          'NewAreaCode ' + String.valueOf(i).leftPad(6, '0');
+      }
+      update users;
     }
-    update users;
 
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(ccrmUser) {
       //GIVEN lead records
       leads = CCRMTestDataFactory.createLeadRecords(TEST_BULK_SIZE, ccrmUser);
       for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
@@ -267,7 +281,7 @@ private class CCRMRegionSharingUtilTest {
     List<LeadShare> leadShares = new List<LeadShare>();
     List<Lead> leads;
 
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(ccrmUser) {
       //GIVEN a lead record is shared to a region public group
       leads = CCRMTestDataFactory.createLeadRecords(TEST_BULK_SIZE, ccrmUser);
       for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
@@ -286,7 +300,7 @@ private class CCRMRegionSharingUtilTest {
     }
 
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(ccrmUser) {
       //WHEN removed from the region
       CheckRecursive.firstCall = false;
       update leads;
@@ -312,7 +326,7 @@ private class CCRMRegionSharingUtilTest {
     List<Lead> leads;
     List<Opportunity> opps;
     //GIVEN leads and opportunity records shared to owners group
-    System.runAs(adminUser) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       leads = CCRMTestDataFactory.createLeadRecords(
         TEST_BULK_SIZE,
         adminUser,
@@ -330,7 +344,8 @@ private class CCRMRegionSharingUtilTest {
       insert leads;
       insert opps;
     }
-    System.runAs(adminUser) {
+    // Sailpoint users to update area code on Users for testing purpose.
+    System.runAs(CCRMTestDataFactory.getSailPointUser()) {
       for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
         users[i].Area_Code__c =
           'NewAreaCode ' + String.valueOf(i).leftPad(6, '0');
@@ -433,19 +448,22 @@ private class CCRMRegionSharingUtilTest {
 
   static void createTestUsers() {
     List<User> users = new List<User>();
-    for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
-      User ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
-      ccrmBaseUser.FirstName = 'BaseUser' + String.valueOf(i).leftPad(6, '0');
-      ccrmBaseUser.LastName = 'RegionSharingTest';
-      ccrmBaseUser.UserRoleId = CCRMTestDataFactory.relationshipManager.Id;
-      ccrmBaseUser.ProfileId = CCRMTestDataFactory.anzStandardProfileId;
-      ccrmBaseUser.Area_Code__c =
-        'Standard ' + String.valueOf(i).leftPad(6, '0');
-      ccrmBaseUser.Commercial_Segment__c = CCRMConstants.BB_SEGMENT;
-      ccrmBaseUser.IsActive = true;
-      users.add(ccrmBaseUser);
+    // Sailpoint users to update area code on Users for testing purpose.
+    System.runAs(CCRMTestDataFactory.getSailPointUser()) {
+      for (Integer i = 0; i < TEST_BULK_SIZE; i++) {
+        User ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
+        ccrmBaseUser.FirstName = 'BaseUser' + String.valueOf(i).leftPad(6, '0');
+        ccrmBaseUser.LastName = 'RegionSharingTest';
+        ccrmBaseUser.UserRoleId = CCRMTestDataFactory.relationshipManager.Id;
+        ccrmBaseUser.ProfileId = CCRMTestDataFactory.anzStandardProfileId;
+        ccrmBaseUser.Area_Code__c =
+          'Standard ' + String.valueOf(i).leftPad(6, '0');
+        ccrmBaseUser.Commercial_Segment__c = CCRMConstants.BB_SEGMENT;
+        ccrmBaseUser.IsActive = true;
+        users.add(ccrmBaseUser);
+      }
+      insert users;
     }
-    insert users;
   }
 
   static List<Group> getTestGroups() {
@@ -473,11 +491,13 @@ private class CCRMRegionSharingUtilTest {
   }
 
   static List<User> updateSegmentRegion(List<User> userList) {
-    for (User userIterator : userList) {
-      userIterator.Commercial_Segment__c = CCRMConstants.BB_SEGMENT;
-      userIterator.Area_Code__c = 'Standard Area Code';
+    System.runAs(CCRMTestDataFactory.getSailPointUser()) {
+      for (User userIterator : userList) {
+        userIterator.Commercial_Segment__c = CCRMConstants.BB_SEGMENT;
+        userIterator.Area_Code__c = 'Standard Area Code';
+      }
+      update userList;
     }
-    update userList;
     return userList;
   }
 }

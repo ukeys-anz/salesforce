@@ -8,7 +8,24 @@
 public inherited sharing class AuthServiceTest {
   //jwt containing a single claim of exp 26/11/2050
   public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
+  public final static String IDTESTVALUEFORGE2 = getForgeV2StaffJWT();
+  /**
+   * @return string staffJWT
+   * @description gets the staffJWT
+   */
+  public static String getForgeV2StaffJWT() {
+    if (String.isNotBlank(IDTESTVALUEFORGE2)) {
+      return IDTESTVALUEFORGE2;
+    }
+    String headerJson = '{"typ":"JWT","kid":"fK2HSN5juEOPzIzlvjig51vqGEU=","alg":"RS512"}';
+    String payloadJson = Service.getStaticResource('mock_ForgeV2Payload');
+    String encodedHeader = EncodingUtil.base64Encode(Blob.valueOf(headerJson))
+      .toString();
+    String encodedPayload = EncodingUtil.base64Encode(Blob.valueOf(payloadJson))
+      .toString();
 
+    return encodedHeader + '.' + encodedPayload;
+  }
   /**
    * @description test method for getForgeJWTToken when successful
    */
@@ -53,13 +70,13 @@ public inherited sharing class AuthServiceTest {
 
     HttpCalloutResponse response = authService.getForgeJWTToken(
       staffModelWrapper,
-      IDTESTVALUE,
+      IDTESTVALUEFORGE2,
       forgeAuth
     );
     Test.stopTest();
     Assert.areNotEqual(
-      response.body,
       null,
+      response.body,
       'Response body should not be null.'
     );
   }
@@ -69,7 +86,7 @@ public inherited sharing class AuthServiceTest {
    */
   @isTest
   public static void testGetForgeJWTPayload() {
-    String idToken = IDTESTVALUE;
+    String idToken = IDTESTVALUEFORGE2;
     Forgerock_Auth__mdt forgeAuth = Forgerock_Auth__mdt.getInstance('ForgeV2');
     StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
     staffModelWrapper.anzTokenType = forgeAuth.Forgev2_subject_token_type__c;
@@ -82,6 +99,6 @@ public inherited sharing class AuthServiceTest {
       forgeAuth
     );
     Test.stopTest();
-    Assert.areNotEqual(payload, null, 'Response body should not be null.');
+    Assert.areNotEqual(null, payload, 'Response body should not be null.');
   }
 }

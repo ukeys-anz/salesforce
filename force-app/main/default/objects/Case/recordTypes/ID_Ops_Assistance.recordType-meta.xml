@@ -7197,6 +7197,10 @@
     <picklistValues>
         <picklist>OnboardingVerificationFailedReason__c</picklist>
         <values>
+            <fullName>Confirmed Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Doc fail - document details unreadable</fullName>
             <default>false</default>
         </values>

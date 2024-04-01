@@ -1,0 +1,30 @@
+{
+    "queryTime": "2024-02-06T00:48:28.562238299Z",
+    "aggregatedEvents": [
+      {
+        "date": {
+          "year": {
+            "value": 2024
+          },
+          "month": {
+            "value": 2
+          },
+          "day": {
+            "value": 6
+          }
+        },
+        "accounts": [
+          "11111-1111111",
+          "11111-1111111"
+        ],
+        "scopes": [
+          "bank:accounts.basic:read"
+        ],
+        "requestTypes": [
+          "GetAccounts"
+        ],
+        "userInfoDisclosed": []
+      }
+    ],
+    "nextPageToken": ""
+  }

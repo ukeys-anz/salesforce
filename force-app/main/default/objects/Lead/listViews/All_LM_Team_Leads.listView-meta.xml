@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_LM_Team_Leads</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.EMAIL</columns>
+    <columns>LEAD.COMPANY</columns>
+    <columns>LEAD.STATE</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>LEAD.UNREAD</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>Assigned,In progress</value>
+    </filters>
+    <filters>
+        <field>Lead_Outcome__c</field>
+        <operation>equals</operation>
+        <value>Opportunity Identified</value>
+    </filters>
+    <filters>
+        <field>Lead_Owner_Teamcode__c</field>
+        <operation>equals</operation>
+        <value>LM</value>
+    </filters>
+    <filters>
+        <field>LEAD.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Lead.CCRM_Lead</value>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>All LM Team Leads</label>
+    <sharedTo>
+        <role>Head_of_NBC</role>
+        <role>Head_of_Remote_Teams_NBC</role>
+        <role>Small_Business_Banking_NBC</role>
+        <role>Team_Leader_NBC</role>
+    </sharedTo>
+</ListView>

@@ -236,6 +236,10 @@ public with sharing class CCRMLeadMappingEngine {
       }
     }
 
+    //get lead account mappings and clg account mapping
+    prefillManualLeadsFromAccount(records, relatedPartyIds);
+    mapCorrespondingClgAccount(relatedPartyIds);
+
     if (
       (!accountToLeadMappingWithAccount.isEmpty() ||
       !contactToLeadMappingWithContact.isEmpty()) &&
@@ -253,13 +257,11 @@ public with sharing class CCRMLeadMappingEngine {
       Map<Id, Account> accountFieldsMap = new Map<Id, Account>(account);
       //Map Account fields to Leads
       if (accountMap.size() > 0) {
-        prefillManualLeadsFromAccount(records, relatedPartyIds);
         leadList = records;
         accountList = accountFieldsMap;
         mappedField = accountToLeadMapping;
         mapAccountFieldsToLead(accountToLeadMappingWithAccount, false);
         mapContactFieldsToLead(contactToLeadMappingWithContact);
-        mapCorrespondingClgAccount(relatedPartyIds);
       }
     }
   }

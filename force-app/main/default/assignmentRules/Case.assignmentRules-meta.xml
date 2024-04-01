@@ -234,5 +234,10 @@
                 )
             </formula>
         </ruleEntry>
+        <ruleEntry>
+            <assignedTo>ID_Ops_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND( ISNEW(), RecordType.DeveloperName = &apos;Profile_Update&apos; )</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

@@ -40,7 +40,7 @@ public with sharing class CCRMFacilityFeeQuery extends CCRMFinancialAccountQuery
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (FacilityFeeCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (FacilityFeeCalloutResponse) CalloutModel.deserialize(
       responseBody,
       FacilityFeeCalloutResponse.class
     );

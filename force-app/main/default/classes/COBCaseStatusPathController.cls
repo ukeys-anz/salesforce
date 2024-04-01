@@ -8,6 +8,8 @@ public with sharing class COBCaseStatusPathController {
   private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
   @TestVisible
   private static final String PERSONA_ID_ERROR = 'Persona ID is missing on a case. Please check again.';
+  @TestVisible
+  private static final String CONFIRMED_FRAUD_REASON = 'Confirmed Fraud';
 
   // Statuses with Callout API
   private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
@@ -71,9 +73,7 @@ public with sharing class COBCaseStatusPathController {
       StravinskyAPIRepository.CxStageWrapper cobStage = temporalCaseWorkflowAPI.triggerTemporalCaseWorkflow(
         cobCase
       );
-      if (cobStage.cxOnboardingStage != StravinskyAPIRepository.COB_UPDATED) {
-        setCaseStatusFromTemporalResult(cobCase, cobStage);
-      }
+      setCaseStatusFromTemporalResult(cobCase, cobStage);
     } catch (Exception e) {
       Logger.error(
         'Failed Temporal Callout to update status: ' + cobCase.Status,
@@ -88,9 +88,9 @@ public with sharing class COBCaseStatusPathController {
   }
 
   /**
-   * @description Sets the Case status according to expected onboarding stage
+   * @description Sets the Case status according to expected onboarding stage or status
    * @param cobCase Case to update the status field
-   * @param cobStage COB expected Onbording stage and Onboarding Verification Failed Reason in case it's STAGE_TNC)
+   * @param cobStage COB expected Onbording stage and Onboarding Verification Failed Reason in case it's STAGE_TNC
    */
   @TestVisible
   private static void setCaseStatusFromTemporalResult(
@@ -103,8 +103,13 @@ public with sharing class COBCaseStatusPathController {
       StravinskyAPIRepository.STAGE_ACK_ID_CHECK => GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
       StravinskyAPIRepository.STAGE_TNC => GetHelpConstants.COB_FAILED_OK_STATUS
     };
-    cobCase.Status = stageStatusMap.get(cobStage.cxOnboardingStage);
-    cobCase.OnboardingVerificationFailedReason__c = cobStage.retryReason;
+
+    if (cobStage.cxOnboardingStage != StravinskyAPIRepository.COB_UPDATED) {
+      cobCase.Status = stageStatusMap.get(cobStage.cxOnboardingStage);
+      cobCase.OnboardingVerificationFailedReason__c = cobStage.retryReason;
+    } else if (cobCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS) {
+      cobCase.OnboardingVerificationFailedReason__c = CONFIRMED_FRAUD_REASON;
+    }
   }
 
   /**

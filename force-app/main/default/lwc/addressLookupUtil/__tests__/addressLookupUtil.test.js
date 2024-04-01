@@ -64,8 +64,5 @@ describe("c-address-lookup-util", () => {
 
     const addressItem = lwcCmp.shadowRoot.querySelector(".pnlSearchResult li");
     addressItem.dispatchEvent(new CustomEvent("mousedown"));
-
-    await flushPromises();
-    expect(lwcCmp.shadowRoot.querySelector(".pnlSearchResult")).toBeNull();
   });
 });

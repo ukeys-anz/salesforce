@@ -7,8 +7,8 @@
 public class ML_UserActionsTest {
   @testSetup
   static void setup() {
-    User adminUser = MLCRMTestDataFactory.createAdminUser();
-    System.runAs(adminUser) {
+    User mlBusinessAdminUser = MLCRMTestDataFactory.createMLBusinessAdminUser();
+    System.runAs(mlBusinessAdminUser) {
       List<Territory__c> territoriesToInsert = new List<Territory__c>();
       territoriesToInsert.add(
         createTerritory('Canberra Inner South (ACT)', 'Unrestricted')

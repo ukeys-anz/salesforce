@@ -9,7 +9,6 @@
     <columns>CASES.CLOSED_DATE</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>Queue__c</field>
         <operation>equals</operation>
@@ -20,6 +19,7 @@
         <operation>notContain</operation>
         <value>Hardship Written Response Letter Sent,Hardship Written Response not required,Complaint Re-Opened,Related Complaint In-Flight (no action taken)</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Hardship IDR Letter</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>

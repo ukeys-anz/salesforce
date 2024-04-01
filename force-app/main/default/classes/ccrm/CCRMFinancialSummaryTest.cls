@@ -8,47 +8,48 @@
 private class CCRMFinancialSummaryTest {
   @testSetup
   static void createTestData() {
-    // Insert User & PermissionSet as current user, to get around MIXED_DML_OPERATION error
-    User thisUser = new User(Id = UserInfo.getUserId());
-    System.runAs(thisUser) {
-      Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
-      User testUser = new User(
-        Alias = 'standt',
-        Email = 'testUser1991@anz.com',
-        EmailEncodingKey = 'UTF-8',
-        LastName = 'Testing',
-        LanguageLocaleKey = 'en_US',
-        LocaleSidKey = 'en_US',
-        ProfileId = p.Id,
-        TimeZoneSidKey = 'America/Los_Angeles',
-        UserName = 'testUser1991@anz.com'
+    User ccrmBaseUser;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
+      TestUtil.assignPermissionSets(
+        new List<String>{ 'MLCRM_Base' },
+        new List<User>{ ccrmBaseUser }
       );
-      insert testUser;
-      PermissionSet permSet = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name = 'MLCRM_Base'
-      ][0];
-      PermissionSetAssignment psa = new PermissionSetAssignment(
-        AssigneeId = testUser.Id,
-        PermissionSetId = permSet.Id
-      );
-      insert psa;
     }
-    Account testAcc = TestDataFactory.createAccount(false);
-    testAcc.Source_System_ID__c = '901221245';
-    testAcc.External_Id__c = 'CAP-CIS_4017192605';
-    insert testAcc;
 
-    User u = [SELECT id FROM user WHERE email = 'testUser1991@anz.com'];
-    AccountShare accountShare = new AccountShare();
-    accountShare.AccountId = testAcc.Id;
-    accountShare.AccountAccessLevel = 'Edit';
-    accountShare.ContactAccessLevel = 'Read';
-    accountShare.CaseAccessLevel = 'Read';
-    accountShare.OpportunityAccessLevel = 'Read';
-    accountShare.UserOrGroupId = u.Id;
-    insert accountShare;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      List<Account> accToInsertList = new List<Account>();
+      Account primaryAccRec = TestDataFactory.createAccount(false);
+      primaryAccRec.Source_System_ID__c = '901221245';
+      primaryAccRec.External_Id__c = 'CAP-CIS_4017192605';
+      primaryAccRec.OwnerId = ccrmBaseUser.Id;
+      accToInsertList.add(primaryAccRec);
+
+      Account secondaryAccRec = TestDataFactory.createAccount(false);
+      secondaryAccRec.Source_System_ID__c = '45678990657';
+      secondaryAccRec.External_Id__c = '';
+      secondaryAccRec.OwnerId = ccrmBaseUser.Id;
+      accToInsertList.add(secondaryAccRec);
+      insert accToInsertList;
+
+      FinServ__FinancialAccount__c finAccountRecord = new FinServ__FinancialAccount__c(
+        RecordTypeId = CCRMConstants.FA_RT_ID,
+        Product_Type__c = 'CAP-CIS:DDA',
+        FinServ__PrimaryOwner__c = primaryAccRec.Id,
+        FinServ__JointOwner__c = secondaryAccRec.Id,
+        OwnerId = ccrmBaseUser.Id
+      );
+      insert finAccountRecord;
+
+      FinServ__FinancialAccountRole__c finAccountRoleRecord = new FinServ__FinancialAccountRole__c(
+        FinServ__RelatedAccount__c = primaryAccRec.Id,
+        FinServ__Active__c = true,
+        FinServ__FinancialAccount__c = finAccountRecord.Id,
+        Role_Type__c = 'BCC',
+        RecordTypeId = CCRMConstants.FAR_RT_ID
+      );
+      insert finAccountRoleRecord;
+    }
   }
 
   @isTest
@@ -56,22 +57,52 @@ private class CCRMFinancialSummaryTest {
     Test.startTest();
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalCustomerBalanceMock()
+      new CCRMTestDataFactory.GetTotalCustomerBalanceMock()
     );
 
-    CCRMFinancialSummaryController.CCRMBalanceWrapper totalBalanceWrap = new CCRMFinancialSummaryController.CCRMBalanceWrapper();
-    totalBalanceWrap.accounts.add('DDA-901221265');
-    totalBalanceWrap.accounts.add('ILS-397519424');
-    totalBalanceWrap.accounts.add('FM-251500720');
-    totalBalanceWrap.fieldSet = 'TOTAL_CUSTOMER_BALANCE';
-    totalBalanceWrap.responseId = '0019h000009g1TxAAI';
+    List<String> accountList = new List<String>{
+      'DDA-901221265',
+      'ILS-397519424',
+      'FM-251500720'
+    };
+    String responseId = '0019h000009g1TxAAI';
     String status = CCRMFinancialSummaryController.getTotalBalance(
-      totalBalanceWrap.responseId,
-      totalBalanceWrap.accounts,
-      totalBalanceWrap.fieldSet
+      responseId,
+      accountList,
+      CCRMFinancialSummaryController.TOTAL_CUSTOMER_BALANCE_FIELDSET
     );
-    system.assertEquals(status, 'Request Received');
     Test.stopTest();
+    system.assertEquals(
+      status,
+      CCRMFinancialSummaryController.MULE_RESPONSE,
+      'Errored out while calling the Total Balance API'
+    );
+  }
+
+  @isTest
+  static void testGetTotalBalanceNegative() {
+    String errorMessage = '';
+    Test.startTest();
+    try {
+      List<String> accountList = new List<String>{
+        'DDA-901221265',
+        'ILS-397519424',
+        'FM-251500720'
+      };
+      String responseId = '0019h000009g1TxAAI';
+      String status = CCRMFinancialSummaryController.getTotalBalance(
+        responseId,
+        accountList,
+        CCRMFinancialSummaryController.TOTAL_CUSTOMER_BALANCE_FIELDSET
+      );
+    } catch (Exception e) {
+      errorMessage = e.getMessage();
+    }
+    Test.stopTest();
+    System.assert(
+      errorMessage != null,
+      'Total Balance API called without any error'
+    );
   }
 
   @isTest
@@ -79,20 +110,22 @@ private class CCRMFinancialSummaryTest {
     Test.startTest();
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalTerminalsMock()
+      new CCRMTestDataFactory.GetTotalTerminalsMock()
     );
 
-    CCRMFinancialSummaryController.CCRMTerminalTotalAssetWrapper terminalAssetWrap = new CCRMFinancialSummaryController.CCRMTerminalTotalAssetWrapper();
-    terminalAssetWrap.capCustomerIds.add('4017192605');
-    terminalAssetWrap.fieldSet = 'TERMINALS';
-    terminalAssetWrap.responseId = '0019h000009g1TxAAI';
+    List<String> capCustomerIds = new List<String>{ '4017192605' };
+    String responseId = '0019h000009g1TxAAI';
     String status = CCRMFinancialSummaryController.getTotalMerchantTerminals(
-      terminalAssetWrap.responseId,
-      terminalAssetWrap.capCustomerIds,
-      terminalAssetWrap.fieldSet
+      responseId,
+      capCustomerIds,
+      CCRMFinancialSummaryController.TERMINALS_FIELDSET
     );
-    system.assertEquals(status, 'Request Received');
     Test.stopTest();
+    system.assertEquals(
+      status,
+      CCRMFinancialSummaryController.MULE_RESPONSE,
+      'Errored out while calling the Terminal API'
+    );
   }
 
   @isTest
@@ -100,221 +133,221 @@ private class CCRMFinancialSummaryTest {
     Test.startTest();
     Test.setMock(
       HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalAssetFinanceBalanceMock()
+      new CCRMTestDataFactory.GetTotalAssetFinanceBalanceMock()
     );
 
-    CCRMFinancialSummaryController.CCRMTerminalTotalAssetWrapper terminalAssetWrap = new CCRMFinancialSummaryController.CCRMTerminalTotalAssetWrapper();
-    terminalAssetWrap.capCustomerIds.add('4017192605');
-    terminalAssetWrap.fieldSet = 'TOTAL_ASSET_FINANCE_BALANCE';
-    terminalAssetWrap.responseId = '0019h000009g1TxAAI';
-    terminalAssetWrap.type = 'BOTH';
+    List<String> capCustomerIds = new List<String>{ '4017192605' };
+    String responseId = '0019h000009g1TxAAI';
     String status = CCRMFinancialSummaryController.getTotalAssetFinanceBalance(
-      terminalAssetWrap.responseId,
-      terminalAssetWrap.capCustomerIds,
-      terminalAssetWrap.type,
-      terminalAssetWrap.fieldSet
+      responseId,
+      capCustomerIds,
+      CCRMFinancialSummaryController.TOTAL_ASSET_FINANCE_BALANCE_TYPE,
+      CCRMFinancialSummaryController.TOTAL_ASSET_FINANCE_BALANCE_FIELDSET
     );
-    system.assertEquals(status, 'Request Received');
     Test.stopTest();
+    system.assertEquals(
+      status,
+      CCRMFinancialSummaryController.MULE_RESPONSE,
+      'Errored out while calling the Asset Balance API'
+    );
   }
 
   @isTest
-  static void testGetSummariesInCacheByResponseId() {
-    Test.startTest();
-    User getUser = [
-      SELECT Id, Name
-      FROM User
-      WHERE email = 'testUser1991@anz.com'
-      LIMIT 1
-    ];
-    System.runAs(getUser) {
-      Account accRec = [
-        SELECT Id
-        FROM Account
-        WHERE Source_System_ID__c = '901221245'
-        LIMIT 1
-      ];
+  static void testInsertDataInCache() {
+    String currentDateTime = DateTime.now().format('dd/MM/yyyy hh:mm a');
+    String expectedData =
+      '{"totalMerchantTerminals":3,"totalBalanceAck":"Request Received","totalBalance":178.01,"totalAssetFinanceBalance":347.01,"terminalAck":"Request Received","lastSummaryUpdateDate":"' +
+      currentDateTime +
+      '","assetBalanceAck":"Request Received"}';
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      Cache.SessionPartition sessionPart = Cache.Session.getPartition(
+        'local.DataPartition'
+      );
 
-      String totalBalanceResponse =
-        '{"data":{"schema":"2I3prliMclRc7FFVs2YMHA","payload":{"Summary_Type__c":"TOTAL_CUSTOMER_BALANCE","CreatedById":"0059h000002n9pgAAA","Last_Calculated_Time__c":"2023-09-23T07:31:53Z","CreatedDate":"2023-09-23T07:31:53Z","Response_Id__c": "' +
-        accRec.Id +
-        '","Summary__c":178.01},"event":{"replayId":63102}},"channel":"/event/Financial_Summary_Calculation__e"}';
+      String dataInCache = (String) sessionPart.get('0019h000009g1TxAAI');
+      System.assertEquals(
+        null,
+        dataInCache,
+        'Expected null but data found in cache'
+      );
+
+      String totalBalanceResponse = '{"Summary_Type__c":"TOTAL_CUSTOMER_BALANCE","Response_Id__c":"0019h000009g1TxAAI","Summary__c":178.01}';
+      String terminalResponse = '{"Summary_Type__c":"TERMINALS","Response_Id__c":"0019h000009g1TxAAI","Summary__c":3}';
+      String totalAssetBalanceResponse = '{"Summary_Type__c":"TOTAL_ASSET_FINANCE_BALANCE","Response_Id__c":"0019h000009g1TxAAI","Summary__c":347.01}';
+
+      Test.startTest();
       CCRMFinancialSummaryController.insertDataInCache(totalBalanceResponse);
-      String terminalResponse =
-        '{"data":{"schema":"2I3prliMclRc7FFVs2YMHA","payload":{"Summary_Type__c":"TERMINALS","CreatedById":"0059h000002n9pgAAA","Last_Calculated_Time__c":"2023-09-23T07:31:53Z","CreatedDate":"2023-09-23T07:31:53Z","Response_Id__c":"' +
-        accRec.Id +
-        '","Summary__c":3},"event":{"replayId":63102}},"channel":"/event/Financial_Summary_Calculation__e"}';
       CCRMFinancialSummaryController.insertDataInCache(terminalResponse);
-      String assetBalanceResponse =
-        '{"data":{"schema":"2I3prliMclRc7FFVs2YMHA","payload":{"Summary_Type__c":"TOTAL_ASSET_FINANCE_BALANCE","CreatedById":"0059h000002n9pgAAA","Last_Calculated_Time__c":"2023-09-23T07:31:53Z","CreatedDate":"2023-09-23T07:31:53Z","Response_Id__c":"' +
-        accRec.Id +
-        '","Summary__c":347.01},"event":{"replayId":63102}},"channel":"/event/Financial_Summary_Calculation__e"}';
-      CCRMFinancialSummaryController.insertDataInCache(assetBalanceResponse);
-
-      CCRMFinancialSummaryController.CCRMFinancialSummaryWrapper summariesWrap = new CCRMFinancialSummaryController.CCRMFinancialSummaryWrapper();
-      summariesWrap = CCRMFinancialSummaryController.getSummariesByResponseId(
-        accRec.Id
+      CCRMFinancialSummaryController.insertDataInCache(
+        totalAssetBalanceResponse
       );
-      String currentDateTime = DateTime.now().format('dd/MM/yyyy hh:mm a');
-      String expectedResponse =
-        '{"totalMerchantTerminals":3,"totalBalance":178.01,"totalAssetFinanceBalance":347.01,"responseId":"' +
-        accRec.Id +
-        '","lastSummaryUpdateDate":"' +
-        currentDateTime +
-        '","acknowledgement":null}';
+      Test.stopTest();
+      dataInCache = (String) sessionPart.get('0019h000009g1TxAAI');
       System.assertEquals(
-        expectedResponse,
-        JSON.serialize(summariesWrap),
-        'Financial Summaries Response not matched'
+        expectedData,
+        dataInCache,
+        'Data not found in cache after insertion'
       );
     }
-    Test.stopTest();
   }
 
   @isTest
-  static void testGetSummariesByResponseId() {
-    Test.startTest();
+  static void testGetDataFromCache() {
+    CCRMFinancialSummaryWrapper.FinSummaryResponse expectedData = new CCRMFinancialSummaryWrapper.FinSummaryResponse();
+    expectedData.responseId = '0019h000009g1TxAAI';
+    expectedData.totalBalance = 178.01;
+    expectedData.totalBalanceAck = CCRMFinancialSummaryController.MULE_RESPONSE;
+    expectedData.totalMerchantTerminals = null;
+    expectedData.terminalAck = CCRMConstants.NO_AVAILABLE_BALANCE;
+    expectedData.totalAssetFinanceBalance = null;
+    expectedData.assetBalanceAck = CCRMConstants.NO_AVAILABLE_BALANCE;
+    expectedData.cacheAck = CCRMFinancialSummaryController.CACHE_ACK;
+    expectedData.lastSummaryUpdateDate = DateTime.now()
+      .format('dd/MM/yyyy hh:mm a');
 
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalCustomerBalanceMock()
-    );
-
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalTerminalsMock()
-    );
-
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalAssetFinanceBalanceMock()
-    );
-
-    User getUser = [
-      SELECT Id, Name
-      FROM User
-      WHERE email = 'testUser1991@anz.com'
-      LIMIT 1
-    ];
-    System.runAs(getUser) {
-      Account accRec = [
-        SELECT Id
-        FROM Account
-        WHERE Source_System_ID__c = '901221245'
-        LIMIT 1
-      ];
-
-      CCRMFinancialSummaryController.CCRMFinancialSummaryWrapper summariesWrap = new CCRMFinancialSummaryController.CCRMFinancialSummaryWrapper();
-      summariesWrap = CCRMFinancialSummaryController.getSummariesByResponseId(
-        accRec.Id
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      Cache.SessionPartition sessionPart = Cache.Session.getPartition(
+        'local.DataPartition'
       );
-
-      String expectedResponse = '{"totalMerchantTerminals":null,"totalBalance":null,"totalAssetFinanceBalance":null,"responseId":null,"lastSummaryUpdateDate":null,"acknowledgement":"Request sent"}';
+      CCRMFinancialSummaryWrapper.FinSummaryCallout finSumCallout = new CCRMFinancialSummaryWrapper.FinSummaryCallout();
+      finSumCallout.responseId = '0019h000009g1TxAAI';
+      finSumCallout.callTotalCustBalanceApi = false;
+      finSumCallout.callTerminalApi = false;
+      finSumCallout.callAssetFinanceBalanceApi = false;
+      String totalBalanceResponse = '{"Summary_Type__c":"TOTAL_CUSTOMER_BALANCE","Response_Id__c":"0019h000009g1TxAAI","Summary__c":178.01}';
+      Test.startTest();
+      CCRMFinancialSummaryController.insertDataInCache(totalBalanceResponse);
+      CCRMFinancialSummaryWrapper.FinSummaryResponse finSumRespFromCache = CCRMFinancialSummaryController.getDataFromCache(
+        sessionPart,
+        finSumCallout
+      );
+      Test.stopTest();
       System.assertEquals(
-        expectedResponse,
-        JSON.serialize(summariesWrap),
-        'Financial Summaries Response not matched when making callout'
+        JSON.serialize(expectedData),
+        JSON.serialize(finSumRespFromCache),
+        'Not able to get the data from Cache.'
       );
     }
-    Test.stopTest();
   }
 
   @isTest
-  static void testSummariesCallout() {
-    Test.startTest();
-
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalCustomerBalanceMock()
-    );
-
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalTerminalsMock()
-    );
-
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMFinancialSummaryTest.GetTotalAssetFinanceBalanceMock()
-    );
-
-    User getUser = [
-      SELECT Id, Name
-      FROM User
-      WHERE email = 'testUser1991@anz.com'
-      LIMIT 1
-    ];
-    System.runAs(getUser) {
-      Account accRec = [
-        SELECT Id, External_Id__c
-        FROM Account
-        WHERE Source_System_ID__c = '901221245'
-        LIMIT 1
-      ];
-      CCRMFinancialSummaryController.summariesCallout(
-        accRec.Id,
-        true,
-        true,
-        true
+  static void testRetrieveFinancialAccountsByCustomerIdNegative() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    List<String> accList = new List<String>();
+    System.runAs(ccrmBaseUser) {
+      Test.startTest();
+      accList = CCRMFinancialSummaryController.retrieveFinancialAccountsByCustomerId(
+        new List<String>()
+      );
+      Test.stopTest();
+      System.assertEquals(
+        0,
+        accList.size(),
+        'Able to retrieve records the financial account records.'
       );
     }
-    Test.stopTest();
   }
 
-  /**
-   * @description HTTP Mock class
-   */
-  public class GetTotalCustomerBalanceMock implements HttpCalloutMock {
-    /**
-     * @description HTTP mock response
-     * @param req HTTP request
-     * @return HTTPResponse
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      String response = '{"status": "Request Received", "fieldSet": "TOTAL_CUSTOMER_BALANCE", "responseId": "0019h000009g1TxAAI"}';
-      HTTPResponse res = new HTTPResponse();
-      res.setHeader('example', 'mock-header');
-      res.setBody(response);
-      res.setStatusCode(200);
-      return res;
+  @isTest
+  static void testRetrieveFinancialAccountsByCustomerIdPositive() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    Account accRec = [
+      SELECT Id, External_Id__c
+      FROM Account
+      WHERE External_Id__c = 'CAP-CIS_4017192605'
+      LIMIT 1
+    ];
+    List<String> accList = new List<String>{ accRec.External_Id__c };
+    List<String> accRetrievedList = new List<String>();
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      Test.startTest();
+      accRetrievedList = CCRMFinancialSummaryController.retrieveFinancialAccountsByCustomerId(
+        accList
+      );
+      Test.stopTest();
+      System.assertEquals(
+        1,
+        accRetrievedList.size(),
+        'Not Able to retrieve the financial account records by customer Ids.'
+      );
     }
   }
 
-  /**
-   * @description HTTP Mock class
-   */
-  public class GetTotalTerminalsMock implements HttpCalloutMock {
-    /**
-     * @description HTTP mock response
-     * @param req HTTP request
-     * @return HTTPResponse
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      String response = '{"status": "Request Received", "fieldSet": "TERMINALS", "responseId": "0019h000009g1TxAAI"}';
-      HTTPResponse res = new HTTPResponse();
-      res.setHeader('example', 'mock-header');
-      res.setBody(response);
-      res.setStatusCode(200);
-      return res;
+  @isTest
+  static void testGetCLGRelatedCustomerIds() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    Account accRec = [
+      SELECT Id, External_Id__c
+      FROM Account
+      WHERE External_Id__c = 'CAP-CIS_4017192605'
+      LIMIT 1
+    ];
+    System.runAs(ccrmBaseUser) {
+      Test.startTest();
+      List<String> capCustomerIdsList = CCRMFinancialSummaryController.getCLGRelatedCustomerIds(
+        accRec.Id
+      );
+      Test.stopTest();
+      System.assertEquals(
+        1,
+        capCustomerIdsList.size(),
+        'CAP customer Id not found'
+      );
     }
   }
 
-  /**
-   * @description HTTP Mock class
-   */
-  public class GetTotalAssetFinanceBalanceMock implements HttpCalloutMock {
-    /**
-     * @description HTTP mock response
-     * @param req HTTP request
-     * @return HTTPResponse
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      String response = '{"status": "Request Received", "fieldSet": "TOTAL_ASSET_FINANCE_BALANCE", "responseId": "0019h000009g1TxAAI"}';
-      HTTPResponse res = new HTTPResponse();
-      res.setHeader('example', 'mock-header');
-      res.setBody(response);
-      res.setStatusCode(200);
-      return res;
+  @isTest
+  static void testGetDataFromCallout() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.GetTotalCustomerBalanceMock()
+    );
+
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.GetTotalTerminalsMock()
+    );
+
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.GetTotalAssetFinanceBalanceMock()
+    );
+    Account accRec = [
+      SELECT Id, External_Id__c
+      FROM Account
+      WHERE External_Id__c = 'CAP-CIS_4017192605'
+      LIMIT 1
+    ];
+    CCRMFinancialSummaryWrapper.FinSummaryCallout calloutData = new CCRMFinancialSummaryWrapper.FinSummaryCallout();
+    calloutData.responseId = accRec.Id;
+    calloutData.callTotalCustBalanceApi = true;
+    calloutData.callTerminalApi = true;
+    calloutData.callAssetFinanceBalanceApi = true;
+
+    CCRMFinancialSummaryWrapper.FinSummaryResponse expectedData = new CCRMFinancialSummaryWrapper.FinSummaryResponse();
+    expectedData.responseId = accRec.Id;
+    expectedData.totalBalance = null;
+    expectedData.totalBalanceAck = CCRMFinancialSummaryController.MULE_RESPONSE;
+    expectedData.totalMerchantTerminals = null;
+    expectedData.terminalAck = CCRMFinancialSummaryController.MULE_RESPONSE;
+    expectedData.totalAssetFinanceBalance = null;
+    expectedData.assetBalanceAck = CCRMFinancialSummaryController.MULE_RESPONSE;
+    expectedData.cacheAck = null;
+    expectedData.lastSummaryUpdateDate = null;
+
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      Test.startTest();
+      CCRMFinancialSummaryWrapper.FinSummaryResponse responseData = CCRMFinancialSummaryController.getSummariesByResponseId(
+        calloutData
+      );
+      Test.stopTest();
+      System.assertEquals(
+        JSON.serialize(expectedData),
+        JSON.serialize(responseData),
+        'Errored out while calling the APIs'
+      );
     }
   }
 }

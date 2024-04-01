@@ -173,6 +173,41 @@
                 <default>false</default>
                 <label>ANZ Plus Coach</label>
             </value>
+            <value>
+                <fullName>ANZ - Mobile Lending</fullName>
+                <default>false</default>
+                <label>ANZ - Mobile Lending</label>
+            </value>
+            <value>
+                <fullName>ANZ - NBC</fullName>
+                <default>false</default>
+                <label>ANZ - NBC</label>
+            </value>
+            <value>
+                <fullName>ANZ - Private</fullName>
+                <default>false</default>
+                <label>ANZ - Private</label>
+            </value>
+            <value>
+                <fullName>ANZ - Diversified &amp; Specialist Industries</fullName>
+                <default>false</default>
+                <label>ANZ - Diversified &amp; Specialist Industries</label>
+            </value>
+            <value>
+                <fullName>ANZ - Institution</fullName>
+                <default>false</default>
+                <label>ANZ - Institution</label>
+            </value>
+            <value>
+                <fullName>Other Professionals</fullName>
+                <default>false</default>
+                <label>Other Professionals</label>
+            </value>
+            <value>
+                <fullName>Other Circle of Influence (COI)</fullName>
+                <default>false</default>
+                <label>Other Circle of Influence (COI)</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Events</controllingFieldValue>
@@ -264,6 +299,26 @@
             <valueName>ANZ - Branch</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - NBC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - Private</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - Diversified &amp; Specialist Industries</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - Institution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Internal Referral</controllingFieldValue>
+            <valueName>ANZ - Mobile Lending</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Self-Sourced</controllingFieldValue>
             <valueName>Internal Seminar</valueName>
         </valueSettings>
@@ -294,6 +349,14 @@
         <valueSettings>
             <controllingFieldValue>External Referral</controllingFieldValue>
             <valueName>ANZ Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External Referral</controllingFieldValue>
+            <valueName>Other Professionals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>External Referral</controllingFieldValue>
+            <valueName>Other Circle of Influence (COI)</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

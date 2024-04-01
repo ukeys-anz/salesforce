@@ -10,29 +10,34 @@ private class CCRMContactPointEmailActionsTest {
   //CREATE Test ContactPointEmail Records
   @TestSetup
   static void setupCreateData() {
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      Account acc = CCRMTestDataFactory.createProspectBusinessAccount(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+    Account prospectAccount;
+    Account activeAccount;
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
+      prospectAccount = CCRMTestDataFactory.createProspectBusinessAccount(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
       ContactPointEmail acpe = new ContactPointEmail();
       acpe.EmailAddress = faker.internet.companyEmail();
-      acpe.Customer_Name__c = acc.Id;
-      acpe.ParentId = acc.Id;
+      acpe.Customer_Name__c = prospectAccount.Id;
+      acpe.ParentId = prospectAccount.Id;
       acpe.Occurrence_Number__c = 12;
       acpe.RecordTypeId = CCRMConstants.CPE_ORG_RT_ID;
       insert acpe;
 
-      Account accActive = CCRMTestDataFactory.createBusinessAccountWithOwner(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+      activeAccount = CCRMTestDataFactory.createBusinessAccountWithOwner(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
       ContactPointEmail activeCPE = new ContactPointEmail();
       activeCPE.EmailAddress = faker.internet.companyEmail();
-      activeCPE.Customer_Name__c = accActive.Id;
-      activeCPE.ParentId = accActive.Id;
+      activeCPE.Customer_Name__c = activeAccount.Id;
+      activeCPE.ParentId = activeAccount.Id;
       activeCPE.Occurrence_Number__c = 12;
       activeCPE.RecordTypeId = CCRMConstants.CPE_ORG_RT_ID;
       insert activeCPE;
     }
+    CCRMTestDataFactory.createAccountShare(prospectAccount.Id, ccrmBaseUser.Id);
+    CCRMTestDataFactory.createAccountShare(activeAccount.Id, ccrmBaseUser.Id);
   }
   @IsTest
   static void testUpdateRelatedRecord() {
@@ -45,7 +50,7 @@ private class CCRMContactPointEmailActionsTest {
     ];
     //WHEN That ContactPointEmail is updated
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       cpe.ActiveToDate = date.today();
       update cpe;
     }
@@ -53,8 +58,7 @@ private class CCRMContactPointEmailActionsTest {
 
     System.assertEquals(
       null,
-      [SELECT ParentId FROM ContactPointEmail WHERE Id = :cpe.Id]
-      .ParentId,
+      [SELECT ParentId FROM ContactPointEmail WHERE Id = :cpe.Id].ParentId,
       'Email should not appear'
     );
   }
