@@ -44,6 +44,11 @@
                 <default>false</default>
                 <label>Transaction Banking</label>
             </value>
+            <value>
+                <fullName>SBB NBC</fullName>
+                <default>false</default>
+                <label>SBB National Business Center</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

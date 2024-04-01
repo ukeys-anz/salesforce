@@ -2365,7 +2365,7 @@
       "IDR_Product_or_Service_Type__c": "182",
       "IDR_Workbasket__c": "IDR_Deceased_Estates",
       "IDR_Product_Family__c": "@Product_Family__cRef15"
-  }
+    },
     {
       "attributes": {
         "type": "Product2",

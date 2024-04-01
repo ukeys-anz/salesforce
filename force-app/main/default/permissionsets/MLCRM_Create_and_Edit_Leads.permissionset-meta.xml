@@ -117,12 +117,12 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Lead.SourceSystemId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Lead.SourceSystem__c</field>
         <readable>true</readable>
     </fieldPermissions>

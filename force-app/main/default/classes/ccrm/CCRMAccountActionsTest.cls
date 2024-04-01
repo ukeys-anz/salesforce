@@ -7,20 +7,28 @@
 private class CCRMAccountActionsTest {
   @testSetup
   static void setup() {
-    User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
-    CCRMTestDataFactory.createCCRMBaseUser();
+    User ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
     CCRMTestDataFactory.createTwilioIntegrationUser();
-
-    System.runAs(ccrmAdmin) {
-      Account acc;
+    Account acc;
+    Account prospectAcc;
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
       //GIVEN a active account
       acc = CCRMTestDataFactory.createBusinessAccountWithOwner(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
-      Set<String> setOfEmployeeId = new Set<String>{ '30456789', '10456790' };
-      CCRMTestDataFactory.createUsersWithEmployeeId(setOfEmployeeId);
+
+      prospectAcc = CCRMTestDataFactory.createProspectBusinessAccount(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
+      );
     }
-    System.runAs(ccrmAdmin) {
+
+    CCRMTestDataFactory.createAccountShare(acc.Id, ccrmBaseUser.Id);
+    CCRMTestDataFactory.createAccountShare(prospectAcc.Id, ccrmBaseUser.Id);
+
+    Set<String> setOfEmployeeId = new Set<String>{ '30456789', '10456790' };
+    CCRMTestDataFactory.createUsersWithEmployeeId(setOfEmployeeId);
+
+    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
       Map<String, String> values = new Map<String, String>{
         'L7601' => '30456789',
         'L7602' => '30456790'
@@ -181,7 +189,7 @@ private class CCRMAccountActionsTest {
 
     Test.startTest();
     // WHEN this account is inserted by OCV Integration User
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getOCVIntegrationUser()) {
       insert testAccount;
     }
     Test.stopTest();
@@ -202,13 +210,17 @@ private class CCRMAccountActionsTest {
 
   @IsTest
   static void testTrackProspectAccountChanges() {
-    Account acc;
     //GIVEN a prospect account
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      acc = CCRMTestDataFactory.createProspectBusinessAccount(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
-      );
-    }
+    Account acc = [
+      SELECT Id, Name, ABN__c, ACN__c, ARBN__c
+      FROM Account
+      WHERE
+        FinServ__Status__c = 'Prospect'
+        AND RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
+        AND ABN__c = '50 110 219 460'
+        AND Source_System_Name__c = 'CAP-CIS'
+      LIMIT 1
+    ];
     //WHEN the account is updated by banker
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
@@ -245,15 +257,18 @@ private class CCRMAccountActionsTest {
 
   @IsTest
   static void findAndConvertLeadCCRMTest() {
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
-      Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
-        .Id;
-      USER usr = (USER) FakerFactory.make(new FakerUserFactory());
-      usr.Email = 'test@mltest.anz.com';
-      usr.ProfileId = adminProfileId;
-      usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
-      insert usr;
-
+    User mlUser = MLCRMTestDataFactory.getMLCRMBaseUser();
+    System.runAs(mlUser) {
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+        1,
+        mlUser,
+        true
+      );
+      MLCRMTestDataFactory.createUserTerritoryRecords(
+        10,
+        mlUser.Id,
+        lstOfTerritory[0].Id
+      );
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
       insert leadRec;
       Faker faker = new Faker('AU');
@@ -297,6 +312,66 @@ private class CCRMAccountActionsTest {
         WHERE Customer_Name__c = :acc.Id
       ],
       '1 Customer_Profile_Updates__c record should be created when advertising & disclosure indicator are updated'
+    );
+  }
+
+  @isTest
+  static void testValidateCustomerInformation() {
+    Faker faker = new Faker('AU');
+    Database.SaveResult result;
+    //GIVEN A active account with ABN as  50 110 219 460
+    Account testAccount = [SELECT Id FROM Account WHERE Name = 'Test Pty Ltd'];
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
+      //WHEN the account is updated by a Banker user to change ABN with value greater than 11
+      testAccount.ABN__c = '50 110 219 460 56';
+      result = Database.update(testAccount, false);
+      Test.stopTest();
+    }
+
+    //THEN an error should be added to the record for change in ABN
+    // Verify
+    System.assertEquals(
+      2,
+      result.getErrors().size(),
+      'ABN should not be greater than 11 characters'
+    );
+  }
+
+  @isTest
+  static void testValidatelength() {
+    //GIVEN A active account with ABN as  50 110 219 460
+    String newValue = 'Business';
+    String oldvalue = 'BA';
+    String recordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    String errorMessage = '';
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
+      //WHEN the account is updated by a Banker user to change ABN with value greater than 11
+      //CCRMAccountActions acountActionsInstance = new CCRMAccountActions();
+      CCRMAccountActions.AccountFieldValidation accValidationInstance = new CCRMAccountActions.AccountFieldValidation(
+        'FinServ__CustomerType__c',
+        System.Label.CCRM_CustomerTypeLengthCheck,
+        2,
+        false,
+        new Set<String>{
+          String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
+          String.valueOf(CCRMConstants.ACCOUNT_PERSON_RT_ID)
+        }
+      );
+      errorMessage = accValidationInstance.validateLength(
+        newValue,
+        oldvalue,
+        recordTypeId
+      );
+      Test.stopTest();
+    }
+    //THEN an error should be added to the record for change in ABN
+    // Verify
+    System.assertEquals(
+      errorMessage,
+      System.Label.CCRM_CustomerTypeLengthCheck,
+      'Customer Type Length cannot be greater than 2 characters.'
     );
   }
 }

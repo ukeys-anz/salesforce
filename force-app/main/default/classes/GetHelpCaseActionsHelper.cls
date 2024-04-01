@@ -140,18 +140,30 @@ public with sharing class GetHelpCaseActionsHelper {
    * @description auto-populate Contact lookup on ANZ Plus Cases.
    * Assumption: Case record types would not be manually changed from AR&C to ANZ Plus
    * @param records new trigger case records
+   * @param mpOldCasesByIds previous values for changed records
    */
-  public static void populateContactLookupForANZPlus(List<Case> records) {
+  public static void populateContactLookupForANZPlus(
+    List<Case> records,
+    Map<Id, Case> mpOldCasesByIds
+  ) {
     List<Case> anzPlusCases = new List<Case>();
     List<Id> relatedAccountIDs = new List<Id>();
+    Case oOldCase;
     for (Case record : records) {
       if (
         CheckCaseRecordType.isANZPlusCaseType(record) &&
-        record.AccountId != null
+        record.AccountId != null &&
+        (mpOldCasesByIds == null ||
+        (oOldCase = mpOldCasesByIds.get(record.Id)) == null ||
+        oOldCase.AccountId != record.AccountId)
       ) {
         anzPlusCases.add(record);
         relatedAccountIDs.add(record.AccountId);
       }
+    }
+
+    if (relatedAccountIDs.size() == 0) {
+      return;
     }
 
     Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
@@ -712,7 +724,10 @@ public with sharing class GetHelpCaseActionsHelper {
         fraudCheckCase.Status
       );
 
-      if (idOpsCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS) {
+      if (
+        idOpsCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS ||
+        idOpsCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+      ) {
         idOpsCase.OnboardingVerificationFailedReason__c = fraudCheckCase.OnboardingVerificationFailedReason__c;
       }
     }

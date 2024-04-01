@@ -10,11 +10,9 @@ private class FarOwnersRemovalServiceTest {
 
   @TestSetup
   static void makeData() {
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      CCRMTestDataFactory.createPersonAccount();
-      CCRMTestDataFactory.createBusinessAccount();
-      CCRMTestDataFactory.createSystemCustomer();
-    }
+    CCRMTestDataFactory.createPersonAccount();
+    CCRMTestDataFactory.createBusinessAccount();
+    CCRMTestDataFactory.createSystemCustomer();
   }
 
   @IsTest
@@ -85,21 +83,19 @@ private class FarOwnersRemovalServiceTest {
     FinServ__FinancialAccountRole__c newFar;
     Account customer = [SELECT Id FROM Account WHERE Name = 'Test Pty Ltd'];
 
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      //GIVEN a Financial Account initially created without Primary Owner
-      FinServ__FinancialAccount__c fa = new FinServ__FinancialAccount__c();
-      insert fa;
+    //GIVEN a Financial Account initially created without Primary Owner
+    FinServ__FinancialAccount__c fa = new FinServ__FinancialAccount__c();
+    insert fa;
 
-      //WHEN a new FAR with role Primary Owner is created for the above FA
-      newFar = new FinServ__FinancialAccountRole__c(
-        RecordTypeId = CCRMConstants.FAR_CONTACT_RT_ID,
-        FinServ__FinancialAccount__c = fa.Id,
-        FinServ__RelatedAccount__c = customer.Id,
-        FinServ__Role__c = 'Additional Owner',
-        External_Id__c = faker.randomString(10)
-      );
-      insert newFar;
-    }
+    //WHEN a new FAR with role Primary Owner is created for the above FA
+    newFar = new FinServ__FinancialAccountRole__c(
+      RecordTypeId = CCRMConstants.FAR_CONTACT_RT_ID,
+      FinServ__FinancialAccount__c = fa.Id,
+      FinServ__RelatedAccount__c = customer.Id,
+      FinServ__Role__c = 'Additional Owner',
+      External_Id__c = faker.randomString(10)
+    );
+    insert newFar;
 
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
@@ -124,22 +120,17 @@ private class FarOwnersRemovalServiceTest {
   static void testRemoveContactDataFromAccounts() {
     Account customer = [SELECT Id FROM Account WHERE Name = 'Test Pty Ltd'];
 
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      insert new List<SObject>{
-        new ContactPointAddress(
-          ParentId = customer.Id,
-          Name = 'Primary Mailing'
-        ),
-        new ContactPointEmail(
-          ParentId = customer.Id,
-          EmailAddress = faker.internet.companyEmail()
-        ),
-        new ContactPointPhone(
-          ParentId = customer.Id,
-          TelephoneNumber = faker.person.phone()
-        )
-      };
-    }
+    insert new List<SObject>{
+      new ContactPointAddress(ParentId = customer.Id, Name = 'Primary Mailing'),
+      new ContactPointEmail(
+        ParentId = customer.Id,
+        EmailAddress = faker.internet.companyEmail()
+      ),
+      new ContactPointPhone(
+        ParentId = customer.Id,
+        TelephoneNumber = faker.person.phone()
+      )
+    };
 
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
@@ -183,8 +174,7 @@ private class FarOwnersRemovalServiceTest {
       FROM Account
       WHERE IsPersonAccount = TRUE
     ];
-
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
       String ocvReciprocalRole = faker.randomString(10);
       FinServ__ReciprocalRole__c nonReciprocalRole = CCRMTestDataFactory.createNonReciprocalRole(
         ocvReciprocalRole,
@@ -197,15 +187,13 @@ private class FarOwnersRemovalServiceTest {
           OCV_Role__c = ocvReciprocalRole
         )
       };
-    }
 
-    Test.startTest();
-    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
+      Test.startTest();
       FarOwnersRemovalService.removeP2PRelationsFromAccounts(
         new List<Account>{ personCustomer }
       );
+      Test.stopTest();
     }
-    Test.stopTest();
 
     Assert.areEqual(
       0,

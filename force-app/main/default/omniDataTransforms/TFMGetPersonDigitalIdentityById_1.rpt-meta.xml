@@ -10,7 +10,6 @@
     <name>TFMGetPersonDigitalIdentityById</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -20,6 +19,7 @@
         <inputObjectName>PersonDigitalIdentity__x</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMGetPersonDigitalIdentityById</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>DigitalIdentity</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -27,13 +27,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMGetPersonDigitalIdentityById14108999204808392</globalKey>
         <inputFieldName>DigitalIdentity:UUID__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMGetPersonDigitalIdentityById</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>uuid</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -41,13 +41,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>TFMGetPersonDigitalIdentityById</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMGetPersonDigitalIdentityByIdCustom7830</globalKey>
         <inputFieldName>DigitalIdentity:Persona_ID__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMGetPersonDigitalIdentityById</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>personaId</outputFieldName>
         <outputObjectName>json</outputObjectName>

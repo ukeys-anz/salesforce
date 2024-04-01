@@ -75,7 +75,7 @@ public with sharing class CCRMDiaryCommentQuery extends CCRMExternalObjectQueryB
           response.body,
           DiaryCommentCalloutResponse.class
         );
-        result = createFinancialAccounts(calloutResponse);
+        result = createDiaryComments(calloutResponse);
         //Pass pagination token
         result.queryMoreToken = calloutResponse.conversationControl;
         setNextPageId(result.queryMoreToken);
@@ -94,7 +94,7 @@ public with sharing class CCRMDiaryCommentQuery extends CCRMExternalObjectQueryB
    * @param calloutResponse response
    * @return List<Map<String, Object>>
    */
-  public CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts(
+  public CCRMExternalObjectQueryBase.ExternalQueryResult createDiaryComments(
     DiaryCommentCalloutResponse calloutResponse
   ) {
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();

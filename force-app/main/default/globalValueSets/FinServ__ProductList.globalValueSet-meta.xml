@@ -61,9 +61,9 @@
         <label>Home Loan - Bridging Finance</label>
     </customValue>
     <customValue>
-        <fullName>Home Loan – Construction</fullName>
+        <fullName>Home Loan - Construction</fullName>
         <default>false</default>
-        <label>Home Loan – Construction</label>
+        <label>Home Loan - Construction</label>
     </customValue>
     <customValue>
         <fullName>Home Loan - Refinance + Purchase</fullName>
@@ -111,6 +111,11 @@
         <label>Purchasing Property</label>
     </customValue>
     <customValue>
+        <fullName>Purchasing Vacant Land</fullName>
+        <default>false</default>
+        <label>Purchasing Vacant Land</label>
+    </customValue>
+    <customValue>
         <fullName>Purchasing an existing Business</fullName>
         <default>false</default>
         <label>Purchasing an existing Business</label>
@@ -131,29 +136,34 @@
         <label>Set up a new Business (Start Up)</label>
     </customValue>
     <customValue>
-        <fullName>Assist with Business Cashflow</fullName>
+        <fullName>Assist with Business Working Capital/Temporary Finance</fullName>
         <default>false</default>
-        <label>Assist with Business Cashflow</label>
+        <label>Assist with Business Working Capital/Temporary Finance</label>
     </customValue>
     <customValue>
-        <fullName>Refinance</fullName>
+        <fullName>Refinance from Other Financial Institutions</fullName>
         <default>false</default>
-        <label>Refinance</label>
+        <label>Refinance from Other Financial Institutions</label>
     </customValue>
     <customValue>
-        <fullName>Purchase Vacant Land</fullName>
+        <fullName>Construction and Renovation</fullName>
         <default>false</default>
-        <label>Purchase Vacant Land</label>
-    </customValue>
-    <customValue>
-        <fullName>Development and Renovation</fullName>
-        <default>false</default>
-        <label>Development and Renovation</label>
+        <label>Construction and Renovation</label>
     </customValue>
     <customValue>
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Transactional Services (inc. IB4B, Account opening and Merchant services)</fullName>
+        <default>false</default>
+        <label>Transactional Services (inc. IB4B, Account opening and Merchant services)</label>
+    </customValue>
+    <customValue>
+        <fullName>Individual</fullName>
+        <default>false</default>
+        <label>Individual</label>
     </customValue>
     <masterLabel>Product List</masterLabel>
     <sorted>false</sorted>

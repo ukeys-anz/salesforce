@@ -126,6 +126,9 @@ force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__O
 # ignore all Connected Apps as these are manually created. Subsequent pushes will result in invalid cross reference id
 force-app/main/default/connectedApps
 
+# ignore all certs deployment as they should be updated manually, and this is just a dummy certs.
+force-app/main/default/certs
+
 #ignoring file as we dont need it to be deployed, just need to see the settings enabled without going through PAM
 #not ignoring will result in a generated key error
 force-app/main/default/settings/PlatformEncryption.settings-meta.xml
@@ -136,7 +139,6 @@ force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
 
 #ignore to allow linting
-force-app/main/default/triggers/ContactTrigger.trigger-meta.xml
 force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
 force-app/main/default/triggers/ContactPointAddressTrigger.trigger-meta.xml
 #ANZX-72863 - to prevent layout being deployed becuase its custom metadata is already deleted
@@ -195,17 +197,6 @@ force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-
 #ANZX-110254-delete unused resource file
 force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 
-#CC-5856 Remove "Conversion Status" from Lead. Manual deletion to prevent class failures during deployment
-force-app/main/default/objects/Lead/fields/Conversion_Status__c.field-meta.xml
-force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml
-force-app/main/default/profiles/ANZ CCRM Standard User.profile-meta.xml
-
-# ANZX-97676 These coponents will be taken up as post deploy steps because of dependencies
-force-app/main/default/objects/PersonDigitalIdentity__x
-
-# ANZX-123338 These coponents will be taken up as post deploy steps because of dependencies
-force-app/main/default/flexipages/TFMManageOpenBankingPage.flexipage-meta.xml
-force-app/main/default/tabs/TFMManageOpenBankingPage.tab-meta.xml
 
 #CC-6285 ignore for manual delete
 force-app/main/default/flows/CCRM_Hide_Expired_Contacts_Schedule.flow-meta.xml

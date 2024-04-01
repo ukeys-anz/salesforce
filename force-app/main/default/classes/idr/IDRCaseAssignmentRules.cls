@@ -8,10 +8,10 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity,PMD.CyclomaticComplexity')
 public with sharing class IDRCaseAssignmentRules {
-
   @TestVisible
   private static final Map<String, Id> QUEUE_MAP = getWorkbaskets();
-  private static Map<Id, Product2> productMap = new Map<Id, Product2>();
+  private static Map<Id, Product2> productsMap = new Map<Id, Product2>();
+ 
   /**
    * @description method to call the Case assignment rules
    * @param cases Records in the current context
@@ -40,7 +40,7 @@ public with sharing class IDRCaseAssignmentRules {
    */
   public static void assignProductFamily(Case[] cases, Map<Id, Case> oldMap) {
     Map<String, Product_Family__c> categoryMap = getProductCategory(cases);
-    productMap = getProductNames(cases);
+    productsMap = getProductNames(cases);
     for (Case c : cases) {
       Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
       if (
@@ -50,9 +50,9 @@ public with sharing class IDRCaseAssignmentRules {
         oldCase.Product__c != c.Product__c ||
         IDRCaseActions.isANZPlusComplaintConvertedToIDR(oldCase, c))
       ) {
-        c.IDR_Product_Family__c = (productMap.get(c.Product__c))
+        c.IDR_Product_Family__c = (productsMap.get(c.Product__c))
           ?.IDR_Product_Family__c;
-        c.IDR_Product_Category__c = (productMap.get(c.Product__c))
+        c.IDR_Product_Category__c = (productsMap.get(c.Product__c))
           ?.IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c;
       } else if (
         c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
@@ -123,7 +123,7 @@ public with sharing class IDRCaseAssignmentRules {
   ) {
     String productWorkbasketName = oProductFamily?.IDR_Workbasket__c;
     String strProductFamily = oProductFamily?.Name;
-    Product2 oProduct = productMap?.get(rec.Product__c);
+    Product2 oProduct = productsMap?.get(rec.Product__c);
     String productCode = oProduct?.ANZ_Product_Code__c;
     //rules to run only on escalation
     if (
@@ -190,21 +190,29 @@ public with sharing class IDRCaseAssignmentRules {
         return QUEUE_MAP.get(productWorkbasketName);
       }
       // Fraud & Scams
-
-      if (IDRConstants.FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS.contains(rec.Type) && rec.IDR_Subsequent_Issue__c == '109') {
+      if (
+        IDRConstants.FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS.contains(rec.Type) &&
+        rec.IDR_Subsequent_Issue__c == '109'
+      ) {
         return QUEUE_MAP.get('IDR_Spare'); // IDR Disputes
       }
 
-      if (IDRConstants.FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS.contains(rec.Type) && rec.IDR_Subsequent_Issue__c != '109') {
+      if (
+        IDRConstants.FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS.contains(rec.Type) &&
+        rec.IDR_Subsequent_Issue__c != '109'
+      ) {
         return QUEUE_MAP.get('IDR_Scams'); // IDR Scams
       }
       //Deceased Estates
-      if ((rec.Type == '16' && rec.IDR_Subsequent_Issue__c == '80') || productWorkbasketName == 'IDR_Deceased_Estates') {
+      if (
+        (rec.Type == '16' && rec.IDR_Subsequent_Issue__c == '80') ||
+        productWorkbasketName == 'IDR_Deceased_Estates'
+      ) {
         return QUEUE_MAP.get('IDR_Deceased_Estates'); // IDR Deceased Estates
       }
       // Simple Complaint on Unassisted Channel
       if (
-        (IDRConstants.IDR_EARLY_RESOLUTION.contains(rec.Origin)||
+        (IDRConstants.IDR_EARLY_RESOLUTION.contains(rec.Origin) ||
         rec.SuppliedEmail == System.Label.ANZ_com_Sender_Address) &&
         (!rec.IDR_Second_Issue__c && !rec.IDR_Third_Issue__c) &&
         IDRConstants.IDR_UNASSISTED_ISSUE_TYPE.contains(rec.Type) &&
@@ -219,11 +227,11 @@ public with sharing class IDRCaseAssignmentRules {
       if (rec.Type == '13' || rec.Type == '12' || rec.Type == '9') {
         return QUEUE_MAP.get('IDR_Early_Resolution');
       }
-	
-      if(!String.isBlank(productCode) && productCode.Equals('231')){
-            return QUEUE_MAP.get('IDR_Everyday_Banking');
-        }
-      
+
+      if (!String.isBlank(productCode) && productCode.Equals('231')) {
+        return QUEUE_MAP.get('IDR_Everyday_Banking');
+      }
+
       //Product-based rules
       if (productWorkbasketName != null) {
         return QUEUE_MAP.get(productWorkbasketName);
@@ -328,7 +336,8 @@ public with sharing class IDRCaseAssignmentRules {
       for (Product2 p : [
         SELECT
           Name,
-          IDR_Product_Family__c,ANZ_Product_Code__c,
+          IDR_Product_Family__c,
+          ANZ_Product_Code__c,
           IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c
         FROM Product2
         WHERE Id IN :productIds

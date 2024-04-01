@@ -19,6 +19,20 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
       }
     );
     insert coachUser;
+
+    //Assign Permission set group as coach
+    PermissionSetGroup psgCoach = [
+      SELECT Id
+      FROM PermissionSetGroup
+      WHERE DeveloperName = 'Coach'
+      LIMIT 1
+    ];
+    Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+    PermissionSetAssignment psa = new PermissionSetAssignment(
+      AssigneeId = coachUser.Id,
+      PermissionSetGroupId = psgCoach.Id
+    );
+    insert psa;
   }
 
   @isTest
@@ -31,56 +45,46 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
       WHERE Id = :coachUser.Id
       LIMIT 1
     ];
+    System.runAs(coachUser) {
+      Account testAccount = createTestAccount(
+        faker.randomString(10),
+        faker.randomString(10),
+        faker.randomString(10)
+      );
+      insert testAccount;
+      testAccount = [
+        SELECT Id, PersonContactId, Name
+        FROM Account
+        WHERE Id = :testAccount.Id
+      ];
+      DateTime startTime = DateTime.newInstance(DateTime.now().year(), 1, 1);
+      Test.startTest();
+      Interaction testInteraction = new Interaction(
+        RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        Direction__c = 'Inbound',
+        InteractionType = 'Call',
+        Authentication_Method__c = 'Not Required',
+        StartTime = startTime,
+        AccountId = testAccount.Id,
+        Name = 'Inbound Call',
+        OwnerId = UserInfo.getUserId()
+      );
+      insert testInteraction;
+      Test.stopTest();
 
-    Account testAccount = createTestAccount(
-      faker.randomString(10),
-      faker.randomString(10),
-      faker.randomString(10)
-    );
-    insert testAccount;
-    testAccount = [
-      SELECT Id, PersonContactId
-      FROM Account
-      WHERE Id = :testAccount.Id
-    ];
-    DateTime startTime = DateTime.newInstance(DateTime.now().year(), 1, 1);
-
-    Interaction testInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
-      Direction__c = 'Inbound',
-      InteractionType = 'Chat',
-      Authentication_Method__c = 'Not Required',
-      StartTime = startTime,
-      AccountId = testAccount.Id,
-      Name = 'Inbound Chat',
-      OwnerId = UserInfo.getUserId()
-    );
-    insert testInteraction;
-
-    Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
-    List<InteractionAttendee> newAttendees = new List<InteractionAttendee>();
-    newAttendees.add(
-      new InteractionAttendee(
-        InteractionId = testInteraction.Id,
-        UserId = userData.Id
-      )
-    );
-
-    Test.startTest();
-    insert newAttendees;
-    Test.stopTest();
-
-    Interaction parentInteraction = [
-      SELECT Attendees__c, Attendees_and_Roles__c
-      FROM Interaction
-      WHERE Name = 'Inbound Chat'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      userData.Name,
-      parentInteraction.Attendees__c,
-      'Incorrect value for Attendees__c'
-    );
+      Interaction parentInteraction = [
+        SELECT Attendees__c, Attendees_and_Roles__c
+        FROM Interaction
+        WHERE Name = 'Inbound Call'
+        LIMIT 1
+      ];
+      String[] attendeesArray = parentInteraction.Attendees__c.split(',');
+      System.assertEquals(
+        2,
+        attendeesArray.size(),
+        'Two Attendees should be added'
+      );
+    }
   }
 
   /**

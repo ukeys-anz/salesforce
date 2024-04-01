@@ -39,7 +39,7 @@ public with sharing class CCRMActiveIndemnityGuaranteeQuery extends CCRMFinancia
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (IndemnityGuaranteeCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (IndemnityGuaranteeCalloutResponse) CalloutModel.deserialize(
       responseBody,
       IndemnityGuaranteeCalloutResponse.class
     );
@@ -75,8 +75,8 @@ public with sharing class CCRMActiveIndemnityGuaranteeQuery extends CCRMFinancia
       row.put('Status', guarantee.status);
       row.put('Amount', guarantee.remainingFaceValue);
       row.put('PurposeCode', guarantee.purpose);
-      row.put('StartDate', adjustUTCDateTime(guarantee.startDate));
-      row.put('ExpiryDate', adjustUTCDateTime(guarantee.expiryDate));
+      row.put('StartDate', formatDate(guarantee.startDate));
+      row.put('ExpiryDate', formatDate(guarantee.expiryDate));
       row.put('Type', guarantee.bankGuaranteeType);
       result.queryResult.add(row);
     }

@@ -20,10 +20,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>CPID__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Cash_Advance_Rate__c</field>
             </layoutItems>
             <layoutItems>

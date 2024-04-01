@@ -47,19 +47,19 @@
                 <label>Set up a new Business (Start Up)</label>
             </value>
             <value>
-                <fullName>Assist with Business Cashflow</fullName>
+                <fullName>Assist with Business Working Capital/Temporary Finance</fullName>
                 <default>false</default>
-                <label>Assist with Business Cashflow</label>
+                <label>Assist with Business Working Capital/Temporary Finance</label>
             </value>
             <value>
-                <fullName>Refinance</fullName>
+                <fullName>Refinance from Other Financial Institutions</fullName>
                 <default>false</default>
-                <label>Refinance</label>
+                <label>Refinance from Other Financial Institutions</label>
             </value>
             <value>
-                <fullName>Development and Renovation</fullName>
+                <fullName>Construction and Renovation</fullName>
                 <default>false</default>
-                <label>Development and Renovation</label>
+                <label>Construction and Renovation</label>
             </value>
             <value>
                 <fullName>Other</fullName>
@@ -72,9 +72,9 @@
                 <label>Home Loan - Bridging Finance</label>
             </value>
             <value>
-                <fullName>Home Loan – Construction</fullName>
+                <fullName>Home Loan - Construction</fullName>
                 <default>false</default>
-                <label>Home Loan – Construction</label>
+                <label>Home Loan - Construction</label>
             </value>
             <value>
                 <fullName>Home Loan - Refinance + Purchase</fullName>
@@ -120,6 +120,11 @@
                 <fullName>Other Loans</fullName>
                 <default>false</default>
                 <label>Other Loans</label>
+            </value>
+            <value>
+                <fullName>Transactional Services (inc. IB4B, Account opening and Merchant services)</fullName>
+                <default>false</default>
+                <label>Transactional Services (inc. IB4B, Account opening and Merchant services)</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -32,7 +32,7 @@ public with sharing class StravinskyService extends Service {
     headers.put('Content-Type', 'application/json');
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.ST_Close_Package,
+      Label.ST_Close_Package,
       HTTP_METHOD.HTTP_POST,
       headers,
       JSON.serialize(closureCaseRecord)
@@ -59,7 +59,6 @@ public with sharing class StravinskyService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
       temporalCaseWorkflowEndpoints.get(cobCase.Status),
       HTTP_METHOD.HTTP_POST,
       headers,
@@ -89,7 +88,7 @@ public with sharing class StravinskyService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.ST_Detokenize,
+      Label.ST_Detokenize,
       HTTP_METHOD.HTTP_POST,
       headers,
       JSON.serialize(callBody)
@@ -121,7 +120,7 @@ public with sharing class StravinskyService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.ST_UpdatePrimaryIdDocument,
+      Label.ST_UpdatePrimaryIdDocument,
       HTTP_METHOD.HTTP_POST,
       headers,
       JSON.serialize(callBody, true)
@@ -148,7 +147,7 @@ public with sharing class StravinskyService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.ST_Detokenize,
+      Label.ST_Detokenize,
       HTTP_METHOD.HTTP_POST,
       headers,
       getDetokenizePayload(taxResidency)

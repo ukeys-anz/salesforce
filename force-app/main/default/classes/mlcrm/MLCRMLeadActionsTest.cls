@@ -122,4 +122,16 @@ public class MLCRMLeadActionsTest {
     }
     Test.stopTest();
   }
+
+  @isTest
+  static void testGetCountryStateNameToCodeMap() {
+    system.assertEquals(
+      MLCRMCommonUtils.getCountryNameToCodeMap().isEmpty(),
+      false
+    );
+    system.assertEquals(
+      MLCRMCommonUtils.getStateNameToCodeMap().isEmpty(),
+      false
+    );
+  }
 }

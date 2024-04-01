@@ -53,7 +53,7 @@ public with sharing class CCRMAssetFinanceAMBITQuery extends CCRMFinancialAccoun
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (AssetFinanceAMBITCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (AssetFinanceAMBITCalloutResponse) CalloutModel.deserialize(
       responseBody,
       AssetFinanceAMBITCalloutResponse.class
     );
@@ -99,13 +99,13 @@ public with sharing class CCRMAssetFinanceAMBITQuery extends CCRMFinancialAccoun
       row.put('Balance', fa.accountBalance);
       row.put('Limit', fa.accountLimit);
       row.put('OriginalAmountFinanced', fa.originalAmountFinanced);
-      row.put('OpenedDate', adjustUTCDateTime(fa.openedDate));
+      row.put('OpenedDate', formatDate(fa.openedDate));
       row.put('BalloonPayments', fa.balloonAmount);
       row.put('IntRate', fa.interestRate);
       row.put('IntType', fa.interestType);
       row.put('LoanTermMonths', fa.loanTermMonths);
       row.put('LoanTermYears', fa.loanTermYears);
-      row.put('Expires', adjustUTCDateTime(fa.expiryDate));
+      row.put('Expires', formatDate(fa.expiryDate));
       row.put('GovernmentGuarantee', fa.govtGuarantee == 'YES' ? true : false);
       row.put('AmountInArrears', fa.amountInArrears);
       row.put('SI', fa.securityIndicator);

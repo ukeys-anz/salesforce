@@ -20,10 +20,10 @@
     <language>Procedure</language>
     <name>IPJointAccountPermissionTransform</name>
     <omniProcessElements>
-        <name>DRJointAccountPermissionTransform</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>DRJointAccountPermissionTransform</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -61,10 +61,10 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ResponseAction1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ResponseAction1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,

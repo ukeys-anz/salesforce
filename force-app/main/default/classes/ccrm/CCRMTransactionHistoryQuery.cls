@@ -45,7 +45,7 @@ public with sharing class CCRMTransactionHistoryQuery extends CCRMFinancialAccou
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (TransactionHistoryCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (TransactionHistoryCalloutResponse) CalloutModel.deserialize(
       responseBody,
       TransactionHistoryCalloutResponse.class
     );
@@ -83,8 +83,8 @@ public with sharing class CCRMTransactionHistoryQuery extends CCRMFinancialAccou
       row.put('Amount', th.amount);
       row.put(this.parent, this.parentId);
       row.put('Description', th.description);
-      row.put('EffectiveDate', adjustUTCDateTime(th.transactionDate));
-      row.put('PostDate', adjustUTCDateTime(th.postedDate));
+      row.put('EffectiveDate', formatDate(th.transactionDate));
+      row.put('PostDate', formatDate(th.postedDate));
       row.put('RunningBalance', th.runningBalance);
       row.put('Source', th.source);
       row.put('Time', th.transactionTime);

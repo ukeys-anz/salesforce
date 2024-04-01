@@ -138,7 +138,7 @@ public inherited sharing class StravinskyServiceTest {
       Id = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
       RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
       PersonaId__c = faker.randomString(15),
-      Status = GetHelpConstants.COB_DAON_FAILED_STATUS
+      Status = GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS
     );
 
     //load forge staff token

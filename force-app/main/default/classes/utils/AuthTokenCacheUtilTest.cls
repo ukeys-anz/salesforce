@@ -289,23 +289,24 @@ public class AuthTokenCacheUtilTest {
   @isTest
   public static void testGetStaffTokenV2() {
     User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
-    Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + anzxTestUser.Id,
-      AuthServiceTest.IDTESTVALUE,
-      300,
-      Cache.Visibility.NAMESPACE,
-      false
-    );
     StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
     staffModelWrapper.idType = Service.IdType.OCVID;
     staffModelWrapper.idValue = '1111';
     String idToken = 'xxxxxxxx';
+    Cache.Session.put(
+      'local.ForgeToken.forgeJWTToken' + staffModelWrapper.idValue,
+      AuthServiceTest.IDTESTVALUEFORGE2,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+
     Test.startTest();
     System.runAs(anzxTestUser) {
       String accessToken = AuthTokenCacheUtil.getStaffToken(staffModelWrapper);
       Assert.areEqual(
         accessToken,
-        'xxxxx',
+        AuthServiceTest.IDTESTVALUEFORGE2,
         'The accessToken should be as expected.'
       );
     }

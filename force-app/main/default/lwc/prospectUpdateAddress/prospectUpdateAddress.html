@@ -11,31 +11,58 @@
     <!-- sldsValidatorIgnoreNextLine -->
     <lightning-quick-action-panel header={title} class="slds-is-relative">
       <lightning-spinner lwc:if={loading}></lightning-spinner>
-      <lightning-messages></lightning-messages>
 
-      <lightning-input-field
-        disabled={addressId}
-        field-name="AddressType"
-        required
-      ></lightning-input-field>
-      <lightning-input-field field-name="IsDefault"></lightning-input-field>
-      <c-address-lookup-util
-        value={currentAddress}
-        required
-      ></c-address-lookup-util>
-
+      <div lwc:if={hasValidAddress}>
+        <lightning-messages></lightning-messages>
+        <lightning-input-field
+          disabled={addressId}
+          field-name="AddressType"
+          required
+        ></lightning-input-field>
+        <lightning-input-field
+          field-name="IsDefault"
+          value={strIsDefault}
+        ></lightning-input-field>
+        <c-address-lookup-util
+          value={mnaualSelectedAddress}
+          onhandleselecion={handleaddresselection}
+          onaddresschange={handleAddressChange}
+          required
+        ></c-address-lookup-util>
+      </div>
+      <div lwc:else>
+        <lightning-messages></lightning-messages>
+        <lightning-datatable
+          data={lookUpAddressResult}
+          max-row-selection="1"
+          columns={columns}
+          key-field="Id"
+          onrowselection={validatButton}
+        >
+        </lightning-datatable>
+      </div>
       <div slot="footer" class="slds-text-align_center">
         <lightning-button
+          class="btnSave slds-var-m-left_medium"
+          variant="brand"
+          label="Save"
+          type="submit"
+          disabled={disabled}
+        >
+        </lightning-button
+        >&nbsp;&nbsp;
+        <lightning-button
+          lwc:if={hasValidAddress}
           class="btnCancel"
           label="Cancel"
           onclick={closeQuickAction}
         >
         </lightning-button>
         <lightning-button
-          class="btnSave slds-var-m-left_medium"
-          variant="brand"
-          label="Save"
-          type="submit"
+          lwc:else
+          class="btnCancel"
+          label="Cancel"
+          onclick={handleCancelSelection}
         >
         </lightning-button>
       </div>

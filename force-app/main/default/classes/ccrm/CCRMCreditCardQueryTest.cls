@@ -42,23 +42,7 @@ private class CCRMCreditCardQueryTest {
   @isTest
   static void createCreditCardAccountsTest() {
     Test.startTest();
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMCreditCardQueryTest.CCRMCreditCardQueryTestMock()
-    );
-    //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
-      null
-    );
-    conn.sync();
-    //query
-    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
-      'CreditCard'
-    );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
-      null
-    );
-    aConn.query(context);
+    DataSource.QueryContext context = CCRMTestDataFactory.createCreditCardContext();
     CCRMCreditCardQuery cardAccount = new CCRMCreditCardQuery();
     CCRMExternalObjectQueryBase.ExternalQueryResult result = cardAccount.execute(
       context
@@ -80,23 +64,22 @@ private class CCRMCreditCardQueryTest {
       'Name mismatch'
     );
   }
+  @isTest
+  static void getProductCodeTest() {
+    Test.startTest();
+    DataSource.QueryContext context = CCRMTestDataFactory.createCreditCardContext();
+    CCRMCreditCardQuery cardAccount = new CCRMCreditCardQuery();
+    CCRMExternalObjectQueryBase.ExternalQueryResult result = cardAccount.execute(
+      context
+    );
 
-  /**
-   * @description create HTTP mock response for testing
-   */
-  public class CCRMCreditCardQueryTestMock implements HttpCalloutMock {
-    /**
-     * @description HTTP mock response
-     * @param req HTTP request
-     * @return HTTPResponse
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      String jsonBody = Service.getStaticResource('mock_creditCardResponse');
-      HTTPResponse res = new HTTPResponse();
-      res.setHeader('ms2-example', 'pcb-success-with-multiple-accounts');
-      res.setBody(jsonBody);
-      res.setStatusCode(200);
-      return res;
-    }
+    CCRMCreditCardQuery.CCRMCreditCardModel cardModel = new CCRMCreditCardQuery.CCRMCreditCardModel();
+    cardModel.accountNumber = '7234567890121234';
+    cardModel.accountName = 'Tom Hanks';
+    cardModel.productCode = 'PCA';
+    cardModel.status = 'Active';
+    String productCode = cardAccount.getProductCode(cardModel);
+    Test.stopTest();
+    System.assertEquals('PCA', productCode, 'Product code mismatch');
   }
 }

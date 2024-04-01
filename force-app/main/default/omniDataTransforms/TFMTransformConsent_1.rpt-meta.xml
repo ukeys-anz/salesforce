@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <assignmentRulesUsed>false</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
     <errorIgnored>false</errorIgnored>
@@ -39,168 +39,13 @@
         <name>TFMTransformConsent</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:state 0 == &quot;Unspecified&quot; | var:state 1 == &quot;Pending&quot; | var:state 2 == &quot;Active&quot; | var:state 3 == &quot;Stopped&quot; | var:state 4 == &quot;Amended&quot; | var:state 5 == &quot;Expired&quot; &quot;&quot; IF IF IF IF IF IF</formulaConverted>
-        <formulaExpression>IF(state == 0, &quot;Unspecified&quot;, IF(state == 1, &quot;Pending&quot;, IF(state == 2, &quot;Active&quot;, IF(state == 3, &quot;Stopped&quot;, IF(state == 4, &quot;Amended&quot;, IF(state == 5, &quot;Expired&quot;, &quot;&quot;))))))</formulaExpression>
-        <formulaResultPath>state</formulaResultPath>
-        <formulaSequence>1.0</formulaSequence>
-        <globalKey>TFMTransformConsentCustom5591</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom9928</globalKey>
-        <inputFieldName>isCreator</inputFieldName>
+        <globalKey>TFMTransformConsentCustom5324</globalKey>
+        <inputFieldName>accounts</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>isCreator</outputFieldName>
+        <outputFieldName>accounts</outputFieldName>
         <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom3230</globalKey>
-        <inputFieldName>ownerPersonaId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ownerPersonaId</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:createTime &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
-        <formulaExpression>FORMATDATETIME(createTime, &quot;dd/MM/yyyy&quot;)</formulaExpression>
-        <formulaResultPath>from</formulaResultPath>
-        <formulaSequence>4.0</formulaSequence>
-        <globalKey>TFMTransformConsentCustom2464</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom7091</globalKey>
-        <inputFieldName>from</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>from</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom8614</globalKey>
-        <inputFieldName>expires</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>expires</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom3051</globalKey>
-        <inputFieldName>state</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>state</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:registerSoftwareProduct:clientName &quot;/\/\/by/\/\/&quot; var:brandName CONCAT</formulaConverted>
-        <formulaExpression>CONCAT(registerSoftwareProduct:clientName, &quot; by &quot;, brandName)</formulaExpression>
-        <formulaResultPath>consentName</formulaResultPath>
-        <formulaSequence>2.0</formulaSequence>
-        <globalKey>TFMTransformConsentCustom3742</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom9243</globalKey>
-        <inputFieldName>consentName</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>consentName</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:uuid var:ownerPersonaId == &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
-        <formulaExpression>IF(uuid == ownerPersonaId, &quot;Yes&quot;, &quot;No&quot;)</formulaExpression>
-        <formulaResultPath>isCreator</formulaResultPath>
-        <formulaSequence>3.0</formulaSequence>
-        <globalKey>TFMTransformConsentCustom1245</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TFMTransformConsent</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:stateUpdateTime &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
-        <formulaExpression>FORMATDATETIME(stateUpdateTime, &quot;dd/MM/yyyy&quot;)</formulaExpression>
-        <formulaResultPath>updateTime</formulaResultPath>
-        <formulaSequence>6.0</formulaSequence>
-        <globalKey>TFMTransformConsentCustom9701</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -222,12 +67,29 @@
         <name>TFMTransformConsent</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom5324</globalKey>
-        <inputFieldName>accounts</inputFieldName>
+        <formulaConverted>| | var:stateUpdatedTime ISNOTBLANK | var:stateUpdatedTime &quot;dd/MM/yyyy&quot; FORMATDATETIME false IF</formulaConverted>
+        <formulaExpression>IF(ISNOTBLANK(stateUpdatedTime),FORMATDATETIME(stateUpdatedTime, &quot;dd/MM/yyyy&quot;),false)</formulaExpression>
+        <formulaResultPath>updateTime</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>TFMTransformConsentCustom9701</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom8614</globalKey>
+        <inputFieldName>expires</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>accounts</outputFieldName>
+        <outputFieldName>expires</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -236,12 +98,88 @@
         <name>TFMTransformConsent</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom5021</globalKey>
-        <inputFieldName>dataScopes</inputFieldName>
+        <globalKey>TFMTransformConsentCustom9591</globalKey>
+        <inputFieldName>createTime</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>dataScopes</outputFieldName>
+        <outputFieldName>createTime</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom7091</globalKey>
+        <inputFieldName>from</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>from</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom6494</globalKey>
+        <inputFieldName>registeredSoftwareProduct</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>registeredSoftwareProduct</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:createTime &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(createTime, &quot;dd/MM/yyyy&quot;)</formulaExpression>
+        <formulaResultPath>from</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>TFMTransformConsentCustom2464</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:expireTime &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(expireTime, &quot;dd/MM/yyyy&quot;)</formulaExpression>
+        <formulaResultPath>expires</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>TFMTransformConsentCustom397</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom3230</globalKey>
+        <inputFieldName>ownerPersonaId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ownerPersonaId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -264,11 +202,39 @@
         <name>TFMTransformConsent</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:expireTime &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
-        <formulaExpression>FORMATDATETIME(expireTime, &quot;dd/MM/yyyy&quot;)</formulaExpression>
-        <formulaResultPath>expires</formulaResultPath>
-        <formulaSequence>5.0</formulaSequence>
-        <globalKey>TFMTransformConsentCustom397</globalKey>
+        <globalKey>TFMTransformConsentCustom6193</globalKey>
+        <inputFieldName>expireTime</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>expireTime</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom9243</globalKey>
+        <inputFieldName>consentName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>consentName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:registeredSoftwareProduct:clientName &quot;/\/\/by/\/\/&quot; var:brandName CONCAT</formulaConverted>
+        <formulaExpression>CONCAT(registeredSoftwareProduct:clientName, &quot; by &quot;, brandName)</formulaExpression>
+        <formulaResultPath>consentName</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>TFMTransformConsentCustom3742</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
@@ -281,57 +247,119 @@
         <name>TFMTransformConsent</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMTransformConsentCustom6494</globalKey>
-        <inputFieldName>registerSoftwareProduct</inputFieldName>
+        <globalKey>TFMTransformConsentCustom3051</globalKey>
+        <inputFieldName>state</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>registerSoftwareProduct</outputFieldName>
+        <outputFieldName>state</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom1763</globalKey>
+        <inputFieldName>arrangementId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>arrangementId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom9928</globalKey>
+        <inputFieldName>isCreator</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>isCreator</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom5021</globalKey>
+        <inputFieldName>dataScopes</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>dataScopes</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom3642</globalKey>
+        <inputFieldName>id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>consentId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMTransformConsentCustom933</globalKey>
+        <inputFieldName>updateTimeAvailable</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>updateTimeAvailable</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMTransformConsent</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:state &quot;STATE_UNSPECIFIED&quot; == &quot;UNSPECIFIED&quot; | var:state &quot;STATE_PENDING&quot; == &quot;PENDING&quot; | var:state &quot;STATE_ACTIVE&quot; == &quot;ACTIVE&quot; | var:state &quot;STATE_STOPPED&quot; == &quot;STOPPED&quot; | var:state &quot;STATE_AMENDED&quot; == &quot;AMENDED&quot; | var:state &quot;STATE_EXPIRED&quot; == &quot;EXPIRED&quot; &quot;&quot; IF IF IF IF IF IF</formulaConverted>
+        <formulaExpression>IF(state == &quot;STATE_UNSPECIFIED&quot;, &quot;UNSPECIFIED&quot;, IF(state == &quot;STATE_PENDING&quot;, &quot;PENDING&quot;, IF(state == &quot;STATE_ACTIVE&quot;, &quot;ACTIVE&quot;, IF(state == &quot;STATE_STOPPED&quot;, &quot;STOPPED&quot;, IF(state == &quot;STATE_AMENDED&quot;, &quot;AMENDED&quot;, IF(state == &quot;STATE_EXPIRED&quot;, &quot;EXPIRED&quot;, &quot;&quot;))))))</formulaExpression>
+        <formulaResultPath>state</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TFMTransformConsentCustom5591</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>[ {
   &quot;arrangementId&quot; : &quot;6e52a6fb-aa1b-4cfe-9ba8-eb55be238366&quot;,
-  &quot;brandName&quot; : &quot;Mock Brand Name&quot;,
-  &quot;expireTime&quot; : &quot;2023-09-05T02:59:52.715Z&quot;,
-  &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
-  &quot;createTime&quot; : &quot;2023-09-05T02:59:52.715Z&quot;,
-  &quot;ownerPersonaId&quot; : &quot;a65e0357-8e34-403f-aaab-66671f111111&quot;,
-  &quot;registerSoftwareProduct&quot; : {
-    &quot;orgName&quot; : &quot;Mock Company Name&quot;,
-    &quot;clientId&quot; : &quot;f1cb8415-f5d4-48f5-a509-da6df19c9aa0&quot;,
-    &quot;clientName&quot; : &quot;grow&quot;,
-    &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;
-  },
-  &quot;stateUpdateTime&quot; : &quot;2023-09-05T02:59:52.715Z&quot;,
-  &quot;accounts&quot; : [ {
-    &quot;jointAccount&quot; : false,
-    &quot;bsb&quot; : &quot;014111&quot;,
-    &quot;accountNumber&quot; : &quot;390988244&quot;
-  }, {
-    &quot;jointAccount&quot; : true,
-    &quot;bsb&quot; : &quot;014111&quot;,
-    &quot;accountNumber&quot; : &quot;390988245&quot;
-  } ],
-  &quot;state&quot; : 4,
-  &quot;id&quot; : &quot;a65e0357-8e34-403f-aaab-66671fded897&quot;,
-  &quot;canRevokeApproval&quot; : false
-}, {
-  &quot;arrangementId&quot; : &quot;6e52a6fb-aa1b-4cfe-9ba8-eb55be238366&quot;,
   &quot;brandName&quot; : &quot;ANUJ Brand Name&quot;,
   &quot;expireTime&quot; : &quot;2023-09-05T02:59:52.715Z&quot;,
   &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
   &quot;createTime&quot; : &quot;2023-08-05T02:59:52.715Z&quot;,
-  &quot;ownerPersonaId&quot; : &quot;a65e0357-8e34-403f-aaab-66671f111111&quot;,
+  &quot;ownerPersonaId&quot; : &quot;869120cc-50eb-4050-829a-e1b33a29dc49&quot;,
   &quot;registerSoftwareProduct&quot; : {
     &quot;orgName&quot; : &quot;Anuj Company Name&quot;,
     &quot;clientId&quot; : &quot;f1cb8415-f5d4-48f5-a509-da6df19c9aa0&quot;,
     &quot;clientName&quot; : &quot;grow&quot;,
     &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;
   },
-  &quot;stateUpdateTime&quot; : &quot;2023-09-05T02:59:52.715Z&quot;,
+  &quot;stateUpdateTime&quot; : &quot;2023-08-05T02:59:52.715Z&quot;,
+  &quot;personaId&quot; : &quot;869120cc-50eb-4050-829a-e1b33a29dc49&quot;,
   &quot;accounts&quot; : [ {
     &quot;jointAccount&quot; : false,
     &quot;bsb&quot; : &quot;014111&quot;,

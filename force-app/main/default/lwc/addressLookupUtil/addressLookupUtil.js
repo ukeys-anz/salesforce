@@ -1,6 +1,8 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api, track, wire } from "lwc";
 import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV3";
 import getSelectedAddress from "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLwcV3";
+import getCountryNameToCodeMap from "@salesforce/apex/MLCRMCommonUtils.getCountryNameToCodeMap";
+import getStateNameToCodeMap from "@salesforce/apex/MLCRMCommonUtils.getStateNameToCodeMap";
 import { handleErrorShowToast } from "c/utils";
 
 const SELECT_ADDRESS_ERROR =
@@ -14,6 +16,14 @@ export default class AddressLookupUtil extends LightningElement {
   @api useCountryFullName = false;
   @api allowManualInput = false;
   @track currentAddress = {};
+  maxAllowedCharInProvince = 15;
+  maxAllowedCharInPostalCode = 9;
+  errorInProvince = false;
+  errorInPostalCode = false;
+  provinceErrorMessage =
+    "Maximum of " + this.maxAllowedCharInProvince + " characters is allowed.";
+  postalCodeErrorMessage =
+    "Postcode to be capped to a maximum 9-characters (may include alphabets or special chars like hivens) to comply with CAP field length.";
   showAddresses = false;
   addressList = [];
   searchString;
@@ -27,6 +37,61 @@ export default class AddressLookupUtil extends LightningElement {
   displayMessage = false;
   resetValidationError = false;
   pendingSearchRequest;
+
+  @wire(getCountryNameToCodeMap) countryMetadataRecords;
+  @wire(getStateNameToCodeMap) stateMetadataRecords;
+
+  get getProvinceOptions() {
+    // Format: [{label:Austrail, value: AUS},{label:India, value:IND}]
+    var stateOptions = [];
+
+    // If country is other then AUS then do nothing.
+    if (
+      !(
+        this.currentAddress.country == null ||
+        this.currentAddress.country === "AUS"
+      ) ||
+      this.stateMetadataRecords == null
+    ) {
+      return null;
+    }
+    let listOfStatesMap = this.stateMetadataRecords.data; // format: CountryName-> CountryCode map
+    if (listOfStatesMap == null) {
+      return null;
+    }
+    for (let key in listOfStatesMap) {
+      if (key) {
+        let temp = {
+          label: key,
+          value: listOfStatesMap[key]
+        };
+        stateOptions.push(temp);
+      }
+    }
+    return stateOptions;
+  }
+
+  get getCountryOptions() {
+    if (this.countryMetadataRecords == null) {
+      return null;
+    }
+    // Format: [{label:StateName1, value: StateCode1},{label:StateName2, value:StateCode2}]
+    let countryOptions = [{ label: "Australia", value: "AUS" }]; // First Country must be australia
+    let listOfCountriesMap = this.countryMetadataRecords.data; // format: CountryName-> CountryCode map
+    if (listOfCountriesMap == null) {
+      return null;
+    }
+    for (let key in listOfCountriesMap) {
+      if (key !== "Australia") {
+        let temp = {
+          label: key,
+          value: listOfCountriesMap[key]
+        };
+        countryOptions.push(temp);
+      }
+    }
+    return countryOptions;
+  }
 
   @api
   get value() {
@@ -43,11 +108,52 @@ export default class AddressLookupUtil extends LightningElement {
       (this.currentAddress.street &&
         this.currentAddress.city &&
         this.currentAddress.state &&
-        this.currentAddress.postalCode)
+        this.currentAddress.postalCode &&
+        !this.errorInPostalCode &&
+        !this.errorInProvince)
     );
   }
 
+  handleCustomValidation(event) {
+    const address = this.template.querySelector("lightning-input-address");
+
+    // if province exceed max char then add error, else remove error
+    if (
+      event.target.province &&
+      event.target.province.length > this.maxAllowedCharInProvince
+    ) {
+      address.setCustomValidityForField(this.provinceErrorMessage, "province");
+      this.errorInProvince = true;
+    } else {
+      address.setCustomValidityForField("", "province");
+      this.errorInProvince = false;
+    }
+
+    // if postalCode exceed max char then add error, else remove error
+    // if postal code is non-numeric then show error
+    if (
+      event.target.postalCode &&
+      event.target.postalCode.length > this.maxAllowedCharInPostalCode
+    ) {
+      address.setCustomValidityForField(
+        this.postalCodeErrorMessage,
+        "postalCode"
+      );
+      this.errorInPostalCode = true;
+    } else {
+      address.setCustomValidityForField("", "postalCode");
+      this.errorInPostalCode = false;
+    }
+  }
+
   addressInputChange(event) {
+    // Country is changed and (if current country is AUS then will show dropdown, if old country was AUS then need to empty provience)
+    if (
+      this.currentAddress.country !== event.target.country &&
+      (this.currentAddress.country === "AUS" || event.target.country === "AUS")
+    ) {
+      event.target.province = "";
+    }
     this.currentAddress.street = event.target.street;
     this.currentAddress.city = event.target.city;
     this.currentAddress.state = event.target.province;
@@ -64,6 +170,7 @@ export default class AddressLookupUtil extends LightningElement {
       this.currentAddress.globalAddressKey = null;
       this.currentAddress.dpid = null;
     }
+    this.handleCustomValidation(event); // add custom validation on Provience and PostCode.
     this.eventDispatchers.addressChange();
   }
 
@@ -87,9 +194,15 @@ export default class AddressLookupUtil extends LightningElement {
 
   displayAddressFields() {
     this.currentAddress = {};
+    this.currentAddress.country = "AUS"; // CC-7217 setting default country to Australia
     this.selectedAddress = null;
     this.showAddresses = false;
     this.disabled = false;
+    this.dispatchEvent(
+      new CustomEvent("handleselecion", {
+        detail: this.disabled
+      })
+    );
     this.eventDispatchers.inputEnable();
   }
 
@@ -211,7 +324,7 @@ export default class AddressLookupUtil extends LightningElement {
     addressChange: () =>
       this.dispatchEvent(
         new CustomEvent("addresschange", {
-          detail: this.value
+          detail: this.currentAddress
         })
       )
   };

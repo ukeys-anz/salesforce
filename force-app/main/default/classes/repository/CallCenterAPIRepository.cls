@@ -27,7 +27,6 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     String urlParams = String.isBlank(nextURL) ? rowLimitParam : nextURL;
 
     String endPoint =
-      'callout:SF_MS_Twilio' +
       Label.MS_Get_CustomerChatChannels +
       ppid +
       CHANNELS_ENDPOINT_SUFFIX +
@@ -48,10 +47,7 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     String channelSID
   ) {
     // Construct the endpoint
-    String endPoint =
-      'callout:SF_MS_Twilio' +
-      Label.MS_Get_CaseChatChannel +
-      channelSID;
+    String endPoint = Label.MS_Get_CaseChatChannel + channelSID;
 
     // Call the service
     return getSingleChatTopic(ocvId, endPoint);

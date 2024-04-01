@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SigningCertificateDeveloperName__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Signing JWT using the Developer Name from Certificate and Key Management.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Signing Certificate Developer Name</label>
+    <length>64</length>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

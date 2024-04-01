@@ -190,6 +190,7 @@
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
     "Assessment_Response__c": "Needs Assessment response completed by the loan applicant",
+    "AuthenticationHistory__c": "Help user to view the history/information of Auth Request made on an Interaction",
     "BusinessHours": "Specifies the business hours of your support organization.",
     "Campaign": "Represents and tracks a marketing campaign.",
     "Balance_History__x": "Balance history external object",
@@ -489,6 +490,27 @@
       "IA-2468715": [
         "Name",
         "OwnerId"
+      ]
+    },
+    "AuthenticationHistory__c": {
+      "IA-2415860": [
+        "UUID__c",
+        "Status__c",
+        "Interaction__c",
+        "ValidAccessToken__c",
+        "VerificationDate__c"
+      ],
+      "IA-2594111": [
+        "AuthorisationRequestID__c"
+      ],
+      "IA-2530753": [
+        "InternalAttendee__c"
+      ],
+      "IA-2571531": [
+        "ErrorMessages__c"
+      ],
+      "IA-2468705": [
+        "AuthenticationMethod__c"
       ]
     },
     "Broker_Code__c": {
@@ -1059,6 +1081,7 @@
         "SI_Category_Other__c",
         "ContactMobile",
         "ContactEmail",
+        "Customer_Residential_Address__c",
         "IDR_3rdParty_Country__c",
         "IDR_3rdParty_Email__c",
         "IDR_3rdParty_Mobile__c",
@@ -1132,6 +1155,8 @@
         "TestedDate__c"
       ],
       "IA-2415860": [
+        "Customer_First_Contacted__c",
+        "Followup_State__c",
         "Package_Id__c",
         "Status_Update_Error__c",
         "System_Action__c"
@@ -1145,6 +1170,17 @@
       ],
       "IA-2468710": [
         "SLATesting__c"
+      ]
+    },
+    "Case_Reporting_Field__c": {
+      "IA-2453595": [
+        "Case__c",
+        "Case_Last_Opened__c",
+        "Case_Last_Opened_RG271__c",
+        "IDR_Response_Time_RG271__c",
+        "IDR_Response_Time_RG271_MS__c",
+        "Total_Open_Time__c",
+        "Total_Open_Time_MS__c"
       ]
     },
     "Case_Reporting_Field__c": {
@@ -1631,7 +1667,8 @@
         "Title",
         "UUID__c",
         "Wealth_Product_Manufacturer__c",
-        "Sent_Created_Party_Details__c"
+        "Sent_Created_Party_Details__c",
+        "Internal_Description__c"
       ],
       "IA-2468715": [
         "Id",
@@ -2324,6 +2361,21 @@
         "Conversation_Sid__c"
       ]
     },
+    "JSONWebTokenAttributes__mdt": {
+      "IA-2415860": [
+        "Algorithm__c",
+        "Audience__c",
+        "AuthContext__c",
+        "BindingMessage__c",
+        "Issuer__c",
+        "KeyIdentification__c",
+        "LoginHint__c",
+        "Scope__c",
+        "SigningCertificateDeveloperName__c",
+        "Type__c",
+        "ValidFor__c"
+      ]
+    },
     "Known_Issues__c": {
       "IA-2468715": [
         "CreatedById",
@@ -2525,7 +2577,10 @@
         "Referrer_Phone__c"
       ],
       "IA-2460507": [
-        "Referrer_Name__c"
+        "Referrer_Name__c",
+        "My_Sub_Team__c",
+        "My_Team__c",
+        "Lead_Owner_Teamcode__c"
       ],
       "IA-2697875": [
         "Referrer_Business_Name__c",
@@ -2584,6 +2639,16 @@
         "Campaign_Lead_URL__c"
       ]
     },
+    "DCRM_CountryMapping__mdt": {
+      "IA-2415984": [
+        "Country_Code__c"
+      ]
+    },
+    "DCRM_StateMapping__mdt": {
+      "IA-2415984": [
+        "State_Code__c"
+      ]
+    },
     "Lead_Status_Transformation__mdt": {
       "IA-2415860": [
         "Lead_Status__c",
@@ -2591,12 +2656,15 @@
         "UNICA_Lead_Status__c"
       ]
     },
-    "CCRM_Action_Plan_Template_Selection__mdt": {
-      "IA-2415860": [
+    "CCRM_Commercial_Stage_Action_Plan__mdt": {
+      "IA-2460507": [
+        "Next_Stage__c",
+        "Previous_Stage__c",
         "Commercial_Segment__c",
         "Opportunity_Record_Type__c",
         "Template_Name__c",
-        "Opportunity_Stage_Name__c"
+        "Opportunity_Stage_Name__c",
+        "Current_Stage__c"
       ]
     },
     "Loan_Applicant_Group__c": {
@@ -2951,7 +3019,6 @@
       "IA-2415860": [
         "Associated_Source_Detail__c",
         "BBD_Application_Number__c",
-        "BCOP_Email_sent__c",
         "Broker_Involved__c",
         "CLP_Credit_Case_Number__c",
         "Customer_Needs__c",
@@ -2974,7 +3041,8 @@
         "Contact__c",
         "Lead_Converted__c",
         "Has_Close_Date_Changed__c",
-        "CLG__c"
+        "CLG__c",
+        "My_Notes__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -3023,6 +3091,14 @@
         "Total_Mortgage_Lending__c",
         "Waiting_Indicator__c",
         "Waiting_Flag__c"
+      ],
+      "IA-2460507": [
+        "My_Sub_Team__c",
+        "My_Team__c",
+        "Opportunity_Owner_Teamcode__c"
+      ],
+      "IA-2530753": [
+        "Opportunity_Owner__c"
       ]
     },
     "OpportunityLineItem": {
@@ -3051,7 +3127,8 @@
         "ServiceDate"
       ],
       "IA-2415860": [
-        "Funding_purpose__c"
+        "Funding_purpose__c",
+        "Interest_Rate_Quoted__c"
       ]
     },
     "Process_Effectiveness__c": {
@@ -3985,6 +4062,8 @@
         "Lan_Id__c",
         "Leads_Count__c",
         "Team_Code__c",
+        "Commercial_Segment__c",
+        "Sub_Team_Code__c",
         "Manager_Email__c",
         "Manager_Lan_Id__c",
         "Commercial_Segment__c"
@@ -4148,7 +4227,6 @@
         "Account_Status__c",
         "ANZ_Plus_Identifier__c",
         "Balance__c",
-        "CPID__c",
         "Credit_Limit__c",
         "Customer__c",
         "Interest_Rate__c",

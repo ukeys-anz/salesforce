@@ -24,21 +24,42 @@ public with sharing class GetHelpCaseActions {
   public static final String PAY_TO_DISPUTE_PAYMENTID_PREFIX = 'MPS';
   public static final String PAY_TO_SUBJECT_PREFIX = 'PayTo';
 
-  public static Group accountClosureQueue = CommonUtil.getQueueByName(
-    'Account_Closure_Queue'
-  );
+  private static Map<String, Group> groups {
+    get {
+      if (groups == null) {
+        groups = new Map<String, Group>();
+        for (Group oGroup : [
+          SELECT Id, Name, DeveloperName
+          FROM Group
+          WHERE
+            Type = 'Queue'
+            AND DeveloperName IN (
+              'Account_Closure_Queue',
+              'COB_Fraud_Check_Queue',
+              'CAD_Credit_Referral_Case_Queue',
+              'Digital_Fraud_Queue',
+              'ID_Ops_Queue'
+            )
+          WITH SECURITY_ENFORCED
+        ]) {
+          groups.put(oGroup.DeveloperName, oGroup);
+        }
+      }
+      return groups;
+    }
+    private set;
+  }
+  public static Group accountClosureQueue = groups.get('Account_Closure_Queue');
 
-  public static Group cobFraudCheckQueue = CommonUtil.getQueueByName(
-    'COB_Fraud_Check_Queue'
-  );
+  public static Group cobFraudCheckQueue = groups.get('COB_Fraud_Check_Queue');
 
-  public static Group cadReferralQueue = CommonUtil.getQueueByName(
+  public static Group cadReferralQueue = groups.get(
     'CAD_Credit_Referral_Case_Queue'
   );
 
-  public static Group digitalFraudQueue = CommonUtil.getQueueByName(
-    'Digital_Fraud_Queue'
-  );
+  public static Group digitalFraudQueue = groups.get('Digital_Fraud_Queue');
+
+  public static Group idOpsQueue = groups.get('ID_Ops_Queue');
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -473,8 +494,7 @@ public with sharing class GetHelpCaseActions {
    */
   private static void setBusinessHours(Case record) {
     if (BusinessHours.SObjectType.getDescribe().isAccessible()) {
-      BusinessHours bhs = CommonUtil.getBusinessHours();
-      record.BusinessHoursId = bhs.Id;
+      record.BusinessHoursId = CommonUtil.anzBusinessHours.Id;
     }
   }
 
@@ -1076,6 +1096,89 @@ public with sharing class GetHelpCaseActions {
       if (c.BOH_Fraud_Case__c) {
         c.Sub_Type__c = 'Home Loan document verification';
         c.OwnerId = digitalFraudQueue.Id;
+      }
+    }
+  }
+
+  /**
+   * @description CaseTriggerHandler module
+   * @param lstNewCases List of inserted Cases from Trigger
+   */
+  public static void onlyAllowOneOpenProfileUpdateCase(List<Case> lstNewCases) {
+    Set<Id> stAccountIds = new Set<Id>();
+    Set<Id> stCaseIds = new Set<Id>();
+    for (Case oCase : lstNewCases) {
+      if (
+        oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate &&
+        oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA &&
+        oCase.Status == GetHelpConstants.OPEN_STATUS
+      ) {
+        stAccountIds.add(oCase.AccountId);
+        stCaseIds.add(oCase.Id);
+      }
+    }
+    if (
+      !stCaseIds.isEmpty() &&
+      PermissionUtils.canQuery('Case') &&
+      PermissionUtils.canUpdate('Case')
+    ) {
+      List<Case> lstUpdates = new List<Case>();
+      for (Case oCase : [
+        SELECT Id, Status, Sub_Status__c
+        FROM Case
+        WHERE
+          RecordTypeId = :GetHelpConstants.idrtProfileUpdate
+          AND Type = :GetHelpConstants.RESIDENTIAL_ADDRESS_QA
+          AND Status != :GetHelpConstants.CLOSED_STATUS
+          AND AccountId IN :stAccountIds
+          AND (NOT Id IN :stCaseIds)
+      ]) {
+        oCase.Status = GetHelpConstants.CLOSED_STATUS;
+        oCase.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_LONGER_REQUIRED;
+        lstUpdates.add(oCase);
+      }
+      if (!lstUpdates.isEmpty()) {
+        DMLUtil.updateRecords(lstUpdates, false, false);
+      }
+    }
+  }
+
+  /**
+   * @description Assign newly created Profile Update Cases to ID Ops Queue
+   * @param lstNewCases Case records being inserted by trigger
+   */
+  public static void setOwnerToIDOpsQueue(List<Case> lstNewCases) {
+    for (Case oCase : lstNewCases) {
+      if (
+        oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate &&
+        oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA
+      ) {
+        oCase.OwnerId = idOpsQueue.Id;
+      }
+    }
+  }
+
+  /**
+   * @description Capture the Date/time when case status is first changed to Customer Update Pending
+   * @param lstNewCases Case records being updated by trigger
+   * @param mpOldCases Map of prior state of Case records
+   */
+  public static void checkCustomerUpdatePendingStatus(
+    List<Case> lstNewCases,
+    Map<Id, Case> mpOldCases
+  ) {
+    Case oOldCase;
+    for (Case oCase : lstNewCases) {
+      if (
+        oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate &&
+        oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA &&
+        oCase.Status == GetHelpConstants.CUSTOMER_UPDATE_PENDING &&
+        oCase.Customer_First_Contacted__c == null &&
+        mpOldCases != null &&
+        (oOldCase = mpOldCases.get(oCase.Id)) != null &&
+        oCase.Status != oOldCase.Status
+      ) {
+        oCase.Customer_First_Contacted__c = Datetime.now();
       }
     }
   }

@@ -1,0 +1,101 @@
+<template>
+  <div class="authenticateCustomers">
+    <lightning-card>
+      <h1 class="card-title">
+        <lightning-icon
+          icon-name="standard:person_name"
+          size="small"
+          class="slds-var-m-right_large"
+        ></lightning-icon>
+        Authenticate Customer
+      </h1>
+      <!--Show Icons-->
+      <template if:true={showIcon}>
+        <div class="slds-var-m-around_small slds-align_absolute-center">
+          <div class={iconClass}>
+            <lightning-icon
+              icon-name={IconName}
+              size="small"
+              alternative-text={IconName}
+            ></lightning-icon>
+          </div>
+        </div>
+      </template>
+      <!--Show User Message-->
+      <div class="slds-align_absolute-center">
+        <div class={userMessageStyle}>
+          <span>{userMessage}</span>
+        </div>
+      </div>
+      <!--Show Spinner-->
+      <template if:true={showSpinner}>
+        <div class="slds-align_absolute-center">
+          <div class="slds-var-m-around_xx-large">
+            <div role="status" class="slds-spinner_inline">
+              <lightning-spinner
+                alternative-text="Loading"
+                variant="brand"
+                size="small"
+              ></lightning-spinner>
+            </div>
+          </div>
+        </div>
+      </template>
+      <!--Show Timer-->
+      <template lwc:if={showTimer}>
+        <div class="slds-var-m-around_x-large slds-align_absolute-center">
+          <span>{showTimer}</span>
+        </div>
+      </template>
+      <!--Show Authenticate Buttons-->
+      <template if:true={showAuthenticateButton}>
+        <div class="btnGroup">
+          <div class="btnWidth slds-align_absolute-center">
+            <lightning-button
+              label="AAL3 - Pin or Local Biometrics"
+              variant="brand-outline"
+              class="btn"
+              data-id="AAL3 - Pin or Local Biometrics"
+              icon-name="utility:touch_action"
+              onclick={handleAuthentication}
+            >
+            </lightning-button>
+          </div>
+          <br />
+          <template if:true={fraudAgentRole}>
+            <div
+              class="btnWidth slds-align_absolute-center slds-var-m-bottom_x-large"
+            >
+              <lightning-button
+                label="AAL4 - Selfie ID"
+                variant="brand-outline"
+                class="btn"
+                data-id="AAL4 - Selfie ID"
+                icon-name="utility:photo"
+                onclick={handleAuthentication}
+              >
+              </lightning-button>
+            </div>
+          </template>
+        </div>
+      </template>
+      <!--Show Authenticate Again Button-->
+      <template if:true={showAuthenticateAgainButton}>
+        <div class="btnGroup">
+          <div
+            class="btnWidthAuthenticateAgain slds-var-m-around_medium slds-var-m-top_medium slds-align_absolute-center"
+          >
+            <lightning-button
+              label="Authenticate Again"
+              variant="brand-outline"
+              class="btn"
+              data-id="Authenticate Again"
+              onclick={authenticateAgain}
+            >
+            </lightning-button>
+          </div>
+        </div>
+      </template>
+    </lightning-card>
+  </div>
+</template>

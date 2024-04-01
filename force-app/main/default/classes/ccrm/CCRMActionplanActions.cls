@@ -6,6 +6,14 @@
  *              the access provided org wide for ActionPlan and ActionaPlanTemplate is Public Read Only
  */
 public without sharing class CCRMActionplanActions {
+  @testvisible
+  private static List<SObject> mockResults {
+    get;
+    set {
+      mockResults = value;
+    }
+  }
+
   /**
    * @description Define custom exceptions
    */
@@ -165,133 +173,228 @@ public without sharing class CCRMActionplanActions {
 
   /**
    * @description Add Action plan to Opportunity when Opportunity moved to 'Need Analysis' stage.
-   *  If(Opportunity Stage = 'Needs Analysis' OR 'Customer Acceptance'){
-   *  get all CCRM_Action_Plan_Template_Selection__mdt
+   * If(Opportunity Stage = 'Needs Analysis' OR 'Customer Acceptance'){
+   *  get all CCRM_Commercial_Stage_Action_Plan__mdt
    *  create Map<String(Opportunity Record Type+Segment+Stage Name), ActionPlanTemplateName>
    *  get all published ActionPlanTemplates
    *  create ActionPlan records for each opportunity
    * }
-   * @name insertActionPlans
-   * @param newOppList list of new records
+   * @name validateAndInsertActionPlans
+   * @param oppWrapper CCRMOpportunityWrapper
    * @param oldOppMap map of old records
    */
-  public static void insertActionPlans(
-    List<Opportunity> newOppList,
+  public static void validateAndInsertActionPlans(
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper,
     Map<Id, Opportunity> oldOppMap
   ) {
-    Map<String, List<String>> actionPlanTemplateMap = new Map<String, List<String>>();
-    List<ActionPlan> actionPlanToInsert = new List<ActionPlan>();
-    Set<String> oppIdsList = new Set<String>();
-    Set<String> actionPlanTempSet = new Set<String>();
-    String actionPlanName = '';
+    try {
+      Map<String, CCRM_Commercial_Stage_Action_Plan__mdt> stageActionPlanMapping = new Map<String, CCRM_Commercial_Stage_Action_Plan__mdt>();
 
-    for (Opportunity opp : newOppList) {
-      if (
-        opp.recordTypeId == CCRMConstants.CCRM_OPP_RT_ID &&
-        opp.StageName != oldOppMap.get(opp.Id).StageName &&
-        (opp.StageName.equalsIgnoreCase(CCRMConstants.NEED_ANALYSIS) ||
-        opp.StageName.equalsIgnoreCase(CCRMConstants.CUST_ACCEPT))
-      ) {
-        oppIdsList.add(opp.Id);
-      }
-    }
-
-    if (oppIdsList.isEmpty()) {
-      return;
-    }
-
-    for (
-      CCRM_Action_Plan_Template_Selection__mdt iterator : CCRM_Action_Plan_Template_Selection__mdt.getAll()
-        .values()
-    ) {
-      if (iterator.Template_Name__c.contains(';')) {
-        actionPlanTemplateMap.put(
-          getActionPlanKey(
-            iterator.Opportunity_Record_Type__c,
-            iterator.Commercial_Segment__c,
-            iterator.Opportunity_Stage_Name__c
-          ),
-          new List<String>(iterator.Template_Name__c.split(';'))
-        );
-        actionPlanTempSet.addAll(iterator.Template_Name__c.split(';'));
-      } else {
-        actionPlanTemplateMap.put(
-          getActionPlanKey(
-            iterator.Opportunity_Record_Type__c,
-            iterator.Commercial_Segment__c,
-            iterator.Opportunity_Stage_Name__c
-          ),
-          new List<String>{ iterator.Template_Name__c }
-        );
-        actionPlanTempSet.add(iterator.Template_Name__c);
-      }
-    }
-
-    Map<String, String> apTempMap = new Map<String, String>();
-    for (ActionPlanTemplateVersion apIterator : [
-      SELECT Id, Name
-      FROM ActionPlanTemplateVersion
-      WHERE
-        Name IN :actionPlanTempSet
-        AND Status = :CCRMConstants.PUBLISHED_TEMPLATE_STATUS
-    ]) {
-      apTempMap.put(apIterator.Name, apIterator.Id);
-    }
-
-    for (Opportunity oppIter : [
-      SELECT
-        Id,
-        Owner.Commercial_Segment__c,
-        StageName,
-        OwnerId,
-        RecordType.DeveloperName
-      FROM Opportunity
-      WHERE Id IN :oppIdsList
-    ]) {
-      actionPlanName = getActionPlanKey(
-        oppIter.RecordType.DeveloperName,
-        oppIter.Owner.Commercial_Segment__c,
-        oppIter.StageName
+      stageActionPlanMapping = CCRMOpportunityActions.getStageActionPlanMetadata(
+        oppWrapper.filteredOpps
       );
-      if (
-        actionPlanTemplateMap.containsKey(actionPlanName) &&
-        !actionPlanTemplateMap.get(actionPlanName).isEmpty()
-      ) {
-        for (
-          String tempNameIterator : actionPlanTemplateMap.get(actionPlanName)
-        ) {
-          if (apTempMap.containsKey(tempNameIterator)) {
-            actionPlanToInsert.add(
-              createActionPlan(
-                oppIter.Id,
-                tempNameIterator,
-                apTempMap.get(tempNameIterator),
-                oppIter.OwnerId
-              )
-            );
-          }
-        }
-      }
-    }
-    if (!actionPlanToInsert.isEmpty()) {
-      insert actionPlanToInsert;
+
+      oppWrapper = CCRMOpportunityActions.getStageSegmentOrTemplateMap(
+        oppWrapper,
+        oldOppMap,
+        stageActionPlanMapping
+      );
+
+      //Check for existing action plans
+      Map<Id, List<String>> oppsWithActionPlans = checkForExistingActionPlans(
+        oppWrapper.oppIdToTemplateNameMap
+      );
+
+      //Get opps with No Action Plans
+      CCRMActionPlanWrapper planWrapper = getOppsWithNoActionPlans(
+        oppsWithActionPlans,
+        oppWrapper
+      );
+
+      List<ActionPlan> actionPlans = insertActionPlans(planWrapper, oppWrapper);
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
     }
   }
 
   /**
-   * @description get key for ActionPlanTemplateMap as a concatenated value of Record type, segment and stage name.
-   * @name getActionPlanKey
-   * @param recordType rescord type
-   * @param segment commercial segment
-   * @param stageName stage name
-   * @return key string
+   * @description check for existing action plans for a particular stage
+   * @name checkForExistingActionPlans
+   * @param oppIdToTemplateNameMap Map of opp Id and Template Names
+   * @return templateMap Map<Id, String>
    */
-  public static String getActionPlanKey(
-    String recordType,
-    String segment,
-    String stageName
+  @testVisible
+  private static Map<Id, List<String>> checkForExistingActionPlans(
+    Map<Id, String> oppIdToTemplateNameMap
   ) {
-    return (recordType + segment + stageName).deleteWhitespace().toLowerCase();
+    Map<Id, List<String>> oppsWithActionPlans = new Map<Id, List<String>>();
+    List<ActionPlan> actionPlansList = new List<ActionPlan>();
+
+    if (oppIdToTemplateNameMap.keySet().isEmpty()) {
+      return oppsWithActionPlans;
+    }
+
+    if (!Schema.sObjectType.ActionPlan.isQueryable()) {
+      CommonUtil.logAndThrowIAE(
+        'CCRMActionplanActions',
+        'checkForExistingActionPlans',
+        'Not enough permissions to query ActionPlan.'
+      );
+    }
+
+    actionPlansList = getActionPlans(oppIdToTemplateNameMap);
+
+    for (ActionPlan actionPlan : actionPlansList) {
+      getOppsWithActionPlans(
+        actionPlan,
+        oppsWithActionPlans,
+        oppIdToTemplateNameMap
+      );
+    }
+    return oppsWithActionPlans;
+  }
+
+  private static List<ActionPlan> getActionPlans(
+    Map<Id, String> oppIdToTemplateNameMap
+  ) {
+    if (mockResults != null) {
+      return mockResults;
+    }
+    return [
+      SELECT
+        Id,
+        TargetId,
+        ActionPlanTemplateVersion.Status,
+        ActionPlanTemplateVersion.ActionPlanTemplate.Name
+      FROM ActionPlan
+      WHERE
+        TargetId IN :oppIdToTemplateNameMap.keySet()
+        AND ActionPlanTemplateVersion.Status = :CCRMConstants.PUBLISHED_TEMPLATE_STATUS
+      WITH SECURITY_ENFORCED
+    ];
+  }
+
+  private static Map<Id, List<String>> getOppsWithActionPlans(
+    ActionPlan actionPlan,
+    Map<Id, List<String>> oppsWithActionPlans,
+    Map<Id, String> oppIdToTemplateNameMap
+  ) {
+    String templateName = oppIdToTemplateNameMap.get(actionPlan.TargetId);
+    if (
+      templateName.split(';')
+        .contains(actionPlan.ActionPlanTemplateVersion.ActionPlanTemplate.Name)
+    ) {
+      if (!oppsWithActionPlans.containsKey(actionPlan.TargetId)) {
+        oppsWithActionPlans.put(actionPlan.TargetId, new List<String>());
+      }
+      oppsWithActionPlans.get(actionPlan.TargetId)
+        .add(actionPlan.ActionPlanTemplateVersion.ActionPlanTemplate.Name);
+
+      return oppsWithActionPlans;
+    }
+    return new Map<Id, List<String>>();
+  }
+
+  @testVisible
+  private static CCRMActionPlanWrapper getOppsWithNoActionPlans(
+    Map<Id, List<String>> oppsWithActionPlans,
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper
+  ) {
+    Set<String> templates = new Set<String>();
+    Map<Id, List<String>> filteredOppIdToTemplateNameMap = new Map<Id, List<String>>();
+    Set<Id> oppIdsWithNoActionPlansSet = new Set<Id>();
+
+    if (oppWrapper.oppIdToTemplateNameMap.keySet().isEmpty()) {
+      return null;
+    }
+
+    oppIdsWithNoActionPlansSet = oppWrapper.oppIdToTemplateNameMap.keySet();
+    oppIdsWithNoActionPlansSet.removeAll(oppsWithActionPlans.keySet());
+
+    if (oppIdsWithNoActionPlansSet.isEmpty()) {
+      return null;
+    }
+
+    for (Id oppId : oppIdsWithNoActionPlansSet) {
+      List<String> templateNames = oppWrapper.oppIdToTemplateNameMap.get(oppId)
+        .split(';');
+
+      filteredOppIdToTemplateNameMap.put(oppId, templateNames);
+      templates.addAll(templateNames);
+    }
+
+    CCRMActionPlanWrapper planWrapper = new CCRMActionPlanWrapper();
+    planWrapper.oppsWithNoActionPlansToTemplateNameMap = filteredOppIdToTemplateNameMap;
+    planWrapper.templates = templates;
+    return planWrapper;
+  }
+
+  @testVisible
+  private static List<ActionPlan> insertActionPlans(
+    CCRMActionPlanWrapper planWrapper,
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper
+  ) {
+    List<ActionPlan> actionPlanToInsert = new List<ActionPlan>();
+    Map<String, String> apTempMap = new Map<String, String>();
+    List<ActionPlanTemplateVersion> actionTemplateVersionList = new List<ActionPlanTemplateVersion>();
+
+    if (planWrapper.oppsWithNoActionPlansToTemplateNameMap.keySet().isEmpty()) {
+      return null;
+    }
+
+    if (!Schema.sObjectType.ActionPlanTemplateVersion.isQueryable()) {
+      CommonUtil.logAndThrowIAE(
+        'CCRMActionplanActions',
+        'insertActionPlans',
+        'Not enough permissions to query ActionPlanTemplateVersion.'
+      );
+    }
+
+    actionTemplateVersionList = getActionPlanTemplateVersionList(planWrapper);
+
+    for (ActionPlanTemplateVersion apIterator : actionTemplateVersionList) {
+      apTempMap.put(apIterator.ActionPlanTemplate.Name, apIterator.Id);
+    }
+
+    for (
+      Id oppId : planWrapper.oppsWithNoActionPlansToTemplateNameMap.keySet()
+    ) {
+      List<String> templateNames = planWrapper.oppsWithNoActionPlansToTemplateNameMap.get(
+        oppId
+      );
+      for (String name : templateNames) {
+        if (apTempMap.containsKey(name)) {
+          actionPlanToInsert.add(
+            createActionPlan(
+              oppId,
+              name,
+              apTempMap.get(name),
+              oppWrapper.oppIdToOwnerIdMap.get(oppId)
+            )
+          );
+        }
+      }
+    }
+
+    if (!actionPlanToInsert.isEmpty()) {
+      insert actionPlanToInsert;
+    }
+    return actionPlanToInsert;
+  }
+
+  private static List<ActionPlanTemplateVersion> getActionPlanTemplateVersionList(
+    CCRMActionPlanWrapper planWrapper
+  ) {
+    if (mockResults != null) {
+      return mockResults;
+    }
+    return [
+      SELECT Id, Name, ActionPlanTemplate.Name
+      FROM ActionPlanTemplateVersion
+      WHERE ActionPlanTemplate.Name IN :planWrapper.templates
+      WITH SECURITY_ENFORCED
+    ];
   }
 
   /**
@@ -318,5 +421,13 @@ public without sharing class CCRMActionplanActions {
     apRec.Name = actionPlanName;
     apRec.ActionPlanTemplateVersionId = actionPlanTempId;
     return apRec;
+  }
+
+  /**
+   * @description wrapper class for Action Plans
+   */
+  public class CCRMActionPlanWrapper {
+    public Map<Id, List<String>> oppsWithNoActionPlansToTemplateNameMap = new Map<Id, List<String>>();
+    public Set<String> templates = new Set<String>();
   }
 }

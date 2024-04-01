@@ -54,7 +54,7 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (TermAccountCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (TermAccountCalloutResponse) CalloutModel.deserialize(
       responseBody,
       TermAccountCalloutResponse.class
     );
@@ -95,14 +95,14 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
       row.put('Pledge', fa.pledge);
       row.put('PledgeAmount', fa.pledgeAmount);
       row.put('StopsPay', fa.restrainsStopPayNumber);
-      row.put('DateOpened', adjustUTCDateTime(fa.openDate));
-      row.put('DateClosed', adjustUTCDateTime(fa.closeDate));
+      row.put('DateOpened', formatDate(fa.openDate));
+      row.put('DateClosed', formatDate(fa.closeDate));
       row.put('BSB', fa.bsbCode);
       row.put('ANZSICCode', fa.anzsicCode);
       row.put('CPID', fa.controllingPostId);
       row.put('NumberOfSignatures', fa.noOfSignatures);
-      row.put('IssueDate', adjustUTCDateTime(fa.cdaIssueDate));
-      row.put('MaturityDate', adjustUTCDateTime(fa.maturityDate));
+      row.put('IssueDate', formatDate(fa.cdaIssueDate));
+      row.put('MaturityDate', formatDate(fa.maturityDate));
       row.put('TermYear', fa.termYear);
       row.put('TermMonth', fa.termMonth);
       List<Decimal> creditInterestRateArray = new List<Decimal>();

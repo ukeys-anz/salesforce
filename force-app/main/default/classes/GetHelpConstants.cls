@@ -74,6 +74,21 @@ public with sharing class GetHelpConstants {
     .get('False_Customer_Profile')
     .getRecordTypeId();
 
+  /**
+   * @description get Case.Profile_Update record type on demand
+   */
+  public static final Id idrtProfileUpdate {
+    get {
+      if (idrtProfileUpdate == null) {
+        idrtProfileUpdate = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+          .get('Profile_Update')
+          ?.getRecordTypeId();
+      }
+      return idrtProfileUpdate;
+    }
+    private set;
+  }
+
   //Hold the multi-party account's ownership value
   public static final String MULTI_PARTY = 'Multi-party';
 
@@ -272,9 +287,11 @@ public with sharing class GetHelpConstants {
   public static final String COB_FAILED_OK_STATUS = 'Failed';
   public static final String COB_POTENTIAL_FRAUD_STATUS = 'Potential Fraud';
   public static final String COB_CONFIRMED_FRAUD_STATUS = 'Confirmed Fraud';
+  public static final String CUSTOMER_UPDATE_PENDING = 'Customer Update Pending';
 
   //ANZx Case Sub Status
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
+  public static final String CLOSED_SUB_STATUS_NO_LONGER_REQUIRED = 'No Longer Required';
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
   // Case Origins for Self Service Dispute Cases
@@ -285,6 +302,10 @@ public with sharing class GetHelpConstants {
 
   // Permission Set Group Name
   public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
+
+  // ANZX Case Type
+  public static final String MANUAL_ADDRESS_UPDATE_TYPE = 'Manual Address Update';
+  public static final String RESIDENTIAL_ADDRESS_QA = 'Residential Address QA';
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';

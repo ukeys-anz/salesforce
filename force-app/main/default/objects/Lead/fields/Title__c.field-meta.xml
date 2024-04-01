@@ -49,6 +49,11 @@
                 <default>false</default>
                 <label>Financial Controller</label>
             </value>
+            <value>
+                <fullName>Chief Executive Officer</fullName>
+                <default>false</default>
+                <label>Chief Executive Officer</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
