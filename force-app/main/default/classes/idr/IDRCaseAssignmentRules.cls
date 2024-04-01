@@ -125,9 +125,6 @@ public with sharing class IDRCaseAssignmentRules {
     String strProductFamily = oProductFamily?.Name;
     Product2 oProduct = productsMap?.get(rec.Product__c);
     String productCode = oProduct?.ANZ_Product_Code__c;
-    //rules to run only on escalation
-    if (
-      rec.Status == IDRConstants.ESCALATED_STATUS &&
       (oldCase == null ||
       oldCase.Status != IDRConstants.ESCALATED_STATUS ||
       (oldCase.Status == rec.Status &&
@@ -336,15 +333,10 @@ public with sharing class IDRCaseAssignmentRules {
       for (Product2 p : [
         SELECT
           Name,
-          IDR_Product_Family__c,
-          ANZ_Product_Code__c,
+          IDR_Product_Family__c,ANZ_Product_Code__c,
           IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c
-        FROM Product2
         WHERE Id IN :productIds
       ]) {
-        productMap.put(p.Id, p);
-      }
-    }
     return productMap;
   }
   /**
