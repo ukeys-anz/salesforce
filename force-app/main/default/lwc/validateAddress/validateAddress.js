@@ -5,18 +5,29 @@ import { getRecord } from "lightning/uiRecordApi";
 import { NavigationMixin } from "lightning/navigation";
 import getValidAddresses from "@salesforce/apex/CCRMAPIRepository.getAddressesLwcV3";
 import getSelectedAddress from "@salesforce/apex/CCRMAPIRepository.getSelectedAddressLWC";
+import validateManualAddress from "@salesforce/apex/MLCRMAPIRepository.validateManualAddressesV3LWC";
 import LEAD_STREET from "@salesforce/schema/Lead.Street";
 import LEAD_CITY from "@salesforce/schema/Lead.City";
 import LEAD_STATE from "@salesforce/schema/Lead.State";
 import LEAD_COUNTRY from "@salesforce/schema/Lead.Country";
 import LEAD_POSTAL_CODE from "@salesforce/schema/Lead.PostalCode";
 import LEAD_IS_VALID_ADDRESS from "@salesforce/schema/Lead.Is_Valid_Address__c";
+import getCountryNameToCodeMap from "@salesforce/apex/MLCRMCommonUtils.getCountryNameToCodeMap";
+import getStateNameToCodeMap from "@salesforce/apex/MLCRMCommonUtils.getStateNameToCodeMap";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
 export default class AddressLwc extends NavigationMixin(LightningElement) {
   @api recordId;
   @api objectAPIName = "Lead";
+  maxAllowedCharInProvince = 15;
+  maxAllowedCharInPostalCode = 9;
+  errorInProvince = false;
+  errorInPostalCode = false;
+  provinceErrorMessage =
+    "Maximum of " + this.maxAllowedCharInProvince + " characters is allowed.";
+  postalCodeErrorMessage =
+    "Postcode to be capped to a maximum 9-characters (may include alphabets or special chars like hivens) to comply with CAP field length.";
   strStreet;
   strCity;
   strState;
@@ -40,6 +51,89 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   displayAddresses = false;
   displayMessage = false;
   resetValidationError = false;
+  hasValidAddress = true;
+  lookUpAddressResult;
+  CONSTANT = {
+    VALID_COUNTRY: "AUS"
+  };
+  fields = {};
+  disabled = false;
+  columns = [
+    {
+      label: "Subrub",
+      fieldName: "suburb",
+      type: "text"
+    },
+    {
+      label: "State",
+      fieldName: "state",
+      type: "text"
+    },
+    {
+      label: "PostCode",
+      fieldName: "postCode",
+      type: "text"
+    }
+  ];
+
+  @wire(getCountryNameToCodeMap) countryMetadataRecords;
+  @wire(getStateNameToCodeMap) stateMetadataRecords;
+
+  get title() {
+    return this.hasValidAddress
+      ? "Add/ Edit Address"
+      : "Pick Suburb / State / Postcode";
+  }
+
+  get getProvinceOptions() {
+    // Format: [{label:Austrail, value: AUS},{label:India, value:IND}]
+    var stateOptions = [];
+
+    // If country is other then AUS then do nothing.
+    if (
+      !(this.strCountry == null || this.strCountry === "AUS") ||
+      this.stateMetadataRecords == null
+    ) {
+      return null;
+    }
+    let listOfStatesMap = this.stateMetadataRecords.data; // format: CountryName-> CountryCode map
+    if (listOfStatesMap == null) {
+      return null;
+    }
+    for (let key in listOfStatesMap) {
+      if (key) {
+        let temp = {
+          label: key,
+          value: listOfStatesMap[key]
+        };
+        stateOptions.push(temp);
+      }
+    }
+    return stateOptions;
+  }
+
+  get getCountryOptions() {
+    // Format: [{label:StateName1, value: StateCode1},{label:StateName2, value:StateCode2}]
+    let countryOptions = [{ label: "Australia", value: "AUS" }]; // First Country must be Australia
+
+    if (this.countryMetadataRecords == null) {
+      return null;
+    }
+    let listOfCountriesMap = this.countryMetadataRecords.data; // format: CountryName-> CountryCode map
+    if (listOfCountriesMap === undefined || listOfCountriesMap === null) {
+      return null;
+    }
+    for (let key in listOfCountriesMap) {
+      if (key !== "Australia") {
+        let temp = {
+          label: key,
+          value: listOfCountriesMap[key]
+        };
+        countryOptions.push(temp);
+      }
+    }
+    return countryOptions;
+  }
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -58,6 +152,10 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
       this.strCity = data.fields.City.value;
       this.strState = data.fields.State.value;
       this.strCountry = data.fields.Country.value;
+      //CC-7217 : Making AUS default Country for Add/Edit Address
+      if (data.fields.Country.value == null) {
+        this.strCountry = "AUS";
+      }
       this.strPostalCode = data.fields.PostalCode.value;
     } else if (error) {
       this.closeQuickAction();
@@ -86,17 +184,45 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     event.preventDefault();
     if (this.isDataValid) {
       this.loading = true;
-      let fields = event.detail.fields;
-      if (this.objectAPIName === "Lead") {
-        fields.Street = this.strStreet;
-        fields.City = this.strCity;
-        fields.State = this.strState;
-        fields.Country = this.strCountry;
-        fields.PostalCode = this.strPostalCode.toString();
+      this.fields =
+        Object.keys(this.fields).length === 0
+          ? event.detail.fields
+          : this.fields;
+      if (
+        this.isAddressDisabled === false &&
+        this.strCountry === this.CONSTANT.VALID_COUNTRY &&
+        this.hasValidAddress === true
+      ) {
+        this.validateAddress(this.fields);
+      } else if (
+        this.isAddressDisabled === false &&
+        this.strCountry === this.CONSTANT.VALID_COUNTRY &&
+        this.hasValidAddress === false
+      ) {
+        let selectedData = this.template
+          .querySelector("lightning-datatable")
+          .getSelectedRows()[0];
+        this.fields.Street = this.strStreet;
+        this.fields.City = selectedData.suburb;
+        this.fields.State = selectedData.state;
+        this.fields.Country = this.strCountry;
+        this.fields.latitude = undefined;
+        this.fields.longitute = undefined;
+        this.fields.PostalCode = this.strPostalCode.toString();
+        this.fields.Is_Valid_Address__c = true;
+        this.template
+          .querySelector("lightning-record-edit-form")
+          .submit(this.fields);
+      } else {
+        this.fields.Street = this.strStreet;
+        this.fields.City = this.strCity;
+        this.fields.State = this.strState;
+        this.fields.Country = this.strCountry;
+        this.fields.PostalCode = this.strPostalCode.toString();
         if (this.isValidAddress) {
-          fields.Is_Valid_Address__c = true;
+          this.fields.Is_Valid_Address__c = true;
         } else {
-          fields.Is_Valid_Address__c = false;
+          this.fields.Is_Valid_Address__c = false;
         }
         if (this.selectedAddress) {
           if (
@@ -106,28 +232,70 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
             this.strCountry !== this.selectedAddress.countryCodeThree ||
             this.strPostalCode !== this.selectedAddress.postalCode
           ) {
-            fields.Is_Valid_Address__c = false;
+            this.fields.Is_Valid_Address__c = false;
             this.strLatitude = "";
             this.strLongitude = "";
           }
         }
         if (this.strLatitude) {
-          fields.Latitude = this.strLatitude;
+          this.fields.Latitude = this.strLatitude;
         }
         if (this.strLongitude) {
-          fields.Longitude = this.strLongitude;
+          this.fields.Longitude = this.strLongitude;
         }
+        this.template
+          .querySelector("lightning-record-edit-form")
+          .submit(this.fields);
       }
-      this.template.querySelector("lightning-record-edit-form").submit(fields);
     }
   }
 
   addressInputChange(event) {
+    // Country is changed and (if current country is AUS then will show dropdown, if old country was AUS then need to empty provience)
+    if (
+      this.strCountry !== event.target.country &&
+      (this.strCountry === "AUS" || event.target.country === "AUS")
+    ) {
+      event.target.province = "";
+    }
     this.strStreet = event.target.street;
     this.strCity = event.target.city;
     this.strState = event.target.province;
     this.strCountry = event.target.country;
     this.strPostalCode = event.target.postalCode;
+    this.handleCustomValidation(event); // add custom validation on Provience and PostCode.
+  }
+
+  handleCustomValidation(event) {
+    const address = this.template.querySelector("lightning-input-address");
+
+    // if province exceed max char then add error, else remove error
+    // if postal code is non-numeric then show error
+    if (
+      event.target.province &&
+      event.target.province.length > this.maxAllowedCharInProvince
+    ) {
+      address.setCustomValidityForField(this.provinceErrorMessage, "province");
+      this.errorInProvince = true;
+    } else {
+      address.setCustomValidityForField("", "province");
+      this.errorInProvince = false;
+    }
+
+    // if postalCode exceed max char then add error, else remove error
+    if (
+      event.target.postalCode &&
+      event.target.postalCode.length > this.maxAllowedCharInPostalCode
+    ) {
+      address.setCustomValidityForField(
+        this.postalCodeErrorMessage,
+        "postalCode"
+      );
+      this.errorInPostalCode = true;
+    } else {
+      address.setCustomValidityForField("", "postalCode");
+      this.errorInPostalCode = false;
+    }
   }
 
   handleSearchKeyChange(event) {
@@ -155,6 +323,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   }
 
   getAddresses() {
+    //let lookupString = encodeURIComponent(this.searchString);
     getValidAddresses({ lookupString: this.searchString })
       .then((result) => {
         this.addressList = result.result;
@@ -242,7 +411,9 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
       !this.strStreet ||
       !this.strCity ||
       !this.strState ||
-      !this.strPostalCode
+      !this.strPostalCode ||
+      this.errorInPostalCode ||
+      this.errorInProvince
     ) {
       this.isDataValid = false;
     } else {
@@ -258,5 +429,58 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     if (this.resetValidationError) {
       this.resetValidationError = false;
     }
+  }
+
+  // method to validate manual address
+  validateAddress(fields) {
+    validateManualAddress({
+      state: this.strState,
+      postcode: this.strPostalCode,
+      suburb: this.strCity
+    })
+      .then((objresult) => {
+        if (objresult.hasValidAddress) {
+          this.hasValidAddress = true;
+          fields.Street = this.strStreet;
+          fields.City = this.strCity;
+          fields.State = this.strState;
+          fields.latitude = undefined;
+          fields.longitute = undefined;
+          fields.Country = this.strCountry;
+          fields.Is_Valid_Address__c = true;
+          fields.PostalCode = this.strPostalCode.toString();
+          this.template
+            .querySelector("lightning-record-edit-form")
+            .submit(fields);
+        } else {
+          this.disabled = true;
+          this.hasValidAddress = false;
+          this.lookUpAddressResult = objresult.result;
+          this.loading = false;
+        }
+      })
+      .catch((error) => {
+        this.loading = false;
+        handleErrorShowToast(
+          this,
+          "Error while validating the address. Please contact your administrator",
+          error,
+          error.body.message,
+          "pester"
+        );
+      });
+  }
+
+  // method to go back to first screen when user click cancel on second screen
+  handleCancelSelection() {
+    this.hasValidAddress = true;
+    this.disabled = false;
+  }
+  validatButton() {
+    this.disabled = false;
+  }
+
+  handleError() {
+    this.loading = false;
   }
 }

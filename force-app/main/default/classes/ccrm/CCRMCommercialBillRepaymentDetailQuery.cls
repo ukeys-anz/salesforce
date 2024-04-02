@@ -38,7 +38,7 @@ public with sharing class CCRMCommercialBillRepaymentDetailQuery extends CCRMFin
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (RepaymentDetailCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (RepaymentDetailCalloutResponse) CalloutModel.deserialize(
       responseBody,
       RepaymentDetailCalloutResponse.class
     );
@@ -74,11 +74,8 @@ public with sharing class CCRMCommercialBillRepaymentDetailQuery extends CCRMFin
         'ScheduledBillReductionAmount',
         repay.scheduledBillReductionAmount
       );
-      row.put(
-        'ScheduledStartDate',
-        adjustUTCDateTime(repay.scheduledStartDate)
-      );
-      row.put('ScheduledEndDate', adjustUTCDateTime(repay.scheduledEndDate));
+      row.put('ScheduledStartDate', formatDate(repay.scheduledStartDate));
+      row.put('ScheduledEndDate', formatDate(repay.scheduledEndDate));
       result.queryResult.add(row);
     }
     return result;

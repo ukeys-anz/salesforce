@@ -497,6 +497,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.REAL_form_Comments__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.REaL_form_categories__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1447,6 +1452,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.TM_Comments_for_C_Q_Manager_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.TM_Response_to_C_Q_Manager_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.Verbal_customer_comms_organised_etc__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1491,6 +1506,41 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Previous_Case_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case_Reporting_Field__c.Case_Last_Opened_RG271__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case_Reporting_Field__c.Case_Last_Opened__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case_Reporting_Field__c.IDR_Response_Time_RG271_MS__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case_Reporting_Field__c.IDR_Response_Time_RG271__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case_Reporting_Field__c.Total_Open_Time_MS__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case_Reporting_Field__c.Total_Open_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Task.IDR_Collection_Number__c</field>
         <readable>true</readable>
@@ -1521,71 +1571,71 @@
         <visibility>Available</visibility>
     </tabSettings>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AssignPermissionSets</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>DataExport</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>DelegatedTwoFactor</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ExportReport</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageInternalUsers</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageIpAddresses</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageLoginAccessPolicies</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManagePasswordPolicies</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageProfilesPermissionsets</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageRoles</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageSharing</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageUsers</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ResetPasswords</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>RunReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewAllUsers</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewRoles</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>ViewSetup</name>
         <enabled>true</enabled>
+        <name>ViewSetup</name>
     </userPermissions>
 </PermissionSet>

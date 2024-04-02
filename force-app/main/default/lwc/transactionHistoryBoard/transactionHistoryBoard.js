@@ -17,10 +17,14 @@ import {
   cardSchemeApiValues,
   dateOptions,
   timeOptions,
+  dateTimeOptions,
   TRANSACTION_TYPES,
   PERSON_ACCOUNT_ID_RETRIEVE_ERROR,
   PAYMENT_TYPES,
-  PAYMENT_SUB_TYPES
+  PAYMENT_SUB_TYPES,
+  CARD_METHOD,
+  CARD_WALLET,
+  CARD_TRANSACTION_METHOD
 } from "c/transactionHistoryService";
 
 export default class TransactionHistoryBoard extends LightningElement {
@@ -211,6 +215,14 @@ export default class TransactionHistoryBoard extends LightningElement {
               currentTransaction.card.scheme =
                 cardSchemeApiValues[currentTransaction.card.scheme];
             }
+          }
+          if (
+            currentTransaction.card &&
+            currentTransaction.formatted_type === TRANSACTION_TYPES.Card
+          ) {
+            currentTransaction.card.formatted_transactionMethod = this.getFormattedTransactionMethod(
+              currentTransaction.card
+            );
           }
           // Card and Cash scheme values are same. Thus checking if the
           if (currentTransaction.cash && this.isTransactionsV1()) {
@@ -431,11 +443,12 @@ export default class TransactionHistoryBoard extends LightningElement {
       transaction.TransactionDate = this.getDateObject(
         transaction.transactionDateLocal
       ).toLocaleDateString("en-AU", dateOptions); // No time conversion is done here, just formatting to a string with the desired format
-      transaction.transaction_time =
-        this.getDateObject(transaction.transactionDateLocal).toLocaleTimeString(
-          "en-AU",
-          timeOptions
-        ) + " AEST/AEDT"; // No time conversion is done here, just formatting to a string with the desired format
+      transaction.transaction_time = this.getDateObject(
+        transaction.transactionDateLocal
+      ).toLocaleTimeString("en-AU", timeOptions); // No time conversion is done here, just formatting to a string with the desired format
+      transaction.transaction_date_time = this.getDateObject(
+        transaction.transactionDateLocal
+      ).toLocaleTimeString("en-AU", dateTimeOptions); // AR-106397 Ability for agents to view the transaction date and time
     } else {
       transaction.TransactionDate = transaction.transaction_time = "Unknown";
     }
@@ -524,5 +537,64 @@ export default class TransactionHistoryBoard extends LightningElement {
 
   isTransactionsV1() {
     return TransactionAPIUpliftedToV1 === "True";
+  }
+  // https://jira.anzx.service.anz/browse/AR-123182 Card Transaction Method
+  getFormattedTransactionMethod(card) {
+    switch (true) {
+      case card.method === CARD_METHOD.CONTACTLESS &&
+        card.wallet === CARD_WALLET.APPLE_PAY:
+        return CARD_TRANSACTION_METHOD.Apple_Pay_payWave;
+      case card.method === CARD_METHOD.CONTACTLESS &&
+        card.wallet === CARD_WALLET.GOOGLE_PAY:
+        return CARD_TRANSACTION_METHOD.Google_Pay_payWave;
+      case card.method === CARD_METHOD.CONTACTLESS &&
+        card.wallet === CARD_WALLET.SAMSUNG_PAY:
+        return CARD_TRANSACTION_METHOD.Samsung_Pay_payWave;
+      case card.method === CARD_METHOD.MANUAL &&
+        card.wallet === CARD_WALLET.APPLE_PAY:
+        return CARD_TRANSACTION_METHOD.Apple_Pay_Online_or_In_App;
+      case card.method === CARD_METHOD.MANUAL &&
+        card.wallet === CARD_WALLET.GOOGLE_PAY:
+        return CARD_TRANSACTION_METHOD.Google_Pay_Online_or_In_App;
+      case card.method === CARD_METHOD.MANUAL &&
+        card.wallet === CARD_WALLET.SAMSUNG_PAY:
+        return CARD_TRANSACTION_METHOD.Samsung_Pay_Online_or_In_App;
+      case card.method === CARD_METHOD.CARD_ON_FILE &&
+        card.wallet === CARD_WALLET.APPLE_PAY:
+        return CARD_TRANSACTION_METHOD.Apple_Pay_Recurring_Billing;
+      case card.method === CARD_METHOD.CARD_ON_FILE &&
+        card.wallet === CARD_WALLET.GOOGLE_PAY:
+        return CARD_TRANSACTION_METHOD.Google_Pay_Recurring_Billing;
+      case card.method === CARD_METHOD.CARD_ON_FILE &&
+        card.wallet === CARD_WALLET.SAMSUNG_PAY:
+        return CARD_TRANSACTION_METHOD.Samsung_Pay_Recurring_Billing;
+      case card.method === CARD_METHOD.CHIP &&
+        (card.wallet === CARD_WALLET.CARD_WALLET_UNSPECIFIED || !card.wallet):
+        return CARD_TRANSACTION_METHOD.Card_Chip_PIN;
+      case card.method === CARD_METHOD.CONTACTLESS &&
+        (card.wallet === CARD_WALLET.CARD_WALLET_UNSPECIFIED || !card.wallet):
+        return CARD_TRANSACTION_METHOD.Card_payWave;
+      case card.method === CARD_METHOD.SWIPE &&
+        (card.wallet === CARD_WALLET.CARD_WALLET_UNSPECIFIED || !card.wallet):
+        return CARD_TRANSACTION_METHOD.Card_Magnetic_Swipe;
+      case card.method === CARD_METHOD.CARD_ON_FILE &&
+        (card.wallet === CARD_WALLET.CARD_WALLET_UNSPECIFIED ||
+          !card.wallet ||
+          card.wallet === CARD_WALLET.VISA_ECOM_ENABLER ||
+          card.wallet === CARD_WALLET.VISA_COF_ECOM):
+        return CARD_TRANSACTION_METHOD.Card_Saved_on_File_With_Merchant;
+      case card.method === CARD_METHOD.MANUAL &&
+        (card.wallet === CARD_WALLET.CARD_WALLET_UNSPECIFIED || !card.wallet):
+        return CARD_TRANSACTION_METHOD.Card_Manually_Keyed_in_to_Terminal;
+      case card.method === CARD_METHOD.MANUAL &&
+        (card.wallet === CARD_WALLET.VISA_ECOM_ENABLER ||
+          card.wallet === CARD_WALLET.VISA_COF_ECOM):
+        return CARD_TRANSACTION_METHOD.Card_Manually_Keyed_in_to_Website;
+      case card.method === CARD_METHOD.IN_APP ||
+        card.method === CARD_METHOD.ONLINE:
+        return card.method;
+      default:
+        return "Unknown";
+    }
   }
 }

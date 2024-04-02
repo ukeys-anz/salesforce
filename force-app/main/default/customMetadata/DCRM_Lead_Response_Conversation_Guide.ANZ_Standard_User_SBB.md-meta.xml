@@ -16,6 +16,6 @@
     </values>
     <values>
         <field>User_Role__c</field>
-        <value xsi:type="xsd:string">Small Business Specialist,Business Banking Manager,Area Manager,Small Business Banking State Head,Small Business Banking</value>
+        <value xsi:type="xsd:string">Small Business Specialist,Business Banking Manager,Area Manager,Small Business Banking State Head,Small Business Banking,Small Business Banking NBC,Head of NBC,Head of Remote Teams NBC,Team Leader NBC,Small Business Manager NBC</value>
     </values>
 </CustomMetadata>

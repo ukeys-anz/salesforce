@@ -151,4 +151,19 @@
         <default>false</default>
         <label>Referral from ANZ</label>
     </standardValue>
+    <standardValue>
+        <fullName>Lead Program</fullName>
+        <default>false</default>
+        <label>Lead Program</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Call Back Request</fullName>
+        <default>false</default>
+        <label>Call Back Request</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Digital Exception Process (DEP)</fullName>
+        <default>false</default>
+        <label>Digital Exception Process (DEP)</label>
+    </standardValue>
 </StandardValueSet>

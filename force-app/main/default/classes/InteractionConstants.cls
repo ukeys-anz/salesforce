@@ -27,6 +27,7 @@ public with sharing class InteractionConstants {
   public static final String IN_PERSON = 'In Person';
   public static final String CANCELLED = 'Cancelled';
   public static final String INTERNAL = 'Internal';
+  public static final String EXTERNAL = 'External';
   public static final String CUSTOMER = 'Customer';
   public static final String NONCUSTOMER = 'Non-Customer';
   public static final String INBOUND = 'Inbound';

@@ -164,7 +164,7 @@ public with sharing class CCRMLeadActionsHelper {
   }
 
   /**
-   * @description Throw error if we try to transfer the lead ownership from BB to SBB and vice versa
+   * @description Throw error if we try to transfer the lead ownership from BB to SBB/SBB-NBC and vice versa
    * - ownerID: throw error when try to change between segment.
    * @name transferLeadOwnership
    * @param newleadList List of new lead records.
@@ -215,7 +215,10 @@ public with sharing class CCRMLeadActionsHelper {
           if (
             String.isNotBlank(oldCommercialSegment) &&
             (CCRMConstants.BB_SEGMENT.equalsIgnoreCase(oldCommercialSegment) ||
-            CCRMConstants.SBB_SEGMENT.equalsIgnoreCase(oldCommercialSegment)) &&
+            CCRMConstants.SBB_SEGMENT.equalsIgnoreCase(oldCommercialSegment) ||
+            CCRMConstants.SBB_NBC_SEGMENT.equalsIgnoreCase(
+              oldCommercialSegment
+            )) &&
             (String.isBlank(newCommercialSegment) ||
             newCommercialSegment != oldCommercialSegment)
           ) {

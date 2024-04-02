@@ -19,6 +19,7 @@ IDR_Second_Issue__c,
 OR(
 ISBLANK(TEXT(IDR_Issue_Type_2__c)),
 ISBLANK(TEXT(IDR_Subsequent_Issue_2__c)),
+ISBLANK(IDR_Product_2__c),
 AND(
   ISBLANK(IDR_Product_2__c),
   ISCHANGED(Status),

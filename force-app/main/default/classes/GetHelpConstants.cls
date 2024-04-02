@@ -74,6 +74,21 @@ public with sharing class GetHelpConstants {
     .get('False_Customer_Profile')
     .getRecordTypeId();
 
+  /**
+   * @description get Case.Profile_Update record type on demand
+   */
+  public static final Id idrtProfileUpdate {
+    get {
+      if (idrtProfileUpdate == null) {
+        idrtProfileUpdate = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+          .get('Profile_Update')
+          ?.getRecordTypeId();
+      }
+      return idrtProfileUpdate;
+    }
+    private set;
+  }
+
   //Hold the multi-party account's ownership value
   public static final String MULTI_PARTY = 'Multi-party';
 
@@ -216,6 +231,10 @@ public with sharing class GetHelpConstants {
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
     .getRecordTypeId();
+  // Customer Action - Pending Financial Account Updates
+  public static final Id CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID = Schema.SObjectType.Customer_Action__c.getRecordTypeInfosByDeveloperName()
+    .get('Pending_Financial_Account_Updates')
+    .getRecordTypeId();
 
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
@@ -254,6 +273,7 @@ public with sharing class GetHelpConstants {
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String ESCALATED_STATUS = 'Escalated';
+  public static final String PROVISIONALLY_CLOSED_STATUS = 'Provisionally Closed';
   public static final String UNDER_INVESTIGATION_STATUS = 'Under Investigation';
   public static final String CLOSED_STATUS_EDUCATED = 'Closed - Customer Educated';
   public static final String CLOSED_STATUS_FUTURE_RELEASE = 'Closed - Future Release';
@@ -267,9 +287,11 @@ public with sharing class GetHelpConstants {
   public static final String COB_FAILED_OK_STATUS = 'Failed';
   public static final String COB_POTENTIAL_FRAUD_STATUS = 'Potential Fraud';
   public static final String COB_CONFIRMED_FRAUD_STATUS = 'Confirmed Fraud';
+  public static final String CUSTOMER_UPDATE_PENDING = 'Customer Update Pending';
 
   //ANZx Case Sub Status
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
+  public static final String CLOSED_SUB_STATUS_NO_LONGER_REQUIRED = 'No Longer Required';
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
   // Case Origins for Self Service Dispute Cases
@@ -278,15 +300,27 @@ public with sharing class GetHelpConstants {
     'ANZ Plus App'
   };
 
+  // Permission Set Group Name
+  public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
+
+  // ANZX Case Type
+  public static final String MANUAL_ADDRESS_UPDATE_TYPE = 'Manual Address Update';
+  public static final String RESIDENTIAL_ADDRESS_QA = 'Residential Address QA';
+
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
 
-  //UUID Log Status
+  // UUID Log Status
   public static final String IN_PROGRESS_STATUS = 'In Progress';
 
   // Task Record Type for Email Case
   public static final String TASK_EMAIL_RT = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Email_Task')
+    .getRecordTypeId();
+
+  // Task Record Type for Coach Nudge
+  public static final String COACH_NUDGE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Coach_Nudge')
     .getRecordTypeId();
 
   // Email Task Description
@@ -339,5 +373,10 @@ public with sharing class GetHelpConstants {
   public static final Set<String> CARD_TRANSACTION_TYPES = new Set<String>{
     'CARD',
     'DEPOSIT_WITHDRAWAL'
+  };
+
+  public static final Map<String, String> COACH_NUDGE_TASK_STATUS = new Map<String, String>{
+    'Actioned' => 'STATUS_ACTIONED',
+    'Expired' => 'STATUS_EXPIRED'
   };
 }

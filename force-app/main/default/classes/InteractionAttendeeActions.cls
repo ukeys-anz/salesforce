@@ -3,52 +3,17 @@
  * @since 06/2022
  * @description class for Interaction Attendee Actions
  */
-
-@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class InteractionAttendeeActions {
-  public static final String DUPLICATE_ATTENDEE_ERROR = 'Error occurred while adding attendee. This attendee already exists for this interaction.';
   /**
    * @description Checks if attendee already exists on record
    * @param attendees list of new interaction attendees
-   * @param oldAttendeesMap old interaction attendees map
    */
-  public static void validateAttendees(
-    List<InteractionAttendee> attendees,
-    Map<Id, InteractionAttendee> oldAttendeesMap
-  ) {
-    Map<String, InteractionAttendee> newAttendeeMap = new Map<String, InteractionAttendee>();
-    Map<Id, Set<Id>> interactionToAttendeeMap = new Map<Id, Set<Id>>();
+  public static void validateAttendees(List<InteractionAttendee> attendees) {
     for (InteractionAttendee attendee : attendees) {
-      // build map of attendees for addError()
-      newAttendeeMap.put(
-        (String) attendee.InteractionId + attendee.UserId,
+      attendee.Attendee_Name__c = attendee.Attendee_Name_Formula__c;
+      attendee.UniqueKeyForInteractionAttendee__c = updateUniqueKeyForInteraction(
         attendee
       );
-      // build map of interaction id to user id set
-      if (interactionToAttendeeMap.containsKey(attendee.InteractionId)) {
-        interactionToAttendeeMap.get(attendee.InteractionId)
-          .add(attendee.UserId);
-      } else {
-        interactionToAttendeeMap.put(
-          attendee.InteractionId,
-          new Set<Id>{ attendee.UserId }
-        );
-      }
-    }
-    for (InteractionAttendee existingAttendee : [
-      SELECT InteractionId, UserId
-      FROM InteractionAttendee
-      WHERE InteractionId IN :interactionToAttendeeMap.keySet()
-    ]) {
-      if (
-        interactionToAttendeeMap.get(existingAttendee.InteractionId)
-          .contains(existingAttendee.UserId)
-      ) {
-        newAttendeeMap.get(
-            (String) existingAttendee.InteractionId + existingAttendee.UserId
-          )
-          .addError(DUPLICATE_ATTENDEE_ERROR);
-      }
     }
   }
 
@@ -59,148 +24,34 @@ public with sharing class InteractionAttendeeActions {
    * @param attendees list of interaction attendees
    * @param oldAttendeesMap old interaction attendees map
    */
-  // Suppress warning - complexity is 15, which is the threshold
-  @SuppressWarnings('PMD.CognitiveComplexity')
   public static void updateAttendees(
     List<InteractionAttendee> attendees,
     Map<Id, InteractionAttendee> oldAttendeesMap
   ) {
-    Set<Id> interactionIds = new Set<Id>();
-    // iterate through new interaction attendees and get interaction ids
-    for (InteractionAttendee attendant : attendees) {
-      interactionIds.add(attendant.InteractionId);
-    }
-    // get map of interaction id to records
+    Set<Id> interactionIds = getInteractionIdFromAttendee(attendees);
+
     Map<Id, Interaction> interactionMap = new Map<Id, Interaction>(
-      [
-        SELECT Id, Attendees_and_Roles__c, Attendees__c
-        FROM Interaction
-        WHERE Id IN :interactionIds
-      ]
+      queryInteractionAndRelatedAttendees(interactionIds)
     );
-    // get list of interactionattendee records with user details
-    List<InteractionAttendee> attendeeList = [
-      SELECT Id, InteractionId, UserId, User.UserRole.Name, User.Name
-      FROM InteractionAttendee
-      WHERE InteractionId IN :interactionIds
-    ];
-    Map<Id, String> userNameMap = new Map<Id, String>();
-    for (InteractionAttendee attendant : attendeeList) {
-      userNameMap.put(attendant.UserId, attendant.User.Name);
-    }
-    // for each interaction in the interactionmap
-    for (Interaction interact : interactionMap.values()) {
-      RoleMapping roleMappingInstance = new RoleMapping();
-      // deserialize the attendees and roles field to above object if not empty
-      if (String.IsNotEmpty(interact.Attendees_and_Roles__c)) {
-        roleMappingInstance = (RoleMapping) JSON.deserialize(
-          interact.Attendees_and_Roles__c,
-          RoleMapping.class
-        );
-      } else {
-        roleMappingInstance.userIdToDetails = new Map<Id, String>();
-      }
-      RoleMapping tmpInstance = new RoleMapping();
-      tmpInstance.userIdToDetails = new Map<Id, String>();
-      // for each attendee in the attendeelist
-      for (InteractionAttendee attendant : attendeeList) {
-        if (attendant.InteractionId != interact.Id) {
-          continue;
-        }
-        String roleName = '';
-        if (attendant.User.UserRole != null) {
-          roleName = attendant.User.UserRole.Name;
-        } else {
-          Logger.error(
-            'User ' + attendant.UserId + ' has no role in Salesforce.'
-          );
-        }
-        if (Trigger.isAfter && Trigger.isInsert) {
-          // add the attendee to the map
-          roleMappingInstance.addAttendee(attendant.UserId, roleName);
-        }
-        if (Trigger.isAfter && Trigger.isUpdate) {
-          // update the attendee to the map
-          InteractionAttendee oldAttendee = (InteractionAttendee) oldAttendeesMap.get(
-            attendant.Id
-          );
-          if (oldAttendee != null) {
-            // Null check since after update can be entered twice
-            roleMappingInstance.deleteAttendee(oldAttendee.UserId);
-            roleMappingInstance.addAttendee(attendant.UserId, roleName);
-          }
-        }
-        if (Trigger.isAfter && Trigger.isDelete) {
-          // remove the attendee to the map
-          tmpInstance.addAttendee(
-            attendant.UserId,
-            roleMappingInstance.userIdToDetails.get(attendant.UserId)
-          );
-        }
-      }
-      if (Trigger.isDelete) {
-        roleMappingInstance = tmpInstance;
-      }
-      // serialize the object
-      interact.Attendees_and_Roles__c = JSON.serialize(roleMappingInstance);
-      // print the roles to the
-      interact.Attendees__c = roleMappingInstance.printAttendeeNames(
-        userNameMap
-      );
-    }
-    Logger.saveLog();
-    // update the interaction map
-    update interactionMap.values();
-  }
 
-  /**
-   * @description Role Mapping Object
-   */
-  public with sharing class RoleMapping {
-    public Map<Id, String> userIdToDetails;
-    /**
-     * @description Add attendee to RoleMap
-     * @param userId Id of the new user
-     * @param roleName role name of the new user
-     */
-    public void addAttendee(Id userId, String roleName) {
-      this.userIdToDetails.put(userId, roleName);
-    }
+    List<InteractionAttendee> attendeeList = getInteractionAttendeeFromInteraction(
+      interactionMap
+    );
 
-    /**
-     * @description Remove attendee from RoleMap
-     * @param userId Id of the new user
-     */
-    public void deleteAttendee(Id userId) {
-      this.userIdToDetails.remove(userId);
-    }
+    Map<Id, Set<String>> interactionAndAttendeeMap = createInteractionAttendeeMap(
+      attendeeList
+    );
+    Map<Id, String> createInteractionAndAttendeeRoleMap = createInteractionAndAttendeeRoleMap(
+      attendeeList
+    );
 
-    /**
-     * @description Print attendee and roles into a String
-     * @return Attendees and roles in a string format
-     */
-    public String printAttendeeRoles() {
-      String returnString = '';
-      for (String roleName : userIdToDetails.values()) {
-        if (String.isNotEmpty(roleName)) {
-          returnString += roleName + ', ';
-        }
-      }
-      return returnString.removeEnd(', ');
-    }
+    List<Interaction> lstInteractionTobeUpdated = updateAttendeeAndRoleOnInteraction(
+      interactionMap,
+      interactionAndAttendeeMap,
+      createInteractionAndAttendeeRoleMap
+    );
 
-    /**
-     * @description Print attendee user names into a String
-     * @param userNameMap user map that contains the id to name pairs
-     * @return Attendees' name list into a String
-     */
-    public String printAttendeeNames(Map<Id, String> userNameMap) {
-      String returnString = '';
-      for (Id userId : userIdToDetails.keyset()) {
-        returnString += userNameMap.get(userId) + ', ';
-      }
-      return returnString.removeEnd(', ');
-    }
+    DMLUtil.updateRecords(lstInteractionTobeUpdated, false, false);
   }
 
   /**
@@ -233,7 +84,6 @@ public with sharing class InteractionAttendeeActions {
         }
       }
     }
-
     DMLUtil.insertRecords(lstInteractAttend, false, true);
   }
 
@@ -298,8 +148,347 @@ public with sharing class InteractionAttendeeActions {
         }
       }
     }
-
     //This code creates interaction attendee in system mode using Twilio API user with limited access
     DMLUtil.insertRecords(lstInteractAttend, false, false);
+  }
+
+  /**
+   * @description Create interaction attendee when the Customer is getting added to the interaction
+   * @param interactions List of updated interactions
+   * @param oldMapInteraction Map of old interaction records
+   */
+  public static void insertCustomerTypeInteractionAttendee(
+    List<Interaction> interactions,
+    Map<Id, Interaction> oldMapInteraction
+  ) {
+    List<Interaction> listCallInteractionsWithAccount = filterInteractions(
+      interactions
+    );
+    if (listCallInteractionsWithAccount.isEmpty()) {
+      return;
+    }
+    List<interaction> interactionList = queryInteractions(
+      listCallInteractionsWithAccount
+    );
+    List<InteractionAttendee> lstInteractAttendee = createCustomerTypeInteractionAttendee(
+      interactionList,
+      oldMapInteraction
+    );
+
+    DMLUtil.insertRecords(lstInteractAttendee, false, true);
+  }
+
+  /**
+   * @description Filter Interactions of Call RecordType and Accounts linked to them
+   * @param interactions List of interactions which are updated or inserted.
+   * @return List of Interactions Call RecordType and Accounts linked to them
+   */
+  public static List<Interaction> filterInteractions(
+    List<Interaction> interactions
+  ) {
+    List<Interaction> listCallInteractionsWithAccount = new List<Interaction>();
+    for (Interaction interact : interactions) {
+      if (
+        interact.RecordTypeId != GetHelpConstants.INTERACTION_GENERAL_RT_ID ||
+        interact.AccountId == null
+      ) {
+        continue;
+      }
+      listCallInteractionsWithAccount.add(interact);
+    }
+    return listCallInteractionsWithAccount;
+  }
+
+  /**
+   * @description Query details of Interaction Records
+   * @param interactions List of interactions which are updated.
+   * @return Interaction info having customer associated with it.
+   */
+  public static List<Interaction> queryInteractions(
+    List<Interaction> interactions
+  ) {
+    return [
+      SELECT
+        id,
+        Contact_Mobile__c,
+        Account.PersonContactId,
+        RecordTypeId,
+        AccountId
+      FROM interaction
+      WHERE id IN :interactions
+    ];
+  }
+
+  /**
+   * @description Create List of customer type Interaction Attendee
+   * @param interactions List of interactions of call record type , customer linked to them and queried with some more fields
+   * @param oldMapInteraction List of interactions which are updated or inserted.
+   * @return List of Interaction Attendee to be inserted
+   */
+  public static List<InteractionAttendee> createCustomerTypeInteractionAttendee(
+    List<Interaction> interactions,
+    Map<Id, Interaction> oldMapInteraction
+  ) {
+    List<String> listOfFieldApiNameAccount = new List<String>{ 'AccountId' };
+    List<InteractionAttendee> lstInteractAttendee = new List<InteractionAttendee>();
+    for (Interaction interact : interactions) {
+      if (
+        oldMapInteraction.containsKey(interact.Id) &&
+        !(InteractionActions.hasAnyFieldChanged(
+          interact,
+          oldMapInteraction.get(interact.id),
+          listOfFieldApiNameAccount
+        ))
+      ) {
+        continue;
+      }
+      InteractionAttendee intattendee = new InteractionAttendee();
+      intattendee.AttendeeType = InteractionConstants.CUSTOMER;
+      intattendee.Attendee_Phone__c = interact.Contact_Mobile__c;
+      intattendee.ContactId = interact.account.PersonContactId;
+      intattendee.InteractionId = interact.id;
+      lstInteractAttendee.add(intattendee);
+    }
+    return lstInteractAttendee;
+  }
+  /**
+   * @description Create Interaction Attendee when there is conference happened in Twilio Call Conference
+   * @param twilioContextRequest TwilioContextRequest containing data for InteractionAttendee Creation
+   * @param agentOwnerIdMap agent owner Id Map to set the User Id of the Interaction Attendee when Interaction Type is Internal
+   * @return interactionAttendeeList List<InteractionAttendee> to be created
+   */
+  public static List<InteractionAttendee> insertTwilioConferenceAttendee(
+    UpdateInteractionByTwilioPayload twilioContextRequest,
+    Map<String, Id> agentOwnerIdMap
+  ) {
+    List<InteractionAttendee> interactionAttendeeList = new List<InteractionAttendee>();
+
+    if (!TwilioServiceUtil.checkIsConference(twilioContextRequest)) {
+      return interactionAttendeeList;
+    }
+
+    InteractionAttendee intattendee = new InteractionAttendee();
+    intattendee.AttendeeType = fetchAttendeeType(
+      twilioContextRequest.agentEmail
+    );
+    intattendee.UserId = agentOwnerIdMap.get(
+      twilioContextRequest.agentEmail.toLowerCase()
+    );
+    intattendee.InteractionId = twilioContextRequest.interactionId;
+    intattendee.Attendee_Name__c = twilioContextRequest.attendeeName;
+    intattendee.Attendee_Phone__c = twilioContextRequest.attendeePhoneNumber;
+    intattendee.Conversation_Sid__c = twilioContextRequest.chatOrCallId;
+    interactionAttendeeList.add(intattendee);
+
+    return interactionAttendeeList;
+  }
+  /**
+   * @description fetch attendeeType of the InteractionAttendee
+   * @param agentEmail agentEmail from TwilioContextRequest recceived from Twilio
+   * @return InteractionAttendeeType
+   */
+  private static String fetchAttendeeType(String agentEmail) {
+    return String.isNotBlank(agentEmail)
+      ? InteractionConstants.INTERNAL
+      : InteractionConstants.EXTERNAL;
+  }
+
+  /**
+   * @description Query details of Interaction Records and Related Attendee
+   * @param interactionIds set of InteractionId on which update is happening.
+   * @return Interaction info along with Attendees details.
+   */
+  @TestVisible
+  private static List<Interaction> queryInteractionAndRelatedAttendees(
+    Set<Id> interactionIds
+  ) {
+    return [
+      SELECT
+        Id,
+        Attendees__c,
+        Attendees_and_Roles__c,
+        (
+          SELECT
+            Id,
+            InteractionId,
+            AttendeeType,
+            UserId,
+            User.UserRole.Name,
+            User.Name,
+            ContactId,
+            Contact.Name,
+            Attendee_Name__c
+          FROM Attendees
+        )
+      FROM Interaction
+      WHERE Id IN :interactionIds
+    ];
+  }
+  /**
+   * @description create InteractionAttendee map based on AttendeeType
+   * @param attendeeList list of attendeelist.
+   * @return Map of Interaction Id and Set of InteractionAttendee of Interaction.
+   */
+  @TestVisible
+  private static Map<Id, Set<String>> createInteractionAttendeeMap(
+    List<InteractionAttendee> attendeeList
+  ) {
+    Map<Id, Set<String>> interactionAndAttendeeMap = new Map<Id, Set<String>>();
+    for (InteractionAttendee attendant : attendeeList) {
+      if (!interactionAndAttendeeMap.containsKey(attendant.InteractionId)) {
+        interactionAndAttendeeMap.put(
+          attendant.InteractionId,
+          new Set<String>()
+        );
+      }
+
+      //Added to check AttendeeType and based on that adding Attendee values in Interaction
+      switch on attendant.AttendeeType {
+        when 'Internal' {
+          interactionAndAttendeeMap.get(attendant.InteractionId)
+            .add(attendant.User.Name);
+        }
+        when 'Customer' {
+          interactionAndAttendeeMap.get(attendant.InteractionId)
+            .add(attendant.Contact.Name);
+        }
+        when else {
+          interactionAndAttendeeMap.get(attendant.InteractionId)
+            .add(attendant.Attendee_Name__c);
+        }
+      }
+    }
+    return interactionAndAttendeeMap;
+  }
+
+  /**
+   * @description create InteractionAttendeeRole map only for IntenalAttendeeType
+   * @param attendeeList list of attendeelist.
+   * @return Map of Interaction Id and Set of InteractionAttendee of Interaction.
+   */
+  @TestVisible
+  private static Map<Id, String> createInteractionAndAttendeeRoleMap(
+    List<InteractionAttendee> attendeeList
+  ) {
+    Map<Id, String> internalUserIdAndAttendeeRoleMap = new Map<Id, String>();
+    for (InteractionAttendee attendant : attendeeList) {
+      if (attendant.AttendeeType != InteractionConstants.INTERNAL) {
+        continue;
+      }
+
+      internalUserIdAndAttendeeRoleMap.put(
+        attendant.UserId,
+        attendant.User.UserRole.Name
+      );
+    }
+    return internalUserIdAndAttendeeRoleMap;
+  }
+
+  /**
+   * @description create Set<Id> of Interaction Ids related to Attendees
+   * @param attendees list of attendee.
+   * @return Set of Interaction Ids
+   */
+  @TestVisible
+  private static Set<Id> getInteractionIdFromAttendee(
+    List<InteractionAttendee> attendees
+  ) {
+    Set<Id> interactionIds = new Set<Id>();
+    for (InteractionAttendee attendant : attendees) {
+      interactionIds.add(attendant.InteractionId);
+    }
+    return interactionIds;
+  }
+
+  /**
+   * @description create List<InteractionAttendee> related to the Interaction which already exist
+   * @param interactionMap Map of Interaction with Attendee Details
+   * @return List<InteractionAttendee>
+   */
+  @TestVisible
+  private static List<InteractionAttendee> getInteractionAttendeeFromInteraction(
+    Map<Id, Interaction> interactionMap
+  ) {
+    List<InteractionAttendee> interactionAttendees = new List<InteractionAttendee>();
+    for (Interaction interact : interactionMap.values()) {
+      interactionAttendees.addAll(interactionMap.get(interact.Id).Attendees);
+    }
+    return interactionAttendees;
+  }
+
+  /**
+   * @description create List<Interaction> to be updated for adding new attendees and attendees role
+   * @param interactionMap Map of Interaction with Attendee Details
+   * @param interactionAndAttendeeMap Map of Interaction Id and Set of Attendees
+   * @param createInteractionAndAttendeeRoleMap Map of User Id and Attendees Role
+   * @return List<Interaction> to be updated
+   */
+  @TestVisible
+  private static List<Interaction> updateAttendeeAndRoleOnInteraction(
+    Map<Id, Interaction> interactionMap,
+    Map<Id, Set<String>> interactionAndAttendeeMap,
+    Map<Id, String> createInteractionAndAttendeeRoleMap
+  ) {
+    List<Interaction> lstInteractionToBeUpdated = new List<Interaction>();
+    for (Interaction interact : interactionMap.values()) {
+      Set<String> uniqueAttendees = interactionAndAttendeeMap.get(interact.Id);
+
+      String strUniqueAttendees = String.join(
+        new List<String>(uniqueAttendees),
+        ','
+      );
+      String strUniqueRoles = JSON.serialize(
+        createInteractionAndAttendeeRoleMap
+      );
+
+      lstInteractionToBeUpdated.add(
+        new Interaction(
+          Id = interact.Id,
+          Attendees__c = strUniqueAttendees,
+          Attendees_and_Roles__c = strUniqueRoles
+        )
+      );
+    }
+
+    return lstInteractionToBeUpdated;
+  }
+
+  /**
+   * @description Update UniqueKeyForInteractionAttendee__c field for attendees
+   * @param attendee list of new interaction attendees
+   * @return uniqueKey for restricting duplicate record insertion
+   */
+  @TestVisible
+  private static String updateUniqueKeyForInteraction(
+    InteractionAttendee attendee
+  ) {
+    String uniqueKey;
+    switch on attendee.AttendeeType {
+      when 'Internal' {
+        uniqueKey =
+          attendee.InteractionId +
+          '_' +
+          attendee.UserId +
+          '_' +
+          attendee.Conversation_Sid__c;
+      }
+      when 'Customer' {
+        uniqueKey =
+          attendee.InteractionId +
+          '_' +
+          attendee.ContactId +
+          '_' +
+          attendee.Conversation_Sid__c;
+      }
+      when 'External' {
+        uniqueKey =
+          attendee.InteractionId +
+          '_' +
+          attendee.Attendee_Phone__c +
+          '_' +
+          attendee.Conversation_Sid__c;
+      }
+    }
+    return uniqueKey;
   }
 }

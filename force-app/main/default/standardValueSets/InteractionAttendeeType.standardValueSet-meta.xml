@@ -11,4 +11,9 @@
         <default>false</default>
         <label>External</label>
     </standardValue>
+    <standardValue>
+        <fullName>Customer</fullName>
+        <default>false</default>
+        <label>Customer</label>
+    </standardValue>
 </StandardValueSet>

@@ -41,7 +41,9 @@ public with sharing class CCRMContactToContactActions {
         reciprocalRoles = [
           SELECT Id, Name, FinServ__InverseRelationship__c, OCV_Role__c
           FROM FinServ__ReciprocalRole__c
-          WHERE OCV_Role__c != NULL
+          WHERE
+            OCV_Role__c != NULL
+            AND RecordTypeId = :CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
           WITH SECURITY_ENFORCED
         ];
       }
@@ -239,73 +241,44 @@ public with sharing class CCRMContactToContactActions {
   }
 
   /**
-   * @description check if startdate/enddate of a relationship is updated, then update inverse relationship accordingly
+   * @description check if a relationship is enddated and set to inactive, then delete it and the inverse relationship
    * @name checkRelationshipStatus
    * @param records records from the trigger
-   * @param oldMap map of old records from the trigger
    */
   public static void checkRelationshipStatus(
-    List<FinServ__ContactContactRelation__c> records,
-    Map<Id, FinServ__ContactContactRelation__c> oldMap
+    List<FinServ__ContactContactRelation__c> records
   ) {
-    List<FinServ__ContactContactRelation__c> updatedRecords = new List<FinServ__ContactContactRelation__c>();
+    Set<Id> recordIdsToDelete = new Set<Id>();
     for (FinServ__ContactContactRelation__c record : records) {
-      FinServ__ContactContactRelation__c oldRecord = oldMap.get(record.Id);
       if (
         !String.isBlank(record.External_Id__c) &&
-        (record.FinServ__StartDate__c != oldRecord.FinServ__StartDate__c ||
-        record.FinServ__EndDate__c != oldRecord.FinServ__EndDate__c)
+        record.FinServ__EndDate__c != null &&
+        !record.FinServ__Active__c
       ) {
-        updatedRecords.add(record);
+        recordIdsToDelete.add(record.Id);
+        if (record.FinServ__InverseRelationship__c != null) {
+          recordIdsToDelete.add(record.FinServ__InverseRelationship__c);
+        }
       }
     }
-    if (!updatedRecords.isEmpty()) {
-      updateInverseRelationshipStatus(updatedRecords);
+    if (!recordIdsToDelete.isEmpty()) {
+      deleteRelationshipsAsync(recordIdsToDelete);
     }
   }
 
   /**
-   * @description find and update the inverse relationship record startdate/enddate/active to match the provided relationships
-   * @name updateInverseRelationshipStatus
-   * @param records original relationship records
+   * @description delete the provided relationships
+   * @name deleteRelationships
+   * @param recordIds list of relationship record ID
    */
-  private static void updateInverseRelationshipStatus(
-    List<FinServ__ContactContactRelation__c> records
-  ) {
-    List<FinServ__ContactContactRelation__c> recordsToEndDate = new List<FinServ__ContactContactRelation__c>();
-    for (FinServ__ContactContactRelation__c record : [
-      SELECT
-        FinServ__StartDate__c,
-        FinServ__EndDate__c,
-        FinServ__InverseRelationship__c,
-        FinServ__InverseRelationship__r.FinServ__StartDate__c,
-        FinServ__InverseRelationship__r.FinServ__EndDate__c
-      FROM FinServ__ContactContactRelation__c
-      WHERE Id IN :records
-      WITH USER_MODE
-    ]) {
-      if (
-        record.FinServ__StartDate__c !=
-        record.FinServ__InverseRelationship__r.FinServ__StartDate__c ||
-        record.FinServ__EndDate__c !=
-        record.FinServ__InverseRelationship__r.FinServ__EndDate__c
-      ) {
-        recordsToEndDate.add(
-          new FinServ__ContactContactRelation__c(
-            Id = record.FinServ__InverseRelationship__c,
-            FinServ__StartDate__c = record.FinServ__StartDate__c,
-            FinServ__EndDate__c = record.FinServ__EndDate__c,
-            FinServ__Active__c = record.FinServ__EndDate__c == null
-          )
-        );
-      }
-    }
-    if (!recordsToEndDate.isEmpty()) {
-      DMLUtil.updateRecords(
-        recordsToEndDate,
-        DMLUtil.ALLOW_PARTIAL_UPDATE,
-        DMLUtil.USER_MODE
+  @future
+  private static void deleteRelationshipsAsync(Set<Id> recordIds) {
+    try {
+      DMLUtilHelper.processDeleteResults(
+        Database.delete(new List<Id>(recordIds), false, AccessLevel.USER_MODE)
       );
+    } catch (Exception e) {
+      DMLUtilHelper.logException(e);
     }
   }
 }

@@ -640,4 +640,107 @@ public without sharing class TestDataFactory {
     insert finAccount;
     return finAccount;
   }
+
+  /**
+   * @description To create test data for FinServ__FinancialAccount__c
+   * @param recordTypeId Record type Id for the record
+   * @param accountId Account Id for the relation
+   * @param isInsert Boolean value to indicate if the record needs to be inserted or not
+   * @return FinServ__FinancialAccount__c record
+   */
+  public static FinServ__FinancialAccount__c createFinancialAccountRecord(
+    Id recordTypeId,
+    Id accountId,
+    Boolean isInsert
+  ) {
+    Faker faker = new Faker('AU');
+    FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c();
+    finAccount.Name = faker.randomString(20);
+    finAccount.FinServ__Balance__c = faker.randomInteger(3);
+    finAccount.FinServ__CurrentPostedBalance__c = faker.randomInteger(3);
+    finAccount.FinServ__Status__c = 'Active';
+    finAccount.RecordTypeId = recordTypeId;
+    finAccount.FinServ__PrimaryOwner__c = accountId;
+    finAccount.Account_Key__c = faker.randomString(9);
+    finAccount.FinServ__FinancialAccountNumber__c = '123';
+    finAccount.Number_Of_Signatures__c = '1';
+
+    if (isInsert) {
+      insert finAccount;
+    } else {
+      finAccount.Id = Lib_FakeIdGenerator.getMockId(
+        FinServ__FinancialAccount__c.SObjectType
+      );
+    }
+    return finAccount;
+  }
+
+  /**
+   * @description To create test data for Customer_Action__c
+   * @param recordTypeId Record type Id for the record
+   * @param accountId Account Id for the relation
+   * @param financialAccountId Financial Account Id for the relation
+   * @param isInsert Boolean value to indicate if the record needs to be inserted or not
+   * @return Customer_Action__c record
+   */
+  public static Customer_Action__c createCustomerActionRecord(
+    Id recordTypeId,
+    Id accountId,
+    Id financialAccountId,
+    Boolean isInsert
+  ) {
+    Faker faker = new Faker('AU');
+    Customer_Action__c ca = new Customer_Action__c();
+    ca.RecordTypeId = recordTypeId;
+    ca.Action__c = 'Update';
+    ca.Customer__c = accountId;
+    ca.Financial_Account__c = financialAccountId;
+    ca.New_Value__c = '2';
+    ca.Old_Value__c = '1';
+    ca.Status__c = GetHelpFinancialAccountActions.CUSTOMER_ACTION_STATUS_PEDING;
+    ca.Triggered_From__c = faker.randomString(10);
+
+    if (isInsert) {
+      insert ca;
+    } else {
+      ca.Id = Lib_FakeIdGenerator.getMockId(Customer_Action__c.SObjectType);
+    }
+    return ca;
+  }
+
+  /**
+   * @description to create task record
+   * @param recordTypeId Id
+   * @param whoId Id
+   * @param whatId Id
+   * @param ownerId Id
+   * @param isInsert Boolean
+   * @return Task record
+   */
+  public static Task createTaskRecord(
+    Id recordTypeId,
+    Id whoId,
+    Id whatId,
+    Id ownerId,
+    Boolean isInsert
+  ) {
+    Faker faker = new Faker('AU');
+    Task tsk = new Task();
+    tsk.recordtypeId = recordTypeId;
+    tsk.Status = 'Not Started';
+    tsk.Priority = 'Low';
+    tsk.Subject = faker.randomString(15);
+    tsk.WhatId = whatId;
+    tsk.WhoId = whoId;
+    tsk.OwnerId = ownerId;
+    tsk.ActivityDate = null;
+    tsk.Description = faker.randomString(30);
+
+    if (isInsert) {
+      insert tsk;
+    } else {
+      tsk.Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType);
+    }
+    return tsk;
+  }
 }

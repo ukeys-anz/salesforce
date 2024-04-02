@@ -119,6 +119,24 @@ const prodDeploymentWithAllTests = (
   renameForceignore();
   return deployWithAllTests(targetOrg, artifactFolderName);
 };
+
+const prodQuickDeployment = (
+  artifactFolderName,
+  artifactorySecret,
+  artifactoryRepoName,
+  targetOrg
+) => {
+  downloadZipFile(
+    artifactFolderName,
+    artifactorySecret,
+    artifactoryRepoName,
+    "Artifactory"
+  );
+  unzipFile(artifactFolderName);
+  renameForceignore();
+  return deployWithoutTest(targetOrg, artifactFolderName);
+};
+
 const uploadJobId = (
   validationReport,
   fileName,
@@ -330,6 +348,7 @@ export {
   validateWithAllTests,
   prodValidationWithAllTests,
   prodDeploymentWithAllTests,
+  prodQuickDeployment,
   deployWithoutTest,
   deployWithAllTests,
   cancel,

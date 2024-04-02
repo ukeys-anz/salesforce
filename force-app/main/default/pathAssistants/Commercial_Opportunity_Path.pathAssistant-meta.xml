@@ -9,8 +9,6 @@
         <picklistValueName>Approved &amp; Offered</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>BCOP_Email_sent__c</fieldNames>
-        <fieldNames>Won_from_Lost_to__c</fieldNames>
         <info>&lt;p&gt;Get ready to close the Opportunity:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Ensure all pre conditions are met pre-drawdown&lt;/li&gt;&lt;li&gt;Update the Product record with the Reference number before closing the Opportunity&lt;/li&gt;&lt;li&gt;Do you need to send Instructions to the Settlements Team and to file/register security docs and also instructions to CST for Drawdown?&lt;/li&gt;&lt;li&gt;Check that facilities have been correctly drawn&lt;/li&gt;&lt;li&gt;If you have won the opportunity from a competitor, have you recorded from who?&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Your Task List:&lt;/p&gt;&lt;p&gt;In the Activities section below, you’ll see a set of tasks to guide you through all the required and optional steps in this stage - tick them off as you go.&lt;/p&gt;</info>
         <picklistValueName>Customer Acceptance</picklistValueName>
     </pathAssistantSteps>
@@ -25,7 +23,6 @@
         <picklistValueName>Opportunity Identified</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>BCOP_Email_sent__c</fieldNames>
         <fieldNames>CLP_Credit_Case_Number__c</fieldNames>
         <fieldNames>BBD_Application_Number__c</fieldNames>
         <info>&lt;p&gt;Identify suitable products for your Customer:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://portal.knowhow.service.anz/C/GV9kBxxqEeqQ-wBQVpXnoA?fromMenu=Fkny_iQnEempOQAd2Lcd9A&quot; target=&quot;_blank&quot;&gt;Review Max for Product information guide&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Collaborate with a Product Specialist by adding them to the Opportunity Team below - they will then have access to this Opportunity.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Your Task List:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;In the Activities section below, you’ll see a set of tasks to guide you through all the required and optional steps in this stage - tick them off as you go.&lt;/li&gt;&lt;/ul&gt;</info>

@@ -18,19 +18,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Yes - POA loaded</fullName>
+                <fullName>Yes - LOA loaded</fullName>
                 <default>false</default>
-                <label>Yes - POA loaded</label>
+                <label>Yes - LOA loaded</label>
             </value>
             <value>
-                <fullName>No - POA not loaded</fullName>
+                <fullName>No - LOA not loaded</fullName>
                 <default>false</default>
-                <label>No - POA not loaded</label>
+                <label>No - LOA not loaded</label>
             </value>
             <value>
-                <fullName>N/A - No POA</fullName>
+                <fullName>N/A - No LOA</fullName>
                 <default>false</default>
-                <label>N/A - No POA</label>
+                <label>N/A - No LOA</label>
             </value>
         </valueSetDefinition>
     </valueSet>

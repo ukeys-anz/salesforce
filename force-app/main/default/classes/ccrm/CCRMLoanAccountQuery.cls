@@ -105,7 +105,8 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (LoanAccountCalloutResponse) JSON.deserialize(
+
+    this.calloutResponse = (LoanAccountCalloutResponse) CalloutModel.deserialize(
       responseBody,
       LoanAccountCalloutResponse.class
     );
@@ -145,16 +146,13 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
       row.put('SubProductCode', fa.subProductCode);
       row.put('LoanTermMonth', fa.loanTermMonth);
       row.put('LoanTermYear', fa.loanTermYear);
-      row.put('DateLoanIssued', adjustUTCDateTime(fa.dateLoanIssued));
+      row.put('DateLoanIssued', formatDate(fa.dateLoanIssued));
       row.put('PurposeCode', fa.purposeCode);
       row.put('FullyDrawn', fa.fullyDrawn);
-      row.put(
-        'ProgressDrawExpiryDate',
-        adjustUTCDateTime(fa.progressDrawExpiryDate)
-      );
+      row.put('ProgressDrawExpiryDate', formatDate(fa.progressDrawExpiryDate));
       row.put('ANZSICCode', fa.anzsicCode);
       row.put('CPID', fa.controllingPostID);
-      row.put('Expires', adjustUTCDateTime(fa.loanMaturityDate));
+      row.put('Expires', formatDate(fa.loanMaturityDate));
       row.put('TPMI', fa.tpmiNumber);
       row.put('SAO', fa.subApprovedOrignation);
       row.put('ANZPlusIdentifier', fa.anzPlusIdentifier);
@@ -172,8 +170,8 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
       row.put('InterestRate', fa.interestRate);
       row.put('FixedRateTermYear', fa.fixedRateTermYear);
       row.put('FixedRateTermMonth', fa.fixedRateTermMonth);
-      row.put('FixedRateStartDate', adjustUTCDateTime(fa.fixedRateStartDate));
-      row.put('FixedRateExpiryDate', adjustUTCDateTime(fa.fixedRateEndDate));
+      row.put('FixedRateStartDate', formatDate(fa.fixedRateStartDate));
+      row.put('FixedRateExpiryDate', formatDate(fa.fixedRateEndDate));
       row.put('RepaymentFrequency', fa.repaymentFrequency);
       row.put('InterestRepayments', fa.interestRepayments);
       row.put('InterestChargeMethod', fa.interestChargeMethod);
@@ -187,11 +185,11 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
       row.put('PIRepaymentAmount', fa.piRepaymentAmount);
       row.put(
         'PIPrincipalRepaymentStartDate',
-        adjustUTCDateTime(fa.piPrincipalRepaymentStartDate)
+        formatDate(fa.piPrincipalRepaymentStartDate)
       );
       row.put(
         'PIPrincipalRepaymentEndDate',
-        adjustUTCDateTime(fa.piPrincipalRepaymentEndDate)
+        formatDate(fa.piPrincipalRepaymentEndDate)
       );
       row.put('PIInterestFrequency', fa.piInterestFrequency);
       row.put('InterestOnlyRepaymentAmount', fa.ioRepaymentAmount);
@@ -202,9 +200,9 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
       row.put('InterestOnlyTermYear', fa.ioTermYear);
       row.put('InterestOnlyTermMonth', fa.ioTermMonth);
 
-      row.put('InterestOnlyStartDate', adjustUTCDateTime(fa.ioStartDate));
-      row.put('InterestOnlyExpiryDate', adjustUTCDateTime(fa.ioExpiryDate));
-      row.put('IONextRepaymentDate', adjustUTCDateTime(fa.ioNextRepaymentDate));
+      row.put('InterestOnlyStartDate', formatDate(fa.ioStartDate));
+      row.put('InterestOnlyExpiryDate', formatDate(fa.ioExpiryDate));
+      row.put('IONextRepaymentDate', formatDate(fa.ioNextRepaymentDate));
       row.put('IOInterestFrequency', fa.ioInterestFrequency);
       row.put('IOInitialInterestRate', fa.ioInitialInterestRate);
       row.put('IOInitialDiscount', fa.ioInitialDiscount);

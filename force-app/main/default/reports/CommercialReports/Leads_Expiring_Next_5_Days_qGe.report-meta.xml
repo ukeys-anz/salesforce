@@ -27,7 +27,7 @@
     </columns>
     <description>This report is used to display leads which is going to expire in next 5 days.</description>
     <filter>
-        <booleanFilter>1 AND (2 OR (3 AND 4)) AND 5</booleanFilter>
+        <booleanFilter>1 AND (2 OR (3 AND 4)) AND (5 AND 6)</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -60,8 +60,15 @@
             <column>Lead.Expiry_Date__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
-            <operator>greaterThan</operator>
+            <operator>lessOrEqual</operator>
             <value>NEXT_N_DAYS:4</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.Expiry_Date__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>TODAY</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

@@ -11,7 +11,7 @@ public with sharing class CCRMFacilitiesQuery extends CCRMFinancialAccountQueryB
   public class FacilityModel extends CCRMFinancialAccountModelBase {
     public String compositeFacilityId;
     public Integer ollSequence;
-    public Integer ollType;
+    public String ollType;
     public Integer ollAmount;
     public DateTime ollExpiryDate;
     public Integer tpmiNumber;
@@ -40,7 +40,7 @@ public with sharing class CCRMFacilitiesQuery extends CCRMFinancialAccountQueryB
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (FacilityCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (FacilityCalloutResponse) CalloutModel.deserialize(
       responseBody,
       FacilityCalloutResponse.class
     );
@@ -71,7 +71,7 @@ public with sharing class CCRMFacilitiesQuery extends CCRMFinancialAccountQueryB
       row.put('Sequence', fac.ollSequence);
       row.put('Type', fac.ollType);
       row.put('Amount', fac.ollAmount);
-      row.put('ExpiryDate', adjustUTCDateTime(fac.ollExpiryDate));
+      row.put('ExpiryDate', formatDate(fac.ollExpiryDate));
       row.put('TPMINo', fac.tpmiNumber);
       row.put('TPMISubNo', fac.tpmiSubNumber);
       result.queryResult.add(row);

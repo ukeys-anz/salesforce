@@ -8,48 +8,85 @@
 public with sharing class MLCRMAutoTaskOnLeadConversionQueueTest {
   @TestSetup
   static void setup() {
+    User mlBusinessAdminUser = MLCRMTestDataFactory.createMLBusinessAdminUser();
     User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
-    System.runAs(mlUser) {
-      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+    User adminUser = MLCRMTestDataFactory.getAdminUser(); //user to insert Account sharing records
+    System.runAs(CCRMTestDataFactory.createOCVIntegrationUser()) {
+      Faker faker = new Faker('AU');
+      Account testAccount = new Account(
+        LastName = 'Test Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = false,
+        OCV_Event_Version__c = 1,
+        RecordTypeId = CCRMConstants.ACCOUNT_PERSON_RT_ID
+      );
+      insert testAccount;
+    }
+    System.runAs(mlBusinessAdminUser) {
+      Territory__c territoryRecord = MLCRMTestDataFactory.createTerritoryRecords(
         1,
-        mlUser,
+        mlBusinessAdminUser,
         true
-      );
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        1,
-        mlUser.Id,
-        lstOfTerritory[0].Id
-      );
+      )[0];
+      Territory__Share objShare = new Territory__Share();
+      objShare.parentId = territoryRecord.Id;
+      objShare.accesslevel = 'Edit';
+      objShare.userOrgroupid = mlUser.Id;
+      insert objShare;
+    }
+    //update ml user record so that user trigger creates corresponding user territory record
+    System.runAs(MLCRMTestDataFactory.createIIQBaseUser()) {
+      Test.startTest();
+      mlUser.ML_Territories__c = 'Melbourne CBD (VIC)';
+      mlUser.ML_Role__c = 'Loan Writer';
+      update mlUser;
+      Test.stopTest();
     }
     System.runAs(mlUser) {
-      Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
+      Lead leadRec = MLCRMTestDataFactory.createManualLeadRecords(
+        1,
+        mlUser,
+        false
+      )[0];
       leadRec.Is_Valid_Address__c = true;
       leadRec.Gender__c = 'M';
       leadRec.Home_Phone__c = '+61533333333';
       leadRec.MobilePhone = '+61533333333';
       leadRec.Work_Phone__c = '+61533333333';
+      leadRec.Street = 'Str 123';
+      leadRec.City = 'City 123';
+      leadRec.Country = 'Australia';
+      leadRec.State = 'State 123';
+      leadRec.PostalCode = '123';
       insert leadRec;
     }
+
+    System.runAs(adminUser) {
+      Account objAcc = [SELECT Id FROM Account LIMIT 1];
+      AccountShare objShare = new AccountShare();
+      objShare.AccountId = objAcc.Id;
+      objShare.Accountaccesslevel = 'Edit';
+      objShare.OpportunityAccessLevel = 'Read';
+      objShare.userOrgroupid = mlUser.Id;
+      insert objShare;
+    }
+
   }
 
   @IsTest
   static void autoTaskOnLeadConversionQueueTest() {
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
-      Id adminProfileId = CommonUtil.getProfileByName('System Administrator')
-        .Id;
-      USER usr = (USER) FakerFactory.make(new FakerUserFactory());
-      usr.Email = 'test@mltest.anz.com';
-      usr.ProfileId = adminProfileId;
-      usr.UserRoleId = CommonUtil.getUserRoleByDevName('Banker').Id;
-      insert usr;
-      Faker faker = new Faker('AU');
-      Account testAccount = new Account(
-        Name = 'Test Account',
-        OCV_ID__c = faker.randomString(10),
-        ANZx_Customer__c = false,
-        OCV_Event_Version__c = 1
-      );
-      insert testAccount;
+    User mlUser = [
+      SELECT Id
+      FROM User
+      WHERE LastName = 'MLCRM' AND IsActive = TRUE
+    ];
+    System.runAs(mlUser) {
+      Account testAccount = [
+        SELECT id
+        FROM Account
+        WHERE LastName = 'Test Account'
+        LIMIT 1
+      ];
       Lead record = [SELECT id FROM Lead LIMIT 1];
       record.FinServ__RelatedAccount__c = testAccount.id;
       update record;
@@ -57,7 +94,6 @@ public with sharing class MLCRMAutoTaskOnLeadConversionQueueTest {
         record.id
       );
       record = leadWrapper.leadRecord;
-
       Test.startTest();
       AccountCommonActions.findAndConvertCCRMLead(testAccount.id, record);
       Test.stopTest();
@@ -114,8 +150,8 @@ public with sharing class MLCRMAutoTaskOnLeadConversionQueueTest {
         'State is matched.'
       );
       System.assert(
-        !taskRecord.Description.contains('Country'),
-        'Country is not matched.'
+        taskRecord.Description.contains('Country'),
+        'Country is matched.'
       );
       System.assert(
         taskRecord.Description.contains('Postal Code'),

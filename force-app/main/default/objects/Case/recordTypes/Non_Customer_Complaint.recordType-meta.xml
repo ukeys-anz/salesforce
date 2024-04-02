@@ -7,6 +7,53 @@
     <description>Record a new complaint, for a non existing customer.</description>
     <label>Non-Customer Complaint</label>
     <picklistValues>
+        <picklist>AFCA_Stage__c</picklist>
+        <values>
+            <fullName>Case Management Level 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Case Management Level 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm Resolution With Complainant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Case Management Level 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Preliminary View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preliminary View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rules Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workflow</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>ANZx_Product__c</picklist>
         <values>
             <fullName>ANZ Money - Everyday Account</fullName>
@@ -3973,46 +4020,6 @@
             <fullName>11</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>12</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>13</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>14</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>3</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>5</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>6</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>7</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>8</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>9</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_AFCA_Sub_issue_Type__c</picklist>
@@ -4924,6 +4931,53 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Final_Letter_Outcome__c</picklist>
+        <values>
+            <fullName>Arrangement considered not suitable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolution - Quality Compliance team intervention</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer not satisfied with outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer requested no further communication</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined financial assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay to assess request for financial assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feedback only requested%2Fcustomer not expecting response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Missed Hardship Triggers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Financial Difficulty or Hardship Complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terms and Conditions of hardship assistance</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Is_Common__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -4931,6 +4985,25 @@
         </values>
         <values>
             <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Is_Hardship_Resolution_Letter_Sent__c</picklist>
+        <values>
+            <fullName>Complaint Re-Opened</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship Written Response Letter Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship Written Response not required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Related Complaint In-Flight %28no action taken%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -6328,6 +6401,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Deceased Estates</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Foreign exchange</fullName>
             <default>false</default>
         </values>
@@ -6383,7 +6460,7 @@
             <default>false</default>
         </values>
     </picklistValues>
-     <picklistValues>
+    <picklistValues>
         <picklist>IDR_Progressed_Status__c</picklist>
         <values>
             <fullName>Progressed - Customer Declined</fullName>
@@ -6397,7 +6474,7 @@
             <fullName>Progressed - No Offer</fullName>
             <default>false</default>
         </values>
-  </picklistValues>
+    </picklistValues>
     <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
@@ -13140,17 +13217,6 @@
         </values>
         <values>
             <fullName>ZWL</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Transaction_Made_By__c</picklist>
-        <values>
-            <fullName>Co-Owner</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>This Customer</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -608,6 +608,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.EquifaxESDResult__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CustomerOnboardingApplication__c.EquifaxMatrixURI__c</field>
         <readable>true</readable>
     </fieldPermissions>

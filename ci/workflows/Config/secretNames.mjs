@@ -43,7 +43,10 @@ const salesforceSecretNames = {
   "epic/inapp-complaint": "h-salesforce-np-inappcomp",
   "epic/bohleads": "h-salesforce-np-bohleads",
   "epic/disputes": "h-salesforce-np-disputes",
-  "epic/connectid": "h-salesforce-np-connectid"
+  "epic/signauth": "h-salesforce-np-signauth",
+  "epic/coachnudges": "h-salesforce-np-coachnudge",
+  "epic/connectid": "h-salesforce-np-connectid",
+  "epic/join-salesforce-ciba": "h-salesforce-np-ciba"
 };
 
 const brokerSecretNames = {

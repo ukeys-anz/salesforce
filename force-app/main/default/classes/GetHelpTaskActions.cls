@@ -15,6 +15,9 @@ public with sharing class GetHelpTaskActions {
   public static final String CALL_SID_IDENTIFIER = 'Call Sid: CA';
   public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
   public static final Integer CALL_SID_LENGTH = 34;
+  public static final String TASK_STATUS_EXPIRED = 'Expired';
+  public static final String TASK_STATUS_NOT_STARTED = 'Not Started';
+  public static final String TASK_STATUS_EXPIRED_ERROR_MESSAGE = 'Status Cannot be changed to \'Expired\' manually.';
 
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
@@ -135,5 +138,71 @@ public with sharing class GetHelpTaskActions {
       }
     }
     return callSID;
+  }
+
+  /**
+   * @description publish task cloud event if criteria is satisfied.
+   * @param records The Task record list.
+   * @param oldMap oldmap of the task record
+   */
+  public static void checkAndPublishTaskCloudEvent(
+    List<Task> records,
+    Map<Id, SObject> oldMap
+  ) {
+    List<Task> coachNudgeRecords = GetHelpTaskActionHelper.filterCoachNudgeTasks(
+      records
+    );
+    Set<Id> accountIds = GetHelpTaskActionHelper.getWhoIdFromTask(
+      coachNudgeRecords
+    );
+    Map<ID, Account> accountMap = GetHelpTaskActionHelper.getAccountMap(
+      accountIds
+    );
+    List<CloudEventModel> cloudEventModels = GetHelpTaskActionHelper.getCloudEventModelForCoachNudge(
+      coachNudgeRecords,
+      (Map<Id, Task>) oldMap,
+      accountMap
+    );
+    CloudEventController.publishCloudEvents(cloudEventModels);
+  }
+
+  /**
+   * @description beforeUpdateActions is called onBeforeUpdate. any logic that needs to be executed on before update is executed from here
+   * @param records The Task record list.
+   * @param oldMap The old map of task records.
+   */
+  public static void beforeUpdateActions(
+    List<Task> records,
+    Map<Id, Task> oldMap
+  ) {
+    if (
+      !System.isScheduled() &&
+      !PermissionUtils.hasPermissionSetGroupAssigned(
+        GetHelpConstants.BUSINESS_ADMIN_PSG
+      )
+    ) {
+      preventManualExpiry(records, oldMap);
+    }
+  }
+
+  /**
+   * @description preventManualExpiry prenevents users from changing the status manually to Expired
+   * @param records The Task record list.
+   * @param oldMap The old map of task records.
+   */
+  private static void preventManualExpiry(
+    List<Task> records,
+    Map<Id, Task> oldMap
+  ) {
+    for (Task tsk : records) {
+      Task oldTask = oldMap.get(tsk.Id);
+      if (
+        tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID &&
+        tsk.Status == TASK_STATUS_EXPIRED &&
+        tsk.Status != oldTask.Status
+      ) {
+        tsk.addError(TASK_STATUS_EXPIRED_ERROR_MESSAGE);
+      }
+    }
   }
 }

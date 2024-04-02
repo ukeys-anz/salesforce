@@ -393,6 +393,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.REAL_form_Comments__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quality_Assessment__c.REaL_form_categories__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -579,6 +584,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Quality_Assessment__c.TM_Attestation_feedback_provided_to_CM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.TM_Comments_for_C_Q_Manager_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quality_Assessment__c.TM_Response_to_C_Q_Manager_Review__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -5279,11 +5279,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.BCOP_Email_sent__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Opportunity.Borrowing_Power__c</field>
         <readable>false</readable>
     </fieldPermissions>

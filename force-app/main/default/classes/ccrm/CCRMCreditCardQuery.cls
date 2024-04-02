@@ -32,6 +32,7 @@ public with sharing class CCRMCreditCardQuery extends CCRMFinancialAccountQueryB
     this.productTypes = new Set<String>{ 'CAP-CIS:PCA' };
     this.sourceSystem = SourceSystemEnum.CAP;
     this.externalField = 'accountNumber';
+    this.useProductCodeFromFinancialAccount = true;
   }
   /**
    * @description Deserialize API callout response
@@ -41,7 +42,7 @@ public with sharing class CCRMCreditCardQuery extends CCRMFinancialAccountQueryB
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (CreditCardCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (CreditCardCalloutResponse) CalloutModel.deserialize(
       responseBody,
       CreditCardCalloutResponse.class
     );
@@ -77,8 +78,7 @@ public with sharing class CCRMCreditCardQuery extends CCRMFinancialAccountQueryB
       row.put('AccountStatus', fa.status);
       row.put('Balance', fa.accountBalance);
       row.put('ProductCode', fa.productCode);
-      row.put('OpenedDate', adjustUTCDateTime(fa.openDate));
-      row.put('CPID', fa.controllingPostId);
+      row.put('OpenedDate', formatDate(fa.openDate));
       row.put('InterestRate', fa.interestRate);
       row.put('CreditLimit', fa.accountLimit);
       row.put('CashAdvanceRate', fa.cashAdvanceRate);

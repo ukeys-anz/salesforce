@@ -1,0 +1,74 @@
+[
+  {
+    "Attendees": {
+      "done": true,
+      "records": [
+        {
+          "Attendee_Name_Formula__c": "Test Testing lead",
+          "AttendeeType": "Customer",
+          "attributes": {
+            "type": "InteractionAttendee",
+            "url": "/services/data/v60.0/sobjects/InteractionAttendee/0znBm0000000LsTIAU"
+          },
+          "Contact": {
+            "attributes": {
+              "type": "Contact",
+              "url": "/services/data/v60.0/sobjects/Contact/003Bm00000GFef4IAD"
+            },
+            "Id": "003Bm00000GFef4IAD",
+            "Name": "Test Testing lead"
+          },
+          "ContactId": "003Bm00000GFef4IAD",
+          "Id": "0znBm0000000LsTIAU",
+          "InteractionId": "0kzBm0000001jcbIAA"
+        },
+        {
+          "Attendee_Name__c": "Shivam Swaraj",
+          "AttendeeType": "External",
+          "attributes": {
+            "type": "InteractionAttendee",
+            "url": "/services/data/v60.0/sobjects/InteractionAttendee/0znBm0000000Lu5IAE"
+          },
+          "Id": "0znBm0000000Lu5IAE",
+          "InteractionId": "0kzBm0000001jcbIAA"
+        },
+        {
+          "Attendee_Name__c": "Test Coach",
+          "AttendeeType": "Internal",
+          "attributes": {
+            "type": "InteractionAttendee",
+            "url": "/services/data/v60.0/sobjects/InteractionAttendee/0znBm0000000QqXIAU"
+          },
+          "Id": "0znBm0000000QqXIAU",
+          "InteractionId": "0kzBm0000001jcbIAA",
+          "User": {
+            "attributes": {
+              "type": "User",
+              "url": "/services/data/v60.0/sobjects/User/005Bm000006ZzmlIAC"
+            },
+            "Id": "005Bm000006ZzmlIAC",
+            "Name": "Test Coach",
+            "UserRole": {
+              "attributes": {
+                "type": "UserRole",
+                "url": "/services/data/v60.0/sobjects/UserRole/00E5m000000IHCGEA4"
+              },
+              "Id": "00E5m000000IHCGEA4",
+              "Name": "Coach"
+            },
+            "UserRoleId": "00E5m000000IHCGEA4"
+          },
+          "UserId": "005Bm000006ZzmlIAC"
+        }
+      ],
+      "totalSize": 3
+    },
+    "Attendees__c": "Test Testing lead,Shivam Swaraj,Test Coach",
+    "Attendees_and_Roles__c": "Coach",
+    "attributes": {
+      "type": "Interaction",
+      "url": "/services/data/v60.0/sobjects/Interaction/0kzBm0000001jcbIAA"
+    },
+    "Id": "0kzBm0000001jcbIAA"
+  }
+]

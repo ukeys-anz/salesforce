@@ -10,11 +10,14 @@ private class CCRMCustomerProfileUpdateHelperTest {
 
   @TestSetup
   static void makeData() {
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      CCRMTestDataFactory.createProspectBusinessAccount(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+    Account prospectAcc;
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
+      prospectAcc = CCRMTestDataFactory.createProspectBusinessAccount(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
     }
+    CCRMTestDataFactory.createAccountShare(prospectAcc.Id, ccrmBaseUser.Id);
   }
 
   @IsTest

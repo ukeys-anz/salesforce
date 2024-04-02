@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <description>DR to sort the list of consents in descending order based on the created date.</description>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;activeConsents&quot; : [ {
+    &quot;LoopBlockIterationIndex&quot; : 1,
+    &quot;LoopBlockIterationStatus&quot; : true,
+    &quot;DRTransformConsentStatus&quot; : true,
+    &quot;expires&quot; : &quot;2023-09-05&quot;,
+    &quot;from&quot; : &quot;2023-08-05&quot;,
+    &quot;isCreator&quot; : &quot;Yes&quot;,
+    &quot;state&quot; : &quot;Active&quot;,
+    &quot;consentName&quot; : &quot;grow by MockMock Brand Name&quot;
+  }, {
+    &quot;LoopBlockIterationIndex&quot; : 2,
+    &quot;LoopBlockIterationStatus&quot; : true,
+    &quot;DRTransformConsentStatus&quot; : true,
+    &quot;expires&quot; : &quot;2023-09-05&quot;,
+    &quot;from&quot; : &quot;2023-09-05&quot;,
+    &quot;isCreator&quot; : &quot;Yes&quot;,
+    &quot;state&quot; : &quot;Pending&quot;,
+    &quot;consentName&quot; : &quot;grow by Mock Brand Name&quot;
+  } ]
+}</expectedInputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMSortConsents</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>TFMSortConsents</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSortConsents4564995105717595</globalKey>
+        <inputFieldName>sortedConsents</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>sortedConsents</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSortConsents</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:consentsList LIST &apos;stateUpdatedTime&apos; &apos;createTime&apos; &apos;[:DSC]&apos; SORTBY</formulaConverted>
+        <formulaExpression>SORTBY(LIST(consentsList),&apos;stateUpdatedTime&apos;, &apos;createTime&apos;, &apos;[:DSC]&apos;)</formulaExpression>
+        <formulaResultPath>sortedConsents</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TFMSortConsents6005623618053948</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;consentsList&quot; : [ {
+    &quot;id&quot; : &quot;a75e931f-f3e2-49fa-9d2d-d92ddbbbad08&quot;,
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;accounts&quot; : [ {
+      &quot;accountNumber&quot; : &quot;391099983&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;,
+      &quot;jointAccount&quot; : true
+    } ],
+    &quot;ownerPersonaId&quot; : &quot;a5de4475-8254-4707-8abd-3b71a1b3ba36&quot;,
+    &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
+    &quot;createTime&quot; : &quot;2024-02-29T22:51:18Z&quot;,
+    &quot;registeredSoftwareProduct&quot; : {
+      &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;,
+      &quot;clientName&quot; : &quot;incentivize&quot;,
+      &quot;clientId&quot; : &quot;bdea3eef-cc14-4ed6-a12d-4fd5c933f3f3&quot;
+    },
+    &quot;stateUpdatedTime&quot; : &quot;2024-02-29T22:51:24.156Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-03-01T22:51:18Z&quot;,
+    &quot;brandName&quot; : &quot;Mock Company Name&quot;,
+    &quot;arrangementId&quot; : &quot;720d8daa-5774-4e8b-bf3f-1acd4201a12e&quot;
+  }, {
+    &quot;id&quot; : &quot;0ccc8eda-a582-486f-8d97-465ed4fb1804&quot;,
+    &quot;state&quot; : &quot;STATE_STOPPED&quot;,
+    &quot;accounts&quot; : [ {
+      &quot;accountNumber&quot; : &quot;391099211&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;391099238&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;391099967&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;,
+      &quot;jointAccount&quot; : true
+    }, {
+      &quot;accountNumber&quot; : &quot;391099983&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;,
+      &quot;jointAccount&quot; : true
+    } ],
+    &quot;ownerPersonaId&quot; : &quot;a5de4475-8254-4707-8abd-3b71a1b3ba36&quot;,
+    &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
+    &quot;createTime&quot; : &quot;2024-03-08T01:45:31Z&quot;,
+    &quot;registeredSoftwareProduct&quot; : {
+      &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;,
+      &quot;clientName&quot; : &quot;empower&quot;,
+      &quot;clientId&quot; : &quot;8bb710d5-de9a-4e7a-a4d7-51431ea5247e&quot;
+    },
+    &quot;stateUpdatedTime&quot; : &quot;2024-03-08T02:20:50.816Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-03-09T01:45:31Z&quot;,
+    &quot;brandName&quot; : &quot;Mock Company Name&quot;,
+    &quot;arrangementId&quot; : &quot;639630a0-a170-4aac-9c62-e438ce10692c&quot;
+  }, {
+    &quot;id&quot; : &quot;3e976647-b4a7-493e-a6d6-fdb03aa1d34f&quot;,
+    &quot;state&quot; : &quot;STATE_STOPPED&quot;,
+    &quot;accounts&quot; : [ {
+      &quot;accountNumber&quot; : &quot;391099211&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;391099238&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;391099967&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;,
+      &quot;jointAccount&quot; : true
+    }, {
+      &quot;accountNumber&quot; : &quot;391099983&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;,
+      &quot;jointAccount&quot; : true
+    } ],
+    &quot;ownerPersonaId&quot; : &quot;a5de4475-8254-4707-8abd-3b71a1b3ba36&quot;,
+    &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
+    &quot;createTime&quot; : &quot;2024-03-07T09:48:37Z&quot;,
+    &quot;registeredSoftwareProduct&quot; : {
+      &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;,
+      &quot;clientName&quot; : &quot;harness&quot;,
+      &quot;clientId&quot; : &quot;3134ffd2-544e-4344-b55a-5f7d95041fdd&quot;
+    },
+    &quot;stateUpdatedTime&quot; : &quot;2024-03-08T02:18:13.156Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-03-08T09:48:37Z&quot;,
+    &quot;brandName&quot; : &quot;Mock Company Name&quot;,
+    &quot;arrangementId&quot; : &quot;21fa13d2-03e6-4508-997e-3edc8543a51c&quot;
+  }, {
+    &quot;id&quot; : &quot;549292bc-2a70-43f6-8cbe-127bf9e05d1c&quot;,
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;accounts&quot; : [ {
+      &quot;accountNumber&quot; : &quot;391099211&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;
+    } ],
+    &quot;ownerPersonaId&quot; : &quot;a5de4475-8254-4707-8abd-3b71a1b3ba36&quot;,
+    &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
+    &quot;createTime&quot; : &quot;2024-02-29T22:47:52Z&quot;,
+    &quot;registeredSoftwareProduct&quot; : {
+      &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;,
+      &quot;clientName&quot; : &quot;incentivize&quot;,
+      &quot;clientId&quot; : &quot;bdea3eef-cc14-4ed6-a12d-4fd5c933f3f3&quot;
+    },
+    &quot;stateUpdatedTime&quot; : &quot;2024-02-29T22:47:59.439Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-03-01T22:47:52Z&quot;,
+    &quot;brandName&quot; : &quot;Mock Company Name&quot;,
+    &quot;arrangementId&quot; : &quot;4f6f11c6-d838-416d-9eb4-a1cdf7246e1b&quot;
+  }, {
+    &quot;id&quot; : &quot;14eaf760-dec7-4423-97f5-bcd1563d0440&quot;,
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;accounts&quot; : [ {
+      &quot;accountNumber&quot; : &quot;391099211&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;391099238&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;391099967&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;,
+      &quot;jointAccount&quot; : true
+    }, {
+      &quot;accountNumber&quot; : &quot;391099983&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;,
+      &quot;jointAccount&quot; : true
+    } ],
+    &quot;ownerPersonaId&quot; : &quot;a5de4475-8254-4707-8abd-3b71a1b3ba36&quot;,
+    &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
+    &quot;createTime&quot; : &quot;2024-03-06T08:20:25Z&quot;,
+    &quot;registeredSoftwareProduct&quot; : {
+      &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;,
+      &quot;clientName&quot; : &quot;redefine&quot;,
+      &quot;clientId&quot; : &quot;3582b3ad-0f60-4984-a512-d265bcb9456e&quot;
+    },
+    &quot;stateUpdatedTime&quot; : &quot;2024-03-06T08:20:35.124Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-03-07T08:20:25Z&quot;,
+    &quot;brandName&quot; : &quot;Mock Company Name&quot;,
+    &quot;arrangementId&quot; : &quot;e7f31d8d-b989-470c-b5ab-55e82a68db26&quot;
+  }, {
+    &quot;id&quot; : &quot;4ace076e-ee06-48cb-8720-89d1cc7abc3a&quot;,
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;accounts&quot; : [ {
+      &quot;accountNumber&quot; : &quot;391099238&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;
+    } ],
+    &quot;ownerPersonaId&quot; : &quot;a5de4475-8254-4707-8abd-3b71a1b3ba36&quot;,
+    &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
+    &quot;createTime&quot; : &quot;2024-02-29T22:49:54Z&quot;,
+    &quot;registeredSoftwareProduct&quot; : {
+      &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;,
+      &quot;clientName&quot; : &quot;incentivize&quot;,
+      &quot;clientId&quot; : &quot;bdea3eef-cc14-4ed6-a12d-4fd5c933f3f3&quot;
+    },
+    &quot;stateUpdatedTime&quot; : &quot;2024-02-29T22:50:00.407Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-03-01T22:49:54Z&quot;,
+    &quot;brandName&quot; : &quot;Mock Company Name&quot;,
+    &quot;arrangementId&quot; : &quot;5ab0af2b-ecd3-4ae3-9608-8f4e79cb4217&quot;
+  }, {
+    &quot;id&quot; : &quot;af84afb8-ff3b-4b6a-b18c-441e1ee862bb&quot;,
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;accounts&quot; : [ {
+      &quot;accountNumber&quot; : &quot;391099967&quot;,
+      &quot;bsb&quot; : &quot;014111&quot;,
+      &quot;jointAccount&quot; : true
+    } ],
+    &quot;ownerPersonaId&quot; : &quot;a5de4475-8254-4707-8abd-3b71a1b3ba36&quot;,
+    &quot;dataScopes&quot; : [ &quot;bank:accounts.basic:read&quot;, &quot;bank:accounts.detail:read&quot;, &quot;bank:payees:read&quot;, &quot;bank:regular_payments:read&quot;, &quot;bank:transactions:read&quot;, &quot;common:customer.basic:read&quot;, &quot;common:customer.detail:read&quot;, &quot;openid&quot;, &quot;profile&quot; ],
+    &quot;createTime&quot; : &quot;2024-02-29T22:52:55Z&quot;,
+    &quot;registeredSoftwareProduct&quot; : {
+      &quot;logoUri&quot; : &quot;https://m.media-amazon.com/images/I/91hrbype4aL._AC_SY450_.jpg&quot;,
+      &quot;clientName&quot; : &quot;incentivize&quot;,
+      &quot;clientId&quot; : &quot;bdea3eef-cc14-4ed6-a12d-4fd5c933f3f3&quot;
+    },
+    &quot;stateUpdatedTime&quot; : &quot;2024-02-29T22:53:02.143Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-03-01T22:52:55Z&quot;,
+    &quot;brandName&quot; : &quot;Mock Company Name&quot;,
+    &quot;arrangementId&quot; : &quot;d67a3b1d-7486-4acb-953c-c9eb0987e687&quot;
+  } ]
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMSortConsents_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

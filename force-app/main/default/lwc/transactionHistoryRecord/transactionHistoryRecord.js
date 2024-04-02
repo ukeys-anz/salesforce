@@ -127,6 +127,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     );
   }
 
+  get isCardTransation() {
+    return this.transactionRecord.formatted_type === TRANSACTION_TYPES.Card;
+  }
+
   // Tooltip for Raise Dispute button if disabled
   get disputeButtonTooltip() {
     switch (true) {
@@ -185,6 +189,10 @@ export default class TransactionHistoryRecord extends NavigationMixin(
 
   get transactionTime() {
     return this.transactionRecord.transaction_time;
+  }
+
+  get getFormattedDateTime() {
+    return this.transactionRecord.transaction_date_time;
   }
 
   get sourceClass() {

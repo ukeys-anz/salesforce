@@ -27,6 +27,27 @@
             <operation>equals</operation>
             <value>Join,Get Help</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZ_DA_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>ANZ DA RO</label>
+        <sharedTo>
+            <role>Data_Analyst</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>C&amp;Q Assessment</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Call/Letter Review Assessment</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>IDR_CRLT</fullName>

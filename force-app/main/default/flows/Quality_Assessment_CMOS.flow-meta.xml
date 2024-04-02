@@ -2,9 +2,6 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <name>Send_In_App_Notification</name>
-        <label>Send In-App Notification</label>
-        <locationX>336</locationX>
-        <locationY>1427</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -38,13 +35,13 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <label>Send In-App Notification</label>
+        <locationX>336</locationX>
+        <locationY>1427</locationY>
     </actionCalls>
     <apiVersion>59.0</apiVersion>
     <assignments>
         <name>Assignment_Quality_Assessment_Share</name>
-        <label>Assignment Quality Assessment Share</label>
-        <locationX>336</locationX>
-        <locationY>1103</locationY>
         <assignmentItems>
             <assignToReference>Quality_Assessment_Share_Record.ParentId</assignToReference>
             <operator>Assign</operator>
@@ -76,16 +73,19 @@
         <connector>
             <targetReference>Create_Assessment_Share_records</targetReference>
         </connector>
+        <label>Assignment Quality Assessment Share</label>
+        <locationX>336</locationX>
+        <locationY>1103</locationY>
     </assignments>
     <decisions>
         <name>Is_Assessment_Owned_by_Case_Manager</name>
-        <label>Is Assessment Owned by Case Manager</label>
-        <locationX>270</locationX>
-        <locationY>671</locationY>
         <defaultConnector>
             <targetReference>Get_Permission_Set_Group</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <label>Is Assessment Owned by Case Manager</label>
+        <locationX>270</locationX>
+        <locationY>671</locationY>
         <rules>
             <name>Assessment_is_Owned_by_Case_Manager</name>
             <conditionLogic>and</conditionLogic>
@@ -101,10 +101,10 @@
     </decisions>
     <decisions>
         <name>Is_Call_Letter_Review</name>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is This Call/Letter Review</label>
         <locationX>50</locationX>
         <locationY>276</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>This_is_Call_Letter_Review</name>
             <conditionLogic>and</conditionLogic>
@@ -123,10 +123,10 @@
     </decisions>
     <decisions>
         <name>Is_Case_Manager_Level_1</name>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is Case Manager Level 1</label>
         <locationX>468</locationX>
         <locationY>995</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Case_Manager_is_Level_1</name>
             <conditionLogic>and</conditionLogic>
@@ -145,10 +145,10 @@
     </decisions>
     <decisions>
         <name>Is_This_C_Q_Assessment</name>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <label>Is This C&amp;Q Assessment</label>
         <locationX>490</locationX>
         <locationY>276</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>This_is_C_Q_Assessment</name>
             <conditionLogic>and</conditionLogic>
@@ -189,19 +189,16 @@
     <processType>AutoLaunchedFlow</processType>
     <recordCreates>
         <name>Create_Assessment_Share_records</name>
-        <label>Create Assessment Share records</label>
-        <locationX>336</locationX>
-        <locationY>1211</locationY>
         <connector>
             <targetReference>Get_Notification_Type</targetReference>
         </connector>
         <inputReference>Quality_Assessment_Share_Record</inputReference>
+        <label>Create Assessment Share records</label>
+        <locationX>336</locationX>
+        <locationY>1211</locationY>
     </recordCreates>
     <recordLookups>
         <name>Get_Notification_Type</name>
-        <label>Get Notification Type</label>
-        <locationX>336</locationX>
-        <locationY>1319</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Send_In_App_Notification</targetReference>
@@ -215,14 +212,14 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Notification Type</label>
+        <locationX>336</locationX>
+        <locationY>1319</locationY>
         <object>CustomNotificationType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Permission_Set_Assignment</name>
-        <label>Get Permission Set Assignment</label>
-        <locationX>468</locationX>
-        <locationY>887</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Case_Manager_Level_1</targetReference>
@@ -243,14 +240,14 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Permission Set Assignment</label>
+        <locationX>468</locationX>
+        <locationY>887</locationY>
         <object>PermissionSetAssignment</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Permission_Set_Group</name>
-        <label>Get Permission Set Group</label>
-        <locationX>468</locationX>
-        <locationY>779</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Permission_Set_Assignment</targetReference>
@@ -264,12 +261,13 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Permission Set Group</label>
+        <locationX>468</locationX>
+        <locationY>779</locationY>
         <object>PermissionSetGroup</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
-        <locationX>144</locationX>
-        <locationY>0</locationY>
         <connector>
             <targetReference>Is_Call_Letter_Review</targetReference>
         </connector>
@@ -282,6 +280,8 @@
                 <stringValue>Complete</stringValue>
             </value>
         </filters>
+        <locationX>144</locationX>
+        <locationY>0</locationY>
         <object>Quality_Assessment__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>

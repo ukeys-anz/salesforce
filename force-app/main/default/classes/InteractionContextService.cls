@@ -3,9 +3,8 @@
  * @since  April 2022
  * @description APEX REST API class to handle incoming requests from Twilio.
  * Added Chat Interaction and Twilio Details Creation Logic and updated Call Interaction Creation Logic as part of ANZX-103285 by Shivam , July 2023
- * Note ExcessivePublicCount Surpressed : The count of the public count here is 24, but still the rule set is failing. That's why added this. Refer this pr: https://github.com/anzx/salesforce/pull/8062
  */
-@SuppressWarnings('PMD.ExcessivePublicCount')
+
 @RestResource(urlMapping='/InteractionContextRequests/*')
 global with sharing class InteractionContextService {
   public static final String CALL_INTERACTION_TYPE = 'voice';
@@ -35,7 +34,7 @@ global with sharing class InteractionContextService {
     List<Account> accountsToUpdate = new List<Account>();
     List<Interaction> interactionToBeCreated = new List<Interaction>();
     List<InteractionContextResponse> responseList = new List<InteractionContextResponse>();
-    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList = new List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>();
+    List<UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList = new List<UpdateInteractionByTwilioPayload>();
 
     //Validating the response received from Twilio in order to proceed
     validateIncomingRequestFromTwilio(
@@ -323,86 +322,6 @@ global with sharing class InteractionContextService {
   }
 
   /**
-   * @description Wrapper class to store Interaction Context Request parameters
-   */
-  global class InteractionContextRequest {
-    /**
-     * @description chatOrCallId to identify the Twilio details
-     */
-    public String chatOrCallId { get; set; }
-    /**
-     * @description Issue Subtype as a String based on Chat context passed from App in to Twilio
-     */
-    public String issueSubtype { get; set; }
-    /**
-     * @description Direction from Twillio
-     */
-    public String direction { get; set; }
-    /**
-     * @description Customer OCV ID
-     */
-    public String ocvId { get; set; }
-    /**
-     * @description phone number from Twilio
-     */
-    public String phoneNumber { get; set; }
-    /**
-     * @description PPID from Twilio
-     */
-    public String ppid { get; set; }
-    /**
-     * @description Type from Twilio
-     */
-    public String type { get; set; }
-    /**
-     * @description Twilio Id from Twilio
-     */
-    public String twilioId { get; set; }
-    /**
-     * @description Call Recording Id from Twilio for inbound calls
-     */
-    public String callRecordingId { get; set; }
-    /**
-     * @description chatOrCallStatus from Twilio
-     */
-    public String chatOrCallStatus { get; set; }
-  }
-
-  /**
-   * @description Wrapper class to store Interaction Context Response parameters
-   */
-  global class InteractionContextResponse {
-    /**
-     * @description Response result (true or false)
-     */
-    public Boolean success { get; set; }
-    /**
-     * @description Response code. 200 for success. 400 for failure.
-     */
-    public Integer statusCode { get; set; }
-    /**
-     * @description Record ID
-     */
-    public String recordId { get; set; }
-    /**
-     * @description Interaction ID
-     */
-    public String externalId { get; set; }
-    /**
-     * @description Error Message for failure response
-     */
-    public String errorMessage { get; set; }
-    /**
-     * @description Customer OCV ID
-     */
-    public String ocvId { get; set; }
-    /**
-     * @description Label for chat to display
-     */
-    public String chatLabel { get; set; }
-  }
-
-  /**
    * @description Method to create Interaction List to be created.
    * @param interactContextRequest Interaction Context Request from Twilio
    * @param accountsMap accountsByOCVId
@@ -444,14 +363,14 @@ global with sharing class InteractionContextService {
    * @param interactionListCreatedDB List<Interaction> To Be Created
    * @param results List<Database.SaveResult> for Interaction Created
    * @param contextRequests Interaction Context Request From Twilio
-   * @param twilioDetailsByInteractionList List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>
+   * @param twilioDetailsByInteractionList List<UpdateInteractionByTwilioPayload>
    * @param responseList  List<InteractionContextResponse>
    */
   private static void createTwilioRecordAfterInteractionCreation(
     List<Interaction> interactionListCreatedDB,
     List<Database.SaveResult> results,
     List<InteractionContextRequest> contextRequests,
-    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList,
+    List<UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList,
     List<InteractionContextResponse> responseList
   ) {
     Map<Id, Interaction> newInteractionMap = new Map<Id, Interaction>(
@@ -471,7 +390,7 @@ global with sharing class InteractionContextService {
     for (Integer i = 0; i < interactionListCreatedDB.size(); i++) {
       Database.SaveResult sr = results[i];
       if (sr.isSuccess()) {
-        InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContext = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
+        UpdateInteractionByTwilioPayload twilioContext = new UpdateInteractionByTwilioPayload();
 
         twilioContext.interactionId = interactionListCreatedDB[i].Id;
         twilioContext.callRecordingId = contextRequests[i].callRecordingId;

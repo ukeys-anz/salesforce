@@ -41,7 +41,7 @@ public with sharing class CCRMBalanceHistoryQuery extends CCRMFinancialAccountQu
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (BalanceHistoryCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (BalanceHistoryCalloutResponse) CalloutModel.deserialize(
       responseBody,
       BalanceHistoryCalloutResponse.class
     );

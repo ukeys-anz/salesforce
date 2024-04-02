@@ -421,6 +421,48 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Comments_feedback_suggestions__c</fieldItem>
+                <identifier>RecordC_Q_Comments_feedback_suggestions_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-a0032747-a595-41d3-b970-ff0f5d0f17b0</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-c16a0d72-af80-4f19-b705-8a6780eec005</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-a0032747-a595-41d3-b970-ff0f5d0f17b0</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column39</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-c16a0d72-af80-4f19-b705-8a6780eec005</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column40</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-0ab5ac70-cb0c-4556-a3c3-bdb656a1d30d</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Was_quick_resolution_offer_appropriate__c</fieldItem>
                 <identifier>RecordWas_quick_resolution_offer_appropriate_cField</identifier>
             </fieldInstance>
@@ -2450,6 +2492,31 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-0ab5ac70-cb0c-4556-a3c3-bdb656a1d30d</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>C&amp;Q Assessment Summary</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection20</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-0d89bd64-3340-4992-9498-02626be97c05</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -2952,6 +3019,40 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
+                <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TM_Comments_for_C_Q_Manager_Review__c</fieldItem>
+                <identifier>RecordTM_Comments_for_C_Q_Manager_Review_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
                 <identifier>RecordC_Q_Lead_Response_cField</identifier>
                 <visibilityRule>
@@ -3075,8 +3176,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.C_Q_Comments_feedback_suggestions__c</fieldItem>
-                <identifier>RecordC_Q_Comments_feedback_suggestions_cField</identifier>
+                <fieldItem>Record.REAL_form_Comments__c</fieldItem>
+                <identifier>RecordREAL_form_Comments_cField</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
@@ -3205,7 +3306,7 @@
                 <identifier>force_relatedListSingleContainer3</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-d0887f29-dfde-4d2d-a13b-489fddb9f86e</name>
+        <name>Facet-bb2f4549-0b05-4c74-b976-f30834ededd2</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -3241,7 +3342,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-d0887f29-dfde-4d2d-a13b-489fddb9f86e</value>
+                    <value>Facet-bb2f4549-0b05-4c74-b976-f30834ededd2</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>

@@ -135,6 +135,13 @@ public with sharing class IDRCaseActions {
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Id entitlementId = getEntitlement();
+    Map<Id, Product2> productMap = new Map<Id, Product2>(
+      [
+        SELECT Id, IDR_Product_Family__c, IDR_Product_Family__r.Name
+        FROM Product2
+        WHERE IDR_Product_Family__r.Name = 'Asset finance'
+      ]
+    );
     Case[] updatePsiTicked = new List<Case>();
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
@@ -169,6 +176,13 @@ public with sharing class IDRCaseActions {
         ) {
           record.addError(IDRConstants.CANNOT_CHANGE_ISSUE_MESSAGE);
         }
+        if (isProductAssetfinance(record, oldRecord, productMap)) {
+          record.addError(IDRConstants.CANNOT_CHANGE_PRODUCT_MESSAGE);
+        }
+        record.IDR_Hardship_Response_updated_on__c = IDRCaseActionsHelper.populateHardshipUpdateDate(
+          record,
+          oldRecord
+        );
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -182,6 +196,14 @@ public with sharing class IDRCaseActions {
         handleAnonymousNames(record);
         handleEntitlementForUpdate(record, oldRecord, entitlementId);
         identifyOwnerChangeRecords(record, (oldRecord).OwnerId);
+        record.Previous_Case_Owner__c = IDRCaseActionsHelper.populateOldOwnerID(
+          record,
+          oldRecord
+        );
+        record.Date_Case_allocated_to_CM__c = IDRCaseActionsHelper.populateDateCaseAllocatedToCM(
+          record,
+          oldRecord
+        );
         if (record.Status != oldRecord.Status) {
           handleCaseStatusChanges(record);
         }
@@ -189,6 +211,10 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
           updatePsiTicked.add(record);
         }
+        record.Date_time_Registration_Response_Provided__c = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
+          oldRecord, 
+          record
+        );
       } else if (
         record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
       ) {
@@ -198,6 +224,7 @@ public with sharing class IDRCaseActions {
           SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
         );
       }
+      populateOwnerChangeFields(record, oldMap);
     }
     preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
@@ -208,6 +235,33 @@ public with sharing class IDRCaseActions {
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
       updateDateTimePsiTicked(updatePsiTicked);
+    }
+  }
+
+  /**
+   * @description populateOwnerChangeFields(record, oldMap) method handles the following
+   * 1. Assigns old owner to Previous Case Owner
+   * 2. Assigns the date/time to Date Case Allocated to CM.
+   * @param record from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values.
+   */
+  public static void populateOwnerChangeFields(
+    Case record,
+    Map<ID, SObject> oldMap
+  ) {
+    if (record.OwnerId != (Id) oldMap.get(record.Id).get('OwnerId')) {
+      ID oldOwner = (Id) oldMap.get(record.Id).get('OwnerId');
+      ID newOwner = record.OwnerId;
+      if (oldOwner.getSObjectType() == Group.SObjectType) {
+        record.Previous_Case_Owner__c = null;
+      } else {
+        record.Previous_Case_Owner__c = oldOwner;
+      }
+      if (newOwner.getSObjectType() == User.SObjectType) {
+        record.Date_Case_allocated_to_CM__c = DateTime.now();
+      } else {
+        record.Date_Case_allocated_to_CM__c = null;
+      }
     }
   }
 
@@ -256,30 +310,41 @@ public with sharing class IDRCaseActions {
   ) {
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
+    Set<Id> hardshipCases = new Set<Id>();
+    Set<String> caseStatus = new Set<String>{
+      IDRConstants.PROVISIONALLY_CLOSED_STATUS,
+      IDRConstants.CLOSED_STATUS
+    };
     for (Case c : records) {
       if (isIDRComplaintType(c)) {
         Case oldCase = (oldMap.containsKey(c.Id))
           ? (Case) oldMap.get(c.Id)
           : null;
         if (
-          (oldCase != null &&
           ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
           c.Status == IDRConstants.ESCALATED_STATUS) ||
           (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
-          c.IDR_Milestone_Sla__c == 'Completed'))
+          c.IDR_Milestone_Sla__c == 'Completed')
         ) {
           escalationCases.add(c.Id);
         }
+        if (!caseStatus.contains(c.Status)) {
+          continue;
+        }
         if (
-          (oldCase != null &&
           (!oldCase.isClosed &&
-          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
+          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS))
         ) {
           maxTimeFrameCases.add(c.Id);
         }
+        if (
+          c.isClosed &&
+          String.isNotBlank(c.IDR_Is_Hardship_Resolution_Letter_Sent__c)
+        ) {
+          hardshipCases.add(c.Id);
+        }
       }
     }
-
     if (!escalationCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         escalationCases,
@@ -290,7 +355,6 @@ public with sharing class IDRCaseActions {
         System.now()
       );
     }
-
     if (!maxTimeFrameCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         maxTimeFrameCases,
@@ -305,6 +369,12 @@ public with sharing class IDRCaseActions {
       );
       IDRTaskActions.closeMaxTimeFrameTasks(maxTimeFrameCases);
     }
+
+    MilestoneUtils.completeMilestones(
+      hardshipCases,
+      new List<String>{ '21 Day Hardship Letter Milestone' },
+      System.now()
+    );
   }
 
   /**
@@ -879,5 +949,53 @@ public with sharing class IDRCaseActions {
           subsequentIssueTypeMap.get(c.IDR_Subsequent_Issue_3__c);
       }
     }
+  }
+  /**
+   * @description validating  product belongs to the  Asset Finance Product family
+   * @param record The actual case record from the trigger
+   * @param oldRecord trigger context variable to check on old values.
+   * @param productMap Map of products belonging to asset finance family
+   * @return Boolean value that returns true if the Product Family is Asset finance
+   */
+  @TestVisible
+  private static Boolean isProductAssetfinance(
+    Case record,
+    Case oldRecord,
+    Map<Id, Product2> productMap
+  ) {
+    if (
+      (IDRCollectionActions.isCollectionsIssue(
+        oldRecord.Type,
+        oldRecord.IDR_Subsequent_Issue__c
+      )) &&
+      (String.isNotBlank(oldRecord.Product__c) &&
+      oldRecord.Product__c != record.Product__c &&
+      productMap.containsKey(oldRecord.Product__c))
+    ) {
+      return true;
+    }
+    if (
+      (IDRCollectionActions.isCollectionsIssue(
+        oldRecord.IDR_Issue_Type_2__c,
+        oldRecord.IDR_Subsequent_Issue_2__c
+      )) &&
+      (String.isNotBlank(oldRecord.IDR_Product_2__c) &&
+      oldRecord.IDR_Product_2__c != record.IDR_Product_2__c &&
+      productMap.containsKey(oldRecord.IDR_Product_2__c))
+    ) {
+      return true;
+    }
+    if (
+      (IDRCollectionActions.isCollectionsIssue(
+        oldRecord.IDR_Issue_Type_3__c,
+        oldRecord.IDR_Subsequent_Issue_3__c
+      )) &&
+      (String.isNotBlank(oldRecord.IDR_Product_3__c) &&
+      oldRecord.IDR_Product_3__c != record.IDR_Product_3__c &&
+      productMap.containsKey(oldRecord.IDR_Product_3__c))
+    ) {
+      return true;
+    }
+    return false;
   }
 }

@@ -68,6 +68,11 @@
                 <label>DVS - System error response</label>
             </value>
             <value>
+                <fullName>Confirmed Fraud</fullName>
+                <default>false</default>
+                <label>Confirmed Fraud</label>
+            </value>
+            <value>
                 <fullName>Doc fail - doc details are outside of fixable threshold</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -131,6 +136,10 @@
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>EV Fail - DVS system error response</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Confirmed Fraud</controllingFieldValue>
+            <valueName>Confirmed Fraud</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

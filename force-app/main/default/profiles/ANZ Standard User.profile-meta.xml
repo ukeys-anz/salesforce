@@ -2,6 +2,11 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ANZ Standard User</fullName>
     <applicationVisibilities>
+        <application>BDM_Workbench</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>Coaches_Console</application>
         <default>false</default>
         <visible>false</visible>
@@ -1756,6 +1761,10 @@
     <layoutAssignments>
         <layout>Task-IDR Task Layout</layout>
         <recordType>Task.IDR_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Coach Nudge Layout</layout>
+        <recordType>Task.Coach_Nudge</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-SI Task Layout</layout>

@@ -14,6 +14,7 @@ public with sharing class IDRConstants {
   public static final String PROVISIONALLY_CLOSED_STATUS = 'Provisionally Closed';
   public static final String CLOSED_STATUS = 'Closed';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
+  public static final String RESOLVED_STATUS = 'Resolved';
 
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
@@ -118,6 +119,11 @@ public with sharing class IDRConstants {
     '19'
   };
 
+  public static final Set<String> FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS = new Set<String>{
+    'Fraud',
+    'Scam'
+  };
+
   public static final Set<String> SUB_ISSUE_TYPE_COLLECTIONS = new Set<String>{
     '20',
     '21',
@@ -144,6 +150,12 @@ public with sharing class IDRConstants {
     '96'
   };
 
+  public static final Set<String> IDR_EARLY_RESOLUTION = new Set<String>{
+    '8',
+    '11',
+    'Email'
+  };
+
   //NotificationHandler Status
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
@@ -152,6 +164,7 @@ public with sharing class IDRConstants {
   //Message Text
   public static final String RESTRICTED_ACTION_MESSAGE = 'You are not authorised to perform this action.';
   public static final String CANNOT_CHANGE_ISSUE_MESSAGE = 'You cannot change a collections issue to a non collections issue.';
+  public static final String CANNOT_CHANGE_PRODUCT_MESSAGE = 'You cannot change this Product/Service name as collections activity has been stopped on account(s) for this product/service.';
 
   //Milestone Sla
   public static final String MILESTONE_SLA_NORMAL = 'Normal';
@@ -199,11 +212,29 @@ public with sharing class IDRConstants {
   public static final String TASK_CORRESPONDENCE_SUBJECT = 'New Correspondence received on a Closed Complaint added by';
   public static final String TASK_CORRESPONDENCE_DESCRIPTION = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
   public static final String TASK_QA_COMPLIANCE_SUBJECT = 'Review Required: Quality Assessment Completed for ';
-  public static final String TASK_TM_ATTESTATION_SUBJECT ='Team Manager Corrective Actions- Attestation- ';
+  public static final String TASK_TM_ATTESTATION_SUBJECT = 'Team Manager Corrective Actions- Attestation- ';
   public static final String TASK_QA_CLOSE_ERROR = 'Cannot close a Compliance Task if the associated Quality Assessment doesn\'t have a Team Manager Response';
+  public static final Id TASK_COMPLIANCE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Compliance_Task')
+    .getRecordTypeId();
+
+  //QA Dispute Tasks Constants
+  public static final String TEAM_MANAGER_REJECTION_RESPONSE = 'Rejected by TM';
+  public static final String TM_REJECTS_CQ_MANAGER_RESPONSE = 'TM Rejects C&Q Manager\'s review';
+  public static final String TM_REJECTS_CQ_REVIEW_TASK_SUBJECT = 'Team Manager has rejected review of ';
+  public static final String TM_REJECTS_CQ_REVIEW_TASK_DESC = 'Please review the Quality Assessment and complete the C&Q Manager Response and C&Q Manager Comments fields on the Assessment Outcome tab.';
+  public static final String CQ_MANAGER_REV_COMPLETED_TASK_SUBJECT = 'C&Q Manager review completed on ';
+  public static final String CQ_MANAGER_REV_COMPLETED_TASK_DESC = 'Please review the Quality Assessment and complete the TM response to Q&C Manager review and TM Comments on C&Q Manager review on the Assessment Outcome tab.';
+  public static final String TM_REJECTS_CQ_MANAGER_REV_TASK_SUBJECT = 'C&Q Manager review rejected on ';
+  public static final String TM_REJECTS_CQ_MANAGER_REV_TASK_DESC = 'Please review the Quality Assessment and complete the C&Q Lead Response and C&Q Lead Comments fields on the Assessment Outcome tab.';
+  public static final String CQ_LEAD_RESPONSE_TASK_SUBJECT = 'C&Q Lead review completed on ';
+  public static final String CQ_LEAD_RESPONSE_TASK_DESC = 'Please review the comments left on the Assessment Outcome tab of the Quality Assessment';
 
   //Quality Assessment Constants
   public static final String CORRECTIVE_ACTIONS_NA = 'N/A- no action required';
+
+  //Quality Assessment Fieldset Name
+  public static final String CQ_EDITABLE_RESPONSE_FIELDS = 'CQAssessment_Editable_Response_Fields';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
@@ -312,8 +343,10 @@ public with sharing class IDRConstants {
           'EDR_Hardship',
           'EDR_Wealth',
           'IDR_Satellite',
-          'IDR_Spare', //IDR Disputes & Scams
-          'EDR_CM_Everyday_Banking_Wealth' // EDR Scams
+          'IDR_Spare', //IDR Disputes
+          'EDR_CM_Everyday_Banking_Wealth', // EDR Scams
+          'IDR_Scams', // IDR Scams
+          'IDR_Deceased_Estates'
         };
       }
       return workBasketNames;
@@ -404,7 +437,7 @@ public with sharing class IDRConstants {
     '18'
   };
 
-  public static final List<String> IDR_UNASSISTED_ISSUE_TYPE = new List<String> {
+  public static final List<String> IDR_UNASSISTED_ISSUE_TYPE = new List<String>{
     '18',
     '13',
     '12',
@@ -414,35 +447,35 @@ public with sharing class IDRConstants {
   };
 
   public static final List<String> IDR_UNASSISTED_SUB_ISSUE_TYPE = new List<String>{
-  // Account Set-up & Maintenance
+    // Account Set-up & Maintenance
     '11', // Account/Profile set up
     '12', // Account/Profile Maintenance
     '63', // Statement Issue
-  // Channel Accessibility
-    '2',  // Branch queues / wait time
-    '3',  // Call queues / wait time
-    '4',  // Trading hours/ location/ closures
-    '5',  // Design/ layout/ content
-    '6',  // System fault/ outage
-    '9',  // Digital
+    // Channel Accessibility
+    '2', // Branch queues / wait time
+    '3', // Call queues / wait time
+    '4', // Trading hours/ location/ closures
+    '5', // Design/ layout/ content
+    '6', // System fault/ outage
+    '9', // Digital
     'Not working on device',
     'No direct phone line',
     'Not enough stores',
     'Digital only service',
-  // Organisational Structure & Marketing
+    // Organisational Structure & Marketing
     '54', // About ANZ organisational structure
     '55', // Media releases
     '56', // Marketing campaigns
     '10', // Other
-  // Product Features, Offers, Sales
+    // Product Features, Offers, Sales
     '73', // Marketing contact not requested/ required
-  // Service Quality
+    // Service Quality
     '57', // Tone or manner of response
     '59', // Call transferred, disconnected or not returned
     '60', // Appointment not made/ upheld
     '62', // Failure to respond to customer request for info
     'Request won\'t be actioned',
-  // Transactions & Payments
-    '50'  // Payment system fault/outage
+    // Transactions & Payments
+    '50' // Payment system fault/outage
   };
 }

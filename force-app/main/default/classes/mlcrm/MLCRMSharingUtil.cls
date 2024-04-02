@@ -27,103 +27,43 @@ public without sharing class MLCRMSharingUtil {
     Territory_Based_Sharing_Config__mdt objTerritoryMtd = getTerritoryRecords(
       strSobjectName
     );
-    if (objTerritoryMtd != null) {
-      Set<Id> setOfEligibleRT = MLCRMCommonUtils.getRecordTypeIdsByDeveloperName(
-        objTerritoryMtd.Object_Name__c,
-        objTerritoryMtd.Eligible_Record_Types__c != null
-          ? objTerritoryMtd.Eligible_Record_Types__c.split(';')
-          : null
-      );
-      Territory_Base_Sharing_Event__e objTerritoryEvt = new Territory_Base_Sharing_Event__e(
-        Trigger_Object__c = strSobjectName
-      );
-      List<Sobject> lstOfLeadShareToInsert = new List<Sobject>();
-      for (sObject objSobject : lstOfSobject) {
-        if (
-          (!setOfEligibleRT.isEmpty() &&
-          setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) ||
-          setOfEligibleRT.isEmpty()) &&
-          !objTerritoryMtd.Excluded_Users__c.containsIgnoreCase(
-            UserInfo.getUserName()
-          ) &&
-          (oldMapSobject == null ||
-          (oldMapSobject != null &&
-          (oldMapSobject.get((Id) objSobject.get('Id'))
-            .get(objTerritoryMtd.Territory_Field__c) !=
-          objSobject.get(objTerritoryMtd.Territory_Field__c) ||
-          objSobject.get('OwnerId') !=
-          oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId'))))
-        ) {
-          if (objTerritoryEvt.Record_Ids__c == null) {
-            objTerritoryEvt.Record_Ids__c = (Id) objSobject.get('Id');
-          } else {
-            objTerritoryEvt.Record_Ids__c =
-              objTerritoryEvt.Record_Ids__c +
-              ';' +
-              (Id) objSobject.get('Id');
-          }
-        }
-
-        if (
-          (!setOfEligibleRT.isEmpty() &&
-          setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) ||
-          setOfEligibleRT.isEmpty()) &&
-          !objTerritoryMtd.Excluded_Users__c.containsIgnoreCase(
-            UserInfo.getUserName()
-          ) &&
-          oldMapSobject != null &&
-          objSobject.get('OwnerId') !=
-          oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')
-        ) {
-          Sobject objShareObject = getNewSObject(
-            objTerritoryMtd.Sharing_Object__c
-          );
-          String strParentId = !strSobjectName.contains(
-              MLCRMConstants.UNDERSCORE_C
-            )
-            ? strSobjectName + 'Id'
-            : 'ParentId';
-          String strAccessLevel = !strSobjectName.contains(
-              MLCRMConstants.UNDERSCORE_C
-            )
-            ? strSobjectName + 'AccessLevel'
-            : 'AccessLevel';
-          objShareObject.put(strParentId, (Id) objSobject.get('Id'));
-          objShareObject.put(strAccessLevel, 'Edit');
-          objShareObject.put(
-            'UserOrGroupId',
-            oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')
-          );
-          objShareObject.put('RowCause', objTerritoryMtd.Row_Cause__c);
-          lstOfLeadShareToInsert.add(objShareObject);
-        }
-      }
-
-      if (!lstOfLeadShareToInsert.isEmpty()) {
-        //inserting the share records for original record owner in order of owner change to avoid temporary record lose access on UI.
-        try {
-          insert lstOfLeadShareToInsert;
-        } catch (Exception ex) {
-          Logger.error(
-            'Error while creating share record for original user',
-            ex
-          );
-          Logger.saveLog();
-        }
-      }
-      if (objTerritoryEvt != null && objTerritoryEvt.Record_Ids__c != null) {
-        Database.SaveResult results = EventBus.publish(objTerritoryEvt);
-        if (!results.isSuccess()) {
-          Logger.error(
-            'Error occured while publishing territory sharing platform event.',
-            results
-          );
-          Logger.saveLog();
-        }
-      }
-    } else {
+    if (objTerritoryMtd == null) {
       Logger.error('Territory sharing config metadata record not found.');
       Logger.saveLog();
+      return;
+    }
+
+    Territory_Base_Sharing_Event__e objTerritoryEvt = createSharingPE(
+      lstOfSobject,
+      strSobjectName,
+      oldMapSobject,
+      objTerritoryMtd
+    );
+    List<Sobject> lstOfLeadShareToInsert = reShareToOriginalOwner(
+      lstOfSobject,
+      strSobjectName,
+      oldMapSobject,
+      objTerritoryMtd
+    );
+
+    if (!lstOfLeadShareToInsert.isEmpty()) {
+      //inserting the share records for original record owner in order of owner change to avoid temporary record lose access on UI.
+      try {
+        insert lstOfLeadShareToInsert;
+      } catch (Exception ex) {
+        Logger.error('Error while creating share record for original user', ex);
+        Logger.saveLog();
+      }
+    }
+    if (objTerritoryEvt != null && objTerritoryEvt.Record_Ids__c != null) {
+      Database.SaveResult results = EventBus.publish(objTerritoryEvt);
+      if (!results.isSuccess()) {
+        Logger.error(
+          'Error occured while publishing territory sharing platform event.',
+          results
+        );
+        Logger.saveLog();
+      }
     }
   }
 
@@ -410,9 +350,7 @@ public without sharing class MLCRMSharingUtil {
 
     if (!lstOfSharingError.isEmpty()) {
       Logger.error(
-        'Error occured while creating ' +
-        objMtd.Sharing_Object__c +
-        ' record',
+        'Error occured while creating ' + objMtd.Sharing_Object__c + ' record',
         processSharingException(lstOfSharingError)
       );
       Logger.saveLog();
@@ -481,13 +419,140 @@ public without sharing class MLCRMSharingUtil {
       if (!lstOfSharingError.isEmpty()) {
         Logger.error(
           'Error occured while deleting ' +
-          objMtd.Sharing_Object__c +
-          ' record',
+            objMtd.Sharing_Object__c +
+            ' record',
           processSharingException(lstOfSharingError)
         );
         Logger.saveLog();
       }
     }
+  }
+
+  /**
+   * @description This method creates the platform events for asynchronous sobject territory sharing
+   * @name createSharingPE
+   * @param lstOfSobject List of sobjects
+   * @param strSobjectName sobject API name
+   * @param oldMapSobject List of oldmap Sobjects
+   * @param objTerritoryMtd Territory sharing MDT
+   * @return The territory sharing platform event
+   * @author Ashish Kumar
+   */
+  private static Territory_Base_Sharing_Event__e createSharingPE(
+    List<sObject> lstOfSobject,
+    String strSobjectName,
+    Map<Id, sObject> oldMapSobject,
+    Territory_Based_Sharing_Config__mdt objTerritoryMtd
+  ) {
+    Set<Id> setOfEligibleRT = getEligibleRT(objTerritoryMtd);
+    Territory_Base_Sharing_Event__e objTerritoryEvt = new Territory_Base_Sharing_Event__e(
+      Trigger_Object__c = strSobjectName
+    );
+    for (sObject objSobject : lstOfSobject) {
+      if (
+        (!setOfEligibleRT.isEmpty() &&
+        setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) ||
+        setOfEligibleRT.isEmpty()) &&
+        !objTerritoryMtd.Excluded_Users__c.containsIgnoreCase(
+          UserInfo.getUserName()
+        ) &&
+        (oldMapSobject == null ||
+        (oldMapSobject != null &&
+        (oldMapSobject.get((Id) objSobject.get('Id'))
+          .get(objTerritoryMtd.Territory_Field__c) !=
+        objSobject.get(objTerritoryMtd.Territory_Field__c) ||
+        objSobject.get('OwnerId') !=
+        oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId'))))
+      ) {
+        if (objTerritoryEvt.Record_Ids__c == null) {
+          objTerritoryEvt.Record_Ids__c = (Id) objSobject.get('Id');
+        } else {
+          objTerritoryEvt.Record_Ids__c =
+            objTerritoryEvt.Record_Ids__c +
+            ';' +
+            (Id) objSobject.get('Id');
+        }
+      }
+    }
+    return objTerritoryEvt;
+  }
+
+  /**
+   * @description This method reshare sobject records back to original owner. This prevents user immediately losing
+   *              visibility of record in the UI once they re-assigned to another user.
+   * @name reShareToOriginalOwner
+   * @param lstOfSobject List of sobjects
+   * @param strSobjectName sobject API name
+   * @param oldMapSobject List of oldmap Sobjects
+   * @param objTerritoryMtd Territory sharing MDT
+   * @return List of sharing sobject records to insert
+   * @author Ashish Kumar
+   */
+  private static List<Sobject> reShareToOriginalOwner(
+    List<sObject> lstOfSobject,
+    String strSobjectName,
+    Map<Id, sObject> oldMapSobject,
+    Territory_Based_Sharing_Config__mdt objTerritoryMtd
+  ) {
+    List<Sobject> lstOfLeadShareToInsert = new List<Sobject>();
+    Set<Id> setOfEligibleRT = getEligibleRT(objTerritoryMtd);
+    for (sObject objSobject : lstOfSobject) {
+      if (strSobjectName == 'Lead' && objSobject.get('Status') == 'Expired') {
+        continue;
+      }
+      if (
+        (!setOfEligibleRT.isEmpty() &&
+        setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) ||
+        setOfEligibleRT.isEmpty()) &&
+        !objTerritoryMtd.Excluded_Users__c.containsIgnoreCase(
+          UserInfo.getUserName()
+        ) &&
+        oldMapSobject != null &&
+        objSobject.get('OwnerId') !=
+        oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')
+      ) {
+        Sobject objShareObject = getNewSObject(
+          objTerritoryMtd.Sharing_Object__c
+        );
+        String strParentId = !strSobjectName.contains(
+            MLCRMConstants.UNDERSCORE_C
+          )
+          ? strSobjectName + 'Id'
+          : 'ParentId';
+        String strAccessLevel = !strSobjectName.contains(
+            MLCRMConstants.UNDERSCORE_C
+          )
+          ? strSobjectName + 'AccessLevel'
+          : 'AccessLevel';
+        objShareObject.put(strParentId, (Id) objSobject.get('Id'));
+        objShareObject.put(strAccessLevel, 'Edit');
+        objShareObject.put(
+          'UserOrGroupId',
+          oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')
+        );
+        objShareObject.put('RowCause', objTerritoryMtd.Row_Cause__c);
+        lstOfLeadShareToInsert.add(objShareObject);
+      }
+    }
+    return lstOfLeadShareToInsert;
+  }
+
+  /**
+   * @description This method returns list of eligible record types for Territory sharing
+   * @name getEligibleRT
+   * @param objTerritoryMtd Territory sharing custom metadata type object
+   * @return List of eligible record type ids
+   * @author Ashish Kumar
+   */
+  private static Set<Id> getEligibleRT(
+    Territory_Based_Sharing_Config__mdt objTerritoryMtd
+  ) {
+    return MLCRMCommonUtils.getRecordTypeIdsByDeveloperName(
+      objTerritoryMtd.Object_Name__c,
+      objTerritoryMtd.Eligible_Record_Types__c != null
+        ? objTerritoryMtd.Eligible_Record_Types__c.split(';')
+        : null
+    );
   }
 
   /**

@@ -7,6 +7,9 @@
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <formula>IF(
+Case__r.RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
+&quot;&quot;,
+IF(
 ISPICKVAL(External_Status__c, &quot;New&quot;),
 $Label.PEGA_Dispute_Status_New,
 IF(
@@ -91,7 +94,7 @@ IF(
 ISPICKVAL(External_Status__c, &quot;Resolved-PreArbAccepted&quot;),
 $Label.PEGA_Dispute_Status_Resolved_PreArbAccepted,
 &quot;&quot;
-))))))))))))))))))))))))))))</formula>
+)))))))))))))))))))))))))))))</formula>
     <inlineHelpText>Message sent to the customer via a notification in the app</inlineHelpText>
     <label>Customer Message</label>
     <required>false</required>

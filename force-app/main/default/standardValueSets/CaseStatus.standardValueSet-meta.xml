@@ -229,4 +229,16 @@
         <label>Documents Uploaded</label>
         <closed>false</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Customer Update Pending</fullName>
+        <default>false</default>
+        <label>Customer Update Pending</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Followup Required</fullName>
+        <default>false</default>
+        <label>Followup Required</label>
+        <closed>false</closed>
+    </standardValue>
 </StandardValueSet>

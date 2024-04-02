@@ -11,4 +11,9 @@
         <default>false</default>
         <label>Small Business Banking</label>
     </standardValue>
+    <standardValue>
+        <fullName>Small Business Banking - NBC</fullName>
+        <default>false</default>
+        <label>Small Business Banking - NBC</label>
+    </standardValue>
 </StandardValueSet>

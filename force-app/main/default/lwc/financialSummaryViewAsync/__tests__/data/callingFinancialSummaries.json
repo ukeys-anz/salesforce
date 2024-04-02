@@ -1,3 +1,5 @@
 {
-  "acknowledgement": "Request sent"
+  "totalBalanceAck": "Request sent",
+  "terminalAck": "Request sent",
+  "assetBalanceAck": "Request sent"
 }

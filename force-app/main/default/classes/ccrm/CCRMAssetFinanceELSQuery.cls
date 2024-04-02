@@ -52,7 +52,7 @@ public with sharing class CCRMAssetFinanceELSQuery extends CCRMFinancialAccountQ
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (AssetFinanceELSCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (AssetFinanceELSCalloutResponse) CalloutModel.deserialize(
       responseBody,
       AssetFinanceELSCalloutResponse.class
     );
@@ -97,7 +97,7 @@ public with sharing class CCRMAssetFinanceELSQuery extends CCRMFinancialAccountQ
       row.put('IntRate', fa.interestRate);
       row.put('Balance', fa.accountBalance);
       row.put('AmountInArrears', fa.arrearsAmount);
-      row.put('Expires', adjustUTCDateTime(fa.expiryDate));
+      row.put('Expires', formatDate(fa.expiryDate));
       row.put('BalloonAmount', fa.balloonAmount);
       row.put('Amount', fa.repaymentAmount);
       row.put('LoanTerm', fa.loanTerm);

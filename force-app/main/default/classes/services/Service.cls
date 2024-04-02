@@ -296,11 +296,12 @@ public with sharing virtual class Service {
   public Map<String, String> setAuthorizationCommonHeaders(
     StaffTokenRequestModel staffModelWrapper
   ) {
+    Map<String, String> headers = new Map<String, String>();
     String serializedToken = AuthTokenCacheUtil.getStaffToken(
       staffModelWrapper
     );
-    staffModelWrapper.headers.put('Authorization', 'Bearer ' + serializedToken);
-    return staffModelWrapper.headers;
+    headers.put('Authorization', 'Bearer ' + serializedToken);
+    return headers;
   }
 
   /**
@@ -315,12 +316,12 @@ public with sharing virtual class Service {
     headers.put(
       'x-correlation-id',
       UniqueIdUtil.getVersion() +
-      '-' +
-      UniqueIdUtil.getTraceId() +
-      '-' +
-      UniqueIdUtil.generateSpanId() +
-      '-' +
-      UniqueIdUtil.getTraceFlag()
+        '-' +
+        UniqueIdUtil.getTraceId() +
+        '-' +
+        UniqueIdUtil.generateSpanId() +
+        '-' +
+        UniqueIdUtil.getTraceFlag()
     );
     return headers;
   }
@@ -799,61 +800,52 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
-  /**
-   * @param staffModel wrapper class having all the variables
-   * @return headers
-   * @description fetches staff JWT from mule api and get the valid profiles
-   */
-  public virtual Map<String, String> getValidStaffToken(
-    StaffTokenRequestModel staffModel
-  ) {
-    return null;
-  }
-  /**
-   * @param staffModel wrapper class having all the variables
-   * @return Boolean response stating action is valid or invalid
-   * @description fetches staff JWT from mule api and get the valid profiles
-   */
-  public virtual HttpCalloutResponse searchCustAPI(
-    StaffTokenRequestModel staffModel
-  ) {
-    return null;
-  }
-  /**
-   * @param staffModel wrapper class having all the variables
-   * @param userInternalId Internal User Id that we receive from SearchCustomer API
-   * @param deviceResourceId Resource Id for the device
-   * @return api response
-   * @description gets the Customer's device details without biometrics
-   */
-  public virtual HttpCalloutResponse getDeviceDetailsWithoutBiometric(
-    StaffTokenRequestModel staffModel,
-    String userInternalId,
-    String deviceResourceId
-  ) {
-    return null;
-  }
-  /**
-   * @param staffModel wrapper class having all the variables
-   * @param userInternalId Internal User Id that we receive from SearchCustomer API
-   * @param appCorrelationId AppCorrelation Id for the device
-   * @return api response
-   * @description gets the Customer's device details with biometrics
-   */
-  public virtual HttpCalloutResponse getDeviceDetailsWithBiometric(
-    StaffTokenRequestModel staffModel,
-    String userInternalId,
-    String appCorrelationId
-  ) {
-    return null;
-  }
 
+  /**
+   * @param state
+   * @param postcode
+   * @param suburb
+   * @return HttpCalloutResponse api response
+   * @description validate manual address details
+   */
+  public virtual HttpCalloutResponse getValidateAddressV3(
+    String state,Integer postcode,String suburb
+  ) {
+    return null;
+  }
+    
+  /**
+   * @param postcode
+   * @return HttpCalloutResponse api response
+   * @description validate manual address details
+   */
+  public virtual HttpCalloutResponse getPostcodeLookupV3 (
+    Integer postcode
+  ) {
+    return null;
+  }
+  
   /**
    * @param ocvId ocv Id
    * @return `HttpCalloutResponse` the api response
    * @description fetches ListConsentHistory from Lighthouse through mule
    */
   public virtual HttpCalloutResponse getConsentHistoryList(String ocvId) {
+    return null;
+  }
+
+  /**
+   * @param financialAccountNumber financial account number
+   * @param signMode sign mode of the account
+   * @param ocvId required to make the callout to Mulesoft
+   * @return `HttpCalloutResponse` the api response
+   * @description changes number of signature for financial account through mule
+   */
+  public virtual HttpCalloutResponse updateSigningAutority(
+    String financialAccountNumber,
+    Integer signMode,
+    String ocvId
+  ) {
     return null;
   }
 }

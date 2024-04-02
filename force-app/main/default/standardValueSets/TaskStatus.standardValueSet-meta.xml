@@ -49,4 +49,16 @@
         <label>Not required</label>
         <closed>false</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Actioned</fullName>
+        <default>false</default>
+        <label>Actioned</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>In Progress</fullName>
+        <default>false</default>
+        <label>In Progress</label>
+        <closed>false</closed>
+    </standardValue>
 </StandardValueSet>

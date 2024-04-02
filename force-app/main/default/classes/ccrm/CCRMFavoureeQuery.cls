@@ -33,7 +33,7 @@ public with sharing class CCRMFavoureeQuery extends CCRMFinancialAccountQueryBas
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (FavoureeCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (FavoureeCalloutResponse) CalloutModel.deserialize(
       responseBody,
       FavoureeCalloutResponse.class
     );

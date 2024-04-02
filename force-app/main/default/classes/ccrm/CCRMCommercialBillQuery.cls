@@ -46,7 +46,7 @@ public with sharing class CCRMCommercialBillQuery extends CCRMFinancialAccountQu
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (CommercialBillCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (CommercialBillCalloutResponse) CalloutModel.deserialize(
       responseBody,
       CommercialBillCalloutResponse.class
     );
@@ -86,8 +86,8 @@ public with sharing class CCRMCommercialBillQuery extends CCRMFinancialAccountQu
       row.put('AccountNumber', fa.accountNumber);
       row.put('AccountStatus', fa.status);
       row.put('SequenceNo', fa.sequenceNo);
-      row.put('OpeningDate', adjustUTCDateTime(fa.openedDate));
-      row.put('Expires', adjustUTCDateTime(fa.expires));
+      row.put('OpeningDate', formatDate(fa.openedDate));
+      row.put('Expires', formatDate(fa.expires));
       row.put('PurposeCode', fa.purposeCode);
       row.put('LoanTermYears', fa.loanTermYears);
       row.put('LoanTermMonths', fa.loanTermMonths);

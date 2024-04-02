@@ -230,6 +230,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>FinServ__ContactContactRelation__c-FinServ__Contact Contact Relation Layout</layout>
+        <recordType>FinServ__ContactContactRelation__c.Customer</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Interaction-Message Interaction Layout</layout>
         <recordType>Interaction.Message</recordType>
     </layoutAssignments>
@@ -263,6 +267,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>FinServ__ReciprocalRole__c.FinServ__ContactRole</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>FinServ__ContactContactRelation__c.Customer</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

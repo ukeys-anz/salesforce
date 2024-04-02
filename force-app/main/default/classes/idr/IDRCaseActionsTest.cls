@@ -485,16 +485,12 @@ private with sharing class IDRCaseActionsTest {
       LIMIT 1
     ];
     System.assertEquals(
-      c.IDR_Issue_Type_2__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
       c.IDR_Knowledge_Keyword_1__c,
       'Expected Knowledge Keyword 1 to complete on case create, however it did not'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
       c.IDR_Knowledge_Keyword_2__c,
       'Expected Knowledge Keyword 2 to complete on case create, however it did not'
     );
@@ -520,18 +516,67 @@ private with sharing class IDRCaseActionsTest {
     ];
 
     System.assertEquals(
-      c.IDR_Issue_Type_2__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_2__c,
+      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
       c.IDR_Knowledge_Keyword_1__c,
       'Expected Knowledge Keyword 1 on update, however it did not'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c +
-      ' ' +
-      c.IDR_Subsequent_Issue_3__c,
+      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
       c.IDR_Knowledge_Keyword_2__c,
       'Expected Knowledge Keyword 2 on update, however it did not'
     );
+  }
+  @isTest
+  static void testProductAssetfinance() {
+    String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Product_Family__c testProductFamily = new Product_Family__c();
+    testProductFamily.Name = 'Asset finance';
+    testProductFamily.IDR_ANZ_com_Product_Category__c = 'Asset finance';
+    testProductFamily.IDR_Workbasket__c = 'IDR_Business_Owners';
+    testProductFamily.Id = Lib_FakeIdGenerator.getMockId(
+      Product_Family__c.SObjectType
+    );
+
+    Product2 testProduct = new Product2();
+    testProduct.Name = 'Asset Finance';
+    testProduct.IsActive = true;
+    testProduct.IDR_Product_Family__c = testProductFamily.Id;
+    testProduct.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+
+    Product2 testProduct1 = new Product2();
+    testProduct1.Name = 'ANZ Flyer Card';
+    testProduct1.IsActive = true;
+    testProduct1.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+
+    Product2 testProduct2 = new Product2();
+    testProduct2.Name = 'Test Product';
+    testProduct2.IsActive = true;
+    testProduct2.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+
+    Map<Id, Product2> productMap = new Map<Id, Product2>{
+      testProduct.Id => testProduct,
+      testProduct1.Id => testProduct1,
+      testProduct2.Id => testProduct2
+    };
+
+    Case[] cases = new List<Case>();
+    Case caseRecord = IDRTestDataFactory.createComplaint();
+    caseRecord.Product__c = testProduct.Id;
+    caseRecord.IDR_Product_2__c = testProduct1.Id;
+    caseRecord.IDR_Product_3__c = testProduct2.Id;
+    caseRecord.Id = caseRecordId;
+
+    Case caseRecord1 = IDRTestDataFactory.createComplaint();
+    caseRecord1.Product__c = testProduct1.Id;
+    caseRecord1.Id = caseRecordId;
+
+    Boolean isProductAssetfinance = IDRCaseActions.isProductAssetfinance(
+      caseRecord,
+      caseRecord1,
+      productMap
+    );
+
+    System.assertEquals(isProductAssetfinance, true);
   }
 }
