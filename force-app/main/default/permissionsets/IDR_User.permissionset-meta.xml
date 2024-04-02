@@ -425,7 +425,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.IDR_Final_Letter_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -480,7 +480,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.IDR_Is_Hardship_Resolution_Letter_Sent__c</field>
         <readable>true</readable>
     </fieldPermissions>
