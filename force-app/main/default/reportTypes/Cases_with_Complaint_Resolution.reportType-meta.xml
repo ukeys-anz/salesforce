@@ -4,7 +4,7 @@
     <category>other</category>
     <deployed>true</deployed>
     <description>Complaint Resolution</description>
-    <join> 
+    <join>
         <outerJoin>false</outerJoin>
         <relationship>Complaint_Resolutions__r</relationship>
     </join>
@@ -1033,6 +1033,16 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IDR_Knowledge_Keyword_2__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Is_this_a_complaint_about_a_complaint__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CAC_Sub_Category__c</field>
             <table>Case</table>
         </columns>
         <columns>
