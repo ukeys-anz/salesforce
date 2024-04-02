@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
     <customJavaScript>{
-    &quot;recordId&quot;: &quot;x00AD00000EL2rZYAT&quot;
+    &quot;recordId&quot;: &quot;x00Bm00000B9CmnIAF&quot;
 }</customJavaScript>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
@@ -65,7 +65,7 @@
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;sendJSONPath&quot; : &quot;SVConsentListFilter:archivedConsents&quot;,
   &quot;sendJSONNode&quot; : &quot;consentsList&quot;,
-  &quot;bundle&quot; : &quot;TFMSortConsents&quot;,
+  &quot;bundle&quot; : &quot;TFMSortArchiveConsent&quot;,
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;ignoreCache&quot; : false,
@@ -575,7 +575,7 @@
 }</propertySetConfig>
     <subType>ProcessConsentListResponse</subType>
     <type>TFM</type>
-    <uniqueName>TFM_ProcessConsentListResponse_Procedure_13</uniqueName>
-    <versionNumber>13.0</versionNumber>
-    <webComponentKey>baa68de3-2526-866f-1763-d7fad64cc9ad</webComponentKey>
+    <uniqueName>TFM_ProcessConsentListResponse_Procedure_14</uniqueName>
+    <versionNumber>14.0</versionNumber>
+    <webComponentKey>8749ccfe-5b27-c056-d57d-38ae726e40d8</webComponentKey>
 </OmniIntegrationProcedure>
