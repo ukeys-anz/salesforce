@@ -16,7 +16,7 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     insertCases.add(caseRecordNewVersion1);
     Case caseRecordNewVersion2 = new Case();
     caseRecordNewVersion2.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    caseRecordNewVersion2.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
+    caseRecordNewVersion2.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
     caseRecordNewVersion2.Status = 'Open';
     insertCases.add(caseRecordNewVersion2);
     Case caseRecordNewVersion3 = new Case();
@@ -33,7 +33,17 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     Assert.areEqual(
       2,
       onInsertFilteredCase.size(),
-      'All Insert Cases must be processed'
+      '2 Cases must be processed'
+    );
+    Assert.areEqual(
+      caseRecordNewVersion1.Id,
+      onInsertFilteredCase[0].Id,
+      'Case Record 1 must be processed'
+    );
+    Assert.areEqual(
+      caseRecordNewVersion2.Id,
+      onInsertFilteredCase[1].Id,
+      'Case Record 2 must be processed'
     );
   }
   @isTest
@@ -81,6 +91,11 @@ public with sharing class IDR_CaseReportingCalculationsTest {
       onUpdateFilteredCase.size(),
       '1 Cases must be filtered out of 3 on Update'
     );
+    Assert.areEqual(
+      caseRecordOldVersion2.Id,
+      onUpdateFilteredCase[0].Id,
+      'Re Opened to Closed Case must be returned'
+    );
   }
   @isTest
   static void testUpdateCaseReportingFieldUpdateToDateOpenField() {
@@ -96,16 +111,37 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     caseRecord2.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
     caseRecord2.Status = 'Re-opened';
     recordsToProcess.add(caseRecord2);
-    Map<ID, Case_Reporting_Field__c> caseIdToFieldMap = getReportingFieldForCases(
+    Map<ID, Case_Reporting_Field__c> caseIdToFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
       recordsToProcess
     );
+    for (ID caseId : caseIdToFieldMap.keySet()) {
+      Case_Reporting_Field__c crf = caseIdToFieldMap.get(caseId);
+      crf.Case_Last_Opened_RG271__c = DateTime.now();
+      crf.Case_Last_Opened__c = DateTime.now();
+      caseIdToFieldMap.put(caseId, crf);
+    }
     Test.startTest();
-    IDR_CaseReportingCalculations.updateCaseReportingField(
+    List<Case_Reporting_Field__c> crfList = IDR_CaseReportingCalculations.updateCaseReportingField(
       recordsToProcess,
       oldMap,
       caseIdToFieldMap
     );
     Test.StopTest();
+    Assert.areEqual(
+      2,
+      crfList.size(),
+      '2 Case Reporting Fields must be generated'
+    );
+    Assert.areEqual(
+      caseRecord1.Id,
+      crfList[0].Case__c,
+      'Case Reporting Fields for Case 1 must be processed'
+    );
+    Assert.areEqual(
+      caseRecord2.Id,
+      crfList[1].Case__c,
+      'Case Reporting Fields for Case 2 must be processed'
+    );
   }
   @isTest
   static void testUpdateCaseReportingFieldUpdateTotalOpenTime() {
@@ -131,9 +167,15 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     caseRecordOldVersion2.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
     caseRecordOldVersion2.Status = 'Re-opened';
     oldMap.put(caseRecordOldVersion2.Id, caseRecordOldVersion2);
-    Map<ID, Case_Reporting_Field__c> caseIdToFieldMap = getReportingFieldForCases(
+    Map<ID, Case_Reporting_Field__c> caseIdToFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
       recordsToProcess
     );
+    for (ID caseId : caseIdToFieldMap.keySet()) {
+      Case_Reporting_Field__c crf = caseIdToFieldMap.get(caseId);
+      crf.Case_Last_Opened_RG271__c = DateTime.now();
+      crf.Case_Last_Opened__c = DateTime.now();
+      caseIdToFieldMap.put(caseId, crf);
+    }
     Test.startTest();
     List<Case_Reporting_Field__c> reportingFields = IDR_CaseReportingCalculations.updateCaseReportingField(
       recordsToProcess,
@@ -145,6 +187,16 @@ public with sharing class IDR_CaseReportingCalculationsTest {
       2,
       reportingFields.size(),
       'We must get 2 Reporting Fields to Update'
+    );
+    Assert.areEqual(
+      caseRecordNewVersion1.Id,
+      reportingFields[0].Case__c,
+      'Case Reporting Fields for Case 1 must be processed'
+    );
+    Assert.areEqual(
+      caseRecordNewVersion2.Id,
+      reportingFields[1].Case__c,
+      'Case Reporting Fields for Case 2 must be processed'
     );
   }
 
@@ -172,27 +224,5 @@ public with sharing class IDR_CaseReportingCalculationsTest {
       caseReportingFieldMap.keySet().size(),
       'We must get 2 Reporting Fields to Update'
     );
-  }
-
-  private static Map<ID, Case_Reporting_Field__c> getReportingFieldForCases(
-    List<Case> newRecords
-  ) {
-    Map<ID, Case_Reporting_Field__c> caseIdToFieldMap = new Map<ID, Case_Reporting_Field__c>();
-    for (Case cse : newRecords) {
-      if (!caseIdToFieldMap.containsKey(cse.Id)) {
-        caseIdToFieldMap.put(cse.Id, initializeReportingField(cse));
-      }
-    }
-    return caseIdToFieldMap;
-  }
-
-  private static Case_Reporting_Field__c initializeReportingField(Case cse) {
-    Case_Reporting_Field__c crf = new Case_Reporting_Field__c();
-    crf.Case__c = cse.Id;
-    crf.IDR_Response_Time_RG271_MS__c = 0;
-    crf.Total_Open_Time_MS__c = 0;
-    crf.Case_Last_Opened_RG271__c = DateTime.now();
-    crf.Case_Last_Opened__c = DateTime.now();
-    return crf;
   }
 }
