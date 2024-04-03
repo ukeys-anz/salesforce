@@ -191,7 +191,7 @@ public with sharing class MLCRMTestDataFactory {
     String staticNumber = Datetime.now().format('MMddHHmmss');
     mlcrmIntegrationUser = (User) FakerFactory.make(new FakerUserFactory());
     mlcrmIntegrationUser.FirstName = 'IntegrationUser' + staticNumber;
-    mlcrmIntegrationUser.LastName = 'MLCRM';
+    mlcrmIntegrationUser.LastName = 'MLCRM Integration';
     mlcrmIntegrationUser.Username = username;
     mlcrmIntegrationUser.UserRoleId = anzRoleId;
     mlcrmIntegrationUser.ProfileId = integrationProfileId;
