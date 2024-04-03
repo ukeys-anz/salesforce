@@ -320,7 +320,7 @@ public with sharing class CCRMLeadConversionActionsHelper {
       shellProspectToInsert.FinServ__Status__c = CCRMConstants.PROSPECT;
       shellProspectToInsert.RecordTypeId = recordTypeId;
       shellProspectToInsert.OCV_Event_Version__c = Integer.valueOf(
-        System.Label.DCRM_OCVEventVersion
+        System.Label.DCRM_ShellProspectOCVEventVersion
       );
       shellProspectToInsert.External_Id__c =
         shellProspectInfoInstance.sourceSystemName +
