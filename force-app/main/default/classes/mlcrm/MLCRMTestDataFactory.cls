@@ -213,10 +213,7 @@ public with sharing class MLCRMTestDataFactory {
       List<User> users = [
         SELECT Id
         FROM User
-        WHERE
-          ProfileId = :integrationProfileId
-          AND LastName = 'MLCRM'
-          AND username = :username
+        WHERE ProfileId = :integrationProfileId AND username LIKE :username
         LIMIT 1
       ];
       if (users.isEmpty()) {
