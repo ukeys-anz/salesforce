@@ -197,7 +197,8 @@ public with sharing class GetHelpTaskActions {
     for (Task tsk : records) {
       Task oldTask = oldMap.get(tsk.Id);
       if (
-        tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID &&
+        (tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID ||
+        tsk.RecordTypeId == GetHelpConstants.CALLBACK_REQUEST_RT_ID) &&
         tsk.Status == TASK_STATUS_EXPIRED &&
         tsk.Status != oldTask.Status
       ) {

@@ -323,6 +323,11 @@ public with sharing class GetHelpConstants {
     .get('Coach_Nudge')
     .getRecordTypeId();
 
+  // Task Record Type for Callback Request
+  public static final String CALLBACK_REQUEST_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Callback_Request')
+    .getRecordTypeId();
+
   // Email Task Description
   public static final String TASK_EMAIL_DESCRIPTION = 'Please send the customer the relevant closure email(s)';
 
