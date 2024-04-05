@@ -19,7 +19,7 @@ public virtual with sharing class CloudEventModel {
   public DateTime ce_xpartitionedkeysequence { get; set; }
   public String ce_xtargets { get; set; }
   public String ce_traceparent { get; set; }
-  public Decimal ce_sequence { get; set; }
+  // public Decimal ce_sequence { get; set; }
   public CloudEventSystemModel systemData { get; set; }
   public CloudEventDataModel ce_data { get; set; }
 

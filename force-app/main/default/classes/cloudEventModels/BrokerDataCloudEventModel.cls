@@ -18,7 +18,7 @@ public with sharing class BrokerDataCloudEventModel extends CloudEventModel {
     this.ce_source = 'broker.salesforce.anzx';
     this.ce_subject = 'Contact/' + contact.Name;
     this.ce_partitionkey = 'External_Id__c/' + contact.External_Id__c;
-    this.ce_sequence = contact.OCV_Event_Version__c;
+    // this.ce_sequence = contact.OCV_Event_Version__c;
     this.ce_dataschema =
       System.Label.ANZX_Broker_Event_Proto_Data_Schema + '#brokerdata';
     this.ce_xtargets = 'Broker/' + contact.External_Id__c;
