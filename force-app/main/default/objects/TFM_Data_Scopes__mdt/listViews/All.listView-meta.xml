@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>Scope_ID__c</columns>
+    <columns>Data_Cluster_Title__c</columns>
+    <columns>Data_Cluster_Details__c</columns>
+    <columns>Open_Accounts_Disclaimer__c</columns>
+    <columns>Closed_Accounts_Disclaimer__c</columns>
+    <columns>Open_and_Closed_Accounts_Disclaimer__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+    <language>en_US</language>
+</ListView>

@@ -26,6 +26,11 @@
                 <default>false</default>
                 <label>C&amp;Q Lead provides final outcome</label>
             </value>
+            <value>
+                <fullName>C&amp;Q Lead rejects the TM&apos;s review</fullName>
+                <default>false</default>
+                <label>C&amp;Q Lead rejects the TM&apos;s review</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

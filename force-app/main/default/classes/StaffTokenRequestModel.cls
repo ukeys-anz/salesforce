@@ -16,12 +16,4 @@ public with sharing class StaffTokenRequestModel {
    * @description set of anzTokenType replaces requested_token_type query parameter name for v2
    */
   public String anzTokenType { get; set; }
-  /**
-   * @description set of headers key value pairs of headers to set
-   */
-  public Map<String, String> headers { get; set; }
-  /**
-   * @description string being used to set action name to chcek against AD group
-   */
-  public String action { get; set; }
 }

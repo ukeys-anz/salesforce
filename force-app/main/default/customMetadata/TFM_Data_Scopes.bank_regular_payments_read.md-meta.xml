@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>bank:regular_payments:read</label>
+    <protected>false</protected>
+    <values>
+        <field>Closed_Accounts_Disclaimer__c</field>
+        <value xsi:type="xsd:string">For a closed account, direct debits and scheduled payments will not be shared.</value>
+    </values>
+    <values>
+        <field>Data_Cluster_Details__c</field>
+        <value xsi:type="xsd:string">Direct debits, Scheduled payments</value>
+    </values>
+    <values>
+        <field>Data_Cluster_Title__c</field>
+        <value xsi:type="xsd:string">Direct debits and scheduled payments</value>
+    </values>
+    <values>
+        <field>Open_Accounts_Disclaimer__c</field>
+        <value xsi:type="xsd:string">Only up to the last 13 months of direct debits will be shared.</value>
+    </values>
+    <values>
+        <field>Open_and_Closed_Accounts_Disclaimer__c</field>
+        <value xsi:type="xsd:string">Only up to the last 13 months of direct debits will be shared.
+For a closed account, direct debits and scheduled payments will not be shared.</value>
+    </values>
+    <values>
+        <field>Scope_ID__c</field>
+        <value xsi:type="xsd:string">bank:regular_payments:read</value>
+    </values>
+</CustomMetadata>

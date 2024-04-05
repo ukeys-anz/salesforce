@@ -19,11 +19,8 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     AccountCommonActions.populateFieldsValue(records);
-    MLCRMAccountActions.validateDateOfBirth(records, null);
+    MLCRMAccountActions.validateDateOfBirth(records);
     CCRMAccountActions.setControllingPost(records, null);
-    if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      CCRMAccountActions.validateCustomerInformation(records, null);
-    }
   }
 
   /**
@@ -43,12 +40,13 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    MLCRMAccountActions.validateDateOfBirth(records, (Map<Id, Account>) oldMap);
+    MLCRMAccountActions.validateDateOfBirth(records);
     CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
       records
     );
     Boolean isAllowedProfileCheck = CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging();
     if (isAllowedProfileCheck) {
+      MLCRMAccountActions.revertShellProspectBillingAddress(records);
       CCRMAccountActions.preventEditShellProspect(
         records,
         (Map<Id, Account>) oldMap
@@ -86,11 +84,6 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
         false
       );
     }
-
-    AccountOCVSyncProcessor.updateRecordsForOCVVersionChanged(
-      records,
-      (Map<Id, Account>) oldMap
-    );
   }
 
   /**

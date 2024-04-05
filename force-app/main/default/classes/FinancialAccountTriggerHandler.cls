@@ -37,4 +37,15 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
       (Map<Id, FinServ__FinancialAccount__c>) oldMap
     );
   }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    GetHelpFinancialAccountActions.updateCustomerActionRecord(
+      records,
+      (Map<Id, FinServ__FinancialAccount__c>) oldMap
+    );
+  }
 }

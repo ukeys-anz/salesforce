@@ -1821,6 +1821,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Mailing_Title_1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Mailing_Title_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.NumberOfEmployees</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2546,7 +2556,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Customer_First_Contacted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Customer_Notification_Consent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Customer_Residential_Address__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2597,6 +2617,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Disable_CMOS_Omni__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Followup_State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2757,6 +2782,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Funds_to_Channel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Previous_Case_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Date_Case_allocated_to_CM__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3051,6 +3086,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.AFCA_Stage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_AFCA_EDR_impact__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3221,6 +3261,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Date_time_Registration_Response_Provided__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Description_of_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3260,6 +3305,21 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Final_Letter_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Hardship_Response_updated_on__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Hardship_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Inbox_Email_Address__c</field>
         <readable>true</readable>
@@ -3267,6 +3327,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Is_Common__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Is_Hardship_Resolution_Letter_Sent__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3347,6 +3412,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_NC_First_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Event.My_extended_team_s_tasks__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.My_extended_team_s_tasks__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.My_extended_team_s_cases__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5246,6 +5326,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ContentVersion.UUID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContentVersion.Internal_Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7723,6 +7808,21 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Lead_Owner_Teamcode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.My_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.My_Sub_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Lead_Flex_Field__c.FlexFieldValue__c</field>
         <readable>true</readable>
@@ -8260,6 +8360,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Associated_Source_Detail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Opportunity_Owner_Teamcode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.My_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.My_Sub_Team__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9269,6 +9384,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quality_Assessment__c.REAL_form_Comments__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quality_Assessment__c.REaL_form_categories__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9530,6 +9650,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Team_Manager_Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.TM_Comments_for_C_Q_Manager_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.TM_Response_to_C_Q_Manager_Review__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10992,6 +11122,10 @@
         <recordType>Case.NPP_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Profile Update Layout</layout>
+        <recordType>Case.Profile_Update</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Recipient%2FMule Layout</layout>
         <recordType>Case.Recipient_Mule</recordType>
     </layoutAssignments>
@@ -11091,6 +11225,17 @@
     <layoutAssignments>
         <layout>ContentVersion-Content Version</layout>
         <recordType>ContentVersion.Systemic_Issue_File</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Action__c-Customer Action Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Action__c-Customer Action Layout</layout>
+        <recordType>Customer_Action__c.Customer_Action</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Action__c-Pending Financial Accounts Update Layout</layout>
+        <recordType>Customer_Action__c.Pending_Financial_Account_Updates</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>CustomerOnboardingApplication__c-Customer Onboarding Application Layout</layout>
@@ -11278,6 +11423,10 @@
     <layoutAssignments>
         <layout>Task-IDR Task Layout</layout>
         <recordType>Task.IDR_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Coach Nudge Layout</layout>
+        <recordType>Task.Coach_Nudge</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-SI Task Layout</layout>
@@ -12459,8 +12608,13 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <default>true</default>
+        <default>false</default>
         <recordType>Contact.FinServ__IndustriesBusiness</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Contact.Organisation</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -12517,6 +12671,16 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>ContentVersion.Systemic_Issue_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Customer_Action__c.Customer_Action</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Customer_Action__c.Pending_Financial_Account_Updates</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -12615,6 +12779,11 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>FinServ__ContactContactRelation__c.Customer</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <default>false</default>
         <recordType>Interaction.Appointment</recordType>
         <visible>false</visible>
@@ -12669,6 +12838,11 @@
         <default>false</default>
         <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
         <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.Coach_Nudge</recordType>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>

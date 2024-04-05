@@ -54,7 +54,7 @@ public with sharing class TwilioService extends Service {
     payload.preferredName = customerName;
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Twilio' + Label.MS_Initiate_Chat,
+      Label.MS_Initiate_Chat,
       HTTP_METHOD.HTTP_POST,
       headers,
       JSON.serialize(payload)
@@ -80,7 +80,7 @@ public with sharing class TwilioService extends Service {
     payload.conversationSid = conversationSid;
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Twilio' + Label.MS_Reinitiate_Chat,
+      Label.MS_Reinitiate_Chat,
       HTTP_METHOD.HTTP_POST,
       headers,
       JSON.serialize(payload)

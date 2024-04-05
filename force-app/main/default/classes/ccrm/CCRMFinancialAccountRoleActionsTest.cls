@@ -12,6 +12,7 @@ private class CCRMFinancialAccountRoleActionsTest {
   static void makeData() {
     User integrationUser = CCRMTestDataFactory.getCCRMIntegrationUser();
     System.runAs(new User(Id = UserInfo.getUserId())) {
+      CCRMTestDataFactory.CreatePersonAccount();
       CCRMTestDataFactory.createBusinessAccount();
       CCRMTestDataFactory.createSystemCustomer();
     }
@@ -51,13 +52,24 @@ private class CCRMFinancialAccountRoleActionsTest {
   @IsTest
   static void testSetRecordType() {
     Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
-    Account normalFaOwner = [
+    Account orgFaOwner = [
       SELECT Id
       FROM Account
-      WHERE Name = 'Test Pty Ltd'
+      WHERE RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
+      LIMIT 1
     ];
-    FinServ__FinancialAccountRole__c farNormal = new FinServ__FinancialAccountRole__c(
-      FinServ__RelatedAccount__c = normalFaOwner.Id,
+    Account individualFaOwner = [
+      SELECT Id
+      FROM Account
+      WHERE RecordTypeId = :CCRMConstants.ACCOUNT_PERSON_RT_ID
+    ];
+    FinServ__FinancialAccountRole__c orgFar = new FinServ__FinancialAccountRole__c(
+      FinServ__RelatedAccount__c = orgFaOwner.Id,
+      FinServ__Active__c = true,
+      External_Id__c = faker.randomString(10)
+    );
+    FinServ__FinancialAccountRole__c individualFar = new FinServ__FinancialAccountRole__c(
+      FinServ__RelatedAccount__c = individualFaOwner.Id,
       FinServ__Active__c = true,
       External_Id__c = faker.randomString(10)
     );
@@ -69,14 +81,15 @@ private class CCRMFinancialAccountRoleActionsTest {
     FinServ__FinancialAccountRole__c farWithNullExternalId = new FinServ__FinancialAccountRole__c(
       RecordTypeId = CCRMConstants.FAR_CONTACT_RT_ID,
       FinServ__Active__c = true,
-      FinServ__RelatedAccount__c = normalFaOwner.Id
+      FinServ__RelatedAccount__c = orgFaOwner.Id
     );
 
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
       CCRMFinancialAccountRoleActions.setRecordType(
         new List<FinServ__FinancialAccountRole__c>{
-          farNormal,
+          orgFar,
+          individualFar,
           farWithSystemRelatedCustomer,
           farWithNullExternalId
         }
@@ -99,9 +112,14 @@ private class CCRMFinancialAccountRoleActionsTest {
       'FAR Record Type should be System Role if external ID is null'
     );
     Assert.areEqual(
+      CCRMConstants.FAR_ACCOUNT_RT_ID,
+      orgFar.RecordTypeId,
+      'FAR Record Type should be set to Account Role if external ID has value and related to a real non-individual customer'
+    );
+    Assert.areEqual(
       CCRMConstants.FAR_CONTACT_RT_ID,
-      farNormal.RecordTypeId,
-      'FAR Record Type should be set to Contact Role if external ID has value and related to a real customer'
+      individualFar.RecordTypeId,
+      'FAR Record Type should be set to Contact Role if external ID has value and related to a real individual customer'
     );
   }
 

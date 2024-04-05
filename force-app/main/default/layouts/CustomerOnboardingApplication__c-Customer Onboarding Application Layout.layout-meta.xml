@@ -165,6 +165,10 @@
                 <field>EquifaxAECResult__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EquifaxESDResult__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>EquifaxAttemptCount__c</field>
             </layoutItems>

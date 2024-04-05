@@ -34,12 +34,9 @@ public with sharing class MLCRMOpportunityActions {
         closingOppMap.put(opp.id, opp);
       }
     }
-    if (!closingOppMap.isEmpty()) {
-      CCRMOpportunityActions.checkOpportunityHasOpenTaskBeforeStageChange(
-        closingOppMap,
-        new Map<Id, Opportunity>()
-      );
-    }
+    CCRMOpportunityActionsSkipStageHelper.checkOpenTaskForClosedOpportunities(
+      closingOppMap
+    );
   }
 
   /**

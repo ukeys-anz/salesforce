@@ -511,24 +511,34 @@
                 <label>Resolved-PreArbGrantedPartial</label>
             </value>
             <value>
-                <fullName>Pending Error</fullName>
-                <default>false</default>
-                <label>Pending Error</label>
-            </value>
-            <value>
-                <fullName>Pending Investigation</fullName>
-                <default>false</default>
-                <label>Pending Investigation</label>
-            </value>
-            <value>
-                <fullName>Pending Response</fullName>
-                <default>false</default>
-                <label>Pending Response</label>
-            </value>
-            <value>
                 <fullName>Resolved-Cancelled</fullName>
                 <default>false</default>
                 <label>Resolved-Cancelled</label>
+            </value>
+            <value>
+                <fullName>Pending-Investigation</fullName>
+                <default>false</default>
+                <label>Pending-Investigation</label>
+            </value>
+            <value>
+                <fullName>Pending-Response</fullName>
+                <default>false</default>
+                <label>Pending-Response</label>
+            </value>
+            <value>
+                <fullName>Pending-Error</fullName>
+                <default>false</default>
+                <label>Pending-Error</label>
+            </value>
+            <value>
+                <fullName>Resolved-System</fullName>
+                <default>false</default>
+                <label>Resolved-System</label>
+            </value>
+            <value>
+                <fullName>Resolved-SystemError</fullName>
+                <default>false</default>
+                <label>Resolved-SystemError</label>
             </value>
         </valueSetDefinition>
     </valueSet>

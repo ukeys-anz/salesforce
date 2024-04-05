@@ -9,12 +9,14 @@ public with sharing class GetHelpCaseActionsHelperTest {
   private static final Faker FAKER = new Faker('AU');
   private static final List<String> COB_CLOSED_STATUSES = new List<String>{
     GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS
+    GetHelpConstants.COB_FAILED_OK_STATUS,
+    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
   };
 
   private static final Integer COB_CASES_COUNT = COB_CLOSED_STATUSES.size();
 
   private static final String FAILED_REASON = 'Selfie fail - selfie image is not clear enough to match';
+  private static final String CONFIRMED_FRAUD_REASON = 'Confirmed Fraud';
 
   private static final String EMPTY_FAILED_REASON = '';
 
@@ -73,7 +75,7 @@ public with sharing class GetHelpCaseActionsHelperTest {
       oldRecord
     );
 
-    Assert.isTrue(isStatusChanged);
+    Assert.isTrue(isStatusChanged, 'Status should have changed.');
   }
 
   @isTest
@@ -133,7 +135,9 @@ public with sharing class GetHelpCaseActionsHelperTest {
       fraudCheckCase.OnboardingVerificationFailedReason__c = fraudCheckCase.Status ==
         GetHelpConstants.COB_FAILED_OK_STATUS
         ? FAILED_REASON
-        : EMPTY_FAILED_REASON;
+        : fraudCheckCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+            ? CONFIRMED_FRAUD_REASON
+            : EMPTY_FAILED_REASON;
 
       parentIdAndChildCasedMap.put(idOpsCase.Id, fraudCheckCase);
     }
@@ -153,7 +157,17 @@ public with sharing class GetHelpCaseActionsHelperTest {
         Assert.areEqual(
           FAILED_REASON,
           updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
-          'Failed reasons should be ' + FAILED_REASON
+          'Failed reason should be ' + FAILED_REASON
+        );
+      }
+
+      if (
+        COB_CLOSED_STATUSES[i] == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+      ) {
+        Assert.areEqual(
+          CONFIRMED_FRAUD_REASON,
+          updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
+          'Failed reason should be ' + CONFIRMED_FRAUD_REASON
         );
       }
     }
@@ -169,5 +183,69 @@ public with sharing class GetHelpCaseActionsHelperTest {
       updatedIdOpsCases.isEmpty(),
       'There should be an empty list of cases.'
     );
+  }
+
+  @isTest
+  public static void testCaseProvisionallyClosedDateTimeUpdateScenario() {
+    String caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Case c = TestDataFactory.createCase('Card_Dispute');
+    c.Status = 'Open';
+    c.External_System__c = 'Pega_Smarts';
+    c.External_Case_ID__c = 'C-1234';
+    c.Id = caseId;
+
+    Case c1 = TestDataFactory.createCase('Card_Dispute');
+    c1.Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS;
+    c1.External_System__c = 'Pega_Smarts';
+    c1.External_Case_ID__c = 'C-1234';
+    c1.Id = caseId;
+
+    Case c2 = TestDataFactory.createCase('Card_Dispute');
+    c2.Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS;
+    c2.External_System__c = '2342';
+    c2.External_Case_ID__c = 'C-1234';
+    c2.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Case c3 = TestDataFactory.createCase('Card_Dispute');
+    c3.Status = 'Open';
+    c3.External_System__c = '2342';
+    c3.External_Case_ID__c = 'C-3242';
+    c3.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    List<Case> cases = new List<Case>{ c1, c2, c3 };
+
+    Map<Id, Case> oldMap = new Map<Id, Case>{ c.Id => c };
+
+    Test.startTest();
+    GetHelpCaseActions.handleProvisionallyClosedDateTimeField(oldMap, cases);
+    System.assertEquals(c1.Date_Time_Provisionally_Closed__c, DateTime.now());
+    System.assertEquals(c2.Date_Time_Provisionally_Closed__c, DateTime.now());
+    System.assertEquals(c3.Date_Time_Provisionally_Closed__c, null);
+    Test.stopTest();
+  }
+
+  @isTest
+  public static void testCaseProvisionallyClosedDateTimeInsertScenario() {
+    String caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Case c = TestDataFactory.createCase('Card_Dispute');
+    c.Status = 'Open';
+    c.External_System__c = 'Pega_Smarts';
+    c.External_Case_ID__c = 'C-1234';
+    c.Id = caseId;
+
+    Case c2 = TestDataFactory.createCase('Card_Dispute');
+    c2.Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS;
+    c2.External_System__c = '2342';
+    c2.External_Case_ID__c = 'C-4235';
+    c2.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    List<Case> cases = new List<Case>{ c, c2 };
+    Test.startTest();
+    GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, cases);
+    System.assertEquals(c.Date_Time_Provisionally_Closed__c, null);
+    System.assertEquals(c2.Date_Time_Provisionally_Closed__c, DateTime.now());
+    Test.stopTest();
   }
 }

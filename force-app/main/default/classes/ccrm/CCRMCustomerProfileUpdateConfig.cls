@@ -66,6 +66,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         .trackFields(
           Schema.SObjectType.Account.fieldSets.CCRMProspectTrackedOtherFields
         )
+        .copyFields(Schema.SObjectType.Account.fieldSets.DCRMProspectCopyFields)
     },
     Schema.SObjectType.Contact.Name => new List<TrackingConfig>{
       new TrackingConfig(Schema.SObjectType.Contact.Label + NAME_SUFFIX)
@@ -79,6 +80,9 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         )
         .trackFields(
           Schema.SObjectType.ContactPointEmail.fieldSets.CCRMProspectTrackedFields
+        )
+        .copyFields(
+          Schema.SObjectType.ContactPointEmail.fieldSets.DCRMProspectCopyFields
         )
     },
     Schema.SObjectType.ContactPointAddress.Name => new List<TrackingConfig>{
@@ -99,6 +103,9 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         .trackFields(
           Schema.SObjectType.ContactPointPhone.fieldSets.MLCRMProspectTrackedFields
         )
+        .copyFields(
+          Schema.SObjectType.ContactPointPhone.fieldSets.DCRMProspectCopyFields
+        )
     }
   };
 
@@ -108,6 +115,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         .trackFields(
           Schema.SObjectType.Account.fieldSets.MLCRMProspectTrackedFields
         )
+        .copyFields(Schema.SObjectType.Account.fieldSets.DCRMProspectCopyFields)
     },
     Schema.SObjectType.ContactPointEmail.Name => new List<TrackingConfig>{
       new TrackingConfig(
@@ -116,6 +124,9 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         .trackFields(
           Schema.SObjectType.ContactPointEmail.fieldSets.CCRMProspectTrackedFields
         )
+        .copyFields(
+          Schema.SObjectType.ContactPointEmail.fieldSets.DCRMProspectCopyFields
+        )
     },
     Schema.SObjectType.ContactPointPhone.Name => new List<TrackingConfig>{
       new TrackingConfig(
@@ -123,6 +134,9 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         )
         .trackFields(
           Schema.SObjectType.ContactPointPhone.fieldSets.MLCRMProspectTrackedFields
+        )
+        .copyFields(
+          Schema.SObjectType.ContactPointPhone.fieldSets.DCRMProspectCopyFields
         )
     },
     Schema.SObjectType.ContactPointAddress.Name => new List<TrackingConfig>{
@@ -529,9 +543,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
             .trackFieldsActive(
               objectFieldsMap
                 ?.get(
-                  Schema.SObjectType.Account.Name +
-                  '-' +
-                  this.recordTypeName
+                  Schema.SObjectType.Account.Name + '-' + this.recordTypeName
                 )
             )
         },
@@ -540,9 +552,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
             .trackFieldsActive(
               objectFieldsMap
                 ?.get(
-                  Schema.SObjectType.Contact.Name +
-                  '-' +
-                  this.recordTypeName
+                  Schema.SObjectType.Contact.Name + '-' + this.recordTypeName
                 )
             )
         },
@@ -554,8 +564,8 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
               objectFieldsMap
                 ?.get(
                   Schema.SObjectType.ContactPointEmail.Name +
-                  '-' +
-                  this.recordTypeName
+                    '-' +
+                    this.recordTypeName
                 )
             )
         },
@@ -567,25 +577,23 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
               objectFieldsMap
                 ?.get(
                   Schema.SObjectType.ContactPointAddress.Name +
-                  '-' +
-                  this.recordTypeName
+                    '-' +
+                    this.recordTypeName
                 )
             )
             .copyFieldsActive(
               objectFieldsMap
                 ?.get(
                   Schema.SObjectType.ContactPointAddress.Name +
-                  '-' +
-                  this.recordTypeName
+                    '-' +
+                    this.recordTypeName
                 )
             )
         }
       };
       if (
         objectFieldsMap.containsKey(
-          Schema.SObjectType.ContactPointPhone.Name +
-          '-' +
-          this.recordTypeName
+          Schema.SObjectType.ContactPointPhone.Name + '-' + this.recordTypeName
         )
       ) {
         trackingConfigActive.put(
@@ -598,8 +606,8 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
                 objectFieldsMap
                   ?.get(
                     Schema.SObjectType.ContactPointPhone.Name +
-                    '-' +
-                    this.recordTypeName
+                      '-' +
+                      this.recordTypeName
                   )
               )
           }

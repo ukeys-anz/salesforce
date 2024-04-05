@@ -37,7 +37,7 @@ public with sharing class CCRMGuaranteeFeeDetailQuery extends CCRMFinancialAccou
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (GuaranteeFeeCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (GuaranteeFeeCalloutResponse) CalloutModel.deserialize(
       responseBody,
       GuaranteeFeeCalloutResponse.class
     );

@@ -14,6 +14,45 @@ public with sharing class MLCRMCommonUtils {
   private static Set<Id> idsOfOwnerId = new Set<Id>();
 
   /**
+   * @description Return map of CountryName to CountryCode from DCRM_CountryMapping__mdt metadata
+   * @return map of CountryName to CountryCode
+   * @US CC-7217
+   * @testClass - MLCRMLeadActionsTest
+   */
+  @AuraEnabled(cacheable=true)
+  public static Map<String, String> getCountryNameToCodeMap() {
+    List<DCRM_CountryMapping__mdt> countriesListMdt = DCRM_CountryMapping__mdt.getAll()
+      .values();
+    Map<String, String> countryNameToCodeMap = new Map<String, String>();
+
+    for (DCRM_CountryMapping__mdt mdt : countriesListMdt) {
+      countryNameToCodeMap.put(
+        (String) mdt.Label,
+        (String) mdt.Country_Code__c
+      );
+    }
+    return countryNameToCodeMap;
+  }
+
+  /**
+   * @description Return map of StateName to StateCode from DCRM_StateMapping__mdt metadata
+   * @return map of StateName to StateCode
+   * @US CC-7217
+   * @testClass MLCRMLeadActionsTest
+   */
+  @AuraEnabled(cacheable=true)
+  public static Map<String, String> getStateNameToCodeMap() {
+    List<DCRM_StateMapping__mdt> statesListMdt = DCRM_StateMapping__mdt.getAll()
+      .values();
+    Map<String, String> stateNameToCodeMap = new Map<String, String>();
+
+    for (DCRM_StateMapping__mdt mdt : statesListMdt) {
+      stateNameToCodeMap.put((String) mdt.Label, (String) mdt.State_Code__c);
+    }
+    return stateNameToCodeMap;
+  }
+
+  /**
    * @description This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
    * @name validateTerritoryAndOwnerChange
    * @param oldMapSobject old map of sobject
@@ -25,15 +64,17 @@ public with sharing class MLCRMCommonUtils {
     Map<Id, sObject> oldMapSobject,
     List<sObject> lstOfSobject
   ) {
+    Boolean hasSkipPermission = FeatureManagement.checkPermission('CCRM_Skip_Validation');
     for (sObject objSobject : lstOfSobject) {
       if (validateSobjectRecord(objSobject)) {
         getProfileId(lstOfSobject);
         if (
-          mapOfProfileId != null &&
+          (mapOfProfileId != null &&
           userInfo.getProfileId() ==
-          mapOfProfileId.get(MLCRMConstants.ADMIN_PROFILE_NAME)
+          mapOfProfileId.get(MLCRMConstants.ADMIN_PROFILE_NAME)) ||
+          hasSkipPermission
         ) {
-          continue;
+          return;
         }
         // validate if territory remains blank for any record then add error.
         if (objSobject.get('Territory__c') == null) {

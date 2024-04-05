@@ -55,15 +55,24 @@
             <fullName>Non-ANZ Customer</fullName>
             <default>false</default>
         </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>BCOP_Email_sent__c</picklist>
         <values>
-            <fullName>No</fullName>
+            <fullName>ANZ - Mobile Lending</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes</fullName>
+            <fullName>ANZ - NBC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Diversified %26 Specialist Industries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ - Institution</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -81,15 +90,11 @@
     <picklistValues>
         <picklist>Customer_Needs__c</picklist>
         <values>
-            <fullName>Assist with Business Cashflow</fullName>
+            <fullName>Assist with Business Working Capital%2FTemporary Finance</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Development and Renovation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
+            <fullName>Construction and Renovation</fullName>
             <default>false</default>
         </values>
         <values>
@@ -113,11 +118,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Refinance</fullName>
+            <fullName>Refinance from Other Financial Institutions</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Set up a new Business %28Start Up%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transactional Services %28inc%2E IB4B%2C Account opening and Merchant services%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -151,15 +160,23 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Go Biz</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Internal Referral</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Self-Sourced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lead Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call Back Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Exception Process %28DEP%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -481,6 +498,10 @@
         </values>
         <values>
             <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
             <default>false</default>
         </values>
     </picklistValues>

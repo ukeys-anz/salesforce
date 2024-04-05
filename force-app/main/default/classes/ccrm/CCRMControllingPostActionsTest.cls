@@ -7,12 +7,8 @@
 private class CCRMControllingPostActionsTest {
   @testSetup
   static void setup() {
-    User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
-
-    System.runAs(ccrmAdmin) {
-      Set<String> setOfEmployeeId = new Set<String>{ '10456789', '10456790' };
-      CCRMTestDataFactory.createUsersWithEmployeeId(setOfEmployeeId);
-    }
+    Set<String> setOfEmployeeId = new Set<String>{ '10456789', '10456790' };
+    CCRMTestDataFactory.createUsersWithEmployeeId(setOfEmployeeId);
   }
 
   @isTest
@@ -20,7 +16,7 @@ private class CCRMControllingPostActionsTest {
     //Given when banker creates a new Controlling post
     //When Employee ID is a valid User Id
     //Then Controlling Post Responsible Employee will be same as User Id
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
       Controlling_Post__c cp1 = new Controlling_Post__c();
       cp1.Is_Active__c = true;
       cp1.CPID__c = 'L6601';
@@ -54,7 +50,7 @@ private class CCRMControllingPostActionsTest {
     //Given when banker updating a new Controlling post with invalid Responsible Employee Id
     //When Responsible Employee ID is updated to a valid user id
     //Then Controlling Post Responsible Employee will be same as User Id
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
       Controlling_Post__c cp1 = new Controlling_Post__c();
       cp1.Is_Active__c = true;
       cp1.CPID__c = 'L6602';

@@ -131,21 +131,12 @@ export default class StatementsViewer extends LightningElement {
       ? await getTabInfo(tabInfo.parentTabId)
       : undefined;
     ocvId = data.fields.OCV_ID__c.value;
-    try {
-      if (primaryTabInfo?.recordId?.startsWith("001")) {
-        ocvId = await fetchOCVIdFromAccount({
-          accountRecordId: primaryTabInfo.recordId
-        });
-      }
-    } catch (error) {
-      handleErrorShowToast(
-        this,
-        "Failed to get customer with OCV Id",
-        error,
-        "Failed to get customer with OCV Id. Please refresh and try again. If issue persists please contact your System Administrator",
-        "pester"
-      );
+    if (!primaryTabInfo?.recordId?.startsWith("001")) {
+      return ocvId;
     }
+    ocvId = await fetchOCVIdFromAccount({
+      accountRecordId: primaryTabInfo.recordId
+    });
     return ocvId;
   }
 

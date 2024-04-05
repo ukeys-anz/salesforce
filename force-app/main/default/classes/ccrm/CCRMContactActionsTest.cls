@@ -9,15 +9,21 @@ private class CCRMContactActionsTest {
 
   @TestSetup
   static void makeData() {
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      Account acc = CCRMTestDataFactory.createProspectBusinessAccount(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+    Account prospectAccount;
+    Account activeAccount;
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
+      prospectAccount = CCRMTestDataFactory.createProspectBusinessAccount(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
 
-      Account accActive = CCRMTestDataFactory.createBusinessAccountWithOwner(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+      activeAccount = CCRMTestDataFactory.createBusinessAccountWithOwner(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
     }
+
+    CCRMTestDataFactory.createAccountShare(prospectAccount.Id, ccrmBaseUser.Id);
+    CCRMTestDataFactory.createAccountShare(activeAccount.Id, ccrmBaseUser.Id);
   }
 
   @IsTest
@@ -87,119 +93,47 @@ private class CCRMContactActionsTest {
 
   @IsTest
   static void testContactEndDate() {
-    //GIVEN
-    List<Contact> contactList = CCRMTestDataFactory.createContacts(5, true);
+    List<Contact> contactUpdateList;
+    List<Contact> contactInsertList;
 
-    //WHEN
-    for (Contact contact : contactList) {
-      contact.MobilePhone = '';
-      contact.Phone = '';
-      contact.Fax = '';
-    }
-    update contactList;
-
-    //THEN
-    List<Contact> contacts = [
-      SELECT Active_To__c, RecordTypeId
-      FROM Contact
-      WHERE Email = :'testenddate@anz.com'
-    ];
-    for (Contact record : contacts) {
-      System.assertEquals(
-        record.Active_To__c,
-        System.today(),
-        'Contact end date updated to today date'
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
+      //GIVEN contacts with value in fax, mobile and/or phone
+      contactUpdateList = CCRMTestDataFactory.createContacts(
+        Integer.valueOf(Label.Test_Bulk_Size),
+        true
       );
-      System.assertEquals(
-        record.RecordTypeId,
-        CCRMConstants.CONTACT_HIDDEN_RT_ID,
-        'Contact record type changed to Hidden'
+
+      //WHEN fax, mobile and phone of 1 of the records are set to blank, and the rest still keep their fax detail
+      for (Contact contact : contactUpdateList) {
+        contact.Phone = contact.MobilePhone = null;
+      }
+      contactUpdateList[0].Fax = null;
+
+      Test.startTest();
+      contactInsertList = CCRMTestDataFactory.createContacts(
+        Integer.valueOf(Label.Test_Bulk_Size),
+        false
       );
+      update contactUpdateList;
+      Test.stopTest();
     }
-  }
 
-  @IsTest
-  static void testContactEndDateShouldNotPopulate() {
-    //GIVEN: Contacts created without Mobile, Fax and Phone
-    List<Contact> contactList = CCRMTestDataFactory.createContacts(5, true);
-
-    //WHEN: Update contact Title
-    for (Contact contact : contactList) {
-      contact.Title = 'Prof';
-    }
-    update contactList;
-
-    //THEN: Active To date should not populated abd record type do not change
-    List<Contact> contacts = [
-      SELECT Active_To__c, RecordTypeId
-      FROM Contact
-      WHERE Email = :'testenddate@anz.com'
-    ];
-    for (Contact record : contacts) {
-      System.assertEquals(
-        record.Active_To__c,
-        null,
-        'Contact end date NOT updated to today date'
-      );
-      System.assertEquals(
-        record.RecordTypeId,
-        CCRMConstants.CONTACT_BUSINESS_RT_ID,
-        'Contact record type remain unchanged to Business'
-      );
-    }
-  }
-
-  @IsTest
-  static void testContactEndDateWhenPhoneAndFaxAreNullAndMobileWithValue() {
-    //GIVEN: Contacts created without Mobile, Fax and Phone
-    Faker faker = new Faker('AU');
-    Account accnt = new Account();
-    accnt.Name = faker.randomString(10);
-    accnt.OCV_ID__c = faker.randomString(10);
-    accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
-    accnt.Phone = faker.person.phone(true, false);
-    accnt.Source_System_ID__c = 'BUS1234';
-    accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
-    accnt.FinServ__Status__c = CCRMConstants.DORMANT_STATUS;
-    insert accnt;
-
-    List<Contact> contactList = new List<Contact>();
-    Integer count = 5;
-    for (Integer i = 1; i <= count; i++) {
-      Contact contact = new Contact();
-      contact.FirstName = faker.person.firstName();
-      contact.LastName = faker.randomString(10);
-      contact.Email = 'testenddate@anz.com';
-      contact.MobilePhone = faker.person.phone(true, true);
-      contact.AccountId = accnt.Id;
-      contactList.add(contact);
-    }
-    insert contactList;
-
-    //WHEN: Update contact Title
-    for (Contact contact : contactList) {
-      contact.MobilePhone = '';
-    }
-    update contactList;
-
-    //THEN: Active To date should not populated abd record type do not change
-    List<Contact> contacts = [
-      SELECT Active_To__c, RecordTypeId
-      FROM Contact
-      WHERE Email = :'testenddate@anz.com'
-    ];
-    for (Contact record : contacts) {
-      System.assertEquals(
-        record.Active_To__c,
-        System.today(),
-        'Contact end date updated to today date'
-      );
-      System.assertEquals(
-        record.RecordTypeId,
-        CCRMConstants.CONTACT_HIDDEN_RT_ID,
-        'Contact record type changed to Hidden'
-      );
-    }
+    //THEN the contact without any of the details is deleted
+    System.assertEquals(
+      0,
+      [
+        SELECT COUNT()
+        FROM Contact
+        WHERE Id = :contactUpdateList[0].Id OR Id IN :contactInsertList
+      ],
+      'Contact should be deleted when fax, mobile and phone are blank'
+    );
+    //AND other contacts shouldn't be deleted
+    System.assertEquals(
+      contactUpdateList.size() - 1,
+      [SELECT COUNT() FROM Contact WHERE Id IN :contactUpdateList],
+      'Contacts that still have fax detail should not be deleted'
+    );
   }
 
   @IsTest

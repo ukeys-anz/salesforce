@@ -13,66 +13,13 @@
                             <value>Delete</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>PersonDigitalIdentity__x.Data_Sharing</value>
+                            <value>PersonDigitalIdentity__x.DataSharing</value>
                         </valueListItems>
                         <valueListItems>
                             <value>ChangeRecordType</value>
                         </valueListItems>
                         <valueListItems>
                             <value>PrintableView</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>PersonDigitalIdentity__x.Lock_PIN</value>
-                            <visibilityRule>
-                                <criteria>
-                                    <leftValue>{!Record.PIN_Status__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Active</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>PersonDigitalIdentity__x.Unlock_PIN</value>
-                            <visibilityRule>
-                                <criteria>
-                                    <leftValue>{!Record.PIN_Status__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Locked</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>PersonDigitalIdentity__x.Update_OCV_Number</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>PersonDigitalIdentity__x.Suspend</value>
-                            <visibilityRule>
-                                <criteria>
-                                    <leftValue>{!Record.Status__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Active</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>PersonDigitalIdentity__x.Unsuspend</value>
-                            <visibilityRule>
-                                <criteria>
-                                    <leftValue>{!Record.Status__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Suspended</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>PersonDigitalIdentity__x.Archive_User</value>
-                            <visibilityRule>
-                                <criteria>
-                                    <leftValue>{!Record.Status__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Active</rightValue>
-                                </criteria>
-                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

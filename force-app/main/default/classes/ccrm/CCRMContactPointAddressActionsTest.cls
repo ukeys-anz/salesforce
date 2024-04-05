@@ -11,12 +11,15 @@ private class CCRMContactPointAddressActionsTest {
   //CREATE Test ContactPointAddress Records
   @TestSetup
   static void setupObjectData() {
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      Account acc = CCRMTestDataFactory.createProspectBusinessAccount(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+    Account prospectAccount;
+    Account activeAccount;
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
+      prospectAccount = CCRMTestDataFactory.createProspectBusinessAccount(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
       ContactPointAddress acpa = new ContactPointAddress();
-      acpa.ParentId = acpa.Customer_Name__c = acc.Id;
+      acpa.ParentId = acpa.Customer_Name__c = prospectAccount.Id;
       acpa.Name = acpa.AddressType = 'Primary Mailing';
       acpa.Street = faker.address.street();
       acpa.City = faker.address.city();
@@ -24,14 +27,15 @@ private class CCRMContactPointAddressActionsTest {
       acpa.Country = faker.address.country();
       acpa.PostalCode = faker.address.stateCode();
       acpa.Global_Address_Key__c = faker.randomString(40);
+      acpa.recordTypeId = CCRMConstants.CPA_ORG_RT_ID;
       insert acpa;
 
-      Account accActive = CCRMTestDataFactory.createBusinessAccountWithOwner(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+      activeAccount = CCRMTestDataFactory.createBusinessAccountWithOwner(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
 
       ContactPointAddress activeCPA = new ContactPointAddress();
-      activeCPA.ParentId = activeCPA.Customer_Name__c = accActive.Id;
+      activeCPA.ParentId = activeCPA.Customer_Name__c = activeAccount.Id;
       activeCPA.Name = activeCPA.AddressType = 'Primary Mailing';
       activeCPA.Street = faker.address.street();
       activeCPA.City = faker.address.city();
@@ -41,6 +45,8 @@ private class CCRMContactPointAddressActionsTest {
       activeCPA.Global_Address_Key__c = faker.randomString(40);
       insert activeCPA;
     }
+    CCRMTestDataFactory.createAccountShare(prospectAccount.Id, ccrmBaseUser.Id);
+    CCRMTestDataFactory.createAccountShare(activeAccount.Id, ccrmBaseUser.Id);
   }
   @IsTest
   static void testUpdateCpaRecord() {
@@ -54,7 +60,7 @@ private class CCRMContactPointAddressActionsTest {
 
     //WHEN That ContactPointAddress is updated
     Test.startTest();
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       cpa.ActiveToDate = date.today();
       update cpa;
     }
@@ -62,8 +68,7 @@ private class CCRMContactPointAddressActionsTest {
 
     System.assertEquals(
       null,
-      [SELECT ParentId FROM ContactPointAddress WHERE Id = :cpa.Id]
-      .ParentId,
+      [SELECT ParentId FROM ContactPointAddress WHERE Id = :cpa.Id].ParentId,
       'Address should not appear'
     );
   }

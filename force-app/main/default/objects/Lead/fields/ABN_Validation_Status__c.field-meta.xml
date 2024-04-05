@@ -25,9 +25,9 @@
                 <label>Cancelled</label>
             </value>
             <value>
-                <fullName>Validation Inprogress</fullName>
+                <fullName>Validation in progress</fullName>
                 <default>false</default>
-                <label>Validation Inprogress</label>
+                <label>Validation in progress</label>
             </value>
             <value>
                 <fullName>Validation Error</fullName>

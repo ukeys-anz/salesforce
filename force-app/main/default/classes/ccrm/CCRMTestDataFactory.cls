@@ -19,6 +19,10 @@ public with sharing class CCRMTestDataFactory {
       'Minimum Access - Salesforce'
     )
     .Id;
+  public static Id minAccessExternalProfileId = CommonUtil.getProfileByName(
+      'Minimum Access - External Apps'
+    )
+    .Id;
   public static UserRole commercialBankerRole = CommonUtil.getUserRoleByDevName(
     'Commercial_Banking'
   );
@@ -30,11 +34,15 @@ public with sharing class CCRMTestDataFactory {
     'Small_Business_Banking'
   );
 
+  public static UserRole arcRole = CommonUtil.getUserRoleByDevName('AR_C');
+
   private static User adminUser;
   private static User ccrmBaseUser;
   private static User ccrmIntegrationUser;
   private static User twilioIntegrationUser;
   private static User ocvIntegrationUser;
+  private static User sailPointUser;
+  private static User batchUser;
 
   /**
    * @description Create a CCRM System Admin User
@@ -86,6 +94,28 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Get a CCRM System Admin User, if such user not exists yet then create one
+   * @name getAdminUser
+   * @return System Administrator User
+   */
+  public static User getBatchUser() {
+    if (batchUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE ProfileId = :integrationProfileId AND LastName = 'CCRM Batch'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        batchUser = createBatchUser();
+      } else {
+        batchUser = users[0];
+      }
+    }
+    return batchUser;
+  }
+
+  /**
    * @description Create a CCRM Base User
    * @name createCCRMBaseUser
    * @return ANZ Standard User with CCRM Base User Permission Set.
@@ -101,6 +131,45 @@ public with sharing class CCRMTestDataFactory {
     insert ccrmBaseUser;
     addCCRMUserPS(ccrmBaseUser.id, 'CCRM_User_Base');
     return ccrmBaseUser;
+  }
+
+  /**
+   * @description Create a Sailpoint User
+   * @name createSailPointUser
+   * @return Sailpoint User with API Only And User Provisioning permission set.
+   */
+  public static User createSailPointUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    sailPointUser = (User) FakerFactory.make(new FakerUserFactory());
+    sailPointUser.FirstName = 'Sailpoint' + staticNumber;
+    sailPointUser.LastName = 'Integration User';
+    sailPointUser.ProfileId = minAccessExternalProfileId;
+    insert sailPointUser;
+    addCCRMUserPS(sailPointUser.id, 'API_Only');
+    addCCRMUserPS(sailPointUser.id, 'User_Provisioning');
+    return sailPointUser;
+  }
+
+  /**
+   * @description Create a Batch User
+   * @name createSailPointUser
+   * @return Sailpoint User with API Only And User Provisioning permission set.
+   */
+  public static User createBatchUser() {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    batchUser = (User) FakerFactory.make(new FakerUserFactory());
+    batchUser.FirstName = 'User' + staticNumber;
+    batchUser.LastName = 'CRM Batch';
+    batchUser.ProfileId = integrationProfileId;
+    batchUser.UserRoleId = arcRole.Id;
+    insert batchUser;
+    addCCRMUserPS(batchUser.id, 'API_Only');
+    addCCRMUserPS(batchUser.id, 'CCRM_User_Base');
+    addCCRMUserPS(batchUser.id, 'MLCRM_Base_Read_Only');
+    addCCRMUserPS(batchUser.id, 'Validation_Bypass');
+    return batchUser;
   }
 
   /**
@@ -159,6 +228,31 @@ public with sharing class CCRMTestDataFactory {
       }
     }
     return ccrmBaseUser;
+  }
+
+  /**
+   * @description Get a CCRM Base User, if such user not exists yet then create one
+   * @name getSailPointUser
+   * @return ANZ Standard User with CCRM Base User Permission Set.
+   */
+  public static User getSailPointUser() {
+    if (sailPointUser == null) {
+      List<User> users = [
+        SELECT Id
+        FROM User
+        WHERE
+          ProfileId = :minAccessExternalProfileId
+          AND LastName = 'Integration User'
+          AND FirstName = 'Sailpoint'
+        LIMIT 1
+      ];
+      if (users.isEmpty()) {
+        sailPointUser = createSailPointUser();
+      } else {
+        sailPointUser = users[0];
+      }
+    }
+    return sailPointUser;
   }
 
   /**
@@ -250,7 +344,8 @@ public with sharing class CCRMTestDataFactory {
         'Read_Write_Customer_Details',
         'Moderate_Chatter',
         'Customer_Relationships_Read_Write',
-        'FinancialServicesCloudStandard'
+        'FinancialServicesCloudStandard',
+        'CCRM_Marketing_Integration_User'
       },
       new List<User>{ ocvIntegrationUser }
     );
@@ -445,18 +540,64 @@ public with sharing class CCRMTestDataFactory {
    * @name createReciprocalRole
    * @param name Name of Role
    * @param inverseRole Inverse Role
+   * @param recordTypeId Record Type
    * @return FinServ__ReciprocalRole__c Reciprocal Role
    */
   public static FinServ__ReciprocalRole__c createReciprocalRole(
     String name,
-    String inverseRole
+    String inverseRole,
+    Id recordTypeId
   ) {
-    FinServ__ReciprocalRole__c reciprocalRole = new FinServ__ReciprocalRole__c();
-    reciprocalRole.Name = name;
-    reciprocalRole.FinServ__InverseRole__c = inverseRole;
-    reciprocalRole.FinServ__CreateInverseRole__c = false;
-    insert reciprocalRole;
+    List<FinServ__ReciprocalRole__c> roles = new List<FinServ__ReciprocalRole__c>();
+    FinServ__ReciprocalRole__c reciprocalRole = new FinServ__ReciprocalRole__c(
+      Name = name,
+      OCV_Role__c = name,
+      RecordTypeId = recordTypeId,
+      FinServ__InverseRole__c = inverseRole,
+      FinServ__CreateInverseRole__c = false
+    );
+    roles.add(reciprocalRole);
+    if (name != inverseRole) {
+      roles.add(
+        new FinServ__ReciprocalRole__c(
+          Name = inverseRole,
+          OCV_Role__c = inverseRole,
+          RecordTypeId = recordTypeId,
+          FinServ__InverseRole__c = name,
+          FinServ__CreateInverseRole__c = false
+        )
+      );
+    }
+    insert roles;
+    if (name != inverseRole) {
+      roles[0].FinServ__InverseRelationship__c = roles[1].Id;
+      roles[1].FinServ__InverseRelationship__c = roles[0].Id;
+      update roles;
+    }
     return reciprocalRole;
+  }
+
+  /**
+   * @description Create non-reciprocal role records
+   * @name createNonReciprocalRole
+   * @param name [Optional] the name of the reciprocal role
+   * @param recordTypeId Record Type
+   * @return FinServ__ReciprocalRole__c the newly created record
+   */
+  public static FinServ__ReciprocalRole__c createNonReciprocalRole(
+    String name,
+    Id recordTypeId
+  ) {
+    name = name == null ? new Faker('AU').randomString(10) : name;
+    FinServ__ReciprocalRole__c nonReciprocalRole = new FinServ__ReciprocalRole__c(
+      RecordTypeId = recordTypeId,
+      Name = name,
+      FinServ__InverseRole__c = name,
+      OCV_Role__c = name,
+      FinServ__CreateInverseRole__c = false
+    );
+    insert nonReciprocalRole;
+    return nonReciprocalRole;
   }
 
   /**
@@ -465,8 +606,9 @@ public with sharing class CCRMTestDataFactory {
    * @param accountId Account Id
    * @param relatedAccountId Related Account Id
    * @param role Reciprocal Role Id
+   * @return FinServ__AccountAccountRelation__c accToAccRelationship
    */
-  public static void createAccountToAccountWithClgRelationship(
+  public static FinServ__AccountAccountRelation__c createAccountToAccountWithClgRelationship(
     Id accountId,
     Id relatedAccountId,
     Id role
@@ -477,6 +619,7 @@ public with sharing class CCRMTestDataFactory {
     accToAccRelationship.FinServ__Active__c = true;
     accToAccRelationship.FinServ__Role__c = role;
     insert accToAccRelationship;
+    return accToAccRelationship;
   }
 
   /**
@@ -604,9 +747,7 @@ public with sharing class CCRMTestDataFactory {
     insert accnt;
 
     Contact contact = new Contact();
-    contact.recordTypeId = Schema.SObjectType.Contact.getRecordTypeInfosByDevelopername()
-      .get('IndustriesBusiness')
-      .getRecordTypeId();
+    contact.recordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID;
     contact.FirstName = 'conFname';
     contact.LastName = 'conLname';
     contact.Email = 'con@test.com';
@@ -966,7 +1107,9 @@ public with sharing class CCRMTestDataFactory {
       objOpportunity.CloseDate = system.Today() + 3;
       objOpportunity.Description = '987654321';
       objOpportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
-
+      if (ownerUser != null) {
+        objOpportunity.OwnerId = ownerUser.Id;
+      }
       newOpps.add(objOpportunity);
     }
     if (doInsert) {
@@ -1045,6 +1188,7 @@ public with sharing class CCRMTestDataFactory {
     List<Contact> conList = new List<Contact>();
     for (Integer i = 1; i <= count; i++) {
       Contact contact = new Contact();
+      contact.RecordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID;
       contact.FirstName = faker.person.firstName();
       contact.LastName = faker.randomString(10);
       if (withContactDetails) {
@@ -1078,21 +1222,39 @@ public with sharing class CCRMTestDataFactory {
       LIMIT 1
     ];
 
-    ActionPlanTemplateItem apTempItems = new ActionPlanTemplateItem();
-    apTempItems.ActionPlanTemplateVersionId = apTempVer.Id;
-    apTempItems.Name = 'Google';
-    apTempItems.IsActive = true;
-    apTempItems.IsRequired = false;
-    apTempItems.ItemEntityType = 'Task';
+    List<ActionPlanTemplateItem> apTempItems = new List<ActionPlanTemplateItem>();
+    ActionPlanTemplateItem apTempItem1 = new ActionPlanTemplateItem();
+    apTempItem1.ActionPlanTemplateVersionId = apTempVer.Id;
+    apTempItem1.Name = 'Google';
+    apTempItem1.IsActive = true;
+    apTempItem1.IsRequired = false;
+    apTempItem1.ItemEntityType = 'Task';
+    apTempItems.add(apTempItem1);
 
+    ActionPlanTemplateItem apTempItem2 = new ActionPlanTemplateItem();
+    apTempItem2.ActionPlanTemplateVersionId = apTempVer.Id;
+    apTempItem2.Name = 'Test';
+    apTempItem2.IsActive = true;
+    apTempItem2.IsRequired = true;
+    apTempItem2.ItemEntityType = 'Task';
+    apTempItems.add(apTempItem2);
     insert apTempItems;
 
-    ActionPlanTemplateItemValue apTempItemValue = new ActionPlanTemplateItemValue();
-    apTempItemValue.ActionPlanTemplateItemId = apTempItems.Id;
-    apTempItemValue.ItemEntityFieldName = 'Task.Subject';
-    apTempItemValue.Name = 'Test Name';
-    apTempItemValue.ValueLiteral = 'Sample';
-    insert apTempItemValue;
+    List<ActionPlanTemplateItemValue> values = new List<ActionPlanTemplateItemValue>();
+    ActionPlanTemplateItemValue apTempItemValue1 = new ActionPlanTemplateItemValue();
+    apTempItemValue1.ActionPlanTemplateItemId = apTempItems[0].Id;
+    apTempItemValue1.ItemEntityFieldName = 'Task.Subject';
+    apTempItemValue1.Name = 'Test';
+    apTempItemValue1.ValueLiteral = 'Sample';
+    values.add(apTempItemValue1);
+
+    ActionPlanTemplateItemValue apTempItemValue2 = new ActionPlanTemplateItemValue();
+    apTempItemValue2.ActionPlanTemplateItemId = apTempItems[1].Id;
+    apTempItemValue2.ItemEntityFieldName = 'Task.Subject';
+    apTempItemValue2.Name = 'Subject';
+    apTempItemValue2.ValueLiteral = 'Search';
+    values.add(apTempItemValue2);
+    insert values;
 
     apTempVer.Status = 'Final';
     update apTempVer;
@@ -1136,6 +1298,39 @@ public with sharing class CCRMTestDataFactory {
 
     return accnt;
   }
+ /**
+   * @description Create a account share record to provide access to business user
+   * @name createAccountShare
+   * @param accId Account record to be share
+   * @param userId User to be share with
+   */
+  @future
+  public static void createAccountShare(Id accId, Id userId) {
+    AccountShare shareAccount = new AccountShare();
+    shareAccount.AccountId = accId;
+    shareAccount.AccountAccessLevel = 'Edit';
+    shareAccount.ContactAccessLevel = 'Edit';
+    shareAccount.CaseAccessLevel = 'Read';
+    shareAccount.OpportunityAccessLevel = 'Read';
+    shareAccount.RowCause = 'Manual';
+    shareAccount.UserOrGroupId = userId;
+    insert shareAccount;
+  }
+  /**
+   * @description Create a account account relation share record to provide access to ccrm user
+   * @name createAccountAccountRelationShare
+   * @param recordId record Id to share
+   * @param userId User to be share with
+   */
+  @future
+  public static void createAccountAccountRelationShare(Id recordId, Id userId) {
+    FinServ__AccountAccountRelation__Share sv = new FinServ__AccountAccountRelation__Share();
+    sv.ParentId = recordId;
+    sv.AccessLevel = 'Read';
+    sv.RowCause = 'Manual';
+    sv.UserOrGroupId = userId;
+    insert sv;
+  }
   /**
    * @description Create non-reciprocal role records
    * @name createNonReciprocalRole
@@ -1155,5 +1350,238 @@ public with sharing class CCRMTestDataFactory {
     );
     insert nonReciprocalRole;
     return nonReciprocalRole;
+  }
+
+  /**
+   * @description Create Users with lan id
+   * @name createUsersWithLanId
+   * @param setOfLanId Lan IDs
+   * @return `List<User>`
+   */
+  public static List<User> createUsersWithLanId(Set<String> setOfLanId) {
+    List<User> newUsers = new List<User>();
+    for (String key : setOfLanId) {
+      User ccrmUser = (User) FakerFactory.make(new FakerUserFactory());
+      ccrmUser.UserRoleId = commercialBankerRole.Id;
+      ccrmUser.ProfileId = anzStandardProfileId;
+      ccrmUser.Lan_Id__c = key;
+      newUsers.add(ccrmUser);
+    }
+    Database.insert(newUsers);
+    return newUsers;
+  }
+
+  /**
+   * @description Create Controlling Posts with Lan ID
+   * @name createControllingPostsWithLanId
+   * @param setOfLanId Lan IDs
+   * @return `List<Controlling_Post__c>`
+   */
+  public static List<Controlling_Post__c> createControllingPostsWithLanId(
+    Set<String> setOfLanId
+  ) {
+    List<Controlling_Post__c> newCPs = new List<Controlling_Post__c>();
+    for (String key : setOfLanId) {
+      Controlling_Post__c cp1 = new Controlling_Post__c();
+      cp1.Is_Active__c = true;
+      cp1.CPID_CancelFag__c = false;
+      cp1.Name = 'Controlling Post ' + key;
+      cp1.CPID_LanID__c = key;
+      newCPs.add(cp1);
+    }
+    Database.insert(newCPs);
+    return newCPs;
+  }
+
+  /**
+   * @description Create a CCRM Base User with commercial Segment
+   * @name createCCRMBaseUserWithCS
+   * @param commercialSegment commercial segment of the user
+   * @return ANZ CCRM Standard User with CCRM Base User Permission Set & Opportunity Access
+   */
+  public static User createCCRMBaseUserWithCS(String commercialSegment) {
+    String staticNumber =
+      Datetime.now().format('MMddHHmmss') + (Math.random() * 10);
+    ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
+    ccrmBaseUser.FirstName = 'BaseUser' + staticNumber;
+    ccrmBaseUser.LastName = 'CCRM ' + commercialSegment;
+    ccrmBaseUser.UserRoleId = commercialBankerRole.Id;
+    ccrmBaseUser.ProfileId = anzStandardProfileId;
+    ccrmBaseUser.Commercial_Segment__c = commercialSegment;
+    insert ccrmBaseUser;
+    TestUtil.assignPermissionSetGroups(
+      new List<String>{ 'CCRM_Banker' },
+      new List<User>{ ccrmBaseUser }
+    );
+    return ccrmBaseUser;
+  }
+
+  /**
+   * @description Create a static opp
+   * @name createStaticOpportunityData
+   * @param oppId opportunity Id
+   * @param oppName opportunity name
+   * @param recordTypeId opportunity record type Id
+   * @param stageName opportunity stage name
+   * @return Opportunity
+   */
+  public static Opportunity createStaticOpportunityData(
+    String oppId,
+    String oppName,
+    String recordTypeId,
+    String stageName
+  ) {
+    Opportunity opp = new Opportunity();
+    opp.Id = oppId;
+    opp.Name = oppName;
+    opp.StageName = stageName;
+    opp.RecordTypeId = recordTypeId;
+    return opp;
+  }
+
+  /**
+   * @description Create Deposit Account test context
+   * @name createDepositAccountContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createDepositAccountContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMDepositAccountTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'DepositAccount'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+  /**
+   * @description Create Credit Card test context
+   * @name createDepositAccountContext
+   * @return Returns DataSource.QueryContext context
+   */
+    public static DataSource.QueryContext createCreditCardContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMCreditCardQueryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'CreditCard'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMDepositAccountTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_depositResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'dda-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMCreditCardQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_creditCardResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'pcb-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class GetTotalCustomerBalanceMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_totalBalanceResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'mock-header');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class GetTotalTerminalsMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_totalTerminalResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'mock-header');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class GetTotalAssetFinanceBalanceMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource(
+        'mock_totalAssetBalanceResponse'
+      );
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'mock-header');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
   }
 }

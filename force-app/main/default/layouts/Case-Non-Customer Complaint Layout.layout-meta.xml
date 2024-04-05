@@ -528,6 +528,18 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Real_Form_Ref_No__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Is_Hardship_Resolution_Letter_Sent__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Final_Letter_Outcome__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Hardship_Response_updated_on__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -549,6 +561,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>AFCA_Stage__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -591,6 +607,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_AFCA_Registration_Response_Provided__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Date_time_Registration_Response_Provided__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -677,6 +697,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>LastModifiedById</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Date_Time_Provisionally_Closed__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -826,6 +850,12 @@
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>Quality_Assessment__c.Related_Case__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Total_Open_Time__c</fields>
+        <fields>IDR_Response_Time_RG271__c</fields>
+        <relatedList>Case_Reporting_Field__c.Case__c</relatedList>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
     <showEmailCheckbox>true</showEmailCheckbox>

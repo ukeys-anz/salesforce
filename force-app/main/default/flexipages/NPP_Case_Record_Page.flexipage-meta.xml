@@ -1252,7 +1252,19 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>showCallIntTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>showIntTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showMsgTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showStoreIntTab</name>
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>interactionRelatedList</componentName>

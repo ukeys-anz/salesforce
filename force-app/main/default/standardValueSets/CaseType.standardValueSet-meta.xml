@@ -421,4 +421,9 @@
         <default>false</default>
         <label>Account/Card Abuse</label>
     </standardValue>
+    <standardValue>
+        <fullName>Residential Address QA</fullName>
+        <default>false</default>
+        <label>Residential Address QA</label>
+    </standardValue>
 </StandardValueSet>

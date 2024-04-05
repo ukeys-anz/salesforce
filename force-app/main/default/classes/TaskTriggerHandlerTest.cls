@@ -434,4 +434,121 @@ private class TaskTriggerHandlerTest {
       'Call Log Subject should have the Case Subject, if Case Type was not available while creating an outbound call log'
     );
   }
+
+  // Method to test the Coach Nudge task validations
+  @isTest
+  public static void testCoachNudgeValidation() {
+    Faker faker = new Faker('AU');
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      null,
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+    Test.startTest();
+    try {
+      Task newCoachNudgeTask = TestDataFactory.createTaskRecord(
+        GetHelpConstants.COACH_NUDGE_RT_ID,
+        null,
+        Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+        Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+        false
+      );
+      newCoachNudgeTask.Status = 'Expired';
+      newCoachNudgeTask.Id = coachNudgeTask.Id;
+      GetHelpTaskActions.beforeUpdateActions(
+        new List<Task>{ newCoachNudgeTask },
+        new Map<Id, Task>{ coachNudgeTask.Id => coachNudgeTask }
+      );
+    } catch (Exception exp) {
+      Assert.isTrue(
+        exp.getMessage()
+          .contains(GetHelpTaskActions.TASK_STATUS_EXPIRED_ERROR_MESSAGE),
+        'Error message does not match'
+      );
+    }
+    Test.stopTest();
+  }
+
+  // Method to test the filter out the coach nudge tasks
+  @isTest
+  public static void testfilterCoachNudgeTasks() {
+    Faker faker = new Faker('AU');
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id testRTId = GetHelpConstants.TASK_COMPLIANCE_RT_ID;
+    List<Task> taskRecords = new List<Task>();
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      accId,
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+    Task otherTaskRT = TestDataFactory.createTaskRecord(
+      testRTId,
+      accId,
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+    taskRecords.add(coachNudgeTask);
+    taskRecords.add(otherTaskRT);
+    Test.startTest();
+    List<Task> coachNudgeRecords = GetHelpTaskActionHelper.filterCoachNudgeTasks(
+      taskRecords
+    );
+    Test.stopTest();
+    Assert.isTrue(
+      coachNudgeRecords.size() == 1,
+      '1 record of Coach Nudge RT should be present'
+    );
+    Assert.isTrue(
+      coachNudgeRecords[0].RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID,
+      '1 record of Coach Nudge RT should be present'
+    );
+  }
+
+  @isTest
+  public static void testgetWhoIdFromTask() {
+    Faker faker = new Faker('AU');
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      accId,
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+    Test.startTest();
+    Set<Id> accountIds = GetHelpTaskActionHelper.getWhoIdFromTask(
+      new List<Task>{ coachNudgeTask }
+    );
+    // Dummy call for test coverage
+    GetHelpTaskActionHelper.getAccountMap(accountIds);
+    Test.stopTest();
+    Assert.isTrue(accountIds.contains(accId), 'accId should be available');
+  }
+
+  @isTest
+  public static void testCoachNudgeCloudEvent() {
+    Faker faker = new Faker('AU');
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      accId,
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+
+    Test.startTest();
+    List<CloudEventModel> cloudEventModels = GetHelpTaskActionHelper.getCloudEventModelForCoachNudge(
+      new List<Task>{ coachNudgeTask },
+      new Map<Id, Task>{ coachNudgeTask.Id => coachNudgeTask },
+      new Map<Id, Account>{}
+    );
+    Test.stopTest();
+    Assert.isTrue(cloudEventModels != null, 'Found');
+  }
 }

@@ -93,12 +93,12 @@ private class LeadTriggerHandlerTest {
 
   @isTest
   static void testLeadCreation() {
-    User ccrmIntegrationUser = CCRMTestDataFactory.getCCRMIntegrationUser();
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMIntegrationUser();
     Test.startTest();
-    System.runAs(ccrmIntegrationUser) {
+    System.runAs(ccrmBaseUser) {
       CCRMTestDataFactory.createLeadRecords(
         Integer.valueOf(Label.Test_Bulk_Size),
-        ccrmIntegrationUser
+        ccrmBaseUser
       );
     }
     Test.stopTest();
@@ -109,7 +109,7 @@ private class LeadTriggerHandlerTest {
       FROM Lead
       WHERE
         Status = :CCRMConstants.STATUS_ASSIGNED
-        AND createdById = :ccrmIntegrationUser.Id
+        AND createdById = :ccrmBaseUser.Id
     ];
     System.assertEquals(
       createdLeads.size() == Integer.valueOf(Label.Test_Bulk_Size),
@@ -266,7 +266,7 @@ private class LeadTriggerHandlerTest {
     l.Email = email;
     l.MobilePhone = mobilePhone;
     l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       insert l;
     }
 

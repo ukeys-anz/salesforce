@@ -113,10 +113,16 @@ public with sharing class InitiateInteractionControllerTest {
     System.runAs(thisUser) {
       Account testAcc = [SELECT Id FROM Account LIMIT 1];
       Faker faker = new Faker('AU');
+      ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication();
+      rla.Id = Lib_FakeIdGenerator.getMockId(
+        ResidentialLoanApplication.SObjectType
+      );
+
       Test.startTest();
       ReinitiateChatModel response = InitiateInteractionController.reinitiateChat(
         testAcc.Id,
-        faker.randomString(10)
+        faker.randomString(10),
+        rla.Id
       );
       Test.stopTest();
 

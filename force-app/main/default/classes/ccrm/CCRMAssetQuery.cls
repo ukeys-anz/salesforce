@@ -39,7 +39,7 @@ public with sharing class CCRMAssetQuery extends CCRMFinancialAccountQueryBase {
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (AssetCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (AssetCalloutResponse) CalloutModel.deserialize(
       responseBody,
       AssetCalloutResponse.class
     );

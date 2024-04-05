@@ -18,6 +18,8 @@ public with sharing class CCRMFinancialAccountRoleActions {
     List<FinServ__FinancialAccountRole__c> records
   ) {
     Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
+    List<FinServ__FinancialAccountRole__c> recordsToCheck = new List<FinServ__FinancialAccountRole__c>();
+    Set<Id> accountIds = new Set<Id>();
 
     for (FinServ__FinancialAccountRole__c record : records) {
       if (
@@ -28,8 +30,23 @@ public with sharing class CCRMFinancialAccountRoleActions {
         record.RecordTypeId = CCRMConstants.FAR_SYSTEM_RT_ID;
         record.External_Id__c = null;
       } else {
-        record.RecordTypeId = CCRMConstants.FAR_CONTACT_RT_ID;
+        recordsToCheck.add(record);
+        accountIds.add(record.FinServ__RelatedAccount__c);
       }
+    }
+    if (recordsToCheck.isEmpty()) {
+      return;
+    }
+
+    Map<Id, Account> mapAccounts = new Map<Id, Account>(
+      [SELECT IsPersonAccount FROM Account WHERE Id IN :accountIds]
+    );
+
+    for (FinServ__FinancialAccountRole__c record : recordsToCheck) {
+      record.RecordTypeId = mapAccounts.get(record.FinServ__RelatedAccount__c)
+          ?.IsPersonAccount == true
+        ? CCRMConstants.FAR_CONTACT_RT_ID
+        : CCRMConstants.FAR_ACCOUNT_RT_ID;
     }
   }
 

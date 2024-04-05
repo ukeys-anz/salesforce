@@ -6,23 +6,22 @@
     <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,
-NOT(CONTAINS( $User.Username,$Label.UnicaIntegrationUserName)),
-NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
+    NOT(CONTAINS( $User.Username,$Label.UnicaIntegrationUserName)),
+    NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
     NOT(ISNEW()),
     NOT(ISBLANK(PRIORVALUE(FinServ__RelatedAccount__c))), 
     NOT(ISBLANK(FinServ__RelatedAccount__c)),
     OR(
-        ISCHANGED(PreferredName__c),
-        ISCHANGED(MobilePhone),
-        ISCHANGED(Work_Phone__c),
-        ISCHANGED(Email),
-        ISCHANGED(Home_Phone__c),
-        ISCHANGED(Address),
+        AND(
+            OR(
+                ISCHANGED(PreferredName__c),
+                ISCHANGED(FinServ__RelatedAccount__c)
+            ),
+            Customer_Status__c != &quot;Prospect&quot;
+        ),
         ISCHANGED(AdvertisingIndicator__c),
-        ISCHANGED(PreferredName__c),
-        ISCHANGED(FinServ__RelatedAccount__c)
+        ISCHANGED(Address)
     )
-    
 )</errorConditionFormula>
     <errorMessage>Unable to update fields in the customer information section when the lead is associated to an existing customer.</errorMessage>
 </ValidationRule>

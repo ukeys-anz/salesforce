@@ -122,6 +122,78 @@
     <navType>Console</navType>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Coach_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Coach_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Coach_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Coach_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Coach_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Coach_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Coach_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>Standard</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Coach_Nudge</recordType>
+        <type>Flexipage</type>
+        <profile>Standard</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Quality_Assessment_Get_Help_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
@@ -752,6 +824,86 @@
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Interaction</pageOrSobjectType>
         <recordType>Interaction.Message</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Minimum Access - Salesforce</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Minimum Access - Salesforce</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
@@ -860,6 +1012,7 @@
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Case</tabs>
+    <tabs>standard-Task</tabs>
     <tabs>CustomerOnboardingApplication__c</tabs>
     <tabs>Knowledge__kav</tabs>
     <tabs>standard-report</tabs>
@@ -915,6 +1068,9 @@
         </mappings>
         <mappings>
             <tab>Interaction_Tag__c</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Task</tab>
         </mappings>
         <mappings>
             <tab>Quality_Assessment__c</tab>

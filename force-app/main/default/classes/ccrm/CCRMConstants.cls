@@ -25,7 +25,7 @@ public with sharing class CCRMConstants {
   public static final String ACCOUNT_TYPE_BUSINESS = 'Business';
   public static final String ACCOUNT_TYPE_CUSTOMER = 'Customer';
   public static final String ACCOUNT_TYPE_CLG = 'CLG';
-  public static final String ABN_ACN_STATUS_INPROGRESS = 'Validation Inprogress';
+  public static final String ABN_ACN_STATUS_INPROGRESS = 'Validation in progress';
   public static final String ABN_ACN_STATUS_FAILED = 'Validation Error';
   public static final String ABN_ACN_STATUS_ACTIVE = 'Active';
   public static final String ABN_ACN_STATUS_CANCELLED = 'Cancelled';
@@ -40,7 +40,7 @@ public with sharing class CCRMConstants {
   public static final String INACTIVE_STATUS = 'Inactive';
   public static final String ACC_RT = 'Business_Account';
   public static final String ACC_PERSON_RT = 'PersonAccount';
-  public static final String CON_RT = 'IndustriesBusiness';
+  public static final String CON_RT = 'Organisation';
   public static final String CPE_RT = 'Organisation';
   public static final String CPE_IND_RT = 'Individual';
   public static final String CPA_RT = 'Organisation';
@@ -61,6 +61,7 @@ public with sharing class CCRMConstants {
   public static final String SOURCE_SYSTEM_NAME = 'CAP-CIS';
   public static final String BB_SEGMENT = 'BB';
   public static final String SBB_SEGMENT = 'SBB';
+  public static final String SBB_NBC_SEGMENT = 'SBB NBC';
   public static final String NEED_ANALYSIS = 'Needs Analysis';
   public static final String SOL_DEV = 'Solution Development';
   public static final String APPROVED_OFFERED = 'Approved & Offered';
@@ -69,9 +70,8 @@ public with sharing class CCRMConstants {
   public static final String OPP_LOST = 'Opportunity Lost';
   public static final String STAGE_CAN_BE_OPP_IDENTIFIED = 'Stage can only be set to Opportunity Identified.';
   public static final String OTHER_SOURCE_DETAIL_MANDATORY = 'Other Source Detail is mandatory if Lead Source is Other.';
-  public static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip or re-open closed stages.';
-  public static final String BBD_CLP_MANDATORY = 'BBD Application Number & CLP Credit Case Number is mandatory to proceed to Approved and offered.';
-  public static final String LOST_REASON = 'Please select a valid Lost Reason.';
+  public static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip stages or re-open a closed Opportunity.';
+  public static final String LOST_REASON_DETAIL_MISSING = 'Please provide valid Lost Reason/Lost Reason Detail.';
   public static final String WON_LOST_MANDATORY = 'Won From/Lost To is mandatory to Proceed to Opportunity Won/Lost.';
   public static final String NEEDS_ANALYSIS_ACTION_PLAN_TEMP = 'Needs Analysis Action Plan Template';
   public static final String NOT_STARTED = 'Not Started';
@@ -81,6 +81,11 @@ public with sharing class CCRMConstants {
   public static final String OPPORTUNITY_OBJ_PREFIX = '006';
   public static final String STATUS_OPEN = 'Open';
   public static final String DORMANT_STATUS = 'Dormant';
+  public static final String OTHER = 'Other';
+  public static final String NEW_LINE_CHAR = '\n';
+  public static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed opportunity';
+
+  public static final String NO_AVAILABLE_BALANCE = 'No available balance';
 
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
     'Business_Account'
@@ -133,7 +138,7 @@ public with sharing class CCRMConstants {
 
   //Contact - Business Record Type Id
   public static final Id CONTACT_BUSINESS_RT_ID = Schema.SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('IndustriesBusiness')
+    .get('Organisation')
     .getRecordTypeId();
 
   //Contact - Hidden Record Type Id
@@ -146,6 +151,11 @@ public with sharing class CCRMConstants {
     .get('ContactRole')
     .getRecordTypeId();
 
+  //FinServ__ReciprocalRole__c Contact Role Record Type Id
+  public static final Id RECIPROCAL_ACCOUNT_ROLE_RT_ID = Schema.SObjectType.FinServ__ReciprocalRole__c.getRecordTypeInfosByDeveloperName()
+    .get('AccountRole')
+    .getRecordTypeId();
+
   //Financial Account Role - System Role Record Type Id
   public static final Id FAR_SYSTEM_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
     .get('System_Role')
@@ -154,6 +164,11 @@ public with sharing class CCRMConstants {
   //Financial Account Role - Contact Role Record Type Id
   public static final Id FAR_CONTACT_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
     .get('ContactRole')
+    .getRecordTypeId();
+
+  //Financial Account Role - Contact Role Record Type Id
+  public static final Id FAR_ACCOUNT_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
+    .get('AccountRole')
     .getRecordTypeId();
 
   //Contact Point Email - Organisation Record Type Id
@@ -174,6 +189,16 @@ public with sharing class CCRMConstants {
   //Contact Point Address - Individual Record Type Id
   public static final Id CPA_IND_RT_ID = Schema.SObjectType.ContactPointAddress.getRecordTypeInfosByDeveloperName()
     .get('Individual')
+    .getRecordTypeId();
+
+  //Financial Account record type Ids
+  public static final Id FA_RT_ID = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
+    .get('BankingAccount')
+    .getRecordTypeId();
+
+  //Financial Account Role record type Ids
+  public static final Id FAR_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
+    .get('AccountRole')
     .getRecordTypeId();
 
   /**

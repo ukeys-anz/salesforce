@@ -40,9 +40,7 @@ public inherited sharing class CFaaSServiceTest {
     Test.setMock(HttpCalloutMock.class, new MockCFaaSDownloadUrlSuccess());
     // set forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -106,9 +104,7 @@ public inherited sharing class CFaaSServiceTest {
 
     Test.setMock(HttpCalloutMock.class, new MockAuthenticationError());
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -139,9 +135,7 @@ public inherited sharing class CFaaSServiceTest {
 
     Test.setMock(HttpCalloutMock.class, new MockDocumentNotFoundError());
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
 

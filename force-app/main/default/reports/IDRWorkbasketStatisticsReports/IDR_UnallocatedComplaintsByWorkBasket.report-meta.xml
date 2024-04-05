@@ -66,7 +66,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
-            <value>IDR,CCR</value>
+            <value>IDR,CCR,Simplification</value>
         </criteriaItems>
         <criteriaItems>
             <column>STATUS</column>

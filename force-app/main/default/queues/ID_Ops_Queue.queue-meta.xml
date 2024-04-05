@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <name>ID Ops Queue</name>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <queueMembers>
         <roles>
+            <role>Business_Admin</role>
+            <role>Card_Dispute_Agent</role>
             <role>FraudX_Agent</role>
+            <role>Join_Lead</role>
         </roles>
     </queueMembers>
     <queueSobject>

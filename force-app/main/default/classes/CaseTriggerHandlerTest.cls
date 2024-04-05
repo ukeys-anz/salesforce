@@ -1,5 +1,6 @@
 // CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
 // NcssTypeCount Surpressed : The line of code for this test is more than it is expected.
+
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssTypeCount')
 @IsTest
 private class CaseTriggerHandlerTest {
@@ -1767,7 +1768,7 @@ private class CaseTriggerHandlerTest {
     }
 
     Test.startTest();
-    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(newCases);
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(newCases, null);
     Test.stopTest();
 
     // THEN Contact Name lookup should be auto-populated
@@ -1787,21 +1788,16 @@ private class CaseTriggerHandlerTest {
       FROM Group
       WHERE DeveloperName = 'EDR_Early_Resolution' AND Type = 'Queue'
     ];
-
     Test.startTest();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-          IDR_Customer_Number__c = '1234567890',
-          Priority = 'Financial Hardship',
-          Type = '9',
-          IDR_Subsequent_Issue__c = '57',
-          Status = 'Escalated',
-          IDR_Escalation_Reason__c = '1'
-        )
+      Case csObj = IDRTestDataFactory.createAfcaCustomerComplaintCase(
+        'Financial Hardship',
+        '9',
+        '57'
       );
+      csObj.Status = 'Escalated';
+      csObj.IDR_Escalation_Reason__c = '1';
+      newCases.add(csObj);
     }
     insert newCases;
     for (Case c : [SELECT Id, OwnerId FROM Case WHERE id IN :newCases]) {
@@ -1840,6 +1836,8 @@ private class CaseTriggerHandlerTest {
         new Case(
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
+          IDR_AFCA_Status__c = '10',
+          IDR_AFCA_Due_Date__c = System.TODAY(),
           IDR_Customer_Number__c = '1234567890',
           Priority = 'Standard',
           Type = '5',
@@ -1888,25 +1886,20 @@ private class CaseTriggerHandlerTest {
 
   @isTest
   static void testCaseNotifiationAfterUpdate() {
-    Case parentCase = new Case(
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-      IDR_Customer_Number__c = '1234567890',
-      Priority = 'Standard',
-      Type = '5',
-      IDR_Subsequent_Issue__c = '38'
+    Case parentCase = IDRTestDataFactory.createAfcaCustomerComplaintCase(
+      'Standard',
+      '5',
+      '38'
     );
+
     insert parentCase;
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-          IDR_Customer_Number__c = '1234567890',
-          Priority = 'Standard',
-          Type = '5',
-          IDR_Subsequent_Issue__c = '38'
+        IDRTestDataFactory.createAfcaCustomerComplaintCase(
+          'Standard',
+          '5',
+          '38'
         )
       );
     }
@@ -1935,15 +1928,12 @@ private class CaseTriggerHandlerTest {
   @isTest
   static void testGetStartCollectionMap() {
     //Create a customer complaint
-    Case custCompCase = new Case(
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-      IDR_Customer_Number__c = '1234567890',
-      Priority = 'Standard',
-      Type = '5',
-      IDR_Subsequent_Issue__c = '38',
-      IDR_Collection_Number__c = '1234567890'
+    Case custCompCase = IDRTestDataFactory.createAfcaCustomerComplaintCase(
+      'Standard',
+      '5',
+      '38'
     );
+    custCompCase.IDR_Collection_Number__c = '1234567890';
     insert custCompCase;
     Set<String> collectionAcctsList = new Set<String>();
     collectionAcctsList.add(custCompCase.IDR_Collection_Number__c);
@@ -2333,7 +2323,7 @@ private class CaseTriggerHandlerTest {
       Description = 'Charged more than once for same purchase',
       Effective_Date__c = Date.valueof(System.today()),
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.getBusinessHours().Id
+      BusinessHoursId = CommonUtil.anzBusinessHours.Id
     );
 
     // WHEN
@@ -2375,7 +2365,7 @@ private class CaseTriggerHandlerTest {
       Origin = '1',
       Priority = 'Medium',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.getBusinessHours().Id
+      BusinessHoursId = CommonUtil.anzBusinessHours.Id
     );
 
     // WHEN
@@ -2471,7 +2461,7 @@ private class CaseTriggerHandlerTest {
       Origin = '1',
       Priority = 'Medium',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.getBusinessHours().Id,
+      BusinessHoursId = CommonUtil.anzBusinessHours.Id,
       Description = 'sample issue description',
       External_System__c = 'CARBe',
       External_Case_ID__c = '45234234',
@@ -3473,8 +3463,8 @@ private class CaseTriggerHandlerTest {
       insert externalCaseStatus;
 
       theCase.Status = 'Closed';
-      update theCase;
       Test.stopTest();
+      update theCase;
     }
 
     String taskRecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()

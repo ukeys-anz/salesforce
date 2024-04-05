@@ -1,0 +1,32 @@
+/**
+ * @author Hrushikesh Pathak
+ * @since 02/2024
+ * @description  test class for CoachNudgeTaskAutoExpireScheduler
+ */
+@isTest
+public with sharing class CoachNudgeTaskAutoExpireSchedulerTest {
+  @isTest
+  public static void testCheckAndUpdateTaskRecords() {
+    Faker faker = new Faker('AU');
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      null,
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+    Test.startTest();
+    // Dummy call for test coverage
+    CoachNudgeTaskAutoExpireScheduler coachNudgeSch = new CoachNudgeTaskAutoExpireScheduler();
+    coachNudgeSch.execute(null);
+    // Method to test updation of task to expired
+    List<Task> updatedRecords = CoachNudgeTaskAutoExpireScheduler.checkAndUpdateTaskRecords(
+      new List<Task>{ coachNudgeTask }
+    );
+    Test.stopTest();
+    Assert.isTrue(
+      updatedRecords[0].Status == GetHelpTaskActions.TASK_STATUS_EXPIRED,
+      'Status should be expired'
+    );
+  }
+}

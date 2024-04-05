@@ -59,9 +59,11 @@
         </div>
       </template>
       <div class={dynamicColumnClass}>
-        <div class="slds-grid slds-form-element__label">Transaction Time</div>
+        <div class="slds-grid slds-form-element__label">
+          Transaction Date/Time
+        </div>
         <div class="slds-grid" data-test-id="transaction-time">
-          {transactionTime}
+          {getFormattedDateTime}
         </div>
       </div>
       <div class={dynamicColumnClass}>
@@ -183,6 +185,14 @@
             <template lwc:if={showPayAnyoneReferenceTransactionDetails}>
               {transactionRecord.pay_anyone.npp_customer_reference_number}
             </template>
+          </div>
+        </div>
+        <div class={dynamicColumnClass} lwc:if={isCardTransation}>
+          <div class="slds-grid slds-form-element__label">
+            Transaction Method
+          </div>
+          <div class="slds-grid">
+            {transactionRecord.card.formatted_transactionMethod}
           </div>
         </div>
         <div class={dynamicColumnClass} lwc:if={showTransactionPuid}>

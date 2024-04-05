@@ -47,7 +47,7 @@ public with sharing class CCRMMerchantFacilityQuery extends CCRMFinancialAccount
     if (String.isBlank(responseBody)) {
       return;
     }
-    this.calloutResponse = (MerchantFacilityCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (MerchantFacilityCalloutResponse) CalloutModel.deserialize(
       responseBody,
       MerchantFacilityCalloutResponse.class
     );
@@ -58,7 +58,6 @@ public with sharing class CCRMMerchantFacilityQuery extends CCRMFinancialAccount
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
-    String customerId;
     Map<String, Object> row;
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
     List<CCRMMerchantFacilityModel> accounts = new List<CCRMMerchantFacilityModel>();
@@ -77,10 +76,7 @@ public with sharing class CCRMMerchantFacilityQuery extends CCRMFinancialAccount
         return result;
       }
       row = new Map<String, Object>();
-      customerId = String.isNotBlank(fa.compositeAccountNumber)
-        ? fa.compositeAccountNumber.substringBefore('-')
-        : null;
-      row.put('CustomerId', 'CAP-CIS_' + customerId);
+      row.put('CustomerId', this.parentId);
       row.put('ExternalId', fa.compositeAccountNumber);
       row.put(
         'DisplayUrl',
