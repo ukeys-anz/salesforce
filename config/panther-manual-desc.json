@@ -1619,6 +1619,13 @@
         "Temporary_Block_Overridden__c"
       ]
     },
+    "Customer_Dispute_Management__c": {
+      "IA-2415720": [
+        "Temporary_Block__c",
+        "Permanent_Block__c",
+        "Temporary_Block_Overridden__c"
+      ]
+    },
     "CustomerOnboardingApplication__c": {
       "IA-2594111": [
         "EquifaxEnquiryId__c",
