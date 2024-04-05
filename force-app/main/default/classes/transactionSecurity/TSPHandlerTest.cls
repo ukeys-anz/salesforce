@@ -235,4 +235,23 @@ public with sharing class TSPHandlerTest {
       );
     }
   }
+
+  @isTest
+  static void testNotifySystemUserLoginEvent() {
+    User thisUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
+    insert thisUser;
+    System.runAs(thisUser) {
+      //WHEN there is LoginEvent for System User
+      LoginEvent testLoginEvent = new LoginEvent(
+        Username = 'anzx.user@anzx.com.testuser'
+      );
+
+      //THEN the condition should be false
+      Boolean result = TSPHandler.evaluate(testLoginEvent);
+      System.assert(
+        result,
+        'Should return true as Login Event for System User being picked up'
+      );
+    }
+  }
 }

@@ -24,7 +24,8 @@ const {
   RUN_ID,
   BRANCH_NAME,
   WORKING_DIR,
-  REPO_NAME
+  REPO_NAME,
+  JOB_NAME
 } = process.env;
 
 const ARTIFACT_NAME = renameItem(`artifact-${BRANCH_NAME}`);
@@ -36,7 +37,7 @@ const ARTIFACT_DESTRUCTIVE_XML =
   "/" +
   ARTIFACT_NAME +
   "/destructiveChanges/destructiveChanges.xml";
-
+const IS_QA_SANDBOX = JOB_NAME ? true : false;
 const args = findAllArgvs();
 const SFDX_URL = args[0];
 const ARTIFACTORY_SECRET_VALUE = args[1];
@@ -63,7 +64,7 @@ const quickDeployment = () => {
 const quickClean = () => {
   unauthenticate(BASE_REF);
   deleteFolder(ARTIFACT_NAME);
-  createTag(BASE_REF, RUN_ID);
+  createTag(BASE_REF, RUN_ID, IS_QA_SANDBOX);
 };
 
 /////////
