@@ -9,15 +9,21 @@ private class CCRMContactActionsTest {
 
   @TestSetup
   static void makeData() {
-    System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      Account acc = CCRMTestDataFactory.createProspectBusinessAccount(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+    Account prospectAccount;
+    Account activeAccount;
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
+    System.runAs(CCRMTestDataFactory.getOcvIntegrationUser()) {
+      prospectAccount = CCRMTestDataFactory.createProspectBusinessAccount(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
 
-      Account accActive = CCRMTestDataFactory.createBusinessAccountWithOwner(
-        CCRMTestDataFactory.getCCRMBaseUser().Id
+      activeAccount = CCRMTestDataFactory.createBusinessAccountWithOwner(
+        CCRMTestDataFactory.getOcvIntegrationUser().Id
       );
     }
+
+    CCRMTestDataFactory.createAccountShare(prospectAccount.Id, ccrmBaseUser.Id);
+    CCRMTestDataFactory.createAccountShare(activeAccount.Id, ccrmBaseUser.Id);
   }
 
   @IsTest

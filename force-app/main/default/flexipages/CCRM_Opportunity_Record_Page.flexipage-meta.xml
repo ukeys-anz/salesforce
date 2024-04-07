@@ -8,14 +8,80 @@
                     <valueList>
                         <valueListItems>
                             <value>Edit</value>
+                            <visibilityRule>
+                                <booleanFilter>6 OR ((1 AND (2 OR 3)) OR (4 AND 5))</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>BB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Share</value>
+                            <visibilityRule>
+                                <booleanFilter>6 OR ((1 AND (2 OR 3)) OR (4 AND 5))</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>BB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>CustomButton.Opportunity.Launch_BBD</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5)</booleanFilter>
+                                <booleanFilter>9 OR ((1 OR 2 OR 3 OR 4 OR 5) AND (6 OR 7) AND 8)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.StageName}</leftValue>
                                     <operator>EQUAL</operator>
@@ -41,13 +107,99 @@
                                     <operator>EQUAL</operator>
                                     <rightValue>Opportunity Lost</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Opportunity.Log_Interaction_CCRM</value>
+                            <visibilityRule>
+                                <booleanFilter>6 OR ((1 AND (2 OR 3)) OR (4 AND 5))</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>BB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Global.Create_Task_CCRM</value>
+                            <visibilityRule>
+                                <booleanFilter>6 OR ((1 AND (2 OR 3)) OR (4 AND 5))</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>BB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>SBB NBC</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -81,6 +233,92 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.StageName</fieldItem>
+                <identifier>RecordStageNameField3</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Lost_Reason__c</fieldItem>
+                <identifier>RecordLost_Reason_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Opportunity Lost</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-817b1e44-45af-431a-90d2-481f7a2f6f82</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Won_from_Lost_to__c</fieldItem>
+                <identifier>RecordWon_from_Lost_to_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Lost_Reason_Detail__c</fieldItem>
+                <identifier>RecordLost_Reason_Detail_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Opportunity Lost</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-42b0e5da-d78d-42dd-b566-c1fa62fc820e</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-817b1e44-45af-431a-90d2-481f7a2f6f82</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column9</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-42b0e5da-d78d-42dd-b566-c1fa62fc820e</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column12</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-07868930-ebf5-44be-9927-baecc2709d20</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>hideUpdateButton</name>
@@ -92,6 +330,86 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
                 <identifier>runtime_sales_pathassistant_pathAssistant</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Opportunity Identified</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Needs Analysis</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Solution Development</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Approved &amp; Offered</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>hideUpdateButton</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>variant</name>
+                    <value>linear</value>
+                </componentInstanceProperties>
+                <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
+                <identifier>runtime_sales_pathassistant_pathAssistant2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Opportunity Won</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Opportunity Lost</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Acceptance</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-07868930-ebf5-44be-9927-baecc2709d20</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Close Opportunity</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection7</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer Acceptance</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -107,6 +425,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Name</fieldItem>
                 <identifier>RecordNameField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.AccountId</fieldItem>
+                <identifier>RecordAccountIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -159,26 +487,6 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.AccountId</fieldItem>
-                <identifier>RecordAccountIdField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.StageName</fieldItem>
-                <identifier>RecordStageNameField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.LeadSource</fieldItem>
                 <identifier>RecordLeadSourceField</identifier>
             </fieldInstance>
@@ -197,10 +505,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Other_Source_Detail__c</fieldItem>
-                <identifier>RecordOther_Source_Detail_cField</identifier>
+                <fieldItem>Record.StageName</fieldItem>
+                <identifier>RecordStageNameField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c89e6feb-8e8a-4e58-8bec-145959a4eaea</name>
@@ -299,8 +607,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.CLG_Name__c</fieldItem>
-                <identifier>RecordCLG_Name_cField</identifier>
+                <fieldItem>Record.CLG__c</fieldItem>
+                <identifier>RecordCLG__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-7388628e-6b36-4319-951a-7b0bb7daccba</name>
@@ -377,8 +685,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.BCOP_Email_sent__c</fieldItem>
-                <identifier>RecordBCOP_Email_sent_cField</identifier>
+                <fieldItem>Record.My_Notes__c</fieldItem>
+                <identifier>RecordMy_Notes_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -463,16 +771,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Associated_Source_Detail__c</fieldItem>
                 <identifier>RecordAssociated_Source_Detail_cField2</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Other_Source_Detail__c</fieldItem>
-                <identifier>RecordOther_Source_Detail_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -781,6 +1079,36 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Opportunity.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Histories</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-j29oc2ycin</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -808,6 +1136,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-j29oc2ycin</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.relatedLists</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab6</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

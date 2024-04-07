@@ -1,49 +1,75 @@
 <template>
-  <lightning-quick-action-panel header="Add/ Edit Address">
+  <lightning-quick-action-panel header={title}>
     <lightning-record-edit-form
       record-id={recordId}
       object-api-name={objectAPIName}
       onsuccess={handleSuccess}
       onsubmit={handleSubmit}
+      onerror={handleError}
     >
-      <div class="slds-combobox_container">
-        <div
-          class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
-          aria-expanded="true"
-          aria-haspopup="listbox"
-          role="combobox"
-        >
+      <div lwc:if={hasValidAddress}>
+        <lightning-messages> </lightning-messages>
+        <div class="slds-combobox_container">
           <div
-            class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
-            role="none"
+            class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+            aria-expanded="true"
+            aria-haspopup="listbox"
+            role="combobox"
           >
-            <lightning-input
-              class="inputBox .slds-form-element_readonly"
-              onkeyup={handleSearchKeyChange}
-              label="Search for address"
-              value={searchString}
-              placeholder="type here..."
-            ></lightning-input>
-          </div>
-          <!-- Address List -->
-          <template lwc:if={showAddresses}>
             <div
-              id="listbox-id-3"
-              class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
+              class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+              role="none"
             >
-              <ul
-                class="slds-listbox slds-listbox_vertical recordListBox"
-                role="presentation"
+              <lightning-input
+                class="inputBox .slds-form-element_readonly"
+                onkeyup={handleSearchKeyChange}
+                label="Search for address"
+                value={searchString}
+                placeholder="type here..."
+              ></lightning-input>
+            </div>
+            <!-- Address List -->
+            <template lwc:if={showAddresses}>
+              <div
+                id="listbox-id-3"
+                class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
               >
-                <template lwc:if={displayAddresses}>
-                  <template for:each={addressList} for:item="addr">
-                    <li
-                      key={addr.global_address_key}
-                      data-id={addr.global_address_key}
-                      onmousedown={selectAddress}
-                      role="presentation"
-                      class={addr.background}
-                    >
+                <ul
+                  class="slds-listbox slds-listbox_vertical recordListBox"
+                  role="presentation"
+                >
+                  <template lwc:if={displayAddresses}>
+                    <template for:each={addressList} for:item="addr">
+                      <li
+                        key={addr.global_address_key}
+                        data-id={addr.global_address_key}
+                        onmousedown={selectAddress}
+                        role="presentation"
+                        class={addr.background}
+                      >
+                        <div
+                          class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                          role="option"
+                        >
+                          <span
+                            class="slds-media__figure slds-listbox__option-icon"
+                          >
+                            <lightning-icon
+                              icon-name="standard:address"
+                              alternative-text="Address"
+                              title="Address"
+                            ></lightning-icon>
+                          </span>
+                          <span class="slds-media__body">
+                            <span
+                              class="slds-listbox__option-text slds-listbox__option-text_entity"
+                              >{addr.address}</span
+                            >
+                          </span>
+                        </div>
+                      </li>
+                    </template>
+                    <li onmousedown={displayAddressFields}>
                       <div
                         class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
                         role="option"
@@ -52,102 +78,104 @@
                           class="slds-media__figure slds-listbox__option-icon"
                         >
                           <lightning-icon
-                            icon-name="standard:address"
-                            alternative-text="Address"
-                            title="Address"
+                            icon-name="utility:add"
+                            alternative-text="Add Address"
+                            title="Add Address"
                           ></lightning-icon>
                         </span>
                         <span class="slds-media__body">
                           <span
                             class="slds-listbox__option-text slds-listbox__option-text_entity"
-                            >{addr.address}</span
+                            >{message}</span
                           >
                         </span>
                       </div>
                     </li>
                   </template>
-                  <li onmousedown={displayAddressFields}>
-                    <div
-                      class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
-                      role="option"
-                    >
-                      <span
-                        class="slds-media__figure slds-listbox__option-icon"
+                  <template lwc:if={displayMessage}>
+                    <li onmousedown={displayAddressFields}>
+                      <div
+                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                        role="option"
                       >
-                        <lightning-icon
-                          icon-name="utility:add"
-                          alternative-text="Add Address"
-                          title="Add Address"
-                        ></lightning-icon>
-                      </span>
-                      <span class="slds-media__body">
                         <span
-                          class="slds-listbox__option-text slds-listbox__option-text_entity"
-                          >{message}</span
+                          class="slds-media__figure slds-listbox__option-icon"
                         >
-                      </span>
-                    </div>
-                  </li>
-                </template>
-                <template lwc:if={displayMessage}>
-                  <li onmousedown={displayAddressFields}>
-                    <div
-                      class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
-                      role="option"
-                    >
-                      <span
-                        class="slds-media__figure slds-listbox__option-icon"
-                      >
-                        <lightning-icon
-                          icon-name="utility:add"
-                          alternative-text="Add Address"
-                          title="Add Address"
-                        ></lightning-icon>
-                      </span>
-                      <span class="slds-media__body">
-                        <span
-                          class="slds-listbox__option-text slds-listbox__option-text_entity"
-                          >{message}</span
-                        >
-                      </span>
-                    </div>
-                  </li>
-                </template>
-              </ul>
-            </div>
-          </template>
+                          <lightning-icon
+                            icon-name="utility:add"
+                            alternative-text="Add Address"
+                            title="Add Address"
+                          ></lightning-icon>
+                        </span>
+                        <span class="slds-media__body">
+                          <span
+                            class="slds-listbox__option-text slds-listbox__option-text_entity"
+                            >{message}</span
+                          >
+                        </span>
+                      </div>
+                    </li>
+                  </template>
+                </ul>
+              </div>
+            </template>
+          </div>
         </div>
+
+        <template lwc:if={resetValidationError}></template>
+        <template lwc:else>
+          <lightning-input-address
+            disabled={isAddressDisabled}
+            address-label="Address"
+            street-label="Street"
+            city-label="City"
+            country-label="Country"
+            province-label="State/ Province"
+            postal-code-label="Zip/ Postal Code"
+            street={strStreet}
+            city={strCity}
+            country={strCountry}
+            province={strState}
+            country-options={getCountryOptions}
+            province-options={getProvinceOptions}
+            postal-code={strPostalCode}
+            onchange={addressInputChange}
+            required
+          >
+          </lightning-input-address>
+        </template>
       </div>
-      <lightning-messages> </lightning-messages>
-      <template lwc:if={resetValidationError}></template>
-      <template lwc:else>
-        <lightning-input-address
-          disabled={isAddressDisabled}
-          address-label="Address"
-          street-label="Street"
-          city-label="City"
-          country-label="Country"
-          province-label="State/ Province"
-          postal-code-label="Zip/ Postal Code"
-          street={strStreet}
-          city={strCity}
-          country={strCountry}
-          province={strState}
-          postal-code={strPostalCode}
-          onchange={addressInputChange}
-          required
+      <div lwc:else>
+        <lightning-messages> </lightning-messages>
+        <lightning-datatable
+          data={lookUpAddressResult}
+          max-row-selection="1"
+          columns={columns}
+          key-field="Id"
+          onrowselection={validatButton}
         >
-        </lightning-input-address>
-      </template>
+        </lightning-datatable>
+      </div>
       <template lwc:if={enabled}>
         <footer class="slds-modal__footer stickyFooter">
           <lightning-button
             class="slds-m-top_small"
             type="submit"
             label="Save"
+            variant="brand"
             onclick={validateFields}
+            disabled={disabled}
           >
-          </lightning-button>
+          </lightning-button
+          >&nbsp;&nbsp;
+          <template lwc:if={hasValidAddress}></template>
+          <template lwc:else>
+            <lightning-button
+              class="btnCancel"
+              label="Cancel"
+              onclick={handleCancelSelection}
+            ></lightning-button>
+          </template>
         </footer>
       </template>
       <template lwc:if={loading}>

@@ -8,7 +8,7 @@
 public with sharing class DCRMMaintainPartyServiceTest {
   @isTest
   static void testMaintainPartyService() {
-    User mlUser = MLCRMTestDataFactory.getAdminUser();
+    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
     System.runAs(mlUser) {
       Test.setMock(HttpCalloutMock.class, new MockMaintainPartyCallout());
 
@@ -28,7 +28,7 @@ public with sharing class DCRMMaintainPartyServiceTest {
 
   @isTest
   static void getRealService() {
-    System.runAs(MLCRMTestDataFactory.createAdminUser()) {
+    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
       Test.startTest();
       Service serviceResult = (Service) ServiceProvider.getService(
         DCRMMaintainPartyService.class
@@ -43,7 +43,7 @@ public with sharing class DCRMMaintainPartyServiceTest {
 
   @isTest
   static void dcrmMaintainPartyServiceMockTest() {
-    User mlUser = MLCRMTestDataFactory.getAdminUser();
+    User mlUser = MLCRMTestDataFactory.getMLCRMBaseUser();
     System.runAs(mlUser) {
       Test.setMock(HttpCalloutMock.class, new MockMaintainPartyCallout());
 
@@ -57,6 +57,23 @@ public with sharing class DCRMMaintainPartyServiceTest {
         200,
         response.statusCode,
         'Expected response status code to be 200'
+      );
+    }
+  }
+
+  @isTest
+  static void dcrmMaintainPartyServiceGetBodyTest() {
+    User mlUser = MLCRMTestDataFactory.getMLCRMBaseUser();
+    System.runAs(mlUser) {
+      Test.setMock(HttpCalloutMock.class, new MockMaintainPartyCallout());
+
+      Test.startTest();
+      OCVRequestPayloadWrapper ocvRequest = getRequestRecord(mlUser.Id);
+      String requestBody = DCRMMaintainPartyService.getBody(ocvRequest);
+      Test.stopTest();
+      System.assert(
+        String.isNotBlank(requestBody),
+        'Request Body is not retrieved.'
       );
     }
   }

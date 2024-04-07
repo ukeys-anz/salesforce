@@ -144,17 +144,18 @@ public with sharing class TFMSearchCustomerDataSourceService {
    * @param searchText String to get formatted mobile number
    * @return String searchText
    */
-
   public static String getMobileInFormat(String searchText) {
     if (
-      searchText.startsWith(NUMBERFOUR) ||
+      searchText.length() <= 14 &&
+      (searchText.startsWith(NUMBERFOUR) ||
       searchText.startsWith(NUMBERZERO) ||
-      searchText.startsWith(NUMBERSIXONE)
+      searchText.startsWith(NUMBERSIXONE))
     ) {
       // required format is 006104XXXXXXXX
-      searchText =
-        MOBILEPREFIX + searchText.substring(searchText.indexOf(NUMBERFOUR));
+      return MOBILEPREFIX +
+        searchText.substring(searchText.indexOf(NUMBERFOUR));
+    } else {
+      return searchText;
     }
-    return searchText;
   }
 }

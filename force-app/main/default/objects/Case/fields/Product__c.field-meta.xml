@@ -10,7 +10,7 @@
     <label>Product or Service Name</label>
     <lookupFilter>
         <active>true</active>
-        <booleanFilter>(1 OR (2 AND 3) OR 4) AND (5 OR 6 OR 7 OR 8)</booleanFilter>
+        <booleanFilter>(1 OR (2 AND 3) OR 4) AND (5 OR 6 OR 7 OR 8) AND 9</booleanFilter>
         <filterItems>
             <field>$User.Division</field>
             <operation>notEqual</operation>
@@ -50,6 +50,11 @@
             <field>$Source.Status</field>
             <operation>equals</operation>
             <value>Re-opened</value>
+        </filterItems>
+        <filterItems>
+            <field>Product2.RecordType.DeveloperName</field>
+            <operation>notEqual</operation>
+            <value>CRM_ANZ_Product</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>

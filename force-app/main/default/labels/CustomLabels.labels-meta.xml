@@ -1516,11 +1516,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This Customer is currently being managed by the hardship team</value>
     </labels>
     <labels>
-        <fullName>DCRM_OCVEventVersion</fullName>
+        <fullName>DCRM_ShellProspectOCVEventVersion</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>DCRM_OCVEventVersion</shortDescription>
+        <shortDescription>DCRM_ShellProspectOCVEventVersion</shortDescription>
         <value>0</value>
     </labels>
     <labels>
@@ -2081,6 +2081,34 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
     </labels>
     <labels>
+        <fullName>CIBA_AccessTokenRequestEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_AccessTokenRequestEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/customer/access-token</value>
+    </labels>
+    <labels>
+        <fullName>CIBA_AuthorisationRequestEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_AuthorisationRequestEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/customer/bc-authorize</value>
+    </labels>
+    <labels>
+        <fullName>CIBA_getForgePublicKeyEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CIBA_getForgePublicKeyEndpoint</shortDescription>
+        <value>callout:SF_MS_Fabric/forge/oauth/v2/forge/jwk-uri?kid=</value>
+    </labels>
+    <labels>
+        <fullName>Grant_Type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Grant_Type</shortDescription>
+        <value>urn:openid:params:grant-type:ciba</value>
+    </labels>
+    <labels>
         <fullName>MS_ForgeV2_Token</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2130,11 +2158,39 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/joint-accounts/notification-settings</value>
     </labels>
     <labels>
+        <fullName>MS_Revoke_Consent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Revoke_Consent</shortDescription>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/revocation</value>
+    </labels>
+    <labels>
         <fullName>TFMBiometricAttestationIdConstants</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>TFMBiometricAttestationIdConstants</shortDescription>
         <value>D409#2101,D409#2204,D409#0102</value>
+    </labels>
+    <labels>
+        <fullName>MS_ConsentsDataSharingHistory_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ConsentsDataSharingHistory_API</shortDescription>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/customer/data?consent_id=</value>
+    </labels>
+    <labels>
+        <fullName>MS_ConsentList_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ConsentList_API</shortDescription>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents</value>
+    </labels>
+    <labels>
+        <fullName>MS_consentMgmtAccountList</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_consentMgmtAccountList</shortDescription>
+        <value>callout:SF_MS_ForgeV2_Token/aegis-portal/v1/coaches/consents/accounts</value>
     </labels>
     <labels>
         <fullName>FinAccountProductToMap</fullName>
@@ -2156,5 +2212,26 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>ANZX_Marketing_Consent_Tableau_Url</shortDescription>
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
+    </labels>
+    <labels>
+        <fullName>MS_Postcode_Lookup_V3</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Postcode Lookup V3</shortDescription>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/lookup?postcode=</value>
+    </labels>
+    <labels>
+        <fullName>MS_Validate_Address_V3</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Validate Address V3</shortDescription>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/validate</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Validate_Manual_Address</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM Validate Manual Address</shortDescription>
+        <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
 </CustomLabels>

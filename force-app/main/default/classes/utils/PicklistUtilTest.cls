@@ -130,4 +130,22 @@ public class PicklistUtilTest {
       'Failed to calculate the correct parent value for multiple dependent picklist children.'
     );
   }
+
+  @IsTest
+  static void testAddMultiPicklistValue() {
+    String existingValues = 'A;B;C';
+    String newValue = 'D';
+    String expected = 'A;B;C;D';
+    Test.startTest();
+    String result = PicklistUtil.addMultiPicklistValue(
+      existingValues,
+      newValue
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      expected,
+      result,
+      'expected result should be: ' + expected + ' but got: ' + result
+    );
+  }
 }

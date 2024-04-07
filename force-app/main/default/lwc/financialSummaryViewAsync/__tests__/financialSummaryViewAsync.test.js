@@ -1,7 +1,7 @@
 import { createElement } from "lwc";
 import financialSummaryViewAsync from "c/financialSummaryViewAsync";
 import getSummariesByResponseId from "@salesforce/apex/CCRMFinancialSummaryController.getSummariesByResponseId";
-import summariesCallout from "@salesforce/apex/CCRMFinancialSummaryController.summariesCallout";
+import getDataFromCallout from "@salesforce/apex/CCRMFinancialSummaryController.getDataFromCallout";
 import { setImmediate } from "timers";
 const CALLING_FINANCIAL_SUMMARIES = require("./data/callingFinancialSummaries.json");
 const FULL_FINANCIAL_SUMMARIES_FROM_CACHE = require("./data/getFullSummariesFromCache.json");
@@ -19,7 +19,7 @@ jest.mock(
 );
 
 jest.mock(
-  "@salesforce/apex/CCRMFinancialSummaryController.summariesCallout",
+  "@salesforce/apex/CCRMFinancialSummaryController.getDataFromCallout",
   () => {
     return {
       default: jest.fn()
@@ -89,7 +89,7 @@ describe("c-financial-summary-view-async", () => {
     getSummariesByResponseId.mockResolvedValue(
       FEW_FINANCIAL_SUMMARIES_FROM_CACHE
     );
-    summariesCallout.mockResolvedValue(REFRESH_FINANCIAL_SUMMARIES);
+    getDataFromCallout.mockResolvedValue(REFRESH_FINANCIAL_SUMMARIES);
     const element = createElement("c-financial-summary-view-async", {
       is: financialSummaryViewAsync
     });
@@ -114,7 +114,7 @@ describe("c-financial-summary-view-async", () => {
 
   it("Verify Financial Summaries on Refresh", async () => {
     getSummariesByResponseId.mockResolvedValue(CALLING_FINANCIAL_SUMMARIES);
-    summariesCallout.mockRejectedValue(REFRESH_FINANCIAL_SUMMARIES);
+    getDataFromCallout.mockRejectedValue(REFRESH_FINANCIAL_SUMMARIES);
     const element = createElement("c-financial-summary-view-async", {
       is: financialSummaryViewAsync
     });

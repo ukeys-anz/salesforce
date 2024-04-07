@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Team__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy_Non_Personal_Information;Source - Salesforce</complianceGroup>
+    <description>My Team</description>
+    <externalId>false</externalId>
+    <formula>$User.Team_Code__c  =  Owner:User.Team_Code__c  &amp;&amp;   $User.Sub_Team_Code__c   &lt;&gt;   Owner:User.Sub_Team_Code__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>My Team</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

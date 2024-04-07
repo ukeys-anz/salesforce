@@ -301,6 +301,7 @@
         <lookupPhoneDialogsAdditionalFields>LEAD.MOBILE_PHONE</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Home_Phone__c</lookupPhoneDialogsAdditionalFields>
         <searchResultsAdditionalFields>FULL_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LEAD.TITLE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>LEAD.LEAD_SOURCE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>OpportunityType__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Lead_Owner_Link__c</searchResultsAdditionalFields>

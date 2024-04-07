@@ -70,4 +70,48 @@ public with sharing class CCRMValidateAddressServiceMock extends Service {
     }
     return response;
   }
+  
+  /**
+   * @param state
+   * @param postcode
+   * @param suburb
+   * @return HttpCalloutResponse
+   * @description validate manual address details 
+   */
+  public override HttpCalloutResponse getValidateAddressV3(
+    String state,
+    Integer postcode,
+    String suburb
+  ) {
+    if (!preset) {
+      StaticResource sr = [
+        SELECT Body
+        FROM StaticResource
+        WHERE Name = 'mock_ccrmValidateAddressResponseV3'
+        WITH SECURITY_ENFORCED
+      ];
+      response.body = sr.Body.toString();
+    }
+    return response;
+  }
+
+   /**
+   * @param postcode
+   * @return HttpCalloutResponse
+   * @description validate manual address details
+   */
+  public override HttpCalloutResponse getPostcodeLookupV3(
+    Integer postcode
+  ) {
+    if (!preset) {
+      StaticResource sr = [
+        SELECT Body
+        FROM StaticResource
+        WHERE Name = 'mock_ccrmValidateAddressResponseV3'
+        WITH SECURITY_ENFORCED
+      ];
+      response.body = sr.Body.toString();
+    }
+    return response;
+  }
 }

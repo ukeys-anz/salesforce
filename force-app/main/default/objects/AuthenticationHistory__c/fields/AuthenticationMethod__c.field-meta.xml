@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AuthenticationMethod__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Authentication Method selected by the Coach for which Access Token is provided.</description>
+    <externalId>false</externalId>
+    <label>Authentication Method</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>IAL4.AAL4.FAL1</fullName>
+                <default>false</default>
+                <label>AAL4 - Selfie ID</label>
+            </value>
+            <value>
+                <fullName>IAL4.AAL3.FAL1</fullName>
+                <default>false</default>
+                <label>AAL3 - Pin or Local Biometric</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

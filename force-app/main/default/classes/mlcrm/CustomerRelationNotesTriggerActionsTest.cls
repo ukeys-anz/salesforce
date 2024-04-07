@@ -7,9 +7,36 @@
 public class CustomerRelationNotesTriggerActionsTest {
   @testSetup
   static void setup() {
-    User adminUser = MLCRMTestDataFactory.createAdminUser();
+    User mlBusinessAdminUser = MLCRMTestDataFactory.createMLBusinessAdminUser();
+    User mlUser = MLCRMTestDataFactory.createMLCRMBaseUser();
+    User iiQUser = MLCRMTestDataFactory.createIIQBaseUser();
+
+    // creating sample territory record
+    System.runAs(mlBusinessAdminUser) {
+      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
+        1,
+        mlBusinessAdminUser,
+        true
+      );
+
+      Territory__Share objShare = new Territory__Share();
+      objShare.parentId = lstOfTerritory[0].Id;
+      objShare.accesslevel = 'Edit';
+      objShare.userOrgroupid = mlUser.Id;
+      insert objShare;
+    }
+
+    //update ml user record so that user trigger creates corresponding user territory record
+    System.runAs(iiQUser) {
+      Test.startTest();
+      mlUser.ML_Territories__c = 'Melbourne CBD (VIC)';
+      mlUser.ML_Role__c = 'Loan Writer';
+      update mlUser;
+      Test.stopTest();
+    }
+
     //Create Test customer relationship notes Records
-    System.runAs(adminUser) {
+    System.runAs(mlUser) {
       MLCRMTestDataFactory.createCustomerRelationNotes();
     }
   }
@@ -19,16 +46,26 @@ public class CustomerRelationNotesTriggerActionsTest {
     user objUser = [
       SELECT Id
       FROM User
-      WHERE LastName = 'Admin' AND IsActive = TRUE
+      WHERE
+        LastName = 'MLCRM'
+        AND FirstName LIKE 'BaseUser%'
+        AND IsActive = TRUE
       LIMIT 1
     ];
     System.runAs(objUser) {
+      List<Territory__c> lstOfTerritory = [SELECT Id FROM Territory__c LIMIT 1];
       List<Customer_Relationship__c> lstOfCustomerRelation = [
-        SELECT Id
+        SELECT Id, Territory__c
         FROM Customer_Relationship__c
-        WHERE Name != NULL
       ];
-      System.assertEquals(lstOfCustomerRelation.size(), 1);
+      // asserting territory gets populated via trigger
+      Assert.isTrue(lstOfCustomerRelation[0].Territory__c != null);
+
+      // asserting same territory gets assigned to customer relation record to which user is part of
+      Assert.areEqual(
+        lstOfTerritory[0].Id,
+        lstOfCustomerRelation[0].Territory__c
+      );
     }
   }
 }

@@ -86,8 +86,7 @@ public with sharing class CommonUtilTest {
     // THEN
     // it should return a valid Id
     System.assert(
-      type != null &&
-      type.Id != null,
+      type != null && type.Id != null,
       'Failed to get CustomNotificationType by DeveloperName.'
     );
   }
@@ -161,9 +160,7 @@ public with sharing class CommonUtilTest {
     Assert.areEqual(
       kycQACaseCount,
       filteredKYCQACases.size(),
-      'Should be ' +
-      kycQACaseCount +
-      ' filtered Cases'
+      'Should be ' + kycQACaseCount + ' filtered Cases'
     );
   }
 
@@ -208,9 +205,7 @@ public with sharing class CommonUtilTest {
     Assert.areEqual(
       accs.size(),
       entitlements.size(),
-      'Should be ' +
-      accs.size() +
-      ' entitlements'
+      'Should be ' + accs.size() + ' entitlements'
     );
   }
 

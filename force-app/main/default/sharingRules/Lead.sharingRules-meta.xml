@@ -58,6 +58,18 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
+        <fullName>CCRM_SBB_NBC_Lead_Read_Write_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>It will provide the Read/Write access on Lead for SBB NBC User.</description>
+        <label>CCRM SBB NBC Lead Read Write Sharing</label>
+        <sharedTo>
+            <roleAndSubordinates>Small_Business_Banking_NBC</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Small_Business_Banking_NBC</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>MLCRM_Sharing_Leads</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Sharing rule to open up access from ML Team to ANZ Support Team with ML Group.</description>

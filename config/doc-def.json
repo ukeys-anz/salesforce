@@ -5,6 +5,7 @@
     "Account",
     "Appointment_Commitment__c",
     "Activity",
+    "AuthenticationHistory__c",
     "Campaign",
     "CampaignMember",
     "Campaign_Document__c",
@@ -383,7 +384,7 @@
         "CCRM_Marketing_Integration_User",
         "Customer_Relationships_Read_Write",
         "Disable_MFA",
-        "Broker_Details_Read_Write",
+        "Broker_Details_Integration",
         "Feature_FA_Feature_Read_Write"
       ],
       "type": "system"
@@ -692,7 +693,12 @@
       "name": "SFDataSync User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "SF_Data_Sync_Integration", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "SF_Data_Sync_Integration",
+        "Disable_MFA",
+        "Mortgage"
+      ],
       "type": "system"
     },
     {

@@ -4,41 +4,6 @@
  * @description implementation class to hit mule api to get external object
  */
 public with sharing class TFMSearchCustomerDataQueryImpl {
-  private static final String COL_HEADER_EXTERNAL_ID = 'ExternalId';
-  private static final String COL_HEADER_DISPLAYURL = 'DisplayUrl';
-  private static final String COL_HEADER_CREDENTIAL = 'credentialsResId';
-  private static final String PIN = 'pin';
-  private static final String DEVICE_REG = 'device-reg';
-  private static final String CID = 'CID-';
-  private static final String DID = 'DID-';
-  //field name for external obj
-  private static final String UUID = 'UUID';
-  private static final String PREFERRED_NAME = 'Preferred Name';
-  private static final String MOBILE_NUMBER = 'Mobile Number';
-  private static final String EMAIL = 'Email';
-  private static final String CREATED_ON = 'Created On';
-  private static final String OCV_ID = 'OCV ID';
-  private static final String IAL = 'IAL (Identity Assurance Level)';
-  private static final String STATUS = 'Status';
-  private static final String PIN_STATUS = 'PIN Status';
-  private static final String PERSONA_ID = 'Persona ID';
-  private static final String PERSONA_TYPE = 'Type';
-  private static final String INTERNALUSERID = 'Internal User ID';
-  private static final String ANZTOKENTYPE = 'staffRqfCustomer';
-  private static final String ACTION = 'SearchCustomer';
-  private static final String LETTERT = 'T';
-  private static final String LETTERZ = 'Z';
-  private static final String CREDNTIAL = 'credential';
-  private static final String PERSONA = 'persona';
-  private static final String ISVALIDACTION = 'isValidAction';
-  private static final String RESULT = 'result';
-  private static final String DATEFORMAT = 'dd/MM/yyyy hh:mm:ss';
-  private static final String LABELTRUE = 'true';
-  @TestVisible
-  private static final String PERSON_IDENTITY_ROWS_JSON = Service.getStaticResource(
-    'mock_PersonDigitalIdentity'
-  );
-
   /**
    * @description method will sync columns for creating external object
    * @return List<DataSource.Table>
@@ -46,25 +11,27 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
   public static List<DataSource.Table> sync() {
     List<DataSource.Table> tables = new List<DataSource.Table>();
     List<DataSource.Column> columns = new List<DataSource.Column>();
-    columns.add(DataSource.Column.text(COL_HEADER_EXTERNAL_ID, 255));
-    columns.add(DataSource.Column.text(UUID, 255));
-    columns.add(DataSource.Column.text(PREFERRED_NAME, 255));
-    columns.add(DataSource.Column.text(MOBILE_NUMBER, 255));
-    columns.add(DataSource.Column.text(EMAIL, 100));
-    columns.add(DataSource.Column.text(CREATED_ON, 100));
-    columns.add(DataSource.Column.text(OCV_ID, 100));
-    columns.add(DataSource.Column.text(IAL, 100));
-    columns.add(DataSource.Column.text(STATUS, 100));
-    columns.add(DataSource.Column.text(PIN_STATUS, 100));
-    columns.add(DataSource.Column.text(PERSONA_ID, 100));
-    columns.add(DataSource.Column.text(INTERNALUSERID, 100));
-    columns.add(DataSource.Column.text(PERSONA_TYPE, 100));
-    columns.add(DataSource.Column.textarea(COL_HEADER_CREDENTIAL));
-    columns.add(DataSource.Column.url(COL_HEADER_DISPLAYURL));
+    columns.add(
+      DataSource.Column.text(TFMConstants.COL_HEADER_EXTERNAL_ID, 255)
+    );
+    columns.add(DataSource.Column.text(TFMConstants.UUID, 255));
+    columns.add(DataSource.Column.text(TFMConstants.PREFERRED_NAME, 255));
+    columns.add(DataSource.Column.text(TFMConstants.MOBILE_NUMBER, 255));
+    columns.add(DataSource.Column.text(TFMConstants.EMAIL, 100));
+    columns.add(DataSource.Column.text(TFMConstants.CREATED_ON, 100));
+    columns.add(DataSource.Column.text(TFMConstants.OCV_ID, 100));
+    columns.add(DataSource.Column.text(TFMConstants.IAL, 100));
+    columns.add(DataSource.Column.text(TFMConstants.STATUS, 100));
+    columns.add(DataSource.Column.text(TFMConstants.PIN_STATUS, 100));
+    columns.add(DataSource.Column.text(TFMConstants.PERSONA_ID, 100));
+    columns.add(DataSource.Column.text(TFMConstants.INTERNALUSERID, 100));
+    columns.add(DataSource.Column.text(TFMConstants.PERSONA_TYPE, 100));
+    columns.add(DataSource.Column.textarea(TFMConstants.COL_HEADER_CREDENTIAL));
+    columns.add(DataSource.Column.url(TFMConstants.COL_HEADER_DISPLAYURL));
     tables.add(
       DataSource.Table.get(
         'PersonDigitalIdentity',
-        COL_HEADER_EXTERNAL_ID,
+        TFMConstants.COL_HEADER_EXTERNAL_ID,
         columns
       )
     );
@@ -83,26 +50,13 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
   ) {
     List<Map<String, Object>> lstReturnDataset = new List<Map<String, Object>>();
     TFMPersonDigitalIdentityModel model;
-    Map<String, Object> jsonResp = new Map<String, Object>();
-    Map<String, String> headers = new Map<String, String>();
     StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
-    staffModel.headers = headers;
     staffModel.idType = refId;
     staffModel.idValue = searchText;
-    staffModel.anzTokenType = ANZTOKENTYPE;
-    staffModel.action = ACTION;
+    staffModel.anzTokenType = TFMConstants.ANZTOKENTYPE;
     TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
-    headers = api.getValidStaffToken(staffModel);
-    if (headers != null && headers.get(ISVALIDACTION) == LABELTRUE) {
-      //removing valid action from header
-      headers.remove(ISVALIDACTION);
-      if (Test.isRunningTest()) {
-        model = TFMPersonDigitalIdentityModel.parse(PERSON_IDENTITY_ROWS_JSON);
-      } else {
-        model = api.searchCustAPI(staffModel);
-      }
-      lstReturnDataset = setRowsOfObject(model);
-    }
+    model = api.searchCustAPI(staffModel);
+    lstReturnDataset = setRowsOfObject(model);
     return lstReturnDataset;
   }
 
@@ -129,9 +83,10 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
    */
   public static String dateFormat(String createdDate) {
     String toConvert = createdDate;
-    toConvert = toConvert.replace(LETTERT, ' ').replace(LETTERZ, '');
+    toConvert = toConvert.replace(TFMConstants.LETTERT, ' ')
+      .replace(TFMConstants.LETTERZ, '');
     DateTime dt = DateTime.valueOf(toConvert);
-    String dateStr = dt.format(DATEFORMAT);
+    String dateStr = dt.format(TFMConstants.DATEFORMAT);
     return dateStr;
   }
 
@@ -143,56 +98,103 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
   public static List<Map<String, Object>> setRowsOfObject(
     TFMPersonDigitalIdentityModel result
   ) {
+    String resouceIds;
     List<Map<String, Object>> lstReturnDataset = new List<Map<String, Object>>();
     List<TFMPersonDigitalIdentityModel.Result> lstResult = (List<TFMPersonDigitalIdentityModel.Result>) result.result;
     for (TFMPersonDigitalIdentityModel.Result res : lstResult) {
       Map<String, Object> curRow = new Map<String, Object>();
-      curRow.put(UUID, res.id);
-      curRow.put(PREFERRED_NAME, res.preferredName);
-      curRow.put(MOBILE_NUMBER, res.securityMobile);
-      curRow.put(EMAIL, res.securityEmail);
-      curRow.put(CREATED_ON, dateFormat(String.valueOf(res.createDateTime)));
-      curRow.put(OCV_ID, res.ocvId);
-      curRow.put(IAL, res.identityAssuranceLevel);
-      curRow.put(STATUS, nameFormat(String.valueOf(res.status)));
-      curRow.put(INTERNALUSERID, res.idxInternalUserId);
+      curRow.put(TFMConstants.UUID, res.id);
+      curRow.put(TFMConstants.PREFERRED_NAME, res.preferredName);
+      curRow.put(TFMConstants.MOBILE_NUMBER, res.securityMobile);
+      curRow.put(TFMConstants.EMAIL, res.securityEmail);
+      curRow.put(
+        TFMConstants.CREATED_ON,
+        dateFormat(String.valueOf(res.createDateTime))
+      );
+      curRow.put(TFMConstants.OCV_ID, res.ocvId);
+      curRow.put(TFMConstants.IAL, res.identityAssuranceLevel);
+      curRow.put(TFMConstants.STATUS, nameFormat(String.valueOf(res.status)));
+      curRow.put(TFMConstants.INTERNALUSERID, res.idxInternalUserId);
 
       List<TFMPersonDigitalIdentityModel.Persona> persona = (List<TFMPersonDigitalIdentityModel.Persona>) res.persona;
-
-      for (TFMPersonDigitalIdentityModel.Persona person : persona) {
-        curRow.put(PERSONA_TYPE, nameFormat(String.valueOf(person.type)));
-        curRow.put(PERSONA_ID, person.refResourceId);
-      }
-
       List<TFMPersonDigitalIdentityModel.Credential> credential = (List<TFMPersonDigitalIdentityModel.Credential>) res.credential;
-      String resouceIds;
-      List<String> resourceIdList = new List<String>();
-      for (TFMPersonDigitalIdentityModel.Credential cred : credential) {
-        if (cred.type == PIN) {
-          curRow.put(PIN_STATUS, nameFormat(String.valueOf(cred.status)));
-        }
-        if (
-          cred.type == DEVICE_REG &&
-          String.valueOf(cred.appCorrelationId) != null
-        ) {
-          resourceIdList.add(
-            CID +
-              String.valueOf(cred.appCorrelationId) +
-              '(' +
-              String.valueOf(cred.refResourceId) +
-              ')'
-          );
-        } else if (cred.type == DEVICE_REG) {
-          resourceIdList.add(DID + String.valueOf(cred.refResourceId));
-        }
-      }
-
-      resouceIds = string.join(resourceIdList, ',');
-      curRow.put(COL_HEADER_CREDENTIAL, resouceIds);
-      curRow.put(COL_HEADER_EXTERNAL_ID, res.id);
-      curRow.put(COL_HEADER_DISPLAYURL, URL.getOrgDomainURL() + '/' + res.id);
+      curRow.putAll(addPersonaId(persona));
+      curRow.putAll(addPinStatus(credential));
+      resouceIds = getResourceIds(credential);
+      curRow.put(TFMConstants.COL_HEADER_CREDENTIAL, resouceIds);
+      curRow.put(TFMConstants.COL_HEADER_EXTERNAL_ID, res.id);
+      curRow.put(
+        TFMConstants.COL_HEADER_DISPLAYURL,
+        URL.getOrgDomainURL() + '/' + res.id
+      );
       lstReturnDataset.add(curRow);
     }
     return lstReturnDataset;
+  }
+
+  /**
+   * @description method is setting the persona data in rows
+   * @param  persona List<TFMPersonDigitalIdentityModel.Persona Persona List
+   * @return  Map<String, Object>
+   */
+  private static Map<String, Object> addPersonaId(
+    List<TFMPersonDigitalIdentityModel.Persona> persona
+  ) {
+    Map<String, Object> curRow = new Map<String, Object>();
+    for (TFMPersonDigitalIdentityModel.Persona person : persona) {
+      curRow.put(
+        TFMConstants.PERSONA_TYPE,
+        nameFormat(String.valueOf(person.type))
+      );
+      curRow.put(TFMConstants.PERSONA_ID, person.refResourceId);
+    }
+    return curRow;
+  }
+  /**
+   * @description method is setting pin status data in row
+   * @param  credential List<TFMPersonDigitalIdentityModel.Credential>
+   * @return  Map<String, Object>
+   */
+  private static Map<String, Object> addPinStatus(
+    List<TFMPersonDigitalIdentityModel.Credential> credential
+  ) {
+    Map<String, Object> curRow = new Map<String, Object>();
+    for (TFMPersonDigitalIdentityModel.Credential cred : credential) {
+      if (cred.type == TFMConstants.PIN) {
+        curRow.put(
+          TFMConstants.PIN_STATUS,
+          nameFormat(String.valueOf(cred.status))
+        );
+      }
+    }
+    return curRow;
+  }
+  /**
+   * @description method is getting ResourceIds from result json
+   * @param  credential List<TFMPersonDigitalIdentityModel.Credential>
+   * @return List<Map<String, Object>>
+   */
+  private static String getResourceIds(
+    List<TFMPersonDigitalIdentityModel.Credential> credential
+  ) {
+    List<String> resourceIdList = new List<String>();
+    for (TFMPersonDigitalIdentityModel.Credential cred : credential) {
+      if (cred.type != TFMConstants.DEVICE_REG) {
+        continue;
+      } else if (String.valueOf(cred.appCorrelationId) != null) {
+        resourceIdList.add(
+          TFMConstants.CID +
+            String.valueOf(cred.appCorrelationId) +
+            '(' +
+            String.valueOf(cred.refResourceId) +
+            ')'
+        );
+      } else {
+        resourceIdList.add(
+          TFMConstants.DID + String.valueOf(cred.refResourceId)
+        );
+      }
+    }
+    return String.join(resourceIdList, ',');
   }
 }

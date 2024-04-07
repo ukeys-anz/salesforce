@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>common:customer.detail:read</label>
+    <protected>false</protected>
+    <values>
+        <field>Closed_Accounts_Disclaimer__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Data_Cluster_Details__c</field>
+        <value xsi:type="xsd:string">Name, Occupation, Phone, Email address, Mail address, Residential address</value>
+    </values>
+    <values>
+        <field>Data_Cluster_Title__c</field>
+        <value xsi:type="xsd:string">Name, occupation, contact details</value>
+    </values>
+    <values>
+        <field>Open_Accounts_Disclaimer__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Open_and_Closed_Accounts_Disclaimer__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Scope_ID__c</field>
+        <value xsi:type="xsd:string">common:customer.detail:read</value>
+    </values>
+</CustomMetadata>

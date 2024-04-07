@@ -4,7 +4,7 @@
     <applicationVisibilities>
         <application>BDM_Workbench</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__Insights</application>
@@ -8069,6 +8069,10 @@
     <layoutAssignments>
         <layout>Case-NPP Dispute Layout</layout>
         <recordType>Case.NPP_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Profile Update Layout</layout>
+        <recordType>Case.Profile_Update</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Recipient%2FMule Layout</layout>

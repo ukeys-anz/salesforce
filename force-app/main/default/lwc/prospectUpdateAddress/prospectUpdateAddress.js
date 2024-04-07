@@ -3,7 +3,8 @@ import { getRecord } from "lightning/uiRecordApi";
 import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
-import { handleWireError } from "c/utils";
+import { handleWireError, handleErrorShowToast } from "c/utils";
+import validateManualAddress from "@salesforce/apex/MLCRMAPIRepository.validateManualAddressesV3LWC";
 
 const FIELDS = [
   "ContactPointAddress.Street",
@@ -23,6 +24,36 @@ export default class ProspectUpdateAddress extends LightningElement {
   recordTypeId;
   recordTypeName;
   @track currentAddress = {};
+  hasValidAddress = true;
+  mnaualSelectedAddress = {};
+  strAddressType;
+  strIsDefault;
+  lookUpAddressResult;
+  fields;
+  CONSTANT = {
+    VALID_COUNTRY: "AUS"
+  };
+  isManualAddress = false;
+  columns = [
+    {
+      label: "Subrub",
+      fieldName: "suburb",
+      type: "text"
+    },
+    {
+      label: "State",
+      fieldName: "state",
+      type: "text"
+    },
+    {
+      label: "PostCode",
+      fieldName: "postCode",
+      type: "text"
+    }
+  ];
+  record = {};
+  address = {};
+  disabled = false;
 
   @api get recordId() {
     return null;
@@ -90,7 +121,9 @@ export default class ProspectUpdateAddress extends LightningElement {
   }
 
   get title() {
-    return `${this.addressId ? "Edit" : "Add"} Address`;
+    return this.hasValidAddress
+      ? `${this.addressId ? "Edit" : "Add"} Address`
+      : "Pick Suburb / State / Postcode";
   }
 
   handleError() {
@@ -109,30 +142,120 @@ export default class ProspectUpdateAddress extends LightningElement {
   }
   handleSubmit(e) {
     e.preventDefault();
-    const addressCmp = this.template.querySelector("c-address-lookup-util");
-    if (!addressCmp.reportValidity()) {
+    this.address =
+      this.template.querySelector("c-address-lookup-util") !== null
+        ? this.template.querySelector("c-address-lookup-util")
+        : this.address;
+    if (this.address && !this.address.reportValidity()) {
       return;
     }
-    const address = addressCmp.value;
-    const record = e.detail.fields;
-    if (this.addressId == null && this.accountId) {
-      record.ParentId = record.Customer_Name__c = this.accountId;
-      record.RecordTypeId = this.recordTypeId;
-    }
-    record.Name = record.AddressType;
-    record.Street = address.street;
-    record.City = address.city;
-    record.State = address.state;
-    record.Country = address.country;
-    record.PostalCode = address.postalCode;
-    record.Delivery_Identifier__c = address.dpid;
-
+    const address = this.address?.value;
+    this.record =
+      Object.keys(this.record).length === 0 ? e.detail.fields : this.record;
     this.loading = true;
-    this.template.querySelector("lightning-record-edit-form").submit(record);
+    this.strAddressType = this.record.AddressType;
+    this.strIsDefault = this.record.IsDefault;
+    if (this.addressId == null && this.accountId) {
+      this.record.ParentId = this.record.Customer_Name__c = this.accountId;
+      this.record.RecordTypeId = this.recordTypeId;
+    }
+    this.record.Name = this.record.AddressType;
+    if (
+      this.isManualAddress === true &&
+      this.hasValidAddress === true &&
+      address.country === this.CONSTANT.VALID_COUNTRY
+    ) {
+      this.validateAddress(this.record);
+    } else if (
+      this.isManualAddress === true &&
+      this.hasValidAddress === false &&
+      address.country === this.CONSTANT.VALID_COUNTRY
+    ) {
+      let selectedData = this.template
+        .querySelector("lightning-datatable")
+        .getSelectedRows()[0];
+      this.record.Street = address.street;
+      this.record.City = selectedData.suburb;
+      this.record.State = selectedData.state;
+      this.record.latitude = undefined;
+      this.record.longitute = undefined;
+      this.record.Country = address.country;
+      this.record.PostalCode = selectedData.postCode.toString();
+      this.record.Delivery_Identifier__c = address.dpid;
+      this.template
+        .querySelector("lightning-record-edit-form")
+        .submit(this.record);
+    } else {
+      this.record.Street = address.street;
+      this.record.City = address.city;
+      this.record.State = address.state;
+      this.record.Country = address.country;
+      this.record.PostalCode = address.postalCode;
+      this.record.Delivery_Identifier__c = address.dpid;
+      this.template
+        .querySelector("lightning-record-edit-form")
+        .submit(this.record);
+    }
   }
 
   closeQuickAction() {
     this.dispatchEvent(new CustomEvent("close"));
     this.dispatchEvent(new CloseActionScreenEvent());
+  }
+
+  validateAddress(fields) {
+    const addressCmp = this.template.querySelector("c-address-lookup-util");
+    const address = addressCmp.value;
+    validateManualAddress({
+      state: address.state,
+      postcode: address.postalCode,
+      suburb: address.city
+    })
+      .then((objresult) => {
+        if (objresult.hasValidAddress) {
+          this.hasValidAddress = true;
+          fields.Street = address.street;
+          fields.City = address.city;
+          fields.State = address.state;
+          fields.latitude = undefined;
+          fields.longitute = undefined;
+          fields.Country = address.country;
+          fields.PostalCode = address.postalCode.toString();
+          this.template
+            .querySelector("lightning-record-edit-form")
+            .submit(fields);
+        } else {
+          this.disabled = true;
+          this.hasValidAddress = false;
+          this.lookUpAddressResult = objresult.result;
+          this.loading = false;
+        }
+      })
+      .catch((error) => {
+        this.loading = false;
+        handleErrorShowToast(
+          this,
+          "Error while validating the address. Please contact your administrator",
+          error,
+          error.body.message,
+          "pester"
+        );
+      });
+  }
+
+  handleCancelSelection() {
+    this.hasValidAddress = true;
+    this.disabled = false;
+  }
+
+  handleaddresselection(event) {
+    this.isManualAddress = !event.detail;
+  }
+
+  validatButton() {
+    this.disabled = false;
+  }
+  handleAddressChange(event) {
+    this.mnaualSelectedAddress = event.detail;
   }
 }

@@ -6,26 +6,6 @@
  */
 public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase {
   /**
-   * @param staffModel wrapper class having all the variables
-   * @return headers
-   * @description to get StaffJWT token
-   */
-  public Map<String, String> getValidStaffToken(
-    StaffTokenRequestModel staffModel
-  ) {
-    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
-    try {
-      Map<String, String> headers = s.getValidStaffToken(staffModel);
-      if (headers != null || !headers.isEmpty()) {
-        return headers;
-      }
-      return headers;
-    } catch (Exception e) {
-      return null;
-    }
-  }
-
-  /**
    * @param staffModel wrapper class having all the required inputs
    * @return TFMPersonDigitalIdentityModel model
    * @description fetches customer details
@@ -34,7 +14,9 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
     StaffTokenRequestModel staffModel
   ) {
     TFMPersonDigitalIdentityModel model;
-    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
     HttpCalloutResponse response = s.searchCustAPI(staffModel);
     if (!response.successful) {
       handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
@@ -55,7 +37,9 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
     String userInternalId,
     String deviceResourceId
   ) {
-    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
     HttpCalloutResponse response = s.getDeviceDetailsWithoutBiometric(
       staffModel,
       userInternalId,
@@ -79,7 +63,9 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
     String userInternalId,
     String appCorrelationId
   ) {
-    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
     HttpCalloutResponse response = s.getDeviceDetailsWithBiometric(
       staffModel,
       userInternalId,
@@ -93,35 +79,33 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
   }
 
   /**
-   * @param headers headers to call api
+   * @param staffModel model to call staffJWT api
    * @param accountId  accountId value of the joint account
    * @param emailEnabled joint account status
    * @return HttpCalloutResponse response
    * @description get and modify the joint account notifications
    */
   public HttpCalloutResponse getORModifyJointAccountNotificationAPI(
-    map<string, string> headers,
+    StaffTokenRequestModel staffModel,
     string accountId,
     boolean emailEnabled
   ) {
-    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
     HttpCalloutResponse response = s.getORModifyJointAccountNotificationAPI(
-      headers,
+      staffModel,
       accountId,
       emailEnabled
     );
-    if (!response.successful) {
-      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
-      return null;
-    }
-    return response;
+    return checkResponse(response);
   }
 
   /**
    * @param bsb bsb value of the joint account
    * @param accountNumber joint account number
    * @param enabled disclosure status
-   * @param headers headers to call api
+   * @param staffModel model to call staffJWT api
    * @return HttpCalloutResponse response
    * @description gets the Customer's device details with biometrics
    */
@@ -129,36 +113,126 @@ public with sharing class TFMSearchCustomerAPIRepository extends RepositoryBase 
     String bsb,
     String accountNumber,
     Boolean enabled,
-    Map<String, String> headers
+    StaffTokenRequestModel staffModel
   ) {
-    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
     HttpCalloutResponse response = s.updatedisclosureStatus(
       bsb,
       accountNumber,
       enabled,
-      headers
+      staffModel
     );
-    if (!response.successful) {
-      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
-      return null;
-    }
-    return response;
+    return checkResponse(response);
   }
 
   /**
-   * @param headers headers to call api
+   * @param staffModel model to call staffJWT api
    * @return HttpCalloutResponse response
    * @description gets gets Joint Accounts List
    */
   public HttpCalloutResponse getJointAccountPermissions(
-    Map<String, String> headers
+    StaffTokenRequestModel staffModel
   ) {
-    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
-    HttpCalloutResponse response = s.getJointAccountPermissions(headers);
-    if (!response.successful) {
-      handleErrors(response, null, TFMSearchCustomerAPIRepository.class);
-      return null;
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
+    HttpCalloutResponse response = s.getJointAccountPermissions(staffModel);
+    return checkResponse(response);
+  }
+
+  /**
+   * @param staffModel model to call staffJWT api
+   * @return HttpCalloutResponse response
+   * @description get consent  List
+   */
+  public HttpCalloutResponse getConsentsList(
+    StaffTokenRequestModel staffModel
+  ) {
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
+    HttpCalloutResponse response = s.getConsentsList(staffModel);
+    return checkResponse(response);
+  }
+
+  /**
+   * @param staffModel model to call staffJWT api
+   * @param consentAccounts  consentId value of the joint account
+   * @return HttpCalloutResponse response
+   * @description get and modify the joint account notifications
+   */
+  public HttpCalloutResponse getConsentAccountList(
+    StaffTokenRequestModel staffModel,
+    string consentAccounts
+  ) {
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
+    HttpCalloutResponse response = s.getConsentAccountList(
+      staffModel,
+      consentAccounts
+    );
+    return checkResponse(response);
+  }
+
+  /**
+   * @param consentId consentId pass as api param
+   * @param fromTimestamp fromTimestamp pass as api param
+   * @param toTimestamp toTimestamp pass as api param
+   * @param staffModel model to call staffJWT api
+   * @return HttpCalloutResponse response
+   * @description gets Consent Data Sharing History
+   */
+  public HttpCalloutResponse getConsentDataSharingHistory(
+    String consentId,
+    String fromTimestamp,
+    String toTimestamp,
+    StaffTokenRequestModel staffModel
+  ) {
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
+    HttpCalloutResponse response = s.getConsentDataSharingHistory(
+      consentId,
+      fromTimestamp,
+      toTimestamp,
+      staffModel
+    );
+    return checkResponse(response);
+  }
+
+  /**
+   * @param arrangementId arrangementId of the record
+   * @param staffModel model to call staffJWT api
+   * @return HttpCalloutResponse response
+   * @description it will hit the api to stop consent
+   */
+  public HttpCalloutResponse revokeConsent(
+    String arrangementId,
+    StaffTokenRequestModel staffModel
+  ) {
+    TFMSearchCustomerService s = (TFMSearchCustomerService) ServiceProvider.getService(
+      TFMSearchCustomerService.class
+    );
+    HttpCalloutResponse response = s.revokeConsent(arrangementId, staffModel);
+    return checkResponse(response);
+  }
+  /**
+   * @param response HttpCalloutResponse
+   * @return HttpCalloutResponse response
+   * @description it will hit the api to stop consent
+   */
+  public HttpCalloutResponse checkResponse(HttpCalloutResponse response) {
+    if (
+      response.successful ||
+      response.statusCode == 401 ||
+      response.statusCode == 403
+    ) {
+      return response;
+    } else {
+      throw response.error;
     }
-    return response;
   }
 }

@@ -9,12 +9,14 @@ public with sharing class GetHelpCaseActionsHelperTest {
   private static final Faker FAKER = new Faker('AU');
   private static final List<String> COB_CLOSED_STATUSES = new List<String>{
     GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS
+    GetHelpConstants.COB_FAILED_OK_STATUS,
+    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
   };
 
   private static final Integer COB_CASES_COUNT = COB_CLOSED_STATUSES.size();
 
   private static final String FAILED_REASON = 'Selfie fail - selfie image is not clear enough to match';
+  private static final String CONFIRMED_FRAUD_REASON = 'Confirmed Fraud';
 
   private static final String EMPTY_FAILED_REASON = '';
 
@@ -73,7 +75,7 @@ public with sharing class GetHelpCaseActionsHelperTest {
       oldRecord
     );
 
-    Assert.isTrue(isStatusChanged);
+    Assert.isTrue(isStatusChanged, 'Status should have changed.');
   }
 
   @isTest
@@ -133,7 +135,9 @@ public with sharing class GetHelpCaseActionsHelperTest {
       fraudCheckCase.OnboardingVerificationFailedReason__c = fraudCheckCase.Status ==
         GetHelpConstants.COB_FAILED_OK_STATUS
         ? FAILED_REASON
-        : EMPTY_FAILED_REASON;
+        : fraudCheckCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+            ? CONFIRMED_FRAUD_REASON
+            : EMPTY_FAILED_REASON;
 
       parentIdAndChildCasedMap.put(idOpsCase.Id, fraudCheckCase);
     }
@@ -153,7 +157,17 @@ public with sharing class GetHelpCaseActionsHelperTest {
         Assert.areEqual(
           FAILED_REASON,
           updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
-          'Failed reasons should be ' + FAILED_REASON
+          'Failed reason should be ' + FAILED_REASON
+        );
+      }
+
+      if (
+        COB_CLOSED_STATUSES[i] == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+      ) {
+        Assert.areEqual(
+          CONFIRMED_FRAUD_REASON,
+          updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
+          'Failed reason should be ' + CONFIRMED_FRAUD_REASON
         );
       }
     }

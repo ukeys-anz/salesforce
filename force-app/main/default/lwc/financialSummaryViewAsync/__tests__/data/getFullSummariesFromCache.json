@@ -3,5 +3,6 @@
   "totalBalance": -654477.33,
   "totalMerchantTerminals": 0,
   "totalAssetFinanceBalance": 892.01,
-  "lastSummaryUpdatedDate": "14:39:24 2023-09-24"
+  "lastSummaryUpdatedDate": "14:39:24 2023-09-24",
+  "cacheAck": "Data found in cache"
 }

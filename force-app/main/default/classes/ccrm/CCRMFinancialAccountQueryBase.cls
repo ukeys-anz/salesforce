@@ -59,6 +59,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   private String clgCustomerId;
   protected Map<String, FinServ__FinancialAccountRole__c> accountRoleMap;
   protected FinancialAccountCalloutResponse calloutResponse;
+  protected Boolean useProductCodeFromFinancialAccount = false;
 
   /**
    * @description Constractor
@@ -77,8 +78,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   public virtual override CCRMExternalObjectQueryBase.ExternalQueryResult execute(
     DataSource.QueryContext queryContext
   ) {
-    this.queryContext = queryContext;
-    this.tableSelection = queryContext.TableSelection;
+    super.execute(queryContext);
 
     prepareCallout();
     HttpCalloutResponse response = makeCallout();
@@ -189,9 +189,11 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   /**
    * @description get account account key
    * @param accountNumber Account Number
+   * @param productCode Product Code
    * @return String Account_key__c
    */
-  protected String getAccountKey(String accountNumber) {
+  @testVisible
+  protected String getAccountKey(String accountNumber, String productCode) {
     String result = '';
     if (
       accountRoleMap.containsKey(accountNumber) &&
@@ -200,7 +202,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
       result = accountRoleMap.get(accountNumber)
         .FinServ__FinancialAccount__r.Account_Key__c;
     }
-    return result;
+    return result + '|' + productCode + '-' + accountNumber;
   }
 
   /**
@@ -516,8 +518,16 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     if (String.isBlank(accountNumber)) {
       return '';
     }
-
-    if (accountNumber.length() == 9) {
+    if (accountNumber.length() == 8) {
+      accountNumber = '0' + accountNumber;
+      return String.format(
+        '{0}-{1}',
+        new List<String>{
+          accountNumber.subString(0, 4),
+          accountNumber.subString(4, 9)
+        }
+      );
+    } else if (accountNumber.length() == 9) {
       return String.format(
         '{0}-{1}',
         new List<String>{
@@ -553,12 +563,36 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
    * @param  finAccount Financial account record
    * @return String External Id
    */
+  @testVisible
   protected String getExternalId(CCRMFinancialAccountModelBase finAccount) {
-    return getAccountKey(finAccount.accountNumber) +
-      '|' +
-      finAccount.productCode +
-      '-' +
-      finAccount.accountNumber;
+    String productCode = getProductCode(finAccount);
+    return getAccountKey(finAccount.accountNumber, productCode);
+  }
+
+  /**
+   * @description get product code
+   * @param  finAccount Financial account record
+   * @return String External Id
+   */
+  @testVisible
+  private String getProductCode(CCRMFinancialAccountModelBase finAccount) {
+    List<String> values = new List<String>();
+
+    if (!useProductCodeFromFinancialAccount) {
+      return finAccount.productCode;
+    }
+
+    if (
+      accountRoleMap.containsKey(finAccount.accountNumber) &&
+      String.isNotEmpty(
+        accountRoleMap.get(finAccount.accountNumber)
+          .FinServ__FinancialAccount__r.Product_Type__c
+      )
+    ) {
+      values = accountRoleMap.get(finAccount.accountNumber)
+        .FinServ__FinancialAccount__r.Product_Type__c.split(':');
+    }
+    return values.size() > 1 ? values[1] : '';
   }
 
   /**

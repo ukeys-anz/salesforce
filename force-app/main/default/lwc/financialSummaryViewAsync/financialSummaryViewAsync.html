@@ -2,7 +2,7 @@
   <div
     class="slds-is-relative slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-top_x-small slds-p-bottom_x-small slds-p-left_x-small slds-p-right_x-small"
   >
-    <template if:true={showSpinner}>
+    <template lwc:if={showSpinner}>
       <lightning-spinner
         alternative-text="Loading"
         size="x-small"
@@ -26,7 +26,7 @@
           icon-name="utility:refresh"
           slot="actions"
           alternative-text="Settings"
-          onclick={handleGetUpdatedResult}
+          onclick={handleRefresh}
           disabled={isDisableRefresh}
         ></lightning-button-icon>
       </div>
@@ -47,13 +47,19 @@
           padding="around-small"
         ></lightning-layout-item>
         <lightning-layout-item size="3" padding="around-small">
-          <template if:true={showtotalBalCalculationProgress}>
+          <template lwc:if={showTotalBalCalculationProgress}>
             <lightning-formatted-text
-              class="calculationText"
+              class="slds-italic"
               value="Calculation is in progress"
             ></lightning-formatted-text>
           </template>
-          <template if:false={showtotalBalCalculationProgress}>
+          <template lwc:if={showNoTotalBalance}>
+            <lightning-formatted-text
+              class="slds-italic"
+              value="No available balance"
+            ></lightning-formatted-text>
+          </template>
+          <template lwc:if={showTotalBalValue}>
             <lightning-formatted-number
               class="slds-text-heading_x-small slds-text-title_bold"
               value={totalCustBalance}
@@ -63,13 +69,19 @@
           </template>
         </lightning-layout-item>
         <lightning-layout-item size="3" padding="around-small">
-          <template if:true={showTerminalCalculationProgress}>
+          <template lwc:if={showTerminalCalculationProgress}>
             <lightning-formatted-text
-              class="calculationText"
+              class="slds-italic"
               value="Calculation is in progress"
             ></lightning-formatted-text>
           </template>
-          <template if:false={showTerminalCalculationProgress}>
+          <template lwc:if={showNoTerminal}>
+            <lightning-formatted-text
+              class="slds-italic"
+              value="No available balance"
+            ></lightning-formatted-text>
+          </template>
+          <template lwc:if={showTerminalValue}>
             <lightning-formatted-number
               class="slds-text-heading_x-small slds-text-title_bold"
               value={totalTerminal}
@@ -77,13 +89,19 @@
           </template>
         </lightning-layout-item>
         <lightning-layout-item size="3" padding="around-small">
-          <template if:true={showAssetCalculationProgress}>
+          <template lwc:if={showAssetCalculationProgress}>
             <lightning-formatted-text
-              class="calculationText"
+              class="slds-italic"
               value="Calculation is in progress"
             ></lightning-formatted-text>
           </template>
-          <template if:false={showAssetCalculationProgress}>
+          <template lwc:if={showNoAssetBalance}>
+            <lightning-formatted-text
+              class="slds-italic"
+              value="No available balance"
+            ></lightning-formatted-text>
+          </template>
+          <template lwc:if={showAssetValue}>
             <lightning-formatted-number
               class="slds-text-heading_x-small slds-text-title_bold"
               value={totalAssetBalance}

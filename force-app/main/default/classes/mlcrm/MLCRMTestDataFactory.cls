@@ -16,6 +16,10 @@ public with sharing class MLCRMTestDataFactory {
     )
     .Id;
   public static Id integrationProfileId = CommonUtil.getProfileByName(
+      'Integration User'
+    )
+    .Id;
+  public static Id batchUserProfileId = CommonUtil.getProfileByName(
       'Minimum Access - Salesforce'
     )
     .Id;
@@ -35,13 +39,15 @@ public with sharing class MLCRMTestDataFactory {
       MLCRMConstants.ARC_USER_ROLE
     )
     ?.Id;
+  private static Id anzRoleId = CommonUtil.getUserRoleByDevName('ANZ')?.Id;
+
   private static User adminUser;
   private static User mlcrmBaseUser;
   private static User mlcrmIntegrationUser;
   private static User minimumAccessBaseUser;
   private static User mlBusinessAdminUser;
   private static User ccrmBatchUser;
-  public static UserRole bankerRole = CommonUtil.getUserRoleByDevName('Banker');
+
   /**
    * @description Create a MLCRM Base User
    * @name createCCRMBaseUser
@@ -123,7 +129,7 @@ public with sharing class MLCRMTestDataFactory {
     adminUser = (User) FakerFactory.make(new FakerUserFactory());
     adminUser.FirstName = 'TestUser' + staticNumber;
     adminUser.LastName = 'Admin';
-    adminUser.UserRoleId = bankerRole.Id;
+    adminUser.UserRoleId = anzRoleId;
     adminUser.ProfileId = adminProfileId;
     adminUser.IsActive = true;
     adminUser.Lan_Id__c = 'testMLAdminUL' + (Math.random() * 10);
@@ -178,14 +184,16 @@ public with sharing class MLCRMTestDataFactory {
   /**
    * @description Create a MLCRM Integration User
    * @name createMLCRMIntegrationUser
+   * @param username username of the user
    * @return ANZ ML Standard User with MLCRM Integration User Permission Set.
    */
-  public static User createMLCRMIntegrationUser() {
+  public static User createMLCRMIntegrationUser(string username) {
     String staticNumber = Datetime.now().format('MMddHHmmss');
     mlcrmIntegrationUser = (User) FakerFactory.make(new FakerUserFactory());
     mlcrmIntegrationUser.FirstName = 'IntegrationUser' + staticNumber;
-    mlcrmIntegrationUser.LastName = 'MLCRM';
-    mlcrmIntegrationUser.UserRoleId = bankerRole.Id;
+    mlcrmIntegrationUser.LastName = 'MLCRM Integration';
+    mlcrmIntegrationUser.Username = username;
+    mlcrmIntegrationUser.UserRoleId = anzRoleId;
     mlcrmIntegrationUser.ProfileId = integrationProfileId;
     insert mlcrmIntegrationUser;
     addMLCRMUserPS(mlcrmIntegrationUser.id, 'MLCRM_Marketing_Integration_User');
@@ -197,18 +205,19 @@ public with sharing class MLCRMTestDataFactory {
   /**
    * @description Get a CCRM Integration User, if such user not exists yet then create one
    * @name getMLCRMIntegrationUser
+   * @param username username of the user
    * @return ANZ ML Standard User with MLCRM Integration User Permission Set.
    */
-  public static User getMLCRMIntegrationUser() {
+  public static User getMLCRMIntegrationUser(String username) {
     if (mlcrmIntegrationUser == null) {
       List<User> users = [
         SELECT Id
         FROM User
-        WHERE ProfileId = :integrationProfileId AND LastName = 'MLCRM'
+        WHERE ProfileId = :integrationProfileId AND username LIKE :username
         LIMIT 1
       ];
       if (users.isEmpty()) {
-        mlcrmIntegrationUser = createMLCRMIntegrationUser();
+        mlcrmIntegrationUser = createMLCRMIntegrationUser(username);
       } else {
         mlcrmIntegrationUser = users[0];
       }
@@ -564,7 +573,7 @@ public with sharing class MLCRMTestDataFactory {
   /**
    * @description Create a CCRM Batch User
    * @name createCRMBatchUser
-   * @return CCRM Batch User 
+   * @return CCRM Batch User
    */
   public static User createCRMBatchUser() {
     String staticNumber = Datetime.now().format('MMddHHmmss');
@@ -572,12 +581,126 @@ public with sharing class MLCRMTestDataFactory {
     ccrmBatchUser.FirstName = 'CRM' + staticNumber;
     ccrmBatchUser.LastName = 'Batch User';
     ccrmBatchUser.UserRoleId = arcRoleId;
-    ccrmBatchUser.ProfileId = integrationProfileId;
+    ccrmBatchUser.ProfileId = batchUserProfileId;
     insert ccrmBatchUser;
     addMLCRMUserPS(ccrmBatchUser.id, 'API_Only');
     addMLCRMUserPS(ccrmBatchUser.id, 'Validation_Bypass');
     addMLCRMUserPS(ccrmBatchUser.id, 'CCRM_User_Base');
     addMLCRMUserPS(ccrmBatchUser.id, 'MLCRM_Base_Read_Only');
     return ccrmBatchUser;
+  }
+
+  /**
+   * @description Create ContactPointPhone Records for MLCRM Testing
+   * @name createContactPointPhoneRecords
+   * @param count Count of ContactPointPhone records needed to be created
+   * @param telephoneNumber  Telephone Number of the contact Point phone
+   * @param  parentId parent id
+   * @param usageType  Usage Type (Home/Mobile/Work)
+   * @return `List<ContactPointPhone>`
+   */
+  public static List<ContactPointPhone> getContactPointPhoneRecords(
+    Integer count,
+    String telephoneNumber,
+    String parentId,
+    String usageType
+  ) {
+    //Default Count to 1 if null
+    count = count == null || count == 0 ? 1 : count;
+    List<ContactPointPhone> contactPointPhonesList = new List<ContactPointPhone>();
+    for (Integer i = 1; i <= count; i++) {
+      ContactPointPhone testContactPointPhone = new ContactPointPhone();
+      testContactPointPhone.TelephoneNumber = telephoneNumber;
+      testContactPointPhone.ParentId = parentId;
+      testContactPointPhone.UsageType = usageType;
+      testContactPointPhone.Recordtypeid = Schema.SObjectType.ContactPointPhone.getRecordTypeInfosByDeveloperName()
+        .get(MLCRMConstants.INDIVIDUAL_RT)
+        .getRecordTypeId();
+      contactPointPhonesList.add(testContactPointPhone);
+    }
+    return contactPointPhonesList;
+  }
+
+  /**
+   * @description Create  Territory share Records for MLCRM Testing
+   * @name createTerritoryShare
+   * @param userId territory user to share with.
+   * @param territoryList list of territory records
+   * @param doInsert Whether or not to insert the records
+   * @return `List<Territory__Share>`  territory share records
+   */
+  public static List<Territory__Share> createTerritoryShare(
+    Id userId,
+    List<Territory__c> territoryList,
+    Boolean doInsert
+  ) {
+    List<Territory__Share> lstOfTerritoryShare = new List<Territory__Share>();
+    for (Integer i = 0; i < territoryList.size(); i++) {
+      Territory__Share objShare = new Territory__Share();
+      objShare.parentId = territoryList[i].id;
+      objShare.accesslevel = 'Edit';
+      objShare.userOrgroupid = userId;
+      //objShare.RowCause = 'Manual';
+      lstOfTerritoryShare.add(objShare);
+    }
+    if (doInsert) {
+      Database.insert(lstOfTerritoryShare);
+    }
+    return lstOfTerritoryShare;
+  }
+
+  /**
+   * @description Create  Territory share Records for MLCRM Testing
+   * @name createTerritoryShareWithMultipleUsers
+   * @param territoryRecord territory record to share with users
+   * @param userIds territory users to share with.
+   * @param doInsert Whether or not to insert the records
+   * @return `List<Territory__Share>`  territory share records
+   */
+  public static List<Territory__Share> createTerritoryShareWithMultipleUsers(
+    Territory__c territoryRecord,
+    Set<ID> userIds,
+    Boolean doInsert
+  ) {
+    List<Territory__Share> lstOfTerritoryShare = new List<Territory__Share>();
+    for (Id userId : userIds) {
+      Territory__Share objShare = new Territory__Share();
+      objShare.parentId = territoryRecord.id;
+      objShare.accesslevel = 'Edit';
+      objShare.userOrgroupid = userId;
+      lstOfTerritoryShare.add(objShare);
+    }
+    if (doInsert) {
+      Database.insert(lstOfTerritoryShare);
+    }
+    return lstOfTerritoryShare;
+  }
+
+  /**
+   * @description Create Lead share Records for MLCRM Testing
+   * @name createLeadShare
+   * @param userId Lead user to share with.
+   * @param leadList list of Lead records
+   * @param doInsert Whether or not to insert the records
+   * @return `List<LeadShare>`  Lead share records
+   */
+  public static List<LeadShare> createLeadShare(
+    Id userId,
+    List<Lead> leadList,
+    Boolean doInsert
+  ) {
+    List<LeadShare> leadShareList = new List<LeadShare>();
+    for (Integer i = 0; i < leadList.size(); i++) {
+      LeadShare objShare = new LeadShare();
+      objShare.LeadId = leadList[i].id;
+      objShare.LeadAccesslevel = 'Edit';
+      objShare.userOrgroupid = userId;
+      objShare.RowCause = 'Manual';
+      leadShareList.add(objShare);
+    }
+    if (doInsert) {
+      Database.insert(leadShareList);
+    }
+    return leadShareList;
   }
 }

@@ -4,8 +4,7 @@
 * @description Service class for serach customer functionality 
 * @group Service
 */
-public with sharing class TFMSearchCustomerService extends Service {
-  private static final String AUTHORIZATION = 'Authorization';
+public with sharing virtual class TFMSearchCustomerService extends Service {
   private static final String ISVALIDACTIONKEY = 'isValidAction';
   private static final String LABELFALSE = 'false';
   /**
@@ -18,51 +17,24 @@ public with sharing class TFMSearchCustomerService extends Service {
     Service.idType.IDENTIFIER => 'identifier=',
     Service.idType.UUID => 'uuid='
   };
-  /**
-   * @param staffModel wrapper class having all the variables
-   * @return headers
-   * @description fetches staff JWT from mule api and get the valid profiles
-   */
-  public override Map<String, String> getValidStaffToken(
-    StaffTokenRequestModel staffModel
-  ) {
-    String isValidAction = LABELFALSE;
-    Map<String, String> headers = new Map<String, String>();
-    String token;
-    if (!Test.isRunningTest()) {
-      try {
-        headers = setCalloutCommonHeaders(staffModel);
-        token = headers.get(AUTHORIZATION);
-      } catch (Exception e) {
-        return null;
-      }
-    } else {
-      token = staffModel.headers.get(AUTHORIZATION);
-    }
-    isValidAction = TFMCheckADGroupAccessUtil.checkADGroupWithfunctionality(
-      staffModel.action,
-      token.substringAfter('')
-    );
-    headers.put(ISVALIDACTIONKEY, isValidAction);
-    return headers;
-  }
 
   /**
    * @param staffModel wrapper class having all the variables
    * @return Boolean response stating action is valid or invalid
    * @description fetches staff JWT from mule api and get the valid profiles
    */
-  public override HttpCalloutResponse searchCustAPI(
+  public virtual HttpCalloutResponse searchCustAPI(
     StaffTokenRequestModel staffModel
   ) {
-    staffModel.headers.putAll(setCommonHeadersInMap());
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_SearchCustomer_API +
-        +IDTYPEMAP.get(staffModel.idType) +
-        staffModel.idValue,
+      +IDTYPEMAP.get(staffModel.idType) +
+      staffModel.idValue,
       HTTP_METHOD.HTTP_GET,
-      staffModel.headers,
+      headers,
       null
     );
     return response;
@@ -74,12 +46,13 @@ public with sharing class TFMSearchCustomerService extends Service {
    * @return api response
    * @description gets the Customer's device details without biometrics
    */
-  public override HttpCalloutResponse getDeviceDetailsWithoutBiometric(
+  public virtual HttpCalloutResponse getDeviceDetailsWithoutBiometric(
     StaffTokenRequestModel staffModel,
     String userInternalId,
     String deviceResourceId
   ) {
-    staffModel.headers.putAll(setCommonHeadersInMap());
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_GetDeviceWithoutBiometric.replace(
@@ -88,7 +61,7 @@ public with sharing class TFMSearchCustomerService extends Service {
         )
         .replace('{deviceReferenceId}', deviceResourceId),
       HTTP_METHOD.HTTP_GET,
-      staffModel.headers,
+      headers,
       null
     );
     return response;
@@ -100,12 +73,13 @@ public with sharing class TFMSearchCustomerService extends Service {
    * @return api response
    * @description gets the Customer's device details without biometrics
    */
-  public override HttpCalloutResponse getDeviceDetailsWithBiometric(
+  public virtual HttpCalloutResponse getDeviceDetailsWithBiometric(
     StaffTokenRequestModel staffModel,
     String userInternalId,
     String appCorrelationId
   ) {
-    staffModel.headers.putAll(setCommonHeadersInMap());
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_GetDeviceWithBiometric.replace(
@@ -114,27 +88,28 @@ public with sharing class TFMSearchCustomerService extends Service {
         )
         .replace('{appCorrelationId}', appCorrelationId),
       HTTP_METHOD.HTTP_GET,
-      staffModel.headers,
+      headers,
       null
     );
     return response;
   }
 
   /**
-   * @param headers headers to call api
+   * @param staffModel model class
    * @param accountId  accountId value of the joint account
    * @param emailEnabled joint account status
    * @return HttpCalloutResponse response
    * @description get and modify the joint account notifications
    */
-  public override HttpCalloutResponse getORModifyJointAccountNotificationAPI(
-    map<string, string> headers,
-    string accountId,
-    boolean emailEnabled
+  public virtual HttpCalloutResponse getORModifyJointAccountNotificationAPI(
+    StaffTokenRequestModel staffModel,
+    String accountId,
+    Boolean emailEnabled
   ) {
-    headers.putAll(setCommonHeadersInMap());
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    if (!string.isBlank(accountId) && emailEnabled != null) {
+    if (!String.isBlank(accountId) && emailEnabled != null) {
       headers.put('Content-Type', 'application/json');
       String payload =
         '{"account_id":"' +
@@ -165,17 +140,18 @@ public with sharing class TFMSearchCustomerService extends Service {
    * @param bsb bsb value of the joint account
    * @param accountNumber joint account number
    * @param enabled disclosure status
-   * @param headers headers to call api
+   * @param staffModel model to call staffJWT api
    * @return HttpCalloutResponse response
    * @description gets the Customer's device details with biometrics
    */
-  public override HttpCalloutResponse updatedisclosureStatus(
+  public virtual HttpCalloutResponse updatedisclosureStatus(
     String bsb,
     String accountNumber,
     Boolean enabled,
-    Map<String, String> headers
+    StaffTokenRequestModel staffModel
   ) {
-    headers.putAll(setCommonHeadersInMap());
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
     headers.put('Content-Type', 'application/json');
     String payload =
       '{"bsb":"' +
@@ -198,14 +174,15 @@ public with sharing class TFMSearchCustomerService extends Service {
   }
 
   /**
-   * @param headers headers to call api
+   * @param staffModel model to call staffJWT api
    * @return HttpCalloutResponse response
    * @description gets Joint Accounts List
    */
-  public override HttpCalloutResponse getJointAccountPermissions(
-    Map<String, String> headers
+  public virtual HttpCalloutResponse getJointAccountPermissions(
+    StaffTokenRequestModel staffModel
   ) {
-    headers.putAll(setCommonHeadersInMap());
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_GetJointAccountPermissions_API,
@@ -216,17 +193,120 @@ public with sharing class TFMSearchCustomerService extends Service {
 
     return response;
   }
+
+  /**
+   * @param staffModel model to call staffJWT api
+   * @return HttpCalloutResponse response
+   * @description gets Consent list
+   */
+  public virtual HttpCalloutResponse getConsentsList(
+    StaffTokenRequestModel staffModel
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_ConsentList_API,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+    return response;
+  }
+
+  /**
+   * @param staffModel model to call staffJWT api
+   * @param  consentAccounts value of the joint account
+   * @return HttpCalloutResponse response
+   * @description get and modify the joint account notifications
+   */
+  public virtual HttpCalloutResponse getConsentAccountList(
+    StaffTokenRequestModel staffModel,
+    String consentAccounts
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    headers.put('Content-Type', 'application/json');
+    String payload = consentAccounts;
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_consentMgmtAccountList,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      payload
+    );
+    return response;
+  }
+
   /**
    * @description method is setting common headers used in api callout
+   * @param staffModel staff model
    * @return Map<String, String>
    */
-  public static Map<String, String> setCommonHeadersInMap() {
+  public Map<String, String> setCommonHeadersInMap(
+    StaffTokenRequestModel staffModel
+  ) {
     Map<String, String> headers = new Map<String, String>();
-    headers.put('client_id', '{!$Credential.Username}');
-    headers.put('client_secret', '{!$Credential.Password}');
+    headers = setCalloutCommonHeaders(staffModel);
     headers.put('x-correlation-id', CommonUtil.generateUUID());
     headers.put('x-anz-application-id', 'aegis-admin-portal');
     headers.put('traceparent', CommonUtil.generateTraceParent());
     return headers;
+  }
+
+  /**
+   * @param consentId consentId pass as api param
+   * @param fromTimestamp fromTimestamp pass as api param
+   * @param toTimestamp toTimestamp pass as api param
+   * @param staffModel model to call staffJWT api
+   * @return HttpCalloutResponse response
+   * @description gets Consent Data Sharing History
+   */
+  public virtual HttpCalloutResponse getConsentDataSharingHistory(
+    String consentId,
+    String fromTimestamp,
+    String toTimestamp,
+    StaffTokenRequestModel staffModel
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_ConsentsDataSharingHistory_API +
+      consentId +
+      '&from_timestamp=' +
+      fromTimestamp +
+      '&to_timestamp=' +
+      toTimestamp,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+
+    return response;
+  }
+
+  /**
+   * @param arrangementId arrangementId of the record
+   * @param staffModel model to call staffJWT api
+   * @return HttpCalloutResponse response
+   * @description it will hit the api to stop consent
+   */
+  public virtual HttpCalloutResponse revokeConsent(
+    String arrangementId,
+    StaffTokenRequestModel staffModel
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    headers = setCommonHeadersInMap(staffModel);
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    headers.put('Content-Type', 'application/json');
+    String payload = '{"arrangementId":"' + arrangementId + '"}';
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Revoke_Consent,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      payload
+    );
+    return response;
   }
 }

@@ -32,8 +32,8 @@ public with sharing class AuthTokenCacheUtil {
     } else {
       Logger.error(
         'Unable to query user ' +
-        userId +
-        ' to check if ANZx user can perform token caching'
+          userId +
+          ' to check if ANZx user can perform token caching'
       );
       Logger.saveLog();
     }
@@ -55,9 +55,7 @@ public with sharing class AuthTokenCacheUtil {
       storeRefreshTokenField(u, refreshToken);
       //Caching idToken
       Cache.Org.put(
-        AuthTokenCacheUtil.ORGPART +
-        'idToken' +
-        u.Id,
+        AuthTokenCacheUtil.ORGPART + 'idToken' + u.Id,
         idToken,
         300,
         Cache.Visibility.NAMESPACE,
@@ -75,16 +73,12 @@ public with sharing class AuthTokenCacheUtil {
   private static void storeAzureSessionTokens(Id userId, String profileName) {
     if (profileName == 'ANZx Standard User') {
       String idToken = (String) Cache.Org.get(
-        AuthTokenCacheUtil.ORGPART +
-        'idToken' +
-        userId
+        AuthTokenCacheUtil.ORGPART + 'idToken' + userId
       );
       if (idToken != null) {
         // move tokens to session cache
         Cache.Session.put(
-          AuthTokenCacheUtil.SESSIONPART +
-          'idToken' +
-          userId,
+          AuthTokenCacheUtil.SESSIONPART + 'idToken' + userId,
           idToken,
           3420,
           Cache.Visibility.NAMESPACE,
@@ -135,9 +129,7 @@ public with sharing class AuthTokenCacheUtil {
       ? AzureTestRefreshToken.REFRESHTESTVALUE
       : getRefreshToken();
     String idToken = (String) Cache.Session.get(
-      AuthTokenCacheUtil.SESSIONPART +
-      'idToken' +
-      userId
+      AuthTokenCacheUtil.SESSIONPART + 'idToken' + userId
     );
     if (idToken != null && AuthTokenCacheUtil.isTokenValid(idToken)) {
       return idToken;
@@ -176,9 +168,7 @@ public with sharing class AuthTokenCacheUtil {
 
       // place new tokens in session cache
       Cache.Session.put(
-        AuthTokenCacheUtil.SESSIONPART +
-        'idToken' +
-        userId,
+        AuthTokenCacheUtil.SESSIONPART + 'idToken' + userId,
         idToken,
         3420,
         Cache.Visibility.NAMESPACE,
@@ -202,9 +192,7 @@ public with sharing class AuthTokenCacheUtil {
   @AuraEnabled
   public static String getStaffToken(Service.IdType idType, String idValue) {
     String staffToken = (String) Cache.Session.get(
-      STAFFPART +
-      'forgeJWTToken' +
-      TextUtils.removeNonAlphanumericChar(idValue)
+      STAFFPART + 'forgeJWTToken' + TextUtils.removeNonAlphanumericChar(idValue)
     );
 
     if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
@@ -228,8 +216,8 @@ public with sharing class AuthTokenCacheUtil {
 
     Cache.Session.put(
       STAFFPART +
-      'forgeJWTToken' +
-      TextUtils.removeNonAlphanumericChar(idValue),
+        'forgeJWTToken' +
+        TextUtils.removeNonAlphanumericChar(idValue),
       staffToken,
       expiresIn
     );
@@ -244,8 +232,8 @@ public with sharing class AuthTokenCacheUtil {
   public static String getStaffToken(StaffTokenRequestModel staffModelWrapper) {
     String staffToken = (String) Cache.Session.get(
       STAFFPART +
-      'forgeJWTToken' +
-      TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue)
+        'forgeJWTToken' +
+        TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue)
     );
 
     if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
@@ -268,8 +256,8 @@ public with sharing class AuthTokenCacheUtil {
 
     Cache.Session.put(
       STAFFPART +
-      'forgeJWTToken' +
-      TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue),
+        'forgeJWTToken' +
+        TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue),
       staffToken,
       expiresIn
     );

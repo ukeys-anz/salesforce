@@ -44,12 +44,12 @@
                 <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Quantity</field>
+                <behavior>Edit</behavior>
+                <field>Application_Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Application_Status__c</field>
+                <field>Interest_Rate_Quoted__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -92,10 +92,10 @@
         <style>CustomLinks</style>
     </layoutSections>
     <multilineLayoutFields>Product2Id</multilineLayoutFields>
-    <multilineLayoutFields>Quantity</multilineLayoutFields>
     <multilineLayoutFields>UnitPrice</multilineLayoutFields>
     <multilineLayoutFields>Funding_purpose__c</multilineLayoutFields>
     <multilineLayoutFields>OpportunityId</multilineLayoutFields>
+    <multilineLayoutFields>Interest_Rate_Quoted__c</multilineLayoutFields>
     <relatedLists>
         <fields>Account__c</fields>
         <relatedList>Legal_Entity__c.Opportunity_Product__c</relatedList>

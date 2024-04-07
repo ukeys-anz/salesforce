@@ -162,7 +162,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure,ID Ops Assistance,Fraud Check,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity,False Customer Profile</value>
+            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure,ID Ops Assistance,Fraud Check,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -533,7 +533,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY,Profile Update</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -543,6 +543,26 @@
         <label>Escalated Complaint for Coach and Coach Lead Role RO</label>
         <sharedTo>
             <group>Coach_And_Coach_Lead_Group</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Escalated_Complaint_for_Coach_Lead_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Escalated Complaint for Coach Lead Role RO</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
         </sharedTo>
         <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
@@ -673,7 +693,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -791,36 +811,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>SI_RT_SI_Commercial_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Grant Read Only access to systemic issue records for SI Key Commercial Banking</description>
-        <label>SI_RT_SI_Commercial_RO</label>
-        <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Systemic Issue,CFMS Migrated Case</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>SI_RT_SI_Mobile_Lending_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Grant Read Only access to systemic issue records for SI Key Mobile Lending</description>
-        <label>SI_RT_SI_Mobile_Lending_RO</label>
-        <sharedTo>
-            <role>ANZ_Mobile_Lending_Team</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Systemic Issue,CFMS Migrated Case</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>RTs_Join_Lead_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Join Lead</label>
@@ -830,7 +820,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile</value>
+            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -987,6 +977,36 @@
             <value>true</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Commercial_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key Commercial Banking</description>
+        <label>SI_RT_SI_Commercial_RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue,CFMS Migrated Case</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>SI_RT_SI_Mobile_Lending_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only access to systemic issue records for SI Key Mobile Lending</description>
+        <label>SI_RT_SI_Mobile_Lending_RO</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue,CFMS Migrated Case</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Fraud_FraudXAgent_RW</fullName>

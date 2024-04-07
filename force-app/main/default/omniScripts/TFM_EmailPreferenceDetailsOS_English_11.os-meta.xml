@@ -10,12 +10,11 @@
     <language>English</language>
     <name>TFMEmailPreferenceDetailsOS</name>
     <omniProcessElements>
-        <name>EmailPreferenceDetailsDisableSection</name>
         <childElements>
-            <name>CustomLWC2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CustomLWC2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;customAttributes&quot; : [ {
@@ -37,10 +36,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
-            <name>showErrorDisableSection</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>showErrorDisableSection</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -68,6 +67,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>EmailPreferenceDetailsDisableSection</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -126,12 +126,11 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>EmailPreferenceDetailsEnableSection</name>
         <childElements>
-            <name>CustomLWC1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CustomLWC1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -153,10 +152,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
-            <name>showErrorEnableSection</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>showErrorEnableSection</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -184,6 +183,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>EmailPreferenceDetailsEnableSection</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Email Preference Details&quot;,
@@ -242,12 +242,11 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>EmailPreferenceDisclaimerSectionDisabled</name>
         <childElements>
-            <name>Messaging1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>Messaging1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;showMessageAs&quot; : &quot;toast&quot;,
@@ -282,10 +281,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
-            <name>TextBlock2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -301,10 +300,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>TextBlock3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -320,10 +319,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>TextBlock6</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock6</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -341,6 +340,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>EmailPreferenceDisclaimerSectionDisabled</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -399,12 +399,11 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>EmailPreferenceDisclaimerSectionEnabled</name>
         <childElements>
-            <name>errorToastOnCalloutFailure</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>errorToastOnCalloutFailure</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -439,10 +438,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
-            <name>TextBlock1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -458,10 +457,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>TextBlock4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 10,
@@ -477,10 +476,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>TextBlock5</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock5</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -498,6 +497,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>EmailPreferenceDisclaimerSectionEnabled</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Update Notification Settings for a Joint Account&quot;,
@@ -556,10 +556,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>modifyJointAccountNotification</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>modifyJointAccountNotification</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 2,
@@ -619,10 +619,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>NavigateToParentOS</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>NavigateToParentOS</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -670,10 +670,10 @@
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ProcessEmailPreferenceIP</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ProcessEmailPreferenceIP</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -736,10 +736,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SetErrors1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>SetErrors1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -770,10 +770,10 @@
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SetValues</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>SetValues</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -795,12 +795,11 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>Step1</name>
         <childElements>
-            <name>TextBlock7</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock7</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -818,6 +817,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>Step1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Insufficient Access&quot;,

@@ -38,11 +38,12 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.setPriority(records);
     GetHelpCaseActions.updateEntitlement(records);
-    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records, null);
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
     GetHelpCaseActions.populateOCVOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
+    GetHelpCaseActions.setOwnerToIDOpsQueue(records);
     AutoKYCQACaseActions kycCaseActions = new AutoKYCQACaseActions(
       (List<Case>) records,
       new Map<Id, Case>()
@@ -77,6 +78,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
+    GetHelpCaseActions.onlyAllowOneOpenProfileUpdateCase(records);
     IDR_CaseReportingCalculations.calculateCaseOpenTime(
       (List<Case>) records,
       (new Map<ID, Case>())
@@ -105,7 +107,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap,
       (List<Case>) records
     );
-    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
       (List<Case>) records,
       (Map<Id, Case>) oldMap
@@ -138,6 +143,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       GetHelpCaseActions.populateOCVOnComplaint(records);
     }
     GetHelpCaseActions.validateCreditReferralOwnershipChange(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+
+    GetHelpCaseActions.checkCustomerUpdatePendingStatus(
       records,
       (Map<Id, Case>) oldMap
     );

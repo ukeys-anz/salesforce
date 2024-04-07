@@ -41,7 +41,7 @@ public with sharing class CCRMAssetRepaymentDetailQuery extends CCRMFinancialAcc
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (RepaymentDetailCalloutResponse) JSON.deserialize(
+    this.calloutResponse = (RepaymentDetailCalloutResponse) CalloutModel.deserialize(
       responseBody,
       RepaymentDetailCalloutResponse.class
     );
@@ -80,7 +80,7 @@ public with sharing class CCRMAssetRepaymentDetailQuery extends CCRMFinancialAcc
       row.put('Frequency', repay.frequency);
       row.put('Amount', repay.amount);
       row.put('TotalNumberOfRepayments', repay.numberOfRepayments);
-      row.put('StartDate', adjustUTCDateTime(repay.startDate));
+      row.put('StartDate', formatDate(repay.startDate));
       result.queryResult.add(row);
     }
     return result;

@@ -3,6 +3,11 @@
     <fullName>CCRMProspectCopyFields</fullName>
     <description>Used in apex class &quot;CCRMCustomerProfileUpdateConfig&quot;</description>
     <displayedFields>
+        <field>External_Id__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>AddressType</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

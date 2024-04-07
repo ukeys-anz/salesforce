@@ -37,7 +37,7 @@ public with sharing class CCRMLinkedAccountQuery extends CCRMFinancialAccountQue
    * @param responseBody API response payload
    */
   protected override void parseResponse(String responseBody) {
-    this.calloutResponse = (LinkedAccountResponse) JSON.deserialize(
+    this.calloutResponse = (LinkedAccountResponse) CalloutModel.deserialize(
       responseBody,
       LinkedAccountResponse.class
     );
