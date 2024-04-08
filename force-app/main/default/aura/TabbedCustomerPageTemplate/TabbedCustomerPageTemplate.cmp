@@ -27,7 +27,10 @@
   <ltng:require styles="{!$Resource.customCustomerTabCSS}" />
   <div class="slds-size_1-of-1 slds-var-m-bottom_medium">{!v.header}</div>
   <lightning:tabset class="design-allow-interaction toggle">
-    <lightning:tab id="WhatsHappening" label="Whats Happening">
+    <lightning:tab
+      id="WhatsHappening"
+      label="{!$Label.c.ANZx_Customer_Tab_Whats_Happening}"
+    >
       <div class="slds-grid slds-wrap customCustomerTab">
         <div class="slds-size_4-of-12">{!v.column1}</div>
         <div class="slds-size_4-of-12 slds-p-horizontal_small">
@@ -36,20 +39,29 @@
         <div class="slds-size_4-of-12">{!v.column3}</div>
       </div>
     </lightning:tab>
-    <lightning:tab id="CustomerInformation" label="Customer Information">
+    <lightning:tab
+      id="CustomerInformation"
+      label="{!$Label.c.ANZx_Customer_Tab_Customer_Information}"
+    >
       <div class="slds-grid slds-wrap customCustomerTab">
         <div class="slds-size_8-of-12 slds-p-right_small">{!v.column4}</div>
         <div class="slds-size_4-of-12">{!v.column6}</div>
       </div>
     </lightning:tab>
-    <lightning:tab id="FinancesAndAccounts" label="Finances And Accounts">
+    <lightning:tab
+      id="FinancesAndAccounts"
+      label="{!$Label.c.ANZx_Customer_Tab_Finances_And_Accounts}"
+    >
       <div class="slds-grid slds-wrap customCustomerTab">
         <div class="slds-size_12-of-12">{!v.column7}</div>
         <div class="slds-size_8-of-12">{!v.column8}</div>
         <div class="slds-size_4-of-12 slds-p-left_x-small">{!v.column9}</div>
       </div>
     </lightning:tab>
-    <lightning:tab id="CasesAndInteractions" label="Cases And Interactions">
+    <lightning:tab
+      id="CasesAndInteractions"
+      label="{!$Label.c.ANZx_Customer_Tab_Cases_And_Interactions}"
+    >
       <div class="slds-grid slds-wrap customCustomerTab">
         <div class="slds-size_4-of-12">{!v.column10}</div>
         <div class="slds-size_4-of-12 slds-p-horizontal_small">
@@ -58,7 +70,7 @@
         <div class="slds-size_4-of-12">{!v.column12}</div>
       </div>
     </lightning:tab>
-    <lightning:tab id="Insights" label="Insights">
+    <lightning:tab id="Insights" label="{!$Label.c.ANZx_Customer_Tab_Insights}">
       <div class="slds-grid slds-wrap customCustomerTab">
         <div class="slds-size_6-of-12 slds-p-right_small">{!v.column13}</div>
         <div class="slds-size_6-of-12">{!v.column14}</div>
