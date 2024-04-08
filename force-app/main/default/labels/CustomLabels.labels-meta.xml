@@ -1516,11 +1516,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This Customer is currently being managed by the hardship team</value>
     </labels>
     <labels>
-        <fullName>DCRM_OCVEventVersion</fullName>
+        <fullName>DCRM_ShellProspectOCVEventVersion</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>DCRM_OCVEventVersion</shortDescription>
+        <shortDescription>DCRM_ShellProspectOCVEventVersion</shortDescription>
         <value>0</value>
     </labels>
     <labels>
