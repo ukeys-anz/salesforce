@@ -6,7 +6,7 @@
     <description>Bankrupt Date</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <label>Bankrupt Date</label>
+    <label>Bankruptcy Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

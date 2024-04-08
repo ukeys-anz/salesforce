@@ -288,6 +288,7 @@
         "Hardship__c",
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c",
+        "Mobile__c",
         "Was_ANZx_Customer__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
