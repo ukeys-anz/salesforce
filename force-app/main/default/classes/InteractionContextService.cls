@@ -109,9 +109,10 @@ global with sharing class InteractionContextService {
 
     //Creation of Twilio Details and response to be send to Twilio
     if (!interactionToBeCreated.isEmpty()) {
-      List<Database.SaveResult> results = Database.insert(
+      List<Database.SaveResult> results = DMLUtil.insertRecords(
         interactionToBeCreated,
-        false
+        false,
+        true
       );
       Logger.error('Error in Creating Interaction', results);
       Logger.saveLog();
@@ -385,6 +386,7 @@ global with sharing class InteractionContextService {
           TwilioDetailsID__c
         FROM Interaction
         WHERE Id IN :interactionListCreatedDB
+        WITH SECURITY_ENFORCED
       ]
     );
     for (Integer i = 0; i < interactionListCreatedDB.size(); i++) {
@@ -473,6 +475,7 @@ global with sharing class InteractionContextService {
         Chat_or_Call_SID__c
       FROM Interaction
       WHERE Chat_or_Call_SID__c IN :callOrChatSidList
+      WITH SECURITY_ENFORCED
     ]) {
       existingInteractionsBySID.put(interact.Chat_or_Call_SID__c, interact);
     }

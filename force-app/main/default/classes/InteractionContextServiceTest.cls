@@ -34,7 +34,8 @@ public with sharing class InteractionContextServiceTest {
         'API_Only',
         'Enforce_mTLS',
         'Twilio_Detail_Read_Write',
-        'Interaction_Integration'
+        'Interaction_Integration',
+        'FinancialServicesCloudExtension'
       };
       List<PermissionSet> psList = [
         SELECT Id
