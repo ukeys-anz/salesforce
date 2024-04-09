@@ -9,7 +9,7 @@
     <filters>
         <field>Broker_Accreditation_Type__c</field>
         <operation>includes</operation>
-        <value>Asset Finance,Retail Broker,Commercial Broker</value>
+        <value>Asset Finance,Retail,Commercial</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>All Brokers</label>

@@ -1385,7 +1385,8 @@
         "Notes_Interests__c",
         "OtherAddress",
         "Salutation",
-        "Suffix__c"
+        "Suffix__c",
+        "Is_Broker_User_Active__c"
       ],
       "IA-2530753": [
         "Active_From__c",

@@ -10,9 +10,25 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
     .get('Broker')
     .recordTypeId;
 
+  /**
+   * @description Constructor to initialise Trigger Handler library
+   */
+  public RetailBrokerContactTriggerHandler() {
+    super();
+  }
+
   @TestVisible
   private static BrokerSettings__c mockBrokerSettings;
 
+  /**
+   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns a list of Broker contact records
+   * @param record record to check if relevant to the execution context
+   * @return `Boolean` returns true if record is relevant, false if record is not relevant
+   */
+  public override Boolean isValidRecord(SObject record) {
+    Contact contact = (Contact) record;
+    return contact.RecordTypeId == RECORD_TYPE_ID_BROKER;
+  }
   /**
    * @description To set the mock broker settings
    * @return The BrokerSettings__c custom setting
@@ -24,33 +40,16 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
     }
     return BrokerSettings__c.getOrgDefaults();
   }
-
-  /**
-   * @description To filter the broker contacts from the list of contacts
-   * @param contacts The list of contacts
-   * @return The list of broker contacts
-   */
-  @TestVisible
-  private static List<Contact> filterBrokerContacts(List<Contact> contacts) {
-    List<Contact> brokerContacts = new List<Contact>();
-    for (Contact contact : contacts) {
-      if (contact.RecordTypeId == RECORD_TYPE_ID_BROKER) {
-        brokerContacts.add(contact);
-      }
-    }
-    return brokerContacts;
-  }
-
   /**
    * @description To perform business logic on before insert trigger context
    * @param oldMap The old id-record map before the update execution
    */
   @TestVisible
   protected override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    List<Contact> filteredBrokers = filterBrokerContacts(records);
-    List<Contact> filteredOldBrokers = filterBrokerContacts(oldMap.values());
-    Map<Id, Contact> filteredOldMap = new Map<Id, Contact>(filteredOldBrokers);
-    RetailBrokerContactActions.processOCVSync(filteredBrokers, filteredOldMap);
+    RetailBrokerContactActions.processOCVSync(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
   }
 
   /**
@@ -62,12 +61,9 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
     if (brokerSettings().BypassBrokerSyncEvents__c == true) {
       return;
     }
-    List<Contact> filteredBrokers = filterBrokerContacts(records);
-    List<Contact> filteredOldBrokers = filterBrokerContacts(oldMap.values());
-    Map<Id, Contact> filteredOldMap = new Map<Id, Contact>(filteredOldBrokers);
     RetailBrokerContactActions.publishBrokerGCPEvents(
-      filteredBrokers,
-      filteredOldMap
+      records,
+      (Map<Id, Contact>) oldMap
     );
   }
 }
