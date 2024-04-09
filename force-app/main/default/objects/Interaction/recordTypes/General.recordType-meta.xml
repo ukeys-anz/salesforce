@@ -8,6 +8,10 @@
     <picklistValues>
         <picklist>Authentication_Method__c</picklist>
         <values>
+            <fullName>Authenticated</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Call Transfer - Authenticated</fullName>
             <default>false</default>
         </values>
@@ -193,6 +197,53 @@
         </values>
         <values>
             <fullName>Linked</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Support_Topics__c</picklist>
+        <values>
+            <fullName>BOH - Call Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card Disputes - Call Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coach - Call Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Detection - Call Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Operations - Call Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Finances</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Review %26 Submit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loan - Terms %26 Conditions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identity Ops - Call Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost and Stolen Queries - Call Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Support Enquiry</fullName>
             <default>false</default>
         </values>
     </picklistValues>

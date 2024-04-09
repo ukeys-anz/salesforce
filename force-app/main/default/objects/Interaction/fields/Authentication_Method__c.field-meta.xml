@@ -17,11 +17,6 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
-                <fullName>Authenticated</fullName>
-                <default>false</default>
-                <label>Authenticated</label>
-            </value>
-            <value>
                 <fullName>Authenticated by Coach</fullName>
                 <default>false</default>
                 <label>Authenticated by Coach</label>
@@ -40,6 +35,11 @@
                 <fullName>Customer cannot be authenticated</fullName>
                 <default>false</default>
                 <label>Customer cannot be authenticated</label>
+            </value>
+            <value>
+                <fullName>Authenticated</fullName>
+                <default>false</default>
+                <label>In-App Authenticated</label>
             </value>
             <value>
                 <fullName>Manually Authenticated</fullName>
@@ -85,6 +85,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <valueName>Authenticated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Manually Authenticated</valueName>
         </valueSettings>
@@ -99,10 +104,6 @@
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>SMS - OTP</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Chat</controllingFieldValue>
-            <valueName>Authenticated</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>

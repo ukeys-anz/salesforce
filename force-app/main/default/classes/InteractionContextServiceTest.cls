@@ -207,6 +207,107 @@ public with sharing class InteractionContextServiceTest {
       'Interaction direction should match'
     );
   }
+
+  @isTest
+  static void testValidCallInputAuthenticated() {
+    Faker faker = new Faker('AU');
+
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+
+    // WHEN Twilio API user send a request with phoneNumber
+    // Prepare request test data
+    InteractionContextRequest contextReq = new InteractionContextRequest();
+    contextReq.ocvId = 'OCVID887766';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = 'Coach - Call Us';
+    contextReq.ppid = '';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = '123456';
+    contextReq.type = 'Voice';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = '';
+    contextReq.isAuthenticated = true;
+
+    InteractionContextRequest intContexts = prepareRequest(contextReq);
+
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextService.doPost(intContexts);
+    }
+    Test.stopTest();
+
+    // THEN the request must succeed, and a new Interaction should be created against the customer related to the Call
+    List<Interaction> intList = [
+      SELECT Id, Direction__c, InteractionType
+      FROM Interaction
+      WHERE InteractionType = 'Call'
+      LIMIT 1
+    ];
+    System.assertEquals(
+      1,
+      intList.size(),
+      'Interaction list size should be as expected'
+    );
+    System.assertEquals(
+      InteractionContextService.INBOUND_DIRECTION,
+      intList[0].Direction__c,
+      'Interaction direction should match'
+    );
+  }
+
+  @isTest
+  static void testValidCallInputAuthenticatedIssueSubtype() {
+    Faker faker = new Faker('AU');
+
+    // GIVEN Twilio API user has required access to Salesforce API
+    // Query for API User
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+
+    // WHEN Twilio API user send a request with phoneNumber
+    // Prepare request test data
+    InteractionContextRequest contextReq = new InteractionContextRequest();
+    contextReq.ocvId = 'OCVID887766';
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = 'TestValue';
+    contextReq.ppid = '';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = '123456';
+    contextReq.type = 'Voice';
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = '';
+    contextReq.isAuthenticated = true;
+
+    InteractionContextRequest intContexts = prepareRequest(contextReq);
+
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextService.doPost(intContexts);
+    }
+    Test.stopTest();
+
+    // THEN the request must succeed, and a new Interaction should be created against the customer related to the Call
+    List<Interaction> intList = [
+      SELECT Id, Support_Topics__c, InteractionType
+      FROM Interaction
+      WHERE InteractionType = 'Call'
+      LIMIT 1
+    ];
+    System.assertEquals(
+      1,
+      intList.size(),
+      'Interaction list size should be as expected'
+    );
+    System.assertEquals(
+      'Support Enquiry',
+      intList[0].Support_Topics__c,
+      'Interaction support topic should be defaulted'
+    );
+  }
+
   @isTest
   static void testInvalidCallInput() {
     Faker faker = new Faker('AU');
