@@ -79,7 +79,7 @@ export default class AuthenticateCustomers extends LightningElement {
   wiredUserRole({ data, error }) {
     if (data) {
       this._status = STATUSMAP.SHOWAUTHENTICATEBUTTON;
-      this.fraudAgentRole = data === "FraudX_Agent" ? true : false;
+      this.fraudAgentRole = data === "FraudX_Agent" || data === "Join Lead";
     } else if (error) {
       this._status = STATUSMAP.ERROR;
     }

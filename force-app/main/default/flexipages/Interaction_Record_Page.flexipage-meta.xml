@@ -244,17 +244,6 @@
                 <componentName>authenticateCustomers</componentName>
                 <identifier>c_authenticateCustomers</identifier>
                 <visibilityRule>
-                    <booleanFilter>( 1 OR 2 ) AND 3</booleanFilter>
-                    <criteria>
-                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>FraudX_Agent</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Coach</rightValue>
-                    </criteria>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.ANZx_View_CIBA_Authorisation}</leftValue>
                         <operator>EQUAL</operator>

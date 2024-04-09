@@ -63,8 +63,8 @@ public with sharing virtual class JoinCIBAService extends Service {
 
   public String getAccessTokenRequest(String authRequestId) {
     Map<String, String> requestMap = getForgeAuthInfo();
-    requestMap.put('auth_req_id ', authRequestId);
-    requestMap.put('grant_type ', System.Label.Grant_Type);
+    requestMap.put('auth_req_id', authRequestId);
+    requestMap.put('grant_type', System.Label.Grant_Type);
     return urlEncodeFromMap(requestMap);
   }
 
