@@ -212,8 +212,8 @@ public with sharing class IDRCaseAssignmentRules {
       }
       // Simple Complaint on Unassisted Channel
       if (
-        (IDRConstants.IDR_EARLY_RESOLUTION.contains(rec.Origin) ||
-        rec.SuppliedEmail == System.Label.ANZ_com_Sender_Address) &&
+        IDRConstants.IDR_EARLY_RESOLUTION.contains(rec.Origin) &&
+        String.isNotBlank(rec.IDR_Inbox_Email_Address__c) &&
         (!rec.IDR_Second_Issue__c && !rec.IDR_Third_Issue__c) &&
         IDRConstants.IDR_UNASSISTED_ISSUE_TYPE.contains(rec.Type) &&
         IDRConstants.IDR_UNASSISTED_SUB_ISSUE_TYPE.contains(

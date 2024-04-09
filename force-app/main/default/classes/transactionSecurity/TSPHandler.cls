@@ -13,6 +13,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
   public static Boolean evaluate(SObject event) {
     String eventName;
     String uId;
+    Logger.Severity severityLevel = Logger.Severity.MEDIUM;
     switch on event {
       when BulkApiResultEventStore bulkApiResultEventStore {
         eventName = 'Bulk API event';
@@ -30,6 +31,11 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
         eventName = 'Block RefreshToken Queried APIEvent';
         uId = refreshTokenQueriedEvent.userId;
       }
+      when LoginEvent notifySystemUserLoginEvent {
+        eventName = 'Notify System User LoginEvent';
+        uId = notifySystemUserLoginEvent.userId;
+        severityLevel = Logger.Severity.CRITICAL;
+      }
       when null {
         return false;
       }
@@ -37,12 +43,13 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
         return false;
       }
     }
-    return evaluation(event, eventName, uId);
+    return evaluation(event, eventName, uId, severityLevel);
   }
   private static Boolean evaluation(
     SObject event,
     String eventName,
-    String userIdentity
+    String userIdentity,
+    Logger.Severity severityLevel
   ) {
     String userId;
     if (Schema.SObjectType.User.fields.Username.isAccessible()) {
@@ -65,13 +72,14 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
       if (condition) {
         Logger.error(
           eventName +
-          ' has been done by ' +
-          username +
-          ' (Id: ' +
-          userId +
-          ' ) with ' +
-          profileName +
-          ' profile.'
+            ' has been done by ' +
+            username +
+            ' (Id: ' +
+            userId +
+            ' ) with ' +
+            profileName +
+            ' profile.',
+          severityLevel
         );
         Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
         return true;
