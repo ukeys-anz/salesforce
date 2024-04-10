@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Callback_Request</fullName>
     <active>true</active>
+    <compactLayoutAssignment>Coach_Nudge_Layout</compactLayoutAssignment>
     <description>For BOH Callback Requests</description>
     <label>Callback Request</label>
     <picklistValues>
