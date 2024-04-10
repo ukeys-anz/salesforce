@@ -91,6 +91,6 @@ jobs:
           node --no-warnings ci/workflows/Orchestrations/validation.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
           echo WHICH_JOB="clean" >> $GITHUB_ENV
 
-      - name: Code coverage and cleaning
+      - name: Code Coverage and Cleaning
         run: |
           node --no-warnings ci/workflows/Orchestrations/validation.mjs
