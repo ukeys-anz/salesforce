@@ -128,7 +128,7 @@ public with sharing class IDRCaseNotificationManager {
         fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
         c.Status != IDRConstants.ESCALATED_STATUS
       ) {
-        msgBody = 'Auto esclation is due in ' + c.IDR_Milestone_Sla__c;
+        msgBody = 'Auto escalation is due in ' + c.IDR_Milestone_Sla__c;
       }
 
       wrapper = new IDRBankerNotificationWrapper(

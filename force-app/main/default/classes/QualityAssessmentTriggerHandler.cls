@@ -21,6 +21,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    * @description onBeforeInsert to populate fields on the list of records before commit to database
    */
   public override void onBeforeInsert() {
+    QualityAssessmentActions.populateUserDetailsForNewQARecords(records);
     QualityAssessmentActions.populateFieldsBeforeTrigger(records, null);
     IDRQualityAssessmentActions.autoCalculateScore(records);
     QualityAssessmentActions.validateRelatedCase(records, null);
