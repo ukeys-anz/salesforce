@@ -1184,7 +1184,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Not Started</fullName>
+            <fullName>New</fullName>
             <default>true</default>
         </values>
     </picklistValues>
