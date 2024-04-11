@@ -689,6 +689,7 @@
         "SI_Assigned_to_Portfolios__c",
         "SI_Business_Contacts__c",
         "IDR_AFCA_Case_Manager__c",
+        "CaseOwnerManager__c",
         "IDR_AFCA_Information_Request_Due__c",
         "IDR_AFCA_Registration_Response_Provided__c",
         "IDR_Date_Received__c",
@@ -1104,6 +1105,17 @@
         "Fraud_PersonID__c"
       ],
       "IA-2468710": ["SLATesting__c"]
+    },
+    "Case_Reporting_Field__c": {
+      "IA-2453595": [
+        "Case__c",
+        "Case_Last_Opened__c",
+        "Case_Last_Opened_RG271__c",
+        "IDR_Response_Time_RG271__c",
+        "IDR_Response_Time_RG271_MS__c",
+        "Total_Open_Time__c",
+        "Total_Open_Time_MS__c"
+      ]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
