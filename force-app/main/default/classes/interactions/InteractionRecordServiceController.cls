@@ -10,27 +10,28 @@ public with sharing class InteractionRecordServiceController {
    * @param strParentId the id to be queried
    * @param strRecordTypeName
    * @param maxRecords
+   * @param activeInteractionsOnly
    * @return List<Interaction> the queried Interaction list
    */
   @AuraEnabled(cacheable=true)
   public static List<InteractionWrapper> getInteractionRecord(
     String strParentId,
     String strRecordTypeName,
-    Integer maxRecords
+    Integer maxRecords,
+    Boolean activeInteractionsOnly
   ) {
     try {
+      List<String> statusSearchList = Label.Interaction_Status.split(',');
       Callable interactionListViewCtrl = (Callable) Type.forName(
           'InteractionListViewFetchData'
         )
         .newInstance();
-      Map<String, Object> args = new Map<String, Object>();
-      args.put(
-        'input',
-        new Map<String, Object>{
-          'anyRecordId' => strParentId,
-          'recordTypeDeveloperName' => strRecordTypeName,
-          'maxNumber' => maxRecords
-        }
+      Map<String, Object> args = buildArgMap(
+        strParentId,
+        strRecordTypeName,
+        maxRecords,
+        activeInteractionsOnly,
+        statusSearchList
       );
       args.put('output', new Map<String, Object>());
       interactionListViewCtrl.call('fetchDataBasedOnRecordId', args);
@@ -48,6 +49,34 @@ public with sharing class InteractionRecordServiceController {
       Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
+  }
+
+  /**
+   * @description constructs arguments master map
+   * @param strParentId the id to be queried
+   * @param strRecordTypeName
+   * @param maxRecords
+   * @param activeInteractionsOnly
+   * @param statusSearchList
+   * @return Map<String, Object> constructed map
+   */
+  public static Map<String, Object> buildArgMap(
+    String strParentId,
+    String strRecordTypeName,
+    Integer maxRecords,
+    Boolean activeInteractionsOnly,
+    List<String> statusSearchList
+  ) {
+    Map<String, Object> inputArgs = new Map<String, Object>{
+      'anyRecordId' => strParentId,
+      'recordTypeDeveloperName' => strRecordTypeName,
+      'maxNumber' => maxRecords
+    };
+    if (activeInteractionsOnly) {
+      inputArgs.put('statusSearch', statusSearchList);
+    }
+    Map<String, Object> args = new Map<String, Object>{ 'input' => inputArgs };
+    return args;
   }
 
   /**

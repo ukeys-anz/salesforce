@@ -157,6 +157,13 @@
         <value>com.anzx.salesforce.interaction.v1alpha1.interaction.coachnudge.</value>
     </labels>
     <labels>
+        <fullName>Interaction_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction Status</shortDescription>
+        <value>Active,Open,On Hold (By Coach),On Hold (By Customer),New</value>
+    </labels>
+    <labels>
         <fullName>Anonymous_Complainant</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
