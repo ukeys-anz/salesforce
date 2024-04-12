@@ -27,6 +27,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quality_Assessment__c.CMOS_Comment_28__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.CMOS_Comment_29__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.Investigation_notes_documented_clearly__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.Satisfactory_contact_made_or_attempted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quality_Assessment__c.Accountability_and_Next_Steps_Comments__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1521,8 +1541,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-       <editable>false</editable>
-       <field>Case_Reporting_Field__c.IDR_Response_Time_RG271_MS__c</field>
+        <editable>false</editable>
+        <field>Case_Reporting_Field__c.IDR_Response_Time_RG271_MS__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1531,8 +1551,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-         <editable>false</editable>
-         <field>Case_Reporting_Field__c.Total_Open_Time_MS__c</field>
+        <editable>false</editable>
+        <field>Case_Reporting_Field__c.Total_Open_Time_MS__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
