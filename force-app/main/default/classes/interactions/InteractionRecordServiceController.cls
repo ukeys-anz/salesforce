@@ -26,7 +26,7 @@ public with sharing class InteractionRecordServiceController {
           'InteractionListViewFetchData'
         )
         .newInstance();
-      Map<String, Object> args = buildArgMap(
+      Map<String, Object> args = getArgumentsMap(
         strParentId,
         strRecordTypeName,
         maxRecords,
@@ -60,7 +60,7 @@ public with sharing class InteractionRecordServiceController {
    * @param statusSearchList
    * @return Map<String, Object> constructed map
    */
-  public static Map<String, Object> buildArgMap(
+  private static Map<String, Object> getArgumentsMap(
     String strParentId,
     String strRecordTypeName,
     Integer maxRecords,

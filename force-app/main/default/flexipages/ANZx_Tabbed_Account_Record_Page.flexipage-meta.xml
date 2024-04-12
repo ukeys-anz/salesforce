@@ -222,6 +222,16 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>isFinancesTab</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentName>totalBalance</componentName>
+                <identifier>c_totalBalance2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
@@ -325,7 +335,7 @@
                     <name>adminFilters</name>
                     <valueList>
                         <valueListItems>
-                            <value>LEAD.STATUS|NOT_EQUAL|[&quot;Closed&quot;]</value>
+                            <value>LEAD.STATUS|EQUALS|[&quot;Contacted&quot;,&quot;Open&quot;,&quot;Qualified&quot;,&quot;Unqualified&quot;,&quot;New&quot;,&quot;Assigned&quot;,&quot;Nurturing&quot;,&quot;Expired&quot;,&quot;Referred&quot;,&quot;Completed&quot;,&quot;Declined&quot;,&quot;In progress&quot;,&quot;Opportunity Identified&quot;,&quot;Outcome&quot;,&quot;Converted&quot;,&quot;No Opportunity&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
