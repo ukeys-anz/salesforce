@@ -1,5 +1,13 @@
+/*@import "c/customerAccountPageCssUtility";*/
+
 .total-amounts {
-  min-height: 150px;
+  min-height: 156px;
+}
+
+.heading-font {
+  line-height: 27px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .slds-item_label {
@@ -39,15 +47,9 @@
   color: #fff;
 }
 
-.card-title {
-  background: #eef1f5;
+.card-title-header {
   width: 100%;
   padding: 8px;
-  font-size: 16px;
   border-radius: 0.25em;
-  font-weight: bold;
-}
-
-.balance-padding {
-  padding-right: 48px;
+  border-bottom: 1px solid #1602022e;
 }

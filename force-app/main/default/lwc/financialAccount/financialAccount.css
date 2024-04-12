@@ -1,14 +1,7 @@
+/*@import "c/customerAccountPageCssUtility";*/
+
 .slds-badge {
   margin-left: 10px;
-}
-
-.financialAccount {
-  min-height: 200px;
-}
-
-.lastUpdated {
-  font-size: 12px;
-  float: right;
 }
 
 .not-found {
@@ -17,10 +10,6 @@
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.balance-padding {
-  padding-right: 48px;
 }
 
 .message-padding {
@@ -52,26 +41,10 @@
   color: #fff;
 }
 
-.card-title {
-  background: #eef1f5;
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 0.25em;
-  font-weight: bold;
-}
-
 .vertical-align {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-}
-
-/*As per story ANZX-113310 Colour of “Closed” status is changed . Hence , using this class for showing closed status with red text/white background/red border */
-.closedBadgeClass {
-  --slds-c-badge-color-background: white;
-  --slds-c-badge-color-border: red;
-  --slds-c-badge-text-color: red;
 }
 
 /*As per story ANZX-113310 Colour of "Dormant" status is changed . Hence , using this class for showing Dormant status with green text/white background/green border*/

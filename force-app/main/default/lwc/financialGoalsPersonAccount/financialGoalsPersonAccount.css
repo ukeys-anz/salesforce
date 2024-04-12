@@ -1,13 +1,4 @@
-.card-title {
-  background: #eef1f5;
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 0.25em;
-  font-weight: bold;
-  position: relative;
-  bottom: 24px;
-}
+/*@import "c/customerAccountPageCssUtility";*/
 
 .last-updated {
   float: right;
@@ -94,9 +85,7 @@
 
 .emoji {
   font-size: 4.98vw;
-  position: relative;
   top: 17px;
-  padding-bottom: 15px;
 }
 
 .slds-border_right:last-child {
