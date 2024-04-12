@@ -2276,4 +2276,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>CCRM Validate Manual Address</shortDescription>
         <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
+    <labels>
+        <fullName>Interaction_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction Status</shortDescription>
+        <value>Active,Open,On Hold (By Coach),On Hold (By Customer),New</value>
+    </labels>
 </CustomLabels>
