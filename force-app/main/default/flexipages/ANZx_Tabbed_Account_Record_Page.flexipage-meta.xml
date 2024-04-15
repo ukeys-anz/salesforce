@@ -573,8 +573,35 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>objectType</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
+                <componentName>AegisPortal</componentName>
+                <identifier>c_AegisPortal</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Aegis_Portal}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>accordionSections</name>
+                    <value>Facet-dc4ba297-4434-4b0d-ba92-c524d02cda61</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:accordion</componentName>
+                <identifier>flexipage_accordion</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>buttonName</name>
-                    <value>View</value>
+                    <value>Go to ConnectID</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>iconName</name>
@@ -607,33 +634,6 @@
             <componentInstance>
                 <componentName>verifiedContactDetails</componentName>
                 <identifier>c_verifiedContactDetails2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>objectType</name>
-                    <value>Account</value>
-                </componentInstanceProperties>
-                <componentName>AegisPortal</componentName>
-                <identifier>c_AegisPortal</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!$Permission.CustomPermission.ANZx_Aegis_Portal}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>accordionSections</name>
-                    <value>Facet-dc4ba297-4434-4b0d-ba92-c524d02cda61</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:accordion</componentName>
-                <identifier>flexipage_accordion</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
