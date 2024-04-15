@@ -109,25 +109,27 @@
                       <p data-test-id="term">{finAccount.loanTerm}</p>
                     </div>
                     <div
-                      class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small balance-padding-second"
+                      class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small balance-padding-first"
                     >
-                      <p class="card-heading-font">
-                        Redraw Amount
-                        <lightning-icon
-                          icon-name="utility:info"
-                          size="xx-small"
-                          class="tooltip"
-                          onclick={handleRedrawAvailableModal}
-                        ></lightning-icon>
-                      </p>
-                      <p data-test-id="amount">
-                        <lightning-formatted-number
-                          value={finAccount.loan_details.redrawAvailable}
-                          format-style="currency"
-                          data-id="redraw_amount"
-                          class="card-heading-font"
-                        ></lightning-formatted-number>
-                      </p>
+                      <div class="slds-float_right">
+                        <p class="card-heading-font">
+                          Redraw Amount
+                          <lightning-icon
+                            icon-name="utility:info"
+                            size="xx-small"
+                            class="tooltip"
+                            onclick={handleRedrawAvailableModal}
+                          ></lightning-icon>
+                        </p>
+                        <p data-test-id="amount">
+                          <lightning-formatted-number
+                            value={finAccount.loan_details.redrawAvailable}
+                            format-style="currency"
+                            data-id="redraw_amount"
+                            class="card-heading-font"
+                          ></lightning-formatted-number>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
