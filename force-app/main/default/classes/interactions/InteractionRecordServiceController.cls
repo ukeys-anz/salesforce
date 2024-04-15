@@ -74,6 +74,7 @@ public with sharing class InteractionRecordServiceController {
     };
     if (activeInteractionsOnly) {
       inputArgs.put('statusSearch', statusSearchList);
+      inputArgs.put('maxNumber', maxRecords + 1);
     }
     Map<String, Object> args = new Map<String, Object>{ 'input' => inputArgs };
     return args;

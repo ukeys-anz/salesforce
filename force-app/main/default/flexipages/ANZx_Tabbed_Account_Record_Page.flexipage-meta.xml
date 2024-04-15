@@ -89,9 +89,6 @@
                             <value>CASES.STATUS</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>NAME</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>CASES.TYPE</value>
                         </valueListItems>
                         <valueListItems>
@@ -276,13 +273,10 @@
                             <value>StartTime</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Attendees__c</value>
+                            <value>Owner</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Status__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Lead__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Interaction_External_Id__c</value>
@@ -295,9 +289,6 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Location</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Owner</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -374,10 +365,7 @@
                             <value>LEAD.LEAD_SOURCE</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>LEAD.CREATED_DATE</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>CORE.USERS.ALIAS</value>
+                            <value>Lead_Owner_Link__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
