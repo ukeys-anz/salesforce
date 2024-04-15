@@ -11,7 +11,8 @@ import { currentDate, logger } from "./helper.mjs";
 // Inputs:
 // baseRef = ${GITHUB_REF#refs/heads/}
 // runId = ${GITHUB_RUN_ID}
-const createTag = (baseRef, runId) => {
+const createTag = (baseRef, runId, tagCreationFlag) => {
+  if (tagCreationFlag) return;
   const tag = `${baseRef}-${runId}`;
   logger(`New created tag: ${tag}`);
 

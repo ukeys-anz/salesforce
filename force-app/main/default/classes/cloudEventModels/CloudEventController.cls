@@ -33,7 +33,7 @@ public without sharing class CloudEventController {
     cloudEvents = new List<Cloud_Event__e>();
     for (CloudEventModel ceModel : cloudEventModels) {
       //Logic to create and publish Platform Events
-      String payload = JSON.serialize(ceModel);
+      String payload = JSON.serialize(ceModel, true);
       Cloud_Event__e cloudEvent = new Cloud_Event__e(Data_1__c = payload);
       cloudEvents.add(cloudEvent);
     }

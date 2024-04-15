@@ -210,7 +210,8 @@ public with sharing class COBCaseStatusPathControllerTest {
     Test.startTest();
     Boolean isCalloutSucccesful = COBCaseStatusPathController.makeTemporalCallout(
       GetHelpConstants.COB_DAON_FAILED_STATUS,
-      cobCase
+      cobCase,
+      false
     );
     Test.stopTest();
 
@@ -223,6 +224,12 @@ public with sharing class COBCaseStatusPathControllerTest {
       true,
       String.isBlank(cobCase.Status_Update_Error__c),
       'Status Update Error field should be blank.'
+    );
+    Assert.areEqual(
+      FAILED_REASON,
+      cobCase.OnboardingVerificationFailedReason__c,
+      'Case Onboarding Verification Failed Reason should have been updated with: ' +
+      FAILED_REASON
     );
   }
 

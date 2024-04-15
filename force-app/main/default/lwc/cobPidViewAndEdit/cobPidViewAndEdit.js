@@ -1,10 +1,12 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { showToast } from "c/utils";
 import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
+import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { CloseActionScreenEvent } from "lightning/actions";
 import hasEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Primary_ID_Document";
 import detokenizeCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.detokenizeCOBPIDData";
 import updateCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.updateCOBPIDData";
+import COUNTRY_OF_ISSUE_FIELD from "@salesforce/schema/COBPrimaryIDDocument__c.CountryOfIssue__c";
 
 const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.IdDocumentType__c",
@@ -16,6 +18,7 @@ const RECORD_FIELDS = [
 export default class CobPidViewAndEdit extends LightningElement {
   @api recordId;
   @track data = {};
+  countryOfIssueOptions;
 
   _personaId;
   _initDetokenizedData = {};
@@ -137,6 +140,16 @@ export default class CobPidViewAndEdit extends LightningElement {
     }
 
     this.isLoading = false;
+  }
+
+  @wire(getPicklistValues, {
+    recordTypeId: "012000000000000AAA", // Master record type - using it due to that there isn’t a default record type
+    fieldApiName: COUNTRY_OF_ISSUE_FIELD
+  })
+  wiredCountryOfIssueFieldInfo({ data }) {
+    if (data) {
+      this.countryOfIssueOptions = data.values;
+    }
   }
 
   handleFieldChange(event) {

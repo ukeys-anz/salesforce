@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ML_Convert_Lead</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>MLCRM Convert Lead</label>
+</PermissionSet>

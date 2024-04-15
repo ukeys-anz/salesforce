@@ -42,4 +42,13 @@ global class InteractionContextRequest {
    * @description chatOrCallStatus from Twilio
    */
   public String chatOrCallStatus { get; set; }
+  /**
+   * @description isAuthenticated from Twilio, if the connection is authenticated or not
+   */
+  public Boolean isAuthenticated {
+    get {
+      return isAuthenticated ?? false;
+    }
+    set;
+  }
 }

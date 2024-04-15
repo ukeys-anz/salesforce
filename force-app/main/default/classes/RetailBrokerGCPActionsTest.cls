@@ -101,11 +101,11 @@ private class RetailBrokerGCPActionsTest {
       addModel.ce_xtargets,
       'The external id should be the same as the contact external id'
     );
-    // Assert.areEqual(
-    //   newContact.OCV_Event_Version__c,
-    //   addModel.ce_sequence,
-    //   'The sequence should be the same as the contact OCV event version'
-    // );
+    Assert.areEqual(
+      newContact.OCV_Event_Version__c,
+      addModel.ce_sequence,
+      'The sequence should be the same as the contact OCV event version'
+    );
     Assert.isTrue(
       addModel.ce_type.contains(RetailBrokerGCPActions.GCP_EVENT_ADD),
       'The ce_type should be add event'
@@ -115,11 +115,11 @@ private class RetailBrokerGCPActionsTest {
       updateModel.ce_xtargets,
       'The external id should be the same as the contact external id'
     );
-    // Assert.areEqual(
-    //   newContact.OCV_Event_Version__c,
-    //   updateModel.ce_sequence,
-    //   'The sequence should be the same as the contact OCV event version'
-    // );
+    Assert.areEqual(
+      newContact.OCV_Event_Version__c,
+      updateModel.ce_sequence,
+      'The sequence should be the same as the contact OCV event version'
+    );
     Assert.isTrue(
       updateModel.ce_type.contains(RetailBrokerGCPActions.GCP_EVENT_UPDATE),
       'The ce_type should be update event'

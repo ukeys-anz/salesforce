@@ -434,15 +434,15 @@
                         padding="horizontal-small"
                       >
                         <div class="slds-form-element__control">
-                          <lightning-input
-                            type="text"
+                          <lightning-combobox
                             label="Country of Issue"
+                            options={countryOfIssueOptions}
                             value={data.CountryOfIssue__c}
                             data-id="CountryOfIssue__c"
                             onchange={handleFieldChange}
                             read-only={readOnly}
                           >
-                          </lightning-input>
+                          </lightning-combobox>
                         </div>
                       </lightning-layout-item>
                       <lightning-layout-item
