@@ -58,6 +58,11 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
+        <field>Correct_financial_remedy_approach__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>Resolution_declined_next_steps_advised__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
