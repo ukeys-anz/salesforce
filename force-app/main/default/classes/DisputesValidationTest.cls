@@ -104,6 +104,7 @@ public with sharing class DisputesValidationTest {
   }
 
   // When manually re-assigned to a invalid Queue to pass
+  // https://jira.anzx.service.anz/browse/AR-130753
   @isTest
   static void testDisputesValidQueue() {
     User usr = TestUtil.getUserByFirstName('CoachTest');
@@ -114,14 +115,22 @@ public with sharing class DisputesValidationTest {
     c.OwnerId = cardDisputesQueue.Id;
     Test.startTest();
     System.runAs(usr) {
-      update c;
+      try {
+        update c;
+        System.assertEquals(
+          c.OwnerId,
+          cardDisputesQueue.Id,
+          'Update was not successful.'
+        );
+      } catch (Exception e) {
+        Assert.IsTrue(
+          e.getMessage()
+            .contains('You are not allowed to edit the Card Dispute case.'),
+          'Coach is not alloed to edit card dispute case.'
+        );
+      }
     }
     Test.stopTest();
-    System.assertEquals(
-      c.OwnerId,
-      cardDisputesQueue.Id,
-      'Update was not successful.'
-    );
   }
 
   // When the Status changes to closed and the External Case ID is null

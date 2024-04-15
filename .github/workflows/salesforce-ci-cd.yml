@@ -1,5 +1,5 @@
-# This is a caller workflow to manage Salesforce Validation jobs
-name: Salesforce Validation
+# This is a caller workflow to manage Salesforce Validation & Deployment jobs
+name: Salesforce Validation/Deployment
 
 on:
   pull_request:
@@ -13,6 +13,7 @@ on:
       - reopened
       - ready_for_review
       - synchronize
+      - closed
 
 permissions:
   contents: write
@@ -20,6 +21,7 @@ permissions:
 
 jobs:
   validation-run:
+    if: ${{ github.event.action != 'closed' }}
     uses: ./.github/workflows/_validation.yml
 
   validation:
@@ -30,8 +32,12 @@ jobs:
       - name: Check Validation Status
         run: echo "Validation Run Successfully"
 
+  quick-deploy:
+    if: ${{ github.event.pull_request.merged == true }}
+    uses: ./.github/workflows/_quick-deployment.yml
+
   validation-intpnv-sandbox:
-    if: ${{ (github.base_ref == 'master')}}
+    if: ${{ (github.base_ref == 'master') && (github.event.action != 'closed') }}
     uses: ./.github/workflows/_validation.yml
     with:
       sfdx_name: "h-salesforce-np-intpnv"

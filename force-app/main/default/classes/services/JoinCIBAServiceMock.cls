@@ -9,11 +9,17 @@
 public with sharing class JoinCIBAServiceMock extends JoinCIBAService {
   @TestVisible
   private static final String GETPUBLICKEYRESPONSE =
-    '{"public_key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxhznn9Ok8iR3kuoSXgXIt0' +
-    'I14ckHTm+GEOpBx6olgTyW74rTv2dgc5aR1HPRIigHTjRfUCHXGxPXTQoIiJtSaqj/Tg7TgSSMfu5uMBym/' +
-    'GwRfO3GW6LsPLYlq0Tny90vYPsbPNameIHGThmkysN5u428KyFrqDNpF13h8GZHAFkdq0kxYIi3GG2Ti0Db' +
-    'N2fPpgvyF8Zw1yax7vbg6jTBoMrE4HdWj3WfXutOerNewulkH2GCQciNTWtHjB8yuDUDzTW3nWM7KXa8EGx+' +
-    'Q98XmVg36MNiDd3WnvKgGn5JOsoYmpFWp8GbZCRG2rddJr2PHjhNIrpBDrARLXJ53UpRDQIDAQAB"}';
+    '{"public_key": "-----BEGIN PUBLIC KEY-----MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKC' +
+    'AgEAmagDNBLR4ref++CzHjO+ReCB1PkcQut2GNns7TkR/9o8qMOeK9XKbDSIJ+QdKhSxGyOj3/tz2G54Wa' +
+    'KlFY+RPl9o8cNl+cgw70jKLS3L1yroa092GdfCpVEW8MWKtP3mhM6Qneb0ObDvYNJbW7IKYdBE3VbUpMLi' +
+    'J8fWnYhZOK+VYANRzrMaeMIpirrkeI0I3HbVrG6OZkT2pMruAKE7ymur3p+Mt3rm6/G5xoJHkV3kT+HjBp' +
+    'iJr9BJ8CzPLAT60MTg8zuc8EgOsYTsIghzZqVFtN1gEORZz6vxeDak5HbkD3PvnpQaEu100qLttoyb7Lay' +
+    'MTNhNFycDhA1hYUF4kgN1WFN0YG+JuHTodzCDTIyjZTQZMAbYX/y9g/r88wSsITV1PNRDCHyE4RFNiU82k' +
+    'rO+IucoxLBtrRJihCw5sAwuoT2pk4gIRWIzwQgtofB/xatSD/iewp122X+d3oUF9TRawZtWtW/n8NKgQsY' +
+    'QTYGgef5GH9LTxBd5e3x2irNa7XPqTqVzk2OtGujKRDoEHfzRpEiSgDiGa9qfDVi59FNBBdqk2DxA+N/c3' +
+    'lxXwrO8ZCl8LIvRR7/YR8xPdMWgTwlGAtJ6cpzBlzmKiC1DRNYkA5+x8OLfPh1K2/rpSf5v72wE3g6NKq8' +
+    'QQKOpaLLCXh4e+Lr2F4uTlc7fV8MoxMCAwEAAQ==-----END PUBLIC KEY-----"}';
+
   @TestVisible
   private static final string CUSTOMERDENIEDRESPONSE =
     '{' +

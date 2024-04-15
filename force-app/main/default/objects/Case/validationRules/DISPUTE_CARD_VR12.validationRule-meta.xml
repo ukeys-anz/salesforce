@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_CARD_VR12</fullName>
+    <active>true</active>
+    <description>Revoke Edit Access on Card Dispute Case https://jira.anzx.service.anz/browse/AR-130753</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;Card_Dispute&apos;,
+     NOT(ISNEW()),
+    OR(
+        $UserRole.DeveloperName = &apos;Coach&apos;,
+        $UserRole.DeveloperName = &apos;Coach_Lead&apos;,
+        $UserRole.DeveloperName = &apos;BOH_Coach&apos;,
+        $UserRole.DeveloperName = &apos;Support_Coach&apos;,
+        $UserRole.DeveloperName = &apos;Quality_Analyst&apos;,
+        $UserRole.DeveloperName = &apos;Quality_Capability_Lead&apos;
+    )
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to edit the Card Dispute case.</errorMessage>
+</ValidationRule>

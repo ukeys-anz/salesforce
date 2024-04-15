@@ -15,7 +15,11 @@ public class PicklistUtil {
     }
     return ((PicklistCache) Cache.Org.get(
       PicklistCache.class,
-      'local.Utility.' + objectName + '-' + picklistName + '-picklist'
+      'local.Utility.' +
+      objectName +
+      '-' +
+      picklistName +
+      '-picklist'
     ));
   }
   /**

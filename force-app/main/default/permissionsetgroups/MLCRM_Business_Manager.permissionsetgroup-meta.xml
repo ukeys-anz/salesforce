@@ -6,6 +6,7 @@
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>MLCRM_Base</permissionSets>
+    <permissionSets>MLCRM_Convert_Lead</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Campaigns</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Customer_Relationship</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Interactions</permissionSets>
