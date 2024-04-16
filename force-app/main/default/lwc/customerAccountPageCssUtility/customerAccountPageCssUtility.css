@@ -1,54 +1,54 @@
 .financialAccountCardSize {
-  min-height: 200px;
+  min-height: 12.5rem;
 }
 
 .fontstyle {
   font-weight: 590;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 1rem;
+  line-height: 1.4rem;
 }
 
 .card-title {
   width: 100%;
-  padding: 16px;
-  font-size: 16px;
+  padding: 1rem;
+  font-size: 1rem;
   border-radius: 0.25em;
   font-weight: 700;
-  line-height: 24px;
-  border-bottom: 1px solid #1602022e;
+  line-height: 1.5rem;
+  border-bottom: 0.06rem solid #1602022e;
 }
 
 .card-heading-font {
   font-weight: 400;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 0.75rem;
+  line-height: 1.13rem;
 }
 
 .card-heading-value {
   font-weight: 590;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 1rem;
+  line-height: 1.4rem;
 }
 
 .card-heading-bold {
   font-weight: 700;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 0.75rem;
+  line-height: 1.13rem;
 }
 
 .lastUpdated {
-  font-size: 12px;
+  font-size: 0.75rem;
   float: right;
 }
 
 .balance-padding {
-  padding-right: 48px;
+  padding-right: 3rem;
 }
 
 .balance-padding-first {
-  padding-right: 42px;
+  padding-right: 2.63rem;
 }
 
 .balance-padding-second {
-  padding-right: 25px;
+  padding-right: 1.6rem;
 }
