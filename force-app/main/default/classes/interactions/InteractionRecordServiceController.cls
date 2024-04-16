@@ -60,6 +60,7 @@ public with sharing class InteractionRecordServiceController {
    * @param statusSearchList
    * @return Map<String, Object> constructed map
    */
+  @TestVisible
   private static Map<String, Object> getArgumentsMap(
     String strParentId,
     String strRecordTypeName,

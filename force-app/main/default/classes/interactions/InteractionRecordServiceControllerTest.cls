@@ -88,7 +88,7 @@ public with sharing class InteractionRecordServiceControllerTest {
     System.assertEquals(
       1,
       wrapperList.size(),
-      'General interaction WrapperList size should be 1'
+      'Message interaction WrapperList size should be 1'
     );
 
     List<InteractionRecordServiceController.InteractionWrapper> activeInteractionList = InteractionRecordServiceController.getInteractionRecord(
@@ -155,6 +155,40 @@ public with sharing class InteractionRecordServiceControllerTest {
       1,
       rlaWrapperList.size(),
       'Interaction exists from Residential Loan application object page'
+    );
+  }
+  @isTest
+  static void testGetArgumentsMap() {
+    List<String> statusSearchList = Label.Interaction_Status.split(',');
+    Map<String, Object> inputOrgs = (Map<String, Object>) InteractionRecordServiceController.getArgumentsMap(
+        Lib_FakeIdGenerator.getMockId(Interaction.getSObjectType()),
+        InteractionConstants.MESSAGE,
+        3,
+        false,
+        statusSearchList
+      )
+      .get('input');
+    System.assertEquals(
+      3,
+      inputOrgs.get('maxNumber'),
+      'MaxNumber value will be same as input'
+    );
+  }
+  @isTest
+  static void testGetArgumentsMapForOpen() {
+    List<String> statusSearchList = Label.Interaction_Status.split(',');
+    Map<String, Object> inputOrgs = (Map<String, Object>) InteractionRecordServiceController.getArgumentsMap(
+        Lib_FakeIdGenerator.getMockId(Interaction.getSObjectType()),
+        InteractionConstants.MESSAGE,
+        3,
+        true,
+        statusSearchList
+      )
+      .get('input');
+    System.assertEquals(
+      4,
+      inputOrgs.get('maxNumber'),
+      'MaxNumber value will be plus one to the input maxNumber'
     );
   }
 }
