@@ -177,7 +177,7 @@ const prodQuickDeployment = (
   );
   unzipFile(artifactFolderName);
   renameForceignore();
-  return quickDeployment(targetOrg, artifactFolderName);
+  return quickDeployment(targetOrg, pastJobId);
 };
 
 const uploadJobId = (
