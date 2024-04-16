@@ -266,6 +266,16 @@ public with sharing class CCRMLeadConversionActions {
           requestRecord,
           result
         );
+        if (
+          record.RecordTypeId ==
+          QueryRT.of(Lead.SObjectType).getId('MLCRM_Lead')
+        ) {
+          CustomerRelationNotesTriggerActions.CustomerRelationshipCreator custRelationCreator = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
+          custRelationCreator.createCustomerRelationship(
+            accInstance.Id,
+            requestRecord
+          );
+        }
         maintainResult.oppID = '';
         maintainResult.isNewCustomer = true;
         if (accInstance != null) {

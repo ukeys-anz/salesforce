@@ -13,11 +13,14 @@
     >
       <div class="slds-modal__container convertLeadContianer">
         <div class="slds-modal__header">
+          <!--Start header-->
           <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
             {leadTitle}
           </h1>
+          <!--End header-->
         </div>
         <template lwc:if={invalidLead}>
+          <!--Invalid lead message block-->
           <div class="slds-modal__content slds-p-around_medium contentDiv">
             <lightning-card>
               <p class="modalSubText">{modalBodySubText}</p>
@@ -31,6 +34,8 @@
               </div>
             </lightning-card>
           </div>
+          <!--End invlaid lead message block-->
+          <!--start footer-->
           <div class="slds-modal__footer">
             <lightning-button
               class="slds-button slds-var-p-around_x-small"
@@ -41,11 +46,14 @@
               >OK
             </lightning-button>
           </div>
+          <!--End footer-->
         </template>
         <template lwc:if={validLead}>
+          <!--Start MLCRM Lead details div-->
           <template lwc:if={isMLCRMlead}>
             <template lwc:if={leadDetails}>
               <div class="slds-modal__content slds-p-around_medium contentDiv">
+                <!--Start Missmatched lead warning block-->
                 <template lwc:if={misMatchWarning}>
                   <div class="slds-text-title">
                     <div>
@@ -57,6 +65,8 @@
                     ></lightning-formatted-rich-text>
                   </div>
                 </template>
+                <!--End Missmatched lead warning block-->
+                <!--Start Lead details page-->
                 <lightning-card title="Lead Details" icon-name="standard:lead">
                   {modalBodySubText}
                   <div class="slds-var-m-around_medium">
@@ -111,7 +121,9 @@
                     </lightning-record-view-form>
                   </div>
                 </lightning-card>
+                <!--End Lead details page-->
               </div>
+              <!--Start MLCRM Detail page buttons-->
               <div class="slds-modal__footer">
                 <lightning-button
                   class="slds-button"
@@ -128,8 +140,11 @@
                   onclick={convertLeadMLCRM}
                 ></lightning-button>
               </div>
+              <!--End MLCRM Detail page buttons-->
             </template>
           </template>
+          <!--End CCRM Lead details div-->
+          <!--Start CCRM Lead details div-->
           <template lwc:if={isCCRMlead}>
             <template lwc:if={leadDetails}>
               <div class="slds-modal__content slds-p-around_medium contentDiv">
@@ -146,6 +161,7 @@
                   </div>
                 </lightning-card>
               </div>
+              <!-- CCRM Detail page button-->
               <div class="slds-modal__footer">
                 <lightning-button
                   class="slds-button"
@@ -154,20 +170,35 @@
                   title="Cancel"
                   onclick={cancelAction}
                 ></lightning-button>
-                <lightning-button
-                  class="slds-button"
-                  variant="neutral"
-                  label="Search Party"
-                  title="Search Party"
-                  onclick={searchForParty}
-                ></lightning-button>
+                <template lwc:if={isOrgCustomer}>
+                  <lightning-button
+                    class="slds-button"
+                    variant="neutral"
+                    label="Search Party"
+                    title="Search Party"
+                    onclick={searchForParty}
+                  ></lightning-button>
+                </template>
+                <template lwc:if={isIndividual}>
+                  <lightning-button
+                    class="slds-button"
+                    variant="neutral"
+                    label="Continue"
+                    title="Continue"
+                    onclick={convertLeadIndividualCCRM}
+                  ></lightning-button>
+                </template>
+                <!--End Detail page button-->
               </div>
             </template>
           </template>
+          <!--End CCRM lead details div-->
+          <!--Start Search party result div-->
           <template lwc:if={searchParty}>
             <div
               class="slds-modal__content slds-p-around_medium contentDiv slds-border_bottom"
             >
+              <!--Start Result table-->
               <lightning-card>
                 <p class="modalSubText">{modalBodySubText}</p>
                 <div style={setTableHeight}>
@@ -199,7 +230,9 @@
                   type="radio"
                 ></lightning-radio-group>
               </lightning-card>
+              <!--End Result table-->
             </div>
+            <!--Org Customer result page buttons-->
             <div class="slds-modal__footer">
               <lightning-button
                 class="slds-button"
@@ -226,12 +259,16 @@
                   onclick={initiateLeadConversion}
                 ></lightning-button>
               </template>
+              <!--End Org Customer result page buttons-->
             </div>
           </template>
+          <!--End Searcg party result div -->
+          <!--Start Maintainparty Result Div-->
           <template lwc:if={maintainPartyExist}>
             <div
               class="slds-modal__content slds-p-around_medium contentDiv slds-border_bottom"
             >
+              <!--Start Result table-->
               <lightning-card>
                 <p class="modalSubText">{modalBodySubText}</p>
                 <div style="height: 50px">
@@ -260,7 +297,9 @@
                   </div>
                 </template>
               </lightning-card>
+              <!--End result table-->
             </div>
+            <!--Individual result page buttons-->
             <div class="slds-modal__footer">
               <lightning-button
                 class="slds-button"
@@ -279,8 +318,10 @@
                 ></lightning-button>
               </template>
             </div>
+            <!--End Individual result page buttons-->
           </template>
-
+          <!--End Maintainparty Result Div-->
+          <!--Start Convert Lead Progress Indicator Block-->
           <template lwc:if={isConvertLead}>
             <div class="slds-modal__content slds-p-around_medium contentDiv">
               <div
@@ -306,6 +347,7 @@
               </div>
             </div>
           </template>
+          <!--End Convert Lead Progress Indicator Block-->
         </template>
       </div>
     </section>

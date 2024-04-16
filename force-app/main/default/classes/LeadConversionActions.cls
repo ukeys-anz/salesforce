@@ -94,7 +94,13 @@ public class LeadConversionActions {
    */
   public Boolean isAutoMisMatchTaskRequired(List<Lead> convertedLeads) {
     for (Lead leadRecord : convertedLeads) {
-      if (CCRMLeadUtil.isMLCRMLeadType(leadRecord)) {
+      if (
+        leadRecord.RecordTypeId ==
+        QueryRT.of(Lead.getSObjectType()).getId('MLCRM_Lead') ||
+        (leadRecord.RecordTypeId ==
+        QueryRT.of(Lead.getSObjectType()).getId('CCRM_Lead') &&
+        leadRecord.Entity_Type__c == ENTITY_TYPE_INDIVIDUAL)
+      ) {
         return true;
       }
     }

@@ -160,6 +160,7 @@ public with sharing class CCRMLeadActions {
     CCRMLeadActionsHelper.populateFieldsFromCampaign(records);
     CCRMLeadActionsHelper.populateRelatedAccount(records);
     CCRMLeadActionsHelper.populateLeadSource(records);
+    CCRMLeadActionsHelper.populateRegisteredCompany(records);
   }
 
   /**
@@ -986,12 +987,12 @@ public with sharing class CCRMLeadActions {
       }
     }
   }
-/**
+  /**
    * @description This method is used to prevent deleteion of lead record for CCRM
    * @name preventDeletionForCCRM
    * @param records List of Lead records
    */
-    public static void preventDeletionForCCRM(List<Lead> records) {
+  public static void preventDeletionForCCRM(List<Lead> records) {
     CCRMLeadActionsHelper.validateLeadTypeForDeletion(records);
   }
 }

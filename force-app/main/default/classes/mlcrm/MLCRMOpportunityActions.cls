@@ -70,7 +70,11 @@ public with sharing class MLCRMOpportunityActions {
           requestRecord,
           result
         );
-
+        CustomerRelationNotesTriggerActions.CustomerRelationshipCreator custRelationCreator = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
+        custRelationCreator.createCustomerRelationship(
+          accInstance.Id,
+          requestRecord
+        );
         createOppContactRoleForCustomer(accInstance.Id, oppId, strRole);
         maintainResult.isNewCustomer = true;
       } else if (result.ocvId != null && result.newCustomer == 'false') {

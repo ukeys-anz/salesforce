@@ -133,6 +133,15 @@ public with sharing class CCRMLeadConversionActionsHelper {
       CCRMLeadConversionActions.leadConverionFlow = true;
       ShellProspectCreator prospectCreator = new ShellProspectCreator();
       isUpdated = prospectCreator.updateLead(record);
+      if (
+        record.RecordTypeId == QueryRT.of(Lead.SObjectType).getId('MLCRM_Lead')
+      ) {
+        CustomerRelationNotesTriggerActions.CustomerRelationshipCreator custRelationCreator = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
+        custRelationCreator.createCustomerRelationship(
+          accId,
+          getRequestRecord(record)
+        );
+      }
     } else {
       // Throw custom exception
       handleError(INSUFFICIANT_PERMISSION_ERROR, record.Id);
@@ -439,7 +448,6 @@ public with sharing class CCRMLeadConversionActionsHelper {
       recordTypeId,
       reqRecord
     );
-    prospectCreator.createCustomerRelationship(accountInstance, reqRecord);
     return accountInstance;
   }
 

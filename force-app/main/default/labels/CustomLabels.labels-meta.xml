@@ -2685,4 +2685,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>Proceed Confirmation Message</shortDescription>
         <value>Do you wish to proceed?</value>
     </labels>
+    <labels>
+        <fullName>CCRM_IndividualCustomerWarning</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_IndividualCustomerWarning</shortDescription>
+        <value>Please fill out the details in contact information section.</value>
+    </labels>
 </CustomLabels>

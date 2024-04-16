@@ -188,17 +188,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     MLCRM_Lead_MisMatch_Warning_Message
   };
 
-  fields = [
-    "ABN__c",
-    "ACN__c",
-    "FirstName",
-    "LastName",
-    "MobilePhone",
-    "Home_Phone__c",
-    "Email",
-    "Address"
-  ];
-
   connectedCallback() {
     // eslint-disable-next-line @lwc/lwc/no-async-operation
     this._interval = setInterval(() => {
@@ -352,6 +341,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       this.validateLeadCCRM();
       this.isCCRMlead = true;
       if (
+        !this.isIndividual &&
         (this.leadConvertData.leadRecord.Registered_Company__c === undefined ||
           this.leadConvertData.leadRecord.Registered_Company__c === "No") &&
         (this.leadConvertData.leadRecord.FinServ__RelatedAccount__c === null ||
@@ -428,8 +418,9 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       }
       //# Criteria #5
       if (
-        this.leadConvertData.leadRecord.Industry__c === undefined ||
-        this.leadConvertData.leadRecord.Industry__c === null
+        !this.isIndividual &&
+        (this.leadConvertData.leadRecord.Industry__c === undefined ||
+          this.leadConvertData.leadRecord.Industry__c === null)
       ) {
         this.setInvalidLead();
         this.validationMessage.push({
@@ -462,7 +453,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       //# Criteria #8
       if (
         this.leadConvertData.leadRecord.Registered_Company__c === "Yes" &&
-        this.leadConvertData.leadRecord.Entity_Type__c !== "Individual" &&
+        !this.isIndividual &&
         this.leadConvertData.leadRecord.ABN__c &&
         this.leadConvertData.leadRecord.ABN_Validation_Status__c !== "Active" &&
         this.leadConvertData.leadRecord.ACN__c &&
@@ -480,8 +471,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     // Throw error IF Related Party = Business OR Individual AND
     //Supplied ABN OR ACN is Cancelled
     else if (
-      (this.leadConvertData.relatedAccountType === "isIndividual" ||
-        this.leadConvertData.relatedAccountType === "isBusiness") &&
+      (this.isIndividual || this.isOrgCustomer) &&
       ((this.leadConvertData.leadRecord.ABN__c &&
         this.leadConvertData.leadRecord.ABN_Validation_Status__c !==
           "Active") ||
@@ -573,8 +563,11 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     }
   }
 
+  convertLeadIndividualCCRM() {
+    this.maintainPartyAction();
+  }
+
   maintainPartyAction() {
-    this.isLoading = true;
     this.searchParty = false;
     this.maintainPartyExist = false;
     this.isConvertLead = true;
@@ -619,6 +612,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           this.modalBodySubText =
             this.label.MLCRM_LeadConversionMaintainPartySubText;
         } else {
+          this.isLoading = false;
           this.isConverted = true;
           this.progress = 98;
           if (
@@ -719,59 +713,49 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   }
 
   createParty() {
-    if (this.leadConvertData.leadRecord.Entity_Type__c === "Individual") {
-      handleErrorShowToast(
-        this,
-        "ERROR!",
-        "",
-        "You cannot create Individual prospect using CAP API",
-        "pester"
-      );
-    } else {
-      this.searchParty = false;
-      this.isConvertLead = true;
-      this.isModalOpen = true;
-      this.progress = 0;
-      this.updateModalTitle();
-      createParty({
-        record: this.leadConvertData.leadRecord
+    this.searchParty = false;
+    this.isConvertLead = true;
+    this.isModalOpen = true;
+    this.progress = 0;
+    this.updateModalTitle();
+    createParty({
+      record: this.leadConvertData.leadRecord
+    })
+      .then((result) => {
+        this.isConverted = true;
+        this.progress = 98;
+        if (result === null || result === "undefined" || result === "") {
+          this.closeAction();
+          handleErrorShowToast(
+            this,
+            "ERROR!",
+            "",
+            "Empty result. Lead Conversion Failed!",
+            "pester"
+          );
+        } else {
+          this.closeAction();
+          showToast(
+            this,
+            "SUCCESS!",
+            "Lead Conversion Completed successfully.",
+            "",
+            "Success",
+            ""
+          );
+          this[NavigationMixin.Navigate]({
+            type: "standard__recordPage",
+            attributes: {
+              recordId: result,
+              objectApiName: "Opportunity",
+              actionName: "view"
+            }
+          });
+        }
       })
-        .then((result) => {
-          this.isConverted = true;
-          this.progress = 98;
-          if (result === null || result === "undefined" || result === "") {
-            this.closeAction();
-            handleErrorShowToast(
-              this,
-              "ERROR!",
-              "",
-              "Empty result. Lead Conversion Failed!",
-              "pester"
-            );
-          } else {
-            this.closeAction();
-            showToast(
-              this,
-              "SUCCESS!",
-              "Lead Conversion Completed successfully.",
-              "",
-              "Success",
-              ""
-            );
-            this[NavigationMixin.Navigate]({
-              type: "standard__recordPage",
-              attributes: {
-                recordId: result,
-                objectApiName: "Opportunity",
-                actionName: "view"
-              }
-            });
-          }
-        })
-        .catch((error) => {
-          this.handleError(error);
-        });
-    }
+      .catch((error) => {
+        this.handleError(error);
+      });
   }
 
   updateModalTitle() {
@@ -882,6 +866,45 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
     this.isConvertLeadButton = false;
     this.setSelectedRow = [];
     this.noMatchSelected = event.target.value;
+  }
+
+  get isIndividual() {
+    return this.leadConvertData.leadRecord.Entity_Type__c === "Individual"
+      ? true
+      : false;
+  }
+
+  get isOrgCustomer() {
+    return this.leadConvertData.leadRecord.Entity_Type__c !== "Individual"
+      ? true
+      : false;
+  }
+
+  //get list of field Lead summary page
+  get fields() {
+    //return if Individual type of entity
+    if (this.isIndividual) {
+      return [
+        "Name",
+        "FinServ__RelatedAccount__c",
+        "MobilePhone",
+        "Email",
+        "Home_Phone__c",
+        "Address",
+        "Work_Phone__c"
+      ];
+    }
+    //return if Org type of entity
+    return [
+      "ABN__c",
+      "ACN__c",
+      "FirstName",
+      "LastName",
+      "MobilePhone",
+      "Home_Phone__c",
+      "Email",
+      "Address"
+    ];
   }
 
   get invalidLead() {
