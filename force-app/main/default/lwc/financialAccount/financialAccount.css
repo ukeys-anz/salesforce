@@ -1,7 +1,7 @@
 @import "c/customerAccountPageCssUtility";
 
 .slds-badge {
-  margin-left: 10px;
+  margin-left: 0.625rem;
 }
 
 .not-found {
@@ -13,18 +13,18 @@
 }
 
 .message-padding {
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .account-footer {
-  margin-bottom: 15px;
+  margin-bottom: 0.938rem;
 }
 
 .tooltip {
   cursor: pointer;
-  margin-left: 4px;
+  margin-left: 0.25rem;
   position: relative;
-  bottom: 2px;
+  bottom: 0.125rem;
 }
 
 .tooltip:hover {
@@ -57,5 +57,5 @@
 /*Account Closure date should appear in italic and in small size */
 .italictext {
   font-style: italic;
-  font-size: 10px;
+  font-size: 0.625rem;
 }

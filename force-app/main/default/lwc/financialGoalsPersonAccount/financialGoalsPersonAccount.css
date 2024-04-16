@@ -2,30 +2,30 @@
 
 .last-updated {
   float: right;
-  font-size: 12px;
+  font-size: 0.75rem;
   position: absolute;
-  bottom: 7px;
-  right: 10px;
+  bottom: 0.44rem;
+  right: 0.63rem;
 }
 
 .ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 178px;
+  max-width: 11.13rem;
 }
 
 .progress-ring {
   position: relative;
-  bottom: 15px;
-  right: 10px;
+  bottom: 0.94rem;
+  right: 0.63rem;
 }
 
 .description-tooltip {
   visibility: hidden;
   width: 30%;
   background-color: #18315c;
-  padding: 20px;
+  padding: 1.25rem;
   opacity: 0;
   transition: opacity 0.5s ease;
   position: absolute;
@@ -37,7 +37,7 @@
 .progress-tooltip {
   visibility: hidden;
   background-color: #18315c;
-  padding: 5px;
+  padding: 0.313rem;
   opacity: 0;
   transition: opacity 0.5s ease;
   position: absolute;
@@ -54,7 +54,7 @@
 
 .tooltip-modal {
   cursor: pointer;
-  margin-left: 4px;
+  margin-left: 0.25rem;
 }
 
 .tooltip-modal:hover {
@@ -72,7 +72,7 @@
 }
 
 .message-padding {
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .no-goals {
@@ -84,8 +84,8 @@
 }
 
 .emoji {
-  font-size: 4.98vw;
-  top: 17px;
+  font-size: 4vw;
+  top: 1.063rem;
 }
 
 .slds-border_right:last-child {
