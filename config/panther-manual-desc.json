@@ -2230,7 +2230,7 @@
       "IA-2453595": ["IDR_Issue_Type__c", "IDR_Subsequent_Issue_Type__c"]
     },
     "Lead": {
-      "IA-2468713": ["SmartphoneOS__c"],
+      "IA-2468713": ["SmartphoneOS__c", "Pub_Sub_Event_Id__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
