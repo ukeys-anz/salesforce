@@ -2425,6 +2425,48 @@
     {
       "attributes": {
         "type": "Product2",
+        "referenceId": "Product2Ref579"
+      },
+      "Name": "ANZ Visa PAYCARD",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "579",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "11",
+      "IDR_Workbasket__c": "IDR_Satellite",
+      "IDR_Product_Family__c": "@Product_Family__cRef8"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref580"
+      },
+      "Name": "ANZ Rewards Visa PAYCARD",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "580",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "11",
+      "IDR_Workbasket__c": "IDR_Satellite",
+      "IDR_Product_Family__c": "@Product_Family__cRef8"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref581"
+      },
+      "Name": "Investment Lending",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "581",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Category__c": "4",
+      "IDR_Product_or_Service_Type__c": "26",
+      "IDR_Workbasket__c": "IDR_Wealth",
+      "IDR_Product_Family__c": "@Product_Family__cRef11"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
         "referenceId": "Product2Ref559"
       },
       "Name": "N/A",

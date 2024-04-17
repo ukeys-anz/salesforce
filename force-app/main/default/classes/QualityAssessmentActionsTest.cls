@@ -162,6 +162,26 @@ private class QualityAssessmentActionsTest {
       'Passing Store into calculateInteractionType method should return Store.'
     );
   }
+  //method to test assignUsersDetailsToQaFields
+  @IsTest
+  private static void testAssignUsersDetailsToQaFields() {
+    Case testCase = new Case();
+    testCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    testCase.OwnerId = UserInfo.getUserId();
+    Map<Id, Case> caseMap = new Map<Id, Case>();
+    caseMap.put(testCase.Id, testCase);
+    Quality_Assessment__c qa = new Quality_Assessment__c();
+    qa.RecordTypeId = IDRConstants.idrtCQQualityAssessment;
+    qa.Related_Case__c = testCase.Id;
+    qa.OwnerId = UserInfo.getUserId();
+    List<Quality_Assessment__c> qaList = new List<Quality_Assessment__c>{ qa };
+    QualityAssessmentActions.assignUsersDetailsToQaFields(caseMap, qaList);
+    System.assertEquals(
+      qa.C_Q_Specialist__c,
+      UserInfo.getUserId(),
+      'CQ Specialist is the owner of the record'
+    );
+  }
   //method to test autoCalculateScore
   @IsTest
   private static void testCaseManagerScoreAndBusinessScore() {
