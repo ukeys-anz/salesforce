@@ -1,28 +1,36 @@
+@import "c/customerAccountPageCssUtility";
+
 .total-amounts {
-  min-height: 150px;
+  min-height: 9.75rem;
+}
+
+.heading-font {
+  line-height: 1.688rem;
+  font-size: 1.125rem;
+  font-weight: 700;
 }
 
 .slds-item_label {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .lastUpdated {
   float: right;
   position: relative;
-  font-size: 12px;
-  bottom: 7px;
-  right: 10px;
+  font-size: 0.75rem;
+  bottom: 0.438rem;
+  right: 0.625rem;
 }
 
 .field-padding {
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 .tooltip {
   cursor: pointer;
-  margin-left: 4px;
+  margin-left: 0.25rem;
   position: relative;
-  bottom: 2px;
+  bottom: 0.125rem;
 }
 
 .tooltip:hover {
@@ -39,15 +47,9 @@
   color: #fff;
 }
 
-.card-title {
-  background: #eef1f5;
+.card-title-header {
   width: 100%;
-  padding: 8px;
-  font-size: 16px;
+  padding: 0.5rem;
   border-radius: 0.25em;
-  font-weight: bold;
-}
-
-.balance-padding {
-  padding-right: 48px;
+  border-bottom: 1px solid #1602022e;
 }

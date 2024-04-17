@@ -1,0 +1,25 @@
+<design:component label="Tabbed Customer Layout">
+    <flexipage:template >
+        <flexipage:region name="column1" defaultWidth="Medium" />
+        <flexipage:region name="column2" defaultWidth="Medium" />
+        <flexipage:region name="column3" defaultWidth="Medium" />
+        <flexipage:region name="column4" defaultWidth="Medium" />
+        <flexipage:region name="column5" defaultWidth="Medium" />
+        <flexipage:region name="column6" defaultWidth="Medium" />
+        <flexipage:region name="column7" defaultWidth="Medium" />
+        <flexipage:region name="column8" defaultWidth="Medium" />
+        <flexipage:region name="column9" defaultWidth="Medium" />
+        <flexipage:region name="column10" defaultWidth="Medium" />
+        <flexipage:region name="column11" defaultWidth="Medium" />
+        <flexipage:region name="column12" defaultWidth="Medium" />
+        <flexipage:region name="column13" defaultWidth="Medium" />
+        <flexipage:region name="column14" defaultWidth="Medium" />
+        <flexipage:region name="column15" defaultWidth="Medium" />
+        <flexipage:region name="column16" defaultWidth="Medium" />
+        <flexipage:region name="column17" defaultWidth="Medium" />
+        <flexipage:region name="column18" defaultWidth="Medium" />
+        <flexipage:region name="column19" defaultWidth="Medium" />
+        <flexipage:region name="column20" defaultWidth="Medium" />
+        <flexipage:region name="header" defaultWidth="Medium" />
+    </flexipage:template>
+</design:component>

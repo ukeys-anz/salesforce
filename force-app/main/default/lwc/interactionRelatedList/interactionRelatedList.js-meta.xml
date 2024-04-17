@@ -12,7 +12,9 @@
         <property label="Show Message Tab" name="showMsgTab" type="Boolean" default="true"/>
         <property label="Show Call Tab" name="showCallIntTab" type="Boolean" default="true"/>
         <property label="Show Store Tab" name="showStoreIntTab" type="Boolean" default="true"/>
+        <property label="Show Active Messages Interaction" name="showActiveMsgInteraction" type="Boolean" default="false"/>
         <property label="Max Records on Page" name="maxRecords" type="Integer" default="3"/>
+        <property label="Message Tab Title" name="tabTitle" type="String" default="Messages"/>
       </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

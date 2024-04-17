@@ -1,14 +1,7 @@
+@import "c/customerAccountPageCssUtility";
+
 .slds-badge {
-  margin-left: 10px;
-}
-
-.financialAccount {
-  min-height: 200px;
-}
-
-.lastUpdated {
-  font-size: 12px;
-  float: right;
+  margin-left: 0.625rem;
 }
 
 .not-found {
@@ -19,23 +12,19 @@
   transform: translate(-50%, -50%);
 }
 
-.balance-padding {
-  padding-right: 48px;
-}
-
 .message-padding {
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .account-footer {
-  margin-bottom: 15px;
+  margin-bottom: 0.938rem;
 }
 
 .tooltip {
   cursor: pointer;
-  margin-left: 4px;
+  margin-left: 0.25rem;
   position: relative;
-  bottom: 2px;
+  bottom: 0.125rem;
 }
 
 .tooltip:hover {
@@ -52,26 +41,10 @@
   color: #fff;
 }
 
-.card-title {
-  background: #eef1f5;
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 0.25em;
-  font-weight: bold;
-}
-
 .vertical-align {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-}
-
-/*As per story ANZX-113310 Colour of “Closed” status is changed . Hence , using this class for showing closed status with red text/white background/red border */
-.closedBadgeClass {
-  --slds-c-badge-color-background: white;
-  --slds-c-badge-color-border: red;
-  --slds-c-badge-text-color: red;
 }
 
 /*As per story ANZX-113310 Colour of "Dormant" status is changed . Hence , using this class for showing Dormant status with green text/white background/green border*/
@@ -84,5 +57,5 @@
 /*Account Closure date should appear in italic and in small size */
 .italictext {
   font-style: italic;
-  font-size: 10px;
+  font-size: 0.625rem;
 }

@@ -1,0 +1,54 @@
+.financialAccountCardSize {
+  min-height: 12.5rem;
+}
+
+.fontstyle {
+  font-weight: 590;
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+.card-title {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 0.25em;
+  font-weight: 700;
+  line-height: 1.5rem;
+  border-bottom: 0.06rem solid #1602022e;
+}
+
+.card-heading-font {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.13rem;
+}
+
+.card-heading-value {
+  font-weight: 590;
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+.card-heading-bold {
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1.13rem;
+}
+
+.lastUpdated {
+  font-size: 0.75rem;
+  float: right;
+}
+
+.balance-padding {
+  padding-right: 3rem;
+}
+
+.balance-padding-first {
+  padding-right: 2.63rem;
+}
+
+.balance-padding-second {
+  padding-right: 1.6rem;
+}

@@ -1,0 +1,10 @@
+.customCustomerTab lst-dynamic-related-list .slds-size_1-of-3 {
+  width: 100%;
+}
+
+.customCustomerTab
+  records-lwc-detail-panel
+  records-base-record-form
+  .slds-card__body {
+  margin-top: 0 !important;
+}
