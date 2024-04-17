@@ -967,6 +967,36 @@
             <default>false</default>
         </values>
         <values>
+
+            <fullName>Operational Performance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personalisation %26 Digital Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing COE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remediation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Credit Risk %28Group%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+
             <fullName>SME Banking</fullName>
             <default>false</default>
         </values>

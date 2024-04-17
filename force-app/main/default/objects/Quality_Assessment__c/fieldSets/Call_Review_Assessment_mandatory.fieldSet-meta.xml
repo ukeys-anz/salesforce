@@ -8,6 +8,16 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
+        <field>Satisfactory_contact_made_or_attempted__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Investigation_notes_documented_clearly__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>TeamManager__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

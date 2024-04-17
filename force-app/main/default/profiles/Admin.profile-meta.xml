@@ -3091,6 +3091,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.CaseOwnerManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_AFCA_EDR_impact__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8490,6 +8495,26 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Product_Family__c.IDR_ANZ_com_Unique_Product_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.CMOS_Comment_28__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.CMOS_Comment_29__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.Investigation_notes_documented_clearly__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.Satisfactory_contact_made_or_attempted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

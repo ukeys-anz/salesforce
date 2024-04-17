@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Call_Review_Assessment</fullName>
+    <fullName>Call_Review_Assesment</fullName>
     <description>For Calculating Case Manager Score % and Business Score %</description>
     <displayedFields>
         <field>Customer_correctly_identified__c</field>
@@ -14,21 +14,6 @@
     </displayedFields>
     <displayedFields>
         <field>CM_used_LEAP_call_control__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Satisfactory_contact_made_or_attempted__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Investigation_notes_documented_clearly__c</field>
-        <isFieldManaged>false</isFieldManaged>
-        <isRequired>false</isRequired>
-    </displayedFields>
-    <displayedFields>
-        <field>Correct_financial_remedy_approach__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
@@ -57,5 +42,5 @@
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
-    <label>Call Review Assessment</label>
+    <label>Call Review Assesment</label>
 </FieldSet>
