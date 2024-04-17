@@ -90,10 +90,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Commercial Broker</fullName>
             <default>false</default>
         </values>
@@ -931,10 +927,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Mobile Lending</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Open Banking</fullName>
             <default>false</default>
         </values>
@@ -967,31 +959,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Personalisation %26 Digital Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pricing COE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Remediation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retail Broker</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retail Credit Risk %28Group%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retail Lending</fullName>
-            <default>false</default>
-        </values>
-        <values>
-
             <fullName>SME Banking</fullName>
             <default>false</default>
         </values>
@@ -1026,12 +993,13 @@
         <values>
             <fullName>Transact and Save</fullName>
             <default>false</default>
-        </values>
+        </values> 
         <values>
             <fullName>Wealth - ANZLMI</fullName>
             <default>false</default>
         </values>
     </picklistValues>
+       
     <picklistValues>
         <picklist>SI_Subject_of_Breach_Report__c</picklist>
         <values>
