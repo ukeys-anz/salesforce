@@ -2068,10 +2068,16 @@
                 <fieldItem>Record.Investigation_notes_documented_clearly__c</fieldItem>
                 <identifier>RecordInvestigation_notes_documented_clearly_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Call Review Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -2085,10 +2091,16 @@
                 <fieldItem>Record.CMOS_Comment_29__c</fieldItem>
                 <identifier>RecordCMOS_Comment_29_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Evaluation_Type__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Call Review Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Letter Review Assessment</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
