@@ -3,10 +3,9 @@ name: Salesforce Deployment
 on:
   push:
     branches:
-      # - "release"
-      # - "develop"
-      # - "epic/*"
-      - x
+      - "release"
+      - "develop"
+      - "epic/*"
 
 permissions:
   contents: "write"

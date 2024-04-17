@@ -96,17 +96,17 @@ const prodValidation = () => {
     ARTIFACTORY_REPO_NAME,
     DEPLOY_USER_USERNAME
   );
-  uploadJobId(
-    validation,
-    JOB_ID_FILE_NAME,
-    ARTIFACTORY_SECRET_VALUE,
-    ARTIFACTORY_REPO_NAME
-  );
   validateProgress(
     validation,
     DEPLOY_USER_USERNAME,
     ARTIFACT_PACKAGE_XML,
     ARTIFACT_DESTRUCTIVE_XML
+  );
+  uploadJobId(
+    validation,
+    JOB_ID_FILE_NAME,
+    ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME
   );
 };
 
