@@ -393,6 +393,7 @@
     },
     "Activity": {
       "IA-2530753": ["Pega_CDH_Id__c"],
+      "IA-2468713": ["Pub_Sub_Event_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
@@ -2231,7 +2232,7 @@
       "IA-2453595": ["IDR_Issue_Type__c", "IDR_Subsequent_Issue_Type__c"]
     },
     "Lead": {
-      "IA-2468713": ["SmartphoneOS__c"],
+      "IA-2468713": ["SmartphoneOS__c", "Pub_Sub_Event_Id__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",

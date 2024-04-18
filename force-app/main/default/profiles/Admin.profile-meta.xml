@@ -3426,6 +3426,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Task.Pub_Sub_Event_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.My_extended_team_s_cases__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11409,6 +11414,10 @@
         <recordType>Task.Lead_Response</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Callback Request Layout</layout>
+        <recordType>Task.Callback_Request</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Task-Compliance Task Layout</layout>
         <recordType>Task.Compliance_Task</recordType>
     </layoutAssignments>
@@ -12838,6 +12847,11 @@
         <default>false</default>
         <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
         <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.Callback_Request</recordType>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>

@@ -66,4 +66,9 @@
         <default>false</default>
         <label>Notification</label>
     </standardValue>
+    <standardValue>
+        <fullName>Callback Request</fullName>
+        <default>false</default>
+        <label>Callback Request</label>
+    </standardValue>
 </StandardValueSet>
