@@ -9,7 +9,7 @@
     <filters>
         <field>Broker_Accreditation_Type__c</field>
         <operation>includes</operation>
-        <value>Retail Broker</value>
+        <value>Retail</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>Retail Brokers</label>

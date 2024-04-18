@@ -15,15 +15,18 @@ import {
   prodDeploymentWithAllTests,
   prodQuickDeployment,
   deployWithoutTest,
+  quickDeployProgress,
   deployProgress,
   deployReport,
-  validateProgress
+  validateProgress,
+  uploadJobId
 } from "../Services/deploy-service.mjs";
 import {
   deleteFolder,
   renameItem,
   booleanMap,
-  findAllArgvs
+  findAllArgvs,
+  deleteFile
 } from "../Services/helper.mjs";
 import { createTagPipeline } from "../Services/tag-service.mjs";
 //////////
@@ -45,6 +48,8 @@ const {
 const BASE_REF = STAGE_NAME === "preprod-deployment" ? "master" : "prodrel";
 const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases`;
 const SOURCE_DIR = `artifact-master-${RELEASE_NAME}`;
+const JOB_ID_FILE_NAME = renameItem(`release-${RELEASE_NAME}`);
+
 const DEPLOY_USER_USERNAME =
   BASE_REF === "master" ? "master" : PROD_DEPLOY_USERNAME;
 const ARTIFACT_PACKAGE_XML =
@@ -97,6 +102,12 @@ const prodValidation = () => {
     ARTIFACT_PACKAGE_XML,
     ARTIFACT_DESTRUCTIVE_XML
   );
+  uploadJobId(
+    validation,
+    JOB_ID_FILE_NAME,
+    ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME
+  );
 };
 
 const prodDeployment = () => {
@@ -107,12 +118,13 @@ const prodDeployment = () => {
     PROD_URL
   );
   const deployment = prodQuickDeployment(
+    JOB_ID_FILE_NAME,
     SOURCE_DIR,
     ARTIFACTORY_SECRET_VALUE,
     ARTIFACTORY_REPO_NAME,
     DEPLOY_USER_USERNAME
   );
-  deployProgress(
+  quickDeployProgress(
     deployment,
     DEPLOY_USER_USERNAME,
     ARTIFACT_PACKAGE_XML,
@@ -128,6 +140,7 @@ const validationCleaning = () => {
 const deploymentCleaning = () => {
   unauthenticate(DEPLOY_USER_USERNAME);
   deleteFolder(SOURCE_DIR);
+  deleteFile(JOB_ID_FILE_NAME);
   createTagPipeline(BASE_REF, RELEASE_NAME);
 };
 

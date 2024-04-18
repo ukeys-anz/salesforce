@@ -377,7 +377,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback,BPAY,Account Closure</value>
+            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback,BPAY,Account Closure</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -499,7 +499,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,Card,NPP,BPAY,Account Closure</value>
+            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP,BPAY,Account Closure</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -544,7 +544,7 @@
         <sharedTo>
             <group>Coach_And_Coach_Lead_Group</group>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3</booleanFilter>
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
@@ -555,25 +555,10 @@
             <operation>equals</operation>
             <value>Credit Referral</value>
         </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Escalated_Complaint_for_Coach_Lead_Role_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Escalated Complaint for Coach Lead Role RO</label>
-        <sharedTo>
-            <role>Coach_Lead</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
-        <criteriaItems>
-            <field>Original_Case_Owner__c</field>
-            <operation>notEqual</operation>
-            <value/>
-        </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Credit Referral</value>
+            <value>Card</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -604,7 +589,7 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3</booleanFilter>
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
@@ -614,6 +599,11 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Credit Referral</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -1009,23 +999,12 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
-        <fullName>Fraud_FraudXAgent_RW</fullName>
+        <fullName>FraudX_Agent_owned_cases_Share_RW_FraudX_agent_Join_Lead</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Fraud Case Owners are to be shared with FraudX Agents with Read/Write access.</description>
-        <label>Fraud_FraudXAgent_RW</label>
+        <description>All Cases having Fraud Case Owners are to be shared with FraudX Agents and Join lead with Read/Write access.</description>
+        <label>FraudX Agent owned cases Share RW FraudX agent and Join Lead</label>
         <sharedTo>
-            <role>FraudX_Agent</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>FraudX_Agent</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>Owned_by_Fraud_Agent_Share_with_Join_Lead_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Owned by Fraud Agent Share with Join Lead</label>
-        <sharedTo>
-            <role>Join_Lead</role>
+            <group>FraudX_Agent_Join_Lead</group>
         </sharedTo>
         <sharedFrom>
             <role>FraudX_Agent</role>

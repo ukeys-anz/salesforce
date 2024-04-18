@@ -1,40 +1,25 @@
-name: Salesforce Validation
+name: Salesforce Quick Deployment
 
 on:
-  pull_request:
-    branches:
-      - "master"
-      - "develop"
-      - "release"
-      - "epic/*"
-    types:
-      - opened
-      - reopened
-      - ready_for_review
-      - synchronize
+  workflow_call:
+    inputs:
+      sfdx_name:
+        required: false
+        description: "Secret Name as an Input"
+        type: string
 
 permissions:
-  contents: "read"
-  id-token: "write"
+  contents: write
+  id-token: write
 
 jobs:
-  validation:
+  Quick-Deployment:
+    name: Quick Deployment ${{inputs.sfdx_name}}
     container:
       image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
       options: --user root
     runs-on: [self-hosted, cd-ubuntu-s-np]
     steps:
-      - name: Link SGD plugin
-        run: |
-          cd /opt/harness-delegate/.local/share/sf
-          sf plugins:link node_modules/sfdx-git-delta/bin
-
-      - name: NPM package Version | node, sfdx, sf, sgd version
-        run: |
-          echo "node version: $(node -v)"
-          echo "sf version: $(sf -v)"
-          echo "sf plugins: $(sf plugins)"
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -48,24 +33,26 @@ jobs:
 
       - name: ENV vars
         run: |
-          baseRef="${{ github.base_ref }}"
-          echo BASE_REF="$baseRef" >> $GITHUB_ENV
+          echo BASE_REF="${{ github.base_ref }}" >> $GITHUB_ENV
           echo BRANCH_NAME="${{ github.head_ref }}" >> $GITHUB_ENV
           echo PR_NUMBER="${{ github.event.number }}" >> $GITHUB_ENV
-          echo DRAFT_PR="${{ github.event.pull_request.draft }}" >> $GITHUB_ENV
-          echo SPECIFIED_TEST_PR="${{ contains( toJson(github.event.pull_request.labels), 'Run Specified Tests') }}" >> $GITHUB_ENV
+          echo RUN_ID="${GITHUB_RUN_ID}" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
           echo REPO_NAME="${{ github.event.repository.name }}" >> $GITHUB_ENV
-
-          lastTag="$( git describe --abbrev=0 --tags --match $baseRef* )"
-          echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
+          echo JOB_NAME="${{ inputs.sfdx_name }}" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifact" >> $GITHUB_ENV
+          echo WHICH_JOB="quickDeployment" >> $GITHUB_ENV
 
       - name: Find Secret Names
         run: |
-          sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
+          sfdxURL="${{ inputs.sfdx_name }}"
+
+          if [[ "$sfdxURL" == "" ]];then
+            sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
+          fi
+
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifact" >> $GITHUB_ENV
 
       - name: Retrieve GSM Credentials
         id: secrets
@@ -84,11 +71,11 @@ jobs:
           proxy-username: "sf-harness-delegate-np"
           proxy-password: "${{ steps.secrets.outputs.proxypass }}"
 
-      - name: Run Validation
+      - name: Run Quick Deployment
         run: |
-          node --no-warnings ci/workflows/Orchestrations/validation.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
-          echo WHICH_JOB="clean" >> $GITHUB_ENV
+          node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs "${{ steps.secrets.outputs.sfdxurl }}" "${{ steps.secrets.outputs.artifactory }}"
+          echo WHICH_JOB="quickClean" >> $GITHUB_ENV
 
-      - name: Code coverage and cleaning
+      - name: Creating New Tag and Cleaning
         run: |
-          node --no-warnings ci/workflows/Orchestrations/validation.mjs
+          node --no-warnings ci/workflows/Orchestrations/quickDeployment.mjs

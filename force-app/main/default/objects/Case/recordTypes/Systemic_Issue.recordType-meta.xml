@@ -82,19 +82,47 @@
     <picklistValues>
         <picklist>SI_Assigned_to_Portfolios__c</picklist>
         <values>
+            <fullName>ANZ Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Banking Services</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Owners</fullName>
+            <fullName>Business Banking</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial %26 Private Banking</fullName>
+            <fullName>Commercial Broker</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit Cards %26 Personal Loans</fullName>
+            <fullName>Commercial Digital and Customer Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Strategic Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Engagement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Experience - ANZx</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Experience - Digital Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Experience - Open Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Migration</fullName>
             <default>false</default>
         </values>
         <values>
@@ -106,31 +134,43 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Deposits</fullName>
+            <fullName>Everyday Banking Portfolio</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital</fullName>
+            <fullName>Financial Wellbeing Research and Design</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Loans</fullName>
+            <fullName>Group Risk</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Home Loans Portfolio</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Banking %28Retail Distribution%29</fullName>
+            <fullName>Lend and Grow</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Risk Australia</fullName>
+            <fullName>SME Banking</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Strategic Marketing %26 Digital Sales</fullName>
+            <fullName>Small Business Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialist Industries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Deliver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transact and Save</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -763,7 +803,11 @@
     <picklistValues>
         <picklist>SI_Relevant_Tribes__c</picklist>
         <values>
-            <fullName>APRA Remediation Tribe %28ART%29</fullName>
+            <fullName>ANZ Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZx</fullName>
             <default>false</default>
         </values>
         <values>
@@ -771,7 +815,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Banker Digital Experience %28BDX%29</fullName>
+            <fullName>Banker Digital Experience %28System%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Brand Strategy %26 Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Breach Reporting</fullName>
             <default>false</default>
         </values>
         <values>
@@ -779,23 +831,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Execution</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Lending</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Owners Engagement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Owners Lighthouse</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Platform Service %28BPS%29</fullName>
+            <fullName>Business Platform Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -803,19 +839,27 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Credit Cards</fullName>
+            <fullName>Commercial Digital and Customer Experience</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit Cards</fullName>
+            <fullName>Commercial Strategic Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaints</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Cards %26 Personal Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit and Quality Governance</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Customer Cash Solutions %28CCS%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Collections %26 Service Centre</fullName>
             <default>false</default>
         </values>
         <values>
@@ -831,23 +875,35 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Resolution</fullName>
+            <fullName>Customer Service Innovation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Servicing</fullName>
+            <fullName>Data Portfolio</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Deposits Tribe</fullName>
+            <fullName>Data and Technology Risk</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Origination and Innovation</fullName>
+            <fullName>Deposits %26 Payments</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Sales Experience</fullName>
+            <fullName>Financial Crime Transformation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing %28Collections%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing Assist %28Hardship%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing Research and Design</fullName>
             <default>false</default>
         </values>
         <values>
@@ -855,15 +911,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Hardship and Vulnerable Customers</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Home Loans</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Know Your Customer %28KYC%29</fullName>
+            <fullName>Insurance %26 Super</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lend and Grow</fullName>
             <default>false</default>
         </values>
         <values>
@@ -871,7 +927,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Migration Tribe</fullName>
+            <fullName>Migration</fullName>
             <default>false</default>
         </values>
         <values>
@@ -879,47 +935,39 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Open Banking</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Payments %26 Merchants %28MARST%29</fullName>
+            <fullName>Operational Performance</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Personal Loans</fullName>
+            <fullName>Personalisation %26 Digital Sales</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Private Banking and Advice</fullName>
+            <fullName>Pricing COE</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Remediation%2FResponsible Banking</fullName>
+            <fullName>Remediation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Broker Distribution</fullName>
+            <fullName>Retail Broker</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Customer Lending</fullName>
+            <fullName>Retail Credit Risk %28Group%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Risk</fullName>
+            <fullName>Retail Lending</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Transformation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Risk%2C Portfolio %26 Governance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Self Service Adoption %28SSA%29</fullName>
+            <fullName>SME Banking</fullName>
             <default>false</default>
         </values>
         <values>
@@ -927,11 +975,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Shout for Good</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Simplification Tribe</fullName>
+            <fullName>Servicing</fullName>
             <default>false</default>
         </values>
         <values>
@@ -939,19 +983,27 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Specialised Distribution</fullName>
+            <fullName>Small Business Lighthouse</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Specialised Product Sales</fullName>
+            <fullName>Specialist Industries</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Transformation %26 TCS Tribe</fullName>
+            <fullName>Strategic Partnerships</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Wealth Tribe</fullName>
+            <fullName>Third Party Deposits</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transact and Save</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wealth - ANZLMI</fullName>
             <default>false</default>
         </values>
     </picklistValues>

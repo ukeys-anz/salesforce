@@ -47,6 +47,7 @@ public with sharing class TwilioServiceUtil {
           SELECT TwilioDetailsID__c
           FROM Interaction
           WHERE Id = :res.interactionId
+          WITH SECURITY_ENFORCED
         ]
         .TwilioDetailsID__c;
       }
@@ -162,9 +163,10 @@ public with sharing class TwilioServiceUtil {
     List<Interaction> interactionToBeUpdatedList
   ) {
     List<TwilioContextResponse> responseList = new List<TwilioContextResponse>();
-    List<Database.SaveResult> results = Database.update(
+    List<Database.SaveResult> results = DMLUtil.updateRecords(
       interactionToBeUpdatedList,
-      false
+      false,
+      true
     );
     Logger.error('Error in Updating Interaction', results);
     Logger.saveLog();

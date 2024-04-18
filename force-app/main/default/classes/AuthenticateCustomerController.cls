@@ -34,6 +34,8 @@ public with sharing class AuthenticateCustomerController {
   @TestVisible
   private static final String VERIFICATION_FAILED = 'Token Verification Failed';
   public static final string CIBA_JWT_SETTING_NAME = 'Client_Initiated_Backend_Authentication';
+  private static final string PUBLICKEYSTART = '-----BEGIN PUBLIC KEY-----';
+  private static final string PUBLICKEYEND = '-----END PUBLIC KEY-----';
 
   /**
    * @description This method queries interaction to get the customer details associated with the interaction
@@ -204,6 +206,8 @@ public with sharing class AuthenticateCustomerController {
       try {
         JoinCIBARepository api = new JoinCIBARepository();
         publicKey = api.getPublicKey(kid, ocvId);
+        publicKey = publicKey.removeStart(PUBLICKEYSTART);
+        publicKey = publicKey.removeEnd(PUBLICKEYEND);
       } catch (Exception e) {
         Logger.error(
           'CIBA Fetch public key for KID ' +

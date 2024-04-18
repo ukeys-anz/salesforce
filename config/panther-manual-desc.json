@@ -1030,6 +1030,7 @@
         "IDR_CC_Age__c",
         "IDR_CC_Gender__c",
         "IDR_CC_Postcode__c",
+        "IDR_CC_Country__c",
         "IDR_Inbox_Email_Address__c",
         "IDR_NC_Age__c",
         "IDR_NC_Country__c",
@@ -1385,7 +1386,8 @@
         "Notes_Interests__c",
         "OtherAddress",
         "Salutation",
-        "Suffix__c"
+        "Suffix__c",
+        "Is_Broker_User_Active__c"
       ],
       "IA-2530753": [
         "Active_From__c",
