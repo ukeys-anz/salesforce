@@ -14,86 +14,88 @@
       </template>
       <template lwc:else>
         <template lwc:if={hasGoals}>
-          <template for:each={goalDetails} for:item="goal">
-            <div data-id="goal-body" key={goal.id}>
-              <div class="slds-grid slds-wrap slds-size_1-of-1">
-                <div
-                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-p-left_small"
-                >
-                  <template lwc:if={goal.image}>
-                    <img src={goal.image} width="60%" />
-                  </template>
-                  <template lwc:else>
-                    <div class="emoji">
-                      <span>{goal.emoji}</span>
-                    </div>
-                  </template>
-                </div>
-                <div
-                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
-                >
-                  <div class="slds-text-align_center">
-                    <p class="ellipsis card-heading-bold">
-                      <a
-                        onclick={navigateToRecordViewPageFilter}
-                        class="slds-truncate"
-                        data-id={goal.id}
-                      >
-                        {goal.goal.name}
-                      </a>
-                    </p>
-                    <div class="description-tooltip">{goal.goal.name}</div>
+          <div class="slds-m-top_small">
+            <template for:each={goalDetails} for:item="goal">
+              <div data-id="goal-body" key={goal.id}>
+                <div class="slds-grid slds-wrap slds-size_1-of-1">
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-p-left_small"
+                  >
+                    <template lwc:if={goal.image}>
+                      <img src={goal.image} width="60%" />
+                    </template>
+                    <template lwc:else>
+                      <div class="emoji">
+                        <span>{goal.emoji}</span>
+                      </div>
+                    </template>
                   </div>
-                </div>
-                <div
-                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
-                >
-                  <p class="card-heading-font">
-                    Total Saved
-                    <lightning-icon
-                      icon-name="utility:info"
-                      size="xx-small"
-                      class="tooltip-modal"
-                      onclick={handleInfoModal}
-                      data-id="total-info"
-                    ></lightning-icon>
-                  </p>
-                  <div class="slds-grid slds-gutters">
-                    <div
-                      class="slds-col slds-size_2-of-3"
-                      data-test-id="total-saved"
-                    >
-                      <lightning-formatted-number
-                        value={goal.balance.value}
-                        format-style="currency"
-                        data-id="amount"
-                        class="card-heading-bold ellipsis"
-                      ></lightning-formatted-number>
-                      <div class="description-tooltip slds-text-align_center">
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                  >
+                    <div class="slds-text-align_center">
+                      <p class="ellipsis card-heading-bold">
+                        <a
+                          onclick={navigateToRecordViewPageFilter}
+                          class="slds-truncate"
+                          data-id={goal.id}
+                        >
+                          {goal.goal.name}
+                        </a>
+                      </p>
+                      <div class="description-tooltip">{goal.goal.name}</div>
+                    </div>
+                  </div>
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                  >
+                    <p class="card-heading-font">
+                      Total Saved
+                      <lightning-icon
+                        icon-name="utility:info"
+                        size="xx-small"
+                        class="tooltip-modal"
+                        onclick={handleInfoModal}
+                        data-id="total-info"
+                      ></lightning-icon>
+                    </p>
+                    <div class="slds-grid slds-gutters">
+                      <div
+                        class="slds-col slds-size_2-of-3"
+                        data-test-id="total-saved"
+                      >
                         <lightning-formatted-number
                           value={goal.balance.value}
                           format-style="currency"
                           data-id="amount"
-                        >
-                        </lightning-formatted-number>
+                          class="card-heading-bold ellipsis"
+                        ></lightning-formatted-number>
+                        <div class="description-tooltip slds-text-align_center">
+                          <lightning-formatted-number
+                            value={goal.balance.value}
+                            format-style="currency"
+                            data-id="amount"
+                          >
+                          </lightning-formatted-number>
+                        </div>
                       </div>
-                    </div>
-                    <div class="slds-col slds-size_1-of-3">
-                      <lightning-progress-ring
-                        class="progress-ring"
-                        value={goal.fillPercentValue}
-                        size="large"
-                      >
-                      </lightning-progress-ring>
-                      <div class="progress-tooltip slds-text-align_center">
-                        {goal.fillPercent}%
+                      <div class="slds-col slds-size_1-of-3">
+                        <lightning-progress-ring
+                          class="progress-ring"
+                          value={goal.fillPercentValue}
+                          size="large"
+                        >
+                        </lightning-progress-ring>
+                        <div class="progress-tooltip slds-text-align_center">
+                          {goal.fillPercent}%
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </template>
+            </template>
+          </div>
           <template lwc:if={viewAll}>
             <div
               class="slds-border_top slds-text-align_center slds-p-around_small slds-border_bottom"
