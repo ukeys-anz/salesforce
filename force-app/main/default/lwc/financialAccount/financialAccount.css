@@ -54,8 +54,6 @@
   --slds-c-badge-text-color: green;
 }
 
-/*Account Closure date should appear in italic and in small size */
-.italictext {
-  font-style: italic;
-  font-size: 0.625rem;
+.cicon {
+  --sds-c-icon-color-background: rgb(27, 150, 255);
 }

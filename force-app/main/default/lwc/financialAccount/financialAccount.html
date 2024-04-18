@@ -4,7 +4,7 @@
       <lightning-icon
         icon-name={titleIcon}
         size="medium"
-        class="slds-m-right_small"
+        class={iconColor}
       ></lightning-icon>
       {componentTitle}
     </h1>
@@ -29,9 +29,6 @@
                     >
                       <span>{finAccount.Name}</span>
                     </a>
-                    <span class={finAccount.badgeClass}
-                      >{finAccount.FinServ__Status__c}</span
-                    >
                     <template lwc:if={finAccount.showMultipartyBadge}>
                       <span class="slds-badge dormantBadgeClass"
                         >{finAccount.multiParty}</span
@@ -51,11 +48,6 @@
                         <p class="card-heading-value">
                           {finAccount.FinServ__FinancialAccountNumber__c}
                         </p>
-                        <template lwc:if={finAccount.FinServ__CloseDate__c}>
-                          <p class="slds-text-color_weak italictext">
-                            Date Closed : {finAccount.FinServ__CloseDate__c}
-                          </p>
-                        </template>
                       </div>
                     </div>
                     <div
