@@ -109,9 +109,10 @@ global with sharing class InteractionContextService {
 
     //Creation of Twilio Details and response to be send to Twilio
     if (!interactionToBeCreated.isEmpty()) {
-      List<Database.SaveResult> results = Database.insert(
+      List<Database.SaveResult> results = DMLUtil.insertRecords(
         interactionToBeCreated,
-        false
+        false,
+        true
       );
       Logger.error('Error in Creating Interaction', results);
       Logger.saveLog();
@@ -176,7 +177,11 @@ global with sharing class InteractionContextService {
           isValidRequest(req).isEmpty() &&
           req.type.toLowerCase() == CALL_INTERACTION_TYPE
         ) {
-          requestByPhoneNumber.put(req.phoneNumber, req);
+          if (req.isAuthenticated) {
+            requestByOCVId.put(req.ocvId, req);
+          } else {
+            requestByPhoneNumber.put(req.phoneNumber, req);
+          }
           callOrChatSidList.add(req.chatOrCallId);
         } else {
           responseList.addAll(isValidRequest(req));
@@ -353,6 +358,11 @@ global with sharing class InteractionContextService {
     } else {
       intToInsert.InteractionType = 'Call';
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
+      intToInsert = setInteractionForAuthenticated(
+        intToInsert,
+        interactContextRequest,
+        accountsMap
+      );
       listOfInteractionsToCreate.add(intToInsert);
     }
     return listOfInteractionsToCreate;
@@ -385,6 +395,7 @@ global with sharing class InteractionContextService {
           TwilioDetailsID__c
         FROM Interaction
         WHERE Id IN :interactionListCreatedDB
+        WITH SECURITY_ENFORCED
       ]
     );
     for (Integer i = 0; i < interactionListCreatedDB.size(); i++) {
@@ -473,6 +484,7 @@ global with sharing class InteractionContextService {
         Chat_or_Call_SID__c
       FROM Interaction
       WHERE Chat_or_Call_SID__c IN :callOrChatSidList
+      WITH SECURITY_ENFORCED
     ]) {
       existingInteractionsBySID.put(interact.Chat_or_Call_SID__c, interact);
     }
@@ -492,5 +504,29 @@ global with sharing class InteractionContextService {
       Logger.error('Error in Updating Account', results);
       Logger.saveLog();
     }
+  }
+
+  /**
+   * @description to set the attributes of interaction if the call is authenticated
+   * @param interaction Interaction object in which details needs to be added
+   * @param interactContextRequest Request from Twilio
+   * @param accountsMap accountsByOCVId
+   * @return Interaction object with details
+   */
+  private static Interaction setInteractionForAuthenticated(
+    Interaction interaction,
+    InteractionContextRequest interactContextRequest,
+    Map<String, Id> accountsMap
+  ) {
+    if (!interactContextRequest.isAuthenticated) {
+      return interaction;
+    }
+    interaction.AccountId = accountsMap.get(interactContextRequest.ocvId);
+    interaction.Interaction_Purpose__c = DEFAULT_CHAT_FOR;
+    interaction.Authentication_Method__c = DEFAULT_CHAT_AUTHENTICATED_METHOD;
+    interaction.Support_Topics__c = validateSupportTopic(
+      interactContextRequest.issueSubtype
+    );
+    return interaction;
   }
 }

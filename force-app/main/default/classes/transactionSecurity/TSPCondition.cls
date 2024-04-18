@@ -48,6 +48,10 @@ public with sharing class TSPCondition {
           refreshTokenQueriedEvent.Query.toLowerCase()
             .contains('refresh_token__c');
       }
+      when LoginEvent notifySystemUserLoginEvent {
+        result = notifySystemUserLoginEvent.Username.toLowerCase()
+          .contains('anzx.user@anzx.com');
+      }
       when else {
         return false;
       }

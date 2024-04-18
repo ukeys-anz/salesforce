@@ -36,25 +36,44 @@ private class RetailBrokerContactTriggerHandlerTest {
   }
 
   @IsTest
-  static void testFilterBrokerContacts() {
-    List<Contact> brokerContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
-    List<Contact> staffContacts = createTestContactList(RECORD_TYPE_ID_STAFF);
-    List<Contact> combinedContacts = new List<Contact>();
-    combinedContacts.addAll(brokerContacts);
-    combinedContacts.addAll(staffContacts);
+  static void testFilterRetailBrokerContactPositive() {
+    // Prepare broker contact
+    Contact brokerContact = new Contact();
+    brokerContact.Id = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
+    brokerContact.RecordTypeId = RECORD_TYPE_ID_BROKER;
+
     Test.startTest();
-    List<Contact> results = RetailBrokerContactTriggerHandler.filterBrokerContacts(
-      combinedContacts
-    );
+    RetailBrokerContactTriggerHandler handler = new RetailBrokerContactTriggerHandler();
+    Boolean isBrokerContact = handler.isValidRecord(brokerContact);
     Test.stopTest();
+
     Assert.areEqual(
-      brokerContacts.size(),
-      results.size(),
-      'filter results size should be same as brokerContacts size'
+      true,
+      isBrokerContact,
+      'Should return true for broker contact'
     );
   }
 
   @IsTest
+  static void testFilterRetailBrokerContactNegative() {
+    // Prepare staff contact
+    Contact staffContact = new Contact();
+    staffContact.Id = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
+    staffContact.RecordTypeId = RECORD_TYPE_ID_STAFF;
+
+    Test.startTest();
+    RetailBrokerContactTriggerHandler handler = new RetailBrokerContactTriggerHandler();
+    Boolean isBrokerContact = handler.isValidRecord(staffContact);
+    Test.stopTest();
+
+    Assert.areEqual(
+      false,
+      isBrokerContact,
+      'Should return false for staff contact'
+    );
+  }
+
+  @isTest
   static void testUpdateTriggerBypassOn() {
     Account personAccount = TestDataFactory.createPersonAccount(
       'pa-123456',

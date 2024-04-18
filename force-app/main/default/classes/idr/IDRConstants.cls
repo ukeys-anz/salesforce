@@ -152,7 +152,6 @@ public with sharing class IDRConstants {
 
   public static final Set<String> IDR_EARLY_RESOLUTION = new Set<String>{
     '8',
-    '11',
     'Email'
   };
 

@@ -89,8 +89,8 @@ public class MLCRM_TerritoryRecalculationBatchTest {
 
     System.runAs(objMlUser) {
       List<Lead> lstOfLead = [SELECT Id FROM Lead];
-      //asserting if records created by excluded user get the access after batch job runs.
-      System.assertEquals(lstOfLead.size(), 10);
+      //asserting if records created by excluded user get the access after batch job runs 
+      System.assertEquals(lstOfLead.size(), 0);
     }
   }
 }

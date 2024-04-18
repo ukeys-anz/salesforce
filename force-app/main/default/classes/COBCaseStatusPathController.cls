@@ -43,7 +43,11 @@ public with sharing class COBCaseStatusPathController {
       throwException(validationError);
     }
 
-    Boolean isCalloutSucccesful = makeTemporalCallout(currentStatus, cobCase);
+    Boolean isCalloutSucccesful = makeTemporalCallout(
+      currentStatus,
+      cobCase,
+      true
+    );
     Boolean isCaseUpdated = handleCaseUpdate(cobCase);
     return new COBCaseUpdateStatus(
       isCalloutSucccesful && isCaseUpdated,
@@ -55,12 +59,14 @@ public with sharing class COBCaseStatusPathController {
    * @description Trigger Temporal workflow based on case status
    * @param currentStatus Current status to revert to if update fails
    * @param cobCase Case with new fields data to be updated
+   * @param retryOnFail True to retry on failure, False - no retry on failure
    * @return Boolean Indicates whether the callout was successful or not
    */
   @TestVisible
   private static Boolean makeTemporalCallout(
     String currentStatus,
-    Case cobCase
+    Case cobCase,
+    Boolean retryOnFail
   ) {
     StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
 
@@ -75,8 +81,21 @@ public with sharing class COBCaseStatusPathController {
       );
       setCaseStatusFromTemporalResult(cobCase, cobStage);
     } catch (Exception e) {
+      if (retryOnFail) {
+        Logger.info(
+          'Temporal Callout failed to update status: ' +
+            cobCase.Status +
+            '. Attempting auto-retry callout for Case ' +
+            cobCase.Id,
+          e
+        );
+        return makeTemporalCallout(currentStatus, cobCase, false);
+      }
       Logger.error(
-        'Failed Temporal Callout to update status: ' + cobCase.Status,
+        'Temporal Callout failed to update status: ' +
+          cobCase.Status +
+          ' for Case ' +
+          cobCase.Id,
         e
       );
       Logger.saveLog();

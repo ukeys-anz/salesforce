@@ -8,6 +8,7 @@
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>MLCRM_API_Access</permissionSets>
     <permissionSets>MLCRM_Base</permissionSets>
+    <permissionSets>MLCRM_Convert_Lead</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Customer_Relationship</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Interactions</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Leads</permissionSets>

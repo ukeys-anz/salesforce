@@ -1649,6 +1649,20 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom2937</globalKey>
+        <inputFieldName>Response:profile:country</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:customer_country</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetails5987951070219251</globalKey>
         <inputFieldName>Case:ComplaintDetails:ChannelReceived</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>

@@ -350,7 +350,9 @@ public without sharing class MLCRMSharingUtil {
 
     if (!lstOfSharingError.isEmpty()) {
       Logger.error(
-        'Error occured while creating ' + objMtd.Sharing_Object__c + ' record',
+        'Error occured while creating ' +
+        objMtd.Sharing_Object__c +
+        ' record',
         processSharingException(lstOfSharingError)
       );
       Logger.saveLog();
@@ -419,8 +421,8 @@ public without sharing class MLCRMSharingUtil {
       if (!lstOfSharingError.isEmpty()) {
         Logger.error(
           'Error occured while deleting ' +
-            objMtd.Sharing_Object__c +
-            ' record',
+          objMtd.Sharing_Object__c +
+          ' record',
           processSharingException(lstOfSharingError)
         );
         Logger.saveLog();
@@ -453,9 +455,11 @@ public without sharing class MLCRMSharingUtil {
         (!setOfEligibleRT.isEmpty() &&
         setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) ||
         setOfEligibleRT.isEmpty()) &&
+        (objTerritoryMtd.Excluded_Users__c == null ||
+        (objTerritoryMtd.Excluded_Users__c != null &&
         !objTerritoryMtd.Excluded_Users__c.containsIgnoreCase(
           UserInfo.getUserName()
-        ) &&
+        ))) &&
         (oldMapSobject == null ||
         (oldMapSobject != null &&
         (oldMapSobject.get((Id) objSobject.get('Id'))
@@ -504,9 +508,11 @@ public without sharing class MLCRMSharingUtil {
         (!setOfEligibleRT.isEmpty() &&
         setOfEligibleRT.contains((Id) objSobject.get('RecordTypeId')) ||
         setOfEligibleRT.isEmpty()) &&
+        (objTerritoryMtd.Excluded_Users__c == null ||
+        (objTerritoryMtd.Excluded_Users__c != null &&
         !objTerritoryMtd.Excluded_Users__c.containsIgnoreCase(
           UserInfo.getUserName()
-        ) &&
+        ))) &&
         oldMapSobject != null &&
         objSobject.get('OwnerId') !=
         oldMapSobject.get((Id) objSobject.get('Id')).get('OwnerId')

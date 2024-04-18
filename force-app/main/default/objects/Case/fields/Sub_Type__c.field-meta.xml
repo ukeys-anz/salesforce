@@ -370,7 +370,7 @@
             <value>
                 <fullName>Interest</fullName>
                 <default>false</default>
-                <label>Interest Rate</label>
+                <label>Interest Rate Query</label>
             </value>
             <value>
                 <fullName>90% Centrelink Payment Request</fullName>
@@ -405,7 +405,7 @@
             <value>
                 <fullName>Address Update (overseas)</fullName>
                 <default>false</default>
-                <label>Address Update (overseas)</label>
+                <label>Address Update (Assisted)</label>
             </value>
             <value>
                 <fullName>Citizenship Update</fullName>
@@ -501,6 +501,16 @@
                 <fullName>HL Signing Authority Update</fullName>
                 <default>false</default>
                 <label>HL Signing Authority Update</label>
+            </value>
+            <value>
+                <fullName>Interest Calculation Request</fullName>
+                <default>false</default>
+                <label>Interest Calculation Request</label>
+            </value>
+            <value>
+                <fullName>Interest Adjustment Request</fullName>
+                <default>false</default>
+                <label>Interest Adjustment Request</label>
             </value>
             <value>
                 <fullName>Explore Enquiry</fullName>
@@ -755,6 +765,14 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Interest Calculation Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Interest Adjustment Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
             <valueName>EOFY</valueName>
         </valueSettings>
         <valueSettings>
@@ -895,6 +913,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
+            <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Fee Reversals</valueName>
         </valueSettings>
         <valueSettings>

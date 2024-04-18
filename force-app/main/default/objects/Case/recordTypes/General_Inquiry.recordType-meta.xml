@@ -11746,6 +11746,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Interest Adjustment Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interest Calculation Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Interest</fullName>
             <default>false</default>
         </values>
