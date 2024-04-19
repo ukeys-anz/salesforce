@@ -32,12 +32,8 @@ jobs:
       - name: Check Validation Status
         run: echo "Validation Run Successfully"
 
-  quick-deploy:
-    if: ${{ github.event.pull_request.merged == true }}
-    uses: ./.github/workflows/_quick-deployment.yml
-
   validation-intpnv-sandbox:
-    if: ${{ (github.base_ref == 'master') && (github.event.action != 'closed') }}
+    if: ${{ (github.base_ref == 'master') && (github.event.pull_request.merged == true) }}
     uses: ./.github/workflows/_validation.yml
     with:
       sfdx_name: "h-salesforce-np-intpnv"
