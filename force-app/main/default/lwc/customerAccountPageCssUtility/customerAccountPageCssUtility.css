@@ -15,7 +15,7 @@
   border-radius: 0.25em;
   font-weight: 700;
   line-height: 1.5rem;
-  border-bottom: 0.06rem solid #1602022e;
+  border-bottom: 0.06rem solid rgb(201, 201, 201);
 }
 
 .card-heading-font {

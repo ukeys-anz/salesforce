@@ -42,11 +42,11 @@ export default class TotalBalance extends LightningElement {
       let { totalBalance } = await getFinancialTotalBalance({
         ownerId: this.recordId
       });
-      this.totalBalance = totalBalance;
+      this.totalBalance = totalBalance ? totalBalance : 0;
       let { totalSaved } = await getFinancialTotalSaved({
         ownerId: this.recordId
       });
-      this.totalSaved = totalSaved;
+      this.totalSaved = totalSaved ? totalSaved : 0;
 
       if (this.isFinancesTab) {
         this.totalSavedColumn =
