@@ -1,16 +1,16 @@
 <template>
   <article class="slds-card">
-    <div class="slds-card__header slds-grid">
+    <div class="slds-grid slds-page-header slds-page-header_joined">
       <header class="slds-media slds-media_center slds-has-flexi-truncate">
         <div class="slds-tabs_scoped">
           <ul
-            class="slds-tabs_scoped__nav slds-grid slds-wrap lightningScope"
+            class="slds-tabs_scoped__nav slds-grid slds-wrap slds-grid_pull-padded-small lightningScope"
             role="tablist"
           >
             <template lwc:if={showAppTab}>
               <li class={appointmentTab} title="Contact" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link lightningScopeLink"
+                  class="slds-tabs_scoped__link lightningScopeLink headerFontStyling"
                   role="tab"
                   onclick={handleShowAppointmentTab}
                 >
@@ -21,7 +21,7 @@
             <template lwc:if={showMsgTab}>
               <li class={messageTab} title="Message" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link lightningScopeLink"
+                  class="slds-tabs_scoped__link lightningScopeLink headerFontStyling"
                   role="tab"
                   onclick={handleShowMessageTab}
                 >
@@ -32,7 +32,7 @@
             <template if:true={showCallIntTab}>
               <li class={callTab} title="Call" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link lightningScopeLink"
+                  class="slds-tabs_scoped__link lightningScopeLink headerFontStyling"
                   role="tab"
                   onclick={handleShowCallTab}
                 >
@@ -43,7 +43,7 @@
             <template lwc:if={showStoreIntTab}>
               <li class={storeTab} title="Store" role="presentation">
                 <div
-                  class="slds-tabs_scoped__link lightningScopeLink"
+                  class="slds-tabs_scoped__link lightningScopeLink headerFontStyling"
                   role="tab"
                   onclick={handleShowStoreTab}
                 >
@@ -51,7 +51,7 @@
                 </div>
               </li>
             </template>
-            <li class="slds-tabs_scoped__item slds-col slds-m-right_xx-small">
+            <li class="slds-tabs_scoped__item slds-col slds-m-right_x-small">
               <button
                 class="slds-button slds-float_right slds-button_neutral slds-m-top_xx-small"
                 onclick={handleNewButton}
