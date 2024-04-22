@@ -1,11 +1,11 @@
 <template>
-  <div class="slds-p-top_x-small">
-    <template lwc:if={showRelatedList}>
+  <template lwc:if={showRelatedList}>
+    <div class="slds-p-top_x-small">
       <c-filtered-related-list
         related-list-title={relatedListTitle}
         icon-name={iconName}
         records={records}
       ></c-filtered-related-list>
-    </template>
-  </div>
+    </div>
+  </template>
 </template>
