@@ -1269,11 +1269,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Call</fullName>
+            <fullName>BOH Web Explore call back request</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Callback Request</fullName>
+            <fullName>Call</fullName>
             <default>false</default>
         </values>
         <values>
