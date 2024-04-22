@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Overall_Acceptance_Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Settlement Domain</complianceGroup>
+    <description>Overall acceptance status of settlement date time</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Pending - Settlement date and time has not been finalised by all the relevant parties as of yet. 
+
+Accepted - Settlement date has been finalised however can still be moved if required.</inlineHelpText>
+    <label>Overall Acceptance Status</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>SETTLEMENT_TIME_STATE_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>Unspecified</label>
+            </value>
+            <value>
+                <fullName>SETTLEMENT_TIME_STATE_ACCEPTED</fullName>
+                <default>false</default>
+                <label>Accepted</label>
+            </value>
+            <value>
+                <fullName>SETTLEMENT_TIME_STATE_PENDING</fullName>
+                <default>false</default>
+                <label>Pending</label>
+            </value>
+            <value>
+                <fullName>SETTLEMENT_TIME_STATE_NOT_ACCEPTED</fullName>
+                <default>false</default>
+                <label>Not Accepted</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

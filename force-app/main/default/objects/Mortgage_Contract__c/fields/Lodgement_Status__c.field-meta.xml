@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lodgement_Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Settlement Domain</complianceGroup>
+    <description>The overall status of this Mortgage Contract</description>
+    <externalId>false</externalId>
+    <inlineHelpText>These are the lodgement status as per PEXA. 
+
+In Preparation - Waiting for documents to be created
+
+Ready - All documents are complete and have been signed.
+
+Waiting for the scheduled settlement date and time to arrive.
+
+Lodging/Lodged - The Workspace is locked and the land registry has accepted the lodgement case.
+
+Complete - The land registry has completed processing your documents.</inlineHelpText>
+    <label>Lodgement Status</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>STATE_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>Unspecified</label>
+            </value>
+            <value>
+                <fullName>STATE_ACCEPTED</fullName>
+                <default>false</default>
+                <label>Accepted</label>
+            </value>
+            <value>
+                <fullName>STATE_LODGING</fullName>
+                <default>false</default>
+                <label>Lodging</label>
+            </value>
+            <value>
+                <fullName>STATE_LODGED</fullName>
+                <default>false</default>
+                <label>Lodged</label>
+            </value>
+            <value>
+                <fullName>STATE_NEW</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>STATE_READY</fullName>
+                <default>false</default>
+                <label>Ready</label>
+            </value>
+            <value>
+                <fullName>STATE_COMPLETED</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

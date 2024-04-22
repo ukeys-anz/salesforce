@@ -578,7 +578,10 @@ public without sharing class TestDataFactory {
    * @return Settlement__c
    */
   public static Settlement__c createSettlement(String loanAppId) {
-    return new Settlement__c(Loan_Application_Number__c = loanAppId);
+    return new Settlement__c(
+      Loan_Application_Number__c = loanAppId,
+      Type__c = 'TYPE_REFINANCE_OFI'
+    );
   }
 
   /**
@@ -742,5 +745,81 @@ public without sharing class TestDataFactory {
       tsk.Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType);
     }
     return tsk;
+  }
+
+  /**
+   * @description create the LoanApplicationFinancial records
+   * @param loanAppId Loan app id to link to LoanApplicationFinancial
+   * @return LoanApplicationFinancial
+   */
+  public static LoanApplicationFinancial createLoanApplicationFinancial(
+    String loanAppId
+  ) {
+    Faker faker = new Faker('AU');
+    return new LoanApplicationFinancial(
+      LoanApplicationId = loanAppId,
+      Name = Faker.randomString(10),
+      LoanExclFinMortInsAmt = Faker.randomDecimal(16, 2)
+    );
+  }
+
+  /**
+   * @description create the action plan for external/internal settlement records
+   */
+  public static void createSettlementActionPlans() {
+    List<ActionPlanTemplate> apTemplateList = new List<ActionPlanTemplate>();
+    String extTemplateName = 'External Settlement Action Plan';
+    String intTemplateName = 'Internal Settlement Action Plan';
+
+    ActionPlanTemplate apTempExt = new ActionPlanTemplate();
+    apTempExt.Name = extTemplateName;
+    apTempExt.TargetEntityType = 'Settlement__c';
+    apTempExt.ActionPlanType = 'Industries';
+    apTemplateList.add(apTempExt);
+
+    ActionPlanTemplate apTempInt = new ActionPlanTemplate();
+    apTempInt.Name = intTemplateName;
+    apTempInt.TargetEntityType = 'Settlement__c';
+    apTempInt.ActionPlanType = 'Industries';
+    apTemplateList.add(apTempInt);
+
+    insert apTemplateList;
+
+    createActionPlanItems(extTemplateName);
+    createActionPlanItems(intTemplateName);
+  }
+
+  /**
+   * @description create the action plan items
+   * @param actionPlanName the action plan name to create items for
+   */
+  private static void createActionPlanItems(String actionPlanName) {
+    ActionPlanTemplateVersion apTempVer = [
+      SELECT Id, Status
+      FROM ActionPlanTemplateVersion
+      WHERE Name = :actionPlanName
+      LIMIT 1
+    ];
+
+    //Create template items for action plan
+    ActionPlanTemplateItem apTempItems = new ActionPlanTemplateItem();
+    apTempItems.ActionPlanTemplateVersionId = apTempVer.Id;
+    apTempItems.Name = 'Test';
+    apTempItems.IsActive = true;
+    apTempItems.IsRequired = false;
+    apTempItems.ItemEntityType = 'Task';
+    insert apTempItems;
+
+    //Create action plan item values
+    ActionPlanTemplateItemValue apTempItemValue = new ActionPlanTemplateItemValue();
+    apTempItemValue.ActionPlanTemplateItemId = apTempItems.Id;
+    apTempItemValue.ItemEntityFieldName = 'Task.Subject';
+    apTempItemValue.Name = 'Test Name';
+    apTempItemValue.ValueLiteral = 'Test Sample';
+    insert apTempItemValue;
+
+    //Set status to Final to "publish"
+    apTempVer.Status = 'Final';
+    update apTempVer;
   }
 }

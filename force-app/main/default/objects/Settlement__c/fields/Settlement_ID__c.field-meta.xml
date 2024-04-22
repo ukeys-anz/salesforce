@@ -3,14 +3,15 @@
     <fullName>Settlement_ID__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Settlement Domain</complianceGroup>
     <description>Immutable field representing the ID of the parent Settlement entity.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>true</externalId>
-    <label>Settlement Name</label>
+    <label>Settlement ID</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

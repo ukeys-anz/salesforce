@@ -2,12 +2,26 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Settlement Domain</complianceGroup>
     <description>The current status of the settlement</description>
     <externalId>false</externalId>
+    <inlineHelpText>New - New settlement record created
+
+Initiated - Settlement flow has started and necessary checks and verification can now be completed.
+
+Documents Generated - Customer loan documents are now available in the ANZ Plus App.
+
+Offer Committed - Customer has electronically accepted their Loan Offer.
+
+Settling - Settlement is now completed. Loan is now in the process of drawing down.
+
+Completed - New loan has been generated.
+
+Please note: Some of these statues will only be displayed briefly.</inlineHelpText>
     <label>Status</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

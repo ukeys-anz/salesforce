@@ -85,4 +85,22 @@ public without sharing class SystemModeActions {
     log.insertLogAsync();
     return hasError;
   }
+
+  /**
+   * @description method to insert records in a without sharing context when needed
+   * @param records records to update
+   * @param objectName object name we're updating
+   * @return boolean whether or not any errors were logged
+   */
+  public Boolean insertRecords(List<SObject> records, String objectName) {
+    if (records == null || records.size() == 0) {
+      return false;
+    }
+
+    List<Database.SaveResult> results = Database.insert(records, false);
+    Logger.error('', results);
+    Boolean hasError = Logger.hasError();
+    Logger.saveLog();
+    return hasError;
+  }
 }

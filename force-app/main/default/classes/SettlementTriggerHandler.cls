@@ -18,5 +18,12 @@ public with sharing class SettlementTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     //Assign settlements queue as owner
     SettlementActions.assignSettlementQueue(records);
+    //Populate requested loan amount
+    SettlementActions.populateRequestedAmount(records);
+  }
+
+  public override void onAfterInsert() {
+    //Create Action Plan
+    SettlementActions.createActionPlans(records);
   }
 }
