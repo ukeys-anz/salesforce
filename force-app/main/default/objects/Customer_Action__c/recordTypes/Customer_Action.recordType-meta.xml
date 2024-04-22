@@ -39,6 +39,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Loan_Contract_Status__c</picklist>
+        <values>
+            <fullName>STATE_ACTIVE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_EXPIRED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STATE_UNSPECIFIED</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Role__c</picklist>
         <values>
             <fullName>ROLE_APPLICANT</fullName>

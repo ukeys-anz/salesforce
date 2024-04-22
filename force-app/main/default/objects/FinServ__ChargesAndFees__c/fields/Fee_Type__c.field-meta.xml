@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fee_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Settlement_Domain</complianceGroup>
+    <description>Description of what the fee is for</description>
+    <externalId>false</externalId>
+    <label>Fee Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CODE_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>Unspecified</label>
+            </value>
+            <value>
+                <fullName>CODE_REGISTRATION_OF_MORTGAGE</fullName>
+                <default>false</default>
+                <label>Registration of Mortgage</label>
+            </value>
+            <value>
+                <fullName>CODE_REGISTRATION_OF_DISCHARGE_MORTGAGE</fullName>
+                <default>false</default>
+                <label>Registration of Discharge of Mortgage</label>
+            </value>
+            <value>
+                <fullName>CODE_DISCHARGE_OF_LOAN</fullName>
+                <default>false</default>
+                <label>Discharge of Loan</label>
+            </value>
+            <value>
+                <fullName>CODE_REGISTRATION_OF_CAVEAT</fullName>
+                <default>false</default>
+                <label>Registration of Caveat</label>
+            </value>
+            <value>
+                <fullName>CODE_REGISTRATION_OF_CAVEAT_WITHDRAWAL</fullName>
+                <default>false</default>
+                <label>Registration of Caveat Withdrawal</label>
+            </value>
+            <value>
+                <fullName>CODE_REGISTRATION_OF_NAME_CHANGE</fullName>
+                <default>false</default>
+                <label>Registration of Name Change</label>
+            </value>
+            <value>
+                <fullName>CODE_PRODUCTION_FEE</fullName>
+                <default>false</default>
+                <label>Production Fee</label>
+            </value>
+            <value>
+                <fullName>CODE_POST_SETTLEMENT_DISCHARGE_MORTGAGE</fullName>
+                <default>false</default>
+                <label>Post Settlement Discharge Mortgage</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
