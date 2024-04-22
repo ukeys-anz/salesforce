@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Excluded_Users__c</field>
-        <value xsi:type="xsd:string">adobe.integration@anzx.com;unica.integration@anzx.com</value>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>IsParentIdField__c</field>

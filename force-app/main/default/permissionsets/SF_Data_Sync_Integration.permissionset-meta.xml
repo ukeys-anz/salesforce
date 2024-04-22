@@ -237,6 +237,51 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>AuthenticationHistory__c.AuthenticationMethod__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AuthenticationHistory__c.AuthorisationRequestID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AuthenticationHistory__c.ErrorMessages__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AuthenticationHistory__c.Interaction__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AuthenticationHistory__c.InternalAttendee__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AuthenticationHistory__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AuthenticationHistory__c.UUID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AuthenticationHistory__c.ValidAccessToken__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AuthenticationHistory__c.VerificationDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>BusinessHours.WednesdayStartTime</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -792,12 +837,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Customer_First_Contacted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Customer_Notification_Consent__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Customer_Reference_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Customer_Residential_Address__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -898,6 +953,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.FinServ__FinancialAccount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Followup_State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1363,6 +1423,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_CC_Age__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_CC_Country__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2411,7 +2476,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.SLATesting__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2516,7 +2581,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.TestedDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3493,6 +3558,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>CustomerOnboardingApplication__c.CXOnboardingStage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CustomerOnboardingApplication__c.EquifaxESDResult__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4732,6 +4802,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>AsyncRequestResponseEvent</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>AuthenticationHistory__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

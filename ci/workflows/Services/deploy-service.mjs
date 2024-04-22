@@ -70,12 +70,36 @@ const deployWithAllTests = (targetOrg, artifactPath) => {
   return runSfCommand(command);
 };
 
+const quickDeployment = (targetOrg, jobId) => {
+  logger("Running Quick Deployment");
+  const command = `npx sf project deploy quick -o ${targetOrg} --job-id ${jobId} --async --verbose --json`;
+  console.log(command);
+  return runSfCommand(command);
+};
+
 const quickDeploy = (
+  jobIdFileName,
   artifactFolderName,
   artifactorySecret,
   artifactoryRepoName,
   targetOrg
 ) => {
+  logger("Download Job Id and Artifact Folder");
+  downloadFile(jobIdFileName, artifactorySecret, artifactoryRepoName, "Job Id");
+
+  const pastJobId = printContextFromFile(
+    jobIdFileName,
+    "| Quick deployment job."
+  );
+  if (
+    !pastJobId ||
+    pastJobId.includes("File not found") ||
+    pastJobId.includes("Invalid deploy ID")
+  ) {
+    console.log("No Running Job Found.");
+    return;
+  }
+
   downloadZipFile(
     artifactFolderName,
     artifactorySecret,
@@ -83,7 +107,9 @@ const quickDeploy = (
     "Artifactory"
   );
   unzipFile(artifactFolderName);
-  return deployWithoutTest(targetOrg, artifactFolderName);
+
+  console.log("Validated jobId: " + pastJobId);
+  return quickDeployment(targetOrg, pastJobId);
 };
 
 const prodValidationWithAllTests = (
@@ -121,11 +147,28 @@ const prodDeploymentWithAllTests = (
 };
 
 const prodQuickDeployment = (
+  jobIdFileName,
   artifactFolderName,
   artifactorySecret,
   artifactoryRepoName,
   targetOrg
 ) => {
+  logger("Download Job Id and Artifact Folder");
+  downloadFile(jobIdFileName, artifactorySecret, artifactoryRepoName, "Job Id");
+
+  const pastJobId = printContextFromFile(
+    jobIdFileName,
+    "| Production Quick deployment job."
+  );
+  if (
+    !pastJobId ||
+    pastJobId.includes("File not found") ||
+    pastJobId.includes("Invalid deploy ID")
+  ) {
+    console.log("No Running Job Found.");
+    process.exit(1);
+  }
+
   downloadZipFile(
     artifactFolderName,
     artifactorySecret,
@@ -134,7 +177,7 @@ const prodQuickDeployment = (
   );
   unzipFile(artifactFolderName);
   renameForceignore();
-  return deployWithoutTest(targetOrg, artifactFolderName);
+  return quickDeployment(targetOrg, pastJobId);
 };
 
 const uploadJobId = (
@@ -164,7 +207,11 @@ const cancel = (
     jobIdFileName,
     "| Cancel previous job."
   );
-  if (!pastJobId || pastJobId.includes("File not found")) {
+  if (
+    !pastJobId ||
+    pastJobId.includes("File not found") ||
+    pastJobId.includes("Invalid deploy ID")
+  ) {
     console.log("No Running Job Found.");
     return;
   }
@@ -239,6 +286,59 @@ const validateProgress = (
     if (code !== 0) {
       console.error(`Validation failed with exit code: \n${code}`);
       deployReport(jobId, "Validation");
+      process.exit(1);
+    }
+  });
+};
+
+const quickDeployProgress = (
+  quickDeploymentCommand,
+  targetOrg,
+  artifactPackage,
+  artifactDestructivePackage
+) => {
+  const jobId = findJobIdFromCommand(quickDeploymentCommand);
+  if (!jobId) process.exit();
+
+  logger("Quick Deployment Progress");
+  createDeployCacheFile(
+    jobId,
+    targetOrg,
+    artifactPackage,
+    artifactDestructivePackage
+  );
+
+  const command = `npx sf project deploy resume --job-id ${jobId}`;
+  console.log(command);
+
+  const deployProcess = exec(command);
+  deployProcess.stdout.on("data", (data) => {
+    try {
+      const output = JSON.parse(data);
+      if (output.status === 0) {
+        console.log("Quick Deployment completed successfully");
+        deployReport(jobId, "Deployment");
+      } else if (output.progress) {
+        console.log(`Progress: ${output.progress}`);
+      } else {
+        console.log(data);
+      }
+    } catch (err) {
+      console.log(data);
+    }
+  });
+
+  deployProcess.stderr.on("data", (data) => {
+    const dataReport = data.toString();
+    if (dataReport.toLowerCase().includes("status")) {
+      console.error(`Progress: ${data.toString()}`);
+    }
+  });
+
+  deployProcess.on("close", (code) => {
+    if (code !== 0) {
+      console.error(`Quick Deployment failed with exit code: \n${code}`);
+      deployReport(jobId, "Deployment");
       process.exit(1);
     }
   });
@@ -355,6 +455,7 @@ export {
   validateProgress,
   deployProgress,
   deployReport,
+  quickDeployProgress,
   uploadJobId,
   codeCoverage,
   quickDeploy

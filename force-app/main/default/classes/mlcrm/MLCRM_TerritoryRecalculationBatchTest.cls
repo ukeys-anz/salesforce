@@ -13,7 +13,7 @@ public class MLCRM_TerritoryRecalculationBatchTest {
     User mlUser3 = MLCRMTestDataFactory.createMLCRMBaseUser();
     User iiQUser = MLCRMTestDataFactory.createIIQBaseUser();
     User adobeUser = MLCRMTestDataFactory.getMLCRMIntegrationUser(
-      'Adobe.Integration@anzx.com'
+      Label.AdobeIntegrationUserName
     );
     mlUser3.LastName = 'test mluser3';
     update mlUser3;
@@ -23,22 +23,7 @@ public class MLCRM_TerritoryRecalculationBatchTest {
         1,
         mlBusinessAdminUser,
         true
-      ); /*
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        1,
-        mlUser1.Id,
-        lstOfTerritory[0].Id
       );
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        1,
-        mlUser2.Id,
-        lstOfTerritory[0].Id
-      );
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        1,
-        mlUser3.Id,
-        lstOfTerritory[0].Id
-      ); */
       List<Territory__Share> lstOfTerritoryShare = new List<Territory__Share>();
       Territory__Share objShare = new Territory__Share();
       objShare.parentId = lstOfTerritory[0].Id;
@@ -91,7 +76,7 @@ public class MLCRM_TerritoryRecalculationBatchTest {
     user objUser = [
       SELECT Id
       FROM User
-      WHERE username = 'Adobe.Integration@anzx.com'
+      WHERE username LIKE :Label.AdobeIntegrationUserName
       LIMIT 1
     ];
     user objMlUser = [SELECT Id FROM User WHERE LastName = 'test mluser3'];
@@ -104,8 +89,8 @@ public class MLCRM_TerritoryRecalculationBatchTest {
 
     System.runAs(objMlUser) {
       List<Lead> lstOfLead = [SELECT Id FROM Lead];
-      //asserting if records created by excluded user get the access after batch job runs.
-      System.assertEquals(lstOfLead.size(), 10);
+      //asserting if records created by excluded user get the access after batch job runs 
+      System.assertEquals(lstOfLead.size(), 0);
     }
   }
 }

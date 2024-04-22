@@ -49,8 +49,8 @@
         <name>TFMSortConsents</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:consentsList LIST &apos;stateUpdatedTime&apos; &apos;createTime&apos; &apos;[:DSC]&apos; SORTBY</formulaConverted>
-        <formulaExpression>SORTBY(LIST(consentsList),&apos;stateUpdatedTime&apos;, &apos;createTime&apos;, &apos;[:DSC]&apos;)</formulaExpression>
+        <formulaConverted>| | var:consentsList LIST &apos;createTime&apos; &apos;[:DSC]&apos; SORTBY</formulaConverted>
+        <formulaExpression>SORTBY(LIST(consentsList), &apos;createTime&apos;, &apos;[:DSC]&apos;)</formulaExpression>
         <formulaResultPath>sortedConsents</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
         <globalKey>TFMSortConsents6005623618053948</globalKey>

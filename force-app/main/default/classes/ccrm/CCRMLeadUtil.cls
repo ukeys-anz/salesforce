@@ -95,7 +95,7 @@ public with sharing class CCRMLeadUtil {
    * @return `Boolean` True if the lead originator is Unica, otherwise return false
    */
   public static Boolean isUnicaLead(Lead record) {
-    return isCCRMLeadType(record) &&
+    return (isCCRMLeadType(record) || isMLCRMLeadType(record)) &&
       record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA;
   }
 
@@ -106,7 +106,7 @@ public with sharing class CCRMLeadUtil {
    * @return `Boolean` True if the lead originator is ADOBE, otherwise return false
    */
   public static Boolean isAdobeLead(Lead record) {
-    return isCCRMLeadType(record) &&
+    return (isCCRMLeadType(record) || isMLCRMLeadType(record)) &&
       record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE;
   }
 

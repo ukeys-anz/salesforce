@@ -21,7 +21,9 @@ global class MLCRM_TerritorySharingScheduler implements Schedulable {
       for (
         Territory_Based_Sharing_Config__mdt objTerritoryMtd : lstOfTerritoryMtd
       ) {
-        if (objTerritoryMtd.Active__c) {
+        if (
+          objTerritoryMtd.Active__c && objTerritoryMtd.Excluded_Users__c != null
+        ) {
           MLCRM_TerritorySharingRecalculationBatch objBatch = new MLCRM_TerritorySharingRecalculationBatch(
             objTerritoryMtd
           );

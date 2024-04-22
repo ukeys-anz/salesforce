@@ -91,7 +91,6 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMJointAccountPermissionsDataProcess</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldFormat>Date(MM/dd/yyyy)</outputFieldFormat>
         <outputFieldName>workflowExpiresOn</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -238,8 +237,8 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:workflowExpiresOn ISBLANK &quot;&quot; var:workflowExpiresOn IF</formulaConverted>
-        <formulaExpression>IF(ISBLANK(workflowExpiresOn), &quot;&quot;, workflowExpiresOn)</formulaExpression>
+        <formulaConverted>| var:workflowExpiresOn &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(workflowExpiresOn, &quot;dd/MM/yyyy&quot;))</formulaExpression>
         <formulaResultPath>workflowExpiresOn</formulaResultPath>
         <formulaSequence>5.0</formulaSequence>
         <globalKey>TFMJointAccountPermissionsDataProcessCustom5169</globalKey>

@@ -44,13 +44,19 @@ public with sharing class GetHelpTaskActionHelper {
     if (accountIdSet.isEmpty()) {
       return accountMap;
     }
-    accountMap = new Map<ID, Account>(
-      [
-        SELECT Id, Source_System_Name__c, Source_System_ID__c
-        FROM Account
-        WHERE Id IN :accountIdSet
-      ]
-    );
+    List<Account> accountList = [
+      SELECT
+        Id,
+        Source_System_Name__c,
+        Source_System_ID__c,
+        PersonContactId,
+        OCV_ID__c
+      FROM Account
+      WHERE PersonContactId IN :accountIdSet
+    ];
+    for (Account objAcc : accountList) {
+      accountMap.put(objAcc.PersonContactId, objAcc);
+    }
     return accountMap;
   }
 

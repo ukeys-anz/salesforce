@@ -16,6 +16,11 @@
         <label>ANZi</label>
     </customValue>
     <customValue>
+        <fullName>ANZ Private</fullName>
+        <default>false</default>
+        <label>ANZ Private</label>
+    </customValue>
+    <customValue>
         <fullName>ANZx</fullName>
         <default>false</default>
         <label>ANZx</label>
@@ -136,6 +141,16 @@
         <label>Commercial Credit Cards</label>
     </customValue>
     <customValue>
+        <fullName>Commercial Digital and Customer Experience</fullName>
+        <default>false</default>
+        <label>Commercial Digital and Customer Experience</label>
+    </customValue>
+    <customValue>
+        <fullName>Commercial Strategic Delivery</fullName>
+        <default>false</default>
+        <label>Commercial Strategic Delivery</label>
+    </customValue>
+    <customValue>
         <fullName>Complaint Resolution</fullName>
         <default>false</default>
         <label>Complaint Resolution</label>
@@ -178,7 +193,7 @@
     <customValue>
         <fullName>Customer Cash Solutions (CCS)</fullName>
         <default>false</default>
-        <label>Customer Cash Solutions (CCS)</label>
+        <label>Customer Cash Solutions</label>
     </customValue>
     <customValue>
         <fullName>Customer Collections &amp; Service Centre</fullName>
@@ -193,7 +208,27 @@
     <customValue>
         <fullName>Customer Digital Experience (CDX)</fullName>
         <default>false</default>
-        <label>Customer Digital Experience (CDX)</label>
+        <label>Customer Digital Experience</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Engagement</fullName>
+        <default>false</default>
+        <label>Customer Engagement</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Experience - Digital Portfolio</fullName>
+        <default>false</default>
+        <label>Customer Experience - Digital Portfolio</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Experience - Open Banking</fullName>
+        <default>false</default>
+        <label>Customer Experience - Open Banking</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Migration</fullName>
+        <default>false</default>
+        <label>Customer Migration</label>
     </customValue>
     <customValue>
         <fullName>Customer Protection</fullName>
@@ -301,9 +336,19 @@
         <label>Enablement</label>
     </customValue>
     <customValue>
+        <fullName>Everyday Banking Portfolio</fullName>
+        <default>false</default>
+        <label>Everyday Banking Portfolio</label>
+    </customValue>
+    <customValue>
         <fullName>Everyday Banking Tribe</fullName>
         <default>false</default>
         <label>Everyday Banking Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Financial Wellbeing Research and Design</fullName>
+        <default>false</default>
+        <label>Financial Wellbeing Research and Design</label>
     </customValue>
     <customValue>
         <fullName>Group Payments</fullName>
@@ -314,6 +359,11 @@
         <fullName>Group Payments Tribe</fullName>
         <default>false</default>
         <label>Group Payments Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>Group Risk</fullName>
+        <default>false</default>
+        <label>Group Risk</label>
     </customValue>
     <customValue>
         <fullName>Group Services (AR&amp;C)</fullName>
@@ -334,6 +384,11 @@
         <fullName>Home Loans</fullName>
         <default>false</default>
         <label>Home Loans</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loans Portfolio</fullName>
+        <default>false</default>
+        <label>Home Loans Portfolio</label>
     </customValue>
     <customValue>
         <fullName>Home Loans Tribe</fullName>
@@ -359,6 +414,11 @@
         <fullName>Know Your Customer (KYC)</fullName>
         <default>false</default>
         <label>Know Your Customer (KYC)</label>
+    </customValue>
+    <customValue>
+        <fullName>Lend and Grow</fullName>
+        <default>false</default>
+        <label>Lend and Grow</label>
     </customValue>
     <customValue>
         <fullName>Lending Services</fullName>
@@ -543,7 +603,7 @@
     <customValue>
         <fullName>Service Operations Engineering (SOE)</fullName>
         <default>false</default>
-        <label>Service Operations Engineering (SOE)</label>
+        <label>Service Operations Engineering</label>
     </customValue>
     <customValue>
         <fullName>Shout for Good</fullName>
@@ -566,6 +626,11 @@
         <label>Small Business Banking</label>
     </customValue>
     <customValue>
+        <fullName>SME Banking</fullName>
+        <default>false</default>
+        <label>SME Banking</label>
+    </customValue>
+    <customValue>
         <fullName>Specialised Distribution</fullName>
         <default>false</default>
         <label>Specialised Distribution</label>
@@ -576,9 +641,19 @@
         <label>Specialised Product Sales</label>
     </customValue>
     <customValue>
+        <fullName>Specialist Industries</fullName>
+        <default>false</default>
+        <label>Specialist Industries</label>
+    </customValue>
+    <customValue>
         <fullName>Specialist Product Sales</fullName>
         <default>false</default>
         <label>Specialist Product Sales</label>
+    </customValue>
+    <customValue>
+        <fullName>Strategic Deliver</fullName>
+        <default>false</default>
+        <label>Strategic Deliver</label>
     </customValue>
     <customValue>
         <fullName>Strategic Marketing &amp; Digital Sales</fullName>
@@ -589,6 +664,11 @@
         <fullName>Systemic Issues</fullName>
         <default>false</default>
         <label>Systemic Issues</label>
+    </customValue>
+    <customValue>
+        <fullName>Transact and Save</fullName>
+        <default>false</default>
+        <label>Transact and Save</label>
     </customValue>
     <customValue>
         <fullName>Transformation &amp; TCS Tribe</fullName>
@@ -626,6 +706,151 @@
         <label>Wealth Tribe</label>
     </customValue>
     <customValue>
+        <fullName>Customer Experience - ANZx</fullName>
+        <default>false</default>
+        <label>Customer Experience - ANZx</label>
+    </customValue>
+    <customValue>
+        <fullName>Banker Digital Experience (System)</fullName>
+        <default>false</default>
+        <label>Banker Digital Experience (System)</label>
+    </customValue>
+    <customValue>
+        <fullName>Brand Strategy &amp; Marketing</fullName>
+        <default>false</default>
+        <label>Brand Strategy &amp; Marketing</label>
+    </customValue>
+    <customValue>
+        <fullName>Breach Reporting</fullName>
+        <default>false</default>
+        <label>Breach Reporting</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Platform Services</fullName>
+        <default>false</default>
+        <label>Business Platform Services</label>
+    </customValue>
+    <customValue>
+        <fullName>Complaints</fullName>
+        <default>false</default>
+        <label>Complaints</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit and Quality Governance</fullName>
+        <default>false</default>
+        <label>Credit and Quality Governance</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit Cards &amp; Personal Lending</fullName>
+        <default>false</default>
+        <label>Credit Cards &amp; Personal Lending</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Service Innovation</fullName>
+        <default>false</default>
+        <label>Customer Service Innovation</label>
+    </customValue>
+    <customValue>
+        <fullName>Data and Technology Risk</fullName>
+        <default>false</default>
+        <label>Data and Technology Risk</label>
+    </customValue>
+    <customValue>
+        <fullName>Data Portfolio</fullName>
+        <default>false</default>
+        <label>Data Portfolio</label>
+    </customValue>
+    <customValue>
+        <fullName>Deposits &amp; Payments</fullName>
+        <default>false</default>
+        <label>Deposits &amp; Payments</label>
+    </customValue>
+    <customValue>
+        <fullName>Financial Crime Transformation</fullName>
+        <default>false</default>
+        <label>Financial Crime Transformation</label>
+    </customValue>
+    <customValue>
+        <fullName>Financial Wellbeing (Collections)</fullName>
+        <default>false</default>
+        <label>Financial Wellbeing (Collections)</label>
+    </customValue>
+    <customValue>
+        <fullName>Financial Wellbeing Assist (Hardship)</fullName>
+        <default>false</default>
+        <label>Financial Wellbeing Assist (Hardship)</label>
+    </customValue>
+    <customValue>
+        <fullName>Insurance &amp; Super</fullName>
+        <default>false</default>
+        <label>Insurance &amp; Super</label>
+    </customValue>
+    <customValue>
+        <fullName>Migration</fullName>
+        <default>false</default>
+        <label>Migration</label>
+    </customValue>
+    <customValue>
+        <fullName>Open Banking</fullName>
+        <default>false</default>
+        <label>Open Banking</label>
+    </customValue>
+    <customValue>
+        <fullName>Operational Performance</fullName>
+        <default>false</default>
+        <label>Operational Performance</label>
+    </customValue>
+    <customValue>
+        <fullName>Personalisation &amp; Digital Sales</fullName>
+        <default>false</default>
+        <label>Personalisation &amp; Digital Sales</label>
+    </customValue>
+    <customValue>
+        <fullName>Pricing COE</fullName>
+        <default>false</default>
+        <label>Pricing COE</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Broker</fullName>
+        <default>false</default>
+        <label>Retail Broker</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Credit Risk (Group)</fullName>
+        <default>false</default>
+        <label>Retail Credit Risk (Group)</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Lending</fullName>
+        <default>false</default>
+        <label>Retail Lending</label>
+    </customValue>
+    <customValue>
+        <fullName>Servicing</fullName>
+        <default>false</default>
+        <label>Servicing</label>
+    </customValue>
+    <customValue>
+        <fullName>Small Business Lighthouse</fullName>
+        <default>false</default>
+        <label>Small Business Lighthouse</label>
+    </customValue>
+    <customValue>
+        <fullName>Strategic Partnerships</fullName>
+        <default>false</default>
+        <label>Strategic Partnerships</label>
+    </customValue>
+    <customValue>
+        <fullName>Third Party Deposits</fullName>
+        <default>false</default>
+        <label>Third Party Deposits</label>
+    </customValue>
+    <customValue>
+        <fullName>Wealth - ANZLMI</fullName>
+        <default>false</default>
+        <label>Wealth - ANZLMI</label>
+    </customValue>
+    <customValue>
         <fullName>Commercial &amp; Consumer Cards and Personal Lending (CCPL) Tribe</fullName>
         <default>false</default>
         <isActive>false</isActive>
@@ -651,5 +876,5 @@
     </customValue>
     <description>List of Teams/Business Units/Portfolios/Tribes potentially relevant to, or impacted by a systemic issue.</description>
     <masterLabel>Teams/Business Units/Portfolios/Tribes</masterLabel>
-    <sorted>false</sorted>
+    <sorted>true</sorted>
 </GlobalValueSet>

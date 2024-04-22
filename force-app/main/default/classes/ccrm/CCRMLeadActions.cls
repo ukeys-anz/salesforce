@@ -478,6 +478,7 @@ public with sharing class CCRMLeadActions {
    */
   public static void prefillManualLeadsFromAccountOnInsert(List<Lead> records) {
     Set<String> relatedPartyIds = new Set<String>();
+    List<Lead> listOfLeads = new List<Lead>();
     for (Lead record : records) {
       if (
         (CCRMLeadUtil.isCCRMLeadType(record) ||
@@ -487,11 +488,12 @@ public with sharing class CCRMLeadActions {
         String.isNotBlank(record.FinServ__RelatedAccount__c)
       ) {
         relatedPartyIds.add(record.FinServ__RelatedAccount__c);
+        listOfLeads.add(record);
       }
     }
     if (relatedPartyIds != null && !relatedPartyIds.isEmpty()) {
       new CCRMLeadMappingEngine()
-        .prefillManualLeadsFromAccount(records, relatedPartyIds);
+        .prefillManualLeadsFromAccount(listOfLeads, relatedPartyIds);
     }
   }
 

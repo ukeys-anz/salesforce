@@ -64,6 +64,31 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>checkIfAccOpenORClosed</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;isAllAccOpen&quot; : &quot;=IF(ISBLANK(%SortingConsent:openAccList%),false,true)&quot;,
+    &quot;isAllAccClosed&quot; : &quot;=IF(ISBLANK(%SortingConsent:closeAccList%),false,true)&quot;
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues3&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>6.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
         <name>getConsentAccDetails</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
@@ -103,49 +128,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>mergeAllList</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
-  &quot;failureConditionalFormula&quot; : &quot;&quot;,
-  &quot;failOnStepError&quot; : true,
-  &quot;useFormulas&quot; : true,
-  &quot;additionalInput&quot; : { },
-  &quot;additionalOutput&quot; : { },
-  &quot;failureResponse&quot; : { },
-  &quot;sendOnlyAdditionalInput&quot; : false,
-  &quot;returnOnlyAdditionalOutput&quot; : false,
-  &quot;returnOnlyFailureResponse&quot; : false,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;advancedMerge&quot; : false,
-  &quot;advancedMergeMap&quot; : [ ],
-  &quot;mergeFields&quot; : [ ],
-  &quot;allowMergeNulls&quot; : true,
-  &quot;hasPrimary&quot; : false,
-  &quot;primaryListKey&quot; : &quot;&quot;,
-  &quot;sortBy&quot; : [ ],
-  &quot;sortInDescendingOrder&quot; : false,
-  &quot;mergeListsOrder&quot; : [ &quot;sortingBasedOnProductType:individualOpenANZPlusConsentAccList&quot;, &quot;sortingBasedOnProductType:individualOpenANZSaveConsentAccList&quot;, &quot;sortingBasedOnProductType:individualOpenANZHomeLoanConsentAccList&quot;, &quot;sortingBasedOnProductType:jointOpenANZPlusConsentAccList&quot;, &quot;sortingBasedOnProductType:jointOpenANZSaveConsentAccList&quot;, &quot;sortingBasedOnProductType:jointOpenANZHomeLoanConsentAccList&quot;, &quot;sortingBasedOnProductType:individualCloseANZPlusConsentAccList&quot;, &quot;sortingBasedOnProductType:individualCloseANZSaveConsentAccList&quot;, &quot;sortingBasedOnProductType:individualCloseANZHomeLoanConsentAccList&quot;, &quot;sortingBasedOnProductType:jointCloseANZPlusConsentAccList&quot;, &quot;sortingBasedOnProductType:jointCloseANZSaveConsentAccList&quot;, &quot;sortingBasedOnProductType:jointCloseANZHomeLoanConsentAccList&quot; ],
-  &quot;filterListFormula&quot; : &quot;&quot;,
-  &quot;dynamicOutputFields&quot; : &quot;&quot;,
-  &quot;updateFieldValue&quot; : { },
-  &quot;chainOnStep&quot; : false,
-  &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;additionalChainableResponse&quot; : { },
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;ListAction2&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
-        <type>List Merge Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
         <name>ResponseAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
@@ -167,6 +149,30 @@
 }</propertySetConfig>
         <sequenceNumber>9.0</sequenceNumber>
         <type>Response Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>SetAllAccStatusValue</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;allAccStatus&quot; : &quot;=IF((%checkIfAccOpenORClosed:isAllAccOpen% &amp;&amp; %checkIfAccOpenORClosed:isAllAccClosed%),\&quot;Hybrid\&quot;,IF(%checkIfAccOpenORClosed:isAllAccOpen%,\&quot;Open\&quot;,\&quot;Closed\&quot;))&quot;
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues4&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>7.0</sequenceNumber>
+        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
         <isActive>true</isActive>
@@ -197,51 +203,23 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>sortingBasedOnAccountStatus</name>
+        <name>SortingConsent</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
   &quot;elementValueMap&quot; : {
-    &quot;openConsentAccList&quot; : &quot;=FILTER(LIST(%updateConsentAccList%),&apos;closed == \&quot;Open\&quot;&apos;)&quot;,
-    &quot;closedConsentAccList&quot; : &quot;=FILTER(LIST(%updateConsentAccList%),&apos;closed == \&quot;Closed\&quot;&apos;)&quot;
+    &quot;SortedProductList&quot; : &quot;=LIST(SORTBY(LIST(%TFMTransformDataForSorting:records%),&apos;sortingOrderNumForAccoutStatus&apos;,&apos;sortingOrderNumForAccoutType&apos;,&apos;sortingOrderNumForProductType&apos;))&quot;,
+    &quot;openAccList&quot; : &quot;=FILTER(LIST(%TFMTransformDataForSorting:records%),&apos;closed == \&quot;Open\&quot;&apos;)&quot;,
+    &quot;closeAccList&quot; : &quot;=FILTER(LIST(%TFMTransformDataForSorting:records%),&apos;closed == \&quot;Closed\&quot;&apos;)&quot;
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;show&quot; : null,
-  &quot;label&quot; : &quot;SetValues2&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>sortingBasedOnAccountType</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
-  &quot;failureConditionalFormula&quot; : &quot;&quot;,
-  &quot;failOnStepError&quot; : true,
-  &quot;elementValueMap&quot; : {
-    &quot;individualOpenConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountStatus:openConsentAccList%),&apos;jointAccount == \&quot;Individual Account\&quot; &apos;)&quot;,
-    &quot;jointOpenConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountStatus:openConsentAccList%),&apos;jointAccount == \&quot;Joint Account\&quot;&apos;)&quot;,
-    &quot;individualClosedConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountStatus:closedConsentAccList%),&apos;jointAccount == \&quot;Individual Account\&quot;&apos;)&quot;,
-    &quot;jointClosedConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountStatus:closedConsentAccList%),&apos;jointAccount == \&quot;Joint Account\&quot;&apos;)&quot;,
-    &quot;isAllAccOpen&quot; : &quot;=IF(LIST(%sortingBasedOnAccountStatus:openConsentAccList%) != null,true,false)&quot;,
-    &quot;isAllAccClosed&quot; : &quot;=IF(%sortingBasedOnAccountStatus:closedConsentAccList% != null,true,false)&quot;
-  },
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;chainOnStep&quot; : false,
-  &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;SetValues3&quot;,
+  &quot;label&quot; : &quot;SetValues7&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
         <sequenceNumber>5.0</sequenceNumber>
@@ -251,37 +229,33 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>sortingBasedOnProductType</name>
+        <name>TFMTransformDataForSorting</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
-  &quot;elementValueMap&quot; : {
-    &quot;individualOpenANZPlusConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:individualOpenConsentAccList%),&apos;displayName == \&quot;ANZ Plus\&quot;&apos;)&quot;,
-    &quot;individualOpenANZSaveConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:individualOpenConsentAccList%),&apos;displayName == \&quot;ANZ Save\&quot;&apos;)&quot;,
-    &quot;individualOpenANZHomeLoanConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:individualOpenConsentAccList%),&apos;displayName == \&quot;ANZ Home Loan\&quot;&apos;)&quot;,
-    &quot;jointOpenANZPlusConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:jointOpenConsentAccList%),&apos;displayName == \&quot;ANZ Plus\&quot;&apos;)&quot;,
-    &quot;jointOpenANZSaveConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:jointOpenConsentAccList%),&apos;displayName == \&quot;ANZ Save\&quot;&apos;)&quot;,
-    &quot;jointOpenANZHomeLoanConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:jointOpenConsentAccList%),&apos;displayName == \&quot;ANZ Home Loan\&quot;&apos;)&quot;,
-    &quot;individualCloseANZPlusConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:individualClosedConsentAccList%),&apos;displayName == \&quot;ANZ Plus\&quot;&apos;)&quot;,
-    &quot;individualCloseANZSaveConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:individualClosedConsentAccList%),&apos;displayName == \&quot;ANZ Save\&quot;&apos;)&quot;,
-    &quot;individualCloseANZHomeLoanConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:individualClosedConsentAccList%),&apos;displayName == \&quot;ANZ Home Loan\&quot;&apos;)&quot;,
-    &quot;jointCloseANZPlusConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:jointClosedConsentAccList%),&apos;displayName == \&quot;ANZ Plus\&quot;&apos;)&quot;,
-    &quot;jointCloseANZSaveConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:jointClosedConsentAccList%),&apos;displayName == \&quot;ANZ Save\&quot;&apos;)&quot;,
-    &quot;jointCloseANZHomeLoanConsentAccList&quot; : &quot;=FILTER(LIST(%sortingBasedOnAccountType:jointClosedConsentAccList%),&apos;displayName == \&quot;ANZ Home Loan\&quot;&apos;)&quot;,
-    &quot;allAccStatus&quot; : &quot;=IF((%sortingBasedOnAccountType:isAllAccOpen% &amp;&amp; %sortingBasedOnAccountType:isAllAccClosed%),\&quot;Hybrid\&quot;,IF(%sortingBasedOnAccountType:isAllAccOpen%,\&quot;Open\&quot;,\&quot;Closed\&quot;))&quot;
-  },
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : { },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : false,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;%updateConsentAccList%&quot;,
+  &quot;sendJSONNode&quot; : &quot;response&quot;,
+  &quot;bundle&quot; : &quot;TFMDRTransformConsentAccounts&quot;,
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;ignoreCache&quot; : false,
   &quot;show&quot; : null,
-  &quot;label&quot; : &quot;SetValues5&quot;,
+  &quot;label&quot; : &quot;DataRaptorTransformAction2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
-        <type>Set Values</type>
+        <sequenceNumber>4.0</sequenceNumber>
+        <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <isActive>true</isActive>
@@ -296,7 +270,7 @@
   &quot;useFormulas&quot; : true,
   &quot;additionalInput&quot; : {
     &quot;dataScopeMapping&quot; : &quot;%getConsentAccDetails:dataScope%&quot;,
-    &quot;consentAccDetails&quot; : &quot;%mergeAllList%&quot;,
+    &quot;consentAccDetails&quot; : &quot;%SortingConsent:SortedProductList%&quot;,
     &quot;consentName&quot; : &quot;%consentName%&quot;,
     &quot;state&quot; : &quot;%state%&quot;,
     &quot;isCreator&quot; : &quot;%isCreator%&quot;,
@@ -312,9 +286,11 @@
     &quot;IDValue&quot; : &quot;%IDValue%&quot;,
     &quot;recordId&quot; : &quot;%recordId%&quot;,
     &quot;personaId&quot; : &quot;%personaId%&quot;,
-    &quot;allAccStatus&quot; : &quot;%sortingBasedOnProductType:allAccStatus%&quot;,
+    &quot;allAccStatus&quot; : &quot;%SetAllAccStatusValue:allAccStatus%&quot;,
     &quot;createTime&quot; : &quot;%createTime%&quot;,
-    &quot;expireTime&quot; : &quot;%expireTime%&quot;
+    &quot;expireTime&quot; : &quot;%expireTime%&quot;,
+    &quot;openAccList&quot; : &quot;%SortingConsent:openAccList%&quot;,
+    &quot;closeAccList&quot; : &quot;%SortingConsent:closeAccList%&quot;
   },
   &quot;additionalOutput&quot; : { },
   &quot;failureResponse&quot; : { },
@@ -412,7 +388,7 @@
 }</propertySetConfig>
     <subType>ConsentAccountDetails</subType>
     <type>TFM</type>
-    <uniqueName>TFM_ConsentAccountDetails_Procedure_18</uniqueName>
-    <versionNumber>18.0</versionNumber>
-    <webComponentKey>e2b2a512-5ccf-da14-e747-059d15adf4ef</webComponentKey>
+    <uniqueName>TFM_ConsentAccountDetails_Procedure_21</uniqueName>
+    <versionNumber>21.0</versionNumber>
+    <webComponentKey>d1dc2d6f-e049-4058-58a4-7151fd582cea</webComponentKey>
 </OmniIntegrationProcedure>
