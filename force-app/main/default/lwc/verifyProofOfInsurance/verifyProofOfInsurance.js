@@ -1,8 +1,9 @@
 import { LightningElement, api } from "lwc";
 import { handleErrorShowToast, showToast } from "c/utils";
 import verifyInsurance from "@salesforce/apex/ProofOfInsuranceController.verifyInsurance";
+import { CloseActionScreenEvent } from "lightning/actions";
 
-export default class VerifyInsurance extends LightningElement {
+export default class VerifyProofOfInsurance extends LightningElement {
   _recordId;
   @api set recordId(recordId) {
     if (recordId !== this._recordId) {
@@ -15,15 +16,17 @@ export default class VerifyInsurance extends LightningElement {
 
   isExecuting = false;
 
-  @api async invoke() {
+  async handleVerify() {
     if (this.isExecuting) {
       return;
     }
+    this.isExecuting = true;
     try {
       let response = await verifyInsurance({ recordId: this._recordId });
       //The API should always set to State verified, but the response has multiple states,
       //so handling here just in case something on API ever changes to avoid errors
       if (response?.proofOfInsuranceVerification?.state === "STATE_VERIFIED") {
+        this.dispatchEvent(new CloseActionScreenEvent());
         showToast(
           this,
           "Verify Insurance",
@@ -56,5 +59,9 @@ export default class VerifyInsurance extends LightningElement {
     } finally {
       this.isExecuting = false;
     }
+  }
+
+  handleCancel() {
+    this.dispatchEvent(new CloseActionScreenEvent());
   }
 }

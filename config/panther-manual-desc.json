@@ -434,7 +434,13 @@
         "Skip_Validations__c",
         "Team_Manager__c"
       ],
-      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
+      "IA-2415840": [
+        "Case__c",
+        "Case_Age_in_Days__c",
+        "Case_Created__c",
+        "Description__c",
+        "Done__c"
+      ],
       "IA-2415720": [
         "FinServ__Expectations__c",
         "FinServ__Household__c",
@@ -493,6 +499,15 @@
         "LastModifiedDate"
       ],
       "IA-2453350": ["External_Id__c"]
+    },
+    "Automatic_Repayment_Preference__c": {
+      "IA-2530753": ["Repayment_ID__c", "Settlement__c"],
+      "IA-2415983": [
+        "Frequency__c",
+        "Repayment_BSB__c",
+        "Repayment_Account_Number__c"
+      ],
+      "IA-2415840": ["Version__c"]
     },
     "BusinessHours": {
       "IA-2468715": [
@@ -1600,10 +1615,13 @@
         "Task_Name__c",
         "Category__c",
         "Status__c",
-        "Role__c"
+        "Role__c",
+        "Loan_Applicant__c",
+        "Accepted_Date__c",
+        "Mortgage_Contract__c"
       ],
-      "IA-2530753": ["Created__c", "Completed__c"],
-      "IA-2415998": ["Eligible_to_Complete__c"],
+      "IA-2530753": ["Created__c", "Completed__c", "Completed_By__c"],
+      "IA-2415998": ["Eligible_to_Complete__c", "Accepted_By__c"],
       "IA-2415720": [
         "Action__c",
         "Error_Description__c",
@@ -1612,7 +1630,14 @@
         "New_Value__c",
         "Old_Value__c",
         "Triggered_From__c"
-      ]
+      ],
+      "IA-2415997": [
+        "Document_Id__c",
+        "Terms_and_Conditions_Version__c",
+        "Memorandum_of_Common_Provisions_Version__c"
+      ],
+      "IA-2415983": ["Loan_Contract_Status__c"],
+      "IA-2594111": ["Loan_Application_Id__c"]
     },
     "Customer_Dispute_Management__c": {
       "IA-2415720": [
@@ -1711,6 +1736,40 @@
     "DCRM_Customer_Management_Non_KYC_Fields__mdt": {
       "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
       "IA-2415993": ["Customer_Status__c", "Field_Name__c", "Profile_Name__c"]
+    },
+    "Drawdown__c": {
+      "IA-2530753": [
+        "Drawdown_Id__c",
+        "Payout_Amount__c",
+        "Executed_Date__c",
+        "Drawdown_Status__c",
+        "Shortfall_Surplus_Amount__c",
+        "Settlement__c"
+      ],
+      "IA-2415720": ["Drawdown_BSB__c", "Drawdown_Account_Number__c"],
+      "IA-2415840": ["Version__c"]
+    },
+    "Drawdown_Transaction__c": {
+      "IA-2415999": [
+        "Settlement_ID__c",
+        "Transaction_ID__c",
+        "Transaction_Type__c",
+        "Account_Type__c",
+        "Amount__c"
+      ],
+      "IA-2426363": ["BSB_Number__c"],
+      "IA-2415720": ["Account_Number__c"],
+      "IA-2415840": ["Version__c"],
+      "IA-2530753": ["Drawdown__c"]
+    },
+    "EConveyancing_Workspace__c": {
+      "IA-2530753": [
+        "EConveyancing_ID__c",
+        "EConveyancing_Workspace_ID__c",
+        "Created_Date_Time_Workspace__c",
+        "Settlement__c"
+      ],
+      "IA-2415840": ["Unread_Conversations_Count__c", "Version__c"]
     },
     "EmailMessage": {
       "IA-2468715": [
@@ -1891,6 +1950,11 @@
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
     },
+    "FinServ__ChargesAndFees__c": {
+      "IA-2415840": ["Fee_Id__c", "Source__c", "Fee_Type__c"],
+      "IA-2415999": ["Fee_Amount__c"],
+      "IA-2530753": ["Mortgage_Contract_ID__c", "Settlement__c"]
+    },
     "FinServ__ContactContactRelation__c": {
       "IA-2415790": ["Retail_TPMI_SAO__c"],
       "IA-2415984": [
@@ -2011,6 +2075,16 @@
         "Role_Description__c",
         "RecordTypeId"
       ]
+    },
+    "Financial_Settlement__c": {
+      "IA-2530753": [
+        "Financial_Settlement_Id__c",
+        "Payout_Amount__c",
+        "Financial_Settlement_Status__c",
+        "Settlement__c"
+      ],
+      "IA-2415983": ["Signing_Activity__c"],
+      "IA-2415840": ["Version__c"]
     },
     "Group": {
       "IA-2468715": [
@@ -2436,6 +2510,11 @@
         "SOP_Version__c"
       ]
     },
+    "Loan_Facility_Config__c": {
+      "IA-2530753": ["Loan_Facility_Config_Id__c", "Settlement__c"],
+      "IA-2415999": ["Amount__c", "First_Principal_Due_Date__c"],
+      "IA-2415840": ["Version__c"]
+    },
     "Loan_Invitation__c": {
       "IA-2415840": [
         "Invitation_External_Id__c",
@@ -2675,6 +2754,24 @@
     "Material_Change_Applicant__c": {
       "IA-2415983": ["Material_Change__c", "Applicant__c"],
       "IA-2415840": ["External_Id__c", "Loan_Application__c"]
+    },
+    "Mortgage_Contract__c": {
+      "IA-2530753": [
+        "Mortgage_Contract_Id__c",
+        "Settlement__c",
+        "Lodgement_Status__c",
+        "Lodgement_Dealing_Number__c",
+        "Incoming_Mortgagee_Status__c",
+        "Mortgagee_on_Title_Status__c",
+        "Overall_Acceptance_Status__c"
+      ],
+      "IA-2415840": [
+        "Title_Activity_Indicator__c",
+        "Title_Activity__c",
+        "Version__c"
+      ],
+      "IA-2415720": ["Settlement_Date_Time__c"],
+      "IA-2594116": ["Jurisdiction__c"]
     },
     "Opportunity": {
       "IA-2415840": [
@@ -2919,9 +3016,12 @@
         "Property_ID__c",
         "Document_Id__c",
         "Document_File_Version__c",
-        "Settlement_ID__c"
+        "Settlement_ID__c",
+        "Verification_Status__c",
+        "Verified_On__c"
       ],
-      "IA-2530753": ["Version__c"]
+      "IA-2530753": ["Version__c"],
+      "IA-2415998": ["Verified_By__c"]
     },
     "qualtrics__Survey_Response__c": {
       "IA-2415840": [
@@ -3369,9 +3469,23 @@
       ]
     },
     "Settlement__c": {
-      "IA-2415840": ["Settlement_ID__c", "Nominated_Date__c"],
+      "IA-2415840": [
+        "Settlement_ID__c",
+        "Nominated_Date__c",
+        "Title_Activity__c",
+        "Unread_Conversations__c",
+        "Verification_Status__c",
+        "Verified_On__c",
+        "Drawdown_ID__c"
+      ],
       "IA-2594111": ["Loan_Application_Number__c"],
-      "IA-2415983": ["Status__c", "Nominated_Account_State__c"],
+      "IA-2415983": [
+        "Status__c",
+        "Nominated_Account_State__c",
+        "Requested_Loan_Amount__c",
+        "Incoming_Mortgagee_Acceptance_Status__c",
+        "Mortgagee_on_Title_Acceptance_Status__c"
+      ],
       "IA-2530753": [
         "Created__c",
         "Last_Modified__c",
@@ -3381,16 +3495,47 @@
         "Owner_Name__c",
         "Nominated_Account_Version__c",
         "Repayment_Account_Version__c",
-        "Version__c"
+        "Version__c",
+        "EConveyancing_Workspace_ID__c",
+        "Loan_Contract__c",
+        "Created_Date_Time__c",
+        "Payout_Amount__c",
+        "Financial_Settlement_Status__c",
+        "Lodgement_Status__c",
+        "Lodgement_Dealing_Number__c",
+        "Incoming_Mortgagee_Signed_on_Date__c",
+        "Mortgagee_on_Title_Signed_on_Date__c",
+        "First_Principal_Due_Date__c"
       ],
       "IA-2415720": [
         "Nominated_BSB__c",
         "Nominated_Account_Number__c",
-        "Repayment_Account_Number__c"
+        "Repayment_Account_Number__c",
+        "Settlement_Date_Time__c",
+        "Drawdown_Account_Number__c"
       ],
-      "IA-2415998": ["Nominated_by__c"],
+      "IA-2415998": ["Nominated_by__c", "Verified_By__c"],
       "IA-2427117": ["Repayment_Id__c", "Frequency__c"],
-      "IA-2426363": ["Repayment_BSB__c"]
+      "IA-2426363": ["Repayment_BSB__c", "Drawdown_BSB__c"],
+      "IA-2594116": ["Jurisdiction__c"],
+      "IA-2415999": [
+        "Amount__c",
+        "Drawdown_Status__c",
+        "Shortfall_Surplus_Amount__c",
+        "Executed_Date__c"
+      ]
+    },
+    "Settlement_Account__c": {
+      "IA-2530753": [
+        "Nominated_By_Id__c",
+        "Nominated_By__c",
+        "Nominated_Account_State__c",
+        "Settlement_Id__c",
+        "Settlement__c"
+      ],
+      "IA-2415720": ["Nominated_BSB__c", "Nominated_Account_Number__c"],
+      "IA-2415840": ["Nominated_Date__c", "Version__c"],
+      "IA-2594111": ["Loan_Application_Id__c"]
     },
     "Task": {
       "IA-2453595": [
