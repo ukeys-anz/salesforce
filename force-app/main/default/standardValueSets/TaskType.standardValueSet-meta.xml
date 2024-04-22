@@ -67,8 +67,8 @@
         <label>Notification</label>
     </standardValue>
     <standardValue>
-        <fullName>Callback Request</fullName>
+        <fullName>BOH Web Explore call back request</fullName>
         <default>false</default>
-        <label>Callback Request</label>
+        <label>BOH Web Explore call back request</label>
     </standardValue>
 </StandardValueSet>
