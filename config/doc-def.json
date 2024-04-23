@@ -973,6 +973,13 @@
         "Disable_MFA"
       ],
       "type": "system"
+    },
+    {
+      "name": "Residential Broker Manager",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Residential_Broker_Manager"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     }
   ]
 }

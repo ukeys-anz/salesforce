@@ -3447,7 +3447,9 @@
         "Joint__c",
         "Ineligible_Reasons__c"
       ],
-      "IA-2415860": ["Credit_Reassess_Required__c"]
+      "IA-2415860": ["Credit_Reassess_Required__c"],
+      "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
+      "IA-2453350": ["Sync_Status__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [

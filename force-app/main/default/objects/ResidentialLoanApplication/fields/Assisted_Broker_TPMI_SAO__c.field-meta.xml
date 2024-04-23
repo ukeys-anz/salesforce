@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>CommercialTPMISAO__c</fullName>
+    <fullName>Assisted_Broker_TPMI_SAO__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - OCV</complianceGroup>
-    <description>Broker Code of current Commercially accredited Broker.</description>
+    <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_LEX</complianceGroup>
+    <description>Retail Broker TPMI linked to the application sourced from LEX</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Commercial Broker Code</label>
+    <label>Broker Code</label>
     <length>19</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
