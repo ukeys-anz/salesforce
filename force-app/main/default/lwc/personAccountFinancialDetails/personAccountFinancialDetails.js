@@ -81,7 +81,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       });
       //Need to stringify and send as the array consists of many objects and SF proxies it
       //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
-      this.loanData = JSON.stringify(response.accounts);
+      if (response.accounts.length > 0) {
+        this.loanData = JSON.stringify(response.accounts);
+      }
     } catch (error) {
       handleErrorShowToast(
         this,
