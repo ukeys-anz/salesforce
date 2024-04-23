@@ -958,7 +958,8 @@
         "Mortgage",
         "Settlements_Read_Write",
         "Disable_MFA",
-        "Enforce_mTLS"
+        "Enforce_mTLS",
+        "ActionPlans"
       ],
       "type": "system"
     },
