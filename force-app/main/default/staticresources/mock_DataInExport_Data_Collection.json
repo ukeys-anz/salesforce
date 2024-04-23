@@ -1,0 +1,11 @@
+{
+    "consentSharingReports": [
+        {
+            "consents": [
+                "test-3220-4590-8234-8d0c1c21e93c"
+            ],
+            "uri": "https://storage.googleapis.com/op-reports-bucket-sit/5ec29afa-1746-4abb-93f8-05bbb5a7d438/20240321/bacd5df7-a35a-4fc4-ae59-fc14664ac76c/reports.zip?X-Goog-Algorithm=GOOG4-HMAC-SHA256&X-Goog-Credential=GOOG1EGHMOC7ZOAATLO4T22MGSPJYSUBRGUAOW46RK2WQ3KGL4XXCSEVRQGPA%2F20240321%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20240321T053816Z&X-Goog-Expires=600&X-Goog-SignedHeaders=host&X-Goog-Signature=68e578f46f7a06451dc98d5a985c3e56be1a5a47da82f7c725c844230e6982fb",
+            "expireTime": "2024-03-21T05:48:16.921567836Z"
+        }
+    ]
+}

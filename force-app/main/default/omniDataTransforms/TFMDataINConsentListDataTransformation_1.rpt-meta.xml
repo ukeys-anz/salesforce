@@ -1,0 +1,3000 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMDataINConsentListDataTransformation</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformationCustom7755</globalKey>
+        <inputFieldName>consentList:purposeList:ArchivedDescription</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ArchivedDescription</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:consentList:revokeTime &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(consentList:revokeTime, &quot;dd/MM/yyyy&quot;)</formulaExpression>
+        <formulaResultPath>consentList:revokeTimeDate</formulaResultPath>
+        <formulaSequence>7.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation3266951400821587</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:purposeCodeRecords LIST &apos;DeveloperName/\/\/==/\/\/&quot;&apos; var:consentList:consentCode + &apos;&quot;&apos; + FILTER</formulaConverted>
+        <formulaExpression>FILTER(LIST(purposeCodeRecords),&apos;DeveloperName == &quot;&apos; + consentList:consentCode + &apos;&quot;&apos;)</formulaExpression>
+        <formulaResultPath>consentList:purposeList</formulaResultPath>
+        <formulaSequence>9.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation4658148946634695</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation6868030299712742</globalKey>
+        <inputFieldName>consentList:consentCode</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>consentPurposes</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation9102129197351432</globalKey>
+        <inputFieldName>consentList:status</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>status</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:consentList:state &quot;STATE_ACTIVE&quot; == &quot;ACTIVE&quot; | var:consentList:state &quot;STATE_PAUSED&quot; == &quot;PAUSED&quot; | var:consentList:state &quot;STATE_REVOKED&quot; == &quot;STOPPED&quot; | var:consentList:state &quot;STATE_EXPIRED&quot; == &quot;EXPIRED&quot; &quot;&quot; IF IF IF IF</formulaConverted>
+        <formulaExpression>IF(consentList:state == &quot;STATE_ACTIVE&quot;, &quot;ACTIVE&quot;, IF(consentList:state == &quot;STATE_PAUSED&quot;, &quot;PAUSED&quot;, IF(consentList:state == &quot;STATE_REVOKED&quot;, &quot;STOPPED&quot;, IF(consentList:state == &quot;STATE_EXPIRED&quot;, &quot;EXPIRED&quot;, &quot;&quot;))))</formulaExpression>
+        <formulaResultPath>consentList:status</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation5004713769918727</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation39136991666446597</globalKey>
+        <inputFieldName>consentList:purposeList:Description</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Description</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation7343646973321749</globalKey>
+        <inputFieldName>consentList:dataHolder</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>dataHolder</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:consentList:lastUpdateTime ISNOTBLANK | var:consentList:lastUpdateTime &quot;dd/MM/yyyy&quot; FORMATDATETIME false IF</formulaConverted>
+        <formulaExpression>IF(ISNOTBLANK(consentList:lastUpdateTime),FORMATDATETIME(consentList:lastUpdateTime, &quot;dd/MM/yyyy&quot;),false)</formulaExpression>
+        <formulaResultPath>consentList:updateTime</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation9008422940711256</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation06616800709052395</globalKey>
+        <inputFieldName>consentList:consentId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>consentId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation9265179877368599</globalKey>
+        <inputFieldName>consentList:purposeList:DeveloperName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>DeveloperName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:consentList:status &apos;STOPPED&apos; == var:consentList:revokeTime | var:consentList:status &apos;EXPIRED&apos; == var:consentList:expireTime &apos;&apos; IF IF</formulaConverted>
+        <formulaExpression>IF(consentList:status == &apos;STOPPED&apos;,consentList:revokeTime,IF(consentList:status ==&apos;EXPIRED&apos;,consentList:expireTime,&apos;&apos;))</formulaExpression>
+        <formulaResultPath>consentList:sortedDateArchiveColumn</formulaResultPath>
+        <formulaSequence>8.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation3315880577117556</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation9754594357567425</globalKey>
+        <inputFieldName>consentList:personaId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>personaId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation2376546273625093</globalKey>
+        <inputFieldName>consentList:createTime</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>createTime</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation7105811590741491</globalKey>
+        <inputFieldName>consentList:expires</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>expires</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:consentList:consentPurposes 0 var:consentList:consentPurposes.length() 1 - SUBSTRING</formulaConverted>
+        <formulaExpression>SUBSTRING(%consentList:consentPurposes%,0,%consentList:consentPurposes.length()% - 1)</formulaExpression>
+        <formulaResultPath>consentList:consentCode</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation32679574144756285</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation22981161921624915</globalKey>
+        <inputFieldName>consentList:arrangementId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>arrangementId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:consentList:expireTime &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(consentList:expireTime, &quot;dd/MM/yyyy&quot;)</formulaExpression>
+        <formulaResultPath>consentList:expires</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation7354735408102475</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation4343010213519305</globalKey>
+        <inputFieldName>consentList:revokeTimeDate</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>revokeTime</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation6991481942010576</globalKey>
+        <inputFieldName>consentList:consentedResources</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>consentedResources</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation24119631333531255</globalKey>
+        <inputFieldName>consentList:from</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>Date(MM/dd/yyyy)</outputFieldFormat>
+        <outputFieldName>from</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation4743011807279014</globalKey>
+        <inputFieldName>consentList:name</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>name</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:consentList:createTime &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(consentList:createTime, &quot;dd/MM/yyyy&quot;)</formulaExpression>
+        <formulaResultPath>consentList:from</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation8341187040830811</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>var:consentList:dataHolder:brand</formulaConverted>
+        <formulaExpression>consentList:dataHolder:brand</formulaExpression>
+        <formulaResultPath>consentList:brandName</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>TFMDataINConsentListDataTransformation478178156966667</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation3490584533377237</globalKey>
+        <inputFieldName>consentList:purposeList:SharingPurpose</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>SharingPurpose</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation5770904489710287</globalKey>
+        <inputFieldName>consentList:updateTime</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>updateTime</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation6439091683061033</globalKey>
+        <inputFieldName>consentList:purposeList:PurposeCollection</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>PurposeCollection</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation3561964705564993</globalKey>
+        <inputFieldName>consentList:sortedDateArchiveColumn</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>sortedDateArchiveColumn</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation8182451809329843</globalKey>
+        <inputFieldName>consentList:personId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>personId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation853758347410597</globalKey>
+        <inputFieldName>consentList:brandName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>brandName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINConsentListDataTransformation8978413128518001</globalKey>
+        <inputFieldName>consentList:expireTime</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDataINConsentListDataTransformation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>expireTime</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;consentList&quot; : [ {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-29T18:12:12Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T07:12:13.322879Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T23:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T07:12:13.322879Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:54.472767Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T13:41:30.510939477Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:07:56.569303307Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:07:54.472767Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;anuj Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;c42b5c21-45e2-4e6e-acbb-a274c510a51d&quot;,
+    &quot;consentId&quot; : &quot;67afec37-a929-4fa5-b843-2a9ec50b1c55&quot;,
+    &quot;name&quot; : &quot;consents/67afec37-a929-4fa5-b843-2a9ec50b1c55&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-29T18:12:37Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T07:12:38.352847Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T07:12:38.352847Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:38.566335Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T17:44:11.943632298Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:07:40.547092219Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:07:38.566335Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;35260e4b-2aca-4689-b54d-05450c2be9b8&quot;,
+    &quot;consentId&quot; : &quot;5a2a565e-6bd1-4ab3-a412-478b4c08af39&quot;,
+    &quot;name&quot; : &quot;consents/5a2a565e-6bd1-4ab3-a412-478b4c08af39&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-29T18:12:58Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T07:12:59.549247Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T07:12:59.549247Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:35.935471Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T17:13:05.602807215Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:07:37.920134822Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:07:35.935471Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;60a54d56-af4c-45aa-8b76-4d7720c91251&quot;,
+    &quot;consentId&quot; : &quot;8c211a7e-1821-4d20-a62b-ddf58ad6abf9&quot;,
+    &quot;name&quot; : &quot;consents/8c211a7e-1821-4d20-a62b-ddf58ad6abf9&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-29T18:13:21Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T07:13:21.950367Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T07:13:21.950367Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:33.165951Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T17:13:37.779630246Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:07:35.130669627Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:07:33.165951Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;2aa0c22e-5b92-42a6-b023-aa570e95da46&quot;,
+    &quot;consentId&quot; : &quot;f85d39a4-5c61-4cbe-80ac-bdf8cae95572&quot;,
+    &quot;name&quot; : &quot;consents/f85d39a4-5c61-4cbe-80ac-bdf8cae95572&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-29T21:28:54Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T10:28:57.068111Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T10:28:57.068111Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:29.696255Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T14:17:37.727321120Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:07:31.682957881Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:07:29.696255Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;603805d1-f7d6-4ba4-9cef-272213a420f3&quot;,
+    &quot;consentId&quot; : &quot;c7b203d4-48e4-402a-982e-79d258344fb9&quot;,
+    &quot;name&quot; : &quot;consents/c7b203d4-48e4-402a-982e-79d258344fb9&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2025-03-05T13:00:02Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T07:25:11.750703Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T07:25:11.750703Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:27.654095Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T18:41:34.919650152Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:07:29.643267037Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:07:27.654095Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;8d73fc37-9226-43c3-9540-3001a4536a6c&quot;,
+    &quot;consentId&quot; : &quot;d15f3249-7ae9-42b3-b1f0-3cfbe1edb4aa&quot;,
+    &quot;name&quot; : &quot;consents/d15f3249-7ae9-42b3-b1f0-3cfbe1edb4aa&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-29T21:30:26Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T10:30:28.091183Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T10:30:28.091183Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:24.789103Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T16:48:17.361356954Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:07:26.860190351Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:07:24.789103Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;504e1241-b862-4be4-bd11-0d14263a8ac5&quot;,
+    &quot;consentId&quot; : &quot;f44f8ef1-1673-4b59-96a9-2f3481a96c12&quot;,
+    &quot;name&quot; : &quot;consents/f44f8ef1-1673-4b59-96a9-2f3481a96c12&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:07:19.757423Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:19.757423Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:07:21.782107088Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:07:19.757423Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;d8ffa1ba-f4d9-4b08-8e83-47b42b6f0d45&quot;,
+    &quot;consentId&quot; : &quot;ffc0d746-3cf7-4856-ace3-7e46fc59f7fc&quot;,
+    &quot;name&quot; : &quot;consents/ffc0d746-3cf7-4856-ace3-7e46fc59f7fc&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2025-03-05T13:00:02Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T09:53:07.485183Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T09:53:07.485183Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:54.201791Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T16:16:58.131540614Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:06:56.310410788Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:06:54.201791Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;a933789e-e88f-48bc-adca-7873f2d82f7c&quot;,
+    &quot;consentId&quot; : &quot;9916ea1d-3e7a-49f1-9e94-add8f8ed1bec&quot;,
+    &quot;name&quot; : &quot;consents/9916ea1d-3e7a-49f1-9e94-add8f8ed1bec&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-29T21:37:32Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T10:37:36.766575Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T10:37:36.766575Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:52.048655Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T16:27:48.457855033Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:06:54.094175428Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:06:52.048655Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;d5b629e4-7513-4ca4-b723-50a7a20ac966&quot;,
+    &quot;consentId&quot; : &quot;7e5387a7-7ed0-4997-853b-b68d6b6941db&quot;,
+    &quot;name&quot; : &quot;consents/7e5387a7-7ed0-4997-853b-b68d6b6941db&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-29T21:40:25Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-29T10:40:30.890191Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-29T10:40:30.890191Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:49.456191Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-28T17:25:32.271330231Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:06:51.508624188Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:06:49.456191Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;ae358f9c-b9f5-48e4-a936-c0983f7caf37&quot;,
+    &quot;consentId&quot; : &quot;efed89ef-e036-4e4a-8c0b-a63b6110f2eb&quot;,
+    &quot;name&quot; : &quot;consents/efed89ef-e036-4e4a-8c0b-a63b6110f2eb&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:06:32.900031Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:32.900031Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:06:34.926577449Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:06:32.900031Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;730a8849-067b-4cd7-b33b-a2c21919c7b1&quot;,
+    &quot;consentId&quot; : &quot;bc351f35-8043-4bb8-a4f6-ab4cc3e155e1&quot;,
+    &quot;name&quot; : &quot;consents/bc351f35-8043-4bb8-a4f6-ab4cc3e155e1&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:06:24.114415Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:24.114415Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:06:26.220661485Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:06:24.114415Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;e72e40b0-d621-4656-9f23-1338e304dc3d&quot;,
+    &quot;consentId&quot; : &quot;d0254b67-1999-47f3-9496-4bdb9257cb12&quot;,
+    &quot;name&quot; : &quot;consents/d0254b67-1999-47f3-9496-4bdb9257cb12&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:04Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:06:15.406191Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:15.406191Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:04Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:06:17.879280799Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:06:15.406191Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;b30ceaf7-b694-4dc3-9bb6-c0f112278133&quot;,
+    &quot;consentId&quot; : &quot;8b26a06e-cec6-42e5-9108-8a223aa0559a&quot;,
+    &quot;name&quot; : &quot;consents/8b26a06e-cec6-42e5-9108-8a223aa0559a&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:04:14.763311Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:04:14.763311Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:04:16.730171095Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:04:14.763311Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;e25cd8e7-b982-443d-8dea-1e7dc063d177&quot;,
+    &quot;consentId&quot; : &quot;c4046741-7012-49ed-9e77-a596798742a7&quot;,
+    &quot;name&quot; : &quot;consents/c4046741-7012-49ed-9e77-a596798742a7&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:04Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:04:14.295855Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:04:14.295855Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:04Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:04:16.335032355Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:04:14.295855Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;6f00d83e-1607-4ed4-a70d-d5461140b901&quot;,
+    &quot;consentId&quot; : &quot;e9675367-5556-47d9-b022-968f3cb948a9&quot;,
+    &quot;name&quot; : &quot;consents/e9675367-5556-47d9-b022-968f3cb948a9&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:04:09.427007Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:04:09.427007Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:04:11.434646416Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:04:09.427007Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;e1e72bfa-d5c3-4455-98fc-023147ad525e&quot;,
+    &quot;consentId&quot; : &quot;77c89e90-dbb9-4ff8-95bd-ec9cc97b0122&quot;,
+    &quot;name&quot; : &quot;consents/77c89e90-dbb9-4ff8-95bd-ec9cc97b0122&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:04:07.545743Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:04:07.545743Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:04:09.633987543Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:04:07.545743Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;ced1b997-aa05-4b0b-9bfd-5278d3be8af4&quot;,
+    &quot;consentId&quot; : &quot;1ada6d0e-dac1-4190-aabf-77815102ad8b&quot;,
+    &quot;name&quot; : &quot;consents/1ada6d0e-dac1-4190-aabf-77815102ad8b&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:04:05.038191Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:04:05.038191Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:04:07.003159119Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:04:05.038191Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;2b40ed2f-8390-4e89-a0e0-ef5d9bea1b3d&quot;,
+    &quot;consentId&quot; : &quot;6a94b9a0-3f43-4680-abd9-a75466908ca8&quot;,
+    &quot;name&quot; : &quot;consents/6a94b9a0-3f43-4680-abd9-a75466908ca8&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:04:01.919087Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:04:01.919087Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:04:03.825306566Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:04:01.919087Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;e8722006-c157-438b-95a3-f5384536a6be&quot;,
+    &quot;consentId&quot; : &quot;9ddd7eb6-4bdf-4f0f-8a65-10d0d0f78bc9&quot;,
+    &quot;name&quot; : &quot;consents/9ddd7eb6-4bdf-4f0f-8a65-10d0d0f78bc9&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:54.377215Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:54.377215Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:56.352624827Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:54.377215Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;762143aa-9c08-4e7e-b548-75e9d91e7184&quot;,
+    &quot;consentId&quot; : &quot;c7db2382-b8ff-463e-af3b-d21189f911bb&quot;,
+    &quot;name&quot; : &quot;consents/c7db2382-b8ff-463e-af3b-d21189f911bb&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:52.022751Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:52.022751Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:54.042057782Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:52.022751Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;7a2db1d0-e42a-43e1-9e63-74388e719431&quot;,
+    &quot;consentId&quot; : &quot;8283772c-18ca-4a7d-870d-2fa239b98640&quot;,
+    &quot;name&quot; : &quot;consents/8283772c-18ca-4a7d-870d-2fa239b98640&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:33.208527Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:33.208527Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:35.182395995Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:33.208527Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;54690c72-c80a-4ca5-8224-380532f8b603&quot;,
+    &quot;consentId&quot; : &quot;2ecb7960-53db-4473-bd0d-9a353b6c0b6b&quot;,
+    &quot;name&quot; : &quot;consents/2ecb7960-53db-4473-bd0d-9a353b6c0b6b&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:30.549887Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:30.549887Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:32.489730007Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:30.549887Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;704d188b-f4e7-41ef-baac-54fd33e85c36&quot;,
+    &quot;consentId&quot; : &quot;3e8d47c7-dd15-441d-9ebf-a4ceb302a1ee&quot;,
+    &quot;name&quot; : &quot;consents/3e8d47c7-dd15-441d-9ebf-a4ceb302a1ee&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:27.503983Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:27.503983Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:29.456122212Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:27.503983Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;d8b081a2-adef-4b68-86fc-23dda37ccadc&quot;,
+    &quot;consentId&quot; : &quot;74d418e3-106c-44c0-86ea-bbac4cf85531&quot;,
+    &quot;name&quot; : &quot;consents/74d418e3-106c-44c0-86ea-bbac4cf85531&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:25.075695Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:25.075695Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:26.914363949Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:25.075695Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;482acc9c-ef5e-4bd1-802b-28199f4606d4&quot;,
+    &quot;consentId&quot; : &quot;34aa9cd0-4d1b-4e2c-bc7e-b4200541cfbc&quot;,
+    &quot;name&quot; : &quot;consents/34aa9cd0-4d1b-4e2c-bc7e-b4200541cfbc&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:21.546719Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:21.546719Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:23.465972299Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:21.546719Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;d3846dc1-efad-4057-ac16-fe2df6235bea&quot;,
+    &quot;consentId&quot; : &quot;41da233f-a646-4ae6-b56c-2211b0da0105&quot;,
+    &quot;name&quot; : &quot;consents/41da233f-a646-4ae6-b56c-2211b0da0105&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:18.959071Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:18.959071Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:20.923730572Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:18.959071Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;1814d6d2-3dde-4e7f-aa1c-045597c62b9a&quot;,
+    &quot;consentId&quot; : &quot;f507626c-69db-409e-87e8-0da0715ddfa0&quot;,
+    &quot;name&quot; : &quot;consents/f507626c-69db-409e-87e8-0da0715ddfa0&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:17.015583Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:17.015583Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:19.032493513Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:17.015583Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;79e74127-5c9c-4f84-a5fc-374d07a8be48&quot;,
+    &quot;consentId&quot; : &quot;e83361ce-1a48-426e-892c-4a73f5b62911&quot;,
+    &quot;name&quot; : &quot;consents/e83361ce-1a48-426e-892c-4a73f5b62911&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-04-02T22:48:37Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-04-02T11:48:39.123423Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-04-02T11:48:39.123423Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:13.757311Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-04-01T15:09:53.565197886Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:15.679250448Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:13.757311Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;821714ae-5b72-40c8-9f81-432cb2945f04&quot;,
+    &quot;consentId&quot; : &quot;4b29671d-8b92-4625-b934-918b451ad4a3&quot;,
+    &quot;name&quot; : &quot;consents/4b29671d-8b92-4625-b934-918b451ad4a3&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:11.210895Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:11.210895Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:13.207318395Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:11.210895Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;4473c4e6-e248-40cd-b9f0-73e733b2120a&quot;,
+    &quot;consentId&quot; : &quot;e2f6ad64-5a03-489a-bdff-856055af83e3&quot;,
+    &quot;name&quot; : &quot;consents/e2f6ad64-5a03-489a-bdff-856055af83e3&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:04.083199Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:04.083199Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:06.110407866Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:04.083199Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;97d4cd4b-1da5-41f5-802f-a53cbcbb1c81&quot;,
+    &quot;consentId&quot; : &quot;cf7a8d5b-c906-45c8-a401-262177b6e124&quot;,
+    &quot;name&quot; : &quot;consents/cf7a8d5b-c906-45c8-a401-262177b6e124&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:03:01.427663Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:01.427663Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:03.490802733Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:03:01.427663Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;4058a858-8d03-4459-932f-760027df68aa&quot;,
+    &quot;consentId&quot; : &quot;be13ddc1-dc00-4392-b8f3-64bde80bb88f&quot;,
+    &quot;name&quot; : &quot;consents/be13ddc1-dc00-4392-b8f3-64bde80bb88f&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:02:58.261311Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:02:58.261311Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:03:00.252182344Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:02:58.261311Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;b65d0694-05db-4461-a2d9-bab520d2bc8e&quot;,
+    &quot;consentId&quot; : &quot;3403bf8e-76c8-4eb4-b393-cf9dc28d0b28&quot;,
+    &quot;name&quot; : &quot;consents/3403bf8e-76c8-4eb4-b393-cf9dc28d0b28&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:04Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:02:55.004207Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:02:55.004207Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:04Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:02:57.388464981Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:02:55.004207Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;b2bd0e82-795a-4656-bef9-fa288e319559&quot;,
+    &quot;consentId&quot; : &quot;2177409c-aa6d-4583-9b97-1d418efe3d43&quot;,
+    &quot;name&quot; : &quot;consents/2177409c-aa6d-4583-9b97-1d418efe3d43&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:45.636543Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:45.636543Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:47.530179507Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:45.636543Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;c0a76de3-a22a-4c37-bdf4-942a9e72bee8&quot;,
+    &quot;consentId&quot; : &quot;dffd7f17-b5cb-464a-acee-55773acf2f17&quot;,
+    &quot;name&quot; : &quot;consents/dffd7f17-b5cb-464a-acee-55773acf2f17&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:42.796847Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:42.796847Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:44.958513513Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:42.796847Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;d599bef8-5781-4d29-8126-8df7aa80b502&quot;,
+    &quot;consentId&quot; : &quot;1615cd06-063d-4f8f-83ec-11a55cf4e3ad&quot;,
+    &quot;name&quot; : &quot;consents/1615cd06-063d-4f8f-83ec-11a55cf4e3ad&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:40.767023Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:40.767023Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:42.747757528Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:40.767023Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;92b9e0ff-2471-4faf-b659-aeb4495cfc87&quot;,
+    &quot;consentId&quot; : &quot;9b69d7b0-2d66-4762-99bc-8f8ad68cfcca&quot;,
+    &quot;name&quot; : &quot;consents/9b69d7b0-2d66-4762-99bc-8f8ad68cfcca&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:37.934703Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:37.934703Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:39.936175773Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:37.934703Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;0bf0b5ad-0227-496f-9d8f-7b8cb7369500&quot;,
+    &quot;consentId&quot; : &quot;7d86e455-389c-4cfd-88b3-9027f7d8a32f&quot;,
+    &quot;name&quot; : &quot;consents/7d86e455-389c-4cfd-88b3-9027f7d8a32f&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:35.805327Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:35.805327Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:37.700254372Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:35.805327Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;1ab09d73-ff74-4c0f-b61c-ea4d3dea1547&quot;,
+    &quot;consentId&quot; : &quot;5588a8b6-d2b8-4e3c-84f4-5d1561401c23&quot;,
+    &quot;name&quot; : &quot;consents/5588a8b6-d2b8-4e3c-84f4-5d1561401c23&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-04-02T15:40:40Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-04-02T04:40:41.753535Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-04-02T04:40:41.753535Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:32.695167Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-04-01T14:29:06.149167959Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:34.589534687Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:32.695167Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;30a71aff-be25-4b27-b98e-6ed895e715c1&quot;,
+    &quot;consentId&quot; : &quot;177a7cb4-7851-443d-91a4-4a697675626b&quot;,
+    &quot;name&quot; : &quot;consents/177a7cb4-7851-443d-91a4-4a697675626b&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:30.497519Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:30.497519Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:32.472599809Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:30.497519Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;662e15d3-29dd-4d2e-892d-e417a2dfcca7&quot;,
+    &quot;consentId&quot; : &quot;609df8e1-58a4-4a04-8291-9737e7f8d414&quot;,
+    &quot;name&quot; : &quot;consents/609df8e1-58a4-4a04-8291-9737e7f8d414&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:27.484703Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:27.484703Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:29.503326938Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:27.484703Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;91e092de-b980-4706-ad25-143e97e002f8&quot;,
+    &quot;consentId&quot; : &quot;3518148f-4740-48bf-9aa9-42094f8f2290&quot;,
+    &quot;name&quot; : &quot;consents/3518148f-4740-48bf-9aa9-42094f8f2290&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:25.755359Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:25.755359Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:27.747277441Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:25.755359Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;6dcf4dfd-0386-4bad-af44-7e2cc48cd6b9&quot;,
+    &quot;consentId&quot; : &quot;fd4e95c7-2078-4814-b144-1560d5dcaf2b&quot;,
+    &quot;name&quot; : &quot;consents/fd4e95c7-2078-4814-b144-1560d5dcaf2b&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:23.200655Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:23.200655Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:25.279563562Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:23.200655Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;00839daa-fef3-4b31-8871-c690be118ea3&quot;,
+    &quot;consentId&quot; : &quot;b09a6ef0-4820-463f-87c1-01d327553600&quot;,
+    &quot;name&quot; : &quot;consents/b09a6ef0-4820-463f-87c1-01d327553600&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:18.433359Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:18.433359Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:20.404061089Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:18.433359Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;a93133ad-dbee-4f80-b2f2-0bc1a27d55d5&quot;,
+    &quot;consentId&quot; : &quot;a9237ed9-de66-47e1-8dca-b52b4776d332&quot;,
+    &quot;name&quot; : &quot;consents/a9237ed9-de66-47e1-8dca-b52b4776d332&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:16.589855Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:16.589855Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:18.552676995Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:16.589855Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;6b1bc445-3bbc-4849-81a2-08ed0d7a5a7b&quot;,
+    &quot;consentId&quot; : &quot;1a7d2b4c-33a2-4387-a317-c9c653720f73&quot;,
+    &quot;name&quot; : &quot;consents/1a7d2b4c-33a2-4387-a317-c9c653720f73&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:13.056335Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:13.056335Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:15.029056196Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:13.056335Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;6ef70f14-586f-40dd-af2a-e4a531b22289&quot;,
+    &quot;consentId&quot; : &quot;079a095a-d09e-4d9f-b8a6-455263962264&quot;,
+    &quot;name&quot; : &quot;consents/079a095a-d09e-4d9f-b8a6-455263962264&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:11.151359Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:11.151359Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:13.155962428Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:11.151359Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;9419d541-ee59-4fca-84db-f465235e25ad&quot;,
+    &quot;consentId&quot; : &quot;ca1d6380-7dc9-49e1-89e3-504f66680a5a&quot;,
+    &quot;name&quot; : &quot;consents/ca1d6380-7dc9-49e1-89e3-504f66680a5a&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:07.909791Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:07.909791Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:09.852902645Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:07.909791Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;cd49dab8-76c8-43cd-83bf-946e4ba3590b&quot;,
+    &quot;consentId&quot; : &quot;3718a22d-a895-4731-ac84-b869c8f07e36&quot;,
+    &quot;name&quot; : &quot;consents/3718a22d-a895-4731-ac84-b869c8f07e36&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:05.628895Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:05.628895Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:07.619101118Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:05.628895Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;73dd3945-fdf2-43fc-9b8f-09fa0d91ed4d&quot;,
+    &quot;consentId&quot; : &quot;488b45f2-6502-43c6-b9f2-10e2ebee1018&quot;,
+    &quot;name&quot; : &quot;consents/488b45f2-6502-43c6-b9f2-10e2ebee1018&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:02.332879Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:02.332879Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:05.098696431Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:02.332879Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;ed0c1cb2-0202-4bfb-a41f-dd1761b62745&quot;,
+    &quot;consentId&quot; : &quot;6aaf3d4f-8d9c-4f08-bcd3-ec52406873df&quot;,
+    &quot;name&quot; : &quot;consents/6aaf3d4f-8d9c-4f08-bcd3-ec52406873df&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:01:00.398015Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:00.398015Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:01:02.404672126Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:01:00.398015Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;133115ba-e751-4c74-9c6e-b9071aa858f5&quot;,
+    &quot;consentId&quot; : &quot;e26fea0d-e619-4cb6-9961-47f90c8b015b&quot;,
+    &quot;name&quot; : &quot;consents/e26fea0d-e619-4cb6-9961-47f90c8b015b&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:00:57.091663Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:57.091663Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:00:59.241854551Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:00:57.091663Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;16d8b5f7-c039-4a92-9001-3c3da3495d0f&quot;,
+    &quot;consentId&quot; : &quot;75dcc420-e9ba-4c67-9651-572a7158d3ab&quot;,
+    &quot;name&quot; : &quot;consents/75dcc420-e9ba-4c67-9651-572a7158d3ab&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:00:56.156271Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:56.156271Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:00:58.196410300Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:00:56.156271Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;9cf989ca-ad62-470c-a6f9-8a7df2bf8b82&quot;,
+    &quot;consentId&quot; : &quot;b96a5b1b-383b-44c4-bf3d-85b4d410b4c5&quot;,
+    &quot;name&quot; : &quot;consents/b96a5b1b-383b-44c4-bf3d-85b4d410b4c5&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T08:00:51.071935Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:51.071935Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:00:53.391856911Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:00:51.071935Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;3ad7c9da-9aa4-42ce-b74b-cb2a7b9ed4cc&quot;,
+    &quot;consentId&quot; : &quot;690d5f6d-624d-44ef-a0a6-fe3c34a5ca4e&quot;,
+    &quot;name&quot; : &quot;consents/690d5f6d-624d-44ef-a0a6-fe3c34a5ca4e&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-04-02T21:06:11Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-04-02T10:06:12.158655Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-04-02T10:06:12.158655Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:47.964783Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-04-01T18:47:07.199405632Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:00:50.462331433Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:00:47.964783Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;c2ccce64-e940-4c5f-b077-a0e6e2858ac3&quot;,
+    &quot;consentId&quot; : &quot;e750d57b-ff1d-4dff-8bef-d86cdd2e9c77&quot;,
+    &quot;name&quot; : &quot;consents/e750d57b-ff1d-4dff-8bef-d86cdd2e9c77&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-04-02T18:12:25Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-04-02T07:12:25.889215Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-04-02T07:12:25.889215Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:45.964159Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-04-01T18:29:15.328391521Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:00:49.133903533Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:00:45.964159Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;168d23df-334c-481c-a2af-89f2d4ca7e00&quot;,
+    &quot;consentId&quot; : &quot;3ac774d3-05ca-4ee3-bb05-ee524422d493&quot;,
+    &quot;name&quot; : &quot;consents/3ac774d3-05ca-4ee3-bb05-ee524422d493&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-04-02T18:06:51Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-04-02T07:06:52.832879Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-04-02T07:06:52.832879Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:42.933247Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-04-01T13:18:24.465215646Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T08:00:45.759550196Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T08:00:42.933247Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;63db6198-e6f4-436a-a22c-5f17e6880248&quot;,
+    &quot;consentId&quot; : &quot;06c86f66-e8f0-4469-8d8c-81939c99ae91&quot;,
+    &quot;name&quot; : &quot;consents/06c86f66-e8f0-4469-8d8c-81939c99ae91&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-04-02T17:43:53Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-04-02T06:43:54.481119Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:13Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-04-02T06:43:54.481119Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T07:57:42.829711Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-04-01T17:31:36.980898662Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-26T13:00:13Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-27T07:57:47.487058766Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-27T07:57:42.829711Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;758192de-55a3-4434-a7b4-ab7c9de477ba&quot;,
+    &quot;consentId&quot; : &quot;02355b21-5a2d-4b9a-8ec1-cf937dcc721e&quot;,
+    &quot;name&quot; : &quot;consents/02355b21-5a2d-4b9a-8ec1-cf937dcc721e&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-27T17:20:26Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-27T06:20:28.916783Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-25T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-27T06:20:28.916783Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-26T09:08:30.682655Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-26T17:03:46.230660649Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-25T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-26T09:08:35.659172306Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-26T09:08:30.682655Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;127dfdad-d3a1-4ddb-93e5-241fddb46c4c&quot;,
+    &quot;consentId&quot; : &quot;a099cdb9-1512-4442-9043-82a7b93a18eb&quot;,
+    &quot;name&quot; : &quot;consents/a099cdb9-1512-4442-9043-82a7b93a18eb&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-25T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-26T06:55:01.971551Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-26T06:55:01.971551Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-25T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-26T06:55:04.028587536Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-26T06:55:01.971551Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;468d97d9-2f17-4d37-aa82-0ef897b770a8&quot;,
+    &quot;consentId&quot; : &quot;c1498692-9a79-4a8e-ac84-6dd1f9876f84&quot;,
+    &quot;name&quot; : &quot;consents/c1498692-9a79-4a8e-ac84-6dd1f9876f84&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2025-03-25T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-26T06:54:41.490175Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-26T06:54:41.490175Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-25T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-26T06:54:44.517865154Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-26T06:54:41.490175Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_ACTIVE&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;306f9a0d-7de9-45a3-9dc1-6796437e11b2&quot;,
+    &quot;consentId&quot; : &quot;a370661f-baed-4761-9e80-8f5bc576e8e3&quot;,
+    &quot;name&quot; : &quot;consents/a370661f-baed-4761-9e80-8f5bc576e8e3&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-22T18:51:55Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-22T07:51:56.497391Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-22T07:51:56.497391Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:21.002799Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-22T06:42:23.085216400Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-21T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-22T06:42:23.085216400Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-22T06:42:21.002799Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;7ba42f27-08ba-49d1-ae5a-f8db14755a23&quot;,
+    &quot;consentId&quot; : &quot;5b036351-8933-4685-bdbe-e9f4390642f3&quot;,
+    &quot;name&quot; : &quot;consents/5b036351-8933-4685-bdbe-e9f4390642f3&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-26T17:44:42Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-26T06:44:43.332815Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-26T06:44:43.332815Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:17.562383Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-25T16:24:57.821359108Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-21T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-22T06:42:19.640154459Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-22T06:42:17.562383Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;9488ee17-8988-486d-9f3d-58c297c227c2&quot;,
+    &quot;consentId&quot; : &quot;1d3cefb3-7a23-454c-a0a3-e9473dd4ac52&quot;,
+    &quot;name&quot; : &quot;consents/1d3cefb3-7a23-454c-a0a3-e9473dd4ac52&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-26T17:55:07Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-26T06:55:07.928143Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-26T06:55:07.928143Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:15.194943Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-25T17:46:49.479742225Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-21T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-22T06:42:17.324319739Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-22T06:42:15.194943Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;e4f8242d-f6a9-457d-8101-46042a59a0ff&quot;,
+    &quot;consentId&quot; : &quot;54402550-a8dd-4edc-a483-e4f40174d6cb&quot;,
+    &quot;name&quot; : &quot;consents/54402550-a8dd-4edc-a483-e4f40174d6cb&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-26T17:52:38Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-26T06:52:39.110639Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-26T06:52:39.110639Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:12.636879Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-25T14:59:17.444394548Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-21T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-22T06:42:14.744177341Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-22T06:42:12.636879Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;d1f2e11f-772b-40ba-81c4-9f690b828a8a&quot;,
+    &quot;consentId&quot; : &quot;05fa2578-5b86-497f-9d92-bd153926cbbf&quot;,
+    &quot;name&quot; : &quot;consents/05fa2578-5b86-497f-9d92-bd153926cbbf&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-26T17:46:36Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-26T06:46:37.411519Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:04Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-26T06:46:37.411519Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:08.749503Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-25T13:48:46.547203036Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-21T13:00:04Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-22T06:42:12.293468673Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-22T06:42:08.749503Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;ce601eac-6df1-4534-8bad-cd98687ddb02&quot;,
+    &quot;consentId&quot; : &quot;37bef972-bcb5-465e-82a9-bb7d26f147d8&quot;,
+    &quot;name&quot; : &quot;consents/37bef972-bcb5-465e-82a9-bb7d26f147d8&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2024-03-22T17:39:56Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-22T06:40:01.164767Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:06Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-22T06:40:01.164767Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T05:59:33.696751Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-22T05:59:37.800270114Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-21T13:00:06Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-22T05:59:37.800270114Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-22T05:59:33.696751Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;b84b1e8b-83d3-478e-80e2-f889aa715d69&quot;,
+    &quot;consentId&quot; : &quot;9b6d3092-c146-4961-b0d9-07418d328430&quot;,
+    &quot;name&quot; : &quot;consents/9b6d3092-c146-4961-b0d9-07418d328430&quot;
+  }, {
+    &quot;revokeTime&quot; : &quot;2024-03-22T05:21:05.429247Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:13Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-22T05:21:05.429247Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T05:20:26.131199Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-22T05:20:28.898204042Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-21T13:00:13Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-22T05:20:28.898204042Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-22T05:20:26.131199Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000245&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000245/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000245&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_USER&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;3e08e868-ed75-4481-8489-fff66899dcd5&quot;,
+    &quot;consentId&quot; : &quot;f8d9747f-1744-4c4c-b95d-d9b30905b217&quot;,
+    &quot;name&quot; : &quot;consents/f8d9747f-1744-4c4c-b95d-d9b30905b217&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2025-03-07T13:00:03Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-21T09:19:32.806815Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-07T13:00:03Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-21T09:19:32.806815Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-08T03:45:20.277647Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-20T15:46:42.998051258Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-07T13:00:03Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-08T03:45:23.064409982Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-08T03:45:20.277647Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000362&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000362/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000362&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;18502d90-30a4-48b1-8f1a-e7fa8352aed6&quot;,
+    &quot;consentId&quot; : &quot;50f99131-b5af-4e4a-b049-98469f130d12&quot;,
+    &quot;name&quot; : &quot;consents/50f99131-b5af-4e4a-b049-98469f130d12&quot;
+  }, {
+    &quot;revokeRequestTime&quot; : &quot;2025-03-05T13:00:02Z&quot;,
+    &quot;revokeTime&quot; : &quot;2024-03-21T09:26:11.205791Z&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-05T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-03-21T09:26:11.205791Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-05T23:13:10.847231Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-03-20T17:23:11.049220929Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2025-03-05T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-03-05T23:13:12.375293234Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-03-05T23:13:10.847231Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_UNSPECIFIED&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000362&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000362/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000362&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_ASSISTED&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;c1d1ad18-07ea-4e21-9495-b1f6c7052f84&quot;,
+    &quot;consentId&quot; : &quot;06e56cfc-48e2-4a55-8ecd-bd611a2715d9&quot;,
+    &quot;name&quot; : &quot;consents/06e56cfc-48e2-4a55-8ecd-bd611a2715d9&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-02-27T03:33:49.127999Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:33:49.127999Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-02-28T18:44:38.934770043Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-02-29T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-02-27T03:33:51.141664747Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-02-27T03:33:49.127999Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000362&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000362/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000362&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;3db4b301-270e-4aeb-b8d9-8266a089567c&quot;,
+    &quot;consentId&quot; : &quot;f1dd2d11-3220-4590-8234-8d0c1c21e93c&quot;,
+    &quot;name&quot; : &quot;consents/f1dd2d11-3220-4590-8234-8d0c1c21e93c&quot;
+  }, {
+    &quot;revokeTime&quot; : &quot;2024-02-27T03:31:48.360047Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:00Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-02-27T03:31:48.360047Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:31:24.746159Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-02-27T03:31:26.519618198Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-02-29T13:00:00Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-02-27T03:31:26.519618198Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-02-27T03:31:24.746159Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000362&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000362/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000362&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_USER&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;af68b2d3-986c-4ad6-b6fa-d0a3f3084fcb&quot;,
+    &quot;consentId&quot; : &quot;f6b8c070-3c38-4764-8cde-96764ce0a454&quot;,
+    &quot;name&quot; : &quot;consents/f6b8c070-3c38-4764-8cde-96764ce0a454&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-02-27T03:30:36.466127Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:30:36.466127Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-02-28T13:25:07.182171767Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-02-29T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-02-27T03:30:37.904934111Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-02-27T03:30:36.466127Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000362&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000362/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000362&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;865bdabe-9ce0-43e9-8930-5f3750bd2aae&quot;,
+    &quot;consentId&quot; : &quot;275cd7c5-7cd8-49c8-8358-bc0c64c58a3b&quot;,
+    &quot;name&quot; : &quot;consents/275cd7c5-7cd8-49c8-8358-bc0c64c58a3b&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:18Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-02-27T03:30:30.096079Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:30:30.096079Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-02-28T18:19:34.884200532Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-02-29T13:00:18Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-02-27T03:30:33.877614991Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-02-27T03:30:30.096079Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000362&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000362/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000362&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;05d4942f-2c5c-463d-ab2f-f9a76ee10f69&quot;,
+    &quot;consentId&quot; : &quot;2e4e7a36-d716-4ae8-acd8-e8595df0dd6a&quot;,
+    &quot;name&quot; : &quot;consents/2e4e7a36-d716-4ae8-acd8-e8595df0dd6a&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2024-02-29T13:01:15Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-02-27T03:06:53.152319Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:06:53.152319Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-02-28T18:30:25.260562422Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-02-29T13:01:15Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-02-27T03:06:54.684731494Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-02-27T03:06:53.152319Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000362&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000362/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000362&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;77e85da7-2579-4b41-b612-6440a7d09573&quot;,
+    &quot;consentId&quot; : &quot;998409d5-805e-4425-b96c-994d818a39e9&quot;,
+    &quot;name&quot; : &quot;consents/998409d5-805e-4425-b96c-994d818a39e9&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:02Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-02-27T02:26:39.724431Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T02:26:39.724431Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-02-28T18:39:41.321759616Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-02-29T13:00:02Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-02-27T02:26:42.441833129Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-02-27T02:26:39.724431Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000362&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000362/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000362&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;27740d59-e0d5-4b19-85e2-937665cac199&quot;,
+    &quot;consentId&quot; : &quot;bb18f784-661b-4523-a2df-21bb511262ee&quot;,
+    &quot;name&quot; : &quot;consents/bb18f784-661b-4523-a2df-21bb511262ee&quot;
+  }, {
+    &quot;revokeTime&quot; : &quot;2024-01-25T03:08:04.494367Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-01-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-01-25T03:08:04.494367Z&quot;,
+    &quot;createTime&quot; : &quot;2024-01-24T05:04:39.272751Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-01-24T15:23:02.379258806Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-01-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-01-24T05:04:43.936516971Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-01-24T05:04:39.272751Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_REMOVED&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.anz.com.au/content/dam/anzcomau/logos/anz/ANZ-MB-Logo-3rd-Party-RGB.png&quot;,
+      &quot;brand&quot; : &quot;ANZ&quot;,
+      &quot;brandId&quot; : &quot;000006&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000006&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000006&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000006/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000006&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_USER&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;f8ea8b7e-d58a-4934-b993-ae320cda2792&quot;,
+    &quot;consentId&quot; : &quot;f323643b-f3bf-49bf-87a3-c4332722f4c1&quot;,
+    &quot;name&quot; : &quot;consents/f323643b-f3bf-49bf-87a3-c4332722f4c1&quot;
+  }, {
+    &quot;revokeTime&quot; : &quot;2024-01-24T04:55:12.106335Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-01-26T13:00:01Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-01-24T04:55:12.106335Z&quot;,
+    &quot;createTime&quot; : &quot;2024-01-24T04:54:17.829135Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-01-24T04:54:21.261019071Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-01-26T13:00:01Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-01-24T04:54:21.261019071Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-01-24T04:54:17.829135Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_REMOVED&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.arabbank.com.au/themes/arabbank/images/abal-logo.svg&quot;,
+      &quot;brand&quot; : &quot;Arab Bank Australia Limited&quot;,
+      &quot;brandId&quot; : &quot;000353&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000353&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000353&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000353/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000353&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_USER&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;abf2bbc0-5cde-40e6-a5e3-081d04bd8dfc&quot;,
+    &quot;consentId&quot; : &quot;d444955c-53fc-48a4-8c1e-80e97ea88a8a&quot;,
+    &quot;name&quot; : &quot;consents/d444955c-53fc-48a4-8c1e-80e97ea88a8a&quot;
+  }, {
+    &quot;revokeTime&quot; : &quot;2024-01-24T04:48:26.767871Z&quot;,
+    &quot;expireTime&quot; : &quot;2024-01-26T13:00:00Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-01-24T04:48:26.767871Z&quot;,
+    &quot;createTime&quot; : &quot;2024-01-24T04:47:47.104127Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-01-24T04:47:49.166229233Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-01-26T13:00:00Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-01-24T04:47:49.166229233Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-01-24T04:47:47.104127Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_REVOKED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_REMOVED&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.australianmilitarybank.com.au/sites/default/files/amb_logo_478.png&quot;,
+      &quot;brand&quot; : &quot;Australian Military Bank&quot;,
+      &quot;brandId&quot; : &quot;000109&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000109&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000109&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000109/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000109&quot;,
+    &quot;revokeActor&quot; : &quot;CONSENT_ACTOR_USER&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;a989ea5e-0422-4aaf-9937-6694f95fe617&quot;,
+    &quot;consentId&quot; : &quot;27848b94-b14d-4b6e-b975-174bd7b84c69&quot;,
+    &quot;name&quot; : &quot;consents/27848b94-b14d-4b6e-b975-174bd7b84c69&quot;
+  }, {
+    &quot;expireTime&quot; : &quot;2024-01-26T13:00:08Z&quot;,
+    &quot;lastUpdateTime&quot; : &quot;2024-01-24T04:47:32.180687Z&quot;,
+    &quot;createTime&quot; : &quot;2024-01-24T04:47:32.180687Z&quot;,
+    &quot;syncUsage&quot; : {
+      &quot;actualLastSyncTime&quot; : &quot;2024-01-25T14:51:05.164736463Z&quot;,
+      &quot;expectedLastSyncTime&quot; : &quot;2024-01-26T13:00:08Z&quot;,
+      &quot;firstSyncTime&quot; : &quot;2024-01-24T04:47:34.269130245Z&quot;,
+      &quot;expectedFirstSyncTime&quot; : &quot;2024-01-24T04:47:32.180687Z&quot;
+    },
+    &quot;consentPurposes&quot; : [ &quot;CONSENT_PURPOSE_BVT&quot; ],
+    &quot;state&quot; : &quot;STATE_EXPIRED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;dataHolder&quot; : {
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T10:04:40.251199Z&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_REMOVED&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;logoUri&quot; : &quot;https://www.australianmilitarybank.com.au/sites/default/files/amb_logo_478.png&quot;,
+      &quot;brand&quot; : &quot;Australian Military Bank&quot;,
+      &quot;brandId&quot; : &quot;000109&quot;,
+      &quot;name&quot; : &quot;dataholderbrands/000109&quot;
+    },
+    &quot;dataHolderBrandId&quot; : &quot;000109&quot;,
+    &quot;dataHolderBrandRegistration&quot; : &quot;dataholderbrands/000109/registration&quot;,
+    &quot;dataHolderBrand&quot; : &quot;dataholderbrands/000109&quot;,
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;arrangementId&quot; : &quot;18ff4969-205d-4e89-9c47-441379a7453b&quot;,
+    &quot;consentId&quot; : &quot;68a2866e-1562-459b-88b1-49de1e59923e&quot;,
+    &quot;name&quot; : &quot;consents/68a2866e-1562-459b-88b1-49de1e59923e&quot;
+  } ],
+  &quot;purposeCodeRecords&quot; : [ {
+    &quot;SharingPurpose&quot; : &quot;for business verification testing.&quot;,
+    &quot;DeveloperName&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;Description&quot; : &quot;display the accounts you hold and transactions you make with other financial institutions in the ANZ Plus app for the purpose of business verification testing.\r\nThis can include:&lt;ul&gt;&lt;li&gt;Account and balance data verification&lt;/li&gt;&lt;li&gt;Transaction data verification&lt;/li&gt;&lt;/ul&gt;&quot;,
+    &quot;PurposeCollection&quot; : &quot;for ANZ Plus business verification testing.&quot;
+  }, {
+    &quot;SharingPurpose&quot; : &quot;for business verification testing.&quot;,
+    &quot;DeveloperName&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;Description&quot; : &quot;display the accounts you hold and transactions you make with other financial institutions in the ANZ Plus app for the purpose of business verification testing.\r\nThis can include:&lt;ul&gt;&lt;li&gt;Account and balance data verification&lt;/li&gt;&lt;li&gt;Transaction data verification&lt;/li&gt;&lt;/ul&gt;&quot;,
+    &quot;PurposeCollection&quot; : &quot;for ANZ Plus business verification testing.&quot;
+  }, {
+    &quot;SharingPurpose&quot; : &quot;displaying your accounts and transactions in the My Accounts tile.&quot;,
+    &quot;DeveloperName&quot; : &quot;MY_ACCOUNTS&quot;
+  } ]
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMDataINConsentListDataTransformation_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

@@ -1,6 +1,6 @@
 import { LightningElement, wire } from "lwc";
 import { CurrentPageReference, NavigationMixin } from "lightning/navigation";
-import { getFocusedTabInfo, closeTab } from "lightning/platformWorkspaceApi";
+import { getFocusedTabInfo } from "lightning/platformWorkspaceApi";
 
 export default class TFMRedirectTOParentOS extends NavigationMixin(
   LightningElement
@@ -11,20 +11,21 @@ export default class TFMRedirectTOParentOS extends NavigationMixin(
       this.showToast = currentPageReference.state?.c__showToast;
       this.tabName = currentPageReference.state?.c__tabName;
       this.recordId = currentPageReference.state?.c__recordId;
+      this.parentTab = currentPageReference.state?.c__parentTab;
+
       if (this.showToast != null) {
         getFocusedTabInfo()
           .then((tabInfo) => {
-            closeTab(tabInfo.tabId);
+            this.replaceTab(tabInfo.tabId);
           })
-          .catch(function (error) {
+          .catch((error) => {
             console.log(error);
           });
-        this.redirectToParentOS();
       }
     }
   }
 
-  redirectToParentOS() {
+  replaceTab(tabId) {
     const pageRef = {
       type: "standard__navItemPage",
       attributes: {
@@ -33,9 +34,13 @@ export default class TFMRedirectTOParentOS extends NavigationMixin(
       state: {
         c__recordId: this.recordId,
         c__showToast: null,
-        c__tabName: this.tabName
+        c__tabName: this.tabName,
+        c__parentTab: this.parentTab
       }
     };
-    this[NavigationMixin.Navigate](pageRef);
+    this[NavigationMixin.Navigate](pageRef, {
+      isOverride: true,
+      overrideTabId: tabId
+    });
   }
 }

@@ -57,6 +57,34 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcessCustom3903</globalKey>
+        <inputFieldName>sortingOrderNumberForStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>sortingOrderNumberForStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcessCustom6628</globalKey>
+        <inputFieldName>sortingOrderNumberForProductName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>sortingOrderNumberForProductName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:accountInfo:isAccountClosed &quot;Closed&quot; &quot;Open&quot; IF</formulaConverted>
         <formulaExpression>IF(accountInfo:isAccountClosed,&quot;Closed&quot;,&quot;Open&quot;)</formulaExpression>
         <formulaResultPath>accountStatus</formulaResultPath>
@@ -133,6 +161,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:accountInfo:accountDisplayName &quot;ANZ/\/\/Plus&quot; == var:accountInfo:accountDisplayName &quot;ANZ/\/\/Plus/\/\/&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Plus&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Plus/\/\/&quot; == OR 1 | var:accountInfo:accountDisplayName &quot;ANZ/\/\/Save&quot; == var:accountInfo:accountDisplayName &quot;ANZ/\/\/Save/\/\/&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Save&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Save/\/\/&quot; == OR 2 | var:accountInfo:accountDisplayName &quot;ANZ/\/\/Home/\/\/Loan&quot; == var:accountInfo:accountDisplayName &quot;ANZ/\/\/Home/\/\/Loan/\/\/&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Home/\/\/Loan&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Home/\/\/Loan/\/\/&quot; == OR 3 4 IF IF IF</formulaConverted>
+        <formulaExpression>IF(((accountInfo:accountDisplayName == &quot;ANZ Plus&quot;) OR (accountInfo:accountDisplayName == &quot;ANZ Plus &quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Plus&quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Plus &quot;)),1,IF(((accountInfo:accountDisplayName == &quot;ANZ Save&quot;) OR (accountInfo:accountDisplayName == &quot;ANZ Save &quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Save&quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Save &quot;)),2,IF(((accountInfo:accountDisplayName == &quot;ANZ Home Loan&quot;) OR (accountInfo:accountDisplayName == &quot;ANZ Home Loan &quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Home Loan&quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Home Loan &quot;)),3,4)))</formulaExpression>
+        <formulaResultPath>sortingOrderNumberForProductName</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>TFMJointAccountNotificationDataProcessCustom3706</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>TFMJointAccountNotificationDataProcessCustom4664</globalKey>
         <inputFieldName>IDValue</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -175,6 +220,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:accountInfo:accountDisplayName &quot;ANZ/\/\/Plus&quot; != var:accountInfo:accountDisplayName &quot;ANZ/\/\/Plus/\/\/&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Plus&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Plus/\/\/&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;ANZ/\/\/Save&quot; != var:accountInfo:accountDisplayName &quot;ANZ/\/\/Save/\/\/&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Save&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Save/\/\/&quot; != &amp;&amp; &amp;&amp; var:accountInfo:accountDisplayName &quot;ANZ/\/\/Home/\/\/Loan&quot; != var:accountInfo:accountDisplayName &quot;ANZ/\/\/Home/\/\/Loan/\/\/&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Home/\/\/Loan&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Home/\/\/Loan/\/\/&quot; != &amp;&amp; &amp;&amp; 3 | var:accountStatus &quot;Open&quot; == 1 2 IF IF</formulaConverted>
+        <formulaExpression>IF((((accountInfo:accountDisplayName != &quot;ANZ Plus&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot;ANZ Plus &quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Plus&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Plus &quot;)) &amp;&amp;  ((accountInfo:accountDisplayName != &quot;ANZ Save&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot;ANZ Save &quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Save&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Save &quot;)) &amp;&amp; ((accountInfo:accountDisplayName != &quot;ANZ Home Loan&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot;ANZ Home Loan &quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Home Loan&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Home Loan &quot;))), 3, IF(accountStatus == &quot;Open&quot;, 1, 2))</formulaExpression>
+        <formulaResultPath>sortingOrderNumberForStatus</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>TFMJointAccountNotificationDataProcessCustom276</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>TFMJointAccountNotificationDataProcess5088098719077374</globalKey>
         <inputFieldName>emailNotificationStatus</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -182,6 +244,20 @@
         <name>TFMJointAccountNotificationDataProcess</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>emailNotificationStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMJointAccountNotificationDataProcessCustom6104</globalKey>
+        <inputFieldName>accountInfo:accountNumber</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountNotificationDataProcess</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>originAccountNumber</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -232,6 +308,17 @@
     &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;
   },
   &quot;emailEnabled&quot; : &quot;true&quot;
+}, {
+  &quot;accountId&quot; : &quot;c09898-4782-5649-9898-fe6d133ba602&quot;,
+  &quot;accountInfo&quot; : {
+    &quot;bsb&quot; : &quot;0003&quot;,
+    &quot;accountNumber&quot; : &quot;1230034&quot;,
+    &quot;accountDisplayName&quot; : &quot;ANZ data&quot;,
+    &quot;isEligible&quot; : false,
+    &quot;reason&quot; : &quot;REASON&quot;,
+    &quot;isAccountClosed&quot; : &quot;Closed&quot;
+  },
+  &quot;emailEnabled&quot; : false
 }, {
   &quot;accountId&quot; : &quot;c09898-4782-5649-9898-fe6d133ba602&quot;,
   &quot;accountInfo&quot; : {

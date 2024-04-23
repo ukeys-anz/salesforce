@@ -5,6 +5,38 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TFMCommonFunctionUtility</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMConstants</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMDataINAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMDataINRemoteUtility</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMDataINService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMExportConsentDetails</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMExportConsentDetailsHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TFMExportConsentModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TFMRemoteActionUtility</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -44,6 +76,10 @@
         <apexClass>TFMSearchCustomerServiceMock</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>TFM_Purpose_Code_Mappings__mdt</name>
+    </customMetadataTypeAccesses>
     <description>This PS will assign read access to External Object- PersonDigitalIdentity</description>
     <fieldPermissions>
         <editable>false</editable>

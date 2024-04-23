@@ -2234,4 +2234,39 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>CCRM Validate Manual Address</shortDescription>
         <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
+    <labels>
+        <fullName>MS_ExportConsentDataIN_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ExportConsentDataIN_API</shortDescription>
+        <value>callout:SF_MS_CH2/lighthouse/v1/consents/detail-reports</value>
+    </labels>
+    <labels>
+        <fullName>MS_ExportDataSharingCollectionDataIN_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ExportDataSharingCollectionDataIN_API</shortDescription>
+        <value>callout:SF_MS_CH2/lighthouse/v1/consents/data-sharing-reports</value>
+    </labels>
+    <labels>
+        <fullName>MS_RevokeConsentDataIN_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_RevokeConsentDataIN_API</shortDescription>
+        <value>callout:SF_MS_CH2/lighthouse/v1/consents/revocation</value>
+    </labels>
+    <labels>
+        <fullName>MS_DataINAccountList_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_DataINAccountList_API</shortDescription>
+        <value>callout:SF_MS_CH2/lighthouse/v1/consents/accounts</value>
+    </labels>
+    <labels>
+        <fullName>MS_DataINConsentList_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_DataINConsentList_API</shortDescription>
+        <value>callout:SF_MS_CH2/lighthouse/v1/consents/list</value>
+    </labels>
 </CustomLabels>
