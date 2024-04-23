@@ -149,6 +149,8 @@ public with sharing class CCRMTaskActions {
       }
     } catch (Exception err) {
       String dmlErrorMsg = err.getDmlMessage(0);
+      Logger.error('Error occured during updating Leads', err);
+      Logger.saveLog();
       throw new AuraHandledException(
         String.isBlank(dmlErrorMsg)
           ? LEAD_AUTO_UPDATE_ERROR_MESSAGE
@@ -215,8 +217,25 @@ public with sharing class CCRMTaskActions {
     Map<Id, Response_Type__c> mapResponseTypeMeta,
     List<Lead> updatedLeads
   ) {
+    Map<Id, Date> mapOfCampaigns = createCampaignMap(updatedLeads);
+    calculateExpiryDate(
+      updatedLeads,
+      mapLeadResponses,
+      mapResponseTypeMeta,
+      mapOfCampaigns
+    );
+  }
+
+  /**
+   * @description General function to create Map Of Campaign
+   * @name createCampaignMap
+   * @param updatedLeads List Of Lead records
+   * @return Map<Id, Date>
+   */
+  @testvisible
+  private static Map<Id, Date> createCampaignMap(List<Lead> updatedLeads) {
     Set<Id> leadIds = new Map<Id, Lead>(updatedLeads).keySet();
-    Map<Id, Date> mapOfCampaign = new Map<Id, Date>();
+    Map<Id, Date> mapOfCampaigns = new Map<Id, Date>();
 
     //Get campaign end date for lead.
     //Lead relationship with Camapign is through junction object - Campaign member
@@ -226,41 +245,62 @@ public with sharing class CCRMTaskActions {
         FROM CampaignMember
         WHERE leadid = :leadIds
       ]) {
-        mapOfCampaign.put(cm.LeadId, cm.Campaign.EndDate);
+        mapOfCampaigns.put(cm.LeadId, cm.Campaign.EndDate);
       }
     }
+    return mapOfCampaigns;
+  }
 
+  /**
+   * @description General function to calculate expiry date
+   * @name calculateExpiryDate
+   * @param updatedLeads List of Leads.
+   * @param mapLeadResponses Map of Task
+   * @param mapResponseTypeMeta Map of response Type
+   * @param mapOfCampaigns map Of campaign
+   */
+  @testvisible
+  private static void calculateExpiryDate(
+    List<Lead> updatedLeads,
+    Map<String, Task> mapLeadResponses,
+    Map<Id, Response_Type__c> mapResponseTypeMeta,
+    Map<Id, Date> mapOfCampaigns
+  ) {
     for (Lead leadRecord : updatedLeads) {
-      if (mapLeadResponses.get(leadRecord.Id).ActivityDate == null) {
-        Boolean canCreateOpportunity = mapResponseTypeMeta.get(
-            mapLeadResponses.get(leadRecord.Id).Response_Type__c
-          )
-          .Create_Opportunity__c;
-        String responseStatus = mapResponseTypeMeta.get(
-            mapLeadResponses.get(leadRecord.Id).Response_Type__c
-          )
-          .Response_Status__c;
-        //Set lead expiry only when Log response status is Accepted and Create Opportunity is set to true
-        if (canCreateOpportunity && responseStatus == 'Accepted') {
-          Date campaignExpiryDate = mapOfCampaign.get(leadRecord.Id);
-          leadRecord.Followup_Date__c = null;
-          Date todaysDate = Date.valueOf(
-            System.today() + Integer.valueOf(System.Label.CCRM_Today_Date)
-          );
-          Date updatedDate = DateTimeUtils.getWeekday(
-            todaysDate
-              .addDays(
-                integer.valueOf(
-                  System.Label.CCRM_ExtendLeadExpiryDateWhenResponseLogCreated
-                )
-              ),
-            false,
-            true
-          );
-          leadRecord.Expiry_Date__c = updatedDate > campaignExpiryDate
-            ? campaignExpiryDate
-            : updatedDate;
-        }
+      if (
+        mapLeadResponses.get(leadRecord.Id).ActivityDate != null ||
+        leadRecord.recordtypeId == MLCRMConstants.MLCRM_LEAD_RT_ID
+      ) {
+        continue;
+      }
+      Boolean canCreateOpportunity = mapResponseTypeMeta.get(
+          mapLeadResponses.get(leadRecord.Id).Response_Type__c
+        )
+        .Create_Opportunity__c;
+      String responseStatus = mapResponseTypeMeta.get(
+          mapLeadResponses.get(leadRecord.Id).Response_Type__c
+        )
+        .Response_Status__c;
+      //Set lead expiry only when Log response status is Accepted and Create Opportunity is set to true
+      if (canCreateOpportunity && responseStatus == 'Accepted') {
+        Date campaignExpiryDate = mapOfCampaigns.get(leadRecord.Id);
+        leadRecord.Followup_Date__c = null;
+        Date todaysDate = Date.valueOf(
+          System.today() + Integer.valueOf(System.Label.CCRM_Today_Date)
+        );
+        Date updatedDate = DateTimeUtils.getWeekday(
+          todaysDate
+            .addDays(
+              integer.valueOf(
+                System.Label.CCRM_ExtendLeadExpiryDateWhenResponseLogCreated
+              )
+            ),
+          false,
+          true
+        );
+        leadRecord.Expiry_Date__c = updatedDate > campaignExpiryDate
+          ? campaignExpiryDate
+          : updatedDate;
       }
     }
   }

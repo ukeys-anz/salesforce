@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>Lead_Record_Type__c</field>
-        <value xsi:type="xsd:string">CCRM_Lead</value>
+        <value xsi:type="xsd:string">MLCRM_Lead</value>
     </values>
     <values>
         <field>Lead_Status__c</field>
