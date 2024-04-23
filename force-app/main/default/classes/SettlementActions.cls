@@ -140,6 +140,9 @@ public with sharing class SettlementActions {
 
     List<ActionPlan> actionPlanList = new List<ActionPlan>();
     for (Settlement__c settlement : settlementRecords) {
+      if (settlement.Type__c == 'TYPE_UNSPECIFIED') {
+        continue;
+      }
       //Create action plan for record
       ActionPlan ap = new ActionPlan();
       ap.StartDate = System.today();
