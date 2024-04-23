@@ -60,6 +60,11 @@
                 <default>false</default>
                 <label>Existing credit application in progress with ANZ</label>
             </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_UNSUPPORTED_SETTLEMENT_JURISDICTION</fullName>
+                <default>false</default>
+                <label>Unsupported jurisdiction</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>
