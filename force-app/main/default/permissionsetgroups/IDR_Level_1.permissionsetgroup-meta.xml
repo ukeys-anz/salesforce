@@ -15,5 +15,6 @@
     <permissionSets>Quality_Assessment_IDR_EDR_Read_Only</permissionSets>
     <permissionSets>Quality_Workbench</permissionSets>
     <permissionSets>Resolution_Pathway_Read_Write</permissionSets>
+    <permissionSets>force__IndustriesServiceExcellence</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
