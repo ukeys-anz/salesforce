@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssessmentQuestion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Feedback about Resolution Pathway</name>
+    <assessmentQuestionVersion>
+        <name>Feedback about Resolution Pathway</name>
+        <isActive>true</isActive>
+        <optionSourceResponseValue>false</optionSourceResponseValue>
+        <questionText>Feedback about Resolution Pathway</questionText>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+    </assessmentQuestionVersion>
+    <dataType>TextArea</dataType>
+    <developerName>Feedback_about_Resolution_Pathway</developerName>
+    <questionCategory>Demographic</questionCategory>
+</AssessmentQuestion>
