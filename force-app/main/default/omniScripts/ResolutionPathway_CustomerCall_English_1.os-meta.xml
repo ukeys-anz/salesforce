@@ -296,6 +296,38 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ResetEndPhoneCall</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes – click ‘Next’ to continue call &quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Provide information to the customer in the call:ResoltionPathway_Customer_In_Call&quot;
+      } ]
+    }
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;elementValueMap&quot; : {
+    &quot;CallEndPhoneCall&quot; : false
+  },
+  &quot;label&quot; : &quot;ResetEndPhoneCall&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+        <sequenceNumber>3.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
         <name>SetEndPhoneCall</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -337,5 +369,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_CustomerCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>0cee5a02-6c7f-0ac9-2c1e-2e2a2ce4b4a6</webComponentKey>
+    <webComponentKey>94e096b0-9aef-eb8c-82b8-3f3b5e75fe52</webComponentKey>
 </OmniScript>

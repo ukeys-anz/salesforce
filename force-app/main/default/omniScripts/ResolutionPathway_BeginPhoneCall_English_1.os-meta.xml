@@ -393,6 +393,78 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ResetAppologiseToCustomer</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;Consider additional issues:ResolutionPathway_Additional_Issues&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer doesn’t want to continue call.&quot;
+      }, {
+        &quot;field&quot; : &quot;BeginPhoneCall:ResolutionPathway_BeginPhoneCall&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Customer doesn’t want to continue call.&quot;
+      } ]
+    }
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;elementValueMap&quot; : {
+    &quot;CallCustomerApology&quot; : false
+  },
+  &quot;label&quot; : &quot;ResetAppologiseToCustomer&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+        <sequenceNumber>4.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>ResetEndPhoneCall</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;BeginPhoneCall:ResolutionPathway_BeginPhoneCall&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Continue call.&quot;
+      }, {
+        &quot;data&quot; : &quot;Continue call (no additional issues OR additional issue is simple/resolved)&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Consider additional issues:ResolutionPathway_Additional_Issues&quot;
+      } ]
+    }
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;elementValueMap&quot; : {
+    &quot;CallEndPhoneCall&quot; : false
+  },
+  &quot;label&quot; : &quot;ResetEndPhoneCall&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+        <sequenceNumber>5.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
         <name>Save-Responses</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>false</isActive>
@@ -448,7 +520,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -470,7 +542,7 @@
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Continue call (no additional issues OR additional issue is simple/resolved) &quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;ResolutionPathway_Additional_Issues&quot;
+        &quot;field&quot; : &quot;Consider additional issues:ResolutionPathway_Additional_Issues&quot;
       } ]
     }
   },
@@ -525,5 +597,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_BeginPhoneCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>d8fe6c82-396d-ddbf-a6a7-213ba2e30374</webComponentKey>
+    <webComponentKey>27a89e7b-0c68-0869-adaf-25bafd269949</webComponentKey>
 </OmniScript>
