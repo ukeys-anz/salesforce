@@ -112,6 +112,11 @@ public with sharing class SettlementActions {
    */
   public static void createActionPlans(List<Settlement__c> records) {
     List<ActionPlan> actionPlanList = createActionPlansRecords(records);
+
+    if (actionPlanList.isEmpty()) {
+      return;
+    }
+
     SystemModeActions systemAction = new SystemModeActions(
       'SettlementActions',
       'createActionPlans'
@@ -128,6 +133,9 @@ public with sharing class SettlementActions {
   private static List<ActionPlan> createActionPlansRecords(
     List<Settlement__c> settlementRecords
   ) {
+    List<Settlement__c> filteredSettlements = filterSettlementExistingActionPlan(
+      settlementRecords
+    );
     //TYPE_REFINANCE_INTERNAL = Internal | TYPE_REFINANCE_OFI = External
     Map<String, String> settlementNameMap = new Map<String, String>{
       'TYPE_REFINANCE_INTERNAL' => 'Internal Plan',
@@ -139,7 +147,11 @@ public with sharing class SettlementActions {
     };
 
     List<ActionPlan> actionPlanList = new List<ActionPlan>();
-    for (Settlement__c settlement : settlementRecords) {
+
+    for (Settlement__c settlement : filteredSettlements) {
+      if (settlement.Type__c == 'TYPE_UNSPECIFIED') {
+        continue;
+      }
       //Create action plan for record
       ActionPlan ap = new ActionPlan();
       ap.StartDate = System.today();
@@ -157,5 +169,45 @@ public with sharing class SettlementActions {
     }
 
     return actionPlanList;
+  }
+
+  /**
+   * @description Filter settlements and remove any that have existing action plans
+   * @param records settlement records to filter
+   * @return List<Settlement__c>
+   */
+  private static List<Settlement__c> filterSettlementExistingActionPlan(
+    List<Settlement__c> records
+  ) {
+    List<Id> settlementIds = new List<Id>();
+    List<Settlement__c> settlementList = new List<Settlement__c>();
+    for (Settlement__c settlement : records) {
+      settlementIds.add(settlement.Id);
+    }
+
+    if (settlementIds.isEmpty()) {
+      return records;
+    }
+
+    List<ActionPlan> actionPlanList = [
+      SELECT Id, TargetId
+      FROM ActionPlan
+      WHERE TargetId IN :settlementIds
+    ];
+    //If no action plans, no need to filter any records
+    if (actionPlanList.isEmpty()) {
+      return records;
+    }
+
+    //Loop through records and filter out settlements with existing action plans
+    for (Settlement__c settlement : records) {
+      for (ActionPlan ap : actionPlanList) {
+        if (ap.TargetId != settlement.Id) {
+          settlementList.add(settlement);
+        }
+      }
+    }
+
+    return settlementList;
   }
 }
