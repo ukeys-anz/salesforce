@@ -433,7 +433,7 @@
                             <value>Status</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>LoanPurpose</value>
+                            <value>Loan_Purpose__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Expiry_Date__c</value>
@@ -1172,7 +1172,7 @@
                             <value>Status</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>LoanPurpose</value>
+                            <value>Loan_Purpose__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Expiry_Date__c</value>
