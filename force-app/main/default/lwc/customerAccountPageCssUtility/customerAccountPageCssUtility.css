@@ -1,5 +1,5 @@
 .financialAccountCardSize {
-  min-height: 12.5rem;
+  min-height: 10.5rem;
 }
 
 .fontstyle {
@@ -38,5 +38,10 @@
 
 .lastUpdated {
   font-size: 0.75rem;
-  float: right;
+  text-align: right;
+}
+
+.emptyCard {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }

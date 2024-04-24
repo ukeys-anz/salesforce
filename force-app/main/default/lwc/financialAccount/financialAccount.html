@@ -9,7 +9,7 @@
       {componentTitle}
     </h1>
     <template lwc:if={displayContent}>
-      <template lwc:if={accountDetails}>
+      <template lwc:if={hasAccountDetails}>
         <template for:each={accountDetails} for:item="finAccount">
           <div
             class="slds-card__body slds-card__body_inner"
@@ -79,19 +79,20 @@
             </article>
           </div>
         </template>
-        <footer class="slds-card__footer slds-p-bottom_large">
-          <span class="lastUpdated" data-test-id="last-updated-time"
-            >Last Updated {timestamp}</span
-          >
-        </footer>
       </template>
       <template lwc:else>
-        <h1 class="slds-card__header-title slds-text-align_center">
-          <span class="not-found" data-id="no-accounts"
-            >No {accountType} Accounts</span
-          >
-        </h1>
+        <div
+          class="slds-card__body slds-card__body_inner emptyCard slds-text-align_center"
+          data-id="fin-account"
+        >
+          All accounts closed - no longer a customer
+        </div>
       </template>
+      <footer class="slds-card__footer account-footer">
+        <div class="lastUpdated" data-test-id="last-updated-time">
+          Last Updated {timestamp}
+        </div>
+      </footer>
     </template>
     <template lwc:else>
       <div class="slds-grid">
@@ -134,11 +135,15 @@
               </li>
               <li>
                 some transactions may have updated the amount shown but are not
-                yet fully processed (e.g. pending transactions), and/or
+                yet fully processed (e.g. pending transactions)
               </li>
               <li>
                 we may not process transactions at the time, on the day or in
-                the order that they are made.
+                the order that they are made, and/or
+              </li>
+              <li>
+                some transactions may have been processed and updated the amount
+                shown, but are later adjusted.
               </li>
             </ul>
             If you proceed with a transaction when there may be insufficient
