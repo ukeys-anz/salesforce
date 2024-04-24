@@ -210,6 +210,38 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ResetWebVoucherValue</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;End phone call thank customer for time:ResolutionPathway_End_phone_call&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;No&quot;
+      } ]
+    }
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;elementValueMap&quot; : {
+    &quot;CallWebVoucher&quot; : false
+  },
+  &quot;label&quot; : &quot;ResetWebVoucherValue&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
         <name>SetWebVoucherValue</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -247,5 +279,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_EndPhoneCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>d5187ed1-0536-6515-dc62-24e0dacd4bf1</webComponentKey>
+    <webComponentKey>fad75c53-068f-afe9-214b-ce313909b669</webComponentKey>
 </OmniScript>

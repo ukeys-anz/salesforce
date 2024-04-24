@@ -368,6 +368,80 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ResetValueForBeginPhoneCall</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;lwcComponentOverride&quot; : &quot;&quot;,
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;Attempt phone call:ResolutionPathway_Attempt_phone_call&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Call not answered - see below, then click ‘Next’ after two failed call attempts.&quot;
+      }, {
+        &quot;field&quot; : &quot;Follow Contact Strategy:CallQueueFollowContactStrategy&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Email contact preferred (or required) – send first introduction template email, then (if required) send second introduction email/ template, then click ‘Next’.&quot;
+      } ]
+    }
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;elementValueMap&quot; : {
+    &quot;CallBeginPhoneCall&quot; : false
+  },
+  &quot;label&quot; : &quot;ResetValueForBeginPhoneCall&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+        <sequenceNumber>4.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>ResetValueForSendWrittenResponse</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;lwcComponentOverride&quot; : &quot;&quot;,
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;Follow Contact Strategy:CallQueueFollowContactStrategy&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Phone contact preferred (or preference not specified) – send SMS text message using template, then click ‘Next’.&quot;
+      }, {
+        &quot;data&quot; : &quot;Customer answers the phone.&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Attempt phone call:ResolutionPathway_Attempt_phone_call&quot;
+      } ]
+    }
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;elementValueMap&quot; : {
+    &quot;CallSendWrittenResponse&quot; : false
+  },
+  &quot;label&quot; : &quot;ResetValueForSendWrittenResponse&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+        <sequenceNumber>5.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
         <name>SetValueForBeginPhoneCall</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -443,5 +517,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_FollowContact_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>fc15e631-4ee2-5452-0f86-3dfc5a1b4d2d</webComponentKey>
+    <webComponentKey>648e63df-66c6-954a-7c4b-cbe75d4698bf</webComponentKey>
 </OmniScript>
