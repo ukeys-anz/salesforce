@@ -22,7 +22,19 @@ public with sharing class SettlementTriggerHandler extends Lib_TriggerHandler {
     SettlementActions.populateRequestedAmount(records);
   }
 
+  /**
+   * @description onAfterInsert to handle after insert trigger actions
+   */
   public override void onAfterInsert() {
+    //Create Action Plan
+    SettlementActions.createActionPlans(records);
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     //Create Action Plan
     SettlementActions.createActionPlans(records);
   }
