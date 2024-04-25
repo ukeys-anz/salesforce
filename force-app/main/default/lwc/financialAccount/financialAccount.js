@@ -41,7 +41,11 @@ export default class FinancialAccount extends NavigationMixin(
     //Use last modified date if the data is fetched from SF, otherwise,
     //the data is directly from fabric so we can use current time
     let updated = new Date();
-    if (this.accountDetails && this.accountDetails.length > 0) {
+    if (
+      this.accountDetails &&
+      this.accountDetails.length > 0 &&
+      this.accountDetails[0].LastModifiedDate
+    ) {
       updated = new Date(this.accountDetails[0].LastModifiedDate);
     }
 
