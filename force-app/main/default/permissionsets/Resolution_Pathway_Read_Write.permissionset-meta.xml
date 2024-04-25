@@ -253,4 +253,8 @@
         <object>ResidentialLoanApplication</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>Assessment.CMOS_ResolutionPathway</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
 </PermissionSet>
