@@ -3497,6 +3497,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.Customer_Pre_Exist__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.CAPCIS_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
