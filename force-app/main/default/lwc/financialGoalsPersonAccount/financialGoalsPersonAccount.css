@@ -91,3 +91,8 @@
 .slds-border_right:last-child {
   border-right: none;
 }
+
+.emptyCardGoal {
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
