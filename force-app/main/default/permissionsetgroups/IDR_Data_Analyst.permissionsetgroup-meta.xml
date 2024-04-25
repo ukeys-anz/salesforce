@@ -9,6 +9,8 @@
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>IDR_Reporting_Analyst</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
+    <permissionSets>Resolution_Pathway_Read_Only</permissionSets>
     <permissionSets>Systemic_Issue_Read_Only</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
