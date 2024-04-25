@@ -57,3 +57,8 @@
 .cicon {
   --sds-c-icon-color-background: rgb(27, 150, 255);
 }
+
+.dividerTop {
+  border-top: 1px solid rgb(201, 201, 201);
+  border-bottom: none;
+}

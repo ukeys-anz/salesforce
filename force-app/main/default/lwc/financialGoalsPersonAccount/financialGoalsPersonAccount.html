@@ -68,7 +68,7 @@
                           value={goal.balance.value}
                           format-style="currency"
                           data-id="amount"
-                          class="card-heading-bold ellipsis"
+                          class="fontstyle"
                         ></lightning-formatted-number>
                         <div class="description-tooltip slds-text-align_center">
                           <lightning-formatted-number
@@ -98,7 +98,7 @@
           </div>
           <template lwc:if={viewAll}>
             <div
-              class="slds-border_top slds-text-align_center slds-p-around_small slds-border_bottom"
+              class="slds-border_top slds-text-align_center slds-p-around_small"
             >
               <a
                 onclick={navigateToRecordViewPage}
@@ -111,7 +111,7 @@
           </template>
         </template>
         <template lwc:else>
-          <h1 class="slds-card__header-title slds-text-align_center">
+          <h1 class="slds-text-align_center">
             <span class="no-goals" data-id="no-goals"
               >There are no savings goals.</span
             >
@@ -127,7 +127,7 @@
         </p>
       </div>
     </template>
-    <div slot="footer" class="slds-p-around_medium">
+    <div slot="footer" class="slds-p-around_medium slds-border_top">
       <span class="last-updated">Last Updated {timestamp}</span>
     </div>
   </article>

@@ -84,7 +84,7 @@
                       class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
                     >
                       <p class="card-heading-font">Interest Rate</p>
-                      <p class="card-heading-font" data-test-id="interestrate">
+                      <p class="fontstyle" data-test-id="interestrate">
                         {finAccount.loan_details.interests.rate}% p.a.
                       </p>
                     </div>
@@ -98,7 +98,9 @@
                           content="As of the loan commencement or the date certain changes were made to the loan."
                         ></lightning-helptext>
                       </p>
-                      <p data-test-id="term">{finAccount.loanTerm}</p>
+                      <p data-test-id="term" class="fontstyle">
+                        {finAccount.loanTerm}
+                      </p>
                     </div>
                     <div
                       class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small slds-text-align_right"
@@ -118,7 +120,7 @@
                             value={finAccount.loan_details.redrawAvailable}
                             format-style="currency"
                             data-id="redraw_amount"
-                            class="card-heading-font"
+                            class="fontstyle"
                           ></lightning-formatted-number>
                         </p>
                       </div>
@@ -126,13 +128,13 @@
                   </div>
                 </div>
               </div>
-              <footer class="slds-card__footer slds-p-bottom_x-large">
-                <span class="lastUpdated" data-test-id="last-updated-time"
-                  >Last Updated {finAccount.lastModifiedTimestamp}</span
-                >
-              </footer>
             </article>
           </div>
+          <footer class="slds-card__footer slds-p-bottom_x-large">
+            <span class="lastUpdated" data-test-id="last-updated-time"
+              >Last Updated {finAccount.lastModifiedTimestamp}</span
+            >
+          </footer>
         </article>
       </template>
     </template>
@@ -148,11 +150,16 @@
         Loan Account
       </h1>
       <div
-        class="slds-card__body slds-card__body_inner slds-text-align_center slds-m-top_xx-large"
+        class="slds-card__body slds-card__body_inner emptyCard slds-text-align_center"
         data-id="fin-account"
       >
         All accounts closed - no longer a customer
       </div>
+      <footer class="slds-card__footer slds-p-bottom_x-large">
+        <span class="lastUpdated" data-test-id="last-updated-time"
+          >Last Updated {timestamp}</span
+        >
+      </footer>
     </article>
   </template>
   <template lwc:if={showBalanceModal}>

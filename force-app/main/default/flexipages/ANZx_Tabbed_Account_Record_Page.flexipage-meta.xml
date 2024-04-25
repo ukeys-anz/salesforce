@@ -775,6 +775,12 @@
                         <valueListItems>
                             <value>Ownership__c</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>FinServ__StartDate__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>FinServ__EndDate__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
