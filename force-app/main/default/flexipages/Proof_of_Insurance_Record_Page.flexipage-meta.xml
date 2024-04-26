@@ -9,7 +9,7 @@
                         <valueListItems>
                             <value>Proof_of_Insurance__c.Verify_Insurance</value>
                             <visibilityRule>
-                                <booleanFilter>1 OR 2</booleanFilter>
+                                <booleanFilter>(1 OR 2) AND 3</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$User.UserRole.Name}</leftValue>
                                     <operator>EQUAL</operator>
@@ -19,6 +19,11 @@
                                     <leftValue>{!$User.UserRole.Name}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Settlement Officer Lead</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Verification_Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>STATE_VERIFIED</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

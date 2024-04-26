@@ -249,7 +249,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     Map<String, String> headers = new Map<String, String>();
     headers = setCalloutCommonHeaders(staffModel);
     headers.put('x-correlation-id', CommonUtil.generateUUID());
-    headers.put('x-anz-application-id', 'aegis-admin-portal');
+    headers.put('x-anz-application-id', 'salesforce');
     headers.put('traceparent', CommonUtil.generateTraceParent());
     return headers;
   }

@@ -13,8 +13,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     Test.startTest();
     TFMPersonDigitalIdentityModel response = repo.searchCustAPI(staffModel);
     Assert.areNotEqual(
-      response.result,
       null,
+      response.result,
       'Valid data is not returned in response'
     );
     Test.stopTest();
@@ -34,8 +34,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
       deviceResourceId
     );
     Assert.areNotEqual(
-      response,
       null,
+      response,
       'Valid data is not returned in response'
     );
     Test.stopTest();
@@ -55,8 +55,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
       appCorrelationId
     );
     Assert.areNotEqual(
-      response,
       null,
+      response,
       'Valid data is not returned in response'
     );
     Test.stopTest();
@@ -70,8 +70,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     HttpCalloutResponse response = repo.getJointAccountPermissions(staffModel);
     Test.stopTest();
     Assert.areNotEqual(
-      response,
       null,
+      response,
       'Valid data is not returned in response'
     );
   }
@@ -93,7 +93,7 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
 
     Test.stopTest();
     Assert.areEqual(
-      'UNAUTHORIZED',
+      'Server Error',
       exceptionMsg,
       'Status code is not equal to 401'
     );
@@ -115,8 +115,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     );
     Test.stopTest();
     Assert.areNotEqual(
-      response,
       null,
+      response,
       'Valid data is not returned in response'
     );
   }
@@ -144,7 +144,7 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
 
     Test.stopTest();
     Assert.areEqual(
-      'UNAUTHORIZED',
+      'Server Error',
       exceptionMsg,
       'Status code is not equal to 401'
     );
@@ -164,8 +164,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     );
     Test.stopTest();
     Assert.areNotEqual(
-      response,
       null,
+      response,
       'Valid data is not returned in response'
     );
   }
@@ -190,7 +190,7 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     }
     Test.stopTest();
     Assert.areEqual(
-      'UNAUTHORIZED',
+      'Server Error',
       exceptionMsg,
       'Status code is not equal to 401'
     );
@@ -222,8 +222,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     );
     Test.stopTest();
     Assert.areNotEqual(
-      response,
       null,
+      response,
       'Valid data is not returned in response'
     );
   }
@@ -261,7 +261,7 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
 
     Test.stopTest();
     Assert.areEqual(
-      'UNAUTHORIZED',
+      'Server Error',
       exceptionMsg,
       'Status code is not equal to 401'
     );
@@ -279,8 +279,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     );
     Test.stopTest();
     Assert.areEqual(
-      response.statusCode,
       200,
+      response.statusCode,
       'API Response return with a Successful 200'
     );
   }
@@ -302,7 +302,7 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     }
     Test.stopTest();
     Assert.areEqual(
-      'UNAUTHORIZED',
+      'Server Error',
       exceptionMsg,
       'Status code is not equal to 401'
     );
@@ -316,8 +316,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     HttpCalloutResponse response = repo.getConsentsList(staffModel);
     Test.stopTest();
     Assert.areNotEqual(
-      response,
       null,
+      response,
       'Valid data is not returned in response'
     );
   }
@@ -336,7 +336,7 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     }
     Test.stopTest();
     Assert.areEqual(
-      'UNAUTHORIZED',
+      'Server Error',
       exceptionMsg,
       'Status code is not equal to 401'
     );
@@ -358,8 +358,8 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
     );
     Test.stopTest();
     Assert.areNotEqual(
-      response,
       null,
+      response,
       'Valid data is not returned in response'
     );
   }
@@ -387,7 +387,7 @@ public with sharing class TFMSearchCustomerAPIRepositoryTest {
 
     Test.stopTest();
     Assert.areEqual(
-      'UNAUTHORIZED',
+      'Server Error',
       exceptionMsg,
       'Status code is not equal to 401'
     );

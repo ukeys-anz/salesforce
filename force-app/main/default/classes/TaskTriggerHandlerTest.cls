@@ -40,29 +40,28 @@ private class TaskTriggerHandlerTest {
   static void setup() {
     Faker faker = new Faker('AU');
 
+    Map<String, Account> accountMap = new Map<String, Account>();
     // create an ANZx Customer
-    Account acc = new Account(
-      Name = 'Test ANZx Account',
-      OCV_ID__c = 'TESTOCVID4321',
-      ANZx_Customer__c = true
+    accountMap.put(
+      'ANZXAccount',
+      new Account(
+        Name = 'Test ANZx Account',
+        OCV_ID__c = 'TESTOCVID4321',
+        ANZx_Customer__c = true
+      )
     );
-    insert acc;
-
-    // create a Case
-    Case generalEnquiryCase = new Case(
-      RecordTypeId = CaseCommonActions.GENERAL_INQUIRY_RT_ID,
-      AccountId = acc.Id,
-      Type = 'Cards'
-    );
-    insert generalEnquiryCase;
 
     // create complaint entitlement account
-    Account a = new Account(
-      Name = 'Complaint Entitlement Account',
-      OCV_ID__c = faker.randomString(10),
-      ANZx_Customer__c = false
+    accountMap.put(
+      'ComplaintAccount',
+      new Account(
+        Name = 'Complaint Entitlement Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = false
+      )
     );
-    insert a;
+    insert accountMap.values();
+
     Slaprocess sla = [
       SELECT Id, NAME
       FROM Slaprocess
@@ -72,7 +71,7 @@ private class TaskTriggerHandlerTest {
     //insert sla;
     Entitlement et = new Entitlement(
       Name = 'Complaints Entitlement',
-      AccountId = a.Id,
+      AccountId = accountMap.get('ComplaintAccount').Id,
       StartDate = Date.valueof(System.now().addDays(-2)),
       SlaProcessId = sla.Id
     );
@@ -102,6 +101,11 @@ private class TaskTriggerHandlerTest {
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890',
           Priority = 'Vulnerable Customer'
+        ),
+        new Case(
+          RecordTypeId = CaseCommonActions.GENERAL_INQUIRY_RT_ID,
+          AccountId = accountMap.get('ANZXAccount').Id,
+          Type = 'Cards'
         )
       }
     );

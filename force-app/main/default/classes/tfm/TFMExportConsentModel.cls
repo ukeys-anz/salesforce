@@ -36,15 +36,28 @@ public with sharing class TFMExportConsentModel extends CalloutModel {
     public String accountType;
     public String accountStatus;
     public String sharingStatus;
-  }
 
-  /**
-   * @description This is wrapper class for YearWrapper
-   * @name AccountInfo
-   * @author Shivraj Kadam
-   */
-  public class YearWrapper {
-    public Integer value;
+    /**
+     * @param name name of the account
+     * @param accNumber account number
+     * @param status account status
+     * @param type type og account
+     * @param sharing sharing status
+     * @description AccountInfo constructor
+     */
+    public AccountInfo(
+      String name,
+      String accNumber,
+      String status,
+      String type,
+      String sharing
+    ) {
+      accountName = name;
+      accountNumber = accNumber;
+      accountStatus = status;
+      accountType = type;
+      sharingStatus = sharing;
+    }
   }
 
   /**
@@ -52,16 +65,7 @@ public with sharing class TFMExportConsentModel extends CalloutModel {
    * @name AccountInfo
    * @author Shivraj Kadam
    */
-  public class MonthWrapper {
-    public Integer value;
-  }
-
-  /**
-   * @description This is wrapper class for DayWrapper
-   * @name AccountInfo
-   * @author Shivraj Kadam
-   */
-  public class DayWrapper {
+  public class ValueWrapper {
     public Integer value;
   }
 
@@ -71,9 +75,9 @@ public with sharing class TFMExportConsentModel extends CalloutModel {
    * @author Shivraj Kadam
    */
   public class DateInfo {
-    public YearWrapper year;
-    public MonthWrapper month;
-    public DayWrapper day;
+    public ValueWrapper year;
+    public ValueWrapper month;
+    public ValueWrapper day;
   }
 
   /**
