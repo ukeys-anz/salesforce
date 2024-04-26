@@ -94,3 +94,7 @@
   font-style: italic;
   font-size: 10px;
 }
+
+.cicon {
+  --sds-c-icon-color-background: rgb(27, 150, 255);
+}
