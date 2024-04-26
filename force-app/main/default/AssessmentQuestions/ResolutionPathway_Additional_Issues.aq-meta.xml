@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssessmentQuestion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>ResolutionPathway_Additional_Issues</name>
+    <assessmentQuestionVersion>
+        <name>ResolutionPathway_Additional_Issues</name>
+        <isActive>true</isActive>
+        <optionSourceResponseValue>false</optionSourceResponseValue>
+        <questionText>Next steps:</questionText>
+        <responseValues>Continue call (no additional issues OR additional issue is simple/resolved) 
+Customer doesn’t want to continue call.</responseValues>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+    </assessmentQuestionVersion>
+    <dataType>Radio</dataType>
+    <developerName>ResolutionPathway_Additional_Issues</developerName>
+    <questionCategory>Demographic</questionCategory>
+</AssessmentQuestion>

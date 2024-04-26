@@ -71,10 +71,8 @@ private with sharing class IDRTaskActionsTest {
         psaList.add(TestUtil.createPSAssignment(idrL1User.Id, ps.Id));
       }
       insert psaList;
-
-      Profile stdXUserProfile = CommonUtil.getProfileByName(
-        'ANZx Standard User'
-      );
+    
+      Profile stdXUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
       Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
       UserRole cqRole = CommonUtil.getUserRoleByDevName(
         'Capability_Quality_C_Q_Team'

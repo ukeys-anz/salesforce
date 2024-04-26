@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssessmentQuestion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>ResolutionPathway_Attempt phone call</name>
+    <assessmentQuestionVersion>
+        <name>ResolutionPathway_Attempt phone call</name>
+        <isActive>true</isActive>
+        <optionSourceResponseValue>false</optionSourceResponseValue>
+        <questionText>Attempt to call the customer</questionText>
+        <responseValues>Customer answers the phone. 
+Call not answered - see below, then click ‘Next’ after two failed call attempts.</responseValues>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+    </assessmentQuestionVersion>
+    <dataType>Radio</dataType>
+    <developerName>ResolutionPathway_Attempt_phone_call</developerName>
+    <questionCategory>Demographic</questionCategory>
+</AssessmentQuestion>

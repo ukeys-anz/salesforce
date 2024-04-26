@@ -124,6 +124,7 @@
         <field>Case.IDR_AFCA_Information_Request_Due__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
+    <name>My team&apos;s Information Request due dates</name>
     <params>
         <name>units</name>
         <value>h</value>
