@@ -272,12 +272,10 @@ public with sharing class InteractionAttendeeActions {
       twilioContextRequest.agentEmail
     );
 
-    if (twilioContextRequest.agentEmail != NULL) {
-      intattendee.UserId = agentOwnerIdMap.get(
-        twilioContextRequest.agentEmail.toLowerCase()
-      );
-    }
-    
+    intattendee.UserId = fetchAgentUserId(
+      twilioContextRequest.agentEmail, agentOwnerIdMap
+    );
+  
     intattendee.InteractionId = twilioContextRequest.interactionId;
     intattendee.Attendee_Name__c = twilioContextRequest.attendeeName;
     intattendee.Attendee_Phone__c = twilioContextRequest.attendeePhoneNumber;
@@ -295,6 +293,18 @@ public with sharing class InteractionAttendeeActions {
     return String.isNotBlank(agentEmail)
       ? InteractionConstants.INTERNAL
       : InteractionConstants.EXTERNAL;
+  }
+
+  /**
+   * @description fetch user id if the agentemail exist in the system
+   * @param agentEmail agentEmail from TwilioContextRequest recceived from Twilio
+   * @param agentOwnerIdMap agentEmail and Id map
+   * @return AgentUserId if existing in the system
+   */
+  private static String fetchAgentUserId(String agentEmail, Map<String, Id> agentOwnerIdMap) {
+    return String.isNotBlank(agentEmail)
+      ? agentOwnerIdMap.get(agentEmail.toLowerCase())
+      : NULL;
   }
 
   /**
