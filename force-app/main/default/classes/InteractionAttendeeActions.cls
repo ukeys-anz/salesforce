@@ -271,9 +271,13 @@ public with sharing class InteractionAttendeeActions {
     intattendee.AttendeeType = fetchAttendeeType(
       twilioContextRequest.agentEmail
     );
-    intattendee.UserId = agentOwnerIdMap.get(
-      twilioContextRequest.agentEmail.toLowerCase()
-    );
+
+    if (twilioContextRequest.agentEmail != NULL) {
+      intattendee.UserId = agentOwnerIdMap.get(
+        twilioContextRequest.agentEmail.toLowerCase()
+      );
+    }
+    
     intattendee.InteractionId = twilioContextRequest.interactionId;
     intattendee.Attendee_Name__c = twilioContextRequest.attendeeName;
     intattendee.Attendee_Phone__c = twilioContextRequest.attendeePhoneNumber;
