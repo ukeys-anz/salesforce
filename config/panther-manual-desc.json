@@ -443,6 +443,14 @@
         "FinServ__Regarding__c"
       ]
     },
+    "ActivityFieldHistory__c": {
+      "IA-2530753": [
+        "Field_Name__c",
+        "New_Value__c",
+        "Old_Value__c",
+        "Record_Id__c"
+      ]
+    },
     "Appointment_Commitment__c": {
       "IA-2453595": [
         "Appointment_Channel__c",
@@ -1593,6 +1601,12 @@
         "User_Segment__c"
       ],
       "IA-2594111": ["CPID_LanID__c", "CPID_User__c"]
+    },
+    "Custom_Dynamic_Field_History_Setting__mdt": {
+      "IA-2530753": ["Field_Name__c", "SObject_Name__c"]
+    },
+    "Custom_Dynamic_Object_History_Setting__mdt": {
+      "IA-2530753": ["SObject_Name__c", "Table_Name__c"]
     },
     "Customer_Action__c": {
       "IA-2415840": [

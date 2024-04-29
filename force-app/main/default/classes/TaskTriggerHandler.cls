@@ -78,6 +78,8 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Task>) oldMap
     );
+    // Make sure this line always execute as the last command of AfterUpdate
+    CustomFieldHistoryAction.createFieldHistory(records, oldMap);
   }
   /**
    * @description onBeforeDelete to handle before delete trigger actions.
