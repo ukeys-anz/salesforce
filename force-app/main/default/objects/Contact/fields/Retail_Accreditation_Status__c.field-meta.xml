@@ -3,7 +3,7 @@
     <fullName>Retail_Accreditation_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_OCV</complianceGroup>
-    <description>Accreditation Status of the Broker TPMI-SAO.</description>
+    <description>Accreditation Status of the Broker Broker Code.</description>
     <externalId>false</externalId>
     <label>Retail Accreditation Status</label>
     <required>false</required>

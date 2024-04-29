@@ -12,13 +12,6 @@
     NOT(ISBLANK(PRIORVALUE(FinServ__RelatedAccount__c))), 
     NOT(ISBLANK(FinServ__RelatedAccount__c)),
     OR(
-        AND(
-            OR(
-                ISCHANGED(PreferredName__c),
-                ISCHANGED(FinServ__RelatedAccount__c)
-            ),
-            Customer_Status__c != &quot;Prospect&quot;
-        ),
         ISCHANGED(AdvertisingIndicator__c),
         ISCHANGED(Address)
     )

@@ -97,10 +97,124 @@
       "type": "user"
     },
     {
-      "name": "Business Admin",
-      "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Business_Admin"],
+      "name": "Business Admin (CMOS)",
+      "role": "Customer Resolution Leadership",
+      "profile": "ANZ Standard User",
+      "permissionsetgroups": [
+        "Business_Admin",
+        "CMOS_Quality_Assessor",
+        "IDR_CRP_LT",
+        "IDR_CRP_Team_Leaders",
+        "IDR_Data_Analyst",
+        "IDR_Level_1",
+        "IDR_Level_2",
+        "IDR_Level_3",
+        "IDR_SI_Business_Contact",
+        "IDR_SI_User",
+        "IDR_Tech_Support"
+      ],
       "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Business Admin (Get Help)",
+      "role": "ANZx",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": [
+        "ANZ_Plus_Operations_Read_Only",
+        "BOH_Coach",
+        "Business_Admin",
+        "Coach",
+        "Coach_Lead",
+        "Content_Author_PSG",
+        "Content_Viewer",
+        "Credit_Assessment_Officer",
+        "Credit_Assessor_Lead",
+        "Quality_Capability_Lead",
+        "Quality_Analyst",
+        "Settlement_Officer",
+        "Settlement_Officer_Lead",
+        "Support_Coach",
+        "Third_Party_Mobile_Support_Team"
+      ],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Business Admin (Join)",
+      "role": "ANZx",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": [
+        "Business_Admin",
+        "Card_Dispute_Agent",
+        "FinCrime_Agent",
+        "FraudX_Agent",
+        "Join_Lead",
+        "Onboarding_Support_Read_Only",
+        "Statutory_Compliance_Agent"
+      ],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Business Admin (Mobile Lending)",
+      "role": "ANZ Mobile Lending",
+      "profile": "ANZ ML Standard User",
+      "permissionsetgroups": [
+        "Business_Admin",
+        "MLCRM_Business_Manager",
+        "MLCRM_Field_Team",
+        "MLCRM_Franchise_Admin",
+        "MLCRM_Franchise_Owner",
+        "MLCRM_Loan_Writer",
+        "MLCRM_Super_User"
+      ],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Business Admin (Platform)",
+      "role": "Business Admin",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": [
+        "ANZ_Plus_Operations_Read_Only",
+        "BOH_Coach",
+        "Card_Dispute_Agent",
+        "CMOS_Quality_Assessor",
+        "Coach_Lead",
+        "Coach",
+        "Content_Author_PSG",
+        "Content_Viewer",
+        "Credit_Assessment_Officer",
+        "Credit_Assessor_Lead",
+        "FinCrime_Agent",
+        "FraudX_Agent",
+        "IDR_CRP_LT",
+        "IDR_CRP_Team_Leaders",
+        "IDR_Data_Analyst",
+        "IDR_Level_1",
+        "IDR_Level_2",
+        "IDR_Level_3",
+        "IDR_SI_Business_Contact",
+        "IDR_SI_User",
+        "IDR_Tech_Support",
+        "Join_Lead",
+        "MLCRM_Business_Manager",
+        "MLCRM_Field_Team",
+        "MLCRM_Franchise_Admin",
+        "MLCRM_Franchise_Owner",
+        "MLCRM_Loan_Writer",
+        "MLCRM_Super_User",
+        "Onboarding_Support_Read_Only",
+        "Quality_Analyst",
+        "Quality_Capability_Lead",
+        "Settlement_Officer_Lead",
+        "Settlement_Officer",
+        "Statutory_Compliance_Agent",
+        "Support_Coach",
+        "Third_Party_Mobile_Support_Team"
+      ],
+      "permissionsets": ["Enforce_SSO", "Manage_Users"],
       "type": "user"
     },
     {
@@ -844,7 +958,8 @@
         "Mortgage",
         "Settlements_Read_Write",
         "Disable_MFA",
-        "Enforce_mTLS"
+        "Enforce_mTLS",
+        "ActionPlans"
       ],
       "type": "system"
     },
@@ -859,6 +974,13 @@
         "Disable_MFA"
       ],
       "type": "system"
+    },
+    {
+      "name": "Residential Broker Manager",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Residential_Broker_Manager"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     }
   ]
 }
