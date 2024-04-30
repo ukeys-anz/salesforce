@@ -800,6 +800,7 @@
         <relatedList>RelatedActivityList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
         <fields>AssessmentRating</fields>
         <fields>AssessmentStatus</fields>

@@ -92,6 +92,7 @@
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
         <fields>AssessmentQuestion</fields>
         <fields>ResponseText</fields>
