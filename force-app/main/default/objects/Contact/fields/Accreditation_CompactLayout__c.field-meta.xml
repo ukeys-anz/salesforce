@@ -6,8 +6,8 @@
     <description>Formaula to display accrediation type value in compact layout</description>
     <externalId>false</externalId>
     <formula>IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Asset Finance&quot;), &quot;Asset Finance&quot; + &quot;, &quot;, NULL) + 
-IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Retail Broker&quot;), &quot;Retail Broker&quot; + &quot;, &quot;, NULL) + 
-IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Commercial Broker&quot;), &quot;Commercial Broker&quot; , NULL)</formula>
+IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Retail&quot;), &quot;Retail&quot; + &quot;, &quot;, NULL) + 
+IF(INCLUDES( Broker_Accreditation_Type__c , &quot;Commercial&quot;), &quot;Commercial&quot; , NULL)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Accreditation Type</label>
     <required>false</required>

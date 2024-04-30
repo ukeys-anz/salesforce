@@ -124,10 +124,20 @@
                 <fieldItem>Record.PreferredName__c</fieldItem>
                 <identifier>RecordML_PreferredName_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Prospect</rightValue>
+                        <rightValue>MLCRM</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Adobe</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__RelatedAccount__r.Name}</leftValue>
+                        <operator>EQUAL</operator>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -139,12 +149,22 @@
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.PreferredName__c</fieldItem>
-                <identifier>RecordPreferredName_cField2</identifier>
+                <identifier>RecordPreferredName_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
+                        <rightValue>MLCRM</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Adobe</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__RelatedAccount__r.Name}</leftValue>
+                        <operator>NE</operator>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -158,10 +178,20 @@
                 <fieldItem>Record.FinServ__RelatedAccount__c</fieldItem>
                 <identifier>RecordFinServ_RelatedAccount_cField2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Prospect</rightValue>
+                        <rightValue>MLCRM</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Adobe</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__RelatedAccount__r.Name}</leftValue>
+                        <operator>EQUAL</operator>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -175,10 +205,20 @@
                 <fieldItem>Record.FinServ__RelatedAccount__c</fieldItem>
                 <identifier>RecordFinServ_RelatedAccount_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.Customer_Status__c}</leftValue>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
                         <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
+                        <rightValue>Adobe</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Originator__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>MLCRM</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__RelatedAccount__r.Name}</leftValue>
+                        <operator>NE</operator>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -303,6 +343,28 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Followup_Date__c</fieldItem>
                 <identifier>RecordFollowup_Date_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__RelatedAccount__r.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Followup_Date__c</fieldItem>
+                <identifier>RecordFollowup_Date_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__RelatedAccount__r.Name}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

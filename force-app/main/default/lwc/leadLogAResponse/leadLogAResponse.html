@@ -92,21 +92,23 @@
                 >
                 </lightning-combobox>
               </lightning-layout-item>
-              <lightning-layout-item size="6" padding="around-small">
-                <lightning-combobox
-                  lwc:if={enableComboBox}
-                  name="Lead Quality"
-                  class="leadQuality"
-                  label="Lead Quality"
-                  placeholder="Select Lead Quality"
-                  options={leadQualityOptions}
-                  onchange={handleLeadQualityChange}
-                  value={selectedLeadQualityValue}
-                  required={isLeadQualityRequired}
-                  message-when-value-missing="Lead Quality is mandatory for the selected Response Status"
-                >
-                </lightning-combobox>
-              </lightning-layout-item>
+              <template lwc:if={showLeadQuality}>
+                <lightning-layout-item size="6" padding="around-small">
+                  <lightning-combobox
+                    lwc:if={enableComboBox}
+                    name="Lead Quality"
+                    class="leadQuality"
+                    label="Lead Quality"
+                    placeholder="Select Lead Quality"
+                    options={leadQualityOptions}
+                    onchange={handleLeadQualityChange}
+                    value={selectedLeadQualityValue}
+                    required={isLeadQualityRequired}
+                    message-when-value-missing="Lead Quality is mandatory for the selected Response Status"
+                  >
+                  </lightning-combobox>
+                </lightning-layout-item>
+              </template>
               <template lwc:if={enableFollowUpDateComboBox}>
                 <lightning-layout-item size="6" padding="around-small">
                   <lightning-input

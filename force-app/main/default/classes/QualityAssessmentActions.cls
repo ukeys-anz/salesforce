@@ -44,6 +44,10 @@ public with sharing class QualityAssessmentActions {
     GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
     GetHelpConstants.COMPLAINT_RT_ID
   };
+  private static final List<Id> CMOS_QA_REC_TYPES = new List<Id>{
+    IDRConstants.idrtCallLetterReviewQualityAssessment,
+    IDRConstants.idrtCQQualityAssessment
+  };
 
   /**
    * @description method to determine if a Case is a Dispute case, not CMOS case, if Dispute case, add this case to qaQualifiedCases List
@@ -135,31 +139,115 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> recordsToUpdate = new List<Quality_Assessment__c>();
 
     if (Quality_Assessment__c.SObjectType.getDescribe().isAccessible()) {
-      for (Quality_Assessment__c record : [
-        SELECT
-          Id,
-          Evaluation_Type__c,
-          RecordTypeId,
-          Interaction_Type__c,
-          Interaction_Date_Time__c,
-          Related_Case__c,
-          Related_Case__r.CaseNumber,
-          Related_Case__r.Owner.Type,
-          Related_Case__r.OwnerId,
-          Related_Case__r.Origin,
-          Related_Case__r.AccountId,
-          Related_Case__r.ClosedDate,
-          toLabel(Related_Case__r.Type),
-          toLabel(Related_Case__r.IDR_Subsequent_Issue__c)
-        FROM Quality_Assessment__c
-        WHERE Id IN :qaMap.keySet()
-      ]) {
+      List<Quality_Assessment__c> recordsWithcaseDetails = getRelatedCaseDetailsForQARecords(
+        qaMap.keySet()
+      );
+      for (Quality_Assessment__c record : recordsWithcaseDetails) {
         calculateAndAssignFieldsToQA(record);
         recordsToUpdate.add(record);
       }
     }
-
     return recordsToUpdate;
+  }
+  /**
+   * @description method to get details of related case fields for set of QA records
+   * @param qaRecordIds set of quality assessment record Ids
+   * @return list of Quality Assessment Records with case Details
+   */
+  @TestVisible
+  private static List<Quality_Assessment__c> getRelatedCaseDetailsForQARecords(
+    Set<Id> qaRecordIds
+  ) {
+    return [
+      SELECT
+        Id,
+        OwnerId,
+        Evaluation_Type__c,
+        RecordTypeId,
+        Interaction_Type__c,
+        Interaction_Date_Time__c,
+        Related_Case__c,
+        Related_Case__r.CaseNumber,
+        Related_Case__r.Owner.Type,
+        Related_Case__r.OwnerId,
+        Related_Case__r.Origin,
+        Related_Case__r.AccountId,
+        Related_Case__r.ClosedDate,
+        toLabel(Related_Case__r.Type),
+        toLabel(Related_Case__r.IDR_Subsequent_Issue__c)
+      FROM Quality_Assessment__c
+      WHERE Id IN :qaRecordIds
+    ];
+  }
+
+  /**
+   * @description method to get details of related case fields for set of case records
+   * @param caseIds set of caseIds
+   * @return list of Case records
+   */
+  private static List<Case> getUserDetailsFromCase(Set<Id> caseIds) {
+    return [
+      SELECT Id, OwnerId, Owner.Type, CaseOwnerManager__c
+      FROM Case
+      WHERE Id IN :caseIds
+    ];
+  }
+  /**
+   * @description populate related Case User Details on QA REcord
+   * @param records new values
+   */
+  public static void populateUserDetailsForNewQARecords(
+    List<Quality_Assessment__c> records
+  ) {
+    Set<Id> caseIds = new Set<Id>();
+    List<Quality_Assessment__c> recordsToUpdate = new List<Quality_Assessment__c>();
+    for (Quality_Assessment__c record : records) {
+      if (
+        !CMOS_QA_REC_TYPES.contains(record.recordTypeId) ||
+        record.Related_Case__c == null
+      ) {
+        continue;
+      }
+      caseIds.add(record.Related_Case__c);
+    }
+    if (Case.SObjectType.getDescribe().isAccessible()) {
+      Map<Id, Case> caseMap = new Map<Id, Case>(
+        getUserDetailsFromCase(caseIds)
+      );
+      assignUsersDetailsToQaFields(caseMap, records);
+    }
+  }
+  /**
+   * @description method to assign User Details for Case Manager, Team Manager and CQ Specialist on a Quality Assessment record
+   * @param caseMap Map of related case records
+   * @param qaRecords list of quality assessment records
+   */
+  @TestVisible
+  private static void assignUsersDetailsToQaFields(
+    Map<Id, Case> caseMap,
+    List<Quality_Assessment__c> qaRecords
+  ) {
+    for (Quality_Assessment__c record : qaRecords) {
+      if (!caseMap.containsKey(record.Related_Case__c)) {
+        continue;
+      }
+      if (
+        record.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
+        String.isBlank(record.C_Q_Specialist__c)
+      ) {
+        record.C_Q_Specialist__c = record.ownerId;
+      }
+      Case relatedCase = caseMap.get(record.Related_Case__c);
+      if (relatedCase.Owner.Type != 'User') {
+        continue;
+      }
+      if (String.isBlank(record.Case_Manager__c)) {
+        record.Case_Manager__c = relatedCase.OwnerId;
+      }
+      if (String.isBlank(record.TeamManager__c)) {
+        record.TeamManager__c = relatedCase.CaseOwnerManager__c;
+      }
+    }
   }
 
   /**

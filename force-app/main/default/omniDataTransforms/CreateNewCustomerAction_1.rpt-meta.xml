@@ -10,15 +10,14 @@
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
         <name>CreateNewCustomerAction</name>
-        <disabled>true</disabled>
+        <defaultValue>Update</defaultValue>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>CreateNewCustomerActionCustom8398</globalKey>
+        <globalKey>CreateNewCustomerActionCustom1275</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
+        <outputFieldName>Action__c</outputFieldName>
         <outputObjectName>Customer_Action__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -39,14 +38,14 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>CreateNewCustomerAction</name>
-        <defaultValue>Update</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateNewCustomerActionCustom1275</globalKey>
+        <globalKey>CreateNewCustomerActionCustom4685</globalKey>
+        <inputFieldName>customerId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Action__c</outputFieldName>
+        <outputFieldName>Customer__c</outputFieldName>
         <outputObjectName>Customer_Action__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -67,14 +66,15 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>CreateNewCustomerAction</name>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateNewCustomerActionCustom4685</globalKey>
-        <inputFieldName>customerId</inputFieldName>
+        <filterOperator>=</filterOperator>
+        <globalKey>CreateNewCustomerActionCustom8398</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Customer__c</outputFieldName>
+        <outputFieldName>Id</outputFieldName>
         <outputObjectName>Customer_Action__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -83,57 +83,12 @@
         <name>CreateNewCustomerAction</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateNewCustomerActionCustom8896</globalKey>
-        <inputFieldName>finAccountId</inputFieldName>
+        <globalKey>CreateNewCustomerActionCustom9750</globalKey>
+        <inputFieldName>oldNumberOfSign</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Financial_Account__c</outputFieldName>
-        <outputObjectName>Customer_Action__c</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateNewCustomerAction</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:&quot;SELECT/\/\/Id/\/\/FROM/\/\/RecordType/\/\/WHERE/\/\/sObjectType/\/\/=/\/\/&apos;Customer_Action__c&apos;/\/\/AND/\/\/DeveloperName/\/\/=/\/\/&apos;Pending_Financial_Account_Updates&apos;) ( QUERY</formulaConverted>
-        <formulaExpression>QUERY(&quot;SELECT Id FROM RecordType WHERE sObjectType = &apos;Customer_Action__c&apos; AND DeveloperName = &apos;Pending_Financial_Account_Updates&apos;)</formulaExpression>
-        <formulaResultPath>CustomerActionRecordTypeId</formulaResultPath>
-        <formulaSequence>1.0</formulaSequence>
-        <globalKey>CreateNewCustomerActionCustom1303</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateNewCustomerAction</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateNewCustomerActionCustom5992</globalKey>
-        <inputFieldName>CustomerActionRecordTypeId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>RecordTypeId</outputFieldName>
-        <outputObjectName>Customer_Action__c</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateNewCustomerAction</name>
-        <defaultValue>SF CWB</defaultValue>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateNewCustomerActionCustom9993</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Triggered_From__c</outputFieldName>
+        <outputFieldName>Old_Value__c</outputFieldName>
         <outputObjectName>Customer_Action__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -156,12 +111,43 @@
         <name>CreateNewCustomerAction</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateNewCustomerActionCustom9750</globalKey>
-        <inputFieldName>oldNumberOfSign</inputFieldName>
+        <globalKey>CreateNewCustomerActionCustom8896</globalKey>
+        <inputFieldName>finAccountId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Old_Value__c</outputFieldName>
+        <outputFieldName>Financial_Account__c</outputFieldName>
+        <outputObjectName>Customer_Action__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateNewCustomerAction</name>
+        <defaultValue>SF CWB</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateNewCustomerActionCustom9993</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Triggered_From__c</outputFieldName>
+        <outputObjectName>Customer_Action__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateNewCustomerAction</name>
+        <defaultValue>Pending_Financial_Account_Updates</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateNewCustomerActionCustom5992</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <lookupByFieldName>DeveloperName</lookupByFieldName>
+        <lookupObjectName>RecordType</lookupObjectName>
+        <lookupReturnedFieldName>Id</lookupReturnedFieldName>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RecordTypeId</outputFieldName>
         <outputObjectName>Customer_Action__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

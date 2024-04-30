@@ -3,10 +3,10 @@
     <fullName>RetailTPMISAO__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - OCV</complianceGroup>
-    <description>TPMI-SAO ID of current Retail accredited Broker.</description>
+    <description>Broker Code of current Retail accredited Broker.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Retail TPMI-SAO</label>
+    <label>Retail Broker Code</label>
     <length>19</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

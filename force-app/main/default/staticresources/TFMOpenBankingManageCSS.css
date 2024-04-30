@@ -1,0 +1,54 @@
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ManageOpenBankingStep"] .vlc-separator{
+    border: hidden;
+}
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ConfirmAction"] .vlc-separator{
+    border: hidden;
+}
+
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="DataINStep"] .vlc-separator{
+    border: hidden;
+}
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"] .vlocity-btn{
+    CURSOR: not-allowed;
+    opacity: 0.6;
+}
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"] .btnLabel{
+    font-size: 25px;
+    padding-bottom: 1px;
+}
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"] {
+   width: 4%;
+}
+
+
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisablePreviousDataIN"] .vlocity-btn{
+    CURSOR: not-allowed;
+    opacity: 0.6;
+}
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisablePreviousDataIN"] .btnLabel{
+    font-size: 25px;
+    padding-bottom: 1px;
+}
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisablePreviousDataIN"] {
+    width: 4%;
+ }
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="NextDataIN"] .btnLabel{
+    font-size: 25px;
+    padding-bottom: 1px;
+}
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="NextDataIN"]{
+    width: 4%;
+ }
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="PreviousDataIN"] .btnLabel{
+    font-size: 25px;
+    padding-bottom: 1px;
+}
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="PreviousDataIN"] {
+    width: 4%;
+ }

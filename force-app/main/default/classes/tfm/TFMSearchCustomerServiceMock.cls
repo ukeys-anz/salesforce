@@ -259,7 +259,7 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     response.body = AUTHENTICATION_ERROR_RESPONSE;
     response.statusCode = 500;
     response.successful = false;
-    response.error = new CalloutException('UNAUTHORIZED');
+    response.error = new CalloutException(TFMConstants.SERVERERROR);
     return response;
   }
 }

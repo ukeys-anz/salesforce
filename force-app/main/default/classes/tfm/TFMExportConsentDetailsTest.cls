@@ -2,8 +2,8 @@
 private class TFMExportConsentDetailsTest {
   @isTest
   static void testExportToCSV1() {
-    List<TFMExportConsentDetailsHelper.AccountInfo> accountInfoList = new List<TFMExportConsentDetailsHelper.AccountInfo>();
-    TFMExportConsentDetailsHelper.AccountInfo accountInfo = new TFMExportConsentDetailsHelper.AccountInfo(
+    List<TFMExportConsentModel.AccountInfo> accountInfoList = new List<TFMExportConsentModel.AccountInfo>();
+    TFMExportConsentModel.AccountInfo accountInfo = new TFMExportConsentModel.AccountInfo(
       '390988244',
       '390988244',
       'Closed',
@@ -34,6 +34,7 @@ private class TFMExportConsentDetailsTest {
 
     Map<String, Object> options = new Map<String, Object>();
 
+    
     Test.startTest();
 
     TFMExportConsentDetails.exportToCSV(input, output, options);
@@ -69,6 +70,7 @@ private class TFMExportConsentDetailsTest {
 
     Map<String, Object> options = new Map<String, Object>();
 
+    
     // Start the test
     Test.startTest();
 
@@ -88,8 +90,8 @@ private class TFMExportConsentDetailsTest {
 
   @isTest
   static void testExportToCSV3() {
-    List<TFMExportConsentDetailsHelper.AccountInfo> accountInfoList = new List<TFMExportConsentDetailsHelper.AccountInfo>();
-    TFMExportConsentDetailsHelper.AccountInfo accountInfo = new TFMExportConsentDetailsHelper.AccountInfo(
+    List<TFMExportConsentModel.AccountInfo> accountInfoList = new List<TFMExportConsentModel.AccountInfo>();
+    TFMExportConsentModel.AccountInfo accountInfo = new TFMExportConsentModel.AccountInfo(
       '390988244',
       '390988244',
       'Open',
@@ -120,6 +122,7 @@ private class TFMExportConsentDetailsTest {
 
     Map<String, Object> options = new Map<String, Object>();
 
+  
     Test.startTest();
 
     TFMExportConsentDetails.exportToCSV(input, output, options);

@@ -3,10 +3,10 @@
     <fullName>Assisted_Broker_TPMI_SAO__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
-    <description>TPMI-SAO of Assisted Broker</description>
+    <description>Broker Code of Assisted Broker</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Assisted Broker TPMI-SAO</label>
+    <label>Assisted Broker Broker Code</label>
     <length>19</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

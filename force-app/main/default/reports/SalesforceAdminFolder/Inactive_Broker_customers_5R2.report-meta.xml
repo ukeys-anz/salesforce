@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Inactive Broker customers</name>
     <columns>
         <field>CONTACT_ID</field>
     </columns>
@@ -27,7 +28,6 @@
         <language>en_US</language>
     </filter>
     <format>Tabular</format>
-    <name>Inactive Broker customers</name>
     <params>
         <name>co</name>
         <value>1</value>

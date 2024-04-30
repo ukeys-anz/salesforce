@@ -25,19 +25,20 @@ jobs:
     uses: ./.github/workflows/_validation.yml
 
   validation:
-    if: ${{ success() }}
+    if: ${{ always() }}
     runs-on: [self-hosted, salesforce-prod]
     needs: [validation-run]
     steps:
-      - name: Check Validation Status
-        run: echo "Validation Run Successfully"
+      - if: ${{ needs.validation-run.result == 'success' }}
+        run: echo "Validation Run Succeed"
 
-  quick-deploy:
-    if: ${{ github.event.pull_request.merged == true }}
-    uses: ./.github/workflows/_quick-deployment.yml
+      - if: ${{ needs.validation-run.result != 'success' }}
+        run: |
+          echo "Validation Run Failed"
+          exit 1
 
   validation-intpnv-sandbox:
-    if: ${{ (github.base_ref == 'master') && (github.event.action != 'closed') }}
+    if: ${{ (github.base_ref == 'master') && (github.event.pull_request.merged == true) }}
     uses: ./.github/workflows/_validation.yml
     with:
       sfdx_name: "h-salesforce-np-intpnv"

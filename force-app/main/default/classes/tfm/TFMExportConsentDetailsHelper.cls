@@ -8,27 +8,27 @@
 public with sharing class TFMExportConsentDetailsHelper {
   /**
    * @param obj accounts data as object
-   * @return `List<AccountInfo>`
+   * @return `List<TFMExportConsentModel.AccountInfo>`
    * @description forms Account data
    */
-  public static List<AccountInfo> convertStringToAccountListWrapper(
+  public static List<TFMExportConsentModel.AccountInfo> convertStringToAccountListWrapper(
     Object obj
   ) {
-    List<AccountInfo> accountsList = new List<AccountInfo>();
+    List<TFMExportConsentModel.AccountInfo> accountsList = new List<TFMExportConsentModel.AccountInfo>();
     String jsonString = JSON.serializePretty(obj);
     if (jsonString.startsWith(TFMConstants.SQUAREBRACEOPEN)) {
-      accountsList = (List<AccountInfo>) JSON.deserialize(
+      accountsList = (List<TFMExportConsentModel.AccountInfo>) JSON.deserialize(
         jsonString,
-        List<AccountInfo>.class
+        List<TFMExportConsentModel.AccountInfo>.class
       );
     } else {
       jsonString =
         TFMConstants.SQUAREBRACEOPEN +
         jsonString +
         TFMConstants.SQUAREBRACECLOSE;
-      accountsList = (List<AccountInfo>) JSON.deserialize(
+      accountsList = (List<TFMExportConsentModel.AccountInfo>) JSON.deserialize(
         jsonString,
-        List<AccountInfo>.class
+        List<TFMExportConsentModel.AccountInfo>.class
       );
     }
     return accountsList;
@@ -46,17 +46,21 @@ public with sharing class TFMExportConsentDetailsHelper {
     Boolean allAccountsOpen = false;
     Boolean hasJointAccounts = false;
 
-    List<AccountInfo> accountsList = convertStringToAccountListWrapper(obj);
-
-    for (AccountInfo acc : accountsList) {
+    List<TFMExportConsentModel.AccountInfo> accountsList = convertStringToAccountListWrapper(
+      obj
+    );
+    
+    for (TFMExportConsentModel.AccountInfo acc : accountsList) {
+      // form CSV row - Accounts (Account Name - Account Number - Sharing Status)
       accData +=
-        (acc.accountName != null ? acc.accountName : TFMConstants.EMPTY) +
-        TFMConstants.HYPENWITHSPACE +
-        (acc.accountNumber != null ? acc.accountNumber : TFMConstants.EMPTY) +
-        TFMConstants.HYPENWITHSPACE +
-        (acc.sharingStatus != null ? acc.sharingStatus : TFMConstants.EMPTY) +
-        TFMConstants.PIPESYMBOLWITHSPACE;
-
+        // if Joint Account
+        (acc.accountType == TFMConstants.JOINTACCOUNTTYPE ? TFMConstants.JOINTACCOUNT : TFMConstants.EMPTY) +
+        getSanitisedValue(acc.accountName) + 
+        // if Closed Account
+        (acc.accountStatus == TFMConstants.CLOSEDSTATUS ? TFMConstants.CLOSEDACCOUNT : TFMConstants.EMPTY) + ' - ' +
+        getSanitisedValue(acc.accountNumber) + ' - ' +
+        getSanitisedValue(acc.sharingStatus) + ' | ';
+      
       if (acc.accountStatus == TFMConstants.CLOSEDSTATUS) {
         allAccountsClosed = true;
       } else {
@@ -388,55 +392,64 @@ public with sharing class TFMExportConsentDetailsHelper {
     String disclaimerData = TFMConstants.EMPTY;
 
     for (String scopeID : newDataScopes) {
+      TFM_Data_Scopes__mdt dataScope = mapScopeIDToTFMDataScopes.get(scopeID);
+      if (dataScope == null) {
+        continue;
+      }
+
       clusterTitles +=
-        mapScopeIDToTFMDataScopes.get(scopeID).Data_Cluster_Title__c +
-        TFMConstants.PIPESYMBOLWITHSPACE;
+        dataScope.Data_Cluster_Title__c + TFMConstants.PIPESYMBOLWITHSPACE;
       clusterDetails +=
-        mapScopeIDToTFMDataScopes.get(scopeID).Data_Cluster_Details__c +
-        TFMConstants.PIPESYMBOLWITHSPACE;
+        dataScope.Data_Cluster_Details__c + TFMConstants.PIPESYMBOLWITHSPACE;
 
       if (allAccountsClosed && !allAccountsOpen) {
-        disclaimerData += mapScopeIDToTFMDataScopes.get(scopeID)
-            .Closed_Accounts_Disclaimer__c != null
-          ? mapScopeIDToTFMDataScopes.get(scopeID).Closed_Accounts_Disclaimer__c
-          : TFMConstants.EMPTY;
+        disclaimerData += getSanitisedValue(
+          dataScope.Closed_Accounts_Disclaimer__c
+        );
       } else if (allAccountsOpen && !allAccountsClosed) {
-        disclaimerData += mapScopeIDToTFMDataScopes.get(scopeID)
-            .Open_Accounts_Disclaimer__c != null
-          ? mapScopeIDToTFMDataScopes.get(scopeID).Open_Accounts_Disclaimer__c
-          : TFMConstants.EMPTY;
+        disclaimerData += getSanitisedValue(
+          dataScope.Open_Accounts_Disclaimer__c
+        );
       } else {
-        disclaimerData += mapScopeIDToTFMDataScopes.get(scopeID)
-            .Open_and_Closed_Accounts_Disclaimer__c != null
-          ? mapScopeIDToTFMDataScopes.get(scopeID)
-              .Open_and_Closed_Accounts_Disclaimer__c
-          : TFMConstants.EMPTY;
+        disclaimerData += getSanitisedValue(
+          dataScope.Open_and_Closed_Accounts_Disclaimer__c
+        );
       }
     }
 
-    //form rows of csv
-    csvContent +=
-      TFMConstants.DATAREQCLUSTERTITLE +
-      TFMConstants.DOUBLEQUOTES +
-      clusterTitles.substringBeforeLast(TFMConstants.PIPESYMBOL) +
-      TFMConstants.DOUBLEQUOTES +
-      TFMConstants.NEWLINE;
-
-    csvContent +=
-      TFMConstants.DATAREQDETAILS +
-      TFMConstants.DOUBLEQUOTES +
-      clusterDetails.substringBeforeLast(TFMConstants.PIPESYMBOL) +
-      TFMConstants.DOUBLEQUOTES +
-      TFMConstants.NEWLINE;
-
-    csvContent +=
-      TFMConstants.DISCLAIMERS +
-      TFMConstants.DOUBLEQUOTES +
-      disclaimerData +
-      TFMConstants.DOUBLEQUOTES +
-      TFMConstants.NEWLINE;
-
+    csvContent += addNewRowLineToCsv(
+      TFMConstants.DATAREQCLUSTERTITLE,
+      clusterTitles.substringBeforeLast(TFMConstants.PIPESYMBOL)
+    );
+    csvContent += addNewRowLineToCsv(
+      TFMConstants.DATAREQDETAILS,
+      clusterDetails.substringBeforeLast(TFMConstants.PIPESYMBOL)
+    );
+    csvContent += addNewRowLineToCsv(TFMConstants.DISCLAIMERS, disclaimerData);
     return csvContent;
+  }
+
+  /**
+   * @param value data value
+   * @return `String`
+   * @description generates header
+   */
+  private static String getSanitisedValue(String value) {
+    return String.isNotBlank(value) ? value : TFMConstants.EMPTY;
+  }
+
+  /**
+   * @param prefix first column of csv
+   * @param data second column of csv
+   * @return `String`
+   * @description generates header
+   */
+  private static String addNewRowLineToCsv(String prefix, String data) {
+    return (prefix +
+    TFMConstants.DOUBLEQUOTES +
+    data +
+    TFMConstants.DOUBLEQUOTES +
+    TFMConstants.NEWLINE);
   }
 
   /**
@@ -445,14 +458,7 @@ public with sharing class TFMExportConsentDetailsHelper {
    * @description generates header
    */
   public static String getFileTitle(String consentIdValue) {
-    Date currentDate = System.today();
-    String fileDate =
-      currentDate.day() +
-      TFMConstants.HYPEN +
-      currentDate.month() +
-      TFMConstants.HYPEN +
-      currentDate.year();
-
+    String fileDate = System.now().format('dd-MM-yyyy');
     String fileTitle =
       TFMConstants.FILENAME +
       consentIdValue +
@@ -461,39 +467,5 @@ public with sharing class TFMExportConsentDetailsHelper {
       TFMConstants.CSVFILEFORMAT;
 
     return fileTitle;
-  }
-  /**
-   * @description This is wrapper class for AccountInfo
-   * @name AccountInfo
-   * @author Shivraj Kadam
-   */
-  public class AccountInfo {
-    public String accountNumber;
-    public String accountName;
-    public String accountType;
-    public String accountStatus;
-    public String sharingStatus;
-
-    /**
-     * @param name name of the account
-     * @param accNumber account number
-     * @param status account status
-     * @param type type og account
-     * @param sharing sharing status
-     * @description AccountInfo constructor
-     */
-    public AccountInfo(
-      String name,
-      String accNumber,
-      String status,
-      String type,
-      String sharing
-    ) {
-      accountName = name;
-      accountNumber = accNumber;
-      accountStatus = status;
-      accountType = type;
-      sharingStatus = sharing;
-    }
   }
 }

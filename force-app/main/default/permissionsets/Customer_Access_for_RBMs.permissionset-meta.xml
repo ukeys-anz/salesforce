@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
-        <application>BDM_Workbench</application>
+        <application>Broker_Workbench</application>
         <visible>true</visible>
     </applicationVisibilities>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Customer Access for BDMs</label>
+    <label>Customer Access for RBMs</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
