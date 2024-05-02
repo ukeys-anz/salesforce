@@ -100,7 +100,6 @@ export default class FinancialAccountParent extends LightningElement {
   filterGoal = false;
   accountOwnershipType;
   wiredMethodCalled = false;
-  primaryAccountId;
   accountOwners = [];
 
   @wire(CurrentPageReference)
@@ -191,11 +190,6 @@ export default class FinancialAccountParent extends LightningElement {
   // In case of Multy party, OCV Id extracted from Page Reference
   // It fetches OCV Id from DB, if primaryTab is Account and FA opened in subtab
   async getOcvId(data) {
-    let tabInfo = await getTabInfo(this.tabId);
-    let primaryTabInfo = tabInfo.isSubtab
-      ? await getTabInfo(tabInfo.parentTabId)
-      : undefined;
-    this.primaryAccountId = primaryTabInfo.recordId;
     let ocvId =
       this.accountOwnershipType === "Single"
         ? data.fields.OCV_ID__c.value
@@ -206,6 +200,11 @@ export default class FinancialAccountParent extends LightningElement {
     if (!this.tabId) {
       return null;
     }
+
+    let tabInfo = await getTabInfo(this.tabId);
+    let primaryTabInfo = tabInfo.isSubtab
+      ? await getTabInfo(tabInfo.parentTabId)
+      : undefined;
 
     ocvId = data.fields.OCV_ID__c.value;
     if (!primaryTabInfo?.recordId?.startsWith("001")) {
