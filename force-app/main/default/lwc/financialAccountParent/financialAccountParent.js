@@ -179,7 +179,8 @@ export default class FinancialAccountParent extends LightningElement {
         eachFinancialAccountRole.FinServ__RelatedAccount__c;
       accountOwnerWrapper["Name"] =
         eachFinancialAccountRole.FinServ__RelatedAccount__r.Name;
-      accountOwnerWrapper["c"] = index < financialAccountRoles.length - 1;
+      accountOwnerWrapper["ShowSeparator"] =
+        index < financialAccountRoles.length - 1;
       accountOwnerWrapperList.push(accountOwnerWrapper);
     });
     return accountOwnerWrapperList;
