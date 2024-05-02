@@ -17,6 +17,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   @api error;
   @api objectApiName;
   @api ownershipType;
+  timestamp;
   financialAccounts;
   showBalanceModal = false;
   showRedrawAvailableModal = false;
@@ -43,6 +44,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     if (hasHomeLoanPermission) {
       this.init();
     }
+    this.timestamp = this.handleLastModifiedTimestamp();
   }
 
   async init() {
@@ -85,7 +87,6 @@ export default class HomeLoanAccountCard extends NavigationMixin(
             });
           }
 
-          finAccount.accountActive = this.handleAccountActive(finAccount.state);
           finAccount.lastModifiedTimestamp = this.handleLastModifiedTimestamp(
             finAccount
           );
@@ -127,12 +128,10 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     return !(hasHomeLoanPermission && hasFinancialAccountPermission);
   }
 
-  handleAccountActive(state) {
-    return state === "ACCOUNT_STATE_CLOSED" ? false : true;
-  }
-
   handleLastModifiedTimestamp(account) {
-    let updated = new Date(account.loan_details.valid_at);
+    let updated = account
+      ? new Date(account.loan_details.valid_at)
+      : new Date();
     let lastUpdated =
       updated.getDate() +
       " " +

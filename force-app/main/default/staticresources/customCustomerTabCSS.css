@@ -1,0 +1,21 @@
+.customCustomerTab lst-dynamic-related-list .slds-size_1-of-3 {
+  width: 100%;
+}
+
+.customCustomerTab
+  records-lwc-detail-panel
+  records-base-record-form
+  .slds-card__body {
+  margin-top: 0 !important;
+}
+
+.customCustomerTab
+  records-lwc-detail-panel
+  records-base-record-form
+  .detail-panel-root {
+  padding-top: 0.5rem;
+}
+
+.customCustomerTab .forceChatterRecordFeedContainerDesktop {
+  padding-top: 0.1rem;
+}

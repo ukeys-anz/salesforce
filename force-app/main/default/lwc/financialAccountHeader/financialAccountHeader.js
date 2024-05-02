@@ -23,6 +23,7 @@ export default class FinancialAccount extends NavigationMixin(
   showInfoModal = false;
   productTitle;
   titleIcon;
+  iconColor;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -61,10 +62,12 @@ export default class FinancialAccount extends NavigationMixin(
         this.balanceTitle = "Everyday Funds";
         this.productTitle = "ANZ Plus";
         this.titleIcon = "custom:custom51";
+        this.iconColor = "slds-m-right_small";
       } else {
         this.balanceTitle = "Total Saved";
         this.productTitle = "ANZ Save";
         this.titleIcon = "custom:custom17";
+        this.iconColor = "slds-m-right_small cicon";
       }
     }
   }

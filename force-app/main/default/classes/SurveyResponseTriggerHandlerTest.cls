@@ -181,6 +181,9 @@ public with sharing class SurveyResponseTriggerHandlerTest {
         WHERE OCV_ID__c = :OCV_ID_1 OR OCV_ID__c = :OCV_ID_2
       ]
     );
+    for (Group queue : [SELECT Id, Name FROM Group WHERE Type = 'Queue']) {
+      queueMap.put(queue.Name, queue.Id);
+    }
 
     Test.startTest();
     List<Case> returnedCases = SurveyResponseActionsHelper.buildCaseList(
