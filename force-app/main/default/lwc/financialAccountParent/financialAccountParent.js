@@ -135,7 +135,6 @@ export default class FinancialAccountParent extends LightningElement {
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
       this.accountOwners = await this.fetchAccountOwners();
-      console.log("Stringify new -> " + JSON.stringify(this.accountOwners));
 
       if (
         this.ocvId &&
