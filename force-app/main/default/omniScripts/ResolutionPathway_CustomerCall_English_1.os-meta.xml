@@ -296,38 +296,6 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ResetEndPhoneCall</name>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes – click ‘Next’ to continue call &quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Provide information to the customer in the call:ResoltionPathway_Customer_In_Call&quot;
-      } ]
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;elementValueMap&quot; : {
-    &quot;CallEndPhoneCall&quot; : false
-  },
-  &quot;label&quot; : &quot;ResetEndPhoneCall&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
         <name>SetEndPhoneCall</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -340,20 +308,7 @@
     &quot;CallEndPhoneCall&quot; : true
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;Provide information to the customer in the call:ResoltionPathway_Customer_In_Call&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;No – click ‘Next’ to continue call &quot;
-      }, {
-        &quot;field&quot; : &quot;Provide information to the customer in the call:ResoltionPathway_Customer_In_Call&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Customer doesn’t want to continue call&quot;
-      } ]
-    }
-  },
+  &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;wpm&quot; : false,
   &quot;ssm&quot; : false,
@@ -369,5 +324,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_CustomerCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>94e096b0-9aef-eb8c-82b8-3f3b5e75fe52</webComponentKey>
+    <webComponentKey>1c43a8ac-6a60-edb5-9cb1-16ac4be76ca1</webComponentKey>
 </OmniScript>
