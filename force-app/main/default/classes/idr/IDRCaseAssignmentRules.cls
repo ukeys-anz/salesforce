@@ -10,7 +10,8 @@
 public with sharing class IDRCaseAssignmentRules {
   @TestVisible
   private static final Map<String, Id> QUEUE_MAP = getWorkbaskets();
-  private static Map<Id, Product2> productMap = new Map<Id, Product2>();
+  private static Map<Id, Product2> productsMap = new Map<Id, Product2>();
+
   /**
    * @description method to call the Case assignment rules
    * @param cases Records in the current context
@@ -39,7 +40,7 @@ public with sharing class IDRCaseAssignmentRules {
    */
   public static void assignProductFamily(Case[] cases, Map<Id, Case> oldMap) {
     Map<String, Product_Family__c> categoryMap = getProductCategory(cases);
-    productMap = getProductNames(cases);
+    productsMap = getProductNames(cases);
     for (Case c : cases) {
       Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
       if (
@@ -49,9 +50,9 @@ public with sharing class IDRCaseAssignmentRules {
         oldCase.Product__c != c.Product__c ||
         IDRCaseActions.isANZPlusComplaintConvertedToIDR(oldCase, c))
       ) {
-        c.IDR_Product_Family__c = (productMap.get(c.Product__c))
+        c.IDR_Product_Family__c = (productsMap.get(c.Product__c))
           ?.IDR_Product_Family__c;
-        c.IDR_Product_Category__c = (productMap.get(c.Product__c))
+        c.IDR_Product_Category__c = (productsMap.get(c.Product__c))
           ?.IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c;
       } else if (
         c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
@@ -122,7 +123,7 @@ public with sharing class IDRCaseAssignmentRules {
   ) {
     String productWorkbasketName = oProductFamily?.IDR_Workbasket__c;
     String strProductFamily = oProductFamily?.Name;
-    Product2 oProduct = productMap?.get(rec.Product__c);
+    Product2 oProduct = productsMap?.get(rec.Product__c);
     String productCode = oProduct?.ANZ_Product_Code__c;
     //rules to run only on escalation
     if (
