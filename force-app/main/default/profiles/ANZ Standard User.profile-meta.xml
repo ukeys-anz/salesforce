@@ -2,7 +2,7 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ANZ Standard User</fullName>
     <applicationVisibilities>
-        <application>BDM_Workbench</application>
+        <application>Broker_Workbench</application>
         <default>false</default>
         <visible>false</visible>
     </applicationVisibilities>
@@ -2434,7 +2434,7 @@
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <default>false</default>
+        <default>true</default>
         <recordType>Task.Callback_Request</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

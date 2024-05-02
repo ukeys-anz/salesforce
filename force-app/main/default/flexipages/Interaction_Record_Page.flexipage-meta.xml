@@ -217,17 +217,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Support_Topics__c</fieldItem>
                 <identifier>RecordSupport_Topics_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Authentication_Method__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Authenticated</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

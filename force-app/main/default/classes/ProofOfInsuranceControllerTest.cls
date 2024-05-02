@@ -26,6 +26,21 @@ public with sharing class ProofOfInsuranceControllerTest {
       newRLA.add(rla);
     }
     insert newRLA;
+
+    //Setup the loan app financials
+    List<LoanApplicationFinancial> loanAppFinancialList = new List<LoanApplicationFinancial>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      LoanApplicationFinancial loanAppFinancial = TestDataFactory.createLoanApplicationFinancial(
+        newRLA[i].Id
+      );
+      loanAppFinancialList.add(loanAppFinancial);
+    }
+
+    insert loanAppFinancialList;
+
+    //Create action plans before creating settlement
+    TestDataFactory.createSettlementActionPlans();
+
     Settlement__c[] settlementList = new List<Settlement__c>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       Settlement__c settlement = TestDataFactory.createSettlement(newRLA[i].Id);

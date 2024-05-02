@@ -82,6 +82,11 @@
         <label>Source - Gearbox</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_LEX</fullName>
+        <default>false</default>
+        <label>Source - LEX</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_myTrailhead</fullName>
         <default>false</default>
         <label>Source - myTrailhead</label>

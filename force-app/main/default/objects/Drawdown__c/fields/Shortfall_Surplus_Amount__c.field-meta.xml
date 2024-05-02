@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Shortfall_Surplus_Amount__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Settlement Domain</complianceGroup>
+    <description>Shortfall/Surplus Amount of Drawdown from Settlements Domain</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is the customer total loan minus the payout amount minus any associated fees. 
+
+If final figure is positive it means there is a surplus for settlement. These funds are then credited to the customers nominated account at drawdown. 
+
+If the final figure is negative it means there is a shortfall for settlement. These funds are then debited from the customers nominated account to complete settlement.</inlineHelpText>
+    <label>Shortfall/Surplus Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

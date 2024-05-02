@@ -480,7 +480,7 @@
         <editable>false</editable>
         <field>Case.IDR_Final_Letter_Outcome__c</field>
         <readable>true</readable>
-    </fieldPermissions>   
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Inbox_Email_Address__c</field>
