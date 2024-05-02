@@ -442,13 +442,13 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;BeginPhoneCall:ResolutionPathway_BeginPhoneCall&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Continue call.&quot;
       }, {
-        &quot;data&quot; : &quot;Continue call (no additional issues OR additional issue is simple/resolved)&quot;,
+        &quot;data&quot; : &quot;Continue call (no additional issues OR additional issue is simple/resolved) &quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;Consider additional issues:ResolutionPathway_Additional_Issues&quot;
       } ]
@@ -597,5 +597,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_BeginPhoneCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>27a89e7b-0c68-0869-adaf-25bafd269949</webComponentKey>
+    <webComponentKey>d7bb4b9c-695d-8017-bec1-0ffdf41ae117</webComponentKey>
 </OmniScript>
