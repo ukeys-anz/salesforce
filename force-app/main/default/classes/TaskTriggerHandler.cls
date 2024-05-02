@@ -18,6 +18,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     IDRTaskActions.updateNotificationSubject(records);
     IDRTaskActions.beforeInsertActions(records);
     GetHelpTaskActions.beforeInsertActions(records);
+    SettlementTaskActions.handleSettlementTasks(records);
     CCRMTaskActions.validateLeadAbnACN(records);
     //Added for CC-4053 Redaction
     TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(

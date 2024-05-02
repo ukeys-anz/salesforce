@@ -5,5 +5,6 @@
     <fields>AccountId</fields>
     <fields>Status</fields>
     <fields>LoanPurpose</fields>
+    <fields>Assisted_Broker__c</fields>
     <label>Compact Layout</label>
 </CompactLayout>

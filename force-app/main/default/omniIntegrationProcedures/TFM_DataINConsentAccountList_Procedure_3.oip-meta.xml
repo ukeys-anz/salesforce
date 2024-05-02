@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customJavaScript>{
+    &quot;IDValue&quot;: &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;consentIdValue&quot;: &quot;consents/c1498692-9a79-4a8e-ac84-6dd1f9876f84&quot;,
+    &quot;consentedResources&quot;: [
+        &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;,
+        &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot;,
+        &quot;CONSENTED_RESOURCE_CUSTOMER_BASIC&quot;,
+        &quot;CONSENTED_RESOURCE_CUSTOMER_DETAILS&quot;,
+        &quot;CONSENTED_RESOURCE_ACCOUNT_BASIC&quot;,
+        &quot;CONSENTED_RESOURCE_REGULAR_PAYMENTS&quot;,
+        &quot;CONSENTED_RESOURCE_DIRECT_DEBITS&quot;,
+        &quot;CONSENTED_RESOURCE_SCHEDULED_PAYMENTS&quot;
+    ],
+    &quot;status&quot;: &quot;ACTIVE&quot;,
+    &quot;consentPurposes&quot;: &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentAccDetails&quot;: [
+        {
+            &quot;etag&quot;: &quot;W/\&quot;-2660983121774691939\&quot;&quot;,
+            &quot;lastUpdateTime&quot;: &quot;2024-03-22T06:42:22.943411Z&quot;,
+            &quot;createTime&quot;: &quot;2024-03-22T06:42:22.943411Z&quot;,
+            &quot;accountOwnership&quot;: &quot;ACCOUNT_OWNERSHIP_UNKNOWN&quot;,
+            &quot;isOwned&quot;: true,
+            &quot;productCategory&quot;: &quot;PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS&quot;,
+            &quot;productName&quot;: &quot;Transact and Save&quot;,
+            &quot;balances&quot;: {
+                &quot;lastUpdateTime&quot;: &quot;2024-03-22T06:42:22.817921550Z&quot;,
+                &quot;amortisedLimit&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;creditLimit&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;availableBalance&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;currentBalance&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                }
+            },
+            &quot;accountDetails&quot;: {
+                &quot;depositRate&quot;: {},
+                &quot;lendingRate&quot;: {}
+            },
+            &quot;openState&quot;: &quot;OPEN_STATE_OPEN&quot;,
+            &quot;maskedAccountNumber&quot;: &quot;xxx xxx 563&quot;,
+            &quot;accountCreateDate&quot;: {
+                &quot;day&quot;: 7,
+                &quot;month&quot;: 2,
+                &quot;year&quot;: 2023
+            },
+            &quot;displayName&quot;: &quot;Transaction Account&quot;,
+            &quot;accountId&quot;: &quot;e150511f-7f5f-43d7-b3e2-39b6f961e974&quot;,
+            &quot;consentId&quot;: &quot;5b036351-8933-4685-bdbe-e9f4390642f3&quot;,
+            &quot;name&quot;: &quot;consents/5b036351-8933-4685-bdbe-e9f4390642f3/accounts/e150511f-7f5f-43d7-b3e2-39b6f961e974&quot;
+        },
+        {
+            &quot;etag&quot;: &quot;W/\&quot;6363077141687397533\&quot;&quot;,
+            &quot;lastUpdateTime&quot;: &quot;2024-03-22T06:42:22.943411Z&quot;,
+            &quot;createTime&quot;: &quot;2024-03-22T06:42:22.943411Z&quot;,
+            &quot;accountOwnership&quot;: &quot;ACCOUNT_OWNERSHIP_UNKNOWN&quot;,
+            &quot;isOwned&quot;: true,
+            &quot;productCategory&quot;: &quot;PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS&quot;,
+            &quot;productName&quot;: &quot;Transact and Save&quot;,
+            &quot;balances&quot;: {
+                &quot;lastUpdateTime&quot;: &quot;2024-03-22T06:42:22.817921550Z&quot;,
+                &quot;amortisedLimit&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;creditLimit&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;availableBalance&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;currentBalance&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                }
+            },
+            &quot;accountDetails&quot;: {
+                &quot;depositRate&quot;: {},
+                &quot;lendingRate&quot;: {}
+            },
+            &quot;openState&quot;: &quot;OPEN_STATE_OPEN&quot;,
+            &quot;maskedAccountNumber&quot;: &quot;xxx xxx 472&quot;,
+            &quot;accountCreateDate&quot;: {
+                &quot;day&quot;: 4,
+                &quot;month&quot;: 8,
+                &quot;year&quot;: 2022
+            },
+            &quot;displayName&quot;: &quot;My Savings Account&quot;,
+            &quot;accountId&quot;: &quot;975526f2-4d2a-45bb-9a58-82b2ec02a5d4&quot;,
+            &quot;consentId&quot;: &quot;5b036351-8933-4685-bdbe-e9f4390642f3&quot;,
+            &quot;name&quot;: &quot;consents/5b036351-8933-4685-bdbe-e9f4390642f3/accounts/975526f2-4d2a-45bb-9a58-82b2ec02a5d4&quot;
+        },
+        {
+            &quot;etag&quot;: &quot;W/\&quot;-2446394253099723842\&quot;&quot;,
+            &quot;lastUpdateTime&quot;: &quot;2024-03-22T06:42:22.943411Z&quot;,
+            &quot;createTime&quot;: &quot;2024-03-22T06:42:22.943411Z&quot;,
+            &quot;accountOwnership&quot;: &quot;ACCOUNT_OWNERSHIP_UNKNOWN&quot;,
+            &quot;isOwned&quot;: true,
+            &quot;productCategory&quot;: &quot;PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS&quot;,
+            &quot;productName&quot;: &quot;Transact and Save&quot;,
+            &quot;balances&quot;: {
+                &quot;lastUpdateTime&quot;: &quot;2024-03-22T06:42:22.817921550Z&quot;,
+                &quot;amortisedLimit&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;creditLimit&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;availableBalance&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                },
+                &quot;currentBalance&quot;: {
+                    &quot;currencyCode&quot;: &quot;AUD&quot;
+                }
+            },
+            &quot;accountDetails&quot;: {
+                &quot;depositRate&quot;: {},
+                &quot;lendingRate&quot;: {}
+            },
+            &quot;openState&quot;: &quot;OPEN_STATE_OPEN&quot;,
+            &quot;maskedAccountNumber&quot;: &quot;xxx xxx 887&quot;,
+            &quot;accountCreateDate&quot;: {
+                &quot;day&quot;: 1,
+                &quot;month&quot;: 11,
+                &quot;year&quot;: 2022
+            },
+            &quot;displayName&quot;: &quot;Progress Saver Plus&quot;,
+            &quot;accountId&quot;: &quot;79881087-6d81-4a60-9a32-35284fad5f9c&quot;,
+            &quot;consentId&quot;: &quot;5b036351-8933-4685-bdbe-e9f4390642f3&quot;,
+            &quot;name&quot;: &quot;consents/5b036351-8933-4685-bdbe-e9f4390642f3/accounts/79881087-6d81-4a60-9a32-35284fad5f9c&quot;
+        }
+    ]
+}</customJavaScript>
+    <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
+    <isActive>true</isActive>
+    <isIntegrationProcedure>true</isIntegrationProcedure>
+    <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
+    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+    <isTestProcedure>false</isTestProcedure>
+    <isWebCompEnabled>false</isWebCompEnabled>
+    <language>Procedure</language>
+    <name>TFMDataINConsentAccountList</name>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>getDataINConsentAccountList</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;IDValue&quot; : &quot;%IDValue%&quot;,
+    &quot;consentIdValue&quot; : &quot;%consentIdValue%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;TFMDataINRemoteUtility&quot;,
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteMethod&quot; : &quot;getDataINAccountListAPI&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;RemoteAction2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Remote Action</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ConditionalBlock</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;IF(%status% == \&quot;ACTIVE\&quot; || %status% == \&quot;PAUSED\&quot;,TRUE,FALSE)&quot;,
+  &quot;isIfElseBlock&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ConditionalBlock1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>1.0</sequenceNumber>
+        <type>Conditional Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>getDataScopeMapping</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;dataScopesValue&quot; : &quot;%consentedResources%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;TFMDataINRemoteUtility&quot;,
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteMethod&quot; : &quot;transformDataScopes&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;RemoteAction2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>3.0</sequenceNumber>
+        <type>Remote Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ResponseAction</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : { },
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;%transformConsentList%&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>5.0</sequenceNumber>
+        <type>Response Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ResponseForException</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%getDataINConsentAccountList:showToast% == FALSE&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;showToast&quot; : &quot;%getDataINConsentAccountList:showToast%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>Response Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>transformConsentList</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;response&quot; : {
+      &quot;recordId&quot; : &quot;%recordId%&quot;,
+      &quot;showToast&quot; : &quot;%getDataINConsentAccountList:showToast%&quot;,
+      &quot;revokeTime&quot; : &quot;%revokeTime%&quot;,
+      &quot;arrangementId&quot; : &quot;%arrangementId%&quot;,
+      &quot;consentAccDetails&quot; : &quot;%getDataINConsentAccountList:dataINAccountList:accounts%&quot;,
+      &quot;consentId&quot; : &quot;%consentId%&quot;,
+      &quot;brandName&quot; : &quot;%dataHolder:brand%&quot;,
+      &quot;expires&quot; : &quot;%expires%&quot;,
+      &quot;from&quot; : &quot;%from%&quot;,
+      &quot;IDValue&quot; : &quot;%IDValue%&quot;,
+      &quot;name&quot; : &quot;%name%&quot;,
+      &quot;personaId&quot; : &quot;%personaId%&quot;,
+      &quot;personId&quot; : &quot;%personId%&quot;,
+      &quot;status&quot; : &quot;%status%&quot;,
+      &quot;consentedResourceAccountBasic&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCEACCOUNTBASIC%&quot;,
+      &quot;consentedResourceAccountDetails&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCEACCOUNTDETAILS%&quot;,
+      &quot;consentedResourceCustomerBasic&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCECUSTOMERBASIC%&quot;,
+      &quot;consentedResourceCustomerDetails&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCECUSTOMERDETAILS%&quot;,
+      &quot;consentedResourceDirectDebits&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCEDIRECTDEBITS%&quot;,
+      &quot;consentedResourceResourcePayees&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCEPAYEES%&quot;,
+      &quot;consentedResourceRegularPayments&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCEREGULARPAYMENTS%&quot;,
+      &quot;consentedResourceScheduledPayments&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCESCHEDULEDPAYMENTS%&quot;,
+      &quot;consentedResourceTranscations&quot; : &quot;%getDataScopeMapping:dataScopeMap:CONSENTEDRESOURCETRANSACTIONS%&quot;,
+      &quot;description&quot; : &quot;%Description%&quot;,
+      &quot;purposeCollection&quot; : &quot;%PurposeCollection%&quot;,
+      &quot;sharingPurpose&quot; : &quot;%SharingPurpose%&quot;,
+      &quot;archivedDescription&quot; : &quot;%ArchivedDescription%&quot;
+    }
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>4.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessKey>TFM_DataINConsentAccountList</omniProcessKey>
+    <omniProcessType>Integration Procedure</omniProcessType>
+    <propertySetConfig>{
+  &quot;linkToExternalObject&quot; : &quot;&quot;,
+  &quot;trackingCustomData&quot; : { },
+  &quot;includeAllActionsInResponse&quot; : false,
+  &quot;columnsPropertyMap&quot; : [ ],
+  &quot;relationshipFieldsMap&quot; : [ ],
+  &quot;labelSingular&quot; : &quot;&quot;,
+  &quot;labelPlural&quot; : &quot;&quot;,
+  &quot;description&quot; : &quot;&quot;,
+  &quot;nameColumn&quot; : &quot;&quot;,
+  &quot;rollbackOnError&quot; : false,
+  &quot;chainableQueriesLimit&quot; : 50,
+  &quot;chainableDMLStatementsLimit&quot; : null,
+  &quot;chainableCpuLimit&quot; : 2000,
+  &quot;chainableHeapSizeLimit&quot; : null,
+  &quot;chainableDMLRowsLimit&quot; : null,
+  &quot;chainableQueryRowsLimit&quot; : null,
+  &quot;chainableSoslQueriesLimit&quot; : null,
+  &quot;chainableActualTimeLimit&quot; : null,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;queueableChainableQueriesLimit&quot; : 120,
+  &quot;queueableChainableCpuLimit&quot; : 40000,
+  &quot;queueableChainableHeapSizeLimit&quot; : 6,
+  &quot;ttlMinutes&quot; : 5,
+  &quot;mockResponseMap&quot; : { }
+}</propertySetConfig>
+    <subType>DataINConsentAccountList</subType>
+    <type>TFM</type>
+    <uniqueName>TFM_DataINConsentAccountList_Procedure_3</uniqueName>
+    <versionNumber>3.0</versionNumber>
+    <webComponentKey>603950a0-474d-e92a-c8be-9bee9a5fd25a</webComponentKey>
+</OmniIntegrationProcedure>

@@ -3,7 +3,7 @@
     <fullName>Accreditation_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_OCV</complianceGroup>
-    <description>Accreditation of the Broker associated to this TPMI-SAO.</description>
+    <description>Accreditation of the Broker associated to this Broker Code.</description>
     <externalId>false</externalId>
     <label>Broker Accreditation Type</label>
     <required>false</required>

@@ -2,7 +2,7 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ANZx Standard User</fullName>
     <applicationVisibilities>
-        <application>BDM_Workbench</application>
+        <application>Broker_Workbench</application>
         <default>false</default>
         <visible>false</visible>
     </applicationVisibilities>

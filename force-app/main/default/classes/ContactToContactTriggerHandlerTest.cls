@@ -7,7 +7,7 @@ public class ContactToContactTriggerHandlerTest {
       'Integration User'
     );
     UserRole bdmRole = CommonUtil.getUserRoleByDevName(
-      'Business_Development_Manager'
+      'Residential_Broker_Manager'
     );
     List<User> users = new List<User>();
     User user = TestUtil.createTestUser(

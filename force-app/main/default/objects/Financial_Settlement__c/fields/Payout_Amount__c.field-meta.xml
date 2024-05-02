@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payout_Amount__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Settlement Domain</complianceGroup>
+    <description>Sum of destination amount for few categories in workspace</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This is provided by the OFI. This is the funds required to complete settlement. This normally consists of the customers loan and the fees associated with discharging that loan.</inlineHelpText>
+    <label>Payout Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

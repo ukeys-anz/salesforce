@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>TFMDRSortingUtility</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:responseList LIST var:key &apos;[:DSC]&apos; SORTBY</formulaConverted>
+        <formulaExpression>SORTBY(LIST(responseList),key, &apos;[:DSC]&apos;)</formulaExpression>
+        <formulaResultPath>sortedList</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TFMDRSortingUtilityCustom8754</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRSortingUtility</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRSortingUtilityCustom2911</globalKey>
+        <inputFieldName>sortedList</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRSortingUtility</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>sortedList</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;responseList&quot; : [ {
+    &quot;arrangementId&quot; : &quot;c42b5c21-45e2-4e6e-acbb-a274c510a51d&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;67afec37-a929-4fa5-b843-2a9ec50b1c55&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T07:12:13.322879Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:54.472767Z&quot;,
+    &quot;name&quot; : &quot;consents/67afec37-a929-4fa5-b843-2a9ec50b1c55&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;35260e4b-2aca-4689-b54d-05450c2be9b8&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;5a2a565e-6bd1-4ab3-a412-478b4c08af39&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T07:12:38.352847Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:38.566335Z&quot;,
+    &quot;name&quot; : &quot;consents/5a2a565e-6bd1-4ab3-a412-478b4c08af39&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;60a54d56-af4c-45aa-8b76-4d7720c91251&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;8c211a7e-1821-4d20-a62b-ddf58ad6abf9&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T07:12:59.549247Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:35.935471Z&quot;,
+    &quot;name&quot; : &quot;consents/8c211a7e-1821-4d20-a62b-ddf58ad6abf9&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;2aa0c22e-5b92-42a6-b023-aa570e95da46&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;f85d39a4-5c61-4cbe-80ac-bdf8cae95572&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T07:13:21.950367Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:33.165951Z&quot;,
+    &quot;name&quot; : &quot;consents/f85d39a4-5c61-4cbe-80ac-bdf8cae95572&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;603805d1-f7d6-4ba4-9cef-272213a420f3&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;c7b203d4-48e4-402a-982e-79d258344fb9&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T10:28:57.068111Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:29.696255Z&quot;,
+    &quot;name&quot; : &quot;consents/c7b203d4-48e4-402a-982e-79d258344fb9&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;8d73fc37-9226-43c3-9540-3001a4536a6c&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;d15f3249-7ae9-42b3-b1f0-3cfbe1edb4aa&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T07:25:11.750703Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:27.654095Z&quot;,
+    &quot;name&quot; : &quot;consents/d15f3249-7ae9-42b3-b1f0-3cfbe1edb4aa&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;504e1241-b862-4be4-bd11-0d14263a8ac5&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;f44f8ef1-1673-4b59-96a9-2f3481a96c12&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T10:30:28.091183Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:07:24.789103Z&quot;,
+    &quot;name&quot; : &quot;consents/f44f8ef1-1673-4b59-96a9-2f3481a96c12&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;a933789e-e88f-48bc-adca-7873f2d82f7c&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;9916ea1d-3e7a-49f1-9e94-add8f8ed1bec&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T09:53:07.485183Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:54.201791Z&quot;,
+    &quot;name&quot; : &quot;consents/9916ea1d-3e7a-49f1-9e94-add8f8ed1bec&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;d5b629e4-7513-4ca4-b723-50a7a20ac966&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;7e5387a7-7ed0-4997-853b-b68d6b6941db&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T10:37:36.766575Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:52.048655Z&quot;,
+    &quot;name&quot; : &quot;consents/7e5387a7-7ed0-4997-853b-b68d6b6941db&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;ae358f9c-b9f5-48e4-a936-c0983f7caf37&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;29/03/2024&quot;,
+    &quot;consentId&quot; : &quot;efed89ef-e036-4e4a-8c0b-a63b6110f2eb&quot;,
+    &quot;revokeTime&quot; : &quot;29/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:03Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-29T10:40:30.890191Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:06:49.456191Z&quot;,
+    &quot;name&quot; : &quot;consents/efed89ef-e036-4e4a-8c0b-a63b6110f2eb&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;821714ae-5b72-40c8-9f81-432cb2945f04&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;02/04/2024&quot;,
+    &quot;consentId&quot; : &quot;4b29671d-8b92-4625-b934-918b451ad4a3&quot;,
+    &quot;revokeTime&quot; : &quot;02/04/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-04-02T11:48:39.123423Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:03:13.757311Z&quot;,
+    &quot;name&quot; : &quot;consents/4b29671d-8b92-4625-b934-918b451ad4a3&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;30a71aff-be25-4b27-b98e-6ed895e715c1&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;02/04/2024&quot;,
+    &quot;consentId&quot; : &quot;177a7cb4-7851-443d-91a4-4a697675626b&quot;,
+    &quot;revokeTime&quot; : &quot;02/04/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-04-02T04:40:41.753535Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:01:32.695167Z&quot;,
+    &quot;name&quot; : &quot;consents/177a7cb4-7851-443d-91a4-4a697675626b&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;c2ccce64-e940-4c5f-b077-a0e6e2858ac3&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;02/04/2024&quot;,
+    &quot;consentId&quot; : &quot;e750d57b-ff1d-4dff-8bef-d86cdd2e9c77&quot;,
+    &quot;revokeTime&quot; : &quot;02/04/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-04-02T10:06:12.158655Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:47.964783Z&quot;,
+    &quot;name&quot; : &quot;consents/e750d57b-ff1d-4dff-8bef-d86cdd2e9c77&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;168d23df-334c-481c-a2af-89f2d4ca7e00&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;02/04/2024&quot;,
+    &quot;consentId&quot; : &quot;3ac774d3-05ca-4ee3-bb05-ee524422d493&quot;,
+    &quot;revokeTime&quot; : &quot;02/04/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-04-02T07:12:25.889215Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:45.964159Z&quot;,
+    &quot;name&quot; : &quot;consents/3ac774d3-05ca-4ee3-bb05-ee524422d493&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;63db6198-e6f4-436a-a22c-5f17e6880248&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;02/04/2024&quot;,
+    &quot;consentId&quot; : &quot;06c86f66-e8f0-4469-8d8c-81939c99ae91&quot;,
+    &quot;revokeTime&quot; : &quot;02/04/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-04-02T07:06:52.832879Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T08:00:42.933247Z&quot;,
+    &quot;name&quot; : &quot;consents/06c86f66-e8f0-4469-8d8c-81939c99ae91&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;758192de-55a3-4434-a7b4-ab7c9de477ba&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;27/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;02/04/2024&quot;,
+    &quot;consentId&quot; : &quot;02355b21-5a2d-4b9a-8ec1-cf937dcc721e&quot;,
+    &quot;revokeTime&quot; : &quot;02/04/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-26T13:00:13Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-04-02T06:43:54.481119Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-27T07:57:42.829711Z&quot;,
+    &quot;name&quot; : &quot;consents/02355b21-5a2d-4b9a-8ec1-cf937dcc721e&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;127dfdad-d3a1-4ddb-93e5-241fddb46c4c&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;26/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;27/03/2024&quot;,
+    &quot;consentId&quot; : &quot;a099cdb9-1512-4442-9043-82a7b93a18eb&quot;,
+    &quot;revokeTime&quot; : &quot;27/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-25T13:00:03Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-27T06:20:28.916783Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-26T09:08:30.682655Z&quot;,
+    &quot;name&quot; : &quot;consents/a099cdb9-1512-4442-9043-82a7b93a18eb&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;26/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;7ba42f27-08ba-49d1-ae5a-f8db14755a23&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;22/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;22/03/2024&quot;,
+    &quot;consentId&quot; : &quot;5b036351-8933-4685-bdbe-e9f4390642f3&quot;,
+    &quot;revokeTime&quot; : &quot;22/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-22T07:51:56.497391Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:21.002799Z&quot;,
+    &quot;name&quot; : &quot;consents/5b036351-8933-4685-bdbe-e9f4390642f3&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;22/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;9488ee17-8988-486d-9f3d-58c297c227c2&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;22/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;26/03/2024&quot;,
+    &quot;consentId&quot; : &quot;1d3cefb3-7a23-454c-a0a3-e9473dd4ac52&quot;,
+    &quot;revokeTime&quot; : &quot;26/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-26T06:44:43.332815Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:17.562383Z&quot;,
+    &quot;name&quot; : &quot;consents/1d3cefb3-7a23-454c-a0a3-e9473dd4ac52&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;22/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;e4f8242d-f6a9-457d-8101-46042a59a0ff&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;22/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;26/03/2024&quot;,
+    &quot;consentId&quot; : &quot;54402550-a8dd-4edc-a483-e4f40174d6cb&quot;,
+    &quot;revokeTime&quot; : &quot;26/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-26T06:55:07.928143Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:15.194943Z&quot;,
+    &quot;name&quot; : &quot;consents/54402550-a8dd-4edc-a483-e4f40174d6cb&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;22/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;d1f2e11f-772b-40ba-81c4-9f690b828a8a&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;22/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;26/03/2024&quot;,
+    &quot;consentId&quot; : &quot;05fa2578-5b86-497f-9d92-bd153926cbbf&quot;,
+    &quot;revokeTime&quot; : &quot;26/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:03Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-26T06:52:39.110639Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:12.636879Z&quot;,
+    &quot;name&quot; : &quot;consents/05fa2578-5b86-497f-9d92-bd153926cbbf&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;22/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;ce601eac-6df1-4534-8bad-cd98687ddb02&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;22/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;26/03/2024&quot;,
+    &quot;consentId&quot; : &quot;37bef972-bcb5-465e-82a9-bb7d26f147d8&quot;,
+    &quot;revokeTime&quot; : &quot;26/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:04Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-26T06:46:37.411519Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T06:42:08.749503Z&quot;,
+    &quot;name&quot; : &quot;consents/37bef972-bcb5-465e-82a9-bb7d26f147d8&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;22/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;b84b1e8b-83d3-478e-80e2-f889aa715d69&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;22/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;22/03/2024&quot;,
+    &quot;consentId&quot; : &quot;9b6d3092-c146-4961-b0d9-07418d328430&quot;,
+    &quot;revokeTime&quot; : &quot;22/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:06Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-22T06:40:01.164767Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T05:59:33.696751Z&quot;,
+    &quot;name&quot; : &quot;consents/9b6d3092-c146-4961-b0d9-07418d328430&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;22/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;3e08e868-ed75-4481-8489-fff66899dcd5&quot;,
+    &quot;brandName&quot; : &quot;Virgin Money&quot;,
+    &quot;expires&quot; : &quot;22/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;22/03/2024&quot;,
+    &quot;consentId&quot; : &quot;f8d9747f-1744-4c4c-b95d-d9b30905b217&quot;,
+    &quot;revokeTime&quot; : &quot;22/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-21T13:00:13Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-22T05:21:05.429247Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-22T05:20:26.131199Z&quot;,
+    &quot;name&quot; : &quot;consents/f8d9747f-1744-4c4c-b95d-d9b30905b217&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000245&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000245&quot;,
+      &quot;logoUri&quot; : &quot;https://virginmoney.com.au/content/dam/virginmoney/vma-logo.gif&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;Virgin Money&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;22/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;18502d90-30a4-48b1-8f1a-e7fa8352aed6&quot;,
+    &quot;brandName&quot; : &quot;ME Bank - ME Go&quot;,
+    &quot;expires&quot; : &quot;08/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;21/03/2024&quot;,
+    &quot;consentId&quot; : &quot;50f99131-b5af-4e4a-b049-98469f130d12&quot;,
+    &quot;revokeTime&quot; : &quot;21/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-07T13:00:03Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-21T09:19:32.806815Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-08T03:45:20.277647Z&quot;,
+    &quot;name&quot; : &quot;consents/50f99131-b5af-4e4a-b049-98469f130d12&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;,
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;08/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;c1d1ad18-07ea-4e21-9495-b1f6c7052f84&quot;,
+    &quot;brandName&quot; : &quot;ME Bank - ME Go&quot;,
+    &quot;expires&quot; : &quot;06/03/2025&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_UNSPECIFIED&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;21/03/2024&quot;,
+    &quot;consentId&quot; : &quot;06e56cfc-48e2-4a55-8ecd-bd611a2715d9&quot;,
+    &quot;revokeTime&quot; : &quot;21/03/2024&quot;,
+    &quot;expireTime&quot; : &quot;2025-03-05T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-03-21T09:26:11.205791Z&quot;,
+    &quot;createTime&quot; : &quot;2024-03-05T23:13:10.847231Z&quot;,
+    &quot;name&quot; : &quot;consents/06e56cfc-48e2-4a55-8ecd-bd611a2715d9&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;,
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;06/03/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;3db4b301-270e-4aeb-b8d9-8266a089567c&quot;,
+    &quot;brandName&quot; : &quot;ME Bank - ME Go&quot;,
+    &quot;expires&quot; : &quot;01/03/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;27/02/2024&quot;,
+    &quot;consentId&quot; : &quot;f1dd2d11-3220-4590-8234-8d0c1c21e93c&quot;,
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-02-29T13:00:01Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:33:49.127999Z&quot;,
+    &quot;name&quot; : &quot;consents/f1dd2d11-3220-4590-8234-8d0c1c21e93c&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;,
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/02/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;EXPIRED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;af68b2d3-986c-4ad6-b6fa-d0a3f3084fcb&quot;,
+    &quot;brandName&quot; : &quot;ME Bank - ME Go&quot;,
+    &quot;expires&quot; : &quot;01/03/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;27/02/2024&quot;,
+    &quot;consentId&quot; : &quot;f6b8c070-3c38-4764-8cde-96764ce0a454&quot;,
+    &quot;revokeTime&quot; : &quot;27/02/2024&quot;,
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:00Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-02-27T03:31:48.360047Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:31:24.746159Z&quot;,
+    &quot;name&quot; : &quot;consents/f6b8c070-3c38-4764-8cde-96764ce0a454&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;,
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/02/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;865bdabe-9ce0-43e9-8930-5f3750bd2aae&quot;,
+    &quot;brandName&quot; : &quot;ME Bank - ME Go&quot;,
+    &quot;expires&quot; : &quot;01/03/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;27/02/2024&quot;,
+    &quot;consentId&quot; : &quot;275cd7c5-7cd8-49c8-8358-bc0c64c58a3b&quot;,
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-02-29T13:00:01Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:30:36.466127Z&quot;,
+    &quot;name&quot; : &quot;consents/275cd7c5-7cd8-49c8-8358-bc0c64c58a3b&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;,
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/02/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;EXPIRED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;05d4942f-2c5c-463d-ab2f-f9a76ee10f69&quot;,
+    &quot;brandName&quot; : &quot;ME Bank - ME Go&quot;,
+    &quot;expires&quot; : &quot;01/03/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;27/02/2024&quot;,
+    &quot;consentId&quot; : &quot;2e4e7a36-d716-4ae8-acd8-e8595df0dd6a&quot;,
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:18Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-02-29T13:00:18Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:30:30.096079Z&quot;,
+    &quot;name&quot; : &quot;consents/2e4e7a36-d716-4ae8-acd8-e8595df0dd6a&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;,
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/02/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;EXPIRED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;77e85da7-2579-4b41-b612-6440a7d09573&quot;,
+    &quot;brandName&quot; : &quot;ME Bank - ME Go&quot;,
+    &quot;expires&quot; : &quot;01/03/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;27/02/2024&quot;,
+    &quot;consentId&quot; : &quot;998409d5-805e-4425-b96c-994d818a39e9&quot;,
+    &quot;expireTime&quot; : &quot;2024-02-29T13:01:15Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-02-29T13:01:15Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T03:06:53.152319Z&quot;,
+    &quot;name&quot; : &quot;consents/998409d5-805e-4425-b96c-994d818a39e9&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;,
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/02/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;EXPIRED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;27740d59-e0d5-4b19-85e2-937665cac199&quot;,
+    &quot;brandName&quot; : &quot;ME Bank - ME Go&quot;,
+    &quot;expires&quot; : &quot;01/03/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;27/02/2024&quot;,
+    &quot;consentId&quot; : &quot;bb18f784-661b-4523-a2df-21bb511262ee&quot;,
+    &quot;expireTime&quot; : &quot;2024-02-29T13:00:02Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-02-29T13:00:02Z&quot;,
+    &quot;createTime&quot; : &quot;2024-02-27T02:26:39.724431Z&quot;,
+    &quot;name&quot; : &quot;consents/bb18f784-661b-4523-a2df-21bb511262ee&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000362&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000362&quot;,
+      &quot;logoUri&quot; : &quot;https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_ACTIVE&quot;,
+      &quot;brand&quot; : &quot;ME Bank - ME Go&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;27/02/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;EXPIRED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;f8ea8b7e-d58a-4934-b993-ae320cda2792&quot;,
+    &quot;brandName&quot; : &quot;ANZ&quot;,
+    &quot;expires&quot; : &quot;27/01/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;25/01/2024&quot;,
+    &quot;consentId&quot; : &quot;f323643b-f3bf-49bf-87a3-c4332722f4c1&quot;,
+    &quot;revokeTime&quot; : &quot;25/01/2024&quot;,
+    &quot;expireTime&quot; : &quot;2024-01-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-01-25T03:08:04.494367Z&quot;,
+    &quot;createTime&quot; : &quot;2024-01-24T05:04:39.272751Z&quot;,
+    &quot;name&quot; : &quot;consents/f323643b-f3bf-49bf-87a3-c4332722f4c1&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000006&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000006&quot;,
+      &quot;logoUri&quot; : &quot;https://www.anz.com.au/content/dam/anzcomau/logos/anz/ANZ-MB-Logo-3rd-Party-RGB.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_REMOVED&quot;,
+      &quot;brand&quot; : &quot;ANZ&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;24/01/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;abf2bbc0-5cde-40e6-a5e3-081d04bd8dfc&quot;,
+    &quot;brandName&quot; : &quot;Arab Bank Australia Limited&quot;,
+    &quot;expires&quot; : &quot;27/01/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;24/01/2024&quot;,
+    &quot;consentId&quot; : &quot;d444955c-53fc-48a4-8c1e-80e97ea88a8a&quot;,
+    &quot;revokeTime&quot; : &quot;24/01/2024&quot;,
+    &quot;expireTime&quot; : &quot;2024-01-26T13:00:01Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-01-24T04:55:12.106335Z&quot;,
+    &quot;createTime&quot; : &quot;2024-01-24T04:54:17.829135Z&quot;,
+    &quot;name&quot; : &quot;consents/d444955c-53fc-48a4-8c1e-80e97ea88a8a&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000353&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000353&quot;,
+      &quot;logoUri&quot; : &quot;https://www.arabbank.com.au/themes/arabbank/images/abal-logo.svg&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_REMOVED&quot;,
+      &quot;brand&quot; : &quot;Arab Bank Australia Limited&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;24/01/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;a989ea5e-0422-4aaf-9937-6694f95fe617&quot;,
+    &quot;brandName&quot; : &quot;Australian Military Bank&quot;,
+    &quot;expires&quot; : &quot;27/01/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;24/01/2024&quot;,
+    &quot;consentId&quot; : &quot;27848b94-b14d-4b6e-b975-174bd7b84c69&quot;,
+    &quot;revokeTime&quot; : &quot;24/01/2024&quot;,
+    &quot;expireTime&quot; : &quot;2024-01-26T13:00:00Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-01-24T04:48:26.767871Z&quot;,
+    &quot;createTime&quot; : &quot;2024-01-24T04:47:47.104127Z&quot;,
+    &quot;name&quot; : &quot;consents/27848b94-b14d-4b6e-b975-174bd7b84c69&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000109&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000109&quot;,
+      &quot;logoUri&quot; : &quot;https://www.australianmilitarybank.com.au/sites/default/files/amb_logo_478.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_REMOVED&quot;,
+      &quot;brand&quot; : &quot;Australian Military Bank&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;24/01/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;REVOKED&quot;
+  }, {
+    &quot;arrangementId&quot; : &quot;18ff4969-205d-4e89-9c47-441379a7453b&quot;,
+    &quot;brandName&quot; : &quot;Australian Military Bank&quot;,
+    &quot;expires&quot; : &quot;27/01/2024&quot;,
+    &quot;consentPurposes&quot; : &quot;CONSENT_PURPOSE_BVT&quot;,
+    &quot;consentedResources&quot; : [ &quot;CONSENTED_RESOURCE_ACCOUNT_DETAILS&quot;, &quot;CONSENTED_RESOURCE_TRANSACTIONS&quot; ],
+    &quot;updateTime&quot; : &quot;24/01/2024&quot;,
+    &quot;consentId&quot; : &quot;68a2866e-1562-459b-88b1-49de1e59923e&quot;,
+    &quot;expireTime&quot; : &quot;2024-01-26T13:00:08Z&quot;,
+    &quot;sortedDateArchiveColumn&quot; : &quot;2024-01-26T13:00:08Z&quot;,
+    &quot;createTime&quot; : &quot;2024-01-24T04:47:32.180687Z&quot;,
+    &quot;name&quot; : &quot;consents/68a2866e-1562-459b-88b1-49de1e59923e&quot;,
+    &quot;dataHolder&quot; : {
+      &quot;brandId&quot; : &quot;000109&quot;,
+      &quot;industries&quot; : [ &quot;INDUSTRY_BANKING&quot; ],
+      &quot;name&quot; : &quot;dataholderbrands/000109&quot;,
+      &quot;logoUri&quot; : &quot;https://www.australianmilitarybank.com.au/sites/default/files/amb_logo_478.png&quot;,
+      &quot;state&quot; : &quot;DATA_HOLDER_BRAND_STATE_REMOVED&quot;,
+      &quot;brand&quot; : &quot;Australian Military Bank&quot;,
+      &quot;lastUpdateTime&quot; : &quot;2024-04-03T09:39:11.223999Z&quot;
+    },
+    &quot;personId&quot; : &quot;444b65d3-804d-45de-a9ff-d69c2e2e33ef&quot;,
+    &quot;from&quot; : &quot;24/01/2024&quot;,
+    &quot;personaId&quot; : &quot;5ec29afa-1746-4abb-93f8-05bbb5a7d438&quot;,
+    &quot;status&quot; : &quot;EXPIRED&quot;
+  } ],
+  &quot;key&quot; : &quot;sortedDateArchiveColumn&quot;
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TFMDRSortingUtility_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

@@ -3,10 +3,10 @@
     <fullName>PersonAccountLinkContact</fullName>
     <active>true</active>
     <description>Validation to check if person account is linked with contact.</description>
-    <errorConditionFormula>OR(AND(ISBLANK(Broker_Customer_Profile__r.Id),UPPER(RecordType.DeveloperName) =&quot;BROKER&quot;),
+    <errorConditionFormula>AND($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,OR(AND(ISBLANK(Broker_Customer_Profile__r.Id),UPPER(RecordType.DeveloperName) =&quot;BROKER&quot;),
 AND(
 NOT(ISBLANK(Broker_Customer_Profile__r.Name)),
-UPPER(Broker_Customer_Profile__r.RecordType.DeveloperName)&lt;&gt; &quot;PERSONACCOUNT&quot;, UPPER(RecordType.DeveloperName) =&quot;BROKER&quot;))</errorConditionFormula>
+UPPER(Broker_Customer_Profile__r.RecordType.DeveloperName)&lt;&gt; &quot;PERSONACCOUNT&quot;, UPPER(RecordType.DeveloperName) =&quot;BROKER&quot;)))</errorConditionFormula>
     <errorDisplayField>Broker_Customer_Profile__c</errorDisplayField>
     <errorMessage>Associated Customer Profile not found</errorMessage>
 </ValidationRule>

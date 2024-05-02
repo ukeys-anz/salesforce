@@ -513,6 +513,11 @@
                 <label>Interest Adjustment Request</label>
             </value>
             <value>
+                <fullName>Joint Interim Statement</fullName>
+                <default>false</default>
+                <label>Joint Interim Statement</label>
+            </value>
+            <value>
                 <fullName>Explore Enquiry</fullName>
                 <default>false</default>
                 <label>Explore Enquiry</label>
@@ -770,6 +775,10 @@
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Interest Adjustment Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Joint Interim Statement</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>

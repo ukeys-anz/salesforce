@@ -10,5 +10,5 @@
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>DateTime</type>
+    <type>Date</type>
 </CustomField>
