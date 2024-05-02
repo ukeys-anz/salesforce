@@ -410,6 +410,36 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Case.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Assessments</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer6</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-aab241ec-ad0c-4aab-a4b7-c2cc7547492e</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -481,6 +511,20 @@
                 <identifier>customTab3</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-aab241ec-ad0c-4aab-a4b7-c2cc7547492e</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Resolution Pathways</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>sidebartabs</name>
         <type>Facet</type>
@@ -537,6 +581,72 @@
                     <criteria>
                         <leftValue>{!Record.IDR_Customer_Number__c}</leftValue>
                         <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>configuration</name>
+                    <value>DEPLOYMENT</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>deploymentId</name>
+                    <value>ResolutionPathway_Launcher</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Resolution Pathway</value>
+                </componentInstanceProperties>
+                <componentName>industries_service_excellence:actionLauncher</componentName>
+                <identifier>industries_service_excellence_actionLauncher</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3) AND (4 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Non_Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Subsequent_Issue__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>3</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Subsequent_Issue_2__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>3</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Subsequent_Issue_3__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>3</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Subsequent_Issue__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>57</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Subsequent_Issue_2__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>57</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Subsequent_Issue_3__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>57</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

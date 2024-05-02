@@ -10,6 +10,7 @@
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_2</permissionSets>
+    <permissionSets>OmniStudioManagedClasses</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

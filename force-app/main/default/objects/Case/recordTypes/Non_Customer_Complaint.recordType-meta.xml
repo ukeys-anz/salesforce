@@ -8000,6 +8000,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>ANZ Plus Web</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Chat</fullName>
             <default>false</default>
         </values>

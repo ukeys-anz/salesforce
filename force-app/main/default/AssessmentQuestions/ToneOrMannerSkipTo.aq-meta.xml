@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssessmentQuestion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>ToneOrMannerSkipTo</name>
+    <assessmentQuestionVersion>
+        <name>ToneOrMannerSkipTo</name>
+        <isActive>true</isActive>
+        <optionSourceResponseValue>false</optionSourceResponseValue>
+        <questionText>Skip To:</questionText>
+        <responseValues>Follow contact strategy
+Begin phone call 
+Apologise to the customer in a call
+Provide information to the customer in a call
+Send written response</responseValues>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+    </assessmentQuestionVersion>
+    <dataType>Radio</dataType>
+    <developerName>ToneOrMannerSkipTo</developerName>
+    <questionCategory>Demographic</questionCategory>
+</AssessmentQuestion>

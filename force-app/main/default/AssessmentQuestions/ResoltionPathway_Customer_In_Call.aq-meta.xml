@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssessmentQuestion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>ResoltionPathway_Customer_In_Call</name>
+    <assessmentQuestionVersion>
+        <name>ResoltionPathway_Customer_In_Call</name>
+        <isActive>true</isActive>
+        <optionSourceResponseValue>false</optionSourceResponseValue>
+        <questionText>Next steps:</questionText>
+        <responseValues>No – click ‘Next’ to continue call 
+Yes – click ‘Next’ to continue call 
+Customer doesn’t want to continue call</responseValues>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+    </assessmentQuestionVersion>
+    <dataType>Radio</dataType>
+    <developerName>ResoltionPathway_Customer_In_Call</developerName>
+    <questionCategory>Demographic</questionCategory>
+</AssessmentQuestion>
