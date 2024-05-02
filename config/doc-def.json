@@ -958,7 +958,8 @@
         "Mortgage",
         "Settlements_Read_Write",
         "Disable_MFA",
-        "Enforce_mTLS"
+        "Enforce_mTLS",
+        "ActionPlans"
       ],
       "type": "system"
     },
@@ -973,6 +974,13 @@
         "Disable_MFA"
       ],
       "type": "system"
+    },
+    {
+      "name": "Residential Broker Manager",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Residential_Broker_Manager"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
     }
   ]
 }

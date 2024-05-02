@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionPlanTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Internal Settlement Action Plan</name>
+    <actionPlanTemplateItem>
+        <name>Confirm all H1 Account Details</name>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Confirm all H1 Account Details</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Confirm all H1 Account details  1. Margin 2. Customer Discount Rate 3. Index Rate 4. Final Rate  5. Interest Rate 6. Total # of Repayments 7. Repayment Frequency 8. Loan Amount 9. Term 10. Drawdown Items 11. Customer Details</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>9</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Confirm_all_H1_Account_Details_7290e969_d073_11ee_b7f5_fb136725b903</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Check Customer KYC</name>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Check Customer KYC</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Check Salesforce for KYC status is Valid</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>6</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Check_Customer_KYC_72904d27_d073_11ee_b7f5_d7a8c81c5931</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Finalise Settlement and Application</name>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Finalise Settlement and Application</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Ensure all task list items have been completed</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>11</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Finalise_Settlement_and_Application_729185ab_d073_11ee_b7f5_9d1a33aec2c0</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Building Insurance</name>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Building Insurance</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Check in Salesforce to see if a Building Insurance document has been uploaded and complete verification of the document.</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>5</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Building_Insurance_729221ed_d073_11ee_b7f5_517f35ee7b66</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Complete LSM Touchpoint 1</name>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Complete LSM Touchpoint 1</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Complete LSM Touchpoint 1</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>7</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Complete_LSM_Touchpoint_1_728f3bb3_d073_11ee_b7f5_9f669c48608f</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Document Acceptance</name>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Document Acceptance</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Verify Letter of Offer and Mortgage if Applicable. Ensure the signature is showing for one or both documents.</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>4</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Document_Acceptance_728fd7f5_d073_11ee_b7f5_b50a76a5bef0</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Complete LSM Touchpoint 2</name>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Complete LSM Touchpoint 2</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Complete LSM Touchpoint 2</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>10</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Complete_LSM_Touchpoint_2_728ec681_d073_11ee_b7f5_91f6191b4978</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Verify Letter of Offer</name>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Verify Letter of Offer</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Compare Letter of Offer against Salesforce Data</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>3</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Verify_Letter_of_Offer_728d8dfc_d073_11ee_b7f5_c5b1de23b1bb</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Settlement Day Checks</name>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Settlement Day Checks</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>1. Check KYC 2. Check Building Insurance 3. Check Customer Settlement Tasks are complete 4. Check Application status</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>8</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Settlement_Day_Checks_728e2a3f_d073_11ee_b7f5_5f437fed313e</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Gather Documentation</name>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Gather Documentation</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>1. Title Search  2. Letter of Offer 3. Mortgage Form</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>2</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Gather_Documentation_72933361_d073_11ee_b7f5_330d98053d15</uniqueName>
+    </actionPlanTemplateItem>
+    <actionPlanTemplateItem>
+        <name>Ensure Application is Approved</name>
+        <actionPlanTemplateItemValue>
+            <name>Subject</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Ensure Application is Approved</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>IsReminderSet</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>false</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ActivityDate</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>ReminderDateTime</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueFormula>StartDate + 0 - 0 +</valueFormula>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Priority</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Normal</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <actionPlanTemplateItemValue>
+            <name>Description__c</name>
+            <itemEntityType>Task</itemEntityType>
+            <valueLiteral>Check Salesforce to see approved status in application</valueLiteral>
+        </actionPlanTemplateItemValue>
+        <displayOrder>1</displayOrder>
+        <isRequired>true</isRequired>
+        <itemEntityType>Task</itemEntityType>
+        <uniqueName>Ensure_Application_is_Approved_7292971f_d073_11ee_b7f5_b95fdb913282</uniqueName>
+    </actionPlanTemplateItem>
+    <description>Action plan for internal settlements</description>
+    <isAdHocItemCreationEnabled>false</isAdHocItemCreationEnabled>
+    <targetEntityType>Settlement__c</targetEntityType>
+    <uniqueName>Internal_Settlement_Action_Plan_726ff3d9_d073_11ee_b7f5_f163c4c611b1</uniqueName>
+</ActionPlanTemplate>

@@ -1,0 +1,45 @@
+{
+    "consents":[
+        {
+            "name": "consents/test-8933-4685-bdbe-e9f4390642f3",
+            "consentId": "test-8933-4685-bdbe-e9f4390642f3",
+            "arrangementId": "test-08ba-49d1-ae5a-f8db14755a23",
+            "personaId": "test-1746-4abb-93f8-05bbb5a7d438",
+            "personId": "test-804d-45de-a9ff-d69c2e2e33ef",
+            "revokeActor": "CONSENT_ACTOR_ASSISTED",
+            "dataHolderBrand": "dataholderbrands/000001",
+            "dataHolderBrandRegistration": "dataholderbrands/000001/registration",
+            "dataHolderBrandId": "000001",
+            "dataHolder": {
+                "name": "dataholderbrands/000001",
+                "brandId": "000001",
+                "brand": "Test Money",
+                "logoUri": "https://test.com.au/content/dam/test/vma-logo.gif",
+                "industries": [
+                    "INDUSTRY_BANKING"
+                ],
+                "state": "DATA_HOLDER_BRAND_STATE_ACTIVE",
+                "lastUpdateTime": "2024-03-26T06:36:47.931007Z"
+            },
+            "consentedResources": [
+                "CONSENTED_RESOURCE_ACCOUNT_DETAILS",
+                "CONSENTED_RESOURCE_TRANSACTIONS"
+            ],
+            "state": "STATE_ACTIVE",
+            "consentPurposes": [
+                "CONSENT_PURPOSE_UNSPECIFIED"
+            ],
+            "syncUsage": {
+                "expectedFirstSyncTime": "2024-03-22T06:42:21.002799Z",
+                "firstSyncTime": "2024-03-22T06:42:23.085216400Z",
+                "expectedLastSyncTime": "2025-03-21T13:00:02Z",
+                "actualLastSyncTime": "2024-03-22T06:42:23.085216400Z"
+            },
+            "createTime": "2024-03-22T06:42:21.002799Z",
+            "lastUpdateTime": "2024-03-22T07:51:56.497391Z",
+            "expireTime": "2025-03-21T13:00:02Z",
+            "revokeTime": "2024-03-22T07:51:56.497391Z",
+            "revokeRequestTime": "2024-03-22T18:51:55Z"
+        }
+    ]
+}

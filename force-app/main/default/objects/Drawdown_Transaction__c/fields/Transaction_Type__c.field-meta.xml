@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transaction_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The transaction type of the drawdown</description>
+    <externalId>false</externalId>
+    <label>Transaction Type</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unspecified</fullName>
+                <default>false</default>
+                <label>Unspecified</label>
+            </value>
+            <value>
+                <fullName>DRAWDOWN_TRANSACTION_TYPE_DRAW</fullName>
+                <default>false</default>
+                <label>Draw</label>
+            </value>
+            <value>
+                <fullName>DRAWDOWN_TRANSACTION_TYPE_CSTCNT</fullName>
+                <default>false</default>
+                <label>Customer Contribution</label>
+            </value>
+            <value>
+                <fullName>DRAWDOWN_TRANSACTION_TYPE_DRAWSEC</fullName>
+                <default>false</default>
+                <label>Security Fees</label>
+            </value>
+            <value>
+                <fullName>DRAWDOWN_TRANSACTION_TYPE_DRAWPOF</fullName>
+                <default>false</default>
+                <label>Payoff</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -23,6 +23,7 @@ import CCRM_ConversationGuideBody from "@salesforce/label/c.CCRM_ConversationGui
 import ML_ConversationGuideBody from "@salesforce/label/c.ML_ConversationGuideBody";
 import ML_MaxExpiryDateErrorMessage from "@salesforce/label/c.ML_MaxExpiryDateErrorMessage";
 import ML_LeadQualityRequiredValues from "@salesforce/label/c.ML_LeadQualityRequiredValues";
+import ML_LeadResponsesToShowFollowUpDate from "@salesforce/label/c.ML_LeadResponseToShowFollowUpDate";
 import CCRM_LeadQualityRequiredValues from "@salesforce/label/c.CCRM_LeadQualityRequiredValues";
 
 const MOBILE_LENDING_RECORDTYPE = "MLCRM_Lead";
@@ -45,6 +46,9 @@ export default class LeadLogAResponse extends LightningElement {
   @track followUpDateState;
   @track commentValue;
   recordTypeName;
+  showLeadQuality = true;
+  ML_LeadResponseToShowFollowUpDate = ML_LeadResponsesToShowFollowUpDate; //["Contact Attempted", "Call Back"];
+  isMLRecordType = false;
   selectedResponseStatusValue;
   selectedOutcomeResponseValue;
   selectedLeadQualityValue;
@@ -113,11 +117,15 @@ export default class LeadLogAResponse extends LightningElement {
   })
   getLeadRecord({ data, error }) {
     if (data) {
+      this.recordTypeName =
+        data.fields.RecordType.value.fields.DeveloperName.value;
+      if (this.recordTypeName === MOBILE_LENDING_RECORDTYPE) {
+        this.isMLRecordType = true;
+        this.showLeadQuality = false; // if Lead RT is ML then do not show Lead Quality by default
+      }
       this.leadRecord = data;
       this.selectedLeadQualityValue = data.fields.Lead_Quality__c.value;
       this.leadStatus = data.fields.Status.value;
-      this.recordTypeName =
-        data.fields.RecordType.value.fields.DeveloperName.value;
       this.setConversationGuidanceUrl();
     }
     if (error) {
@@ -188,8 +196,8 @@ export default class LeadLogAResponse extends LightningElement {
   get isFollowUpDateRequired() {
     return (
       !this.followUpDateDisable &&
-      this.followUpDateState === "M" &&
-      !this.displayDueDate
+      ((this.followUpDateState === "M" && !this.displayDueDate) ||
+        this.isMLRecordType) // CC-7618 If FollowUpDate is disabled and RT is ML then make return false
     );
   }
 
@@ -214,6 +222,8 @@ export default class LeadLogAResponse extends LightningElement {
       this.whatHappensNextInfo = "";
       this.showWhatHappensNext = false;
       this.selectedResponseStatusValue = event.detail.value;
+      // CC-7618 update values to show/hide Lead Quality and FollowUp date
+      this.showHideQualityAndFolloupDateForML(this.selectedResponseStatusValue);
       if (this.dependentPicklistWrapper) {
         for (key in this.dependentPicklistWrapper) {
           if (this.selectedResponseStatusValue === key) {
@@ -254,7 +264,7 @@ export default class LeadLogAResponse extends LightningElement {
     var key;
     var whatsNextKey;
     var createOpportunity;
-
+    var currentFollowupDate = this.selectedFollowUpDateValue;
     try {
       this.selectedOutcomeResponseValue = undefined;
       this.selectedOutcomeResponseValue = event.detail.value;
@@ -328,6 +338,16 @@ export default class LeadLogAResponse extends LightningElement {
           }
         }
       }
+      if (this.isMLRecordType) {
+        // IF ML RT -> Update followUpDateDisable based on value of Response Status, irrespective of value of Outcome Reason
+        this.followUpDateDisable = !this.ML_LeadResponseToShowFollowUpDate.includes(
+          this.selectedResponseStatusValue
+        );
+        // if followUpDate is enabled then restore selected Follow up date
+        if (!this.followUpDateDisable) {
+          this.selectedFollowUpDateValue = currentFollowupDate;
+        }
+      }
     } catch (error) {
       this.handleError(error);
     }
@@ -349,11 +369,14 @@ export default class LeadLogAResponse extends LightningElement {
 
   validateRecord() {
     return this.template.querySelector(".responseStatus").reportValidity() &&
-      this.template.querySelector(".leadQuality").reportValidity() &&
-      this.template.querySelector(".outcomeReason").reportValidity() &&
-      this.template.querySelector(".comment").reportValidity() &&
-      this.autoCreateActivities &&
-      this.selectedResponseStatusValue === "Accepted"
+      // validate leadQuality only when it is displayed
+      this.showLeadQuality
+      ? this.template.querySelector(".leadQuality").reportValidity()
+      : true &&
+        this.template.querySelector(".outcomeReason").reportValidity() &&
+        this.template.querySelector(".comment").reportValidity() &&
+        this.autoCreateActivities &&
+        this.selectedResponseStatusValue === "Accepted"
       ? this.template.querySelector(".dueDate").reportValidity()
       : this.template.querySelector(".followUpDate") != null
       ? this.template.querySelector(".followUpDate").reportValidity()
@@ -476,5 +499,33 @@ export default class LeadLogAResponse extends LightningElement {
   get enableFollowUpDateComboBox() {
     // If this.followUpDateDisable is false, return a value of true
     return !this.followUpDateDisable;
+  }
+
+  // Set values to show/hide LeadQuality and Followup date
+  showHideQualityAndFolloupDateForML(selectedResponseStatusValue) {
+    // If record type is not ML then do nothing
+    if (!this.isMLRecordType) {
+      return;
+    }
+    // If select Response Status is in ML_LeadQualityRequiredValues then show leadQuality
+    if (
+      this.label.ML_LeadQualityRequiredValues.includes(
+        selectedResponseStatusValue
+      )
+    ) {
+      this.showLeadQuality = true;
+    } else {
+      this.showLeadQuality = false;
+    }
+    // If select Response Status is in ML_LeadResponseToShowFollowUpDate then show FollowUp date
+    if (
+      this.ML_LeadResponseToShowFollowUpDate.includes(
+        selectedResponseStatusValue
+      )
+    ) {
+      this.followUpDateDisable = false;
+    } else {
+      this.followUpDateDisable = true;
+    }
   }
 }

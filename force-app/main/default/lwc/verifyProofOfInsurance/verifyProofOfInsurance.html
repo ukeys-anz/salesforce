@@ -1,0 +1,43 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-quick-action-panel
+    header="Are you sure you want to verify the insurance document for this Settlement?"
+  >
+    <template lwc:if={isExecuting}>
+      <div class="slds-align_absolute-center" style="height: 4rem">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Verifying"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </template>
+    <template lwc:else>
+      <div>
+        <p class="slds-m-bottom_medium">
+          <b>Caution</b> For internal refinance, proceeding with insurance
+          verification could initiate the drawdown process.
+        </p>
+        <p>
+          Please ensure that all prerequisites on the settlement instructions
+          checklist are completed before proceeding with verifying the insurance
+          document.
+        </p>
+      </div>
+      <div slot="footer">
+        <lightning-button
+          variant="neutral"
+          label="Cancel"
+          onclick={handleCancel}
+        ></lightning-button>
+        <lightning-button
+          variant="brand"
+          label="Verify Insurance Document"
+          class="slds-m-left_x-small"
+          onclick={handleVerify}
+        ></lightning-button>
+      </div>
+    </template>
+  </lightning-quick-action-panel>
+</template>

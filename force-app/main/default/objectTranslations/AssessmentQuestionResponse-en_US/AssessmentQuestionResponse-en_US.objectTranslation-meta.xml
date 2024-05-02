@@ -9,8 +9,8 @@
         <value>Resolution Pathway Responses</value>
     </caseValues>
     <recordTypes>
-        <label></label>
         <name>CMOS_ResolutionPathway</name>
+        <label/>
     </recordTypes>
     <startsWith>Vowel</startsWith>
 </CustomObjectTranslation>

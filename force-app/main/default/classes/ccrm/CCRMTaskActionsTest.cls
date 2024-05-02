@@ -347,4 +347,81 @@ public with sharing class CCRMTaskActionsTest {
       System.assertEquals('Opportunity Identified', lstOfUpdatedLead[0].status);
     }
   }
+
+  @IsTest
+  static void validateLeadExpiryDatePreponed() {
+    List<Lead> lstOfLead = new List<Lead>();
+    Map<String, Task> mapLeadResponses = new Map<String, Task>();
+    Map<Id, Response_Type__c> mapResponseTypeMeta = new Map<Id, Response_Type__c>();
+    Map<Id, Date> mapOfCampaign = new Map<Id, Date>();
+    Lead leadRecord = new Lead();
+    leadRecord.Email = 'sam@test.com';
+    leadRecord.RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID;
+    leadRecord.Description = 'Need a new Credit Card';
+    leadRecord.Expiry_Date__c = System.today() + 10;
+    leadRecord.FinServ__ExpressedInterest__c = 'Personal Loan';
+    leadRecord.FinServ__PotentialValue__c = 12000;
+    leadRecord.FirstName = 'Sam';
+    leadRecord.LastName = 'Jacob';
+    leadRecord.LeadSource = 'Partner';
+    leadRecord.New_to_Bank__c = 'Yes';
+    leadRecord.Lead_Originator__c = 'Adobe';
+    leadRecord.Business_ID__c = '012345';
+    leadRecord.Status = CCRMConstants.STATUS_NEW;
+    leadRecord.Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    lstOfLead.add(leadRecord);
+
+    Task task = new Task();
+    task.Response_Status__c = 'Accepted';
+    task.Status = CCRMConstants.STATUS_COMPLETED;
+    task.Outcome_Reason__c = 'Happy with the offer';
+    task.Subject = 'Accepted' + ': ' + 'Happy with the offer';
+    task.Description = 'Test delete response';
+    task.recordTypeId = CCRMConstants.LEAD_RESPONSE_RT_ID;
+    task.WhoId = lstOfLead[0].Id;
+
+    mapLeadResponses.put(task.WhoId, task);
+
+    Campaign campaignRecord = new Campaign();
+    campaignRecord.Name = 'CRM Manual Leads';
+    campaignRecord.Code__c = System.Label.CCRM_DefaultCampaign;
+    campaignRecord.Type = 'Targeted Offer';
+    campaignRecord.StartDate = System.today();
+    campaignRecord.EndDate = campaignRecord.StartDate.addMonths(1);
+    campaignRecord.Source__c = 'CCM';
+    campaignRecord.Organization__c = 'ANZ Commercial Bank';
+    campaignRecord.Description = 'Manual Leads created by bankers in CRM';
+    campaignRecord.Id = Lib_FakeIdGenerator.getMockId(Campaign.SObjectType);
+
+    mapOfCampaign.put(campaignRecord.Id, campaignRecord.EndDate);
+
+    Response_Type__c responseTypeRecord1 = new Response_Type__c();
+    responseTypeRecord1.Campaign__c = campaignRecord.Id;
+    responseTypeRecord1.Name = 'Flex Field Test Data';
+    responseTypeRecord1.Display_Order__c = 1;
+    responseTypeRecord1.Response_Status__c = 'Accepted';
+    responseTypeRecord1.Outcome_Reason__c = 'Happy with the Offer.';
+    responseTypeRecord1.Create_Opportunity__c = true;
+    responseTypeRecord1.Create_To_Do_Activities__c = true;
+    responseTypeRecord1.Follow_Up_State__c = 'R';
+    responseTypeRecord1.Is_Active__c = true;
+    responseTypeRecord1.UNICA_Lead_SubStatus__c = 'RPC';
+    responseTypeRecord1.Id = Lib_FakeIdGenerator.getMockId(
+      Response_Type__c.SObjectType
+    );
+
+    mapResponseTypeMeta.put(responseTypeRecord1.Id, responseTypeRecord1);
+
+    CCRMTaskActions.calculateExpiryDate(
+      lstOfLead,
+      mapLeadResponses,
+      mapResponseTypeMeta,
+      mapOfCampaign
+    );
+    System.assertEquals(
+      leadRecord.Expiry_Date__c,
+      lstOfLead[0].Expiry_Date__c,
+      'Expiry date cannot be preposned'
+    );
+  }
 }

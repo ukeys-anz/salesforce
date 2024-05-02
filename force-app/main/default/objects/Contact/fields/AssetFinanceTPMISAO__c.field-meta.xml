@@ -3,10 +3,10 @@
     <fullName>AssetFinanceTPMISAO__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - OCV</complianceGroup>
-    <description>TPMI-SAO ID of current Asset Finance accredited Broker.</description>
+    <description>Broker Code of current Asset Finance accredited Broker.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Asset Finance TPMI-SAO</label>
+    <label>Asset Finance Broker Code</label>
     <length>19</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
