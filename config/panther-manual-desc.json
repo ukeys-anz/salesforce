@@ -393,6 +393,7 @@
     },
     "Activity": {
       "IA-2530753": ["Pega_CDH_Id__c"],
+      "IA-2468713": ["Pub_Sub_Event_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
@@ -446,6 +447,14 @@
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
+      ]
+    },
+    "ActivityFieldHistory__c": {
+      "IA-2530753": [
+        "Field_Name__c",
+        "New_Value__c",
+        "Old_Value__c",
+        "Record_Id__c"
       ]
     },
     "Appointment_Commitment__c": {
@@ -1620,6 +1629,12 @@
       ],
       "IA-2594111": ["CPID_LanID__c", "CPID_User__c"]
     },
+    "Custom_Dynamic_Field_History_Setting__mdt": {
+      "IA-2530753": ["Field_Name__c", "SObject_Name__c"]
+    },
+    "Custom_Dynamic_Object_History_Setting__mdt": {
+      "IA-2530753": ["SObject_Name__c", "Table_Name__c"]
+    },
     "Customer_Action__c": {
       "IA-2415840": [
         "Settlement__c",
@@ -2317,7 +2332,7 @@
       "IA-2453595": ["IDR_Issue_Type__c", "IDR_Subsequent_Issue_Type__c"]
     },
     "Lead": {
-      "IA-2468713": ["SmartphoneOS__c"],
+      "IA-2468713": ["SmartphoneOS__c", "Pub_Sub_Event_Id__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
@@ -2446,7 +2461,8 @@
         "AdvertisingIndicator__c",
         "SourceSystem__c"
       ],
-      "IA-2415986": ["Campaign_Name__c"]
+      "IA-2415986": ["Campaign_Name__c"],
+      "IA-2453350": ["Customer_Pre_Exist__c"]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]

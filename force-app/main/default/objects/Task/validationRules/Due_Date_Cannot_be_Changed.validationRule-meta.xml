@@ -3,7 +3,7 @@
     <fullName>Due_Date_Cannot_be_Changed</fullName>
     <active>true</active>
     <description>Coach Nudge Task&apos;s due date cannot be changed manually</description>
-    <errorConditionFormula>AND(  RecordType.Name == &apos;Coach Nudge&apos;, ISCHANGED( ActivityDate ) )</errorConditionFormula>
+    <errorConditionFormula>AND(  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false, OR(RecordType.Name == &apos;Coach Nudge&apos;, RecordType.Name == &apos;Callback Request&apos;), ISCHANGED( ActivityDate ) )</errorConditionFormula>
     <errorDisplayField>ActivityDate</errorDisplayField>
     <errorMessage>Due Date cannot be changed manually</errorMessage>
 </ValidationRule>
