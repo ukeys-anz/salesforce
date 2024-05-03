@@ -312,7 +312,9 @@
   &quot;remoteOptions&quot; : {
     &quot;preTransformBundle&quot; : &quot;&quot;,
     &quot;postTransformBundle&quot; : &quot;&quot;,
-    &quot;Assessment.Name&quot; : &quot;Tone Or Manner&quot;
+    &quot;Assessment.Name&quot; : &quot;Tone Or Manner&quot;,
+    &quot;Assessment.AssessmentStatus&quot; : &quot;Completed&quot;,
+    &quot;Assessment.EffectiveDateTime&quot; : &quot;%CurrentDateTime%&quot;
   },
   &quot;remoteTimeout&quot; : 30000,
   &quot;preTransformBundle&quot; : &quot;&quot;,
@@ -379,7 +381,8 @@
     },
     &quot;CallWebVoucher&quot; : false,
     &quot;RTDevName&quot; : &quot;CMOS_ResolutionPathway&quot;,
-    &quot;SObjectName&quot; : &quot;Assessment&quot;
+    &quot;SObjectName&quot; : &quot;Assessment&quot;,
+    &quot;CurrentDateTime&quot; : &quot;=NOW()&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
@@ -523,5 +526,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_ToneOrManner_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>2802971e-b46f-8a7f-84ae-857bc56c9c99</webComponentKey>
+    <webComponentKey>30d26659-5b31-208f-6342-3c01b2b28fc7</webComponentKey>
 </OmniScript>

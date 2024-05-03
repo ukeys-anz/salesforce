@@ -3,7 +3,7 @@
     <designerCustomizationType>Discovery Framework</designerCustomizationType>
     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -384,7 +384,9 @@
   &quot;remoteOptions&quot; : {
     &quot;preTransformBundle&quot; : &quot;&quot;,
     &quot;postTransformBundle&quot; : &quot;&quot;,
-    &quot;Assessment.Name&quot; : &quot;Call Queue Wait Time &quot;
+    &quot;Assessment.Name&quot; : &quot;Call Queue Wait Time &quot;,
+    &quot;Assessment.AssessmentStatus&quot; : &quot;Completed&quot;,
+    &quot;Assessment.EffectiveDateTime&quot; : &quot;%CurrentDateTime%&quot;
   },
   &quot;remoteTimeout&quot; : 30000,
   &quot;preTransformBundle&quot; : &quot;&quot;,
@@ -444,6 +446,7 @@
     &quot;CallEndPhoneCall&quot; : false,
     &quot;CallCustomerApology&quot; : false,
     &quot;CallCustomerInCall&quot; : false,
+    &quot;CurrentDateTime&quot; : &quot;=NOW()&quot;,
     &quot;origin_dt&quot; : {
       &quot;state&quot; : &quot;CallQueue&quot;
     }
@@ -465,5 +468,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_CallQueueWaitTime_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>42bacdd9-59cf-d5a7-2f9d-901cd2b98d8a</webComponentKey>
+    <webComponentKey>435f6b9c-844c-1ec5-7237-33da0ee85762</webComponentKey>
 </OmniScript>
