@@ -1,8 +1,8 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import { openTab, EnclosingTabId } from "lightning/platformWorkspaceApi";
 import getStaticResource from "@salesforce/resourceUrl/h1account";
 import getHomeLoanFinancialAccountId from "@salesforce/apex/HomeLoanController.getHomeLoanFinancialAccountId";
-import getAccountOwnerIds from "@salesforce/apex/HomeLoanController.getAccountOwnerIds";
 import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 import hasFinancialAccountPermission from "@salesforce/customPermission/FinServ__FinancialServicesCloudStandard";
 import { handleErrorShowToast } from "c/utils";
@@ -12,11 +12,13 @@ import templateDetail from "./homeLoanAccountDetail.html";
 export default class HomeLoanAccountCard extends NavigationMixin(
   LightningElement
 ) {
+  @wire(EnclosingTabId) tabId;
   @api recordId;
   @api accountDetails;
   @api error;
   @api objectApiName;
   @api ownershipType;
+  @api accountOwnersList;
   timestamp;
   financialAccounts;
   showBalanceModal = false;
@@ -29,15 +31,6 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   errorMsg =
     "Failed To Retrieve Home Loan Account. Please refresh and try again. If issue persists please contact your System Administrator";
   singleFinAccount;
-  accountOwners;
-  ownerOne = {
-    name: "",
-    id: ""
-  };
-  ownerTwo = {
-    name: "",
-    id: ""
-  };
   multiparty = false;
 
   connectedCallback() {
@@ -45,6 +38,10 @@ export default class HomeLoanAccountCard extends NavigationMixin(
       this.init();
     }
     this.timestamp = this.handleLastModifiedTimestamp();
+  }
+
+  get isAccountTab() {
+    return `${this.objectApiName}` === "Account";
   }
 
   async init() {
@@ -59,18 +56,6 @@ export default class HomeLoanAccountCard extends NavigationMixin(
           this.financialAccountList = await getHomeLoanFinancialAccountId({
             customerId: this.recordId
           });
-        } else {
-          //Get linked person account(s) record ids if on financial account
-          this.accountOwners = await getAccountOwnerIds({
-            financialAccountId: this.recordId
-          });
-
-          this.ownerOne.id = this.accountOwners[0].FinServ__RelatedAccount__c;
-          this.ownerOne.name = this.accountOwners[0].FinServ__RelatedAccount__r.Name;
-          if (this.accountOwners.length > 1) {
-            this.ownerTwo.id = this.accountOwners[1].FinServ__RelatedAccount__c;
-            this.ownerTwo.name = this.accountOwners[1].FinServ__RelatedAccount__r.Name;
-          }
         }
 
         this.financialAccounts.forEach((finAccount) => {
@@ -245,14 +230,23 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     }
   }
 
-  navigateToRecordViewPage(e) {
-    this[NavigationMixin.Navigate]({
-      type: "standard__recordPage",
-      attributes: {
-        recordId: e.currentTarget.dataset.id,
-        actionName: "view"
-      }
-    });
+  navigateToRecordViewPage(event) {
+    const recordIdToOpen = event.currentTarget.dataset.id;
+    if (this.isAccountTab) {
+      this[NavigationMixin.Navigate]({
+        type: "standard__recordPage",
+        attributes: {
+          recordId: recordIdToOpen,
+          actionName: "view"
+        }
+      });
+    } else {
+      openTab({
+        recordId: recordIdToOpen
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
   }
 
   handleBalanceModal() {
