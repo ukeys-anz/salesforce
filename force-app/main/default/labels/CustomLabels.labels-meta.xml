@@ -277,6 +277,13 @@
         <value>CAP-CIS</value>
     </labels>
     <labels>
+        <fullName>CdmLimitReachedErrorMessage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CdmLimitReachedErrorMessage</shortDescription>
+        <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
