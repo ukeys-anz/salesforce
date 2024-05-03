@@ -8,7 +8,15 @@ public with sharing class CustomerDisputeManagementServiceTest {
   private static final Id NPP_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('NPP_Dispute')
     .getRecordTypeId();
-
+  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+    Account.getSObjectType()
+  );
+  private static final Id FAKER_CASE_ID = Lib_FakeIdGenerator.getMockId(
+    Case.getSObjectType()
+  );
+  private static final Id FAKER_CDM_ID = Lib_FakeIdGenerator.getMockId(
+    Customer_Dispute_Management__c.getSObjectType()
+  );
   @TestSetup
   static void setup() {
     // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
@@ -358,13 +366,13 @@ public with sharing class CustomerDisputeManagementServiceTest {
     String origin
   ) {
     String strDisputeCase =
-      '[{"attributes":{"type":"Case","url":"/services/data/v60.0/sobjects/Case/500AD00000DYbnKYAT"},"Id":"500AD00000DYbnKYAT","RecordTypeId":"' +
+      '[{"attributes":{"type":"Case","url":"/services/data/v60.0/sobjects/Case/'+FAKER_CASE_ID+'"},"Id":"'+FAKER_CASE_ID+'","RecordTypeId":"' +
       NPP_DISPUTE_RT_ID +
       '","Origin":"' +
       origin +
       '","IsClosed":"' +
       isClosed +
-      '","AccountId":"001AD00000LwwkHYAR"}]';
+      '","AccountId":"'+FAKER_ACCOUNT_ID+'"}]';
     List<Case> disputeCasesList = (List<Case>) JSON.deserialize(
       strDisputeCase,
       List<Case>.class
@@ -374,9 +382,9 @@ public with sharing class CustomerDisputeManagementServiceTest {
 
   private static List<Account> createMockPersonAccount() {
     String strPersonAccount =
-      '[{"attributes":{"type":"Account","url":"/services/data/v60.0/sobjects/Account/001AD00000LwwkHYAR"},"Id":"001AD00000LwwkHYAR","Customer_Dispute_Management__c":"a20AD000000FwwXYAS","Cases":{"totalSize":1,"done":true,"records":[{"attributes":{"type":"Case","url":"/services/data/v60.0/sobjects/Case/500AD00000E6TIcYAN"},"AccountId":"001AD00000LwwkHYAR","Id":"500AD00000E6TIcYAN","IsClosed":false,"Origin":"App","RecordTypeId":"' +
+      '[{"attributes":{"type":"Account","url":"/services/data/v60.0/sobjects/Account/'+FAKER_ACCOUNT_ID+'"},"Id":"'+FAKER_ACCOUNT_ID+'","Customer_Dispute_Management__c":"'+FAKER_CDM_ID+'","Cases":{"totalSize":1,"done":true,"records":[{"attributes":{"type":"Case","url":"/services/data/v60.0/sobjects/Case/'+FAKER_CASE_ID+'"},"AccountId":"'+FAKER_ACCOUNT_ID+'","Id":"'+FAKER_CASE_ID+'","IsClosed":false,"Origin":"App","RecordTypeId":"' +
       NPP_DISPUTE_RT_ID +
-      '"}]},"Customer_Dispute_Management__r":{"attributes":{"type":"Customer_Dispute_Management__c","url":"/services/data/v60.0/sobjects/Customer_Dispute_Management__c/a20AD000000FwwXYAS"},"Id":"a20AD000000FwwXYAS","Temporary_Block__c":true,"Temporary_Block_Overridden__c":false,"Permanent_Block__c":true}}]';
+      '"}]},"Customer_Dispute_Management__r":{"attributes":{"type":"Customer_Dispute_Management__c","url":"/services/data/v60.0/sobjects/Customer_Dispute_Management__c/'+FAKER_CDM_ID+'"},"Id":"'+FAKER_CDM_ID+'","Temporary_Block__c":true,"Temporary_Block_Overridden__c":false,"Permanent_Block__c":true}}]';
     List<Account> personAccountList = (List<Account>) JSON.deserialize(
       strPersonAccount,
       List<Account>.class
@@ -385,7 +393,7 @@ public with sharing class CustomerDisputeManagementServiceTest {
   }
 
   private static Customer_Dispute_Management__c createMockCdmRecord() {
-    String strCdmRecord = '{"attributes":{"type":"Customer_Dispute_Management__c","url":"/services/data/v60.0/sobjects/Customer_Dispute_Management__c/a20AD000000FwwXYAS"},"Id":"a20AD000000FwwXYAS","Temporary_Block__c":true,"Temporary_Block_Overridden__c":true}';
+    String strCdmRecord = '{"attributes":{"type":"Customer_Dispute_Management__c","url":"/services/data/v60.0/sobjects/Customer_Dispute_Management__c/'+FAKER_CDM_ID+'"},"Id":"'+FAKER_CDM_ID+'","Temporary_Block__c":true,"Temporary_Block_Overridden__c":true}';
     Customer_Dispute_Management__c cdmRecordToBeUpserted = (Customer_Dispute_Management__c) JSON.deserialize(
       strCdmRecord,
       Customer_Dispute_Management__c.class
