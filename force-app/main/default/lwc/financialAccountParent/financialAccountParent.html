@@ -20,6 +20,7 @@
         object-api-name={objectApiName}
         account-details={loanData}
         ownership-type={accountOwnershipType}
+        account-owners-list={accountOwners}
       ></c-home-loan-account>
     </template>
   </template>
@@ -53,6 +54,7 @@
         error={accountError}
         savings-jar={savingsJar}
         data-id="financial-account"
+        account-owners-list={accountOwners}
       ></c-financial-account-header>
       <div class="slds-m-top_small"></div>
       <template lwc:if={isSavings}>

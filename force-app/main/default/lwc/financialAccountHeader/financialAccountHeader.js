@@ -1,6 +1,7 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 
 import { NavigationMixin } from "lightning/navigation";
+import { openTab, EnclosingTabId } from "lightning/platformWorkspaceApi";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
@@ -18,12 +19,15 @@ export default class FinancialAccount extends NavigationMixin(
   @api accountDetails;
   @api savingsJar;
   @api error;
+  @api accountOwnersList;
   componentTitle;
   balanceTitle;
   showInfoModal = false;
   productTitle;
   titleIcon;
   iconColor;
+
+  @wire(EnclosingTabId) tabId;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -73,12 +77,11 @@ export default class FinancialAccount extends NavigationMixin(
   }
 
   navigateToRecordViewPage(event) {
-    this[NavigationMixin.Navigate]({
-      type: "standard__recordPage",
-      attributes: {
-        recordId: event.currentTarget.dataset.id,
-        actionName: "view"
-      }
+    const accountID = event.currentTarget.dataset.id;
+    openTab({
+      recordId: accountID
+    }).catch((error) => {
+      console.error(error);
     });
   }
 
