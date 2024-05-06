@@ -70,6 +70,10 @@
             <fullName>ConnectID</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Selfie Watchlist Match</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Fraud_ID_Compromise_Type__c</picklist>
