@@ -239,13 +239,7 @@ public with sharing class CustomerDisputeManagementService {
    */
   @TestVisible
   private static Map<Id,Account>  createAccountMapWithCDMDetails( List<Account> accountWithCDMDetails){
-    Map<Id,Account> accountCDMMap = new Map<Id,Account>();
-    for(Account acc : accountWithCDMDetails){
-      accountCDMMap.put(
-          acc.Id,
-          acc
-        );
-    }
+    Map<Id,Account> accountCDMMap = new Map<Id,Account>(accountWithCDMDetails);
     return accountCDMMap;
   }
 
