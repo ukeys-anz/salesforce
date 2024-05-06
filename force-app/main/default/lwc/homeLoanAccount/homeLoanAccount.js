@@ -151,7 +151,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     return lastUpdated;
   }
 
-  //USED IN THE FINANCIAL ACCOUNT VIEW
+  //USED IN THE FINANCIAL ACCOUNT VIEW FOR SHOWING LOAN TERM
   handleLoanTerm(account) {
     let termInMonth = account.loan_details.loan_term;
     let months = { one: "month", other: "months" };
