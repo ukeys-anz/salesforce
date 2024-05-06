@@ -231,4 +231,9 @@
         <default>false</default>
         <label>ConnectID</label>
     </standardValue>
+    <standardValue>
+        <fullName>Selfie Watchlist Match</fullName>
+        <default>false</default>
+        <label>Selfie Watchlist Match</label>
+    </standardValue>
 </StandardValueSet>

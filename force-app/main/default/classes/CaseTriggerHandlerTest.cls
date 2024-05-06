@@ -584,10 +584,10 @@ private class CaseTriggerHandlerTest {
       casesWithNumberText.add(
         new Case(
           IDR_Account_Card_Policy_Number__c = '000001234',
-          Description = 'Test decription 1234-5678-9101-7632-3321 check mask',
-          IDR_Complainant_Desired_Outcome__c = 'Test decription 1234-5678-9101-7632-3321 check mask',
-          IDR_Description_of_Outcome__c = 'Test decription 1234-5678-9101-7632-3321 check mask',
-          IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101-7632-3321 check mask',
+          Description = 'Test decription 1234-5678-9101-3321 check mask',
+          IDR_Complainant_Desired_Outcome__c = 'Test decription 1234-5678-9101-3321 check mask',
+          IDR_Description_of_Outcome__c = 'Test decription 1234-5678-9101-3321 check mask',
+          IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101-3321 check mask',
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890'
         )
@@ -614,22 +614,22 @@ private class CaseTriggerHandlerTest {
       'IDR_Account_Card_Policy_Number__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ****************3321 check mask',
+      'Test decription ************3321 check mask',
       c.Description,
       'Description should be masked.'
     );
     System.assertEquals(
-      'Test decription ****************3321 check mask',
+      'Test decription ************3321 check mask',
       c.IDR_Complainant_Desired_Outcome__c,
       'IDR_Complainant_Desired_Outcome__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ****************3321 check mask',
+      'Test decription ************3321 check mask',
       c.IDR_Description_of_Outcome__c,
       'IDR_Description_of_Outcome__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ****************3321 check mask',
+      'Test decription ************3321 check mask',
       c.IDR_Systemic_Issue_Description__c,
       'IDR_Systemic_Issue_Description__c should be masked.'
     );
