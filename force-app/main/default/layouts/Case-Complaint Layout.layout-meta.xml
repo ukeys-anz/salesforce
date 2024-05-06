@@ -768,6 +768,8 @@
         <fields>EffectiveDateTime</fields>
         <fields>ExpirationDateTime</fields>
         <relatedList>Assessments</relatedList>
+        <sortField>EffectiveDateTime</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
