@@ -95,6 +95,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
             return eachAccount.state !== "ACCOUNT_STATE_CLOSED";
           }
         );
+        this.financialAccounts = financialAccountOpenList;
       } catch (error) {
         handleErrorShowToast(
           this,
