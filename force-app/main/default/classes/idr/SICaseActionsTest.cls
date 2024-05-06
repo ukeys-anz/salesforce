@@ -10,13 +10,13 @@ private with sharing class SICaseActionsTest {
           RecordTypeId = IDRConstants.SI_RT_ID,
           Status = 'Open',
           SI_Workflow_step__c = 'Assessing',
-          Subject = '1234-5678-9101-7632-3321',
-          Description = 'Test description 1234-5678-9101-7632-3321 check mask',
-          IDR_Description_of_Outcome__c = 'Test description 1234-5678-9101-7632-3321 check mask',
-          RAG_Comments__c = 'Test description 1234-5678-9101-7632-3321 check mask',
-          SI_Definite_Action_Completed__c = 'Test description 1234-5678-9101-7632-3321 check mask',
-          SI_Rec_Rem_Actions__c = 'Test description 1234-5678-9101-7632-3321 check mask',
-          SI_Subject_of_Breach_Report_Comments__c = 'Test description 1234-5678-9101-7632-3321 check mask'
+          Subject = '1234-5678-9101-3321',
+          Description = 'Test description 1234-5678-9101-3321 check mask',
+          IDR_Description_of_Outcome__c = 'Test description 1234-5678-9101-3321 check mask',
+          RAG_Comments__c = 'Test description 1234-5678-9101-3321 check mask',
+          SI_Definite_Action_Completed__c = 'Test description 1234-5678-9101-3321 check mask',
+          SI_Rec_Rem_Actions__c = 'Test description 1234-5678-9101-3321 check mask',
+          SI_Subject_of_Breach_Report_Comments__c = 'Test description 1234-5678-9101-3321 check mask'
         )
       );
     }
@@ -256,48 +256,48 @@ private with sharing class SICaseActionsTest {
       LIMIT 1
     ];
     System.assertEquals(
-      '****************3321',
+      '************3321',
       c.Subject,
       'Subject should be masked.'
     );
     System.assertEquals(
-      'Test description ****************3321 check mask',
+      'Test description ************3321 check mask',
       c.Description,
       'Description should be masked.'
     );
     System.assertEquals(
-      'Test description ****************3321 check mask',
+      'Test description ************3321 check mask',
       c.IDR_Description_of_Outcome__c,
       'IDR_Description_of_Outcome__c should be masked.'
     );
     System.assertEquals(
-      'Test description ****************3321 check mask',
+      'Test description ************3321 check mask',
       c.RAG_Comments__c,
       'RAG_Comments__c should be masked.'
     );
     System.assertEquals(
-      'Test description ****************3321 check mask',
+      'Test description ************3321 check mask',
       c.SI_Definite_Action_Completed__c,
       'SI_Definite_Action_Completed__c should be masked.'
     );
     System.assertEquals(
-      'Test description ****************3321 check mask',
+      'Test description ************3321 check mask',
       c.SI_Rec_Rem_Actions__c,
       'SI_Rec_Rem_Actions__c should be masked.'
     );
     System.assertEquals(
-      'Test description ****************3321 check mask',
+      'Test description ************3321 check mask',
       c.SI_Subject_of_Breach_Report_Comments__c,
       'SI_Subject_of_Breach_Report_Comments__c should be masked.'
     );
     //AND WHEN updated
-    c.Subject = '1234-5678-9101-7632-3321';
+    c.Subject = '1234-5678-9101-3321';
     Test.startTest();
     update c;
     //THEN long numbers in free text fields are masked, showing only the last four digits
     c = [SELECT Subject FROM Case LIMIT 1];
     System.assertEquals(
-      '****************3321',
+      '************3321',
       c.Subject,
       'Subject should be masked.'
     );
