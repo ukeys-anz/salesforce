@@ -95,8 +95,6 @@ export default class HomeLoanAccountCard extends NavigationMixin(
             return eachAccount.state !== "ACCOUNT_STATE_CLOSED";
           }
         );
-        this.financialAccounts =
-          financialAccountOpenList.length > 0 ? financialAccountOpenList : null;
       } catch (error) {
         handleErrorShowToast(
           this,
@@ -123,13 +121,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   }
 
   get showHomeLoan() {
-    if (this.financialAccounts && this.financialAccounRoleList) {
-      return (
-        this.financialAccounRoleList.length > 0 &&
-        this.financialAccounts.length > 0
-      );
-    }
-    return false;
+    return this.financialAccounts.length > 0;
   }
 
   handleAccountActive(state) {
