@@ -102,6 +102,10 @@ export default class FinancialAccountParent extends LightningElement {
   wiredMethodCalled = false;
   accountOwners = [];
 
+  get isSoleAccount() {
+    return `${this.accountOwnershipType}` === "Single";
+  }
+
   @wire(CurrentPageReference)
   pageRef;
 
@@ -429,7 +433,8 @@ export default class FinancialAccountParent extends LightningElement {
           : "slds-badge";
 
       // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
-      finAccount.showSavingsJar = finAccount.FinServ__Status__c !== "Closed";
+      finAccount.showSavingsJar =
+        finAccount.FinServ__Status__c !== "Closed" && this.isSoleAccount;
 
       // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
       if (finAccount.FinServ__Ownership__c) {
