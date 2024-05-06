@@ -111,40 +111,111 @@ public with sharing class TextUtilsTest {
     Assert.areEqual(
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
-      'Sanitise Mobile Number ' +
-      input +
-      'should be' +
-      exceptedOutput
+      'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
     );
 
     input = ' 61 123 456 789 ';
     Assert.areEqual(
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
-      'Sanitise Mobile Number ' +
-      input +
-      'should be' +
-      exceptedOutput
+      'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
     );
 
     input = '+61 123 456 789';
     Assert.areEqual(
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
-      'Sanitise Mobile Number ' +
-      input +
-      'should be' +
-      exceptedOutput
+      'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
     );
 
     input = '+61-123 456 789 ';
     Assert.areEqual(
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
-      'Sanitise Mobile Number ' +
-      input +
-      'should be' +
-      exceptedOutput
+      'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
+    );
+  }
+
+  @IsTest
+  static void testCardRelaxedMaskingRules() {
+    String inputMoney = '$1234567890123456';
+    String inputDateRange = '01-01-2020 01-02-2020';
+    String inputNonCardNumber = '12#345678912&345';
+    String inputMoneyDateBSB = '$123456 01/01/2024 014235 911111111';
+    String inputCard14 = '12345678901234';
+    String inputCard14Space = '1234 567890 1234';
+    String inputCard14Hyphen = '1234-567890-1234';
+    String inputCard15 = '123456789012345';
+    String inputCard15Space = '1234 567890 12345';
+    String inputCard15Hyphen = '1234-567890-12345';
+    String inputCard16 = '1234567890123456';
+    String inputCard16Space = '1234 5678 9012 3456';
+    String inputCard16Hyphen = '1234-5678-9012-3456';
+
+    Assert.areEqual(
+      inputMoney,
+      TextUtils.maskCC(inputMoney),
+      'Money should not be masked'
+    );
+    Assert.areEqual(
+      inputDateRange,
+      TextUtils.maskCC(inputDateRange),
+      'Date range should not be masked'
+    );
+    Assert.areEqual(
+      inputNonCardNumber,
+      TextUtils.maskCC(inputNonCardNumber),
+      'Non-CC long number should not be masked'
+    );
+    Assert.areEqual(
+      inputMoneyDateBSB,
+      TextUtils.maskCC(inputMoneyDateBSB),
+      'Combination of money, date, bsb, acc no. should not be masked'
+    );
+    Assert.areEqual(
+      '**********1234',
+      TextUtils.maskCC(inputCard14),
+      'Diners Club 14-digit card should be masked'
+    );
+    Assert.areEqual(
+      '**********1234',
+      TextUtils.maskCC(inputCard14Space),
+      'Diners Club 14-digit card should be masked'
+    );
+    Assert.areEqual(
+      '**********1234',
+      TextUtils.maskCC(inputCard14Hyphen),
+      'Diners Club 14-digit card should be masked'
+    );
+    Assert.areEqual(
+      '***********2345',
+      TextUtils.maskCC(inputCard15),
+      'Amex 15-digit card should be masked'
+    );
+    Assert.areEqual(
+      '***********2345',
+      TextUtils.maskCC(inputCard15Space),
+      'Amex 15-digit card should be masked'
+    );
+    Assert.areEqual(
+      '***********2345',
+      TextUtils.maskCC(inputCard15Hyphen),
+      'Amex 15-digit card should be masked'
+    );
+    Assert.areEqual(
+      '************3456',
+      TextUtils.maskCC(inputCard16),
+      'Visa 16-digit card should be masked'
+    );
+    Assert.areEqual(
+      '************3456',
+      TextUtils.maskCC(inputCard16Space),
+      'Visa 16-digit card should be masked'
+    );
+    Assert.areEqual(
+      '************3456',
+      TextUtils.maskCC(inputCard16Hyphen),
+      'Visa 16-digit card should be masked'
     );
   }
 }
