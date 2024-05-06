@@ -104,7 +104,7 @@ public with sharing class RetailBrokerContactActions {
   private static Boolean isBrokerUpdated(Contact record, Contact oldRecord) {
     Boolean isVersionValid =
       record.OCV_Event_Version__c > 0 &&
-      record.OCV_Event_Version__c > oldRecord.OCV_Event_Version__c;
+      record.OCV_Event_Version__c >= oldRecord.OCV_Event_Version__c;
     if (isVersionValid == false) {
       return false;
     }

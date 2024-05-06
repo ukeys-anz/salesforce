@@ -8,8 +8,8 @@ private with sharing class IDRTaskActionsTest {
         new Task(
           RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
           Priority = 'Normal',
-          Subject = '1234-5678-9101-7632-3321',
-          Description = 'Test description 1234-5678-9101-7632-3321 check mask'
+          Subject = '1234-5678-9101-3321',
+          Description = 'Test description 1234-5678-9101-3321 check mask'
         )
       );
     }
@@ -138,22 +138,22 @@ private with sharing class IDRTaskActionsTest {
     //THEN long numbers in free text fields are masked, showing only the last four digits
     Task t = [SELECT Subject, Description FROM Task LIMIT 1];
     System.assertEquals(
-      '****************3321',
+      '************3321',
       t.Subject,
       'Subject should not be masked.'
     );
     System.assertEquals(
-      'Test description ****************3321 check mask',
+      'Test description ************3321 check mask',
       t.Description,
       'Description should be masked.'
     );
     //AND WHEN updated
-    t.Subject = '1234-5678-9101-7632-3321';
+    t.Subject = '1234-5678-9101-3321';
     update t;
     //THEN long numbers in free text fields are masked, showing only the last four digits
     t = [SELECT Subject FROM Task LIMIT 1];
     System.assertEquals(
-      '****************3321',
+      '************3321',
       t.Subject,
       'Subject should be masked.'
     );

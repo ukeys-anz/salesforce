@@ -61,21 +61,13 @@ public with sharing class FeedMaskUtils {
             : 'Account Name: ' + relatedAcc.Name;
           Logger.info(
             caseOrAccountLog +
-            '; Body: ' +
-            feedRecordBody +
-            '; Reason for logging: User entered long digits without needing to mask'
+              '; Body: ' +
+              feedRecordBody +
+              '; Reason for logging: User entered long digits without needing to mask'
           );
         }
-      } else if (relatedInteraction != null) {
-        feedRecordBody = applyAnzxMaskingToBody(feedItemObj, feedCommentObj);
       } else {
-        if (record.getSObjectType() == FeedItem.getSObjectType()) {
-          feedItemObj.Body = TextUtils.maskData(feedItemObj.Body);
-        } else {
-          feedCommentObj.CommentBody = TextUtils.maskData(
-            feedCommentObj.CommentBody
-          );
-        }
+        applyAnzxMaskingToBody(feedItemObj, feedCommentObj);
       }
       if (
         (record.getSObjectType() == FeedItem.getSObjectType()
