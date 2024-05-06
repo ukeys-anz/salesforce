@@ -20,10 +20,10 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   @api ownershipType;
   @api accountOwnersList;
   timestamp;
-  financialAccounts;
+  financialAccounts = [];
   showBalanceModal = false;
   showRedrawAvailableModal = false;
-  financialAccountList;
+  financialAccounRoleList = [];
   loanImageUrl = getStaticResource + "/images/Mortgage.png";
   errorImageUrl = getStaticResource + "/images/PermissionError.png";
   hasError;
@@ -59,9 +59,12 @@ export default class HomeLoanAccountCard extends NavigationMixin(
         }
 
         this.financialAccounts.forEach((finAccount) => {
-          if (this.financialAccountList && this.objectApiName === "Account") {
+          if (
+            this.financialAccounRoleList &&
+            this.objectApiName === "Account"
+          ) {
             //Retrieve record id for linked fin account
-            this.financialAccountList.forEach((account) => {
+            this.financialAccounRoleList.forEach((account) => {
               if (
                 account.FinServ__FinancialAccount__r
                   .FinServ__FinancialAccountNumber__c ===
@@ -71,7 +74,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
               }
             });
           }
-
+          finAccount.accountActive = this.handleAccountActive(finAccount.state);
           finAccount.lastModifiedTimestamp = this.handleLastModifiedTimestamp(
             finAccount
           );
@@ -84,10 +87,16 @@ export default class HomeLoanAccountCard extends NavigationMixin(
           );
           finAccount.rateType = this.handleRateType(finAccount);
         });
-
         if (this.objectApiName === "FinServ__FinancialAccount__c") {
           this.singleFinAccount = this.financialAccounts[0];
         }
+        const financialAccountOpenList = this.financialAccounts.filter(
+          (eachAccount) => {
+            return eachAccount.state !== "ACCOUNT_STATE_CLOSED";
+          }
+        );
+        this.financialAccounts =
+          financialAccountOpenList.length > 0 ? financialAccountOpenList : null;
       } catch (error) {
         handleErrorShowToast(
           this,
@@ -111,6 +120,20 @@ export default class HomeLoanAccountCard extends NavigationMixin(
 
   get hasPermissionIssue() {
     return !(hasHomeLoanPermission && hasFinancialAccountPermission);
+  }
+
+  get showHomeLoan() {
+    if (this.financialAccounts && this.financialAccounRoleList) {
+      return (
+        this.financialAccounRoleList.length > 0 &&
+        this.financialAccounts.length > 0
+      );
+    }
+    return false;
+  }
+
+  handleAccountActive(state) {
+    return state === "ACCOUNT_STATE_CLOSED" ? false : true;
   }
 
   handleLastModifiedTimestamp(account) {
