@@ -15,7 +15,7 @@ permissions:
 jobs:
   Release:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.3"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
@@ -138,7 +138,7 @@ jobs:
       - name: Cleaning | Create Tag
         if: env.NOT_APPROVAL_STEP == 'true'
         run: |
-          node --no-warnings ci/workflows/Orchestrations/release.mjs
+          node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
 
   Cleanup:
     name: "Cleanup"

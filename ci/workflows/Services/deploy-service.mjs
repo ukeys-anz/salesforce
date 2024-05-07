@@ -194,6 +194,27 @@ const uploadJobId = (
   return jobId;
 };
 
+const createProdValidationJobIdFile = (validationReport, fileName) => {
+  const jobId = findJobIdFromCommand(validationReport);
+  if (!jobId) return;
+  console.log(`Create Prod Validation Job Id File: ${jobId}`);
+  createFile(jobId, fileName, "Validation Job Id ");
+};
+
+const uploadProdValidationJobIdFile = (
+  filename,
+  artifactorySecret,
+  artifactoryRepoName
+) => {
+  logger(`Upload Prod Validation Job Id File: ${filename}`);
+  uploadFile(
+    filename,
+    artifactorySecret,
+    artifactoryRepoName,
+    "Prod Validation Job Id"
+  );
+};
+
 const cancel = (
   jobIdFileName,
   artifactorySecret,
@@ -457,6 +478,8 @@ export {
   deployReport,
   quickDeployProgress,
   uploadJobId,
+  createProdValidationJobIdFile,
+  uploadProdValidationJobIdFile,
   codeCoverage,
   quickDeploy
 };
