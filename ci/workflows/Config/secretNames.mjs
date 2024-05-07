@@ -48,7 +48,8 @@ const salesforceSecretNames = {
   "epic/connectid": "h-salesforce-np-connectid",
   "epic/join-salesforce-ciba": "h-salesforce-np-ciba",
   "epic/bdm-app-overview": "h-salesforce-np-brokermain",
-  "epic/transaction-income": "h-salesforce-np-trnscncome"
+  "epic/transaction-income": "h-salesforce-np-trnscncome",
+  "epic/disputeq-auto": "h-salesforce-np-disputeq"
 };
 
 const brokerSecretNames = {

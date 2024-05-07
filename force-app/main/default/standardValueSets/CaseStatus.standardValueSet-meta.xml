@@ -20,6 +20,12 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>To Be Worked</fullName>
+        <default>false</default>
+        <label>To Be Worked</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Working</fullName>
         <default>false</default>
         <label>Working</label>
@@ -35,6 +41,12 @@
         <fullName>Under Investigation</fullName>
         <default>false</default>
         <label>Under Investigation</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Review Required</fullName>
+        <default>false</default>
+        <label>Review Required</label>
         <closed>false</closed>
     </standardValue>
     <standardValue>

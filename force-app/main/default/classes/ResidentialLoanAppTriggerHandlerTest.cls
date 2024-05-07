@@ -54,4 +54,62 @@ public with sharing class ResidentialLoanAppTriggerHandlerTest {
     }
     Test.stopTest();
   }
+
+  @IsTest
+  static void testBeforeInsert() {
+    ResidentialLoanApplicationTriggerHandler handler = new ResidentialLoanApplicationTriggerHandler();
+    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
+      10
+    );
+    handler.records = loanApps;
+    Test.startTest();
+    handler.onBeforeInsert();
+    Test.stopTest();
+    Assert.areEqual(
+      loanApps.size(),
+      handler.records.size(),
+      'Loan Applications should be 10'
+    );
+  }
+
+  @IsTest
+  static void testBeforeUpdate() {
+    ResidentialLoanApplicationTriggerHandler handler = new ResidentialLoanApplicationTriggerHandler();
+    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
+      10
+    );
+    Map<Id, ResidentialLoanApplication> loanAppMap = new Map<Id, ResidentialLoanApplication>(
+      loanApps
+    );
+    handler.records = loanApps;
+    Test.startTest();
+    handler.onBeforeUpdate(loanAppMap);
+    Test.stopTest();
+    Assert.areEqual(
+      loanAppMap.size(),
+      handler.records.size(),
+      'Loan Applications should be 10'
+    );
+  }
+
+  /**
+   * @description Create a list of Residential Loan Applications
+   * @param count - number of loan applications to create
+   * @return List<ResidentialLoanApplication>
+   */
+  static List<ResidentialLoanApplication> createResidentialLoanApplications(
+    Integer count
+  ) {
+    List<ResidentialLoanApplication> loanApps = new List<ResidentialLoanApplication>();
+    for (Integer i = 0; i < count; i++) {
+      ResidentialLoanApplication loanApp = TestDataFactory.createTestResidentialLoanApplication(
+        String.valueOf(i + 1)
+      );
+      loanApp.Id = Lib_FakeIdGenerator.getMockId(
+        ResidentialLoanApplication.SObjectType
+      );
+      loanApps.add(loanApp);
+    }
+    return loanApps;
+  }
 }

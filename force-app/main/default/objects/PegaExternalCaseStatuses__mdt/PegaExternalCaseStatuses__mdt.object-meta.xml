@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Custom metadata created to identify Pega External Case Statuses</description>
+    <label>Pega External Case Statuses</label>
+    <pluralLabel>Pega External Case Statuses</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

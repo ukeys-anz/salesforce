@@ -6,9 +6,7 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 ISCHANGED(OwnerId),
-OR(
 RecordType.DeveloperName = &apos;ATM_Dispute&apos;,
-RecordType.DeveloperName = &apos;Card_Dispute&apos;),
 AND(
 NOT(Owner:Queue.QueueName = &apos;Card Dispute - General Queue&apos;),
 NOT(Owner:Queue.QueueName = &apos;Card Dispute - Fraud Queue&apos;),
@@ -23,5 +21,5 @@ NOT(Owner:User.UserRole.Name = &apos;Support Coach&apos;),
 NOT(Owner:User.UserRole.Name = &apos;Card Dispute Agent&apos;),
 NOT(Owner:User.UserRole.Name = &apos;FraudX Agent&apos;))
 )</errorConditionFormula>
-    <errorMessage>For ATM or Card cases, the Case Owner Queue must be the Card Disputes Queues, Pending Card Disputes Queues, ID Ops Queue or Coach Queue. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.</errorMessage>
+    <errorMessage>For ATM cases, the Case Owner Queue must be the Card Disputes Queues, Pending Card Disputes Queues, ID Ops Queue or Coach Queue. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.</errorMessage>
 </ValidationRule>

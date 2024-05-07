@@ -354,30 +354,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
-                    <value>Facet-56cad799-e505-4661-af27-625aad19f755</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>horizontalAlignment</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Broker Information</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:fieldSection</componentName>
-                <identifier>flexipage_fieldSection3</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Assisted_Broker_TPMI_SAO__c}</leftValue>
-                        <operator>NE</operator>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>columns</name>
                     <value>Facet-a1aaefb7-9e07-4f59-a68c-f10a9c9002d4</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -408,6 +384,30 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-56cad799-e505-4661-af27-625aad19f755</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Broker Information</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Assisted_Broker_TPMI_SAO__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

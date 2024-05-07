@@ -163,11 +163,11 @@ public with sharing class TFMConstants {
   public static final String LIST_END_INDEX = 'listEndIndex';
   public static final String LIST_START_INDEX = 'listStartIndex';
   public static final String DATAINCONSENTLISTPARAM = '":';
-  public static final String PIN_REF_ID ='pinRefId';
-  public static final String CLOSEDACCOUNT =' (closed)';
+  public static final String PIN_REF_ID = 'pinRefId';
+  public static final String CLOSEDACCOUNT = ' (closed)';
   public static final String JOINTACCOUNT = 'Joint ';
-  public static final String LIST_TO_PROCESS_FIRST = 'ListToProcessFirst'; 
-  public static final String LIST_TO_PROCESS_SECOND = 'ListToProcessSecond'; 
+  public static final String LIST_TO_PROCESS_FIRST = 'ListToProcessFirst';
+  public static final String LIST_TO_PROCESS_SECOND = 'ListToProcessSecond';
   public static final String FIRST_PROCESS_RECORD_KEY = 'firstProcessRecordsKey';
   public static final String SECOND_PROCESS_RECORD_KEY = 'secondProcessRecordsKey';
   public static final String PARENT_ACTIVE_CONSENT_LIST = 'parentActiveConsentList';
