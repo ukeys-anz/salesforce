@@ -205,7 +205,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
           ) {
             this.accountData.savings.push(account);
-            this.savingsId = account.Id;
+            if (account.FinServ__Ownership__c !== MULTI_PARTY) {
+              this.savingsId = account.Id;
+            }
           }
         }
       });
