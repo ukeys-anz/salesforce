@@ -203,7 +203,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
-      String incomeVerified = (String) inputMap.get('incomeVerified');
+      String incomeVerified = Boolean.valueOf(inputMap.get('incomeVerified'))
+        ? 'Yes'
+        : 'No';
 
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
         loanId
@@ -218,6 +220,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
 
       outMap.put('hasValidationError', false);
       outMap.put('toast', 'Success');
+
       return true;
     } catch (Exception e) {
       if (e.getMessage().contains('verifyIncome:HTTP POST')) {
@@ -246,7 +249,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
-      String incomeVerified = (String) inputMap.get('incomeVerified');
+      String incomeVerified = Boolean.valueOf(inputMap.get('incomeVerified'))
+        ? 'Yes'
+        : 'No';
       String staticIncomeVerified = (String) inputMap.get(
         'staticIncomeVerified'
       );
