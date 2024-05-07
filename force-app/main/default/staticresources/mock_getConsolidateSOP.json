@@ -2006,6 +2006,70 @@
         "updateTime": "2023-07-11T06:14:42.839647Z",
         "updatedBy": "1000991493",
         "etag": "1689056082839647000"
+      },
+      {
+        "name": "sops/d5abc7b3-9334-4add-aa68-861a2d57a3e6/incomes/52ac94bd-010b-4a2f-8c67-dff6b8f6d2b6",
+        "uid": "52ac94bd-010b-4a2f-8c67-dff6b8f6d2b6",
+        "details": [
+          {
+            "id": "a92e0a7b-18d7-4f0f-be01-fe0606ec6a59",
+            "type": "INCOME_TYPE_SALARY_WAGES",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "amount": { "currencyCode": "AUD", "units": "20000", "nanos": 0 },
+            "amountType": "INCOME_AMOUNT_TYPE_NET",
+            "superAllocation": null,
+            "bonusPayments": 0
+          }
+        ],
+        "employment": {
+          "partyId": "912babdf-4a83-c3b1-90d3-b7ff45048a46",
+          "businessName": "Coles",
+          "basis": "EMPLOYMENT_BASIS_FULL_TIME",
+          "businessLogo": null,
+          "startDate": { "year": 2020, "month": 10, "day": 10 },
+          "updatedBy": "912babdf-4a83-c3b1-90d3-b7ff45048a46",
+          "type": "EMPLOYMENT_TYPE_PAYG"
+        },
+        "stream": {
+          "id": "3a4ed418-e223-54ff-acf4-b23244d50d87",
+          "frequency": "INCOME_FREQUENCY_MONTHLY",
+          "type": "INCOME_TYPE_UNSPECIFIED",
+          "streamDurationMonths": 0,
+          "baseAmount": null,
+          "variableAmount": null,
+          "volatility": false,
+          "sourceAccountIds": [],
+          "merchantId": "",
+          "continuousCalendarMonths": 11,
+          "historyDays": 360,
+          "details": [
+            {
+              "amount": { "currencyCode": "AUD", "units": "50000", "nanos": 0 },
+              "incomeType": "INCOME_TYPE_SALARY_WAGES",
+              "periodMonths": 3,
+              "volatilityCoefficient": { "value": "0" },
+              "incomeTransactionCount": 3,
+              "recentGapDays": 19,
+              "amountType": "INCOME_AMOUNT_TYPE_NET",
+              "frequency": "INCOME_FREQUENCY_MONTHLY"
+            }
+          ],
+          "createTime": "2024-03-26T03:25:18.199792959Z",
+          "updateTime": "2024-03-26T03:25:18.199792959Z",
+          "updatedBy": "06489583-861f-5abf-8ad0-e69eb5a61130",
+          "lastTransactionDetail": {
+            "name": "transactions/3af31773-8073-47b8-8c76-6740a13618bd",
+            "uid": "3af31773-8073-47b8-8c76-6740a13618bd",
+            "originTime": "2024-03-06T23:00:00Z",
+            "amount": { "currencyCode": "AUD", "units": "20000", "nanos": 0 }
+          },
+          "merchantDetail": null
+        },
+        "verification": null,
+        "createTime": "2024-03-26T03:28:13.522444077Z",
+        "updateTime": "2024-03-26T03:28:13.522444077Z",
+        "updatedBy": "06489583-861f-5abf-8ad0-e69eb5a61130",
+        "etag": "1711423693522444077"
       }
     ],
     "incomesTotalAmount": {
