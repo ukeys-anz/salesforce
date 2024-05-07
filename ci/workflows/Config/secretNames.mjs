@@ -47,7 +47,8 @@ const salesforceSecretNames = {
   "epic/coachnudges": "h-salesforce-np-coachnudge",
   "epic/connectid": "h-salesforce-np-connectid",
   "epic/join-salesforce-ciba": "h-salesforce-np-ciba",
-  "epic/bdm-app-overview": "h-salesforce-np-brokermain"
+  "epic/bdm-app-overview": "h-salesforce-np-brokermain",
+  "epic/transaction-income": "h-salesforce-np-trnscncome"
 };
 
 const brokerSecretNames = {
