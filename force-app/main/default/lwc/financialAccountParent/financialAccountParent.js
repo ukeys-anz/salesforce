@@ -251,10 +251,20 @@ export default class FinancialAccountParent extends LightningElement {
         this.goalData = await getAccountBuckets({
           //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
           ocvId: this.ocvId,
-          pageSize: 7,
+          pageSize: 20,
           nextPageToken: paramUrl
         });
 
+        // Filter goal for this account data
+        const accountGoalData = this.goalData.account_buckets.filter(
+          (eachGoalData) => {
+            return (
+              this.accountData[0].FinServ__FinancialAccountNumber__c ===
+              eachGoalData.account_number
+            );
+          }
+        );
+        this.goalData.account_buckets = accountGoalData;
         this.goalData = handleGoalData(this.goalData);
         this.emojiMap = getEmojiMap(this.goalData);
         this.imageMap = getImageMap(this.goalData);
