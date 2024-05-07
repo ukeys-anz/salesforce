@@ -31,8 +31,8 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_SearchCustomer_API +
-      +IDTYPEMAP.get(staffModel.idType) +
-      staffModel.idValue,
+        +IDTYPEMAP.get(staffModel.idType) +
+        staffModel.idValue,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -273,11 +273,11 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_ConsentsDataSharingHistory_API +
-      consentId +
-      '&from_timestamp=' +
-      fromTimestamp +
-      '&to_timestamp=' +
-      toTimestamp,
+        consentId +
+        '&from_timestamp=' +
+        fromTimestamp +
+        '&to_timestamp=' +
+        toTimestamp,
       HTTP_METHOD.HTTP_GET,
       headers,
       null

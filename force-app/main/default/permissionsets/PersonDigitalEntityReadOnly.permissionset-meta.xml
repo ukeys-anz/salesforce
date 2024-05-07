@@ -77,8 +77,8 @@
         <enabled>true</enabled>
     </classAccesses>
     <customMetadataTypeAccesses>
-        <enabled>true</enabled>
         <name>TFM_Purpose_Code_Mappings__mdt</name>
+        <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <description>This PS will assign read access to External Object- PersonDigitalIdentity</description>
     <fieldPermissions>

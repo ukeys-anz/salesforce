@@ -4582,6 +4582,11 @@
       "TncName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TermsAndConditionsAcceptance :: tnc_name",
       "TncVersion__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TermsAndConditionsAcceptance :: tnc_version",
       "VerificationType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: verification_type"
+    },
+    "ResidentialLoanApplication": {
+      "Assisted_Broker__c": "ANZx::Salesforce",
+      "Assisted_Broker_TPMI_SAO__c": "ANZx::Lex::LoanApplication",
+      "Sync_Status__c": "ANZx::MuleSoft::Broker"
     }
   },
   "lineageTransformInformation": {
@@ -4745,6 +4750,11 @@
       "TncName__c": "1:1 Transformation",
       "TncVersion__c": "1:1 Transformation",
       "VerificationType__c": "1:1 Transformation"
+    },
+    "ResidentialLoanApplication": {
+      "Assisted_Broker__c": "Look up relationship against contact object",
+      "Assisted_Broker_TPMI_SAO__c": "1:1 Transformation",
+      "Sync_Status__c": "If GCP Event Publish where Sync_Status_c not equals to Blocked and Update = TRUE THEN set Sync_Status_c to Broker Org"
     }
   },
   "systemObjects": {

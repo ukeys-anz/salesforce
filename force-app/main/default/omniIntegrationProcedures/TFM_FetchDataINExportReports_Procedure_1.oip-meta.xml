@@ -16,11 +16,12 @@
     <language>Procedure</language>
     <name>TFMFetchDataINExportReports</name>
     <omniProcessElements>
+        <name>ExportConsent</name>
         <childElements>
+            <name>DownloadExportConsentURL</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>DownloadExportConsentURL</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -47,10 +48,10 @@
             <type>Response Action</type>
         </childElements>
         <childElements>
+            <name>ExportReportRemoteAction</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ExportReportRemoteAction</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -87,7 +88,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ExportConsent</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%methodName% == &apos;ExportConsentReport&apos;&quot;,
@@ -100,11 +100,12 @@
         <type>Conditional Block</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ExportDataCollectionHistory</name>
         <childElements>
+            <name>DownloadExportDataCollectionHistoryURL</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>DownloadExportDataCollectionHistoryURL</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -131,10 +132,10 @@
             <type>Response Action</type>
         </childElements>
         <childElements>
+            <name>ExportDataCollectionHistoryRemoteAction</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ExportDataCollectionHistoryRemoteAction</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -171,7 +172,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ExportDataCollectionHistory</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%methodName% == &apos;ExportDataCollectionHistory&apos;&quot;,
