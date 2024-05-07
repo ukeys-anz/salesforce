@@ -44,6 +44,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   //Pass this to the goals lwc so we can navigate to the
   //savings financial account
   savingsId;
+  accountToOwnership = new Map();
 
   connectedCallback() {
     window.addEventListener(
@@ -138,10 +139,19 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     try {
       let goalData = await getAccountBuckets({
         ocvId: this.ocvId,
-        pageSize: 4,
+        pageSize: 10,
         nextPageToken: ""
       });
       goalData = handleGoalThemes(goalData);
+      const goalBucket = goalData.account_buckets.filter((eachGoalData) => {
+        let ownership = "";
+        if (this.accountToOwnership.has(eachGoalData.account_number)) {
+          ownership = this.accountToOwnership.get(eachGoalData.account_number);
+        }
+        return ownership !== MULTI_PARTY;
+      });
+      goalData.account_buckets = goalBucket;
+
       //Savings jar will always be default, so retrieve it
       //to pass through to other components that need it
       this.savingsJar = goalData.account_buckets.filter((obj) => {
@@ -182,6 +192,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             account = this.handleShowMultiPartyBadge(account, "Ownership__c");
             account.FinServ__Ownership__c = account.Ownership__c;
           }
+          this.accountToOwnership.set(
+            account.FinServ__FinancialAccountNumber__c,
+            account.FinServ__Ownership__c
+          );
 
           if (
             account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME
@@ -198,7 +212,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       this.sortFinancialAccounts(this.accountData.checking);
       this.sortFinancialAccounts(this.accountData.savings);
     }
-
     return finAccounts;
   }
   //Sorting the order of accounts based on account status and then based on opendate for similar account statuses.
