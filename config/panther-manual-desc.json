@@ -2916,6 +2916,17 @@
       ],
       "IA-2415860": ["Funding_purpose__c", "Interest_Rate_Quoted__c"]
     },
+    "PegaExternalCaseStatuses__mdt": {
+      "IA-2415860": [
+        "DisputeReason__c",
+        "DisputeStatus__c",
+        "ExternalStatus__c",
+        "QueueName__c",
+        "RecordType__c",
+        "SLADaysInStatus__c",
+        "SLAQueueName__c"
+      ]
+    },
     "Process_Effectiveness__c": {
       "IA-2415840": [
         "Name",

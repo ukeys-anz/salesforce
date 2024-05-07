@@ -2,6 +2,7 @@
 public class ExternalCaseStatusTriggerHandlerTest {
   @TestSetup
   static void setup() {
+    User cardDisputeAgentUser = TestDataFactory.cardDisputeAgentUser;
     Account newAccount = TestDataFactory.createTestAccountForDisputeCases();
     insert newAccount;
     FinServ__FinancialAccount__c newFinServFinancialAccount = TestDataFactory.createTestFinAccountForDisputeCases();
@@ -44,7 +45,10 @@ public class ExternalCaseStatusTriggerHandlerTest {
       External_Status__c = 'Pending-xxxxx',
       Status_Event_ID__c = 'Status_Event_ID__c_0'
     );
-    insert externalCaseStatus;
+    System.runAs(TestDataFactory.cardDisputeAgentUser) {
+      TestDataFactory.shareCaseWithUser(theCase);
+      insert externalCaseStatus;
+    }
     theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
     System.assertEquals(
       caseStatusBefore,
@@ -90,7 +94,10 @@ public class ExternalCaseStatusTriggerHandlerTest {
     );
 
     Test.startTest();
-    insert externalCaseStatus;
+    System.runAs(TestDataFactory.cardDisputeAgentUser) {
+      TestDataFactory.shareCaseWithUser(theCase);
+      insert externalCaseStatus;
+    }
     externalCaseStatus = [
       SELECT Id, Name, Case__c, External_Status__c, Status_Event_ID__c
       FROM External_Case_Status__c
@@ -150,13 +157,16 @@ public class ExternalCaseStatusTriggerHandlerTest {
       External_Status__c = 'Resolved-xxxxx',
       Status_Event_ID__c = 'Status_Event_ID__c_1'
     );
-    try {
-      insert externalCaseStatus;
-    } catch (DmlException e) {
-      System.assert(
-        false,
-        'Failed to create External Case Status record: ' + e.getMessage()
-      );
+    System.runAs(TestDataFactory.cardDisputeAgentUser) {
+      try {
+        TestDataFactory.shareCaseWithUser(theCase);
+        insert externalCaseStatus;
+      } catch (DmlException e) {
+        System.assert(
+          false,
+          'Failed to create External Case Status record: ' + e.getMessage()
+        );
+      }
     }
     theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
     System.assertEquals(
@@ -170,14 +180,16 @@ public class ExternalCaseStatusTriggerHandlerTest {
       External_Status__c = 'Pending-xxxxx',
       Status_Event_ID__c = 'Status_Event_ID__c_2'
     );
-    try {
-      insert externalCaseStatus;
-    } catch (DmlException e) {
-      System.assert(
-        false,
-        'External Case Status record should be created even when the Case is Closed: ' +
-        e.getMessage()
-      );
+    System.runAs(TestDataFactory.cardDisputeAgentUser) {
+      try {
+        insert externalCaseStatus;
+      } catch (DmlException e) {
+        System.assert(
+          false,
+          'External Case Status record should be created even when the Case is Closed: ' +
+          e.getMessage()
+        );
+      }
     }
     theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
     System.assertEquals(
@@ -213,7 +225,10 @@ public class ExternalCaseStatusTriggerHandlerTest {
       Status_Event_ID__c = 'Status_Event_ID__c_0'
     );
     Test.startTest();
-    insert externalCaseStatus;
+    System.runAs(TestDataFactory.cardDisputeAgentUser) {
+      TestDataFactory.shareCaseWithUser(theCase);
+      insert externalCaseStatus;
+    }
     theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
     External_Case_Status__c theExternalCaseStatus = [
       SELECT Id, Internal_Description__c
@@ -255,7 +270,10 @@ public class ExternalCaseStatusTriggerHandlerTest {
       Status_Event_ID__c = 'Status_Event_ID__c_0'
     );
     Test.startTest();
-    insert externalCaseStatus;
+    System.runAs(TestDataFactory.cardDisputeAgentUser) {
+      TestDataFactory.shareCaseWithUser(theCase);
+      insert externalCaseStatus;
+    }
     theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
     External_Case_Status__c theExternalCaseStatus = [
       SELECT Id, Internal_Description__c
