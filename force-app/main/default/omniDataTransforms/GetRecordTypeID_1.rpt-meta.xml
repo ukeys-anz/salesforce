@@ -33,6 +33,20 @@
         <name>GetRecordTypeID</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>GetRecordTypeIDCustom6065</globalKey>
+        <inputFieldName>recordTypes:Id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RecordTypeID</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>GetRecordTypeID</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
         <filterValue>SObjectType</filterValue>
         <globalKey>GetRecordTypeIDCustom3546</globalKey>
@@ -42,20 +56,6 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>recordTypes</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>GetRecordTypeID</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>GetRecordTypeIDCustom6065</globalKey>
-        <inputFieldName>recordTypes:Id</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>RecordTypeID</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

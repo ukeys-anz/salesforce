@@ -421,13 +421,18 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;Follow Contact Strategy:CallQueueFollowContactStrategy&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Phone contact preferred (or preference not specified) – send SMS text message using template, then click ‘Next’.&quot;
-      }, {
-        &quot;data&quot; : &quot;Customer answers the phone.&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Attempt phone call:ResolutionPathway_Attempt_phone_call&quot;
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;Attempt phone call:ResolutionPathway_Attempt_phone_call&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;Customer answers the phone. &quot;
+          }, {
+            &quot;field&quot; : &quot;Follow Contact Strategy:CallQueueFollowContactStrategy&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;Phone contact preferred (or preference not specified) – send SMS text message using template, then click ‘Next’.&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -517,5 +522,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_FollowContact_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>648e63df-66c6-954a-7c4b-cbe75d4698bf</webComponentKey>
+    <webComponentKey>25d2b913-6a48-8be4-ddd8-8c862e3f9902</webComponentKey>
 </OmniScript>

@@ -5,12 +5,13 @@
         <name>ResoltionPathway_Customer_In_Call</name>
         <isActive>true</isActive>
         <optionSourceResponseValue>false</optionSourceResponseValue>
-        <questionText>Next steps:</questionText>
+        <questionText>Next steps:
+Is the customer requesting &quot;compensation&quot; (ie. a financial remedy) as a resolution to their complaint?</questionText>
         <responseValues>No – click ‘Next’ to continue call 
 Yes – click ‘Next’ to continue call 
 Customer doesn’t want to continue call</responseValues>
         <status>Active</status>
-        <versionNumber>1</versionNumber>
+        <versionNumber>3</versionNumber>
     </assessmentQuestionVersion>
     <dataType>Radio</dataType>
     <developerName>ResoltionPathway_Customer_In_Call</developerName>

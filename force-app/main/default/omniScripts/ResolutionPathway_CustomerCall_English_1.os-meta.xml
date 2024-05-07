@@ -78,14 +78,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
+    &quot;remoteTimeout&quot; : 30000.0,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : {
@@ -191,8 +191,8 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 11,
-  &quot;label&quot; : &quot;Next steps:&quot;,
+  &quot;controlWidth&quot; : 11.0,
+  &quot;label&quot; : &quot;Next steps:\nIs the customer requesting \&quot;compensation\&quot; (ie. a financial remedy) as a resolution to their complaint?&quot;,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -232,9 +232,9 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
@@ -265,14 +265,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
+    &quot;remoteTimeout&quot; : 30000.0,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : null,
@@ -324,5 +324,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_CustomerCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>1c43a8ac-6a60-edb5-9cb1-16ac4be76ca1</webComponentKey>
+    <webComponentKey>d8ec49ce-58ab-7996-28fb-5020e104f0f4</webComponentKey>
 </OmniScript>
