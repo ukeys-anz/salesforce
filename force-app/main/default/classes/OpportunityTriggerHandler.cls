@@ -114,6 +114,8 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     );
     //CC-1159 to set the territory for ML Records based on matching user territory default record.
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
+    //CC-7788 and CC-8135 This method is used to validate that loan writer and franchise admin cannot change the owner of the record not owner by themself
+    MLCRMCommonUtilsHelper.validateOwnerChange(oldMap, records);
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
 
