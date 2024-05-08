@@ -25,7 +25,7 @@ const salesforceSecretNames = {
   "epic/cfaas": "h-salesforce-np-cfaas",
   "epic/cloud-events": "h-salesforce-np-cloudevent",
   "epic/h1-account": "h-salesforce-np-h1accounts",
-  "epic/plat": "h-salesforce-np-platform",
+  "epic/plat": "sf-platform-np-platform",
   "epic/twilio": "h-salesforce-np-twilio",
   "epic/h1-statements": "h-salesforce-np-h1stment",
   "epic/receive-and-distribute-ingested-leads":
