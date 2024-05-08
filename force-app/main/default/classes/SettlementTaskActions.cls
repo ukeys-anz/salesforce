@@ -5,7 +5,6 @@
  */
 
 public with sharing class SettlementTaskActions {
-  @TestVisible
   public static final Id SETTLEMENT_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Settlement_Task')
     .getRecordTypeId();
@@ -35,5 +34,24 @@ public with sharing class SettlementTaskActions {
         ));
     }
     return false;
+  }
+
+  /**
+   * @description checks if specific field was changed and applies masking if required
+   * @param records task record list.
+   * @param oldMap The old map of task records.
+   */
+  public static void applyRedaction(List<Task> records, Map<Id, Task> oldMap) {
+    for (Task record : records) {
+      if (
+        RecordComparisonUtil.fieldWasChanged(
+          record,
+          oldMap.get(record.Id),
+          Task.Description
+        )
+      ) {
+        record.Description = TextUtils.maskData(record.Description);
+      }
+    }
   }
 }
