@@ -57,6 +57,7 @@ public with sharing class MLCRMConstants {
   public static final String ENGINEER_PSG_NAME = 'Engineer';
   public static final String LOAN_WRITER_PSG_NAME = 'MLCRM_Loan_Writer';
   public static final String ARC_USER_ROLE = 'AR_C';
+  public static final String FRANCHISE_ADMIN = 'Admin';
 
   //MLCRM Lead record type Ids
   public static final Id MLCRM_LEAD_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
