@@ -1,123 +1,123 @@
 {
-    "accounts": [
-        {
-            "name": "consents/test-1512-4442-9043-82a7b93a18eb/accounts/e150511f-7f5f-43d7-b3e2-39b6f961e974",
-            "consentId": "test-1512-4442-9043-82a7b93a18eb",
-            "accountId": "test-7f5f-43d7-b3e2-39b6f961e974",
-            "displayName": "Test Account",
-            "accountCreateDate": {
-                "year": 2023,
-                "month": 2,
-                "day": 7
-            },
-            "maskedAccountNumber": "xxx xxx 563",
-            "openState": "OPEN_STATE_OPEN",
-            "accountDetails": {
-                "lendingRate": {},
-                "depositRate": {}
-            },
-            "balances": {
-                "currentBalance": {
-                    "currencyCode": "AUD"
-                },
-                "availableBalance": {
-                    "currencyCode": "AUD"
-                },
-                "creditLimit": {
-                    "currencyCode": "AUD"
-                },
-                "amortisedLimit": {
-                    "currencyCode": "AUD"
-                },
-                "lastUpdateTime": "2024-03-26T09:08:35.098821966Z"
-            },
-            "productName": "Test and Save",
-            "productCategory": "PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS",
-            "isOwned": true,
-            "accountOwnership": "ACCOUNT_OWNERSHIP_UNKNOWN",
-            "createTime": "2024-03-26T09:08:35.502826Z",
-            "lastUpdateTime": "2024-03-26T09:08:35.502826Z",
-            "etag": "W/\"-1302421446134955460\""
+  "accounts": [
+    {
+      "name": "consents/test-1512-4442-9043-82a7b93a18eb/accounts/e150511f-7f5f-43d7-b3e2-39b6f961e974",
+      "consentId": "test-1512-4442-9043-82a7b93a18eb",
+      "accountId": "test-7f5f-43d7-b3e2-39b6f961e974",
+      "displayName": "Test Account",
+      "accountCreateDate": {
+        "year": 2023,
+        "month": 2,
+        "day": 7
+      },
+      "maskedAccountNumber": "xxx xxx 563",
+      "openState": "OPEN_STATE_OPEN",
+      "accountDetails": {
+        "lendingRate": {},
+        "depositRate": {}
+      },
+      "balances": {
+        "currentBalance": {
+          "currencyCode": "AUD"
         },
-        {
-            "name": "consents/test-1512-4442-9043-82a7b93a18eb/accounts/975526f2-4d2a-45bb-9a58-82b2ec02a5d4",
-            "consentId": "test-1512-4442-9043-82a7b93a18eb",
-            "accountId": "test-4d2a-45bb-9a58-82b2ec02a5d4",
-            "displayName": "My Test Account",
-            "accountCreateDate": {
-                "year": 2022,
-                "month": 8,
-                "day": 4
-            },
-            "maskedAccountNumber": "xxx xxx 472",
-            "openState": "OPEN_STATE_OPEN",
-            "accountDetails": {
-                "lendingRate": {},
-                "depositRate": {}
-            },
-            "balances": {
-                "currentBalance": {
-                    "currencyCode": "AUD"
-                },
-                "availableBalance": {
-                    "currencyCode": "AUD"
-                },
-                "creditLimit": {
-                    "currencyCode": "AUD"
-                },
-                "amortisedLimit": {
-                    "currencyCode": "AUD"
-                },
-                "lastUpdateTime": "2024-03-26T09:08:35.098821966Z"
-            },
-            "productName": "Test and Save",
-            "productCategory": "PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS",
-            "isOwned": true,
-            "accountOwnership": "ACCOUNT_OWNERSHIP_UNKNOWN",
-            "createTime": "2024-03-26T09:08:35.502826Z",
-            "lastUpdateTime": "2024-03-26T09:08:35.502826Z",
-            "etag": "W/\"-102568690688194031\""
+        "availableBalance": {
+          "currencyCode": "AUD"
         },
-        {
-            "name": "consents/test-1512-4442-9043-82a7b93a18eb/accounts/test-6d81-4a60-9a32-35284fad5f9c",
-            "consentId": "test-1512-4442-9043-82a7b93a18eb",
-            "accountId": "79881087-6d81-4a60-9a32-35284fad5f9c",
-            "displayName": "Test Saver Plus",
-            "accountCreateDate": {
-                "year": 2022,
-                "month": 11,
-                "day": 1
-            },
-            "maskedAccountNumber": "xxx xxx 887",
-            "openState": "OPEN_STATE_OPEN",
-            "accountDetails": {
-                "lendingRate": {},
-                "depositRate": {}
-            },
-            "balances": {
-                "currentBalance": {
-                    "currencyCode": "AUD"
-                },
-                "availableBalance": {
-                    "currencyCode": "AUD"
-                },
-                "creditLimit": {
-                    "currencyCode": "AUD"
-                },
-                "amortisedLimit": {
-                    "currencyCode": "AUD"
-                },
-                "lastUpdateTime": "2024-03-26T09:08:35.098821966Z"
-            },
-            "productName": "Test and Save",
-            "productCategory": "PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS",
-            "isOwned": true,
-            "accountOwnership": "ACCOUNT_OWNERSHIP_UNKNOWN",
-            "createTime": "2024-03-26T09:08:35.502826Z",
-            "lastUpdateTime": "2024-03-26T09:08:35.502826Z",
-            "etag": "W/\"3547010604351943702\""
-        }
-    ],
-    "count": "3",
-    "total": "3"
+        "creditLimit": {
+          "currencyCode": "AUD"
+        },
+        "amortisedLimit": {
+          "currencyCode": "AUD"
+        },
+        "lastUpdateTime": "2024-03-26T09:08:35.098821966Z"
+      },
+      "productName": "Test and Save",
+      "productCategory": "PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS",
+      "isOwned": true,
+      "accountOwnership": "ACCOUNT_OWNERSHIP_UNKNOWN",
+      "createTime": "2024-03-26T09:08:35.502826Z",
+      "lastUpdateTime": "2024-03-26T09:08:35.502826Z",
+      "etag": "W/\"-1302421446134955460\""
+    },
+    {
+      "name": "consents/test-1512-4442-9043-82a7b93a18eb/accounts/975526f2-4d2a-45bb-9a58-82b2ec02a5d4",
+      "consentId": "test-1512-4442-9043-82a7b93a18eb",
+      "accountId": "test-4d2a-45bb-9a58-82b2ec02a5d4",
+      "displayName": "My Test Account",
+      "accountCreateDate": {
+        "year": 2022,
+        "month": 8,
+        "day": 4
+      },
+      "maskedAccountNumber": "xxx xxx 472",
+      "openState": "OPEN_STATE_OPEN",
+      "accountDetails": {
+        "lendingRate": {},
+        "depositRate": {}
+      },
+      "balances": {
+        "currentBalance": {
+          "currencyCode": "AUD"
+        },
+        "availableBalance": {
+          "currencyCode": "AUD"
+        },
+        "creditLimit": {
+          "currencyCode": "AUD"
+        },
+        "amortisedLimit": {
+          "currencyCode": "AUD"
+        },
+        "lastUpdateTime": "2024-03-26T09:08:35.098821966Z"
+      },
+      "productName": "Test and Save",
+      "productCategory": "PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS",
+      "isOwned": true,
+      "accountOwnership": "ACCOUNT_OWNERSHIP_UNKNOWN",
+      "createTime": "2024-03-26T09:08:35.502826Z",
+      "lastUpdateTime": "2024-03-26T09:08:35.502826Z",
+      "etag": "W/\"-102568690688194031\""
+    },
+    {
+      "name": "consents/test-1512-4442-9043-82a7b93a18eb/accounts/test-6d81-4a60-9a32-35284fad5f9c",
+      "consentId": "test-1512-4442-9043-82a7b93a18eb",
+      "accountId": "79881087-6d81-4a60-9a32-35284fad5f9c",
+      "displayName": "Test Saver Plus",
+      "accountCreateDate": {
+        "year": 2022,
+        "month": 11,
+        "day": 1
+      },
+      "maskedAccountNumber": "xxx xxx 887",
+      "openState": "OPEN_STATE_OPEN",
+      "accountDetails": {
+        "lendingRate": {},
+        "depositRate": {}
+      },
+      "balances": {
+        "currentBalance": {
+          "currencyCode": "AUD"
+        },
+        "availableBalance": {
+          "currencyCode": "AUD"
+        },
+        "creditLimit": {
+          "currencyCode": "AUD"
+        },
+        "amortisedLimit": {
+          "currencyCode": "AUD"
+        },
+        "lastUpdateTime": "2024-03-26T09:08:35.098821966Z"
+      },
+      "productName": "Test and Save",
+      "productCategory": "PRODUCT_CATEGORY_TRANS_AND_SAVINGS_ACCOUNTS",
+      "isOwned": true,
+      "accountOwnership": "ACCOUNT_OWNERSHIP_UNKNOWN",
+      "createTime": "2024-03-26T09:08:35.502826Z",
+      "lastUpdateTime": "2024-03-26T09:08:35.502826Z",
+      "etag": "W/\"3547010604351943702\""
+    }
+  ],
+  "count": "3",
+  "total": "3"
 }

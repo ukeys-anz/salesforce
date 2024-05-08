@@ -7414,6 +7414,26 @@
         <layout>Campaign-DCRM Campaign Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Complaint Layout</layout>
+        <recordType>Case.Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-General Inquiry CMOS Layout</layout>
+        <recordType>Case.General_Inquiry_CMOS</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-CFMS Migrated Complaint Layout</layout>
+        <recordType>Case.CFMS_Migrated_Case</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Non-Customer Complaint Layout</layout>
+        <recordType>Case.Non_Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Systemic Issue Layout</layout>
+        <recordType>Case.Systemic_Issue</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Customer_Profile_Updates__c-DCRM Customer Profile Updates Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

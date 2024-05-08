@@ -6,17 +6,41 @@
 @SuppressWarnings('PMD.ExcessivePublicCount')
 @isTest
 public without sharing class TestDataFactory {
-  public static User thisUser = [
-    SELECT Id
-    FROM User
-    WHERE Id = :UserInfo.getUserId()
-  ];
+  public static User thisUser = new User(Id = UserInfo.getUserId());
 
   public static Id anzxStandardProfileId = CommonUtil.getProfileByName(
       'ANZx Standard User'
     )
     .Id;
   private static User anzxUser;
+
+  /**
+   * @description Gets the card dispute agent user. If the user does not exist, it creates a new user with role and p/s of Card_Dispute_Agent.
+   * @return The card dispute agent user.
+   */
+  public static User cardDisputeAgentUser {
+    public get {
+      if (cardDisputeAgentUser == null) {
+        System.runAs(thisUser) {
+          cardDisputeAgentUser = getANZxUser('Card_Dispute_Agent');
+        }
+      }
+      return cardDisputeAgentUser;
+    }
+    private set;
+  }
+
+  /**
+   * @description Shares a Case record with the current user with edit access level.
+   * @param theCase The Case record to be shared.
+   */
+  public static void shareCaseWithUser(Case theCase) {
+    insert new CaseShare(
+      CaseId = theCase.Id,
+      UserOrGroupId = UserInfo.getUserId(),
+      CaseAccessLevel = 'Edit'
+    );
+  }
 
   /**
    * @description Create Account record
