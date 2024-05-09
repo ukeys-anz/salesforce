@@ -23,7 +23,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   financialAccounts = [];
   showBalanceModal = false;
   showRedrawAvailableModal = false;
-  financialAccounRoleList;
+  financialAccounRoleList = [];
   loanImageUrl = getStaticResource + "/images/Mortgage.png";
   errorImageUrl = getStaticResource + "/images/PermissionError.png";
   hasError;
