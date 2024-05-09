@@ -1,5 +1,6 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
+import { handleErrorShowToast } from "c/utils";
 const SUB_REMS = ["16", "20", "Repayment arrangement"];
 const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
@@ -25,6 +26,29 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
     this.modalMsg = "";
     let shouldBreak = this.validateIssueTypeFieldValues();
     if (shouldBreak) {
+      return;
+    }
+    if (this.validateRealFormID()) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Please Validate Real Form ID."
+      );
+      return;
+    }
+    if (
+      this.omniJsonData.Case.realFormRequired === "Yes" &&
+      this.omniJsonData.validatedEventNumber !==
+        this.omniJsonData.Case.REALFormMAXID
+    ) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Revalidate Risk Event ID"
+      );
+      this.loading = false;
       return;
     }
     this.validateFields();
@@ -220,6 +244,27 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       !details.avoidableEscalationReason
     )
       this.missingFields.push("Avoidable Escalation Reason");
+  }
+
+  validateRealFormID() {
+    if (
+      this.omniJsonData.Case.ComplaintStatus === "Closed" &&
+      this.omniJsonData.Case.realFormRequired === "Yes" &&
+      (this.omniJsonData.Case.REALFormMAXID !== undefined ||
+        this.omniJsonData.Case.REALFormMAXID !== null) &&
+      this.omniJsonData.Case.REALFormMAXID !==
+        this.omniJsonData.Case.REALFormMAXID_OLD
+    ) {
+      if (
+        this.omniJsonData.apiRun &&
+        this.omniJsonData.apiSuccess &&
+        this.omniJsonData.RiskFormIDValid
+      ) {
+        return false;
+      }
+      return true;
+    }
+    return false;
   }
 
   checkFields(detail, reMap) {

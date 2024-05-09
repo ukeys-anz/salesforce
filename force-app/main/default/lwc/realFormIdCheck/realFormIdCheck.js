@@ -97,7 +97,8 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
     let data = {
       apiRun: false,
       apiSuccess: false,
-      RiskFormIDValid: false
+      RiskFormIDValid: false,
+      validatedEventNumber: undefined
     };
     this.iconName = "action:close";
     if (result) {
@@ -108,6 +109,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
         if (firstResponse.eventNumber === riskEventId) {
           this.iconName = "action:approval";
           data.RiskFormIDValid = true;
+          data.validatedEventNumber = firstResponse.eventNumber;
           showToast(
             this,
             "Real Form ID Valid",

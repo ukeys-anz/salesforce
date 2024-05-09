@@ -7,7 +7,7 @@
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
     <name>DRCaseRealFormIdUpdate2</name>
-    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <nullInputsIncludedInOutput>true</nullInputsIncludedInOutput>
     <omniDataTransformItem>
         <name>DRCaseRealFormIdUpdate2</name>
         <disabled>false</disabled>

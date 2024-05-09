@@ -22,6 +22,9 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
       return;
     }
     console.log(JSON.stringify(this.omniJsonData));
+    if (this.omniJsonData.EditRealFormID.RealFormRequired === "No") {
+      this.omniJsonData.EditRealFormID.RealFormID = "";
+    }
     if (
       this.omniJsonData.EditRealFormID.RealFormRequired_OLD ===
         this.omniJsonData.EditRealFormID.RealFormRequired &&
@@ -30,9 +33,23 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
     ) {
       handleErrorShowToast(
         this,
-        "Please make some changes",
+        "Please make any Updates",
         undefined,
-        "Please make any changes to above field and Validate Real Form ID."
+        "Please make any update to Risk Event ID and Validate."
+      );
+      this.loading = false;
+      return;
+    }
+    if (
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
+      this.omniJsonData.validatedEventNumber !==
+        this.omniJsonData.EditRealFormID.RealFormID
+    ) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Revalidate Risk Event ID"
       );
       this.loading = false;
       return;
