@@ -2255,6 +2255,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>MS_ExportConsentDataIN_API</shortDescription>
         <value>callout:SF_MS_CH2/lighthouse/v1/consents/detail-reports</value>
     </labels>
+<labels>
+        <fullName>Territory_Config_Share_Batch_Size</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Territory Config Share Batch Size</shortDescription>
+        <value>10</value>
+    </labels>
     <labels>
         <fullName>MS_ExportDataSharingCollectionDataIN_API</fullName>
         <language>en_US</language>

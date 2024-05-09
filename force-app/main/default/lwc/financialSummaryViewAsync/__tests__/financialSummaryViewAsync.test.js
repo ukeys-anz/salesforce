@@ -7,6 +7,7 @@ const CALLING_FINANCIAL_SUMMARIES = require("./data/callingFinancialSummaries.js
 const FULL_FINANCIAL_SUMMARIES_FROM_CACHE = require("./data/getFullSummariesFromCache.json");
 const FEW_FINANCIAL_SUMMARIES_FROM_CACHE = require("./data/getFewSummariesFromCache.json");
 const REFRESH_FINANCIAL_SUMMARIES = require("./data/getSummariesAfterRefresh.json");
+const ERROR_RESPOSNE_FROM_CACHE = require("./data/getErrorResponseFromCache.json");
 
 jest.mock(
   "@salesforce/apex/CCRMFinancialSummaryController.getSummariesByResponseId",
@@ -57,7 +58,6 @@ describe("c-financial-summary-view-async", () => {
     const pElement = element.shadowRoot.querySelectorAll(
       "lightning-formatted-text"
     );
-    console.log(pElement);
     expect(pElement[0].value).toBe("Calculation is in progress");
   });
 
@@ -73,7 +73,6 @@ describe("c-financial-summary-view-async", () => {
     const pElement = element.shadowRoot.querySelectorAll(
       "lightning-formatted-number"
     );
-    console.log(FULL_FINANCIAL_SUMMARIES_FROM_CACHE.totalBalance);
     expect(pElement[0].value).toBe(
       FULL_FINANCIAL_SUMMARIES_FROM_CACHE.totalBalance
     );
@@ -83,6 +82,21 @@ describe("c-financial-summary-view-async", () => {
     expect(pElement[2].value).toBe(
       FULL_FINANCIAL_SUMMARIES_FROM_CACHE.totalAssetFinanceBalance
     );
+  });
+
+  it("Verify Financial Summaries in case of error", async () => {
+    getSummariesByResponseId.mockResolvedValue(ERROR_RESPOSNE_FROM_CACHE);
+    const element = createElement("c-financial-summary-view-async", {
+      is: financialSummaryViewAsync
+    });
+    document.body.appendChild(element);
+    await flushPromises();
+    const pElement = element.shadowRoot.querySelectorAll(
+      "lightning-formatted-text"
+    );
+    expect(pElement[0].value).toBe(ERROR_RESPOSNE_FROM_CACHE.totalBalanceAck);
+    expect(pElement[1].value).toBe(ERROR_RESPOSNE_FROM_CACHE.terminalAck);
+    expect(pElement[2].value).toBe(ERROR_RESPOSNE_FROM_CACHE.assetBalanceAck);
   });
 
   it("Verify calling specific Financial Summaries API", async () => {
@@ -101,8 +115,6 @@ describe("c-financial-summary-view-async", () => {
     const pElementText = element.shadowRoot.querySelectorAll(
       "lightning-formatted-text"
     );
-    console.log("pElementText --> ", pElementText[0].value);
-    console.log(FEW_FINANCIAL_SUMMARIES_FROM_CACHE.totalBalance);
     expect(pElement[0].value).toBe(
       FEW_FINANCIAL_SUMMARIES_FROM_CACHE.totalBalance
     );

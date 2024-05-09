@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Int_Type__c</fullName>
+    <fullName>Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Caps</complianceGroup>
-    <description>Interest Type</description>
-    <externalDeveloperName>IntType</externalDeveloperName>
+    <description>It can be either &quot;Success&quot; or &quot;Error&quot;.</description>
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Interest Type</label>
+    <label>Status</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

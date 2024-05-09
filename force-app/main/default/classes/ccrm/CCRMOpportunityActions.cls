@@ -13,6 +13,7 @@ public with sharing class CCRMOpportunityActions {
   public static final String RECIPROCAL_ROLE_FOR_CLG = 'CG';
   public static Boolean insertOpportunityContext = false;
   private static final String OPPORTUNITY_OWNERSHIP_ERROR = 'Opportunity can only be transferred within your segment.';
+  private static final String MULTIPLE_CUSTOMER_NEEDS = 'Multiple Customer Needs';
 
   private static final Profile CURRENT_USER_PROFILE = MLCRMCommonUtils.getProfileById(
     UserInfo.getProfileId()
@@ -338,8 +339,7 @@ public with sharing class CCRMOpportunityActions {
 
       //checks for validations on opportunities
       CCRMOpportunityActionsSkipStageHelper.validateCCRMOpportunity(
-        oppWrapper.filteredOpps,
-        oppWrapper.stageUpdatedOpps,
+        oppWrapper,
         isInsert
       );
 
@@ -380,6 +380,10 @@ public with sharing class CCRMOpportunityActions {
     Boolean isUpdate
   ) {
     CCRMOpportunityWrapper oppWrapper = new CCRMOpportunityWrapper();
+
+    if (!IS_CCRM_USER) {
+      return oppWrapper;
+    }
 
     for (Opportunity oppIterator : newOppList) {
       if (oppIterator.RecordTypeId != CCRMConstants.CCRM_OPP_RT_ID) {
@@ -506,78 +510,202 @@ public with sharing class CCRMOpportunityActions {
   }
 
   /**
-   * @description populate opportunity name with auto number + Customer need value
-   * @name populateOppNameOnInsert
-   * @param oppList list of new records
-   * @param oldOppMap map of old records
-   * @param isInsert to check if it is insert operation
-   * @param isUpdate to check if it is update operation
+   * @description update opportunity name on insert
+   * @name updateOpportunityNameOnInsert
+   * @param filteredOpps filtered CCRM opps
    */
-
-  public static void populateOppName(
-    List<Opportunity> oppList,
-    Map<Id, Opportunity> oldOppMap,
-    Boolean isInsert,
-    Boolean isUpdate
+  public static void updateOpportunityNameOnInsert(
+    List<Opportunity> filteredOpps
   ) {
     try {
-      if (isInsert && oldOppMap == null) {
-        List<Opportunity> opptoUpdate = new List<Opportunity>();
-        if (!IS_CCRM_USER) {
-          return;
-        }
-        for (Opportunity oppIter : oppList) {
-          if (oppIter.recordTypeId == CCRMConstants.CCRM_OPP_RT_ID) {
-            Opportunity opp = new Opportunity();
-            opp.Id = oppIter.Id;
-            opp.Name = oppIter.Lead_Converted__c
-              ? oppIter.Opp_Id__c + ' ' + oppIter.Customer_Needs__c
-              : oppIter.Opp_Id__c +
-                ' ' +
-                oppIter.Customer_Needs__c +
-                ' ' +
-                oppIter.Name;
-            opptoUpdate.add(opp);
-          }
-        }
-        if (!opptoUpdate.isEmpty()) {
-          CCRMOpportunityActions.insertOpportunityContext = true;
-          List<Database.saveResult> results = Database.update(
-            opptoUpdate,
-            false
-          );
-        }
-      } else if (isUpdate) {
-        String oppoName = '';
-        for (Opportunity oppIter : oppList) {
-          if (oppIter.recordTypeId == CCRMConstants.CCRM_OPP_RT_ID) {
-            if (
-              oppIter.Customer_Needs__c !=
-              oldOppMap.get(oppIter.Id).Customer_Needs__c ||
-              oppIter.Name != oldOppMap.get(oppIter.Id).Name
-            ) {
-              oppoName = (oldOppMap.get(oppIter.Id)
-                  .Name.replace(oppIter.Opp_Id__c, ''))
-                .replace(oldOppMap.get(oppIter.Id).Customer_Needs__c, '');
-              oppIter.Name = oppIter.Lead_Converted__c
-                ? oppIter.Opp_Id__c + ' ' + oppIter.Customer_Needs__c
-                : oppIter.Opp_Id__c +
-                  ' ' +
-                  oppIter.Customer_Needs__c +
-                  ' ' +
-                  oppoName;
-            }
-          }
-        }
-      }
-    } catch (Exception ex) {
-      Logger.error(
-        'Error occured during updating opportunity name from lead',
-        ex
+      Map<Id, String> updatedOppsNameMap = new Map<Id, String>();
+
+      updatedOppsNameMap = getMapWithUpdatedOpportunitiesName(
+        filteredOpps,
+        null
       );
+
+      updateOpportunityListOnInsert(filteredOpps, updatedOppsNameMap);
+    } catch (Exception ex) {
+      Logger.error(ex.getMessage(), ex);
       Logger.saveLog();
       throw new CustomException(ex.getMessage());
     }
+  }
+
+  /**
+   * @description update opportunity name on update
+   * @name updateOpportunityNameOnUpdate
+   * @param filteredOpps filtered CCRM opps
+   * @param oldMap  old map of id and opportunity
+   */
+  public static void updateOpportunityNameOnUpdate(
+    List<Opportunity> filteredOpps,
+    Map<Id, Opportunity> oldMap
+  ) {
+    try {
+      List<Opportunity> oppList = new List<Opportunity>();
+      Map<Id, String> updatedOppsNameMap = new Map<Id, String>();
+
+      oppList = getFilteredOpportunities(filteredOpps, oldMap);
+
+      updatedOppsNameMap = getMapWithUpdatedOpportunitiesName(oppList, oldMap);
+
+      updateOpportunityListOnUpdate(oppList, updatedOppsNameMap);
+    } catch (Exception ex) {
+      Logger.error(ex.getMessage(), ex);
+      Logger.saveLog();
+      throw new CustomException(ex.getMessage());
+    }
+  }
+
+  @testVisible
+  private static Map<Id, String> getMapWithUpdatedOpportunitiesName(
+    List<Opportunity> filteredOpps,
+    Map<Id, Opportunity> oldMap
+  ) {
+    Map<Id, String> updatedOppsNameMap = new Map<Id, String>();
+
+    for (Opportunity opp : filteredOpps) {
+      String oppName;
+      String customerNeeds;
+      String updatedOppName;
+
+      customerNeeds = opp.Secondary_Customer_Needs__c != null
+        ? MULTIPLE_CUSTOMER_NEEDS
+        : opp.Customer_Needs__c;
+
+      oppName = getOpportunityOldName(opp, oldMap);
+
+      updatedOppName = generateOpportunityName(
+        opp.Opp_Id__c,
+        customerNeeds,
+        oppName
+      );
+      updatedOppsNameMap.put(opp.Id, updatedOppName);
+    }
+    return updatedOppsNameMap;
+  }
+
+  @testVisible
+  private static String generateOpportunityName(
+    String oppId,
+    String customerNeeds,
+    String oppName
+  ) {
+    String opportunityName;
+    Map<Id, String> oppIdToNameMap = new Map<Id, String>();
+
+    opportunityName = oppId + ' ';
+    if (String.isNotBlank(customerNeeds)) {
+      opportunityName += customerNeeds + ' ';
+    }
+    if (String.isNotBlank(oppName)) {
+      opportunityName += oppName + ' ';
+    }
+    return opportunityName;
+  }
+
+  @testVisible
+  private static List<Opportunity> getFilteredOpportunities(
+    List<Opportunity> filteredOpps,
+    Map<Id, Opportunity> oldMap
+  ) {
+    List<Opportunity> updatedOpps = new List<Opportunity>();
+
+    for (Opportunity opp : filteredOpps) {
+      Boolean isCustomerNeedsChanged;
+      Boolean isSecNeedsChanged;
+      Boolean isNameChanged;
+      Opportunity oldOpp;
+
+      oldOpp = oldMap.get(opp.Id);
+
+      isCustomerNeedsChanged = RecordComparisonUtil.fieldWasChanged(
+        opp,
+        oldOpp,
+        Opportunity.Customer_Needs__c.getDescribe().getSObjectField()
+      );
+      isSecNeedsChanged = RecordComparisonUtil.fieldWasChanged(
+        opp,
+        oldOpp,
+        Opportunity.Secondary_Customer_Needs__c.getDescribe().getSObjectField()
+      );
+      isNameChanged = RecordComparisonUtil.fieldWasChanged(
+        opp,
+        oldOpp,
+        Opportunity.Name.getDescribe().getSObjectField()
+      );
+
+      if (!isSecNeedsChanged && !isCustomerNeedsChanged && !isNameChanged) {
+        continue;
+      }
+      updatedOpps.add(opp);
+    }
+    return updatedOpps;
+  }
+
+  private static void updateOpportunityListOnUpdate(
+    List<Opportunity> filteredOpps,
+    Map<Id, String> updatedOppsNameMap
+  ) {
+    for (Opportunity opp : filteredOpps) {
+      opp.Name = updatedOppsNameMap.containsKey(opp.Id)
+        ? updatedOppsNameMap.get(opp.Id)
+        : '';
+    }
+  }
+
+  @testVisible
+  private static String getOpportunityOldName(
+    Opportunity opp,
+    Map<Id, Opportunity> oldMap
+  ) {
+    String oppoName = '';
+    Opportunity oldOpp;
+    String oldOppName;
+    String oldCustomerNeeds;
+
+    if (opp.Lead_Converted__c) {
+      return null;
+    }
+    if (oldMap == null && !opp.Lead_Converted__c) {
+      return opp.Name;
+    }
+    oldOpp = oldMap.get(opp.Id);
+    oldOppName = oldOpp?.Name;
+    oldCustomerNeeds = oldOpp?.Customer_Needs__c;
+
+    //Replace old customer needs and opp Id with blank
+    oppoName = (oldOppName.replace(oldCustomerNeeds, ''))
+      .replace(opp?.Opp_Id__c, '');
+
+    oppoName = oppoName.contains(MULTIPLE_CUSTOMER_NEEDS)
+      ? oppoName.replace(MULTIPLE_CUSTOMER_NEEDS, '')
+      : oppoName;
+
+    return oppoName;
+  }
+
+  @testVisible
+  private static List<Database.saveResult> updateOpportunityListOnInsert(
+    List<Opportunity> filteredOpps,
+    Map<Id, String> updatedOppsNameMap
+  ) {
+    List<Opportunity> updatedOpps = new List<Opportunity>();
+    for (Opportunity opps : filteredOpps) {
+      Opportunity opp = new Opportunity(Id = opps.Id);
+      opp.Name = updatedOppsNameMap.containsKey(opps.Id)
+        ? updatedOppsNameMap.get(opps.Id)
+        : '';
+      updatedOpps.add(opp);
+    }
+    if (updatedOpps.isEmpty()) {
+      return new List<Database.saveResult>();
+    }
+    CCRMOpportunityActions.insertOpportunityContext = true;
+    List<Database.saveResult> results = Database.update(updatedOpps, false);
+    return results;
   }
 
   /**
@@ -715,17 +843,93 @@ public with sharing class CCRMOpportunityActions {
   }
 
   /**
+   * @description check if secondary customer needs contains customer needs
+   * @name checkIfSecondaryCustomerNeedsContainsCustomerNeeds
+   * @param ccrmOpps ccrm opps
+   * @param oldOppsMap old map of opportunities
+   * @param isInsert if the operation is insert
+   */
+  public static void checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+    List<Opportunity> ccrmOpps,
+    Map<Id, Opportunity> oldOppsMap,
+    Boolean isInsert
+  ) {
+    for (Opportunity oppIterator : ccrmOpps) {
+      Opportunity oldOpp;
+      Boolean isCustomerNeedsChanged;
+      Boolean isSecNeedsChanged;
+      SObjectType objType;
+      Boolean hasSameValue;
+
+      objType = Schema.Opportunity.getSObjectType();
+
+      hasSameValue = RecordComparisonUtil.picklistContainSameValue(
+        oppIterator,
+        Opportunity.Secondary_Customer_Needs__c.getDescribe().getSObjectField(),
+        Opportunity.Customer_Needs__c.getDescribe().getSObjectField(),
+        objType
+      );
+
+      if (!isInsert && !oldOppsMap.isEmpty()) {
+        oldOpp = oldOppsMap.get(oppIterator.Id);
+
+        isCustomerNeedsChanged =
+          oldOpp != null &&
+          RecordComparisonUtil.fieldWasChanged(
+            oppIterator,
+            oldOpp,
+            Opportunity.Customer_Needs__c.getDescribe().getSObjectField()
+          );
+        isSecNeedsChanged =
+          oldOpp != null &&
+          RecordComparisonUtil.fieldWasChangedAndNotEqualNull(
+            oppIterator,
+            oldOpp,
+            Opportunity.Secondary_Customer_Needs__c.getDescribe()
+              .getSObjectField()
+          );
+      }
+
+      // if secondary customer needs has value same as customer needs
+      // throw error
+      if (
+        (isInsert || isCustomerNeedsChanged || isSecNeedsChanged) &&
+        hasSameValue
+      ) {
+        oppIterator.Secondary_Customer_Needs__c.addError(
+          CCRMConstants.CUSTOMER_NEEDS_ERROR
+        );
+      }
+    }
+  }
+
+  /**
    * @description wrapper class for CCRM Opportunity
    */
   public class CCRMOpportunityWrapper {
-    public Map<Id, Opportunity> closingOppoIdMap = new Map<Id, Opportunity>();
-    public Map<Id, Opportunity> stageUpdatedOpps = new Map<Id, Opportunity>();
-    public List<Opportunity> filteredOpps = new List<Opportunity>();
-    public Map<Id, String> oppsStageSegmentMap = new Map<Id, String>();
-    public Map<Id, String> oppIdToTemplateNameMap = new Map<Id, String>();
-    public Map<Id, Id> oppIdToOwnerIdMap = new Map<Id, Id>();
-    public Map<Id, User> oppOwnerIdToSegmentMap = new Map<Id, User>();
-    public Map<Id, Opportunity> oppWithMandatoryTaskMap = new Map<Id, Opportunity>();
-    public Map<Id, String> oppsWithMandatoryTaskToTemplateMap = new Map<Id, String>();
+    public Map<Id, Opportunity> closingOppoIdMap;
+    public Map<Id, Opportunity> stageUpdatedOpps;
+    public List<Opportunity> filteredOpps;
+    public Map<Id, String> oppsStageSegmentMap;
+    public Map<Id, String> oppIdToTemplateNameMap;
+    public Map<Id, Id> oppIdToOwnerIdMap;
+    public Map<Id, User> oppOwnerIdToSegmentMap;
+    public Map<Id, Opportunity> oppWithMandatoryTaskMap;
+    public Map<Id, String> oppsWithMandatoryTaskToTemplateMap;
+
+    /**
+     * @description constructor for wrapper class for CCRM Opportunity
+     */
+    public CCRMOpportunityWrapper() {
+      closingOppoIdMap = new Map<Id, Opportunity>();
+      stageUpdatedOpps = new Map<Id, Opportunity>();
+      filteredOpps = new List<Opportunity>();
+      oppsStageSegmentMap = new Map<Id, String>();
+      oppIdToTemplateNameMap = new Map<Id, String>();
+      oppIdToOwnerIdMap = new Map<Id, Id>();
+      oppOwnerIdToSegmentMap = new Map<Id, User>();
+      oppWithMandatoryTaskMap = new Map<Id, Opportunity>();
+      oppsWithMandatoryTaskToTemplateMap = new Map<Id, String>();
+    }
   }
 }

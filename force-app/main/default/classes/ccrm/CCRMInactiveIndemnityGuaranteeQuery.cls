@@ -75,8 +75,8 @@ public with sharing class CCRMInactiveIndemnityGuaranteeQuery extends CCRMFinanc
       row.put('Status', guarantee.status);
       row.put('Amount', guarantee.remainingFaceValue);
       row.put('PurposeCode', guarantee.purpose);
-      row.put('StartDate', adjustUTCDateTime(guarantee.startDate));
-      row.put('ExpiryDate', adjustUTCDateTime(guarantee.expiryDate));
+      row.put('StartDate', formatDate(guarantee.startDate));
+      row.put('ExpiryDate', formatDate(guarantee.expiryDate));
       row.put('Type', guarantee.bankGuaranteeType);
       result.queryResult.add(row);
     }
