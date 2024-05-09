@@ -15,7 +15,7 @@ permissions:
 jobs:
   Release:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.3"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release

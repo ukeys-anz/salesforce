@@ -17,7 +17,7 @@ permissions:
 jobs:
   run-all-tests:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.3"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
       options: --user root
     runs-on: [self-hosted, cd-ubuntu-s-np]
     steps:
