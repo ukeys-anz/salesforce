@@ -1,38 +1,27 @@
-.slds-badge {
-  margin-left: 10px;
-}
+@import "c/customerAccountPageCssUtility";
 
-.homeLoanAccount {
-  min-height: 200px;
+.slds-badge {
+  margin-left: 0.625rem;
 }
 
 .cicon {
   --sds-c-icon-color-background: #ef7ead;
 }
 
-.card-title {
-  background: #eef1f5;
-  width: 100%;
-  padding: 8px;
-  font-size: 15px;
-  border-radius: 0.25em;
-  font-weight: bold;
-}
-
 .lastUpdated {
-  font-size: 12px;
+  font-size: 0.75rem;
   float: right;
 }
 
 .account-footer {
-  margin-bottom: 15px;
+  margin-bottom: 0.938rem;
 }
 
 .tooltip {
   cursor: pointer;
-  margin-left: 4px;
+  margin-left: 0.25rem;
   position: relative;
-  bottom: 2px;
+  bottom: 0.125rem;
 }
 
 .tooltip:hover {

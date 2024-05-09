@@ -1,0 +1,14 @@
+<template>
+  <article class="slds-card slds-m-bottom_small slds-text-align_right">
+    <template lwc:if={displayContent}>
+      <lightning-button
+        label="Refresh All Amounts"
+        title="Refresh All Amounts"
+        onclick={refreshData}
+      ></lightning-button>
+    </template>
+    <template lwc:else>
+      <p class="grey">Refresh All Amounts</p>
+    </template>
+  </article>
+</template>

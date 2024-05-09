@@ -16,9 +16,7 @@ describe("c-person-account-financial-details", () => {
     });
     element.objectApiName = "FinServ__FinancialAccount__c";
     document.body.appendChild(element);
-    let totalBalance = element.shadowRoot.querySelector(
-      "c-total-balance[data-id='total-balance']"
-    );
+
     let checkingAccount = element.shadowRoot.querySelector(
       "c-financial-account[data-id='checking-account']"
     );
@@ -30,54 +28,8 @@ describe("c-person-account-financial-details", () => {
       "c-home-loan-account[data-id='home-account']"
     );
 
-    expect(totalBalance).toBeTruthy();
     expect(checkingAccount).toBeTruthy();
     expect(savingsAccount).toBeTruthy();
     expect(homeAccount).toBeTruthy();
-  });
-
-  it("tests refresh button is clicked", () => {
-    const element = createElement("c-person-account-financial-details", {
-      is: PersonAccountFinancialDetails
-    });
-    element.objectApiName = "FinServ__FinancialAccount__c";
-    document.body.appendChild(element);
-    const totalBalance = element.shadowRoot.querySelector(
-      "c-total-balance[data-id='total-balance']"
-    );
-    const checkingAccount = element.shadowRoot.querySelector(
-      "c-financial-account[data-id='checking-account']"
-    );
-    const savingsAccount = element.shadowRoot.querySelector(
-      "c-financial-account[data-id='savings-account']"
-    );
-    const homeAccount = element.shadowRoot.querySelector(
-      "c-home-loan-account[data-id='home-account']"
-    );
-
-    expect(totalBalance).toBeTruthy();
-    expect(checkingAccount).toBeTruthy();
-    expect(savingsAccount).toBeTruthy();
-    expect(homeAccount).toBeTruthy();
-
-    let refreshButton = element.shadowRoot.querySelector(
-      "button[data-id='refresh']"
-    );
-    expect(refreshButton).toBeTruthy();
-    refreshButton.click();
-
-    return Promise.resolve()
-      .then(() => {
-        let loadingSpinner = element.shadowRoot.querySelector(
-          "div[data-id='loading-spinner']"
-        );
-        expect(loadingSpinner).toBeTruthy();
-      })
-      .then(() => {
-        expect(totalBalance).toBeTruthy();
-        expect(checkingAccount).toBeTruthy();
-        expect(savingsAccount).toBeTruthy();
-        expect(homeAccount).toBeTruthy();
-      });
   });
 });

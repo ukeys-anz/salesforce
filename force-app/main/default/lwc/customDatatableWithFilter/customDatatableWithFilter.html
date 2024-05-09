@@ -16,7 +16,7 @@
           class="slds-var-m-right_xx-small"
         >
         </lightning-icon>
-        List of {recordTypeName} Interactions
+        {listViewTitle}
       </div>
     </div>
     <div class="slds-col slds-size_5-of-12">
@@ -53,6 +53,7 @@
                         options={checkboxOptions}
                         value={statusValue}
                         onchange={handleStatusChange}
+                        disabled={openMessage}
                       >
                       </lightning-checkbox-group>
                     </p>

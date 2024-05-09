@@ -26,38 +26,45 @@ export default class FinancialAccount extends NavigationMixin(
   showInfoModal = false;
   productTitle;
   titleIcon;
+  iconColor;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
+  }
+
+  get hasAccountDetails() {
+    return this.accountDetails && this.accountDetails.length > 0;
   }
 
   get timestamp() {
     //Create timestamp for last updated
     //Use last modified date if the data is fetched from SF, otherwise,
     //the data is directly from fabric so we can use current time
-    if (this.accountDetails && this.accountDetails.length > 0) {
-      let updated = this.accountDetails[0].LastModifiedDate
-        ? new Date(this.accountDetails[0].LastModifiedDate)
-        : new Date();
-
-      let lastUpdated =
-        updated.getDate() +
-        " " +
-        updated.toLocaleString("en-AU", {
-          month: "long"
-        }) +
-        " " +
-        updated.getFullYear() +
-        " | " +
-        updated.toLocaleString("en-AU", {
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true
-        });
-
-      return lastUpdated;
+    let updated = new Date();
+    if (
+      this.accountDetails &&
+      this.accountDetails.length > 0 &&
+      this.accountDetails[0].LastModifiedDate
+    ) {
+      updated = new Date(this.accountDetails[0].LastModifiedDate);
     }
-    return null;
+
+    let lastUpdated =
+      updated.getDate() +
+      " " +
+      updated.toLocaleString("en-AU", {
+        month: "long"
+      }) +
+      " " +
+      updated.getFullYear() +
+      " | " +
+      updated.toLocaleString("en-AU", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true
+      });
+
+    return lastUpdated;
   }
 
   connectedCallback() {
@@ -67,10 +74,12 @@ export default class FinancialAccount extends NavigationMixin(
         this.balanceTitle = "Everyday Funds";
         this.productTitle = "ANZ Plus";
         this.titleIcon = "custom:custom51";
+        this.iconColor = "slds-m-right_small";
       } else {
         this.balanceTitle = "Total Saved";
         this.productTitle = "ANZ Save";
         this.titleIcon = "custom:custom17";
+        this.iconColor = "slds-m-right_small cicon";
       }
     }
   }

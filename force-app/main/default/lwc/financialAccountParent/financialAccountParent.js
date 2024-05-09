@@ -8,6 +8,7 @@ import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.g
 import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 import getTransactionHistoryAura from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import fetchOCVIdFromAccount from "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount";
+import getAccountOwnerIds from "@salesforce/apex/HomeLoanController.getAccountOwnerIds";
 
 import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
@@ -99,10 +100,11 @@ export default class FinancialAccountParent extends LightningElement {
   filterGoal = false;
   accountOwnershipType;
   wiredMethodCalled = false;
+  accountOwners = [];
+
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
   }
-
   @wire(CurrentPageReference)
   pageRef;
 
@@ -135,6 +137,8 @@ export default class FinancialAccountParent extends LightningElement {
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
+      this.accountOwners = await this.fetchAccountOwners();
+
       if (
         this.ocvId &&
         this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME &&
@@ -165,6 +169,26 @@ export default class FinancialAccountParent extends LightningElement {
     }
     this.loading = false;
   }
+
+  async fetchAccountOwners() {
+    let accountOwnerWrapperList = [];
+    const financialAccountRoles = await getAccountOwnerIds({
+      financialAccountId: this.recordId
+    });
+
+    financialAccountRoles.forEach((eachFinancialAccountRole, index) => {
+      const accountOwnerWrapper = {};
+      accountOwnerWrapper.Id =
+        eachFinancialAccountRole.FinServ__RelatedAccount__c;
+      accountOwnerWrapper.Name =
+        eachFinancialAccountRole.FinServ__RelatedAccount__r.Name;
+      accountOwnerWrapper.ShowSeparator =
+        index < financialAccountRoles.length - 1;
+      accountOwnerWrapperList.push(accountOwnerWrapper);
+    });
+    return accountOwnerWrapperList;
+  }
+
   // Implmented as part of [ANZX-143917], This method extract OCV Id from Data fields if there is Single account
   // In case of Multy party, OCV Id extracted from Page Reference
   // It fetches OCV Id from DB, if primaryTab is Account and FA opened in subtab
@@ -179,10 +203,12 @@ export default class FinancialAccountParent extends LightningElement {
     if (!this.tabId) {
       return null;
     }
+
     let tabInfo = await getTabInfo(this.tabId);
     let primaryTabInfo = tabInfo.isSubtab
       ? await getTabInfo(tabInfo.parentTabId)
       : undefined;
+
     ocvId = data.fields.OCV_ID__c.value;
     if (!primaryTabInfo?.recordId?.startsWith("001")) {
       return ocvId;
