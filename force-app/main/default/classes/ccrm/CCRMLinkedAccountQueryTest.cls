@@ -11,6 +11,9 @@ private class CCRMLinkedAccountQueryTest {
     Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('Business_Account')
       .getRecordTypeId();
+
+    //Created a business record type account in order to
+    //associate external objects with the customer
     Account acct = TestDataFactory.createBusinessRecordTypeAccount(
       'CAP-CIS_4011643101',
       customerRecordTypeId,
@@ -50,7 +53,7 @@ private class CCRMLinkedAccountQueryTest {
     );
     Map<String, Object> firstRecord = result.queryResult[0];
     System.assertEquals(
-      '708749911',
+      '7087-49911',
       firstRecord.get('AccountNumber'),
       'AccountNumber mismatch'
     );

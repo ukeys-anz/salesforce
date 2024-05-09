@@ -4,7 +4,6 @@
  * @since : Jan 2024
  */
 
-@SuppressWarnings('PMD.ExcessivePublicCount')
 public class CCRMFinancialSummaryWrapper {
   /**
    * @author Naman Garg
@@ -13,9 +12,9 @@ public class CCRMFinancialSummaryWrapper {
    * @name TotalBalance
    */
   public class TotalBalance {
-    public List<String> accounts = new List<String>();
-    public String fieldSet;
-    public String responseId;
+    List<String> accounts = new List<String>();
+    String fieldSet;
+    String responseId;
 
     /**
      * @description It is the constructor to populate the TotalBalance
@@ -41,10 +40,10 @@ public class CCRMFinancialSummaryWrapper {
    * @name TerminalAndTotalAsset
    */
   public class TerminalAndTotalAsset {
-    public List<String> capCustomerIds = new List<String>();
-    public String type;
-    public String fieldSet;
-    public String responseId;
+    List<String> capCustomerIds = new List<String>();
+    String type;
+    String fieldSet;
+    String responseId;
 
     /**
      * @description It is the constructor to populate the TerminalAndTotalAsset
@@ -85,60 +84,6 @@ public class CCRMFinancialSummaryWrapper {
   /**
    * @author Naman Garg
    * @group CCRM (Commercial CRM)
-   * @description FinSummaryResponse wrapper class to get the response published by mule.
-   * @name FinSummaryResponse
-   */
-  public class FinSummaryResponse {
-    /**
-     * @description Id of the Customer Record
-     */
-    @AuraEnabled
-    public String responseId { get; set; }
-    /**
-     * @description Hold the value of Total Balance response published by mule
-     */
-    @AuraEnabled
-    public Decimal totalBalance { get; set; }
-    /**
-     * @description Hold the value of Terminal response published by mule
-     */
-    @AuraEnabled
-    public Decimal totalMerchantTerminals { get; set; }
-    /**
-     * @description Hold the value of Asset Finance Balance response published by mule
-     */
-    @AuraEnabled
-    public Decimal totalAssetFinanceBalance { get; set; }
-    /**
-     * @description Tells the data & Time when Summaries values are Last updated
-     */
-    @AuraEnabled
-    public String lastSummaryUpdateDate { get; set; }
-    /**
-     * @description Tells if the values exist in cache
-     */
-    @AuraEnabled
-    public String cacheAck { get; set; }
-    /**
-     * @description Tells if the Total Balance value exist in cache
-     */
-    @AuraEnabled
-    public String totalBalanceAck { get; set; }
-    /**
-     * @description Tells if the Terminal value exist in cache
-     */
-    @AuraEnabled
-    public String terminalAck { get; set; }
-    /**
-     * @description Tells if the Asset Finance Balance value exist in cache
-     */
-    @AuraEnabled
-    public String assetBalanceAck { get; set; }
-  }
-
-  /**
-   * @author Naman Garg
-   * @group CCRM (Commercial CRM)
    * @description CacheData wrapper class to insert the data in cache.
    * @name CacheData
    */
@@ -150,15 +95,6 @@ public class CCRMFinancialSummaryWrapper {
     public String terminalAck;
     public String assetBalanceAck;
     public String lastSummaryUpdateDate;
-
-    /**
-     * @description It is the constructor to populate the value in cache
-     */
-    public CacheData() {
-      this.totalBalanceAck = CCRMConstants.NO_AVAILABLE_BALANCE;
-      this.terminalAck = CCRMConstants.NO_AVAILABLE_BALANCE;
-      this.assetBalanceAck = CCRMConstants.NO_AVAILABLE_BALANCE;
-    }
   }
 
   /**
@@ -188,5 +124,16 @@ public class CCRMFinancialSummaryWrapper {
      */
     @AuraEnabled
     public Boolean callAssetFinanceBalanceApi { get; set; }
+  }
+
+  /**
+   * @author Naman Garg
+   * @group CCRM (Commercial CRM)
+   * @description CustomerIdWrapper wrapper class to get the cap Id List.
+   * @name CustomerIdWrapper
+   */
+  public class CustomerIdWrapper {
+    public List<String> capIdsList = new List<String>();
+    public List<String> capIdsModifiedList = new List<String>();
   }
 }

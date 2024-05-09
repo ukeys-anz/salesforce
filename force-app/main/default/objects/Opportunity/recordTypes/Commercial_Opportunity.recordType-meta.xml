@@ -228,6 +228,53 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Secondary_Customer_Needs__c</picklist>
+        <values>
+            <fullName>Assist with Business Working Capital%2FTemporary Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Construction and Renovation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing Vacant Land</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing a new Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing an existing Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchasing equipment %28inc%2E vehicles and fit out%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refinance from Other Financial Institutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Set up a new Business %28Start Up%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transactional Services %28inc%2E IB4B%2C Account opening and Merchant services%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Type</picklist>
         <values>
             <fullName>Existing Business</fullName>

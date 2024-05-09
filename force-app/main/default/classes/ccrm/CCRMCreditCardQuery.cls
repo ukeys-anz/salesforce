@@ -71,7 +71,6 @@ public with sharing class CCRMCreditCardQuery extends CCRMFinancialAccountQueryB
       row.put('CustomerId', customerId);
       row.put('ExternalId', getExternalId(fa));
       row.put('DisplayUrl', getDisplayUrl(fa));
-      row.put('Relationship', getAccountRelationship(fa.accountNumber));
 
       row.put('AccountName', fa.accountName);
       row.put('AccountNumber', formatAccountNumber(fa.accountNumber));

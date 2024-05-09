@@ -4,7 +4,7 @@
  * @description CCRM lead conversion actions which includes calling search and create party api, deleting auto created contacts post conversion
  */
 
-public with sharing class CCRMLeadConversionActions {
+ public with sharing class CCRMLeadConversionActions {
   /**
    * @description Define custom exceptions
    */
@@ -309,6 +309,19 @@ public with sharing class CCRMLeadConversionActions {
       );
     }
     try {
+if (
+        !CCRMLeadConversionActions.leadConverionFlow &&
+        leadRec.RecordType.DeveloperName ==
+        MLCRMConstants.MLCRM_LEAD_RECORDTYPE_NAME
+      ) {
+        //Added to bypass validation rule preventEditShellProspect on Account Trigger (Error: Label.ML_ShellProspect_Update_ErrorMessage)
+        CCRMLeadConversionActions.manualLeadConversionInitiated = true;
+        CustomerRelationNotesTriggerActions.CustomerRelationshipCreator custRelationCreator = new CustomerRelationNotesTriggerActions.CustomerRelationshipCreator();
+        custRelationCreator.createCustomerRelationship(
+          accId,
+          CCRMLeadConversionActionsHelper.getRequestRecord(leadRec)
+        );
+      }
       CCRMLeadConversionActions.leadConverionFlow = true;
       return AccountCommonActions.findAndConvertCCRMLead(accId, leadRec);
     } catch (Exception ex) {
