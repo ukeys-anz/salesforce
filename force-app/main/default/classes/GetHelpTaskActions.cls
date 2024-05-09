@@ -20,6 +20,7 @@ public with sharing class GetHelpTaskActions {
   public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
   public static final Integer CALL_SID_LENGTH = 34;
   public static final String TASK_STATUS_EXPIRED = 'Expired';
+  public static final String TASK_STATUS_NEW = 'New';
   public static final String TASK_STATUS_NOT_STARTED = 'Not Started';
   public static final String TASK_STATUS_EXPIRED_ERROR_MESSAGE = 'Status Cannot be changed to \'Expired\' manually.';
 
@@ -201,7 +202,8 @@ public with sharing class GetHelpTaskActions {
     for (Task tsk : records) {
       Task oldTask = oldMap.get(tsk.Id);
       if (
-        tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID &&
+        (tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID ||
+        tsk.RecordTypeId == GetHelpConstants.CALLBACK_REQUEST_RT_ID) &&
         tsk.Status == TASK_STATUS_EXPIRED &&
         tsk.Status != oldTask.Status
       ) {

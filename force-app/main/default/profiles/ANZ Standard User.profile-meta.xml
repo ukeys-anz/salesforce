@@ -1586,6 +1586,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Task.Pub_Sub_Event_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Task.WhoId</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1749,6 +1754,10 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Callback Request Layout</layout>
+        <recordType>Task.Callback_Request</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-Compliance Task Layout</layout>
@@ -2423,6 +2432,11 @@
         <default>false</default>
         <recordType>Product2.ANZ_Product_or_Service</recordType>
         <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Task.Callback_Request</recordType>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
         <tab>FinServ__Alert__c</tab>

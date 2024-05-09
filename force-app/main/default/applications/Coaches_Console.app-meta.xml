@@ -1009,6 +1009,78 @@
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Callback_Request</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Callback_Request</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Callback_Request</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Callback_Request</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Callback_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Standard</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Callback_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Standard</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Callback_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Coach_Nudge_Layout</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Task</pageOrSobjectType>
+        <recordType>Task.Callback_Request</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Case</tabs>
