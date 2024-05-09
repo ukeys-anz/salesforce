@@ -32,7 +32,7 @@
 }
 
 .card-title {
-  background: #eef1f5;
+  background: #ffffff;
   width: 100%;
   min-height: 32px;
   padding: 16px;
@@ -41,4 +41,5 @@
   font-weight: bold;
   position: relative;
   bottom: 24px;
+  border-bottom: var(--lwc-borderWidthThin) solid lightgrey;
 }

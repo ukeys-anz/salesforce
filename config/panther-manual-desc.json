@@ -288,6 +288,7 @@
         "Hardship__c",
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c",
+        "Mobile__c",
         "Was_ANZx_Customer__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
@@ -2066,6 +2067,9 @@
         "FinServ__Role__c",
         "FinServ__SourceSystemId__c",
         "FinServ__StartDate__c",
+        "Product_Name__c",
+        "Account_Number__c",
+        "Ownership__c",
         "Temporary_External_Id__c",
         "CreatedById",
         "CreatedDate",

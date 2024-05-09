@@ -1,208 +1,245 @@
 <template>
   <article class="total-amounts slds-card slds-m-bottom_small">
     <template lwc:if={displayContent}>
-      <template lwc:if={error}>
-        <c-error message={error} data-id="error"></c-error>
+      <h1 class="card-title-header">
+        <div class="slds-grid slds-wrap">
+          <div class="slds-col slds-grid slds-size_1-of-1">
+            <div class="slds-grid slds-wrap slds-size_1-of-1">
+              <div
+                class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
+              >
+                <div class="heading-font">
+                  <lightning-icon
+                    icon-name="custom:custom41"
+                    size="medium"
+                    class="slds-m-right_small"
+                  ></lightning-icon>
+
+                  Financial Position
+                </div>
+              </div>
+              <template lwc:if={isFinancesTab}>
+                <div
+                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
+                >
+                  <c-refresh-finances record-id={recordId}>
+                  </c-refresh-finances>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </h1>
+
+      <template lwc:if={loading}>
+        <div
+          class="slds-align_absolute-center"
+          style="height: 4rem"
+          data-id="loading-spinner"
+        >
+          <div role="status" class="slds-spinner_inline">
+            <lightning-spinner
+              alternative-text="Loading"
+              variant="brand"
+            ></lightning-spinner>
+          </div>
+        </div>
       </template>
       <template lwc:else>
-        <h1 class="card-title">
-          <lightning-icon
-            icon-name="custom:custom41"
-            size="medium"
-            class="slds-m-right_small"
-          ></lightning-icon>
-          Finances
-        </h1>
-        <div class="slds-card__body slds-card__body_inner">
-          <article class="slds-card">
-            <div class="slds-grid slds-wrap">
-              <div class="slds-col slds-grid slds-size_1-of-1">
-                <div class="slds-grid slds-wrap slds-size_1-of-1">
-                  <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
-                  >
-                    <div class="header-column">
-                      <p class="field-title slds-text-color_weak">
-                        Total Financial Position
-                        <lightning-icon
-                          icon-name="utility:info"
-                          size="xx-small"
-                          class="tooltip"
-                          onclick={handleInfoModal}
-                          data-id="total-fin-position"
-                        ></lightning-icon>
-                      </p>
-                      <p class="slds-text-heading_large">
-                        <lightning-formatted-number
-                          value={totalBalance}
-                          format-style="currency"
-                          data-id="total-balance"
-                        ></lightning-formatted-number>
-                      </p>
+        <template lwc:if={totalBalanceError}>
+          <c-error message={totalBalanceError} data-id="error"></c-error>
+        </template>
+        <template lwc:else>
+          <div class="slds-card__body slds-card__body_inner">
+            <article class="slds-card">
+              <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-grid slds-size_1-of-1">
+                  <div class="slds-grid slds-wrap slds-size_1-of-1">
+                    <div class={totalSavedColumn}>
+                      <div class="header-column">
+                        <p class="card-heading-font">
+                          Total Financial Position
+                          <lightning-icon
+                            icon-name="utility:info"
+                            size="xx-small"
+                            class="tooltip"
+                            onclick={handleInfoModal}
+                            data-id="total-fin-position"
+                          ></lightning-icon>
+                        </p>
+                        <p class="slds-text-heading_large">
+                          <lightning-formatted-number
+                            value={totalBalance}
+                            format-style="currency"
+                            data-id="total-balance"
+                            class="fontstyle"
+                          ></lightning-formatted-number>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small balance-padding"
-                  >
-                    <div class="header-column slds-float_right">
-                      <p class="field-title slds-text-color_weak">
-                        Total Saved
-                        <lightning-icon
-                          icon-name="utility:info"
-                          size="xx-small"
-                          class="tooltip"
-                          onclick={handleInfoModal}
-                          data-id="total-saved"
-                        ></lightning-icon>
-                      </p>
-                      <p class="slds-text-heading_large">
-                        <lightning-formatted-number
-                          value={totalSaved}
-                          format-style="currency"
-                          data-id="amount-saved"
-                        ></lightning-formatted-number>
-                      </p>
+                    <div class={totalSavedColumn}>
+                      <div class={totalSavedAlignment}>
+                        <p class="card-heading-font">
+                          Total Saved
+                          <lightning-icon
+                            icon-name="utility:info"
+                            size="xx-small"
+                            class="tooltip"
+                            onclick={handleInfoModal}
+                            data-id="total-saved"
+                          ></lightning-icon>
+                        </p>
+                        <p class="slds-text-heading_large">
+                          <lightning-formatted-number
+                            value={totalSaved}
+                            format-style="currency"
+                            data-id="amount-saved"
+                            class="fontstyle"
+                          ></lightning-formatted-number>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </article>
-        </div>
-        <template lwc:if={showInfoModal}>
-          <template lwc:if={totalFinPositionClicked}>
-            <section
-              role="dialog"
-              class="slds-modal slds-fade-in-open"
-              data-id="fin-position-modal"
-            >
-              <div class="slds-modal__container">
-                <header class="slds-modal__header modal-header">
-                  <lightning-icon
-                    icon-name="utility:close"
-                    onclick={handleInfoModal}
-                    class="slds-button slds-button_icon slds-modal__close close-modal"
-                  ></lightning-icon>
-                  <h2 class="slds-modal__title slds-hyphenate">
-                    What does Total Financial Position* mean?
-                  </h2>
-                </header>
-                <div class="slds-modal__content slds-p-around_medium">
-                  <span>
-                    <p class="slds-text-title_bold">
+            </article>
+          </div>
+          <template lwc:if={showInfoModal}>
+            <template lwc:if={totalFinPositionClicked}>
+              <section
+                role="dialog"
+                class="slds-modal slds-fade-in-open"
+                data-id="fin-position-modal"
+              >
+                <div class="slds-modal__container">
+                  <header class="slds-modal__header modal-header">
+                    <lightning-icon
+                      icon-name="utility:close"
+                      onclick={handleInfoModal}
+                      class="slds-button slds-button_icon slds-modal__close close-modal"
+                    ></lightning-icon>
+                    <h2 class="slds-modal__title slds-hyphenate">
+                      What does Total Financial Position* mean?
+                    </h2>
+                  </header>
+                  <div class="slds-modal__content slds-p-around_medium">
+                    <span>
+                      <p class="slds-text-title_bold">
+                        The amount shown is indicative of the amount you may be
+                        able to use but may not be what is actually available.
+                      </p>
+                      <br />
                       The amount shown is indicative of the amount you may be
-                      able to use but may not be what is actually available.
-                    </p>
-                    <br />
-                    The amount shown is indicative of the amount you may be able
-                    to use in your&nbsp;
-                    <strong>
-                      ANZ Plus and ANZ Save accounts added together</strong
-                    >. The amount shown may not be what is actually available
-                    because:
-                    <ul
-                      class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium"
+                      able to use in your&nbsp;
+                      <strong>
+                        ANZ Plus and ANZ Save accounts added together</strong
+                      >. The amount shown may not be what is actually available
+                      because:
+                      <ul
+                        class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium"
+                      >
+                        <li>
+                          some transactions may not have updated the amount
+                          shown (e.g. reversals)
+                        </li>
+                        <li>
+                          some transactions may have updated the amount shown
+                          but are not yet fully processed (e.g. pending
+                          transactions), and/or
+                        </li>
+                        <li>
+                          we may not process transactions at the time, on the
+                          day or in the order that they are made.
+                        </li>
+                      </ul>
+                      If you proceed with a transaction when there may be
+                      insufficient funds, your account may go overdrawn or the
+                      transaction may be declined.
+                      <br />
+                      <br />
+                      *This amount is only viewable by coaches and not available
+                      to the customer in the app.
+                    </span>
+                  </div>
+                  <footer class="slds-modal__footer">
+                    <button
+                      class="slds-button slds-button_neutral"
+                      onclick={handleInfoModal}
                     >
-                      <li>
-                        some transactions may not have updated the amount shown
-                        (e.g. reversals)
-                      </li>
-                      <li>
-                        some transactions may have updated the amount shown but
-                        are not yet fully processed (e.g. pending transactions),
-                        and/or
-                      </li>
-                      <li>
-                        we may not process transactions at the time, on the day
-                        or in the order that they are made.
-                      </li>
-                    </ul>
-                    If you proceed with a transaction when there may be
-                    insufficient funds, your account may go overdrawn or the
-                    transaction may be declined.
-                    <br />
-                    <br />
-                    *This amount is only viewable by coaches and not available
-                    to the customer in the app.
-                  </span>
+                      Close
+                    </button>
+                  </footer>
                 </div>
-                <footer class="slds-modal__footer">
-                  <button
-                    class="slds-button slds-button_neutral"
-                    onclick={handleInfoModal}
-                  >
-                    Close
-                  </button>
-                </footer>
-              </div>
-            </section>
-          </template>
-          <template lwc:else>
-            <section
-              role="dialog"
-              class="slds-modal slds-fade-in-open"
-              data-id="total-saved-modal"
-            >
-              <div class="slds-modal__container">
-                <header class="slds-modal__header modal-header">
-                  <lightning-icon
-                    icon-name="utility:close"
-                    onclick={handleInfoModal}
-                    class="slds-button slds-button_icon slds-modal__close close-modal"
-                  ></lightning-icon>
-                  <h2 class="slds-modal__title slds-hyphenate">
-                    What does Total Saved mean?
-                  </h2>
-                </header>
-                <div class="slds-modal__content slds-p-around_medium">
-                  <span>
-                    <p class="slds-text-title_bold">
+              </section>
+            </template>
+            <template lwc:else>
+              <section
+                role="dialog"
+                class="slds-modal slds-fade-in-open"
+                data-id="total-saved-modal"
+              >
+                <div class="slds-modal__container">
+                  <header class="slds-modal__header modal-header">
+                    <lightning-icon
+                      icon-name="utility:close"
+                      onclick={handleInfoModal}
+                      class="slds-button slds-button_icon slds-modal__close close-modal"
+                    ></lightning-icon>
+                    <h2 class="slds-modal__title slds-hyphenate">
+                      What does Total Saved mean?
+                    </h2>
+                  </header>
+                  <div class="slds-modal__content slds-p-around_medium">
+                    <span>
+                      <p class="slds-text-title_bold">
+                        The amount shown is indicative of the amount you may be
+                        able to use but may not be what is actually available.
+                      </p>
+                      <br />
                       The amount shown is indicative of the amount you may be
-                      able to use but may not be what is actually available.
-                    </p>
-                    <br />
-                    The amount shown is indicative of the amount you may be able
-                    to use in your ANZ Save account. This amount, when shown at
-                    an ATM or on a receipt, may have a different label such as
-                    'Funds' or 'Balance'. Regardless, the amount shown may not
-                    be what is actually available because:
-                    <ul
-                      class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium"
+                      able to use in your ANZ Save account. This amount, when
+                      shown at an ATM or on a receipt, may have a different
+                      label such as 'Funds' or 'Balance'. Regardless, the amount
+                      shown may not be what is actually available because:
+                      <ul
+                        class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium"
+                      >
+                        <li>
+                          some transactions may not have updated the amount
+                          shown (e.g. reversals)
+                        </li>
+                        <li>
+                          some transactions may have updated the amount shown
+                          but are not yet fully processed (e.g. pending
+                          transactions)
+                        </li>
+                        <li>
+                          we may not process transactions at the time, on the
+                          day or in the order that they are made, and/or
+                        </li>
+                        <li>
+                          some transactions may have been processed and updated
+                          the amount shown, but are later adjusted.
+                        </li>
+                      </ul>
+                      If you proceed with a transaction when there may be
+                      insufficient funds, your account may go overdrawn or the
+                      transaction may be declined.
+                    </span>
+                  </div>
+                  <footer class="slds-modal__footer">
+                    <button
+                      class="slds-button slds-button_neutral"
+                      onclick={handleInfoModal}
                     >
-                      <li>
-                        some transactions may not have updated the amount shown
-                        (e.g. reversals)
-                      </li>
-                      <li>
-                        some transactions may have updated the amount shown but
-                        are not yet fully processed (e.g. pending transactions)
-                      </li>
-                      <li>
-                        we may not process transactions at the time, on the day
-                        or in the order that they are made, and/or
-                      </li>
-                      <li>
-                        some transactions may have been processed and updated
-                        the amount shown, but are later adjusted.
-                      </li>
-                    </ul>
-                    If you proceed with a transaction when there may be
-                    insufficient funds, your account may go overdrawn or the
-                    transaction may be declined.
-                  </span>
+                      Close
+                    </button>
+                  </footer>
                 </div>
-                <footer class="slds-modal__footer">
-                  <button
-                    class="slds-button slds-button_neutral"
-                    onclick={handleInfoModal}
-                  >
-                    Close
-                  </button>
-                </footer>
-              </div>
-            </section>
+              </section>
+            </template>
+            <div class="slds-backdrop slds-backdrop_open"></div>
           </template>
-          <div class="slds-backdrop slds-backdrop_open"></div>
         </template>
       </template>
     </template>

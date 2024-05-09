@@ -24,6 +24,8 @@ module.exports = {
     "^lightning/modalFooter$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/modalFooter",
     "^lightning/platformWorkspaceApi$":
-      "<rootDir>/force-app/tests/jest-mocks/lightning/platformWorkspaceApi"
+      "<rootDir>/force-app/tests/jest-mocks/lightning/platformWorkspaceApi",
+    "^c/customerAccountPageCssUtility$":
+      "<rootDir>/force-app/main/default/lwc/customerAccountPageCssUtility/customerAccountPageCssUtility.css"
   }
 };
