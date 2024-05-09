@@ -44,6 +44,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   //Pass this to the goals lwc so we can navigate to the
   //savings financial account
   savingsId;
+  accountToOwnership = new Map();
 
   connectedCallback() {
     window.addEventListener(
@@ -138,10 +139,19 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     try {
       let goalData = await getAccountBuckets({
         ocvId: this.ocvId,
-        pageSize: 4,
+        pageSize: 10,
         nextPageToken: ""
       });
       goalData = handleGoalThemes(goalData);
+      const goalBucket = goalData.account_buckets.filter((eachGoalData) => {
+        let ownership = "";
+        if (this.accountToOwnership.has(eachGoalData.account_number)) {
+          ownership = this.accountToOwnership.get(eachGoalData.account_number);
+        }
+        return ownership !== MULTI_PARTY;
+      });
+      goalData.account_buckets = goalBucket;
+
       //Savings jar will always be default, so retrieve it
       //to pass through to other components that need it
       this.savingsJar = goalData.account_buckets.filter((obj) => {
@@ -183,6 +193,11 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             account.FinServ__Ownership__c = account.Ownership__c;
           }
 
+          this.accountToOwnership.set(
+            account.FinServ__FinancialAccountNumber__c,
+            account.FinServ__Ownership__c
+          );
+
           if (
             account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME
           ) {
@@ -191,7 +206,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
           ) {
             this.accountData.savings.push(account);
-            this.savingsId = account.Id;
+            if (account.FinServ__Ownership__c !== MULTI_PARTY) {
+              this.savingsId = account.Id;
+            }
           }
         }
       });

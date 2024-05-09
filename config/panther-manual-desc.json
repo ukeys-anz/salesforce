@@ -1092,7 +1092,7 @@
         "Application_Status__c",
         "Assessment_Outcome__c",
         "Assessment_Id__c",
-        "Feedback_Type__c",  
+        "Feedback_Type__c",
         "Case_Authority_Level__c",
         "Closure_Reason__c",
         "Collateral_Assessment_ID__c",
@@ -1121,10 +1121,7 @@
         "PersonID__c",
         "Fraud_PersonID__c"
       ],
-      "IA-2468710": [
-        "SLATesting__c",
-        "CardScamType__c"
-      ]
+      "IA-2468710": ["SLATesting__c", "CardScamType__c"]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [

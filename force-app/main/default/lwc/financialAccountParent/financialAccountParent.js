@@ -102,6 +102,9 @@ export default class FinancialAccountParent extends LightningElement {
   wiredMethodCalled = false;
   accountOwners = [];
 
+  get isSoleAccount() {
+    return `${this.accountOwnershipType}` === "Single";
+  }
   @wire(CurrentPageReference)
   pageRef;
 
@@ -274,10 +277,20 @@ export default class FinancialAccountParent extends LightningElement {
         this.goalData = await getAccountBuckets({
           //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
           ocvId: this.ocvId,
-          pageSize: 7,
+          pageSize: 20,
           nextPageToken: paramUrl
         });
 
+        // Filter goal for this account data
+        const accountGoalData = this.goalData.account_buckets.filter(
+          (eachGoalData) => {
+            return (
+              this.accountData[0].FinServ__FinancialAccountNumber__c ===
+              eachGoalData.account_number
+            );
+          }
+        );
+        this.goalData.account_buckets = accountGoalData;
         this.goalData = handleGoalData(this.goalData);
         this.emojiMap = getEmojiMap(this.goalData);
         this.imageMap = getImageMap(this.goalData);
@@ -429,7 +442,8 @@ export default class FinancialAccountParent extends LightningElement {
           : "slds-badge";
 
       // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
-      finAccount.showSavingsJar = finAccount.FinServ__Status__c !== "Closed";
+      finAccount.showSavingsJar =
+        finAccount.FinServ__Status__c !== "Closed" && this.isSoleAccount;
 
       // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
       if (finAccount.FinServ__Ownership__c) {

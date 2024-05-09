@@ -20,10 +20,10 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   @api ownershipType;
   @api accountOwnersList;
   timestamp;
-  financialAccounts;
+  financialAccounts = [];
   showBalanceModal = false;
   showRedrawAvailableModal = false;
-  financialAccountList;
+  financialAccounRoleList = [];
   loanImageUrl = getStaticResource + "/images/Mortgage.png";
   errorImageUrl = getStaticResource + "/images/PermissionError.png";
   hasError;
@@ -53,15 +53,18 @@ export default class HomeLoanAccountCard extends NavigationMixin(
       try {
         //Only need to get financial account id if we are on person account
         if (this.objectApiName === "Account") {
-          this.financialAccountList = await getHomeLoanFinancialAccountId({
+          this.financialAccounRoleList = await getHomeLoanFinancialAccountId({
             customerId: this.recordId
           });
         }
 
         this.financialAccounts.forEach((finAccount) => {
-          if (this.financialAccountList && this.objectApiName === "Account") {
+          if (
+            this.financialAccounRoleList &&
+            this.objectApiName === "Account"
+          ) {
             //Retrieve record id for linked fin account
-            this.financialAccountList.forEach((account) => {
+            this.financialAccounRoleList.forEach((account) => {
               if (
                 account.FinServ__FinancialAccount__r
                   .FinServ__FinancialAccountNumber__c ===
@@ -75,6 +78,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
           finAccount.lastModifiedTimestamp = this.handleLastModifiedTimestamp(
             finAccount
           );
+          finAccount.accountActive = this.handleAccountActive(finAccount.state);
           finAccount.loanTerm = this.handleLoanTerm(finAccount);
           finAccount.nextRepayment = this.handleNextRepayment(finAccount);
           finAccount.repaymentType = this.handleRepaymentType(finAccount);
@@ -88,6 +92,13 @@ export default class HomeLoanAccountCard extends NavigationMixin(
         if (this.objectApiName === "FinServ__FinancialAccount__c") {
           this.singleFinAccount = this.financialAccounts[0];
         }
+
+        const financialAccountOpenList = this.financialAccounts.filter(
+          (eachAccount) => {
+            return eachAccount.state !== "ACCOUNT_STATE_CLOSED";
+          }
+        );
+        this.financialAccounts = financialAccountOpenList;
       } catch (error) {
         handleErrorShowToast(
           this,
@@ -113,6 +124,14 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     return !(hasHomeLoanPermission && hasFinancialAccountPermission);
   }
 
+  get showHomeLoan() {
+    return this.financialAccounts.length > 0;
+  }
+
+  handleAccountActive(state) {
+    return state === "ACCOUNT_STATE_CLOSED" ? false : true;
+  }
+
   handleLastModifiedTimestamp(account) {
     let updated = account
       ? new Date(account.loan_details.valid_at)
@@ -135,7 +154,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     return lastUpdated;
   }
 
-  //USED IN THE FINANCIAL ACCOUNT VIEW
+  //USED IN THE FINANCIAL ACCOUNT VIEW FOR SHOWING LOAN TERM
   handleLoanTerm(account) {
     let termInMonth = account.loan_details.loan_term;
     let months = { one: "month", other: "months" };

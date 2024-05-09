@@ -319,6 +319,13 @@
         <value>CAP-CIS</value>
     </labels>
     <labels>
+        <fullName>CdmLimitReachedErrorMessage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CdmLimitReachedErrorMessage</shortDescription>
+        <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -2290,7 +2297,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>MS_ExportConsentDataIN_API</shortDescription>
         <value>callout:SF_MS_CH2/lighthouse/v1/consents/detail-reports</value>
     </labels>
-<labels>
+    <labels>
         <fullName>Territory_Config_Share_Batch_Size</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
