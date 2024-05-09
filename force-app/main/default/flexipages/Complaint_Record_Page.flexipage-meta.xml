@@ -160,6 +160,22 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Case.Validate_Event_ID</value>
+                            <visibilityRule>
+                                <booleanFilter>(1 OR 2)</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>CONTAINS</operator>
+                                    <rightValue>Customer_Complaint</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>CONTAINS</operator>
+                                    <rightValue>Non_Customer_Complaint</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
