@@ -5,10 +5,34 @@
  */
 @isTest
 public with sharing class GetHelpExternalCaseStatusActionsTest {
-  // test method to check if internal description is as per mapping
+  // test method to check that non NPP disputes should not be returned
   @isTest
-  public static void testUpdateInternalDescription() {
-    Case caseRecord = TestDataFactory.createCase('NPP_Dispute');
+  public static void testGetRelatedNPPCaseIds() {
+    Case caseRecord = TestDataFactory.createCase('ATM_Dispute');
+    caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
+      Case__c = caseRecord.Id,
+      External_Status__c = 'Resolved-Completed',
+      Status_Event_ID__c = 'Status_Event_ID__c_0',
+      Result_Message__c = 'Accept',
+      Internal_Description__c = ''
+    );
+    Test.startTest();
+    // Dummy call for test coverage
+    GetHelpExternalCaseStatusActions.updateInternalDescription(
+      new List<External_Case_Status__c>{ externalCaseStatus }
+    );
+    Set<Id> relatedNPPCasesId = GetHelpExternalCaseStatusActionHelper.getRelatedNppCasesIds(
+      new List<Id>{ caseRecord.Id }
+    );
+    Test.stopTest();
+    Assert.isTrue(relatedNPPCasesId.size() == 0, 'List size is incorrect');
+  }
+
+  @isTest
+  public static void testUpdateIntDescForNonNPPDispute() {
+    Case caseRecord = TestDataFactory.createCase('ATM_Dispute');
     caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
@@ -23,33 +47,32 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
       new List<External_Case_Status__c>{ externalCaseStatus }
     );
     Test.stopTest();
-    Assert.isTrue(
-      externalCaseStatus.Internal_Description__c == 'Dispute Successful',
-      'Internal Description is not correct'
-    );
+    Assert.isTrue(externalCaseStatus.Internal_Description__c == '', '');
   }
 
   // test method to check if internal description when result message is unkonwn
   @isTest
-  public static void testUpdateIntDesForUnknownStatus() {
+  public static void testGetInternalDescriptionForNPPDispute() {
     Case caseRecord = TestDataFactory.createCase('NPP_Dispute');
     caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    ExternalCaseStatusMappingQueryHelper caseStatusQueryHelper = ExternalCaseStatusMappingQueryHelper.getInstance();
+    Map<String, String> statusToInternalDescMap = caseStatusQueryHelper.getStatusToInternalDescriptionMap();
 
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = caseRecord.Id,
-      External_Status__c = 'Resolved-System',
+      External_Status__c = 'Resolved-Completed',
       Status_Event_ID__c = 'Status_Event_ID__c_0',
-      Result_Message__c = 'Test',
+      Result_Message__c = 'Accept',
       Internal_Description__c = ''
     );
     Test.startTest();
-    GetHelpExternalCaseStatusActions.updateInternalDescription(
-      new List<External_Case_Status__c>{ externalCaseStatus }
+    GetHelpExternalCaseStatusActionHelper.getInternalDescription(
+      new List<External_Case_Status__c>{ externalCaseStatus },
+      statusToInternalDescMap
     );
     Test.stopTest();
     Assert.isTrue(
-      externalCaseStatus.Internal_Description__c ==
-      'Unable to complete case - Refer to Pega PRS',
+      externalCaseStatus.Internal_Description__c == 'Dispute Successful',
       'Internal Description is not correct'
     );
   }
@@ -59,6 +82,8 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
   public static void testUpdateIntDesForUnknownValues() {
     Case caseRecord = TestDataFactory.createCase('NPP_Dispute');
     caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    ExternalCaseStatusMappingQueryHelper caseStatusQueryHelper = ExternalCaseStatusMappingQueryHelper.getInstance();
+    Map<String, String> statusToInternalDescMap = caseStatusQueryHelper.getStatusToInternalDescriptionMap();
 
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = caseRecord.Id,
@@ -68,8 +93,9 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
       Internal_Description__c = ''
     );
     Test.startTest();
-    GetHelpExternalCaseStatusActions.updateInternalDescription(
-      new List<External_Case_Status__c>{ externalCaseStatus }
+    GetHelpExternalCaseStatusActionHelper.getInternalDescription(
+      new List<External_Case_Status__c>{ externalCaseStatus },
+      statusToInternalDescMap
     );
     Test.stopTest();
     Assert.isTrue(

@@ -2987,6 +2987,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Event.Sub_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Event.Type</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4408,6 +4413,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.Skip_Validations__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Sub_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
