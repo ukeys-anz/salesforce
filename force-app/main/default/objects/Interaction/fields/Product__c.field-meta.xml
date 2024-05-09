@@ -56,6 +56,11 @@
                 <default>false</default>
                 <label>Non Product Related</label>
             </value>
+            <value>
+                <fullName>Simple Saver</fullName>
+                <default>false</default>
+                <label>Simple Saver</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>
