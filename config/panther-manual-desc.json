@@ -1950,7 +1950,9 @@
     "Financial_Summary_Calculation__e": {
       "IA-2530753": [
         "Last_Calculated_Time__c",
+        "Error_Description__c",
         "Response_Id__c",
+        "Status__c",
         "Summary__c",
         "Summary_Type__c"
       ]
@@ -2366,7 +2368,8 @@
         "Title__c",
         "Website",
         "Work_Phone__c",
-        "PostalCode__c"
+        "PostalCode__c",
+        "Secondary_Customer_Needs__c"
       ],
       "IA-2415860": [
         "Business_ID__c",
@@ -2833,13 +2836,15 @@
         "Source_Lead_Id__c",
         "Source_Lead_Link__c",
         "Follow_Up_Date__c",
-        "Opportunity_ID__c"
+        "Opportunity_ID__c",
+        "New_to_Bank__c"
       ],
       "IA-2415984": [
         "Contact__c",
         "Lead_Converted__c",
         "Has_Close_Date_Changed__c",
         "CLG__c",
+        "Secondary_Customer_Needs__c",
         "My_Notes__c"
       ],
       "IA-2468715": [
@@ -4012,8 +4017,7 @@
         "Product_Category__c",
         "Product_Status__c",
         "Cash_Advance_Rate__c",
-        "Interest_Free_Days__c",
-        "Relationship__c"
+        "Interest_Free_Days__c"
       ]
     },
     "Credit_Card_Fee__x": {
@@ -4170,7 +4174,6 @@
         "Amount__c",
         "Balance__c",
         "Balloon_Amount__c",
-        "Int_Type__c",
         "Limit__c",
         "Customer__c",
         "Total_Number_Of_Repayments__c"

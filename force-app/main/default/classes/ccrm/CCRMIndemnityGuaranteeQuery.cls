@@ -79,7 +79,7 @@ public with sharing class CCRMIndemnityGuaranteeQuery extends CCRMFinancialAccou
         '/' +
         fa.compositeAccountNumber
       );
-      row.put('AccountNumber', fa.accountNumber);
+      row.put('AccountNumber', formatAccountNumber(fa.accountNumber));
       row.put('AccountName', getCustomerName(customerId));
       row.put('AccountStatus', fa.status);
       row.put('Limit', fa.accountLimit);

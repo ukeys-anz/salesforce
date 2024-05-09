@@ -27,10 +27,16 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       false
     );
 
+    //Check if Secondary customer needs contains customer needs
+    CCRMOpportunityActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      oppWrapper.filteredOpps,
+      null,
+      true
+    );
+
     //checks for validations on opportunities
     CCRMOpportunityActionsSkipStageHelper.validateCCRMOpportunity(
-      oppWrapper.filteredOpps,
-      oppWrapper.stageUpdatedOpps,
+      oppWrapper,
       true
     );
     //CC-4528 validate Opportunity for MLCRM
@@ -70,7 +76,14 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     CCRMOpportunityActions.populateFieldsAfterInsert(records);
     CCRMRegionSharingUtil.shareOpportunitiesToOwnerRegion(records);
-    CCRMOpportunityActions.populateOppName(records, null, true, false);
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
+      records,
+      null,
+      false
+    );
+    CCRMOpportunityActions.updateOpportunityNameOnInsert(
+      oppWrapper.filteredOpps
+    );
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
     MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
   }
@@ -107,6 +120,14 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Opportunity>) oldMap,
       false
     );
+
+    //Check if Secondary customer needs contains customer needs
+    CCRMOpportunityActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      oppWrapper.filteredOpps,
+      (Map<Id, Opportunity>) oldMap,
+      false
+    );
+
     //CC-4528 validate Opportunity for MLCRM
     MLCRMOpportunityActions.validateMLCRMOpportunity(
       records,
@@ -120,11 +141,9 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
 
     if (!CCRMOpportunityActions.insertOpportunityContext) {
-      CCRMOpportunityActions.populateOppName(
-        records,
-        (Map<Id, Opportunity>) oldMap,
-        false,
-        true
+      CCRMOpportunityActions.updateOpportunityNameOnUpdate(
+        oppWrapper.filteredOpps,
+        (Map<Id, Opportunity>) oldMap
       );
     }
 

@@ -1123,4 +1123,172 @@ private class CCRMLeadActionsTest {
     }
     Test.stopTest();
   }
+
+  @isTest
+  static void testUpdateNewToBankFlag() {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Faker faker = new Faker('AU');
+      Account testAccount = new Account(
+        Name = 'Test Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = false,
+        OCV_Event_Version__c = 1,
+        Finserv__Status__c = 'Prospect'
+      );
+      insert testAccount;
+      Test.startTest();
+      Lead leadRecord = [
+        SELECT Id, RecordTypeId, FinServ__RelatedAccount__c, New_to_Bank__c
+        FROM Lead
+        WHERE RecordTypeId = :CCRMConstants.CCRM_LEAD_RT_ID
+        LIMIT 1
+      ];
+      leadRecord.FinServ__RelatedAccount__c = testAccount.Id;
+      update leadRecord;
+      Lead updatedLead = [
+        SELECT Id, FinServ__RelatedAccount__c, New_to_Bank__c
+        FROM Lead
+        WHERE FinServ__RelatedAccount__c = :testAccount.Id
+        LIMIT 1
+      ];
+      Test.stopTest();
+      System.assertEquals(
+        'Yes',
+        updatedLead.New_to_Bank__c,
+        'New to bank flag is set to No'
+      );
+    }
+  }
+  @isTest
+  static void testUpdateNewToBankFlagWithProspectCust() {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Faker faker = new Faker('AU');
+      Account testAccount = new Account(
+        Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        Name = 'Test Account',
+        OCV_ID__c = faker.randomString(10),
+        ANZx_Customer__c = false,
+        OCV_Event_Version__c = 1,
+        Finserv__Status__c = 'Prospect'
+      );
+      Lead leadRecord = new Lead(
+        FinServ__RelatedAccount__c = testAccount.Id,
+        New_to_Bank__c = ''
+      );
+      Map<Id, String> prospectCustomerMap = new Map<Id, String>{
+        testAccount.Id => 'Prospect'
+      };
+
+      Test.startTest();
+      CCRMLeadActions.updateNewToBankFlag(
+        new List<Lead>{ leadRecord },
+        prospectCustomerMap
+      );
+      Test.stopTest();
+
+      System.assertEquals(
+        'Yes',
+        leadRecord.New_to_Bank__c,
+        'New to bank flag is set to No'
+      );
+    }
+  }
+
+  @isTest
+  static void testUpdateNewToBankFlagWithActiveCust() {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Lead leadRecord = new Lead(
+        FinServ__RelatedAccount__c = Lib_FakeIdGenerator.getMockId(
+          Account.SObjectType
+        ),
+        New_to_Bank__c = ''
+      );
+      Map<Id, String> prospectCustomerMap = new Map<Id, String>();
+
+      Test.startTest();
+      CCRMLeadActions.updateNewToBankFlag(
+        new List<Lead>{ leadRecord },
+        prospectCustomerMap
+      );
+      Test.stopTest();
+
+      System.assertEquals(
+        'No',
+        leadRecord.New_to_Bank__c,
+        'New to bank flag is set to Yes'
+      );
+    }
+  }
+
+  @isTest
+  static void testGetLeadsWithUpdatedCustomers() {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Faker faker = new Faker('AU');
+      Lead leadRecord = new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+        FinServ__RelatedAccount__c = Lib_FakeIdGenerator.getMockId(
+          Account.SObjectType
+        )
+      );
+      Map<Id, Lead> oldMap = new Map<Id, Lead>{
+        leadRecord.Id => new Lead(
+          Id = leadRecord.Id,
+          FinServ__RelatedAccount__c = Lib_FakeIdGenerator.getMockId(
+            Account.SObjectType
+          )
+        )
+      };
+
+      Test.startTest();
+      List<Lead> filteredLeads = CCRMLeadActions.getLeadsWithUpdatedCustomers(
+        new List<Lead>{ leadRecord },
+        oldMap
+      );
+      Test.stopTest();
+
+      System.assertEquals(1, filteredLeads.size(), 'No leads found');
+    }
+  }
+
+  @isTest
+  static void testCheckIfSecondaryCustomerNeedsContainsCustomerNeeds() {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Lead lead;
+      Map<Id, Lead> oldMap;
+      List<Database.Error> errors;
+      Database.Error error;
+
+      lead = new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
+        FinServ__ExpressedInterest__c = 'Purchasing Property',
+        Secondary_Customer_Needs__c = 'Purchasing Property',
+        RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID
+      );
+
+      oldMap = new Map<Id, Lead>{
+        lead.Id => new Lead(
+          Id = lead.Id,
+          FinServ__ExpressedInterest__c = 'Other',
+          RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID
+        )
+      };
+
+      Test.startTest();
+      CCRMLeadActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+        new List<Lead>{ lead },
+        oldMap
+      );
+      Test.stopTest();
+
+      errors = lead.getErrors();
+      error = errors.get(0);
+
+      System.assertEquals(1, errors.size());
+      System.assertEquals(
+        CCRMConstants.CUSTOMER_NEEDS_ERROR,
+        error.getMessage(),
+        'Lead updated successfully'
+      );
+    }
+  }
 }

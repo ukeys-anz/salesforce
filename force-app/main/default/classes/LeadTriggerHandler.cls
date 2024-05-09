@@ -69,6 +69,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       wrapperDataCCRM.dcrmRecordList,
       'Note__c'
     );
+    CCRMLeadActions.checkForExistingCustomerOnInsert(records);
   }
 
   /**
@@ -135,6 +136,14 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     TextUtils.maskSObjectDataANZExtended(
       wrapperDataCCRM.dcrmRecordList,
       'Note__c'
+    );
+    CCRMLeadActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      records,
+      (Map<Id, Lead>) oldMap
+    );
+    CCRMLeadActions.checkForExistingCustomerOnUpdate(
+      records,
+      (Map<Id, Lead>) oldMap
     );
   }
 
