@@ -35,6 +35,7 @@ export default class InteractionRelatedList extends NavigationMixin(
   showViewAll = false;
   showAppointmentRecords = false;
   interactionTabTitle = "Messages";
+  _showActiveMsgInteraction;
 
   @api recordId;
   @api showAppTab;
@@ -43,8 +44,17 @@ export default class InteractionRelatedList extends NavigationMixin(
   @api showMsgTab;
   @api showCallIntTab;
   @api showStoreIntTab;
-  @api showActiveMsgInteraction;
   @api tabTitle;
+  @api
+  get showActiveMsgInteraction() {
+    return this._showActiveMsgInteraction
+      ? this._showActiveMsgInteraction
+      : false;
+  }
+
+  set showActiveMsgInteraction(value) {
+    this._showActiveMsgInteraction = value;
+  }
 
   // This method will help in showing the list of appointments under appointment tab
   handleShowAppointmentTab() {
@@ -221,6 +231,6 @@ export default class InteractionRelatedList extends NavigationMixin(
     if (this.showActiveMsgInteraction) {
       return this.tabTitle + " (" + event.detail.totalInteractionCount + ")";
     }
-    return this.tabTitle;
+    return this.tabTitle ? this.tabTitle : this.interactionTabTitle;
   }
 }
