@@ -33,12 +33,21 @@ public with sharing class SettlementTaskTriggerHandler extends Lib_TriggerHandle
   }
 
   /**
-   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns a list of Customer Action records
+   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns a list of Settlement records
    * @param record record to check if relevant to the execution context
    * @return `Boolean` returns true if record is relevant, false if record is not relevant
    */
   public override Boolean isValidRecord(SObject record) {
     Task settlementTask = (Task) record;
+    if (settlementTask.recordTypeId == null && settlementTask.WhatId == null) {
+      return false;
+    }
+    if (settlementTask.recordTypeId == null) {
+      return ('Settlement__c'
+        .equalsIgnoreCase(
+          settlementTask.WhatId.getSobjectType().getDescribe().getName()
+        ));
+    }
     return recordTypeIdSet.contains(settlementTask.RecordTypeId);
   }
 }
