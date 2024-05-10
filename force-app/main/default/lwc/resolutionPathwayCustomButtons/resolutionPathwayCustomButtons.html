@@ -1,0 +1,33 @@
+<template>
+  <div class="slds-grid slds-gutters">
+    <div class="slds-col slds-size_1-of-8"></div>
+    <div class="slds-col slds-size_6-of-8 slds-grid slds-gutters">
+      <div class="slds-col slds-size_2-of-6 slds-align_absolute-center">
+        <button
+          class="blk slds-button slds-button_brand slds-button_stretch"
+          onclick={handlePrevious}
+        >
+          Go Back
+        </button>
+      </div>
+      <div class="slds-col slds-size_2-of-6 slds-align_absolute-center">
+        <button
+          class="blk slds-button slds-button_brand slds-button_stretch"
+          onclick={handleStartMenu}
+          lwc:if={showStartMenu}
+        >
+          Start menu
+        </button>
+      </div>
+      <div class="slds-col slds-size_2-of-6 slds-align_absolute-center">
+        <button
+          class="slds-button slds-button_brand slds-button_stretch"
+          onclick={handleNext}
+        >
+          {nextStepLabel}
+        </button>
+      </div>
+    </div>
+    <div class="slds-col slds-size_1-of-8"></div>
+  </div>
+</template>

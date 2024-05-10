@@ -10242,4 +10242,8 @@
         <tab>Quality_Assessment__c</tab>
         <visibility>Available</visibility>
     </tabSettings>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>UpdateWithInactiveOwner</name>
+    </userPermissions>
 </PermissionSet>

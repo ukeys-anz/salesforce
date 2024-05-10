@@ -885,9 +885,6 @@
                         <valueListItems>
                             <value>MassChangeOwner</value>
                         </valueListItems>
-                        <valueListItems>
-                            <value>New</value>
-                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -962,9 +959,6 @@
                         <valueListItems>
                             <value>MassChangeOwner</value>
                         </valueListItems>
-                        <valueListItems>
-                            <value>New</value>
-                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1035,9 +1029,6 @@
                     <valueList>
                         <valueListItems>
                             <value>MassChangeOwner</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>New</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
