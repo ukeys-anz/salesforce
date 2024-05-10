@@ -67,11 +67,11 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
   }
   /**
    * @param riskEventId customer id to be searched
-   * @return IDRSNOWIntegrationModal
+   * @return SNOWIntegrationModel
    * @description called from close complaint lwc page during Risk Event Id verification
    */
   @AuraEnabled(cacheable=false)
-  public static IDRSNOWIntegrationModal getSNOWEventInfoLWC(
+  public static SNOWIntegrationModel getSNOWEventInfoLWC(
     String riskEventId
   ) {
     IDRAPIRepository cmosapi = new IDRAPIRepository();
@@ -83,20 +83,20 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
   }
     /**
    * @param riskEventId risk event id to be searched
-   * @return IDRSNOWIntegrationModal result
+   * @return SNOWIntegrationModel result
    * @description calls the service class methods for integration/callout
    */
-  public IDRSNOWIntegrationModal getSNOWEventInfo(
+  public SNOWIntegrationModel getSNOWEventInfo(
     String riskEventId
   ) {
-    IDRSNOWIntegrationModal result;
-    IDRSNOWIntegrationService service = (IDRSNOWIntegrationService) ServiceProvider.getService(IDRSNOWIntegrationService.class);
-    HttpCalloutResponse response = service.getSNOWInformation(
+    SNOWIntegrationModel result;
+    SNOWIntegrationService service = (SNOWIntegrationService) ServiceProvider.getService(SNOWIntegrationService.class);
+    HttpCalloutResponse response = service.getSNOWRiskEventInformation(
       riskEventId
     );
     if (response.successful) {
       try {
-        result = IDRSNOWIntegrationModal.parse(response.body);
+        result = SNOWIntegrationModel.parse(response.body);
           }
        catch (Exception e) {
         handleErrors(null, e, IDRAPIRepository.class);

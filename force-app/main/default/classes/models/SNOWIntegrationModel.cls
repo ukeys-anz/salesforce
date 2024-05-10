@@ -4,7 +4,7 @@
  * @description model for CMOS ServiceNow Intergation
  * @group Models
  */
-public class IDRSNOWIntegrationModal {
+public class SNOWIntegrationModel {
     @AuraEnabled
 	public ServiceNowResult[] result;
     
@@ -20,12 +20,12 @@ public class IDRSNOWIntegrationModal {
 	
    /**
    * @param json input string to deserialize
-   * @return IDRSNOWIntegrationModal
+   * @return SNOWIntegrationModel
    * @description deserializes the input string into the model
    */
-    public static IDRSNOWIntegrationModal parse(String json){
+    public static SNOWIntegrationModel parse(String json){
         String modifiedJson = modifyJsonTags(json);
-		return (IDRSNOWIntegrationModal) System.JSON.deserialize(modifiedJson, IDRSNOWIntegrationModal.class);
+		return (SNOWIntegrationModel) System.JSON.deserialize(modifiedJson, SNOWIntegrationModel.class);
 	}
     
    /**

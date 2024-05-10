@@ -1,18 +1,18 @@
 /**
  * @author Anuja Vats
  * @since April 2024
- * @description test class for IDRSNOWIntegrationService
+ * @description test class for SNOWIntegrationService
  * @group Service
  */
 @isTest
-public with sharing class IDRSNOWIntegrationServiceTest {
+public with sharing class SNOWIntegrationServiceTest {
   @isTest
   static void testGetRiskEventInformation() {
     Test.setMock(HttpCalloutMock.class, new MockCMOSGetSNOWInfoCallout());
 
     Test.startTest();
-    IDRSNOWIntegrationService serviceResult = new IDRSNOWIntegrationService();
-    HttpCalloutResponse response = serviceResult.getSNOWInformation(
+    SNOWIntegrationService serviceResult = new SNOWIntegrationService();
+    HttpCalloutResponse response = serviceResult.getSNOWRiskEventInformation(
       '1234567890'
     );
     Test.stopTest();
@@ -28,12 +28,12 @@ public with sharing class IDRSNOWIntegrationServiceTest {
   static void getRealService() {
     Test.startTest();
     Service serviceResult = (Service) ServiceProvider.getService(
-      IDRSNOWIntegrationService.class
+      SNOWIntegrationService.class
     );
     Test.stopTest();
     System.assert(
-      serviceResult instanceof IDRSNOWIntegrationServiceMock,
-      'Service should be instance of IDRSNOWIntegrationServiceMock.'
+      serviceResult instanceof SNOWIntegrationServiceMock,
+      'Service should be instance of SNOWIntegrationServiceMock.'
     );
   }
   @isTest
@@ -57,12 +57,12 @@ public with sharing class IDRSNOWIntegrationServiceTest {
     /**
      * @description mock response for callout
      * @param req incoming request
-     * @return HTTPResponse invalid response
+     * @return HTTPResponse valid response
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
       res.setStatusCode(200);
-      res.setBody(IDRSNOWIntegrationServiceMock.RISK_INFO_SUCCESS_RESPONSE);
+      res.setBody(SNOWIntegrationServiceMock.RISK_INFO_SUCCESS_RESPONSE);
       return res;
     }
   }
