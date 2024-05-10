@@ -39,6 +39,8 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
     }
     if (
       this.omniJsonData.Case.realFormRequired === "Yes" &&
+      this.omniJsonData.Case.REALFormMAXID !==
+        this.omniJsonData.Case.REALFormMAXID_OLD &&
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.Case.REALFormMAXID
     ) {
