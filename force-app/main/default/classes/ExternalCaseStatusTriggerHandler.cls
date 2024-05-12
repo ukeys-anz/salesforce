@@ -26,6 +26,7 @@ public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHa
     updateRelatedCase(records);
     GetHelpExternalCaseStatusActions.updateRelatedNPPCases(records);
     ExternalCaseStatusCEController.publishCloudEvents(records);
+    DisputeExternalCaseStatusActions.updateRelatedCasesStatusAndOwner(records);
   }
 
   /**

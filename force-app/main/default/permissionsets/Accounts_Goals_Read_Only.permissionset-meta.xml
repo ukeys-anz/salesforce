@@ -309,7 +309,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Accounts &amp; Goals Read Only</label>
     <objectPermissions>
-        <allowCreate>true</allowCreate>
+        <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>

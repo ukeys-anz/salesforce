@@ -998,6 +998,21 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Card_Dispute_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide read write acccess to Case record type Card</description>
+        <label>Card Dispute Read Write</label>
+        <sharedTo>
+            <group>Card_Dispute_RW_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>FraudX_Agent_owned_cases_Share_RW_FraudX_agent_Join_Lead</fullName>
         <accessLevel>Edit</accessLevel>

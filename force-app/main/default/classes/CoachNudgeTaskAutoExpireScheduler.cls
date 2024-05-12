@@ -16,8 +16,14 @@ public with sharing class CoachNudgeTaskAutoExpireScheduler implements Schedulab
       WHERE
         ActivityDate < TODAY
         AND ActivityDate = LAST_N_DAYS:2
-        AND Status = :GetHelpTaskActions.TASK_STATUS_NOT_STARTED
-        AND RecordTypeId = :GetHelpConstants.COACH_NUDGE_RT_ID
+        AND Status IN (
+          :GetHelpTaskActions.TASK_STATUS_NOT_STARTED,
+          :GetHelpTaskActions.TASK_STATUS_NEW
+        )
+        AND RecordTypeId IN (
+          :GetHelpConstants.COACH_NUDGE_RT_ID,
+          :GetHelpConstants.CALLBACK_REQUEST_RT_ID
+        )
     ];
 
     tasksToUpdate = checkAndUpdateTaskRecords(taskRecords);

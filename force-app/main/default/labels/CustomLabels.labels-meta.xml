@@ -319,6 +319,13 @@
         <value>CAP-CIS</value>
     </labels>
     <labels>
+        <fullName>CdmLimitReachedErrorMessage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CdmLimitReachedErrorMessage</shortDescription>
+        <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -2277,13 +2284,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
     <labels>
-        <fullName>Interaction_Status</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Interaction Status</shortDescription>
-        <value>Active,Open,On Hold (By Coach),On Hold (By Customer),New</value>
-    </labels>
-    <labels>
         <fullName>ML_LeadResponseToShowFollowUpDate</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2296,6 +2296,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>MS_ExportConsentDataIN_API</shortDescription>
         <value>callout:SF_MS_CH2/lighthouse/v1/consents/detail-reports</value>
+    </labels>
+    <labels>
+        <fullName>Territory_Config_Share_Batch_Size</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Territory Config Share Batch Size</shortDescription>
+        <value>10</value>
     </labels>
     <labels>
         <fullName>MS_ExportDataSharingCollectionDataIN_API</fullName>
@@ -2324,5 +2332,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>MS_DataINConsentList_API</shortDescription>
         <value>callout:SF_MS_CH2/lighthouse/v1/consents/list</value>
+    </labels>
+    <labels>
+        <fullName>ValidateOwnerChange</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ValidateOwnerChange</shortDescription>
+        <value>Unable to change Owner of this Record not owned by yourself.</value>
     </labels>
 </CustomLabels>

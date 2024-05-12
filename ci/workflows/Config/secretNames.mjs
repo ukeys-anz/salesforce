@@ -25,7 +25,7 @@ const salesforceSecretNames = {
   "epic/cfaas": "h-salesforce-np-cfaas",
   "epic/cloud-events": "h-salesforce-np-cloudevent",
   "epic/h1-account": "h-salesforce-np-h1accounts",
-  "epic/plat": "h-salesforce-np-platform",
+  "epic/plat": "sf-platform-np-platform",
   "epic/twilio": "h-salesforce-np-twilio",
   "epic/h1-statements": "h-salesforce-np-h1stment",
   "epic/receive-and-distribute-ingested-leads":
@@ -47,7 +47,9 @@ const salesforceSecretNames = {
   "epic/coachnudges": "h-salesforce-np-coachnudge",
   "epic/connectid": "h-salesforce-np-connectid",
   "epic/join-salesforce-ciba": "h-salesforce-np-ciba",
-  "epic/bdm-app-overview": "h-salesforce-np-brokermain"
+  "epic/bdm-app-overview": "h-salesforce-np-brokermain",
+  "epic/transaction-income": "h-salesforce-np-trnscncome",
+  "epic/disputeq-auto": "h-salesforce-np-disputeq"
 };
 
 const brokerSecretNames = {

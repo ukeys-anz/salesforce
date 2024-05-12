@@ -27,10 +27,16 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       false
     );
 
+    //Check if Secondary customer needs contains customer needs
+    CCRMOpportunityActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      oppWrapper.filteredOpps,
+      null,
+      true
+    );
+
     //checks for validations on opportunities
     CCRMOpportunityActionsSkipStageHelper.validateCCRMOpportunity(
-      oppWrapper.filteredOpps,
-      oppWrapper.stageUpdatedOpps,
+      oppWrapper,
       true
     );
     //CC-4528 validate Opportunity for MLCRM
@@ -70,7 +76,14 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     CCRMOpportunityActions.populateFieldsAfterInsert(records);
     CCRMRegionSharingUtil.shareOpportunitiesToOwnerRegion(records);
-    CCRMOpportunityActions.populateOppName(records, null, true, false);
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
+      records,
+      null,
+      false
+    );
+    CCRMOpportunityActions.updateOpportunityNameOnInsert(
+      oppWrapper.filteredOpps
+    );
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
     MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
   }
@@ -107,6 +120,14 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Opportunity>) oldMap,
       false
     );
+
+    //Check if Secondary customer needs contains customer needs
+    CCRMOpportunityActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      oppWrapper.filteredOpps,
+      (Map<Id, Opportunity>) oldMap,
+      false
+    );
+
     //CC-4528 validate Opportunity for MLCRM
     MLCRMOpportunityActions.validateMLCRMOpportunity(
       records,
@@ -114,15 +135,15 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     );
     //CC-1159 to set the territory for ML Records based on matching user territory default record.
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
+    //CC-7788 and CC-8135 This method is used to validate that loan writer and franchise admin cannot change the owner of the record not owner by themself
+    MLCRMCommonUtilsHelper.validateOwnerChange(oldMap, records);
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
 
     if (!CCRMOpportunityActions.insertOpportunityContext) {
-      CCRMOpportunityActions.populateOppName(
-        records,
-        (Map<Id, Opportunity>) oldMap,
-        false,
-        true
+      CCRMOpportunityActions.updateOpportunityNameOnUpdate(
+        oppWrapper.filteredOpps,
+        (Map<Id, Opportunity>) oldMap
       );
     }
 

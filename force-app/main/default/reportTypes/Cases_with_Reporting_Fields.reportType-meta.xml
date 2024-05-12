@@ -1802,11 +1802,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CR_Duplicate_TBD__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>IDR_AFCA_Registration_Response_Provided__c</field>
             <table>Case</table>
         </columns>

@@ -1,43 +1,39 @@
 {
-    "consent": {
-        "name": "consents/06e56cfc-48e2-4a55-8ecd-bd611a2715d9",
-        "consentId": "06e56cfc-48e2-4a55-8ecd-bd611a2715d9",
-        "arrangementId": "c1d1ad18-07ea-4e21-9495-b1f6c7052f84",
-        "personaId": "5ec29afa-1746-4abb-93f8-05bbb5a7d438",
-        "personId": "444b65d3-804d-45de-a9ff-d69c2e2e33ef",
-        "revokeActor": "CONSENT_ACTOR_ASSISTED",
-        "dataHolderBrand": "dataholderbrands/000362",
-        "dataHolderBrandRegistration": "dataholderbrands/000362/registration",
-        "dataHolderBrandId": "000362",
-        "dataHolder": {
-            "name": "dataholderbrands/000362",
-            "brandId": "000362",
-            "brand": "ME Bank - ME Go",
-            "logoUri": "https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png",
-            "industries": [
-                "INDUSTRY_BANKING"
-            ],
-            "state": "DATA_HOLDER_BRAND_STATE_ACTIVE",
-            "lastUpdateTime": "2024-03-21T09:03:30.435471Z"
-        },
-        "consentedResources": [
-            "CONSENTED_RESOURCE_ACCOUNT_DETAILS",
-            "CONSENTED_RESOURCE_TRANSACTIONS"
-        ],
-        "state": "STATE_REVOKED",
-        "consentPurposes": [
-            "CONSENT_PURPOSE_UNSPECIFIED"
-        ],
-        "syncUsage": {
-            "expectedFirstSyncTime": "2024-03-05T23:13:10.847231Z",
-            "firstSyncTime": "2024-03-05T23:13:12.375293234Z",
-            "expectedLastSyncTime": "2025-03-05T13:00:02Z",
-            "actualLastSyncTime": "2024-03-20T17:23:11.049220929Z"
-        },
-        "createTime": "2024-03-05T23:13:10.847231Z",
-        "lastUpdateTime": "2024-03-21T09:26:11.205791Z",
-        "expireTime": "2025-03-05T13:00:02Z",
-        "revokeTime": "2024-03-21T09:26:11.205791Z",
-        "revokeRequestTime": "2025-03-05T13:00:02Z"
-    }
+  "consent": {
+    "name": "consents/06e56cfc-48e2-4a55-8ecd-bd611a2715d9",
+    "consentId": "06e56cfc-48e2-4a55-8ecd-bd611a2715d9",
+    "arrangementId": "c1d1ad18-07ea-4e21-9495-b1f6c7052f84",
+    "personaId": "5ec29afa-1746-4abb-93f8-05bbb5a7d438",
+    "personId": "444b65d3-804d-45de-a9ff-d69c2e2e33ef",
+    "revokeActor": "CONSENT_ACTOR_ASSISTED",
+    "dataHolderBrand": "dataholderbrands/000362",
+    "dataHolderBrandRegistration": "dataholderbrands/000362/registration",
+    "dataHolderBrandId": "000362",
+    "dataHolder": {
+      "name": "dataholderbrands/000362",
+      "brandId": "000362",
+      "brand": "ME Bank - ME Go",
+      "logoUri": "https://www.mebank.com.au/getmedia/c79ff77e-5b3b-4410-9a1b-98e98a79f025/ME-logo-600px-black-transparent.png",
+      "industries": ["INDUSTRY_BANKING"],
+      "state": "DATA_HOLDER_BRAND_STATE_ACTIVE",
+      "lastUpdateTime": "2024-03-21T09:03:30.435471Z"
+    },
+    "consentedResources": [
+      "CONSENTED_RESOURCE_ACCOUNT_DETAILS",
+      "CONSENTED_RESOURCE_TRANSACTIONS"
+    ],
+    "state": "STATE_REVOKED",
+    "consentPurposes": ["CONSENT_PURPOSE_UNSPECIFIED"],
+    "syncUsage": {
+      "expectedFirstSyncTime": "2024-03-05T23:13:10.847231Z",
+      "firstSyncTime": "2024-03-05T23:13:12.375293234Z",
+      "expectedLastSyncTime": "2025-03-05T13:00:02Z",
+      "actualLastSyncTime": "2024-03-20T17:23:11.049220929Z"
+    },
+    "createTime": "2024-03-05T23:13:10.847231Z",
+    "lastUpdateTime": "2024-03-21T09:26:11.205791Z",
+    "expireTime": "2025-03-05T13:00:02Z",
+    "revokeTime": "2024-03-21T09:26:11.205791Z",
+    "revokeRequestTime": "2025-03-05T13:00:02Z"
+  }
 }

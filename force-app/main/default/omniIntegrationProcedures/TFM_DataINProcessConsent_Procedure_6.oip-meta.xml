@@ -13,10 +13,10 @@
     <language>Procedure</language>
     <name>TFMDataINProcessConsent</name>
     <omniProcessElements>
+        <name>DataINConsentListTransformAction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DataINConsentListTransformAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -48,11 +48,12 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>EarlyExitOnException</name>
         <childElements>
+            <name>ResponseForException</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ResponseForException</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -79,7 +80,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>EarlyExitOnException</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%getDataINConsentList:showToast% == false&quot;,
@@ -92,10 +92,10 @@
         <type>Conditional Block</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>filterDataINConsentList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>filterDataINConsentList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -117,10 +117,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>getDataFromPersonDigitalIdentity</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>getDataFromPersonDigitalIdentity</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -152,10 +152,10 @@
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>getDataINConsentList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>getDataINConsentList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -188,10 +188,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>getPurposeCodeRecords</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>getPurposeCodeRecords</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -223,10 +223,10 @@
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>performPaginationForDataIN</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>performPaginationForDataIN</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -260,10 +260,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ResponseAction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ResponseAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -294,10 +294,10 @@
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>sortActiveConsent</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>sortActiveConsent</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -329,10 +329,10 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>sortArchiveConsent</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>sortArchiveConsent</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,

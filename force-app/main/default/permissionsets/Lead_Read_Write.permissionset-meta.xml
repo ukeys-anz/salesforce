@@ -38,6 +38,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.Customer_Pre_Exist__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Date_Received__c</field>
         <readable>true</readable>
@@ -130,6 +135,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Privacy_Consent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.Pub_Sub_Event_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -92,4 +92,119 @@ public with sharing class CustomerRelationNotesTriggerActions {
       }
     }
   }
+
+  /**
+   * @description public without sharing class to bypass user sharing setting in lead conversion process
+   */
+  public without sharing class CustomerRelationshipCreator {
+    /**
+     * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
+     * @name createCustomerRelationship
+     * @param shellProspectAccountId shell prospect created after response from cap ocv maintain party API.
+     * @param reqRecord source SObject record i.e lead, Opportunity
+     */
+    public void createCustomerRelationship(
+      Id shellProspectAccountId,
+      OCVRequestPayloadWrapper reqRecord
+    ) {
+      ID recordId = ID.valueOf(reqRecord.strRecordId);
+      List<SObject> records = new List<SObject>(
+        database.query(buildQueryForCRDetails(recordId))
+      );
+
+      List<Customer_Relationship__c> lstOfPrimaryNotes = getExistingCustomerRelationships(
+        shellProspectAccountId,
+        records
+      );
+      if (!lstOfPrimaryNotes.isEmpty()) {
+        return;
+      }
+      Customer_Relationship__c objRelation = autoCustomerRelationshipCreation(
+        shellProspectAccountId,
+        reqRecord,
+        (ID) records[0].get('Territory__c')
+      );
+      Database.SaveResult result = Database.insert(objRelation, false);
+    }
+
+    /**
+     * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
+     * @name getExistingCustomerRelationships
+     * @param shellProspectAccountId prospect record id
+     * @param records List<Sobject> record
+     * @return List<Customer_Relationship__c>
+     */
+    @TestVisible
+    private List<Customer_Relationship__c> getExistingCustomerRelationships(
+      Id shellProspectAccountId,
+      List<SObject> records
+    ) {
+      Id strPrimaryOwnerId = (Id) records[0]
+        .getSobject('Territory__r')
+        ?.get('Primary_Franchise_Owner__c');
+      List<Customer_Relationship__c> lstOfPrimaryNotes = [
+        SELECT Id
+        FROM Customer_Relationship__c
+        WHERE
+          Relationship_To_Franchise__c = 'Primary'
+          AND Territory__r.Primary_Franchise_Owner__c = :strPrimaryOwnerId
+          AND Customer__c = :shellProspectAccountId
+        LIMIT 1
+      ];
+      return lstOfPrimaryNotes;
+    }
+
+    /**
+     * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
+     * @name autoCustomerRelationshipCreation
+     * @param shellProspectAccountId propect id
+     * @param reqRecord shell prospect created after response from cap ocv maintain party API.
+     * @param strTerritoryId territory id
+     * @return Customer_Relationship__c
+     */
+    @TestVisible
+    private Customer_Relationship__c autoCustomerRelationshipCreation(
+      Id shellProspectAccountId,
+      OCVRequestPayloadWrapper reqRecord,
+      Id strTerritoryId
+    ) {
+      Customer_Relationship__c objRelation = new Customer_Relationship__c();
+      objRelation.Preferred_Name__c =
+        reqRecord?.strFirstName +
+        ' ' +
+        reqRecord?.strLastName;
+      if (!String.isBlank(reqRecord.strMiddleName)) {
+        objRelation.Preferred_Name__c += ' ' + reqRecord.strMiddleName;
+      }
+      objRelation.Customer__c = shellProspectAccountId;
+      objRelation.Territory__c = strTerritoryId;
+      objRelation.OwnerId = reqRecord.strOwnerId;
+      objRelation.Relationship_To_Franchise__c = MLCRMConstants.PRIMARY;
+      objRelation.Date_Relationship_Commenced__c = System.today();
+      return objRelation;
+    }
+  }
+
+  /**
+   * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
+   * @name buildQueryForCRDetails
+   * @param recordId sobject recordId from where we need to get territory details
+   * @return String
+   */
+  @TestVisible
+  private static String buildQueryForCRDetails(Id recordId) {
+    String recordQuery = 'Select Id, Territory__c,Territory__r.Primary_Franchise_Owner__c From ';
+    if (
+      recordId.getSObjectType().getDescribe().getName() ==
+      MLCRMConstants.SOBJECT_LEAD
+    ) {
+      recordQuery += 'Lead WHERE Id = :recordId AND Territory__r.Primary_Franchise_Owner__c != null';
+    } else if (
+      recordId.getSObjectType().getDescribe().getName() ==
+      MLCRMConstants.SOBJECT_OPPORTUNITY
+    ) {
+      recordQuery += 'Opportunity WHERE Id = :recordId AND Territory__r.Primary_Franchise_Owner__c != null';
+    }
+    return recordQuery;
+  }
 }

@@ -49,18 +49,25 @@ public with sharing class TFMExportConsentDetailsHelper {
     List<TFMExportConsentModel.AccountInfo> accountsList = convertStringToAccountListWrapper(
       obj
     );
-    
+
     for (TFMExportConsentModel.AccountInfo acc : accountsList) {
       // form CSV row - Accounts (Account Name - Account Number - Sharing Status)
       accData +=
         // if Joint Account
-        (acc.accountType == TFMConstants.JOINTACCOUNTTYPE ? TFMConstants.JOINTACCOUNT : TFMConstants.EMPTY) +
-        getSanitisedValue(acc.accountName) + 
+        (acc.accountType == TFMConstants.JOINTACCOUNTTYPE
+          ? TFMConstants.JOINTACCOUNT
+          : TFMConstants.EMPTY) +
+        getSanitisedValue(acc.accountName) +
         // if Closed Account
-        (acc.accountStatus == TFMConstants.CLOSEDSTATUS ? TFMConstants.CLOSEDACCOUNT : TFMConstants.EMPTY) + ' - ' +
-        getSanitisedValue(acc.accountNumber) + ' - ' +
-        getSanitisedValue(acc.sharingStatus) + ' | ';
-      
+        (acc.accountStatus == TFMConstants.CLOSEDSTATUS
+          ? TFMConstants.CLOSEDACCOUNT
+          : TFMConstants.EMPTY) +
+        ' - ' +
+        getSanitisedValue(acc.accountNumber) +
+        ' - ' +
+        getSanitisedValue(acc.sharingStatus) +
+        ' | ';
+
       if (acc.accountStatus == TFMConstants.CLOSEDSTATUS) {
         allAccountsClosed = true;
       } else {

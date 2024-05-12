@@ -4,7 +4,9 @@
  * @group CCRM (Commercial CRM)
  * @description CCRMLeadActions is class to handle all the CCRM (Commercial CRM) Actions
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+@SuppressWarnings(
+  'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity,PMD.ExcessivePublicCount'
+)
 public with sharing class CCRMLeadActions {
   @TestVisible
   static final String EXPIRY_DATE_MISSING_ERROR_MESSAGE = 'EXPIRY DATE IS MISSING';
@@ -810,6 +812,170 @@ public with sharing class CCRMLeadActions {
       ) {
         record.Status = MLCRMConstants.STATUS_IN_PROGRESS;
         record.Skip_Validations__c = MLCRMConstants.LEAD_NEW_TO_INPROGRESS;
+      }
+    }
+  }
+
+  /**
+   * @description This method to check if secondary customer needs contain customer needs value
+   * @name checkIfSecondaryCustomerNeedsContainsCustomerNeeds
+   * @param records List of Lead records
+   * @param oldMap Map of old map
+   */
+  public static void checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    Lead oldLead;
+    Boolean isCustomerNeedsChanged;
+    Boolean isSecNeedsChanged;
+    SObjectType objType;
+    Boolean result;
+
+    for (Lead record : records) {
+      if (!CCRMLeadUtil.isCCRMLeadType(record)) {
+        continue;
+      }
+
+      oldLead = oldMap.get(record.Id);
+      objType = Schema.Lead.getSObjectType();
+      isCustomerNeedsChanged = RecordComparisonUtil.fieldWasChanged(
+        record,
+        oldLead,
+        Lead.FinServ__ExpressedInterest__c.getDescribe().getSObjectField()
+      );
+      isSecNeedsChanged = RecordComparisonUtil.fieldWasChangedAndNotEqualNull(
+        record,
+        oldLead,
+        Lead.Secondary_Customer_Needs__c.getDescribe().getSObjectField()
+      );
+
+      result = RecordComparisonUtil.picklistContainSameValue(
+        record,
+        Lead.Secondary_Customer_Needs__c.getDescribe().getSObjectField(),
+        Lead.FinServ__ExpressedInterest__c.getDescribe().getSObjectField(),
+        objType
+      );
+
+      // if secondary customer needs has value same as customer needs
+      // throw error
+      if (result && (isCustomerNeedsChanged || isSecNeedsChanged)) {
+        record.Secondary_Customer_Needs__c.addError(
+          CCRMConstants.CUSTOMER_NEEDS_ERROR
+        );
+      }
+    }
+  }
+
+  /**
+   * @description This method is to check if there is existing customer, set new to bank flag on insert operation
+   * @name checkForExistingCustomerOnInsert
+   * @param records List of new lead records
+   */
+  public static void checkForExistingCustomerOnInsert(Lead[] records) {
+    List<Lead> filteredLeads = new List<Lead>();
+    Map<Id, String> prospectCustomerMap = new Map<Id, String>();
+
+    filteredLeads = getCCRMLeads(records);
+
+    prospectCustomerMap = getProspectCustomersMap(filteredLeads);
+
+    updateNewToBankFlag(filteredLeads, prospectCustomerMap);
+  }
+
+  /**
+   * @description This method is to check if there is existing customer, set new to bank flag on update operation
+   * @name checkForExistingCustomerOnUpdate
+   * @param records List of new lead records
+   * @param oldMap oldMap of lead records
+   */
+  public static void checkForExistingCustomerOnUpdate(
+    Lead[] records,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> ccrmLeads = new List<Lead>();
+    List<Lead> filteredLeads = new List<Lead>();
+    Map<Id, String> prospectCustomerMap = new Map<Id, String>();
+
+    ccrmLeads = getCCRMLeads(records);
+
+    filteredLeads = getLeadsWithUpdatedCustomers(ccrmLeads, oldMap);
+
+    prospectCustomerMap = getProspectCustomersMap(filteredLeads);
+
+    updateNewToBankFlag(filteredLeads, prospectCustomerMap);
+  }
+
+  @testVisible
+  private static List<Lead> getCCRMLeads(Lead[] records) {
+    List<Lead> ccrmLeads = new List<Lead>();
+
+    for (Lead leadRec : records) {
+      if (!CCRMLeadUtil.isCCRMLeadType(leadRec)) {
+        continue;
+      }
+      ccrmLeads.add(leadRec);
+    }
+    return ccrmLeads;
+  }
+
+  @testVisible
+  private static List<Lead> getLeadsWithUpdatedCustomers(
+    List<Lead> ccrmLeads,
+    Map<Id, Lead> oldMap
+  ) {
+    List<Lead> filteredLeads = new List<Lead>();
+
+    for (Lead leadRec : ccrmLeads) {
+      if (
+        leadRec.FinServ__RelatedAccount__c !=
+        oldMap.get(leadRec.Id).FinServ__RelatedAccount__c
+      ) {
+        filteredLeads.add(leadRec);
+      }
+    }
+    return filteredLeads;
+  }
+
+  @testVisible
+  private static Map<Id, String> getProspectCustomersMap(
+    List<Lead> filteredLeads
+  ) {
+    Map<Id, String> prospectCustomerMap = new Map<Id, String>();
+    Set<Id> customerIds = new Set<Id>();
+
+    for (Lead leadRec : filteredLeads) {
+      customerIds.add(leadRec.FinServ__RelatedAccount__c);
+    }
+
+    if (customerIds.isEmpty()) {
+      return prospectCustomerMap;
+    }
+
+    for (Account acc : [
+      SELECT Id, Finserv__Status__c
+      FROM Account
+      WHERE Id IN :customerIds AND Finserv__Status__c = :CCRMConstants.PROSPECT
+    ]) {
+      prospectCustomerMap.put(acc.Id, acc.Finserv__Status__c);
+    }
+    return prospectCustomerMap;
+  }
+
+  @testVisible
+  private static void updateNewToBankFlag(
+    List<Lead> filteredLeads,
+    Map<Id, String> prospectCustomerMap
+  ) {
+    for (Lead leadRec : filteredLeads) {
+      if (
+        String.isBlank(leadRec.FinServ__RelatedAccount__c) ||
+        (String.isNotBlank(leadRec.FinServ__RelatedAccount__c) &&
+        prospectCustomerMap.containsKey(leadRec.FinServ__RelatedAccount__c))
+      ) {
+        leadRec.New_to_Bank__c = 'Yes';
+      } else {
+        leadRec.New_to_Bank__c = 'No';
       }
     }
   }

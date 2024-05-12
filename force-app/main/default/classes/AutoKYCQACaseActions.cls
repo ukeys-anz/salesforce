@@ -67,7 +67,6 @@ public with sharing class AutoKYCQACaseActions {
    * @description onBeforeUpdate handles before update trigger actions
    */
   public void onBeforeUpdate() {
-    linkKYCQACasesToAccount();
     validateKYCQACases();
     updateTestedDate();
   }

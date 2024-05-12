@@ -105,7 +105,6 @@ export default class FinancialAccountParent extends LightningElement {
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
   }
-
   @wire(CurrentPageReference)
   pageRef;
 
@@ -292,7 +291,6 @@ export default class FinancialAccountParent extends LightningElement {
           }
         );
         this.goalData.account_buckets = accountGoalData;
-
         this.goalData = handleGoalData(this.goalData);
         this.emojiMap = getEmojiMap(this.goalData);
         this.imageMap = getImageMap(this.goalData);

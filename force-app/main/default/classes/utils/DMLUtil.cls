@@ -7,6 +7,8 @@
  **/
 
 public inherited sharing class DMLUtil {
+  //ALLOW_PARTIAL_UPDATE/NOT_ALLOW_PARTIAL_UPDATE are currently doing the opposite of what their names suggest. Use this instead.
+  public static final Boolean ALL_OR_NOTHING = true;
   //Partial Update Constants
   public static final Boolean ALLOW_PARTIAL_UPDATE = true;
   public static final Boolean NOT_ALLOW_PARTIAL_UPDATE = false;

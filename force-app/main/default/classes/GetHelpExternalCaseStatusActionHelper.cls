@@ -59,6 +59,25 @@ public with sharing class GetHelpExternalCaseStatusActionHelper {
   }
 
   /**
+   * @description To get related NPP Cases
+   * @param relatedCasesIds list of all cases ids
+   * @return Set<Id> returns Id's of related NPP Cases
+   */
+  public static Set<Id> getRelatedNppCasesIds(List<Id> relatedCasesIds) {
+    List<Id> nppCasesIds = new List<Id>();
+
+    Map<String, Object> bindVariableMap = new Map<String, Object>{
+      'idList' => relatedCasesIds,
+      'recordTypeList' => new List<Id>{ GetHelpConstants.NPP_DISPUTE_RT_ID }
+    };
+    Map<Id, Case> nppCaseMap = new Map<Id, Case>(
+      CaseQueryHelper.getNppCases(bindVariableMap)
+    );
+
+    return nppCaseMap.keySet();
+  }
+
+  /**
    * @description to update the case status based on mapping
    * @param parentCaseList List of cases to be updated
    * @param caseIdToExternalStatus map of case id to external case status value

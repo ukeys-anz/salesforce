@@ -6,4 +6,5 @@ trigger TaskTrigger on Task(
   before delete
 ) {
   TaskTriggerHandler handler = new TaskTriggerHandler();
+  SettlementTaskTriggerHandler settlementHandler = new SettlementTaskTriggerHandler();
 }

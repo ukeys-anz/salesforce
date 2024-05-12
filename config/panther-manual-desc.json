@@ -394,6 +394,7 @@
     },
     "Activity": {
       "IA-2530753": ["Pega_CDH_Id__c"],
+      "IA-2468713": ["Pub_Sub_Event_Id__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
@@ -447,6 +448,14 @@
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
+      ]
+    },
+    "ActivityFieldHistory__c": {
+      "IA-2530753": [
+        "Field_Name__c",
+        "New_Value__c",
+        "Old_Value__c",
+        "Record_Id__c"
       ]
     },
     "Appointment_Commitment__c": {
@@ -1088,22 +1097,23 @@
       "IA-2415840": [
         "Advocacy_Score__c",
         "Alerting_Reason__c",
-        "Property_Valuation_Id__c",
-        "Feedback_Type__c",
-        "Original_Feedback_Record__c",
         "ANZx_Customer__c",
-        "IDR_Additional_Correspondence_reviewed__c",
-        "IDR_Avoidable_Escalation__c",
-        "IDR_Avoidable_Escalation_Reason__c",
-        "Closure_Reason__c",
-        "Credit_Id__c",
-        "Loan_Application__c",
-        "Case_Authority_Level__c",
-        "Loan_Purpose__c",
         "Application_Status__c",
         "Assessment_Outcome__c",
         "Assessment_Id__c",
+        "Feedback_Type__c",
+        "Case_Authority_Level__c",
+        "Closure_Reason__c",
         "Collateral_Assessment_ID__c",
+        "Credit_Id__c",
+        "IDR_Additional_Correspondence_reviewed__c",
+        "IDR_Avoidable_Escalation__c",
+        "IDR_Avoidable_Escalation_Reason__c",
+        "IsAScam__c",
+        "Loan_Application__c",
+        "Loan_Purpose__c",
+        "Property_Valuation_Id__c",
+        "Original_Feedback_Record__c",
         "TestedDate__c"
       ],
       "IA-2415860": [
@@ -1120,7 +1130,7 @@
         "PersonID__c",
         "Fraud_PersonID__c"
       ],
-      "IA-2468710": ["SLATesting__c"]
+      "IA-2468710": ["SLATesting__c", "CardScamType__c"]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
@@ -1621,6 +1631,12 @@
       ],
       "IA-2594111": ["CPID_LanID__c", "CPID_User__c"]
     },
+    "Custom_Dynamic_Field_History_Setting__mdt": {
+      "IA-2530753": ["Field_Name__c", "SObject_Name__c"]
+    },
+    "Custom_Dynamic_Object_History_Setting__mdt": {
+      "IA-2530753": ["SObject_Name__c", "Table_Name__c"]
+    },
     "Customer_Action__c": {
       "IA-2415840": [
         "Settlement__c",
@@ -1651,13 +1667,6 @@
       ],
       "IA-2415983": ["Loan_Contract_Status__c"],
       "IA-2594111": ["Loan_Application_Id__c"]
-    },
-    "Customer_Dispute_Management__c": {
-      "IA-2415720": [
-        "Temporary_Block__c",
-        "Permanent_Block__c",
-        "Temporary_Block_Overridden__c"
-      ]
     },
     "Customer_Dispute_Management__c": {
       "IA-2415720": [
@@ -1953,7 +1962,9 @@
     "Financial_Summary_Calculation__e": {
       "IA-2530753": [
         "Last_Calculated_Time__c",
+        "Error_Description__c",
         "Response_Id__c",
+        "Status__c",
         "Summary__c",
         "Summary_Type__c"
       ]
@@ -2328,7 +2339,7 @@
       "IA-2453595": ["IDR_Issue_Type__c", "IDR_Subsequent_Issue_Type__c"]
     },
     "Lead": {
-      "IA-2468713": ["SmartphoneOS__c"],
+      "IA-2468713": ["SmartphoneOS__c", "Pub_Sub_Event_Id__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
@@ -2369,7 +2380,8 @@
         "Title__c",
         "Website",
         "Work_Phone__c",
-        "PostalCode__c"
+        "PostalCode__c",
+        "Secondary_Customer_Needs__c"
       ],
       "IA-2415860": [
         "Business_ID__c",
@@ -2457,7 +2469,8 @@
         "AdvertisingIndicator__c",
         "SourceSystem__c"
       ],
-      "IA-2415986": ["Campaign_Name__c"]
+      "IA-2415986": ["Campaign_Name__c"],
+      "IA-2453350": ["Customer_Pre_Exist__c"]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
@@ -2836,13 +2849,15 @@
         "Source_Lead_Id__c",
         "Source_Lead_Link__c",
         "Follow_Up_Date__c",
-        "Opportunity_ID__c"
+        "Opportunity_ID__c",
+        "New_to_Bank__c"
       ],
       "IA-2415984": [
         "Contact__c",
         "Lead_Converted__c",
         "Has_Close_Date_Changed__c",
         "CLG__c",
+        "Secondary_Customer_Needs__c",
         "My_Notes__c"
       ],
       "IA-2468715": [
@@ -2922,6 +2937,17 @@
         "ServiceDate"
       ],
       "IA-2415860": ["Funding_purpose__c", "Interest_Rate_Quoted__c"]
+    },
+    "PegaExternalCaseStatuses__mdt": {
+      "IA-2415860": [
+        "DisputeReason__c",
+        "DisputeStatus__c",
+        "ExternalStatus__c",
+        "QueueName__c",
+        "RecordType__c",
+        "SLADaysInStatus__c",
+        "SLAQueueName__c"
+      ]
     },
     "Process_Effectiveness__c": {
       "IA-2415840": [
@@ -4004,8 +4030,7 @@
         "Product_Category__c",
         "Product_Status__c",
         "Cash_Advance_Rate__c",
-        "Interest_Free_Days__c",
-        "Relationship__c"
+        "Interest_Free_Days__c"
       ]
     },
     "Credit_Card_Fee__x": {
@@ -4162,7 +4187,6 @@
         "Amount__c",
         "Balance__c",
         "Balloon_Amount__c",
-        "Int_Type__c",
         "Limit__c",
         "Customer__c",
         "Total_Number_Of_Repayments__c"
@@ -4578,6 +4602,11 @@
       "TncName__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TermsAndConditionsAcceptance :: tnc_name",
       "TncVersion__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TermsAndConditionsAcceptance :: tnc_version",
       "VerificationType__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: verification_type"
+    },
+    "ResidentialLoanApplication": {
+      "Assisted_Broker__c": "ANZx::Salesforce",
+      "Assisted_Broker_TPMI_SAO__c": "ANZx::Lex::LoanApplication",
+      "Sync_Status__c": "ANZx::MuleSoft::Broker"
     }
   },
   "lineageTransformInformation": {
@@ -4741,6 +4770,11 @@
       "TncName__c": "1:1 Transformation",
       "TncVersion__c": "1:1 Transformation",
       "VerificationType__c": "1:1 Transformation"
+    },
+    "ResidentialLoanApplication": {
+      "Assisted_Broker__c": "Look up relationship against contact object",
+      "Assisted_Broker_TPMI_SAO__c": "1:1 Transformation",
+      "Sync_Status__c": "If GCP Event Publish where Sync_Status_c not equals to Blocked and Update = TRUE THEN set Sync_Status_c to Broker Org"
     }
   },
   "systemObjects": {

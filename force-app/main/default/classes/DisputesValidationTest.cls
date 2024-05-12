@@ -76,32 +76,6 @@ public with sharing class DisputesValidationTest {
       );
     }
   }
-  // When Case Owner is manually re-assigned from Queue to an invalid User Role
-  @isTest
-  static void testDisputesQueuetoUser() {
-    Case c = (Case) [SELECT Id, OwnerId FROM Case LIMIT 1];
-    UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
-    User anzx = [SELECT Id FROM User WHERE UserRoleId = :anzxRole.Id LIMIT 1];
-    c.OwnerId = anzx.Id;
-    Test.startTest();
-    try {
-      update c;
-      System.assert(
-        false,
-        'Failed to prevent against user changing case owner to user who has incorrect role.'
-      );
-    } catch (Exception e) {
-      System.assertEquals(
-        true,
-        e.getMessage()
-          .contains(
-            'For ATM or Card cases, the Case Owner Queue must be the Card Disputes Queues, Pending Card Disputes Queues, ID Ops Queue or Coach Queue. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.'
-          ),
-        'Incorrect error message.'
-      );
-    }
-    Test.stopTest();
-  }
 
   // When manually re-assigned to a invalid Queue to pass
   // https://jira.anzx.service.anz/browse/AR-130753

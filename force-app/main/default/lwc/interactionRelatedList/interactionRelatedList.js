@@ -34,7 +34,7 @@ export default class InteractionRelatedList extends NavigationMixin(
   appointmentRecord = "Appointment";
   showViewAll = false;
   showAppointmentRecords = false;
-  interactionTabTitle;
+  interactionTabTitle = "Messages";
 
   @api recordId;
   @api showAppTab;
