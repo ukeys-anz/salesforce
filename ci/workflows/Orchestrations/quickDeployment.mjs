@@ -40,7 +40,7 @@ const IS_QA_SANDBOX = JOB_NAME ? true : false;
 
 const JOB_ID_FILE_NAME =
   renameItem(`${BASE_REF}-${PR_NUMBER}`) +
-  (JOB_NAME ? `${JOB_NAME.replace("h-salesforce-np", "")}` : "");
+  (JOB_NAME ? `${JOB_NAME.replace("sf-platform-np", "")}` : "");
 
 const ARTIFACT_NAME = renameItem(`artifact-${BRANCH_NAME}`);
 const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases-np`;
