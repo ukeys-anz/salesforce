@@ -4,40 +4,106 @@
  * @description Holds common util  functions
  * @group Utils
  */
-@SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
+@SuppressWarnings(
+  'PMD.CyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
+)
 public with sharing class CommonUtil {
+  public static final String GROUP_TYPE_QUEUE = 'Queue';
+  public static final String GROUP_TYPE_PUBLICGROUP = 'Regular';
   /**
-   * description cache profile record by name to reduce SOQL to query for profile
+   * @description cache profile record by name to reduce SOQL to query for profile
    */
-  static Map<String, Profile> mapProfileByName = new Map<String, Profile>();
-
-  /**
-   * description cache UserRole record by developername to reduce SOQL to query for UserRole
-   */
-  static Map<String, UserRole> mapUserRoleByDevName = new Map<String, UserRole>();
-
-  /**
-   * description cache permission set record by name to reduce SOQL to query for permission set
-   */
-  static Map<String, PermissionSet> mapPermissionSetByName = new Map<String, PermissionSet>();
-
-  static {
-    for (Profile prof : [SELECT Id, Name FROM Profile WITH SYSTEM_MODE]) {
-      mapProfileByName.put(prof.Name, prof);
+  private static Map<String, Profile> mapProfileByName {
+    private get {
+      if (mapProfileByName == null) {
+        mapProfileByName = new Map<String, Profile>();
+        for (Profile prof : [SELECT Id, Name FROM Profile WITH SYSTEM_MODE]) {
+          mapProfileByName.put(prof.Name, prof);
+        }
+      }
+      return mapProfileByName;
     }
-    for (UserRole ur : [
-      SELECT Id, DeveloperName
-      FROM UserRole
-      WITH SYSTEM_MODE
-    ]) {
-      mapUserRoleByDevName.put(ur.DeveloperName, ur);
+    private set;
+  }
+
+  /**
+   * @description cache UserRole record by developername to reduce SOQL to query for UserRole
+   */
+  private static Map<String, UserRole> mapUserRoleByDevName {
+    private get {
+      if (mapUserRoleByDevName == null) {
+        mapUserRoleByDevName = new Map<String, UserRole>();
+        for (UserRole ur : [
+          SELECT Id, DeveloperName
+          FROM UserRole
+          WITH SYSTEM_MODE
+        ]) {
+          mapUserRoleByDevName.put(ur.DeveloperName, ur);
+        }
+      }
+      return mapUserRoleByDevName;
     }
-    for (PermissionSet ps : [
-      SELECT Id, Name
-      FROM PermissionSet
-      WITH SYSTEM_MODE
-    ]) {
-      mapPermissionSetByName.put(ps.Name, ps);
+    private set;
+  }
+
+  /**
+   * @description cache permission set record by name to reduce SOQL to query for permission set
+   */
+  private static Map<String, PermissionSet> mapPermissionSetByName {
+    private get {
+      if (mapPermissionSetByName == null) {
+        mapPermissionSetByName = new Map<String, PermissionSet>();
+        for (PermissionSet ps : [
+          SELECT Id, Name
+          FROM PermissionSet
+          WITH SYSTEM_MODE
+        ]) {
+          mapPermissionSetByName.put(ps.Name, ps);
+        }
+      }
+      return mapPermissionSetByName;
+    }
+    private set;
+  }
+
+  /**
+   * @description Represents a map of Group records, organized by Type and DeveloperName.
+   */
+  private static Map<String, Map<String, Group>> mapGroupsByTypeAndName {
+    private get {
+      if (mapGroupsByTypeAndName == null) {
+        mapGroupsByTypeAndName = new Map<String, Map<String, Group>>();
+        for (Group g : [
+          SELECT Id, Name, Type, DeveloperName
+          FROM Group
+          WITH USER_MODE
+        ]) {
+          if (!mapGroupsByTypeAndName.containsKey(g.Type)) {
+            mapGroupsByTypeAndName.put(g.Type, new Map<String, Group>());
+          }
+          mapGroupsByTypeAndName.get(g.Type).put(g.DeveloperName, g);
+        }
+      }
+      return mapGroupsByTypeAndName;
+    }
+    private set;
+  }
+
+  /**
+   * @description Represents a map of Queue records by DeveloperName.
+   */
+  private static Map<String, Group> mapQueueByName {
+    private get {
+      return mapGroupsByTypeAndName.get(GROUP_TYPE_QUEUE);
+    }
+  }
+
+  /**
+   * @description Represents a map of Public Group records by DeveloperName.
+   */
+  private static Map<String, Group> mapPublicGroupByName {
+    private get {
+      return mapGroupsByTypeAndName.get(GROUP_TYPE_PUBLICGROUP);
     }
   }
 
@@ -77,7 +143,7 @@ public with sharing class CommonUtil {
     }
     return labelsByValues;
   }
- 
+
   /**
    * @description getAvailableRecordTypeNamesForSObject(input) method is used to get available record types for a certain sobject.
    * This method will only return the record types that are available to the current user
@@ -327,20 +393,51 @@ public with sharing class CommonUtil {
   }
 
   /**
-   * @description Get queue by queue name
-   * @param name name of the queue
-   * @return queue
+   * @description Returns a queue based on the provided name.
+   * @param name The name of the queue.
+   * @return The Group object associated with the provided name.
    */
   public static Group getQueueByName(String name) {
-    Group queue = [
-      SELECT Id, Name
-      FROM Group
-      WHERE DeveloperName = :name AND Type = 'Queue'
-      WITH SECURITY_ENFORCED
-      LIMIT 1
-    ];
+    return mapQueueByName.get(name);
+  }
 
-    return queue;
+  /**
+   * @description Returns a map of queue records based on the provided set of names.
+   * @param names A set of names of the queues.
+   * @return A map of Group objects associated with the provided names.
+   */
+  public static Map<String, Group> getQueueByName(Set<String> names) {
+    Map<String, Group> mapQueues = new Map<String, Group>();
+    for (String name : names) {
+      if (mapQueueByName.containsKey(name)) {
+        mapQueues.put(name, mapQueueByName.get(name));
+      }
+    }
+    return mapQueues;
+  }
+
+  /**
+   * @description Returns a public group based on the provided name.
+   * @param name The name of the public group.
+   * @return The Group object associated with the provided name.
+   */
+  public static Group getPublicGroupByName(String name) {
+    return mapPublicGroupByName.get(name);
+  }
+
+  /**
+   * @description Returns a map of public group records based on the provided set of names.
+   * @param names A set of names of the public groups.
+   * @return A map of Group objects associated with the provided names.
+   */
+  public static Map<String, Group> getPublicGroupByName(Set<String> names) {
+    Map<String, Group> mapPublicGroups = new Map<String, Group>();
+    for (String name : names) {
+      if (mapPublicGroupByName.containsKey(name)) {
+        mapPublicGroups.put(name, mapPublicGroupByName.get(name));
+      }
+    }
+    return mapPublicGroups;
   }
 
   /**

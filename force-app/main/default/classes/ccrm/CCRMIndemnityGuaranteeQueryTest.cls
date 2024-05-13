@@ -11,6 +11,9 @@ private class CCRMIndemnityGuaranteeQueryTest {
     Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('Business_Account')
       .getRecordTypeId();
+
+    //Created a business record type account in order to associate external objects
+    //with the customer
     Account acct = TestDataFactory.createBusinessRecordTypeAccount(
       'CAP-CIS_4011643101',
       customerRecordTypeId,
@@ -50,7 +53,7 @@ private class CCRMIndemnityGuaranteeQueryTest {
     );
     Map<String, Object> firstRecord = result.queryResult[0];
     System.assertEquals(
-      '72455201101',
+      '7245-520-1101',
       firstRecord.get('AccountNumber'),
       'Number mismatch'
     );

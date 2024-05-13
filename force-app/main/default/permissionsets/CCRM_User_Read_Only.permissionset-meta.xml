@@ -157,13 +157,17 @@
         <enabled>true</enabled>
     </classAccesses>
     <customMetadataTypeAccesses>
-        <enabled>true</enabled>
         <name>DCRM_CountryMapping__mdt</name>
+        <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
-        <enabled>true</enabled>
         <name>DCRM_StateMapping__mdt</name>
+        <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customPermissions>
+        <name>CCRM_Read_Only_User_Access</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>Baseline pset for using the AR&amp;C Commercial CRM app.</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -4852,6 +4856,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.Secondary_Customer_Needs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead_Flex_Field__c.FlexFieldName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5732,6 +5741,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.New_to_Bank__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.NextStep</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5778,6 +5792,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Opportunity_Owner_Teamcode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Secondary_Customer_Needs__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -61,21 +61,27 @@ jobs:
       - name: Find Secret Names
         run: |
           sfdxURL="${{ inputs.sfdx_name }}"
+          projectId=anz-x-bootstrap-np-487e09
 
           if [[ "$sfdxURL" == "" ]];then
             sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
           fi
 
+          if [[ "$sfdxURL" == "sf-platform-np-"* ]];then
+            projectId=anz-x-gh-sf-nonprod-ea5caa
+          fi
+
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
+          echo PROJECT_ID="$projectId" >> $GITHUB_ENV
 
       - name: Retrieve GSM Credentials
         id: secrets
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
           secrets: |-
-            sfdxurl:projects/448406129405/secrets/${{ env.SECRET_NAME}}/versions/latest
-            artifactory:projects/448406129405/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
+            sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME}}/versions/latest
+            artifactory:projects/anz-x-bootstrap-np-487e09/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
             proxypass:projects/anz-x-bootstrap-np-487e09/secrets/h-salesforce-np-proxy-password/versions/3
 
       - name: Setup HTTP Proxy

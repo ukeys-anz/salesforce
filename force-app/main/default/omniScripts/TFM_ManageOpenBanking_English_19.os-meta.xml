@@ -11,12 +11,14 @@
     <language>English</language>
     <name>TFMManageOpenBankingOS</name>
     <omniProcessElements>
+        <name>ManageOpenBankingStep</name>
         <childElements>
+            <name>Block1</name>
             <childElements>
+                <name>CustomLWC4</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC4</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -44,10 +46,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>CustomLWC5</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC5</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;customAttributes&quot; : [ {
@@ -75,10 +77,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>CustomLWC6</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC6</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;customAttributes&quot; : [ {
@@ -106,10 +108,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>Selection2</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>Selection2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -166,7 +168,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Block1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;hide&quot; : false,
@@ -198,11 +199,12 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>Block2</name>
             <childElements>
+                <name>CustomLWC7</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC7</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -230,10 +232,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>CustomLWC8</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC8</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -261,10 +263,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>CustomLWC9</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC9</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -292,10 +294,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>Selection3</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>Selection3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -352,7 +354,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Block2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -384,11 +385,12 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>Block3</name>
             <childElements>
+                <name>CustomLWC11</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC11</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -425,10 +427,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>parentTab</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>parentTab</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -480,7 +482,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Block3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -499,11 +500,12 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>Block4</name>
             <childElements>
+                <name>CustomLWC1</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -531,10 +533,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>CustomLWC2</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -562,10 +564,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>CustomLWC3</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -593,10 +595,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>Selection1</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>Selection1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -653,7 +655,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Block4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -686,10 +687,10 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>CustomLWC10</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC10</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -738,10 +739,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>Messaging1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -776,10 +777,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>Messaging2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;showMessageAs&quot; : &quot;toast&quot;,
@@ -815,10 +816,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>Messaging3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;showMessageAs&quot; : &quot;toast&quot;,
@@ -853,10 +854,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>Messaging4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -891,10 +892,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>Messaging5</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging5</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;showMessageAs&quot; : &quot;toast&quot;,
@@ -929,10 +930,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>Messaging6</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging6</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -967,10 +968,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>Messaging7</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Messaging7</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;showMessageAs&quot; : &quot;toast&quot;,
@@ -1005,10 +1006,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
+            <name>TextBlock1</name>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1026,7 +1027,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ManageOpenBankingStep</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;&quot;,
@@ -1076,10 +1076,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetValues2</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetValues2</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,

@@ -47,16 +47,10 @@
           padding="around-small"
         ></lightning-layout-item>
         <lightning-layout-item size="3" padding="around-small">
-          <template lwc:if={showTotalBalCalculationProgress}>
+          <template lwc:if={showTotalBalOtherValue}>
             <lightning-formatted-text
               class="slds-italic"
-              value="Calculation is in progress"
-            ></lightning-formatted-text>
-          </template>
-          <template lwc:if={showNoTotalBalance}>
-            <lightning-formatted-text
-              class="slds-italic"
-              value="No available balance"
+              value={totalBalOtherValue}
             ></lightning-formatted-text>
           </template>
           <template lwc:if={showTotalBalValue}>
@@ -69,16 +63,10 @@
           </template>
         </lightning-layout-item>
         <lightning-layout-item size="3" padding="around-small">
-          <template lwc:if={showTerminalCalculationProgress}>
+          <template lwc:if={showTerminalOtherValue}>
             <lightning-formatted-text
               class="slds-italic"
-              value="Calculation is in progress"
-            ></lightning-formatted-text>
-          </template>
-          <template lwc:if={showNoTerminal}>
-            <lightning-formatted-text
-              class="slds-italic"
-              value="No available balance"
+              value={terminalOtherValue}
             ></lightning-formatted-text>
           </template>
           <template lwc:if={showTerminalValue}>
@@ -89,16 +77,10 @@
           </template>
         </lightning-layout-item>
         <lightning-layout-item size="3" padding="around-small">
-          <template lwc:if={showAssetCalculationProgress}>
+          <template lwc:if={showAssetOtherValue}>
             <lightning-formatted-text
               class="slds-italic"
-              value="Calculation is in progress"
-            ></lightning-formatted-text>
-          </template>
-          <template lwc:if={showNoAssetBalance}>
-            <lightning-formatted-text
-              class="slds-italic"
-              value="No available balance"
+              value={assetOtherValue}
             ></lightning-formatted-text>
           </template>
           <template lwc:if={showAssetValue}>

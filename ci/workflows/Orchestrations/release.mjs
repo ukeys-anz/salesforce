@@ -19,14 +19,17 @@ import {
   deployProgress,
   deployReport,
   validateProgress,
-  uploadJobId
+  uploadJobId,
+  createProdValidationJobIdFile,
+  uploadProdValidationJobIdFile
 } from "../Services/deploy-service.mjs";
 import {
   deleteFolder,
   renameItem,
   booleanMap,
   findAllArgvs,
-  deleteFile
+  deleteFile,
+  uploadFile
 } from "../Services/helper.mjs";
 import { createTagPipeline } from "../Services/tag-service.mjs";
 //////////
@@ -102,12 +105,7 @@ const prodValidation = () => {
     ARTIFACT_PACKAGE_XML,
     ARTIFACT_DESTRUCTIVE_XML
   );
-  uploadJobId(
-    validation,
-    JOB_ID_FILE_NAME,
-    ARTIFACTORY_SECRET_VALUE,
-    ARTIFACTORY_REPO_NAME
-  );
+  createProdValidationJobIdFile(validation, JOB_ID_FILE_NAME);
 };
 
 const prodDeployment = () => {
@@ -133,8 +131,14 @@ const prodDeployment = () => {
 };
 
 const validationCleaning = () => {
+  uploadProdValidationJobIdFile(
+    JOB_ID_FILE_NAME,
+    ARTIFACTORY_SECRET_VALUE,
+    ARTIFACTORY_REPO_NAME
+  );
   unauthenticate(DEPLOY_USER_USERNAME);
   deleteFolder(SOURCE_DIR);
+  deleteFile(JOB_ID_FILE_NAME);
 };
 
 const deploymentCleaning = () => {

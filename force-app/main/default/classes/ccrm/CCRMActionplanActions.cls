@@ -187,6 +187,9 @@ public without sharing class CCRMActionplanActions {
     CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper,
     Map<Id, Opportunity> oldOppMap
   ) {
+    if (oppWrapper.filteredOpps.isEmpty()) {
+      return;
+    }
     try {
       Map<String, CCRM_Commercial_Stage_Action_Plan__mdt> stageActionPlanMapping = new Map<String, CCRM_Commercial_Stage_Action_Plan__mdt>();
 
@@ -215,6 +218,9 @@ public without sharing class CCRMActionplanActions {
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
+      throw new CustomException(
+        'Some error occured! Please contact your System Administrator.'
+      );
     }
   }
 
@@ -304,16 +310,17 @@ public without sharing class CCRMActionplanActions {
     Set<String> templates = new Set<String>();
     Map<Id, List<String>> filteredOppIdToTemplateNameMap = new Map<Id, List<String>>();
     Set<Id> oppIdsWithNoActionPlansSet = new Set<Id>();
+    CCRMActionPlanWrapper planWrapper = new CCRMActionPlanWrapper();
 
     if (oppWrapper.oppIdToTemplateNameMap.keySet().isEmpty()) {
-      return null;
+      return planWrapper;
     }
 
     oppIdsWithNoActionPlansSet = oppWrapper.oppIdToTemplateNameMap.keySet();
     oppIdsWithNoActionPlansSet.removeAll(oppsWithActionPlans.keySet());
 
     if (oppIdsWithNoActionPlansSet.isEmpty()) {
-      return null;
+      return planWrapper;
     }
 
     for (Id oppId : oppIdsWithNoActionPlansSet) {
@@ -324,7 +331,6 @@ public without sharing class CCRMActionplanActions {
       templates.addAll(templateNames);
     }
 
-    CCRMActionPlanWrapper planWrapper = new CCRMActionPlanWrapper();
     planWrapper.oppsWithNoActionPlansToTemplateNameMap = filteredOppIdToTemplateNameMap;
     planWrapper.templates = templates;
     return planWrapper;
@@ -340,7 +346,7 @@ public without sharing class CCRMActionplanActions {
     List<ActionPlanTemplateVersion> actionTemplateVersionList = new List<ActionPlanTemplateVersion>();
 
     if (planWrapper.oppsWithNoActionPlansToTemplateNameMap.keySet().isEmpty()) {
-      return null;
+      return actionPlanToInsert;
     }
 
     if (!Schema.sObjectType.ActionPlanTemplateVersion.isQueryable()) {
@@ -427,7 +433,15 @@ public without sharing class CCRMActionplanActions {
    * @description wrapper class for Action Plans
    */
   public class CCRMActionPlanWrapper {
-    public Map<Id, List<String>> oppsWithNoActionPlansToTemplateNameMap = new Map<Id, List<String>>();
-    public Set<String> templates = new Set<String>();
+    public Map<Id, List<String>> oppsWithNoActionPlansToTemplateNameMap;
+    public Set<String> templates;
+
+    /**
+     * @description constructor for wrapper class for CCRM ActionPlan
+     */
+    public CCRMActionPlanWrapper() {
+      oppsWithNoActionPlansToTemplateNameMap = new Map<Id, List<String>>();
+      templates = new Set<String>();
+    }
   }
 }

@@ -3,6 +3,7 @@
  * @since July 2023
  * @description creates `ResidentialLoanApplication`
  * @group handler
+ * @runTests ResidentialLoanAppTriggerHandlerTest, ResidentialLoanApplicationControllerTest
  */
 public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_TriggerHandler {
   /**
@@ -19,10 +20,25 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
   public override void onBeforeInsert() {
     //Assign home loan applications queue as owner
     ResidentialLoanApplicationActions.assignHomeLoanAppQueue(records);
+    ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
+      records,
+      new Map<Id, ResidentialLoanApplication>()
+    );
   }
 
   /**
-   * @description onAfterUpdate to create the records
+   * @description onBeforeUpdate to handle before update trigger actions
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {

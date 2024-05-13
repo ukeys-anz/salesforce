@@ -8,6 +8,18 @@
         <apexClass>SubmitDisputeController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>DisputeCaseToSlaQueueSchedulable</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>DisputeExternalCaseStatusController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>PegaExternalCaseStatuses__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Grants Read/Write permissions for disputes related objects and fields</description>
     <fieldPermissions>
         <editable>true</editable>
@@ -67,6 +79,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Biller_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.CardScamType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -292,6 +309,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Intended_Pay_Id_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IsAScam__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

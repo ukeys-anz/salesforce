@@ -7,6 +7,37 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
+                            <value>Case.AssignToQueue</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Card_Dispute</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Queue__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Card Disputes Awaiting Contact</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IDR_Owner_Type__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Queue</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>MassAccept</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Card_Dispute</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Clone</value>
                             <visibilityRule>
                                 <criteria>

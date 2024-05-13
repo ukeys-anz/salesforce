@@ -31,6 +31,7 @@ public class CCRMFinancialSummaryController {
     'CAP-CIS:CDA'
   };
 
+  @TestVisible
   private static final String BASE_CALLOUT_URL = Label.Financial_Account_Endpoint;
   @TestVisible
   private static final String TOTAL_CUSTOMER_BALANCE_FIELDSET = 'TOTAL_CUSTOMER_BALANCE';
@@ -49,10 +50,10 @@ public class CCRMFinancialSummaryController {
    * @description - This method is used to fetch the summaries values from the cache and if no values present then it will
    * 			   make a callout to mule to get the Financial Summaries result
    * @param finSumCallout - CCRMFinancialSummaryWrapper.FinSummaryCallout contains the responseId and the the Api which need to be call
-   * @return CCRMFinancialSummaryWrapper.FinSummaryResponse - Wrapper that will contains the different financial summaries responses
+   * @return CCRMFinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
    */
   @AuraEnabled
-  public static CCRMFinancialSummaryWrapper.FinSummaryResponse getSummariesByResponseId(
+  public static CCRMFinancialSummaryResponseWrapper getSummariesByResponseId(
     CCRMFinancialSummaryWrapper.FinSummaryCallout finSumCallout
   ) {
     Cache.SessionPartition sessionPart = Cache.Session.getPartition(
@@ -71,19 +72,19 @@ public class CCRMFinancialSummaryController {
    * @description - This method is used to fetch the data from the cache
    * @param sessionPart - Cache SessionPartition to get the Cache partition
    * @param finSumCallout - Instance of Financial Summary Callout containing response Id and the the Api which need to be call
-   * @return CCRMFinancialSummaryWrapper.FinSummaryResponse - Wrapper that will contains the different financial summaries responses
+   * @return CCRMFinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
    */
   @TestVisible
-  private static CCRMFinancialSummaryWrapper.FinSummaryResponse getDataFromCache(
+  private static CCRMFinancialSummaryResponseWrapper getDataFromCache(
     Cache.SessionPartition sessionPart,
     CCRMFinancialSummaryWrapper.FinSummaryCallout finSumCallout
   ) {
-    CCRMFinancialSummaryWrapper.FinSummaryResponse finSumRespFromCache = new CCRMFinancialSummaryWrapper.FinSummaryResponse();
+    CCRMFinancialSummaryResponseWrapper finSumRespFromCache = new CCRMFinancialSummaryResponseWrapper();
 
     String cachedJson = (String) sessionPart.get(finSumCallout.responseId);
-    finSumRespFromCache = (CCRMFinancialSummaryWrapper.FinSummaryResponse) JSON.deserialize(
+    finSumRespFromCache = (CCRMFinancialSummaryResponseWrapper) JSON.deserialize(
       cachedJson,
-      CCRMFinancialSummaryWrapper.FinSummaryResponse.class
+      CCRMFinancialSummaryResponseWrapper.class
     );
     finSumRespFromCache.responseId = finSumCallout.responseId;
     finSumRespFromCache.cacheAck = CACHE_ACK;
@@ -93,72 +94,52 @@ public class CCRMFinancialSummaryController {
   /**
    * @description - This method is used to fetch the data by making a callout
    * @param finSumCallout - Instance of Financial Summary Callout containing response Id and the the Api which need to be call
-   * @return CCRMFinancialSummaryWrapper.FinSummaryResponse - Wrapper that will contains the different financial summaries responses
+   * @return CCRMFinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
    */
   @AuraEnabled
-  public static CCRMFinancialSummaryWrapper.FinSummaryResponse getDataFromCallout(
+  public static CCRMFinancialSummaryResponseWrapper getDataFromCallout(
     CCRMFinancialSummaryWrapper.FinSummaryCallout finSumCallout
   ) {
-    List<String> capIdsList = new List<String>();
-    List<String> capCustomerIdList = new List<String>();
     List<String> accountNumberList = new List<String>();
-    CCRMFinancialSummaryWrapper.CacheData cacheWrapper = new CCRMFinancialSummaryWrapper.CacheData();
-    Cache.SessionPartition sessionPart = Cache.Session.getPartition(
-      'local.DataPartition'
-    );
-    CCRMFinancialSummaryWrapper.FinSummaryResponse finSumRespFromCallout = new CCRMFinancialSummaryWrapper.FinSummaryResponse();
+    CCRMFinancialSummaryResponseWrapper finSumRespFromCallout = new CCRMFinancialSummaryResponseWrapper();
+    CCRMFinancialSummaryWrapper.CustomerIdWrapper custIdWrapper = new CCRMFinancialSummaryWrapper.CustomerIdWrapper();
+
     finSumRespFromCallout.responseId = finSumCallout.responseId;
-
-    capIdsList = getCLGRelatedCustomerIds(finSumRespFromCallout.responseId);
-
-    accountNumberList = retrieveFinancialAccountsByCustomerId(capIdsList);
-
-    if (!capIdsList.isEmpty()) {
-      for (String capId : capIdsList) {
-        capCustomerIdList.add(capId.split('_')[1]);
-      }
-    }
-
-    if (finSumCallout.callTotalCustBalanceApi && !accountNumberList.isEmpty()) {
-      //Making a callout to get the Total Balance
-      //and if accountNumberList is Empty then it will return 'No Available Balance' as an acknowledgement
-      finSumRespFromCallout.totalBalanceAck = getTotalBalance(
-        finSumRespFromCallout.responseId,
-        accountNumberList,
-        TOTAL_CUSTOMER_BALANCE_FIELDSET
-      );
-      cacheWrapper.totalBalanceAck = finSumRespFromCallout.totalBalanceAck;
-    }
-
-    if (finSumCallout.callTerminalApi && !capCustomerIdList.isEmpty()) {
-      //Making a callout to get the Total Merchant Terminal
-      //and if capCustomerIdList is Empty then it will return 'No Available Balance' as an acknowledgement
-      finSumRespFromCallout.terminalAck = getTotalMerchantTerminals(
-        finSumRespFromCallout.responseId,
-        capCustomerIdList,
-        TERMINALS_FIELDSET
-      );
-      cacheWrapper.terminalAck = finSumRespFromCallout.terminalAck;
-    }
-
-    if (finSumCallout.callTotalCustBalanceApi && !capCustomerIdList.isEmpty()) {
-      //Making a callout to get the Total Asset Finance Balance
-      //and if capCustomerIdList is Empty then it will return 'No Available Balance' as an acknowledgement
-      finSumRespFromCallout.assetBalanceAck = getTotalAssetFinanceBalance(
-        finSumRespFromCallout.responseId,
-        capCustomerIdList,
-        TOTAL_ASSET_FINANCE_BALANCE_TYPE,
-        TOTAL_ASSET_FINANCE_BALANCE_FIELDSET
-      );
-      cacheWrapper.assetBalanceAck = finSumRespFromCallout.assetBalanceAck;
-    }
-
-    cacheWrapper.lastSummaryUpdateDate = DateTime.now()
-      .format('dd/MM/yyyy hh:mm a');
-    sessionPart.put(
-      finSumRespFromCallout.responseId,
-      JSON.serialize(cacheWrapper)
+    custIdWrapper = getCLGRelatedCustomerIds(finSumRespFromCallout.responseId);
+    accountNumberList = retrieveFinancialAccountsByCustomerId(
+      custIdWrapper.capIdsList
     );
+
+    //Making a callout to get the Total Balance
+    //and if accountNumberList is Empty then it will return 'No Available Balance' as an acknowledgement
+    finSumRespFromCallout.totalBalanceAck = getTotalBalance(
+      finSumRespFromCallout.responseId,
+      accountNumberList,
+      TOTAL_CUSTOMER_BALANCE_FIELDSET,
+      finSumCallout.callTotalCustBalanceApi
+    );
+
+    //Making a callout to get the Total Merchant Terminal
+    //and if capCustomerIdList is Empty then it will return 'No Available Balance' as an acknowledgement
+    finSumRespFromCallout.terminalAck = getTotalMerchantTerminals(
+      finSumRespFromCallout.responseId,
+      custIdWrapper.capIdsModifiedList,
+      TERMINALS_FIELDSET,
+      finSumCallout.callTerminalApi
+    );
+
+    //Making a callout to get the Total Asset Finance Balance
+    //and if capCustomerIdList is Empty then it will return 'No Available Balance' as an acknowledgement
+    finSumRespFromCallout.assetBalanceAck = getTotalAssetFinanceBalance(
+      finSumRespFromCallout.responseId,
+      custIdWrapper.capIdsModifiedList,
+      TOTAL_ASSET_FINANCE_BALANCE_TYPE,
+      TOTAL_ASSET_FINANCE_BALANCE_FIELDSET,
+      finSumCallout.callAssetFinanceBalanceApi
+    );
+
+    populateDataInCache(finSumRespFromCallout);
+
     return finSumRespFromCallout;
   }
 
@@ -168,15 +149,32 @@ public class CCRMFinancialSummaryController {
    * @return List<String> List of External Ids
    */
   @TestVisible
-  private static List<String> getCLGRelatedCustomerIds(String customerId) {
-    List<String> capCustomerIdsList = new List<String>();
+  private static CCRMFinancialSummaryWrapper.CustomerIdWrapper getCLGRelatedCustomerIds(
+    String customerId
+  ) {
+    CCRMFinancialSummaryWrapper.CustomerIdWrapper custIdWrapper = new CCRMFinancialSummaryWrapper.CustomerIdWrapper();
+    String capId = '';
+    Set<String> capIdSet = new Set<String>();
+    List<String> capIdsModifiedList = new List<String>();
+
     Account accountRec = [
       SELECT Id, External_Id__c, RecordType.DeveloperName
       FROM Account
       WHERE Id = :customerId
       LIMIT 1
     ];
-    if (accountRec.RecordType.DeveloperName == 'CLG') {
+    if (
+      accountRec.RecordType.DeveloperName != 'CLG' &&
+      accountRec.External_Id__c != null
+    ) {
+      custIdWrapper.capIdsList.add(accountRec.External_Id__c);
+      capId = splitExternalId(accountRec.External_Id__c, '_');
+      capIdSet.add(capId);
+      capIdSet.removeAll(new Set<String>{ null });
+      custIdWrapper.capIdsModifiedList.addAll(capIdSet);
+      return custIdWrapper;
+    }
+    try {
       for (FinServ__AccountAccountRelation__c aar : [
         SELECT Id, FinServ__RelatedAccount__r.External_Id__c
         FROM FinServ__AccountAccountRelation__c
@@ -188,19 +186,28 @@ public class CCRMFinancialSummaryController {
         WITH SECURITY_ENFORCED
       ]) {
         if (
-          !capCustomerIdsList.contains(
+          !custIdWrapper.capIdsList.contains(
             aar.FinServ__RelatedAccount__r.External_Id__c
           )
         ) {
-          capCustomerIdsList.add(aar.FinServ__RelatedAccount__r.External_Id__c);
+          custIdWrapper.capIdsList.add(
+            aar.FinServ__RelatedAccount__r.External_Id__c
+          );
+          capId = splitExternalId(
+            aar.FinServ__RelatedAccount__r.External_Id__c,
+            '_'
+          );
+          capIdSet.add(capId);
         }
       }
-      return capCustomerIdsList;
+      capIdSet.removeAll(new Set<String>{ null });
+      custIdWrapper.capIdsModifiedList.addAll(capIdSet);
+      return custIdWrapper;
+    } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
+      throw new AuraHandledException(e.getMessage());
     }
-    if (accountRec.External_Id__c != null) {
-      capCustomerIdsList.add(accountRec.External_Id__c);
-    }
-    return capCustomerIdsList;
   }
 
   /**
@@ -213,36 +220,46 @@ public class CCRMFinancialSummaryController {
     List<String> customerIds
   ) {
     List<String> accountNumberList = new List<String>();
+    String prodType = '';
+
     if (customerIds.IsEmpty()) {
       return accountNumberList;
     }
+
+    if (
+      !(PermissionUtils.canQuery('FinServ__FinancialAccountRole__c') &&
+      PermissionUtils.canQuery('FinServ__FinancialAccount__c'))
+    ) {
+      return accountNumberList;
+    }
+
     try {
-      if (
-        PermissionUtils.canQuery('FinServ__FinancialAccountRole__c') &&
-        PermissionUtils.canQuery('FinServ__FinancialAccount__c')
-      ) {
-        for (FinServ__FinancialAccountRole__c faRole : [
-          SELECT
-            FinServ__FinancialAccount__c,
-            FinServ__FinancialAccount__r.Account_Key__c,
-            FinServ__FinancialAccount__r.Name,
-            FinServ__FinancialAccount__r.FinServ__Status__c,
-            FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
-            FinServ__FinancialAccount__r.Product_Type__c,
-            FinServ__FinancialAccount__r.Product_SubCode__c,
-            FinServ__RelatedAccount__r.External_Id__c,
-            Role_Type__c
-          FROM FinServ__FinancialAccountRole__c
-          WHERE
-            FinServ__RelatedAccount__r.External_Id__c IN :customerIds
-            AND FinServ__FinancialAccount__r.RecordType.DeveloperName = :ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME
-            AND FinServ__Active__c = TRUE
-            AND FinServ__FinancialAccount__r.Product_Type__c IN :productTypes
-            AND Role_Type__c IN :roleTypes.keyset()
-          WITH SECURITY_ENFORCED
-          ORDER BY
-            FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
-        ]) {
+      for (FinServ__FinancialAccountRole__c faRole : [
+        SELECT
+          FinServ__FinancialAccount__c,
+          FinServ__FinancialAccount__r.Account_Key__c,
+          FinServ__FinancialAccount__r.Name,
+          FinServ__FinancialAccount__r.FinServ__Status__c,
+          FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+          FinServ__FinancialAccount__r.Product_Type__c,
+          FinServ__FinancialAccount__r.Product_SubCode__c,
+          FinServ__RelatedAccount__r.External_Id__c,
+          Role_Type__c
+        FROM FinServ__FinancialAccountRole__c
+        WHERE
+          FinServ__RelatedAccount__r.External_Id__c IN :customerIds
+          AND FinServ__FinancialAccount__r.RecordType.DeveloperName = :ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME
+          AND FinServ__Active__c = TRUE
+          AND FinServ__FinancialAccount__r.Product_Type__c IN :productTypes
+          AND Role_Type__c IN :roleTypes.keyset()
+        WITH SECURITY_ENFORCED
+        ORDER BY FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+      ]) {
+        prodType = splitExternalId(
+          faRole.FinServ__FinancialAccount__r.Product_Type__c,
+          ':'
+        );
+        if (prodType != null) {
           accountNumberList.add(
             faRole.FinServ__FinancialAccount__r.Product_Type__c.split(':')[1] +
               '-' +
@@ -259,18 +276,43 @@ public class CCRMFinancialSummaryController {
   }
 
   /**
+   * @description This method is used to split the External Id
+   * @name splitExternalId
+   * @param externalId External Id of Account
+   * @param operator operator symbol
+   * @return String - externalId after split
+   */
+  public static String splitExternalId(String externalId, String operator) {
+    if (!externalId.contains(operator)) {
+      return null;
+    }
+    List<String> externalIdSplit = new List<String>(externalId.split(operator));
+    return externalIdSplit.size() > 1 ? externalIdSplit[1] : null;
+  }
+
+  /**
    * @description : This method is used to make a callout to get the Total Balance
    * @param responseId - Id of the record
    * @param accountNumbers - List of accountNumbers
    * @param fieldSet - Constant keyword to unique Identify the callout
+   * @param callTotalCustBalanceApi - true if we need to call this API
    * @return String - callout response
    */
   @TestVisible
   private static String getTotalBalance(
     String responseId,
     List<String> accountNumbers,
-    String fieldSet
+    String fieldSet,
+    Boolean callTotalCustBalanceApi
   ) {
+    if (accountNumbers.isEmpty()) {
+      return CCRMConstants.NO_AVAILABLE_BALANCE;
+    }
+
+    if (!callTotalCustBalanceApi) {
+      return null;
+    }
+
     Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'summaries';
 
@@ -293,14 +335,22 @@ public class CCRMFinancialSummaryController {
    * @param responseId - Id of the record
    * @param capCustomerIds - List of capCustomerIds
    * @param fieldSet - Constant keyword to unique Identify the callout
+   * @param callTerminalApi - true if we need to call this API
    * @return String - callout response
    */
   @TestVisible
   private static String getTotalMerchantTerminals(
     String responseId,
     List<String> capCustomerIds,
-    String fieldSet
+    String fieldSet,
+    Boolean callTerminalApi
   ) {
+    if (capCustomerIds.isEmpty()) {
+      return CCRMConstants.NO_AVAILABLE_BALANCE;
+    }
+    if (!callTerminalApi) {
+      return null;
+    }
     Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'merchant-facility-accounts';
 
@@ -324,6 +374,7 @@ public class CCRMFinancialSummaryController {
    * @param capCustomerIds - List of capCustomerIds
    * @param type - type
    * @param fieldSet - Constant keyword to unique Identify the callout
+   * @param callTotalCustBalanceApi - true if we need to call this API
    * @return String - callout response
    */
   @TestVisible
@@ -331,8 +382,16 @@ public class CCRMFinancialSummaryController {
     String responseId,
     List<String> capCustomerIds,
     String type,
-    String fieldSet
+    String fieldSet,
+    Boolean callTotalCustBalanceApi
   ) {
+    if (capCustomerIds.isEmpty()) {
+      return CCRMConstants.NO_AVAILABLE_BALANCE;
+    }
+    if (!callTotalCustBalanceApi) {
+      return null;
+    }
+
     Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'asset-finance-accounts';
 
@@ -418,8 +477,34 @@ public class CCRMFinancialSummaryController {
   }
 
   /**
+   * @description This method is used to insert the data in the cache after the callout.
+   * @param finSumResponse - containing the response of the callout
+   */
+  @TestVisible
+  private static void populateDataInCache(
+    CCRMFinancialSummaryResponseWrapper finSumResponse
+  ) {
+    CCRMFinancialSummaryWrapper.CacheData cacheWrapper = new CCRMFinancialSummaryWrapper.CacheData();
+    Cache.SessionPartition sessionPart = Cache.Session.getPartition(
+      'local.DataPartition'
+    );
+    if (finSumResponse.totalBalanceAck != null) {
+      cacheWrapper.totalBalanceAck = finSumResponse.totalBalanceAck;
+    }
+    if (finSumResponse.terminalAck != null) {
+      cacheWrapper.terminalAck = finSumResponse.terminalAck;
+    }
+    if (finSumResponse.assetBalanceAck != null) {
+      cacheWrapper.assetBalanceAck = finSumResponse.assetBalanceAck;
+    }
+    cacheWrapper.lastSummaryUpdateDate = DateTime.now()
+      .format('dd/MM/yyyy hh:mm a');
+    sessionPart.put(finSumResponse.responseId, JSON.serialize(cacheWrapper));
+  }
+
+  /**
    * @description This method is used to insert the data in the cache when platform event fire
-   * @param response - Platform Event published byu mule
+   * @param response - Platform Event published by mule
    */
   @AuraEnabled
   public static void insertDataInCache(String response) {
@@ -431,7 +516,7 @@ public class CCRMFinancialSummaryController {
       response
     );
     String responseId = (String) resMap.get('Response_Id__c');
-    String summaryType = (String) resMap.get('Summary_Type__c');
+    String status = (String) resMap.get('Status__c');
 
     if (sessionPart.contains(responseId)) {
       String cachedData = (String) sessionPart.get(responseId);
@@ -441,22 +526,83 @@ public class CCRMFinancialSummaryController {
       );
     }
 
+    if (status == 'Error') {
+      handleErrorResponse(cacheWrapper, responseId, sessionPart, resMap);
+    }
+    if (status == 'Success') {
+      handleSuccessResponse(cacheWrapper, responseId, sessionPart, resMap);
+    }
+  }
+
+  /**
+   * @description This method is used to insert the data in the cache when platform event fire in case of Error
+   * @param cacheWrapper - cache wrapper instance
+   * @param responseId - record Id
+   * @param sessionPart - session Part of the cache
+   * @param resMap - platform event response
+   */
+  private static void handleErrorResponse(
+    CCRMFinancialSummaryWrapper.CacheData cacheWrapper,
+    String responseId,
+    Cache.SessionPartition sessionPart,
+    Map<String, Object> resMap
+  ) {
+    String summaryType = (String) resMap.get('Summary_Type__c');
+    String errorDescription = (String) resMap.get('Error_Description__c');
+
+    switch on summaryType {
+      when 'TOTAL_CUSTOMER_BALANCE' {
+        cacheWrapper.totalBalanceAck = CCRMConstants.ERROR_RESPONSE;
+        Logger.error(errorDescription, responseId);
+        Logger.saveLog();
+      }
+      when 'TERMINALS' {
+        cacheWrapper.terminalAck = CCRMConstants.ERROR_RESPONSE;
+        Logger.error(errorDescription, responseId);
+        Logger.saveLog();
+      }
+      when else {
+        cacheWrapper.assetBalanceAck = CCRMConstants.ERROR_RESPONSE;
+        Logger.error(errorDescription, responseId);
+        Logger.saveLog();
+      }
+    }
+    cacheWrapper.lastSummaryUpdateDate = DateTime.now()
+      .format('dd/MM/yyyy hh:mm a');
+    sessionPart.put(responseId, JSON.serialize(cacheWrapper));
+  }
+
+  /**
+   * @description This method is used to insert the data in the cache when platform event fire in case of Sucess
+   * @param cacheWrapper - cache wrapper instance
+   * @param responseId - record Id
+   * @param sessionPart - session Part of the cache
+   * @param resMap - platform event response
+   */
+  private static void handleSuccessResponse(
+    CCRMFinancialSummaryWrapper.CacheData cacheWrapper,
+    String responseId,
+    Cache.SessionPartition sessionPart,
+    Map<String, Object> resMap
+  ) {
+    String summaryType = (String) resMap.get('Summary_Type__c');
+
     switch on summaryType {
       when 'TOTAL_CUSTOMER_BALANCE' {
         cacheWrapper.totalBalance = (Decimal) resMap.get('Summary__c');
-        cacheWrapper.totalBalanceAck = MULE_RESPONSE;
+        cacheWrapper.totalBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
       }
       when 'TERMINALS' {
         cacheWrapper.totalMerchantTerminals = (Decimal) resMap.get(
           'Summary__c'
         );
-        cacheWrapper.terminalAck = MULE_RESPONSE;
+        cacheWrapper.terminalAck = CCRMConstants.SUCCESS_RESPONSE;
       }
       when else {
         cacheWrapper.totalAssetFinanceBalance = (Decimal) resMap.get(
           'Summary__c'
         );
-        cacheWrapper.assetBalanceAck = MULE_RESPONSE;
+        cacheWrapper.assetBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
       }
     }
     cacheWrapper.lastSummaryUpdateDate = DateTime.now()

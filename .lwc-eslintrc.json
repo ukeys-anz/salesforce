@@ -1,4 +1,5 @@
 {
+  "plugins": ["@lwc/eslint-plugin-lwc"],
   "extends": [
     "eslint:recommended",
     "@salesforce/eslint-config-lwc/recommended",

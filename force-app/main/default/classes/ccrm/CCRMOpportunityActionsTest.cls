@@ -52,30 +52,6 @@ private class CCRMOpportunityActionsTest {
     }
   }
 
-  @isTest
-  static void testOppName() {
-    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
-    System.runAs(ccrmBaseUser) {
-      Test.startTest();
-      List<Opportunity> oppList = CCRMTestDataFactory.createOpportunityRecords(
-        1,
-        ccrmBaseUser,
-        true
-      );
-      Test.stopTest();
-      Opportunity opp = [
-        SELECT Id, Name, Opp_Id__c, Customer_Needs__c
-        FROM Opportunity
-        WHERE Id = :oppList[0].Id
-      ];
-      System.assertEquals(
-        opp.Opp_Id__c + ' ' + opp.Customer_Needs__c + ' ' + 'Test Opp 1',
-        opp.Name,
-        'Opportunity Name not updated'
-      );
-    }
-  }
-
   @istest
   static void testInsertionOfActionPlans() {
     User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
@@ -530,6 +506,228 @@ private class CCRMOpportunityActionsTest {
       );
       Test.stopTest();
       System.assertEquals(21, metadataRecord.keySet().size(), 'Size is not 21');
+    }
+  }
+
+  @isTest
+  static void generateOpportunityNameTest() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      String oppName;
+
+      Test.startTest();
+      oppName = CCRMOpportunityActions.generateOpportunityName(
+        '0-0000097',
+        'Multiple Customer Needs',
+        'TestOpp'
+      );
+      Test.stopTest();
+      System.assert(oppName.contains('Multiple'), 'Name is not updated');
+    }
+  }
+
+  @isTest
+  static void updateOpportunityListOnInsertTest() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      List<Opportunity> oppsToUpdate;
+      List<Database.saveResult> results;
+      Map<Id, String> updatedOppsNameMap = new Map<Id, String>();
+
+      Test.startTest();
+      Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType());
+      updatedOppsNameMap.put(
+        oppId,
+        '0-0000097 Multiple Customer Needs TestOpp'
+      );
+      results = CCRMOpportunityActions.updateOpportunityListOnInsert(
+        new List<Opportunity>{
+          CCRMTestDataFactory.createStaticOpportunityData(
+            oppId,
+            '0-0000097 Multiple Customer Needs TestOpp',
+            CCRMConstants.CCRM_OPP_RT_ID,
+            CCRMConstants.NEED_ANALYSIS
+          )
+        },
+        updatedOppsNameMap
+      );
+      Test.stopTest();
+      System.assertEquals(1, results.size(), 'no opps to update');
+    }
+  }
+
+  @isTest
+  static void getOpportunityOldNameTest() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      String result;
+      Opportunity newOpp;
+      List<Opportunity> oppList;
+
+      //Inserted opportunity so as to test for Opp_Id__c(autonumber)
+      oppList = CCRMTestDataFactory.createOpportunityRecords(
+        1,
+        ccrmBaseUser,
+        true
+      );
+      oppList[0].Customer_Needs__c = 'Purchasing Vacant Land';
+
+      newOpp = [
+        SELECT Id, Name, Opp_Id__c, Lead_Converted__c
+        FROM Opportunity
+        WHERE Id = :oppList[0].Id
+      ];
+      newOpp.Customer_Needs__c = 'Purchasing Property';
+
+      Test.startTest();
+      result = CCRMOpportunityActions.getOpportunityOldName(
+        newOpp,
+        new Map<Id, Opportunity>{ oppList[0].Id => oppList[0] }
+      );
+
+      Test.stopTest();
+      System.assertEquals('Test Opp 1', result, 'Name mismatch');
+    }
+  }
+
+  @isTest
+  static void getMapWithUpdatedOpportunitiesNameTest() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      Map<Id, String> result = new Map<Id, String>();
+      Opportunity newOpp;
+      List<Opportunity> oppList;
+
+      //Inserted opportunity so as to test for Opp_Id__c(autonumber)
+      oppList = CCRMTestDataFactory.createOpportunityRecords(
+        1,
+        ccrmBaseUser,
+        true
+      );
+      oppList[0].Customer_Needs__c = 'Purchasing Vacant Land';
+
+      newOpp = [
+        SELECT Id, Name, Opp_Id__c, Secondary_Customer_Needs__c
+        FROM Opportunity
+        WHERE Id = :oppList[0].Id
+      ];
+      newOpp.Customer_Needs__c = 'Purchasing Property';
+      newOpp.Lead_Converted__c = true;
+
+      Test.startTest();
+      result = CCRMOpportunityActions.getMapWithUpdatedOpportunitiesName(
+        new List<Opportunity>{ newOpp },
+        new Map<Id, Opportunity>{ oppList[0].Id => oppList[0] }
+      );
+      Test.stopTest();
+      System.assertEquals(1, result.size(), 'Result is null');
+    }
+  }
+
+  @isTest
+  static void getFilteredOpportunitiesTest() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      List<Opportunity> result = new List<Opportunity>();
+      List<Opportunity> oppList;
+      Opportunity oldOpp;
+      Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType());
+      oppList = new List<Opportunity>{
+        CCRMTestDataFactory.createStaticOpportunityData(
+          oppId,
+          '0-0000097 Multiple Customer Needs TestOpp',
+          CCRMConstants.CCRM_OPP_RT_ID,
+          CCRMConstants.NEED_ANALYSIS
+        )
+      };
+      oppList[0].Customer_Needs__c = 'Purchasing Vacant Land';
+      oppList[0].Secondary_Customer_Needs__c = 'Purchasing Property';
+      oldOpp = new Opportunity(
+        Id = oppId,
+        Customer_Needs__c = 'Purchasing Property'
+      );
+      Test.startTest();
+      result = CCRMOpportunityActions.getFilteredOpportunities(
+        oppList,
+        new Map<Id, Opportunity>{ oppId => oldOpp }
+      );
+      Test.stopTest();
+      System.assert(result.size() > 0, 'No opps found');
+    }
+  }
+
+  @isTest
+  static void updateOpportunityNameOnUpdateTest() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      List<Opportunity> result = new List<Opportunity>();
+      Opportunity newOpp;
+      List<Opportunity> oppList;
+
+      oppList = CCRMTestDataFactory.createOpportunityRecords(
+        1,
+        ccrmBaseUser,
+        false
+      );
+      oppList[0].Customer_Needs__c = 'Purchasing Vacant Land';
+      oppList[0].Secondary_Customer_Needs__c = 'Purchasing Property';
+      insert oppList[0];
+
+      newOpp = [
+        SELECT Id, Name, Opp_Id__c, Secondary_Customer_Needs__c
+        FROM Opportunity
+        WHERE Id = :oppList[0].Id
+      ];
+      newOpp.Customer_Needs__c = 'Construction and Renovation';
+
+      Test.startTest();
+      update newOpp;
+      Test.stopTest();
+      result = [SELECT Id, Name FROM Opportunity WHERE Id = :oppList[0].Id];
+      System.assert(result[0].Name.contains('Multiple'), 'No opps to update');
+    }
+  }
+
+  @isTest
+  static void testCheckIfSecondaryCustomerNeedsContainsCustomerNeeds() {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Opportunity opp;
+      Map<Id, Opportunity> oldMap;
+      List<Database.Error> errors;
+      Database.Error error;
+
+      opp = new Opportunity(
+        Id = Lib_FakeIdGenerator.getMockId(Schema.Opportunity.getSObjectType()),
+        Customer_Needs__c = 'Purchasing Property',
+        Secondary_Customer_Needs__c = 'Purchasing Property',
+        RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID
+      );
+
+      oldMap = new Map<Id, Opportunity>{
+        opp.Id => new Opportunity(
+          Id = opp.Id,
+          Customer_Needs__c = 'Purchasing Vacant Land',
+          RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID
+        )
+      };
+
+      Test.startTest();
+      CCRMOpportunityActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+        new List<Opportunity>{ opp },
+        oldMap,
+        false
+      );
+      Test.stopTest();
+
+      errors = opp.getErrors();
+      error = errors.get(0);
+
+      System.assertEquals(1, errors.size());
+      System.assertEquals(
+        CCRMConstants.CUSTOMER_NEEDS_ERROR,
+        error.getMessage(),
+        'Opportunity updated successfully'
+      );
     }
   }
 }

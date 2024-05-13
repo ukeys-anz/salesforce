@@ -79,9 +79,9 @@ public with sharing class CCRMLinkedBillQuery extends CCRMFinancialAccountQueryB
       row.put('ReferenceNo', bill.billReferenceNo);
       row.put('Amount', bill.billAmount);
       row.put('BankBillSwapReferenceRate', bill.billSwapReferencePercentage);
-      row.put('RolloverDate', adjustUTCDateTime(bill.billRollOverDate));
+      row.put('RolloverDate', formatDate(bill.billRollOverDate));
       row.put('RolloverFrequency', bill.billRollOverFrequency);
-      row.put('Expires', adjustUTCDateTime(bill.billExpiry));
+      row.put('Expires', formatDate(bill.billExpiry));
       row.put('InterestRate', bill.billInterestRate);
       result.queryResult.add(row);
     }

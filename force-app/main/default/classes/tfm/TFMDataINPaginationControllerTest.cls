@@ -88,7 +88,9 @@ public with sharing class TFMDataINPaginationControllerTest {
       parentActiveConsentListSize,
       'Active consents are 18 records'
     );
-      System.debug('parentArchiveConsentListSize===='+parentArchiveConsentListSize);
+    System.debug(
+      'parentArchiveConsentListSize====' + parentArchiveConsentListSize
+    );
     Assert.areEqual(
       32,
       parentArchiveConsentListSize,

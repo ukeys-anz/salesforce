@@ -12,10 +12,19 @@
         <apexClass>TestDataFactory</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>PegaExternalCaseStatuses__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>This permission set grants PEGA Status Integration User read access to ATM/Card fields and record types and write access to External Case Status object and fields.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.CaseNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Dispute_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

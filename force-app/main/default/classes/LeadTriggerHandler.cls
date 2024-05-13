@@ -69,6 +69,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       wrapperDataCCRM.dcrmRecordList,
       'Note__c'
     );
+    CCRMLeadActions.checkForExistingCustomerOnInsert(records);
   }
 
   /**
@@ -109,6 +110,8 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     MLCRMLeadActions.noLongerNewLeads((Map<Id, Lead>) oldMap, records);
     //CC-1054 to set the territory for ML Records based on matching user territory default record.
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
+    //CC-7788 and CC-8135 This method is used to validate that loan writer and franchise admin cannot change the owner of the record not owner by themself
+    MLCRMCommonUtilsHelper.validateOwnerChange(oldMap, records);
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
     MLCRMLeadActions.populatePrimaryFranchise(records, (Map<Id, Lead>) oldMap);
@@ -133,6 +136,14 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     TextUtils.maskSObjectDataANZExtended(
       wrapperDataCCRM.dcrmRecordList,
       'Note__c'
+    );
+    CCRMLeadActions.checkIfSecondaryCustomerNeedsContainsCustomerNeeds(
+      records,
+      (Map<Id, Lead>) oldMap
+    );
+    CCRMLeadActions.checkForExistingCustomerOnUpdate(
+      records,
+      (Map<Id, Lead>) oldMap
     );
   }
 

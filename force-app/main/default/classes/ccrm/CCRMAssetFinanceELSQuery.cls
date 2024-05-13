@@ -102,7 +102,6 @@ public with sharing class CCRMAssetFinanceELSQuery extends CCRMFinancialAccountQ
       row.put('Amount', fa.repaymentAmount);
       row.put('LoanTerm', fa.loanTerm);
       row.put('TotalNumberOfRepayments', fa.loanRepaymentFrequency);
-      row.put('IntType', fa.interestType);
       row.put('Limit', fa.accountLimit);
       result.queryResult.add(row);
     }
