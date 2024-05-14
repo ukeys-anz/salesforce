@@ -30,3 +30,7 @@
   color: currentColor !important;
   border-color: #dddbda !important;
 }
+
+.headerFontStyling {
+  font-size: 0.875rem;
+}

@@ -66,6 +66,8 @@ describe("c-financialAccount", () => {
       "div[data-id='fin-account']"
     );
     expect(componentTitle.textContent).toMatch("Savings - ANZ Save Account");
-    expect(finAccount).toBeFalsy();
+    expect(finAccount.textContent).toMatch(
+      "All accounts closed - no longer a customer"
+    );
   });
 });

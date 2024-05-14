@@ -23,24 +23,19 @@
           <div class="slds-grid">
             <header class="slds-has-flexi-truncate slds-var-p-around_small">
               <h2 class="slds-card__header-title">
-                <a
-                  onclick={navigateToRecordViewPage}
-                  data-id={ownerOne.id}
-                  class="slds-truncate"
-                  title={ownerOne.name}
-                >
-                  <span>{ownerOne.name}</span>
-                </a>
-                <template lwc:if={multiparty}>
-                  &nbsp;&&nbsp;
+                <template for:each={accountOwnersList} for:item="eachOwner">
                   <a
                     onclick={navigateToRecordViewPage}
-                    data-id={ownerTwo.id}
+                    data-id={eachOwner.Id}
                     class="slds-truncate"
-                    title={ownerTwo.name}
+                    title={eachOwner.Name}
+                    key={eachOwner.Id}
                   >
-                    <span>{ownerTwo.name}</span>
+                    <span>{eachOwner.Name}</span>
                   </a>
+                  <template lwc:if={eachOwner.ShowSeparator}>
+                    &nbsp;&amp;&nbsp;
+                  </template>
                 </template>
                 <span
                   lwc:if={singleFinAccount.accountActive}

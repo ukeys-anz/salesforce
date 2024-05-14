@@ -800,6 +800,17 @@
         <relatedList>RelatedActivityList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>Name</fields>
+        <fields>AssessmentRating</fields>
+        <fields>AssessmentStatus</fields>
+        <fields>EffectiveDateTime</fields>
+        <fields>ExpirationDateTime</fields>
+        <relatedList>Assessments</relatedList>
+        <sortField>EffectiveDateTime</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.TYPE</fields>
         <fields>TASK.STATUS</fields>
