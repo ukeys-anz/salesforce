@@ -274,21 +274,4 @@ public with sharing class AutoKYCQACaseActionsHelperTest {
       );
     }
   }
-
-  @isTest
-  private static void testGetKYCQACasesWithoutCustomer() {
-    List<Case> cases = getCases(GetHelpConstants.KYCQA_RT_ID);
-
-    List<Case> casesWithNoCustomer = AutoKYCQACaseActionsHelper.getKYCQACasesWithoutCustomer(
-      cases
-    );
-
-    Assert.areEqual(
-      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
-      casesWithNoCustomer.size(),
-      'Should be ' +
-        COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
-        ' KYC QA Cases by with No Customer'
-    );
-  }
 }

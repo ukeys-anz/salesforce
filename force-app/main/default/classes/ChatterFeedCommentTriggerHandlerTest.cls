@@ -135,7 +135,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
 
   @isTest
   static void testInteractionFeedCommentInsertWithMasking() {
-    String valueToPost = '1234567344738686386868';
+    String valueToPost = '1234567344738686';
     User coachUser = TestUtil.getUserByFirstName('TestCoachUser');
     FeedItem post = new FeedItem();
     FeedComment comment = new FeedComment();
@@ -154,7 +154,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
       FROM FeedComment
       WHERE FeedItemId = :post.Id
     ];
-    // THEN the chatter should  be created withot the masking of the digit
+    // THEN the chatter should  be created with the masking of the digit
     System.assertNotEquals(
       valueToPost,
       insertedComment.commentBody,
