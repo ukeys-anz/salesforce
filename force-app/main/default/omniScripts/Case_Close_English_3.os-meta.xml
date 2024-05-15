@@ -2609,6 +2609,37 @@
             <type>Select</type>
         </childElements>
         <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>validateEventId</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : null,
+  &quot;label&quot; : &quot;Validate Event Id&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;realFormRequired&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;realFormIdCheck&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;showButton&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>59.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
