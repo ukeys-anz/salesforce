@@ -66,8 +66,16 @@ public with sharing class FeedMaskUtils {
               '; Reason for logging: User entered long digits without needing to mask'
           );
         }
+      } else if (relatedInteraction != null) {
+        feedRecordBody = applyAnzxMaskingToBody(feedItemObj, feedCommentObj);
       } else {
-        applyAnzxMaskingToBody(feedItemObj, feedCommentObj);
+        if (record.getSObjectType() == FeedItem.getSObjectType()) {
+          feedItemObj.Body = TextUtils.maskData(feedItemObj.Body);
+        } else {
+          feedCommentObj.CommentBody = TextUtils.maskData(
+            feedCommentObj.CommentBody
+          );
+        }
       }
       if (
         (record.getSObjectType() == FeedItem.getSObjectType()
