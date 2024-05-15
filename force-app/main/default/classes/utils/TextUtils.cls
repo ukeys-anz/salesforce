@@ -6,19 +6,11 @@
  * @modified by Shivraj Kadam on 08/28/2023
  */
 public with sharing class TextUtils {
-  private static final String KEYWORD_LOG_MESSAGE = '{0}; {1}: {2}; Reason for logging: User entered long digits without needing to mask';
-
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
+  private static final String TAX_REGEX_PATTERN = '[0-9][^a-zA-Z]{13,}[0-9]';
   private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
   private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final String SANITISE_MOBILE_NUMBER_REGEX_PATTERN = '[^0-9]';
-  private static final String VISA_REGEX = '\\b(?<!\\$)\\d{4}(?:[ -]?\\d{4}){3}\\b';
-  private static final String AMEX_DINER_REGEX = '\\b(?<!\\$)\\d{4}[ -]?\\d{6}[ -]?\\d{4,5}\\b';
-  private static final String KEYWORD_REGEX =
-    '(?i)(?<![^\\W\\d])(?:' +
-    Label.Reactive_logging_keywords.replace(',', '|') +
-    ')(?![^\\W\\d])';
-
   private static final Integer UNMASK_LENGTH = 4;
 
   //start - added for CC-4053
@@ -34,29 +26,16 @@ public with sharing class TextUtils {
   private static Pattern extendRedactPassportPattern = Pattern.compile(
     EXT_PATTERN_PASSPORT
   );
-  private static Pattern keywordPattern = Pattern.compile(KEYWORD_REGEX);
   //end - added for CC-4053
 
   private static Pattern accountOrCardPattern = Pattern.compile(
     ACCOUNT_OR_CARD_REGEX_PATTERN
   );
+  private static Pattern taxPattern = Pattern.compile(TAX_REGEX_PATTERN);
   private static Pattern logPattern = Pattern.compile(LOG_REGEX_PATTERN);
   private static Pattern logKeywordPattern = Pattern.compile(
     LOG_KEYWORD_REGEX_PATTERN
   );
-  private static Pattern visaPattern = Pattern.compile(VISA_REGEX);
-  private static Pattern amexDinerPattern = Pattern.compile(AMEX_DINER_REGEX);
-
-  /**
-   * @description general method to mask certain data with a specific pattern
-   * @param input Input string that needs to be masked if needed
-   * @param patToCompile Regex pattern to match the string
-   * @return `String` masked string
-   */
-  public static String maskData(String input, Pattern patToCompile) {
-    return maskData(input, patToCompile, 0);
-  }
-
   /**
    * @description general method to mask certain data with a specific pattern and length
    * @param input Input string that needs to be masked if needed
@@ -70,18 +49,23 @@ public with sharing class TextUtils {
     Integer digLength
   ) {
     if (String.isNotBlank(input)) {
-      digLength = Math.max(
-        digLength == null ? 0 : digLength,
-        UNMASK_LENGTH + 1
-      );
       Matcher matchingPattern = patToCompile.matcher(input);
       while (matchingPattern.find()) {
-        String stringToMask = matchingPattern.group().replaceAll('[^0-9]', '');
-        if (stringToMask.length() >= digLength) {
-          String masked = stringToMask.right(UNMASK_LENGTH)
-            .leftPad(stringToMask.length())
-            .replace(' ', '*');
-          input = matchingPattern.replaceFirst(masked);
+        String stringToMask = matchingPattern.group(0).trim();
+        String digits = stringToMask.replaceAll('[^0-9]', '');
+        if (digits.length() >= digLength) {
+          String masked = '';
+          for (Integer i = 0; i < digits.length() - UNMASK_LENGTH; i++) {
+            masked = masked + '*';
+          }
+          masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
+          Integer index = input.indexOf(stringToMask);
+          if (index != -1) {
+            input =
+              input.subString(0, index) +
+              masked +
+              input.subString(index + stringToMask.length());
+          }
           matchingPattern = patToCompile.matcher(input);
         }
       }
@@ -105,25 +89,7 @@ public with sharing class TextUtils {
    * @return `String` masked string
    */
   public static String maskDataAnzx(String input) {
-    if (String.isNotBlank(input)) {
-      input = regexMatchesKeyword(input)
-        ? maskData(input, logKeywordPattern)
-        : maskCC(input);
-    }
-    return input;
-  }
-
-  /**
-   * @description mask credit/debit card number from a given text
-   * @param input Input string that needs to be masked if needed
-   * @return `String` masked string
-   */
-  public static String maskCC(String input) {
-    if (String.isNotBlank(input)) {
-      input = maskData(input, visaPattern);
-      input = maskData(input, amexDinerPattern);
-    }
-    return input;
+    return maskData(input, taxPattern, 15);
   }
 
   /**
@@ -172,30 +138,53 @@ public with sharing class TextUtils {
     SObject record,
     Boolean isLoggingRequired
   ) {
-    if (String.isBlank(input)) {
-      return;
-    }
-    Boolean hasKeyword = regexMatchesKeyword(input);
+    if (String.isNotBlank(input)) {
+      Boolean hasKeyword = regexMatchesKeyword(input);
 
-    input = hasKeyword ? maskData(input, logKeywordPattern) : maskCC(input);
-    record.put(fieldName, input);
+      Pattern patToCompile = taxPattern;
+      Integer digLength = 15;
+      if (hasKeyword) {
+        patToCompile = logKeywordPattern;
+        digLength = 8;
+      }
 
-    if (hasKeyword && isLoggingRequired) {
-      Logger.info(
-        String.format(
-          KEYWORD_LOG_MESSAGE,
-          new List<String>{
-            record.Id == null
-              ? record.getSObjectType().getDescribe().Name
-              : record instanceof Case
-                  ? 'CaseNumber: ' + record.get('CaseNumber')
-                  : 'Id: ' + record.Id,
-            fieldName,
-            record.get(fieldName).toString()
+      Matcher matchingPattern = patToCompile.matcher(input);
+      while (matchingPattern.find()) {
+        String stringToMask = matchingPattern.group(0).trim();
+        String digits = stringToMask.replaceAll('[^0-9]', '');
+        if (digits.length() >= digLength) {
+          String masked = '';
+          for (Integer i = 0; i < digits.length() - UNMASK_LENGTH; i++) {
+            masked = masked + '*';
           }
-        )
-      );
-      Logger.saveLog();
+          masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
+          Integer index = input.indexOf(stringToMask);
+          if (index != -1) {
+            input =
+              input.subString(0, index) +
+              masked +
+              input.subString(index + stringToMask.length());
+          }
+          matchingPattern = patToCompile.matcher(input);
+          record.put(fieldName, input);
+          if (hasKeyword && isLoggingRequired) {
+            Id sfId = (Id) record.get('Id');
+            String loggerInitialString = sfId != null
+              ? sfId.getSObjectType().getDescribe().getName() == 'Case'
+                  ? 'CaseNumber: ' + (String) record.get('CaseNumber') + '; '
+                  : 'Id: ' + (Id) record.get('Id') + '; '
+              : '';
+            Logger.info(
+              loggerInitialString +
+                fieldName +
+                ': ' +
+                (String) record.get(fieldName) +
+                '; Reason for logging: User entered long digits without needing to mask'
+            );
+            Logger.saveLog();
+          }
+        }
+      }
     }
   }
 
@@ -234,7 +223,13 @@ public with sharing class TextUtils {
    * @return `Boolean` returns if there was a match
    */
   private static Boolean regexMatchesKeyword(String input) {
-    return keywordPattern.matcher(input).find();
+    //Replace keywords with pipe to prepare for regex
+    String regexWords = Label.Reactive_logging_keywords.replace(',', '|');
+    //Regex to match only keyword and ignore whitespace and digits before/after word
+    String regex = '(?i)(?<![^\\W\\d])(?:' + regexWords + ')(?![^\\W\\d])';
+    Pattern compiledPattern = Pattern.compile(regex);
+    Matcher regexMatcher = compiledPattern.matcher(input);
+    return regexMatcher.find();
   }
 
   /**
