@@ -13,7 +13,12 @@ public class RBACPermissionCheckTest {
       [
         SELECT Id, Name
         FROM PermissionSet
-        WHERE Name = 'IDR_User_Level_3' OR Name = 'IDR_User'
+        WHERE
+          Name IN (
+            'IDR_User_Level_3',
+            'IDR_User',
+            'FinancialServicesCloudExtension'
+          )
       ]
     );
     //Create IDR User
@@ -32,7 +37,7 @@ public class RBACPermissionCheckTest {
     String[] objectList = new List<String>{
       'Asset',
       'Campaign',
-      // 'Opportunity',
+      //'Opportunity',
       'Lead',
       'Order',
       'PriceBook2',

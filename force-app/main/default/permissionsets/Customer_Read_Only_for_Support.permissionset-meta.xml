@@ -24,7 +24,7 @@
         <apexClass>TotalBalanceController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <description>Should only have required permissions to view Custom related information for support users. It doesn't have access to card, financial account and financial goals. Also doesn't have access to transaction history and account and goals</description>
+    <description>Should only have required permissions to view Custom related information for support users. It doesn&apos;t have access to card, financial account and financial goals. Also doesn&apos;t have access to transaction history and account and goals</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.BillingAddress</field>
@@ -98,6 +98,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.KYC_Verification_Level__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Mobile__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

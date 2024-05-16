@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLAQueueName__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Queue to be assigned to in salesforce for SLA</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>SLA Queue Name</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>TobeWorkedFraudDisputes</fullName>
+                <default>false</default>
+                <label>TobeWorkedFraudDisputes</label>
+            </value>
+            <value>
+                <fullName>TobeWorkedSchemeDisputes</fullName>
+                <default>false</default>
+                <label>TobeWorkedSchemeDisputes</label>
+            </value>
+            <value>
+                <fullName>CardDisputesAwaitingContact</fullName>
+                <default>false</default>
+                <label>CardDisputesAwaitingContact</label>
+            </value>
+            <value>
+                <fullName>ReviewRequiredDisputes</fullName>
+                <default>false</default>
+                <label>ReviewRequiredDisputes</label>
+            </value>
+            <value>
+                <fullName>TechnicalErrorDisputes</fullName>
+                <default>false</default>
+                <label>TechnicalErrorDisputes</label>
+            </value>
+            <value>
+                <fullName>UnderInvestigationPendingDisputes</fullName>
+                <default>false</default>
+                <label>UnderInvestigationPendingDisputes</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

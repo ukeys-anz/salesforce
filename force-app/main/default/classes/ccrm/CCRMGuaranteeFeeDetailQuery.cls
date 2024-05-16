@@ -76,7 +76,7 @@ public with sharing class CCRMGuaranteeFeeDetailQuery extends CCRMFinancialAccou
       row.put('Amount', fee.feeAmount);
       row.put('Frequency', fee.feeFrequency);
       row.put('FeeChargeAccount', fee.feeChargeAccount);
-      row.put('NextDueDate', adjustUTCDateTime(fee.nextDueDate));
+      row.put('NextDueDate', formatDate(fee.nextDueDate));
       result.queryResult.add(row);
     }
     return result;

@@ -5,8 +5,9 @@
     <complianceGroup>Integrity - Trusted;Privacy_Non_Personal_Information;Source - Salesforce</complianceGroup>
     <description>My Sub Team</description>
     <externalId>false</externalId>
-    <formula>$User.Sub_Team_Code__c = Owner.Sub_Team_Code__c</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <formula>$User.Sub_Team_Code__c = Owner.Sub_Team_Code__c 
+&amp;&amp; NOT(ISNULL(Owner.Sub_Team_Code__c))
+&amp;&amp; My_Team__c</formula>
     <label>My Sub Team</label>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>

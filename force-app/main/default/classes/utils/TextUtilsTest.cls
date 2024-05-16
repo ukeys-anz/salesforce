@@ -111,40 +111,28 @@ public with sharing class TextUtilsTest {
     Assert.areEqual(
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
-      'Sanitise Mobile Number ' +
-      input +
-      'should be' +
-      exceptedOutput
+      'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
     );
 
     input = ' 61 123 456 789 ';
     Assert.areEqual(
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
-      'Sanitise Mobile Number ' +
-      input +
-      'should be' +
-      exceptedOutput
+      'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
     );
 
     input = '+61 123 456 789';
     Assert.areEqual(
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
-      'Sanitise Mobile Number ' +
-      input +
-      'should be' +
-      exceptedOutput
+      'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
     );
 
     input = '+61-123 456 789 ';
     Assert.areEqual(
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
-      'Sanitise Mobile Number ' +
-      input +
-      'should be' +
-      exceptedOutput
+      'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
     );
   }
 }

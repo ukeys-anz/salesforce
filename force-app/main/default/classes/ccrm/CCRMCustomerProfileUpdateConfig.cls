@@ -154,6 +154,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
 
   public static Map<Id, SObject> controllingPostMap = new Map<Id, SObject>();
   public static Map<Id, SObject> industryMap = new Map<Id, SObject>();
+  public static Map<String, String> orgTypeValueLabelMap = new Map<String, String>();
 
   /**
    * @description Wrapper class for prospect field mapping configuration
@@ -447,14 +448,20 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         fieldName == CCRMConstants.ACC_CPID
       ) {
         return controllingPostMap.get((Id) record.get(field))?.get('CPID__c');
-      } else if (
+      }
+      if (
         fieldName == CCRMConstants.ACC_IND_LABEL ||
         fieldName == CCRMConstants.ACC_IND
       ) {
         return industryMap.get((Id) record.get(field))?.get('Code__c');
-      } else {
-        return record.get(field);
       }
+      if (
+        fieldName == CCRMConstants.ACC_ORG ||
+        fieldName == CCRMConstants.ACC_ORG_LABEL
+      ) {
+        return (Object) orgTypeValueLabelMap.get((String) record.get(field));
+      }
+      return record.get(field);
     }
 
     /**

@@ -5,6 +5,13 @@ import insertDataInCache from "@salesforce/apex/CCRMFinancialSummaryController.i
 import { subscribe, unsubscribe } from "lightning/empApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
+const CALCULATION_IN_PROGRESS = "Calculation is in progress";
+const NO_AVAILABLE_BALANCE = "No Available Balance";
+const UNEXPECTED_ERROR = "Unexpected error";
+const DATA_FOUND_IN_CACHE = "Data found in cache";
+const TOTAL_CUSTOMER_BALANCE = "TOTAL_CUSTOMER_BALANCE";
+const TERMINALS = "TERMINALS";
+const TOTAL_ASSET_FINANCE_BALANCE = "TOTAL_ASSET_FINANCE_BALANCE";
 export default class financialSummaryViewAsync extends LightningElement {
   @api recordId;
   @api channelName = "/event/Financial_Summary_Calculation__e";
@@ -21,9 +28,6 @@ export default class financialSummaryViewAsync extends LightningElement {
   callTotalCustBalanceApi = true;
   callTerminalApi = true;
   callAssetFinanceBalanceApi = true;
-  showTotalBalCalculationProgress = false;
-  showTerminalCalculationProgress = false;
-  showAssetCalculationProgress = false;
   showTotalBalValue = false;
   showTerminalValue = false;
   showAssetValue = false;
@@ -31,9 +35,12 @@ export default class financialSummaryViewAsync extends LightningElement {
   platformEventList = [];
   errorResponse;
   updatedResponse;
-  showNoTotalBalance = false;
-  showNoTerminal = false;
-  showNoAssetBalance = false;
+  showTotalBalOtherValue = false;
+  totalBalOtherValue;
+  showTerminalOtherValue = false;
+  terminalOtherValue;
+  showAssetOtherValue = false;
+  assetOtherValue;
   financialSummariesCallout;
 
   async connectedCallback() {
@@ -48,62 +55,61 @@ export default class financialSummaryViewAsync extends LightningElement {
       });
       this.showSpinner = false;
       this.financialSummaryData = resultSummaries;
-      this.showTotalBalCalculationProgress = true;
-      this.showTerminalCalculationProgress = true;
-      this.showAssetCalculationProgress = true;
+      this.showTotalBalOtherValue = this.showTerminalOtherValue = this.showAssetOtherValue = true;
+      this.totalBalOtherValue = this.terminalOtherValue = this.assetOtherValue = CALCULATION_IN_PROGRESS;
     } catch (error) {
       this.errorResponse = error.body.message;
       this.showSpinner = false;
       this.handleError();
     }
 
-    if (this.financialSummaryData.cacheAck === "Data found in cache") {
+    if (this.financialSummaryData.cacheAck === DATA_FOUND_IN_CACHE) {
       if (this.financialSummaryData.totalBalance !== undefined) {
         this.showTotalBalValue = true;
-        this.showTotalBalCalculationProgress = false;
-        this.showNoTotalBalance = false;
+        this.showTotalBalOtherValue = false;
         this.totalCustBalance = this.financialSummaryData.totalBalance;
         this.countTotalBalance++;
       }
       if (
         this.financialSummaryData.totalBalance === undefined &&
-        this.financialSummaryData.totalBalanceAck === "No available balance"
+        (this.financialSummaryData.totalBalanceAck === NO_AVAILABLE_BALANCE ||
+          this.financialSummaryData.totalBalanceAck === UNEXPECTED_ERROR)
       ) {
-        this.showTotalBalCalculationProgress = false;
         this.showTotalBalValue = false;
-        this.showNoTotalBalance = true;
+        this.showTotalBalOtherValue = true;
+        this.totalBalOtherValue = this.financialSummaryData.totalBalanceAck;
         this.countTotalBalance++;
       }
       if (this.financialSummaryData.totalMerchantTerminals !== undefined) {
         this.showTerminalValue = true;
-        this.showTerminalCalculationProgress = false;
-        this.showNoTerminal = false;
+        this.showTerminalOtherValue = false;
         this.totalTerminal = this.financialSummaryData.totalMerchantTerminals;
         this.countNoOfTerminals++;
       }
       if (
         this.financialSummaryData.totalMerchantTerminals === undefined &&
-        this.financialSummaryData.terminalAck === "No available balance"
+        (this.financialSummaryData.terminalAck === NO_AVAILABLE_BALANCE ||
+          this.financialSummaryData.terminalAck === UNEXPECTED_ERROR)
       ) {
-        this.showTerminalCalculationProgress = false;
         this.showTerminalValue = false;
-        this.showNoTerminal = true;
+        this.showTerminalOtherValue = true;
+        this.terminalOtherValue = this.financialSummaryData.terminalAck;
         this.countNoOfTerminals++;
       }
       if (this.financialSummaryData.totalAssetFinanceBalance !== undefined) {
         this.showAssetValue = true;
-        this.showAssetCalculationProgress = false;
-        this.showNoAssetBalance = false;
+        this.showAssetOtherValue = false;
         this.totalAssetBalance = this.financialSummaryData.totalAssetFinanceBalance;
         this.countTotalAssetBalance++;
       }
       if (
         this.financialSummaryData.totalAssetFinanceBalance === undefined &&
-        this.financialSummaryData.assetBalanceAck === "No available balance"
+        (this.financialSummaryData.assetBalanceAck === NO_AVAILABLE_BALANCE ||
+          this.financialSummaryData.assetBalanceAck === UNEXPECTED_ERROR)
       ) {
-        this.showAssetCalculationProgress = false;
         this.showAssetValue = false;
-        this.showNoAssetBalance = true;
+        this.showAssetOtherValue = true;
+        this.assetOtherValue = this.financialSummaryData.assetBalanceAck;
         this.countTotalAssetBalance++;
       }
       this.lastSummaryCalculated =
@@ -152,12 +158,12 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.handleInsert();
       }
       this.handlePlatformEvent(message);
-      if (message.data.payload.Summary_Type__c === "TOTAL_CUSTOMER_BALANCE") {
+      if (message.data.payload.Summary_Type__c === TOTAL_CUSTOMER_BALANCE) {
         this.countTotalBalance++;
-      } else if (message.data.payload.Summary_Type__c === "TERMINALS") {
+      } else if (message.data.payload.Summary_Type__c === TERMINALS) {
         this.countNoOfTerminals++;
       } else if (
-        message.data.payload.Summary_Type__c === "TOTAL_ASSET_FINANCE_BALANCE"
+        message.data.payload.Summary_Type__c === TOTAL_ASSET_FINANCE_BALANCE
       ) {
         this.countTotalAssetBalance++;
       }
@@ -189,48 +195,82 @@ export default class financialSummaryViewAsync extends LightningElement {
   }
 
   handlePlatformEvent(message) {
-    this.showSpinner = true;
-    if (message.data.payload.Response_Id__c === this.recordId) {
-      if (message.data.payload.Summary_Type__c === "TOTAL_CUSTOMER_BALANCE") {
-        this.showTotalBalValue = true;
-        this.showNoTotalBalance = false;
-        this.showTotalBalCalculationProgress = false;
-        this.totalCustBalance = message.data.payload.Summary__c;
-      } else if (message.data.payload.Summary_Type__c === "TERMINALS") {
-        this.showTerminalValue = true;
-        this.showNoTerminal = false;
-        this.showTerminalCalculationProgress = false;
-        this.totalTerminal = message.data.payload.Summary__c;
-      } else if (
-        message.data.payload.Summary_Type__c === "TOTAL_ASSET_FINANCE_BALANCE"
-      ) {
-        this.showAssetValue = true;
-        this.showNoAssetBalance = false;
-        this.showAssetCalculationProgress = false;
-        this.totalAssetBalance = message.data.payload.Summary__c;
-      }
-      const dateTimeNow = new Date();
-      const date = String(dateTimeNow.getDate()).padStart(2, "0");
-      const month = String(dateTimeNow.getMonth() + 1).padStart(2, "0");
-      const year = String(dateTimeNow.getFullYear());
-      const hours = String(dateTimeNow.getHours() % 12 || 12).padStart(2, "0");
-      const min = String(dateTimeNow.getMinutes()).padStart(2, "0");
-      const amPm = dateTimeNow.getHours() > 12 ? "PM" : "AM";
-      this.lastSummaryCalculated =
-        "Last summary calculated : " +
-        date +
-        "/" +
-        month +
-        "/" +
-        year +
-        " " +
-        hours +
-        ":" +
-        min +
-        " " +
-        amPm;
+    if (
+      message.data.payload.Response_Id__c === this.recordId &&
+      message.data.payload.Status__c === "Success"
+    ) {
+      this.handlePlatformEventSuccess(message);
+    } else if (
+      message.data.payload.Response_Id__c === this.recordId &&
+      message.data.payload.Status__c === "Error"
+    ) {
+      this.handlePlatformEventError(message);
     }
+  }
+
+  handlePlatformEventSuccess(message) {
+    this.showSpinner = true;
+    if (message.data.payload.Summary_Type__c === TOTAL_CUSTOMER_BALANCE) {
+      this.showTotalBalValue = true;
+      this.showTotalBalOtherValue = false;
+      this.totalCustBalance = message.data.payload.Summary__c;
+    } else if (message.data.payload.Summary_Type__c === TERMINALS) {
+      this.showTerminalValue = true;
+      this.showTerminalOtherValue = false;
+      this.totalTerminal = message.data.payload.Summary__c;
+    } else if (
+      message.data.payload.Summary_Type__c === TOTAL_ASSET_FINANCE_BALANCE
+    ) {
+      this.showAssetValue = true;
+      this.showAssetOtherValue = false;
+      this.totalAssetBalance = message.data.payload.Summary__c;
+    }
+    this.handleLastSummaryCalculation();
     this.showSpinner = false;
+  }
+
+  handlePlatformEventError(message) {
+    this.showSpinner = true;
+    if (message.data.payload.Summary_Type__c === TOTAL_CUSTOMER_BALANCE) {
+      this.showTotalBalValue = false;
+      this.showTotalBalOtherValue = true;
+      this.totalBalOtherValue = UNEXPECTED_ERROR;
+    } else if (message.data.payload.Summary_Type__c === TERMINALS) {
+      this.showTerminalValue = false;
+      this.showTerminalOtherValue = true;
+      this.terminalOtherValue = UNEXPECTED_ERROR;
+    } else if (
+      message.data.payload.Summary_Type__c === TOTAL_ASSET_FINANCE_BALANCE
+    ) {
+      this.showAssetValue = false;
+      this.showAssetOtherValue = true;
+      this.assetOtherValue = UNEXPECTED_ERROR;
+    }
+    this.handleLastSummaryCalculation();
+    this.showSpinner = false;
+  }
+
+  handleLastSummaryCalculation() {
+    const dateTimeNow = new Date();
+    const date = String(dateTimeNow.getDate()).padStart(2, "0");
+    const month = String(dateTimeNow.getMonth() + 1).padStart(2, "0");
+    const year = String(dateTimeNow.getFullYear());
+    const hours = String(dateTimeNow.getHours() % 12 || 12).padStart(2, "0");
+    const min = String(dateTimeNow.getMinutes()).padStart(2, "0");
+    const amPm = dateTimeNow.getHours() > 12 ? "PM" : "AM";
+    this.lastSummaryCalculated =
+      "Last summary calculated : " +
+      date +
+      "/" +
+      month +
+      "/" +
+      year +
+      " " +
+      hours +
+      ":" +
+      min +
+      " " +
+      amPm;
   }
 
   handleError() {
@@ -282,22 +322,22 @@ export default class financialSummaryViewAsync extends LightningElement {
   }
 
   handleNoAvailableBalance(result) {
-    if (result.totalBalanceAck === "No available balance") {
-      this.showTotalBalCalculationProgress = false;
+    if (result.totalBalanceAck === NO_AVAILABLE_BALANCE) {
       this.showTotalBalValue = false;
-      this.showNoTotalBalance = true;
+      this.showTotalBalOtherValue = true;
+      this.totalBalOtherValue = NO_AVAILABLE_BALANCE;
       this.countTotalBalance++;
     }
-    if (result.terminalAck === "No available balance") {
-      this.showTerminalCalculationProgress = false;
+    if (result.terminalAck === NO_AVAILABLE_BALANCE) {
       this.showTerminalValue = false;
-      this.showNoTerminal = true;
+      this.showTerminalOtherValue = true;
+      this.terminalOtherValue = NO_AVAILABLE_BALANCE;
       this.countNoOfTerminals++;
     }
-    if (result.assetBalanceAck === "No available balance") {
-      this.showAssetCalculationProgress = false;
+    if (result.assetBalanceAck === NO_AVAILABLE_BALANCE) {
       this.showAssetValue = false;
-      this.showNoAssetBalance = true;
+      this.showAssetOtherValue = true;
+      this.assetOtherValue = NO_AVAILABLE_BALANCE;
       this.countTotalAssetBalance++;
     }
     if (

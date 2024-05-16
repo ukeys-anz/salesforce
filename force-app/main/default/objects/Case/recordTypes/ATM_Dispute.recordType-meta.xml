@@ -58,6 +58,45 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>CardScamType__c</picklist>
+        <values>
+            <fullName>Bank Impersonation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dating %26 Romance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fake Charity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jobs %26 Employment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remote Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Threats %26 Extortion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unexpected Money%2Fwinnings</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Card_In_Possession_During_Transaction__c</picklist>
         <values>
             <fullName>NA</fullName>
@@ -4883,6 +4922,17 @@
         </values>
         <values>
             <fullName>5</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IsAScam__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>

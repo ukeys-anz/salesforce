@@ -109,9 +109,33 @@ public with sharing class SettlementActions {
   /**
    * @description Create action plans for settlement
    * @param records records to populate
+   * @param oldMap Map of old records used in update context
    */
-  public static void createActionPlans(List<Settlement__c> records) {
-    List<ActionPlan> actionPlanList = createActionPlansRecords(records);
+  public static void createActionPlans(
+    List<Settlement__c> records,
+    Map<Id, SObject> oldMap
+  ) {
+    List<Settlement__c> filteredSettlements = new List<Settlement__c>();
+    // oldMap only provided in update context
+    if (oldMap != null) {
+      //only proceed if settlement type has changed
+      for (Settlement__c settlement : records) {
+        if (
+          RecordComparisonUtil.fieldWasChanged(
+            settlement,
+            oldMap.get(settlement.Id),
+            Settlement__c.Type__c
+          )
+        ) {
+          filteredSettlements.add(settlement);
+        }
+      }
+    } else {
+      filteredSettlements = records;
+    }
+    List<ActionPlan> actionPlanList = createActionPlansRecords(
+      filteredSettlements
+    );
 
     if (actionPlanList.isEmpty()) {
       return;
@@ -136,6 +160,7 @@ public with sharing class SettlementActions {
     List<Settlement__c> filteredSettlements = filterSettlementExistingActionPlan(
       settlementRecords
     );
+
     //TYPE_REFINANCE_INTERNAL = Internal | TYPE_REFINANCE_OFI = External
     Map<String, String> settlementNameMap = new Map<String, String>{
       'TYPE_REFINANCE_INTERNAL' => 'Internal Plan',
@@ -199,12 +224,15 @@ public with sharing class SettlementActions {
       return records;
     }
 
+    Map<Id, ActionPlan> actionPlanMap = new Map<Id, ActionPlan>();
+    for (ActionPlan ap : actionPlanList) {
+      actionPlanMap.put(ap.TargetId, ap);
+    }
+
     //Loop through records and filter out settlements with existing action plans
     for (Settlement__c settlement : records) {
-      for (ActionPlan ap : actionPlanList) {
-        if (ap.TargetId != settlement.Id) {
-          settlementList.add(settlement);
-        }
+      if (actionPlanMap.get(settlement.Id) == null) {
+        settlementList.add(settlement);
       }
     }
 

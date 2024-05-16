@@ -8179,7 +8179,7 @@
         <recordType>Lead.FinServ__RetirementPlanning</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>PersonAccount-Customer View Layout</layout>
+        <layout>PersonAccount-Customer Tabbed View Layout</layout>
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>

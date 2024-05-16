@@ -97,6 +97,8 @@ public with sharing class CustomerDisputeManagementService {
         Customer_Dispute_Management__c,
         Customer_Dispute_Management__r.Id,
         Customer_Dispute_Management__r.Temporary_Block__c,
+        Customer_Dispute_Management__r.Permanent_Block__c,
+        Customer_Dispute_Management__r.Temporary_Block_Overridden__c,
         (
           SELECT Id
           FROM Cases
@@ -190,6 +192,87 @@ public with sharing class CustomerDisputeManagementService {
     return accountToBeUpdated;
   }
 
+  /**
+   * @description This method is called from before insert of the case and will restrict the case creation if the dispute limit reached.
+   * @param newCaseRecords list of new cases to be created.
+   */
+  public static void restrictDisputeCreationIfLimitReached(List<Case> newCaseRecords){ 
+    Set<Id> accountIdsFromCase = getRelatedAccountsFromCase(newCaseRecords);
+
+    if(accountIdsFromCase.isEmpty()){
+      return;
+    }
+
+    List<Account> accountWithCDMDetails = queryCustomer(accountIdsFromCase);
+      
+    Map<Id,Account> accountCDMMap = createAccountMapWithCDMDetails(accountWithCDMDetails);
+	
+    setErrorIfRateLimitReached(newCaseRecords,accountCDMMap);
+    
+  }
+
+  /**
+   * @description This method will create a set of AccountID associated with Cases.
+   * @param newCaseRecords List of Cases from Trigger
+   * @return accountIdsFromCase Set<Id> of the Accounts associated to Cases.
+   */
+  @TestVisible
+  private static Set<Id> getRelatedAccountsFromCase(List<Case> newCaseRecords ){
+    Set<Id> accountIdsFromCase = new Set<Id>(); 
+    for (Case caseRecord : newCaseRecords) {
+      if (
+        !(caseRecord.AccountId != null &&
+        CheckCaseRecordType.isDispute(caseRecord) &&
+        GetHelpConstants.SELF_SERVICE_ORIGIN.contains(caseRecord.Origin))
+      ) {
+        continue;
+      }
+      accountIdsFromCase.add(caseRecord.AccountId);
+    }
+    return accountIdsFromCase;
+  }
+
+  /**
+   * @description This method will create a map of AccountID and Account record with CDM data.
+   * @param accountWithCDMDetails List of Account with their CDM Details If Exist.
+   * @return accountCDMMap Map of AccountId and Account record with CDM data.
+   */
+  @TestVisible
+  private static Map<Id,Account>  createAccountMapWithCDMDetails( List<Account> accountWithCDMDetails){
+    return new Map<Id,Account>(accountWithCDMDetails);
+  }
+
+  /**
+   * @description This method will add error to the case if Rate Limit Reached.
+   * @param newCaseRecords List of Cases to be inserted.
+   * @param accountCDMMap Map of ID and Account record with their CDM Details If Exist.
+   */
+  @TestVisible
+  private static void setErrorIfRateLimitReached(List<Case> newCaseRecords, Map<Id,Account> accountCDMMap){
+
+    for (Case caseRecord : newCaseRecords) {
+      if(accountCDMMap.containsKey(caseRecord.AccountId) && hasRateLimitReached(accountCDMMap.get(caseRecord.AccountId)))
+      {
+        caseRecord.addError(Label.CdmLimitReachedErrorMessage);
+      } 
+    }  
+
+  }
+    
+  /**
+   * @description This method will return boolean if Rate Limit Reached or Permanently Blocked for the Customer to create dispute cases.
+   * @param accountWithCDMDetail Account with their CDM Details If Exist.
+   * @return boolean value to identify if rete limit reached.
+   */
+  @TestVisible
+  private static Boolean hasRateLimitReached(Account accountWithCDMDetail ){
+    Boolean permanentChecked = accountWithCDMDetail.Customer_Dispute_Management__r.Permanent_Block__c;
+    Boolean tempChecked = accountWithCDMDetail.Customer_Dispute_Management__r.Temporary_Block__c;
+    Boolean tempOveriddenChecked = accountWithCDMDetail.Customer_Dispute_Management__r.Temporary_Block_Overridden__c;
+
+    return (permanentChecked) || (tempChecked && !tempOveriddenChecked) ?? false ;
+  }
+  
   /**
    * @description private without sharing class to bypass account sharing setting to link CDM with Account in System mode
    */

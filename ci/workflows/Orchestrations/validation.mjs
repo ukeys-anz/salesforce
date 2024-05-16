@@ -47,7 +47,7 @@ const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases-np`;
 const CLASS_FOLDER_PATH = `${SOURCE_DIR}/force-app/main/default/classes`;
 const JOB_ID_FILE_NAME =
   renameItem(`${BASE_REF}-${PR_NUMBER}`) +
-  (JOB_NAME ? `${JOB_NAME.replace("h-salesforce-np", "")}` : "");
+  (JOB_NAME ? `${JOB_NAME.replace("sf-platform-np", "")}` : "");
 const ANZX_CI_PACKAGE_XML =
   WORKING_DIR + "/ci/workflows/Config/ANZxCIPackage.xml";
 const ARTIFACT_PACKAGE_XML =

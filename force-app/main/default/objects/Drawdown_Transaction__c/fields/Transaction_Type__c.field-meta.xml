@@ -25,7 +25,7 @@
                 <label>Draw</label>
             </value>
             <value>
-                <fullName>DRAWDOWN_TRANSACTION_TYPE_CSTCNT</fullName>
+                <fullName>DRAWDOWN_TRANSACTION_TYPE_CSTCONT</fullName>
                 <default>false</default>
                 <label>Customer Contribution</label>
             </value>

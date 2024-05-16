@@ -44,9 +44,9 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Modify Territory Sharing Access</label>
     <objectPermissions>
-        <allowCreate>true</allowCreate>
+        <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>true</allowEdit>
+        <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Territory__c</object>

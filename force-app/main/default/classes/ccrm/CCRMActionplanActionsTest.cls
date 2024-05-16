@@ -8,11 +8,11 @@ private class CCRMActionplanActionsTest {
   @testSetup
   static void makeData() {
     User ccrmBaseUser;
-      ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
-      TestUtil.assignPermissionSets(
-        new List<String>{ 'CCRM_Opportunity_Access', 'ActionPlans' },
-        new List<User>{ ccrmBaseUser }
-      );
+    ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
+    TestUtil.assignPermissionSets(
+      new List<String>{ 'CCRM_Opportunity_Access', 'ActionPlans' },
+      new List<User>{ ccrmBaseUser }
+    );
   }
   @isTest
   static void testCreateActionPlan() {
@@ -79,6 +79,39 @@ private class CCRMActionplanActionsTest {
       Test.stopTest();
 
       System.assertEquals(1, actionPlan.size(), 'No action plans exist');
+    }
+  }
+
+  @isTest
+  static void insertActionPlansWithNoOppTest() {
+    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
+    System.runAs(ccrmBaseUser) {
+      List<Opportunity> oppList;
+      CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper;
+      CCRMActionPlanActions.CCRMActionPlanWrapper planWrapper;
+      List<ActionPlan> actionPlan = new List<ActionPlan>();
+
+      Test.startTest();
+      oppList = CCRMTestDataFactory.createOpportunityRecords(
+        1,
+        ccrmBaseUser,
+        true
+      );
+      CCRMTestDataFactory.createActionPlans();
+
+      oppWrapper = new CCRMOpportunityActions.CCRMOpportunityWrapper();
+
+      planWrapper = new CCRMActionPlanActions.CCRMActionPlanWrapper();
+
+      planWrapper.oppsWithNoActionPlansToTemplateNameMap = new Map<Id, List<String>>();
+
+      actionPlan = CCRMActionPlanActions.insertActionPlans(
+        planWrapper,
+        oppWrapper
+      );
+      Test.stopTest();
+
+      System.assertEquals(0, actionPlan.size(), 'Action plans exist');
     }
   }
 

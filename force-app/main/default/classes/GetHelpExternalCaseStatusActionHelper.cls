@@ -61,7 +61,7 @@ public with sharing class GetHelpExternalCaseStatusActionHelper {
   /**
    * @description To get related NPP Cases
    * @param relatedCasesIds list of all cases ids
-   * @return List<Id> returns Id's of related NPP Cases
+   * @return Set<Id> returns Id's of related NPP Cases
    */
   public static Set<Id> getRelatedNppCasesIds(List<Id> relatedCasesIds) {
     List<Id> nppCasesIds = new List<Id>();

@@ -5,8 +5,6 @@ import { handleErrorShowToast } from "c/utils";
 import { handleGoalThemes } from "c/accountsGoalsUtils";
 
 /* IMPORT APEX METHODS */
-import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBalance";
-import getTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved";
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
 //import getLoans from "@salesforce/resourceUrl/mock_homeloanaccounts";
@@ -46,6 +44,14 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   //Pass this to the goals lwc so we can navigate to the
   //savings financial account
   savingsId;
+  accountToOwnership = new Map();
+
+  connectedCallback() {
+    window.addEventListener(
+      "refreshFinances_" + this.recordId,
+      this.handleRefreshFinances.bind(this)
+    );
+  }
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -76,7 +82,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       });
       //Need to stringify and send as the array consists of many objects and SF proxies it
       //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
-      this.loanData = JSON.stringify(response.accounts);
+      if (response.accounts.length > 0) {
+        this.loanData = JSON.stringify(response.accounts);
+      }
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -122,28 +130,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ]
       });
       this.handleAccountInformation(accountDetails);
-    } finally {
-      try {
-        let { totalBalance } = await getTotalBalance({
-          ownerId: this.recordId
-        });
-        this.totalBalance = totalBalance;
-
-        let { totalSaved } = await getTotalSaved({
-          ownerId: this.recordId
-        });
-        this.totalSaved = totalSaved;
-      } catch (error) {
-        this.totalBalanceError =
-          "Failed to retrieve total balance details. Please refresh and try again. If issue persists please contact your System Administrator";
-        handleErrorShowToast(
-          this,
-          "Failed To Retrieve Total Balance Details",
-          error,
-          this.totalBalanceError,
-          "pester"
-        );
-      }
     }
   }
 
@@ -153,10 +139,19 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     try {
       let goalData = await getAccountBuckets({
         ocvId: this.ocvId,
-        pageSize: 4,
+        pageSize: 10,
         nextPageToken: ""
       });
       goalData = handleGoalThemes(goalData);
+      const goalBucket = goalData.account_buckets.filter((eachGoalData) => {
+        let ownership = "";
+        if (this.accountToOwnership.has(eachGoalData.account_number)) {
+          ownership = this.accountToOwnership.get(eachGoalData.account_number);
+        }
+        return ownership !== MULTI_PARTY;
+      });
+      goalData.account_buckets = goalBucket;
+
       //Savings jar will always be default, so retrieve it
       //to pass through to other components that need it
       this.savingsJar = goalData.account_buckets.filter((obj) => {
@@ -182,38 +177,39 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   handleAccountInformation(finAccounts) {
     if (finAccounts) {
       finAccounts.forEach((account) => {
-        // As per story ANZX-113310 Colour of status “Active”, “Dormant“, “Closed” is changed .Hence,changing the badge class
-        account.badgeClass =
-          account.FinServ__Status__c === "Active" ||
-          account.FinServ__Status__c === "Open"
-            ? "slds-badge slds-theme_success"
-            : account.FinServ__Status__c === "Closed"
-            ? "slds-badge closedBadgeClass"
-            : account.FinServ__Status__c === "Dormant"
-            ? "slds-badge dormantBadgeClass"
-            : "slds-badge";
-
-        // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
-        account.showSavingsJar = account.FinServ__Status__c !== "Closed";
-
-        // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
-        if (account.FinServ__Ownership__c) {
-          account = this.handleShowMultiPartyBadge(
-            account,
-            "FinServ__Ownership__c"
-          );
-        } else if (account.Ownership__c) {
-          account = this.handleShowMultiPartyBadge(account, "Ownership__c");
-          account.FinServ__Ownership__c = account.Ownership__c;
-        }
         //Determine the type of financial account
-        if (account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME) {
-          this.accountData.checking.push(account);
-        } else if (
-          account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
-        ) {
-          this.accountData.savings.push(account);
-          this.savingsId = account.Id;
+        if (account.FinServ__Status__c !== "Closed") {
+          // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
+          account.showSavingsJar = true;
+
+          // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
+          if (account.FinServ__Ownership__c) {
+            account = this.handleShowMultiPartyBadge(
+              account,
+              "FinServ__Ownership__c"
+            );
+          } else if (account.Ownership__c) {
+            account = this.handleShowMultiPartyBadge(account, "Ownership__c");
+            account.FinServ__Ownership__c = account.Ownership__c;
+          }
+
+          this.accountToOwnership.set(
+            account.FinServ__FinancialAccountNumber__c,
+            account.FinServ__Ownership__c
+          );
+
+          if (
+            account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME
+          ) {
+            this.accountData.checking.push(account);
+          } else if (
+            account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
+          ) {
+            this.accountData.savings.push(account);
+            if (account.FinServ__Ownership__c !== MULTI_PARTY) {
+              this.savingsId = account.Id;
+            }
+          }
         }
       });
       this.sortFinancialAccounts(this.accountData.checking);
@@ -268,11 +264,22 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     });
   }
 
+  handleRefreshFinances() {
+    this.refreshData();
+  }
+
   async refreshData() {
     this.loading = true;
     await this.getFinancialAccount();
     await this.getGoals();
     this.loading = false;
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener(
+      "refreshFinances_" + this.recordId,
+      this.handleRefreshFinances.bind(this)
+    );
   }
 
   //Created this method to check whether the account have Multi-party or Single ownership type

@@ -61,9 +61,9 @@ public with sharing class FeedMaskUtils {
             : 'Account Name: ' + relatedAcc.Name;
           Logger.info(
             caseOrAccountLog +
-            '; Body: ' +
-            feedRecordBody +
-            '; Reason for logging: User entered long digits without needing to mask'
+              '; Body: ' +
+              feedRecordBody +
+              '; Reason for logging: User entered long digits without needing to mask'
           );
         }
       } else if (relatedInteraction != null) {

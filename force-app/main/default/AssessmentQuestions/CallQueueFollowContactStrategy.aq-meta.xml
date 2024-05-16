@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssessmentQuestion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>CallQueueFollowContactStrategy</name>
+    <assessmentQuestionVersion>
+        <name>CallQueueFollowcontactstrategy</name>
+        <isActive>true</isActive>
+        <optionSourceResponseValue>false</optionSourceResponseValue>
+        <questionText>Determine how you will contact the customer as per “Communicating with our Customers (Contact Strategy)” process</questionText>
+        <responseValues>Email contact preferred (or required) – send first introduction template email, then (if required) send second introduction email/ template, then click ‘Next’.
+Phone contact preferred (or preference not specified) – send SMS text message using template, then click ‘Next’.</responseValues>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+    </assessmentQuestionVersion>
+    <dataType>Radio</dataType>
+    <developerName>CallQueueFollowContactStrategy</developerName>
+    <questionCategory>Demographic</questionCategory>
+</AssessmentQuestion>

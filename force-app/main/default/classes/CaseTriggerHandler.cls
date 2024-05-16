@@ -54,6 +54,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       null
     );
+    CustomerDisputeManagementService.restrictDisputeCreationIfLimitReached(
+      records
+    );
+
     Logger.debug('On_Before_Insert finished: ' + System.now());
     Logger.saveLog();
   }

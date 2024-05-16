@@ -18,6 +18,7 @@
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Broker_Involved__c</fieldNames>
+        <fieldNames>New_to_Bank__c</fieldNames>
         <fieldNames>Customer_Needs__c</fieldNames>
         <info>&lt;ul&gt;&lt;li&gt;Broker Referral? Check the broker’s accreditation.&lt;/li&gt;&lt;li&gt;Get to know your customer via Customer 360 - their Business structure and their existing facilities, securities, financials and account conduct.&lt;/li&gt;&lt;li&gt;Are all the related entities created and linked? If not, do this now.&lt;/li&gt;&lt;li&gt;Time to meet with your Customer!&lt;ul&gt;&lt;li&gt;Schedule a Meeting.&lt;/li&gt;&lt;li&gt;Let them know what documents to bring.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Opportunity Identified</picklistValueName>

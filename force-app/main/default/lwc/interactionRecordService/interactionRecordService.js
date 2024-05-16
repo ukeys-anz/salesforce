@@ -21,9 +21,11 @@ export default class InteractionRecordService extends NavigationMixin(
   @api generalRecord;
   @api storeRecord;
   @api appointmentRecord;
+  @api showOpenMessageOnly;
+
   chatOrCallSid;
   showInteractionRecords = false;
-  totalInteractionRecords;
+  totalInteractionRecords = 0;
   interactionrecords = {
     data: undefined,
     error: undefined
@@ -55,14 +57,15 @@ export default class InteractionRecordService extends NavigationMixin(
   @wire(getInteractionRecord, {
     strParentId: "$strParentId",
     strRecordTypeName: "$strRecordTypeName",
-    maxRecords: "$maxNumber"
+    maxRecords: "$maxNumber",
+    activeInteractionsOnly: "$showOpenMessageOnly"
   })
   wiredData(response) {
     const { error, data } = response;
     if (data) {
       this.interactionrecords.error = undefined;
       if (data.length > 0) {
-        this.interactionrecords.data = data;
+        this.interactionrecords.data = this.calculateInteractionRecords(data);
         this.totalInteractionRecords = data.length;
         this.showInteractionRecords = true;
       }
@@ -71,6 +74,13 @@ export default class InteractionRecordService extends NavigationMixin(
       this.interactionrecords.data = undefined;
       this.interactionrecords.error = error.message;
     }
+  }
+
+  calculateInteractionRecords(data) {
+    if (data.length > this.maxNumber) {
+      return data.slice(0, this.maxNumber);
+    }
+    return data;
   }
 
   //This is called when view all link is clicked on appointment tab and show all list of interactions.
@@ -94,9 +104,19 @@ export default class InteractionRecordService extends NavigationMixin(
   showViewAll() {
     this.dispatchEvent(
       new CustomEvent("showviewall", {
-        detail: this.totalInteractionRecords > 0
+        detail: {
+          showViewAll: this.totalInteractionRecords > 0,
+          totalInteractionCount: this.getTotalInteractionCount()
+        }
       })
     );
+  }
+
+  getTotalInteractionCount() {
+    if (this.totalInteractionRecords <= this.maxNumber) {
+      return this.totalInteractionRecords;
+    }
+    return this.maxNumber + "+";
   }
 
   handleOnselect(event) {

@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Card_Dispute</fullName>
     <active>true</active>
-    <businessProcess>ANZx Dispute Process</businessProcess>
+    <businessProcess>ANZx Card Dispute Process</businessProcess>
     <compactLayoutAssignment>Dispute</compactLayoutAssignment>
     <description>ANZx Card Dispute Record Type</description>
     <label>Card</label>
@@ -54,6 +54,45 @@
         </values>
         <values>
             <fullName>Transaction %26 Savings enquiry</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CardScamType__c</picklist>
+        <values>
+            <fullName>Bank Impersonation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dating %26 Romance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fake Charity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jobs %26 Employment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remote Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Threats %26 Extortion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unexpected Money%2Fwinnings</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4949,6 +4988,17 @@
         </values>
         <values>
             <fullName>5</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IsAScam__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>

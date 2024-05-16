@@ -1,79 +1,66 @@
 <template>
-  <article class="slds-card slds-m-bottom_small slds-text-align_center">
-    <template lwc:if={displayContent}>
-      <button
-        class="slds-button"
-        onclick={refreshData}
-        data-id="refresh"
-        data-test-id="refresh-button"
-      >
-        Refresh Balances
-      </button>
-    </template>
-    <template lwc:else>
-      <p class="grey">Refresh Balances</p>
-    </template>
-  </article>
   <template lwc:if={loading}>
-    <div
-      class="slds-align_absolute-center"
-      style="height: 4rem"
-      data-id="loading-spinner"
-    >
-      <div role="status" class="slds-spinner_inline">
-        <lightning-spinner
-          alternative-text="Loading"
-          variant="brand"
-        ></lightning-spinner>
+    <article class="financialAccountcards slds-card">
+      <div
+        class="slds-align_absolute-center"
+        style="height: 30rem"
+        data-id="loading-spinner"
+      >
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
       </div>
-    </div>
+    </article>
   </template>
   <template lwc:else>
-    <c-total-balance
-      record-id={recordId}
-      total-balance={totalBalance}
-      total-saved={totalSaved}
-      error={totalBalanceError}
-      data-id="total-balance"
-    ></c-total-balance>
+    <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-grid slds-size_1-of-1">
+        <div class="slds-grid slds-wrap slds-size_1-of-1">
+          <div
+            class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-right_xx-small"
+          >
+            <c-financial-account
+              account-type="checking"
+              record-id={recordId}
+              account-details={accountData.checking}
+              data-id="checking-account"
+              data-test-id="checking-account"
+              ocv-id={ocvId}
+            ></c-financial-account>
 
-    <div class="slds-m-top_small"></div>
-
-    <c-financial-account
-      account-type="checking"
-      record-id={recordId}
-      account-details={accountData.checking}
-      data-id="checking-account"
-      data-test-id="checking-account"
-      ocv-id={ocvId}
-    ></c-financial-account>
-
-    <div class="slds-m-top_small"></div>
-
-    <c-financial-account
-      account-type="savings"
-      record-id={recordId}
-      account-details={accountData.savings}
-      savings-jar={savingsJar}
-      data-id="savings-account"
-      data-test-id="savings-account"
-      ocv-id={ocvId}
-    ></c-financial-account>
-
-    <div class="slds-m-top_small"></div>
-    <c-financial-goals-person-account
-      goal-data={goalDetails}
-      savings-account={savingsId}
-      error={goalError}
-    >
-    </c-financial-goals-person-account>
-
-    <div class="slds-m-top_small"></div>
-    <c-home-loan-account
-      record-id={recordId}
-      object-api-name={objectApiName}
-      account-details={loanData}
-      data-id="home-account"
-    ></c-home-loan-account>
+            <div class="slds-m-top_medium"></div>
+            <c-home-loan-account
+              record-id={recordId}
+              object-api-name={objectApiName}
+              account-details={loanData}
+              data-id="home-account"
+            ></c-home-loan-account>
+          </div>
+          <div
+            class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-left_xx-small"
+          >
+            <c-financial-account
+              account-type="savings"
+              record-id={recordId}
+              account-details={accountData.savings}
+              savings-jar={savingsJar}
+              data-id="savings-account"
+              data-test-id="savings-account"
+              ocv-id={ocvId}
+            ></c-financial-account>
+            <div class="slds-m-top_medium"></div>
+            <c-financial-goals-person-account
+              goal-data={goalDetails}
+              savings-account={savingsId}
+              error={goalError}
+            >
+            </c-financial-goals-person-account>
+          </div>
+        </div>
+      </div>
+    </div>
   </template>
 </template>

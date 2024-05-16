@@ -5,6 +5,7 @@ export default class ViewAllGeneric extends NavigationMixin(LightningElement) {
   @api anyRecordId;
   @api lightningPageName;
   @api recordTypeDeveloperName;
+  @api openmessage;
 
   openSubTabForListView(event) {
     event.preventDefault();
@@ -15,7 +16,8 @@ export default class ViewAllGeneric extends NavigationMixin(LightningElement) {
       },
       state: {
         c__anyRecordId: this.anyRecordId,
-        c__recordTypeDeveloperName: this.recordTypeDeveloperName
+        c__recordTypeDeveloperName: this.recordTypeDeveloperName,
+        c__openMessage: this.openmessage
       }
     });
   }

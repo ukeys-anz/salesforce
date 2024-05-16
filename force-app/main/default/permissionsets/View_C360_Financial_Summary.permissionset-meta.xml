@@ -8,6 +8,14 @@
         <apexClass>CCRMFinancialSummaryTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>CCRMFinancialSummaryWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CCRMFinancialSummaryResponseWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customPermissions>
         <name>View_C360_Financial_Summary</name>
         <enabled>true</enabled>

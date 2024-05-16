@@ -147,7 +147,8 @@ RUN curl -fsSL --output /usr/local/bin/devexcli "${ARTIFACTORY_URL}/anzx-binarie
     chmod +x /usr/local/bin/devexcli
 
 # Install Python
-RUN yum install -y python39-${PYTHON_VERSION} && \
+RUN yum update -y && \
+  yum install -y python3 python3-pip && \
   yum clean all
 
 # Ensure that a non-root owned folder exists for gcloud installation
@@ -181,7 +182,4 @@ RUN cd /opt/harness-delegate/gcloud && \
   rm -rf  /tmp/config.json
 ENV CLOUDSDK_PYTHON=python3
 ENV PATH=/opt/harness-delegate/gcloud/google-cloud-sdk/bin:$PATH
-# Install pyopenssl, which is needed by "gsutil signurl" commands.
-RUN python3 -m pip install --no-cache-dir --index "${PIP_INDEX_URL}" pyopenssl && \
-  # Smoke test gcloud
-  gcloud --version
+

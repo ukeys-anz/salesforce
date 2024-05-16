@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR24_Card_Scam_Type_Required</fullName>
+    <active>true</active>
+    <description>Prevents user from saving the ATM/Card Dispute case record when it&apos;s flagged as Scam but no Scam Type value is selected.</description>
+    <errorConditionFormula>AND(
+NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
+OR(
+ RecordType.DeveloperName = &apos;Card_Dispute&apos;,
+ RecordType.DeveloperName = &apos;ATM_Dispute&apos;
+),
+ISPICKVAL( IsAScam__c,&apos;Yes&apos; ),
+ISPICKVAL( CardScamType__c,&apos;&apos; )
+)</errorConditionFormula>
+    <errorDisplayField>CardScamType__c</errorDisplayField>
+    <errorMessage>You have selected that this transaction is in relation to a scam but have not selected the relevant scam type. Please select the correct scam type then save the case.</errorMessage>
+</ValidationRule>
