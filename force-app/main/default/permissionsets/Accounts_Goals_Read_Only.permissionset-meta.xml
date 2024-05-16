@@ -233,6 +233,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Is_ANZx_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__FinancialAccount__c.FinServ__JointOwner__c</field>
         <readable>true</readable>
     </fieldPermissions>
