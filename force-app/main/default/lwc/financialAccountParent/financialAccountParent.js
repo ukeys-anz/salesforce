@@ -444,7 +444,9 @@ export default class FinancialAccountParent extends LightningElement {
 
       // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
       finAccount.showSavingsJar =
-        finAccount.FinServ__Status__c !== "Closed" && this.isSoleAccount && !this.isS2Account(finAccount.Marketing_Code__c);
+        finAccount.FinServ__Status__c !== "Closed" &&
+        this.isSoleAccount &&
+        !this.isS2Account(finAccount.Marketing_Code__c);
 
       // Only show showMultipartyBadge badge when the ownership is multi-party
       if (finAccount.FinServ__Ownership__c) {
@@ -455,7 +457,7 @@ export default class FinancialAccountParent extends LightningElement {
       } else if (finAccount.Ownership__c) {
         finAccount = this.handleShowMultiPartyBadge(finAccount, "Ownership__c");
       }
-      if(this.isS2Account(finAccount.Marketing_Code__c)){
+      if (this.isS2Account(finAccount.Marketing_Code__c)) {
         this.accountType = "savingss2";
         this.isNotS2Account = false;
       }
@@ -540,7 +542,7 @@ export default class FinancialAccountParent extends LightningElement {
     return finAccount;
   }
 
-  isS2Account(marketingCode){
-    return marketingCode.toLowerCase() ==='saving02'? true : false;
+  isS2Account(marketingCode) {
+    return marketingCode.toLowerCase() === "saving02" ? true : false;
   }
 }

@@ -38,7 +38,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   accountData = {
     checking: [],
     savings: [],
-    savingss2 : []
+    savingss2: []
   };
   savingsJar = [];
   loanData;
@@ -106,7 +106,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     this.accountData = {
       checking: [],
       savings: [],
-      savingss2 : []
+      savingss2: []
     };
     try {
       //Attempt to get the latest account details from fabric
@@ -208,25 +208,22 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           } else if (
             account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
           ) {
-            if(this.isS2Account(account.Marketing_Code__c))
-            {
+            if (this.isS2Account(account.Marketing_Code__c)) {
               this.accountData.savingss2.push(account);
               this.isS2AccountExist = true;
               this.isActiveS2AccountExist = true;
-            }
-            else{
+            } else {
               this.accountData.savings.push(account);
-              if (account.FinServ__Ownership__c !== MULTI_PARTY){
+              if (account.FinServ__Ownership__c !== MULTI_PARTY) {
                 this.savingsId = account.Id;
               }
             }
           }
-        }
-        else if (
+        } else if (
           account.FinServ__Status__c === "Closed" &&
           account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME &&
           this.isS2Account(account.Marketing_Code__c)
-        ){
+        ) {
           this.isS2AccountExist = true;
         }
       });
@@ -310,8 +307,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     return finAccount;
   }
 
-  isS2Account(marketingCode){
-    return marketingCode.toLowerCase() ==='saving02'? true : false;
+  isS2Account(marketingCode) {
+    return marketingCode.toLowerCase() === "saving02" ? true : false;
   }
-
 }

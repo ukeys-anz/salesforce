@@ -266,7 +266,7 @@ public with sharing class FinancialAccountController {
           DeveloperName = GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME
         );
       }
-      when 'SAVING01' ,'SAVING02'  {
+      when 'SAVING01', 'SAVING02' {
         return new RecordType(
           DeveloperName = GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
         );

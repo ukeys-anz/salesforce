@@ -61,14 +61,14 @@
         <template lwc:if={isSoleAccount}>
           <template lwc:if={isNotS2Account}>
             <c-financial-goals
-            record-id={recordId}
-            goal-data={goalData}
-            data-id="financial-goals"
-            error={goalError}
-            onloadmoregoals={handleLoadMoreGoals}
-            onfiltergoals={handleGoalFilters}
-            preselected-goal={preselectedGoal}
-            loading-more={goalsLoading}
+              record-id={recordId}
+              goal-data={goalData}
+              data-id="financial-goals"
+              error={goalError}
+              onloadmoregoals={handleLoadMoreGoals}
+              onfiltergoals={handleGoalFilters}
+              preselected-goal={preselectedGoal}
+              loading-more={goalsLoading}
             ></c-financial-goals>
             <div class="slds-m-top_small"></div>
           </template>

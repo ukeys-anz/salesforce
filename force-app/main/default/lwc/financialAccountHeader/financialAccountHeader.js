@@ -73,8 +73,7 @@ export default class FinancialAccount extends NavigationMixin(
         this.productTitle = "ANZ Save Grow";
         this.titleIcon = "custom:custom17";
         this.iconColor = "slds-m-right_small cicon";
-      }
-      else {
+      } else {
         this.balanceTitle = "Total Saved";
         this.productTitle = "ANZ Save";
         this.titleIcon = "custom:custom17";
