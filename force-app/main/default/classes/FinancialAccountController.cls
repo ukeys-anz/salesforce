@@ -101,6 +101,7 @@ public with sharing class FinancialAccountController {
             FinServ__OpenDate__c = openedDate,
             FinServ__CloseDate__c = closedDate,
             FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
+            Marketing_Code__c = finAccount.marketing_product.code,
             RecordType = getAccountRecordType(
               finAccount.marketing_product.code
             ),
@@ -213,6 +214,7 @@ public with sharing class FinancialAccountController {
             FinServ__FinancialAccountNumber__c,
             FinServ__Status__c,
             FinServ__OpenDate__c,
+            Marketing_Code__c,
             RecordType.DeveloperName,
             LastModifiedDate,
             Ownership__c,
@@ -264,7 +266,7 @@ public with sharing class FinancialAccountController {
           DeveloperName = GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME
         );
       }
-      when 'SAVING01' {
+      when 'SAVING01' ,'SAVING02'  {
         return new RecordType(
           DeveloperName = GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
         );

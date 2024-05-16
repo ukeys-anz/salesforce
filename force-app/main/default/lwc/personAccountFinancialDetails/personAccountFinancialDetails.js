@@ -37,7 +37,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   totalBalanceError;
   accountData = {
     checking: [],
-    savings: []
+    savings: [],
+    savingss2 : []
   };
   savingsJar = [];
   loanData;
@@ -45,6 +46,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   //savings financial account
   savingsId;
   accountToOwnership = new Map();
+  isS2AccountExist = false;
+  isActiveS2AccountExist = false;
 
   connectedCallback() {
     window.addEventListener(
@@ -102,7 +105,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   async getFinancialAccount() {
     this.accountData = {
       checking: [],
-      savings: []
+      savings: [],
+      savingss2 : []
     };
     try {
       //Attempt to get the latest account details from fabric
@@ -197,11 +201,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             account.FinServ__Ownership__c
           );
 
-          this.accountToOwnership.set(
-            account.FinServ__FinancialAccountNumber__c,
-            account.FinServ__Ownership__c
-          );
-
           if (
             account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME
           ) {
@@ -209,15 +208,31 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           } else if (
             account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
           ) {
-            this.accountData.savings.push(account);
-            if (account.FinServ__Ownership__c !== MULTI_PARTY) {
-              this.savingsId = account.Id;
+            if(this.isS2Account(account.Marketing_Code__c))
+            {
+              this.accountData.savingss2.push(account);
+              this.isS2AccountExist = true;
+              this.isActiveS2AccountExist = true;
+            }
+            else{
+              this.accountData.savings.push(account);
+              if (account.FinServ__Ownership__c !== MULTI_PARTY){
+                this.savingsId = account.Id;
+              }
             }
           }
+        }
+        else if (
+          account.FinServ__Status__c === "Closed" &&
+          account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME &&
+          this.isS2Account(account.Marketing_Code__c)
+        ){
+          this.isS2AccountExist = true;
         }
       });
       this.sortFinancialAccounts(this.accountData.checking);
       this.sortFinancialAccounts(this.accountData.savings);
+      this.sortFinancialAccounts(this.accountData.savingss2);
     }
     return finAccounts;
   }
@@ -294,4 +309,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       : finAccount[finAccountOwner];
     return finAccount;
   }
+
+  isS2Account(marketingCode){
+    return marketingCode.toLowerCase() ==='saving02'? true : false;
+  }
+
 }

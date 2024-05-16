@@ -7,7 +7,8 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 
 const ACCOUNT_TYPES = {
   checking: "Everyday - ANZ Plus Account",
-  savings: "Savings - ANZ Save Account"
+  savings: "Savings - ANZ Save Account",
+  savingss2: "Savings - ANZ Save Grow Account"
 };
 
 export default class FinancialAccount extends NavigationMixin(
@@ -67,7 +68,13 @@ export default class FinancialAccount extends NavigationMixin(
         this.productTitle = "ANZ Plus";
         this.titleIcon = "custom:custom51";
         this.iconColor = "slds-m-right_small";
-      } else {
+      } else if (this.accountType.toLowerCase() === "savingss2") {
+        this.balanceTitle = "Total Saved";
+        this.productTitle = "ANZ Save Grow";
+        this.titleIcon = "custom:custom17";
+        this.iconColor = "slds-m-right_small cicon";
+      }
+      else {
         this.balanceTitle = "Total Saved";
         this.productTitle = "ANZ Save";
         this.titleIcon = "custom:custom17";
