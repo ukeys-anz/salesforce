@@ -200,3 +200,8 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 
 #CC-6285 ignore for manual delete
 force-app/main/default/flows/CCRM_Hide_Expired_Contacts_Schedule.flow-meta.xml
+
+#CC-8329 Dependent Components Manual Deployment until next release
+force-app/main/default/lwc/realFormIdBtn
+force-app/main/default/quickActions/Case.Validate_Event_ID.quickAction-meta.xml
+force-app/main/default/flexipages/Complaint_Record_Page.flexipage-meta.xml

@@ -20,4 +20,28 @@ public with sharing class IDRAPIRepositoryTest {
       'Matches the first name'
     );
   }
+
+  @isTest
+  static void testGetSNOWEventInfoLWCforValidId() {
+    Test.startTest();
+    SNOWIntegrationModel info = IDRAPIRepository.getSNOWEventInfoLWC(
+      'IRE0073261'
+    );
+    Test.stopTest();
+    // Verify response received contains fake values
+    System.assertEquals(
+      'IRE0073261',
+      info.result[0].eventNumber,
+      'Risk Event Id Matches'
+    );
+  }
+
+  @isTest
+  static void testGetSNOWEventInfoLWCforInvalidId() {
+    Test.startTest();
+    SNOWIntegrationModel info = IDRAPIRepository.getSNOWEventInfoLWC('123456');
+    Test.stopTest();
+    // Verify blank response
+    System.assertEquals(info.result.size(), 0, 'Blank Response for invalid ID');
+  }
 }

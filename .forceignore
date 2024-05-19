@@ -55,6 +55,7 @@ SingleSignOn.settings
 force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 force-app/main/default/authproviders/ANZ_Single_Sign_On.authprovider-meta.xml
 force-app/main/default/authproviders/Salesforce_API_Access.authprovider-meta.xml
+force-app/main/default/authproviders/ServiceNow_Connect.authprovider-meta.xml
 
 #named credential to make the build pass and we do the manual deployment later
 force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-meta.xml
@@ -165,7 +166,6 @@ force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
 #AR-90796 - Uninstall mvision
 force-app/main/default/objects/SkyhighNetworks__SHNEvent__c
 force-app/main/default/tabs/SkyhighNetworks__SHNEvent__c.tab-meta.xml
-
 
 #Ignore omnistudio files
 force-app/main/default/omniDataTransforms
