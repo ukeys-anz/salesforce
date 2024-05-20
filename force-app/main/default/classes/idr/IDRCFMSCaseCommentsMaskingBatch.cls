@@ -38,8 +38,8 @@ public class IDRCFMSCaseCommentsMaskingBatch implements Database.Batchable<sObje
     } catch (Exception e) {
       Logger.error(
         'Problem in masking cfms case comment record from batch job : ' +
-        bc.getJobId() +
-        e.getMessage(),
+          bc.getJobId() +
+          e.getMessage(),
         e
       );
       Logger.saveLog();
