@@ -763,6 +763,9 @@
                         <valueListItems>
                             <value>Status__c|EQUALS|Closed</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Is_ANZx_Account__c|EQUALS|true</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

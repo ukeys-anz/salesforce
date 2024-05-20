@@ -2096,7 +2096,8 @@
         "Product_Code_Display__c",
         "Sub_product_Code_Display__c",
         "Product_Name_Display__c",
-        "Account_Name__c"
+        "Account_Name__c",
+        "Is_ANZx_Account__c"
       ]
     },
     "FinServ__ReciprocalRole__c": {
