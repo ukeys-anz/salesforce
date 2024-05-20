@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Fabric</complianceGroup>
     <description>Temporary field to show product name</description>
     <externalId>false</externalId>
-    <formula>CASE(FinServ__RecordTypeName__c, &quot;Checking Account&quot;, &quot;ANZ Plus&quot;, &quot;Savings Account&quot;, &quot;ANZ Save&quot;,&quot;ANZ Plus Standard Variable Rate Home Loan&quot;)</formula>
+    <formula>CASE(FinServ__RecordTypeName__c, &quot;Checking Account&quot;, &quot;ANZ Plus&quot;, &quot;Savings Account&quot;, IF(Marketing_Code__c == &quot;SAVING02&quot;, &quot;ANZ Save Grow&quot;, &quot;ANZ Save&quot;),&quot;ANZ Plus Standard Variable Rate Home Loan&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Product Name</label>
     <required>false</required>

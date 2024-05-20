@@ -119,3 +119,25 @@ export function navigate(cmp, type, attributes) {
     attributes: attributes
   });
 }
+
+// This method is created to use in FinancialAccount and FinancialAccountHeader LWC to 
+export function handleAccountHeaderData(accountType) {
+  var accountHeader = {};
+  if (accountType.toLowerCase() === "checking") {
+    accountHeader.balanceTitle = "Everyday Funds";
+    accountHeader.productTitle = "ANZ Plus";
+    accountHeader.titleIcon = "custom:custom51";
+    accountHeader.iconColor = "slds-m-right_small";
+  } else if (accountType.toLowerCase() === "savingss2") {
+    accountHeader.balanceTitle = "Total Saved";
+    accountHeader.productTitle = "ANZ Save Grow";
+    accountHeader.titleIcon = "custom:custom17";
+    accountHeader.iconColor = "slds-m-right_small cicon";
+  } else {
+    accountHeader.balanceTitle = "Total Saved";
+    accountHeader.productTitle = "ANZ Save";
+    accountHeader.titleIcon = "custom:custom17";
+    accountHeader.iconColor = "slds-m-right_small cicon";
+  }
+  return accountHeader;
+}

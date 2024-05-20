@@ -19,6 +19,7 @@ import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
 import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAccountOwnershipForSorting";
+import IsS2Enabled from "@salesforce/label/c.S2AccountEnabled";
 
 import {
   CHECKING_ACCOUNT_RT_APINAME,
@@ -208,11 +209,12 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           } else if (
             account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
           ) {
-            if (this.isS2Account(account.Marketing_Code__c)) {
+            if (IsS2Enabled === 'true' && 
+              this.isS2Account(account.Marketing_Code__c)) {
               this.accountData.savingss2.push(account);
               this.isS2AccountExist = true;
               this.isActiveS2AccountExist = true;
-            } else {
+            } else if(!this.isS2Account(account.Marketing_Code__c)) {
               this.accountData.savings.push(account);
               if (account.FinServ__Ownership__c !== MULTI_PARTY) {
                 this.savingsId = account.Id;
@@ -222,7 +224,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         } else if (
           account.FinServ__Status__c === "Closed" &&
           account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME &&
-          this.isS2Account(account.Marketing_Code__c)
+          this.isS2Account(account.Marketing_Code__c) &&
+          IsS2Enabled === 'true'
         ) {
           this.isS2AccountExist = true;
         }

@@ -128,6 +128,7 @@ public with sharing class GetHelpConstants {
   public static final List<String> ANZX_MARKETING_CODES = new List<String>{
     'TRANSACT01',
     'SAVING01',
+    'SAVING02',
     'HLVAR01',
     'HLFXD01'
   };

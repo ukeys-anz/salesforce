@@ -2341,4 +2341,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>ValidateOwnerChange</shortDescription>
         <value>Unable to change Owner of this Record not owned by yourself.</value>
     </labels>
+    <labels>
+        <fullName>S2AccountEnabled</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>S2AccountEnabled</shortDescription>
+        <value>true</value>
+    </labels>
 </CustomLabels>
