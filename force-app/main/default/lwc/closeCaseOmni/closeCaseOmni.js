@@ -255,15 +255,13 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       (this.omniJsonData.Case.REALFormMAXID !== undefined ||
         this.omniJsonData.Case.REALFormMAXID !== null) &&
       this.omniJsonData.Case.REALFormMAXID !==
-        this.omniJsonData.Case.REALFormMAXID_OLD
-    ) {
-      if (
+        this.omniJsonData.Case.REALFormMAXID_OLD &&
+      !(
         this.omniJsonData.apiRun &&
         this.omniJsonData.apiSuccess &&
         this.omniJsonData.RiskFormIDValid
-      ) {
-        return false;
-      }
+      )
+    ) {
       return true;
     }
     return false;

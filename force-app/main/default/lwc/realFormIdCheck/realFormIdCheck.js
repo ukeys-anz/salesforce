@@ -65,17 +65,15 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       if (this.omniJsonData.Case.REALFormMAXID) {
         this.callAPI(this.omniJsonData.Case.REALFormMAXID);
       }
-    } else {
-      if (
-        this.omniJsonData.EditRealFormID &&
-        this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
-        !(
-          this.omniJsonData.EditRealFormID.RealFormID === null ||
-          this.omniJsonData.EditRealFormID.RealFormID === undefined
-        )
-      ) {
-        this.callAPI(this.omniJsonData.EditRealFormID.RealFormID);
-      }
+    } else if (
+      this.omniJsonData.EditRealFormID &&
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
+      !(
+        this.omniJsonData.EditRealFormID.RealFormID === null ||
+        this.omniJsonData.EditRealFormID.RealFormID === undefined
+      )
+    ) {
+      this.callAPI(this.omniJsonData.EditRealFormID.RealFormID);
     }
   }
   callAPI(riskEventId) {
