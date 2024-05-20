@@ -106,7 +106,18 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>customQueryParameters</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>debugMode</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>filterOnRecordId</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>forceRefresh</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -126,15 +137,25 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>siteId</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>tabAdvancedFilter</name>
                     <value>Account Number</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>vizUrl</name>
-                    <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SITK-AccountInterestRates/AccountInterestRates</value>
+                    <name>token</name>
                 </componentInstanceProperties>
-                <componentName>tab:tableauViz</componentName>
-                <identifier>tab_tableauViz</identifier>
+                <componentInstanceProperties>
+                    <name>useJwt</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>vizUrl</name>
+                    <value>{!$Label.ANZX_Interest_Rates_FA_Tableau_Url}</value>
+                </componentInstanceProperties>
+                <componentName>tableau:tableauViz</componentName>
+                <identifier>tableau_tableauViz</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
@@ -200,6 +221,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</value>
@@ -435,6 +460,10 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tabs</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabs</name>
                     <value>sidebartabs</value>
