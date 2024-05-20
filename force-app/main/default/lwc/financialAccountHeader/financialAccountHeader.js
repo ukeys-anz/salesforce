@@ -4,9 +4,7 @@ import { NavigationMixin } from "lightning/navigation";
 import { openTab, EnclosingTabId } from "lightning/platformWorkspaceApi";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
-import {
-  handleAccountHeaderData
-} from "c/utils";
+import { handleAccountHeaderData } from "c/utils";
 
 const ACCOUNT_TYPES = {
   checking: "Everyday - ANZ Plus Account",

@@ -209,12 +209,14 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           } else if (
             account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
           ) {
-            if (IsS2Enabled === 'true' && 
-              this.isS2Account(account.Marketing_Code__c)) {
+            if (
+              IsS2Enabled === "true" &&
+              this.isS2Account(account.Marketing_Code__c)
+            ) {
               this.accountData.savingss2.push(account);
               this.isS2AccountExist = true;
               this.isActiveS2AccountExist = true;
-            } else if(!this.isS2Account(account.Marketing_Code__c)) {
+            } else if (!this.isS2Account(account.Marketing_Code__c)) {
               this.accountData.savings.push(account);
               if (account.FinServ__Ownership__c !== MULTI_PARTY) {
                 this.savingsId = account.Id;
@@ -225,7 +227,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           account.FinServ__Status__c === "Closed" &&
           account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME &&
           this.isS2Account(account.Marketing_Code__c) &&
-          IsS2Enabled === 'true'
+          IsS2Enabled === "true"
         ) {
           this.isS2AccountExist = true;
         }
