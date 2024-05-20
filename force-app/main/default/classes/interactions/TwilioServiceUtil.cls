@@ -272,13 +272,15 @@ public with sharing class TwilioServiceUtil {
     interactionToUpsert.Id = payLoad.interactionId;
     interactionToUpsert.TwilioDetailsID__c = twilioRecordUpserted.getId();
     interactionToUpsert.Status__c = getStatus(payLoad.chatOrCallStatus);
+    if (String.isNotBlank(payLoad.queueName)) {
+      interactionToUpsert.Chat_Queue__c = payLoad.queueName;
+    }
     if (String.isNotBlank(payLoad.agentEmail) && !checkIsConference(payLoad)) {
       interactionToUpsert.OwnerId = agentOwnerIdMap.get(
         payLoad.agentEmail.toLowerCase()
       );
     }
     if (checkIsTransfer(payLoad)) {
-      interactionToUpsert.Chat_Queue__c = payLoad.queueName;
       interactionToUpsert.Transfer__c = payLoad.transfer;
     }
 
