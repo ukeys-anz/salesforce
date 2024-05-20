@@ -11,6 +11,9 @@
         <sobjectType>Case</sobjectType>
     </queueSobject>
     <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+    <queueSobject>
         <sobjectType>Task</sobjectType>
     </queueSobject>
 </Queue>

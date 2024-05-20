@@ -27,6 +27,7 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
     Map<Id, SObject> oldMap,
     Boolean isProspect
   ) {
+    List<Schema.PicklistEntry> orgTypeValues = new List<Schema.PicklistEntry>();
     if (records.isEmpty()) {
       return;
     }
@@ -56,6 +57,14 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
         records,
         oldMap
       );
+      orgTypeValues = Account.FinServ__CustomerType__c.getDescribe()
+        .getPicklistValues();
+      for (Schema.PicklistEntry orgType : orgTypeValues) {
+        CCRMCustomerProfileUpdateConfig.orgTypeValueLabelMap.put(
+          orgType.getValue(),
+          orgType.getLabel()
+        );
+      }
     }
 
     List<Customer_Profile_Updates__c> customerProfileUpdates = new List<Customer_Profile_Updates__c>();

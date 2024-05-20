@@ -9,6 +9,7 @@
     <name>TFMDRSortingUtility</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
+        <name>TFMDRSortingUtility</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:responseList LIST var:key &apos;[:DSC]&apos; SORTBY</formulaConverted>
@@ -18,7 +19,6 @@
         <globalKey>TFMDRSortingUtilityCustom8754</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRSortingUtility</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -26,13 +26,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>TFMDRSortingUtility</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMDRSortingUtilityCustom2911</globalKey>
         <inputFieldName>sortedList</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRSortingUtility</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>sortedList</outputFieldName>
         <outputObjectName>json</outputObjectName>

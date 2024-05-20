@@ -7860,6 +7860,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Task.Pub_Sub_Event_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Task.Type</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -8174,7 +8179,7 @@
         <recordType>Lead.FinServ__RetirementPlanning</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>PersonAccount-Customer View Layout</layout>
+        <layout>PersonAccount-Customer Tabbed View Layout</layout>
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -8189,16 +8194,20 @@
         <recordType>Task.Call_Log</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Callback Request Layout</layout>
+        <recordType>Task.Callback_Request</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Coach Nudge Layout</layout>
+        <recordType>Task.Coach_Nudge</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Task-Compliance Task Layout</layout>
         <recordType>Task.Compliance_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-Email Task Layout</layout>
         <recordType>Task.Email_Task</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Task-Coach Nudge Layout</layout>
-        <recordType>Task.Coach_Nudge</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Twilio_Details__c-Twilio Detail Layout</layout>
@@ -9368,6 +9377,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Task.Call_Log</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Task.Callback_Request</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

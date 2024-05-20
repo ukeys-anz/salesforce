@@ -247,4 +247,71 @@ public with sharing class CommonUtilTest {
       'The removed extra spaces string should be ' + expected
     );
   }
+
+  @isTest
+  static void testGetQueueByName() {
+    List<Group> queues = [
+      SELECT Id, DeveloperName
+      FROM Group
+      WHERE Type = :CommonUtil.GROUP_TYPE_QUEUE
+      LIMIT 2
+    ];
+
+    Group queue = CommonUtil.getQueueByName(queues[0].Developername);
+    Map<String, Group> mapQueueByNames = CommonUtil.getQueueByName(
+      new Set<String>{ queues[0].Developername, queues[1].Developername }
+    );
+
+    Assert.areEqual(
+      queues[0].Id,
+      queue.Id,
+      'Queue ID should be retrieved by DeveloperName'
+    );
+    Assert.areEqual(
+      queues[0].Id,
+      mapQueueByNames.get(queues[0].DeveloperName).Id,
+      'Queue ID should be retrieved by DeveloperName'
+    );
+    Assert.areEqual(
+      queues[1].Id,
+      mapQueueByNames.get(queues[1].DeveloperName).Id,
+      'Queue ID should be retrieved by DeveloperName'
+    );
+  }
+
+  @isTest
+  static void testGetPublicGroupByName() {
+    List<Group> publicGroups = [
+      SELECT Id, DeveloperName
+      FROM Group
+      WHERE Type = :CommonUtil.GROUP_TYPE_PUBLICGROUP
+      LIMIT 2
+    ];
+
+    Group publicGroup = CommonUtil.getPublicGroupByName(
+      publicGroups[0].Developername
+    );
+    Map<String, Group> mapPublicGroupByName = CommonUtil.getPublicGroupByName(
+      new Set<String>{
+        publicGroups[0].Developername,
+        publicGroups[1].Developername
+      }
+    );
+
+    Assert.areEqual(
+      publicGroups[0].Id,
+      publicGroup.Id,
+      'Public group ID should be retrieved by DeveloperName'
+    );
+    Assert.areEqual(
+      publicGroups[0].Id,
+      mapPublicGroupByName.get(publicGroups[0].DeveloperName).Id,
+      'Public group ID should be retrieved by DeveloperName'
+    );
+    Assert.areEqual(
+      publicGroups[1].Id,
+      mapPublicGroupByName.get(publicGroups[1].DeveloperName).Id,
+      'Public group ID should be retrieved by DeveloperName'
+    );
+  }
 }

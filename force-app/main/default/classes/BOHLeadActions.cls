@@ -199,6 +199,7 @@ public with sharing class BOHLeadActions {
               record.Email
             )[0]
             .Id;
+          record.Customer_Pre_Exist__c = true;
         } else if (
           matchingCustomersByLeadIdMap.containsKey(record.MobilePhone)
         ) {
@@ -206,6 +207,7 @@ public with sharing class BOHLeadActions {
               record.MobilePhone
             )[0]
             .Id;
+          record.Customer_Pre_Exist__c = true;
         }
       }
     }

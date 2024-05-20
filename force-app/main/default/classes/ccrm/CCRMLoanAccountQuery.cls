@@ -195,7 +195,7 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
       row.put('InterestOnlyRepaymentAmount', fa.ioRepaymentAmount);
       row.put(
         'IOInterestRepaymentAccountNumber',
-        fa.ioInterestRepaymentAccountNumber
+        formatAccountNumber(fa.ioInterestRepaymentAccountNumber)
       );
       row.put('InterestOnlyTermYear', fa.ioTermYear);
       row.put('InterestOnlyTermMonth', fa.ioTermMonth);
@@ -209,7 +209,10 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
       row.put('IOSubsequentInterestRate', fa.ioSubsequentInterestRate);
       row.put('IOSubsequentDiscount', fa.ioSubsequentDiscount);
       row.put('PIInitialRepaymentCycleDay', fa.piInitialRepaymentCycleDay);
-      row.put('DLPRepaymentAccountNumber', fa.dlpRepaymentAccountNumber);
+      row.put(
+        'DLPRepaymentAccountNumber',
+        formatAccountNumber(fa.dlpRepaymentAccountNumber)
+      );
       row.put('PIElectedRepaymentAmount', fa.piElectedRepaymentAmount);
       result.queryResult.add(row);
     }

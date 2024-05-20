@@ -9,7 +9,7 @@
                         <valueListItems>
                             <value>Edit</value>
                             <visibilityRule>
-                                <booleanFilter>6 OR ((1 AND (2 OR 3)) OR (4 AND 5))</booleanFilter>
+                                <booleanFilter>((6 OR ((1 AND (2 OR 3)) OR (4 AND 5))) AND 7)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.My_Region_Flag__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -39,13 +39,18 @@
                                     <leftValue>{!$User.Profile.Name}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Share</value>
                             <visibilityRule>
-                                <booleanFilter>6 OR ((1 AND (2 OR 3)) OR (4 AND 5))</booleanFilter>
+                                <booleanFilter>((6 OR ((1 AND (2 OR 3)) OR (4 AND 5))) AND 7)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.My_Region_Flag__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -76,12 +81,17 @@
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>CustomButton.Opportunity.Launch_BBD</value>
                             <visibilityRule>
-                                <booleanFilter>9 OR ((1 OR 2 OR 3 OR 4 OR 5) AND (6 OR 7) AND 8)</booleanFilter>
+                                <booleanFilter>((9 OR ((1 OR 2 OR 3 OR 4 OR 5) AND (6 OR 7) AND 8)) AND 10)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.StageName}</leftValue>
                                     <operator>EQUAL</operator>
@@ -127,12 +137,17 @@
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Opportunity.Log_Interaction_CCRM</value>
                             <visibilityRule>
-                                <booleanFilter>6 OR ((1 AND (2 OR 3)) OR (4 AND 5))</booleanFilter>
+                                <booleanFilter>((6 OR ((1 AND (2 OR 3)) OR (4 AND 5))) AND 7)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.My_Region_Flag__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -162,13 +177,18 @@
                                     <leftValue>{!$User.Profile.Name}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Global.Create_Task_CCRM</value>
                             <visibilityRule>
-                                <booleanFilter>6 OR ((1 AND (2 OR 3)) OR (4 AND 5))</booleanFilter>
+                                <booleanFilter>((6 OR ((1 AND (2 OR 3)) OR (4 AND 5))) AND 7)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.My_Region_Flag__c}</leftValue>
                                     <operator>EQUAL</operator>
@@ -198,6 +218,11 @@
                                     <leftValue>{!$User.Profile.Name}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -673,10 +698,20 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Customer_Needs__c</fieldItem>
                 <identifier>RecordCustomer_Needs_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Secondary_Customer_Needs__c</fieldItem>
+                <identifier>RecordSecondary_Customer_Needs_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -717,6 +752,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Broker_Involved__c</fieldItem>
                 <identifier>RecordBroker_Involved_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.New_to_Bank__c</fieldItem>
+                <identifier>RecordNew_to_Bank_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-21c6b061-2704-4690-9044-61bb42372b00</name>
@@ -1207,20 +1252,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>context</name>
-                    <value>RECORD</value>
-                </componentInstanceProperties>
-                <componentName>forceChatter:exposedFeed</componentName>
-                <identifier>forceChatter_exposedFeed</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-425f3d42-c58a-4d0b-bdbf-d5356d007524</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>body</name>
                     <value>Facet-962abcec-0931-486f-8fbb-4f8bff05e0c5</value>
                 </componentInstanceProperties>
@@ -1244,20 +1275,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-425f3d42-c58a-4d0b-bdbf-d5356d007524</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Standard.Tab.collaborate</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-e731be44-2f4d-4ba6-897c-0904bb17be12</name>

@@ -12,7 +12,7 @@
     <label>Credit Card</label>
     <length>255</length>
     <referenceTo>Credit_Card__x</referenceTo>
-    <relationshipLabel>CardHolders</relationshipLabel>
+    <relationshipLabel>Cardholders</relationshipLabel>
     <relationshipName>CardHolders</relationshipName>
     <securityClassification>Internal</securityClassification>
     <type>ExternalLookup</type>

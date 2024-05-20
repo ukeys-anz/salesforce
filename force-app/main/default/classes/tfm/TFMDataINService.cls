@@ -1,9 +1,9 @@
-/** 
-* @author Anuj Jain
-* @since March 2024
-* @description Service class for Data IN functionality 
-* @group Service
-*/
+/**
+ * @author Anuj Jain
+ * @since March 2024
+ * @description Service class for Data IN functionality
+ * @group Service
+ */
 public with sharing virtual class TFMDataINService extends Service {
   /**
    * @param staffModel model to call staffJWT api
@@ -121,8 +121,10 @@ public with sharing virtual class TFMDataINService extends Service {
    * @description This is wrapper class for RevokeConsentWrapper
    * @name RevokeConsentWrapper
    * @author Shivraj Kadam
-  */
-  @SuppressWarnings('PMD.FieldNamingConventions, PMD.FormalParameterNamingConventions')
+   */
+  @SuppressWarnings(
+    'PMD.FieldNamingConventions, PMD.FormalParameterNamingConventions'
+  )
   public class RevokeConsentWrapper {
     public String consent;
     public String request_time;
@@ -130,7 +132,7 @@ public with sharing virtual class TFMDataINService extends Service {
      * @param consent consent
      * @param request_time request_time
      * @description RevokeConsentWrapper
-    */
+     */
     public RevokeConsentWrapper(String consent, String request_time) {
       this.consent = consent;
       this.request_time = request_time;
@@ -141,7 +143,7 @@ public with sharing virtual class TFMDataINService extends Service {
    * @description This is wrapper class for ExportConsentWrapper
    * @name ExportConsentWrapper
    * @author Shivraj Kadam
-  */
+   */
   public class ExportConsentWrapper {
     public List<String> consents = new List<String>();
   }

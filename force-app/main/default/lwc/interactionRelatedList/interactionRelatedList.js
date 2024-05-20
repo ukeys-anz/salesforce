@@ -34,6 +34,8 @@ export default class InteractionRelatedList extends NavigationMixin(
   appointmentRecord = "Appointment";
   showViewAll = false;
   showAppointmentRecords = false;
+  interactionTabTitle = "Messages";
+  _showActiveMsgInteraction;
 
   @api recordId;
   @api showAppTab;
@@ -42,6 +44,17 @@ export default class InteractionRelatedList extends NavigationMixin(
   @api showMsgTab;
   @api showCallIntTab;
   @api showStoreIntTab;
+  @api tabTitle;
+  @api
+  get showActiveMsgInteraction() {
+    return this._showActiveMsgInteraction
+      ? this._showActiveMsgInteraction
+      : false;
+  }
+
+  set showActiveMsgInteraction(value) {
+    this._showActiveMsgInteraction = value;
+  }
 
   // This method will help in showing the list of appointments under appointment tab
   handleShowAppointmentTab() {
@@ -121,7 +134,7 @@ export default class InteractionRelatedList extends NavigationMixin(
       if (result != null) {
         this.sObjectType = result;
         if (result === "Account") {
-          this.handleShowAppointmentTab();
+          this.handleShowMessageTab();
         }
         if (result === "Coaching_Summary__c") {
           this.handleShowMessageTab();
@@ -210,6 +223,14 @@ export default class InteractionRelatedList extends NavigationMixin(
 
   // this method get the value from child and controls the visibilty of footer on parent record.
   fetchViewValue(event) {
-    this.showViewAll = event.detail;
+    this.showViewAll = event.detail.showViewAll;
+    this.interactionTabTitle = this.constructTabTitle(event);
+  }
+
+  constructTabTitle(event) {
+    if (this.showActiveMsgInteraction) {
+      return this.tabTitle + " (" + event.detail.totalInteractionCount + ")";
+    }
+    return this.tabTitle ? this.tabTitle : this.interactionTabTitle;
   }
 }

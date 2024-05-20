@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionSubtype>Action</actionSubtype>
+    <description>Assign a Card_Dispute case from &quot;Card Dispute - Awaiting Contact&quot; queue back to the queue associated with the latest External_Case_Status__c linked to the case</description>
+    <label>Assign To Queue</label>
+    <lightningWebComponent>disputeCaseToQueueAction</lightningWebComponent>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>LightningWebComponent</type>
+</QuickAction>

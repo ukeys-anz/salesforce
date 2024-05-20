@@ -45,9 +45,16 @@ jobs:
       - name: Find Secret Names
         run: |
           sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
+          projectId=anz-x-bootstrap-np-487e09
+
+          if [[ "$sfdxURL" == "sf-platform-np-"* ]];then
+            projectId=anz-x-gh-sf-nonprod-ea5caa
+          fi
+
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
-          echo ARTIFACTORY_SECRET_NAME="h-salesforce-np-artifact" >> $GITHUB_ENV
+          echo PROJECT_ID="$projectId" >> $GITHUB_ENV
+          echo ARTIFACTORY_SECRET_NAME="sf-platform-np-artifact" >> $GITHUB_ENV
           echo WHICH_JOB="quickDeployment" >> $GITHUB_ENV
 
       - name: Retrieve GSM Credentials
@@ -55,9 +62,9 @@ jobs:
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
           secrets: |-
-            sfdxurl:projects/448406129405/secrets/${{ env.SECRET_NAME }}/versions/latest
-            artifactory:projects/448406129405/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
-            proxypass:projects/anz-x-bootstrap-np-487e09/secrets/h-salesforce-np-proxy-password/versions/3
+            sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME }}/versions/latest
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
+            proxypass:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-proxy-password/versions/latest
 
       - name: Setup HTTP Proxy
         id: "proxy-harness-delegate"

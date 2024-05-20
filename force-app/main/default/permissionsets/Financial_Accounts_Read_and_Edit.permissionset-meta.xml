@@ -42,6 +42,11 @@
     </customPermissions>
     <description>New permission for contract events to update financial accounts</description>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Action__c.Action__c</field>
         <readable>true</readable>
@@ -114,6 +119,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccountRole__c.FinServ__Role__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Role_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

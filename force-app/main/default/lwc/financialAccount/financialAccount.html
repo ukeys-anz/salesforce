@@ -1,25 +1,26 @@
 <template>
-  <article class="financialAccount slds-card">
+  <article class="financialAccountCardSize slds-card">
     <h1 class="card-title" data-id="component-title">
       <lightning-icon
         icon-name={titleIcon}
         size="medium"
-        class="slds-m-right_small"
+        class={iconColor}
       ></lightning-icon>
       {componentTitle}
     </h1>
     <template lwc:if={displayContent}>
-      <template lwc:if={accountDetails}>
+      <template lwc:if={hasAccountDetails}>
         <template for:each={accountDetails} for:item="finAccount">
+          <div class="dividerTop" key={finAccount.Id}></div>
           <div
             class="slds-card__body slds-card__body_inner"
             key={finAccount.Id}
             data-id="fin-account"
           >
             <article class="slds-card">
-              <div class="slds-grid">
+              <div class="slds-grid slds-p-around_xx-small">
                 <header class="slds-has-flexi-truncate">
-                  <h2 class="slds-card__header-title">
+                  <h2 class="card-heading-bold">
                     <a
                       onclick={navigateToRecordViewPage}
                       data-id={finAccount.Id}
@@ -29,9 +30,6 @@
                     >
                       <span>{finAccount.Name}</span>
                     </a>
-                    <span class={finAccount.badgeClass}
-                      >{finAccount.FinServ__Status__c}</span
-                    >
                     <template lwc:if={finAccount.showMultipartyBadge}>
                       <span class="slds-badge dormantBadgeClass"
                         >{finAccount.multiParty}</span
@@ -47,22 +45,17 @@
                       class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
                     >
                       <div class="header-column">
-                        <p class="slds-text-color_weak">Account Number</p>
-                        <p class="slds-text-heading_medium">
+                        <p class="card-heading-font">Account Number</p>
+                        <p class="card-heading-value">
                           {finAccount.FinServ__FinancialAccountNumber__c}
                         </p>
-                        <template lwc:if={finAccount.FinServ__CloseDate__c}>
-                          <p class="slds-text-color_weak italictext">
-                            Date Closed : {finAccount.FinServ__CloseDate__c}
-                          </p>
-                        </template>
                       </div>
                     </div>
                     <div
-                      class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small balance-padding"
+                      class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small slds-text-align_right"
                     >
-                      <div class="header-column slds-float_right">
-                        <p class="slds-text-color_weak">
+                      <div class="header-column">
+                        <p class="card-heading-font">
                           {balanceTitle}
                           <lightning-icon
                             icon-name="utility:info"
@@ -71,14 +64,12 @@
                             onclick={handleInfoModal}
                           ></lightning-icon>
                         </p>
-                        <p
-                          class="slds-text-heading_large"
-                          data-test-id="balance"
-                        >
+                        <p data-test-id="balance">
                           <lightning-formatted-number
                             value={finAccount.FinServ__Balance__c}
                             format-style="currency"
                             data-id="amount"
+                            class="fontstyle"
                           ></lightning-formatted-number>
                         </p>
                       </div>
@@ -89,19 +80,20 @@
             </article>
           </div>
         </template>
-        <footer class="slds-card__footer account-footer">
-          <span class="lastUpdated" data-test-id="last-updated-time"
-            >Last Updated {timestamp}</span
-          >
-        </footer>
       </template>
       <template lwc:else>
-        <h1 class="slds-card__header-title slds-text-align_center">
-          <span class="not-found" data-id="no-accounts"
-            >No {accountType} Accounts</span
-          >
-        </h1>
+        <div
+          class="slds-card__body slds-card__body_inner emptyCard slds-text-align_center"
+          data-id="fin-account"
+        >
+          All accounts closed - no longer a customer
+        </div>
       </template>
+      <footer class="slds-card__footer account-footer">
+        <div class="lastUpdated" data-test-id="last-updated-time">
+          Last Updated {timestamp}
+        </div>
+      </footer>
     </template>
     <template lwc:else>
       <div class="slds-grid">

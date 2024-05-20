@@ -11,10 +11,29 @@ public with sharing class GetHelpExternalCaseStatusActions {
   public static void updateInternalDescription(
     List<External_Case_Status__c> records
   ) {
+    List<Id> relatedCasesIds = new List<Id>();
+    List<External_Case_Status__c> externalCaseStatusForNPP = new List<External_Case_Status__c>();
     ExternalCaseStatusMappingQueryHelper caseStatusQueryHelper = ExternalCaseStatusMappingQueryHelper.getInstance();
     Map<String, String> statusToInternalDescMap = caseStatusQueryHelper.getStatusToInternalDescriptionMap();
+    for (External_Case_Status__c record : records) {
+      relatedCasesIds.add(record.Case__c);
+    }
+    Set<Id> relatedNPPCasesId = GetHelpExternalCaseStatusActionHelper.getRelatedNppCasesIds(
+      relatedCasesIds
+    );
+
+    if (relatedNPPCasesId.isEmpty()) {
+      return;
+    }
+
+    for (External_Case_Status__c extCaseRecord : records) {
+      if (relatedNPPCasesId.contains(extCaseRecord.Case__c)) {
+        externalCaseStatusForNPP.add(extCaseRecord);
+      }
+    }
+
     GetHelpExternalCaseStatusActionHelper.getInternalDescription(
-      records,
+      externalCaseStatusForNPP,
       statusToInternalDescMap
     );
   }

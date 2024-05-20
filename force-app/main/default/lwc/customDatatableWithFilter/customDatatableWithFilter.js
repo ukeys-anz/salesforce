@@ -8,6 +8,8 @@ import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory_
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { CurrentPageReference } from "lightning/navigation";
+import INTERCATION_STATUS from "@salesforce/label/c.Interaction_Status";
 import TIME_ZONE from "@salesforce/i18n/timeZone";
 
 // Util methods
@@ -31,6 +33,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   @api anyRecordId;
   @api recordTypeDeveloperName;
   @api originalRecords;
+  openMessage = false;
   recordTypeName;
   _defaultSortDirection;
   _sortDirection;
@@ -40,16 +43,19 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   _originalColumns;
   recordTypeId;
   statusValue = [];
+  sortStatus = [];
   loading = false;
   boolIsMessage = false;
   page = 1;
   filterClass = "slds-hide";
+
   recordTypeNameDeveloperNameMap = {
     General: "Call",
     Store: "In Person",
     Message: "Message",
     Appointment: "Appointment"
   };
+
   // Fields to be shown on the custom list view for call record type
   fieldsforcall = [
     { label: "Name", fieldName: "Name", sortable: true },
@@ -203,6 +209,9 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   @wire(MessageContext)
   messageContext;
 
+  @wire(CurrentPageReference)
+  pageRef;
+
   @wire(getObjectInfo, { objectApiName: "Interaction" })
   objectInfo({ data }) {
     if (data) {
@@ -261,11 +270,21 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     );
   }
 
+  get listViewTitle() {
+    if (this.openMessage) {
+      return `List of Open ${this.recordTypeName} Interactions`;
+    }
+    return `List of ${this.recordTypeName} Interactions`;
+  }
+
   connectedCallback() {
     this.boolIsMessage = this.recordTypeDeveloperName === "Message";
     this._defaultSortDirection = this.defaultSortDirection;
     this._sortedBy = this.sortedBy;
     this._originalRecords = this._localOriginalRecords = this.originalRecords;
+    this.sortStatus = INTERCATION_STATUS.split(",");
+    this.openMessage = this.pageRef?.state?.c__openMessage;
+    this.statusValue = this.openMessage ? this.sortStatus : [];
     this.getRecordsFromDB();
 
     this._originalColumns = this.fetchOriginalColumns(

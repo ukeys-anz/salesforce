@@ -3,6 +3,14 @@
     <description>Permissions to run reports and dashboards</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Run reports and dashboards (Create/Edit)</label>
+    <tabSettings>
+        <tab>standard-Dashboard</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-Report</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <userPermissions>
         <enabled>true</enabled>
         <name>CreateCustomizeDashboards</name>
