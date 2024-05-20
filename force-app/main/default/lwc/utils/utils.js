@@ -122,7 +122,7 @@ export function navigate(cmp, type, attributes) {
 
 // This method is created to use in FinancialAccount and FinancialAccountHeader LWC to
 export function handleAccountHeaderData(accountType) {
-  var accountHeader = {};
+  const accountHeader = {};
   if (accountType.toLowerCase() === "checking") {
     accountHeader.balanceTitle = "Everyday Funds";
     accountHeader.productTitle = "ANZ Plus";

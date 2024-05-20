@@ -101,7 +101,7 @@ export default class FinancialAccountParent extends LightningElement {
   accountOwnershipType;
   wiredMethodCalled = false;
   accountOwners = [];
-  isNotS2Account = true;
+  isNotS2Account = false;
 
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
@@ -153,6 +153,7 @@ export default class FinancialAccountParent extends LightningElement {
         if (this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME) {
           this.isSavings = true;
           this.accountType = "savings";
+          this.isNotS2Account = true;
         } else if (this.accRecordTypeApiName === CHECKING_ACCOUNT_RT_APINAME) {
           this.isSavings = false;
           this.accountType = "checking";
