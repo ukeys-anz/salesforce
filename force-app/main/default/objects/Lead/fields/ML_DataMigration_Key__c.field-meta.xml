@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ML_DataMigration_Key__c</fullName>
     <businessStatus>Active</businessStatus>
+    <caseSensitive>false</caseSensitive>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>external ID to support data loading of ML franchisee data</description>
     <externalId>true</externalId>
@@ -12,5 +13,5 @@
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>
-    <unique>false</unique>
+    <unique>true</unique>
 </CustomField>
