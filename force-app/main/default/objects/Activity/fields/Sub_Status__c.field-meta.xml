@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Sub Status of the task if actioned.</description>
+    <externalId>false</externalId>
+    <label>Sub Status</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Opportunity identified - immediate</fullName>
+                <default>false</default>
+                <label>Opportunity identified - immediate</label>
+            </value>
+            <value>
+                <fullName>Opportunity identified - long term</fullName>
+                <default>false</default>
+                <label>Opportunity identified - long term</label>
+            </value>
+            <value>
+                <fullName>Request to callback</fullName>
+                <default>false</default>
+                <label>Request to callback</label>
+            </value>
+            <value>
+                <fullName>Referred to Classic</fullName>
+                <default>false</default>
+                <label>Referred to Classic</label>
+            </value>
+            <value>
+                <fullName>Not contactable 1 attempt</fullName>
+                <default>false</default>
+                <label>Not contactable 1 attempt</label>
+            </value>
+            <value>
+                <fullName>Not contactable 2 attempts</fullName>
+                <default>false</default>
+                <label>Not contactable 2 attempts</label>
+            </value>
+            <value>
+                <fullName>Not Eligible</fullName>
+                <default>false</default>
+                <label>Not Eligible</label>
+            </value>
+            <value>
+                <fullName>Not interested</fullName>
+                <default>false</default>
+                <label>Not interested</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Opportunity identified - immediate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Opportunity identified - long term</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Request to callback</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Referred to Classic</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Not contactable 1 attempt</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Not contactable 2 attempts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Not Eligible</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Not interested</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

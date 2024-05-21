@@ -34,7 +34,8 @@ public with sharing class COBCaseStatusPathControllerTest {
         OnboardingVerificationFailedReason__c,
         Status_Update_Error__c,
         RecordTypeId,
-        PersonaId__c
+        PersonaId__c,
+        Subject
       FROM Case
       WHERE RecordTypeId = :recordtype
     ];

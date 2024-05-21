@@ -2263,6 +2263,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
     </labels>
     <labels>
+        <fullName>ANZX_Customer_Comm_Tableau_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Customer_Comm_Tableau_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Interest_Rates_FA_Tableau_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Interest_Rates_FA_Tableau_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/AccountInterestRates/AccountInterestRates</value>
+    </labels>
+    <labels>
         <fullName>MS_Postcode_Lookup_V3</fullName>
         <language>en_US</language>
         <protected>false</protected>

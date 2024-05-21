@@ -22,7 +22,7 @@ jobs:
     runs-on: [self-hosted, cd-ubuntu-s-prod]
     concurrency:
       group: "salesforce-release"
-      cancel-in-progress: true
+      cancel-in-progress: false
     strategy:
       max-parallel: 1
       fail-fast: true
