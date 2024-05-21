@@ -11,7 +11,7 @@ export default class RefreshFinances extends LightningElement {
   refreshData(event) {
     event.preventDefault();
     window.dispatchEvent(
-      new CustomEvent("refreshFinances_" + this.recordId, {})
+      new CustomEvent("refreshFinances_" + this.recordId, { detail: "Refresh" })
     );
   }
 }
