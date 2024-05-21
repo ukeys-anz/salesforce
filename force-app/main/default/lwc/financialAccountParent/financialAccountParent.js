@@ -1,6 +1,6 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import { handleErrorShowToast } from "c/utils";
+import { handleErrorShowToast, isS2Account } from "c/utils";
 import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
@@ -101,7 +101,7 @@ export default class FinancialAccountParent extends LightningElement {
   accountOwnershipType;
   wiredMethodCalled = false;
   accountOwners = [];
-  isNotS2Account = false;
+  showSavingsGoals = false;
 
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
@@ -153,7 +153,7 @@ export default class FinancialAccountParent extends LightningElement {
         if (this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME) {
           this.isSavings = true;
           this.accountType = "savings";
-          this.isNotS2Account = true;
+          this.showSavingsGoals = true;
         } else if (this.accRecordTypeApiName === CHECKING_ACCOUNT_RT_APINAME) {
           this.isSavings = false;
           this.accountType = "checking";
@@ -447,7 +447,7 @@ export default class FinancialAccountParent extends LightningElement {
       finAccount.showSavingsJar =
         finAccount.FinServ__Status__c !== "Closed" &&
         this.isSoleAccount &&
-        !this.isS2Account(finAccount.Marketing_Code__c);
+        !isS2Account(finAccount.Marketing_Code__c);
 
       // Only show showMultipartyBadge badge when the ownership is multi-party
       if (finAccount.FinServ__Ownership__c) {
@@ -458,9 +458,9 @@ export default class FinancialAccountParent extends LightningElement {
       } else if (finAccount.Ownership__c) {
         finAccount = this.handleShowMultiPartyBadge(finAccount, "Ownership__c");
       }
-      if (this.isS2Account(finAccount.Marketing_Code__c)) {
+      if (isS2Account(finAccount.Marketing_Code__c)) {
         this.accountType = "savingss2";
-        this.isNotS2Account = false;
+        this.showSavingsGoals = false;
       }
     });
 
@@ -541,9 +541,5 @@ export default class FinancialAccountParent extends LightningElement {
       ? JOINT
       : finAccount[finAccountOwner];
     return finAccount;
-  }
-
-  isS2Account(marketingCode) {
-    return marketingCode.toLowerCase() === "saving02" ? true : false;
   }
 }

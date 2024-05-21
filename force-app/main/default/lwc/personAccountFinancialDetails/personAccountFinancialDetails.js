@@ -1,7 +1,7 @@
 /* LWC IMPORTS */
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { handleErrorShowToast } from "c/utils";
+import { handleErrorShowToast, isS2Account, isS2Enabled } from "c/utils";
 import { handleGoalThemes } from "c/accountsGoalsUtils";
 
 /* IMPORT APEX METHODS */
@@ -19,7 +19,6 @@ import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
 import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAccountOwnershipForSorting";
-import IsS2Enabled from "@salesforce/label/c.S2AccountEnabled";
 
 import {
   CHECKING_ACCOUNT_RT_APINAME,
@@ -48,7 +47,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   savingsId;
   accountToOwnership = new Map();
   isS2AccountExist = false;
-  isActiveS2AccountExist = false;
 
   connectedCallback() {
     window.addEventListener(
@@ -209,26 +207,17 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           } else if (
             account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
           ) {
-            if (
-              IsS2Enabled === "true" &&
-              this.isS2Account(account.Marketing_Code__c)
-            ) {
+            if (isS2Enabled() && isS2Account(account.Marketing_Code__c)) {
               this.accountData.savingss2.push(account);
               this.isS2AccountExist = true;
-              this.isActiveS2AccountExist = true;
-            } else if (!this.isS2Account(account.Marketing_Code__c)) {
+            } else if (!isS2Account(account.Marketing_Code__c)) {
               this.accountData.savings.push(account);
               if (account.FinServ__Ownership__c !== MULTI_PARTY) {
                 this.savingsId = account.Id;
               }
             }
           }
-        } else if (
-          account.FinServ__Status__c === "Closed" &&
-          account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME &&
-          this.isS2Account(account.Marketing_Code__c) &&
-          IsS2Enabled === "true"
-        ) {
+        } else if (isS2Account(account.Marketing_Code__c) && isS2Enabled()) {
           this.isS2AccountExist = true;
         }
       });
@@ -310,9 +299,5 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       ? JOINT
       : finAccount[finAccountOwner];
     return finAccount;
-  }
-
-  isS2Account(marketingCode) {
-    return marketingCode.toLowerCase() === "saving02" ? true : false;
   }
 }

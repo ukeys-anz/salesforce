@@ -53,30 +53,16 @@
             ></c-financial-account>
             <div class="slds-m-top_medium"></div>
             <template lwc:if={isS2AccountExist}>
-              <template lwc:if={isActiveS2AccountExist}>
-                <c-financial-account
-                  account-type="savingss2"
-                  record-id={recordId}
-                  account-details={accountData.savingss2}
-                  savings-jar={savingsJar}
-                  data-id="savingss2-account"
-                  data-test-id="savingss2-account"
-                  ocv-id={ocvId}
-                ></c-financial-account>
-                <div class="slds-m-top_medium"></div>
-              </template>
-              <template lwc:else>
-                <c-financial-account
-                  account-type="savingss2"
-                  record-id={recordId}
-                  account-details={accountData.savingss2}
-                  savings-jar={savingsJar}
-                  data-id="savingss2-account"
-                  data-test-id="savingss2-account"
-                  ocv-id={ocvId}
-                ></c-financial-account>
-                <div class="slds-m-top_medium"></div>
-              </template>
+              <c-financial-account
+                account-type="savingss2"
+                record-id={recordId}
+                account-details={accountData.savingss2}
+                savings-jar={savingsJar}
+                data-id="savingss2-account"
+                data-test-id="savingss2-account"
+                ocv-id={ocvId}
+              ></c-financial-account>
+              <div class="slds-m-top_medium"></div>
             </template>
             <c-financial-goals-person-account
               goal-data={goalDetails}

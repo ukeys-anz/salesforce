@@ -59,7 +59,7 @@
       <div class="slds-m-top_small"></div>
       <template lwc:if={isSavings}>
         <template lwc:if={isSoleAccount}>
-          <template lwc:if={isNotS2Account}>
+          <template lwc:if={showSavingsGoals}>
             <c-financial-goals
               record-id={recordId}
               goal-data={goalData}

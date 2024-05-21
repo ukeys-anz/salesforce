@@ -7,6 +7,7 @@
 
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
+import IsS2Enabled from "@salesforce/label/c.S2AccountEnabled";
 export { classSet } from "./classSet";
 
 // Handle show toast message
@@ -120,7 +121,7 @@ export function navigate(cmp, type, attributes) {
   });
 }
 
-// This method is created to use in FinancialAccount and FinancialAccountHeader LWC to
+// This method is created to use in FinancialAccount and FinancialAccountHeader LWC to reduce redundant code.
 export function handleAccountHeaderData(accountType) {
   const accountHeader = {};
   if (accountType.toLowerCase() === "checking") {
@@ -140,4 +141,14 @@ export function handleAccountHeaderData(accountType) {
     accountHeader.iconColor = "slds-m-right_small cicon";
   }
   return accountHeader;
+}
+
+//This method will identify whether the account is S2 or not used in FinancialAccountParent and personAccountFinancialDetails
+export function isS2Account(marketingCode) {
+  return marketingCode.toLowerCase() === "saving02";
+}
+
+//This method will identify whether S2 Deliverable is in dormant or not.
+export function isS2Enabled() {
+  return IsS2Enabled.toLowerCase() === "true";
 }
