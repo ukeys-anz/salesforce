@@ -2158,6 +2158,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>urn:openid:params:grant-type:ciba</value>
     </labels>
     <labels>
+        <fullName>MS_AUF_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_AUF_API</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/</value>
+    </labels>
+    <labels>
         <fullName>MS_ForgeV2_Token</fullName>
         <language>en_US</language>
         <protected>false</protected>

@@ -49,25 +49,18 @@ public with sharing class TFMExportConsentDetailsHelper {
     List<TFMExportConsentModel.AccountInfo> accountsList = convertStringToAccountListWrapper(
       obj
     );
-
+    
     for (TFMExportConsentModel.AccountInfo acc : accountsList) {
       // form CSV row - Accounts (Account Name - Account Number - Sharing Status)
       accData +=
         // if Joint Account
-        (acc.accountType == TFMConstants.JOINTACCOUNTTYPE
-          ? TFMConstants.JOINTACCOUNT
-          : TFMConstants.EMPTY) +
-        getSanitisedValue(acc.accountName) +
+        (acc.accountType == TFMConstants.JOINTACCOUNTTYPE ? TFMConstants.JOINTACCOUNT : TFMConstants.EMPTY) +
+        getSanitisedValue(acc.accountName) + 
         // if Closed Account
-        (acc.accountStatus == TFMConstants.CLOSEDSTATUS
-          ? TFMConstants.CLOSEDACCOUNT
-          : TFMConstants.EMPTY) +
-        ' - ' +
-        getSanitisedValue(acc.accountNumber) +
-        ' - ' +
-        getSanitisedValue(acc.sharingStatus) +
-        ' | ';
-
+        (acc.accountStatus == TFMConstants.CLOSEDSTATUS ? TFMConstants.CLOSEDACCOUNT : TFMConstants.EMPTY) + ' - ' +
+        getSanitisedValue(acc.accountNumber) + ' - ' +
+        getSanitisedValue(acc.sharingStatus) + ' | ';
+      
       if (acc.accountStatus == TFMConstants.CLOSEDSTATUS) {
         allAccountsClosed = true;
       } else {
@@ -200,19 +193,25 @@ public with sharing class TFMExportConsentDetailsHelper {
    * @param csvContent csv content
    * @param mapScopeIDToTFMDataScopes datascopes map
    * @param input input map from flexcard
-   * @return `String`
+   * @return `Map<String, Object>`
    * @description exports data to by forming data for data sharing history
    */
-  public static String formDataSharingHistoryData(
+  public static Map<String, Object> formDataSharingHistoryData(
     String csvContent,
     Map<String, TFM_Data_Scopes__mdt> mapScopeIDToTFMDataScopes,
     Map<String, Object> input
   ) {
+    Map<String, Object> returnMap = new Map<String, Object>();
     try {
       Map<String, Object> responseMap = TFMRemoteActionUtility.getConsentDataSharingHistory(
         input
       );
-
+      Boolean isValid = Boolean.valueOf(responseMap.get('isValid'));
+      returnMap.put('isValid', isValid);
+      if(!isValid) {
+        return returnMap;
+      }
+      
       csvContent += TFMConstants.DATASHARINGHISTORYHEADER;
 
       Integer yearValue = null;
@@ -225,7 +224,8 @@ public with sharing class TFMExportConsentDetailsHelper {
         List<TFMExportConsentModel.AggregatedEvent> aggregatedEventsList = (List<TFMExportConsentModel.AggregatedEvent>) model.aggregatedEvents;
         if (aggregatedEventsList == null && aggregatedEventsList.isEmpty()) {
           csvContent += TFMConstants.DATASHARINGDISCLAIMER;
-          return csvContent;
+          returnMap.put('csvContent', csvContent);
+          return returnMap;
         }
         for (
           TFMExportConsentModel.AggregatedEvent aggregatedEvent : aggregatedEventsList
@@ -280,12 +280,14 @@ public with sharing class TFMExportConsentDetailsHelper {
         csvContent += TFMConstants.DATASHARINGDISCLAIMER;
       }
 
-      return csvContent;
+      returnMap.put('csvContent', csvContent);
+      return returnMap;
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
       csvContent += TFMConstants.DATASHARINGAPIERROR;
-      return csvContent;
+      returnMap.put('csvContent', csvContent);
+      return returnMap;
     }
   }
 

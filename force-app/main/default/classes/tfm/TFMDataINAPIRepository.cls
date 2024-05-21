@@ -33,10 +33,7 @@ public with sharing class TFMDataINAPIRepository extends RepositoryBase {
     TFMDataINService s = (TFMDataINService) ServiceProvider.getService(
       TFMDataINService.class
     );
-    HttpCalloutResponse res = s.getDataINAccountListAPI(
-      staffModel,
-      consentIdValue
-    );
+    HttpCalloutResponse res = s.getDataINAccountListAPI(staffModel, consentIdValue);
     return getResponse(res);
   }
 
@@ -55,11 +52,7 @@ public with sharing class TFMDataINAPIRepository extends RepositoryBase {
     TFMDataINService s = (TFMDataINService) ServiceProvider.getService(
       TFMDataINService.class
     );
-    HttpCalloutResponse res = s.exportConsent(
-      methodName,
-      consentId,
-      staffModel
-    );
+    HttpCalloutResponse res = s.exportConsent(methodName, consentId, staffModel);
     return getResponse(res);
   }
   /**

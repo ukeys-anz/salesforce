@@ -255,6 +255,20 @@
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithoutBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithoutBiometricCustom2359</globalKey>
+        <inputFieldName>deviceResourceId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceResourceId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
   &quot;href&quot; : &quot;http://idx-app-sit.identity-services-sit-daon.svc.cluster.local:8080/anzx/IdentityXServices/rest/v1/users/QTAzH5vHVIWToFIDw8b2g0AaSw/authenticators/QTAzPOFQMViUl0gXz-CdkQyjdQ&quot;,

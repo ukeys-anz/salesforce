@@ -259,7 +259,7 @@ global with sharing class TFMDataINRemoteUtility implements omnistudio.VlocityOp
    * @description This is wrapper class for RevokeResponse
    * @name RevokeResponse
    * @author Shivraj Kadam
-   */
+  */
   public class RevokeResponse {
     public String state;
   }

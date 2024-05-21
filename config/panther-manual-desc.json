@@ -1123,7 +1123,9 @@
         "Followup_State__c",
         "Package_Id__c",
         "Status_Update_Error__c",
-        "System_Action__c"
+        "System_Action__c",
+        "Aegis_Workflow_Id__c",
+        "Person_Digital_Identity__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1290,7 +1292,15 @@
       ]
     },
     "COBPrimaryIDDocument__c": {
-      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2415860": [
+        "SubmittedAt__c",
+        "Verified_By__c",
+        "Verification_Date_Time__c",
+        "Verification_Status__c",
+        "Verification_Failed_Reason__c",
+        "Failed_Message__c"
+      ],
+      "IA-2415999": ["idxExtractedFaceId__c"],
       "IA-2594111": [
         "PersonaId__c",
         "PersonaDocumentId__c",
