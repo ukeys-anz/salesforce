@@ -76,6 +76,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     },
     { label: "For", fieldName: "Interaction_Purpose__c", sortable: true },
     { label: "Channel", fieldName: "InteractionType", sortable: true },
+    { label: "Action Taken", fieldName: "Resolution__c", sortable: true },
     { label: "Direction", fieldName: "Direction__c", sortable: true },
     {
       label: "Start Time",
@@ -113,6 +114,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     },
     { label: "For", fieldName: "Interaction_Purpose__c", sortable: true },
     { label: "Channel", fieldName: "InteractionType", sortable: true },
+    { label: "Action Taken", fieldName: "Resolution__c", sortable: true },
     { label: "Status", fieldName: "Status__c", sortable: true },
     { label: "Direction", fieldName: "Direction__c", sortable: true },
     {
