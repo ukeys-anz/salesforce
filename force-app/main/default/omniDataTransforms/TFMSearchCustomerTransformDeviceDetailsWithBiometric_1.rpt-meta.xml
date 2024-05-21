@@ -114,6 +114,20 @@
         <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>TFMSearchCustomerTransformDeviceDetailsWithBiometricCustom6824</globalKey>
+        <inputFieldName>deviceResourceId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>deviceResourceId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMSearchCustomerTransformDeviceDetailsWithBiometric</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:deviceDetails:lastUsed &quot;dd/MM/yyyy/\/\/HH:mm:ss&quot; FORMATDATETIME</formulaConverted>
         <formulaExpression>FORMATDATETIME(deviceDetails:lastUsed, &quot;dd/MM/yyyy HH:mm:ss&quot;)</formulaExpression>
         <formulaResultPath>deviceDetailsLastUsedFormatted</formulaResultPath>

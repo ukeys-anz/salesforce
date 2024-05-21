@@ -48,9 +48,9 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
       );
       creditEnqAssessment.titleReferenceNumbers = titleRef;
     }
+    creditEnqAssessment.type = 'ASSESSMENT_TYPE_PROVISIONAL';
     reassessBody.creditEnquiryAssessment = creditEnqAssessment;
     reassessBody.creditEnquiryId = payload.get('creditId');
-    reassessBody.type = 'ASSESSMENT_TYPE_PROVISIONAL';
 
     //Serialise payload so any null values are removed
     String requestPayload = json.serialize(reassessBody, true);
@@ -181,7 +181,6 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
   public class ReassessBody {
     public String creditEnquiryId;
     public CreditEnquiryAssessment creditEnquiryAssessment;
-    public String type;
   }
 
   /**
@@ -190,6 +189,7 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
   public class CreditEnquiryAssessment {
     public String collateralAssessmentId;
     public List<TitleReference> titleReferenceNumbers;
+    public String type;
   }
 
   /**

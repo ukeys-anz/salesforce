@@ -1,26 +1,26 @@
 {
-  "jointAccountNotificationSettings": [
-    {
-      "accountId": "ddddd-dddd-sss-sss-sss",
-      "accountInfo": {
-        "bsb": "000011",
-        "accountNumber": "000000011",
-        "accountDisplayName": "Test Save",
-        "isEligible": true,
-        "reason": "REASON_UNSPECIFIED"
-      },
-      "emailEnabled": true
-    },
-    {
-      "accountId": "111-dddd-sss-sss-ss",
-      "accountInfo": {
-        "bsb": "000111",
-        "accountNumber": "000000222",
-        "accountDisplayName": "Test Plus",
-        "isEligible": true,
-        "reason": "REASON_UNSPECIFIED"
-      },
-      "emailEnabled": true
-    }
-  ]
+    "jointAccountNotificationSettings": [
+        {
+            "accountId": "ddddd-dddd-sss-sss-sss",
+            "accountInfo": {
+                "bsb": "000011",
+                "accountNumber": "000000011",
+                "accountDisplayName": "Test Save",
+                "isEligible": true,
+                "reason": "REASON_UNSPECIFIED"
+            },
+            "emailEnabled": true
+        },
+        {
+            "accountId": "111-dddd-sss-sss-ss",
+            "accountInfo": {
+                "bsb": "000111",
+                "accountNumber": "000000222",
+                "accountDisplayName": "Test Plus",
+                "isEligible": true,
+                "reason": "REASON_UNSPECIFIED"
+            },
+            "emailEnabled": true
+        }
+    ]
 }

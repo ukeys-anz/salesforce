@@ -13,10 +13,7 @@ public with sharing class TFMDataINRemoteUtilityTest {
     TFMDataINRemoteUtility controller = new TFMDataINRemoteUtility();
     Map<String, Object> input = new Map<String, Object>();
     Map<String, Object> output = new Map<String, Object>();
-    input.put(
-      'recordId',
-      Lib_FakeIdGenerator.getMockId(PersonDigitalIdentity__x.getSObjectType())
-    );
+    input.put('recordId', Lib_FakeIdGenerator.getMockId(PersonDigitalIdentity__x.getSObjectType()));
     Map<String, Object> args = new Map<String, Object>{
       'input' => input,
       'output' => output,
@@ -63,10 +60,7 @@ public with sharing class TFMDataINRemoteUtilityTest {
     TFMDataINRemoteUtility controller = new TFMDataINRemoteUtility();
     Map<String, Object> input = new Map<String, Object>();
     Map<String, Object> output = new Map<String, Object>();
-    input.put(
-      'consentIdValue',
-      Lib_FakeIdGenerator.getMockId(PersonDigitalIdentity__x.getSObjectType())
-    );
+    input.put('consentIdValue', Lib_FakeIdGenerator.getMockId(PersonDigitalIdentity__x.getSObjectType()));
     Map<String, Object> args = new Map<String, Object>{
       'input' => input,
       'output' => output,
@@ -112,10 +106,7 @@ public with sharing class TFMDataINRemoteUtilityTest {
     TFMDataINRemoteUtility controller = new TFMDataINRemoteUtility();
     Map<String, Object> input = new Map<String, Object>();
     Map<String, Object> output = new Map<String, Object>();
-    input.put(
-      'consentId',
-      Lib_FakeIdGenerator.getMockId(PersonDigitalIdentity__x.getSObjectType())
-    );
+    input.put('consentId', Lib_FakeIdGenerator.getMockId(PersonDigitalIdentity__x.getSObjectType()));
     input.put('methodName', 'ExportConsentReport');
     Map<String, Object> args = new Map<String, Object>{
       'input' => input,

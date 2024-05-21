@@ -11,12 +11,11 @@
     <language>English</language>
     <name>RevokeConsentOS</name>
     <omniProcessElements>
-        <name>approverBlock</name>
         <childElements>
-            <name>showErrorOnApprover</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>showErrorOnApprover</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -41,10 +40,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
-            <name>TextBlock2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -62,6 +61,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>approverBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -120,12 +120,11 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>initiatorBlock</name>
         <childElements>
-            <name>showErrorOnInitiator</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>showErrorOnInitiator</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -150,10 +149,10 @@
             <type>Validation</type>
         </childElements>
         <childElements>
-            <name>TextBlock1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -171,6 +170,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>initiatorBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Confirm Stop Data Sharing&quot;,
@@ -229,12 +229,11 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>InsufficientAccessBlock</name>
         <childElements>
-            <name>TextBlock3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>TextBlock3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -252,6 +251,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>InsufficientAccessBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Insufficient Access&quot;,
@@ -310,10 +310,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>NavigateAction1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>NavigateAction1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -348,10 +348,10 @@
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>RAHitApiAndSendData</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>RAHitApiAndSendData</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -410,10 +410,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SetErrors1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>SetErrors1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -444,10 +444,10 @@
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SetValues1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>SetValues1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,

@@ -342,7 +342,12 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       String.valueOf(input.get(TFMConstants.ORIGINALEXPIRETIMEVALUE)),
       staffModel
     );
-    responseMap = (Map<String, Object>) JSON.deserializeUntyped(response.body);
+    if (response.statusCode == 401 || response.statusCode == 403) {
+      responseMap.put('isValid', false);
+      return responseMap;
+    }
+    responseMap.put('isValid', true);
+    responseMap.putAll((Map<String, Object>) JSON.deserializeUntyped(response.body));
     return responseMap;
   }
 
