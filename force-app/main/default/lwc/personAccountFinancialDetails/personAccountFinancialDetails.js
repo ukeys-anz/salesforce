@@ -130,6 +130,13 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ]
       });
       this.handleAccountInformation(accountDetails);
+    } finally {
+      //Raise this event to call initiate fetching of total balance
+      window.dispatchEvent(
+        new CustomEvent("refreshFinances_" + this.recordId, {
+          detail: "FetchBalance"
+        })
+      );
     }
   }
 
@@ -264,8 +271,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     });
   }
 
-  handleRefreshFinances() {
-    this.refreshData();
+  handleRefreshFinances(event) {
+    if (event?.detail === "Refresh") {
+      this.refreshData();
+    }
   }
 
   async refreshData() {
