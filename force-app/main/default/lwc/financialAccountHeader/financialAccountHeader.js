@@ -4,10 +4,12 @@ import { NavigationMixin } from "lightning/navigation";
 import { openTab, EnclosingTabId } from "lightning/platformWorkspaceApi";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+import { handleAccountHeaderData } from "c/utils";
 
 const ACCOUNT_TYPES = {
   checking: "Everyday - ANZ Plus Account",
-  savings: "Savings - ANZ Save Account"
+  savings: "Savings - ANZ Save Account",
+  savingss2: "Savings - ANZ Save Grow Account"
 };
 
 export default class FinancialAccount extends NavigationMixin(
@@ -62,17 +64,11 @@ export default class FinancialAccount extends NavigationMixin(
   connectedCallback() {
     if (this.accountType) {
       this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
-      if (this.accountType.toLowerCase() === "checking") {
-        this.balanceTitle = "Everyday Funds";
-        this.productTitle = "ANZ Plus";
-        this.titleIcon = "custom:custom51";
-        this.iconColor = "slds-m-right_small";
-      } else {
-        this.balanceTitle = "Total Saved";
-        this.productTitle = "ANZ Save";
-        this.titleIcon = "custom:custom17";
-        this.iconColor = "slds-m-right_small cicon";
-      }
+      let accountHeaderData = handleAccountHeaderData(this.accountType);
+      this.balanceTitle = accountHeaderData.balanceTitle;
+      this.productTitle = accountHeaderData.productTitle;
+      this.iconColor = accountHeaderData.iconColor;
+      this.titleIcon = accountHeaderData.titleIcon;
     }
   }
 
