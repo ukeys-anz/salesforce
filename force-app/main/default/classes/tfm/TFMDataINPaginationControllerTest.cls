@@ -88,9 +88,6 @@ public with sharing class TFMDataINPaginationControllerTest {
       parentActiveConsentListSize,
       'Active consents are 18 records'
     );
-    System.debug(
-      'parentArchiveConsentListSize====' + parentArchiveConsentListSize
-    );
     Assert.areEqual(
       32,
       parentArchiveConsentListSize,
@@ -155,7 +152,6 @@ public with sharing class TFMDataINPaginationControllerTest {
     returnMap.put('isInvoked', isInvoked);
     returnMap.put('payload', payload);
     returnMap.put('output', output);
-    system.debug('test' + returnMap);
     return returnMap;
   }
 }

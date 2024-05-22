@@ -202,6 +202,11 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             account.FinServ__Ownership__c
           );
 
+          this.accountToOwnership.set(
+            account.FinServ__FinancialAccountNumber__c,
+            account.FinServ__Ownership__c
+          );
+
           if (
             account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME
           ) {

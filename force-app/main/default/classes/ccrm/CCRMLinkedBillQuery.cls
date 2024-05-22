@@ -66,9 +66,7 @@ public with sharing class CCRMLinkedBillQuery extends CCRMFinancialAccountQueryB
       row.put('ExternalId', bill.compositeBillId);
       row.put(
         'DisplayUrl',
-        URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        bill.compositeBillId
+        URL.getOrgDomainUrl().toExternalForm() + '/' + bill.compositeBillId
       );
       List<String> values = bill.compositeBillId != null
         ? bill.compositeBillId.split('-')

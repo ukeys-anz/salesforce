@@ -91,6 +91,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
         if (this.objectApiName === "FinServ__FinancialAccount__c") {
           this.singleFinAccount = this.financialAccounts[0];
         }
+
         const financialAccountOpenList = this.financialAccounts.filter(
           (eachAccount) => {
             return eachAccount.state !== "ACCOUNT_STATE_CLOSED";

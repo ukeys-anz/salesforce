@@ -45,7 +45,7 @@
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
-<criteria>
+                                <criteria>
                                     <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
@@ -81,7 +81,7 @@
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
-<criteria>
+                                <criteria>
                                     <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
@@ -112,7 +112,7 @@
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
-<criteria>
+                                <criteria>
                                     <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
@@ -864,7 +864,7 @@
                 <identifier>RecordFinServ_ExpressedInterest_cField2</identifier>
             </fieldInstance>
         </itemInstances>
-<itemInstances>
+        <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
@@ -1338,7 +1338,7 @@
         <name>relatedListTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
-        <flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1357,7 +1357,7 @@
                 <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
-                <mode>Replace</mode>
+        <mode>Replace</mode>
         <name>sidebartabs</name>
         <type>Facet</type>
     </flexiPageRegions>

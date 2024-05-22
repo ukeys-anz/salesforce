@@ -41,11 +41,11 @@ jobs:
     if: ${{ (github.base_ref == 'master') && (github.event.pull_request.merged == true) }}
     uses: ./.github/workflows/_validation.yml
     with:
-      sfdx_name: "h-salesforce-np-intpnv"
+      sfdx_name: "sf-platform-np-intpnv"
 
   quick-deploy-intpnv-sandbox:
     if: ${{ github.event.pull_request.merged == true }}
     needs: [validation-intpnv-sandbox]
     uses: ./.github/workflows/_quick-deployment.yml
     with:
-      sfdx_name: "h-salesforce-np-intpnv"
+      sfdx_name: "sf-platform-np-intpnv"
