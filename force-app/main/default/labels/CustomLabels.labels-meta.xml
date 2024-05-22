@@ -2360,6 +2360,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>S2AccountEnabled created for releasing S2 Deliverable in Dormant</shortDescription>
-        <value>true</value>
+        <value>false</value>
     </labels>
 </CustomLabels>
