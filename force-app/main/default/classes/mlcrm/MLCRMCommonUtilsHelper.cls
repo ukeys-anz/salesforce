@@ -23,7 +23,7 @@ public with sharing class MLCRMCommonUtilsHelper {
     List<sObject> lstOfSobject
   ) {
     Id strCurrentUserId = UserInfo.getuserId();
-    Map<Id, User> mapOfUsers = MLCRMCommonUtilsHelper.getUserRole(
+    Map<String, String> mapOfUserToRole = MLCRMCommonUtilsHelper.getUserRole(
       new Set<Id>{ strCurrentUserId }
     );
     List<Sobject> lstOfValidSobject = filterEligibleSobjects(lstOfSobject);
@@ -39,7 +39,7 @@ public with sharing class MLCRMCommonUtilsHelper {
     }
     addErrorInvalidOwnerChange(
       lstOfOwnerChangeRecord,
-      mapOfUsers,
+      mapOfUserToRole,
       oldMapSobject,
       strCurrentUserId
     );
@@ -53,10 +53,19 @@ public with sharing class MLCRMCommonUtilsHelper {
    * @US CC-7788
    */
   @testVisible
-  private static Map<Id, User> getUserRole(Set<Id> idsOfUsers) {
-    return new Map<Id, User>(
-      [SELECT Id, ML_Role__c FROM User WHERE Id IN :idsOfUsers]
-    );
+  private static Map<String, String> getUserRole(Set<Id> idsOfUsers) {
+    Map<String, String> mapOfUserToRole = new Map<String, String>();
+    for (User_Territory__c objTerr : [
+      SELECT Id, ML_Role__c, User__c, Territory__c
+      FROM User_Territory__c
+      WHERE User__c IN :idsOfUsers AND Status__c = 'Active'
+    ]) {
+      mapOfUserToRole.put(
+        (String) objTerr.Territory__c + (String) objTerr.User__c,
+        objTerr.ML_Role__c
+      );
+    }
+    return mapOfUserToRole;
   }
 
   /**
@@ -74,6 +83,7 @@ public with sharing class MLCRMCommonUtilsHelper {
     List<sObject> lstOfValidSobject = new List<sObject>();
     for (sObject objSobject : lstOfSobject) {
       if (
+        objSobject.get('Territory__c') != null &&
         MAP_OF_SOBJECT_RT.containsKey(
           String.valueOf(objSobject.getSObjectType())
         )
@@ -136,7 +146,7 @@ public with sharing class MLCRMCommonUtilsHelper {
    * @description This method to add error if current user is admin/loan writer and not the owner of the record
    * @name addErrorInvalidOwnerChange
    * @param lstOfOwnerChangeRecord list of sobject records
-   * @param mapOfUsers map of users
+   * @param mapOfUserToRole map of users
    * @param oldMapSobject old map sobject record
    * @param strCurrentUserId current user id
    * @author Ashish Kumar
@@ -145,14 +155,16 @@ public with sharing class MLCRMCommonUtilsHelper {
   @testVisible
   private static void addErrorInvalidOwnerChange(
     List<sObject> lstOfOwnerChangeRecord,
-    Map<Id, User> mapOfUsers,
+    Map<String, String> mapOfUserToRole,
     Map<Id, sObject> oldMapSobject,
     Id strCurrentUserId
   ) {
     for (sObject objSobject : lstOfOwnerChangeRecord) {
       if (
         validateUserRole(
-          mapOfUsers.get(strCurrentUserId).ML_Role__c,
+          mapOfUserToRole.get(
+            (String) objSobject.get('Territory__c') + (String) strCurrentUserId
+          ),
           oldMapSobject.get((Id) objSobject.get('Id')),
           strCurrentUserId
         )

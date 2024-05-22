@@ -2527,7 +2527,12 @@
         <field>Case.Intended_Pay_Id_Value__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IsAScam__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IsAScam__c</field>
         <readable>true</readable>

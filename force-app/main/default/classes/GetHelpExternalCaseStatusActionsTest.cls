@@ -5,7 +5,7 @@
  */
 @isTest
 public with sharing class GetHelpExternalCaseStatusActionsTest {
-  // test method to check if internal description is as per mapping
+  // test method to check that non NPP disputes should not be returned
   @isTest
   public static void testGetRelatedNPPCaseIds() {
     Case caseRecord = TestDataFactory.createCase('ATM_Dispute');
@@ -52,7 +52,7 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
 
   // test method to check if internal description when result message is unkonwn
   @isTest
-  public static void testGetInternalDescription() {
+  public static void testGetInternalDescriptionForNPPDispute() {
     Case caseRecord = TestDataFactory.createCase('NPP_Dispute');
     caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     ExternalCaseStatusMappingQueryHelper caseStatusQueryHelper = ExternalCaseStatusMappingQueryHelper.getInstance();

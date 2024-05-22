@@ -59,3 +59,64 @@ runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="PreviousDataI
 runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="PreviousDataIN"] {
   width: 4%;
 }
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="PinAndMobile"]
+  .vlc-separator {
+  border: hidden;
+}
+
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="InsufficientAccessBlock"]
+  .vlc-separator {
+  border: hidden;
+}
+
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ErrorToastMessageStep"]
+  .vlc-separator {
+  border: hidden;
+}
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="pinConfirm"]
+  .slds-radio_button__label {
+  background-color: #0176d3;
+  width: 90px;
+  height: 30px;
+  text-align: center;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="pinConfirm"]
+  .slds-radio_faux {
+  color: #ffffff;
+}
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="numberConfirm"]
+  .slds-radio_button__label {
+  background-color: #0176d3;
+  width: 90px;
+  height: 30px;
+  text-align: center;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="numberConfirm"]
+  .slds-radio_faux {
+  color: #ffffff;
+}
+
+runtime_omnistudio_flexcards-flex-action[data-element-label="deregisterdevice"]
+  .modal-dialog {
+  width: 700px;
+}
+
+runtime_omnistudio_flexcards-flex-action[data-element-label="deregisterdevice"]
+  .slds-modal__content {
+  width: 700px;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="archiveConfirm"]
+  .slds-radio_button__label {
+  background-color: #e03e2d;
+  width: 90px;
+  height: 30px;
+  text-align: center;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="archiveConfirm"]
+  .slds-radio_faux {
+  color: #ffffff;
+}

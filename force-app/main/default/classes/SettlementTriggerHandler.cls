@@ -27,7 +27,7 @@ public with sharing class SettlementTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     //Create Action Plan
-    SettlementActions.createActionPlans(records);
+    SettlementActions.createActionPlans(records, null);
   }
 
   /**
@@ -36,6 +36,9 @@ public with sharing class SettlementTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     //Create Action Plan
-    SettlementActions.createActionPlans(records);
+    SettlementActions.createActionPlans(
+      records,
+      (Map<Id, Settlement__c>) oldMap
+    );
   }
 }

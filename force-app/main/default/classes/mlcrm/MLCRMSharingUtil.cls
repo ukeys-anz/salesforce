@@ -350,9 +350,7 @@ public without sharing class MLCRMSharingUtil {
 
     if (!lstOfSharingError.isEmpty()) {
       Logger.error(
-        'Error occured while creating ' +
-        objMtd.Sharing_Object__c +
-        ' record',
+        'Error occured while creating ' + objMtd.Sharing_Object__c + ' record',
         processSharingException(lstOfSharingError)
       );
       Logger.saveLog();
@@ -421,8 +419,8 @@ public without sharing class MLCRMSharingUtil {
       if (!lstOfSharingError.isEmpty()) {
         Logger.error(
           'Error occured while deleting ' +
-          objMtd.Sharing_Object__c +
-          ' record',
+            objMtd.Sharing_Object__c +
+            ' record',
           processSharingException(lstOfSharingError)
         );
         Logger.saveLog();

@@ -17,6 +17,7 @@ export default class CreditAssessmentModal extends LightningElement {
   @api applicantId;
   @api outcomeId;
   @api assessmentId;
+  @api propertyId;
 
   optionList;
   selectedValue;
@@ -128,7 +129,7 @@ export default class CreditAssessmentModal extends LightningElement {
   }
 
   async handleSave() {
-    //Applicant Id is optional, however it is required in certain instances,
+    //Applicant Id and Property Id is optional, however it is required in certain instances,
     //so we ensure there is a value otherwise assign blank string to send
     let applicantId = null;
     if (
@@ -139,6 +140,15 @@ export default class CreditAssessmentModal extends LightningElement {
       applicantId = this.applicantId;
     }
 
+    let propertyId = null;
+    if (
+      this.propertyId &&
+      this.propertyId !== "{propertyId}" &&
+      this.propertyId !== "null"
+    ) {
+      propertyId = this.propertyId;
+    }
+
     this.saving = true;
     this._actionUtilClass = new OmniscriptActionCommonUtil();
     const params = {
@@ -147,7 +157,8 @@ export default class CreditAssessmentModal extends LightningElement {
         refOutcome: this.selectedValue,
         recordId: this.recordId,
         reasonCode: this.reasonCode,
-        applicantId: applicantId
+        applicantId: applicantId,
+        propertyId: propertyId
       },
       sClassName: "CreditAssessmentController",
       sMethodName: "saveReferralChange",

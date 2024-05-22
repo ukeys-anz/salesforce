@@ -281,6 +281,7 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';
   public static final String CLOSED_STATUS_NO_FIX = 'Closed - Won\'t Be Fixed';
   public static final String COB_DAON_FAILED_STATUS = 'Daon Fallout';
+  public static final String COB_DAON_FAILED_SUBJECT_WATCHLIST_HIT = 'Daon Fallout: WATCHLIST_HIT';
   public static final String COB_ID_OPS_DAON_APPROVED_STATUS = 'ID Ops: Daon OK';
   public static final String COB_FRAUD_CHECK_DAON_APPROVED_STATUS = 'Fraud Check: Daon OK';
   public static final String COB_EQUIFAX_FAILED_STATUS = 'Equifax Fallout';

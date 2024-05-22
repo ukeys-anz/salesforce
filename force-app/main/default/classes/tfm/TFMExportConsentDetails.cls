@@ -66,17 +66,24 @@ global with sharing class TFMExportConsentDetails implements Callable {
         mapScopeIDToTFMDataScopes
       );
 
-      csvContent = TFMExportConsentDetailsHelper.formDataSharingHistoryData(
+      Map<String, Object> sharingHistoryMap = TFMExportConsentDetailsHelper.formDataSharingHistoryData(
         csvContent,
         mapScopeIDToTFMDataScopes,
         input
       );
+      Boolean isValid = Boolean.valueOf(sharingHistoryMap.get('isValid'));
+      output.put('isValid', isValid);
+      if(!isValid) {
+        return output;
+      }
 
+      csvContent = String.valueOf(sharingHistoryMap.get('csvContent'));
+      
       String fileTitle = TFMExportConsentDetailsHelper.getFileTitle(
         String.valueOf(input.get(TFMConstants.CONSENTIDSTRING))
       );
 
-      output.put(TFMConstants.SHOWTOAST, TFMConstants.YESSTRING);
+      output.put(TFMConstants.SHOWTOAST, TFMConstants.YESSTRING);  
       output.put(TFMConstants.BLOBCONTENT, Blob.valueOf(csvContent));
       output.put(TFMConstants.FILETITLE, fileTitle);
       return output;

@@ -5,6 +5,12 @@
  */
 @isTest
 public with sharing class COBCaseStatusValidatorTest {
+  private static final String EMPTY_STR = '';
+  private static final String COBCASE_SUBJECT_WATCHLIST = 'ID Ops Assistance - Daon Fallout: WATCHLIST_HIT';
+  private static final String FRAUDX_USER = 'FraudX_Agent_Test';
+  private static final String ERROR_STATUS_CHANGE_NOT_ALLOWED = 'You are not allowed to change the status from \'\'{0}\'\' to \'\'{1}\'\'{2}.';
+  private static final String ERROR_SHOULD_BE_NO_CHILD = 'There should be no child cases';
+
   @testSetup
   static void setup() {
     // Create test Users running as current user, to get around MIXED_DML_OPERATION error
@@ -145,7 +151,8 @@ public with sharing class COBCaseStatusValidatorTest {
         RecordTypeId,
         ParentId,
         OwnerId,
-        CustomerOnboardingApplication__c
+        CustomerOnboardingApplication__c,
+        Subject
       FROM Case
       WHERE
         Status = :status
@@ -167,7 +174,8 @@ public with sharing class COBCaseStatusValidatorTest {
         ParentId,
         CustomerOnboardingApplication__r.EquifaxDVSResult__c,
         OwnerId,
-        Owner.FirstName
+        Owner.FirstName,
+        Subject
       FROM Case
       WHERE
         Status = :status
@@ -192,22 +200,12 @@ public with sharing class COBCaseStatusValidatorTest {
     update fraudCheckCase;
 
     Test.startTest();
-    Case parentCase = COBCaseStatusValidator.getParentCaseWithOpenChildren(
+    Integer childRecords = COBCaseStatusValidator.getParentCaseWithOpenChildren(
       idOpsCase.id
     );
     Test.stopTest();
 
-    Assert.areNotEqual(
-      null,
-      parentCase,
-      'There should be only one parent case'
-    );
-
-    Assert.areEqual(
-      1,
-      parentCase.Cases.size(),
-      'There should be only one child case'
-    );
+    Assert.areEqual(1, childRecords, 'There should be only one child case');
   }
 
   @isTest
@@ -218,18 +216,12 @@ public with sharing class COBCaseStatusValidatorTest {
     );
 
     Test.startTest();
-    Case parentCase = COBCaseStatusValidator.getParentCaseWithOpenChildren(
+    Integer childRecords = COBCaseStatusValidator.getParentCaseWithOpenChildren(
       idOpsCase.id
     );
     Test.stopTest();
 
-    Assert.areNotEqual(
-      null,
-      parentCase,
-      'There should be only one parent case'
-    );
-
-    Assert.isTrue(parentCase.Cases.isEmpty(), 'There should be no child cases');
+    Assert.areEqual(0, childRecords, ERROR_SHOULD_BE_NO_CHILD);
   }
 
   @isTest
@@ -248,18 +240,12 @@ public with sharing class COBCaseStatusValidatorTest {
     update fraudCheckCase;
 
     Test.startTest();
-    Case parentCase = COBCaseStatusValidator.getParentCaseWithOpenChildren(
+    Integer childRecords = COBCaseStatusValidator.getParentCaseWithOpenChildren(
       idOpsCase.id
     );
     Test.stopTest();
 
-    Assert.areNotEqual(
-      null,
-      parentCase,
-      'There should be only one parent case'
-    );
-
-    Assert.isTrue(parentCase.Cases.isEmpty(), 'There should be no child cases');
+    Assert.areEqual(0, childRecords, ERROR_SHOULD_BE_NO_CHILD);
   }
 
   @isTest
@@ -319,8 +305,6 @@ public with sharing class COBCaseStatusValidatorTest {
 
   @isTest
   private static void testCaseStatusChangeInvalidTransitionIDOps() {
-    String errorTemplate = 'You are not allowed to change the status from \'\'{0}\'\' to \'\'{1}\'\'{2}.';
-
     Map<String, List<String>> invalidTransitionMap = COBCaseStatusValidator.ID_OPS_STATUSES_INVALID_TRANSITION_MAP;
 
     for (String sourceStatus : invalidTransitionMap.keySet()) {
@@ -338,7 +322,7 @@ public with sharing class COBCaseStatusValidatorTest {
         );
 
         String expectedErrorMessage = String.format(
-          errorTemplate,
+          ERROR_STATUS_CHANGE_NOT_ALLOWED,
           new List<String>{ sourceStatus, destinationStatus, '' }
         );
         Assert.areEqual(
@@ -352,8 +336,6 @@ public with sharing class COBCaseStatusValidatorTest {
 
   @isTest
   private static void testCaseStatusChangeInvalidTransitionFraudCheck() {
-    String errorTemplate = 'You are not allowed to change the status from \'\'{0}\'\' to \'\'{1}\'\'{2}.';
-
     Map<String, List<String>> invalidTransitionMap = COBCaseStatusValidator.FRAUD_CHECK_STATUSES_INVALID_TRANSITION_MAP;
 
     for (String sourceStatus : invalidTransitionMap.keySet()) {
@@ -371,7 +353,7 @@ public with sharing class COBCaseStatusValidatorTest {
         );
 
         String expectedErrorMessage = String.format(
-          errorTemplate,
+          ERROR_STATUS_CHANGE_NOT_ALLOWED,
           new List<String>{ sourceStatus, destinationStatus, '' }
         );
         Assert.areEqual(
@@ -386,7 +368,7 @@ public with sharing class COBCaseStatusValidatorTest {
   @isTest
   private static void testCaseStatusChangeDVSPassFraudXAgent() {
     //user with fraudX role
-    User fraudXUsr = TestUtil.getUserByFirstName('FraudX_Agent_Test');
+    User fraudXUsr = TestUtil.getUserByFirstName(FRAUDX_USER);
 
     //cob with DVS = PASS
     Case idOpsCase = getCOBCaseWithCobApp(
@@ -466,10 +448,8 @@ public with sharing class COBCaseStatusValidatorTest {
 
   @isTest
   private static void testCaseStatusChangeDVSFailedFraudXAgent() {
-    String errorTemplate = 'You are not allowed to change the status from \'\'{0}\'\' to \'\'{1}\'\'{2}.';
-
     //user with fraudX role
-    User fraudXUsr = TestUtil.getUserByFirstName('FraudX_Agent_Test');
+    User fraudXUsr = TestUtil.getUserByFirstName(FRAUDX_USER);
 
     String sourceStatus = GetHelpConstants.COB_EQUIFAX_FAILED_STATUS;
     String destinationStatus = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS;
@@ -502,7 +482,7 @@ public with sharing class COBCaseStatusValidatorTest {
     }
 
     String expectedErrorMessage = String.format(
-      errorTemplate,
+      ERROR_STATUS_CHANGE_NOT_ALLOWED,
       new List<String>{
         sourceStatus,
         destinationStatus,
@@ -564,5 +544,52 @@ public with sharing class COBCaseStatusValidatorTest {
         COBCaseStatusValidator.CLOSED_STATUSES_ERROR
       );
     }
+  }
+
+  @isTest
+  private static void testCaseStatusChangeIDOpsWhitelist() {
+    Map<String, List<String>> invalidTransitionMap = COBCaseStatusValidator.ID_OPS_STATUSES_INVALID_TRANSITION_MAP;
+
+    Test.startTest();
+    for (String sourceStatus : invalidTransitionMap.keySet()) {
+      Case idOpsCase = createCobCase(
+        sourceStatus,
+        GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+      );
+
+      for (String destinationStatus : invalidTransitionMap.get(sourceStatus)) {
+        idOpsCase.Status = destinationStatus;
+        idOpsCase.Subject = COBCASE_SUBJECT_WATCHLIST;
+
+        String errorMsg = COBCaseStatusValidator.validateCaseStatusChange(
+          sourceStatus,
+          idOpsCase
+        );
+
+        String expectedErrorMessage = String.format(
+          ERROR_STATUS_CHANGE_NOT_ALLOWED,
+          new List<String>{ sourceStatus, destinationStatus, '' }
+        );
+
+        if (destinationStatus != GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS) {
+          Assert.areEqual(
+            expectedErrorMessage,
+            errorMsg,
+            'Error message should be: ' + expectedErrorMessage
+          );
+        } else if (
+          destinationStatus == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS &&
+          COBCaseStatusValidator.getParentCaseWithOpenChildren(idOpsCase.Id) ==
+          0
+        ) {
+          Assert.areEqual(
+            EMPTY_STR,
+            errorMsg,
+            'Update should be allowed. There should be no error'
+          );
+        }
+      }
+    }
+    Test.stopTest();
   }
 }
