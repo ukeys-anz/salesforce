@@ -45,238 +45,495 @@
     <name>DRFetchCaseDetails</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom7969</globalKey>
-        <inputFieldName>ComplaintResolution|1:IDR_Provided_details_to_Manufacturer__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom1847</globalKey>
+        <inputFieldName>Case:IDR_Complaint_Outcome_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:detailsOfComplaint1</outputFieldName>
+        <outputFieldName>Case:ComplaintOutcomeOffered</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:prodError var:prod2Error var:prod3Error CONCAT</formulaConverted>
-        <formulaExpression>CONCAT(prodError,prod2Error,prod3Error)</formulaExpression>
-        <formulaResultPath>prodErrorMsg</formulaResultPath>
-        <formulaSequence>8.0</formulaSequence>
-        <globalKey>DRFetchCaseDetailsCustom3173</globalKey>
+        <globalKey>DRFetchCaseDetailsCustom8046</globalKey>
+        <inputFieldName>ComplaintResolution|1:Offered_details_to_Product_Manufacturer__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:Case:Product__c ISBLANK &quot;Product/\/\/or/\/\/Service/\/\/Name,/\/\/&quot; &quot;&quot; IF</formulaConverted>
-        <formulaExpression>IF(ISBLANK(Case:Product__c),&quot;Product or Service Name, &quot;,&quot;&quot;)</formulaExpression>
-        <formulaResultPath>prodError</formulaResultPath>
-        <formulaSequence>5.0</formulaSequence>
-        <globalKey>DRFetchCaseDetailsCustom3667</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:Case:IDR_Product_2__c ISBLANK var:Case:IDR_Second_Issue__c &amp;&amp; &quot;Product/\/\/or/\/\/Service/\/\/Name/\/\/2,/\/\/&quot; &quot;&quot; IF</formulaConverted>
-        <formulaExpression>IF(ISBLANK(Case:IDR_Product_2__c)&amp;&amp;Case:IDR_Second_Issue__c,&quot;Product or Service Name 2, &quot;,&quot;&quot;)</formulaExpression>
-        <formulaResultPath>prod2Error</formulaResultPath>
-        <formulaSequence>6.0</formulaSequence>
-        <globalKey>DRFetchCaseDetailsCustom9547</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom2582</globalKey>
-        <inputFieldName>ComplaintResolution|3:Id</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ComplaintResolution3</outputFieldName>
+        <outputFieldName>Case:OfferedDetails1</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom2052</globalKey>
-        <inputFieldName>prodErrorMsg</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom5973</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Payment_Amount_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>prodErrorMsg</outputFieldName>
+        <outputFieldName>Case:PaymentAmountProvided3Accepted</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:Case:IDR_Product_3__c ISBLANK var:Case:IDR_Third_Issue__c &amp;&amp; &quot;Product/\/\/or/\/\/Service/\/\/Name/\/\/3,/\/\/&quot; &quot;&quot; IF</formulaConverted>
-        <formulaExpression>IF(ISBLANK(Case:IDR_Product_3__c)&amp;&amp;Case:IDR_Third_Issue__c,&quot;Product or Service Name 3, &quot;,&quot;&quot;)</formulaExpression>
-        <formulaResultPath>prod3Error</formulaResultPath>
-        <formulaSequence>7.0</formulaSequence>
-        <globalKey>DRFetchCaseDetailsCustom8290</globalKey>
+        <globalKey>DRFetchCaseDetailsCustom2597</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Complaint_Remedy_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom76</globalKey>
-        <inputFieldName>Case:Provided_details_to_Prod_Manufacturer_3__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:detailsOfComplaint3</outputFieldName>
+        <outputFieldName>Case:ComplaintRemedy3Accepted</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom6979</globalKey>
-        <inputFieldName>ComplaintResolution|2:Id</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom8404</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Other_Remedy_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ComplaintResolution2</outputFieldName>
+        <outputFieldName>Case:OtherRemedy2Offered</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom1117</globalKey>
-        <inputFieldName>Case:Provided_details_to_Prod_Manufacturer_2__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom2385</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Payment_Amount_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:detailsOfComplaint2</outputFieldName>
+        <outputFieldName>Case:PaymentAmountProvided1Accepted</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom8271</globalKey>
-        <inputFieldName>ComplaintResolution|1:Id</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom9256</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Complaint_Sub_Remedy_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ComplaintResolution1</outputFieldName>
+        <outputFieldName>Case:ComplaintSubRemedy3Offered</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom1872</globalKey>
-        <inputFieldName>ComplaintResolution|1:IDR_Financial_Compensation__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom8765</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Complaint_Remedy_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:PaymentAmountProvided1</outputFieldName>
+        <outputFieldName>Case:ComplaintRemedy1Accepted</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom9783</globalKey>
-        <inputFieldName>Case:Parent.CaseNumber</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom606</globalKey>
+        <inputFieldName>ComplaintResolution|2:Offered_details_to_Product_Manufacturer__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ParentCase-Block:ParentCase</outputFieldName>
+        <outputFieldName>Case:OfferedDetails2</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom6372</globalKey>
-        <inputFieldName>avoidableEscalation</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom3220</globalKey>
+        <inputFieldName>ComplaintResolution|3:Offered_details_to_Product_Manufacturer__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:avoidableEscalation</outputFieldName>
+        <outputFieldName>Case:OfferedDetails3</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom3035</globalKey>
-        <inputFieldName>Case:ParentId</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom7172</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Complaint_Remedy_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ParentCase:CaseId</outputFieldName>
+        <outputFieldName>Case:ComplaintRemedy2Offered</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:IDR_Avoidable_Escalation__c &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
-        <formulaExpression>IF(Case:IDR_Avoidable_Escalation__c,&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
-        <formulaResultPath>avoidableEscalation</formulaResultPath>
-        <formulaSequence>4.0</formulaSequence>
-        <globalKey>DRFetchCaseDetailsCustom6254</globalKey>
+        <globalKey>DRFetchCaseDetailsCustom2610</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Other_Remedy_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:OtherRemedy3Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2466</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Complaint_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintRemedy2Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom7495</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Duration_of_Remedy_months_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:DurationofRemedy1Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom9901</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Complaint_Sub_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintSubRemedy1Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom402</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Payment_Amount_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:PaymentAmount1Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom8708</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Description_of_Outcome_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:DescriptionOutcomeOffered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom3596</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Complaint_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintRemedy1Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom4910</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Complaint_Sub_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintSubRemedy3Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom3496</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Duration_of_Remedy_months_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:durationOfRemedy2Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2376</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Payment_Amount_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:PaymentAmount2Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom5000</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Duration_of_Remedy_months_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:durationOfRemedy3Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom5241</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Rewards_Points_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:RewardPoints1Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom7060</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Complaint_Sub_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintSubRemedy2Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2474</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Other_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:otherRemedy2Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom6031</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Duration_of_Remedy_months_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:DurationofRemedy2Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom4136</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Duration_of_Remedy_months_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:durationOfRemedy1Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom1230</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Complaint_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintRemedy3Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom8110</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Description_of_Outcome_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:DescriptionOutcomeAccepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom3776</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Rewards_Points_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:rewardPoints2Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2310</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Duration_of_Remedy_months_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:DurationofRemedy3Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom5463</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Other_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:otherRemedy1Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2546</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Complaint_Sub_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintSubRemedy1Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2456</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Rewards_Points_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:rewardPoints1Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom9252</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Rewards_Points_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:RewardPoints3Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -298,7 +555,19 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom5160</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Payment_Amount_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:PaymentAmount3Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -386,20 +655,34 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
+    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom1520</globalKey>
-        <inputFieldName>Case:IDR_Account_Card_Policy_Number_3__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom7612</globalKey>
+        <inputFieldName>Case:IDR_Complaint_Outcome_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:accountNumber3</outputFieldName>
+        <outputFieldName>Case:ComplaintOutcomeAccepted</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom3905</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Other_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:otherRemedy3Accepted</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom3658</globalKey>
@@ -413,7 +696,19 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom7018</globalKey>
+        <inputFieldName>ComplaintResolution|1:IDR_Other_Remedy_Offered__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:OtherRemedy1Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:Case:Product__c ISBLANK | var:Case:IDR_Inbox_Email_Address__c ISNOTBLANK &amp;&amp; var:Case:IDR_Second_Issue__c &quot;true&quot; == | var:Case:IDR_Product_2__c ISBLANK &amp;&amp; || var:Case:IDR_Third_Issue__c &quot;true&quot; == | var:Case:IDR_Product_3__c ISBLANK &amp;&amp; || | var:Case:Product__c ISBLANK || &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
@@ -430,15 +725,15 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom4025</globalKey>
-        <inputFieldName>Case:IDR_Is_Common__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom1279</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Rewards_Points_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:isSystemicIssue</outputFieldName>
+        <outputFieldName>Case:rewardPoints2Accepted</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -486,15 +781,15 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom3544</globalKey>
-        <inputFieldName>ComplaintResolution|3:IDR_Complaint_Sub_Remedy__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom9231</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Complaint_Sub_Remedy_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ComplaintSubRemedy3</outputFieldName>
+        <outputFieldName>Case:ComplaintSubRemedy2Offered</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -887,15 +1182,15 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom5216</globalKey>
-        <inputFieldName>Case:IDR_Subsequent_Issue_3__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom6098</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Rewards_Points_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:IDR_Subsequent_Issue_3__c</outputFieldName>
+        <outputFieldName>Case:rewardPoints3Accepted</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -943,15 +1238,15 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom8299</globalKey>
-        <inputFieldName>Case:IDR_Account_Card_Policy_Number__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom7109</globalKey>
+        <inputFieldName>ComplaintResolution|2:IDR_Payment_Amount_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:accountPolicyNumber</outputFieldName>
+        <outputFieldName>Case:PaymentAmountProvided2Accepted</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

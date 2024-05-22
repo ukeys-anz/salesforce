@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Complaint_Outcome_Offered__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Formula to show Complaint outcome from complaint</description>
+    <externalId>false</externalId>
+    <formula>CASE(TEXT(IDR_Complaint__r.IDR_Complaint_Outcome_Offered__c),
+  &quot;1&quot; , &quot;In favour of customer in full&quot;,
+  &quot;2&quot; , &quot;In favour of customer in part&quot; ,
+  &quot;3&quot; , &quot;In favour of ANZ&quot;,
+  &quot;No Response from Customer&quot; , &quot;No Response from Customer&quot; ,
+ &quot;Outside of Rules&quot; , &quot;Outside of Rules&quot; ,
+&quot;Merits Assessments&quot; ,&quot;Merits Assessments&quot; ,
+ &quot;Merged&quot; ,&quot;Merged&quot; ,&quot;&quot;
+
+
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Complaint Outcome Offered</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

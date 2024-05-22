@@ -99,12 +99,11 @@
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>CRLoopBlock</name>
         <childElements>
-            <name>DRUpdateComplaintResolution</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>DRUpdateComplaintResolution</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
@@ -120,7 +119,16 @@
     &quot;ComplaintRes:otherRemedy&quot; : &quot;%TransformClosecase:ComplaintRes:otherRemedy%&quot;,
     &quot;ComplaintRes:Id&quot; : &quot;%TransformClosecase:ComplaintRes:Id%&quot;,
     &quot;ComplaintRes:rewardPoints&quot; : &quot;%TransformClosecase:ComplaintRes:rewardPoints%&quot;,
-    &quot;ComplaintId&quot; : &quot;%Case:Id%&quot;
+    &quot;ComplaintRes:descriptionOutcomeOffered&quot; : &quot;%TransformClosecase:ComplaintRes:descriptionOutcomeOffered%&quot;,
+    &quot;ComplaintRes:durationOfRemedyOffered&quot; : &quot;%TransformClosecase:ComplaintRes:durationOfRemedyOffered%&quot;,
+    &quot;ComplaintRes:otherRemedyOffered&quot; : &quot;%TransformClosecase:ComplaintRes:otherRemedyOffered%&quot;,
+    &quot;ComplaintRes:subRemedyOffered&quot; : &quot;%TransformClosecase:ComplaintRes:subRemedyOffered%&quot;,
+    &quot;ComplaintRes:remedyOffered&quot; : &quot;%TransformClosecase:ComplaintRes:remedyOffered%&quot;,
+    &quot;ComplaintId&quot; : &quot;%Case:Id%&quot;,
+    &quot;ComplaintRes:rewardPointsOffered&quot; : &quot;%TransformClosecase:ComplaintRes:rewardPointsOffered%&quot;,
+    &quot;ComplaintRes:PaymentProvidedOffered&quot; : &quot;%TransformClosecase:ComplaintRes:PaymentProvidedOffered%&quot;,
+    &quot;ComplaintRes:OfferEnhancedAndAccepted&quot; : &quot;%TransformClosecase:ComplaintRes:OfferEnhancedAndAccepted%&quot;,
+    &quot;ComplaintRes:OfferedDetails&quot; : &quot;%TransformClosecase:ComplaintRes:OfferedDetails%&quot;
   },
   &quot;additionalOutput&quot; : { },
   &quot;failureResponse&quot; : { },
@@ -141,9 +149,10 @@
             <sequenceNumber>1.0</sequenceNumber>
             <type>DataRaptor Post Action</type>
         </childElements>
-        <isActive>false</isActive>
+        <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>CRLoopBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;TransformClosecase:ComplaintRes&quot;,
@@ -153,7 +162,7 @@
   &quot;label&quot; : &quot;LoopBlock2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>

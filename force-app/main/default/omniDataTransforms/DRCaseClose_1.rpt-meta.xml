@@ -131,55 +131,14 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom8908</globalKey>
-        <inputFieldName>Case:IDR_Issue_Type_3__c</inputFieldName>
+        <formulaConverted>| var:Case:ComplaintStatus &quot;Closed&quot; == var:Case:CustomerAcceptTheResolution &quot;Yes&quot; == &amp;&amp; var:Case:DescriptionOutcomeAccepted var:Case:DescriptionOutcome IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintStatus ==&quot;Closed&quot; &amp;&amp;  Case:CustomerAcceptTheResolution == &quot;Yes&quot;, %Case:DescriptionOutcomeAccepted% , %Case:DescriptionOutcome%)</formulaExpression>
+        <formulaResultPath>Case:DescriptionOutcome</formulaResultPath>
+        <formulaSequence>26.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom7703</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Issue_Type_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom5330</globalKey>
-        <inputFieldName>Case:ComplaintSubRemedy3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Complaint_Sub_Remedy_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom2703</globalKey>
-        <inputFieldName>Case:detailsOfComplaint3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Provided_details_to_Prod_Manufacturer_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:IsthisComplaintAboutComplaint &quot;Yes&quot; == var:Case:ReviewOutcome &apos;$Vlocity.NULL&apos; IF</formulaConverted>
-        <formulaExpression>IF(Case:IsthisComplaintAboutComplaint==&quot;Yes&quot;,%Case:ReviewOutcome%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
-        <formulaResultPath>Case:ReviewOutcome</formulaResultPath>
-        <formulaSequence>22.0</formulaSequence>
-        <globalKey>DRCaseCloseCustom7475</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -458,30 +417,16 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom2837</globalKey>
-        <inputFieldName>Case:ReviewOutcome</inputFieldName>
+        <formulaConverted>| var:Case:ComplaintStatus &quot;Closed&quot; == var:Case:CustomerAcceptTheResolution &quot;Yes&quot; == &amp;&amp; var:Case:ComplaintOutcomeAccepted var:Case:ComplaintOutcome IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintStatus ==&quot;Closed&quot; &amp;&amp;  Case:CustomerAcceptTheResolution == &quot;Yes&quot;, %Case:ComplaintOutcomeAccepted% , %Case:ComplaintOutcome%)</formulaExpression>
+        <formulaResultPath>Case:ComplaintOutcome</formulaResultPath>
+        <formulaSequence>27.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom9142</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Review_Outcome__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <name>DRCaseClose</name>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:IsthisComplaintAboutComplaint &quot;Yes&quot; == var:Case:ParentCase-Block:Id &apos;$Vlocity.NULL&apos; IF</formulaConverted>
-        <formulaExpression>IF(Case:IsthisComplaintAboutComplaint==&quot;Yes&quot;,%Case:ParentCase-Block:Id%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
-        <formulaResultPath>Case:ParentCase-Block:Id</formulaResultPath>
-        <formulaSequence>20.0</formulaSequence>
-        <globalKey>DRCaseCloseCustom7728</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -489,15 +434,15 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom2360</globalKey>
-        <inputFieldName>Case:isSystemicIssue</inputFieldName>
+        <globalKey>DRCaseCloseCustom2838</globalKey>
+        <inputFieldName>Case:ComplaintOutcomeOffered</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Is_Common__c</outputFieldName>
+        <outputFieldName>IDR_Complaint_Outcome_Offered__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

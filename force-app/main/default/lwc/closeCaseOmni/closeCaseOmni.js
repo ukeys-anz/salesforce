@@ -133,7 +133,11 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
   // validate that all the required fields data has been provided
   validateFields() {
     let details = this.omniJsonData.Case;
-    this.checkFields(details, this.omniJsonData.closeReqMap);
+    if (
+      this.omniJsonData.Case.ComplaintStatus === "Closed" &&
+      this.omniJsonData.Case.CustomerAcceptTheResolution === "No"
+    )
+      this.checkFields(details, this.omniJsonData.closeReqMap);
     if (
       details.Type === undefined ||
       details.Type === null ||
@@ -170,7 +174,11 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       !details.PaymentAmountProvided1
     )
       this.missingFields.push("Payment Amount Provided 1");
-    if (details.SecondComplaintCheckbox === "Yes") {
+    if (
+      details.SecondComplaintCheckbox === "Yes" &&
+      details.ComplaintStatus === "Closed" &&
+      details.CustomerAcceptTheResolution === "No"
+    ) {
       this.checkFields(details, this.omniJsonData.secCmpMap);
       if (
         details.ComplaintRemedy2 === REFERRED_TO_PRODUCT &&
@@ -197,7 +205,11 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       )
         this.missingFields.push("Payment Amount Provided 2");
     }
-    if (details.ThirdComplaintCheckbox === "Yes") {
+    if (
+      details.ThirdComplaintCheckbox === "Yes" &&
+      details.ComplaintStatus === "Closed" &&
+      details.CustomerAcceptTheResolution === "No"
+    ) {
       this.checkFields(details, this.omniJsonData.thirdCmpMap);
       if (
         details.ComplaintRemedy3 === REFERRED_TO_PRODUCT &&
