@@ -421,7 +421,8 @@
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
         "Task_Sub_Type__c",
-        "My_extended_team_s_tasks__c"
+        "My_extended_team_s_tasks__c",
+        "Sub_Status__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
@@ -1098,10 +1099,17 @@
         "Advocacy_Score__c",
         "Alerting_Reason__c",
         "ANZx_Customer__c",
+        "Application_Status__c",
+        "Assessment_Outcome__c",
+        "Assessment_Id__c",
+        "Feedback_Type__c",
+        "Case_Authority_Level__c",
+        "Closure_Reason__c",
+        "Collateral_Assessment_ID__c",
+        "Credit_Id__c",
         "IDR_Additional_Correspondence_reviewed__c",
         "IDR_Avoidable_Escalation__c",
         "IDR_Avoidable_Escalation_Reason__c",
-        "IsAScam__c",
         "IsAScam__c",
         "Loan_Application__c",
         "Loan_Purpose__c",
@@ -1109,9 +1117,11 @@
         "Original_Feedback_Record__c",
         "Property_Valuation_Id__c",
         "Original_Feedback_Record__c",
-        "TestedDate__c"
+        "TestedDate__c",
+        "Title_Reference_Number__c"
       ],
       "IA-2415860": [
+        "Customer_First_Contacted__c",
         "Followup_State__c",
         "Package_Id__c",
         "Status_Update_Error__c",
@@ -1127,17 +1137,6 @@
         "Fraud_PersonID__c"
       ],
       "IA-2468710": ["SLATesting__c", "CardScamType__c"]
-    },
-    "Case_Reporting_Field__c": {
-      "IA-2453595": [
-        "Case__c",
-        "Case_Last_Opened__c",
-        "Case_Last_Opened_RG271__c",
-        "IDR_Response_Time_RG271__c",
-        "IDR_Response_Time_RG271_MS__c",
-        "Total_Open_Time__c",
-        "Total_Open_Time_MS__c"
-      ]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
@@ -2099,7 +2098,8 @@
         "Product_Code_Display__c",
         "Sub_product_Code_Display__c",
         "Product_Name_Display__c",
-        "Account_Name__c"
+        "Account_Name__c",
+        "Is_ANZx_Account__c"
       ]
     },
     "FinServ__ReciprocalRole__c": {
