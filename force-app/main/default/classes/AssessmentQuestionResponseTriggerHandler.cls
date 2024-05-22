@@ -19,18 +19,8 @@ public with sharing class AssessmentQuestionResponseTriggerHandler extends Lib_T
     for (
       AssessmentQuestionResponse record : (List<AssessmentQuestionResponse>) records
     ) {
-      TextUtils.maskAndLog(
-        (String) record.get('ResponseText'),
-        'ResponseText',
-        record,
-        false
-      );
-      TextUtils.maskAndLog(
-        (String) record.get('ResponseValue'),
-        'ResponseValue',
-        record,
-        false
-      );
+      TextUtils.maskDataAnzx(record, 'ResponseText');
+      TextUtils.maskDataAnzx(record, 'ResponseValue');
     }
   }
 }

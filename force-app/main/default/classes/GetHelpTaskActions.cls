@@ -227,7 +227,7 @@ public with sharing class GetHelpTaskActions {
           Task.Description
         )
       ) {
-        record.Description = TextUtils.maskData(record.Description);
+        record.Description = TextUtils.maskDataAnzx(record.Description);
       }
     }
   }
