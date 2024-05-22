@@ -30,32 +30,41 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @param creditId credit id from credit assessment
-   * @param recordId record id from case
-   * @param collateralAssessmentId property valuation id from case
-   * @param ocvId customer ocv id
+   * @param payload payload to send for reassessment
    * @description submits the credit assessment for reassessment
    */
-  public void submitReassessment(
-    String creditId,
-    String recordId,
-    String collateralAssessmentId,
-    String ocvId
-  ) {
+  public void submitReassessment(Map<String, String> payload) {
     Service s = ServiceProvider.getService(BOHService.class);
-    String payload = '{"creditEnquiryId": "' + creditId + '",';
-    payload +=
-      '"creditEnquiryAssessment": {"collateralAssessmentId": "' +
-      collateralAssessmentId +
-      '",';
-    payload += '"type": "ASSESSMENT_TYPE_PROVISIONAL"}}';
-    UUIDLog uuidLog = new UUIDLog(payload);
+    ReassessBody reassessBody = new ReassessBody();
+    CreditEnquiryAssessment creditEnqAssessment = new CreditEnquiryAssessment();
+    creditEnqAssessment.collateralAssessmentId = payload.get(
+      'collateralAssessmentId'
+    );
+
+    if (String.isNotEmpty(payload.get('titleReferenceNumber'))) {
+      List<TitleReference> titleRef = (List<TitleReference>) JSON.deserialize(
+        payload.get('titleReferenceNumber'),
+        List<TitleReference>.class
+      );
+      creditEnqAssessment.titleReferenceNumbers = titleRef;
+    }
+    creditEnqAssessment.type = 'ASSESSMENT_TYPE_PROVISIONAL';
+    reassessBody.creditEnquiryAssessment = creditEnqAssessment;
+    reassessBody.creditEnquiryId = payload.get('creditId');
+
+    //Serialise payload so any null values are removed
+    String requestPayload = json.serialize(reassessBody, true);
+
+    UUIDLog uuidLog = new UUIDLog(requestPayload);
     HttpCalloutResponse response = s.creditReassessment(
-      uuidLog.attachUUID(payload),
-      ocvId
+      uuidLog.attachUUID(requestPayload),
+      payload.get('ocvId')
     );
     if (response.successful == false) {
-      uuidLog.insertUUID(recordId, 'BOH - Credit Referral - Reassess');
+      uuidLog.insertUUID(
+        payload.get('recordId'),
+        'BOH - Credit Referral - Reassess'
+      );
       throw response.error;
     }
   }
@@ -125,6 +134,7 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
     enquiryAssessment.reasonCode = payload.get('reasonCode');
     enquiryAssessment.referralOutcomeCode = payload.get('referralOutcome');
     enquiryAssessment.applicantId = payload.get('applicantId');
+    enquiryAssessment.propertyId = payload.get('propertyId');
     enquiry.creditEnquiryAssessmentReferralOutcome = enquiryAssessment;
 
     //Serialise payload so any null values are removed
@@ -162,5 +172,31 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
     public String reasonCode;
     public String referralOutcomeCode;
     public String applicantId;
+    public String propertyId;
+  }
+
+  /**
+   * @description ReassessBody body of reassess callout to send
+   */
+  public class ReassessBody {
+    public String creditEnquiryId;
+    public CreditEnquiryAssessment creditEnquiryAssessment;
+  }
+
+  /**
+   * @description CreditEnquiryAssessment body of CreditEnquiryAssessment callout to send
+   */
+  public class CreditEnquiryAssessment {
+    public String collateralAssessmentId;
+    public List<TitleReference> titleReferenceNumbers;
+    public String type;
+  }
+
+  /**
+   * @description TitleReference body of TitleReference callout to send
+   */
+  public class TitleReference {
+    String state;
+    String titleReference;
   }
 }

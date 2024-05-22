@@ -349,6 +349,7 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     payload.put('reasonCode', String.valueOf(input.get('reasonCode')));
     payload.put('applicantId', String.valueOf(input.get('applicantId')));
     payload.put('recordId', String.valueOf(input.get('recordId')));
+    payload.put('propertyId', String.valueOf(input.get('propertyId')));
 
     return creditApi.createCreditEnquiryAssessment(payload);
   }
