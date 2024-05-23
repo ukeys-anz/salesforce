@@ -166,12 +166,10 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
     )
       this.missingFields.push("Reward Points 1");
     if (
-      (REMS.includes(details.ComplaintRemedy1) ||
-        REMS.includes(details.ComplaintSubRemedy1)) &&
+      REMS.includes(details.ComplaintRemedy1) &&
       !details.PaymentAmountProvided1
     )
       this.missingFields.push("Payment Amount Provided 1");
-    console.log(this.missingFields);
     if (details.SecondComplaintCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.secCmpMap);
       if (
@@ -194,8 +192,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       )
         this.missingFields.push("Reward Points 2");
       if (
-        (REMS.includes(details.ComplaintRemedy2) ||
-          REMS.includes(details.ComplaintSubRemedy2)) &&
+        REMS.includes(details.ComplaintRemedy2) &&
         !details.PaymentAmountProvided2
       )
         this.missingFields.push("Payment Amount Provided 2");
@@ -222,8 +219,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       )
         this.missingFields.push("Reward Points 3");
       if (
-        (REMS.includes(details.ComplaintRemedy3) ||
-          REMS.includes(details.ComplaintSubRemedy3)) &&
+        REMS.includes(details.ComplaintRemedy3) &&
         !details.PaymentAmountProvided3
       )
         this.missingFields.push("Payment Amount Provided 3");
