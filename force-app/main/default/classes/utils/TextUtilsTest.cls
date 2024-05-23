@@ -107,6 +107,18 @@ public with sharing class TextUtilsTest {
   }
 
   @IsTest
+  static void testMaskDataCmos() {
+    Case theCase = new Case(
+      Subject = '00000000000000302773359 | $1234567890123456| 1234567890123456'
+    );
+    Assert.areEqual(
+      '*******************3359 | $1234567890123456| ************3456',
+      TextUtils.maskDataCmos(theCase, 'Subject'),
+      'Policy number should be masked'
+    );
+  }
+
+  @IsTest
   static void testCardRelaxedMaskingRules() {
     String inputMoney = '$1234567890123456';
     String inputDateRange = '01-01-2020 01-02-2020';

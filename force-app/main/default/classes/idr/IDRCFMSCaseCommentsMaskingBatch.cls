@@ -26,7 +26,7 @@ public class IDRCFMSCaseCommentsMaskingBatch implements Database.Batchable<sObje
     List<CaseComment> caseComments
   ) {
     for (CaseComment cc : caseComments) {
-      TextUtils.maskDataAnzx(cc, 'CommentBody');
+      TextUtils.maskDataCmos(cc, 'CommentBody');
     }
     try {
       update caseComments;

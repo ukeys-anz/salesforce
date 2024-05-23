@@ -65,13 +65,25 @@ public with sharing class TextUtils {
    * @param field The name of the field to be masked.
    * @return The masked policy number.
    */
-  public static String maskIdrPolicyNumber(SObject record, String field) {
+  private static String maskIdrPolicyNumber(SObject record, String field) {
     if (record?.isSet(field) != true) {
       return null;
     }
     String maskedData = maskData((String) record.get(field), idrPolicyPattern);
     record.put(field, maskedData);
     return maskedData;
+  }
+
+  /**
+   * @description Masks sensitive data in the specified field of the given SObject record.
+   * This method applies the maskDataAnzx and maskIdrPolicyNumber methods to the field.
+   * @param record The SObject record to mask the data for.
+   * @param field The field name to mask the data in.
+   * @return The masked data.
+   */
+  public static String maskDataCmos(SObject record, String field) {
+    maskDataAnzx(record, field);
+    return maskIdrPolicyNumber(record, field);
   }
 
   /**

@@ -47,7 +47,7 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
         relatedCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
         relatedCase.RecordTypeId == IDRConstants.SI_RT_ID)
       ) {
-        TextUtils.maskDataAnzx(record, 'CommentBody');
+        TextUtils.maskDataCmos(record, 'CommentBody');
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);
       }
