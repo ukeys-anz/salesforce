@@ -104,7 +104,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Disable_CMOS_Omni__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -386,6 +386,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Date_closed_after_re_opening__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Description_of_Outcome_Offered__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -220,16 +220,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Complaint_Outcome_Offered__c</fieldItem>
-                <identifier>RecordComplaint_Outcome_Offered_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Complaint_Remedy_Offered__c</fieldItem>
                 <identifier>RecordComplaint_Remedy_Offered_cField</identifier>
             </fieldInstance>
@@ -242,16 +232,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Complaint_Sub_Remedy_Offered__c</fieldItem>
                 <identifier>RecordComplaint_Sub_Remedy_Offered_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.IDR_Description_of_Outcome_Offered__c</fieldItem>
-                <identifier>RecordIDR_Description_of_Outcome_Offered_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

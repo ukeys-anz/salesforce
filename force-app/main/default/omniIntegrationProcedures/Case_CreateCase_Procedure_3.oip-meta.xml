@@ -99,11 +99,12 @@
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>CRLoopBlock</name>
         <childElements>
+            <name>DRUpdateComplaintResolution</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>DRUpdateComplaintResolution</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%==true&quot;,
@@ -128,7 +129,8 @@
     &quot;ComplaintRes:rewardPointsOffered&quot; : &quot;%TransformClosecase:ComplaintRes:rewardPointsOffered%&quot;,
     &quot;ComplaintRes:PaymentProvidedOffered&quot; : &quot;%TransformClosecase:ComplaintRes:PaymentProvidedOffered%&quot;,
     &quot;ComplaintRes:OfferEnhancedAndAccepted&quot; : &quot;%TransformClosecase:ComplaintRes:OfferEnhancedAndAccepted%&quot;,
-    &quot;ComplaintRes:OfferedDetails&quot; : &quot;%TransformClosecase:ComplaintRes:OfferedDetails%&quot;
+    &quot;ComplaintRes:OfferedDetails&quot; : &quot;%TransformClosecase:ComplaintRes:OfferedDetails%&quot;,
+    &quot;ComplaintRes:CustomerAcceptResolution&quot; : &quot;%TransformClosecase:ComplaintRes:CustomerAcceptResolution%&quot;
   },
   &quot;additionalOutput&quot; : { },
   &quot;failureResponse&quot; : { },
@@ -152,7 +154,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>CRLoopBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;TransformClosecase:ComplaintRes&quot;,
@@ -191,7 +192,7 @@
   &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
   &quot;remoteOptions&quot; : { },
   &quot;remoteMethod&quot; : &quot;deleteComplaintResolution&quot;,
-  &quot;chainOnStep&quot; : true,
+  &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;additionalChainableResponse&quot; : { },
   &quot;show&quot; : null,
@@ -203,7 +204,6 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>DRCloseCase</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -224,7 +224,7 @@
   &quot;sendJSONPath&quot; : &quot;Case&quot;,
   &quot;sendJSONNode&quot; : &quot;Case&quot;,
   &quot;bundle&quot; : &quot;DRCaseClose&quot;,
-  &quot;chainOnStep&quot; : true,
+  &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
@@ -235,7 +235,6 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>DRCreateCase</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -256,7 +255,7 @@
   &quot;sendJSONPath&quot; : &quot;TransformCaseDetails&quot;,
   &quot;sendJSONNode&quot; : &quot;&quot;,
   &quot;bundle&quot; : &quot;DRCreateCase&quot;,
-  &quot;chainOnStep&quot; : true,
+  &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
@@ -292,7 +291,7 @@
   &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
   &quot;remoteOptions&quot; : { },
   &quot;remoteMethod&quot; : &quot;createComplaintResolution&quot;,
-  &quot;chainOnStep&quot; : true,
+  &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;additionalChainableResponse&quot; : { },
   &quot;show&quot; : null,
@@ -303,45 +302,7 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>RAUpdateComplaintRes</name>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;%isCloseCase%=true&quot;,
-  &quot;failureConditionalFormula&quot; : &quot;&quot;,
-  &quot;failOnStepError&quot; : true,
-  &quot;useFormulas&quot; : true,
-  &quot;additionalInput&quot; : {
-    &quot;ComplaintId&quot; : &quot;%Case:Id%&quot;,
-    &quot;ComplaintResolution&quot; : &quot;%TransformClosecase:ComplaintRes%&quot;
-  },
-  &quot;additionalOutput&quot; : { },
-  &quot;failureResponse&quot; : { },
-  &quot;sendOnlyAdditionalInput&quot; : true,
-  &quot;returnOnlyAdditionalOutput&quot; : false,
-  &quot;returnOnlyFailureResponse&quot; : false,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;remoteMethod&quot; : &quot;createComplaintResolution&quot;,
-  &quot;chainOnStep&quot; : true,
-  &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;additionalChainableResponse&quot; : { },
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;RemoteAction4&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
-        <type>Remote Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
         <name>ResponseAction</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -368,7 +329,6 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>TransformCaseDetails</name>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -389,7 +349,7 @@
   &quot;sendJSONPath&quot; : &quot;&quot;,
   &quot;sendJSONNode&quot; : &quot;&quot;,
   &quot;bundle&quot; : &quot;DRTransformCaseDetails&quot;,
-  &quot;chainOnStep&quot; : true,
+  &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;ignoreCache&quot; : false,
   &quot;show&quot; : null,
@@ -421,7 +381,7 @@
   &quot;sendJSONPath&quot; : &quot;Case&quot;,
   &quot;sendJSONNode&quot; : &quot;Case&quot;,
   &quot;bundle&quot; : &quot;DRTransformCloseCase&quot;,
-  &quot;chainOnStep&quot; : true,
+  &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
   &quot;ignoreCache&quot; : false,
   &quot;show&quot; : null,
@@ -463,5 +423,5 @@
     <type>Case</type>
     <uniqueName>Case_CreateCase_Procedure_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>6f474dfe-d2ae-dd30-f15d-b1a2c189e78b</webComponentKey>
+    <webComponentKey>be3bdfa4-41d6-5e54-ae20-7c0e1126a386</webComponentKey>
 </OmniIntegrationProcedure>
