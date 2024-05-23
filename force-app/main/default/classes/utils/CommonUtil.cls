@@ -273,6 +273,7 @@ public with sharing class CommonUtil {
       fieldName == 'IDR_Other_Remedy_Provided_3__c'
     ) {
       TextUtils.maskDataAnzx(record, fieldName);
+      TextUtils.maskIdrPolicyNumber(record, fieldName);
     } else {
       record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }

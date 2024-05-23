@@ -12,6 +12,7 @@ public with sharing class TextUtils {
   private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
   private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final String SANITISE_MOBILE_NUMBER_REGEX_PATTERN = '[^0-9]';
+  private static final String IDR_POLICY_PATTERN = '\\b(?<![\\$\\+])0\\d{16,}\\b';
   private static final String VISA_REGEX = '\\b(?<![\\$\\+])\\d{4}(?:[ -]?\\d{4}){3}\\b';
   private static final String AMEX_DINER_REGEX = '\\b(?<![\\$\\+])\\d{4}[ -]?\\d{6}[ -]?\\d{4,5}\\b';
   private static final String KEYWORD_REGEX =
@@ -39,6 +40,7 @@ public with sharing class TextUtils {
   private static Pattern accountOrCardPattern = Pattern.compile(
     ACCOUNT_OR_CARD_REGEX_PATTERN
   );
+  private static Pattern idrPolicyPattern = Pattern.compile(IDR_POLICY_PATTERN);
   private static Pattern logPattern = Pattern.compile(LOG_REGEX_PATTERN);
   private static Pattern logKeywordPattern = Pattern.compile(
     LOG_KEYWORD_REGEX_PATTERN
@@ -55,6 +57,21 @@ public with sharing class TextUtils {
    */
   public static String maskData(String input, Pattern patToCompile) {
     return maskData(input, patToCompile, 0);
+  }
+
+  /**
+   * @description Masks the policy number in the specified field of the given record.
+   * @param record The record containing the field to be masked.
+   * @param field The name of the field to be masked.
+   * @return The masked policy number.
+   */
+  public static String maskIdrPolicyNumber(SObject record, String field) {
+    if (record?.isSet(field) != true) {
+      return null;
+    }
+    String maskedData = maskData((String) record.get(field), idrPolicyPattern);
+    record.put(field, maskedData);
+    return maskedData;
   }
 
   /**
