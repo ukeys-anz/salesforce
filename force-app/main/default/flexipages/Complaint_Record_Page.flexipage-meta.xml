@@ -163,7 +163,7 @@
                         <valueListItems>
                             <value>Case.Validate_Event_ID</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2)</booleanFilter>
+                                <booleanFilter>(3 AND (1 OR 2)) OR (4 AND 6 AND (1 OR 2)) OR (5 AND 6 AND (1 OR 2))</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                                     <operator>CONTAINS</operator>
@@ -173,6 +173,26 @@
                                     <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                                     <operator>CONTAINS</operator>
                                     <rightValue>Non_Customer_Complaint</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.IDR_Level_2}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.IDR_Level_3}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IsOwner__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -221,6 +241,12 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>toastEventListener</componentName>
+                <identifier>c_toastEventListener</identifier>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
@@ -535,7 +561,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Resolution Pathways</value>
+                    <value>Standard.Tab.assessments</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab</identifier>
@@ -618,7 +644,7 @@
                 <componentName>industries_service_excellence:actionLauncher</componentName>
                 <identifier>industries_service_excellence_actionLauncher</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
                         <operator>EQUAL</operator>
@@ -633,6 +659,11 @@
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Non_Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Show_Resolution_Launcher__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -843,6 +874,14 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>maxEARContainerHeight</name>
+                    <value>500</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>shouldDisplayFiltersOnRight</name>
+                    <value>false</value>
+                </componentInstanceProperties>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop</identifier>
                 <visibilityRule>

@@ -932,6 +932,7 @@
         "Receipt__c",
         "Regular_Payment_Cancellation_Date__c",
         "Relationship_Managed_Complaint__c",
+        "Show_Resolution_Launcher__c",
         "SlaStartDate",
         "StopStartDate",
         "SLA_Status__c",
