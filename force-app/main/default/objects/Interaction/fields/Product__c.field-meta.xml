@@ -42,6 +42,11 @@
                 <label>ANZ Save</label>
             </value>
             <value>
+                <fullName>ANZ Save Grow</fullName>
+                <default>false</default>
+                <label>ANZ Save Grow</label>
+            </value>
+            <value>
                 <fullName>Joint ANZ Plus</fullName>
                 <default>false</default>
                 <label>Joint ANZ Plus</label>
@@ -55,11 +60,6 @@
                 <fullName>Non Product Related</fullName>
                 <default>false</default>
                 <label>Non Product Related</label>
-            </value>
-            <value>
-                <fullName>Simple Saver</fullName>
-                <default>false</default>
-                <label>Simple Saver</label>
             </value>
         </valueSetDefinition>
     </valueSet>
