@@ -33,6 +33,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Category__c</picklist>
+        <values>
+            <fullName>Proactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relationship building</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Channel_Booked__c</picklist>
         <values>
             <fullName>App</fullName>
@@ -55,6 +70,33 @@
         </values>
         <values>
             <fullName>Outbound</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Focus_Area__c</picklist>
+        <values>
+            <fullName>Explore refinancing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Find new ways to save</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Help with my application</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Improve your habits</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plan upcoming expenses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reach your savings goals</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -132,6 +174,45 @@
         </values>
         <values>
             <fullName>WA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product__c</picklist>
+        <values>
+            <fullName>ANZ Plus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus Home Loan - Fixed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus Home Loan - Variable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Save</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Save Grow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joint ANZ Plus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joint ANZ Save</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Product Related</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -244,6 +325,21 @@
         </values>
         <values>
             <fullName>Support Enquiry</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Transfer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To Queue</fullName>
             <default>false</default>
         </values>
     </picklistValues>
