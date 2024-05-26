@@ -143,7 +143,6 @@ public with sharing class CommonUtil {
     }
     return labelsByValues;
   }
-
   /**
    * @description getAvailableRecordTypeNamesForSObject(input) method is used to get available record types for a certain sobject.
    * This method will only return the record types that are available to the current user
@@ -273,12 +272,7 @@ public with sharing class CommonUtil {
       fieldName == 'IDR_Other_Remedy_Provided_2__c' ||
       fieldName == 'IDR_Other_Remedy_Provided_3__c'
     ) {
-      TextUtils.maskAndLog(
-        (String) record.get(fieldName),
-        fieldName,
-        record,
-        false
-      );
+      TextUtils.maskDataCmos(record, fieldName);
     } else {
       record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }

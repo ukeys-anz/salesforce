@@ -115,7 +115,7 @@ public with sharing class DisputeExternalCaseStatusActions {
         (
           SELECT External_Status__c, Status_TimeStamp__c
           FROM External_Case_Statuses__r
-          ORDER BY Status_TimeStamp__c DESC
+          ORDER BY Status_TimeStamp__c DESC, Name DESC
           LIMIT 1
         )
       FROM Case

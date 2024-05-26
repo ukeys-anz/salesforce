@@ -142,7 +142,6 @@ public with sharing class CCRMOpportunityActionsSkipStageHelper {
       GROUP BY
         ActionPlan.TargetId,
         ActionPlan.ActionPlanTemplateVersion.ActionPlanTemplate.Name
-
     ]) {
       Object oppId = iterator.get('oppId');
       Object templateName = iterator.get('templateName');

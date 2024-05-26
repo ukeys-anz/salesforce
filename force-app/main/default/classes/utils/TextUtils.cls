@@ -6,11 +6,20 @@
  * @modified by Shivraj Kadam on 08/28/2023
  */
 public with sharing class TextUtils {
+  private static final String MASKING_LOG_MESSAGE = 'Input contains "{0}"; {1}: {2}';
+
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
-  private static final String TAX_REGEX_PATTERN = '[0-9][^a-zA-Z]{13,}[0-9]';
   private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
   private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final String SANITISE_MOBILE_NUMBER_REGEX_PATTERN = '[^0-9]';
+  private static final String IDR_POLICY_PATTERN = '\\b(?<![\\$\\+])0\\d{16,}\\b';
+  private static final String VISA_REGEX = '\\b(?<![\\$\\+])\\d{4}(?:[ -]?\\d{4}){3}\\b';
+  private static final String AMEX_DINER_REGEX = '\\b(?<![\\$\\+])\\d{4}[ -]?\\d{6}[ -]?\\d{4,5}\\b';
+  private static final String KEYWORD_REGEX =
+    '(?i)(?<![^\\W\\d])(?:' +
+    Label.Reactive_logging_keywords.replace(',', '|') +
+    ')(?![^\\W\\d])';
+
   private static final Integer UNMASK_LENGTH = 4;
 
   //start - added for CC-4053
@@ -31,16 +40,57 @@ public with sharing class TextUtils {
   private static Pattern accountOrCardPattern = Pattern.compile(
     ACCOUNT_OR_CARD_REGEX_PATTERN
   );
-  private static Pattern taxPattern = Pattern.compile(TAX_REGEX_PATTERN);
+  private static Pattern idrPolicyPattern = Pattern.compile(IDR_POLICY_PATTERN);
   private static Pattern logPattern = Pattern.compile(LOG_REGEX_PATTERN);
   private static Pattern logKeywordPattern = Pattern.compile(
     LOG_KEYWORD_REGEX_PATTERN
   );
+  private static Pattern visaPattern = Pattern.compile(VISA_REGEX);
+  private static Pattern amexDinerPattern = Pattern.compile(AMEX_DINER_REGEX);
+  public static Pattern keywordPattern = Pattern.compile(KEYWORD_REGEX);
+
+  /**
+   * @description general method to mask certain data with a specific pattern
+   * @param input Input string that needs to be masked if needed
+   * @param patToCompile Regex pattern to match the string
+   * @return `String` masked string
+   */
+  public static String maskData(String input, Pattern patToCompile) {
+    return maskData(input, patToCompile, 0);
+  }
+
+  /**
+   * @description Masks the policy number in the specified field of the given record.
+   * @param record The record containing the field to be masked.
+   * @param field The name of the field to be masked.
+   * @return The masked policy number.
+   */
+  private static String maskIdrPolicyNumber(SObject record, String field) {
+    if (record?.isSet(field) != true) {
+      return null;
+    }
+    String maskedData = maskData((String) record.get(field), idrPolicyPattern);
+    record.put(field, maskedData);
+    return maskedData;
+  }
+
+  /**
+   * @description Masks sensitive data in the specified field of the given SObject record.
+   * This method applies the maskDataAnzx and maskIdrPolicyNumber methods to the field.
+   * @param record The SObject record to mask the data for.
+   * @param field The field name to mask the data in.
+   * @return The masked data.
+   */
+  public static String maskDataCmos(SObject record, String field) {
+    maskDataAnzx(record, field);
+    return maskIdrPolicyNumber(record, field);
+  }
+
   /**
    * @description general method to mask certain data with a specific pattern and length
    * @param input Input string that needs to be masked if needed
    * @param patToCompile Regex pattern to match the string
-   * @param digLength minimum length of digits in order to be masked
+   * @param digLength minimum length of digits in order to be masked, 0 for no limit
    * @return `String` masked string
    */
   public static String maskData(
@@ -49,23 +99,17 @@ public with sharing class TextUtils {
     Integer digLength
   ) {
     if (String.isNotBlank(input)) {
+      digLength = Math.max(digLength, UNMASK_LENGTH + 1);
       Matcher matchingPattern = patToCompile.matcher(input);
       while (matchingPattern.find()) {
-        String stringToMask = matchingPattern.group(0).trim();
-        String digits = stringToMask.replaceAll('[^0-9]', '');
-        if (digits.length() >= digLength) {
-          String masked = '';
-          for (Integer i = 0; i < digits.length() - UNMASK_LENGTH; i++) {
-            masked = masked + '*';
-          }
-          masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
-          Integer index = input.indexOf(stringToMask);
-          if (index != -1) {
-            input =
-              input.subString(0, index) +
-              masked +
-              input.subString(index + stringToMask.length());
-          }
+        String stringToMask = matchingPattern.group().replaceAll('[^0-9]', '');
+        if (stringToMask.length() >= digLength) {
+          String unmaskedToken = stringToMask.right(UNMASK_LENGTH);
+          String maskedWithSpaces = unmaskedToken.leftPad(
+            stringToMask.length()
+          );
+          String masked = maskedWithSpaces.replace(' ', '*');
+          input = matchingPattern.replaceFirst(masked);
           matchingPattern = patToCompile.matcher(input);
         }
       }
@@ -84,108 +128,82 @@ public with sharing class TextUtils {
   }
 
   /**
-   * @description maskDataAnzx method is used to mask if there are any tax numbers in the text.
+   * @description maskDataAnzx method is used to mask if there are any cards or customer identifiers.
    * @param input Input string that needs to be masked if needed
    * @return `String` masked string
    */
   public static String maskDataAnzx(String input) {
-    return maskData(input, taxPattern, 15);
+    return containsKeyword(input)
+      ? maskData(input, logKeywordPattern)
+      : maskCC(input);
   }
 
   /**
-   * @description This method determines whether we need to log the content
-   * Criteria is if it contains digits of more than 12 digits
-   * Or contains keywords like TFN or Tax and has more than 8 digits
-   * @param input Input string that we need to verify
-   * @return `Boolean` whether we need to log this input
+   * @description maskDataAnzx method is used to mask if there are any cards or customer identifiers.
+   * @param record The SObject record to mask the field value for.
+   * @param field The name of the field to mask.
+   * @return `String` masked string
    */
-  public static Boolean reactiveLogging(String input) {
-    if (String.isBlank(input)) {
-      return false;
+  public static String maskDataAnzx(SObject record, String field) {
+    if (record?.isSet(field) != true) {
+      return null;
     }
-    Boolean hasKeyword = regexMatchesKeyword(input);
-
-    Pattern patToCompile = logPattern;
-    Integer digLength = 12;
-    if (hasKeyword) {
-      patToCompile = logKeywordPattern;
-      digLength = 8;
-    }
-
-    Matcher matchingPattern = patToCompile.matcher(input);
-    while (matchingPattern.find()) {
-      String stringToMask = matchingPattern.group(0).trim();
-      String digits = stringToMask.replaceAll('[^0-9]', '');
-      if (digits.length() >= digLength) {
-        return true;
-      }
-    }
-    return false;
+    String maskedData = maskDataAnzx((String) record.get(field));
+    record.put(field, maskedData);
+    return maskedData;
   }
 
   /**
-   * @description This method mask and logs keywords specific data
-   * Criteria is if it contains digits of more than 15 digits
-   * Or contains keywords like TFN or Tax and has more than 8 digits
-   * @param input Input string that we need to verify
-   * @param fieldName field name
-   * @param record sObject record that contains data
-   * @param isLoggingRequired boolean to allow logging
+   * @description mask credit/debit card number from a given text
+   * @param input Input string that needs to be masked if needed
+   * @return `String` masked string
    */
-  public static void maskAndLog(
-    String input,
-    String fieldName,
-    SObject record,
-    Boolean isLoggingRequired
-  ) {
-    if (String.isNotBlank(input)) {
-      Boolean hasKeyword = regexMatchesKeyword(input);
+  @TestVisible
+  private static String maskCC(String input) {
+    input = maskData(input, visaPattern);
+    input = maskData(input, amexDinerPattern);
+    return input;
+  }
 
-      Pattern patToCompile = taxPattern;
-      Integer digLength = 15;
-      if (hasKeyword) {
-        patToCompile = logKeywordPattern;
-        digLength = 8;
-      }
-
-      Matcher matchingPattern = patToCompile.matcher(input);
-      while (matchingPattern.find()) {
-        String stringToMask = matchingPattern.group(0).trim();
-        String digits = stringToMask.replaceAll('[^0-9]', '');
-        if (digits.length() >= digLength) {
-          String masked = '';
-          for (Integer i = 0; i < digits.length() - UNMASK_LENGTH; i++) {
-            masked = masked + '*';
-          }
-          masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
-          Integer index = input.indexOf(stringToMask);
-          if (index != -1) {
-            input =
-              input.subString(0, index) +
-              masked +
-              input.subString(index + stringToMask.length());
-          }
-          matchingPattern = patToCompile.matcher(input);
-          record.put(fieldName, input);
-          if (hasKeyword && isLoggingRequired) {
-            Id sfId = (Id) record.get('Id');
-            String loggerInitialString = sfId != null
-              ? sfId.getSObjectType().getDescribe().getName() == 'Case'
-                  ? 'CaseNumber: ' + (String) record.get('CaseNumber') + '; '
-                  : 'Id: ' + (Id) record.get('Id') + '; '
-              : '';
-            Logger.info(
-              loggerInitialString +
-                fieldName +
-                ': ' +
-                (String) record.get(fieldName) +
-                '; Reason for logging: User entered long digits without needing to mask'
-            );
-            Logger.saveLog();
-          }
-        }
-      }
+  /**
+   * @description This method mask and logs keywords specific data. Criteria is
+   *  - It contains card numbers
+   *  - Or contains keywords like TFN or Tax and has more than 8 digits
+   * @param record sObject record that contains data to check and mask
+   * @param field The name of the field to mask.
+   * @param logTo Log masked data against this record instead of the param "record", useful for logging against related/parent object.
+   * @return `String` masked string
+   */
+  public static String maskAndLog(SObject record, String field, SObject logTo) {
+    if (record?.isSet(field) != true) {
+      return null;
     }
+    String originalValue = (String) record.get(field);
+    String maskedData = maskDataAnzx(record, field);
+    String keyword = getMatchedKeyword(originalValue);
+
+    if (keyword != null && maskedData != originalValue) {
+      String logMessage = String.format(
+        MASKING_LOG_MESSAGE,
+        new List<String>{ keyword, field, maskedData }
+      );
+      Logger.info(logMessage, logTo);
+      Logger.saveLog();
+    }
+
+    return maskedData;
+  }
+
+  /**
+   * @description This method mask and logs keywords specific data. Criteria is
+   *  - It contains card numbers
+   *  - Or contains keywords like TFN or Tax and has more than 8 digits
+   * @param record sObject record that contains data to check and mask
+   * @param field The name of the field to mask.
+   * @return `String` masked string
+   */
+  public static String maskAndLog(SObject record, String field) {
+    return maskAndLog(record, field, record);
   }
 
   /**
@@ -222,14 +240,23 @@ public with sharing class TextUtils {
    * @param input input to match against
    * @return `Boolean` returns if there was a match
    */
-  private static Boolean regexMatchesKeyword(String input) {
-    //Replace keywords with pipe to prepare for regex
-    String regexWords = Label.Reactive_logging_keywords.replace(',', '|');
-    //Regex to match only keyword and ignore whitespace and digits before/after word
-    String regex = '(?i)(?<![^\\W\\d])(?:' + regexWords + ')(?![^\\W\\d])';
-    Pattern compiledPattern = Pattern.compile(regex);
-    Matcher regexMatcher = compiledPattern.matcher(input);
-    return regexMatcher.find();
+  private static Boolean containsKeyword(String input) {
+    return String.isNotBlank(input) && keywordPattern.matcher(input).find();
+  }
+
+  /**
+   * @description checks if keywords for reactive logging label are in an input
+   * @param input input to match against
+   * @return `String` returns the matched keyword
+   */
+  private static String getMatchedKeyword(String input) {
+    if (String.isNotBlank(input)) {
+      Matcher m = keywordPattern.matcher(input);
+      if (m.find()) {
+        return m.group();
+      }
+    }
+    return null;
   }
 
   /**
@@ -292,7 +319,7 @@ public with sharing class TextUtils {
       4
     );
 
-    if (regexMatchesKeyword(redactedText) == false) {
+    if (containsKeyword(redactedText) == false) {
       return redactedText;
     }
     redactedText = maskStringANZExtended(

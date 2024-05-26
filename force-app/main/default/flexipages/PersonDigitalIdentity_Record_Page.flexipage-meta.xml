@@ -7,19 +7,242 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
-                            <value>Edit</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Delete</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>PersonDigitalIdentity__x.DataSharing</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Archived</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>ChangeRecordType</value>
+                            <value>PersonDigitalIdentity__x.Archive_User</value>
+                            <visibilityRule>
+                                <booleanFilter>(1 OR 2) AND (3 OR 4) AND 5</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Active</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Suspended</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>PrintableView</value>
+                            <value>PersonDigitalIdentity__x.Lock_PIN</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND (2 OR 3) AND 4 AND 5</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.PIN_Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Active</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Archived</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PersonDigitalIdentity__x.Unlock_PIN</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND (2 OR 3) AND 4 AND 5</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.PIN_Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Locked</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Archived</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PersonDigitalIdentity__x.Suspend</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Active</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PersonDigitalIdentity__x.Unsuspend</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Suspended</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PersonDigitalIdentity__x.UpdateMobileNumber</value>
+                            <visibilityRule>
+                                <booleanFilter>(1 OR 2 )AND (3 OR 4) AND 5</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Active</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Suspended</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PersonDigitalIdentity__x.Update_OCV_Number</value>
+                            <visibilityRule>
+                                <booleanFilter>(1 OR 2) AND (3 OR 4) AND 5</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>LE</operator>
+                                    <rightValue>4</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.IAL_Identity_Assurance_Level__c}</leftValue>
+                                    <operator>GT</operator>
+                                    <rightValue>1</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Active</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Suspended</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PersonDigitalIdentity__x.Reset_PIN</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Suspended</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Archived</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -41,7 +264,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>3</value>
+                    <value>5</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>

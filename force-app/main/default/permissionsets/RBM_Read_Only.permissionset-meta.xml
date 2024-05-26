@@ -298,11 +298,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Feature__c.Closed_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Feature__c.Force_Update__c</field>
         <readable>true</readable>
     </fieldPermissions>

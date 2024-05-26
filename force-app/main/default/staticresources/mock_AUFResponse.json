@@ -1,0 +1,10 @@
+{
+  "_id": "F7AE26D3-5AFA-427D-9DDC-fake",
+  "_rev": "46",
+  "status": "suspended",
+  "preferredName": "Fake",
+  "createDateTime": "2021-10-26T23:50:09.707618Z",
+  "securityMobile": "00610466888756",
+  "statusUpdateDate": "2024-04-12T07:26:32.151207Z",
+  "identityAssuranceLevel": 3
+}

@@ -13,6 +13,10 @@ public class MLCRMCommonUtilsHelperTest {
     List<sObject> lstOfSobject = new List<sObject>();
     sObject objSObject = new Lead();
     objSObject.put('RecordTypeId', MLCRMConstants.MLCRM_LEAD_RT_ID);
+    objSObject.put(
+      'Territory__c',
+      Lib_FakeIdGenerator.getMockId(User.SObjectType)
+    );
     lstOfSobject.add(objSObject);
     List<sObject> lstOfValidSobject = MLCRMCommonUtilsHelper.filterEligibleSobjects(
       lstOfSobject
@@ -32,6 +36,10 @@ public class MLCRMCommonUtilsHelperTest {
     List<sObject> lstOfSobject = new List<sObject>();
     sObject objSObject = new Opportunity();
     objSObject.put('RecordTypeId', MLCRMConstants.MLCRM_OPPORTUNITY_RT_ID);
+    objSObject.put(
+      'Territory__c',
+      Lib_FakeIdGenerator.getMockId(User.SObjectType)
+    );
     lstOfSobject.add(objSObject);
     List<sObject> lstOfValidSobject = MLCRMCommonUtilsHelper.filterEligibleSobjects(
       lstOfSobject

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Resolution_Pathway_Response_Sharing_with_CRP_Team</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing Resolution Pathway response records with CRP subordinates</description>
+        <label>Resolution Pathway Response Sharing with CRP Team</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

@@ -131,7 +131,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>vizUrl</name>
-                    <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SITK-AccountInterestRates/AccountInterestRates</value>
+                    <value>{!$Label.ANZX_Interest_Rates_FA_Tableau_Url}</value>
                 </componentInstanceProperties>
                 <componentName>tab:tableauViz</componentName>
                 <identifier>tab_tableauViz</identifier>

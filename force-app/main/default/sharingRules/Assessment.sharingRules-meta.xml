@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Pathway_Sharing_CRP_and_L1</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rule to share Pathway records with CRP and L1 users</description>
+        <label>Pathway Sharing CRP and L1</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

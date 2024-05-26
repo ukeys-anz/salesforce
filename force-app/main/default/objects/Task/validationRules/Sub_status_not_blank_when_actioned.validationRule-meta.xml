@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_status_not_blank_when_actioned</fullName>
+    <active>true</active>
+    <description>Sub status field should not be actioned when status is actioned</description>
+    <errorConditionFormula>AND(  OR(RecordType.DeveloperName = &apos;Coach_Nudge&apos;, RecordType.DeveloperName = &apos;Callback_Request&apos;) , ISCHANGED(Status) ,  ISPICKVAL(Status,&apos;Actioned&apos;) , ISBLANK(TEXT( Sub_Status__c  )))</errorConditionFormula>
+    <errorDisplayField>Sub_Status__c</errorDisplayField>
+    <errorMessage>Sub Status cannot be left blank if status is Actioned.</errorMessage>
+</ValidationRule>

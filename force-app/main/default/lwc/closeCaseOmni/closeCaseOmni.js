@@ -1,5 +1,6 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
+import { handleErrorShowToast } from "c/utils";
 const SUB_REMS = ["16", "20", "Repayment arrangement"];
 const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
@@ -27,13 +28,35 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
     if (shouldBreak) {
       return;
     }
+    if (this.validateRealFormID()) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Please Validate Real Form ID."
+      );
+      return;
+    }
+    if (
+      this.omniJsonData.Case.realFormRequired === "Yes" &&
+      this.omniJsonData.Case.REALFormMAXID !==
+        this.omniJsonData.Case.REALFormMAXID_OLD &&
+      this.omniJsonData.validatedEventNumber !==
+        this.omniJsonData.Case.REALFormMAXID
+    ) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Revalidate Risk Event ID"
+      );
+      this.loading = false;
+      return;
+    }
     this.validateFields();
     if (this.missingFields.length > 0) {
-      if (this.missingFields.length > 0) {
-        this.modalMsg =
-          "Please complete all required fields: " +
-          this.missingFields.join(", ");
-      }
+      this.modalMsg =
+        "Please complete all required fields: " + this.missingFields.join(", ");
       this.showModal = true;
     } else {
       this.showModal = false;
@@ -220,6 +243,25 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       !details.avoidableEscalationReason
     )
       this.missingFields.push("Avoidable Escalation Reason");
+  }
+
+  validateRealFormID() {
+    if (
+      this.omniJsonData.Case.ComplaintStatus === "Closed" &&
+      this.omniJsonData.Case.realFormRequired === "Yes" &&
+      (this.omniJsonData.Case.REALFormMAXID !== undefined ||
+        this.omniJsonData.Case.REALFormMAXID !== null) &&
+      this.omniJsonData.Case.REALFormMAXID !==
+        this.omniJsonData.Case.REALFormMAXID_OLD &&
+      !(
+        this.omniJsonData.apiRun &&
+        this.omniJsonData.apiSuccess &&
+        this.omniJsonData.RiskFormIDValid
+      )
+    ) {
+      return true;
+    }
+    return false;
   }
 
   checkFields(detail, reMap) {

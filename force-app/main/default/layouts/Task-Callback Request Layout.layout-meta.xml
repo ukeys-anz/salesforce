@@ -46,6 +46,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Sub_Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>IsReminderSet</field>
             </layoutItems>
             <layoutItems>
@@ -220,12 +224,6 @@
             <layoutItem>
                 <behavior>Readonly</behavior>
                 <field>WhoId</field>
-            </layoutItem>
-        </relatedContentItems>
-        <relatedContentItems>
-            <layoutItem>
-                <behavior>Readonly</behavior>
-                <field>WhatId</field>
             </layoutItem>
         </relatedContentItems>
     </relatedContent>
