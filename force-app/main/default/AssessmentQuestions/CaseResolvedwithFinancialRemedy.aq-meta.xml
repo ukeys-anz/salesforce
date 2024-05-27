@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssessmentQuestion xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Case Resolved with Financial Remedy</name>
+    <assessmentQuestionVersion>
+        <name>Case Resolved with Financial Remedy</name>
+        <isActive>true</isActive>
+        <optionSourceResponseValue>false</optionSourceResponseValue>
+        <questionText>Case resolved with financial remedy</questionText>
+        <responseValues>Yes
+No</responseValues>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+    </assessmentQuestionVersion>
+    <dataType>Radio</dataType>
+    <developerName>CaseResolvedwithFinancialRemedy</developerName>
+    <questionCategory>Demographic</questionCategory>
+</AssessmentQuestion>
