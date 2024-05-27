@@ -40,11 +40,14 @@
       "FinServ__Active__c": "Indicate whether the relationship is currently active",
       "FinServ__EndDate__c": "Date when the relationship ends",
       "FinServ__StartDate__c": "Date when the relationship begins",
-      "FinServ__RelatedAccount__c": "The related customer of the relationship"
+      "FinServ__RelatedAccount__c": "The related customer of the relationship",
+      "FinServ__Role__c": "The role of this related party.",
+      "FinServ__SourceSystemId__c": "External Id of the party."
     },
     "FinServ__ContactContactRelation__c": {
       "FinServ__Contact__c": "The main contact of the relationship",
-      "FinServ__RelatedContact__c": "The related contact of the relationship"
+      "FinServ__RelatedContact__c": "The related contact of the relationship",
+      "FinServ__Role__c": "The role of this related party."
     },
     "FinServ__FinancialAccount__c": {
       "FinServ__Balance__c": "Balance amount in customer's financial account excluding pending transactions",
@@ -65,6 +68,11 @@
     "FinServ__FinancialAccountRole__c": {
       "FinServ__SourceSystemId__c": "Identifier from the original data source application."
     },
+    "FinServ__ReciprocalRole__c": {
+      "FinServ__InverseRole__c": "The other role that is related.",
+      "FinServ__RelationshipType__c": "Type of relationship account-account, contact-contact or all.",
+      "FinServ__SourceSystemId__c": "Description not available."
+    },
     "Known_Issues__c": {
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
     },
@@ -83,7 +91,8 @@
     "Opportunity": {
       "FinServ__FinancialAccount__c": "Financial account associated with this opportunity",
       "FinServ__Household__c": "ID of the household record associated with the opportunity record",
-      "FinServ__ReferredByContact__c": "External contact referring this opportunity"
+      "FinServ__ReferredByContact__c": "External contact referring this opportunity",
+      "FinServ__ReferredByUser__c": "Internal Employee who referred this opportunity."
     },
     "Product2": {
       "ProductCode": "Default product code for this record. Your org defines the product code naming pattern."
@@ -328,6 +337,7 @@
         "Industry__c",
         "Occupation__c",
         "Other_Email__c",
+        "OwnerId",
         "PersonBirthdate",
         "PersonEmail",
         "PersonMobilePhone",
@@ -358,6 +368,7 @@
         "IsSnapshotInProgress__c"
       ],
       "IA-2415860": [
+        "Deleted_in_OCV__c",
         "FinServ__CustomerType__c",
         "Principal_Place_of_Business_Formula__c",
         "IsTruncated__c",
@@ -615,6 +626,8 @@
       ]
     },
     "CampaignMember": {
+      "IA-2415984": ["Email", "Phone", "Title"],
+      "IA-2415860": ["HasResponded"],
       "IA-2453595": ["Status"],
       "IA-2468715": [
         "CreatedById",
@@ -622,7 +635,9 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2530753": ["CampaignId", "LeadId"],
+      "IA-2428130": ["CompanyOrAccount", "ContactId"]
     },
     "CaseComment": {
       "IA-2468715": [
@@ -1418,6 +1433,8 @@
       "IA-2415984": [
         "Birthdate",
         "Email",
+        "Fax",
+        "Name",
         "FinServ__MaritalStatus__c",
         "Gender__c",
         "Is_Preferred_Contact__c",
@@ -1425,8 +1442,11 @@
         "MobilePhone",
         "Notes_Interests__c",
         "OtherAddress",
+        "OwnerId",
+        "Phone",
         "Salutation",
         "Suffix__c",
+        "Title",
         "Is_Broker_User_Active__c"
       ],
       "IA-2530753": [
@@ -1477,6 +1497,10 @@
       ],
       "IA-2415790": ["Persona_Type__c"],
       "IA-2415984": [
+        "Address",
+        "IsDefault",
+        "Name",
+        "OwnerId",
         "P_O_Box__c",
         "Street_Name__c",
         "Street_Number__c",
@@ -1485,11 +1509,12 @@
       ],
       "IA-2415831": ["Global_Address_Key__c", "Delivery_Identifier__c"],
       "IA-2415840": ["QAS_Valid_Address__c"],
+      "IA-2415860": ["ActiveToDate"],
       "IA-2415720": ["AddressType"],
       "IA-2594111": ["ParentId"]
     },
     "ContactPointEmail": {
-      "IA-2415860": ["Occurrence_Number__c"],
+      "IA-2415860": ["ActiveToDate", "Occurrence_Number__c"],
       "IA-2530753": [
         "CreatedById",
         "CreatedDate",
@@ -1507,7 +1532,7 @@
         "UsageType"
       ],
       "IA-2415790": ["Persona_Type__c"],
-      "IA-2415984": ["Preferred_Indicator__c"],
+      "IA-2415984": ["EmailAddress", "OwnerId", "Preferred_Indicator__c"],
       "IA-2415720": [
         "Verification_Status__c",
         "Verification_Date__c",
@@ -1529,13 +1554,18 @@
         "UsageType"
       ],
       "IA-2415790": ["Persona_Type__c"],
-      "IA-2415984": ["Preferred_Indicator__c"],
+      "IA-2415984": [
+        "OwnerId",
+        "PhoneType",
+        "Preferred_Indicator__c",
+        "TelephoneNumber"
+      ],
       "IA-2415720": [
         "Verification_Status__c",
         "Verification_Date__c",
         "Verification_Method__c"
       ],
-      "IA-2415860": ["Occurrence_Number__c"],
+      "IA-2415860": ["ActiveToDate", "Occurrence_Number__c"],
       "IA-2594111": ["ParentId"]
     },
     "ContactRequest": {
@@ -1818,7 +1848,9 @@
         "LastModifiedById",
         "LastModifiedDate",
         "Id"
-      ]
+      ],
+      "IA-2415860": ["Status"],
+      "IA-3107928": ["Incoming"]
     },
     "Entitlement": {
       "IA-2468715": [
@@ -1894,7 +1926,6 @@
         "OwnerId",
         "ServiceAppointment",
         "ShowAs",
-        "StartDateTime",
         "Subject",
         "Type",
         "WhatId",
@@ -1915,7 +1946,8 @@
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
-      ]
+      ],
+      "IA-2530753": ["StartDateTime"]
     },
     "External_Case_Status__c": {
       "IA-2468715": [
@@ -1975,6 +2007,7 @@
     "FinServ__AccountAccountRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
       "IA-2453350": ["External_Id__c"],
+      "IA-2460507": ["FinServ__Role__c"],
       "IA-2530753": [
         "Name",
         "FinServ__Active__c",
@@ -1982,7 +2015,8 @@
         "FinServ__StartDate__c",
         "System_Individual_Relationship__c"
       ],
-      "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"]
+      "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
+      "IA-2415860": ["FinServ__SourceSystemId__c"]
     },
     "FinServ__ChargesAndFees__c": {
       "IA-2415840": ["Fee_Id__c", "Source__c", "Fee_Type__c"],
@@ -2015,7 +2049,8 @@
         "FinServ__Contact__c",
         "FinServ__RelatedContact__c",
         "Staff__c"
-      ]
+      ],
+      "IA-2415860": ["FinServ__Role__c"]
     },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
@@ -2053,7 +2088,7 @@
         "Name",
         "Product_Name__c"
       ],
-      "IA-2415987": ["Interest_Rate_URL__c"],
+      "IA-2415987": ["FinServ__ProductName__c", "Interest_Rate_URL__c"],
       "IA-2530753": [
         "OCV_Event_Version__c",
         "Product_SubCode__c",
@@ -2100,7 +2135,8 @@
         "Product_Name_Display__c",
         "Account_Name__c",
         "Is_ANZx_Account__c"
-      ]
+      ],
+      "IA-2415987": ["Account_Type__c"]
     },
     "FinServ__ReciprocalRole__c": {
       "IA-2530753": [
@@ -2112,6 +2148,13 @@
         "OCV_Role__c",
         "Role_Description__c",
         "RecordTypeId"
+      ],
+      "IA-2415860": ["FinServ__SourceSystemId__c"],
+      "IA-2423227": [
+        "FinServ__CreateInverseRole__c",
+        "FinServ__InverseRole__c",
+        "FinServ__InverseRelationship__c",
+        "FinServ__RelationshipType__c"
       ]
     },
     "Financial_Settlement__c": {
@@ -2444,7 +2487,6 @@
         "Registered_Company__c",
         "Primary_Contact_Method__c",
         "SourceSystemId__c",
-        "IsNewLead__c",
         "Territory__c",
         "OpportunityType__c",
         "Contactpreferences__c",
@@ -2467,6 +2509,7 @@
         "My_Team__c",
         "Lead_Owner_Teamcode__c"
       ],
+      "IA-2530753": ["IsNewLead__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
       "IA-2618706": [
         "PreferredName__c",
@@ -2474,6 +2517,7 @@
         "SourceSystem__c"
       ],
       "IA-2415986": ["Campaign_Name__c"],
+      "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"]
     },
     "Lead_Response_Event__e": {
@@ -2910,21 +2954,31 @@
         "Sufficient_Date__c",
         "Total_Mortgage_Lending__c",
         "Waiting_Indicator__c",
-        "Waiting_Flag__c"
+        "Waiting_Flag__c",
+        "LeadSource"
       ],
       "IA-2460507": [
         "My_Sub_Team__c",
         "My_Team__c",
-        "Opportunity_Owner_Teamcode__c"
+        "Opportunity_Owner_Teamcode__c",
+        "FinServ__ReferredByContact__c",
+        "FinServ__ReferredByUser__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"]
+    },
+    "OpportunityContactRole": {
+      "IA-2415860": ["OpportunityId"],
+      "IA-2415984": ["Role"],
+      "IA-2428130": ["ContactId"]
     },
     "OpportunityLineItem": {
       "IA-2415987": [
         "Application_Number__c",
         "Application_Status__c",
         "Has_Legal_Entity__c",
-        "Amount"
+        "Amount",
+        "Name",
+        "ProductCode"
       ],
       "IA-2415720": ["Reference_Number__c"],
       "IA-2415840": ["Purpose__c"],
@@ -2935,12 +2989,27 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId",
-        "Product2Id",
-        "Quantity",
-        "UnitPrice",
         "ServiceDate"
       ],
-      "IA-2415860": ["Funding_purpose__c", "Interest_Rate_Quoted__c"]
+      "IA-2415860": ["Funding_purpose__c", "Interest_Rate_Quoted__c"],
+      "IA-2530753": ["OpportunityId", "UnitPrice", "Product2Id", "Quantity"]
+    },
+    "OpportunityTeamMember": {
+      "IA-2460507": ["TeamMemberRole", "UserId"],
+      "IA-2530753": ["OpportunityAccessLevel", "OpportunityId"]
+    },
+    "Pricebook2": {
+      "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"]
+    },
+    "PricebookEntry": {
+      "IA-2415987": [
+        "IsActive",
+        "Pricebook2Id",
+        "Product2Id",
+        "ProductCode",
+        "UnitPrice",
+        "UseStandardPrice"
+      ]
     },
     "PegaExternalCaseStatuses__mdt": {
       "IA-2415860": [
@@ -3953,7 +4022,15 @@
         "Relationship_To_Franchise__c",
         "Territory__c"
       ],
-      "IA-2415860": ["ML_DataMigration_Key__c"]
+      "IA-2415860": ["ML_DataMigration_Key__c"],
+      "IA-2415984": [
+        "DOB__c",
+        "Email__c",
+        "Mobile__c",
+        "Postal_Code__c",
+        "Suburb__c"
+      ],
+      "IA-2423278": ["Relationship_Owner__c"]
     },
     "Diary_Comment__x": {
       "IA-2524375": [
