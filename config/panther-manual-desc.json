@@ -403,6 +403,60 @@
         "When__c"
       ]
     },
+    "ActionPlan": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "ActionPlanItem": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "ActionPlanTemplate": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "ActionPlanTemplateItem": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "ActionPlanTemplateItemValue": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "ActionPlanTemplateVersion": {
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
     "Activity": {
       "IA-2530753": ["Pega_CDH_Id__c"],
       "IA-2468713": ["Pub_Sub_Event_Id__c"],
@@ -495,7 +549,12 @@
         "Status__c",
         "Interaction__c",
         "ValidAccessToken__c",
-        "VerificationDate__c"
+        "VerificationDate__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ],
       "IA-2594111": ["AuthorisationRequestID__c"],
       "IA-2530753": ["InternalAttendee__c"],
@@ -1706,6 +1765,13 @@
         "Temporary_Block__c",
         "Permanent_Block__c",
         "Temporary_Block_Overridden__c"
+      ],
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "CustomerOnboardingApplication__c": {
@@ -1785,7 +1851,12 @@
       "IA-2415860": [
         "Occurrence_Number__c",
         "Source_System_ID__c",
-        "Source_System_Name_c"
+        "Source_System_Name_c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ],
       "IA-2423981": ["Status__c", "Action"],
       "IA-2435462": ["Object_Name__c", "TriggeredFrom__c", "UserLanId__C"],
@@ -1793,7 +1864,14 @@
       "IA-2571531": ["Error_Description__c"]
     },
     "Customer_Profile_Update_Event__e": {
-      "IA-2415860": ["RecordType_Name__c"]
+      "IA-2415860": [
+        "RecordType_Name__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "DCRM_Customer_Management_Non_KYC_Fields__mdt": {
       "IA-2530743": ["Object_Name__c", "RecordType_Name__c"],
@@ -2050,7 +2128,14 @@
         "FinServ__RelatedContact__c",
         "Staff__c"
       ],
-      "IA-2415860": ["FinServ__Role__c"]
+      "IA-2415860": [
+        "FinServ__Role__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
@@ -2967,7 +3052,14 @@
       "IA-2530753": ["Opportunity_Owner__c"]
     },
     "OpportunityContactRole": {
-      "IA-2415860": ["OpportunityId"],
+      "IA-2415860": [
+        "OpportunityId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
       "IA-2415984": ["Role"],
       "IA-2428130": ["ContactId"]
     },
@@ -2996,10 +3088,24 @@
     },
     "OpportunityTeamMember": {
       "IA-2460507": ["TeamMemberRole", "UserId"],
-      "IA-2530753": ["OpportunityAccessLevel", "OpportunityId"]
+      "IA-2530753": ["OpportunityAccessLevel", "OpportunityId"],
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Pricebook2": {
-      "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"]
+      "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"],
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "PricebookEntry": {
       "IA-2415987": [
@@ -3009,6 +3115,13 @@
         "ProductCode",
         "UnitPrice",
         "UseStandardPrice"
+      ],
+      "IA-2415860": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "PegaExternalCaseStatuses__mdt": {
@@ -3975,7 +4088,12 @@
         "Access_Scope__c",
         "Territory_Code__c",
         "Primary_Franchise_Owner__c",
-        "OwnerId"
+        "OwnerId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "User_Territory__c": {
@@ -3985,7 +4103,12 @@
         "Status__c",
         "Territory__c",
         "User__c",
-        "Skip_Validation__c"
+        "Skip_Validation__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "UUID_Log_Entry__c": {
@@ -4010,7 +4133,16 @@
       ]
     },
     "Territory_Base_Sharing_Event__e": {
-      "IA-2415860": ["Change_Context__c", "Record_Ids__c", "Trigger_Object__c"]
+      "IA-2415860": [
+        "Change_Context__c",
+        "Record_Ids__c",
+        "Trigger_Object__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Customer_Relationship__c": {
       "IA-2415720": [
@@ -4022,7 +4154,14 @@
         "Relationship_To_Franchise__c",
         "Territory__c"
       ],
-      "IA-2415860": ["ML_DataMigration_Key__c"],
+      "IA-2415860": [
+        "ML_DataMigration_Key__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
       "IA-2415984": [
         "DOB__c",
         "Email__c",
