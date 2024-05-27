@@ -93,7 +93,6 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
       riskEventId
     );
     if (response.successful == false) {
-      handleErrors(response, null, IDRAPIRepository.class);
       Logger.error(
         'ServiceNow Error - Status Code - ' + response.statusCode,
         response.error,
