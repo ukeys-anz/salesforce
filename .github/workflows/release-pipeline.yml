@@ -21,7 +21,7 @@ jobs:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
     runs-on: [self-hosted, cd-ubuntu-s-prod]
     concurrency:
-      group: "salesforce-release"
+      group: "salesforce-release-${{ github.event.inputs.NAME }}"
       cancel-in-progress: false
     strategy:
       max-parallel: 1
