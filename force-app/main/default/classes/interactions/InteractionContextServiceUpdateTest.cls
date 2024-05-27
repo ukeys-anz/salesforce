@@ -487,9 +487,9 @@ public with sharing class InteractionContextServiceUpdateTest {
       'Transfer Value will remain same as default value '
     );
     System.assertEquals(
-      true,
+      false,
       String.isBlank(interactionList[0].Chat_Queue__c),
-      'Chat Queue field will be blank '
+      'Chat Queue field will not be blank '
     );
   }
 

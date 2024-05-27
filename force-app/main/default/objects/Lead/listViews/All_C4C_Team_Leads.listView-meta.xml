@@ -10,7 +10,6 @@
     <columns>LEAD.UNREAD</columns>
     <columns>LEAD.CREATED_DATE</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>LEAD.STATUS</field>
         <operation>equals</operation>
@@ -31,6 +30,7 @@
         <operation>equals</operation>
         <value>Lead.CCRM_Lead</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All C4C Team Leads</label>
     <sharedTo>
         <role>Head_of_NBC</role>

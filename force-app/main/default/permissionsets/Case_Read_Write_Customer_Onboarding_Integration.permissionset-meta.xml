@@ -7,6 +7,11 @@
     <description>Grants Read/Write access to Customer Onboarding case record types, including ID Ops Assistance and Fraud Check, and all relevant fields. This is used by Customer Onboarding Integration User.</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Aegis_Workflow_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.CustomerOnboardingApplication__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -18,6 +23,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.OnboardingVerificationFailedReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Person_Digital_Identity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

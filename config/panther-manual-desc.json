@@ -421,7 +421,8 @@
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
         "Task_Sub_Type__c",
-        "My_extended_team_s_tasks__c"
+        "My_extended_team_s_tasks__c",
+        "Sub_Status__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
@@ -1114,6 +1115,8 @@
         "Loan_Purpose__c",
         "Property_Valuation_Id__c",
         "Original_Feedback_Record__c",
+        "Property_Valuation_Id__c",
+        "Original_Feedback_Record__c",
         "TestedDate__c",
         "Title_Reference_Number__c"
       ],
@@ -1122,7 +1125,9 @@
         "Followup_State__c",
         "Package_Id__c",
         "Status_Update_Error__c",
-        "System_Action__c"
+        "System_Action__c",
+        "Aegis_Workflow_Id__c",
+        "Person_Digital_Identity__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1132,17 +1137,6 @@
         "Fraud_PersonID__c"
       ],
       "IA-2468710": ["SLATesting__c", "CardScamType__c"]
-    },
-    "Case_Reporting_Field__c": {
-      "IA-2453595": [
-        "Case__c",
-        "Case_Last_Opened__c",
-        "Case_Last_Opened_RG271__c",
-        "IDR_Response_Time_RG271__c",
-        "IDR_Response_Time_RG271_MS__c",
-        "Total_Open_Time__c",
-        "Total_Open_Time_MS__c"
-      ]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
@@ -1289,7 +1283,15 @@
       ]
     },
     "COBPrimaryIDDocument__c": {
-      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2415860": [
+        "SubmittedAt__c",
+        "Verified_By__c",
+        "Verification_Date_Time__c",
+        "Verification_Status__c",
+        "Verification_Failed_Reason__c",
+        "Failed_Message__c"
+      ],
+      "IA-2415999": ["idxExtractedFaceId__c"],
       "IA-2594111": [
         "PersonaId__c",
         "PersonaDocumentId__c",

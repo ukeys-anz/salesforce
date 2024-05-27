@@ -147,6 +147,7 @@ public with sharing class TFMSearchCustomerDataSourceService {
   public static String getMobileInFormat(String searchText) {
     if (
       searchText.length() <= 14 &&
+      searchText.contains(NUMBERFOUR) &&
       (searchText.startsWith(NUMBERFOUR) ||
       searchText.startsWith(NUMBERZERO) ||
       searchText.startsWith(NUMBERSIXONE))

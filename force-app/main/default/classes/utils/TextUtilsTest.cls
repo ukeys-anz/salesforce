@@ -27,28 +27,6 @@ public with sharing class TextUtilsTest {
   }
 
   @isTest
-  static void testReactiveLogging() {
-    String keywordStr = 'test TFN test 1234-678-90';
-    System.assertEquals(
-      true,
-      TextUtils.reactiveLogging(keywordStr),
-      'The reactiveLogging method should return true.'
-    );
-    String nonKeywordStr = 'test abc 1234-678-90';
-    System.assertEquals(
-      false,
-      TextUtils.reactiveLogging(nonKeywordStr),
-      'The reactiveLogging method should return false.'
-    );
-    String nonKeywordLongStr = 'test abc 1234-678-90-1234';
-    System.assertEquals(
-      true,
-      TextUtils.reactiveLogging(nonKeywordLongStr),
-      'The reactiveLogging method should return true.'
-    );
-  }
-
-  @isTest
   static void testMaskSObjectData() {
     String inputData = 'A sample text with card 1234-5678-98 , second card 1234-5678-98 and a third 1234-5678 9876 card and a unmasked one too 1234567';
     String maskedData = TextUtils.maskData(inputData);
@@ -78,11 +56,8 @@ public with sharing class TextUtilsTest {
 
   @isTest
   static void testMaskAndLog() {
-    String inputData = 'A sample text with TFN: 1234567890';
-    String fieldName = 'Description';
-    Case c = new Case(Description = inputData);
-    Boolean isLoggingRequired = true;
-    TextUtils.maskAndLog(inputData, fieldName, c, isLoggingRequired);
+    Case c = new Case(Description = 'A sample text with TFN: 1234567890');
+    TextUtils.maskAndLog(c, 'Description');
     System.assertEquals(
       'A sample text with TFN: ******7890',
       c.Description,
@@ -91,12 +66,7 @@ public with sharing class TextUtilsTest {
 
     //Negative Test
     Case c2 = new Case(Description = 'Test happy 1234567980');
-    TextUtils.maskAndLog(
-      'Test happy 1234567980',
-      fieldName,
-      c2,
-      isLoggingRequired
-    );
+    TextUtils.maskAndLog(c2, 'Description');
     System.assertEquals(
       'Test happy 1234567980',
       c2.Description,
@@ -133,6 +103,101 @@ public with sharing class TextUtilsTest {
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
       'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
+    );
+  }
+
+  @IsTest
+  static void testMaskDataCmos() {
+    Case theCase = new Case(
+      Subject = '00000000000000302773359 | $1234567890123456| 1234567890123456'
+    );
+    Assert.areEqual(
+      '*******************3359 | $1234567890123456| ************3456',
+      TextUtils.maskDataCmos(theCase, 'Subject'),
+      'Policy number should be masked'
+    );
+  }
+
+  @IsTest
+  static void testCardRelaxedMaskingRules() {
+    String inputMoney = '$1234567890123456';
+    String inputDateRange = '01-01-2020 01-02-2020';
+    String inputNonCardNumber = '12#345678912&345';
+    String inputMoneyDateBSB = '$123456 01/01/2024 014235 911111111';
+    String inputCard14 = '12345678901234';
+    String inputCard14Space = '1234 567890 1234';
+    String inputCard14Hyphen = '1234-567890-1234';
+    String inputCard15 = '123456789012345';
+    String inputCard15Space = '1234 567890 12345';
+    String inputCard15Hyphen = '1234-567890-12345';
+    String inputCard16 = '1234567890123456';
+    String inputCard16Space = '1234 5678 9012 3456';
+    String inputCard16Hyphen = '1234-5678-9012-3456';
+
+    Assert.areEqual(
+      inputMoney,
+      TextUtils.maskCC(inputMoney),
+      'Money should not be masked'
+    );
+    Assert.areEqual(
+      inputDateRange,
+      TextUtils.maskCC(inputDateRange),
+      'Date range should not be masked'
+    );
+    Assert.areEqual(
+      inputNonCardNumber,
+      TextUtils.maskCC(inputNonCardNumber),
+      'Non-CC long number should not be masked'
+    );
+    Assert.areEqual(
+      inputMoneyDateBSB,
+      TextUtils.maskCC(inputMoneyDateBSB),
+      'Combination of money, date, bsb, acc no. should not be masked'
+    );
+    Assert.areEqual(
+      '**********1234',
+      TextUtils.maskCC(inputCard14),
+      'Diners Club 14-digit card should be masked'
+    );
+    Assert.areEqual(
+      '**********1234',
+      TextUtils.maskCC(inputCard14Space),
+      'Diners Club 14-digit card should be masked'
+    );
+    Assert.areEqual(
+      '**********1234',
+      TextUtils.maskCC(inputCard14Hyphen),
+      'Diners Club 14-digit card should be masked'
+    );
+    Assert.areEqual(
+      '***********2345',
+      TextUtils.maskCC(inputCard15),
+      'Amex 15-digit card should be masked'
+    );
+    Assert.areEqual(
+      '***********2345',
+      TextUtils.maskCC(inputCard15Space),
+      'Amex 15-digit card should be masked'
+    );
+    Assert.areEqual(
+      '***********2345',
+      TextUtils.maskCC(inputCard15Hyphen),
+      'Amex 15-digit card should be masked'
+    );
+    Assert.areEqual(
+      '************3456',
+      TextUtils.maskCC(inputCard16),
+      'Visa 16-digit card should be masked'
+    );
+    Assert.areEqual(
+      '************3456',
+      TextUtils.maskCC(inputCard16Space),
+      'Visa 16-digit card should be masked'
+    );
+    Assert.areEqual(
+      '************3456',
+      TextUtils.maskCC(inputCard16Hyphen),
+      'Visa 16-digit card should be masked'
     );
   }
 }

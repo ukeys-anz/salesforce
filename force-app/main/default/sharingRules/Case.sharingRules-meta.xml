@@ -999,6 +999,80 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>BOH_All_Case_Read_Only_Access_Group</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>BOH All Case Read Only Access Group</label>
+        <sharedTo>
+            <group>BOH_All_Case_Read_Only_Access_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Credit_Referral_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>provide Credit Referral Read Only access to a group</description>
+        <label>Credit Referral Read Only</label>
+        <sharedTo>
+            <group>Credit_Referral_Read_Only_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Credit_Referral_General_Group_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>provide read and write access to credit referral care</description>
+        <label>Credit Referral - General Group RW</label>
+        <sharedTo>
+            <group>Credit_Referral_RW_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Original_Case_Owner_Not_Equal_to_Null</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>provide read only access to case with original owner NOT equal to null</description>
+        <label>Original Case Owner Not Equal to Null</label>
+        <sharedTo>
+            <group>Original_Case_Owner_Not_Null_RO_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Record_Type_Card_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>provide read only acccess to Record type Card</description>
+        <label>Record Type Card Read Only</label>
+        <sharedTo>
+            <group>Record_Type_Card_RO_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Card_Dispute_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Provide read write acccess to Case record type Card</description>

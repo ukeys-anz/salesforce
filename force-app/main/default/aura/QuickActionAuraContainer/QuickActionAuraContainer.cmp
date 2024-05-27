@@ -1,9 +1,21 @@
 <!--
-  @description       : The is a placeholder component, functionalities to be added in upcoming releases
+  @description       : This component is called from PersonDigitalIdentity Quick Actions. It passes the recordId and Action name to AUF OS.
   @author            : Anuj Jain
   @group             : 
-  @last modified on  : 21 Nov 2023
-  @last modified by  : Anuj Jain
+  @last modified on  : April 2024
+  @last modified by  : Akshat Khandelwal
 -->
-<aura:component implements="force:lightningQuickActionWithoutHeader">
+<aura:component
+  implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader"
+>
+  <aura:handler name="init" value="{!this}" action="{!c.handleInit}" />
+  <lightning:quickActionAPI aura:id="quickActionAPI" />
+  <aura:attribute name="recordIdToBePassed" type="String" default="" />
+  <aura:attribute name="loadComplete" type="Boolean" default="false" />
+  <aura:if isTrue="{!v.loadComplete}">
+    <c:tFMAssistedUserFunctionsParentOSEnglish
+      prefill="{!v.recordIdToBePassed}"
+      recordId="{!v.recordIdToBePassed}"
+    />
+  </aura:if>
 </aura:component>

@@ -13,198 +13,144 @@ public with sharing class FeedMaskUtils {
    * @param records Feed records (FeedItem/FeedComment) from trigger
    */
   public static void maskDataInChatterFeedAndComment(List<Sobject> records) {
-    List<Id> parentIdList = new List<Id>();
-    List<Id> interactionIdList = new List<Id>();
-    Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
-    Map<Id, Case> relatedCaseMap = new Map<Id, Case>();
-    Map<Id, Account> relatedAccMap = new Map<Id, Account>();
+    Set<Id> caseIds = new Set<Id>();
+    Set<Id> accountIds = new Set<Id>();
+    extractParentIds(records, caseIds, accountIds);
+    Map<Id, Case> caseMap = queryCaseMap(caseIds);
+    Map<Id, Account> accountMap = queryAccountMap(accountIds);
 
-    prepareListOfParentAndInteractionIds(
-      interactionIdList,
-      parentIdList,
-      records
-    );
-    if (!parentIdList.isEmpty()) {
-      relatedCaseMap = getRelatedCaseMap(parentIdList);
-      relatedAccMap = getRelatedAccMap(parentIdList);
-    }
-    //Fetching Interaction records based on the parent id list and recordtypeids list storing Store, Message and Call recordtypeids.
-    if (!interactionIdList.isEmpty()) {
-      relatedInteractionMap = filteredInteractionMap(interactionIdList);
-    }
     for (Sobject record : records) {
-      FeedItem feedItemObj;
-      FeedComment feedCommentObj;
-      String feedRecordBody;
-      if (record.getSObjectType() == FeedItem.getSObjectType()) {
-        feedItemObj = (FeedItem) record;
-      } else if (record.getSObjectType() == FeedComment.getSObjectType()) {
-        feedCommentObj = (FeedComment) record;
-      }
-      Id parentIdOfFeedRecord = (Id) record.get('ParentId');
-      Case relatedCase = relatedCaseMap.get(parentIdOfFeedRecord);
-      Account relatedAcc = relatedAccMap.get(parentIdOfFeedRecord);
-      Interaction relatedInteraction = relatedInteractionMap.get(
-        parentIdOfFeedRecord
-      );
+      String feedType;
+      String fieldToMask;
 
-      if (
-        (relatedCase != null &&
-        CheckCaseRecordType.isANZPlusCaseType(relatedCase)) ||
-        (relatedAcc != null &&
-        relatedAcc.ANZx_Customer__c == true)
-      ) {
-        feedRecordBody = applyAnzxMaskingToBody(feedItemObj, feedCommentObj);
-        if (TextUtils.reactiveLogging(feedRecordBody)) {
-          String caseOrAccountLog = relatedCase != null
-            ? 'CaseNumber: ' + relatedCase.CaseNumber
-            : 'Account Name: ' + relatedAcc.Name;
-          Logger.info(
-            caseOrAccountLog +
-              '; Body: ' +
-              feedRecordBody +
-              '; Reason for logging: User entered long digits without needing to mask'
-          );
-        }
-      } else if (relatedInteraction != null) {
-        feedRecordBody = applyAnzxMaskingToBody(feedItemObj, feedCommentObj);
-      } else {
-        if (record.getSObjectType() == FeedItem.getSObjectType()) {
-          feedItemObj.Body = TextUtils.maskData(feedItemObj.Body);
-        } else {
-          feedCommentObj.CommentBody = TextUtils.maskData(
-            feedCommentObj.CommentBody
-          );
-        }
+      if (record instanceof FeedItem) {
+        feedType = (String) record.get('Type');
+        fieldToMask = 'Body';
+      } else if (record instanceof FeedComment) {
+        feedType = (String) record.get('CommentType');
+        fieldToMask = 'CommentBody';
       }
-      if (
-        (record.getSObjectType() == FeedItem.getSObjectType()
-          ? feedItemObj.type
-          : feedCommentObj.CommentType) == 'ContentPost' &&
-        record.get('RelatedRecordId') != null
-      ) {
-        record.addError(FILE_ERROR);
-      }
-      if (record.getSObjectType() == FeedItem.getSObjectType()) {
-        handleExcessiveChatterBody(feedItemObj, relatedCase);
+
+      preventFileSharing(record, feedType);
+      preventExcessiveChatterBody(record, caseMap);
+      maskFeedBody(record, fieldToMask, caseMap, accountMap);
+    }
+  }
+
+  /**
+   * @description Masks the feed body of a record, then log if related to ANZX case or account.
+   * @param feedRecord The feed record whose feed body needs to be masked.
+   * @param fieldToMask The name of the field to mask.
+   * @param caseMap A map of related Case records
+   * @param accountMap A map of related Account records
+   */
+  private static void maskFeedBody(
+    SObject feedRecord,
+    String fieldToMask,
+    Map<Id, Case> caseMap,
+    Map<Id, Account> accountMap
+  ) {
+    Id parentId = (Id) feedRecord.get('ParentId');
+    Boolean isAnzxCase = CheckCaseRecordType.isANZPlusCaseType(
+      caseMap.get(parentId)
+    );
+    Boolean isAnzxAccount = accountMap.get(parentId)?.ANZx_Customer__c == true;
+
+    if (isAnzxAccount || isAnzxCase) {
+      SObject parent = parentId.getSobjectType().newSObject(parentId);
+      TextUtils.maskAndLog(feedRecord, fieldToMask, parent);
+    } else {
+      TextUtils.maskDataAnzx(feedRecord, fieldToMask);
+    }
+  }
+
+  /**
+   * @description Populate set of parent Case IDs and parent AccountIDs from chatter feeds
+   * @param records The list of SObjects from which to extract parent record IDs.
+   * @param caseIds The variable to hold extracted case IDs
+   * @param accountIds The variable to hold extracted account IDs
+   */
+  private static void extractParentIds(
+    List<SObject> records,
+    Set<Id> caseIds,
+    Set<Id> accountIds
+  ) {
+    String casePrefix = Schema.SObjectType.Case.getKeyPrefix();
+    String accountPrefix = Schema.SObjectType.Account.getKeyPrefix();
+
+    for (SObject record : records) {
+      Id parentId = (Id) record.get('ParentId');
+      String parentIdPrefix = parentId.toString().left(3);
+      if (parentIdPrefix == casePrefix) {
+        caseIds.add(parentId);
+      } else if (parentIdPrefix == accountPrefix) {
+        accountIds.add(parentId);
       }
     }
   }
 
   /**
-   * @description Prepare List of Parent Id's Of Feed Records (FeedItem/FeedComment)
-   * @param interactionIdList list of interactions
-   * @param parentIdList list of parent Id's of Feed Records
-   * @param records list of Feed records
+   * @description Returns a map of Case records based on the provided set of IDs.
+   * @param recordIds The set of IDs to query.
+   * @return A map of Case records.
    */
-  public static void prepareListOfParentAndInteractionIds(
-    List<Id> interactionIdList,
-    List<Id> parentIdList,
-    List<Sobject> records
-  ) {
-    for (Sobject record : records) {
-      Id parentIdOfFeedRecord = (Id) record.get('ParentId');
-      if (parentIdOfFeedRecord != null) {
-        if (parentIdOfFeedRecord.getSObjectType() == Interaction.sObjectType) {
-          interactionIdList.add(parentIdOfFeedRecord);
-        } else {
-          parentIdList.add(parentIdOfFeedRecord);
-        }
-      }
+  private static Map<Id, Case> queryCaseMap(Set<Id> recordIds) {
+    if (recordIds.isEmpty()) {
+      return new Map<Id, Case>();
     }
-  }
-
-  /**
-   * @description This method will filter the Case based on the parent id list
-   * @param parentIdList parent ids of Feed records
-   * @return relatedCaseMap map of Case with Ids
-   */
-  public static Map<Id, Case> getRelatedCaseMap(List<Id> parentIdList) {
-    Map<Id, Case> relatedCaseMap = new Map<Id, Case>();
-    relatedCaseMap = new Map<Id, Case>(
-      [
-        SELECT Id, CaseNumber, RecordTypeId, Origin
-        FROM Case
-        WHERE Id IN :parentIdList
-      ]
+    return new Map<Id, Case>(
+      [SELECT Id, RecordTypeId FROM Case WHERE Id IN :recordIds]
     );
-    return relatedCaseMap;
   }
 
   /**
-   * @description This method will filter the Account based on the parent id list
-   * @param parentIdList parent ids of Feed records
-   * @return relatedAccMap map of Account with Ids
+   * @description Returns a map of Account records based on the provided set of IDs.
+   * @param recordIds The set of IDs to query.
+   * @return A map of Account records.
    */
-  public static Map<Id, Account> getRelatedAccMap(List<Id> parentIdList) {
-    Map<Id, Account> relatedAccMap = new Map<Id, Account>();
-    relatedAccMap = new Map<Id, Account>(
-      [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
-    );
-    return relatedAccMap;
-  }
-
-  /**
-   * @description This method will filter the Interaction based on the parent id list and the recordtype ids set
-   * @param interactionIdList parent ids of Interaction for feed item/feed comment
-   * @return relatedInteractionMap map of Interaction with Ids
-   */
-  public static Map<Id, Interaction> filteredInteractionMap(
-    List<Id> interactionIdList
-  ) {
-    Map<Id, Interaction> relatedInteractionMap = new Map<Id, Interaction>();
-    relatedInteractionMap = new Map<Id, Interaction>(
-      [
-        SELECT Id, RecordTypeId
-        FROM Interaction
-        WHERE
-          Id IN :interactionIdList
-          AND RecordTypeId IN :GetHelpConstants.STORE_CALL_MSG_INTERACTION_RECORTYPEIDS_SET
-      ]
-    );
-    return relatedInteractionMap;
-  }
-
-  /**
-   * @description This method will apply masking on record body (anzx masking of 15 digits)
-   * @param feedItemObj
-   * @param feedCommentObj
-   * @return feedItemObj.Body value of body field of feedItemObj
-   * @return feedCommentObj.Body value of body field of feedCommentObj
-   */
-  public static String applyAnzxMaskingToBody(
-    FeedItem feedItemObj,
-    FeedComment feedCommentObj
-  ) {
-    if (feedItemObj != null) {
-      feedItemObj.Body = TextUtils.maskDataAnzx(feedItemObj.Body);
-      return feedItemObj.Body;
+  private static Map<Id, Account> queryAccountMap(Set<Id> recordIds) {
+    if (recordIds.isEmpty()) {
+      return new Map<Id, Account>();
     }
-    feedCommentObj.CommentBody = TextUtils.maskDataAnzx(
-      feedCommentObj.CommentBody
+    return new Map<Id, Account>(
+      [SELECT Id, ANZx_Customer__c FROM Account WHERE Id IN :recordIds]
     );
-    return feedCommentObj.CommentBody;
   }
 
   /**
    * @description Handle Excessive Chatter Body
    * Limit of Case CommentBody is 4000 bytes. We are allowing small buffer
    * for the CreatedDate string which is pre-pended during conversion
-   * @param record
-   * @param relatedCase
+   * @param feedRecord
+   * @param caseMap A map of related Case records
    */
-  public static void handleExcessiveChatterBody(
-    FeedItem record,
-    Case relatedCase
+  private static void preventExcessiveChatterBody(
+    SObject feedRecord,
+    Map<Id, Case> caseMap
   ) {
-    if (
-      relatedCase != null &&
-      relatedCase.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID
-    ) {
+    if (!(feedRecord instanceof FeedItem)) {
+      return;
+    }
+    FeedItem record = (FeedItem) feedRecord;
+    if (CheckCaseRecordType.isANZPlusComplaint(caseMap.get(record.ParentId))) {
       Blob bodyBlob = Blob.valueOf(record.Body);
       if (bodyBlob.size() >= 3970) {
         record.addError(EXCESSIVE_LENGTH_ERROR);
       }
+    }
+  }
+
+  /**
+   * @description Checks and prevent file shared via chatter
+   * @param feedRecord The SObject representing the feed record.
+   * @param feedType The type of the feed.
+   */
+  private static void preventFileSharing(SObject feedRecord, String feedType) {
+    if (
+      feedType == 'ContentPost' &&
+      feedRecord.get('RelatedRecordId') != null
+    ) {
+      feedRecord.addError(FILE_ERROR);
     }
   }
 }

@@ -1205,18 +1205,7 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>customQueryParameters</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>debugMode</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>filterOnRecordId</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>forceRefresh</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1240,14 +1229,11 @@
                     <value>Ocv Id</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>token</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>vizUrl</name>
-                    <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords</value>
+                    <value>{!$Label.ANZX_Customer_Comm_Tableau_Url}</value>
                 </componentInstanceProperties>
-                <componentName>tableau:tableauViz</componentName>
-                <identifier>tableau_tableauViz2</identifier>
+                <componentName>tab:tableauViz</componentName>
+                <identifier>tab_tableauViz2</identifier>
             </componentInstance>
         </itemInstances>
         <name>column13</name>
