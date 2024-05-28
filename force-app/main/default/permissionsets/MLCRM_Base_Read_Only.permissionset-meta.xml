@@ -323,6 +323,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Mobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.OCV_Event_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
