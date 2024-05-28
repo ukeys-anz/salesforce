@@ -6,10 +6,10 @@
     <description>This is the overall collateral decision</description>
     <externalId>false</externalId>
     <inlineHelpText>This is the overall Collateral Assessment decision and can be any of the following;
-Blank
-Approved
-Declined
-Referred
+Blank,
+Approved,
+Declined,
+Referred,
 Approved Subject To</inlineHelpText>
     <label>Collateral Assessment Outcome</label>
     <required>false</required>

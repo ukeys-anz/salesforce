@@ -6,15 +6,15 @@
     <description>Type of valuation</description>
     <externalId>false</externalId>
     <inlineHelpText>This is the type of valuation that was done on the property and can be any of the following;
-Full Valuation Short form
-Desktop
-Automated
-Combined AVM
-Contract of sale
-Tentative on Completion
-Kerbside
-Full valuation Long form (professional)
-Customer Stated Value
+Full Valuation Short form,
+Desktop,
+Automated,
+Combined AVM,
+Contract of sale,
+Tentative on Completion,
+Kerbside,
+Full valuation Long form (professional),
+Customer Stated Value,
 Price Estimate</inlineHelpText>
     <label>Property Valuation Type</label>
     <required>false</required>
