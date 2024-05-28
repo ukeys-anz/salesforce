@@ -23,8 +23,8 @@
                     <name>layout</name>
                     <value>lightning</value>
                 </componentInstanceProperties>
-                <componentName></componentName>
-                <identifier></identifier>
+                <componentName>tFMManageOpenBankingEnglish</componentName>
+                <identifier>c_tFMManageOpenBankingEnglish</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>
