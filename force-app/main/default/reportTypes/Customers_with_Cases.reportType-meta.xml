@@ -2943,11 +2943,11 @@
             <field>Followup_State__c</field>
             <table>Account.Cases</table>
         </columns>
-        <columns>
+        <!--<columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CR_Duplicate_TBD__c</field>
             <table>Account.Cases</table>
-        </columns>
+        </columns> -->
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IDR_CC_Country__c</field>
