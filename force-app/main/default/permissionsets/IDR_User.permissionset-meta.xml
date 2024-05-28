@@ -17,6 +17,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>omnistudio__ComponentController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IDRFilesRelatedListController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -104,7 +108,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Disable_CMOS_Omni__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -315,6 +319,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Complaint_Outcome_Offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_Complaint_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -381,6 +390,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Date_closed_after_re_opening__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Description_of_Outcome_Offered__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -994,6 +1008,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Show_Resolution_Launcher__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Subject</field>
         <readable>true</readable>
@@ -1039,8 +1058,23 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Complaint_Resolution__c.Complaint_Outcome_Offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_Complaint_Remedy_Offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Complaint_Resolution__c.IDR_Complaint_Remedy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_Complaint_Sub_Remedy_Offered__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1050,7 +1084,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_Description_of_Outcome_Offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Complaint_Resolution__c.IDR_Duration_of_Remedy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_Duration_of_Remedy_months_Offered__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1065,12 +1109,42 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_Other_Remedy_Offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Complaint_Resolution__c.IDR_Other_Remedy_Provided__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_Payment_Amount_Offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Complaint_Resolution__c.IDR_Provided_details_to_Manufacturer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_Rewards_Points_Offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_Was_the_offer_enhanced_and_accepted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Complaint_Resolution__c.IDR_customer_accept_resolution_offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Complaint_Resolution__c.Offered_details_to_Product_Manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
