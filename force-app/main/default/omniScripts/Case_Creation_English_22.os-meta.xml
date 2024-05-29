@@ -6056,12 +6056,12 @@
                 <type>Radio</type>
             </childElements>
             <childElements>
-              <isActive>true</isActive>
-              <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-              <level>2.0</level>
-              <name>validateEventId</name>
-              <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-              <propertySetConfig>{
+                <name>validateEventId</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
   &quot;controlWidth&quot; : null,
   &quot;label&quot; : &quot;Validate Event Id&quot;,
   &quot;show&quot; : {
@@ -6083,9 +6083,9 @@
     &quot;source&quot; : &quot;true&quot;
 } ]
 }</propertySetConfig>
-              <sequenceNumber>63.0</sequenceNumber>
-              <type>Custom Lightning Web Component</type>
-          </childElements>
+                <sequenceNumber>63.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
+            </childElements>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>

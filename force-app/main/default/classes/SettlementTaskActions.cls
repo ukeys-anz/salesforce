@@ -5,7 +5,6 @@
  */
 
 public with sharing class SettlementTaskActions {
-  @TestVisible
   public static final Id SETTLEMENT_TASK_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Settlement_Task')
     .getRecordTypeId();
@@ -16,24 +15,26 @@ public with sharing class SettlementTaskActions {
    */
   public static void handleSettlementTasks(List<Task> records) {
     for (Task record : records) {
-      if (isRelatedToSettlement(record)) {
-        record.RecordTypeId = SETTLEMENT_TASK_RT_ID;
-      }
+      record.RecordTypeId = SETTLEMENT_TASK_RT_ID;
     }
   }
 
   /**
-   * @description checks if the Task is related to a Settlement via WhatId
-   * @param record Task record
-   * @return `Boolean`
+   * @description checks if specific field was changed and applies masking if required
+   * @param records task record list.
+   * @param oldMap The old map of task records.
    */
-  private static Boolean isRelatedToSettlement(Task record) {
-    if (record.WhatId != null) {
-      return ('Settlement__c'
-        .equalsIgnoreCase(
-          record.WhatId.getSobjectType().getDescribe().getName()
-        ));
+  public static void applyRedaction(List<Task> records, Map<Id, Task> oldMap) {
+    for (Task record : records) {
+      if (
+        RecordComparisonUtil.fieldWasChanged(
+          record,
+          oldMap.get(record.Id),
+          Task.Description
+        )
+      ) {
+        record.Description = TextUtils.maskDataAnzx(record.Description);
+      }
     }
-    return false;
   }
 }

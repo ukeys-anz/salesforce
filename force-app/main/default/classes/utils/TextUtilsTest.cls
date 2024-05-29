@@ -27,28 +27,6 @@ public with sharing class TextUtilsTest {
   }
 
   @isTest
-  static void testReactiveLogging() {
-    String keywordStr = 'test TFN test 1234-678-90';
-    System.assertEquals(
-      true,
-      TextUtils.reactiveLogging(keywordStr),
-      'The reactiveLogging method should return true.'
-    );
-    String nonKeywordStr = 'test abc 1234-678-90';
-    System.assertEquals(
-      false,
-      TextUtils.reactiveLogging(nonKeywordStr),
-      'The reactiveLogging method should return false.'
-    );
-    String nonKeywordLongStr = 'test abc 1234-678-90-1234';
-    System.assertEquals(
-      true,
-      TextUtils.reactiveLogging(nonKeywordLongStr),
-      'The reactiveLogging method should return true.'
-    );
-  }
-
-  @isTest
   static void testMaskSObjectData() {
     String inputData = 'A sample text with card 1234-5678-98 , second card 1234-5678-98 and a third 1234-5678 9876 card and a unmasked one too 1234567';
     String maskedData = TextUtils.maskData(inputData);
@@ -78,11 +56,8 @@ public with sharing class TextUtilsTest {
 
   @isTest
   static void testMaskAndLog() {
-    String inputData = 'A sample text with TFN: 1234567890';
-    String fieldName = 'Description';
-    Case c = new Case(Description = inputData);
-    Boolean isLoggingRequired = true;
-    TextUtils.maskAndLog(inputData, fieldName, c, isLoggingRequired);
+    Case c = new Case(Description = 'A sample text with TFN: 1234567890');
+    TextUtils.maskAndLog(c, 'Description');
     System.assertEquals(
       'A sample text with TFN: ******7890',
       c.Description,
@@ -91,12 +66,7 @@ public with sharing class TextUtilsTest {
 
     //Negative Test
     Case c2 = new Case(Description = 'Test happy 1234567980');
-    TextUtils.maskAndLog(
-      'Test happy 1234567980',
-      fieldName,
-      c2,
-      isLoggingRequired
-    );
+    TextUtils.maskAndLog(c2, 'Description');
     System.assertEquals(
       'Test happy 1234567980',
       c2.Description,
@@ -133,6 +103,18 @@ public with sharing class TextUtilsTest {
       exceptedOutput,
       TextUtils.sanitiseMobileNumber(input),
       'Sanitise Mobile Number ' + input + 'should be' + exceptedOutput
+    );
+  }
+
+  @IsTest
+  static void testMaskDataCmos() {
+    Case theCase = new Case(
+      Subject = '00000000000000302773359 | $1234567890123456| 1234567890123456'
+    );
+    Assert.areEqual(
+      '*******************3359 | $1234567890123456| ************3456',
+      TextUtils.maskDataCmos(theCase, 'Subject'),
+      'Policy number should be masked'
     );
   }
 

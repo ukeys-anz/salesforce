@@ -31,20 +31,6 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>ANZx_Credit_Referral</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>ANZx Credit Referral</label>
-        <sharedTo>
-            <roleAndSubordinates>Credit_Assessor_Lead</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>ANZx_Non_Customer_Complaints</fullName>
         <accessLevel>Read</accessLevel>
         <description>Provides access to Non Customer Complaints for ANZx</description>
@@ -101,21 +87,6 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>BOH_Coach</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>provide read only access to BOH coach</description>
-        <label>BOH Coach</label>
-        <sharedTo>
-            <role>BOH_Coach</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Capability_Quality_C_Q_Team</fullName>
         <accessLevel>Read</accessLevel>
         <description>Enable Capability_Quality_C_Q_Team role users to access Complaint they are assessing.</description>
@@ -132,21 +103,6 @@
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
             <value>False</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Case_RT_BusinessAdmin_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Read only access for business admin</description>
-        <label>Case_RT_BusinessAdmin_RO</label>
-        <sharedTo>
-            <role>Business_Admin</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -185,21 +141,6 @@
             <value>Non-Customer Complaint</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Case_RT_QA_Capability_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Read only access for Quality &amp; Capability Lead</description>
-        <label>Case_RT_QA&amp;Capability_RO</label>
-        <sharedTo>
-            <role>Quality_Capability_Lead</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZRole_RO</fullName>
@@ -336,36 +277,6 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Credit_Referral_Leads</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Credit referral access for credit referral lead group</description>
-        <label>Credit Referral - Leads</label>
-        <sharedTo>
-            <group>Credit_Referral_Lead_Group</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Credit_Referral_Integration_User</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Provide read/edit to the credit referral to credit referral integration group</description>
-        <label>Credit Referral - Integration User</label>
-        <sharedTo>
-            <group>Credit_Referral_Integration</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>RTs_Coach_And_Coach_Lead_Group_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback, and AEM cases are to be shared with Coach Public Group with Read/Write access.</description>
@@ -398,21 +309,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Non-Customer Complaint</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Escalated_Complaint_for_Quality_Analyst_Role_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Sharing rule for Escalated complaints for Quality Analyst.</description>
-        <label>Escalated Complaint for Quality Analyst Role RO</label>
-        <sharedTo>
-            <roleAndSubordinates>Quality_Capability_Lead</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>Original_Case_Owner__c</field>
-            <operation>notEqual</operation>
-            <value/>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -534,76 +430,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY,Profile Update</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Escalated_Complaint_for_Coach_Lead_And_Coach_Role_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Escalated Complaint for Coach and Coach Lead Role RO</label>
-        <sharedTo>
-            <group>Coach_And_Coach_Lead_Group</group>
-        </sharedTo>
-        <booleanFilter>1 OR 2 OR 3</booleanFilter>
-        <criteriaItems>
-            <field>Original_Case_Owner__c</field>
-            <operation>notEqual</operation>
-            <value/>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Escalated_Complaint_for_FraudX_Agent_Role_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Escalated Complaint for FraudX Agent Role RO</label>
-        <sharedTo>
-            <role>FraudX_Agent</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
-        <criteriaItems>
-            <field>Original_Case_Owner__c</field>
-            <operation>notEqual</operation>
-            <value/>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Escalated_Complaint_for_Support_Coaches_Role_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Escalated Complaint for Support Coaches Role RO</label>
-        <sharedTo>
-            <role>Support_Coach</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2 OR 3</booleanFilter>
-        <criteriaItems>
-            <field>Original_Case_Owner__c</field>
-            <operation>notEqual</operation>
-            <value/>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -845,26 +671,6 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>With_Owner_Share_with_Join_Lead_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>With Owner Share with Join Lead</label>
-        <sharedTo>
-            <role>Join_Lead</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2</booleanFilter>
-        <criteriaItems>
-            <field>Original_Case_Owner__c</field>
-            <operation>notEqual</operation>
-            <value/>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Credit Referral</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Join_Lead_Non_Customer_Compliant_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Join Lead Non Customer Compliant RW</label>
@@ -997,6 +803,95 @@
             <value>Systemic Issue,CFMS Migrated Case</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>BOH_All_Case_Read_Only_Access_Group</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>BOH All Case Read Only Access Group</label>
+        <sharedTo>
+            <group>BOH_All_Case_Read_Only_Access_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Credit_Referral_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>provide Credit Referral Read Only access to a group</description>
+        <label>Credit Referral Read Only</label>
+        <sharedTo>
+            <group>Credit_Referral_Read_Only_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Credit_Referral_General_Group_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>provide read and write access to credit referral care</description>
+        <label>Credit Referral - General Group RW</label>
+        <sharedTo>
+            <group>Credit_Referral_RW_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Credit Referral</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Original_Case_Owner_Not_Equal_to_Null</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>provide read only access to case with original owner NOT equal to null</description>
+        <label>Original Case Owner Not Equal to Null</label>
+        <sharedTo>
+            <group>Original_Case_Owner_Not_Null_RO_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Record_Type_Card_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>provide read only acccess to Record type Card</description>
+        <label>Record Type Card Read Only</label>
+        <sharedTo>
+            <group>Record_Type_Card_RO_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Card_Dispute_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provide read write acccess to Case record type Card</description>
+        <label>Card Dispute Read Write</label>
+        <sharedTo>
+            <group>Card_Dispute_RW_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>FraudX_Agent_owned_cases_Share_RW_FraudX_agent_Join_Lead</fullName>

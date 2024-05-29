@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Card_Dispute</fullName>
     <active>true</active>
-    <businessProcess>ANZx Dispute Process</businessProcess>
+    <businessProcess>ANZx Card Dispute Process</businessProcess>
     <compactLayoutAssignment>Dispute</compactLayoutAssignment>
     <description>ANZx Card Dispute Record Type</description>
     <label>Card</label>

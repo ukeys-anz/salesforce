@@ -120,15 +120,13 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.omniJsonData.Case.ResolutionInformation.realFormRequired === "Yes" &&
       (this.omniJsonData.Case.ResolutionInformation.realFormMAXId !==
         undefined ||
-        this.omniJsonData.Case.ResolutionInformation.realFormMAXId !== null)
-    ) {
-      if (
+        this.omniJsonData.Case.ResolutionInformation.realFormMAXId !== null) &&
+      !(
         this.omniJsonData.apiRun &&
         this.omniJsonData.apiSuccess &&
         this.omniJsonData.RiskFormIDValid
-      ) {
-        return false;
-      }
+      )
+    ) {
       return true;
     }
     return false;

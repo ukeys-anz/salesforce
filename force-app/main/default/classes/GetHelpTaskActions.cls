@@ -10,12 +10,17 @@ public with sharing class GetHelpTaskActions {
     .get('Call_Log')
     .getRecordTypeId();
 
+  public static final Id COACH_NUDGE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Coach_Nudge')
+    .getRecordTypeId();
+
   @TestVisible
   public static final String TASK_SUBTYPE_CALL = 'Task';
   public static final String CALL_SID_IDENTIFIER = 'Call Sid: CA';
   public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
   public static final Integer CALL_SID_LENGTH = 34;
   public static final String TASK_STATUS_EXPIRED = 'Expired';
+  public static final String TASK_STATUS_NEW = 'New';
   public static final String TASK_STATUS_NOT_STARTED = 'Not Started';
   public static final String TASK_STATUS_EXPIRED_ERROR_MESSAGE = 'Status Cannot be changed to \'Expired\' manually.';
 
@@ -197,12 +202,42 @@ public with sharing class GetHelpTaskActions {
     for (Task tsk : records) {
       Task oldTask = oldMap.get(tsk.Id);
       if (
-        tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID &&
+        (tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID ||
+        tsk.RecordTypeId == GetHelpConstants.CALLBACK_REQUEST_RT_ID) &&
         tsk.Status == TASK_STATUS_EXPIRED &&
         tsk.Status != oldTask.Status
       ) {
         tsk.addError(TASK_STATUS_EXPIRED_ERROR_MESSAGE);
       }
     }
+  }
+
+  /**
+   * @description checks if specific field was changed and applies masking if required
+   * @param records task record list.
+   * @param oldMap The old map of task records.
+   */
+  public static void applyRedaction(List<Task> records, Map<Id, Task> oldMap) {
+    for (Task record : records) {
+      if (
+        isValidRecordType(record) &&
+        RecordComparisonUtil.fieldWasChanged(
+          record,
+          oldMap.get(record.Id),
+          Task.Description
+        )
+      ) {
+        record.Description = TextUtils.maskDataAnzx(record.Description);
+      }
+    }
+  }
+
+  /**
+   * @description checks if record type is valid
+   * @param record task record
+   * @return `Boolean`
+   */
+  private static Boolean isValidRecordType(Task record) {
+    return record.RecordTypeId == COACH_NUDGE_RT_ID;
   }
 }

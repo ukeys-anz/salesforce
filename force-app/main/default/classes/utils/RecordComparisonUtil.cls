@@ -131,4 +131,35 @@ public class RecordComparisonUtil {
     return newRecord.get(field) != oldRecord.get(field) &&
       newRecord.get(field) != null;
   }
+
+  /**
+   * @description Checks if two fields contains the same value or not
+   *
+   * @param record The updated record.
+   * @param field  Field
+   * @param fieldToCompareWith  Field to compare
+   * @param obj  Sobject name of field
+   * @return Boolean  True if the fields contain the same value otherwise, false.
+   */
+  public static Boolean picklistContainSameValue(
+    SObject record,
+    SObjectField field,
+    SObjectField fieldToCompareWith,
+    SObjectType obj
+  ) {
+    String fieldName = String.valueOf(field);
+    DescribeSObjectResult objResult = obj.getDescribe();
+    Schema.DisplayType dataType = objResult.fields
+      .getMap()
+      .get(fieldName)
+      .getDescribe()
+      .getType();
+
+    if (String.valueOf(dataType) == 'MULTIPICKLIST') {
+      return String.isNotEmpty(String.valueOf(record.get(field))) &&
+        String.valueOf(record.get(field))
+          .contains(String.valueOf(record.get(fieldToCompareWith)));
+    }
+    return false;
+  }
 }

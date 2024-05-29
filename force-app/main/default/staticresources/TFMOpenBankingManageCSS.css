@@ -1,54 +1,127 @@
-runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ManageOpenBankingStep"] .vlc-separator{
-    border: hidden;
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ManageOpenBankingStep"]
+  .vlc-separator {
+  border: hidden;
 }
-runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ConfirmAction"] .vlc-separator{
-    border: hidden;
-}
-
-runtime_omnistudio_omniscript-omniscript-step[data-omni-key="DataINStep"] .vlc-separator{
-    border: hidden;
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ConfirmAction"]
+  .vlc-separator {
+  border: hidden;
 }
 
-runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"] .vlocity-btn{
-    CURSOR: not-allowed;
-    opacity: 0.6;
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="DataINStep"]
+  .vlc-separator {
+  border: hidden;
 }
 
-runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"] .btnLabel{
-    font-size: 25px;
-    padding-bottom: 1px;
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ConfirmArchive"]
+  .vlc-separator {
+  border: hidden;
+}
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"]
+  .vlocity-btn {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"]
+  .btnLabel {
+  font-size: 25px;
+  padding-bottom: 1px;
 }
 runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"] {
-   width: 4%;
+  width: 4%;
 }
 
-
-
-runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisablePreviousDataIN"] .vlocity-btn{
-    CURSOR: not-allowed;
-    opacity: 0.6;
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisablePreviousDataIN"]
+  .vlocity-btn {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
-runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisablePreviousDataIN"] .btnLabel{
-    font-size: 25px;
-    padding-bottom: 1px;
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisablePreviousDataIN"]
+  .btnLabel {
+  font-size: 25px;
+  padding-bottom: 1px;
 }
 runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisablePreviousDataIN"] {
-    width: 4%;
- }
-
-runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="NextDataIN"] .btnLabel{
-    font-size: 25px;
-    padding-bottom: 1px;
+  width: 4%;
 }
-runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="NextDataIN"]{
-    width: 4%;
- }
 
-runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="PreviousDataIN"] .btnLabel{
-    font-size: 25px;
-    padding-bottom: 1px;
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="NextDataIN"]
+  .btnLabel {
+  font-size: 25px;
+  padding-bottom: 1px;
+}
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="NextDataIN"] {
+  width: 4%;
+}
+
+runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="PreviousDataIN"]
+  .btnLabel {
+  font-size: 25px;
+  padding-bottom: 1px;
 }
 runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="PreviousDataIN"] {
-    width: 4%;
- }
+  width: 4%;
+}
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="PinAndMobile"]
+  .vlc-separator {
+  border: hidden;
+}
+
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="InsufficientAccessBlock"]
+  .vlc-separator {
+  border: hidden;
+}
+
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ErrorToastMessageStep"]
+  .vlc-separator {
+  border: hidden;
+}
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="pinConfirm"]
+  .slds-radio_button__label {
+  background-color: #0176d3;
+  width: 90px;
+  height: 30px;
+  text-align: center;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="pinConfirm"]
+  .slds-radio_faux {
+  color: #ffffff;
+}
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="numberConfirm"]
+  .slds-radio_button__label {
+  background-color: #0176d3;
+  width: 90px;
+  height: 30px;
+  text-align: center;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="numberConfirm"]
+  .slds-radio_faux {
+  color: #ffffff;
+}
+
+runtime_omnistudio_flexcards-flex-action[data-element-label="deregisterdevice"]
+  .modal-dialog {
+  width: 700px;
+}
+
+runtime_omnistudio_flexcards-flex-action[data-element-label="deregisterdevice"]
+  .slds-modal__content {
+  width: 700px;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="archiveConfirm"]
+  .slds-radio_button__label {
+  background-color: #e03e2d;
+  width: 90px;
+  height: 30px;
+  text-align: center;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="archiveConfirm"]
+  .slds-radio_faux {
+  color: #ffffff;
+}

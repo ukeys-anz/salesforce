@@ -15,7 +15,7 @@
     <filters>
         <field>Opportunity_Owner_Teamcode__c</field>
         <operation>equals</operation>
-        <value>CEM</value>
+        <value>CEM Team</value>
     </filters>
     <filters>
         <field>OPPORTUNITY.RECORDTYPE</field>

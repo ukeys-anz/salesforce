@@ -130,6 +130,7 @@ public with sharing class CCRMTestDataFactory {
     ccrmBaseUser.ProfileId = anzStandardProfileId;
     insert ccrmBaseUser;
     addCCRMUserPS(ccrmBaseUser.id, 'CCRM_User_Base');
+    addCCRMUserPS(ccrmBaseUser.id, 'Financial_Accounts_Read_and_Edit');
     return ccrmBaseUser;
   }
 
@@ -1298,7 +1299,7 @@ public with sharing class CCRMTestDataFactory {
 
     return accnt;
   }
- /**
+  /**
    * @description Create a account share record to provide access to business user
    * @name createAccountShare
    * @param accId Account record to be share
@@ -1469,7 +1470,7 @@ public with sharing class CCRMTestDataFactory {
    * @name createDepositAccountContext
    * @return Returns DataSource.QueryContext context
    */
-    public static DataSource.QueryContext createCreditCardContext() {
+  public static DataSource.QueryContext createCreditCardContext() {
     Test.setMock(
       HttpCalloutMock.class,
       new CCRMTestDataFactory.CCRMCreditCardQueryTestMock()
@@ -1583,5 +1584,60 @@ public with sharing class CCRMTestDataFactory {
       res.setStatusCode(200);
       return res;
     }
+  }
+
+  /**
+   * @description Create Financial Account record
+   * @param primaryOwner Primary Owner of account
+   * @param jointOwner Joint Owner of account
+   * @param doInsert Insert record or just initialise
+   * @return FinServ__FinancialAccount__c FinServ__FinancialAccount__c record
+   */
+  public static FinServ__FinancialAccount__c createFinancialAccount(
+    Id primaryOwner,
+    Id jointOwner,
+    Boolean doInsert
+  ) {
+    FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c(
+      Name = 'Everyday Account',
+      FinServ__Balance__c = 200,
+      FinServ__CurrentPostedBalance__c = 200,
+      FinServ__Status__c = 'Active',
+      RecordTypeId = CCRMConstants.FA_RT_ID,
+      FinServ__PrimaryOwner__c = primaryOwner,
+      FinServ__JointOwner__c = jointOwner,
+      Account_Key__c = '342490981',
+      Product_Type__c = 'CAP-CIS:DDA',
+      FinServ__FinancialAccountNumber__c = '000000000'
+    );
+    if (doInsert) {
+      insert finAccount;
+    }
+    return finAccount;
+  }
+
+  /**
+   * @description Create Financial Account Role record
+   * @param relatedAccount Id of account
+   * @param financialAccount FinServ__FinancialAccount__c record Id
+   * @param doInsert Insert record or just initialise
+   * @return FinServ__FinancialAccountRole__c FinServ__FinancialAccountRole__c record
+   */
+  public static FinServ__FinancialAccountRole__c createFinancialAccountRole(
+    Id relatedAccount,
+    Id financialAccount,
+    Boolean doInsert
+  ) {
+    FinServ__FinancialAccountRole__c finAccountRole = new FinServ__FinancialAccountRole__c(
+      FinServ__RelatedAccount__c = relatedAccount,
+      FinServ__Active__c = true,
+      FinServ__FinancialAccount__c = financialAccount,
+      Role_Type__c = 'BCC',
+      RecordTypeId = CCRMConstants.FAR_RT_ID
+    );
+    if (doInsert) {
+      insert finAccountRole;
+    }
+    return finAccountRole;
   }
 }

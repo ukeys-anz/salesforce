@@ -61,11 +61,11 @@ public with sharing class CCRMLinkedAccountQuery extends CCRMFinancialAccountQue
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        acct.compositeLinkedAccountId
+          '/' +
+          acct.compositeLinkedAccountId
       );
       row.put(this.parent, this.parentId);
-      row.put('AccountNumber', acct.accountNumber);
+      row.put('AccountNumber', formatAccountNumber(acct.accountNumber));
       row.put('Code', acct.relateCode);
       row.put('ProductCode', acct.productCode);
       result.queryResult.add(row);

@@ -193,19 +193,25 @@ public with sharing class TFMExportConsentDetailsHelper {
    * @param csvContent csv content
    * @param mapScopeIDToTFMDataScopes datascopes map
    * @param input input map from flexcard
-   * @return `String`
+   * @return `Map<String, Object>`
    * @description exports data to by forming data for data sharing history
    */
-  public static String formDataSharingHistoryData(
+  public static Map<String, Object> formDataSharingHistoryData(
     String csvContent,
     Map<String, TFM_Data_Scopes__mdt> mapScopeIDToTFMDataScopes,
     Map<String, Object> input
   ) {
+    Map<String, Object> returnMap = new Map<String, Object>();
     try {
       Map<String, Object> responseMap = TFMRemoteActionUtility.getConsentDataSharingHistory(
         input
       );
-
+      Boolean isValid = Boolean.valueOf(responseMap.get('isValid'));
+      returnMap.put('isValid', isValid);
+      if(!isValid) {
+        return returnMap;
+      }
+      
       csvContent += TFMConstants.DATASHARINGHISTORYHEADER;
 
       Integer yearValue = null;
@@ -218,7 +224,8 @@ public with sharing class TFMExportConsentDetailsHelper {
         List<TFMExportConsentModel.AggregatedEvent> aggregatedEventsList = (List<TFMExportConsentModel.AggregatedEvent>) model.aggregatedEvents;
         if (aggregatedEventsList == null && aggregatedEventsList.isEmpty()) {
           csvContent += TFMConstants.DATASHARINGDISCLAIMER;
-          return csvContent;
+          returnMap.put('csvContent', csvContent);
+          return returnMap;
         }
         for (
           TFMExportConsentModel.AggregatedEvent aggregatedEvent : aggregatedEventsList
@@ -273,12 +280,14 @@ public with sharing class TFMExportConsentDetailsHelper {
         csvContent += TFMConstants.DATASHARINGDISCLAIMER;
       }
 
-      return csvContent;
+      returnMap.put('csvContent', csvContent);
+      return returnMap;
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
       csvContent += TFMConstants.DATASHARINGAPIERROR;
-      return csvContent;
+      returnMap.put('csvContent', csvContent);
+      return returnMap;
     }
   }
 

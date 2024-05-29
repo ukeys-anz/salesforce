@@ -86,6 +86,41 @@
         <value>Active,Open,Dormant,Suspended,Unspecified,Closed</value>
     </labels>
     <labels>
+        <fullName>ANZx_Customer_Tab_Cases_And_Interactions</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZx_Customer_Tab_Cases_And_Interactions</shortDescription>
+        <value>Cases &amp; Interactions</value>
+    </labels>
+    <labels>
+        <fullName>ANZx_Customer_Tab_Customer_Information</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZx_Customer_Tab_Customer_Information</shortDescription>
+        <value>Customer Information</value>
+    </labels>
+    <labels>
+        <fullName>ANZx_Customer_Tab_Finances_and_Accounts</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZx_Customer_Tab_Finances_and_Accounts</shortDescription>
+        <value>Finances &amp; Accounts</value>
+    </labels>
+    <labels>
+        <fullName>ANZx_Customer_Tab_Insights</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZx_Customer_Tab_Insights</shortDescription>
+        <value>Insights</value>
+    </labels>
+    <labels>
+        <fullName>ANZx_Customer_Tab_Whats_Happening</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZx_Customer_Tab_Whats_Happening</shortDescription>
+        <value>What&apos;s Happening</value>
+    </labels>
+    <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -120,6 +155,13 @@
         <protected>false</protected>
         <shortDescription>Disputes cloud event type</shortDescription>
         <value>com.anzx.salesforce.interaction.v1alpha1.interaction.coachnudge.</value>
+    </labels>
+    <labels>
+        <fullName>Interaction_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction Status</shortDescription>
+        <value>Active,Open,On Hold (By Coach),On Hold (By Customer),New</value>
     </labels>
     <labels>
         <fullName>Anonymous_Complainant</fullName>
@@ -277,6 +319,13 @@
         <value>CAP-CIS</value>
     </labels>
     <labels>
+        <fullName>CdmLimitReachedErrorMessage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CdmLimitReachedErrorMessage</shortDescription>
+        <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -353,7 +402,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Fraud_Lock_Card</shortDescription>
-        <value>callout:SF_MS_Fabric/card-management/v1/cards</value>
+        <value>callout:SF_MS_CH2/card-management/v1/cards</value>
     </labels>
     <labels>
         <fullName>MS_Get_Credit_Assessments</fullName>
@@ -1883,7 +1932,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Fraudx Change Mandate Status</shortDescription>
-        <value>callout:SF_MS_Fabric/card-management/v1/mandates/{mandateId}/status</value>
+        <value>callout:SF_MS_CH2/card-management/v1/mandates/{mandateId}/status</value>
     </labels>
     <labels>
         <fullName>MS_Resume_Mandate</fullName>
@@ -2109,6 +2158,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>urn:openid:params:grant-type:ciba</value>
     </labels>
     <labels>
+        <fullName>MS_AUF_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_AUF_API</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/</value>
+    </labels>
+    <labels>
         <fullName>MS_ForgeV2_Token</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2214,6 +2270,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
     </labels>
     <labels>
+        <fullName>ANZX_Customer_Comm_Tableau_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Customer_Comm_Tableau_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Interest_Rates_FA_Tableau_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Interest_Rates_FA_Tableau_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/AccountInterestRates/AccountInterestRates</value>
+    </labels>
+    <labels>
         <fullName>MS_Postcode_Lookup_V3</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2249,6 +2319,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/lighthouse/v1/consents/detail-reports</value>
     </labels>
     <labels>
+        <fullName>Territory_Config_Share_Batch_Size</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Territory Config Share Batch Size</shortDescription>
+        <value>10</value>
+    </labels>
+    <labels>
         <fullName>MS_ExportDataSharingCollectionDataIN_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2282,6 +2360,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SNOW Risk Event End Point</shortDescription>
-        <value>api/now/table/sn_risk_advanced_event?active=true&amp;number=</value>
+        <value>api/now/table/sn_risk_advanced_event?number=</value>
+    </labels>
+    <labels>
+        <fullName>ValidateOwnerChange</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ValidateOwnerChange</shortDescription>
+        <value>Unable to change Owner of this Record not owned by yourself.</value>
     </labels>
 </CustomLabels>

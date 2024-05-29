@@ -12,218 +12,6 @@
     <language>English</language>
     <name>ResolutionPathway_End_phone_call</name>
     <omniProcessElements>
-        <name>End phone call - thank customer for time 2</name>
-        <childElements>
-            <name>CaseResolvedwithFinancialRemedy</name>
-            <designerCustomizationType>Discovery Framework</designerCustomizationType>
-            <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 11,
-  &quot;label&quot; : &quot;Case resolved with financial remedy&quot;,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;horizontalMode&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : &quot;Yes&quot;,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;setAll&quot; : false
-  }, {
-    &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : &quot;No&quot;,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;setAll&quot; : false
-  } ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
-  &quot;enableCaption&quot; : true,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>2.0</sequenceNumber>
-            <type>Radio</type>
-            <uniqueIndex>CaseResolvedwithFinancialRemedy</uniqueIndex>
-        </childElements>
-        <childElements>
-            <name>CustomLWC3</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;customAttributes&quot; : [ {
-    &quot;source&quot; : &quot;true&quot;,
-    &quot;name&quot; : &quot;parent-data&quot;
-  }, {
-    &quot;source&quot; : &quot;%origin_dt%&quot;,
-    &quot;name&quot; : &quot;records&quot;
-  } ],
-  &quot;bStandalone&quot; : false,
-  &quot;lwcName&quot; : &quot;cfResolutionPathway_End_phone_call_Thanks_Msg&quot;,
-  &quot;hide&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;CustomLWC1&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-            <sequenceNumber>0.0</sequenceNumber>
-            <type>Custom Lightning Web Component</type>
-        </childElements>
-        <childElements>
-            <name>CustomLWC4</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;customAttributes&quot; : [ ],
-  &quot;bStandalone&quot; : false,
-  &quot;lwcName&quot; : &quot;cfResolutionPathway_Blank&quot;,
-  &quot;hide&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;CustomLWC8&quot;,
-  &quot;controlWidth&quot; : 1
-}</propertySetConfig>
-            <sequenceNumber>1.0</sequenceNumber>
-            <type>Custom Lightning Web Component</type>
-        </childElements>
-        <childElements>
-            <name>CustomLWC6</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;customAttributes&quot; : [ {
-    &quot;source&quot; : &quot;true&quot;,
-    &quot;name&quot; : &quot;parent-data&quot;
-  }, {
-    &quot;source&quot; : &quot;%origin_dt%&quot;,
-    &quot;name&quot; : &quot;records&quot;
-  } ],
-  &quot;bStandalone&quot; : false,
-  &quot;lwcName&quot; : &quot;cfResolutionPathway_End_phone_call_CaseComments&quot;,
-  &quot;hide&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;CustomLWC2&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
-            <type>Custom Lightning Web Component</type>
-        </childElements>
-        <childElements>
-            <name>CustomLWC7</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;customAttributes&quot; : [ ],
-  &quot;bStandalone&quot; : false,
-  &quot;lwcName&quot; : &quot;resolutionPathwayCustomButtons&quot;,
-  &quot;hide&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;CustomLWC5&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
-            <type>Custom Lightning Web Component</type>
-        </childElements>
-        <designerCustomizationType>Discovery Framework</designerCustomizationType>
-        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;label&quot; : &quot;End phone call - thank customer for time&quot;,
-  &quot;validationRequired&quot; : true,
-  &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : &quot;0&quot;,
-  &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : &quot;0&quot;,
-  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
-  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;saveLabel&quot; : &quot;Save for later&quot;,
-  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
-  &quot;completeLabel&quot; : &quot;Complete&quot;,
-  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
-  &quot;instruction&quot; : &quot;&quot;,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;remoteOptions&quot; : { },
-  &quot;knowledgeOptions&quot; : {
-    &quot;language&quot; : &quot;English&quot;,
-    &quot;publishStatus&quot; : &quot;Online&quot;,
-    &quot;keyword&quot; : &quot;&quot;,
-    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
-    &quot;typeFilter&quot; : &quot;&quot;
-  },
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;CallTransferred&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;origin_dt:state&quot;
-      }, {
-        &quot;field&quot; : &quot;origin_dt:state&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;BranchQueues&quot;
-      } ]
-    }
-  },
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;instructionKey&quot; : &quot;&quot;,
-  &quot;chartLabel&quot; : null,
-  &quot;allowSaveForLater&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;lwcComponentOverride&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>1.0</sequenceNumber>
-        <type>Step</type>
-    </omniProcessElements>
-    <omniProcessElements>
         <name>End phone call thank customer for time</name>
         <childElements>
             <name>CustomLWC1</name>
@@ -401,20 +189,7 @@
     &quot;remoteTimeout&quot; : 30000,
     &quot;typeFilter&quot; : &quot;&quot;
   },
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;CallQueue&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;origin_dt:state&quot;
-      }, {
-        &quot;field&quot; : &quot;origin_dt:state&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;ToneOrManner&quot;
-      } ]
-    }
-  },
+  &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;instructionKey&quot; : &quot;&quot;,
@@ -429,8 +204,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false,
   &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;lwcComponentOverride&quot; : &quot;&quot;
+  &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
         <sequenceNumber>0.0</sequenceNumber>
         <type>Step</type>
@@ -449,13 +223,9 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;End phone call thank customer for time:ResolutionPathway_End_phone_call&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;No&quot;
-      }, {
-        &quot;field&quot; : &quot;End phone call - thank customer for time 2:CaseResolvedwithFinancialRemedy&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;No&quot;
       } ]
@@ -468,7 +238,7 @@
   &quot;label&quot; : &quot;ResetWebVoucherValue&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -486,15 +256,11 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;End phone call thank customer for time:ResolutionPathway_End_phone_call&quot;
-      }, {
-        &quot;field&quot; : &quot;End phone call - thank customer for time 2:CaseResolvedwithFinancialRemedy&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Yes&quot;
       } ]
     }
   },
@@ -502,10 +268,9 @@
   &quot;wpm&quot; : false,
   &quot;ssm&quot; : false,
   &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;lwcComponentOverride&quot; : &quot;&quot;
+  &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
+        <sequenceNumber>1.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
@@ -514,5 +279,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_EndPhoneCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>122a3283-3b4a-3b71-92eb-714cbd635151</webComponentKey>
+    <webComponentKey>fad75c53-068f-afe9-214b-ce313909b669</webComponentKey>
 </OmniScript>

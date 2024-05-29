@@ -247,32 +247,37 @@ public with sharing class CCRMLogAResponseController {
       }
     }
 
-    if (Schema.sObjectType.Task.isCreateable()) {
-      Task responseRecord = new Task();
-      if (
-        leadRespWrapper.autoCreateActivities &&
-        validateLeadState.FinServ__ExpressedInterest__c == null
-      ) {
-        validateLeadState.FinServ__ExpressedInterest__c = '';
-      }
-      responseRecord.Response_Status__c = leadRespWrapper.responseStatus;
-      responseRecord.Lead_Quality__c = leadRespWrapper.leadQuality;
-      responseRecord.Status = leadRespWrapper.autoCreateActivities
-        ? TASK_STATUS_NEW
-        : CCRMConstants.STATUS_COMPLETED;
-      responseRecord.Outcome_Reason__c = leadRespWrapper.outcomeReason;
-      responseRecord.ActivityDate = leadRespWrapper.autoCreateActivities
-        ? leadRespWrapper.dueDate
-        : leadRespWrapper.followUpDate;
-      responseRecord.Subject = leadRespWrapper.autoCreateActivities
-        ? TASK_SUBJECT + ' - ' + validateLeadState.FinServ__ExpressedInterest__c
-        : leadRespWrapper.responseStatus + ': ' + leadRespWrapper.outcomeReason;
-      responseRecord.Description = leadRespWrapper.commentVal;
-      responseRecord.recordTypeId = CCRMConstants.LEAD_RESPONSE_RT_ID;
-      responseRecord.WhoId = Id.valueOf(leadRespWrapper.leadId);
-      responseRecord.Response_Type__c = Id.valueOf(
-        leadRespWrapper.responseTypeValue
+    if (!Schema.sObjectType.Task.isCreateable()) {
+      return JSON.serialize(
+        new ResponseCapturedDataWrapper(LOG_RESPONSE_ERROR_MESSAGE, null)
       );
+    }
+    Task responseRecord = new Task();
+    if (
+      leadRespWrapper.autoCreateActivities &&
+      validateLeadState.FinServ__ExpressedInterest__c == null
+    ) {
+      validateLeadState.FinServ__ExpressedInterest__c = '';
+    }
+    responseRecord.Response_Status__c = leadRespWrapper.responseStatus;
+    responseRecord.Lead_Quality__c = leadRespWrapper.leadQuality;
+    responseRecord.Status = leadRespWrapper.autoCreateActivities
+      ? TASK_STATUS_NEW
+      : CCRMConstants.STATUS_COMPLETED;
+    responseRecord.Outcome_Reason__c = leadRespWrapper.outcomeReason;
+    responseRecord.ActivityDate = leadRespWrapper.autoCreateActivities
+      ? leadRespWrapper.dueDate
+      : leadRespWrapper.followUpDate;
+    responseRecord.Subject = leadRespWrapper.autoCreateActivities
+      ? TASK_SUBJECT + ' - ' + validateLeadState.FinServ__ExpressedInterest__c
+      : leadRespWrapper.responseStatus + ': ' + leadRespWrapper.outcomeReason;
+    responseRecord.Description = leadRespWrapper.commentVal;
+    responseRecord.recordTypeId = CCRMConstants.LEAD_RESPONSE_RT_ID;
+    responseRecord.WhoId = Id.valueOf(leadRespWrapper.leadId);
+    responseRecord.Response_Type__c = Id.valueOf(
+      leadRespWrapper.responseTypeValue
+    );
+    try {
       Database.insert(responseRecord);
       return JSON.serialize(
         new ResponseCapturedDataWrapper(
@@ -280,10 +285,10 @@ public with sharing class CCRMLogAResponseController {
           validateCampaignDateMaxExpiry(leadRespWrapper.leadId)
         )
       );
-    } else {
-      return JSON.serialize(
-        new ResponseCapturedDataWrapper(LOG_RESPONSE_ERROR_MESSAGE, null)
-      );
+    } catch (Exception e) {
+      Logger.error('Error occured while logging response', e);
+      Logger.saveLog();
+      throw new AuraHandledException(e.getMessage());
     }
   }
 

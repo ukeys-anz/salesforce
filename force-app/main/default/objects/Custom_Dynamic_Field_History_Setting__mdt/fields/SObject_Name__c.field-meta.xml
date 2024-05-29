@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SObject_Name__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>SObject API name whose history needs to be tracked</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>SObject Name</label>
+    <referenceTo>Custom_Dynamic_Object_History_Setting__mdt</referenceTo>
+    <relationshipLabel>Custom Dynamic Field History Settings</relationshipLabel>
+    <relationshipName>Custom_Dynamic_Field_History_Settings</relationshipName>
+    <required>true</required>
+    <securityClassification>Internal</securityClassification>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

@@ -10,63 +10,55 @@
   <template lwc:elseif={hasError}>
     <c-error message={errorMsg}></c-error>
   </template>
-  <template lwc:elseif={financialAccountList}>
-    <template lwc:if={financialAccounts}>
-      <template for:each={financialAccounts} for:item="finAccount">
-        <article class="homeLoanAccount slds-card" key={finAccount.Id}>
-          <h1 class="card-title" data-id="component-title">
-            <lightning-icon
-              icon-name="custom:custom107"
-              size="medium"
-              class="slds-m-right_small cicon"
-            ></lightning-icon>
-            Loan - {finAccount.product_details.name} Account
-          </h1>
-          <div
-            class="slds-card__body slds-card__body_inner"
-            data-id="fin-account"
-          >
-            <article class="slds-card">
-              <div class="slds-grid">
-                <header class="slds-has-flexi-truncate slds-var-p-around_small">
-                  <h2 class="slds-card__header-title">
-                    <a
-                      onclick={navigateToRecordViewPage}
-                      data-id={finAccount.recordId}
-                      class="slds-truncate"
-                      title={finAccount.account_name}
-                    >
-                      <span>{finAccount.account_name}</span>
-                    </a>
-                    <span
-                      lwc:if={finAccount.accountActive}
-                      class="slds-badge slds-theme_success"
-                      >Open</span
-                    >
-                    <span lwc:else class="slds-badge slds-theme_error"
-                      >Closed</span
-                    >
-                  </h2>
-                </header>
-              </div>
-              <div class="slds-grid slds-gutters">
-                <div class="slds-col slds-size_1-of-2">
-                  <div class="slds-m-top_small">
-                    <img class="loan-image" src={loanImageUrl} />
+  <template lwc:elseif={showHomeLoan}>
+    <template for:each={financialAccounts} for:item="finAccount">
+      <article
+        class="financialAccountCardSize slds-card"
+        key={finAccount.account_number}
+      >
+        <h1 class="card-title" data-id="component-title">
+          <lightning-icon
+            icon-name="custom:custom107"
+            size="medium"
+            class="slds-m-right_small cicon"
+          ></lightning-icon>
+          Loan - {finAccount.product_details.name} Account
+        </h1>
+        <div
+          class="slds-card__body slds-card__body_inner"
+          data-id="fin-account"
+        >
+          <article class="slds-card">
+            <div class="slds-grid slds-p-around_xx-small">
+              <header class="slds-has-flexi-truncate">
+                <h2 class="card-heading-bold">
+                  <a
+                    onclick={navigateToRecordViewPage}
+                    data-id={finAccount.recordId}
+                    class="slds-truncate"
+                    title={finAccount.account_name}
+                  >
+                    <span>{finAccount.account_name}</span>
+                  </a>
+                </h2>
+              </header>
+            </div>
+            <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-1">
+                <div class="slds-grid slds-wrap">
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
+                  >
+                    <p class="card-heading-font">Account Number</p>
+                    <p class="card-heading-value">
+                      {finAccount.account_number}
+                    </p>
                   </div>
-                </div>
-                <div class="slds-col slds-size_1-of-2">
-                  <div class="slds-grid slds-gutters">
-                    <div class="slds-col slds-size_1-of-2">
-                      <p class="slds-text-color_weak slds-p-right_xx-small">
-                        Account Number
-                      </p>
-                      <p class="slds-text-heading_medium">
-                        {finAccount.account_number}
-                      </p>
-                    </div>
-                    <div class="slds-col slds-size_1-of-2">
-                      <p class="slds-text-color_weak">
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small slds-text-align_right"
+                  >
+                    <div>
+                      <p class="card-heading-font">
                         Loan Balance
                         <lightning-icon
                           icon-name="utility:info"
@@ -75,92 +67,99 @@
                           onclick={handleBalanceModal}
                         ></lightning-icon>
                       </p>
-                      <p
-                        class="slds-text-heading_medium"
-                        data-test-id="balance"
-                      >
+                      <p data-test-id="balance">
                         <lightning-formatted-number
                           value={finAccount.balances.current_balance.value}
                           format-style="currency"
                           data-id="amount"
+                          class="fontstyle"
                         ></lightning-formatted-number>
                       </p>
                     </div>
                   </div>
-                  <div class="slds-grid slds-gutters slds-p-top_medium">
-                    <div class="slds-col slds-size_1-of-2">
-                      <p class="slds-text-color_weak slds-p-right_xx-small">
-                        Payments Made
-                        <lightning-helptext
-                          class="tooltip"
-                          content="Calculated by subtracting Loan Balance from Loan Amount. Amount may also include fees and charges you have paid that have been applied to the Loan Balance."
-                        ></lightning-helptext>
-                      </p>
-                      <p
-                        class="slds-text-heading_medium"
-                        data-test-id="payment"
-                      >
-                        <lightning-formatted-number
-                          value={finAccount.paidOff}
-                          format-style="currency"
-                          data-id="amount"
-                        ></lightning-formatted-number>
-                      </p>
-                    </div>
-                    <div class="slds-col slds-size_1-of-2">
-                      <p class="slds-text-color_weak">Interest Rate</p>
-                      <p
-                        class="slds-text-heading_medium"
-                        data-test-id="interestrate"
-                      >
-                        {finAccount.loan_details.interests.rate}% p.a.
-                      </p>
-                    </div>
+                </div>
+                <div class="slds-grid slds-wrap slds-p-top_medium">
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                  >
+                    <p class="card-heading-font">Interest Rate</p>
+                    <p class="fontstyle" data-test-id="interestrate">
+                      {finAccount.loan_details.interests.rate}% p.a.
+                    </p>
                   </div>
-                  <div class="slds-grid slds-gutters slds-p-top_medium">
-                    <div class="slds-col slds-size_1-of-2">
-                      <p class="slds-text-color_weak slds-p-right_xx-small">
-                        Minimum Repayment
-                        <lightning-helptext
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small slds-text-align_center"
+                  >
+                    <p class="card-heading-font">
+                      Term
+                      <lightning-helptext
+                        class="tooltip"
+                        content="As of the loan commencement or the date certain changes were made to the loan."
+                      ></lightning-helptext>
+                    </p>
+                    <p data-test-id="term" class="fontstyle">
+                      {finAccount.loanTerm}
+                    </p>
+                  </div>
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small slds-text-align_right"
+                  >
+                    <div>
+                      <p class="card-heading-font">
+                        Redraw Amount
+                        <lightning-icon
+                          icon-name="utility:info"
+                          size="xx-small"
                           class="tooltip"
-                          content="This is your Repayment Amount under your credit contract. Does not include any arrears (if applicable)."
-                        ></lightning-helptext>
+                          onclick={handleRedrawAvailableModal}
+                        ></lightning-icon>
                       </p>
-                      <p
-                        class="slds-text-heading_medium"
-                        data-test-id="minirepayment"
-                      >
+                      <p data-test-id="amount">
                         <lightning-formatted-number
-                          value={finAccount.loan_details.repayment_amount.value}
+                          value={finAccount.loan_details.redrawAvailable}
                           format-style="currency"
-                          data-id="amount "
+                          data-id="redraw_amount"
+                          class="fontstyle"
                         ></lightning-formatted-number>
-                      </p>
-                    </div>
-                    <div class="slds-col slds-size_1-of-2">
-                      <p class="slds-text-color_weak">Next Repayment</p>
-                      <p
-                        class="slds-text-heading_medium"
-                        data-test-id="nextrepayment"
-                      >
-                        {finAccount.nextRepayment}
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <footer class="slds-card__footer account-footer">
-                <span class="lastUpdated" data-test-id="last-updated-time"
-                  >Last Updated {finAccount.lastModifiedTimestamp}</span
-                >
-              </footer>
-            </article>
-          </div>
-        </article>
-      </template>
+            </div>
+          </article>
+        </div>
+        <footer class="slds-card__footer slds-p-bottom_large">
+          <span class="lastUpdated" data-test-id="last-updated-time"
+            >Last Updated {finAccount.lastModifiedTimestamp}</span
+          >
+        </footer>
+      </article>
     </template>
   </template>
-
+  <template lwc:else>
+    <article class="financialAccountCardSize slds-card">
+      <h1 class="card-title" data-id="component-title">
+        <lightning-icon
+          icon-name="custom:custom107"
+          size="medium"
+          class="slds-m-right_small cicon"
+        ></lightning-icon>
+        Loan Account
+      </h1>
+      <div
+        class="slds-card__body slds-card__body_inner emptyCard slds-text-align_center"
+        data-id="fin-account"
+      >
+        Customer has no active loan accounts
+      </div>
+      <footer class="slds-card__footer slds-p-bottom_large">
+        <span class="lastUpdated" data-test-id="last-updated-time"
+          >Last Updated {timestamp}</span
+        >
+      </footer>
+    </article>
+  </template>
   <template lwc:if={showBalanceModal}>
     <section role="dialog" class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
@@ -200,6 +199,78 @@
           <button
             class="slds-button slds-button_neutral"
             onclick={handleBalanceModal}
+          >
+            Close
+          </button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+  <!--Added changes here-->
+  <template lwc:if={showRedrawAvailableModal}>
+    <section role="dialog" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header modal-header">
+          <lightning-icon
+            icon-name="utility:close"
+            onclick={handleRedrawAvailableModal}
+            class="slds-button slds-button_icon slds-modal__close close-modal"
+          ></lightning-icon>
+          <h2 class="slds-modal__title slds-hyphenate">
+            What does Redraw Amount mean?
+          </h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium">
+          <span>
+            <p class="slds-text-title_bold">
+              This is an indicative amount of how much you may be able to redraw
+              at any time. It’s generally the total of all the payments made
+              minus all the payments required to have been made, minus amounts
+              that’ve already been redrawn.
+            </p>
+            <br />
+            <p>
+              Some or all of it may not be available right away, or in some
+              circumstances, at all. There are a number of reasons for this.
+            </p>
+            <br />
+            <p>You may not be able to redraw extra payments if:</p>
+            <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
+              <li>
+                You've paid us everything owing under this contract, or your
+                Loan Balance is positive
+              </li>
+              <li>
+                You try to redraw using a method your Loan Account does not
+                support
+              </li>
+              <li>You have an overdue payment, or a Default has happened</li>
+              <li>
+                If there is more than one borrower:
+                <ul class="slds-list_dotted">
+                  <li>One of you has asked us that redraw be blocked or</li>
+                  <li>
+                    One of you has asked us that both of you have to approve a
+                    redraw and the other borrower doesn't approve the redraw or
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Transactions are delayed, blocked or not being processed for any
+                reason.
+              </li>
+            </ul>
+            <p>
+              See ‘Redraw’ and other terms in the ANZ Plus Home Loan T&Cs for
+              more details.
+            </p>
+          </span>
+        </div>
+        <footer class="slds-modal__footer">
+          <button
+            class="slds-button slds-button_neutral"
+            onclick={handleRedrawAvailableModal}
           >
             Close
           </button>

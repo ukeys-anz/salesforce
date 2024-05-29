@@ -53,7 +53,7 @@ RUN curl -o node.tar.gz https://${ARTIFACTORY}:443/artifactory/nodejs-dist/v${NO
   rm node.tar.gz
 
 # Install Salesforce CLI, ignore scripts to avoid binary downloads (e.g. ngrok)
-RUN npm install @salesforce/cli@2.13.9 -g --ignore-scripts
+RUN npm install @salesforce/cli@2.39.6 -g --ignore-scripts
 
 # Label image to assist in grouping/filtering of scanning reports within the twistlock console
 LABEL ci_group="ANZx-Salesforce" ci_name="ANZx-Platform"

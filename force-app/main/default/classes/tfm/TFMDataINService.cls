@@ -98,9 +98,7 @@ public with sharing virtual class TFMDataINService extends Service {
     Map<String, String> headers = new Map<String, String>();
     TFMSearchCustomerService obj = new TFMSearchCustomerService();
     Datetime currentDatetime = Datetime.now();
-    String requestTime = currentDatetime.format(
-      TFMConstants.REQUESTTIMEDATEFORMAT
-    );
+    String requestTime = currentDatetime.formatGMT(TFMConstants.REQUESTTIMEDATEFORMAT);
     headers = obj.setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     headers.put(TFMConstants.CONTENTTYPE, TFMConstants.APPLICATIONJSON);

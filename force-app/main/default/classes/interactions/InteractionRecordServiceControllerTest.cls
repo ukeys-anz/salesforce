@@ -59,7 +59,7 @@ public with sharing class InteractionRecordServiceControllerTest {
     insert testRLA;
 
     Interaction testInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+      RecordTypeId = GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
       AccountId = testAcc.Id,
       CaseId__c = newCase.Id,
       StartTime = Datetime.now(),
@@ -67,37 +67,53 @@ public with sharing class InteractionRecordServiceControllerTest {
       Direction__c = 'Outbound',
       Coaching_Summary__c = coachSummary.Id,
       Lead__c = testLead.Id,
-      Loan_Application__c = testRLA.Id
+      Loan_Application__c = testRLA.Id,
+      Status__c = 'Active'
     );
     List<Interaction> intList = new List<Interaction>{ testInteraction };
     insert intList;
     List<String> listOfStatusSearch = new List<String>{ 'Created', 'Linked' };
     InteractionSearchStringController.fetchDataForInteraction(
       testAcc.Id,
-      InteractionConstants.GENERAL,
+      InteractionConstants.MESSAGE,
       listOfStatusSearch
     );
     Test.stopTest();
     List<InteractionRecordServiceController.InteractionWrapper> wrapperList = InteractionRecordServiceController.getInteractionRecord(
       testAcc.Id,
-      InteractionConstants.GENERAL,
-      3
+      InteractionConstants.MESSAGE,
+      3,
+      false
     );
     System.assertEquals(
       1,
       wrapperList.size(),
-      'General interaction WrapperList size should be 1'
+      'Message interaction WrapperList size should be 1'
     );
+
+    List<InteractionRecordServiceController.InteractionWrapper> activeInteractionList = InteractionRecordServiceController.getInteractionRecord(
+      testAcc.Id,
+      InteractionConstants.MESSAGE,
+      3,
+      true
+    );
+    System.assertEquals(
+      1,
+      activeInteractionList.size(),
+      'Message interaction WrapperList size should be 1'
+    );
+
     System.assertEquals(
       testInteraction.Id,
       wrapperList[0].interactId,
-      'General Id should match returned Genreal interaction record'
+      'Message Id should match returned Genreal interaction record'
     );
 
     List<InteractionRecordServiceController.InteractionWrapper> intWrapperList = InteractionRecordServiceController.getInteractionRecord(
       newCase.Id,
-      InteractionConstants.GENERAL,
-      3
+      InteractionConstants.MESSAGE,
+      3,
+      false
     );
     System.assertEquals(
       1,
@@ -107,8 +123,9 @@ public with sharing class InteractionRecordServiceControllerTest {
 
     List<InteractionRecordServiceController.InteractionWrapper> csWrapperList = InteractionRecordServiceController.getInteractionRecord(
       coachSummary.Id,
-      InteractionConstants.GENERAL,
-      3
+      InteractionConstants.MESSAGE,
+      3,
+      false
     );
     System.assertEquals(
       1,
@@ -118,8 +135,9 @@ public with sharing class InteractionRecordServiceControllerTest {
 
     List<InteractionRecordServiceController.InteractionWrapper> leadWrapperList = InteractionRecordServiceController.getInteractionRecord(
       testLead.Id,
-      InteractionConstants.GENERAL,
-      3
+      InteractionConstants.MESSAGE,
+      3,
+      false
     );
     System.assertEquals(
       1,
@@ -129,13 +147,48 @@ public with sharing class InteractionRecordServiceControllerTest {
 
     List<InteractionRecordServiceController.InteractionWrapper> rlaWrapperList = InteractionRecordServiceController.getInteractionRecord(
       testRLA.Id,
-      InteractionConstants.GENERAL,
-      3
+      InteractionConstants.MESSAGE,
+      3,
+      false
     );
     System.assertEquals(
       1,
       rlaWrapperList.size(),
       'Interaction exists from Residential Loan application object page'
+    );
+  }
+  @isTest
+  static void testGetArgumentsMap() {
+    List<String> statusSearchList = Label.Interaction_Status.split(',');
+    Map<String, Object> inputOrgs = (Map<String, Object>) InteractionRecordServiceController.getArgumentsMap(
+        Lib_FakeIdGenerator.getMockId(Interaction.getSObjectType()),
+        InteractionConstants.MESSAGE,
+        3,
+        false,
+        statusSearchList
+      )
+      .get('input');
+    System.assertEquals(
+      3,
+      inputOrgs.get('maxNumber'),
+      'MaxNumber value will be same as input'
+    );
+  }
+  @isTest
+  static void testGetArgumentsMapForOpen() {
+    List<String> statusSearchList = Label.Interaction_Status.split(',');
+    Map<String, Object> inputOrgs = (Map<String, Object>) InteractionRecordServiceController.getArgumentsMap(
+        Lib_FakeIdGenerator.getMockId(Interaction.getSObjectType()),
+        InteractionConstants.MESSAGE,
+        3,
+        true,
+        statusSearchList
+      )
+      .get('input');
+    System.assertEquals(
+      4,
+      inputOrgs.get('maxNumber'),
+      'MaxNumber value will be plus one to the input maxNumber'
     );
   }
 }

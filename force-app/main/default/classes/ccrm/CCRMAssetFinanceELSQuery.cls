@@ -86,9 +86,7 @@ public with sharing class CCRMAssetFinanceELSQuery extends CCRMFinancialAccountQ
       row.put('ExternalId', fa.compositeAccountNumber);
       row.put(
         'DisplayUrl',
-        URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        fa.compositeAccountNumber
+        URL.getOrgDomainUrl().toExternalForm() + '/' + fa.compositeAccountNumber
       );
       row.put('AccountStatus', fa.status);
       row.put('AccountName', fa.accountName);
@@ -102,7 +100,6 @@ public with sharing class CCRMAssetFinanceELSQuery extends CCRMFinancialAccountQ
       row.put('Amount', fa.repaymentAmount);
       row.put('LoanTerm', fa.loanTerm);
       row.put('TotalNumberOfRepayments', fa.loanRepaymentFrequency);
-      row.put('IntType', fa.interestType);
       row.put('Limit', fa.accountLimit);
       result.queryResult.add(row);
     }

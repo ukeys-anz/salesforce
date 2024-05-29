@@ -64,8 +64,8 @@ public with sharing class CCRMFacilityFeeQuery extends CCRMFinancialAccountQuery
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        fee.compositeFacilityFeeId
+          '/' +
+          fee.compositeFacilityFeeId
       );
       List<String> values = fee.compositeFacilityFeeId != null
         ? fee.compositeFacilityFeeId.split('-')
@@ -74,10 +74,10 @@ public with sharing class CCRMFacilityFeeQuery extends CCRMFinancialAccountQuery
       row.put(this.parent, parentId);
       row.put('FeeType', fee.feeType);
       row.put('Frequency', fee.feeFrequency);
-      row.put('FeeChargeAccount', fee.feeChargeAccount);
+      row.put('FeeChargeAccount', formatAccountNumber(fee.feeChargeAccount));
       row.put('FacilityLimitFee', fee.feePercentage);
       row.put('FacilityLimitFeeAmount', fee.feeAmount);
-      row.put('NextDueDate', adjustUTCDateTime(fee.nextDueDate));
+      row.put('NextDueDate', formatDate(fee.nextDueDate));
       result.queryResult.add(row);
     }
     return result;

@@ -3,7 +3,7 @@
     <fullName>Priority_cannot_be_changed</fullName>
     <active>true</active>
     <description>Coach Nudge Tasks&apos;s Priority cannot be changed manually</description>
-    <errorConditionFormula>AND( RecordType.Name == &apos;Coach Nudge&apos;, ISCHANGED( Priority ) )</errorConditionFormula>
+    <errorConditionFormula>AND( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false, OR(RecordType.Name == &apos;Coach Nudge&apos;, RecordType.Name == &apos;Callback Request&apos;), ISCHANGED( Priority ) )</errorConditionFormula>
     <errorDisplayField>Priority</errorDisplayField>
     <errorMessage>Priority cannot be changed manually</errorMessage>
 </ValidationRule>

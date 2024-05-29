@@ -22,7 +22,7 @@ jobs:
     runs-on: [self-hosted, cd-ubuntu-s-prod]
     concurrency:
       group: "salesforce-release"
-      cancel-in-progress: true
+      cancel-in-progress: false
     strategy:
       max-parallel: 1
       fail-fast: true
@@ -138,7 +138,7 @@ jobs:
       - name: Cleaning | Create Tag
         if: env.NOT_APPROVAL_STEP == 'true'
         run: |
-          node --no-warnings ci/workflows/Orchestrations/release.mjs
+          node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
 
   Cleanup:
     name: "Cleanup"

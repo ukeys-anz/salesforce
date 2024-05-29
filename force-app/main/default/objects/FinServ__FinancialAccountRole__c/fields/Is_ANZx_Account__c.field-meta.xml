@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_ANZx_Account__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>To identify Financial Account is of ANZx or not based on Marketing Code</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    OR
+    (
+     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;TRANSACT01&apos;, 
+     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;SAVING01&apos;,
+     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;SAVING02&apos;,
+     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;HLVAR01&apos;,
+     FinServ__FinancialAccount__r.Marketing_Code__c == &apos;HLFXD01&apos;
+    ),
+    true,
+    false
+)</formula>
+    <label>Is ANZx Account</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

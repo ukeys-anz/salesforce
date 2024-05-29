@@ -1,19 +1,19 @@
 {
-  "disclosureState": {
-    "state": "STATE_PENDING",
-    "initiatedBy": "aaaaa-5555-5555-6666-sssssssssss",
-    "workflowExpiresOn": "2024-02-09T07:38:43.058129019Z",
-    "accountInfo": {
-      "bsb": "000011",
-      "accountNumber": "000011 000000011",
-      "accountDisplayName": "Test Save",
-      "isEligible": true,
-      "reason": "REASON_UNSPECIFIED"
-    },
-    "approvalStates": [
-      {
-        "personaId": "11111-5555-5555-6666-sssssssssss"
-      }
-    ]
-  }
+    "disclosureState": {
+        "state": "STATE_PENDING",
+        "initiatedBy": "aaaaa-5555-5555-6666-sssssssssss",
+        "workflowExpiresOn": "2024-02-09T07:38:43.058129019Z",
+        "accountInfo": {
+            "bsb": "000011",
+            "accountNumber": "000011 000000011",
+            "accountDisplayName": "Test Save",
+            "isEligible": true,
+            "reason": "REASON_UNSPECIFIED"
+        },
+        "approvalStates": [
+            {
+                "personaId": "11111-5555-5555-6666-sssssssssss"
+            }
+        ]
+    }
 }

@@ -300,7 +300,7 @@
     </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>ML_Sharing_Rule_ML_to_ML_Team</fullName>
-        <accessLevel>Read</accessLevel>
+        <accessLevel>Edit</accessLevel>
         <description>Share Interactions from Mobile Lending Team to Mobile Lending Team</description>
         <label>ML Sharing Rule ML to ML Team</label>
         <sharedTo>
@@ -312,7 +312,7 @@
     </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>MLCRM_BusinessAdmin_RO_Sharing</fullName>
-        <accessLevel>Read</accessLevel>
+        <accessLevel>Edit</accessLevel>
         <description>Sharing rule to open up access from ML Team to Business Admin Role users.</description>
         <label>MLCRM Business Admin RO Sharing</label>
         <sharedTo>
@@ -324,7 +324,7 @@
     </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>MLCRM_Sharing_Interaction_ToSupport</fullName>
-        <accessLevel>Read</accessLevel>
+        <accessLevel>Edit</accessLevel>
         <description>Sharing rule to open up access from ML Team to ANZ Support Team with ML Group.</description>
         <label>MLCRM Sharing InteractionTo Support</label>
         <sharedTo>
@@ -332,6 +332,30 @@
         </sharedTo>
         <sharedFrom>
             <roleAndSubordinates>ANZ_Mobile_Lending_Team</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Support_Team_Interaction_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rule to open up access from ML Support Team to ML Team.</description>
+        <label>MLCRM Support Team Interaction Sharing</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Support_Team_Interaction_Self_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share Interactions from Support Team to Support Team</description>
+        <label>MLCRM Support Team Interaction Self Sharing</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

@@ -1,40 +1,40 @@
 {
-  "disclosureStates": [
+    "disclosureStates": [
     {
-      "state": "STATE_ENABLED",
-      "initiatedBy": "test-sample-test-test-sample",
-      "accountInfo": {
-        "bsb": "000011",
-        "accountNumber": "00000011",
-        "accountDisplayName": "Test Save",
-        "isEligible": true,
-        "reason": "REASON_UNSPECIFIED",
-        "isAccountClosed": true
-      }
+        "state": "STATE_ENABLED",
+        "initiatedBy": "test-sample-test-test-sample",
+        "accountInfo": {
+            "bsb": "000011",
+            "accountNumber": "00000011",
+            "accountDisplayName": "Test Save",
+            "isEligible": true,
+            "reason": "REASON_UNSPECIFIED",
+            "isAccountClosed" : true
+        }
     },
     {
-      "state": "STATE_DISABLED",
-      "initiatedBy": "cccc-sample-test-test-sample",
-      "accountInfo": {
-        "bsb": "000022",
-        "accountNumber": "00000022",
-        "accountDisplayName": "Test Home",
-        "isEligible": false,
-        "reason": "REASON_UNSPECIFIED",
-        "isAccountClosed": true
-      }
+        "state": "STATE_DISABLED",
+        "initiatedBy": "cccc-sample-test-test-sample",
+        "accountInfo": {
+            "bsb": "000022",
+            "accountNumber": "00000022",
+            "accountDisplayName": "Test Home",
+            "isEligible": false,
+            "reason": "REASON_UNSPECIFIED",
+            "isAccountClosed": true
+        }
     },
     {
-      "state": "STATE_DISABLED",
-      "initiatedBy": "nnnn-sample-test-test-sample",
-      "accountInfo": {
-        "bsb": "000033",
-        "accountNumber": "00000033",
-        "accountDisplayName": "Test Plus",
-        "isEligible": true,
-        "reason": "REASON_UNSPECIFIED",
-        "isAccountClosed": true
-      }
+        "state": "STATE_DISABLED",
+        "initiatedBy": "nnnn-sample-test-test-sample",
+        "accountInfo": {
+            "bsb": "000033",
+            "accountNumber": "00000033",
+            "accountDisplayName": "Test Plus",
+            "isEligible": true,
+            "reason": "REASON_UNSPECIFIED",
+            "isAccountClosed": true
+        }
     }
-  ]
+    ]
 }

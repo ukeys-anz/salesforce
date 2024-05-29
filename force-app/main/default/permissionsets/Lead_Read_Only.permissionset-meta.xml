@@ -12,6 +12,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.Customer_Pre_Exist__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.Date_Received__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -53,6 +58,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.LeadSource</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Lead_Owner_Link__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

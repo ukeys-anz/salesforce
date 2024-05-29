@@ -15,7 +15,9 @@ public with sharing class SettlementsAPIRepositoryTest {
     poi.Property_ID__c = Faker.randomString(10);
     poi.Document_Id__c = Faker.randomString(10);
     poi.Document_File_Version__c = Faker.randomString(10);
-    poi.Id = Lib_FakeIdGenerator.getMockId(Proof_of_Insurance__c.getSObjectType());
+    poi.Id = Lib_FakeIdGenerator.getMockId(
+      Proof_of_Insurance__c.getSObjectType()
+    );
     Test.startTest();
     SettlementsAPIRepository api = new SettlementsAPIRepository();
     VerifyInsuranceModel response = api.verifyInsurance(poi);

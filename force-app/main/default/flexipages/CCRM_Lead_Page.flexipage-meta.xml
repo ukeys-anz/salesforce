@@ -9,7 +9,7 @@
                         <valueListItems>
                             <value>Lead.Validate_Address</value>
                             <visibilityRule>
-                                <booleanFilter>(1 AND 2 AND 3 AND 4 AND 5) AND (7 OR 6)</booleanFilter>
+                                <booleanFilter>((1 AND 2 AND 3 AND 4 AND 5) AND (7 OR 6) AND 8)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>NE</operator>
@@ -45,12 +45,17 @@
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Lead.Convert_Commercial_Lead_Aura</value>
                             <visibilityRule>
-                                <booleanFilter>(1 AND 2 AND 3) AND (5 OR 4)</booleanFilter>
+                                <booleanFilter>((1 AND 2 AND 3) AND (5 OR 4) AND 6)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>EQUAL</operator>
@@ -76,12 +81,17 @@
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
+                                </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Lead.Log_a_Response_Aura</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2 ) AND (4 OR 3)</booleanFilter>
+                                <booleanFilter>((1 OR 2 ) AND (4 OR 3) AND 5)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>EQUAL</operator>
@@ -101,6 +111,11 @@
                                     <leftValue>{!$User.Profile.Name}</leftValue>
                                     <operator>NE</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -855,6 +870,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Secondary_Customer_Needs__c</fieldItem>
+                <identifier>RecordSecondary_Customer_Needs_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Description</fieldItem>
                 <identifier>RecordDescriptionField2</identifier>
             </fieldInstance>
@@ -1316,16 +1341,6 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-fqobd72repv</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
@@ -1340,20 +1355,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>activityTab</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-fqobd72repv</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Standard.Tab.collaborate</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>collaborateTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

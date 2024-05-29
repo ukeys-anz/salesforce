@@ -165,12 +165,12 @@
         <enabled>true</enabled>
     </classAccesses>
     <customMetadataTypeAccesses>
-        <enabled>true</enabled>
         <name>DCRM_CountryMapping__mdt</name>
+        <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
-        <enabled>true</enabled>
         <name>DCRM_StateMapping__mdt</name>
+        <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <description>Baseline pset for using the AR&amp;C Commercial CRM app. </description>
     <fieldPermissions>
@@ -5426,6 +5426,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.Lead_Owner_Teamcode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.Secondary_Customer_Needs__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

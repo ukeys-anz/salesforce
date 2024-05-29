@@ -15,17 +15,29 @@ public with sharing class CoachNudgeTaskAutoExpireSchedulerTest {
       Lib_FakeIdGenerator.getMockId(Group.SObjectType),
       false
     );
+    Task callBackTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.CALLBACK_REQUEST_RT_ID,
+      Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+      null,
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+    callBackTask.Status = GetHelpTaskActions.TASK_STATUS_NEW;
     Test.startTest();
     // Dummy call for test coverage
     CoachNudgeTaskAutoExpireScheduler coachNudgeSch = new CoachNudgeTaskAutoExpireScheduler();
     coachNudgeSch.execute(null);
     // Method to test updation of task to expired
     List<Task> updatedRecords = CoachNudgeTaskAutoExpireScheduler.checkAndUpdateTaskRecords(
-      new List<Task>{ coachNudgeTask }
+      new List<Task>{ coachNudgeTask, callBackTask }
     );
     Test.stopTest();
     Assert.isTrue(
       updatedRecords[0].Status == GetHelpTaskActions.TASK_STATUS_EXPIRED,
+      'Status should be expired'
+    );
+    Assert.isTrue(
+      updatedRecords[1].Status == GetHelpTaskActions.TASK_STATUS_EXPIRED,
       'Status should be expired'
     );
   }

@@ -7,12 +7,12 @@
 private class CCRMOpportunitySkipStageHelperTest {
   @testSetup
   static void makeData() {
-    User ccrmBaseUser; 
-      ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
-      TestUtil.assignPermissionSets(
-        new List<String>{ 'CCRM_Opportunity_Access', 'ActionPlans' },
-        new List<User>{ ccrmBaseUser }
-      ); 
+    User ccrmBaseUser;
+    ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
+    TestUtil.assignPermissionSets(
+      new List<String>{ 'CCRM_Opportunity_Access', 'ActionPlans' },
+      new List<User>{ ccrmBaseUser }
+    );
   }
 
   @isTest
@@ -30,9 +30,10 @@ private class CCRMOpportunitySkipStageHelperTest {
         CCRMConstants.CCRM_OPP_RT_ID,
         'Needs Analysis'
       );
+      CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = new CCRMOpportunityActions.CCRMOpportunityWrapper();
+      oppWrapper.filteredOpps.add(opp);
       CCRMOpportunityActionsSkipStageHelper.validateCCRMOpportunity(
-        new List<Opportunity>{ opp },
-        new Map<Id, Opportunity>(),
+        oppWrapper,
         true
       );
       errors = opp.getErrors();
@@ -70,31 +71,38 @@ private class CCRMOpportunitySkipStageHelperTest {
 
       Test.startTest();
       leadSourceOpp = CCRMTestDataFactory.createStaticOpportunityData(
-        null,
+        Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType()),
         'Test Opp 1',
         CCRMConstants.CCRM_OPP_RT_ID,
         'Needs Analysis'
       );
       leadSourceOpp.LeadSource = 'Other';
       closedLostOpp = CCRMTestDataFactory.createStaticOpportunityData(
-        '0069h000004rqUQAAY',
+        Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType()),
         'Test Opp 2',
         CCRMConstants.CCRM_OPP_RT_ID,
         CCRMConstants.OPP_LOST
       );
       closedWonOpp = CCRMTestDataFactory.createStaticOpportunityData(
-        '0069h00000ATaQYAA1',
+        Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType()),
         'Test Opp 3',
         CCRMConstants.CCRM_OPP_RT_ID,
         CCRMConstants.OPP_WON
       );
 
+      CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = new CCRMOpportunityActions.CCRMOpportunityWrapper();
+      oppWrapper.filteredOpps = new List<Opportunity>{
+        leadSourceOpp,
+        closedLostOpp,
+        closedWonOpp
+      };
+      oppWrapper.stageUpdatedOpps = new Map<Id, Opportunity>{
+        closedLostOpp.Id => closedLostOpp,
+        closedWonOpp.Id => closedWonOpp
+      };
+
       CCRMOpportunityActionsSkipStageHelper.validateCCRMOpportunity(
-        new List<Opportunity>{ leadSourceOpp, closedLostOpp, closedWonOpp },
-        new Map<Id, Opportunity>{
-          '0069h000004rqUQAAY' => closedLostOpp,
-          '0069h00000ATaQYAA1' => closedWonOpp
-        },
+        oppWrapper,
         false
       );
 
@@ -144,14 +152,14 @@ private class CCRMOpportunitySkipStageHelperTest {
 
       Test.startTest();
       opp = CCRMTestDataFactory.createStaticOpportunityData(
-        '0069h000004rqUQAAY',
+        Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType()),
         'Test Opp 1',
         CCRMConstants.CCRM_OPP_RT_ID,
         CCRMConstants.CUST_ACCEPT
       );
 
       oldOpp = CCRMTestDataFactory.createStaticOpportunityData(
-        '0069h000004rqUQAAY',
+        opp.Id,
         'Test Opp 2',
         CCRMConstants.CCRM_OPP_RT_ID,
         CCRMConstants.NEED_ANALYSIS
@@ -166,12 +174,12 @@ private class CCRMOpportunitySkipStageHelperTest {
         )
       };
       oppsStageSegmentMap = new Map<Id, String>{
-        '0069h000004rqUQAAY' => 'Needs Analysis-BB'
+        opp.Id => 'Needs Analysis-BB'
       };
 
       CCRMOpportunityActionsSkipStageHelper.addErrorForSkippedStage(
         new List<Opportunity>{ opp },
-        new Map<Id, Opportunity>{ '0069h000004rqUQAAY' => oldOpp },
+        new Map<Id, Opportunity>{ opp.Id => oldOpp },
         stageActionPlanMapping,
         oppsStageSegmentMap
       );
@@ -198,13 +206,13 @@ private class CCRMOpportunitySkipStageHelperTest {
 
       Test.startTest();
       closedLostOpp = CCRMTestDataFactory.createStaticOpportunityData(
-        '0069h000004rqUQAAY',
+        Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType()),
         'Test Opp 2',
         CCRMConstants.CCRM_OPP_RT_ID,
         CCRMConstants.OPP_LOST
       );
       CCRMOpportunityActionsSkipStageHelper.checkOpenTaskForClosedOpportunities(
-        new Map<Id, Opportunity>{ '0069h000004rqUQAAY' => closedLostOpp }
+        new Map<Id, Opportunity>{ closedLostOpp.Id => closedLostOpp }
       );
       errors = closedLostOpp.getErrors();
       Test.stopTest();
@@ -222,14 +230,14 @@ private class CCRMOpportunitySkipStageHelperTest {
 
       Test.startTest();
       opp = CCRMTestDataFactory.createStaticOpportunityData(
-        '0069h000004rqUQAAY',
+        Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType()),
         'Test Opp',
         CCRMConstants.CCRM_OPP_RT_ID,
         CCRMConstants.NEED_ANALYSIS
       );
       CCRMOpportunityActionsSkipStageHelper.displayErrorForMandatoryTask(
         new Map<Id, String>{
-          '0069h000004rqUQAAY' => CCRMConstants.NEEDS_ANALYSIS_ACTION_PLAN_TEMP
+          opp.Id => CCRMConstants.NEEDS_ANALYSIS_ACTION_PLAN_TEMP
         },
         new Map<Id, Opportunity>()
       );

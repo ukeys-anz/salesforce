@@ -113,6 +113,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:workflowExpiresOn 0 19 SUBSTRING</formulaConverted>
+        <formulaExpression>SUBSTRING(workflowExpiresOn, 0, 19)</formulaExpression>
+        <formulaResultPath>workflowExpiresOnTemp</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>TFMJointAccountPermissionsDataProcessCustom6580</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMJointAccountPermissionsDataProcess</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>TFMJointAccountPermissionsDataProcessCustom0jIBm0000002vWrMAIItem4</globalKey>
         <inputFieldName>accountInfo:accountDisplayName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -251,7 +268,7 @@
         <formulaConverted>| var:accountInfo:accountDisplayName &quot;ANZ/\/\/Plus&quot; != var:accountInfo:accountDisplayName &quot;ANZ/\/\/Plus/\/\/&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Plus&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Plus/\/\/&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;ANZ/\/\/Save&quot; != var:accountInfo:accountDisplayName &quot;ANZ/\/\/Save/\/\/&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Save&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Save/\/\/&quot; != &amp;&amp; &amp;&amp; var:accountInfo:accountDisplayName &quot;ANZ/\/\/Home/\/\/Loan&quot; != var:accountInfo:accountDisplayName &quot;ANZ/\/\/Home/\/\/Loan/\/\/&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Home/\/\/Loan&quot; != &amp;&amp; var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Home/\/\/Loan/\/\/&quot; != &amp;&amp; &amp;&amp; 3 | var:accountStatus &quot;Open&quot; == 1 2 IF IF</formulaConverted>
         <formulaExpression>IF((((accountInfo:accountDisplayName != &quot;ANZ Plus&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot;ANZ Plus &quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Plus&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Plus &quot;)) &amp;&amp;  ((accountInfo:accountDisplayName != &quot;ANZ Save&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot;ANZ Save &quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Save&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Save &quot;)) &amp;&amp; ((accountInfo:accountDisplayName != &quot;ANZ Home Loan&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot;ANZ Home Loan &quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Home Loan&quot;) &amp;&amp; (accountInfo:accountDisplayName != &quot; ANZ Home Loan &quot;))), 3, IF(accountStatus == &quot;Open&quot;, 1, 2))</formulaExpression>
         <formulaResultPath>sortingOrderNumberForStatus</formulaResultPath>
-        <formulaSequence>6.0</formulaSequence>
+        <formulaSequence>7.0</formulaSequence>
         <globalKey>TFMJointAccountPermissionsDataProcessCustom8342</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -268,7 +285,7 @@
         <formulaConverted>| var:accountInfo:accountDisplayName &quot;ANZ/\/\/Plus&quot; == var:accountInfo:accountDisplayName &quot;ANZ/\/\/Plus/\/\/&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Plus&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Plus/\/\/&quot; == OR 1 | var:accountInfo:accountDisplayName &quot;ANZ/\/\/Save&quot; == var:accountInfo:accountDisplayName &quot;ANZ/\/\/Save/\/\/&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Save&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Save/\/\/&quot; == OR 2 | var:accountInfo:accountDisplayName &quot;ANZ/\/\/Home/\/\/Loan&quot; == var:accountInfo:accountDisplayName &quot;ANZ/\/\/Home/\/\/Loan/\/\/&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Home/\/\/Loan&quot; == OR var:accountInfo:accountDisplayName &quot;/\/\/ANZ/\/\/Home/\/\/Loan/\/\/&quot; == OR 3 4 IF IF IF</formulaConverted>
         <formulaExpression>IF(((accountInfo:accountDisplayName == &quot;ANZ Plus&quot;) OR (accountInfo:accountDisplayName == &quot;ANZ Plus &quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Plus&quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Plus &quot;)),1,IF(((accountInfo:accountDisplayName == &quot;ANZ Save&quot;) OR (accountInfo:accountDisplayName == &quot;ANZ Save &quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Save&quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Save &quot;)),2,IF(((accountInfo:accountDisplayName == &quot;ANZ Home Loan&quot;) OR (accountInfo:accountDisplayName == &quot;ANZ Home Loan &quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Home Loan&quot;) OR (accountInfo:accountDisplayName == &quot; ANZ Home Loan &quot;)),3,4)))</formulaExpression>
         <formulaResultPath>sortingOrderNumberForProductName</formulaResultPath>
-        <formulaSequence>7.0</formulaSequence>
+        <formulaSequence>8.0</formulaSequence>
         <globalKey>TFMJointAccountPermissionsDataProcessCustom4537</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -313,10 +330,10 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:workflowExpiresOn &quot;dd/MM/yyyy&quot; FORMATDATETIME</formulaConverted>
-        <formulaExpression>FORMATDATETIME(workflowExpiresOn, &quot;dd/MM/yyyy&quot;))</formulaExpression>
+        <formulaConverted>| var:workflowExpiresOnTemp &quot;dd-MM-yyyy&quot; FORMATDATETIME</formulaConverted>
+        <formulaExpression>FORMATDATETIME(workflowExpiresOnTemp,&quot;dd-MM-yyyy&quot;)</formulaExpression>
         <formulaResultPath>workflowExpiresOn</formulaResultPath>
-        <formulaSequence>5.0</formulaSequence>
+        <formulaSequence>6.0</formulaSequence>
         <globalKey>TFMJointAccountPermissionsDataProcessCustom5169</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -345,13 +362,14 @@
     <previewJsonData>[ {
   &quot;state&quot; : &quot;STATE_PENDING&quot;,
   &quot;initiatedBy&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;,
-  &quot;workflowExpiresOn&quot; : &quot;2024-02-09T11:40:59.643288810Z&quot;,
+  &quot;workflowExpiresOn&quot; : &quot;2024-05-06T10:10:53Z&quot;,
   &quot;accountInfo&quot; : {
     &quot;bsb&quot; : &quot;014111&quot;,
     &quot;accountNumber&quot; : &quot;391077071&quot;,
     &quot;accountDisplayName&quot; : &quot;ANZ Plus&quot;,
     &quot;isEligible&quot; : true,
-    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;
+    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+    &quot;isAccountClosed&quot; : true
   },
   &quot;approvalStates&quot; : [ {
     &quot;personaId&quot; : &quot;869120cc-50eb-4050-829a-e1b33a29dc49&quot;
@@ -364,10 +382,86 @@
     &quot;accountNumber&quot; : &quot;391077098&quot;,
     &quot;accountDisplayName&quot; : &quot;ANZ Save&quot;,
     &quot;isEligible&quot; : true,
-    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;
+    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+    &quot;isAccountClosed&quot; : true
   },
   &quot;approvalStates&quot; : [ {
     &quot;personaId&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;
+  } ]
+}, {
+  &quot;state&quot; : &quot;STATE_PENDING&quot;,
+  &quot;initiatedBy&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;,
+  &quot;workflowExpiresOn&quot; : &quot;2024-02-09T11:40:59.643288810Z&quot;,
+  &quot;accountInfo&quot; : {
+    &quot;bsb&quot; : &quot;014111&quot;,
+    &quot;accountNumber&quot; : &quot;391077071&quot;,
+    &quot;accountDisplayName&quot; : &quot;ANZ Home Loan&quot;,
+    &quot;isEligible&quot; : true,
+    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+    &quot;isAccountClosed&quot; : true
+  },
+  &quot;approvalStates&quot; : [ {
+    &quot;personaId&quot; : &quot;869120cc-50eb-4050-829a-e1b33a29dc49&quot;
+  } ]
+}, {
+  &quot;state&quot; : &quot;STATE_PENDING&quot;,
+  &quot;initiatedBy&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;,
+  &quot;workflowExpiresOn&quot; : &quot;2024-02-09T11:40:59.643288810Z&quot;,
+  &quot;accountInfo&quot; : {
+    &quot;bsb&quot; : &quot;014111&quot;,
+    &quot;accountNumber&quot; : &quot;391077071&quot;,
+    &quot;accountDisplayName&quot; : &quot;ANZ Plus&quot;,
+    &quot;isEligible&quot; : true,
+    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+    &quot;isAccountClosed&quot; : false
+  },
+  &quot;approvalStates&quot; : [ {
+    &quot;personaId&quot; : &quot;869120cc-50eb-4050-829a-e1b33a29dc49&quot;
+  } ]
+}, {
+  &quot;state&quot; : &quot;STATE_PENDING&quot;,
+  &quot;initiatedBy&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;,
+  &quot;workflowExpiresOn&quot; : &quot;2024-02-09T11:40:59.643288810Z&quot;,
+  &quot;accountInfo&quot; : {
+    &quot;bsb&quot; : &quot;014111&quot;,
+    &quot;accountNumber&quot; : &quot;391077071&quot;,
+    &quot;accountDisplayName&quot; : &quot;ANZ Home Loan&quot;,
+    &quot;isEligible&quot; : true,
+    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+    &quot;isAccountClosed&quot; : false
+  },
+  &quot;approvalStates&quot; : [ {
+    &quot;personaId&quot; : &quot;869120cc-50eb-4050-829a-e1b33a29dc49&quot;
+  } ]
+}, {
+  &quot;state&quot; : &quot;STATE_PENDING&quot;,
+  &quot;initiatedBy&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;,
+  &quot;workflowExpiresOn&quot; : &quot;2024-02-09T11:40:59.643288810Z&quot;,
+  &quot;accountInfo&quot; : {
+    &quot;bsb&quot; : &quot;014111&quot;,
+    &quot;accountNumber&quot; : &quot;391077071&quot;,
+    &quot;accountDisplayName&quot; : &quot;ANZ Save&quot;,
+    &quot;isEligible&quot; : true,
+    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+    &quot;isAccountClosed&quot; : false
+  },
+  &quot;approvalStates&quot; : [ {
+    &quot;personaId&quot; : &quot;869120cc-50eb-4050-829a-e1b33a29dc49&quot;
+  } ]
+}, {
+  &quot;state&quot; : &quot;STATE_PENDING&quot;,
+  &quot;initiatedBy&quot; : &quot;96c1e8d8-b17e-4bed-b3b6-1146e2c421a2&quot;,
+  &quot;workflowExpiresOn&quot; : &quot;2024-02-09T11:40:59.643288810Z&quot;,
+  &quot;accountInfo&quot; : {
+    &quot;bsb&quot; : &quot;014111&quot;,
+    &quot;accountNumber&quot; : &quot;391077071&quot;,
+    &quot;accountDisplayName&quot; : &quot;ANZ data&quot;,
+    &quot;isEligible&quot; : true,
+    &quot;reason&quot; : &quot;REASON_UNSPECIFIED&quot;,
+    &quot;isAccountClosed&quot; : false
+  },
+  &quot;approvalStates&quot; : [ {
+    &quot;personaId&quot; : &quot;869120cc-50eb-4050-829a-e1b33a29dc49&quot;
   } ]
 } ]</previewJsonData>
     <processSuperBulk>false</processSuperBulk>

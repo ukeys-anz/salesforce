@@ -30,9 +30,10 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_SearchCustomer_API +
-      +IDTYPEMAP.get(staffModel.idType) +
-      staffModel.idValue,
+      
+        System.Label.MS_SearchCustomer_API +
+        +IDTYPEMAP.get(staffModel.idType) +
+        staffModel.idValue,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -55,6 +56,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
+      
       System.Label.MS_GetDeviceWithoutBiometric.replace(
           '{userInternalId}',
           userInternalId
@@ -82,6 +84,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
+      
       System.Label.MS_GetDeviceWithBiometric.replace(
           '{userInternalId}',
           userInternalId
@@ -119,6 +122,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
         '}';
 
       HttpCalloutResponse response = calloutService.makeRestCallout(
+        
         System.Label.MS_JointNotificationSettingAPI,
         HTTP_METHOD.HTTP_POST,
         headers,
@@ -127,6 +131,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
       return response;
     } else {
       HttpCalloutResponse response = calloutService.makeRestCallout(
+        
         System.Label.MS_JointNotificationSettingAPI,
         HTTP_METHOD.HTTP_GET,
         headers,
@@ -164,7 +169,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Update_Disclosure_Status,
+       System.Label.MS_Update_Disclosure_Status,
       HTTP_METHOD.HTTP_POST,
       headers,
       payload
@@ -185,6 +190,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
+      
       System.Label.MS_GetJointAccountPermissions_API,
       HTTP_METHOD.HTTP_GET,
       headers,
@@ -206,7 +212,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_ConsentList_API,
+       System.Label.MS_ConsentList_API,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -230,7 +236,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     headers.put('Content-Type', 'application/json');
     String payload = consentAccounts;
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_consentMgmtAccountList,
+       System.Label.MS_consentMgmtAccountList,
       HTTP_METHOD.HTTP_POST,
       headers,
       payload
@@ -272,12 +278,13 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     headers = setCommonHeadersInMap(staffModel);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_ConsentsDataSharingHistory_API +
-      consentId +
-      '&from_timestamp=' +
-      fromTimestamp +
-      '&to_timestamp=' +
-      toTimestamp,
+      
+        System.Label.MS_ConsentsDataSharingHistory_API +
+        consentId +
+        '&from_timestamp=' +
+        fromTimestamp +
+        '&to_timestamp=' +
+        toTimestamp,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -302,7 +309,7 @@ public with sharing virtual class TFMSearchCustomerService extends Service {
     headers.put('Content-Type', 'application/json');
     String payload = '{"arrangementId":"' + arrangementId + '"}';
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Revoke_Consent,
+       System.Label.MS_Revoke_Consent,
       HTTP_METHOD.HTTP_POST,
       headers,
       payload

@@ -23,6 +23,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public Map<String, SOPExpense> expenseMap;
   public static final String OVERTIME_INCOME = 'INCOME_TYPE_OVERTIME';
   public static final String BASE_INCOME = 'INCOME_TYPE_BASE_SALARY';
+  public static final String SALARY_WAGES_INCOME = 'INCOME_TYPE_SALARY_WAGES';
   public static final String COMMISSION_INCOME = 'INCOME_TYPE_COMMISSION';
   public static final String BONUS_INCOME = 'INCOME_TYPE_BONUS';
   public static final String VERIFICATION_METHOD = 'VERIFICATION_METHOD_UNSPECIFIED';
@@ -40,6 +41,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String ASSET_TYPE_CASH = 'ASSET_TYPE_CASH';
   public static final String ASSET_TYPE_PROPERTY = 'ASSET_TYPE_PROPERTY';
   public static final String ASSET_TYPE_VERIFICATION = 'VERIFICATION_METHOD_DOCUMENT';
+  public static final String INCOME_TRANSACTION_VERIFICATION = 'VERIFICATION_METHOD_TRANSACTIONS';
+  public static final String INCOME_SOURCE_MANUAL = 'Manual';
+  public static final String INCOME_SOURCE_TRANSACTIONS = 'Transactions';
   public static final String INCOME_GROSS = 'INCOME_AMOUNT_TYPE_GROSS';
   public static final String INCOME_NET = 'INCOME_AMOUNT_TYPE_NET';
   public static final String Y = 'Yes';
@@ -138,6 +142,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           ocvIdSet.add(partyToOcvMap.get(owner.partyId));
         }
       }
+    }
+
+    for (SOPIncome income : incomesSummary.incomes) {
+      ocvIdSet.add(partyToOcvMap.get(income.employment.partyId));
     }
 
     List<Account> accList = [
@@ -562,6 +570,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public String uid;
     public List<SOPIncomeDetail> details;
     public SOPEmployment employment;
+    public SOPStream stream;
     public string employmentId;
     public Datetime updateTime;
     public String etag;
@@ -769,7 +778,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
                 words[i].substring(1).toLowerCase() +
                 '-';
             } else if (words[i] == UNSPECIFIED) {
-              result = NOT_SPECIFIED;
+              return NOT_SPECIFIED;
             } else {
               result +=
                 words[i].substring(0, 1).toUpperCase() +
@@ -778,9 +787,45 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
             }
           }
           return result.trim();
-        } else {
+        }
+        return null;
+      }
+    }
+
+    /**
+     * @description condition for transactionIncome
+     */
+    public Boolean isStreamNull {
+      get {
+        return stream == null;
+      }
+    }
+
+    /**
+     * @description transactionIncome for the income card
+     */
+    public SOPStreamDetails transactionIncome {
+      get {
+        if (stream == null) {
           return null;
         }
+        for (SOPStreamDetails detail : stream.details) {
+          if (detail?.incomeType == SALARY_WAGES_INCOME) {
+            return detail;
+          }
+        }
+        return null;
+      }
+    }
+
+    /**
+     * @description incomeSource for income card
+     */
+    public String incomeSource {
+      get {
+        return this.isStreamNull
+          ? INCOME_SOURCE_MANUAL
+          : INCOME_SOURCE_TRANSACTIONS;
       }
     }
 
@@ -790,7 +835,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public ResidentialLoanApplicationModel.SOPIncomeDetail baseIncome {
       get {
         for (SOPIncomeDetail detail : details) {
-          if (detail?.type == BASE_INCOME) {
+          if (
+            detail?.type == BASE_INCOME ||
+            detail?.type == SALARY_WAGES_INCOME
+          ) {
             return detail;
           }
         }
@@ -868,7 +916,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
 
     /**
-     * @description compareTo attribute to compare the base income
+     * @description compareTo attribute to compare the ownerName for sorting
      * @param compareTo input object
      * @return Integer result which one is greater
      */
@@ -876,14 +924,12 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       SOPIncome compareToIncome = (SOPIncome) compareTo;
       Integer returnValue = 0;
       if (
-        this.baseIncome != null &&
-        compareToIncome.baseIncome != null &&
-        this.baseIncome.amount.value < compareToIncome.baseIncome.amount.value
+        this.ownerName != null &&
+        compareToIncome.ownerName != null &&
+        this.ownerName > compareToIncome.ownerName
       ) {
         returnValue = 1;
-      } else if (
-        this.baseIncome.amount.value > compareToIncome.baseIncome.amount.value
-      ) {
+      } else if (this.ownerName < compareToIncome.ownerName) {
         returnValue = -1;
       }
       return returnValue;
@@ -892,16 +938,21 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description income Verified for the income card
      */
-    public String incomeVerified {
+    public Boolean incomeVerified {
       get {
-        if (
-          this.verification != null &&
-          this.verification.method == ASSET_TYPE_VERIFICATION
-        ) {
-          return Y;
-        } else {
-          return N;
+        Boolean result = false;
+        if (this.verification == null) {
+          return result;
         }
+        if (
+          this.verification.method == ASSET_TYPE_VERIFICATION ||
+          (this.incomeSource == INCOME_SOURCE_TRANSACTIONS &&
+          this.verification.method == INCOME_TRANSACTION_VERIFICATION)
+        ) {
+          result = true;
+        }
+
+        return result;
       }
     }
 
@@ -910,7 +961,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String staticIncomeVerified {
       get {
-        return incomeVerified;
+        return incomeVerified ? Y : N;
       }
     }
   }
@@ -944,31 +995,42 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String readableFrequency {
       get {
-        if (this.frequency != null) {
-          String result = '';
-          String[] words = this.frequency.split('_');
-          words.remove(0);
-          words.remove(0);
-
-          for (String word : words) {
-            if (word == UNSPECIFIED) {
-              result = NOT_SPECIFIED;
-            } else {
-              result =
-                word.substring(0, 1).toUpperCase() +
-                word.substring(1).toLowerCase() +
-                ' ';
-            }
-          }
-          return result.trim();
-        } else {
-          return null;
-        }
+        return ResidentialLoanApplicationModel.getReadableFrequency(
+          this.frequency
+        );
       }
     }
 
     public SOPMoney amount;
     public String amountType;
+  }
+
+  /**
+   * @param frequencyProp model frequency attribute
+   * @return `Readable String`
+   * @description transforms formatted string to readable
+   */
+  public static String getReadableFrequency(String frequencyProp) {
+    if (frequencyProp != null) {
+      String result = '';
+      String[] words = frequencyProp.split('_');
+      words.remove(0);
+      words.remove(0);
+
+      for (String word : words) {
+        if (word == UNSPECIFIED) {
+          result = NOT_SPECIFIED;
+        } else {
+          result =
+            word.substring(0, 1).toUpperCase() +
+            word.substring(1).toLowerCase() +
+            ' ';
+        }
+      }
+      return result.trim();
+    } else {
+      return null;
+    }
   }
 
   /**

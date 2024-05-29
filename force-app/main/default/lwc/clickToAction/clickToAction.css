@@ -1,0 +1,14 @@
+.card-title-header {
+  width: 100%;
+  padding: 0.6rem;
+}
+
+.articleHeight {
+  min-height: 0.4rem;
+}
+
+.heading-font {
+  line-height: 2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}

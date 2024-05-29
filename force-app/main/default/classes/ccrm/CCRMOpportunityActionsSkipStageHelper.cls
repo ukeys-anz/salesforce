@@ -8,20 +8,18 @@ public with sharing class CCRMOpportunityActionsSkipStageHelper {
   /**
    * @description validate CCRM opportunities
    * @name validateCCRMOpportunity
-   * @param filteredOpps list of CCRM Opps
-   * @param stageUpdatedOpps map of stage updated opps
+   * @param oppWrapper CCRMOpportunity Wrapper
    * @param isInsert if the operation is insert
    */
   public static void validateCCRMOpportunity(
-    List<Opportunity> filteredOpps,
-    Map<Id, Opportunity> stageUpdatedOpps,
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper,
     Boolean isInsert
   ) {
-    if (stageUpdatedOpps.keySet().isEmpty() && filteredOpps.isEmpty()) {
+    if (oppWrapper.filteredOpps.isEmpty()) {
       return;
     }
 
-    for (Opportunity oppIterator : filteredOpps) {
+    for (Opportunity oppIterator : oppWrapper.filteredOpps) {
       String errorMessage = '';
 
       //check if stage is not equal to "Opportunity Identified" on creation of lead
@@ -41,7 +39,7 @@ public with sharing class CCRMOpportunityActionsSkipStageHelper {
       }
       //check if Lost reason and Lost reason details are provided if Opportunity is lost
       if (
-        stageUpdatedOpps.values().contains(oppIterator) &&
+        oppWrapper.stageUpdatedOpps.values().contains(oppIterator) &&
         oppIterator.StageName == CCRMConstants.OPP_LOST &&
         (String.isBlank(oppIterator.Lost_Reason__c) ||
         String.isBlank(oppIterator.Lost_Reason_Detail__c))
@@ -52,7 +50,7 @@ public with sharing class CCRMOpportunityActionsSkipStageHelper {
       }
       //check if Won from lost is provided for Won/Lost opportunity
       if (
-        (stageUpdatedOpps.values().contains(oppIterator) &&
+        (oppWrapper.stageUpdatedOpps.values().contains(oppIterator) &&
         (oppIterator.StageName == CCRMConstants.OPP_LOST ||
         oppIterator.StageName == CCRMConstants.OPP_WON) &&
         String.isBlank(oppIterator.Won_from_Lost_to__c))
@@ -144,7 +142,6 @@ public with sharing class CCRMOpportunityActionsSkipStageHelper {
       GROUP BY
         ActionPlan.TargetId,
         ActionPlan.ActionPlanTemplateVersion.ActionPlanTemplate.Name
-
     ]) {
       Object oppId = iterator.get('oppId');
       Object templateName = iterator.get('templateName');

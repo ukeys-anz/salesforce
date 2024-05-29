@@ -222,6 +222,7 @@ public with sharing class FinancialAccountController {
             (FinServ__PrimaryOwner__c = :ownerId
             OR FinServ__FinancialAccountNumber__c IN :allAccountNumbersRelated)
             AND RecordType.DeveloperName IN :recordTypeDeveloperNames
+            AND FinServ__Status__c != 'Closed'
           ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
         ];
       }

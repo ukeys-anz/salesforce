@@ -9,8 +9,8 @@
         <value>Pathways</value>
     </caseValues>
     <recordTypes>
-        <label></label>
         <name>CMOS_ResolutionPathway</name>
+        <label/>
     </recordTypes>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

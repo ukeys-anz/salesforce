@@ -8,6 +8,7 @@ import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.g
 import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 import getTransactionHistoryAura from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import fetchOCVIdFromAccount from "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount";
+import getAccountOwnerIds from "@salesforce/apex/HomeLoanController.getAccountOwnerIds";
 
 import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
@@ -99,7 +100,11 @@ export default class FinancialAccountParent extends LightningElement {
   filterGoal = false;
   accountOwnershipType;
   wiredMethodCalled = false;
+  accountOwners = [];
 
+  get isSoleAccount() {
+    return `${this.accountOwnershipType}` === "Single";
+  }
   @wire(CurrentPageReference)
   pageRef;
 
@@ -132,6 +137,8 @@ export default class FinancialAccountParent extends LightningElement {
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
       this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
+      this.accountOwners = await this.fetchAccountOwners();
+
       if (
         this.ocvId &&
         this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME &&
@@ -162,6 +169,26 @@ export default class FinancialAccountParent extends LightningElement {
     }
     this.loading = false;
   }
+
+  async fetchAccountOwners() {
+    let accountOwnerWrapperList = [];
+    const financialAccountRoles = await getAccountOwnerIds({
+      financialAccountId: this.recordId
+    });
+
+    financialAccountRoles.forEach((eachFinancialAccountRole, index) => {
+      const accountOwnerWrapper = {};
+      accountOwnerWrapper.Id =
+        eachFinancialAccountRole.FinServ__RelatedAccount__c;
+      accountOwnerWrapper.Name =
+        eachFinancialAccountRole.FinServ__RelatedAccount__r.Name;
+      accountOwnerWrapper.ShowSeparator =
+        index < financialAccountRoles.length - 1;
+      accountOwnerWrapperList.push(accountOwnerWrapper);
+    });
+    return accountOwnerWrapperList;
+  }
+
   // Implmented as part of [ANZX-143917], This method extract OCV Id from Data fields if there is Single account
   // In case of Multy party, OCV Id extracted from Page Reference
   // It fetches OCV Id from DB, if primaryTab is Account and FA opened in subtab
@@ -176,10 +203,12 @@ export default class FinancialAccountParent extends LightningElement {
     if (!this.tabId) {
       return null;
     }
+
     let tabInfo = await getTabInfo(this.tabId);
     let primaryTabInfo = tabInfo.isSubtab
       ? await getTabInfo(tabInfo.parentTabId)
       : undefined;
+
     ocvId = data.fields.OCV_ID__c.value;
     if (!primaryTabInfo?.recordId?.startsWith("001")) {
       return ocvId;
@@ -248,10 +277,20 @@ export default class FinancialAccountParent extends LightningElement {
         this.goalData = await getAccountBuckets({
           //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
           ocvId: this.ocvId,
-          pageSize: 7,
+          pageSize: 20,
           nextPageToken: paramUrl
         });
 
+        // Filter goal for this account data
+        const accountGoalData = this.goalData.account_buckets.filter(
+          (eachGoalData) => {
+            return (
+              this.accountData[0].FinServ__FinancialAccountNumber__c ===
+              eachGoalData.account_number
+            );
+          }
+        );
+        this.goalData.account_buckets = accountGoalData;
         this.goalData = handleGoalData(this.goalData);
         this.emojiMap = getEmojiMap(this.goalData);
         this.imageMap = getImageMap(this.goalData);
@@ -403,7 +442,8 @@ export default class FinancialAccountParent extends LightningElement {
           : "slds-badge";
 
       // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
-      finAccount.showSavingsJar = finAccount.FinServ__Status__c !== "Closed";
+      finAccount.showSavingsJar =
+        finAccount.FinServ__Status__c !== "Closed" && this.isSoleAccount;
 
       // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
       if (finAccount.FinServ__Ownership__c) {

@@ -6,9 +6,6 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
   LightningElement
 ) {
   loading = false;
-  connectedCallback() {
-    console.log("Real form save cmp");
-  }
   callSaveRealFormIDDR() {
     this.loading = true;
     if (this.validateRealFormID()) {
@@ -21,13 +18,19 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
       this.loading = false;
       return;
     }
-    console.log(JSON.stringify(this.omniJsonData));
-    if (this.omniJsonData.EditRealFormID.RealFormRequired === "No") {
+    if (
+      this.omniJsonData.EditRealFormID.RealFormRequired === "No" &&
+      this.omniJsonData.EditRealFormID.RealFormID
+    ) {
       this.omniJsonData.EditRealFormID.RealFormID = "";
     }
     if (
       this.omniJsonData.EditRealFormID.RealFormRequired_OLD ===
         this.omniJsonData.EditRealFormID.RealFormRequired &&
+      (this.omniJsonData.EditRealFormID.RealFormID !== undefined ||
+        this.omniJsonData.EditRealFormID.RealFormID !== null) &&
+      (this.omniJsonData.EditRealFormID.RealFormID_OLD !== undefined ||
+        this.omniJsonData.EditRealFormID.RealFormID_OLD !== null) &&
       this.omniJsonData.EditRealFormID.RealFormID ===
         this.omniJsonData.EditRealFormID.RealFormID_OLD
     ) {
@@ -54,6 +57,19 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
       this.loading = false;
       return;
     }
+    if (
+      this.omniJsonData.EditRealFormID.RealFormRequired === undefined ||
+      this.omniJsonData.EditRealFormID.RealFormRequired === null
+    ) {
+      handleErrorShowToast(
+        this,
+        "Is a REAL Form Required - Mandatory",
+        undefined,
+        "Please select a value for this field - Is a REAL Form Required"
+      );
+      this.loading = false;
+      return;
+    }
     let request_data = {
       type: "DataRaptor",
       value: {
@@ -67,7 +83,6 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
       .getDataHandler(JSON.stringify(request_data))
       .then((result) => {
         const jsonResult = JSON.parse(result);
-        console.log(jsonResult);
         this.omniApplyCallResp({ jsonNodeName: jsonResult });
         this.loading = false;
         let url = window.location.origin + "/" + this.omniJsonData.recordId;
@@ -85,21 +100,18 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
   }
 
   validateRealFormID() {
-    console.log(this.omniJsonData);
     if (
       this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
       (this.omniJsonData.EditRealFormID.RealFormID !== undefined ||
         this.omniJsonData.EditRealFormID.RealFormID !== null) &&
       this.omniJsonData.EditRealFormID.RealFormID !==
-        this.omniJsonData.EditRealFormID.RealFormID_OLD
-    ) {
-      if (
+        this.omniJsonData.EditRealFormID.RealFormID_OLD &&
+      !(
         this.omniJsonData.apiRun &&
         this.omniJsonData.apiSuccess &&
         this.omniJsonData.RiskFormIDValid
-      ) {
-        return false;
-      }
+      )
+    ) {
       return true;
     }
     return false;

@@ -1,8 +1,8 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import { openTab, EnclosingTabId } from "lightning/platformWorkspaceApi";
 import getStaticResource from "@salesforce/resourceUrl/h1account";
 import getHomeLoanFinancialAccountId from "@salesforce/apex/HomeLoanController.getHomeLoanFinancialAccountId";
-import getAccountOwnerIds from "@salesforce/apex/HomeLoanController.getAccountOwnerIds";
 import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 import hasFinancialAccountPermission from "@salesforce/customPermission/FinServ__FinancialServicesCloudStandard";
 import { handleErrorShowToast } from "c/utils";
@@ -12,15 +12,18 @@ import templateDetail from "./homeLoanAccountDetail.html";
 export default class HomeLoanAccountCard extends NavigationMixin(
   LightningElement
 ) {
+  @wire(EnclosingTabId) tabId;
   @api recordId;
   @api accountDetails;
   @api error;
   @api objectApiName;
   @api ownershipType;
-  financialAccounts;
+  @api accountOwnersList;
+  timestamp;
+  financialAccounts = [];
   showBalanceModal = false;
   showRedrawAvailableModal = false;
-  financialAccountList;
+  financialAccounRoleList = [];
   loanImageUrl = getStaticResource + "/images/Mortgage.png";
   errorImageUrl = getStaticResource + "/images/PermissionError.png";
   hasError;
@@ -28,21 +31,17 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   errorMsg =
     "Failed To Retrieve Home Loan Account. Please refresh and try again. If issue persists please contact your System Administrator";
   singleFinAccount;
-  accountOwners;
-  ownerOne = {
-    name: "",
-    id: ""
-  };
-  ownerTwo = {
-    name: "",
-    id: ""
-  };
   multiparty = false;
 
   connectedCallback() {
     if (hasHomeLoanPermission) {
       this.init();
     }
+    this.timestamp = this.handleLastModifiedTimestamp();
+  }
+
+  get isAccountTab() {
+    return `${this.objectApiName}` === "Account";
   }
 
   async init() {
@@ -54,27 +53,18 @@ export default class HomeLoanAccountCard extends NavigationMixin(
       try {
         //Only need to get financial account id if we are on person account
         if (this.objectApiName === "Account") {
-          this.financialAccountList = await getHomeLoanFinancialAccountId({
+          this.financialAccounRoleList = await getHomeLoanFinancialAccountId({
             customerId: this.recordId
           });
-        } else {
-          //Get linked person account(s) record ids if on financial account
-          this.accountOwners = await getAccountOwnerIds({
-            financialAccountId: this.recordId
-          });
-
-          this.ownerOne.id = this.accountOwners[0].FinServ__RelatedAccount__c;
-          this.ownerOne.name = this.accountOwners[0].FinServ__RelatedAccount__r.Name;
-          if (this.accountOwners.length > 1) {
-            this.ownerTwo.id = this.accountOwners[1].FinServ__RelatedAccount__c;
-            this.ownerTwo.name = this.accountOwners[1].FinServ__RelatedAccount__r.Name;
-          }
         }
 
         this.financialAccounts.forEach((finAccount) => {
-          if (this.financialAccountList && this.objectApiName === "Account") {
+          if (
+            this.financialAccounRoleList &&
+            this.objectApiName === "Account"
+          ) {
             //Retrieve record id for linked fin account
-            this.financialAccountList.forEach((account) => {
+            this.financialAccounRoleList.forEach((account) => {
               if (
                 account.FinServ__FinancialAccount__r
                   .FinServ__FinancialAccountNumber__c ===
@@ -85,10 +75,10 @@ export default class HomeLoanAccountCard extends NavigationMixin(
             });
           }
 
-          finAccount.accountActive = this.handleAccountActive(finAccount.state);
           finAccount.lastModifiedTimestamp = this.handleLastModifiedTimestamp(
             finAccount
           );
+          finAccount.accountActive = this.handleAccountActive(finAccount.state);
           finAccount.loanTerm = this.handleLoanTerm(finAccount);
           finAccount.nextRepayment = this.handleNextRepayment(finAccount);
           finAccount.repaymentType = this.handleRepaymentType(finAccount);
@@ -102,6 +92,13 @@ export default class HomeLoanAccountCard extends NavigationMixin(
         if (this.objectApiName === "FinServ__FinancialAccount__c") {
           this.singleFinAccount = this.financialAccounts[0];
         }
+
+        const financialAccountOpenList = this.financialAccounts.filter(
+          (eachAccount) => {
+            return eachAccount.state !== "ACCOUNT_STATE_CLOSED";
+          }
+        );
+        this.financialAccounts = financialAccountOpenList;
       } catch (error) {
         handleErrorShowToast(
           this,
@@ -127,12 +124,18 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     return !(hasHomeLoanPermission && hasFinancialAccountPermission);
   }
 
+  get showHomeLoan() {
+    return this.financialAccounts.length > 0;
+  }
+
   handleAccountActive(state) {
     return state === "ACCOUNT_STATE_CLOSED" ? false : true;
   }
 
   handleLastModifiedTimestamp(account) {
-    let updated = new Date(account.loan_details.valid_at);
+    let updated = account
+      ? new Date(account.loan_details.valid_at)
+      : new Date();
     let lastUpdated =
       updated.getDate() +
       " " +
@@ -151,7 +154,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     return lastUpdated;
   }
 
-  //USED IN THE FINANCIAL ACCOUNT VIEW
+  //USED IN THE FINANCIAL ACCOUNT VIEW FOR SHOWING LOAN TERM
   handleLoanTerm(account) {
     let termInMonth = account.loan_details.loan_term;
     let months = { one: "month", other: "months" };
@@ -246,14 +249,23 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     }
   }
 
-  navigateToRecordViewPage(e) {
-    this[NavigationMixin.Navigate]({
-      type: "standard__recordPage",
-      attributes: {
-        recordId: e.currentTarget.dataset.id,
-        actionName: "view"
-      }
-    });
+  navigateToRecordViewPage(event) {
+    const recordIdToOpen = event.currentTarget.dataset.id;
+    if (this.isAccountTab) {
+      this[NavigationMixin.Navigate]({
+        type: "standard__recordPage",
+        attributes: {
+          recordId: recordIdToOpen,
+          actionName: "view"
+        }
+      });
+    } else {
+      openTab({
+        recordId: recordIdToOpen
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
   }
 
   handleBalanceModal() {

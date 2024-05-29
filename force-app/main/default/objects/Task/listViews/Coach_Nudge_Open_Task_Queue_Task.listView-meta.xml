@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Coach_Nudge_Open_Task_Queue_Task</fullName>
+    <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
     <columns>SUBJECT</columns>
     <columns>TYPE</columns>
     <columns>WHO_NAME</columns>
@@ -18,6 +19,16 @@
         <field>STATUS</field>
         <operation>equals</operation>
         <value>Not Started</value>
+    </filters>
+    <filters>
+        <field>STATUS</field>
+        <operation>equals</operation>
+        <value>New</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Task.Callback_Request</value>
     </filters>
     <filterScope>Queue</filterScope>
     <label>Coach Nudge Unassigned</label>

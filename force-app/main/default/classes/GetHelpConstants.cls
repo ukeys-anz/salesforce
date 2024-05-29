@@ -280,6 +280,7 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';
   public static final String CLOSED_STATUS_NO_FIX = 'Closed - Won\'t Be Fixed';
   public static final String COB_DAON_FAILED_STATUS = 'Daon Fallout';
+  public static final String COB_DAON_FAILED_SUBJECT_WATCHLIST_HIT = 'Daon Fallout: WATCHLIST_HIT';
   public static final String COB_ID_OPS_DAON_APPROVED_STATUS = 'ID Ops: Daon OK';
   public static final String COB_FRAUD_CHECK_DAON_APPROVED_STATUS = 'Fraud Check: Daon OK';
   public static final String COB_EQUIFAX_FAILED_STATUS = 'Equifax Fallout';
@@ -321,6 +322,11 @@ public with sharing class GetHelpConstants {
   // Task Record Type for Coach Nudge
   public static final String COACH_NUDGE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Coach_Nudge')
+    .getRecordTypeId();
+
+  // Task Record Type for Callback Request
+  public static final String CALLBACK_REQUEST_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Callback_Request')
     .getRecordTypeId();
 
   // Email Task Description

@@ -1,0 +1,6 @@
+{
+  "totalBalanceAck": "Unexpected error",
+  "terminalAck": "Unexpected error",
+  "assetBalanceAck": "Unexpected error",
+  "cacheAck": "Data found in cache"
+}
