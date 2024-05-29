@@ -6,7 +6,7 @@
  * @modified by Shivraj Kadam on 08/28/2023
  */
 public with sharing class TextUtils {
-  private static final String MASKING_LOG_MESSAGE = 'Input contains "{0}"; {1}: {2}';
+  private static final String MASKING_LOG_MESSAGE = 'Input contains "{0}" in {1}';
 
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
@@ -185,7 +185,7 @@ public with sharing class TextUtils {
     if (keyword != null && maskedData != originalValue) {
       String logMessage = String.format(
         MASKING_LOG_MESSAGE,
-        new List<String>{ keyword, field, maskedData }
+        new List<String>{ keyword, field }
       );
       Logger.info(logMessage, logTo);
       Logger.saveLog();
