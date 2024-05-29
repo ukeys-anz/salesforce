@@ -50,6 +50,7 @@ jobs:
           if [[ "$sfdxURL" == "sf-platform-np-"* ]];then
             projectId=anz-x-gh-sf-nonprod-ea5caa
           fi
+
           echo "$sfdxURL"
           echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
           echo PROJECT_ID="$projectId" >> $GITHUB_ENV

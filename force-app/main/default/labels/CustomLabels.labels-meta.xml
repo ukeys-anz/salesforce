@@ -2355,6 +2355,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/lighthouse/v1/consents/list</value>
     </labels>
     <labels>
+        <fullName>SNOW_Risk_Event_End_Point</fullName>
+        <categories>End Point</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNOW Risk Event End Point</shortDescription>
+        <value>api/now/table/sn_risk_advanced_event?number=</value>
+    </labels>
+    <labels>
         <fullName>ValidateOwnerChange</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>

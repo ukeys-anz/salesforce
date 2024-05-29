@@ -12,6 +12,11 @@ runtime_omnistudio_omniscript-omniscript-step[data-omni-key="DataINStep"]
   border: hidden;
 }
 
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ConfirmArchive"]
+  .vlc-separator {
+  border: hidden;
+}
+
 runtime_omnistudio_omniscript-omniscript-set-values[data-omni-key="DisableNextDataIN"]
   .vlocity-btn {
   cursor: not-allowed;

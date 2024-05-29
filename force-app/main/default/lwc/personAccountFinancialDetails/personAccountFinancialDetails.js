@@ -133,6 +133,13 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ]
       });
       this.handleAccountInformation(accountDetails);
+    } finally {
+      //Raise this event to call initiate fetching of total balance
+      window.dispatchEvent(
+        new CustomEvent("refreshFinances_" + this.recordId, {
+          detail: "FetchBalance"
+        })
+      );
     }
   }
 
@@ -195,6 +202,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             account = this.handleShowMultiPartyBadge(account, "Ownership__c");
             account.FinServ__Ownership__c = account.Ownership__c;
           }
+
           this.accountToOwnership.set(
             account.FinServ__FinancialAccountNumber__c,
             account.FinServ__Ownership__c
@@ -273,8 +281,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     });
   }
 
-  handleRefreshFinances() {
-    this.refreshData();
+  handleRefreshFinances(event) {
+    if (event?.detail === "Refresh") {
+      this.refreshData();
+    }
   }
 
   async refreshData() {

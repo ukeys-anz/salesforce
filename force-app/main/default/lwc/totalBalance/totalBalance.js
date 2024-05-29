@@ -23,18 +23,17 @@ export default class TotalBalance extends LightningElement {
 
   connectedCallback() {
     this.loading = true;
-    if (!this.totalBalance) {
-      this.fetchFinancialDataFromDB();
-    }
     window.addEventListener(
       "refreshFinances_" + this.recordId,
       this.handleRefreshFinances.bind(this)
     );
   }
 
-  async handleRefreshFinances() {
+  async handleRefreshFinances(event) {
     this.loading = true;
-    await this.fetchFinancialDataFromDB();
+    if (event?.detail === "FetchBalance") {
+      await this.fetchFinancialDataFromDB();
+    }
   }
 
   async fetchFinancialDataFromDB() {

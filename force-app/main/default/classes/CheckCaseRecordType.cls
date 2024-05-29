@@ -22,6 +22,29 @@ public with sharing class CheckCaseRecordType {
     GetHelpConstants.BPAY_DISPUTE_RT_ID
   };
 
+  public static final Set<Id> ANZX_RT_IDS = new Set<Id>{
+    //fraud record types
+    GetHelpConstants.FRAUD_RT_ID,
+    GetHelpConstants.IDENTITY_RT_ID,
+    GetHelpConstants.RECIPIENT_MULE_RT_ID,
+    GetHelpConstants.SCAM_RT_ID,
+    GetHelpConstants.KYCQA_RT_ID,
+    //dispute redcord types
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
+    GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+    GetHelpConstants.NPP_DISPUTE_RT_ID,
+    GetHelpConstants.BPAY_DISPUTE_RT_ID,
+    //other record types
+    GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+    GetHelpConstants.COMPLAINT_RT_ID,
+    GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID,
+    GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+    GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+    GetHelpConstants.idrtProfileUpdate
+  };
+
   /**
    * @description isANZPlusCaseType checks if record type is of ANZ Plus type.
    * As this Trigger will be used across various teams we identify case record based on ANZ Plus record Type.
@@ -30,19 +53,7 @@ public with sharing class CheckCaseRecordType {
    * @return `Boolean` True if the the record type is of ANZ Plus type false otherwise.
    */
   public static Boolean isANZPlusCaseType(Case record) {
-    if (
-      FRAUD_RT_IDS.contains(record.RecordTypeId) ||
-      record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.ACCOUNT_CLOSURE_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.idrtProfileUpdate ||
-      DISPUTE_RT_IDS.contains(record.RecordTypeId)
-    ) {
-      return true;
-    }
-    return false;
+    return ANZX_RT_IDS.contains(record?.RecordTypeId);
   }
 
   /**
@@ -99,7 +110,7 @@ public with sharing class CheckCaseRecordType {
    * @return true if the case is a ANZ Plus Complaint Case
    */
   public static Boolean isANZPlusComplaint(Case record) {
-    return GetHelpConstants.COMPLAINT_RT_ID == record.RecordTypeId;
+    return GetHelpConstants.COMPLAINT_RT_ID == record?.RecordTypeId;
   }
 
   /**
