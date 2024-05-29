@@ -34,7 +34,6 @@ private class TFMExportConsentDetailsTest {
 
     Map<String, Object> options = new Map<String, Object>();
 
-    
     Test.startTest();
 
     TFMExportConsentDetails.exportToCSV(input, output, options);
@@ -70,7 +69,6 @@ private class TFMExportConsentDetailsTest {
 
     Map<String, Object> options = new Map<String, Object>();
 
-    
     // Start the test
     Test.startTest();
 
@@ -122,7 +120,6 @@ private class TFMExportConsentDetailsTest {
 
     Map<String, Object> options = new Map<String, Object>();
 
-  
     Test.startTest();
 
     TFMExportConsentDetails.exportToCSV(input, output, options);

@@ -20,11 +20,18 @@ public with sharing class SNOWIntegrationServiceTest {
       response.statusCode,
       'Response statusCode for success should be as 200.'
     );
-    System.assertEquals('{ "result": [ { "number": "IRE0073261", "event_type": "1"} ] }', response.body, 'Response Matched');
+    System.assertEquals(
+      '{ "result": [ { "number": "IRE0073261", "event_type": "1"} ] }',
+      response.body,
+      'Response Matched'
+    );
   }
   @isTest
   static void testSNOWServiceBadResponse() {
-    Test.setMock(HttpCalloutMock.class, new MockCMOSGetSNOWInfoCalloutFailure());
+    Test.setMock(
+      HttpCalloutMock.class,
+      new MockCMOSGetSNOWInfoCalloutFailure()
+    );
     Test.startTest();
     SNOWIntegrationService serviceResult = new SNOWIntegrationService();
     HttpCalloutResponse response = serviceResult.getSNOWRiskEventInformation(
@@ -79,7 +86,7 @@ public with sharing class SNOWIntegrationServiceTest {
       return res;
     }
   }
-    
+
   private class MockCMOSGetSNOWInfoCalloutFailure implements HttpCalloutMock {
     /**
      * @description mock response for callout Unauthorised Response

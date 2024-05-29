@@ -347,7 +347,9 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       return responseMap;
     }
     responseMap.put('isValid', true);
-    responseMap.putAll((Map<String, Object>) JSON.deserializeUntyped(response.body));
+    responseMap.putAll(
+      (Map<String, Object>) JSON.deserializeUntyped(response.body)
+    );
     return responseMap;
   }
 

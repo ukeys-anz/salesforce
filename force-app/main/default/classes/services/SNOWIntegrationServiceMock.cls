@@ -12,7 +12,7 @@ public with sharing class SNOWIntegrationServiceMock extends SNOWIntegrationServ
     response.statusCode = 200;
     response.successful = true;
   }
-  
+
   @TestVisible
   private static final String RISK_INFO_SUCCESS_RESPONSE = '{ "result": [ { "number": "IRE0073261", "event_type": "1"} ] }';
 
@@ -25,8 +25,8 @@ public with sharing class SNOWIntegrationServiceMock extends SNOWIntegrationServ
     String riskEventId
   ) {
     if (!preset) {
-        response.body = SNOWIntegrationServiceMock.RISK_INFO_SUCCESS_RESPONSE;
-      } 
+      response.body = SNOWIntegrationServiceMock.RISK_INFO_SUCCESS_RESPONSE;
+    }
     return response;
   }
 }
