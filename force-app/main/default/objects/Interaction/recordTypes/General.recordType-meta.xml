@@ -184,6 +184,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>ANZ Plus Flex Saver</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>ANZ Plus Home Loan - Fixed</fullName>
             <default>false</default>
         </values>
@@ -197,10 +201,6 @@
         </values>
         <values>
             <fullName>ANZ Save</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ANZ Save Grow</fullName>
             <default>false</default>
         </values>
         <values>
