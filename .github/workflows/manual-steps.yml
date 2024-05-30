@@ -1,0 +1,114 @@
+name: Salesforce Manual Steps Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      manual_step_name:
+        required: true
+        description: "Pre/Post deploy step?"
+        type: choice
+        options:
+          - pre-deploy
+          - post-deploy
+
+      release_folder_name:
+        required: true
+        description: "Which release manual steps folder?"
+        type: string
+
+      exclude_epic_folders:
+        required: false
+        description: "Manual steps folder to be excluded?"
+        type: string
+
+      from_which_epic:
+        required: true
+        description: "Manual Steps from which epic?"
+        type: string
+
+      to_which_epic:
+        required: true
+        description: "Manual steps to be done on which epic?"
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  manual-steps:
+    name: ${{inputs.manual_step_name}} steps | from ${{inputs.from_which_epic}} epic to ${{inputs.to_which_epic}} epic.
+    container:
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
+      options: --user root
+    runs-on: [self-hosted, cd-ubuntu-s-np]
+    steps:
+      - name: Link SGD plugin
+        run: |
+          cd /opt/harness-delegate/.local/share/sf
+          sf plugins:link node_modules/sfdx-git-delta/bin
+
+      - name: ENV vars
+        run: |
+          echo BASE_REF="${{ inputs.to_which_epic}}" >> $GITHUB_ENV
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
+          echo WHICH_MANUAl_STEP="${{ inputs.manual_step_name}}" >> $GITHUB_ENV
+          echo RELEASE_FOLDER_NAME="${{ inputs.release_folder_name}}" >> $GITHUB_ENV
+          echo EXCLUDE_EPIC_FOLDERS="${{ inputs.exclude_epic_folders}}" >> $GITHUB_ENV
+          echo FROM_WHICH_EPIC="${{ inputs.from_which_epic}}" >> $GITHUB_ENV
+          echo TO_WHICH_EPIC="${{ inputs.to_which_epic}}" >> $GITHUB_ENV
+          echo REPO_NAME="${{ github.event.repository.name }}" >> $GITHUB_ENV
+          echo WHICH_JOB="manualSteps" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ env.FROM_WHICH_EPIC }}
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+
+      - name: Find Secret Names
+        run: |
+          projectId=anz-x-bootstrap-np-487e09
+
+          if [[ "$sfdxURL" == "" ]];then
+            sfdxURL=$( node ci/workflows/Orchestrations/findSecret.mjs )
+          fi
+
+          if [[ "$sfdxURL" == "sf-platform-np-"* ]];then
+            projectId=anz-x-gh-sf-nonprod-ea5caa
+          fi
+
+          echo "$sfdxURL"
+
+          echo SECRET_NAME="$sfdxURL" >> $GITHUB_ENV
+          echo PROJECT_ID="$projectId" >> $GITHUB_ENV
+
+      - name: Retrieve GSM Credentials
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME}}/versions/latest
+            proxypass:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-proxy-password/versions/latest
+
+      - name: Setup HTTP Proxy
+        id: "proxy-harness-delegate"
+        uses: "anzx/github-reusable-actions/setup-http-proxy@main"
+        with:
+          production: false
+          proxy-username: "sf-harness-delegate-np"
+          proxy-password: "${{ steps.secrets.outputs.proxypass }}"
+
+      - name: Run ${{inputs.manual_step_name}} steps
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/manual-steps.mjs "${{ steps.secrets.outputs.sfdxurl }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
+      - name: Report and Cleaning | ${{inputs.manual_step_name}} steps.
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/manual-steps.mjs
