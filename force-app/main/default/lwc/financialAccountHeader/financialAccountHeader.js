@@ -9,7 +9,7 @@ import { handleAccountHeaderData } from "c/utils";
 const ACCOUNT_TYPES = {
   checking: "Everyday - ANZ Plus Account",
   savings: "Savings - ANZ Save Account",
-  savingss2: "Savings - ANZ Save Grow Account"
+  savingss2: "Savings - ANZ Plus Flex Saver Account"
 };
 
 export default class FinancialAccount extends NavigationMixin(

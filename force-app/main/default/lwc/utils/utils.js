@@ -131,7 +131,7 @@ export function handleAccountHeaderData(accountType) {
     accountHeader.iconColor = "slds-m-right_small";
   } else if (accountType.toLowerCase() === "savingss2") {
     accountHeader.balanceTitle = "Total Saved";
-    accountHeader.productTitle = "ANZ Save Grow";
+    accountHeader.productTitle = "ANZ Plus Flex Saver";
     accountHeader.titleIcon = "custom:custom17";
     accountHeader.iconColor = "slds-m-right_small cicon";
   } else {

@@ -219,7 +219,7 @@
       "state": "ACCOUNT_STATE_ACTIVE",
       "product_details": {
         "marketing_code": "SAVING02",
-        "name": "ANZ Save Grow",
+        "name": "ANZ Plus Flex Saver",
         "transact_options": [
           "PAY_ID",
           "TRANSFER_TO",
@@ -329,7 +329,7 @@
       ],
       "preference_details": {
         "metadata_details": {
-          "nickname": "ANZ Save Grow"
+          "nickname": "ANZ Plus Flex Saver"
         },
         "order_details": [
           {
