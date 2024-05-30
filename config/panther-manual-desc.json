@@ -317,7 +317,8 @@
         "CreatedDate",
         "Id",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "OCV_ID_CAP_ID__c"
       ],
       "IA-2415984": [
         "Advertising_Indicator__c",
