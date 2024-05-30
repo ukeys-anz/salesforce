@@ -77,6 +77,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
     }
   }
   callAPI(riskEventId) {
+    riskEventId = riskEventId.trim();
     this.loading = true;
     getSNOWEventInfoLWC({
       riskEventId: riskEventId
