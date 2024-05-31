@@ -24,7 +24,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 11,
   &quot;label&quot; : &quot;Case resolved with financial remedy&quot;,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -514,5 +514,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_EndPhoneCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>122a3283-3b4a-3b71-92eb-714cbd635151</webComponentKey>
+    <webComponentKey>2ae4617f-dea4-4a3a-12b3-fceeb8d8f6a0</webComponentKey>
 </OmniScript>

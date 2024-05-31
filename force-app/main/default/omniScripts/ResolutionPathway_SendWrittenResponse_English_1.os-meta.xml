@@ -272,7 +272,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 11,
   &quot;label&quot; : &quot;Case resolved with financial remedy&quot;,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -513,5 +513,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_SendWrittenResponse_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>fa4f786d-f0e4-0a9e-944f-5cff9f345a45</webComponentKey>
+    <webComponentKey>f7be4581-1f49-b049-ac32-a7ba55cdd92c</webComponentKey>
 </OmniScript>

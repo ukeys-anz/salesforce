@@ -25,7 +25,13 @@
   &quot;hide&quot; : false,
   &quot;lwcName&quot; : &quot;cfResolutionPathway_remedyInWebvoucher&quot;,
   &quot;bStandalone&quot; : false,
-  &quot;customAttributes&quot; : [ ]
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;parent-data&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;records&quot;,
+    &quot;source&quot; : &quot;%origin_dt%&quot;
+  } ]
 }</propertySetConfig>
             <sequenceNumber>0.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
@@ -119,7 +125,13 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;customAttributes&quot; : [ ],
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;records&quot;,
+    &quot;source&quot; : &quot;%origin_dt%&quot;
+  }, {
+    &quot;name&quot; : &quot;parent-data&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  } ],
   &quot;bStandalone&quot; : false,
   &quot;lwcName&quot; : &quot;cfResolutionPathway_CloseCase&quot;,
   &quot;hide&quot; : false,
@@ -210,5 +222,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_CloseCase_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>b6500165-7d3a-67ca-ab04-b201bdf04938</webComponentKey>
+    <webComponentKey>9829d863-0c9d-ccde-ca07-8dcf92050c30</webComponentKey>
 </OmniScript>
