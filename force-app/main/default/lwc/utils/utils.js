@@ -145,11 +145,11 @@ export function handleAccountHeaderData(accountType) {
 
 //This method will identify whether the account is S2 or not used in FinancialAccountParent and personAccountFinancialDetails
 export function isS2Account(marketingCode) {
-  let isS2Account = false;
+  const isS2AccountCheck = false;
   if (marketingCode !== undefined && marketingCode !== null) {
-    isS2Account = marketingCode.toLowerCase() === "saving02";
+    isS2AccountCheck = marketingCode.toLowerCase() === "saving02";
   }
-  return isS2Account;
+  return isS2AccountCheck;
 }
 
 //This method will identify whether S2 Deliverable is in dormant or not.
