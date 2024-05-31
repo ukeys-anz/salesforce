@@ -145,6 +145,9 @@ export function handleAccountHeaderData(accountType) {
 
 //This method will identify whether the account is S2 or not used in FinancialAccountParent and personAccountFinancialDetails
 export function isS2Account(marketingCode) {
+  if (!marketingCode) {
+    return false;
+  }
   return marketingCode.toLowerCase() === "saving02";
 }
 
