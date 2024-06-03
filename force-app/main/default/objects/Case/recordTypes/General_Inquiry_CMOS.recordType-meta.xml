@@ -1306,6 +1306,10 @@
             <fullName>9</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Know Your Customer</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_NC_Country__c</picklist>
@@ -2676,6 +2680,26 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>110</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>112</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>113</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>114</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue_3__c</picklist>
@@ -3087,6 +3111,26 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>110</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>112</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>113</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>114</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue__c</picklist>
@@ -3496,6 +3540,26 @@
         </values>
         <values>
             <fullName>Request won%27t be actioned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>110</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>112</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>113</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>114</fullName>
             <default>false</default>
         </values>
     </picklistValues>

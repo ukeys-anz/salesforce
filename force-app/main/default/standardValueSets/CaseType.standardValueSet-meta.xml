@@ -426,4 +426,9 @@
         <default>false</default>
         <label>Residential Address QA</label>
     </standardValue>
+    <standardValue>
+        <fullName>Know Your Customer</fullName>
+        <default>false</default>
+        <label>Know Your Customer</label>
+    </standardValue>
 </StandardValueSet>
