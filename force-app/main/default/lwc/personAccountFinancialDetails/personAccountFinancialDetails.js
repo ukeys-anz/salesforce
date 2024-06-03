@@ -1,7 +1,7 @@
 /* LWC IMPORTS */
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { handleErrorShowToast } from "c/utils";
+import { handleErrorShowToast, isS2Account, isS2Enabled } from "c/utils";
 import { handleGoalThemes } from "c/accountsGoalsUtils";
 
 /* IMPORT APEX METHODS */
@@ -37,7 +37,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   totalBalanceError;
   accountData = {
     checking: [],
-    savings: []
+    savings: [],
+    savingss2: []
   };
   savingsJar = [];
   loanData;
@@ -45,6 +46,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   //savings financial account
   savingsId;
   accountToOwnership = new Map();
+  isS2AccountExist = false;
 
   connectedCallback() {
     window.addEventListener(
@@ -102,7 +104,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   async getFinancialAccount() {
     this.accountData = {
       checking: [],
-      savings: []
+      savings: [],
+      savingss2: []
     };
     try {
       //Attempt to get the latest account details from fabric
@@ -212,17 +215,24 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           } else if (
             account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
           ) {
-            this.accountData.savings.push(account);
-            if (account.FinServ__Ownership__c !== MULTI_PARTY) {
-              this.savingsId = account.Id;
+            if (isS2Enabled() && isS2Account(account.Marketing_Code__c)) {
+              this.accountData.savingss2.push(account);
+              this.isS2AccountExist = true;
+            } else if (!isS2Account(account.Marketing_Code__c)) {
+              this.accountData.savings.push(account);
+              if (account.FinServ__Ownership__c !== MULTI_PARTY) {
+                this.savingsId = account.Id;
+              }
             }
           }
+        } else if (isS2Account(account.Marketing_Code__c) && isS2Enabled()) {
+          this.isS2AccountExist = true;
         }
       });
       this.sortFinancialAccounts(this.accountData.checking);
       this.sortFinancialAccounts(this.accountData.savings);
+      this.sortFinancialAccounts(this.accountData.savingss2);
     }
-
     return finAccounts;
   }
   //Sorting the order of accounts based on account status and then based on opendate for similar account statuses.
