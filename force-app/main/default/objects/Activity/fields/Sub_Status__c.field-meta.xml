@@ -54,6 +54,11 @@
                 <default>false</default>
                 <label>Not interested</label>
             </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Actioned</controllingFieldValue>
@@ -86,6 +91,10 @@
         <valueSettings>
             <controllingFieldValue>Actioned</controllingFieldValue>
             <valueName>Not interested</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Actioned</controllingFieldValue>
+            <valueName>Other</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
