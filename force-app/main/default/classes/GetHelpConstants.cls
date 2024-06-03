@@ -246,6 +246,7 @@ public with sharing class GetHelpConstants {
   public static final String PENDING_CARD_DISPUTE_GENERAL_QUEUE = 'Pending_Card_Dispute_General_Queue';
   public static final String TRANSACTION_STATUS_PENDING = 'TRANSACTION_STATUS_PENDING';
   public static final String TRANSACTION_STATUS_POSTED = 'TRANSACTION_STATUS_POSTED';
+  public static final String TRANSACTION_PENDING = 'PENDING';
 
   /**
    * @description Static variable to list ANZX workbaskets' API names

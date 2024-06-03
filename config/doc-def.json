@@ -998,6 +998,25 @@
       "permissionsetgroups": ["Residential_Broker_Manager"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
+    },
+    {
+      "name": "Intraday Dispute Integration user",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Write_Dispute_Integration",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "CRM Analytics Plus Batch User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": ["FraudX_Agent"],
+      "permissionsets": ["EinsteinAnalyticsPlusAdmin", "Export_Reports"],
+      "type": "system"
     }
   ]
 }
