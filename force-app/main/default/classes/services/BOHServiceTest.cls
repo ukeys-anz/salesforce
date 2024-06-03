@@ -30,6 +30,7 @@ public inherited sharing class BOHServiceTest {
       'Response status code 200 expected'
     );
   }
+
   class MockGearboxCalloutSuccess implements HttpCalloutMock {
     /**
      * @description mock response for callout
@@ -54,5 +55,30 @@ public inherited sharing class BOHServiceTest {
 
       return res;
     }
+  }
+
+  @isTest
+  static void testEditDebts() {
+    String ocvId = '11111231';
+    Test.setMock(HttpCalloutMock.class, new MockGearboxCalloutSuccess());
+    //load forge staff token
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART +
+      'forgeJWTToken' +
+      ocvId,
+      AuthServiceTest.IDTESTVALUE
+    );
+
+    Test.startTest();
+    BOHService service = new BOHService();
+    String testDebt = '{"name": "testDebt", "uid", "testStr"}';
+    HttpCalloutResponse response = service.editDebt(ocvId, testDebt);
+    Test.stopTest();
+
+    System.assertEquals(
+      200,
+      response.statusCode,
+      'Response status code 200 expected'
+    );
   }
 }

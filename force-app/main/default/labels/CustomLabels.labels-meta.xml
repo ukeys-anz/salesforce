@@ -381,6 +381,14 @@
         <value>callout:SF_MS_CH2/credit-assessment/v1/incomes</value>
     </labels>
     <labels>
+        <fullName>MS_SOP_Debt</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_SOP_Debt</shortDescription>
+        <value>/credit-assessment/v1/debts</value>
+    </labels>
+    <labels>
         <fullName>MS_Create_Party</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
