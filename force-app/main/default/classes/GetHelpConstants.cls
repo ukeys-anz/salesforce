@@ -302,6 +302,8 @@ public with sharing class GetHelpConstants {
     'App',
     'ANZ Plus App'
   };
+  //Case Onboarding Verification Failed Reason picklist values
+  public static final String ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST = 'Confirmed Fraud - Selfie Watchlist';
 
   // Permission Set Group Name
   public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';

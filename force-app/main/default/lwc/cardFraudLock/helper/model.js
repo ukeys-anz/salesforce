@@ -19,6 +19,11 @@ export const FRAUD_BUTTONS_TEXT = {
   Block_CNP: "Online Transactions"
 };
 
+export const TEAM_TO_CONTACT_TEXT = {
+  Card_Dispute_Team: "Card Dispute Team",
+  Fraud_Team: "Fraud Team"
+};
+
 export function findKeyFromValue(object, value) {
   for (let key in object) {
     if (object[key] == value) {
@@ -33,4 +38,8 @@ export function findCardActionKeyFromLabel(btnLabel) {
 
 export function findStatusKeyFromStatus(status) {
   return findKeyFromValue(STATUS, status);
+}
+
+export function findTeamToContactKeyFromTeamToContact(teamToContact) {
+  return findKeyFromValue(TEAM_TO_CONTACT_TEXT, teamToContact);
 }

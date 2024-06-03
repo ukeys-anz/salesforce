@@ -1,4 +1,9 @@
-import { STATUS, FRAUD_BUTTONS_TEXT, PRIMARYCARDACTIONS } from "./model";
+import {
+  STATUS,
+  FRAUD_BUTTONS_TEXT,
+  TEAM_TO_CONTACT_TEXT,
+  PRIMARYCARDACTIONS
+} from "./model";
 
 const FRAUD_LOCK_OPTIONS = [
   {
@@ -12,6 +17,15 @@ const FRAUD_LOCK_OPTIONS = [
   }
 ];
 
+const TEAM_TO_CONTACT_OPTIONS = [
+  {
+    label: TEAM_TO_CONTACT_TEXT.Card_Dispute_Team
+  },
+  {
+    label: TEAM_TO_CONTACT_TEXT.Fraud_Team
+  }
+];
+
 export function fraudLockOptionsSchema(cardStatus) {
   return FRAUD_LOCK_OPTIONS.map((fraudLockStatusOption) => {
     return {
@@ -19,6 +33,16 @@ export function fraudLockOptionsSchema(cardStatus) {
       label: fraudLockStatusOption.label,
       variantSituation:
         cardStatus === fraudLockStatusOption.status ? "brand" : "brand-outline"
+    };
+  });
+}
+
+export function teamToContactOptionsSchema(teamToContect) {
+  return TEAM_TO_CONTACT_OPTIONS.map((teamToContactOption) => {
+    return {
+      label: teamToContactOption.label,
+      variantSituation:
+        teamToContect === teamToContactOption.label ? "brand" : "brand-outline"
     };
   });
 }

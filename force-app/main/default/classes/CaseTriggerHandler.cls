@@ -156,6 +156,12 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
 
+    //Update the IDOps Case's Onboarding Verification Failed Reason
+    GetHelpCaseActions.updateIDOpsWatchlistOnboardingReason(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+
     AutoKYCQACaseActions autoKYCQACaseActions = new AutoKYCQACaseActions(
       (List<Case>) records,
       (Map<Id, Case>) oldMap

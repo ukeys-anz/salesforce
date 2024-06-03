@@ -37,7 +37,7 @@ describe("c-card-fraud-lock", () => {
     return new Promise((resolve) => setImmediate(resolve));
   }
 
-  it("1. check if submit button visible", () => {
+  it("1. check if continue button visible", () => {
     const element = createElement("c-card-fraud-lock", {
       is: CardFraudLock
     });
@@ -47,13 +47,13 @@ describe("c-card-fraud-lock", () => {
     document.body.appendChild(element);
     return flushPromises().then(() => {
       let button = element.shadowRoot.querySelector(
-        "button[data-id='submit-button']"
+        "lightning-button[data-id='continue-button']"
       );
       expect(button).toBeTruthy();
     });
   });
 
-  it("2. cheeck if cancel button visible", () => {
+  it("2. check if cancel button visible", () => {
     const element = createElement("c-card-fraud-lock", {
       is: CardFraudLock
     });
@@ -61,14 +61,16 @@ describe("c-card-fraud-lock", () => {
     element.cardStatus = "Issued";
 
     document.body.appendChild(element);
+
     return flushPromises().then(() => {
-      const buttons = element.shadowRoot.querySelectorAll("footer button");
-      const cancelButton = buttons[1];
-      expect(cancelButton.textContent).toBe("Cancel");
+      const cancelButton = element.shadowRoot.querySelectorAll(
+        "footer lightning-button[data-id='cancel-button']"
+      );
+      expect(cancelButton).toBeTruthy();
     });
   });
 
-  it("3. check if fraud lock options visible", () => {
+  it("3. check if team to contact options visible", () => {
     const element = createElement("c-card-fraud-lock", {
       is: CardFraudLock
     });
@@ -76,35 +78,117 @@ describe("c-card-fraud-lock", () => {
     element.cardStatus = "Issued";
 
     document.body.appendChild(element);
+
+    return flushPromises().then(() => {
+      let teamToContactOptions = element.shadowRoot.querySelectorAll(
+        "lightning-button.btnTeamToContact"
+      );
+      expect(teamToContactOptions[0]).toBeTruthy();
+    });
+  });
+
+  it("4. check if a team to contact option chosen, the button should have brand variant", () => {
+    const element = createElement("c-card-fraud-lock", {
+      is: CardFraudLock
+    });
+    element.buttonClicked = "Fraud Lock";
+    element.cardStatus = "Issued";
+
+    document.body.appendChild(element);
+
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
+    );
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
+
+    return flushPromises().then(() => {
+      expect(fraudTeamButton).toHaveProperty(["variant"], "brand");
+    });
+  });
+
+  it("5. check if a continue option clicked, we should navigate to the fraud lock", () => {
+    const element = createElement("c-card-fraud-lock", {
+      is: CardFraudLock
+    });
+    element.buttonClicked = "Fraud Lock";
+    element.cardStatus = "Issued";
+
+    document.body.appendChild(element);
+
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
+    );
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
+
+    let continueButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id='continue-button']"
+    );
+    continueButton.click();
+
+    return flushPromises().then(() => {
+      let title = element.shadowRoot.querySelector("header h2");
+      expect(title.textContent).toBe("Select Fraud Block");
+    });
+  });
+
+  it("6. check if submit button visible", () => {
+    const element = createElement("c-card-fraud-lock", {
+      is: CardFraudLock
+    });
+    element.buttonClicked = "Fraud Lock";
+    element.cardStatus = "Issued";
+
+    document.body.appendChild(element);
+
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
+    );
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
+
+    let continueButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id='continue-button']"
+    );
+    continueButton.click();
+
+    return flushPromises().then(() => {
+      let button = element.shadowRoot.querySelector(
+        "lightning-button[data-id='submit-button']"
+      );
+      expect(button).toBeTruthy();
+    });
+  });
+  it("7. check if fraud lock options visible", () => {
+    const element = createElement("c-card-fraud-lock", {
+      is: CardFraudLock
+    });
+    element.buttonClicked = "Fraud Lock";
+    element.cardStatus = "Issued";
+
+    document.body.appendChild(element);
+
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
+    );
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
+
+    let continueButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id='continue-button']"
+    );
+    continueButton.click();
+
     return flushPromises().then(() => {
       let fraudOptions = element.shadowRoot.querySelectorAll(
-        "lightning-button.btn"
+        "lightning-button.btnFraudLock"
       );
       expect(fraudOptions[0]).toBeTruthy();
     });
   });
 
-  it("4. cheeck if a fraud option chosen, the button should have brand variant", () => {
-    const element = createElement("c-card-fraud-lock", {
-      is: CardFraudLock
-    });
-    element.buttonClicked = "Fraud Lock";
-    element.cardStatus = "Issued";
-
-    document.body.appendChild(element);
-    const buttons = element.shadowRoot.querySelectorAll("footer button");
-    let fraudOptions = element.shadowRoot.querySelectorAll(
-      "lightning-button.btn"
-    );
-    let blockCNPButton = fraudOptions[1];
-    blockCNPButton.click();
-
-    return flushPromises().then(() => {
-      expect(blockCNPButton).toHaveProperty(["variant"], "brand");
-    });
-  });
-
-  it("5. cheeck if a submit option clicked, we should navigate to the confirmation", () => {
+  it("8. check if a fraud option chosen, the button should have brand variant", () => {
     const element = createElement("c-card-fraud-lock", {
       is: CardFraudLock
     });
@@ -113,24 +197,35 @@ describe("c-card-fraud-lock", () => {
 
     document.body.appendChild(element);
 
-    let fraudOptions = element.shadowRoot.querySelectorAll(
-      "lightning-button.btn"
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
     );
-    let blockCNPButton = fraudOptions[1];
-    blockCNPButton.click();
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
 
-    let submitButton = element.shadowRoot.querySelector(
-      "button[data-id='submit-button']"
+    let continueButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id='continue-button']"
     );
-    submitButton.click();
+    continueButton.click();
 
-    return flushPromises().then(() => {
-      let title = element.shadowRoot.querySelector("header h2");
-      expect(title.textContent).toBe("Submit Card Block");
-    });
+    return flushPromises()
+      .then(() => {
+        let fraudOptions = element.shadowRoot.querySelectorAll(
+          "lightning-button.btnFraudLock"
+        );
+        let blockCNPButton = fraudOptions[1];
+        blockCNPButton.click();
+      })
+      .then(() => {
+        let fraudOptions = element.shadowRoot.querySelectorAll(
+          "lightning-button.btnFraudLock"
+        );
+        let blockCNPButton = fraudOptions[1];
+        expect(blockCNPButton).toHaveProperty(["variant"], "brand");
+      });
   });
 
-  it("6. cheeck if a confirm button is visible", () => {
+  it("9. check if a submit option clicked, we should navigate to the confirmation", () => {
     const element = createElement("c-card-fraud-lock", {
       is: CardFraudLock
     });
@@ -139,24 +234,78 @@ describe("c-card-fraud-lock", () => {
 
     document.body.appendChild(element);
 
-    let fraudOptions = element.shadowRoot.querySelectorAll(
-      "lightning-button.btn"
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
     );
-    let blockCNPButton = fraudOptions[1];
-    blockCNPButton.click();
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
 
-    let submitButton = element.shadowRoot.querySelector(
-      "button[data-id='submit-button']"
+    let continueButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id='continue-button']"
     );
-    submitButton.click();
+    continueButton.click();
 
-    return flushPromises().then(() => {
-      let confirmButton = element.shadowRoot.querySelector(".confirm-button");
-      expect(confirmButton).toBeTruthy();
-    });
+    return flushPromises()
+      .then(() => {
+        let fraudOptions = element.shadowRoot.querySelectorAll(
+          "lightning-button.btnFraudLock"
+        );
+        let blockCNPButton = fraudOptions[1];
+        blockCNPButton.click();
+      })
+      .then(() => {
+        let submitButton = element.shadowRoot.querySelector(
+          "lightning-button[data-id='submit-button']"
+        );
+        submitButton.click();
+      })
+      .then(() => {
+        let title = element.shadowRoot.querySelector("header h2");
+        expect(title.textContent).toBe("Submit Card Block");
+      });
   });
 
-  it("7. check if the buttonClicked is not Fraud Lock, the submit-button should be invisible", () => {
+  it("10. check if a confirm button is visible", () => {
+    const element = createElement("c-card-fraud-lock", {
+      is: CardFraudLock
+    });
+    element.buttonClicked = "Fraud Lock";
+    element.cardStatus = "Issued";
+
+    document.body.appendChild(element);
+
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
+    );
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
+
+    let continueButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id='continue-button']"
+    );
+    continueButton.click();
+
+    return flushPromises()
+      .then(() => {
+        let fraudOptions = element.shadowRoot.querySelectorAll(
+          "lightning-button.btnFraudLock"
+        );
+        let blockCNPButton = fraudOptions[1];
+        blockCNPButton.click();
+      })
+      .then(() => {
+        let submitButton = element.shadowRoot.querySelector(
+          "lightning-button[data-id='submit-button']"
+        );
+        submitButton.click();
+      })
+      .then(() => {
+        let confirmButton = element.shadowRoot.querySelector(".confirm-button");
+        expect(confirmButton).toBeTruthy();
+      });
+  });
+
+  it("11. check if the buttonClicked is not Fraud Lock, the continue-button should be invisible", () => {
     const element = createElement("c-card-fraud-lock", {
       is: CardFraudLock
     });
@@ -166,13 +315,13 @@ describe("c-card-fraud-lock", () => {
 
     return flushPromises().then(() => {
       const submitButton = element.shadowRoot.querySelector(
-        "button[data-id='submit-button']"
+        "lightning-button[data-id='continue-button']"
       );
       expect(submitButton).toBeFalsy();
     });
   });
 
-  it("8. check if the buttonClicked is not Fraud Lock, should be navigate to confirmation", () => {
+  it("12. check if the buttonClicked is not Fraud Lock, should be navigate to confirmation", () => {
     const element = createElement("c-card-fraud-lock", {
       is: CardFraudLock
     });
@@ -189,7 +338,40 @@ describe("c-card-fraud-lock", () => {
     });
   });
 
-  it("9. test toast message when fraud lock clicked and no option has been chosen", () => {
+  it("13. test toast message when fraud lock clicked and no team to contact option has been chosen", () => {
+    const TOAST_TITLE = "Choose a team to contact option";
+    const TOAST_MESSAGE =
+      "Please select a team to contact option as no team has been selected";
+    const TOAST_VARIANT = "error";
+
+    const element = createElement("c-card-fraud-lock", {
+      is: CardFraudLock
+    });
+    element.buttonClicked = "Fraud Lock";
+    element.cardStatus = "Issued";
+
+    document.body.appendChild(element);
+
+    const handler = jest.fn();
+    element.addEventListener(ShowToastEventName, handler);
+
+    return flushPromises()
+      .then(() => {
+        const continueButton = element.shadowRoot.querySelector(
+          "lightning-button[data-id='continue-button']"
+        );
+        continueButton.click();
+      })
+      .then(() => {
+        expect(handler).toHaveBeenCalled();
+        const handlerObject = handler.mock.calls[0][0];
+        expect(handlerObject.detail.title).toBe(TOAST_TITLE);
+        expect(handlerObject.detail.message).toBe(TOAST_MESSAGE);
+        expect(handlerObject.detail.variant).toBe(TOAST_VARIANT);
+      });
+  });
+
+  it("14. test toast message when fraud lock clicked and no fraud lock option has been chosen", () => {
     const TOAST_TITLE = "Choose a fraud lock option";
     const TOAST_MESSAGE =
       "Please select a fraud lock option as no lock status has been selected";
@@ -206,12 +388,23 @@ describe("c-card-fraud-lock", () => {
     const handler = jest.fn();
     element.addEventListener(ShowToastEventName, handler);
 
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
+    );
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
+
+    let continueButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id='continue-button']"
+    );
+    continueButton.click();
+
     return flushPromises()
       .then(() => {
-        const confirmButton = element.shadowRoot.querySelector(
-          'button[data-id="submit-button"]'
+        const submitButton = element.shadowRoot.querySelector(
+          "lightning-button[data-id='submit-button']"
         );
-        confirmButton.click();
+        submitButton.click();
       })
       .then(() => {
         expect(handler).toHaveBeenCalled();
@@ -222,7 +415,7 @@ describe("c-card-fraud-lock", () => {
       });
   });
 
-  it("10. test toast message when fraud lock clicked and same option has been chosen", () => {
+  it("15. test toast message when fraud lock clicked and same option has been chosen", () => {
     const TOAST_TITLE = "Choose another fraud lock option";
     const TOAST_MESSAGE =
       "Please select another fraud lock option as this lock status has been already applied to the card";
@@ -239,12 +432,30 @@ describe("c-card-fraud-lock", () => {
     const handler = jest.fn();
     element.addEventListener(ShowToastEventName, handler);
 
+    let teamToContactOptions = element.shadowRoot.querySelectorAll(
+      "lightning-button.btnTeamToContact"
+    );
+    let fraudTeamButton = teamToContactOptions[1];
+    fraudTeamButton.click();
+
+    let continueButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id='continue-button']"
+    );
+    continueButton.click();
+
     return flushPromises()
       .then(() => {
-        const confirmButton = element.shadowRoot.querySelector(
-          'button[data-id="submit-button"]'
+        let fraudOptions = element.shadowRoot.querySelectorAll(
+          "lightning-button.btnFraudLock"
         );
-        confirmButton.click();
+        let blockCNPButton = fraudOptions[1];
+        blockCNPButton.click();
+      })
+      .then(() => {
+        let submitButton = element.shadowRoot.querySelector(
+          "lightning-button[data-id='submit-button']"
+        );
+        submitButton.click();
       })
       .then(() => {
         expect(handler).toHaveBeenCalled();
@@ -255,7 +466,7 @@ describe("c-card-fraud-lock", () => {
       });
   });
 
-  it("11. test toast message when fraud unlock clicked and status changed accepted", () => {
+  it("16. test toast message when fraud unlock clicked and status changed accepted", () => {
     fraudLock.mockResolvedValue(mockApexSuccess);
     const TOAST_TITLE = "Card Unlocked";
     const TOAST_MESSAGE = "This card has been successfully unlocked";
@@ -292,7 +503,7 @@ describe("c-card-fraud-lock", () => {
       });
   });
 
-  it("12. test toast message when fraud unlock clicked and status changed not accepted", () => {
+  it("17. test toast message when fraud unlock clicked and status changed not accepted", () => {
     fraudLock.mockRejectedValue(mockApexFailure);
 
     const element = createElement("c-card-fraud-lock", {
