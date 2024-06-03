@@ -3673,7 +3673,7 @@
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"],
       "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
-      "IA-2453350": ["Sync_Status__c"]
+      "IA-2453350": ["Sync_Status__c", "Originated_By__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [
@@ -4827,6 +4827,7 @@
     "ResidentialLoanApplication": {
       "Assisted_Broker__c": "ANZx::Salesforce",
       "Assisted_Broker_TPMI_SAO__c": "ANZx::Lex::LoanApplication",
+      "Originated_By__c": "ANZx::MuleSoft::Broker",
       "Sync_Status__c": "ANZx::MuleSoft::Broker"
     }
   },
@@ -4995,6 +4996,7 @@
     "ResidentialLoanApplication": {
       "Assisted_Broker__c": "Look up relationship against contact object",
       "Assisted_Broker_TPMI_SAO__c": "1:1 Transformation",
+      "Originated_By__c": "If TPMI_SAO__c is NOT blank then set Originated By to Broker",
       "Sync_Status__c": "If GCP Event Publish where Sync_Status_c not equals to Blocked and Update = TRUE THEN set Sync_Status_c to Broker Org"
     }
   },

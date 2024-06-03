@@ -1157,11 +1157,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Interaction.Mobile__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Interaction.Description</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1227,6 +1222,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Mobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Interaction.Optional_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1267,12 +1267,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ResidentialLoanApplication.Credit_Reassess_Required__c</field>
+        <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
+        <field>ResidentialLoanApplication.Credit_Reassess_Required__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Originated_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

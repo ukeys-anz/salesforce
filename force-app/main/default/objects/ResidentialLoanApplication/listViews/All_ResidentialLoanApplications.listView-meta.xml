@@ -4,6 +4,7 @@
     <columns>Name</columns>
     <columns>Account</columns>
     <columns>Status</columns>
+    <columns>Originated_By__c</columns>
     <columns>CreatedDate</columns>
     <columns>Owner_Name__c</columns>
     <filterScope>Everything</filterScope>
