@@ -206,6 +206,11 @@ public with sharing class CCRMConstants {
     .get('AccountRole')
     .getRecordTypeId();
 
+  //A-Z Review - Commerical A-Z Review Record TypeId
+  public static final Id AZ_REVIEW_RT_ID = Schema.SObjectType.A_Z_Review__c.getRecordTypeInfosByDeveloperName()
+    .get('Commercial_A_Z_Review')
+    .getRecordTypeId();
+
   /**
    * To be used for apex validations that are meant to replace Custom Validation rules
    * (eg. to run validation at specific points in code whereas Custom Validations are usually run after before triggers).

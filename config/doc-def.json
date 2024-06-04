@@ -1,6 +1,7 @@
 {
   "folder": "docs",
   "objectwhitelist": [
+    "A_Z_Review__c",
     "Access_Request__c",
     "Account",
     "ActionPlan",

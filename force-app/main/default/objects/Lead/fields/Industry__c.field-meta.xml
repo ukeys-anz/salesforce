@@ -6,7 +6,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Industry value Lookup field.</description>
     <externalId>false</externalId>
-    <label>Industry</label>
+    <label>ANZSIC Code</label>
     <referenceTo>Industry__c</referenceTo>
     <relationshipLabel>Leads</relationshipLabel>
     <relationshipName>Leads</relationshipName>

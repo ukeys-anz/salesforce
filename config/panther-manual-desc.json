@@ -199,6 +199,7 @@
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
     "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
     "Assessment_Response__c": "Needs Assessment response completed by the loan applicant",
+    "A_Z_Review__c": "This is used to store A-Z Reviews.",
     "AuthenticationHistory__c": "Help user to view the history/information of Auth Request made on an Interaction",
     "BusinessHours": "Specifies the business hours of your support organization.",
     "Campaign": "Represents and tracks a marketing campaign.",
@@ -633,6 +634,20 @@
         "Ineligibility_Reason_Type__c",
         "Ineligibility_Reason_Subtype__c"
       ]
+    },
+    "A_Z_Review__c": {
+      "IA-2415860": ["Completed_Date__c", "Status__c"],
+      "IA-2415984": [
+        "Name",
+        "Business_Details__c",
+        "Borrowing_OFI_Relationship__c",
+        "Lead__c",
+        "Customer__c",
+        "Opportunity__c",
+        "Personal_Banking__c",
+        "Transaction_Banking__c"
+      ],
+      "IA-2423278": ["OwnerId"]
     },
     "Campaign": {
       "IA-2415860": [
