@@ -167,7 +167,10 @@ global with sharing class Vlocity_Utils implements Callable {
       );
       for (Object c : complaintRes) {
         Map<String, Object> cr = (Map<String, Object>) c;
-        if (cr.get('Remedy') == null) {
+        if (
+          (cr.containsKey('Remedy') && cr.get('Remedy') == null) ||
+          (cr.containsKey('remedyOffered') && cr.get('remedyOffered') == null)
+        ) {
           crtodel.add(new Complaint_Resolution__c(Id = (Id) cr.get('Id')));
         }
       } // loop through the CRs node from IP and delete records with blank fields, Remedy
