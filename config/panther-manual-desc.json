@@ -3517,6 +3517,7 @@
         "Review_Period_Year__c",
         "REaL_form_categories__c",
         "REAL_form_Comments__c",
+        "IsUserSeniorManager__c",
         "REaL_form_receipt_no__c",
         "Relevant_internal_information_obtained__c",
         "Risk_and_Compliance_Category__c",
