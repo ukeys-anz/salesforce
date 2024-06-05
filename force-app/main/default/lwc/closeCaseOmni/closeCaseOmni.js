@@ -156,7 +156,8 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
     )
       this.missingFields.push("Subsequent Issue Type");
     if (
-      details.ComplaintRemedy1 === REFERRED_TO_PRODUCT &&
+      (details.ComplaintRemedy1 === REFERRED_TO_PRODUCT ||
+        details.ComplaintRemedy1Accepted === REFERRED_TO_PRODUCT) &&
       !details.detailsOfComplaint1
     )
       this.missingFields.push(
@@ -272,13 +273,13 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       details.CustomerAcceptTheResolution === "Yes"
     ) {
       this.checkFields(details, this.omniJsonData.SeccloseReqMapAccepted);
-      /*  if (
+      if (
         details.ComplaintRemedy2Accepted === REFERRED_TO_PRODUCT &&
-        !details.OfferedDetails2
+        !details.detailsOfComplaint2
       )
         this.missingFields.push(
-          "Offered to provide details of this complaint to the product manufacturer"
-        );*/
+          "The details of this complaint have been provided to the product manufacturer 2"
+        );
 
       if (
         SUB_REMS.includes(details.ComplaintSubRemedy2Accepted) &&
@@ -341,13 +342,13 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       details.CustomerAcceptTheResolution === "Yes"
     ) {
       this.checkFields(details, this.omniJsonData.thirdCmpMapAccepted);
-      /* if (
+      if (
         details.ComplaintRemedy3Accepted === REFERRED_TO_PRODUCT &&
-        !details.detailsOfComplaint3Accepted
+        !details.detailsOfComplaint3
       )
         this.missingFields.push(
-          "Offered to provide details of this complaint to the product manufacturer 3"
-        ); */
+          "The details of this complaint have been provided to the product manufacturer 3"
+        );
       if (
         SUB_REMS.includes(details.ComplaintSubRemedy3Accepted) &&
         !details.durationOfRemedy3Accepted
