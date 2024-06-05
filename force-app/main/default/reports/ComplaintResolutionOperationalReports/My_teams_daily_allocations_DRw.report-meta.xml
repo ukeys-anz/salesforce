@@ -12,7 +12,7 @@
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>OWNER</groupingColumn>
+        <groupingColumn>Case$Owner</groupingColumn>
         <location>CHART_BOTTOM</location>
         <showAxisLabels>true</showAxisLabels>
         <showPercentage>false</showPercentage>
@@ -26,77 +26,88 @@
         <titleSize>18</titleSize>
     </chart>
     <columns>
-        <field>CASE_NUMBER</field>
+        <field>Case$CaseNumber</field>
     </columns>
     <columns>
-        <field>Case.Previous_Case_Owner__c</field>
+        <field>Case$IDR_Date_Received__c</field>
     </columns>
     <columns>
-        <field>Case.Date_Case_allocated_to_CM__c</field>
+        <field>Case$Status</field>
     </columns>
     <columns>
-        <field>Case.IDR_Date_Received__c</field>
+        <field>Case$Queue__c</field>
     </columns>
     <columns>
-        <field>STATUS</field>
+        <field>Case$IDR_NC_First_Name__c</field>
     </columns>
     <columns>
-        <field>Case.Queue__c</field>
+        <field>Case$IDR_NC_Last_Name__c</field>
     </columns>
     <columns>
-        <field>Case.IDR_NC_Last_Name__c</field>
+        <field>Case$Description</field>
     </columns>
     <columns>
-        <field>Case.IDR_NC_First_Name__c</field>
+        <field>Case$Type</field>
     </columns>
     <columns>
-        <field>DESCRIPTION</field>
+        <field>Case$IDR_Subsequent_Issue__c</field>
     </columns>
     <columns>
-        <field>TYPE</field>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Case.Case_Reporting_Fields__r$Total_Open_Time__c</field>
     </columns>
     <columns>
-        <field>Case.IDR_Subsequent_Issue__c</field>
+        <field>Case$Previous_Case_Owner__c</field>
     </columns>
-    <description>Complaint Resolution Operational Report for Team Managers and Senior Managers to maintain oversight over their team&apos;s daily case allocations.</description>
     <filter>
+        <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
         <criteriaItems>
-            <column>RECORDTYPE</column>
+            <column>Case$RecordType</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Case.Date_Case_allocated_to_CM__c</column>
+            <column>Case$Date_Case_allocated_to_CM__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>TODAY</value>
+            <value>THIS_WEEK</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$My_extended_team_s_cases__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$IsOwner__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>OWNER</field>
+        <field>Case$Owner</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <params>
-        <name>units</name>
-        <value>h</value>
-    </params>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>CaseList</reportType>
+    <reportType>Cases_with_Reporting_Fields__c</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
-        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <dateColumn>Case$ClosedDate</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
