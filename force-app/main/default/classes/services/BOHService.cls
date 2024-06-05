@@ -78,7 +78,7 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + System.Label.MS_Update_Expense,
+      System.Label.MS_Update_Expense,
       HTTP_METHOD.HTTP_PATCH,
       headers,
       expenseBody
@@ -392,7 +392,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + System.Label.MS_Get_SOP + sopId,
+      System.Label.MS_Get_SOP + sopId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
