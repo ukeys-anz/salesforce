@@ -1,0 +1,98 @@
+[data-omni-key="debtDetails"],
+[data-omni-key="closeDebt"],
+[data-omni-key="debtAmounts"],
+[data-omni-key="debtEvidenced"],
+[data-omni-key="debtAmountsLimit"],
+[data-omni-key="debtAmountsFixed"] {
+  --slds-c-accordion-summary-color-background: #f3f2f2;
+}
+[data-omni-key="debtDetails"] fieldset,
+[data-omni-key="closeDebt"] fieldset,
+[data-omni-key="debtAmounts"] fieldset,
+[data-omni-key="debtEvidenced"] fieldset,
+[data-omni-key="debtAmountsLimit"] fieldset,
+[data-omni-key="debtAmountsFixed"] fieldset,
+[data-omni-key="otherCreditDetailsLabel"],
+[data-omni-key="otherLoanDetailsLabel"],
+[data-omni-key="remainingTermLabel"],
+[data-omni-key="otherBnplDetailsLabel"],
+[data-omni-key="otherBnplDetailsFixedLabel"],
+[data-omni-key="otherOverdraftDetailsLabel"] {
+  padding-top: 12px !important;
+}
+
+.omniscript-body.slds-card__body.slds-card__body_inner.slds-m-top_medium.slds-p-right_medium.slds-col.slds-grid.slds-grid_vertical.slds-size_1-of-1 {
+  padding: unset;
+}
+.slds-page-header__title.slds-p-horizontal_medium.slds-text-heading--medium.slds-m-top_medium.os-step-label {
+  display: none;
+}
+.vlc-separator {
+  display: none;
+}
+[data-omni-key="detailsGroup"],
+[data-omni-key="paidGroup"],
+[data-omni-key="evidenceGroup"],
+[data-omni-key="debtSelectionGroup"],
+[data-omni-key="bnplTypeGroup"] {
+  border: solid 2px;
+  border-color: #e5e5e5;
+  border-radius: 5px;
+  padding-top: -10px;
+}
+[data-omni-key="evidenceGroup"],
+[data-omni-key="paidGroup"] {
+  margin-top: 12px;
+}
+
+.slds-grid.slds-wrap.slds-size_1-of-1.slds-p-left_medium {
+  padding-right: 52px;
+  padding-left: 52px;
+}
+
+.slds-grid.slds-wrap.slds-gutters.slds-p-horizontal_medium.slds-show_medium {
+  padding-left: 4%;
+  padding-right: 4%;
+  margin-top: 2%;
+  margin-bottom: 1%;
+}
+
+.omniscript-body.slds-card__body.slds-card__body_inner.slds-m-top_medium.slds-p-right_medium.slds-col.slds-grid.slds-grid_vertical.slds-size_1-of-1 {
+  border: solid 2px;
+  border-color: #e5e5e5;
+  border-radius: 5px;
+}
+
+.slds-radio {
+  margin-top: 8px;
+}
+
+h3.slds-truncate {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+runtime_omnistudio_omniscript-omniscript-formatted-rich-text h3 {
+  font-weight: 700;
+  font-size: 13px !important;
+}
+
+[data-omni-key="headerTitle"],
+[data-omni-key="bnplHeaderTitle"] {
+  background: #014486;
+  padding-bottom: 2% !important;
+  padding-top: 2% !important;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  border: solid 2px;
+  border-radius: 5px;
+}
+
+button.vlocity-btn.slds-button.slds-button_base span {
+  border: solid 1px;
+  border-radius: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 14px;
+}

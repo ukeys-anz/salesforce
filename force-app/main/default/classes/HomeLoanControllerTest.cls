@@ -45,7 +45,6 @@ public inherited sharing class HomeLoanControllerTest {
     if (!permissionSetAssigned.contains('BoH_Read_Only')) {
       TestUtil.addPermissionSets(new List<String>{ 'BoH_Read_Only' });
     }
-
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();

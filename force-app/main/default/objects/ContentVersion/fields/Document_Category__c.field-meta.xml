@@ -83,6 +83,11 @@
                 <default>false</default>
                 <label>CFaaS File</label>
             </value>
+            <value>
+                <fullName>DAON File</fullName>
+                <default>false</default>
+                <label>DAON File</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

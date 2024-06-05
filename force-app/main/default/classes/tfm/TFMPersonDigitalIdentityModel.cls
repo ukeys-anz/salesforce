@@ -64,6 +64,7 @@ public with sharing class TFMPersonDigitalIdentityModel extends CalloutModel {
     public String securityMobile;
     public String idxInternalUserId;
     public Integer identityAssuranceLevel;
+    public List<String> archivedIdentifiers;
     public List<Persona> persona;
     public List<Credential> credential;
   }

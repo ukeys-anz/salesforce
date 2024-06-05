@@ -280,15 +280,15 @@ public with sharing class CCRMLogAResponseController {
     try {
       Database.insert(responseRecord);
       return JSON.serialize(
-          new ResponseCapturedDataWrapper(
-              responseRecord.Id,
-              validateCampaignDateMaxExpiry(leadRespWrapper.leadId)
-          )
+        new ResponseCapturedDataWrapper(
+          responseRecord.Id,
+          validateCampaignDateMaxExpiry(leadRespWrapper.leadId)
+        )
       );
     } catch (Exception e) {
-        Logger.error('Error occured while logging response',e);
-        Logger.saveLog();
-        throw new AuraHandledException(e.getMessage());
+      Logger.error('Error occured while logging response', e);
+      Logger.saveLog();
+      throw new AuraHandledException(e.getMessage());
     }
   }
 

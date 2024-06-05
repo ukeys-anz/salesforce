@@ -1,0 +1,50 @@
+.text-container {
+  padding-left: 20px;
+  padding-top: 15px;
+}
+
+.image-with-text {
+  display: flex;
+}
+
+.typeimg {
+  height: 40px;
+  width: 40px;
+  padding: 0%;
+}
+
+.tick {
+  height: 25px;
+  width: 25px;
+  padding: 0%;
+}
+
+.custom-header {
+  background-color: #e5e5e5;
+  height: 35px;
+}
+
+.no-padding-vertical {
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+
+td {
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+
+.col1 {
+  text-align: left;
+  width: 22%;
+}
+
+.col2,
+.col3 {
+  text-align: center;
+  width: 30%;
+}
+.col4 {
+  text-align: right;
+  width: 18%;
+}

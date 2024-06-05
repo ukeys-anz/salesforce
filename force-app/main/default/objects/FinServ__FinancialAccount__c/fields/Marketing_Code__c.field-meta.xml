@@ -4,7 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_OCV;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
     <description>Zafin Account Marketing code from OCV at financial account level</description>
-    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>Marketing Code</label>
     <length>50</length>

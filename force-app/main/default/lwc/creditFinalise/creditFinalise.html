@@ -46,17 +46,28 @@
             credit referral case for reassessment.
           </template>
           <template lwc:else>
-            <p>
-              Assessment outcome is
-              <span class={assessmentOutcome}>
-                <strong> {assessmentOutcome}</strong>
-              </span>
-            </p>
-            <br />
-            <p>
-              Are you sure you'd like to finalise this assessment and close this
-              case?
-            </p>
+            <div
+              class="slds-text-align_left"
+              style="padding-left: 15%; padding-right: 15%"
+            >
+              <p>
+                Assessment outcome is:
+                <span class={assessmentOutcome}>
+                  <strong> {assessmentOutcome}</strong>
+                </span>
+              </p>
+              <br />
+              <p>
+                If there has been a <strong>change made to a debt</strong>,
+                please ensure any required supporting Debt Evidence has been
+                received.
+              </p>
+              <p>
+                <br />
+                Are you sure you'd like to finalise this assessment and close
+                this case?
+              </p>
+            </div>
           </template>
         </div>
 

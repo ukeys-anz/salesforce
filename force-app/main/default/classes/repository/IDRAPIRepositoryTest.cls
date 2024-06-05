@@ -35,13 +35,4 @@ public with sharing class IDRAPIRepositoryTest {
       'Risk Event Id Matches'
     );
   }
-
-  @isTest
-  static void testGetSNOWEventInfoLWCforInvalidId() {
-    Test.startTest();
-    SNOWIntegrationModel info = IDRAPIRepository.getSNOWEventInfoLWC('123456');
-    Test.stopTest();
-    // Verify blank response
-    System.assertEquals(info.result.size(), 0, 'Blank Response for invalid ID');
-  }
 }

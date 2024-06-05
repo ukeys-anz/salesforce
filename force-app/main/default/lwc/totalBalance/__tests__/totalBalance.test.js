@@ -4,6 +4,8 @@ import getFinancialTotalBalance from "@salesforce/apex/TotalBalanceController.ge
 import getFinancialTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved";
 import { setImmediate } from "timers";
 
+const DUMMY_ACCOUNT_RECORD_ID = "001AD00000NmIfxYAF";
+
 jest.mock(
   "@salesforce/apex/TotalBalanceController.getTotalBalance",
   () => ({
@@ -42,13 +44,23 @@ describe("c-totalBalance", () => {
     return new Promise((resolve) => setImmediate(resolve));
   }
 
+  function raiseEvent() {
+    const event = new CustomEvent(
+      "refreshFinances_" + DUMMY_ACCOUNT_RECORD_ID,
+      { detail: "FetchBalance" }
+    );
+    window.dispatchEvent(event);
+  }
+
   it("test balances are displayed", async () => {
     getFinancialTotalBalance.mockResolvedValue(TOTAL_BALANCE);
     getFinancialTotalSaved.mockResolvedValue(TOTAL_SAVE_BALANCE);
     const element = createElement("c-totalBalance", {
       is: totalBalance
     });
+    element.recordId = DUMMY_ACCOUNT_RECORD_ID;
     document.body.appendChild(element);
+    raiseEvent();
     await flushPromises();
     let balance = element.shadowRoot.querySelector(
       "lightning-formatted-number[data-id='total-balance']"
@@ -69,7 +81,9 @@ describe("c-totalBalance", () => {
       is: totalBalance
     });
 
+    element.recordId = DUMMY_ACCOUNT_RECORD_ID;
     document.body.appendChild(element);
+    raiseEvent();
     await flushPromises();
     let error = element.shadowRoot.querySelector("c-error[data-id='error']");
     let balance = element.shadowRoot.querySelector(
@@ -90,7 +104,9 @@ describe("c-totalBalance", () => {
     const element = createElement("c-totalBalance", {
       is: totalBalance
     });
+    element.recordId = DUMMY_ACCOUNT_RECORD_ID;
     document.body.appendChild(element);
+    raiseEvent();
     await flushPromises();
 
     let balance = element.shadowRoot.querySelector(
@@ -119,7 +135,9 @@ describe("c-totalBalance", () => {
       is: totalBalance
     });
 
+    element.recordId = DUMMY_ACCOUNT_RECORD_ID;
     document.body.appendChild(element);
+    raiseEvent();
     await flushPromises();
     let totalSaved = element.shadowRoot.querySelector(
       "lightning-formatted-number[data-id='amount-saved']"

@@ -75,6 +75,7 @@ public with sharing class CreditReferralModel extends CalloutModel {
     public Boolean editable;
     public String reasonCodeId;
     public String creditEnquiryAssessmentId;
+    public String propertyId;
 
     /**
      * @description createTime format to 'dd/MM/yyyy HH:mm' in local time for interface

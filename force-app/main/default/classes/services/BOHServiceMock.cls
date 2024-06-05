@@ -257,4 +257,51 @@ public with sharing class BOHServiceMock extends Service {
     }
     return response;
   }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param debtBody post data of debt information
+   * @return `HttpCalloutResponse` the api response
+   * @description create debt
+   */
+  public override HttpCalloutResponse createDebt(
+    String ocvId,
+    String debtBody
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param debtBody post data of debt information
+   * @return `HttpCalloutResponse` the api response
+   * @description edit debt
+   */
+  public override HttpCalloutResponse editDebt(String ocvId, String debtBody) {
+    if (!preset) {
+      response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
+   * @param sopId sop id of the customer account
+   * @param ocvId ocv id of the customer account
+   * @param debtBody name and tag of debt to be deleted
+   * @return `HttpCalloutResponse` the api response
+   * @description delete debt
+   */
+  public override HttpCalloutResponse deleteDebt(
+    String sopId,
+    String ocvId,
+    String debtBody
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
+    }
+    return response;
+  }
 }
