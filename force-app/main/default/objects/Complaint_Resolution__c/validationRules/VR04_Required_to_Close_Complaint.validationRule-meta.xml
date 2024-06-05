@@ -9,10 +9,8 @@ OR(
 IDR_Complaint__r.RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 IDR_Complaint__r.RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-OR(
+
 ISPICKVAL(IDR_Complaint__r.Status, &apos;Closed&apos;),
-ISPICKVAL(IDR_Complaint__r.Status, &apos;Provisionally Closed&apos;)
-),
 ISPICKVAL( IDR_Complaint_Remedy__c , &apos;&apos;)
 )</errorConditionFormula>
     <errorMessage>To close the case or to resolve the case, complaint remedy must be populated</errorMessage>

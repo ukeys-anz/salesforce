@@ -33,6 +33,11 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
+        <field>IDR_Description_of_Outcome_Offered__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>IDR_Systemic_Issue_Description__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

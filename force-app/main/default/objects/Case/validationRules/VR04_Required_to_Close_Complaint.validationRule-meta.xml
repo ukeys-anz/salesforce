@@ -10,7 +10,7 @@
         RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
         RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
     ),
-    OR(
+    
         AND(
             ISPICKVAL(Status, &apos;Closed&apos;),
             OR(
@@ -18,15 +18,9 @@
                 ISBLANK(IDR_Description_of_Outcome__c),
                 ISBLANK(TEXT(IDR_Is_Common__c))
             )
-        ),
-        AND(
-            ISPICKVAL(Status, &apos;Provisionally Closed&apos;),
-            OR(
-                ISBLANK(TEXT(IDR_Complaint_Outcome__c)),
-                ISBLANK(IDR_Description_of_Outcome__c)
-            )
         )
-    )
+       
+    
 )</errorConditionFormula>
     <errorMessage>To close the case, Complaint Outcome, Are any of the issues possibly systemic? and Description of Outcome must be populated.
         To resolve the case, Complaint Outcome and Description of Outcome must be populated.</errorMessage>
