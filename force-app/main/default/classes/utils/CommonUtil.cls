@@ -270,7 +270,10 @@ public with sharing class CommonUtil {
       fieldName == 'IDR_Systemic_Issue_Description__c' ||
       fieldName == 'IDR_Other_Remedy_Provided__c' ||
       fieldName == 'IDR_Other_Remedy_Provided_2__c' ||
-      fieldName == 'IDR_Other_Remedy_Provided_3__c'
+      fieldName == 'IDR_Other_Remedy_Provided_3__c' ||
+      fieldName == 'IDR_Description_of_Outcome_Offered__c'||
+      fieldName == 'IDR_Other_Remedy_Offered__c'
+
     ) {
       TextUtils.maskDataCmos(record, fieldName);
     } else {
