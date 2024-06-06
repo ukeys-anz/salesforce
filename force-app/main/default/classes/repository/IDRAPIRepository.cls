@@ -85,26 +85,30 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
    * @description calls the service class methods for integration/callout
    */
   public SNOWIntegrationModel getSNOWEventInfo(String riskEventId) {
-    SNOWIntegrationModel result;
     SNOWIntegrationService service = (SNOWIntegrationService) ServiceProvider.getService(
       SNOWIntegrationService.class
     );
-    HttpCalloutResponse response = service.getSNOWRiskEventInformation(
-      riskEventId
-    );
-    if (response.successful == false) {
-      Logger.error(
-        'ServiceNow Error - Status Code - ' + response.statusCode,
-        response.error,
-        Logger.Severity.HIGH
-      );
-      Logger.saveLog();
-    }
+
     try {
-      result = SNOWIntegrationModel.parse(response.body);
+      HttpCalloutResponse response = service.getSNOWRiskEventInformation(
+        riskEventId
+      );
+      if (response.successful == true) {
+        return SNOWIntegrationModel.parse(response.body);
+      }
+      if (response.statusCode >= 500) {
+        Logger.error(
+          'ServiceNow Error - Status Code - ' + response.statusCode,
+          response.error,
+          Logger.Severity.HIGH
+        );
+        Logger.saveLog();
+      }
+      handleErrors(null, response.error, IDRAPIRepository.class);
+      throw response.error;
     } catch (Exception e) {
       handleErrors(null, e, IDRAPIRepository.class);
+      throw e;
     }
-    return result;
   }
 }

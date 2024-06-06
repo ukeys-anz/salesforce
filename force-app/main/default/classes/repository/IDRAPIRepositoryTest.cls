@@ -35,4 +35,40 @@ public with sharing class IDRAPIRepositoryTest {
       'Risk Event Id Matches'
     );
   }
+
+  @isTest
+  static void testServiceNowAPICallFailure() {
+    HttpCalloutResponse res = getAPIFailureResponse();
+    Service serv = ServiceProvider.getService(SNOWIntegrationService.class);
+    serv.setCalloutResponse(res);
+    IDRAPIRepository repo = new IDRAPIRepository();
+    Exception calloutException;
+    Test.startTest();
+    try {
+      SNOWIntegrationModel result = repo.getSNOWEventInfo('IRE0073261');
+    } catch (Exception e) {
+      calloutException = e;
+    }
+    Test.stopTest();
+    System.assertEquals(
+      calloutException,
+      res.error,
+      'Exception should be same as actual response error'
+    );
+    System.assertEquals(
+      500,
+      res.statusCode,
+      'Status Code matches for Internal Server Error'
+    );
+  }
+
+  private static HttpCalloutResponse getAPIFailureResponse() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.error = new CalloutException(
+      '{"message":{"Internal Server Error"}}'
+    );
+    response.statusCode = 500;
+    response.successful = false;
+    return response;
+  }
 }
