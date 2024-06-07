@@ -167,18 +167,30 @@ public with sharing class StravinskyService extends Service {
       GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS => cobCase.Id,
       GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => cobCase.ParentId
     };
+    Map<Id, String> reasonMap = new Map<Id, String>{
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID => GetHelpConstants.ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST,
+      GetHelpConstants.FRAUD_CHECK_RT_ID => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    };
+    RetryStagePayload retryStagePayload = new RetryStagePayload();
 
     if (statusCaseIdMap.containsKey(cobCase.Status)) {
       ApproveSelfieIDCheckPayload selfieIdPayload = new ApproveSelfieIDCheckPayload();
       selfieIdPayload.caseId = statusCaseIdMap.get(cobCase.Status);
       return JSON.serialize(selfieIdPayload);
-    } else if (cobCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS) {
-      RetryStagePayload retryStagePayload = new RetryStagePayload();
+    }
+    if (cobCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS) {
       retryStagePayload.reason = cobCase.OnboardingVerificationFailedReason__c;
       return JSON.serialize(retryStagePayload);
     }
+    if (cobCase.Status != GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS) {
+      return EMPTY_BODY;
+    }
+    if (!reasonMap.containsKey(cobCase.RecordTypeId)) {
+      return EMPTY_BODY;
+    }
+    retryStagePayload.reason = reasonMap.get(cobCase.RecordTypeId);
 
-    return EMPTY_BODY;
+    return JSON.serialize(retryStagePayload);
   }
 
   /**

@@ -1,0 +1,69 @@
+<template>
+  <lightning-card>
+    <table
+      class="slds-table slds-table_cell-buffer slds-table_bordered slds-no-row-hover slds-table_fixed-layout"
+    >
+      <thead>
+        <tr class="slds-line-height_reset">
+          <th class="col1 custom-header" scope="col">
+            <div title="Finances">Finances</div>
+          </th>
+          <th class="col2 custom-header" scope="col">
+            <div title="column1header">{column1header}</div>
+          </th>
+          <th class="col3 custom-header" scope="col" lwc:if={column2header}>
+            <div title="column2header">{column2header}</div>
+          </th>
+          <th class="col4 custom-header" scope="col">
+            <div title="TotalAmount">Total Amount</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <template for:each={rows} for:item="row">
+          <tr class="slds-line-height_reset" key={row.type}>
+            <td class="col1 no-padding-vertical">
+              <div class="image-with-text">
+                <img src={row.imgsrc} class="typeimg" />
+                <div class="text-container">
+                  <p>{row.type}</p>
+                </div>
+              </div>
+            </td>
+            <td class="col2 no-padding-vertical">
+              <template lwc:if={row.firstUserStatus}>
+                <div>
+                  <img src={tickimg} class="tick" />
+                </div>
+              </template>
+              <template lwc:else>
+                <p>Review</p>
+              </template>
+            </td>
+            <td class="col3 no-padding-vertical" lwc:if={column2header}>
+              <template lwc:if={row.secondUserStatus}>
+                <div>
+                  <img src={tickimg} class="tick" />
+                </div>
+              </template>
+              <template lwc:else>
+                <p>Review</p>
+              </template>
+            </td>
+            <td class="col4 no-padding-vertical">
+              <div title="amount">
+                <lightning-formatted-number
+                  value={row.TotalAmount}
+                  format-style="currency"
+                  currency-code="AUD"
+                  minimum-fraction-digits="2"
+                  maximum-fraction-digits="2"
+                ></lightning-formatted-number>
+              </div>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </lightning-card>
+</template>

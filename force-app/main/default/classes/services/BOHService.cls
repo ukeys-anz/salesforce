@@ -4,6 +4,7 @@
  * @description Service class for residential loan application
  * @group Services
  */
+@SuppressWarnings('PMD.ExcessivePublicCount')
 public with sharing class BOHService extends Service {
   public static final String ANZPLUSLOAN = 'ANZ PLUS LOAN APPLIED FOR';
   public static final String FLEXCARDDATETIMEDISPLAYFORMAT = 'd MMMM y | K:mm a';
@@ -403,14 +404,14 @@ public with sharing class BOHService extends Service {
   /**
    * @param sopId sop id to retrieve customer information
    * @param ocvId ocv id of the customer account
-   * @param deleIncomeModel delete income model
+   * @param deleModel delete income model
    * @return `HttpCalloutResponse` the api response
    * @description delete income from sop
    */
   public override HttpCalloutResponse deleteIncome(
     String sopId,
     String ocvId,
-    String deleIncomeModel
+    String deleModel
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
@@ -418,12 +419,10 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Income +
-        '?etag=' +
-        SOPDeleteIncomeModel.parse(deleIncomeModel).etag,
+      System.Label.MS_Income + '?etag=' + SOPDeleteModel.parse(deleModel).etag,
       HTTP_METHOD.HTTP_DELETE,
       headers,
-      deleIncomeModel
+      deleModel
     );
 
     return response;
@@ -460,6 +459,81 @@ public with sharing class BOHService extends Service {
       HTTP_METHOD.HTTP_POST,
       headers,
       requestBody
+    );
+
+    return response;
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param debtBody post data of debt information
+   * @return `HttpCalloutResponse` the api response
+   * @description create debt
+   */
+  public override HttpCalloutResponse createDebt(
+    String ocvId,
+    String debtBody
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_CH2' + System.Label.MS_SOP_Debt,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      debtBody
+    );
+    return response;
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param debtBody post data of debt information
+   * @return `HttpCalloutResponse` the api response
+   * @description edit debt
+   */
+  public override HttpCalloutResponse editDebt(String ocvId, String debtBody) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_CH2' + System.Label.MS_SOP_Debt,
+      HTTP_METHOD.HTTP_PATCH,
+      headers,
+      debtBody
+    );
+    return response;
+  }
+
+  /**
+   * @param sopId sop id to retrieve customer information
+   * @param ocvId ocv id of the customer account
+   * @param deleModel delete model
+   * @return `HttpCalloutResponse` the api response
+   * @description delete debt from sop
+   */
+  public override HttpCalloutResponse deleteDebt(
+    String sopId,
+    String ocvId,
+    String deleModel
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers.put('Content-Type', 'application/json');
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_CH2' +
+        System.Label.MS_SOP_Debt +
+        '?etag=' +
+        SOPDeleteModel.parse(deleModel).etag,
+      HTTP_METHOD.HTTP_DELETE,
+      headers,
+      deleModel
     );
 
     return response;

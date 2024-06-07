@@ -3,11 +3,54 @@
  * @since Jun 2023
  * @description model for SOP Debt
  * @group Models
+ * Suppressing public count and too many fields since it is model class
  */
+@SuppressWarnings('PMD.ExcessivePublicCount,PMD.TooManyFields')
 public class SOPDebt {
+  public static final List<String> TYPE_LIST = new List<String>{
+    ResidentialLoanApplicationModel.LINE_OF_CREDIT_LIABILITY,
+    ResidentialLoanApplicationModel.MARGIN_LOAN,
+    ResidentialLoanApplicationModel.OVERDRAFT
+  };
+
   public String id;
   public String sopId;
   public String type;
+  public Boolean hasRefinance = false;
+  public Boolean showEditDebtBtn;
+  public Boolean allowdelete;
+  public String name;
+  public String termType;
+  public String uid;
+  public Boolean paidOffAndClosed;
+  public Boolean evidenceProvided;
+  public Boolean validatedOutstandingBalance;
+  public SOPInstitutionalLiability institutionalLiability;
+  public SOPAccounts account;
+  public List<SOPOwnership> ownership;
+  public String createTime;
+  public Datetime updateTime;
+  public String etag;
+  public Boolean showDeleteDebtBtn;
+  /**
+   * @description return readable value of term type
+   */
+  public String readableTermType {
+    get {
+      switch on termType {
+        when 'LIABILITY_TERM_TYPE_FIXED' {
+          return 'Fixed';
+        }
+        when 'LIABILITY_TERM_TYPE_VARIABLE' {
+          return 'Variable';
+        }
+        when else {
+          //LIABILITY_TERM_TYPE_UNSPECIFIED handled here too
+          return 'Unspecified';
+        }
+      }
+    }
+  }
   /**
    * @description return the debt type
    */
@@ -67,11 +110,6 @@ public class SOPDebt {
     }
     return result.trim();
   }
-  public SOPInstitutionalLiability institutionalLiability;
-  public SOPAccounts account;
-  public List<SOPOwnership> ownership;
-  public String createTime;
-  public Datetime updateTime;
   /**
    * @description return update time in the expected format
    */
@@ -100,6 +138,22 @@ public class SOPDebt {
       }
     }
   }
+
+  /**
+   * @description overdraft balance when the source is ANZ
+   */
+  public String overdraftBalance {
+    get {
+      if (
+        type == ResidentialLoanApplicationModel.OVERDRAFT &&
+        outstandingBalance?.units != null &&
+        Integer.valueof(outstandingBalance?.units) < 0
+      ) {
+        return String.valueOf(outstandingBalance.minusValue);
+      }
+      return '0';
+    }
+  }
   /**
    * @description return the transformed value of outstandingbalance based on its value from payload
    */
@@ -116,14 +170,43 @@ public class SOPDebt {
   public SOPMoney verifiedOutstandingBalance;
 
   /**
+   * @description return the ownership size
+   */
+  public Integer ownershipSize {
+    get {
+      return this.ownership.size();
+    }
+  }
+
+  /**
    * @description return the owner name of the debt
    */
   public string ownerName {
     get {
+      if (this.ownership.size() > 1) {
+        return ResidentialLoanApplicationModel.JOINT_ACCOUNT;
+      }
+      if (Integer.valueOf(this.ownership[0].proportion.value) == 50) {
+        return this.ownership[0].ownerName +
+          ResidentialLoanApplicationModel.SOMEONE_ELSE;
+      }
+      return this.ownership[0].ownerName;
+    }
+  }
+
+  /**
+   * @description return the owner name of the debt in case of joint (For Student loan, Buy now Pay later Facility
+   * and Credit card)
+   */
+  public String jointOwnerName {
+    get {
       if (this.ownership.size() == 1) {
         return this.ownership[0].ownerName;
       }
-      return ResidentialLoanApplicationModel.JOINT_ACCOUNT;
+      if (this.ownership[0].ownerName != null) {
+        return this.ownership[0].ownerName;
+      }
+      return this.ownership[1].ownerName;
     }
   }
 
@@ -138,6 +221,79 @@ public class SOPDebt {
         return ResidentialLoanApplicationModel.BNPL_LOAN_TYPE;
       }
       return '';
+    }
+  }
+
+  /**
+   * @description Class to compare OutstandingBalance where the debt utilises balance
+   */
+  public class OutstandingBalanceCompare implements Comparator<SOPDebt> {
+    /**
+     * @description compare Debts by outstanding balance
+     * @param debt1 SOPDebt to compare
+     * @param debt2 Other SOPDebt to compare
+     * @return `Integer`
+     */
+    public Integer compare(SOPDebt debt1, SOPDebt debt2) {
+      try {
+        if (
+          (TYPE_LIST.contains(debt1.type) && TYPE_LIST.contains(debt2.type)) ||
+          debt1.outstandingBalance?.minusValue == null &&
+          debt2.outstandingBalance?.minusValue == null
+        ) {
+          return 0;
+        }
+
+        if (
+          debt1.outstandingBalance.minusValue >
+          debt2.outstandingBalance.minusValue
+        ) {
+          return 1;
+        }
+        return -1;
+      } catch (Exception e) {
+        Logger.error(e.getMessage());
+        Logger.saveLog();
+      }
+
+      return 0;
+    }
+  }
+
+  /**
+   * @description Class to compare debts by limit amount where the debt utilises credit
+   */
+  public class InstitutionalLiabilityCompare implements Comparator<SOPDebt> {
+    /**
+     * @description compare debts by limit amount
+     * @param debt1 SOPDebt to compare
+     * @param debt2 Other SOPDebt to compare
+     * @return `Integer`
+     */
+    public Integer compare(SOPDebt debt1, SOPDebt debt2) {
+      try {
+        if (
+          (!TYPE_LIST.contains(debt1.type) &&
+          !TYPE_LIST.contains(debt2.type)) ||
+          (debt1.institutionalLiability?.limitAmount?.value == null &&
+          debt2.institutionalLiability?.limitAmount?.value == null)
+        ) {
+          return 0;
+        }
+
+        if (
+          debt1.institutionalLiability.limitAmount.value <
+          debt2.institutionalLiability.limitAmount.value
+        ) {
+          return 1;
+        }
+        return -1;
+      } catch (Exception e) {
+        Logger.error(e.getMessage());
+        Logger.saveLog();
+      }
+
+      return 0;
     }
   }
 }

@@ -69,6 +69,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String MARGIN_LOAN = 'LIABILITY_TYPE_MARGIN_LOAN';
   public static final String OTHER_LIABILITY = 'LIABILITY_TYPE_OTHER_LIABILITY';
   public static final String PERSONAL_LOAN = 'LIABILITY_TYPE_PERSONAL_LOAN';
+  public static final String PROPERTY_LOAN = 'LIABILITY_TYPE_PROPERTY_LOAN'; //property exclude home
+  public static final String UNSPECIFIED_LIABILITY = 'LIABILITY_TYPE_UNSPECIFIED';
+  public static final String SOMEONE_ELSE = ' & someone else';
 
   //BNPL
   public static final String BNPL_FACILITY = 'Bpl Facility';
@@ -77,6 +80,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String BNPL_LOAN_TYPE = 'Fixed Amount';
   public static final String BPL_FACILITY = 'LIABILITY_TYPE_BPL_FACILITY';
   public static final String BPL_LIABILITY = 'LIABILITY_TYPE_BPL_LOAN';
+  public static final String BUREAU_STATE_COMPLETE = 'LOAD_BUREAU_LIABILITIES_STATE_COMPLETE';
 
   public Boolean showAddIncomeBtn;
   public Boolean showEditExpenseBtn;
@@ -96,6 +100,21 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public Integer sourceSize {
     get {
       return liabilitiesSummary.sources.size();
+    }
+  }
+
+  /**
+   * @description return the boolean value to check if consent received.
+   */
+  public boolean consentReceived {
+    get {
+      boolean value = true;
+      for (SOPDebtSources source : liabilitiesSummary.sources) {
+        if (source.loadBureauLiabilitiesState != BUREAU_STATE_COMPLETE) {
+          return false;
+        }
+      }
+      return true;
     }
   }
   /**
@@ -122,6 +141,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
     Map<String, String> partyToOcvMap = new Map<String, String>();
     Map<String, Account> accOcvMap = new Map<String, Account>();
+    Set<SOPOwnership> ownershipSet = new Set<SOPOwnership>();
     for (SOPParty party : sop.parties) {
       partyToOcvMap.put(party.id, party.ocvId);
     }
@@ -136,12 +156,19 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
       }
     }
-    for (SOPDebt debt : liabilitiesSummary.liabilities) {
-      if (debt.ownership != null) {
-        for (SOPOwnership owner : debt.ownership) {
-          ocvIdSet.add(partyToOcvMap.get(owner.partyId));
-        }
+    for (SOPDebt debt : liabilitiesSummary?.liabilities) {
+      if (debt.ownership == null) {
+        continue;
       }
+      ownershipSet.addAll(debt.ownership);
+    }
+
+    for (SOPOwnership owner : ownershipSet) {
+      ocvIdSet.add(partyToOcvMap.get(owner.partyId));
+    }
+
+    for (SOPIncome income : incomesSummary.incomes) {
+      ocvIdSet.add(partyToOcvMap.get(income.employment.partyId));
     }
 
     for (SOPIncome income : incomesSummary.incomes) {
@@ -450,6 +477,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPModel {
     public List<SOPParty> parties;
     public String name;
+    public List<Component> components;
 
     /**
      * @description sop id of the whole payload
@@ -466,6 +494,15 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public Integer partySize {
       get {
         return this.parties.size();
+      }
+    }
+
+    /**
+     * @description return stringified components
+     */
+    public String componentsToString {
+      get {
+        return JSON.serialize(this.components);
       }
     }
 
@@ -548,6 +585,23 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public String id;
     public String ocvId;
     public DateTime confirmedAccountsTime;
+  }
+
+  /**
+   * @description model for component
+   */
+  public class Component {
+    public string type;
+    public boolean confirmed;
+    public List<Partyconfirmation> partyConfirmations;
+  }
+
+  /**
+   * @description model for party confirmation
+   */
+  public class PartyConfirmation {
+    public string partyId;
+    public string confirmedTime;
   }
 
   /**
@@ -1050,6 +1104,12 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
     if (model.incomesSummary.incomes != null) {
       model.incomesSummary.incomes.sort();
+    }
+    if (model.liabilitiesSummary.liabilities != null) {
+      SOPDebt.OutstandingBalanceCompare obCompare = new SOPDebt.OutstandingBalanceCompare();
+      SOPDebt.InstitutionalLiabilityCompare ilCompare = new SOPDebt.InstitutionalLiabilityCompare();
+      model.liabilitiesSummary.liabilities.sort(obCompare);
+      model.liabilitiesSummary.liabilities.sort(ilCompare);
     }
     return model;
   }

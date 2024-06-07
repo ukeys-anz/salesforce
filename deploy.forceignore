@@ -82,9 +82,6 @@ force-app/main/default/datacategorygroups
 #Ignoring deleted platform event for Nov 10 develop merge - CMOS
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e
 
-#Ignoring the deploy user's pset, likely to break scratch org creation
-force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
-
 #Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
 #as metadata API does not support deleting record type, to avoid destructive change error
 force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml
@@ -137,6 +134,7 @@ force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
+force-app/main/default/objects/Case/listViews/Deceased_Estate_Cases.listView-meta.xml
 
 #ignore to allow linting
 force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
@@ -201,12 +199,6 @@ force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 
 #CC-6285 ignore for manual delete
 force-app/main/default/flows/CCRM_Hide_Expired_Contacts_Schedule.flow-meta.xml
-
-
-#CC-8329 Dependent Components Manual Deployment until next release
-force-app/main/default/lwc/realFormIdBtn
-force-app/main/default/quickActions/Case.Validate_Event_ID.quickAction-meta.xml
-force-app/main/default/flexipages/Complaint_Record_Page.flexipage-meta.xml
 
 #ANZX-157800 AUF Transformer squad
 force-app/main/default/aura/QuickActionAuraContainer

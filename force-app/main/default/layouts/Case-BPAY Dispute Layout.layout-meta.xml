@@ -74,6 +74,10 @@
                 <behavior>Required</behavior>
                 <field>Customer_Reference_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Transaction_Status__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

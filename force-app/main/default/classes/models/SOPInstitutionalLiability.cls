@@ -25,6 +25,9 @@ public class SOPInstitutionalLiability {
   public Integer principalInterestRemainingTerm;
   public Integer interestOnlyRemainingTerm;
   public Boolean paidInFull;
+  public Boolean validatedLimit;
+  Boolean validatedPrincipalInterestRemainingTerm;
+  Boolean validatedOutstandingBalance;
   /**
    * @description return the transformed value of paidInFull for flexcard UI
    */
@@ -92,6 +95,36 @@ public class SOPInstitutionalLiability {
   public String readableVerifiedPIRemainingTerm {
     get {
       return fetchReadableTerm(verifiedPrincipalInterestRemainingTerm);
+    }
+  }
+
+  /**
+   * @description return the months of the remaining term
+   */
+  public Integer months {
+    get {
+      if (
+        principalInterestRemainingTerm == null ||
+        principalInterestRemainingTerm == 0
+      ) {
+        return 0;
+      }
+      return Math.mod(principalInterestRemainingTerm, 12);
+    }
+  }
+
+  /**
+   * @description return the years of the remaining term
+   */
+  public Integer years {
+    get {
+      if (
+        principalInterestRemainingTerm == null ||
+        principalInterestRemainingTerm == 0
+      ) {
+        return 0;
+      }
+      return principalInterestRemainingTerm / 12;
     }
   }
 

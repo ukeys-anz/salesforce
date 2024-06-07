@@ -5,6 +5,28 @@
     <compactLayoutAssignment>DCRM_CLG_Compact_Layout</compactLayoutAssignment>
     <label>CLG</label>
     <picklistValues>
+        <picklist>Advertising_Indicator__c</picklist>
+        <values>
+            <fullName>N</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Disclosure_Indicator__c</picklist>
+        <values>
+            <fullName>N</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>FinServ__BorrowingHistory__c</picklist>
         <values>
             <fullName>Excellent</fullName>

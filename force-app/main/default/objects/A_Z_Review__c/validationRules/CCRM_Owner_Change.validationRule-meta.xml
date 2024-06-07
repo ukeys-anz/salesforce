@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Owner_Change</fullName>
+    <active>true</active>
+    <description>Only owner of A-Z review can transfer the ownership</description>
+    <errorConditionFormula>AND(
+				$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+				$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+    NOT(ISNEW()),
+    RecordType.DeveloperName = &apos;Commercial_A_Z_Review&apos;,
+    ISCHANGED(OwnerId),
+    PRIORVALUE(OwnerId) != $User.Id
+)</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>Only owner of A-Z Review can transfer the ownership</errorMessage>
+</ValidationRule>

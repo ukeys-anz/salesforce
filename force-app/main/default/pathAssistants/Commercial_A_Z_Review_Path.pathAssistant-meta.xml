@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>A_Z_Review__c</entityName>
+    <fieldName>Status__c</fieldName>
+    <masterLabel>Commercial A-Z Review Path</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong&gt;&lt;u&gt;Changes cannot be made after 14 days upon completion on A-Z review&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;</info>
+        <picklistValueName>Completed</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Commercial_A_Z_Review</recordTypeName>
+</PathAssistant>

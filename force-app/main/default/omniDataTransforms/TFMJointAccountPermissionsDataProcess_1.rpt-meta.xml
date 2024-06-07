@@ -112,7 +112,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>TFMJointAccountPermissionsDataProcess</name>
-        <name>TFMJointAccountPermissionsDataProcess</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:workflowExpiresOn 0 19 SUBSTRING</formulaConverted>
@@ -130,22 +129,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>TFMJointAccountPermissionsDataProcess</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:workflowExpiresOn 0 19 SUBSTRING</formulaConverted>
-        <formulaExpression>SUBSTRING(workflowExpiresOn, 0, 19)</formulaExpression>
-        <formulaResultPath>workflowExpiresOnTemp</formulaResultPath>
-        <formulaSequence>5.0</formulaSequence>
-        <globalKey>TFMJointAccountPermissionsDataProcessCustom6580</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>TFMJointAccountPermissionsDataProcessCustom0jIBm0000002vWrMAIItem4</globalKey>

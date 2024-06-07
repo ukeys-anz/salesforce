@@ -3,8 +3,10 @@
     <description>Permission Set Group related to all Business Admin role functions.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Business_Admin</label>
+    <permissionSets>Action_Plan_Template_Edit</permissionSets>
     <permissionSets>Author_Reports_and_Dashboards</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
+    <permissionSets>force__ActionPlans</permissionSets>
     <permissionSets>View_Setup_And_Users</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

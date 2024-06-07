@@ -127,6 +127,8 @@ export default class TransactionHistoryBoard extends LightningElement {
           currentTransaction.formatted_type = currentTransaction.type
             ? transactionTypeMapping[currentTransaction.type]
             : "Unknown";
+
+          currentTransaction.transaction_status = currentTransaction.status;
           currentTransaction.status = currentTransaction.status
             ? transactionStatusMapping[currentTransaction.status]
             : "Unknown";

@@ -5,6 +5,15 @@
  * @group Models
  */
 public class SOPAccounts {
+  private static final Map<String, String> ACCOUNT_STATUSES = new Map<String, String>{
+    'ACCOUNT_STATE_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
+    'ACCOUNT_STATE_OPEN' => 'Open', // the account is open
+    'ACCOUNT_STATE_ACTIVE' => 'Active', // the account is active
+    'ACCOUNT_STATE_SUSPENDED' => 'Suspended', // the account is suspended
+    'ACCOUNT_STATE_DORMANT' => 'Dormant', // the account is dormant
+    'ACCOUNT_STATE_CLOSED' => 'Closed' // the account is closed
+  };
+
   public string id;
   public string bsb;
   public string accountNumber;
@@ -36,5 +45,13 @@ public class SOPAccounts {
   }
   public string accountName;
   public string status;
+  /**
+   * @description returns a readable status for the account
+   */
+  public String readableStatus {
+    get {
+      return ACCOUNT_STATUSES.get(status);
+    }
+  }
   public string financialInstitution;
 }

@@ -66,6 +66,10 @@
                 <behavior>Edit</behavior>
                 <field>Transaction_Made_By__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Transaction_Status__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

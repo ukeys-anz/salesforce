@@ -359,6 +359,16 @@
                 <identifier>RecordEffective_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Transaction_Status__c</fieldItem>
+                <identifier>RecordTransaction_Status_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-a6ecf972-a37e-4322-b898-284f1685aa8b</name>
         <type>Facet</type>
     </flexiPageRegions>

@@ -72,6 +72,23 @@ public with sharing class CCRMLeadUtil {
   }
 
   /**
+   * @description Check if this Lead record has updated FinServ__RelatedAccount__c
+   * @name isLeadExistingAccountChanged
+   * @param record lead record
+   * @param oldRec old lead record from trigger
+   * @return `Boolean` True if the Lead Owner is updated otherwise false.
+   */
+  public static Boolean isLeadExistingAccountChanged(Lead record, Lead oldRec) {
+    if (
+      oldRec != null &&
+      record.FinServ__RelatedAccount__c != oldRec.FinServ__RelatedAccount__c
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * @description Check if user is ADOBE/UNICA integration user
    * @name isIntegrationUser
    * @return `Boolean` True if user is integration user
