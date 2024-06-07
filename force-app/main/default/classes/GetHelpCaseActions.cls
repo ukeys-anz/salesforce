@@ -72,7 +72,7 @@ public with sharing class GetHelpCaseActions {
    * @param records from the trigger
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
-    List<Id> caseIds = new List<Id>();
+    Set<Id> caseIds = new Set<Id>();
     List<Case> validateCaseList = new List<Case>();
     Set<Id> milestoneCaseIds = new Set<Id>();
 
@@ -901,6 +901,37 @@ public with sharing class GetHelpCaseActions {
     );
 
     DMLUtil.updateRecords(idOpsCases, false, true);
+  }
+
+  /**
+   * @description Update an ID Ops Assistance case's OnboardingVerificationFailedReason__c that's in Watchlist
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   */
+  public static void updateIDOpsWatchlistOnboardingReason(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    //filter only the ID Ops cases with Watchlist Hit and status that's update to Confirmed_Fraud
+    List<Case> idOpsCases = GetHelpCaseActionsHelper.getIDOpsWatchlistRecords(
+      records,
+      oldMap
+    );
+
+    if (idOpsCases.isEmpty()) {
+      return;
+    }
+
+    //get Ids of those that have child records
+    Set<Id> caseIdsWithChildren = GetHelpCaseActionsHelper.getParentCaseIds(
+      new Map<Id, Case>(idOpsCases).keySet()
+    );
+
+    //update OnboardingVerificationFailedReason__c accordingly
+    GetHelpCaseActionsHelper.setIDOpsWatchlistCaseReason(
+      idOpsCases,
+      caseIdsWithChildren
+    );
   }
 
   /**

@@ -472,6 +472,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -536,8 +541,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Originated_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

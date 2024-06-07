@@ -62,32 +62,26 @@ public with sharing class IDREmailServiceHelper {
     );
     if (acw.inAccessibleFields != null) {
       Logger.error(
-        'No create access to fields --' +
-          acw.inAccessibleFields +
-          ' From: ' +
-          fromEmail +
-          ' Subject: ' +
-          email.subject +
-          ' To: ' +
-          senderEmail
+        'No create access to fields --' + acw.inAccessibleFields,
+        Logger.Severity.HIGH
       );
       Logger.saveLog();
-    } else {
-      try {
-        insert newCase;
-      } catch (Exception err) {
-        Logger.error(
-          'From: ' +
-            fromEmail +
-            ' Subject: ' +
-            email.subject +
-            ' To: ' +
-            senderEmail,
-          err
-        );
-        Logger.saveLog();
-      }
+      return null;
     }
+
+    Integer descriptionMaxLength = Case.Description.getDescribe().getLength();
+    Integer descriptionLength = newCase.Description.length();
+    Integer maxLength = descriptionLength > descriptionMaxLength
+      ? descriptionMaxLength
+      : descriptionLength;
+    newCase.Description = newCase.Description.substring(0, maxLength);
+
+    DMLUtil.insertRecords(
+      new List<Case>{ newCase },
+      DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+      DMLUtil.SYSTEM_MODE
+    );
+
     return newCase;
   }
   /**

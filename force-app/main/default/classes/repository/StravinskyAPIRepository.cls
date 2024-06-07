@@ -9,6 +9,8 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   public static Boolean throwException = false; // This is to force an exception to increase unit test coverage as current mock framework only returns positive response. A PDR will be raised to extend the mock framework if similar instances arise.
   @TestVisible
   private static final String MOCK_ERROR = 'Mock Error'; // This is to force an exception to increase unit test coverage as current mock framework only returns positive response. A PDR will be raised to extend the mock framework if similar instances arise.
+  @TestVisible
+  private static final String FAILED_PRECONDITION_CODE = 'failed_precondition';
 
   /**
    * Internal stage
@@ -95,26 +97,31 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     CxStageWrapper cobStage = new CxStageWrapper();
     if (response.successful == true) {
       cobStage.cxOnboardingStage = COB_UPDATED;
-    } else if (response.successful == false && response.statusCode == 412) {
-      COBRASErrorModel parsedResponse;
-      try {
-        parsedResponse = COBRASErrorModel.parse(response.error.getMessage());
-      } catch (Exception e) {
-        handleErrors(response, e, StravinskyService.class);
-      }
+      return cobStage;
+    }
 
-      for (COBRASErrorModel.Details errDetail : parsedResponse.details) {
-        String errorStage = errDetail.debug?.cxOnboardingStage;
-        if (EXPECTED_STAGES_SET.contains(errorStage)) {
-          cobStage.cxOnboardingStage = errorStage;
-          cobStage.retryReason = errDetail.debug?.retryReason;
-          break;
-        }
+    //Attempt to parse excpected Error response
+    COBRASErrorModel parsedResponse;
+    try {
+      parsedResponse = COBRASErrorModel.parse(response.error.getMessage());
+    } catch (Exception e) {
+      handleErrors(response, e, StravinskyService.class);
+    }
+
+    if (parsedResponse.code != FAILED_PRECONDITION_CODE) {
+      handleErrors(response, null, StravinskyService.class);
+    }
+
+    for (COBRASErrorModel.Details errDetail : parsedResponse.details) {
+      String errorStage = errDetail.debug?.cxOnboardingStage;
+      if (EXPECTED_STAGES_SET.contains(errorStage)) {
+        cobStage.cxOnboardingStage = errorStage;
+        cobStage.retryReason = errDetail.debug?.retryReason;
+        break;
       }
-      if (String.isBlank(cobStage.cxOnboardingStage)) {
-        handleErrors(response, null, StravinskyService.class);
-      }
-    } else {
+    }
+
+    if (String.isBlank(cobStage.cxOnboardingStage)) {
       handleErrors(response, null, StravinskyService.class);
     }
 

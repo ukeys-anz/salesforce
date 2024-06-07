@@ -4,7 +4,8 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { messageHandler } from "./helper/helper-message";
 import {
   fraudLockOptionsSchema,
-  showFraudLockOptions
+  showFraudLockOptions,
+  teamToContactOptionsSchema
 } from "./helper/helper-fraud-lock";
 import {
   primaryButtonChatterMessage,
@@ -12,7 +13,10 @@ import {
 } from "./helper/helper-chatter-message";
 import { toastSuccessObjectSchema } from "./helper/helper-confirm-toast-handler";
 import { firstMessageForFraudOption } from "./helper/helper-message";
-import { fraudLockToastErrorObjectSchema } from "./helper/helper-error-toast-handler";
+import {
+  fraudLockToastErrorObjectSchema,
+  noTeamToContactChosenErrorToastSchema
+} from "./helper/helper-error-toast-handler";
 import {
   cardActionReason,
   primaryButtonToCardStatus
@@ -37,20 +41,25 @@ export default class cardFraudLock extends LightningElement {
 
   ocvId;
   fraudLockOptions = [];
+  teamToContactOptions = [];
   displayFraudOptions;
+  displayTeamToContact;
   newCardStatus = "";
+  newTeamToContact = "";
   message = {};
   chatterMessage = "";
   reason = "";
   confirmButtonTriggered = false;
 
   connectedCallback() {
-    this.displayFraudOptions = showFraudLockOptions(this.buttonClicked);
+    this.displayTeamToContact = showFraudLockOptions(this.buttonClicked);
     this.message = messageHandler(this.buttonClicked);
     this.reason = cardActionReason(this.buttonClicked);
 
-    if (this.displayFraudOptions) {
-      this.fraudLockOptions = fraudLockOptionsSchema(this.cardStatus);
+    if (this.displayTeamToContact) {
+      this.teamToContactOptions = teamToContactOptionsSchema(
+        this.newTeamToContact
+      );
     } else {
       this.chatterMessage = primaryButtonChatterMessage(
         this.buttonClicked,
@@ -84,6 +93,24 @@ export default class cardFraudLock extends LightningElement {
     this.fraudLockOptions = fraudLockOptionsSchema(this.newCardStatus);
   };
 
+  teamToContactSelectHandler = (e) => {
+    this.newTeamToContact = e.target.dataset.label;
+    this.teamToContactOptions = teamToContactOptionsSchema(
+      this.newTeamToContact
+    );
+  };
+
+  handleTeamToContact = () => {
+    if (!this.newTeamToContact) {
+      this.showErrorToastTeamToContact();
+      return;
+    }
+
+    this.displayTeamToContact = false;
+    this.displayFraudOptions = true;
+    this.fraudLockOptions = fraudLockOptionsSchema(this.cardStatus);
+  };
+
   handleFraudLock = () => {
     if (this.newCardStatus && this.newCardStatus !== this.cardStatus) {
       this.message = firstMessageForFraudOption(
@@ -93,10 +120,11 @@ export default class cardFraudLock extends LightningElement {
       this.displayFraudOptions = false;
       this.chatterMessage = fraudChatterMessage(
         this.newCardStatus,
-        this.last4Digits
+        this.last4Digits,
+        this.newTeamToContact
       );
     } else {
-      this.showErrorToast();
+      this.showErrorToastFraudLock();
     }
   };
 
@@ -146,11 +174,17 @@ export default class cardFraudLock extends LightningElement {
     this.dispatchEvent(event);
   }
 
-  showErrorToast() {
+  showErrorToastFraudLock() {
     const toastObject = fraudLockToastErrorObjectSchema(
       this.newCardStatus,
       this.cardStatus
     );
+    const event = new ShowToastEvent(toastObject);
+    this.dispatchEvent(event);
+  }
+
+  showErrorToastTeamToContact() {
+    const toastObject = noTeamToContactChosenErrorToastSchema;
     const event = new ShowToastEvent(toastObject);
     this.dispatchEvent(event);
   }

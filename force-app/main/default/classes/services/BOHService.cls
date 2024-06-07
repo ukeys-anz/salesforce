@@ -78,7 +78,7 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + System.Label.MS_Update_Expense,
+      System.Label.MS_Update_Expense,
       HTTP_METHOD.HTTP_PATCH,
       headers,
       expenseBody
@@ -392,7 +392,7 @@ public with sharing class BOHService extends Service {
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + System.Label.MS_Get_SOP + sopId,
+      System.Label.MS_Get_SOP + sopId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null
@@ -480,7 +480,7 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + System.Label.MS_SOP_Debt,
+      'callout:SF_MS_CH2' + System.Label.MS_SOP_Debt,
       HTTP_METHOD.HTTP_POST,
       headers,
       debtBody
@@ -501,7 +501,7 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + System.Label.MS_SOP_Debt,
+      'callout:SF_MS_CH2' + System.Label.MS_SOP_Debt,
       HTTP_METHOD.HTTP_PATCH,
       headers,
       debtBody
@@ -527,7 +527,7 @@ public with sharing class BOHService extends Service {
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' +
+      'callout:SF_MS_CH2' +
         System.Label.MS_SOP_Debt +
         '?etag=' +
         SOPDeleteModel.parse(deleModel).etag,

@@ -9,6 +9,8 @@
 	NOT(CONTAINS($User.Username,&apos;adobe.integration@anzx.com&apos;)),
 	NOT($Profile.Name = &apos;System Administrator&apos;),
 	ISPICKVAL(Lead_Originator__c, &apos;CCRM&apos;),
+	NOT(ISCHANGED(Skip_Validations__c)),
+    NOT(Skip_Validations__c = &apos;ConvertLead&apos;),
 	ISCHANGED(FinServ__RelatedAccount__c),
 	NOT(ISBLANK(FinServ__RelatedAccount__c)),
 	NOT(ISPICKVAL(FinServ__RelatedAccount__r.FinServ__Status__c, &apos;Prospect&apos;))

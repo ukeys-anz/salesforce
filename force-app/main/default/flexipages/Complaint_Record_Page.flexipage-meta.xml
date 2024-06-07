@@ -243,6 +243,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>toastEventListener</componentName>
+                <identifier>c_toastEventListener</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>force:detailPanel</componentName>
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
@@ -555,7 +561,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Resolution Pathways</value>
+                    <value>Standard.Tab.assessments</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab</identifier>
@@ -638,7 +644,7 @@
                 <componentName>industries_service_excellence:actionLauncher</componentName>
                 <identifier>industries_service_excellence_actionLauncher</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND (2 OR 3) AND (4 OR 5 OR 6 OR 7 OR 8 OR 9)</booleanFilter>
+                    <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
                         <operator>EQUAL</operator>
@@ -655,34 +661,9 @@
                         <rightValue>Non_Customer_Complaint</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.IDR_Subsequent_Issue__c}</leftValue>
+                        <leftValue>{!Record.Show_Resolution_Launcher__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>3</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Subsequent_Issue_2__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>3</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Subsequent_Issue_3__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>3</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Subsequent_Issue__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>57</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Subsequent_Issue_2__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>57</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Subsequent_Issue_3__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>57</rightValue>
+                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -893,6 +874,14 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>maxEARContainerHeight</name>
+                    <value>500</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>shouldDisplayFiltersOnRight</name>
+                    <value>false</value>
+                </componentInstanceProperties>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop</identifier>
                 <visibilityRule>

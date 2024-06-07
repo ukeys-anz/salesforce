@@ -1850,6 +1850,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.OCV_ID_CAP_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.PPID__c</field>
         <readable>true</readable>
@@ -10179,6 +10184,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Credit_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10193,8 +10203,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Originated_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11112,6 +11122,10 @@
         <field>Case.Person_Digital_Identity__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <layoutAssignments>
+        <layout>A_Z_Review__c-Commercial A-Z Review Page Layout</layout>
+        <recordType>A_Z_Review__c.Commercial_A_Z_Review</recordType>
+    </layoutAssignments>
     <layoutAssignments>
         <layout>Access_Request__c-Access Request Layout</layout>
     </layoutAssignments>

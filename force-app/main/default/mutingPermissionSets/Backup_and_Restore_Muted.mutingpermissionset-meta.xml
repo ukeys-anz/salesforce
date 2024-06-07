@@ -8,6 +8,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>A_Z_Review__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>Access_Request__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>

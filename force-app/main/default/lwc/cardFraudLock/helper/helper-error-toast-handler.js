@@ -14,6 +14,13 @@ const sameFraudOptionChosenErrorToastSchema = {
   variant: "error"
 };
 
+export const noTeamToContactChosenErrorToastSchema = {
+  title: "Choose a team to contact option",
+  message:
+    "Please select a team to contact option as no team has been selected",
+  variant: "error"
+};
+
 const buttonErrorToastHandler = (chosenStatus, cardStatus) => {
   const fraudOptions = [
     STATUS.Block_ATM_POS_Exclude_CNP,

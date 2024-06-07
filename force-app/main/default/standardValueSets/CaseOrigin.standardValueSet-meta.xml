@@ -207,11 +207,6 @@
         <label>FalconX</label>
     </standardValue>
     <standardValue>
-        <fullName>Goods &amp; Services</fullName>
-        <default>false</default>
-        <label>Goods &amp; Services</label>
-    </standardValue>
-    <standardValue>
         <fullName>Other ANZ Plus Profile</fullName>
         <default>false</default>
         <label>Other ANZ Plus Profile</label>
@@ -235,5 +230,10 @@
         <fullName>Selfie Watchlist Match</fullName>
         <default>false</default>
         <label>Selfie Watchlist Match</label>
+    </standardValue>
+    <standardValue>
+        <fullName>OFI – from FRX</fullName>
+        <default>false</default>
+        <label>OFI – from FRX</label>
     </standardValue>
 </StandardValueSet>

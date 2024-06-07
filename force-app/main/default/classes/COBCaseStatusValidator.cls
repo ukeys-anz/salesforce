@@ -172,7 +172,7 @@ public with sharing class COBCaseStatusValidator {
    * @param cobCase Case record
    * @return Boolean True if case is in Watchlist and has status being updated from 'Daon Fallout' to 'Confirmed Fraud'
    */
-  private static Boolean isInWatchList(Case cobCase) {
+  public static Boolean isInWatchList(Case cobCase) {
     return String.IsNotBlank(cobCase.Subject) &&
       cobCase.Subject.contains(
         GetHelpConstants.COB_DAON_FAILED_SUBJECT_WATCHLIST_HIT

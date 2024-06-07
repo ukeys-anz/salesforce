@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_NoteChange</fullName>
+    <active>true</active>
+    <description>Prevent other user to updates notes.</description>
+    <errorConditionFormula>AND(
+				 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+				 $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+				 RecordType.DeveloperName = &apos;Commercial_Opportunity&apos;,
+				 ISCHANGED(My_Notes__c),
+				 $User.Id &lt;&gt; Owner.Id
+)</errorConditionFormula>
+    <errorDisplayField>My_Notes__c</errorDisplayField>
+    <errorMessage>Only owner is allowed to update the notes.</errorMessage>
+</ValidationRule>

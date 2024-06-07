@@ -128,6 +128,7 @@ public with sharing class GetHelpConstants {
   public static final List<String> ANZX_MARKETING_CODES = new List<String>{
     'TRANSACT01',
     'SAVING01',
+    'SAVING02',
     'HLVAR01',
     'HLFXD01'
   };
@@ -245,6 +246,7 @@ public with sharing class GetHelpConstants {
   public static final String PENDING_CARD_DISPUTE_GENERAL_QUEUE = 'Pending_Card_Dispute_General_Queue';
   public static final String TRANSACTION_STATUS_PENDING = 'TRANSACTION_STATUS_PENDING';
   public static final String TRANSACTION_STATUS_POSTED = 'TRANSACTION_STATUS_POSTED';
+  public static final String TRANSACTION_PENDING = 'PENDING';
 
   /**
    * @description Static variable to list ANZX workbaskets' API names
@@ -300,6 +302,8 @@ public with sharing class GetHelpConstants {
     'App',
     'ANZ Plus App'
   };
+  //Case Onboarding Verification Failed Reason picklist values
+  public static final String ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST = 'Confirmed Fraud - Selfie Watchlist';
 
   // Permission Set Group Name
   public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';

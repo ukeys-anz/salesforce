@@ -59,17 +59,19 @@
       <div class="slds-m-top_small"></div>
       <template lwc:if={isSavings}>
         <template lwc:if={isSoleAccount}>
-          <c-financial-goals
-            record-id={recordId}
-            goal-data={goalData}
-            data-id="financial-goals"
-            error={goalError}
-            onloadmoregoals={handleLoadMoreGoals}
-            onfiltergoals={handleGoalFilters}
-            preselected-goal={preselectedGoal}
-            loading-more={goalsLoading}
-          ></c-financial-goals>
-          <div class="slds-m-top_small"></div>
+          <template lwc:if={showSavingsGoals}>
+            <c-financial-goals
+              record-id={recordId}
+              goal-data={goalData}
+              data-id="financial-goals"
+              error={goalError}
+              onloadmoregoals={handleLoadMoreGoals}
+              onfiltergoals={handleGoalFilters}
+              preselected-goal={preselectedGoal}
+              loading-more={goalsLoading}
+            ></c-financial-goals>
+            <div class="slds-m-top_small"></div>
+          </template>
         </template>
       </template>
     </template>

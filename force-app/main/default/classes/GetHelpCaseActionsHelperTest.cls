@@ -70,10 +70,12 @@ public with sharing class GetHelpCaseActionsHelperTest {
       GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
     );
 
+    Test.startTest();
     Boolean isStatusChanged = GetHelpCaseActionsHelper.isStatusChanged(
       newRecord,
       oldRecord
     );
+    Test.stopTest();
 
     Assert.isTrue(isStatusChanged, 'Status should have changed.');
   }
@@ -100,9 +102,11 @@ public with sharing class GetHelpCaseActionsHelperTest {
 
   @isTest
   private static void testGetCasesByIdsEmptySet() {
+    Test.startTest();
     List<Case> casesByIds = GetHelpCaseActionsHelper.getCasesByIds(
       new Set<Id>()
     );
+    Test.stopTest();
 
     Assert.isTrue(
       casesByIds.isEmpty(),
@@ -114,9 +118,11 @@ public with sharing class GetHelpCaseActionsHelperTest {
   private static void testSetIDOpsCaseStatus() {
     Map<Id, Case> parentIdAndChildCasesMap = setFraudCheckStatuses();
 
+    Test.startTest();
     List<Case> updatedIdOpsCases = GetHelpCaseActionsHelper.setIDOpsCaseStatus(
       parentIdAndChildCasesMap
     );
+    Test.stopTest();
 
     assert(updatedIdOpsCases);
   }
@@ -175,9 +181,11 @@ public with sharing class GetHelpCaseActionsHelperTest {
 
   @isTest
   private static void testSetIDOpsCaseStatusEmptyMap() {
+    Test.startTest();
     List<Case> updatedIdOpsCases = GetHelpCaseActionsHelper.setIDOpsCaseStatus(
       new Map<Id, Case>()
     );
+    Test.stopTest();
 
     Assert.isTrue(
       updatedIdOpsCases.isEmpty(),
@@ -219,10 +227,11 @@ public with sharing class GetHelpCaseActionsHelperTest {
 
     Test.startTest();
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(oldMap, cases);
+    Test.stopTest();
+
     System.assertEquals(c1.Date_Time_Provisionally_Closed__c, DateTime.now());
     System.assertEquals(c2.Date_Time_Provisionally_Closed__c, DateTime.now());
     System.assertEquals(c3.Date_Time_Provisionally_Closed__c, null);
-    Test.stopTest();
   }
 
   @isTest
@@ -244,8 +253,62 @@ public with sharing class GetHelpCaseActionsHelperTest {
     List<Case> cases = new List<Case>{ c, c2 };
     Test.startTest();
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, cases);
+    Test.stopTest();
+
     System.assertEquals(c.Date_Time_Provisionally_Closed__c, null);
     System.assertEquals(c2.Date_Time_Provisionally_Closed__c, DateTime.now());
+  }
+
+  @isTest
+  private static void testGetIDOpsWatchlistRecords() {
+    Map<Id, Case> oldMap = new Map<Id, Case>();
+    List<Case> records = new List<Case>();
+
+    //ID Ops Case Watchlist
+    Case idOpsCaseWatchlist = createCase(
+      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+    );
+    idOpsCaseWatchlist.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    idOpsCaseWatchlist.Subject =
+      'ID Ops Assistance - ' +
+      GetHelpConstants.COB_DAON_FAILED_SUBJECT_WATCHLIST_HIT;
+    records.add(idOpsCaseWatchlist);
+
+    //Non-ID Ops Case
+    Case fraudCheckCase = createCase(
+      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      GetHelpConstants.FRAUD_CHECK_RT_ID
+    );
+    fraudCheckCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    records.add(fraudCheckCase);
+
+    //ID Ops Case with non-Watchlist subject
+    Case idOpsCaseNonWatchlist = createCase(
+      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+    );
+    idOpsCaseNonWatchlist.Subject = 'ID Ops Assistance - Daon Fallout: NO_MATCH';
+    idOpsCaseNonWatchlist.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    records.add(idOpsCaseNonWatchlist);
+
+    oldMap = new Map<Id, Case>(records.deepClone(true, true, true));
+
+    //update the status
+    idOpsCaseWatchlist.Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS;
+    idOpsCaseNonWatchlist.Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS;
+
+    Test.startTest();
+    List<Case> idOpsCases = GetHelpCaseActionsHelper.getIDOpsWatchlistRecords(
+      records,
+      oldMap
+    );
     Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      idOpsCases.size(),
+      'There should be 1 ID Ops case that is in Watchlist retrieved.'
+    );
   }
 }
