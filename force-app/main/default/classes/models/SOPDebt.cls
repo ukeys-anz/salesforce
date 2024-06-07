@@ -282,8 +282,8 @@ public class SOPDebt {
         }
 
         if (
-          debt1.institutionalLiability.limitAmount.value <
-          debt2.institutionalLiability.limitAmount.value
+          debt1.institutionalLiability?.limitAmount?.value <
+          debt2.institutionalLiability?.limitAmount?.value
         ) {
           return 1;
         }
