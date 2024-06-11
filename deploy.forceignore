@@ -210,3 +210,6 @@ force-app/main/default/flexipages/Complaint_Record_Page.flexipage-meta.xml
 
 #ANZX-157800 AUF Transformer squad
 force-app/main/default/aura/QuickActionAuraContainer
+
+#AR-135392 Modifying the current TSP
+force-app/main/default/transactionSecurityPolicies

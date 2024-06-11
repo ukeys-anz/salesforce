@@ -13,7 +13,6 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
   public static Boolean evaluate(SObject event) {
     String eventName;
     String uId;
-    Logger.Severity severityLevel = Logger.Severity.MEDIUM;
     switch on event {
       when BulkApiResultEventStore bulkApiResultEventStore {
         eventName = 'Bulk API event';
@@ -31,10 +30,8 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
         eventName = 'Block RefreshToken Queried APIEvent';
         uId = refreshTokenQueriedEvent.userId;
       }
-      when LoginEvent notifySystemUserLoginEvent {
-        eventName = 'Notify System User LoginEvent';
-        uId = notifySystemUserLoginEvent.userId;
-        severityLevel = Logger.Severity.CRITICAL;
+      when LoginEvent reportLoginEvent {
+        return loginEventEvaluation(reportLoginEvent);
       }
       when null {
         return false;
@@ -43,13 +40,13 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
         return false;
       }
     }
-    return evaluation(event, eventName, uId, severityLevel);
+    return evaluation(event, eventName, uId);
   }
+
   private static Boolean evaluation(
     SObject event,
     String eventName,
-    String userIdentity,
-    Logger.Severity severityLevel
+    String userIdentity
   ) {
     String userId;
     if (Schema.SObjectType.User.fields.Username.isAccessible()) {
@@ -78,13 +75,80 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
             userId +
             ' ) with ' +
             profileName +
-            ' profile.',
-          severityLevel
+            ' profile.'
         );
         Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
         return true;
       }
     }
     return false;
+  }
+
+  @testVisible
+  /**
+   * @description to validate loginEvent Type
+   * @param  event `LoginEvent` event developer name
+   * @return result `Boolean`
+   */
+  private static Boolean loginEventEvaluation(LoginEvent event) {
+    return (checkBreakGlassUser(event) || checkLoginType(event));
+  }
+
+  @testVisible
+  /**
+   * @description to validate BreakGlassUser Login Event
+   * @param  event `LoginEvent` event developer name
+   * @return result `Boolean` whether login user is Break Glass User
+   */
+  private static Boolean checkBreakGlassUser(LoginEvent event) {
+    String breakGlassUser = 'anzx.user@anzx.com';
+
+    if (!(event.Username.toLowerCase().contains(breakGlassUser))) {
+      return false;
+    }
+    String breakGlassMessage =
+      'Login Event on System User or BreakGlass User (' +
+      event.Username +
+      ' | Id:' +
+      event.UserId +
+      ' ) has been detected';
+
+    Logger.error(breakGlassMessage, Logger.Severity.CRITICAL);
+    Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
+    return true;
+  }
+
+  @testVisible
+  /**
+   * @description to provision LoginType of the Login Event
+   * @param  event `LoginEvent` event developer name
+   * @return result `Boolean` whether loginType is allowed
+   */
+  private static Boolean checkLoginType(LoginEvent event) {
+    if (isAllowedLoginType(event)) {
+      return false;
+    }
+    String nonSSOMessage =
+      'Login Event without using Single-Sign-On has been done by ' +
+      event.Username +
+      '( Id:' +
+      event.UserId +
+      ')';
+    Logger.info(nonSSOMessage);
+    Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
+    return true;
+  }
+
+  /**
+   * @description to validate isAllowedLoginType Type
+   * @param  event `LoginEvent` LoginEvent
+   * @return result `Boolean` isAllowedLoginType
+   */
+  private static Boolean isAllowedLoginType(LoginEvent event) {
+    Set<String> allowedTypes = new Set<String>{
+      'Third Party SSO',
+      'Remote Access 2.0'
+    };
+    return (allowedTypes.contains(event.loginType));
   }
 }
