@@ -9,7 +9,7 @@
     <inlineHelpText>The ANZ product code</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Product Code</label>
     <length>255</length>
     <required>false</required>

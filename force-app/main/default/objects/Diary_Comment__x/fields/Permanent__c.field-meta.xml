@@ -9,7 +9,7 @@
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Permanent (Y/N)</label>
     <securityClassification>Confidential</securityClassification>
     <type>Checkbox</type>

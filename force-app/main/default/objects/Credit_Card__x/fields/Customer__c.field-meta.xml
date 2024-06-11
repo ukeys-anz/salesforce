@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Customer</label>
     <length>15</length>
     <referenceTargetField>Account.External_Id__c</referenceTargetField>

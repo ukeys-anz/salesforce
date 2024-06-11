@@ -9,7 +9,7 @@
     <inlineHelpText>Balance Amount on ANZ source system</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Balance ($)</label>
     <precision>18</precision>
     <required>false</required>

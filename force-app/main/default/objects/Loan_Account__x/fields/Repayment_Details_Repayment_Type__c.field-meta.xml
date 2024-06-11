@@ -9,7 +9,7 @@
     <inlineHelpText>The charging type on the loan account held (interest only or principal and interest) once the customer draws down the loan.</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Repayment Type</label>
     <length>255</length>
     <required>false</required>

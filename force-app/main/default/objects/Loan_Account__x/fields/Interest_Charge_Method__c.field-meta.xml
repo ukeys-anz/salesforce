@@ -9,7 +9,7 @@
     <inlineHelpText>Interest charge type</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Charge Method</label>
     <length>255</length>
     <required>false</required>

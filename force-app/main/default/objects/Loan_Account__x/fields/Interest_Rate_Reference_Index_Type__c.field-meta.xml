@@ -9,7 +9,7 @@
     <inlineHelpText>The index type which will be the base interest rate (reference index rate)</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Reference Index Type</label>
     <length>255</length>
     <required>false</required>

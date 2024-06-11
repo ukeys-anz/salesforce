@@ -9,7 +9,7 @@
     <inlineHelpText>Interest payments are paid in advance or in arrears</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Repayments</label>
     <length>255</length>
     <required>false</required>

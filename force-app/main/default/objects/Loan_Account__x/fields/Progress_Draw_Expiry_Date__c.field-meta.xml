@@ -9,7 +9,7 @@
     <inlineHelpText>Expiry date of a progressive draw loan</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Progress Draw Expiry Date</label>
     <length>50</length>
     <required>false</required>

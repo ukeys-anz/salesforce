@@ -9,7 +9,7 @@
     <inlineHelpText>Date the account was opened</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Date Opened</label>
     <length>50</length>
     <required>false</required>

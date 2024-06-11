@@ -9,7 +9,7 @@
     <inlineHelpText>Cash Secured</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Security Type</label>
     <length>255</length>
     <required>false</required>

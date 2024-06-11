@@ -9,7 +9,7 @@
     <inlineHelpText>BMI or Retail Index etc. Will include both the Value and the percentage, for example &apos;BMI - 6.12%&apos;</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Reference Index Rate(%)</label>
     <precision>18</precision>
     <required>false</required>

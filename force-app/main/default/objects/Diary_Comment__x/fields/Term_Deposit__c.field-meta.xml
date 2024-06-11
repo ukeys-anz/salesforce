@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Term Deposit</label>
     <length>255</length>
     <referenceTo>Term_Deposit__x</referenceTo>

@@ -9,7 +9,7 @@
     <inlineHelpText>Loan repayment account number</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>DLP Repayment Account Number</label>
     <length>255</length>
     <required>false</required>

@@ -9,7 +9,7 @@
     <inlineHelpText>Value changes every month for Interest only.</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Repayment Amount ($)</label>
     <precision>18</precision>
     <required>false</required>

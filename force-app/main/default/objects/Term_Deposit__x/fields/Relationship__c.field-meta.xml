@@ -9,7 +9,7 @@
     <inlineHelpText>Customer account relationship</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Relationship</label>
     <length>255</length>
     <required>false</required>

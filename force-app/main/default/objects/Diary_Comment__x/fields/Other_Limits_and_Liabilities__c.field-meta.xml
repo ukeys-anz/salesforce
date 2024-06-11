@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Other Limits and Liabilities</label>
     <length>18</length>
     <referenceTo>Other_Limits_and_Liabilities__x</referenceTo>

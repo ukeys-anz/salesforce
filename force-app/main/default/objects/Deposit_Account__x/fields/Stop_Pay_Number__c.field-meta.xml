@@ -9,7 +9,7 @@
     <inlineHelpText>Number of Stop Pay Restraint</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Stop Pay Number</label>
     <length>255</length>
     <required>false</required>

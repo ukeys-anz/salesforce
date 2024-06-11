@@ -9,7 +9,7 @@
     <inlineHelpText>Margin applied on base rate interest.</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Margin (%)</label>
     <precision>18</precision>
     <required>false</required>

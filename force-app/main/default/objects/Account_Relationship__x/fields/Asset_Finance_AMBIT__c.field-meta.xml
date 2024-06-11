@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Asset Finance AMBIT</label>
     <length>255</length>
     <referenceTo>Asset_Finance_AMBIT__x</referenceTo>
