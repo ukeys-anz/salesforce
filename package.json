@@ -47,5 +47,7 @@
     "pretty-quick": "^3.0.2",
     "saxon-js": "^2.6.0",
     "typescript": "^3.9.7"
-  }
+  },
+  "main": "jest.config.js",
+  "keywords": []
 }
