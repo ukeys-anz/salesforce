@@ -255,19 +255,20 @@ const cancel = (
   runSfCommand(command);
 };
 
-const validateProgress = (
-  validationReport,
+const commandProgress = (
+  command,
   targetOrg,
   artifactPackage,
-  artifactDestructivePackage
+  artifactDestructivePackage,
+  whichJob
 ) => {
-  const jobId = findJobIdFromCommand(validationReport);
+  const jobId = findJobIdFromCommand(command);
   if (!jobId) {
-    logger("No Job Id could be found");
+    logger("No Job Id could be found.");
     process.exit();
   }
 
-  logger("Validation Progress");
+  logger(`${whichJob} Progress`);
 
   createDeployCacheFile(
     jobId,
@@ -276,16 +277,16 @@ const validateProgress = (
     artifactDestructivePackage
   );
 
-  const command = `npx sf project deploy resume --job-id ${jobId}`;
-  console.log(command);
+  const resumeCommand = `npx sf project deploy resume --job-id ${jobId}`;
+  console.log(resumeCommand);
 
-  const validateProcess = exec(command);
-  validateProcess.stdout.on("data", (data) => {
+  const runCommandProcess = exec(resumeCommand);
+  runCommandProcess.stdout.on("data", (data) => {
     try {
       const output = JSON.parse(data);
       if (output.status === 0) {
-        console.log("Validation completed successfully");
-        deployReport(jobId, "Validation");
+        console.log(`${whichJob} completed successfully`);
+        deployReport(jobId, targetOrg, whichJob);
       } else if (output.progress) {
         console.log(`Progress: ${output.progress}`);
       } else {
@@ -296,132 +297,88 @@ const validateProgress = (
     }
   });
 
-  validateProcess.stderr.on("data", (data) => {
+  runCommandProcess.stderr.on("data", (data) => {
     const dataReport = data.toString();
     if (dataReport.toLowerCase().includes("status")) {
       console.error(`Progress: ${data.toString()}`);
     }
   });
 
-  validateProcess.on("close", (code) => {
+  runCommandProcess.on("close", (code) => {
     if (code !== 0) {
-      console.error(`Validation failed with exit code: \n${code}`);
-      deployReport(jobId, "Validation");
-      process.exit(1);
+      const report = commandReport(jobId, targetOrg);
+      const status = JSON.parse(report)["result"]["status"];
+      if (status !== "InProgress" && status !== "Pending") {
+        console.error(`${whichJob} failed with exit code: \n${code}`);
+        deployReport(jobId, targetOrg, whichJob);
+        process.exit(1);
+      } else {
+        return commandProgress(
+          command,
+          targetOrg,
+          artifactPackage,
+          artifactDestructivePackage,
+          whichJob
+        );
+      }
     }
   });
 };
+
+const commandReport = (jobId, targetOrg) =>
+  runSfCommand(
+    `npx sf project deploy report --job-id ${jobId} -o ${targetOrg} --json`
+  );
+
+const validateProgress = (
+  validationReport,
+  targetOrg,
+  artifactPackage,
+  artifactDestructivePackage
+) =>
+  commandProgress(
+    validationReport,
+    targetOrg,
+    artifactPackage,
+    artifactDestructivePackage,
+    "Validation"
+  );
 
 const quickDeployProgress = (
   quickDeploymentCommand,
   targetOrg,
   artifactPackage,
   artifactDestructivePackage
-) => {
-  const jobId = findJobIdFromCommand(quickDeploymentCommand);
-  if (!jobId) process.exit();
-
-  logger("Quick Deployment Progress");
-  createDeployCacheFile(
-    jobId,
+) =>
+  commandProgress(
+    quickDeploymentCommand,
     targetOrg,
     artifactPackage,
-    artifactDestructivePackage
+    artifactDestructivePackage,
+    "Quick Deployment"
   );
-
-  const command = `npx sf project deploy resume --job-id ${jobId}`;
-  console.log(command);
-
-  const deployProcess = exec(command);
-  deployProcess.stdout.on("data", (data) => {
-    try {
-      const output = JSON.parse(data);
-      if (output.status === 0) {
-        console.log("Quick Deployment completed successfully");
-        deployReport(jobId, "Deployment");
-      } else if (output.progress) {
-        console.log(`Progress: ${output.progress}`);
-      } else {
-        console.log(data);
-      }
-    } catch (err) {
-      console.log(data);
-    }
-  });
-
-  deployProcess.stderr.on("data", (data) => {
-    const dataReport = data.toString();
-    if (dataReport.toLowerCase().includes("status")) {
-      console.error(`Progress: ${data.toString()}`);
-    }
-  });
-
-  deployProcess.on("close", (code) => {
-    if (code !== 0) {
-      console.error(`Quick Deployment failed with exit code: \n${code}`);
-      deployReport(jobId, "Deployment");
-      process.exit(1);
-    }
-  });
-};
 
 const deployProgress = (
   deploymentCommand,
   targetOrg,
   artifactPackage,
   artifactDestructivePackage
-) => {
-  const jobId = findJobIdFromCommand(deploymentCommand);
-  if (!jobId) process.exit();
-
-  logger("Deployment Progress");
-
-  createDeployCacheFile(
-    jobId,
+) =>
+  commandProgress(
+    deploymentCommand,
     targetOrg,
     artifactPackage,
-    artifactDestructivePackage
+    artifactDestructivePackage,
+    "Deployment"
   );
 
-  const command = `npx sf project deploy resume --job-id ${jobId}`;
-  console.log(command);
-
-  const deployProcess = exec(command);
-  deployProcess.stdout.on("data", (data) => {
-    try {
-      const output = JSON.parse(data);
-      if (output.status === 0) {
-        console.log("Deployment completed successfully");
-        deployReport(jobId, "Deployment");
-      } else if (output.progress) {
-        console.log(`Progress: ${output.progress}`);
-      } else {
-        console.log(data);
-      }
-    } catch (err) {
-      console.log(data);
-    }
-  });
-
-  deployProcess.stderr.on("data", (data) => {
-    const dataReport = data.toString();
-    if (dataReport.toLowerCase().includes("status")) {
-      console.error(`Progress: ${data.toString()}`);
-    }
-  });
-
-  deployProcess.on("close", (code) => {
-    if (code !== 0) {
-      console.error(`Deployment failed with exit code: \n${code}`);
-      deployReport(jobId, "Deployment");
-      process.exit(1);
-    }
-  });
-};
-
-const deployReport = (jobId, whichJob) => {
+const deployReport = (jobId, targetOrg, whichJob) => {
   logger(`${whichJob} Report`);
-  console.log(runSfCommand(`npx sf project deploy report --job-id ${jobId}`));
+  console.log(
+    runSfCommand(
+      `npx sf project deploy report --job-id ${jobId} -o ${targetOrg}`
+    )
+  );
 };
 
 // This code will find the json report for specific job

@@ -4,7 +4,7 @@
  * @description Mock implementation of DataSource.Connection class
  */
 @SuppressWarnings('PMD.ExcessiveParameterList')
-public class TFMSearchCustMockClass{
+public class TFMSearchCustMockClass {
   /**
    * @description Create DataSource.QueryContext for unit testing purpose
    * @param tableName String External object name

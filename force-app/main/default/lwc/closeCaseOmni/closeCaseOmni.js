@@ -6,7 +6,8 @@ const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
 const REFERRED_TO_PRODUCT = "3";
 const OTHER = "99";
-const REMS = ["1", "10", "18"];
+const REMS = ["1"];
+const SUBREMS = ["10", "18"];
 
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
@@ -155,7 +156,8 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
     )
       this.missingFields.push("Subsequent Issue Type");
     if (
-      details.ComplaintRemedy1 === REFERRED_TO_PRODUCT &&
+      (details.ComplaintRemedy1 === REFERRED_TO_PRODUCT ||
+        details.ComplaintRemedy1Accepted === REFERRED_TO_PRODUCT) &&
       !details.detailsOfComplaint1
     )
       this.missingFields.push(
@@ -181,7 +183,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       this.missingFields.push("Duration Of Remedy (months) 1 Offered");
     if (
       SUB_REMS.includes(details.ComplaintSubRemedy1Accepted) &&
-      !details.DurationofRemedy1Accepted
+      !details.durationOfRemedy1Accepted
     )
       this.missingFields.push("Duration Of Remedy (months) 1");
 
@@ -210,25 +212,25 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       this.missingFields.push("Reward Points 1 Offered");
     if (
       details.ComplaintSubRemedy1Accepted === "Reward Points" &&
-      !details.RewardPoints1Accepted
+      !details.rewardPoints1Accepted
     )
       this.missingFields.push("Reward Points 1");
     if (
       (REMS.includes(details.ComplaintRemedy1) ||
-        REMS.includes(details.ComplaintSubRemedy1)) &&
+        SUBREMS.includes(details.ComplaintSubRemedy1)) &&
       !details.PaymentAmountProvided1
     )
       this.missingFields.push("Payment Amount Provided 1");
     if (
       (REMS.includes(details.ComplaintRemedy1Offered) ||
-        REMS.includes(details.ComplaintSubRemedy1Offered)) &&
+        SUBREMS.includes(details.ComplaintSubRemedy1Offered)) &&
       !details.PaymentAmount1Offered
     )
       this.missingFields.push("Payment Amount 1 Offered");
 
     if (
       (REMS.includes(details.ComplaintRemedy1Accepted) ||
-        REMS.includes(details.ComplaintSubRemedy1Accepted)) &&
+        SUBREMS.includes(details.ComplaintSubRemedy1Accepted)) &&
       !details.PaymentAmountProvided1Accepted
     )
       this.missingFields.push("Payment Amount Provided 1");
@@ -260,7 +262,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.missingFields.push("Reward Points 2");
       if (
         (REMS.includes(details.ComplaintRemedy2) ||
-          REMS.includes(details.ComplaintSubRemedy2)) &&
+          SUBREMS.includes(details.ComplaintSubRemedy2)) &&
         !details.PaymentAmountProvided2
       )
         this.missingFields.push("Payment Amount Provided 2");
@@ -271,13 +273,13 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       details.CustomerAcceptTheResolution === "Yes"
     ) {
       this.checkFields(details, this.omniJsonData.SeccloseReqMapAccepted);
-      /*  if (
+      if (
         details.ComplaintRemedy2Accepted === REFERRED_TO_PRODUCT &&
-        !details.OfferedDetails2
+        !details.detailsOfComplaint2
       )
         this.missingFields.push(
-          "Offered to provide details of this complaint to the product manufacturer"
-        );*/
+          "The details of this complaint have been provided to the product manufacturer 2"
+        );
 
       if (
         SUB_REMS.includes(details.ComplaintSubRemedy2Accepted) &&
@@ -297,7 +299,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.missingFields.push("Reward Points 2");
       if (
         (REMS.includes(details.ComplaintRemedy2Accepted) ||
-          REMS.includes(details.ComplaintSubRemedy2Accepted)) &&
+          SUBREMS.includes(details.ComplaintSubRemedy2Accepted)) &&
         !details.PaymentAmountProvided2Accepted
       )
         this.missingFields.push("Payment Amount Provided 2");
@@ -329,7 +331,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.missingFields.push("Reward Points 3");
       if (
         (REMS.includes(details.ComplaintRemedy3) ||
-          REMS.includes(details.ComplaintSubRemedy3)) &&
+          SUBREMS.includes(details.ComplaintSubRemedy3)) &&
         !details.PaymentAmountProvided3
       )
         this.missingFields.push("Payment Amount Provided 3");
@@ -340,13 +342,13 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       details.CustomerAcceptTheResolution === "Yes"
     ) {
       this.checkFields(details, this.omniJsonData.thirdCmpMapAccepted);
-      /* if (
+      if (
         details.ComplaintRemedy3Accepted === REFERRED_TO_PRODUCT &&
-        !details.detailsOfComplaint3Accepted
+        !details.detailsOfComplaint3
       )
         this.missingFields.push(
-          "Offered to provide details of this complaint to the product manufacturer 3"
-        ); */
+          "The details of this complaint have been provided to the product manufacturer 3"
+        );
       if (
         SUB_REMS.includes(details.ComplaintSubRemedy3Accepted) &&
         !details.durationOfRemedy3Accepted
@@ -364,7 +366,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.missingFields.push("Reward Points 3");
       if (
         (REMS.includes(details.ComplaintRemedy3Accepted) ||
-          REMS.includes(details.ComplaintSubRemedy3Accepted)) &&
+          SUBREMS.includes(details.ComplaintSubRemedy3Accepted)) &&
         !details.PaymentAmountProvided3Accepted
       )
         this.missingFields.push("Payment Amount Provided 3");
@@ -380,7 +382,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         !details.OfferedDetails2
       )
         this.missingFields.push(
-          "Offered to provide details of this complaint to the product manufacturer"
+          "Offered to provide details of this complaint to the product manufacturer 2"
         );
 
       if (
@@ -391,17 +393,17 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
 
       if (
         details.ComplaintSubRemedy2Offered === OTHER &&
-        !details.otherRemedy2Offered
+        !details.OtherRemedy2Offered
       )
         this.missingFields.push("Other Remedy 2 Offered");
       if (
         details.ComplaintSubRemedy2Offered === "Reward Points" &&
-        !details.rewardPoints2Offered
+        !details.RewardPoints2Offered
       )
         this.missingFields.push("Reward Points 2 Offered");
       if (
         (REMS.includes(details.ComplaintRemedy2Offered) ||
-          REMS.includes(details.ComplaintSubRemedy2Offered)) &&
+          SUBREMS.includes(details.ComplaintSubRemedy2Offered)) &&
         !details.PaymentAmount2Offered
       )
         this.missingFields.push("Payment Amount Offered 2");
@@ -436,7 +438,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.missingFields.push("Reward Points 3 Offered");
       if (
         (REMS.includes(details.ComplaintRemedy3Offered) ||
-          REMS.includes(details.ComplaintSubRemedy3Offered)) &&
+          SUBREMS.includes(details.ComplaintSubRemedy3Offered)) &&
         !details.PaymentAmount3Offered
       )
         this.missingFields.push("Payment Amount 3 Offered");

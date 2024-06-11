@@ -8,15 +8,33 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>New</fullName>
+        <default>false</default>
+        <label>New</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Open</fullName>
         <default>false</default>
         <label>Open</label>
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>In Progress</fullName>
+        <default>false</default>
+        <label>In Progress</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Completed</fullName>
         <default>false</default>
         <label>Completed</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Actioned</fullName>
+        <default>false</default>
+        <label>Actioned</label>
         <closed>true</closed>
     </standardValue>
     <standardValue>
@@ -32,12 +50,6 @@
         <closed>true</closed>
     </standardValue>
     <standardValue>
-        <fullName>New</fullName>
-        <default>false</default>
-        <label>New</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
@@ -47,18 +59,6 @@
         <fullName>Not required</fullName>
         <default>false</default>
         <label>Not required</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Actioned</fullName>
-        <default>false</default>
-        <label>Actioned</label>
-        <closed>true</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>In Progress</fullName>
-        <default>false</default>
-        <label>In Progress</label>
         <closed>false</closed>
     </standardValue>
 </StandardValueSet>

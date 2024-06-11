@@ -6,6 +6,11 @@
 @isTest
 public with sharing class StravinskyAPIRepositoryTest {
   private static final Faker FAKER = new Faker('AU');
+  private static final String EXCEPTION_JSON =
+    '{' +
+    '    \"code\": \"exception occurred\"' +
+    '}';
+
   private static final String EXPECTED_RESPONSE_STAGE_ACK_ID_CHECK_JSON =
     '{' +
     '    \"code\": \"failed_precondition\",' +
@@ -142,7 +147,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     }
     Test.stopTest();
     System.assertEquals(
-      'exception occured',
+      EXCEPTION_JSON,
       resultException.getMessage(),
       'Exception was expected'
     );
@@ -159,7 +164,7 @@ public with sharing class StravinskyAPIRepositoryTest {
       Status = GetHelpConstants.COB_DAON_FAILED_STATUS
     );
 
-    HttpCalloutResponse res = getMockedResponse(false, 500, null);
+    HttpCalloutResponse res = getMockedResponse(false, 500, EXCEPTION_JSON);
     Service s = ServiceProvider.getService(StravinskyService.class);
     s.setCalloutResponse(res);
 
@@ -175,7 +180,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     Test.stopTest();
 
     Assert.areEqual(
-      'exception occured',
+      EXCEPTION_JSON,
       resultException.getMessage(),
       'Exception was expected'
     );
@@ -247,7 +252,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     Test.stopTest();
 
     System.assertEquals(
-      'exception occured',
+      EXCEPTION_JSON,
       resultException.getMessage(),
       'Exception was expected'
     );
@@ -329,7 +334,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     Test.stopTest();
 
     Assert.areEqual(
-      'exception occured',
+      EXCEPTION_JSON,
       resultException.getMessage(),
       'Exception was expected'
     );
@@ -372,7 +377,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     //Set un-successfull expected mock response
     HttpCalloutResponse response = getMockedResponse(
       false,
-      412,
+      400,
       EXPECTED_RESPONSE_STAGE_ACK_ID_CHECK_JSON
     );
 
@@ -409,7 +414,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     //Set un-successfull expected mock response
     HttpCalloutResponse response = getMockedResponse(
       false,
-      412,
+      400,
       EXPECTED_RESPONSE_STAGE_TNC_JSON
     );
 
@@ -449,7 +454,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     //Set un-successfull un-expected mock response
     HttpCalloutResponse response = getMockedResponse(
       false,
-      412,
+      400,
       DUMMY_RESPONSE_JSON
     );
 
@@ -512,8 +517,8 @@ public with sharing class StravinskyAPIRepositoryTest {
   ) {
     HttpCalloutResponse response = new HttpCalloutResponse();
     if (statusCode == 500) {
-      response.error = new CalloutException('exception occured');
-    } else if (statusCode == 412) {
+      response.error = new CalloutException(EXCEPTION_JSON);
+    } else if (statusCode == 400) {
       response.error = new CalloutException(body);
     } else {
       response.body = body;

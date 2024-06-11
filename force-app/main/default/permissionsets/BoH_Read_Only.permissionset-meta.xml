@@ -36,7 +36,7 @@
         <name>ANZx_Home_Loan</name>
         <enabled>true</enabled>
     </customPermissions>
-    <description>This Permission set provides Read Only Permission to buying a home objects</description>
+    <description>This Permission set provides Read Only Permission to buy a home objects</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>ActionPlan.ActionPlanState</field>
@@ -1264,6 +1264,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Assisted_Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Collateral_Assessment_Expiry_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1370,6 +1380,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Needs_Assessment_Unsuitability_Reasons__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Originated_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

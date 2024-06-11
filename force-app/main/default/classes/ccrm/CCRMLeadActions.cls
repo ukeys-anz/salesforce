@@ -12,6 +12,12 @@ public with sharing class CCRMLeadActions {
   static final String EXPIRY_DATE_MISSING_ERROR_MESSAGE = 'EXPIRY DATE IS MISSING';
 
   /**
+   * @description Define custom exceptions
+   */
+  public class CustomException extends Exception {
+  }
+
+  /**
    * @description Before Update Automated actions of a completed Lead.
    * @name leadCompletedActionBeforeUpdate
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in afterUpdate.
@@ -31,6 +37,41 @@ public with sharing class CCRMLeadActions {
       ) {
         record.Followup_Date__c = null;
       }
+    }
+  }
+
+  /**
+   * @description After Update populate A2ZReviews Customer Lookup
+   * @name setCustomerOnA2ZReview
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in afterUpdate.
+   * @param records from the trigger
+   */
+  public static void setCustomerOnA2ZReview(
+    Map<Id, Lead> oldMap,
+    List<Lead> records
+  ) {
+    try {
+      Map<Id, Lead> newMap = new Map<Id, Lead>(records);
+      Set<Id> setAccChangedCcrmLeadIds = CCRMA2ZReviewActionHelper.getAccountChangedLeadIds(
+        oldMap,
+        newMap
+      );
+      Map<Id, Id> mapOfCustomerWithLead = CCRMA2ZReviewActionHelper.fetchCustomerMapWithLead(
+        newMap,
+        setAccChangedCcrmLeadIds
+      );
+      List<A_Z_Review__c> listOfA2ZReviews = CCRMA2ZReviewActionHelper.fetchReviewsByLead(
+        setAccChangedCcrmLeadIds
+      );
+      CCRMA2ZReviewActionHelper.associateReviewsToCustomer(
+        listOfA2ZReviews,
+        mapOfCustomerWithLead
+      );
+      CCRMA2ZReviewActionHelper.updateReviews(listOfA2ZReviews);
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      throw new CustomException(e.getMessage());
     }
   }
 
@@ -223,7 +264,6 @@ public with sharing class CCRMLeadActions {
             includeFriday = true;
           }
         }
-
         //Expiry Date should not be greater than Campaign End date
         if (
           mapCampaigns.size() > 0 &&
@@ -231,7 +271,6 @@ public with sharing class CCRMLeadActions {
         ) {
           newExpiryDate = mapCampaigns.get(record.Id);
         }
-
         //Check if new expiry date fall on Weekend then extend it to Monday
         if (newExpiryDate != null) {
           record.Expiry_Date__c = DateTimeUtils.getWeekday(
@@ -284,7 +323,6 @@ public with sharing class CCRMLeadActions {
     Date newExpiryDate
   ) {
     Task task = mapTask.get(record.Id);
-
     Integer minDays = CCRMLeadUtil.isCCRMLeadType(record)
       ? integer.valueOf(System.Label.CCRM_MinDaysExpiryDateExtends)
       : integer.valueOf(System.Label.ML_MinDaysExpiryDateExtends);
@@ -344,7 +382,6 @@ public with sharing class CCRMLeadActions {
   ) {
     Set<String> leadIds = new Set<String>();
     Map<String, Task> mapTask = new Map<String, Task>();
-
     for (Lead selectLead : records) {
       Lead oldRec = oldMap != null ? oldMap.get(selectLead.id) : new Lead();
       //Followup date is changed on Lead
@@ -597,7 +634,6 @@ public with sharing class CCRMLeadActions {
     Map<Id, Lead> oldMap
   ) {
     List<Lead> listOfLeads = new List<Lead>();
-
     for (Lead record : records) {
       Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
       if (
@@ -611,7 +647,6 @@ public with sharing class CCRMLeadActions {
         listOfLeads.add(record);
       }
     }
-
     if (listOfLeads.size() > 0) {
       CCRMLeadPlatformEventActions.publishLeadUpdateToUnicaOrAdobe(listOfLeads);
     }
@@ -705,7 +740,6 @@ public with sharing class CCRMLeadActions {
       leadRec.ABN_Validation_Status__c = CCRMConstants.ABN_ACN_STATUS_FAILED;
     }
     updateLeads.add(leadRec);
-
     if (
       Schema.sObjectType.Lead.fields.ABN_Validation_Status__c.isUpdateable()
     ) {
@@ -732,7 +766,6 @@ public with sharing class CCRMLeadActions {
       leadRec.ACN_Validation_Status__c = CCRMConstants.ABN_ACN_STATUS_FAILED;
     }
     updateLeads.add(leadRec);
-
     if (
       Schema.sObjectType.Lead.fields.ACN_Validation_Status__c.isUpdateable()
     ) {
@@ -831,12 +864,10 @@ public with sharing class CCRMLeadActions {
     Boolean isSecNeedsChanged;
     SObjectType objType;
     Boolean result;
-
     for (Lead record : records) {
       if (!CCRMLeadUtil.isCCRMLeadType(record)) {
         continue;
       }
-
       oldLead = oldMap.get(record.Id);
       objType = Schema.Lead.getSObjectType();
       isCustomerNeedsChanged = RecordComparisonUtil.fieldWasChanged(
@@ -849,14 +880,12 @@ public with sharing class CCRMLeadActions {
         oldLead,
         Lead.Secondary_Customer_Needs__c.getDescribe().getSObjectField()
       );
-
       result = RecordComparisonUtil.picklistContainSameValue(
         record,
         Lead.Secondary_Customer_Needs__c.getDescribe().getSObjectField(),
         Lead.FinServ__ExpressedInterest__c.getDescribe().getSObjectField(),
         objType
       );
-
       // if secondary customer needs has value same as customer needs
       // throw error
       if (result && (isCustomerNeedsChanged || isSecNeedsChanged)) {
@@ -875,11 +904,8 @@ public with sharing class CCRMLeadActions {
   public static void checkForExistingCustomerOnInsert(Lead[] records) {
     List<Lead> filteredLeads = new List<Lead>();
     Map<Id, String> prospectCustomerMap = new Map<Id, String>();
-
     filteredLeads = getCCRMLeads(records);
-
     prospectCustomerMap = getProspectCustomersMap(filteredLeads);
-
     updateNewToBankFlag(filteredLeads, prospectCustomerMap);
   }
 
@@ -896,20 +922,15 @@ public with sharing class CCRMLeadActions {
     List<Lead> ccrmLeads = new List<Lead>();
     List<Lead> filteredLeads = new List<Lead>();
     Map<Id, String> prospectCustomerMap = new Map<Id, String>();
-
     ccrmLeads = getCCRMLeads(records);
-
     filteredLeads = getLeadsWithUpdatedCustomers(ccrmLeads, oldMap);
-
     prospectCustomerMap = getProspectCustomersMap(filteredLeads);
-
     updateNewToBankFlag(filteredLeads, prospectCustomerMap);
   }
 
   @testVisible
   private static List<Lead> getCCRMLeads(Lead[] records) {
     List<Lead> ccrmLeads = new List<Lead>();
-
     for (Lead leadRec : records) {
       if (!CCRMLeadUtil.isCCRMLeadType(leadRec)) {
         continue;
@@ -925,7 +946,6 @@ public with sharing class CCRMLeadActions {
     Map<Id, Lead> oldMap
   ) {
     List<Lead> filteredLeads = new List<Lead>();
-
     for (Lead leadRec : ccrmLeads) {
       if (
         leadRec.FinServ__RelatedAccount__c !=
@@ -943,15 +963,12 @@ public with sharing class CCRMLeadActions {
   ) {
     Map<Id, String> prospectCustomerMap = new Map<Id, String>();
     Set<Id> customerIds = new Set<Id>();
-
     for (Lead leadRec : filteredLeads) {
       customerIds.add(leadRec.FinServ__RelatedAccount__c);
     }
-
     if (customerIds.isEmpty()) {
       return prospectCustomerMap;
     }
-
     for (Account acc : [
       SELECT Id, Finserv__Status__c
       FROM Account

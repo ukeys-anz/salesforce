@@ -4,14 +4,27 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Non-Sensitive Personal Information;Source - Salesforce</complianceGroup>
     <description>Yes/No to the Question Offer Enhanced  and accepted by the Customer</description>
-    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Was the offer enhanced and accepted?</label>
-    <length>10</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Yes</fullName>
+                <default>false</default>
+                <label>Yes</label>
+            </value>
+            <value>
+                <fullName>No</fullName>
+                <default>false</default>
+                <label>No</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

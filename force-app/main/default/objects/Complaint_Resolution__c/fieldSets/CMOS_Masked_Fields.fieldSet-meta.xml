@@ -3,12 +3,17 @@
     <fullName>CMOS_Masked_Fields</fullName>
     <description>This field set is used for free text fields that needs to be masked using CMOS data masking rules</description>
     <displayedFields>
-        <field>IDR_Complaint_Remedy_Offered__c</field>
+        <field>IDR_Other_Remedy_Offered__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
         <field>IDR_Other_Remedy_Provided__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>IDR_Description_of_Outcome_Offered__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>

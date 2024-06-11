@@ -7201,6 +7201,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Confirmed Fraud - Selfie Watchlist</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Doc fail - document details unreadable</fullName>
             <default>false</default>
         </values>

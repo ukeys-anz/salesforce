@@ -49,7 +49,8 @@ const salesforceSecretNames = {
   "epic/join-salesforce-ciba": "sf-platform-np-ciba",
   "epic/bdm-app-overview": "sf-platform-np-brokermain",
   "epic/transaction-income": "sf-platform-np-trnscncome",
-  "epic/disputeq-auto": "sf-platform-np-disputeq"
+  "epic/disputeq-auto": "sf-platform-np-disputeq",
+  "epic/ccrmintact": "sf-platform-np-ccrmintact"
 };
 
 const brokerSecretNames = {

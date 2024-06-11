@@ -107,7 +107,7 @@ const runAllLocalTestsProgress = (
   runAllTestsProcess.on("close", (code) => {
     if (code !== 0) {
       console.error(`Tests failed with exit code: \n${code}`);
-      deployReport(jobId, "Run All Tests");
+      deployReport(jobId, targetOrg, "Run All Tests");
       process.exit(1);
     }
   });

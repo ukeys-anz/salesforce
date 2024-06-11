@@ -1841,6 +1841,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.OCV_ID_CAP_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.Occupation__c</field>
         <readable>true</readable>
@@ -7913,6 +7918,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Originated_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

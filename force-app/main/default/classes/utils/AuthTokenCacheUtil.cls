@@ -232,8 +232,8 @@ public with sharing class AuthTokenCacheUtil {
   public static String getStaffToken(StaffTokenRequestModel staffModelWrapper) {
     String staffToken = (String) Cache.Session.get(
       STAFFPART +
-      'forgeJWTToken' +
-      TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue)
+        'forgeJWTToken' +
+        TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue)
     );
 
     if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
@@ -256,8 +256,8 @@ public with sharing class AuthTokenCacheUtil {
 
     Cache.Session.put(
       STAFFPART +
-      'forgeJWTToken' +
-      TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue),
+        'forgeJWTToken' +
+        TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue),
       staffToken,
       expiresIn
     );

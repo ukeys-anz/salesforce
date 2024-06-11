@@ -264,6 +264,7 @@ public with sharing class AccountCommonActions {
   /**
    * @description private without sharing class to bypass lead sharing setting in lead conversion process
    */
+  @TestVisible
   private without sharing class LeadDMLOperator {
     /**
      * @description convertLeads convert leads into their matching accounts
@@ -405,6 +406,8 @@ public with sharing class AccountCommonActions {
       Set<Id> leadIds = new Set<Id>();
       List<Contact> contactList = new List<Contact>();
       Boolean autoMisMatchTaskRequired = false;
+      Set<Id> ccrmLeadIdSet = new Set<Id>();
+      Map<Id, Id> mapOfAccountIdWithLead = new Map<Id, Id>();
       for (Database.LeadConvertResult lcr : lcResults) {
         if (lcr.isSuccess()) {
           for (Lead l : matchingLeadsByAccIdMap.get(lcr.getAccountId())) {
@@ -416,6 +419,10 @@ public with sharing class AccountCommonActions {
             }
             if (CCRMLeadUtil.isMLCRMLeadType(l)) {
               autoMisMatchTaskRequired = true;
+            }
+            if (CCRMLeadUtil.isCCRMLeadType(l)) {
+              ccrmLeadIdSet.add(l.id);
+              mapOfAccountIdWithLead.put(l.Id, lcr.getAccountId());
             }
           }
         }
@@ -432,7 +439,39 @@ public with sharing class AccountCommonActions {
           new MLCRMAutoTaskOnLeadConversionQueueable(mapOfOpportunityId)
         );
       }
+      transferA2ZReviewToOpportunity(
+        ccrmLeadIdSet,
+        mapOfOpportunityId,
+        mapOfAccountIdWithLead
+      );
       deleteAutoCreatedContacts(contactList);
+    }
+
+    /**
+     * @description transfer tasks from lead to opportunity by updating WhatId
+     * Used System Mode DML as the Reviews can updated only by Owners
+     * @param ccrmLeadIdSet set of ccrm lead ids
+     * @param mapOfOpportunityId map of opportunity id with lead id
+     * @param mapOfAccountIdWithLeadId map of Account id with lead id
+     */
+    @TestVisible
+    private void transferA2ZReviewToOpportunity(
+      Set<Id> ccrmLeadIdSet,
+      Map<Id, Id> mapOfOpportunityId,
+      Map<Id, Id> mapOfAccountIdWithLeadId
+    ) {
+      List<A_Z_Review__c> listOfA2ZReviews = CCRMA2ZReviewActionHelper.fetchReviewsByLead(
+        ccrmLeadIdSet
+      );
+      CCRMA2ZReviewActionHelper.associateReviewsToOpportunity(
+        listOfA2ZReviews,
+        mapOfOpportunityId
+      );
+      CCRMA2ZReviewActionHelper.associateReviewsToCustomer(
+        listOfA2ZReviews,
+        mapOfAccountIdWithLeadId
+      );
+      CCRMA2ZReviewActionHelper.updateReviews(listOfA2ZReviews);
     }
 
     /**

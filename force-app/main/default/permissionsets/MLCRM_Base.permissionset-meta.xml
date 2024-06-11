@@ -237,12 +237,12 @@
         <enabled>true</enabled>
     </classAccesses>
     <customMetadataTypeAccesses>
-        <enabled>true</enabled>
         <name>DCRM_CountryMapping__mdt</name>
+        <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
-        <enabled>true</enabled>
         <name>DCRM_StateMapping__mdt</name>
+        <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <description>Baseline PS for using the Mobile Lending CRM app.</description>
     <fieldPermissions>
@@ -442,7 +442,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Mobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.OCV_Event_Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.OCV_ID_CAP_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

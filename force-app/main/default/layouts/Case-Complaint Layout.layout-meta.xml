@@ -27,10 +27,6 @@
                 <behavior>Readonly</behavior>
                 <field>IDR_Express_CMOS_Complaint__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IDR_Complaint_Outcome_Offered__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -273,6 +269,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>IDR_Complaint_Outcome_Offered__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>IDR_Complaint_Remedy__c</field>
             </layoutItems>
             <layoutItems>
@@ -326,6 +326,10 @@
         <editHeading>false</editHeading>
         <label>Description of Outcome</label>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Description_of_Outcome_Offered__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>IDR_Description_of_Outcome__c</field>

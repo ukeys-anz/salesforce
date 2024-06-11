@@ -49,6 +49,14 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       return editIncome(inputMap, outMap, options);
     } else if (methodName == 'editExpense') {
       return editExpense(inputMap, outMap, options);
+    } else if (methodName == 'addDebt') {
+      return addDebt(inputMap, outMap, options);
+    } else if (methodName == 'editDebt') {
+      return editDebt(inputMap, outMap, options);
+    } else if (methodName == 'deleteDebt') {
+      return deleteDebt(inputMap, outMap, options);
+    } else if (methodName == 'getBelongsToOptions') {
+      return getBelongsToOptions(inputMap, outMap, options);
     }
     return false;
   }
@@ -67,8 +75,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   ) {
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
-      Boolean allowDeleteIncome = false;
-      Boolean showAddEditIncomeBtn = false;
       String loanId = (String) inputMap.get('loanId');
 
       List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
@@ -78,46 +84,12 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         loanRec[0]?.Account?.OCV_ID__c,
         loanRec[0]?.SOP_Id__c
       );
-      if (loanRec[0]?.Status == 'STATE_REFERRED' && editIncomeExpenseRole()) {
-        showAddEditIncomeBtn = true;
-        sopAssets.showEditExpenseBtn = true;
-      }
-      if (sopAssets.incomesSummary.incomes.size() > 1) {
-        allowDeleteIncome = true;
-      }
-      sopAssets.showAddIncomeBtn = showAddEditIncomeBtn;
-      for (
-        ResidentialLoanApplicationModel.SOPIncome income : sopAssets
-          ?.incomesSummary
-          ?.incomes
-      ) {
-        income.showEditIncomeBtn = showAddEditIncomeBtn;
-        income.allowdelete = allowDeleteIncome;
-      }
 
-      //Remove Closed status values from assets and debts.
-      //Need to loop backwards so next item isn't missed
-      for (Integer i = sopAssets.assetsSummary.assets.size() - 1; i >= 0; i--) {
-        if (
-          sopAssets.assetsSummary.assets[i]?.account?.status ==
-          'ACCOUNT_STATE_CLOSED'
-        ) {
-          sopAssets.assetsSummary.assets.remove(i);
-        }
-      }
+      sopAssets.assetsSummary.assets = filterAssets(sopAssets);
+      sopAssets.liabilitiesSummary.liabilities = filterLiabilities(sopAssets);
 
-      for (
-        Integer i = sopAssets.liabilitiesSummary.liabilities.size() - 1;
-        i >= 0;
-        i--
-      ) {
-        if (
-          sopAssets.liabilitiesSummary.liabilities[i]?.account?.status ==
-          'ACCOUNT_STATE_CLOSED'
-        ) {
-          sopAssets.liabilitiesSummary.liabilities.remove(i);
-        }
-      }
+      setUamForBtns(sopAssets, loanRec);
+      setRefinanceSettings(sopAssets, loanId);
 
       SOPModelHelper.initPartyLiability(sopAssets);
       SOPModelHelper.enrichSourcesOwnerName(sopAssets);
@@ -133,6 +105,113 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       Logger.saveLog();
       return false;
     }
+  }
+
+  @Testvisible
+  private static Boolean allowUpsertIncomeAndDebt(String applicationStatus) {
+    if (applicationStatus == 'STATE_REFERRED' && editIncomeExpenseRole()) {
+      return true;
+    }
+    return false;
+  }
+
+  @Testvisible
+  private static Boolean allowDeleteIncome(Integer incomeSize) {
+    if (incomeSize > 1) {
+      return true;
+    }
+    return false;
+  }
+
+  @TestVisible
+  private static void setUamForBtns(
+    ResidentialLoanApplicationModel sopAssets,
+    List<ResidentialLoanApplication> loanRec
+  ) {
+    Boolean showAddEditBtn = allowUpsertIncomeAndDebt(loanRec[0]?.Status);
+    Boolean allowDeleteIncome = allowDeleteIncome(
+      sopAssets?.incomesSummary?.incomes?.size()
+    );
+
+    sopAssets.showEditExpenseBtn = showAddEditBtn;
+    sopAssets.showAddIncomeBtn = showAddEditBtn;
+
+    for (
+      ResidentialLoanApplicationModel.SOPIncome income : sopAssets
+        ?.incomesSummary
+        ?.incomes
+    ) {
+      income.showEditIncomeBtn = showAddEditBtn;
+      income.allowdelete = allowDeleteIncome;
+    }
+
+    for (SOPDebt debt : sopAssets?.liabilitiesSummary?.liabilities) {
+      debt.showEditDebtBtn = showAddEditBtn;
+      debt.showDeleteDebtBtn = false;
+      if (showAddEditBtn && debt.sourceType == 'Manual') {
+        debt.showDeleteDebtBtn = true;
+      }
+    }
+  }
+
+  @TestVisible
+  private static void setRefinanceSettings(
+    ResidentialLoanApplicationModel sopAssets,
+    String loanId
+  ) {
+    List<LoanApplicationLiability> refinanceList = [
+      SELECT Id, Name
+      FROM LoanApplicationLiability
+      WHERE LoanApplicationId = :loanId
+    ];
+    // a safe assumption here is a refinance homeloan always have one LoanApplicationLiability record
+    for (SOPDebt debt : sopAssets?.liabilitiesSummary?.liabilities) {
+      if (
+        refinanceList.size() > 0 &&
+        refinanceList[0].Name == debt.name &&
+        debt.type == ResidentialLoanApplicationModel.HOME_LOAN
+      ) {
+        debt.hasRefinance = true;
+      }
+    }
+  }
+
+  /**
+   * @description Remove Closed status values from assets
+   * @param sopAssets sop data from API
+   * @return  `List<SOPAsset>` filtered assets
+   */
+  @TestVisible
+  private static List<SOPAsset> filterAssets(
+    ResidentialLoanApplicationModel sopAssets
+  ) {
+    List<SOPAsset> filteredAssests = new List<SOPAsset>();
+    for (SOPAsset asset : sopAssets.assetsSummary.assets) {
+      if (asset?.account?.status == 'ACCOUNT_STATE_CLOSED') {
+        continue;
+      }
+      filteredAssests.add(asset);
+    }
+    return filteredAssests;
+  }
+
+  /**
+   * @description Remove Closed status values from debts
+   * @param sopAssets sop data from API
+   * @return  `List<SOPDebt>` filtered liabilities
+   */
+  @TestVisible
+  private static List<SOPDebt> filterLiabilities(
+    ResidentialLoanApplicationModel sopAssets
+  ) {
+    List<SOPDebt> filteredALiabilities = new List<SOPDebt>();
+    for (SOPDebt debt : sopAssets.liabilitiesSummary.liabilities) {
+      if (debt?.account?.status == 'ACCOUNT_STATE_CLOSED') {
+        continue;
+      }
+      filteredALiabilities.add(debt);
+    }
+    return filteredALiabilities;
   }
 
   /**
@@ -294,7 +373,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     Map<String, Object> outMap,
     Map<String, Object> options
   ) {
-    SOPDeleteIncomeModel model = new SOPDeleteIncomeModel();
+    SOPDeleteModel model = new SOPDeleteModel();
     model.name = (String) inputMap.get('name');
     model.etag = (String) inputMap.get('etag');
     try {
@@ -321,6 +400,41 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       outMap.put('toast', 'Error');
       return false;
     }
+  }
+
+  /**
+   * @description method used by omni to get options
+   * @param inputMap
+   * @param outMap
+   * @param options
+   * @return Boolean for successful delete income
+   */
+  private Boolean getBelongsToOptions(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    try {
+      List<Map<String, String>> uIoptions = new List<Map<String, String>>();
+
+      Map<String, String> clearMap = new Map<String, String>();
+      clearMap.put('label', '--Clear--');
+      clearMap.put('value', '');
+      uIoptions.add(clearMap);
+      for (String s : inputMap.keySet()) {
+        Map<String, String> dynamicOptions = new Map<String, String>();
+        dynamicOptions.put('label', s);
+        dynamicOptions.put('value', String.valueOf(inputMap.get(s)));
+        uIoptions.add(dynamicOptions);
+      }
+
+      outMap.put('options', uIoptions);
+    } catch (Exception e) {
+      Logger.error('Failed to generate belongs to', e.getMessage());
+      Logger.saveLog();
+      return false;
+    }
+    return true;
   }
 
   private void setValidationError(String errorMsg) {
@@ -723,5 +837,150 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     employment.startDate.day = Integer.valueOf(dateParts[0]);
     employment.startDate.month = Integer.valueOf(dateParts[1]);
     employment.startDate.year = Integer.valueOf(dateParts[2]);
+  }
+
+  /**
+   * @description method to invoke addDebt
+   * @param inputMap
+   * @param outMap
+   * @param options
+   * @return Boolean for successful addDebt exection
+   */
+  private Boolean addDebt(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    try {
+      Map<String, Object> debt = new Map<String, Object>{
+        'parent' => (String) inputMap.get('parent'),
+        'liability' => SOPDebtModel.parse(
+          JSON.serialize(inputMap.get('liabilities'))
+        )
+      };
+
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      String loanId = (String) inputMap.get('loanId');
+
+      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
+        loanId
+      );
+      rlaRepo.createDebt(
+        loanRec[0]?.Account?.OCV_ID__c,
+        JSON.serialize(debt, true)
+          .replaceAll('"limitAmount"(\\ )*:', '"limit":'),
+        loanId
+      );
+      publishRLARecordMonitoringToast(loanRec[0]);
+      outMap.put('toast', 'success');
+      outMap.put('toastMessage', 'The new debt was successfully added.');
+
+      return true;
+    } catch (Exception e) {
+      outMap.put('object', new Map<String, Object>{ 'hasError' => true });
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+
+      outMap.put('toast', 'error');
+      outMap.put(
+        'toastMessage',
+        'The new debt couldn\'t be added. Please review and try again.'
+      );
+
+      return false;
+    }
+  }
+
+  /**
+   * @description method to invoke edit Debt
+   * @param inputMap
+   * @param outMap
+   * @param options
+   * @return Boolean for successful editDebt exection
+   */
+  @testVisible
+  private Boolean editDebt(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    try {
+      SOPDebtModel debtBody = SOPDebtModel.parse(
+        JSON.serialize(inputMap.get('liabilities'))
+      );
+
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      String loanId = (String) inputMap.get('loanAppId');
+
+      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
+        loanId
+      );
+      rlaRepo.editDebt(
+        loanRec[0]?.Account?.OCV_ID__c,
+        JSON.serialize(debtBody, true)
+          .replaceAll('"limitAmount"(\\ )*:', '"limit":'),
+        loanId
+      ); //Use JSON.serialize and replaceAll instead of the calloutModel one is because calloutModel will replace currency with currencyCode
+      publishRLARecordMonitoringToast(loanRec[0]);
+      outMap.put('toast', 'success');
+      outMap.put(
+        'toastMessage',
+        'The changes to this debt were successfully saved.'
+      );
+
+      return true;
+    } catch (Exception e) {
+      outMap.put('object', new Map<String, Object>{ 'hasError' => true });
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      outMap.put('toast', 'error');
+      outMap.put(
+        'toastMessage',
+        'The debt couldn\'t be edited. Please review and try again.'
+      );
+      return false;
+    }
+  }
+
+  /**
+   * @description method to delete debt from sop
+   * @param inputMap
+   * @param outMap
+   * @param options
+   * @return Boolean for successful delete debt
+   */
+  @testVisible
+  private Boolean deleteDebt(
+    Map<String, Object> inputMap,
+    Map<String, Object> outMap,
+    Map<String, Object> options
+  ) {
+    SOPDeleteModel model = new SOPDeleteModel();
+    model.name = (String) inputMap.get('name');
+    model.etag = (String) inputMap.get('etag');
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      String loanId = (String) inputMap.get('loanId');
+      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
+        loanId
+      );
+      Boolean deleteDebtResponse = rlaRepo.deleteDebt(
+        loanRec[0].SOP_Id__c,
+        loanRec[0].Account.OCV_ID__c,
+        JSON.serialize(model)
+      );
+      publishRLARecordMonitoringToast(loanRec[0]);
+      outMap.put(
+        'object',
+        JSON.deserializeUntyped(JSON.serialize(deleteDebtResponse))
+      );
+      outMap.put('toast', 'Success');
+      return true;
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      outMap.put('toast', 'Error');
+      return false;
+    }
   }
 }

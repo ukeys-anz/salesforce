@@ -5,7 +5,7 @@
     <complianceGroup>Privacy_Personal_Information;Source_Salesforce;Integrity - Accurate</complianceGroup>
     <description>Contact&apos;s role in Business</description>
     <externalId>false</externalId>
-    <label>Title</label>
+    <label>Role</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

@@ -4,9 +4,9 @@
     <columns>Name</columns>
     <columns>Account</columns>
     <columns>Status</columns>
+    <columns>CreatedDate</columns>
     <columns>Assisted_Broker__c</columns>
     <columns>Owner_Name__c</columns>
-    <columns>CreatedDate</columns>
     <filters>
         <field>Assisted_Broker_TPMI_SAO__c</field>
         <operation>notEqual</operation>
