@@ -6,7 +6,7 @@
     <description>Interest Rate - Fixed Rate Expiry Date</description>
     <externalDeveloperName>FixedRateExpiryDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Fixed Rate Expiry Date</label>

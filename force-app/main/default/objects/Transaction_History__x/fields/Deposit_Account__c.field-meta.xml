@@ -6,7 +6,7 @@
     <description>Associated Id of deposit account</description>
     <externalDeveloperName>DepositAccountId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Deposit Account</label>

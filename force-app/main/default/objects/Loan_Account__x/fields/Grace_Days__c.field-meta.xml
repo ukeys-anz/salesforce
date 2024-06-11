@@ -6,7 +6,7 @@
     <description>Grace Days</description>
     <externalDeveloperName>GraceDays</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Grace Days</label>

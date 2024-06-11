@@ -6,7 +6,7 @@
     <description>Fee Rate</description>
     <externalDeveloperName>FeeRate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Fee Rate (%)</label>

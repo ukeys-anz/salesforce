@@ -6,7 +6,7 @@
     <description>Times Past Due 60 Days</description>
     <externalDeveloperName>PastDue60</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>60 Days</label>

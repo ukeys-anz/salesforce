@@ -6,7 +6,7 @@
     <description>IO Interest Repayment Account Number</description>
     <externalDeveloperName>IOInterestRepaymentAccountNumber</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Repayment Account Number</label>

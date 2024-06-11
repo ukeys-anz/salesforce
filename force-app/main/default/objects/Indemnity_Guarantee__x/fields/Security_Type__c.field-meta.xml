@@ -7,7 +7,7 @@
     <externalDeveloperName>SecurityType</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>Cash Secured</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Security Type</label>

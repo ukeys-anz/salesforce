@@ -6,7 +6,7 @@
     <description>Associated Id Of OLL</description>
     <externalDeveloperName>OLLId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Other Limits and Liabilities</label>

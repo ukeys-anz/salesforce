@@ -6,7 +6,7 @@
     <description>Rollover Date</description>
     <externalDeveloperName>RolloverDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Rollover Date</label>

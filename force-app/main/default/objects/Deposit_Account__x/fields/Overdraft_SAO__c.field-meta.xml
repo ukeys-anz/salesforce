@@ -6,7 +6,7 @@
     <description>Broker code. Unique identifier of a loan broker</description>
     <externalDeveloperName>OverdraftSAO</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>SAO</label>

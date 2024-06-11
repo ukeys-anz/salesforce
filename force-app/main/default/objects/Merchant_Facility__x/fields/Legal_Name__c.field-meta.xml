@@ -6,7 +6,7 @@
     <description>Legal name of Business</description>
     <externalDeveloperName>LegalName</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Legal Name</label>

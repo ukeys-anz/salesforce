@@ -6,7 +6,7 @@
     <description>The &apos;documented&apos; Limit on the facility</description>
     <externalDeveloperName>OverdraftLimit</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Limit ($)</label>

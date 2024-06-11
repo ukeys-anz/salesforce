@@ -6,7 +6,7 @@
     <description>Facility Limit</description>
     <externalDeveloperName>FacilityLimit</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Facility Limit($)</label>

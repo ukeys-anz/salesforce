@@ -6,7 +6,7 @@
     <description>Preferred Name</description>
     <externalDeveloperName>Preferred Name</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>true</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Preferred Name</label>

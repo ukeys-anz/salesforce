@@ -6,7 +6,7 @@
     <description>Business trading name</description>
     <externalDeveloperName>TradingName</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>true</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Trading Name</label>

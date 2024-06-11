@@ -6,7 +6,7 @@
     <description>Associated Id of credit card</description>
     <externalDeveloperName>CreditCardId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Credit Card</label>

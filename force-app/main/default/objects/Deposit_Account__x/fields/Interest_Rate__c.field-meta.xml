@@ -6,7 +6,7 @@
     <description>Interest Rate</description>
     <externalDeveloperName>InterestRate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Debit Interest Rate (%)</label>

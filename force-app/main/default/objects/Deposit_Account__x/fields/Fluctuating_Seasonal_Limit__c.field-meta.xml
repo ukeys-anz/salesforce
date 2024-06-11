@@ -6,7 +6,7 @@
     <description>The limit for a fluctuating/seasonal limit arrangement type for a given time period (within a single calendar year)</description>
     <externalDeveloperName>FluctuatingSeasonalLimit</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Fluctuating/Seasonal Limit ($)</label>

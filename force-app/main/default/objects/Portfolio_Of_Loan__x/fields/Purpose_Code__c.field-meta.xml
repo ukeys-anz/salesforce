@@ -6,7 +6,7 @@
     <description>A dropdown which allows the user specify what is the purpose of the account</description>
     <externalDeveloperName>PurposeCode</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Purpose Code</label>

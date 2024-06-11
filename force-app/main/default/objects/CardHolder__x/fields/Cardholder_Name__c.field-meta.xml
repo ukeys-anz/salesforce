@@ -6,7 +6,7 @@
     <description>Card Holder Name</description>
     <externalDeveloperName>CardholderName</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Cardholder Name</label>

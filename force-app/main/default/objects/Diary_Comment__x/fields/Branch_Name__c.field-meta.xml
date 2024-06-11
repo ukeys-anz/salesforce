@@ -6,7 +6,7 @@
     <description>Name of the branch</description>
     <externalDeveloperName>Branch</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Branch Name</label>

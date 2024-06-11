@@ -6,7 +6,7 @@
     <description>Amount In Advance</description>
     <externalDeveloperName>AmountInAdvance</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>In Advance($)</label>

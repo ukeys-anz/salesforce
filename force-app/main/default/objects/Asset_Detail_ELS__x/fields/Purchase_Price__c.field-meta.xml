@@ -6,7 +6,7 @@
     <description>Cost to purchase the asset. Cost to match the asset&apos;s invoice. </description>
     <externalDeveloperName>PurchasePrice</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Purchase Price ($)</label>

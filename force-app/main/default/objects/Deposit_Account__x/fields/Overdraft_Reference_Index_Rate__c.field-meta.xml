@@ -6,7 +6,7 @@
     <description>Index rate of temp OD</description>
     <externalDeveloperName>OverdraftReferenceIndexRate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Reference Index Rate(%)</label>

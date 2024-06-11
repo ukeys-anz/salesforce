@@ -7,7 +7,7 @@
     <externalDeveloperName>RepaymentType</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>The charging type on the loan account held (interest only or principal and interest) once the customer draws down the loan.</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Repayment Type</label>

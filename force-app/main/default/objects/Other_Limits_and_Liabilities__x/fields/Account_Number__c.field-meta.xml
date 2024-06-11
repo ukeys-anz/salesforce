@@ -6,7 +6,7 @@
     <description>An identifier assigned to an account on CAP. Account Number is not necessarily unique across systems and within systems.</description>
     <externalDeveloperName>AccountNumber</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>true</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Account Number</label>

@@ -6,7 +6,7 @@
     <description>Sub Product Code</description>
     <externalDeveloperName>SubProductCode</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Sub-Product Code</label>

@@ -6,7 +6,7 @@
     <description>Date of creation of the OLL account in CAP</description>
     <externalDeveloperName>DateOpened</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Date Opened</label>

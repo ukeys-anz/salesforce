@@ -6,7 +6,7 @@
     <description>Original Loan Amount</description>
     <externalDeveloperName>OriginalAmountFinanced</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Original Amount Financed ($)</label>

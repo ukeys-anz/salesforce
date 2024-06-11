@@ -6,7 +6,7 @@
     <description>Sequence</description>
     <externalDeveloperName>Sequence</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Sequence</label>

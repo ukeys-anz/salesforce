@@ -6,7 +6,7 @@
     <description>Associated Id of Loan Account</description>
     <externalDeveloperName>LoanAccountId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Loan Account</label>

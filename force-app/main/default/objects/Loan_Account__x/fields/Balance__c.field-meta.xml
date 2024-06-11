@@ -7,7 +7,7 @@
     <externalDeveloperName>Balance</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>Balance Amount on ANZ source system</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Balance ($)</label>

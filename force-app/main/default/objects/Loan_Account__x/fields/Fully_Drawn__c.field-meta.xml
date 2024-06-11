@@ -8,7 +8,7 @@
     <externalDeveloperName>FullyDrawn</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>If the loan has been fully drawn</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Fully Drawn</label>

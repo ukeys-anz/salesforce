@@ -6,7 +6,7 @@
     <description>Margin of Temp OD</description>
     <externalDeveloperName>OverdraftMargin</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Margin (%)</label>

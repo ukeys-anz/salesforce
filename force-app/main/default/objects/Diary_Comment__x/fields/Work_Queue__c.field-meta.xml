@@ -6,7 +6,7 @@
     <description> Work Queue </description>
     <externalDeveloperName>WorkQueue</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Work Queue</label>

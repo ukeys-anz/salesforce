@@ -7,7 +7,7 @@
     <description>ANZ Plus Identifier</description>
     <externalDeveloperName>ANZPlusIdentifier</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>ANZ Plus Account</label>

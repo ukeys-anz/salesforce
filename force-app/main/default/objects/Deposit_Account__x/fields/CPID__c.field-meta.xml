@@ -6,7 +6,7 @@
     <description>Controlling post ID</description>
     <externalDeveloperName>CPID</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>CPID</label>

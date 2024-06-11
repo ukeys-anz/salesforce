@@ -6,7 +6,7 @@
     <description>PI Elected Repayment Amount</description>
     <externalDeveloperName>PIElectedRepaymentAmount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Elected Repayment Amount ($)</label>

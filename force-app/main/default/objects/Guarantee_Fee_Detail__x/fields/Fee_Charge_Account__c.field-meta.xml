@@ -6,7 +6,7 @@
     <description>Fee Charge Account</description>
     <externalDeveloperName>FeeChargeAccount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Fee Charge Account</label>

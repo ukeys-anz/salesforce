@@ -6,7 +6,7 @@
     <description>IO Initial Interest Rate</description>
     <externalDeveloperName>IOInitialInterestRate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Initial Interest Rate</label>

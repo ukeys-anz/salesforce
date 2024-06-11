@@ -7,7 +7,7 @@
     <externalDeveloperName>RepaymentFrequency</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>How often repayments are made</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Repayment Frequency</label>

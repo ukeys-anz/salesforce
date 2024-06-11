@@ -7,7 +7,7 @@
     <description>Whether or not a Hard Hold is loaded on CAP</description>
     <externalDeveloperName>RestraintsHold</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Hard Hold</label>

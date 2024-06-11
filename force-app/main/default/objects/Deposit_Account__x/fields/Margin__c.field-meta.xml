@@ -6,7 +6,7 @@
     <description>Margin applied on base rate interest</description>
     <externalDeveloperName>Margin</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Debt Margin (%)</label>

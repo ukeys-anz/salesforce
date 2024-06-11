@@ -6,7 +6,7 @@
     <description>Associated Id of ELS</description>
     <externalDeveloperName>ELSId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Asset Finance ELS</label>

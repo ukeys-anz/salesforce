@@ -6,7 +6,7 @@
     <description>Associated Id Of AMBIT</description>
     <externalDeveloperName>AMBITId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Asset Finance AMBIT</label>

@@ -7,7 +7,7 @@
     <externalDeveloperName>ANZSICCode</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>Industry classification</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Industry</label>

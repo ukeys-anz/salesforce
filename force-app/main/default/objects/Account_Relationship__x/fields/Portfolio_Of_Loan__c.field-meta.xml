@@ -6,7 +6,7 @@
     <description>Associated Id of PTF</description>
     <externalDeveloperName>PortfolioOfLoanId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Portfolio Of Loan</label>

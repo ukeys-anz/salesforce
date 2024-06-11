@@ -6,7 +6,7 @@
     <description>IO Subsquent Discount</description>
     <externalDeveloperName>IOSubsequentDiscount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Subsequent Discount</label>

@@ -6,7 +6,7 @@
     <description>Previous Interest Rate</description>
     <externalDeveloperName>PreviousInterestRate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Previous Interest Rate</label>
