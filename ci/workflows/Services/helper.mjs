@@ -15,10 +15,17 @@ const renameFile = (oldFilepath, newFilepath) => {
   console.log(`${oldFilepath} renamed to ${newFilepath}.`);
 };
 
-const runSfCommand = (command) =>
-  execSync(command, { stdio: "pipe", maxBuffer: 1024 * 1024 * 10 }).toString(
-    "utf-8"
-  );
+const runSfCommand = (command) => {
+  try {
+    return execSync(command, {
+      stdio: "pipe",
+      maxBuffer: 1024 * 1024 * 10
+    }).toString("utf-8");
+  } catch (e) {
+    logger("ERROR: " + JSON.parse(e.stdout.toString("utf-8")).message);
+    process.exit(1);
+  }
+};
 
 const printContextFromFile = (jobIdFilePath, comment = "") => {
   if (!existsSync(jobIdFilePath)) {
