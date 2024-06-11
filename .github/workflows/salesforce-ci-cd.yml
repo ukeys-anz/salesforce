@@ -36,7 +36,7 @@ jobs:
       - if: ${{ (needs.validation-run.result == 'success') || (github.event.pull_request.merged == true) }}
         run: echo "Validation Run Succeed"
 
-      - if: ${{ needs.validation-run.result != 'success' }}
+      - if: ${{ (needs.validation-run.result != 'success') && (github.event.pull_request.merged != true)}}
         run: |
           echo "Validation Run Failed"
           exit 1
