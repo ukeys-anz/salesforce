@@ -9,7 +9,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>true</isWebCompEnabled>
     <language>English</language>
-    <name>CaseClose</name> 
+    <name>CaseClose</name>
     <omniProcessElements>
         <name>Case</name>
         <childElements>
