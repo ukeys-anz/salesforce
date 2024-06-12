@@ -318,7 +318,7 @@
                 <field>IDR_Complaint_Outcome__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Complaint_Outcome_Offered__c</field>
             </layoutItems>
             <layoutItems>
