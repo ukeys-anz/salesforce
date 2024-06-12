@@ -219,6 +219,20 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>isFinancesTab</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isWhatsHappeningTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>totalBalance</componentName>
+                <identifier>c_totalBalance2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
@@ -663,6 +677,10 @@
                 <componentInstanceProperties>
                     <name>isFinancesTab</name>
                     <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isWhatsHappeningTab</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentName>totalBalance</componentName>
                 <identifier>c_totalBalance</identifier>

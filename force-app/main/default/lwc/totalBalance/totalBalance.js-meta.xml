@@ -8,6 +8,7 @@
     <targetConfigs>
       <targetConfig targets="lightning__RecordPage">
         <property label="FinancesTab" name="isFinancesTab" type="Boolean" default="false"/>
+        <property label="isWhatsHappeningTab" name="isWhatsHappeningTab" type="Boolean" default="false"/>
       </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
