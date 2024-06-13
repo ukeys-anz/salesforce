@@ -234,4 +234,73 @@ public class CCRMLeadConversionTest {
       Test.stopTest();
     }
   }
+
+  @isTest
+  static void testTransferA2ZReviewToOpportunity() {
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
+    System.runAs(ccrmBaseUser) {
+      // Create test data using CCRMTestDataFactory
+      Opportunity testOpportunity = CCRMTestDataFactory.createOpportunityRecords(
+        1,
+        ccrmBaseUser,
+        false
+      )[0];
+      insert testOpportunity;
+
+      Account testAccount = new Account(Id = testOpportunity.AccountId);
+      Lead testLead = CCRMTestDataFactory.createLeadRecords(
+        1,
+        ccrmBaseUser,
+        false
+      )[0];
+      insert testLead;
+
+      // Map Lead Id with Opportunity Id and Account Id
+      Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>{
+        testLead.Id => testOpportunity.Id
+      };
+      Map<Id, Id> mapOfAccountIdWithLead = new Map<Id, Id>{
+        testLead.Id => testAccount.Id
+      };
+
+      // Create A_Z_Review__c record related to the test lead
+      A_Z_Review__c testA2ZReview = new A_Z_Review__c(
+        Name = 'A-Z Review Record',
+        Status__c = 'In Progress',
+        RecordTypeId = CCRMConstants.AZ_REVIEW_RT_ID,
+        OwnerId = ccrmBaseUser.Id,
+        Lead__c = testLead.Id
+      );
+      insert testA2ZReview;
+
+      Test.startTest();
+
+      AccountCommonActions.LeadDMLOperator aca = new AccountCommonActions.LeadDMLOperator();
+      aca.transferA2ZReviewToOpportunity(
+        new Set<Id>{ testLead.Id },
+        mapOfOpportunityId,
+        mapOfAccountIdWithLead
+      );
+      Test.stopTest();
+
+      // Query the updated A_Z_Review__c record
+      A_Z_Review__c updatedReview = [
+        SELECT Id, Name, Lead__c, Opportunity__c, Customer__c
+        FROM A_Z_Review__c
+        WHERE Id = :testA2ZReview.Id
+      ];
+
+      // Assert that the A_Z_Review__c record has been updated correctly
+      System.assertEquals(
+        testAccount.Id,
+        updatedReview.Customer__c,
+        'Customer__c should be set to the Account'
+      );
+      System.assertEquals(
+        testOpportunity.Id,
+        updatedReview.Opportunity__c,
+        'Opportunity__c should be set to the Opportunity'
+      );
+    }
+  }
 }

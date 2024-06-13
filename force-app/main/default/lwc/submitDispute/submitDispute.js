@@ -6,6 +6,11 @@ import verifyCardTokenNumber from "@salesforce/apex/SubmitDisputeController.veri
 // Util methods
 import { handleErrorShowToast, showToast } from "c/utils";
 
+const FIELD_CUSTOM_VALIDATION_EXCEPTION = "FIELD_CUSTOM_VALIDATION_EXCEPTION,";
+const INSUFFICIENT_ACCESS_OR_READONLY = "INSUFFICIENT_ACCESS_OR_READONLY,";
+const TOAST_ERROR_TITLE = "Dispute not submitted";
+const TOAST_ERROR_DEFAULT_MESSAGE = "Dispute unable to be submitted";
+
 export default class SubmitDispute extends LightningElement {
   @api recordId;
   loading;
@@ -54,21 +59,41 @@ export default class SubmitDispute extends LightningElement {
           this.loading = false;
           handleErrorShowToast(
             this,
-            "Dispute not submitted",
+            TOAST_ERROR_TITLE,
             "",
-            "Dispute unable to be submitted",
+            TOAST_ERROR_DEFAULT_MESSAGE,
             ""
           );
         }
       })
       .catch((error) => {
+        this.loading = false;
         handleErrorShowToast(
           this,
-          "Dispute not submitted",
-          error,
-          "Dispute unable to be submitted",
+          TOAST_ERROR_TITLE,
+          this.processError(error),
+          TOAST_ERROR_DEFAULT_MESSAGE,
           ""
         );
       });
   };
+
+  processError(error) {
+    let msg = error.body.message;
+    let searchTxtIndex = msg.indexOf(FIELD_CUSTOM_VALIDATION_EXCEPTION);
+    let err = JSON.parse(JSON.stringify(error)); //shallow copy of error obj
+
+    if (searchTxtIndex !== -1) {
+      err.body.message = msg.slice(
+        searchTxtIndex + FIELD_CUSTOM_VALIDATION_EXCEPTION.length,
+        -(msg.length - msg.lastIndexOf(": ["))
+      );
+      return err;
+    }
+    if (msg.indexOf(INSUFFICIENT_ACCESS_OR_READONLY) !== -1) {
+      err.body.message = "You are not allowed to submit the Dispute Case.";
+      return err;
+    }
+    return error;
+  }
 }

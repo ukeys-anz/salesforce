@@ -47,7 +47,9 @@ public with sharing class GetHelpCaseAssignmentRules {
 
       if (
         c.RecordTypeId == GetHelpConstants.CARD_DISPUTE_RT_ID &&
-        c.Transaction_Status__c == GetHelpConstants.TRANSACTION_STATUS_PENDING
+        c.Transaction_Status__c ==
+        GetHelpConstants.TRANSACTION_STATUS_PENDING ||
+        c.Transaction_Status__c == GetHelpConstants.TRANSACTION_PENDING
       ) {
         c.OwnerId = getPendingOwnerId(c);
       }

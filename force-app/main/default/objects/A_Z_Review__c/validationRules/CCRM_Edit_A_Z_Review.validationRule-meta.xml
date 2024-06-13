@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Edit_A_Z_Review</fullName>
+    <active>true</active>
+    <description>Only owner allow to edit the A-Z review</description>
+    <errorConditionFormula>AND(	
+				$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+				$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+				NOT(ISNEW()),
+				RecordType.DeveloperName = &apos;Commercial_A_Z_Review&apos;,	
+				OR(
+								ISCHANGED(Borrowing_OFI_Relationship__c),
+								ISCHANGED(Business_Details__c),
+								ISCHANGED(Customer__c),
+								ISCHANGED(Lead__c),
+								ISCHANGED(Opportunity__c),
+								ISCHANGED(Personal_Banking__c),
+								ISCHANGED(Status__c),
+								ISCHANGED(Name),
+								ISCHANGED(Transaction_Banking__c)
+				),
+    OwnerId &lt;&gt; $User.Id
+)</errorConditionFormula>
+    <errorMessage>Only owner of A-Z Review can edit A-Z Review.</errorMessage>
+</ValidationRule>

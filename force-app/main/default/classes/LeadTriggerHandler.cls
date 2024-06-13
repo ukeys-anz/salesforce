@@ -203,5 +203,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Lead');
     CCRMLeadActions.notifyLeadOwners((Map<Id, Lead>) oldMap, records);
     BOHLeadActions.convertBohLeads((Map<Id, Lead>) oldMap, records);
+    CCRMLeadActions.setCustomerOnA2ZReview((Map<Id, Lead>) oldMap, records);
   }
 }

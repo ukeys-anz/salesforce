@@ -1159,6 +1159,7 @@ private class CCRMLeadActionsTest {
       );
     }
   }
+
   @isTest
   static void testUpdateNewToBankFlagWithProspectCust() {
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
@@ -1288,6 +1289,48 @@ private class CCRMLeadActionsTest {
         CCRMConstants.CUSTOMER_NEEDS_ERROR,
         error.getMessage(),
         'Lead updated successfully'
+      );
+    }
+  }
+
+  @isTest
+  static void testsetCustomerOnA2ZReview() {
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
+    System.runAs(ccrmBaseUser) {
+      Account testAccount = CCRMTestDataFactory.createProspectBusinessAccount(
+        ccrmBaseUser.Id
+      );
+      Lead testLead = CCRMTestDataFactory.createLeadRecords(
+        1,
+        ccrmBaseUser,
+        true
+      )[0];
+      A_Z_Review__c testA2ZReview = new A_Z_Review__c(
+        Name = 'A-Z Review Record',
+        Status__c = 'In Progress',
+        RecordTypeId = CCRMConstants.AZ_REVIEW_RT_ID,
+        OwnerId = ccrmBaseUser.Id,
+        Lead__c = testLead.Id
+      );
+      insert testA2ZReview;
+
+      Lead testLeadNew = testLead;
+      testLeadNew.FinServ__RelatedAccount__c = testAccount.Id;
+
+      Test.startTest();
+      update testLeadNew;
+      Test.stopTest();
+
+      A_Z_Review__c updatedReview = [
+        SELECT Id, Name, Lead__c, Opportunity__c, Customer__c
+        FROM A_Z_Review__c
+        WHERE Id = :testA2ZReview.Id
+      ];
+
+      System.assertEquals(
+        testAccount.Id,
+        updatedReview.Customer__c,
+        'Customer__c should be set to the Account'
       );
     }
   }

@@ -1575,7 +1575,7 @@
   &quot;label&quot; : &quot;SetValues&quot;,
   &quot;elementValueMap&quot; : {
     &quot;title&quot; : &quot;=IF(CONTAINS(%debt:type%, &apos;CREDIT_CARD&apos;), &apos;Credit Card&apos;, \n    IF(CONTAINS(%debt:type%, &apos;PERSONAL&apos;), &apos;Personal Loan&apos;, \n        IF(CONTAINS(%debt:type%,&apos;VEHICLE&apos;), &apos;Vehicle Loan&apos;, \n            IF(CONTAINS(%debt:type%,&apos;LEASE&apos;),&apos;Vehicle Lease/Hire Purchase&apos;, \n                IF(CONTAINS(%debt:type%,&apos;OTHER_LOAN&apos;),&apos;Other Loan&apos;,\n                    IF(CONTAINS(%debt:type%,&apos;OVERDRAFT&apos;),&apos;Overdraft&apos;,\n                        IF(CONTAINS(%debt:type%,&apos;OTHER_LIABILITY&apos;),&apos;Other Limit Loan&apos;,\n                    IF(CONTAINS(%debt:type%,&apos;STUDENT&apos;),&apos;HECS-HELP&apos;,&apos;&apos;))))))))&quot;,
-    &quot;balanceOwing&quot; : &quot;=CURRENCY(ROUND(%debt:outstandingBalance:value%,2))&quot;,
+    &quot;balanceOwing&quot; : &quot;=CURRENCY(IF(%debt:outstandingBalance:value% &gt;= 0, 0.00, ROUND(%debt:outstandingBalance:value%,2)))&quot;,
     &quot;debtSource&quot; : &quot;=\nIF(%debt:sources|1% == &apos;LIABILITY_SOURCE_TYPE_BUREAU&apos;, &apos;Credit Bureau&apos;, \n    IF(%debt:sources|1% == &apos;LIABILITY_SOURCE_TYPE_MANUAL&apos;, &apos;Manual&apos;, \n        IF(%debt:sources|1% == &apos;LIABILITY_SOURCE_TYPE_ANZ&apos;, &apos;ANZ&apos;, &apos;&apos;)))\n&quot;,
     &quot;evidenceReceived&quot; : &quot;=%debt:evidenceProvided%&quot;,
     &quot;institution&quot; : &quot;=%debt:institutionalLiability:financialInstitution%&quot;,
@@ -1670,5 +1670,5 @@
     <type>SOPEditDebts</type>
     <uniqueName>SOPEditDebts_Overdraft_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>781799d1-d668-6e48-ea6d-7c70a24d065e</webComponentKey>
+    <webComponentKey>aa535950-69ba-8d6d-2a63-a7b6933b64d4</webComponentKey>
 </OmniScript>

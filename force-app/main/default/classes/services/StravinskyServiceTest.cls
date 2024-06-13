@@ -198,8 +198,10 @@ public inherited sharing class StravinskyServiceTest {
       Status = GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS
     );
 
+    Test.startTest();
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
     String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
+    Test.stopTest();
 
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
@@ -218,8 +220,10 @@ public inherited sharing class StravinskyServiceTest {
       Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
     );
 
+    Test.startTest();
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
     String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
+    Test.stopTest();
 
     Assert.areEqual(
       StravinskyService.EMPTY_BODY,
@@ -238,8 +242,10 @@ public inherited sharing class StravinskyServiceTest {
       Status = GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS
     );
 
+    Test.startTest();
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
     String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
+    Test.stopTest();
 
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
@@ -258,13 +264,64 @@ public inherited sharing class StravinskyServiceTest {
       Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
     );
 
+    Test.startTest();
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
     String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
+    Test.stopTest();
 
     Assert.areEqual(
       StravinskyService.EMPTY_BODY,
       payload,
       'Payload should be empty body {}.'
+    );
+  }
+
+  @isTest
+  static void testGetCaseWorkflowPayloadIdOpsWatchlistConfirmedFraud() {
+    Faker faker = new Faker('AU');
+    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
+    Case newCase = new Case(
+      Id = mockId,
+      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS,
+      Subject = 'ID Ops Assistance - Daon Fallout: WATCHLIST_HIT'
+    );
+
+    Test.startTest();
+    StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
+    String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
+    Test.stopTest();
+
+    Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
+    Assert.areEqual(
+      '{\"reason\":\"' +
+        GetHelpConstants.ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST +
+        '\"}',
+      payload,
+      'Payload is not correct.'
+    );
+  }
+
+  @isTest
+  static void testGetCaseWorkflowPayloadFraudCheckConfirmedFraud() {
+    Faker faker = new Faker('AU');
+    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
+    Case newCase = new Case(
+      Id = mockId,
+      RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
+      Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    );
+
+    Test.startTest();
+    StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
+    String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
+    Test.stopTest();
+
+    Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
+    Assert.areEqual(
+      '{\"reason\":\"' + GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS + '\"}',
+      payload,
+      'Payload is not correct.'
     );
   }
 

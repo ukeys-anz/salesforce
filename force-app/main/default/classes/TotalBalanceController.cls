@@ -18,19 +18,21 @@ public with sharing class TotalBalanceController {
       FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
       FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
     ) {
-      totalBalance = [
-        SELECT SUM(FinServ__Balance__c) totalBalance
-        FROM FinServ__FinancialAccount__c
-        WHERE
-          FinServ__Balance__c != NULL
-          AND FinServ__PrimaryOwner__c = :ownerId
-          AND (RecordTypeId = :GetHelpConstants.SAVINGS_ACCOUNT_RT_ID
-          OR RecordTypeId = :GetHelpConstants.CHECKING_ACCOUNT_RT_ID)
-          AND (FinServ__Status__c = 'Active'
-          OR FinServ__Status__c = 'Open')
-      ];
-    }
+      Id savingsRecordType = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID;
+      Id checkingRecordType = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
 
+      String financialAccountQuery =
+        'SELECT SUM(FinServ__Balance__c) totalBalance from FinServ__FinancialAccount__c' +
+        ' WHERE FinServ__Balance__c != NULL AND FinServ__PrimaryOwner__c = :ownerId AND ' +
+        '(RecordTypeId = :savingsRecordType OR RecordTypeId = :checkingRecordType) AND ' +
+        '(FinServ__Status__c IN (\'Active\',\'Open\'))';
+
+      if (System.Label.S2AccountEnabled.toLowerCase() == 'false') {
+        financialAccountQuery += ' AND Marketing_Code__c != \'SAVING02\'';
+      }
+
+      totalBalance = (AggregateResult) Database.query(financialAccountQuery);
+    }
     return totalBalance;
   }
 
@@ -47,16 +49,19 @@ public with sharing class TotalBalanceController {
       FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
       FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
     ) {
-      totalSaved = [
-        SELECT SUM(FinServ__Balance__c) totalSaved
-        FROM FinServ__FinancialAccount__c
-        WHERE
-          FinServ__Balance__c != NULL
-          AND FinServ__PrimaryOwner__c = :ownerId
-          AND RecordTypeId = :GetHelpConstants.SAVINGS_ACCOUNT_RT_ID
-          AND (FinServ__Status__c = 'Active'
-          OR FinServ__Status__c = 'Open')
-      ];
+      Id savingsRecordType = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID;
+
+      String financialAccountQuery =
+        'SELECT SUM(FinServ__Balance__c) totalSaved FROM FinServ__FinancialAccount__c' +
+        ' WHERE FinServ__Balance__c != NULL AND FinServ__PrimaryOwner__c = :ownerId AND ' +
+        'RecordTypeId = :savingsRecordType AND ' +
+        '(FinServ__Status__c IN (\'Active\',\'Open\'))';
+
+      if (System.Label.S2AccountEnabled.toLowerCase() == 'false') {
+        financialAccountQuery += ' AND Marketing_Code__c != \'SAVING02\'';
+      }
+
+      totalSaved = (AggregateResult) Database.query(financialAccountQuery);
     }
 
     return totalSaved;

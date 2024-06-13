@@ -39,7 +39,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
 
       System.assertEquals(
-        2,
+        3,
         model.account_list.size(),
         'Account list size should be as expected.'
       );

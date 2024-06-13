@@ -3,8 +3,8 @@
     <fullName>Compact_Layout</fullName>
     <fields>Name</fields>
     <fields>AccountId</fields>
+    <fields>Originated_By__c</fields>
+    <fields>Loan_Purpose__c</fields>
     <fields>Status</fields>
-    <fields>LoanPurpose</fields>
-    <fields>Assisted_Broker__c</fields>
     <label>Compact Layout</label>
 </CompactLayout>

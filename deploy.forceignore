@@ -82,9 +82,6 @@ force-app/main/default/datacategorygroups
 #Ignoring deleted platform event for Nov 10 develop merge - CMOS
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e
 
-#Ignoring the deploy user's pset, likely to break scratch org creation
-force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
-
 #Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
 #as metadata API does not support deleting record type, to avoid destructive change error
 force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml
@@ -137,6 +134,7 @@ force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
+force-app/main/default/objects/Case/listViews/Deceased_Estate_Cases.listView-meta.xml
 
 #ignore to allow linting
 force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
@@ -213,3 +211,6 @@ force-app/main/default/aura/QuickActionAuraContainer
 
 #AR-135392 Modifying the current TSP
 force-app/main/default/transactionSecurityPolicies
+
+#temporary ignore for merge dev to bau 13 june 2024
+force-app/main/default/entitlementProcesses

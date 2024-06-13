@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Field Level Security (FLS) for RBM</description>
+    <description>Permissions for Residential Broker Manager</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.OCV_Event_Version__c</field>
@@ -1229,6 +1229,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Needs_Assessment_Unsuitability_Reasons__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Originated_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

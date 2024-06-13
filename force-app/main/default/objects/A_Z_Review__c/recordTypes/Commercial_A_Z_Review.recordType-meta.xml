@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commercial_A_Z_Review</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Commerical_A_Z_Review_Compact_Layout</compactLayoutAssignment>
+    <description>RecordType for commercial</description>
+    <label>Commercial A-Z Review</label>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+</RecordType>
