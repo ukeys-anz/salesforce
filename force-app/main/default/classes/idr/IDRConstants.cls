@@ -377,9 +377,7 @@ public with sharing class IDRConstants {
 
   public static final List<String> IDR_PRIORITY_VALUES = new List<String>{
     'Standard',
-    'Financial Hardship',
-    'Vulnerable Customer',
-    'Customer in Collections'
+    'Vulnerable Customer'
   };
 
   public static final List<String> IDR_ORIGIN_VALUES = new List<String>{
