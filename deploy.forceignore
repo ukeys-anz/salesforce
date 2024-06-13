@@ -211,6 +211,3 @@ force-app/main/default/aura/QuickActionAuraContainer
 
 #AR-135392 Modifying the current TSP
 force-app/main/default/transactionSecurityPolicies
-
-#temporary ignore for merge dev to bau 13 june 2024
-force-app/main/default/entitlementProcesses
