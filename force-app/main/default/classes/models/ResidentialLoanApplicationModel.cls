@@ -171,10 +171,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       ocvIdSet.add(partyToOcvMap.get(income.employment.partyId));
     }
 
-    for (SOPIncome income : incomesSummary.incomes) {
-      ocvIdSet.add(partyToOcvMap.get(income.employment.partyId));
-    }
-
     List<Account> accList = [
       SELECT FirstName, ocv_id__c
       FROM Account

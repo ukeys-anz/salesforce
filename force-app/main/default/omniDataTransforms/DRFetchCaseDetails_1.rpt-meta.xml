@@ -97,6 +97,8 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom9921</globalKey>
+        <globalKey>DRFetchCaseDetailsCustom9921</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Complaint_Remedy__c</inputFieldName>
         <inputFieldName>ComplaintResolution|3:IDR_Complaint_Remedy__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -1462,7 +1464,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| | var:ComplaintResolution|3:IDR_Complaint_Remedy__c ISNOTBLANK &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
@@ -1522,7 +1523,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -1595,31 +1595,10 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRFetchCaseDetails</name>
-        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom1594</globalKey>
-        <globalKey>DRFetchCaseDetailsCustom3786</globalKey>
         <inputFieldName>ComplaintResolution|1:IDR_Complaint_Remedy__c</inputFieldName>
-        <inputFieldName>Case:IDR_Real_Form_Ref_No__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:REALFormMAXID_OLD</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRFetchCaseDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom7535</globalKey>
-        <inputFieldName>ComplaintResolution|2:IDR_Complaint_Remedy_Offered__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>

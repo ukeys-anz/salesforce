@@ -36,13 +36,15 @@ const {
 } = process.env;
 
 const IS_MASTER_BRANCH = BASE_REF === "master";
-const IS_QA_SANDBOX = JOB_NAME ? true : false;
+const CREATE_TAG_FLAG = JOB_NAME ? true : false;
+const POSTFIX_ALIAS = JOB_NAME
+  ? `${JOB_NAME.replace("sf-platform-np", "")}`
+  : "";
+const BRANCH_NAME_ALIAS = BRANCH_NAME + POSTFIX_ALIAS;
 
-const JOB_ID_FILE_NAME =
-  renameItem(`${BASE_REF}-${PR_NUMBER}`) +
-  (JOB_NAME ? `${JOB_NAME.replace("sf-platform-np", "")}` : "");
+const JOB_ID_FILE_NAME = renameItem(`${BASE_REF}-${PR_NUMBER}`) + POSTFIX_ALIAS;
 
-const ARTIFACT_NAME = renameItem(`artifact-${BRANCH_NAME}`);
+const ARTIFACT_NAME = renameItem(`artifact-${BRANCH_NAME_ALIAS}`);
 const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases-np`;
 const ARTIFACT_PACKAGE_XML =
   WORKING_DIR + "/" + ARTIFACT_NAME + "/package/package.xml";
@@ -60,27 +62,27 @@ const ARTIFACTORY_SECRET_VALUE = args[1];
 /// functions
 
 const quickDeployment = () => {
-  authenticate(BRANCH_NAME, SFDX_URL);
+  authenticate(BRANCH_NAME_ALIAS, SFDX_URL);
   const quickDeployment = quickDeploy(
     JOB_ID_FILE_NAME,
     ARTIFACT_NAME,
     ARTIFACTORY_SECRET_VALUE,
     ARTIFACTORY_REPO_NAME,
-    BRANCH_NAME
+    BRANCH_NAME_ALIAS
   );
   quickDeployProgress(
     quickDeployment,
-    BRANCH_NAME,
+    BRANCH_NAME_ALIAS,
     ARTIFACT_PACKAGE_XML,
     ARTIFACT_DESTRUCTIVE_XML
   );
 };
 
 const quickClean = () => {
-  unauthenticate(BASE_REF);
+  unauthenticate(BRANCH_NAME_ALIAS);
   deleteFolder(ARTIFACT_NAME);
   deleteFile(JOB_ID_FILE_NAME);
-  createTag(BASE_REF, RUN_ID, IS_QA_SANDBOX);
+  createTag(BASE_REF, RUN_ID, CREATE_TAG_FLAG);
 };
 
 /////////
@@ -92,7 +94,7 @@ const runCD = () => {
     quickDeployment: quickDeployment,
     quickClean: quickClean
   };
-  if (IS_MASTER_BRANCH && !IS_QA_SANDBOX) return;
+  if (IS_MASTER_BRANCH && !CREATE_TAG_FLAG) return;
   return WHICH_JOB ? runFunctionMapping[WHICH_JOB]() : quickDeployment();
 };
 

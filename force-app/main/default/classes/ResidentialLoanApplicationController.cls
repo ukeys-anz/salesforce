@@ -187,10 +187,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   ) {
     List<SOPAsset> filteredAssests = new List<SOPAsset>();
     for (SOPAsset asset : sopAssets.assetsSummary.assets) {
-      if (asset?.account == null) {
-        continue;
-      }
-      if (asset.account.status == 'ACCOUNT_STATE_CLOSED') {
+      if (asset?.account?.status == 'ACCOUNT_STATE_CLOSED') {
         continue;
       }
       filteredAssests.add(asset);
@@ -209,10 +206,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   ) {
     List<SOPDebt> filteredALiabilities = new List<SOPDebt>();
     for (SOPDebt debt : sopAssets.liabilitiesSummary.liabilities) {
-      if (debt?.account == null) {
-        continue;
-      }
-      if (debt.account.status == 'ACCOUNT_STATE_CLOSED') {
+      if (debt?.account?.status == 'ACCOUNT_STATE_CLOSED') {
         continue;
       }
       filteredALiabilities.add(debt);
