@@ -63,7 +63,8 @@ public with sharing class StravinskyControllerTest {
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-      Package_Id__c = faker.randomString(10)
+      Package_Id__c = faker.randomString(10),
+      Account_Product__c = 'ANZ Plus & ANZ Save'
     );
     insert newCase;
 
@@ -101,7 +102,8 @@ public with sharing class StravinskyControllerTest {
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-      Package_Id__c = faker.randomString(10)
+      Package_Id__c = faker.randomString(10),
+      Account_Product__c = 'ANZ Plus & ANZ Save'
     );
     insert newCase;
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
@@ -132,7 +134,8 @@ public with sharing class StravinskyControllerTest {
     Case newCase = new Case(
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID
+      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      Account_Product__c = 'ANZ Plus & ANZ Save'
     );
     insert newCase;
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
@@ -182,7 +185,8 @@ public with sharing class StravinskyControllerTest {
         AccountId = jointCustomer.Id,
         Account_Type__c = 'Joint',
         RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-        Package_Id__c = faker.randomString(10)
+        Package_Id__c = faker.randomString(10),
+        Account_Product__c = 'ANZ Plus & ANZ Save'
       );
       insert newCase;
 
@@ -255,7 +259,8 @@ public with sharing class StravinskyControllerTest {
         AccountId = jointCustomer.Id,
         Account_Type__c = 'Joint',
         RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-        Package_Id__c = faker.randomString(10)
+        Package_Id__c = faker.randomString(10),
+        Account_Product__c = 'ANZ Plus & ANZ Save'
       );
       insert newCase;
 
