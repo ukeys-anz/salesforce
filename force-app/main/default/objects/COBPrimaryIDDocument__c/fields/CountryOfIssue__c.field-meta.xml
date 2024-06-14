@@ -771,9 +771,9 @@
                 <label>Nepal</label>
             </value>
             <value>
-                <fullName>Netherlands</fullName>
+                <fullName>Netherlands (Kingdom of the)</fullName>
                 <default>false</default>
-                <label>Netherlands</label>
+                <label>Netherlands (Kingdom of the)</label>
             </value>
             <value>
                 <fullName>New Caledonia</fullName>
@@ -1091,9 +1091,9 @@
                 <label>Tunisia</label>
             </value>
             <value>
-                <fullName>Turkey</fullName>
+                <fullName>Turkiye</fullName>
                 <default>false</default>
-                <label>Turkey</label>
+                <label>Turkiye</label>
             </value>
             <value>
                 <fullName>Turkmenistan</fullName>
