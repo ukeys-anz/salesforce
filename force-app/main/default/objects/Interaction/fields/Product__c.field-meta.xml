@@ -52,11 +52,6 @@
                 <label>ANZ Plus Home Loan - Variable</label>
             </value>
             <value>
-                <fullName>ANZ Plus Flex Saver</fullName>
-                <default>false</default>
-                <label>ANZ Plus Flex Saver</label>
-            </value>
-            <value>
                 <fullName>ANZ Product</fullName>
                 <default>false</default>
                 <label>ANZ Product</label>
