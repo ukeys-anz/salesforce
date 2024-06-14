@@ -1,0 +1,20 @@
+name: Salesforce Validation/Quick Deployment Reusable Workflow
+on:
+  workflow_call:
+    inputs:
+      sfdx_name:
+        required: false
+        description: "Secret Name as an Input"
+        type: string
+
+jobs:
+  validate:
+    uses: ./.github/workflows/_validation.yml
+    with:
+      sfdx_name: ${{ inputs.sfdx_name }}
+
+  deploy:
+    needs: [validate]
+    uses: ./.github/workflows/_quick-deployment.yml
+    with:
+      sfdx_name: ${{ inputs.sfdx_name }}
