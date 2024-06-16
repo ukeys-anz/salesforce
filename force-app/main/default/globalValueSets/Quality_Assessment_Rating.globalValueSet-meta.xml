@@ -35,6 +35,12 @@
         <default>false</default>
         <label>Met Expectations</label>
     </customValue>
+    <customValue>
+        <fullName>N/A</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>N/A</label>
+    </customValue>
     <description>Used by multiple fields on Quality Assessment object</description>
     <masterLabel>Quality Assessment Rating</masterLabel>
     <sorted>false</sorted>
