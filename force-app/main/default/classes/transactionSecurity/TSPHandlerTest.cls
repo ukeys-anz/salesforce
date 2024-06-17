@@ -224,6 +224,7 @@ public with sharing class TSPHandlerTest {
       LogEntry__c testLogEntry = [
         SELECT LogMessage__c
         FROM LogEntry__c
+        WHERE ApexClassName__c = 'TSPHandler'
         LIMIT 1
       ];
       String testLog = testLogEntry.LogMessage__c;
