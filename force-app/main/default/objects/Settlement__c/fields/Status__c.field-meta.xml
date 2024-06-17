@@ -17,7 +17,7 @@ Settling - Settlement is now completed. Loan is now in the process of drawing do
 
 Completed - New loan has been generated.
 
-Please note: Some of these statues will only be displayed briefly.</inlineHelpText>
+Please note: Some of these statuses will only be displayed briefly.</inlineHelpText>
     <label>Status</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
