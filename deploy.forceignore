@@ -201,3 +201,6 @@ force-app/main/default/flows/CCRM_Hide_Expired_Contacts_Schedule.flow-meta.xml
 
 #ANZX-157800 AUF Transformer squad
 force-app/main/default/aura/QuickActionAuraContainer
+
+#ANZX-155504 ignore for manual delete
+force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml

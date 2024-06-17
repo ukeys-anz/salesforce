@@ -473,6 +473,18 @@
       "type": "user"
     },
     {
+      "name": "Profile Update QA Integration user",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Write_ProfileUpdate_Integration",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Statutory Compliance Agent",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Statutory_Compliance_Agent"],

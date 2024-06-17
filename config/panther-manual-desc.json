@@ -1126,6 +1126,7 @@
       ],
       "IA-2415984": [
         "Address__c",
+        "AddressURL__c",
         "Case_Age_in_Days__c",
         "Has_Assessment__c",
         "SI_Repository_COM_IDs__c",
@@ -1135,7 +1136,6 @@
         "SI_Category_Other__c",
         "ContactMobile",
         "ContactEmail",
-        "Customer_Residential_Address__c",
         "IDR_3rdParty_Country__c",
         "IDR_3rdParty_Email__c",
         "IDR_3rdParty_Mobile__c",
@@ -1215,8 +1215,6 @@
         "Title_Reference_Number__c"
       ],
       "IA-2415860": [
-        "Customer_First_Contacted__c",
-        "Followup_State__c",
         "Package_Id__c",
         "Status_Update_Error__c",
         "System_Action__c",
