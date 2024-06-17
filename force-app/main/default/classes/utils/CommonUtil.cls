@@ -271,9 +271,8 @@ public with sharing class CommonUtil {
       fieldName == 'IDR_Other_Remedy_Provided__c' ||
       fieldName == 'IDR_Other_Remedy_Provided_2__c' ||
       fieldName == 'IDR_Other_Remedy_Provided_3__c' ||
-      fieldName == 'IDR_Description_of_Outcome_Offered__c'||
+      fieldName == 'IDR_Description_of_Outcome_Offered__c' ||
       fieldName == 'IDR_Other_Remedy_Offered__c'
-
     ) {
       TextUtils.maskDataCmos(record, fieldName);
     } else {
@@ -355,6 +354,28 @@ public with sharing class CommonUtil {
     Logger.error(errorDescription);
     Logger.saveLog();
     throw new InsufficientAccessException(errorDescription);
+  }
+
+  /**
+   * @description Logs and return the given exception.
+   * Useful for re-throw from caller.
+   * @param ex The exception to be logged.
+   * @return The logged exception.
+   */
+  public static Exception logException(Exception ex) {
+    Logger.error(ex.getMessage(), ex);
+    Logger.saveLog();
+    return ex;
+  }
+
+  /**
+   * @description Logs and return an exception based on error provided in HttpCalloutResponse.
+   * Useful for re-throw from caller.
+   * @param response The HTTP callout response containing the error information.
+   * @return An Exception object representing the logged exception.
+   */
+  public static Exception logException(HttpCalloutResponse response) {
+    return logException(response.error);
   }
 
   /**

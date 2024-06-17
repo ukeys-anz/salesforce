@@ -285,4 +285,34 @@ public with sharing class TestUtil {
     }
     return permssionSetApiNames;
   }
+
+  /**
+   * @description Set value to fields of an SObject Record. Useful for mocking read-only fields such as formula field or child records
+   * @param record The parent SObject record.
+   * @param fieldMap A map containing fields and corresponding values
+   * @return A new instance of `record`
+   */
+  public static Object setFields(SObject record, Map<String, Object> fieldMap) {
+    Map<String, Object> recordMap = new Map<String, Object>(
+      record.getPopulatedFieldsAsMap()
+    );
+
+    for (String field : fieldMap.keySet()) {
+      Object value = fieldMap.get(field);
+      if (value instanceof List<SObject>) {
+        value = new Map<String, Object>{
+          'records' => value,
+          'totalSize' => ((List<SObject>) value).size(),
+          'done' => true
+        };
+      }
+      recordMap.put(field, value);
+    }
+
+    String objectName = record.getSObjectType().getDescribe().Name;
+    Type objectType = Type.forName(objectName);
+    String serializedRecord = JSON.serialize(recordMap);
+
+    return JSON.deserialize(serializedRecord, objectType);
+  }
 }
