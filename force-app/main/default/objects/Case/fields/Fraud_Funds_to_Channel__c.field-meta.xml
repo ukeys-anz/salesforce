@@ -46,6 +46,12 @@
                 <default>false</default>
                 <label>EFTPOS</label>
             </value>
+            <value>
+                <fullName>Pay Anyone</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pay Anyone</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

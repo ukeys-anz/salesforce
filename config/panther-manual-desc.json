@@ -830,6 +830,7 @@
         "Case_Hour_Duration__c",
         "Closed_Once__c",
         "ClosedDate",
+        "Closure_Reason__c",
         "Comments",
         "Customer_Contacted_Merchant__c",
         "Customer_Description__c",

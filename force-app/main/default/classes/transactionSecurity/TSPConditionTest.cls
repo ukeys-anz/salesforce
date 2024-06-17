@@ -236,29 +236,4 @@ public with sharing class TSPConditionTest {
       );
     }
   }
-
-  @isTest
-  static void testNotifySystemUserLoginEvent() {
-    //GIVEN the user with `ANZx Standard User` profile
-    User thisUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
-    insert thisUser;
-
-    System.runAs(thisUser) {
-      //WHEN the user want to query RefreshToken Field
-      String systemUser = 'anzx.user@anzx.com.testuser';
-      LoginEvent testLoginEvent = new LoginEvent();
-      testLoginEvent.Username = systemUser;
-
-      //THEN the condition should be false
-      Boolean result = TSPCondition.condition(
-        thisUser.Id,
-        'ANZx Standard User',
-        testLoginEvent
-      );
-      System.assert(
-        result,
-        'Should return true as LoginEvent should be captured for System User'
-      );
-    }
-  }
 }

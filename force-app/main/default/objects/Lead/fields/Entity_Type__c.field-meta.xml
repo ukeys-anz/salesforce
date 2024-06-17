@@ -91,6 +91,12 @@
                 <isActive>false</isActive>
                 <label>Customer Lending Group</label>
             </value>
+            <value>
+                <fullName>Local Government_old</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Local Government_old</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
