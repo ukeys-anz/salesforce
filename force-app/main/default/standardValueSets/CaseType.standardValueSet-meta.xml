@@ -431,4 +431,9 @@
         <default>false</default>
         <label>Goods &amp; Services</label>
     </standardValue>
+    <standardValue>
+        <fullName>Know Your Customer</fullName>
+        <default>false</default>
+        <label>Know Your Customer</label>
+    </standardValue>
 </StandardValueSet>
