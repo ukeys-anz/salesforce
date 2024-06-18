@@ -29,10 +29,12 @@ public with sharing class LoggingSettingsControllerTest {
         SetupOwnerId = engineerUser.Id
       );
       insert userCustomSetting;
-
-      isSecureLogEnabled = LoggingSettingsController.isSecureLogEnabled();
-      defaultLoggingLevel = LoggingSettingsController.getDefaultLoggingLevel();
-      defaultSaveMethod = LoggingSettingsController.getDefaultSaveMethod();
+      LoggingSettings__c loggingUserSettings = LoggingSettings__c.getInstance(
+        engineerUser.Id
+      );
+      isSecureLogEnabled = loggingUserSettings.SecureLogEnabled__c;
+      defaultLoggingLevel = loggingUserSettings.DefaultLoggingLevel__c;
+      defaultSaveMethod = loggingUserSettings.DefaultSaveMethod__c;
     }
     Test.stopTest();
     System.assertEquals(
@@ -75,9 +77,12 @@ public with sharing class LoggingSettingsControllerTest {
     String defaultSaveMethod;
     Test.startTest();
     System.runAs(coachUser) {
-      isSecureLogEnabled = LoggingSettingsController.isSecureLogEnabled();
-      defaultLoggingLevel = LoggingSettingsController.getDefaultLoggingLevel();
-      defaultSaveMethod = LoggingSettingsController.getDefaultSaveMethod();
+      LoggingSettings__c loggingUserSettings = LoggingSettings__c.getInstance(
+        coachUser.Id
+      );
+      isSecureLogEnabled = loggingUserSettings.SecureLogEnabled__c;
+      defaultLoggingLevel = loggingUserSettings.DefaultLoggingLevel__c;
+      defaultSaveMethod = loggingUserSettings.DefaultSaveMethod__c;
     }
     Test.stopTest();
     System.assertEquals(

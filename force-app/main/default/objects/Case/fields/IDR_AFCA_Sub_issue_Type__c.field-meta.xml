@@ -183,6 +183,12 @@
                 <label>Failure to act in the clients best interest</label>
             </value>
             <value>
+                <fullName>Failure to active in the clients best interest</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Failure to active in the clients best interest</label>
+            </value>
+            <value>
                 <fullName>Failure to follow instructions/agreement</fullName>
                 <default>false</default>
                 <label>Failure to follow instructions/agreement</label>

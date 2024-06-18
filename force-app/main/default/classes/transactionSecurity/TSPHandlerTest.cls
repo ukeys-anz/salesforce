@@ -224,6 +224,7 @@ public with sharing class TSPHandlerTest {
       LogEntry__c testLogEntry = [
         SELECT LogMessage__c
         FROM LogEntry__c
+        WHERE ApexClassName__c = 'TSPHandler'
         LIMIT 1
       ];
       String testLog = testLogEntry.LogMessage__c;
@@ -236,22 +237,154 @@ public with sharing class TSPHandlerTest {
     }
   }
 
-  @isTest
-  static void testNotifySystemUserLoginEvent() {
-    User thisUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
-    insert thisUser;
-    System.runAs(thisUser) {
-      //WHEN there is LoginEvent for System User
-      LoginEvent testLoginEvent = new LoginEvent(
-        Username = 'anzx.user@anzx.com.testuser'
-      );
+  private static User createTestUser(String profileName) {
+    return TestUtil.createTestUserWithProfile(profileName);
+  }
 
-      //THEN the condition should be false
-      Boolean result = TSPHandler.evaluate(testLoginEvent);
-      System.assert(
-        result,
-        'Should return true as Login Event for System User being picked up'
-      );
-    }
+  @isTest
+  static void testReportLoginEventBreakGlassUser() {
+    //GIVEN LoginEvent with Username is BreakGlass User (System User)
+    LoginEvent testLoginEvent = new LoginEvent();
+    testLoginEvent.UserName = 'anzx.user@anzx.com';
+
+    //WHEN TSPHandler is checking Login Event Policies
+    Test.startTest();
+    Boolean result = TSPHandler.loginEventEvaluation(testLoginEvent);
+    Test.stopTest();
+
+    //THEN TSP should return true when breakglass user is logged into the system
+    Assert.isTrue(
+      result,
+      'TSP for Login Event should return true for breakglass user login Event'
+    );
+  }
+
+  @isTest
+  static void testReportLoginEventWithNotAllowedLoginType() {
+    //GIVEN Login Event with not allowed loginType (username credetial)
+    LoginEvent testLoginEvent = new LoginEvent();
+    testLoginEvent.LoginType = 'Application';
+    testLoginEvent.UserName = math.random() + '@anzx.com';
+
+    //WHEN TSPHandler is checking Login Event Policies
+    Test.startTest();
+    Boolean result = TSPHandler.loginEventEvaluation(testLoginEvent);
+    Test.stopTest();
+
+    //THEN TSP should return true when loginEvent coming from not allowed loginType
+    Assert.isTrue(
+      result,
+      'TSP for Login Event should return true when not SSO into Salesforce'
+    );
+  }
+
+  @isTest
+  static void testReportLoginEventWithAllowedLoginTypeSSO() {
+    //GIVEN Login Event with allowed loginType (SSO)
+    LoginEvent testLoginEvent = new LoginEvent();
+    testLoginEvent.LoginType = 'Third Party SSO';
+    testLoginEvent.UserName = math.random() + '@anzx.com';
+
+    //WHEN TSPHandler is checking Login Event Policies
+    Test.startTest();
+    Boolean result = TSPHandler.loginEventEvaluation(testLoginEvent);
+    Test.stopTest();
+
+    // THEN TSP should return false when loginEvent coming from SSO
+    Assert.isFalse(
+      result,
+      'TSP for Login Event with allowed loginType should NOT return true'
+    );
+  }
+
+  @isTest
+  static void testReportLoginEventWithAllowedLoginTypeOauth() {
+    //GIVEN Login Event with allowed loginType (OAuth 2.0)
+    LoginEvent testLoginEvent = new LoginEvent();
+    testLoginEvent.LoginType = 'Remote Access 2.0';
+    testLoginEvent.UserName = math.random() + '@anzx.com';
+
+    ////WHEN TSPHandler is checking Login Event Policies
+    Test.startTest();
+    Boolean result = TSPHandler.loginEventEvaluation(testLoginEvent);
+    Test.stopTest();
+
+    // THEN TSP should return false when loginEvent coming from OAuth
+    Assert.isFalse(
+      result,
+      'TSP for Login Event from integration users should NOT return true'
+    );
+  }
+
+  @isTest
+  static void testCheckBreakGlassUser() {
+    //GIVEN Login Event with BreakGlass User
+    LoginEvent testLoginEvent = new LoginEvent();
+    testLoginEvent.Username = 'anzx.user@anzx.com';
+
+    ////WHEN checkBreakGlassUser is called
+    Test.startTest();
+    Boolean result = TSPHandler.checkBreakGlassUser(testLoginEvent);
+    Test.stopTest();
+
+    // THEN checkBreakGlassUser should return TRUE
+    Assert.isTrue(
+      result,
+      'breakglass user should be detected and returned TRUE'
+    );
+  }
+
+  @isTest
+  static void testCheckBreakGlassUserNonBreakGlassUser() {
+    //GIVEN Login Event with normal user
+    LoginEvent testLoginEvent = new LoginEvent();
+    testLoginEvent.Username = math.random() + '@anzx.com';
+
+    ////WHEN checkBreakGlassUser is called
+    Test.startTest();
+    Boolean result = TSPHandler.checkBreakGlassUser(testLoginEvent);
+    Test.stopTest();
+
+    // THEN checkBreakGlassUser should return FALSE
+    Assert.isFalse(
+      result,
+      'checkBreakGlassUser should return false when normal user login to Salesforce'
+    );
+  }
+
+  @isTest
+  static void testCheckLoginTypeNonSSO() {
+    //GIVEN Login Event with not allowed Loginype
+    LoginEvent testLoginEvent = new LoginEvent();
+    testLoginEvent.LoginType = 'Application';
+
+    ////WHEN checkLoginType is called
+    Test.startTest();
+    Boolean result = TSPHandler.checkLoginType(testLoginEvent);
+    Test.stopTest();
+
+    // THEN checkLoginType should return TRUE
+    Assert.isTrue(
+      result,
+      'checkLoginType should return true when LoginType is not SSO'
+    );
+  }
+
+  @isTest
+  static void testCheckLoginTypeWithSSO() {
+    //GIVEN Login Event with SSO
+    LoginEvent testLoginEvent = new LoginEvent();
+    testLoginEvent.LoginType = 'Third Party SSO';
+
+    ////WHEN checkLoginType is called
+    Test.startTest();
+    Boolean result = TSPHandler.checkLoginType(testLoginEvent);
+    Test.stopTest();
+
+    // THEN checkLoginType should return FALSE for SSO
+    Assert.isFalse(
+      result,
+      'checkLoginType should return false when LoginType is SSO'
+    );
   }
 }

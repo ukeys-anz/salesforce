@@ -10,6 +10,7 @@
     <columns>Resolution__c</columns>
     <columns>StartTime</columns>
     <columns>Attendees__c</columns>
+    <columns>Mobile__c</columns>
     <filters>
         <field>RecordType</field>
         <operation>equals</operation>

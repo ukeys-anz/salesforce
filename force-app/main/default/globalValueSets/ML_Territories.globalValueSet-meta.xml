@@ -975,6 +975,18 @@
         <default>false</default>
         <label>Wollongong (NSW)</label>
     </customValue>
+    <customValue>
+        <fullName>Coffs Harbour (QLD)</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Coffs Harbour (QLD)</label>
+    </customValue>
+    <customValue>
+        <fullName>Riverina (NSW)</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Riverina (NSW)</label>
+    </customValue>
     <description>global value set for list of territories</description>
     <masterLabel>ML Territories</masterLabel>
     <sorted>true</sorted>

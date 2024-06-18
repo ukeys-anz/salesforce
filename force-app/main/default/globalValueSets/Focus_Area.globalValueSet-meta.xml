@@ -42,6 +42,12 @@
         <isActive>false</isActive>
         <label>Something Else?</label>
     </customValue>
+    <customValue>
+        <fullName>Pay my loan down sooner</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Pay my loan down sooner</label>
+    </customValue>
     <masterLabel>Focus Area</masterLabel>
     <sorted>false</sorted>
 </GlobalValueSet>

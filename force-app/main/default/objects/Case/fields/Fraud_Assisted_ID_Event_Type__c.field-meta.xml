@@ -95,6 +95,12 @@
                 <isActive>false</isActive>
                 <label>Failed Self-Service PIN Recovery</label>
             </value>
+            <value>
+                <fullName>Update Legal Name</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Update Legal Name</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
