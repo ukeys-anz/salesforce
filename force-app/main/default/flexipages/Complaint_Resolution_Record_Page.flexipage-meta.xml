@@ -721,51 +721,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.IDR_customer_accept_resolution_offered__c</fieldItem>
-                <identifier>RecordIDR_customer_accept_resolution_offered_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Closed</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_customer_accept_resolution_offered__c</fieldItem>
                 <identifier>RecordIDR_customer_accept_resolution_offered_cField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Closed</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.IDR_Was_the_offer_enhanced_and_accepted__c</fieldItem>
-                <identifier>RecordIDR_Was_the_offer_enhanced_and_accepted_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Closed</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -776,13 +735,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Was_the_offer_enhanced_and_accepted__c</fieldItem>
                 <identifier>RecordIDR_Was_the_offer_enhanced_and_accepted_cField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Closed</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

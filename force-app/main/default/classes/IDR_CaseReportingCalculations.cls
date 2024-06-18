@@ -7,11 +7,13 @@
 public without sharing class IDR_CaseReportingCalculations {
   private static List<String> openCaseStatusRG271 = new List<String>{
     IDRConstants.OPEN_STATUS,
+    IDRConstants.ON_HOLD_STATUS,
     IDRConstants.UNDER_INVESTIGATION_STATUS,
     IDRConstants.ESCALATED_STATUS
   };
   private static List<String> openCaseStatus = new List<String>{
     IDRConstants.OPEN_STATUS,
+    IDRConstants.ON_HOLD_STATUS,
     IDRConstants.UNDER_INVESTIGATION_STATUS,
     IDRConstants.ESCALATED_STATUS,
     IDRConstants.REOPENED_STATUS

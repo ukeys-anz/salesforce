@@ -2811,6 +2811,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quality_Assessment__c.IsUserSeniorManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_Funds_from_Institution__c</field>
         <readable>true</readable>
     </fieldPermissions>
