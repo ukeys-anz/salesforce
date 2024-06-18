@@ -42,7 +42,8 @@
       "FinServ__StartDate__c": "Date when the relationship begins",
       "FinServ__RelatedAccount__c": "The related customer of the relationship",
       "FinServ__Role__c": "The role of this related party.",
-      "FinServ__SourceSystemId__c": "External Id of the party."
+      "FinServ__SourceSystemId__c": "External Id of the party.",
+      "FinServ__ExternalId__c": "ID that uniquely identifies the relationship in an external data source."
     },
     "FinServ__ContactContactRelation__c": {
       "FinServ__Contact__c": "The main contact of the relationship",
@@ -603,7 +604,14 @@
         "Repayment_BSB__c",
         "Repayment_Account_Number__c"
       ],
-      "IA-2415840": ["Version__c"]
+      "IA-2415840": ["Version__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "BusinessHours": {
       "IA-2468715": [
@@ -646,10 +654,27 @@
         "Ineligibility_Reason_Subtype_Code__c",
         "Ineligibility_Reason_Type__c",
         "Ineligibility_Reason_Subtype__c"
+      ],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
       ]
     },
     "A_Z_Review__c": {
-      "IA-2415860": ["Completed_Date__c", "Status__c"],
+      "IA-2415860": [
+        "Completed_Date__c",
+        "Status__c",
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2415984": [
         "Name",
         "Business_Details__c",
@@ -1801,7 +1826,15 @@
         "Memorandum_of_Common_Provisions_Version__c"
       ],
       "IA-2415983": ["Loan_Contract_Status__c"],
-      "IA-2594111": ["Loan_Application_Id__c"]
+      "IA-2594111": ["Loan_Application_Id__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "Customer_Dispute_Management__c": {
       "IA-2415720": [
@@ -1902,9 +1935,11 @@
         "LastModifiedDate"
       ],
       "IA-2423981": ["Status__c", "Action"],
-      "IA-2435462": ["Object_Name__c", "TriggeredFrom__c", "UserLanId__C"],
+      "IA-2435462": ["Object_Name__c", "TriggeredFrom__c", "UserLanId__c"],
       "IA-2530753": ["Customer_Name__c"],
-      "IA-2571531": ["Error_Description__c"]
+      "IA-2571531": ["Error_Description__c"],
+      "IA-2453595": ["Action__c"],
+      "IA-2468715": ["Source_System_Name__c"]
     },
     "Customer_Profile_Update_Event__e": {
       "IA-2415860": [
@@ -1930,7 +1965,14 @@
         "Settlement__c"
       ],
       "IA-2415720": ["Drawdown_BSB__c", "Drawdown_Account_Number__c"],
-      "IA-2415840": ["Version__c"]
+      "IA-2415840": ["Version__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Drawdown_Transaction__c": {
       "IA-2415999": [
@@ -1943,7 +1985,14 @@
       "IA-2426363": ["BSB_Number__c"],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415840": ["Version__c"],
-      "IA-2530753": ["Drawdown__c"]
+      "IA-2530753": ["Drawdown__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "EConveyancing_Workspace__c": {
       "IA-2530753": [
@@ -1952,7 +2001,14 @@
         "Created_Date_Time_Workspace__c",
         "Settlement__c"
       ],
-      "IA-2415840": ["Unread_Conversations_Count__c", "Version__c"]
+      "IA-2415840": ["Unread_Conversations_Count__c", "Version__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "EmailMessage": {
       "IA-2468715": [
@@ -2017,7 +2073,12 @@
         "Queue__c",
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
-        "Task_Sub_Type__c"
+        "Task_Sub_Type__c",
+        "Coach_Action__c",
+        "IDR_Review_Outcome__c",
+        "Is_Case_Owned_By_CR_Team__c",
+        "My_extended_team_s_tasks__c",
+        "Sub_Status__c"
       ],
       "IA-2415860": [
         "Case_Owner__c",
@@ -2030,7 +2091,13 @@
         "Skip_Validations__c",
         "Team_Manager__c"
       ],
-      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
+      "IA-2415840": [
+        "Case__c",
+        "Case_Age_in_Days__c",
+        "Case_Created__c",
+        "Description__c",
+        "Done__c"
+      ],
       "IA-2468715": [
         "ActivityDate",
         "ActivityDateTime",
@@ -2068,7 +2135,8 @@
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
       ],
-      "IA-2530753": ["StartDateTime"]
+      "IA-2530753": ["StartDateTime", "Pega_CDH_Id__c"],
+      "IA-2468713": ["Pub_Sub_Event_Id__c"]
     },
     "External_Case_Status__c": {
       "IA-2468715": [
@@ -2137,7 +2205,16 @@
         "System_Individual_Relationship__c"
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
-      "IA-2415860": ["FinServ__SourceSystemId__c"]
+      "IA-2415860": [
+        "FinServ__SourceSystemId__c",
+        "FinServ__ExternalId__c",
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "FinServ__ChargesAndFees__c": {
       "IA-2415840": ["Fee_Id__c", "Source__c", "Fee_Type__c"],
@@ -2163,7 +2240,8 @@
         "CreatedDate",
         "Id",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "RecordTypeId"
       ],
       "IA-2594111": [
         "Broker__c",
@@ -2293,7 +2371,14 @@
         "Settlement__c"
       ],
       "IA-2415983": ["Signing_Activity__c"],
-      "IA-2415840": ["Version__c"]
+      "IA-2415840": ["Version__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Group": {
       "IA-2468715": [
@@ -2713,7 +2798,13 @@
         "Married_or_Defacto__c",
         "Number_of_Dependents__c"
       ],
-      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2530753": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
       "IA-2594111": [
         "Loan_Applicant_Group_ID__c",
         "Name",
@@ -2725,7 +2816,14 @@
     "Loan_Facility_Config__c": {
       "IA-2530753": ["Loan_Facility_Config_Id__c", "Settlement__c"],
       "IA-2415999": ["Amount__c", "First_Principal_Due_Date__c"],
-      "IA-2415840": ["Version__c"]
+      "IA-2415840": ["Version__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Loan_Invitation__c": {
       "IA-2415840": [
@@ -2774,7 +2872,15 @@
       "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"],
       "IA-2415840": ["Living_Status__c", "Persona_Id__c"],
       "IA-2468715": ["OCV_Id__c"],
-      "IA-2415987": ["Account__c"]
+      "IA-2415987": ["Account__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "LoanApplicantDeclaration": {
       "IA-2415840": [
@@ -2808,7 +2914,15 @@
       "IA-2415987": ["Product_Name__c"]
     },
     "LoanApplicationLiability": {
-      "IA-2530753": ["CreatedDate", "LastModifiedDate", "Last_Updated_Date__c"],
+      "IA-2530753": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Last_Updated_Date__c"
+      ],
+      "IA-2468715": ["OwnerId"],
       "IA-2415983": [
         "Balance__c",
         "Interest_Rate_Percent__c",
@@ -2817,7 +2931,12 @@
         "Repayment_Frequency__c",
         "Remaining_Term__c"
       ],
-      "IA-2594111": ["LiabilityExtIdentifier", "Name", "Lender__c"],
+      "IA-2594111": [
+        "LiabilityExtIdentifier",
+        "Name",
+        "Lender__c",
+        "LoanApplicationId"
+      ],
       "IA-2415999": ["Liability_Id__c"],
       "IA-2415840": ["Break_Costs__c"]
     },
@@ -2983,7 +3102,14 @@
         "Version__c"
       ],
       "IA-2415720": ["Settlement_Date_Time__c"],
-      "IA-2594116": ["Jurisdiction__c"]
+      "IA-2594116": ["Jurisdiction__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Opportunity": {
       "IA-2415840": [
@@ -3299,7 +3425,14 @@
         "Verified_On__c"
       ],
       "IA-2530753": ["Version__c"],
-      "IA-2415998": ["Verified_By__c"]
+      "IA-2415998": ["Verified_By__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "qualtrics__Survey_Response__c": {
       "IA-2415840": [
@@ -3598,6 +3731,13 @@
         "Outcome_Code__c",
         "Outcome_Description__c",
         "Referral_Reason__c"
+      ],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Referral_Reason__c": {
@@ -3609,6 +3749,13 @@
         "Name",
         "Reason_Code__c",
         "Reason_Description__c"
+      ],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "RecordType": {
@@ -3682,7 +3829,10 @@
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
+        "Id",
+        "CreatedById",
         "CreatedDate",
+        "LastModifiedById",
         "LastModifiedDate",
         "Version__c",
         "Last_Updated_Date__c",
@@ -3691,7 +3841,8 @@
         "Created_Date__c",
         "Needs_Assessment_Last_Updated_Date__c",
         "Needs_Assessment_Created_Date__c",
-        "Owner_Name__c"
+        "Owner_Name__c",
+        "RecordTypeId"
       ],
       "IA-2594111": [
         "AccountId",
@@ -3715,7 +3866,8 @@
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"],
       "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
-      "IA-2453350": ["Sync_Status__c", "Originated_By__c"]
+      "IA-2453350": ["Sync_Status__c", "Originated_By__c"],
+      "IA-2468715": ["OwnerId"]
     },
     "Response_Type__c": {
       "IA-2415860": [
@@ -3807,6 +3959,13 @@
         "Drawdown_Status__c",
         "Shortfall_Surplus_Amount__c",
         "Executed_Date__c"
+      ],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Settlement_Account__c": {
@@ -3819,7 +3978,14 @@
       ],
       "IA-2415720": ["Nominated_BSB__c", "Nominated_Account_Number__c"],
       "IA-2415840": ["Nominated_Date__c", "Version__c"],
-      "IA-2594111": ["Loan_Application_Id__c"]
+      "IA-2594111": ["Loan_Application_Id__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Task": {
       "IA-2453595": [
@@ -3851,7 +4017,12 @@
         "Subject",
         "Task_Sub_Type__c",
         "TaskSubtype",
-        "Type"
+        "Type",
+        "Coach_Action__c",
+        "IDR_Review_Outcome__c",
+        "Is_Case_Owned_By_CR_Team__c",
+        "My_extended_team_s_tasks__c",
+        "Sub_Status__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": [
@@ -3880,7 +4051,13 @@
         "Case_Owner__c",
         "Cases_Related_To_Team__c"
       ],
-      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"],
+      "IA-2415840": [
+        "Case__c",
+        "Case_Age_in_Days__c",
+        "Case_Created__c",
+        "Description__c",
+        "Done__c"
+      ],
       "IA-2415984": ["Customer_Name__c"],
       "IA-2415999": ["PEGA_Case_Status__c"],
       "IA-2415720": [
@@ -3888,7 +4065,9 @@
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
-      ]
+      ],
+      "IA-2530753": ["Pega_CDH_Id__c"],
+      "IA-2468713": ["Pub_Sub_Event_Id__c"]
     },
     "Traced_Application_Log__b": {
       "IA-2468710": [
