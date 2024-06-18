@@ -98,6 +98,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quality_Assessment__c.IsUserSeniorManager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Task.Cases_Related_To_Team__c</field>
         <readable>true</readable>
     </fieldPermissions>
