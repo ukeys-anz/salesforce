@@ -170,7 +170,7 @@
         <allowEdit>true</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>FinServ_ChargesAndFees_c</object>
+        <object>FinServ__ChargesAndFees__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
