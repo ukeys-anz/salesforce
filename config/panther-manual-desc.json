@@ -2911,7 +2911,15 @@
         "Loan_Repayment_Frequency__c"
       ],
       "IA-2415840": ["Property_Valuation_Id__c", "E_Tag__c"],
-      "IA-2415987": ["Product_Name__c"]
+      "IA-2415987": ["Product_Name__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "LoanApplicationLiability": {
       "IA-2530753": [
