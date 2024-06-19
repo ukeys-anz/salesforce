@@ -6,8 +6,9 @@
  * Note: Since Case Owner is a lookup of either User or Group Salesforce has common object in which only few fields are accessible as found in the link https://skaruz.com/salesforce-how-to-access-owner-custom-fields-in-a-soql-query/
  * So we need to query the Users and update the records accordingly.
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+ * ExcessiveClassLength Surpressed : To handle extra lines on this class
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessiveClassLength')
 public with sharing class IDRCaseActions {
   @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
@@ -212,7 +213,7 @@ public with sharing class IDRCaseActions {
           updatePsiTicked.add(record);
         }
         record.Date_time_Registration_Response_Provided__c = IDRCaseActionsHelper.populateAfcaRegistrationResponseDate(
-          oldRecord, 
+          oldRecord,
           record
         );
       } else if (

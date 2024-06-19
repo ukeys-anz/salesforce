@@ -18,12 +18,15 @@ public with sharing class TotalBalanceController {
       FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
       FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
     ) {
+      List<String> listOfAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
+        ownerId
+      );
       Id savingsRecordType = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID;
       Id checkingRecordType = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
 
       String financialAccountQuery =
-        'SELECT SUM(FinServ__Balance__c) totalBalance from FinServ__FinancialAccount__c' +
-        ' WHERE FinServ__Balance__c != NULL AND FinServ__PrimaryOwner__c = :ownerId AND ' +
+        'SELECT SUM(FinServ__Balance__c) totalBalance FROM FinServ__FinancialAccount__c' +
+        ' WHERE FinServ__Balance__c != NULL AND FinServ__FinancialAccountNumber__c =: listOfAccountNumbers AND ' +
         '(RecordTypeId = :savingsRecordType OR RecordTypeId = :checkingRecordType) AND ' +
         '(FinServ__Status__c IN (\'Active\',\'Open\'))';
 
@@ -49,11 +52,14 @@ public with sharing class TotalBalanceController {
       FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
       FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
     ) {
+      List<String> listOfAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
+        ownerId
+      );
       Id savingsRecordType = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID;
 
       String financialAccountQuery =
         'SELECT SUM(FinServ__Balance__c) totalSaved FROM FinServ__FinancialAccount__c' +
-        ' WHERE FinServ__Balance__c != NULL AND FinServ__PrimaryOwner__c = :ownerId AND ' +
+        ' WHERE FinServ__Balance__c != NULL AND FinServ__FinancialAccountNumber__c =: listOfAccountNumbers AND ' +
         'RecordTypeId = :savingsRecordType AND ' +
         '(FinServ__Status__c IN (\'Active\',\'Open\'))';
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>CMOS All Users Query Report</name>
     <columns>
         <field>User$Id</field>
     </columns>
@@ -62,7 +63,6 @@
         <field>User$Country</field>
     </columns>
     <format>Tabular</format>
-    <name>CMOS All Users Query Report</name>
     <params>
         <name>co</name>
         <value>1</value>

@@ -82,7 +82,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
-    GetHelpCaseActions.onlyAllowOneOpenProfileUpdateCase(records);
     IDR_CaseReportingCalculations.calculateCaseOpenTime(
       (List<Case>) records,
       (new Map<ID, Case>())
@@ -147,11 +146,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       GetHelpCaseActions.populateOCVOnComplaint(records);
     }
     GetHelpCaseActions.validateCreditReferralOwnershipChange(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-
-    GetHelpCaseActions.checkCustomerUpdatePendingStatus(
       records,
       (Map<Id, Case>) oldMap
     );
