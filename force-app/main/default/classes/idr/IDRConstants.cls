@@ -23,6 +23,9 @@ public with sharing class IDRConstants {
   //Customer Notification Template
   public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'AgCaseRegister';
 
+  //EDR Notification Template
+  public static final String CUSTOMER_EDR_NOTIFICATION_TEMPLATE = 'AgCaseReferAck';
+
   //Banker and Manager Notification Template
   public static final String BANKER_EMAIL_NOTIFICATION_TEMPLATE = 'AgCaseAutoEsclate';
   public static final String MANAGER_EMAIL_NOTIFICATION_TEMPLATE = 'AgCaseManagerAutoEsclate';
