@@ -32,26 +32,31 @@
           Elevated access is required to perform this action.
         </div>
       </template>
-
       <div class="slds-grid slds-gutters slds-m-around_x-small">
-        <div class="slds-col slds-size_1-of-4">
-          <p class="field-title">ANZ Plus</p>
-          <p data-id="anz-plus-value">{packageData.meta.accountA1.status}</p>
-        </div>
-        <div class="slds-col slds-size_1-of-4">
-          <p class="field-title">ANZ Save</p>
-          <p data-id="anz-save-value">{packageData.meta.accountS1.status}</p>
-        </div>
-        <div class="slds-col slds-size_1-of-4">
-          <p class="field-title">Card</p>
-          <p data-id="card-value">{packageData.meta.card.status}</p>
-        </div>
-        <div class="slds-col slds-size_1-of-4">
-          <p class="field-title">Package</p>
-          <p data-id="package-value">
-            {packageData.meta.overall_package.status}
-          </p>
-        </div>
+        <template lwc:if={isFlexSaverAccountClosure}>
+          <div class={dynamicColumnSize}>
+            <p class="field-title">ANZ Plus Flex</p>
+            <p data-id="anz-plus-flex">{packageData.accountsClosed}</p>
+          </div>
+        </template>
+        <template lwc:else>
+          <div class={dynamicColumnSize}>
+            <p class="field-title">ANZ Plus</p>
+            <p data-id="anz-plus-value">{packageData.accountsClosed}</p>
+          </div>
+          <div class={dynamicColumnSize}>
+            <p class="field-title">ANZ Save</p>
+            <p data-id="anz-save-value">{packageData.accountsClosed}</p>
+          </div>
+          <div class={dynamicColumnSize}>
+            <p class="field-title">Card</p>
+            <p data-id="card-value">{packageData.cardsClosed}</p>
+          </div>
+          <div class={dynamicColumnSize}>
+            <p class="field-title">Package</p>
+            <p data-id="package-value">{packageData.packagesClosed}</p>
+          </div>
+        </template>
       </div>
     </template>
   </lightning-card>

@@ -71,20 +71,15 @@ public with sharing class StravinskyControllerTest {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();
-      PackageClosureModel response = StravinskyController.getPackageClosureAura(
+      GenesisPackageClosureModel response = StravinskyController.getPackageClosureAura(
         newCase.Id
       );
 
       Test.stopTest();
       System.assertEquals(
-        200,
-        response.status.code,
-        'Status code of 200 was expected'
-      );
-      System.assertEquals(
-        'Package closure successfully completed',
-        response.status.description,
-        'Package closure was not successful'
+        null,
+        response.errorinfo,
+        'No ErrorInfo Present in Response'
       );
     }
   }
@@ -190,20 +185,15 @@ public with sharing class StravinskyControllerTest {
       );
       insert newCase;
 
-      PackageClosureModel response = StravinskyController.getPackageClosureAura(
+      GenesisPackageClosureModel response = StravinskyController.getPackageClosureAura(
         newCase.Id
       );
 
       Test.stopTest();
       System.assertEquals(
-        200,
-        response.status.code,
-        'Status code of 200 was expected'
-      );
-      System.assertEquals(
-        'Package closure successfully completed',
-        response.status.description,
-        'Package closure was not successful'
+        null,
+        response.errorinfo,
+        'No ErrorInfo Present in Response'
       );
     }
   }
