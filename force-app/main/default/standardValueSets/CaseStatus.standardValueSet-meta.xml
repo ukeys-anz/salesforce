@@ -50,15 +50,15 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
-        <fullName>On Hold</fullName>
-        <default>false</default>
-        <label>On Hold</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
         <fullName>Escalated</fullName>
         <default>false</default>
         <label>Escalated</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>On Hold</fullName>
+        <default>false</default>
+        <label>On Hold</label>
         <closed>false</closed>
     </standardValue>
     <standardValue>

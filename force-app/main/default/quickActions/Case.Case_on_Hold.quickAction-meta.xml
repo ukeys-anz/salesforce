@@ -4,7 +4,7 @@
         <field>Status</field>
         <literalValue>On Hold</literalValue>
     </fieldOverrides>
-    <label>Case on Hold</label>
+    <label>On Hold</label>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
