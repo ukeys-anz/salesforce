@@ -87,7 +87,8 @@ public class NotificationTriggerHandlerAnzxTest {
         RecordTypeId,
         IDR_SwicthOff_3rd_Party_Notification__c,
         IDR_SwitchOff_Customer_Notification__c,
-        IDR_3rdParty_Relationship_To_Complainant__c
+        IDR_3rdParty_Relationship_To_Complainant__c,
+        Origin
       FROM Case
       LIMIT 1
     ];
@@ -139,6 +140,83 @@ public class NotificationTriggerHandlerAnzxTest {
       c.Account.PersonMobilePhone,
       evt.ComplainantMobile__c,
       'Event Complainant Mobile Number should be as expected.'
+    );
+  }
+
+  @isTest
+  static void testassignEDRTemplate() {
+    String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Case[] cases = new List<Case>();
+    Case caseRecord = IDRTestDataFactory.createComplaint();
+    caseRecord.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
+    caseRecord.Id = caseRecordId;
+
+    Id handlerRecordId = Lib_FakeIdGenerator.getMockId(
+      Notification_Handler__c.SObjectType
+    );
+    Notification_Handler__c handlerRecord = new Notification_Handler__c();
+    handlerRecord.Case__c = caseRecordId;
+    handlerRecord.Id = handlerRecordId;
+
+    Id notificationEventId = Lib_FakeIdGenerator.getMockId(
+      IDR_Notification_Event__e.SObjectType
+    );
+    IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
+    notification.Case_ID__c = caseRecordId;
+
+    String template = NotificationTriggerHandler.assignCustomerNotificationTemplate(
+      caseRecord.Origin
+    );
+
+    System.assertEquals(
+      template,
+      IDRConstants.CUSTOMER_EDR_NOTIFICATION_TEMPLATE,
+      'It is returning EDR Template'
+    );
+    System.assertnotEquals(
+      template,
+      IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID,
+      'It is not returning EDR Template'
+    );
+  }
+
+  @isTest
+  static void testassignIDRtemplates() {
+    String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Case[] cases = new List<Case>();
+
+    Case caseRecord = IDRTestDataFactory.createComplaint();
+    caseRecord.Origin = 'Email';
+    caseRecord.Id = caseRecordId;
+
+    Id handlerRecordId = Lib_FakeIdGenerator.getMockId(
+      Notification_Handler__c.SObjectType
+    );
+    Notification_Handler__c handlerRecord = new Notification_Handler__c();
+    handlerRecord.Case__c = caseRecordId;
+    handlerRecord.Id = handlerRecordId;
+
+    Id notificationEventId = Lib_FakeIdGenerator.getMockId(
+      IDR_Notification_Event__e.SObjectType
+    );
+    IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
+    notification.Case_ID__c = caseRecordId;
+
+    String template = NotificationTriggerHandler.assignCustomerNotificationTemplate(
+      caseRecord.Origin
+    );
+
+    System.assertEquals(
+      template,
+      IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID,
+      'It is returning IDR Template'
+    );
+    System.assertnotEquals(
+      template,
+      IDRConstants.CUSTOMER_EDR_NOTIFICATION_TEMPLATE,
+      'It is not returning IDR Template'
     );
   }
 }
