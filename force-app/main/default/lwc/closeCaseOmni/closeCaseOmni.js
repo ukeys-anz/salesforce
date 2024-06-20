@@ -40,6 +40,15 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       );
       return;
     }
+    if (this.omniJsonData.Case.ComplaintStatus_OLD === "On Hold") {
+      handleErrorShowToast(
+        this,
+        "Invalid stage in complaint process",
+        undefined,
+        "This is not a valid stage in the complaint process."
+      );
+      return;
+    }
     if (
       this.omniJsonData.Case.realFormRequired === "Yes" &&
       this.omniJsonData.Case.REALFormMAXID !==
