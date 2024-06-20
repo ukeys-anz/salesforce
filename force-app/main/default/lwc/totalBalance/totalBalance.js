@@ -47,11 +47,14 @@ export default class TotalBalance extends LightningElement {
 
   async fetchDataFromFabric(ocvIdFromAccount) {
     this.loading = true;
-    await getFinancialAccountFabric({
-      ocvId: ocvIdFromAccount,
-      accountNumbers: []
-    });
-    await this.fetchFinancialDataFromDB();
+    try {
+      await getFinancialAccountFabric({
+        ocvId: ocvIdFromAccount,
+        accountNumbers: []
+      });
+    } catch (error) {
+      await this.fetchFinancialDataFromDB();
+    }
   }
 
   async handleRefreshFinances(event) {
