@@ -56,6 +56,30 @@
                 <default>false</default>
                 <label>Other - please specify</label>
             </value>
+            <value>
+                <fullName>Consolidation of accounts</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Consolidation of accounts</label>
+            </value>
+            <value>
+                <fullName>Missing features</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Missing features</label>
+            </value>
+            <value>
+                <fullName>Poor experience via Coach channel</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Poor experience via Coach channel</label>
+            </value>
+            <value>
+                <fullName>Product mis-sold in branch</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Product mis-sold in branch</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -201,7 +201,7 @@ public with sharing class FinancialAccountController {
       if (String.isNotBlank(ownerId) && !recordTypeDeveloperNames.isEmpty()) {
         //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
         //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
-        List<String> allAccountNumbersRelated = getAllAccountNumberFromFAR(
+        List<String> allRelatedAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
           ownerId
         );
         financialAccount = [
@@ -222,7 +222,7 @@ public with sharing class FinancialAccountController {
           FROM FinServ__FinancialAccount__c
           WHERE
             (FinServ__PrimaryOwner__c = :ownerId
-            OR FinServ__FinancialAccountNumber__c IN :allAccountNumbersRelated)
+            OR FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers)
             AND RecordType.DeveloperName IN :recordTypeDeveloperNames
             AND FinServ__Status__c != 'Closed'
           ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
@@ -277,26 +277,5 @@ public with sharing class FinancialAccountController {
         );
       }
     }
-  }
-
-  /**
-   * @description builds a list of finaccnumbers from the financial account roles for the customer sent from the UI
-   * @param ownerId customer id receive from the UI
-   * @return List<String> list of the financial account numbers
-   */
-  private static List<String> getAllAccountNumberFromFAR(Id ownerId) {
-    List<String> financialAccountNumbers = new List<String>();
-
-    for (FinServ__FinancialAccountRole__c finAccRole : [
-      SELECT FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
-      FROM FinServ__FinancialAccountRole__c
-      WHERE FinServ__RelatedAccount__c = :ownerId AND FinServ__Active__c = TRUE
-    ]) {
-      financialAccountNumbers.add(
-        finAccRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
-      );
-    }
-
-    return financialAccountNumbers;
   }
 }
