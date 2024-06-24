@@ -10,7 +10,6 @@
     ),
     AND(
         ISPICKVAL(Status, &apos;On Hold&apos;),
-        NOT(ISPICKVAL(PRIORVALUE(Status), &apos;On Hold&apos;)) ,
         IDR_Date_Case_on_Hold_From__c &gt; Today()
     )
 )</errorConditionFormula>
