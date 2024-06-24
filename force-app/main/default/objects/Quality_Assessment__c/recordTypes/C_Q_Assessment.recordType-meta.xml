@@ -318,7 +318,27 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Awaiting Response</fullName>
+            <fullName>C%26Q Lead disagrees with C%26Q Manager%27s review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C%26Q Lead upholds C%26Q Manager%27s review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C%26Q Manager amended original review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C%26Q Manager upheld original review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C%26Q Manager%27s view accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C%26Q Manager%27s view not accepted</fullName>
             <default>false</default>
         </values>
         <values>
@@ -326,15 +346,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Disputed - C%26Q review final</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Disputed - C%26Q review overturned</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Disputed - C%26Q review upheld</fullName>
+            <fullName>Submitted</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -549,11 +561,19 @@
     <picklistValues>
         <picklist>C_Q_Lead_Response__c</picklist>
         <values>
+            <fullName>C%26Q Lead disagrees with C%26Q Manager%27s review</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>C%26Q Lead provides final outcome</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>C%26Q Lead rejects the TM%27s review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>C%26Q Lead upholds C%26Q Manager%27s review</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -715,7 +735,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Review customer correspondence%2Fcontact centre</fullName>
+            <fullName>Review customer correspondence%2Fcontact customer</fullName>
             <default>false</default>
         </values>
         <values>
@@ -3062,6 +3082,10 @@
         </values>
         <values>
             <fullName>Raise REaL form %28action for C%26Q team to take%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recommended further action on new case</fullName>
             <default>false</default>
         </values>
     </picklistValues>
