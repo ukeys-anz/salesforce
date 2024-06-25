@@ -24,8 +24,21 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   }
 
   callCreateCaseIP() {
+    var compare = /^[0-9]{10}$/;
     this.missingFields = [];
     this.modalMsg = "";
+    if (
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      this.omniJsonData.Case.CustomerDetails.Customer &&
+      (this.omniJsonData.Case.CustomerDetails.Customer !==
+        this.omniJsonData.Case.CustomerDetails.Customer.trim() ||
+        !this.omniJsonData.Case.CustomerDetails.Customer.match(compare))
+    ) {
+      this.modalMsg =
+        "Customer number must be numbers and at least 10 digits long";
+      this.showModal = true;
+      return;
+    }
     this.valCustomerFields();
     if (this.missingFields.length > 0) {
       this.modalMsg =
