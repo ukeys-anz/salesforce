@@ -426,7 +426,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Abr_Abn</shortDescription>
-        <value>callout:SF_MS_CCRM/abr/v1/abn/</value>
+        <value>callout:SF_MS_CH2/abr/v1/abn/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Abr_Acn</fullName>
@@ -434,7 +434,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Abr_Acn</shortDescription>
-        <value>callout:SF_MS_CCRM/abr/v1/acn/</value>
+        <value>callout:SF_MS_CH2/abr/v1/acn/</value>
     </labels>
     <labels>
         <fullName>MS_Forge_Token</fullName>
