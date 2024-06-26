@@ -530,4 +530,31 @@ public with sharing class UserProvisioningAfterActions {
   private static void logError(String recordId, Database.Error error) {
     Logger.error(error.getMessage(), recordId);
   }
+
+  /**
+   * @description Method to log when user records are manually created
+   * @param users List<User> User records created
+   */
+  public static void logManualUserProvisioning(List<User> users) {
+    String currentUsername = Userinfo.getUserName();
+    Id currentUserProfileId = Userinfo.getProfileId();
+    String sailPointUsername = 'sailpoint.user@anzx.com';
+    Id sailPointUserProfileId = CommonUtil.getProfileByName(
+        'Minimum Access - External Apps'
+      )
+      .Id;
+    if (
+      currentUsername.contains(sailPointUsername) &&
+      currentUserProfileId.equals(sailPointUserProfileId)
+    ) {
+      return;
+    }
+    for (User u : users) {
+      Logger.error(
+        'User ' + u.Username + ' manually created by ' + currentUsername,
+        Logger.Severity.CRITICAL
+      );
+      Logger.saveLog();
+    }
+  }
 }

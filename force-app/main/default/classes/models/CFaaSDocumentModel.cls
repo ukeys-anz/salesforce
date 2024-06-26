@@ -13,6 +13,11 @@ public with sharing class CFaaSDocumentModel extends CalloutModel {
    */
   public CFaaSDownloadUrl CFaaSDownloadUrl;
 
+  /**
+   * @author Emma Bindi
+   * @since November 2022
+   * @description CFaaSDownloadUrl constructor
+   */
   public class CFaaSDownloadUrl {
     public String url;
     public String otp;

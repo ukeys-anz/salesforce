@@ -14,10 +14,10 @@ public virtual with sharing class RepositoryBase {
    */
   public void handleErrors(
     HttpCalloutResponse response,
-    Exception error,
+    Object error,
     Type apexType
   ) {
-    Exception err = error != null ? error : response.error;
+    Exception err = error != null ? (Exception) error : response.error;
 
     Logger.error(err.getMessage(), err);
     Logger.saveLog();

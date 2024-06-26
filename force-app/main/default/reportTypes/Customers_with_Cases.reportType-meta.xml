@@ -2925,25 +2925,10 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Customer_First_Contacted__c</field>
-            <table>Account.Cases</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Customer_Residential_Address__c</field>
-            <table>Account.Cases</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Date_time_Registration_Response_Provided__c</field>
             <table>Account.Cases</table>
         </columns>
         <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Followup_State__c</field>
-            <table>Account.Cases</table>
-        </columns>
-        <!--<columns>
             <checkedByDefault>false</checkedByDefault>
             <field>CR_Duplicate_TBD__c</field>
             <table>Account.Cases</table>

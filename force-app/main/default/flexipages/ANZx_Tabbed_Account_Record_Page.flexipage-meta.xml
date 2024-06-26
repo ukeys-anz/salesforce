@@ -219,6 +219,20 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>isFinancesTab</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isWhatsHappeningTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>totalBalance</componentName>
+                <identifier>c_totalBalance2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
@@ -503,7 +517,18 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>customQueryParameters</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>debugMode</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>filterOnRecordId</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>forceRefresh</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -523,15 +548,26 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>siteId</name>
+                    <value>{!$Label.ANZX_Tableau_Site_Id}</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>tabAdvancedFilter</name>
                     <value>ocv_id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>token</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>useJwt</name>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>vizUrl</name>
                     <value>{!$Label.ANZX_Marketing_Consent_Tableau_Url}</value>
                 </componentInstanceProperties>
-                <componentName>tab:tableauViz</componentName>
-                <identifier>tab_tableauViz</identifier>
+                <componentName>tableau:tableauViz</componentName>
+                <identifier>tableau_tableauViz</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-412eb133-8aa5-476f-ac56-beb1d0498ba4</name>
@@ -663,6 +699,10 @@
                 <componentInstanceProperties>
                     <name>isFinancesTab</name>
                     <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isWhatsHappeningTab</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentName>totalBalance</componentName>
                 <identifier>c_totalBalance</identifier>
@@ -1205,7 +1245,18 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>customQueryParameters</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>debugMode</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>filterOnRecordId</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>forceRefresh</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1225,15 +1276,26 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>siteId</name>
+                    <value>{!$Label.ANZX_Tableau_Site_Id}</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>tabAdvancedFilter</name>
                     <value>Ocv Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>token</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>useJwt</name>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>vizUrl</name>
                     <value>{!$Label.ANZX_Customer_Comm_Tableau_Url}</value>
                 </componentInstanceProperties>
-                <componentName>tab:tableauViz</componentName>
-                <identifier>tab_tableauViz2</identifier>
+                <componentName>tableau:tableauViz</componentName>
+                <identifier>tableau_tableauViz2</identifier>
             </componentInstance>
         </itemInstances>
         <name>column13</name>

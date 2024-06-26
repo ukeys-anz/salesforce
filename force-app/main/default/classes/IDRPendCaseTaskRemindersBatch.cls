@@ -4,13 +4,13 @@
  * @description Batch class to sending reminders for Pend Case Tasks
  */
 public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batchable<sObject> {
+  private static final String NO_POST_PROCESSING_STEPS_MSG = 'No post processing steps as of now';
+
   /**
    * @description Get all the task records whose type is Pend Case and withing due date window
    * @param bc Database.BatchableContext
    * @return Database.QueryLocator scope
    */
-  private static final String NO_POST_PROCESSING_STEPS_MSG = 'No post processing steps as of now';
-
   public Database.QueryLocator start(Database.BatchableContext bc) {
     return Database.getQueryLocator(
       'SELECT Id, ActivityDate, OwnerId, WhatId, Subject, Due_in_Days__c ' +

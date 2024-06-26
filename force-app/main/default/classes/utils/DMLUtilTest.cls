@@ -89,7 +89,7 @@ public with sharing class DMLUtilTest {
     Test.stopTest();
 
     List<LogEntry__c> logEntryList = new List<LogEntry__c>(
-      [SELECT ID FROM LogEntry__c]
+      [SELECT Id FROM LogEntry__c WHERE ApexClassName__c = 'DMLUtil']
     );
 
     System.assertEquals(
@@ -119,7 +119,7 @@ public with sharing class DMLUtilTest {
     Test.stopTest();
 
     List<LogEntry__c> logEntryList = new List<LogEntry__c>(
-      [SELECT ID FROM LogEntry__c]
+      [SELECT Id FROM LogEntry__c WHERE ApexClassName__c = 'DMLUtil']
     );
 
     System.assertEquals(
@@ -174,7 +174,7 @@ public with sharing class DMLUtilTest {
     Test.stopTest();
 
     List<LogEntry__c> logEntryList = new List<LogEntry__c>(
-      [SELECT ID, LogMessage__c FROM LogEntry__c]
+      [SELECT Id FROM LogEntry__c WHERE ApexClassName__c = 'DMLUtil']
     );
 
     System.assertEquals(
@@ -213,7 +213,7 @@ public with sharing class DMLUtilTest {
     Test.stopTest();
 
     List<LogEntry__c> logEntryList = new List<LogEntry__c>(
-      [SELECT ID FROM LogEntry__c]
+      [SELECT Id FROM LogEntry__c WHERE ApexClassName__c = 'DMLUtil']
     );
 
     System.assertEquals(

@@ -165,6 +165,96 @@
         <default>false</default>
         <label>Individual</label>
     </customValue>
+    <customValue>
+        <fullName>Checking Account</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Checking Account</label>
+    </customValue>
+    <customValue>
+        <fullName>Savings Account</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Savings Account</label>
+    </customValue>
+    <customValue>
+        <fullName>Mortgage</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Mortgage</label>
+    </customValue>
+    <customValue>
+        <fullName>Investments</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Investments</label>
+    </customValue>
+    <customValue>
+        <fullName>Purchase Vacant Land</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Purchase Vacant Land</label>
+    </customValue>
+    <customValue>
+        <fullName>Refinance</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Refinance</label>
+    </customValue>
+    <customValue>
+        <fullName>Assist with Business Cashflow</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Assist with Business Cashflow</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Loan – Construction</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Home Loan – Construction</label>
+    </customValue>
+    <customValue>
+        <fullName>Manage Debt</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Manage Debt</label>
+    </customValue>
+    <customValue>
+        <fullName>Education</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Education</label>
+    </customValue>
+    <customValue>
+        <fullName>Development and Renovation</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Development and Renovation</label>
+    </customValue>
+    <customValue>
+        <fullName>Property Purchase</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Property Purchase</label>
+    </customValue>
+    <customValue>
+        <fullName>Manage Money</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Manage Money</label>
+    </customValue>
+    <customValue>
+        <fullName>Day to Day Banking</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Day to Day Banking</label>
+    </customValue>
+    <customValue>
+        <fullName>HELOC</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>HELOC</label>
+    </customValue>
     <masterLabel>Product List</masterLabel>
     <sorted>false</sorted>
 </GlobalValueSet>

@@ -1117,49 +1117,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description CaseTriggerHandler module
-   * @param lstNewCases List of inserted Cases from Trigger
-   */
-  public static void onlyAllowOneOpenProfileUpdateCase(List<Case> lstNewCases) {
-    Set<Id> stAccountIds = new Set<Id>();
-    Set<Id> stCaseIds = new Set<Id>();
-    for (Case oCase : lstNewCases) {
-      if (
-        oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate &&
-        oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA &&
-        oCase.Status == GetHelpConstants.OPEN_STATUS
-      ) {
-        stAccountIds.add(oCase.AccountId);
-        stCaseIds.add(oCase.Id);
-      }
-    }
-    if (
-      !stCaseIds.isEmpty() &&
-      PermissionUtils.canQuery('Case') &&
-      PermissionUtils.canUpdate('Case')
-    ) {
-      List<Case> lstUpdates = new List<Case>();
-      for (Case oCase : [
-        SELECT Id, Status, Sub_Status__c
-        FROM Case
-        WHERE
-          RecordTypeId = :GetHelpConstants.idrtProfileUpdate
-          AND Type = :GetHelpConstants.RESIDENTIAL_ADDRESS_QA
-          AND Status != :GetHelpConstants.CLOSED_STATUS
-          AND AccountId IN :stAccountIds
-          AND (NOT Id IN :stCaseIds)
-      ]) {
-        oCase.Status = GetHelpConstants.CLOSED_STATUS;
-        oCase.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_LONGER_REQUIRED;
-        lstUpdates.add(oCase);
-      }
-      if (!lstUpdates.isEmpty()) {
-        DMLUtil.updateRecords(lstUpdates, false, false);
-      }
-    }
-  }
-
-  /**
    * @description Assign newly created Profile Update Cases to ID Ops Queue
    * @param lstNewCases Case records being inserted by trigger
    */
@@ -1170,31 +1127,6 @@ public with sharing class GetHelpCaseActions {
         oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA
       ) {
         oCase.OwnerId = idOpsQueue.Id;
-      }
-    }
-  }
-
-  /**
-   * @description Capture the Date/time when case status is first changed to Customer Update Pending
-   * @param lstNewCases Case records being updated by trigger
-   * @param mpOldCases Map of prior state of Case records
-   */
-  public static void checkCustomerUpdatePendingStatus(
-    List<Case> lstNewCases,
-    Map<Id, Case> mpOldCases
-  ) {
-    Case oOldCase;
-    for (Case oCase : lstNewCases) {
-      if (
-        oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate &&
-        oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA &&
-        oCase.Status == GetHelpConstants.CUSTOMER_UPDATE_PENDING &&
-        oCase.Customer_First_Contacted__c == null &&
-        mpOldCases != null &&
-        (oOldCase = mpOldCases.get(oCase.Id)) != null &&
-        oCase.Status != oOldCase.Status
-      ) {
-        oCase.Customer_First_Contacted__c = Datetime.now();
       }
     }
   }

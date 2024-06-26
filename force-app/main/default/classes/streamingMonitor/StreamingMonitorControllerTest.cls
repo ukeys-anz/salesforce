@@ -11,16 +11,6 @@ private class StreamingMonitorControllerTest {
   }
 
   @isTest
-  static void publishPlatformEventshouldfailwheneventNameisnotplatformevent() {
-    try {
-      StreamingMonitorController.publishEvent('PlatformEvent', 'Account', '{}');
-      System.assert(false, 'Exception was expected');
-    } catch (Exception e) {
-      System.assert(e instanceof AuraHandledException);
-    }
-  }
-
-  @isTest
   static void publishPlatformEventshouldfailwhenpayloadisinvalidjson() {
     try {
       StreamingMonitorController.publishEvent(

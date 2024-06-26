@@ -4,6 +4,10 @@
  * @since 12/2022
  */
 public with sharing class COBCaseStatusPathController {
+  private static final StravinskyAPIRepository STRAVINSKY_REPO = (StravinskyAPIRepository) Lib_InstanceProvider.forType(
+    StravinskyAPIRepository.class
+  );
+
   @TestVisible
   private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
   @TestVisible
@@ -68,15 +72,13 @@ public with sharing class COBCaseStatusPathController {
     Case cobCase,
     Boolean retryOnFail
   ) {
-    StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
-
     cobCase.Status_Update_Error__c = ''; // Clear previous error to avoid confusion if this update is successful
     if (COB_CASE_STATUSES_WITH_ENDPOINT.contains(cobCase.Status) == false) {
       return true;
     }
 
     try {
-      StravinskyAPIRepository.CxStageWrapper cobStage = temporalCaseWorkflowAPI.triggerTemporalCaseWorkflow(
+      StravinskyAPIRepository.CxStageWrapper cobStage = STRAVINSKY_REPO.triggerTemporalCaseWorkflow(
         cobCase
       );
       setCaseStatusFromTemporalResult(cobCase, cobStage);
