@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <name>PermissionSet</name>
+        <members>dupcheck_CMOS</members>
+    </types>
+    <types>
+        <name>PermissionSetGroup</name>
+        <members>IDR_CRP_LT</members>
+        <members>IDR_CRP_Team_Leaders</members>
+        <members>IDR_Level_1</members>
+        <members>IDR_Level_2</members>
+        <members>IDR_Level_3</members>
+    </types>
+    <version>55.0</version>
+</Package>

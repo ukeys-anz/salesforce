@@ -31,6 +31,16 @@
                 <default>false</default>
                 <label>C&amp;Q Lead rejects the TM&apos;s review</label>
             </value>
+            <value>
+                <fullName>C&amp;Q Lead upholds C&amp;Q Manager&apos;s review</fullName>
+                <default>false</default>
+                <label>C&amp;Q Lead upholds C&amp;Q Manager&apos;s review</label>
+            </value>
+            <value>
+                <fullName>C&amp;Q Lead disagrees with C&amp;Q Manager&apos;s review</fullName>
+                <default>false</default>
+                <label>C&amp;Q Lead disagrees with C&amp;Q Manager&apos;s review</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

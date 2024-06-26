@@ -161,17 +161,18 @@ public with sharing class IDRTaskActions2 {
         Case_Manager__r.Name,
         Related_Case__r.CaseNumber__c
       FROM Quality_Assessment__c
-      WHERE
-        Id IN :mpQualityAssessmentId2Tasks.keySet()
-        AND (Team_Manager_Response__c = NULL
-        OR Team_Manager_Comments__c = NULL)
+      WHERE Id IN :mpQualityAssessmentId2Tasks.keySet()
     ];
     for (Quality_Assessment__c oAssessment : lstQAassessments) {
       if (
         (lstQATasks = mpQualityAssessmentId2Tasks.get(oAssessment.Id)) != null
       ) {
         for (Task oTask : lstQATasks) {
-          if (oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)) {
+          if (
+            (String.isBlank(oAssessment.Team_Manager_Response__c) ||
+            String.isBlank(oAssessment.Team_Manager_Comments__c)) &&
+            oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)
+          ) {
             oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
           }
         }

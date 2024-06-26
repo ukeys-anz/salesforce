@@ -14,6 +14,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
 ) {
   loading = false;
   @track missingFields = [];
+  @track numberOnlyFields = [];
   @track modalMsg;
   @track showModal = false;
   @track modalHeader = "Error";
@@ -24,6 +25,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
 
   callCloseCaseIP() {
     this.missingFields = [];
+    this.numberOnlyFields = [];
     this.modalMsg = "";
     let shouldBreak = this.validateIssueTypeFieldValues();
     if (shouldBreak) {
@@ -35,6 +37,15 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         "Real Form ID Validation",
         undefined,
         "Please Validate Real Form ID."
+      );
+      return;
+    }
+    if (this.omniJsonData.Case.ComplaintStatus_OLD === "On Hold") {
+      handleErrorShowToast(
+        this,
+        "Invalid stage in complaint process",
+        undefined,
+        "This is not a valid stage in the complaint process."
       );
       return;
     }
@@ -54,6 +65,15 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       this.loading = false;
       return;
     }
+
+    this.allNumeric();
+    if (this.numberOnlyFields.length > 0) {
+      this.modalMsg =
+        "Please Enter Valid Numbers for: " + this.numberOnlyFields.join(", ");
+      this.showModal = true;
+      return;
+    }
+
     this.validateFields();
     if (this.missingFields.length > 0) {
       this.modalMsg =
@@ -485,6 +505,136 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       return true;
     }
     return false;
+  }
+
+  allNumeric() {
+    var numbers = /^[-+]?[0-9]+$/;
+    if (
+      this.omniJsonData.Case.DurationofRemedy1Offered !== undefined &&
+      this.omniJsonData.Case.DurationofRemedy1Offered !== null &&
+      !this.omniJsonData.Case.DurationofRemedy1Offered.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 1 Offered");
+    }
+    if (
+      this.omniJsonData.Case.DurationofRemedy2Offered !== undefined &&
+      this.omniJsonData.Case.DurationofRemedy2Offered !== null &&
+      !this.omniJsonData.Case.DurationofRemedy2Offered.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 2 Offered");
+    }
+    if (
+      this.omniJsonData.Case.DurationofRemedy3Offered !== undefined &&
+      this.omniJsonData.Case.DurationofRemedy3Offered !== null &&
+      !this.omniJsonData.Case.DurationofRemedy3Offered.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 3 Offered");
+    }
+    if (
+      this.omniJsonData.Case.durationOfRemedy1 !== undefined &&
+      this.omniJsonData.Case.durationOfRemedy1 !== null &&
+      !this.omniJsonData.Case.durationOfRemedy1.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 1");
+    }
+    if (
+      this.omniJsonData.Case.durationOfRemedy2 !== undefined &&
+      this.omniJsonData.Case.durationOfRemedy2 !== null &&
+      !this.omniJsonData.Case.durationOfRemedy2.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 2");
+    }
+    if (
+      this.omniJsonData.Case.durationOfRemedy3 !== undefined &&
+      this.omniJsonData.Case.durationOfRemedy3 !== null &&
+      !this.omniJsonData.Case.durationOfRemedy3.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 3");
+    }
+    if (
+      this.omniJsonData.Case.durationOfRemedy1Accepted !== undefined &&
+      this.omniJsonData.Case.durationOfRemedy1Accepted !== null &&
+      !this.omniJsonData.Case.durationOfRemedy1Accepted.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 1");
+    }
+    if (
+      this.omniJsonData.Case.durationOfRemedy2Accepted !== undefined &&
+      this.omniJsonData.Case.durationOfRemedy2Accepted !== null &&
+      !this.omniJsonData.Case.durationOfRemedy2Accepted.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 2");
+    }
+    if (
+      this.omniJsonData.Case.durationOfRemedy3Accepted !== undefined &&
+      this.omniJsonData.Case.durationOfRemedy3Accepted !== null &&
+      !this.omniJsonData.Case.durationOfRemedy3Accepted.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Duration Of Remedy 3");
+    }
+    if (
+      this.omniJsonData.Case.RewardPoints1 !== undefined &&
+      this.omniJsonData.Case.RewardPoints1 !== null &&
+      !this.omniJsonData.Case.RewardPoints1.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 1");
+    }
+    if (
+      this.omniJsonData.Case.RewardPoints2 !== undefined &&
+      this.omniJsonData.Case.RewardPoints2 !== null &&
+      !this.omniJsonData.Case.RewardPoints2.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 2");
+    }
+    if (
+      this.omniJsonData.Case.RewardPoints3 !== undefined &&
+      this.omniJsonData.Case.RewardPoints3 !== null &&
+      !this.omniJsonData.Case.RewardPoints3.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 3");
+    }
+    if (
+      this.omniJsonData.Case.rewardPoints1Accepted !== undefined &&
+      this.omniJsonData.Case.rewardPoints1Accepted !== null &&
+      !this.omniJsonData.Case.rewardPoints1Accepted.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 1");
+    }
+    if (
+      this.omniJsonData.Case.rewardPoints2Accepted !== undefined &&
+      this.omniJsonData.Case.rewardPoints2Accepted !== null &&
+      !this.omniJsonData.Case.rewardPoints2Accepted.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 2");
+    }
+    if (
+      this.omniJsonData.Case.rewardPoints3Accepted !== undefined &&
+      this.omniJsonData.Case.rewardPoints3Accepted !== null &&
+      !this.omniJsonData.Case.rewardPoints3Accepted.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 3");
+    }
+    if (
+      this.omniJsonData.Case.RewardPoints1Offered !== undefined &&
+      this.omniJsonData.Case.RewardPoints1Offered !== null &&
+      !this.omniJsonData.Case.RewardPoints1Offered.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 1 Offered");
+    }
+    if (
+      this.omniJsonData.Case.RewardPoints2Offered !== undefined &&
+      this.omniJsonData.Case.RewardPoints2Offered !== null &&
+      !this.omniJsonData.Case.RewardPoints2Offered.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 2 Offered");
+    }
+    if (
+      this.omniJsonData.Case.RewardPoints3Offered !== undefined &&
+      this.omniJsonData.Case.RewardPoints3Offered !== null &&
+      !this.omniJsonData.Case.RewardPoints3Offered.match(numbers)
+    ) {
+      this.numberOnlyFields.push("Reward Point 3 Offered");
+    }
   }
 
   checkFields(detail, reMap) {
