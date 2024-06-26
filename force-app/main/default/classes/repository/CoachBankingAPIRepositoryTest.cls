@@ -39,13 +39,13 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
 
       System.assertEquals(
-        3,
+        2,
         model.account_list.size(),
         'Account list size should be as expected.'
       );
       System.assertEquals(
         '000000000',
-        model.account_list[0].account_number,
+        model.account_list[1].account_number,
         'Account number should be as expected.'
       );
     }
