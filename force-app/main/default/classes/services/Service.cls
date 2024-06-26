@@ -504,13 +504,13 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId customer id
-   * @param closureCaseRecord Account Closure Wrapper record to be sent in the body
+   * @param closureCaseRequest Account Closure case request to be sent in the body
    * @return `PackageClosureParams` api response
    * @description virtual account buckets callout
    */
   public virtual HttpCalloutResponse closePackage(
     String ocvId,
-    AccountClosurePackageWrapper closureCaseRecord
+    String closureCaseRequest
   ) {
     return null;
   }
@@ -819,22 +819,22 @@ public with sharing virtual class Service {
    * @description validate manual address details
    */
   public virtual HttpCalloutResponse getValidateAddressV3(
-    String state,Integer postcode,String suburb
+    String state,
+    Integer postcode,
+    String suburb
   ) {
     return null;
   }
-    
+
   /**
    * @param postcode
    * @return HttpCalloutResponse api response
    * @description validate manual address details
    */
-  public virtual HttpCalloutResponse getPostcodeLookupV3 (
-    Integer postcode
-  ) {
+  public virtual HttpCalloutResponse getPostcodeLookupV3(Integer postcode) {
     return null;
   }
-  
+
   /**
    * @param ocvId ocv Id
    * @return `HttpCalloutResponse` the api response

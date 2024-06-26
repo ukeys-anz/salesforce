@@ -124,6 +124,8 @@ public with sharing class GetHelpConstants {
     .get(GetHelpConstants.BANK_ACCOUNT_RT_APINAME)
     .getRecordTypeId();
 
+  public static final String S2_ACCOUNT_MARKETING_CODE = 'SAVING02';
+
   //Financial Account marketing code values
   public static final List<String> ANZX_MARKETING_CODES = new List<String>{
     'TRANSACT01',
