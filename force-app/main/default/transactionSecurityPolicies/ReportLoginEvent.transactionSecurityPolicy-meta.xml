@@ -13,9 +13,9 @@
     </action>
     <active>true</active>
     <apexClass>TSPHandler</apexClass>
-    <description>Notifying attempting to logging in as a break-glass user</description>
-    <developerName>NotifySystemUserLoginEvent</developerName>
+    <description>Transaction Security Policies for LoginEvent</description>
+    <developerName>ReportLoginEvent</developerName>
     <eventName>LoginEvent</eventName>
-    <masterLabel>Notify System User LoginEvent</masterLabel>
+    <masterLabel>Report Login Event</masterLabel>
     <type>CustomApexPolicy</type>
 </TransactionSecurityPolicy>

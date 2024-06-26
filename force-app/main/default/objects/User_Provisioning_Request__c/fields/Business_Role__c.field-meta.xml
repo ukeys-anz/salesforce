@@ -106,10 +106,40 @@
                 <label>Customer Resolution Team Leaders</label>
             </value>
             <value>
+                <fullName>Banker</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Banker</label>
+            </value>
+            <value>
                 <fullName>Business Role</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Business Role</label>
+            </value>
+            <value>
+                <fullName>Customer Resolution</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Resolution</label>
+            </value>
+            <value>
+                <fullName>Manager</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Manager</label>
+            </value>
+            <value>
+                <fullName>Super Support Admin</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Super Support Admin</label>
+            </value>
+            <value>
+                <fullName>Support Staff ARC</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Support Staff ARC</label>
             </value>
         </valueSetDefinition>
     </valueSet>

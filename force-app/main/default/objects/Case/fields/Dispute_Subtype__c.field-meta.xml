@@ -33,6 +33,24 @@
                 <default>false</default>
                 <label>Incorrect Amount</label>
             </value>
+            <value>
+                <fullName>Incorrect Account</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incorrect Account</label>
+            </value>
+            <value>
+                <fullName>Incorrect Payee</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Incorrect Payee</label>
+            </value>
+            <value>
+                <fullName>Unknown Sender</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Unknown Sender</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Unsolicited</controllingFieldValue>

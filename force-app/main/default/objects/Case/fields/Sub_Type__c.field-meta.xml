@@ -582,6 +582,36 @@
                 <default>false</default>
                 <label>Signing Authority Update (ANZ Plus/Save)</label>
             </value>
+            <value>
+                <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Direct Debit or Recurring Payments 13 month statement</label>
+            </value>
+            <value>
+                <fullName>Direct Debit or Recurring Payments stop request</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Direct Debit or Recurring Payments stop request</label>
+            </value>
+            <value>
+                <fullName>Money tiles</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Money tiles</label>
+            </value>
+            <value>
+                <fullName>Withholding Tax Reversal Action</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Withholding Tax Reversal Action</label>
+            </value>
+            <value>
+                <fullName>Withholding Tax and TFN enquiry</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Withholding Tax and TFN enquiry</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>

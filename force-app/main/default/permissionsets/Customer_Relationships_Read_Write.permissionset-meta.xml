@@ -27,6 +27,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FinServ__AccountAccountRelation__c.FinServ__IsShareholder__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__AccountAccountRelation__c.FinServ__RelatedAccount__c</field>
         <readable>true</readable>
     </fieldPermissions>
