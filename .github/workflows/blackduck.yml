@@ -19,7 +19,7 @@ jobs:
     if: ${{ always() }}
     needs:
       - scan
-    runs-on: [self-hosted, salesforce-prod]
+    runs-on: anzx-default
     steps:
       - name: Set BASE_REF
         run: echo BASE_REF=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
