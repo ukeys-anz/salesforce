@@ -60,6 +60,9 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
       TFMAUFService.class
     );
     HttpCalloutResponse response = s.updateMobileNumber(staffModel, value);
+    if (response.statusCode == 409) {
+      throw new DuplicateMobileNumberException(response.error.getMessage());
+    }
     return handleResponse(response);
   }
 
@@ -171,5 +174,10 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
    * @description custom exception
    */
   public class ResetPinBadException extends Exception {
+  }
+  /**
+   * @description custom exception if user updates the mobile number to an already existing number
+   */
+  public class DuplicateMobileNumberException extends Exception {
   }
 }

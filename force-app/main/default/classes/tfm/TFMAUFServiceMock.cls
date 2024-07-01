@@ -145,4 +145,17 @@ public with sharing class TFMAUFServiceMock extends TFMAUFService {
     response.error = new CalloutException(TFMConstants.SERVERERROR);
     return response;
   }
+
+  /**
+   * @description mock response for UpdateMobile callout for duplicate Mobile Number
+   * @return HttpCalloutResponse invalid response
+   */
+  @TestVisible
+  private static HttpCalloutResponse setMockErrorResponseDuplicateMobile() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.statusCode = 409;
+    response.successful = false;
+    response.error = new CalloutException(TFMConstants.ERROR_OCCURRED);
+    return response;
+  }
 }

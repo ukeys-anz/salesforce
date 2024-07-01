@@ -295,4 +295,27 @@ public with sharing class TFMAUFAPIRepositoryTest {
     );
     return staffModel;
   }
+
+  @isTest
+  static void testupdateMobileNumberDuplicateErrorResp() {
+    String exceptionMsg;
+    HttpCalloutResponse res = TFMAUFServiceMock.setMockErrorResponseDuplicateMobile();
+    Service s = ServiceProvider.getService(TFMAUFService.class);
+    s.setCalloutResponse(res);
+    StaffTokenRequestModel staffModel = setStaffModel();
+    String value = '40122344656';
+    TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
+    Test.startTest();
+    try {
+      HttpCalloutResponse response = repo.updateMobileNumber(staffModel, value);
+    } catch (Exception e) {
+      exceptionMsg = e.getMessage();
+    }
+    Test.stopTest();
+    Assert.areEqual(
+      TFMConstants.ERROR_OCCURRED,
+      exceptionMsg,
+      'Mobile number should be duplicate.'
+    );
+  }
 }
