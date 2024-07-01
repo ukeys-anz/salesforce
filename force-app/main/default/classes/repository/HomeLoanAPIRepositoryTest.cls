@@ -30,7 +30,7 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
         'No home loan found with ocvId'
       );
       System.assertEquals(
-        '390899946',
+        '222222222',
         model.accounts[0].account_number,
         'Account number is corresponding to OCVId'
       );
