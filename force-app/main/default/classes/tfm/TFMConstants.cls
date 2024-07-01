@@ -201,4 +201,7 @@ public with sharing class TFMConstants {
   public static final String ACCESS_AEGIS_FEATURES = 'accessAegisFeatures';
   public static final String RESET_PIN_HISTORY_CHECK = 'pinReused';
   public static final String RESET_PIN_HISTORY_CHECK_PASSED = 'pinNotReused';
+  public static final STRING INSUFFICIENT_ACCESS_ERROR = 'Insufficient Access';
+  public static final STRING DUPLICATE_MOBILE_NUMBER = 'duplicateMobileNumber';
+  public static final STRING ERROR_OCCURRED = 'ErrorOccurred';
 }
