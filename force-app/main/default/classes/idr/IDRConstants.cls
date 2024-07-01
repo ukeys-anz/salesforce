@@ -488,6 +488,9 @@ public with sharing class IDRConstants {
     '50' // Payment system fault/outage
   };
 
+  /**
+   * @description return mapping from outcome field values to assessment status value
+   */
   public static final Map<String, String> qaAssessmentStatusMapping {
     get {
       qaAssessmentStatusMapping = new Map<String, String>{
