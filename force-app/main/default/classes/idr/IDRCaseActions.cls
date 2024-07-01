@@ -568,6 +568,7 @@ public with sharing class IDRCaseActions {
       record.IsEscalated &&
       record.Status != IDRConstants.ESCALATED_STATUS &&
       record.Status != IDRConstants.WITHDRAWN_STATUS &&
+      record.Status != IDRConstants.ON_HOLD_STATUS &&
       (String.isBlank(record.IDR_Escalation_Reason__c) ||
       record.IDR_Escalation_Reason__c == INDEXING_ESCALATION_REASON)
     ) {
@@ -607,8 +608,8 @@ public with sharing class IDRCaseActions {
     }
     if (
       (record.Status == IDRConstants.CLOSED_STATUS ||
-      record.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS) &&
-      record.IsEscalated
+      record.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS ||
+      record.Status == IDRConstants.ON_HOLD_STATUS) && record.IsEscalated
     ) {
       record.IsEscalated = false;
     }
