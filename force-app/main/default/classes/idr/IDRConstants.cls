@@ -235,6 +235,12 @@ public with sharing class IDRConstants {
 
   //Quality Assessment Constants
   public static final String CORRECTIVE_ACTIONS_NA = 'N/A- no action required';
+    
+  //Quality Assessment CQ Assessment outcome fields
+  public static final SObjectField TEAM_MANAGER_RESPONSE = Quality_Assessment__c.Team_Manager_Response__c.getDescribe().getSObjectField();
+  public static final SObjectField TM_RESPONSE = Quality_Assessment__c.TM_Response_to_C_Q_Manager_Review__c.getDescribe().getSObjectField();
+  public static final SObjectField CQ_MANAGER_RESPONSE = Quality_Assessment__c.C_Q_Manager_Response__c.getDescribe().getSObjectField();
+  public static final SObjectField CQ_LEAD_RESPONSE = Quality_Assessment__c.C_Q_Lead_Response__c.getDescribe().getSObjectField();
 
   //Quality Assessment Fieldset Name
   public static final String CQ_EDITABLE_RESPONSE_FIELDS = 'CQAssessment_Editable_Response_Fields';
@@ -481,4 +487,22 @@ public with sharing class IDRConstants {
     // Transactions & Payments
     '50' // Payment system fault/outage
   };
+
+  public static final Map<String, String> qaAssessmentStatusMapping {
+    get {
+      qaAssessmentStatusMapping = new Map<String, String>{
+          'Awaiting response from TM' => 'Submitted',
+          'Accepted by TM' => 'Accepted',
+          'Rejected by TM' => 'Disputed',
+          'C&Q Team Lead accepts TM\'s view' => 'C&Q manager amended original review',
+          'C&Q Team Lead rejects TM\'s view' => 'C&Q manager upheld original review',
+          'TM Rejects C&Q Manager\'s review' => 'C&Q manager\'s view not accepted',
+          'TM Accepts C&Q Manager\'s review' => 'C&Q manager\'s view accepted',
+          'C&Q Lead upholds C&Q Manager\'s review' => 'C&Q Lead upholds C&Q Manager\'s review',
+          'C&Q Lead disagrees with C&Q Manager\'s review' => 'C&Q Lead disagrees with C&Q Manager\'s review'
+        };
+      return qaAssessmentStatusMapping;
+    }
+    set;
+  }
 }

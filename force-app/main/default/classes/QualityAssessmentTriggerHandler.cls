@@ -88,6 +88,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+      );
     QualityAssessmentActions.populateFieldsBeforeTrigger(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
