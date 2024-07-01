@@ -1070,6 +1070,7 @@
         "Reason_for_Recall_trace__c",
         "Reason_for_an_Urgent_Dishonour_Request__c",
         "Receipt__c",
+        "RecipientFundsType__c",
         "Regular_Payment_Cancellation_Date__c",
         "Relationship_Managed_Complaint__c",
         "Show_Resolution_Launcher__c",
