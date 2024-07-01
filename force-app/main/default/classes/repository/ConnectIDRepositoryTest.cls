@@ -6,9 +6,7 @@
 @isTest
 public with sharing class ConnectIDRepositoryTest {
   @testSetup
-  static void setup() 
-  {
-
+  static void setup() {
     Faker faker = new Faker('AU');
     Account acc = new Account(
       Name = 'TestAccount',

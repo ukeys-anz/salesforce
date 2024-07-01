@@ -49,9 +49,9 @@ public with sharing abstract class StreamingMonitorController {
       System.debug(e.getCause());
       throw new AuraHandledException(
         'Failed to instantiate ' +
-        eventName +
-        ' platform event with provided data: ' +
-        eventPayload
+          eventName +
+          ' platform event with provided data: ' +
+          eventPayload
       );
     }
     // Publish event
@@ -65,11 +65,11 @@ public with sharing abstract class StreamingMonitorController {
       for (Database.Error error : result.getErrors()) {
         System.debug(
           'Error: ' +
-          error.getStatusCode() +
-          ' - ' +
-          error.getMessage() +
-          ' - ' +
-          error.getFields()
+            error.getStatusCode() +
+            ' - ' +
+            error.getMessage() +
+            ' - ' +
+            error.getFields()
         );
       }
       throw new AuraHandledException(errorMessage);
@@ -249,18 +249,13 @@ public with sharing abstract class StreamingMonitorController {
       );
       httpRequest.setEndpoint(restAPIURL);
       httpRequest.setBody(
-        '{ "pushEvents": [ { "payload": "' +
-        payload +
-        '", "userIds": [] } ] }'
+        '{ "pushEvents": [ { "payload": "' + payload + '", "userIds": [] } ] }'
       );
       Http http = new Http();
       HttpResponse httpResponse = http.send(httpRequest);
       if (httpResponse.getStatusCode() != 200) {
         System.debug(
-          'HTTP ' +
-          httpResponse.getStatusCode() +
-          ': ' +
-          httpResponse.getBody()
+          'HTTP ' + httpResponse.getStatusCode() + ': ' + httpResponse.getBody()
         );
         throw new CalloutException(httpResponse.getBody());
       }
