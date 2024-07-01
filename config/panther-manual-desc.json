@@ -398,7 +398,8 @@
         "Victim_Record_ID__c",
         "Date_Victim_Merged__c"
       ],
-      "IA-2486234": ["Sync_Status__c"]
+      "IA-2486234": ["Sync_Status__c"],
+      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [

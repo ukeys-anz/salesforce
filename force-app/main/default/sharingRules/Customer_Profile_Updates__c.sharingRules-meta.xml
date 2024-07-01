@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>KYC_QA_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grant Read Only Access to Customer_Profile_Upgrade records</description>
+        <label>KYC QA Read Only</label>
+        <sharedTo>
+            <group>Customer_Profile_Updates_RO_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>TriggeredFrom__c</field>
+            <operation>equals</operation>
+            <value>Case.KYC_QA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>CCRM_Integration_RW</fullName>
         <accessLevel>Edit</accessLevel>

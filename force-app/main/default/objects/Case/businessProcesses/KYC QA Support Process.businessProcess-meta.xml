@@ -23,6 +23,10 @@
         <default>false</default>
     </values>
     <values>
+        <fullName>Refer to Fraud</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Under Review</fullName>
         <default>false</default>
     </values>

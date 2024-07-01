@@ -326,6 +326,13 @@
         <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
     </labels>
     <labels>
+        <fullName>DowngradeUpgradeEnabled</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DowngradeUpgradeEnabled</shortDescription>
+        <value>False</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
