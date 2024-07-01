@@ -51,7 +51,8 @@ const salesforceSecretNames = {
   "epic/transaction-income": "sf-platform-np-trnscncome",
   "epic/disputeq-auto": "sf-platform-np-disputeq",
   "epic/ccrmintact": "sf-platform-np-ccrmintact",
-  "epic/profileupdate": "sf-platform-np-profileupd"
+  "epic/profileupdate": "sf-platform-np-profileupd",
+  "epic/main-rb-customer-details": "sf-platform-np-main-rb-customer-details"
 };
 
 const brokerSecretNames = {
