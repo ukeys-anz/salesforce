@@ -106,23 +106,6 @@
         <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:SecondComplaintRemedyOffered &apos;Yes&apos; == var:Case:CustomerAcceptTheResolution $Vlocity.NULL IF</formulaConverted>
-        <formulaExpression>IF(Case:SecondComplaintRemedyOffered == &apos;Yes&apos;, %Case:CustomerAcceptTheResolution%, $Vlocity.NULL)</formulaExpression>
-        <formulaResultPath>Case:CustomerAcceptTheResolution2</formulaResultPath>
-        <formulaSequence>20.0</formulaSequence>
-        <globalKey>DRTransformCloseCaseCustom2849</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom6749</globalKey>
         <inputFieldName>Case:otherRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -188,20 +171,6 @@
         <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRTransformCloseCaseCustom881</globalKey>
-        <inputFieldName>Case:CustomerAcceptTheResolution2</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ComplaintRes|2:CustomerAcceptResolution</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom1565</globalKey>
         <inputFieldName>Case:ComplaintRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -232,7 +201,7 @@
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintStatus &apos;Closed&apos; == var:Case:CustomerAcceptTheResolution $Vlocity.NULL IF</formulaConverted>
         <formulaExpression>IF(Case:ComplaintStatus == &apos;Closed&apos;, %Case:CustomerAcceptTheResolution%, $Vlocity.NULL)</formulaExpression>
-        <formulaResultPath>Case:CustomerAcceptTheResolution1</formulaResultPath>
+        <formulaResultPath>Case:CustomerAcceptTheResolution</formulaResultPath>
         <formulaSequence>19.0</formulaSequence>
         <globalKey>DRTransformCloseCaseCustom3117</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -252,40 +221,6 @@
         <formulaResultPath>Case:durationOfRemedy2</formulaResultPath>
         <formulaSequence>34.0</formulaSequence>
         <globalKey>DRTransformCloseCaseCustom6017</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:Case:PaymentAmountProvided1 ISNOTBLANK var:Case:PaymentAmountProvided1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
-        <formulaExpression>IF(ISNOTBLANK(Case:PaymentAmountProvided1),%Case:PaymentAmountProvided1%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
-        <formulaResultPath>Case:PaymentAmountProvided1</formulaResultPath>
-        <formulaSequence>7.0</formulaSequence>
-        <globalKey>DRTransformCloseCaseCustom8170</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:ThirdComplaintRemedyOffered &apos;Yes&apos; == var:Case:OfferEnhancedAndAccepted $Vlocity.NULL IF</formulaConverted>
-        <formulaExpression>IF(Case:ThirdComplaintRemedyOffered == &apos;Yes&apos;, %Case:OfferEnhancedAndAccepted%, $Vlocity.NULL)</formulaExpression>
-        <formulaResultPath>Case:OfferEnhancedAndAccepted3</formulaResultPath>
-        <formulaSequence>24.0</formulaSequence>
-        <globalKey>DRTransformCloseCaseCustom2181</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
@@ -330,7 +265,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom6231</globalKey>
-        <inputFieldName>Case:CustomerAcceptTheResolution1</inputFieldName>
+        <inputFieldName>Case:CustomerAcceptTheResolution</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -489,20 +424,6 @@
         <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRTransformCloseCaseCustom5102</globalKey>
-        <inputFieldName>Case:OfferEnhancedAndAccepted3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ComplaintRes|3:OfferEnhancedAndAccepted</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom8801</globalKey>
         <inputFieldName>Case:ComplaintSubRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -553,7 +474,7 @@
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintStatus &apos;Closed&apos; == var:Case:OfferEnhancedAndAccepted $Vlocity.NULL IF</formulaConverted>
         <formulaExpression>IF(Case:ComplaintStatus == &apos;Closed&apos;, %Case:OfferEnhancedAndAccepted%, $Vlocity.NULL)</formulaExpression>
-        <formulaResultPath>Case:OfferEnhancedAndAccepted1</formulaResultPath>
+        <formulaResultPath>Case:OfferEnhancedAndAccepted</formulaResultPath>
         <formulaSequence>22.0</formulaSequence>
         <globalKey>DRTransformCloseCaseCustom2280</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -668,23 +589,6 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:descriptionOutcomeOffered</outputFieldName>
         <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:SecondComplaintRemedyOffered &apos;Yes&apos; == var:Case:OfferEnhancedAndAccepted $Vlocity.NULL IF</formulaConverted>
-        <formulaExpression>IF(Case:SecondComplaintRemedyOffered == &apos;Yes&apos;, %Case:OfferEnhancedAndAccepted%, $Vlocity.NULL)</formulaExpression>
-        <formulaResultPath>Case:OfferEnhancedAndAccepted2</formulaResultPath>
-        <formulaSequence>23.0</formulaSequence>
-        <globalKey>DRTransformCloseCaseCustom7972</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -1092,34 +996,6 @@
         <name>DRTransformCloseCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRTransformCloseCaseCustom1558</globalKey>
-        <inputFieldName>Case:CustomerAcceptTheResolution3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ComplaintRes|3:CustomerAcceptResolution</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRTransformCloseCaseCustom2688</globalKey>
-        <inputFieldName>Case:OfferEnhancedAndAccepted2</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ComplaintRes|2:OfferEnhancedAndAccepted</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:ComplaintStatus &quot;Closed&quot; == var:Case:CustomerAcceptTheResolution &quot;Yes&quot; == &amp;&amp; var:Case:PaymentAmountProvided2Accepted var:Case:PaymentAmountProvided2 IF</formulaConverted>
         <formulaExpression>IF(Case:ComplaintStatus == &quot;Closed&quot; &amp;&amp;  Case:CustomerAcceptTheResolution == &quot;Yes&quot;, %Case:PaymentAmountProvided2Accepted%, %Case:PaymentAmountProvided2% )</formulaExpression>
         <formulaResultPath>Case:PaymentAmountProvided2</formulaResultPath>
@@ -1265,23 +1141,6 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|2:rewardPoints</outputFieldName>
         <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRTransformCloseCase</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:ThirdComplaintRemedyOffered &apos;Yes&apos; == var:Case:CustomerAcceptTheResolution $Vlocity.NULL IF</formulaConverted>
-        <formulaExpression>IF(Case:ThirdComplaintRemedyOffered == &apos;Yes&apos;, %Case:CustomerAcceptTheResolution%, $Vlocity.NULL)</formulaExpression>
-        <formulaResultPath>Case:CustomerAcceptTheResolution3</formulaResultPath>
-        <formulaSequence>21.0</formulaSequence>
-        <globalKey>DRTransformCloseCaseCustom1708</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -1445,7 +1304,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCloseCaseCustom6615</globalKey>
-        <inputFieldName>Case:OfferEnhancedAndAccepted1</inputFieldName>
+        <inputFieldName>Case:OfferEnhancedAndAccepted</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -1572,6 +1431,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>ComplaintRes|3:subRemedyOffered</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCloseCase</name>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:Case:PaymentAmountProvided1 ISNOTBLANK var:Case:PaymentAmountProvided1 &apos;$Vlocity.NULL&apos; IF</formulaConverted>
+        <formulaExpression>IF(ISNOTBLANK(Case:PaymentAmountProvided1),%Case:PaymentAmountProvided1%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
+        <formulaResultPath>Case:PaymentAmountProvided1</formulaResultPath>
+        <formulaSequence>7.0</formulaSequence>
+        <globalKey>DRTransformCloseCaseCustom8170</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>

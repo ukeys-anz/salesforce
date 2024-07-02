@@ -186,7 +186,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     notification.Case_ID__c = c.Id;
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
     notification.MessageID__c = '' + c.Id + Datetime.now().millisecond();
-    notification.SMSTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
+    notification.SMSTemplate__c = assignCustomerNotificationTemplate(c.Origin);
     return notification;
   }
 
@@ -248,7 +248,9 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     assignIDR3rdPartyNotificationValues(notification, c);
     assignIDRCustomerNotificationValues(notification, c);
     notification.EmailFlag__c = true;
-    notification.EmailTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
+    notification.EmailTemplate__c = assignCustomerNotificationTemplate(
+      c.Origin
+    );
     notification.SMSFlag__c = true;
     return notification;
   }
@@ -365,5 +367,17 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         );
       }
     }
+  }
+
+  /**
+   * @description Prepare and returns the Email and SMS Template based on EDR or IDR cases
+   * @param caseOrigin Origin of the Case record to get the notification details
+   * @return SMS or Email based on IDR or EDR case
+   */
+  public static String assignCustomerNotificationTemplate(String caseOrigin) {
+    if (caseOrigin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+      return IDRConstants.CUSTOMER_EDR_NOTIFICATION_TEMPLATE;
+    }
+    return IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
   }
 }
