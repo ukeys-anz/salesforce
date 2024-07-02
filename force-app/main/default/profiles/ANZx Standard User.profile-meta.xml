@@ -8182,6 +8182,9 @@
         <recordType>Lead.FinServ__RetirementPlanning</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>LoanApplicationProperty-Loan Application Property Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>PersonAccount-Customer Tabbed View Layout</layout>
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
@@ -8211,6 +8214,9 @@
     <layoutAssignments>
         <layout>Task-Email Task Layout</layout>
         <recordType>Task.Email_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Title_Detail__c-Title Detail Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Twilio_Details__c-Twilio Detail Layout</layout>

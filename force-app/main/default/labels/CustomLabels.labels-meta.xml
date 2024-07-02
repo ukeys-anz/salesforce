@@ -835,6 +835,14 @@
         <value>callout:SF_MS_CH2/contact-centre-staff/create-outbound-chat</value>
     </labels>
     <labels>
+        <fullName>MS_Reassess_Collateral</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Reassess_Collateral</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/reassess/</value>
+    </labels>
+    <labels>
         <fullName>MS_Reinitiate_Chat</fullName>
         <categories>MS</categories>
         <language>en_US</language>

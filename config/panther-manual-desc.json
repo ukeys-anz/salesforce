@@ -2977,7 +2977,7 @@
         "RequestedLoanAmount",
         "Property_Value__c",
         "Maximum_Lending_Amount__c",
-        "Property_Value__c"
+        "PropertyValue"
       ],
       "IA-2415840": [
         "Maximum_Allowable_LVR__c",
@@ -4268,6 +4268,18 @@
         "LastModifiedById",
         "LastModifiedDate"
       ]
+    },
+    "Title_Detail__c": {
+      "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],
+      "IA-2415984": ["Property_Owner__c"],
+      "IA-2530753": [
+        "Expire_Date_Time__c",
+        "External_Id__c",
+        "Search_Time__c",
+        "Loan_Application_Property__c",
+        "Residential_Loan_Application__c"
+      ],
+      "IA-2415840": ["Version__c"]
     },
     "User": {
       "IA-2460507": [
