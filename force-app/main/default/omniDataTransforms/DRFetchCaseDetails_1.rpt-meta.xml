@@ -59,6 +59,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom2052</globalKey>
