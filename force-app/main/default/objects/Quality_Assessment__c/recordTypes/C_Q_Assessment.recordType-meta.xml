@@ -565,14 +565,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>C%26Q Lead provides final outcome</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>C%26Q Lead rejects the TM%27s review</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>C%26Q Lead upholds C%26Q Manager%27s review</fullName>
             <default>false</default>
         </values>
