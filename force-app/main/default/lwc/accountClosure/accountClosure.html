@@ -71,25 +71,47 @@
             </header>
           </div>
           <div class="slds-card__body slds-p-horizontal--small">
-            <div class="slds-p-around_medium slds-m-bottom_small">
-              <p class="slds-text-title_bold slds-m-bottom_small">
-                Are you sure you want to initiate the package closure for the
-                customers account?
-              </p>
-              <p>
-                Please ensure the following has been confirmed prior to
-                submission:
-              </p>
-              <ul class="slds-list_dotted">
-                <li>There are no pending transactions on the account(s)</li>
-                <li>The card has been disabled in CTM</li>
-                <li>The account balances have been zeroed out</li>
-                <li>There is no interest accrued on the account(s)</li>
-                <li>
-                  The status of the account(s) has been set to Closed in CAP
-                </li>
-              </ul>
-            </div>
+            <template lwc:if={isFlexSaverAccountClosure}>
+              <div class="slds-p-around_medium slds-m-bottom_small">
+                <p class="slds-text-title_bold slds-m-bottom_small">
+                  Are you sure you want to initiate closure for the customer’s
+                  account?
+                </p>
+                <p>
+                  Please ensure the following has been confirmed prior to
+                  submission:
+                </p>
+                <ul class="slds-list_dotted">
+                  <li>There are no pending transactions on the account</li>
+                  <li>The account balance has been zeroed out</li>
+                  <li>There is no interest accrued on the account</li>
+                  <li>
+                    The status of the account has been set to Closed in CAP
+                  </li>
+                </ul>
+              </div>
+            </template>
+            <template lwc:else>
+              <div class="slds-p-around_medium slds-m-bottom_small">
+                <p class="slds-text-title_bold slds-m-bottom_small">
+                  Are you sure you want to initiate the package closure for the
+                  customers account?
+                </p>
+                <p>
+                  Please ensure the following has been confirmed prior to
+                  submission:
+                </p>
+                <ul class="slds-list_dotted">
+                  <li>There are no pending transactions on the account(s)</li>
+                  <li>The card has been disabled in CTM</li>
+                  <li>The account balances have been zeroed out</li>
+                  <li>There is no interest accrued on the account(s)</li>
+                  <li>
+                    The status of the account(s) has been set to Closed in CAP
+                  </li>
+                </ul>
+              </div>
+            </template>
             <button
               class="slds-button slds-button--brand close-button"
               onclick={handleClosure}

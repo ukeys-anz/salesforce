@@ -13,8 +13,8 @@ export default class AccountClosure extends LightningElement {
   cardValue;
   packageValue;
   showConfirmation = false;
-  isFlexSaverAccountClosure;
-  dynamicColumnSize;
+  isFlexSaverAccountClosure = false;
+  dynamicColumnSize = "slds-col slds-size_1-of-4";
   packageData = {
     accountsClosed: null,
     cardsClosed: null,
