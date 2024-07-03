@@ -856,12 +856,11 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public SOPStreamDetails transactionIncome {
       get {
-        if (stream == null) {
-          return null;
-        }
-        for (SOPStreamDetails detail : stream.details) {
-          if (detail?.incomeType == SALARY_WAGES_INCOME) {
-            return detail;
+        if (stream != null) {
+          for (SOPStreamDetails detail : stream.details) {
+            if (detail?.incomeType == SALARY_WAGES_INCOME) {
+              return detail;
+            }
           }
         }
         return null;
