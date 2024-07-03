@@ -8,6 +8,5 @@
     <permissionSetGroups>MLCRM Franchise Owner</permissionSetGroups>
     <permissionSetGroups>MLCRM Loan Writer</permissionSetGroups>
     <permissionSetGroups>MLCRM Super User</permissionSetGroups>
-    <profiles>ANZ ML Standard User</profiles>
     <roles>ANZ Mobile Lending</roles>
 </DelegateGroup>
