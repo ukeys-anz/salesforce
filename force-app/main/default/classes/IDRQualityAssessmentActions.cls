@@ -233,87 +233,45 @@ public with sharing class IDRQualityAssessmentActions {
    * @param records list of qa records
    * @param oldMap map of old QA records
    */
-  public static void setAssessmentOutcomeStatus(
-    List<Quality_Assessment__c> records,
-    Map<Id, Quality_Assessment__c> oldMap
-  ) {
-    SObjectField teamManagerResponse = IDRConstants.TEAM_MANAGER_RESPONSE;
-    SObjectField tmResponse = IDRConstants.TM_RESPONSE;
-    SObjectField cqManagerResponse = IDRConstants.CQ_MANAGER_RESPONSE;
-    SObjectField cqLeadResponse = IDRConstants.CQ_LEAD_RESPONSE;
+  public static void setAssessmentOutcomeStatus(List<Quality_Assessment__c> records, 
+  Map<Id, Quality_Assessment__c> oldMap) 
+  {
     Id cqRecordTypeId = IDRConstants.idrtCQQualityAssessment;
 
     for (Quality_Assessment__c qaRecord : records) {
-      if (
-        qaRecord.RecordTypeId != cqRecordTypeId ||
-        qaRecord.Status__c == 'Complete'
-      ) {
+      if(qaRecord.RecordTypeId != cqRecordTypeId || qaRecord.Status__c == 'Complete'){
         continue;
       }
-      Quality_Assessment__c oldQARecord = oldMap.get(qaRecord.Id);
-      if (
-        RecordComparisonUtil.fieldWasChangedAndNotEqualNull(
-          qaRecord,
-          oldQARecord,
-          teamManagerResponse
-        )
-      ) {
-        qaRecord.Assessment_Outcome_Status__c = getStatus(
-          qaRecord,
-          teamManagerResponse
-        );
+    Quality_Assessment__c oldQARecord = oldMap.get(qaRecord.Id);
+    if (RecordComparisonUtil.fieldWasChangedAndNotEqualNull(qaRecord,oldQARecord,IDRConstants.TEAM_MANAGER_RESPONSE))
+    {
+      qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, IDRConstants.TEAM_MANAGER_RESPONSE);
         continue;
-      }
-      if (
-        RecordComparisonUtil.fieldWasChangedAndNotEqualNull(
-          qaRecord,
-          oldQARecord,
-          tmResponse
-        )
-      ) {
-        qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, tmResponse);
+    }
+    if (RecordComparisonUtil.fieldWasChangedAndNotEqualNull(qaRecord,oldQARecord,IDRConstants.TM_RESPONSE))
+    {     
+      qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, IDRConstants.TM_RESPONSE);
         continue;
-      }
-      if (
-        RecordComparisonUtil.fieldWasChangedAndNotEqualNull(
-          qaRecord,
-          oldQARecord,
-          cqManagerResponse
-        )
-      ) {
-        qaRecord.Assessment_Outcome_Status__c = getStatus(
-          qaRecord,
-          cqManagerResponse
-        );
+    }
+    if (RecordComparisonUtil.fieldWasChangedAndNotEqualNull(qaRecord,oldQARecord,IDRConstants.CQ_MANAGER_RESPONSE))
+    {
+      qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, IDRConstants.CQ_MANAGER_RESPONSE);
         continue;
-      }
-      if (
-        RecordComparisonUtil.fieldWasChangedAndNotEqualNull(
-          qaRecord,
-          oldQARecord,
-          cqLeadResponse
-        )
-      ) {
-        qaRecord.Assessment_Outcome_Status__c = getStatus(
-          qaRecord,
-          cqLeadResponse
-        );
+    }
+    if (RecordComparisonUtil.fieldWasChangedAndNotEqualNull(qaRecord,oldQARecord,IDRConstants.CQ_LEAD_RESPONSE))
+    {
+        qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, IDRConstants.CQ_LEAD_RESPONSE);
         continue;
-      }
     }
   }
-  /**
+}
+/**
    * @description return assessment outcome field based on input values
    * @param qaRecord quality assessment record
    * @param fieldAPIName api name of the field changed
    * @return String value of the assessment outcome field
    */
-  private static String getStatus(
-    Quality_Assessment__c qaRecord,
-    SObjectField fieldAPIName
-  ) {
-    return IDRConstants.qaAssessmentStatusMapping.get(
-      String.valueOf(qaRecord.get(fieldAPIName))
-    );
-  }
+ private static String getStatus(Quality_Assessment__c qaRecord, SObjectField fieldAPIName){  
+     return IDRConstants.qaAssessmentStatusMapping.get(String.valueOf(qaRecord.get(fieldAPIName)));
+ }
 }
