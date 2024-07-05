@@ -5,10 +5,36 @@
     <businessHours>Case Business Hours</businessHours>
     <description>entitlement process that supports complaints case with appropriate timers and escalates the case on voliation</description>
     <entryStartDateField>Case.IDR_Date_Received__c</entryStartDateField>
+    <exitCriteriaBooleanFilter>(1 AND 2 AND 3) OR (4 AND 5 AND 6)</exitCriteriaBooleanFilter>
     <exitCriteriaFilterItems>
         <field>Case.IsClosed</field>
         <operation>equals</operation>
         <value>true</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.Type</field>
+        <operation>notEqual</operation>
+        <value>4</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.IDR_Is_Hardship_Resolution_Letter_Sent__c</field>
+        <operation>equals</operation>
+        <value></value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.IsClosed</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.Type</field>
+        <operation>equals</operation>
+        <value>4</value>
+    </exitCriteriaFilterItems>
+    <exitCriteriaFilterItems>
+        <field>Case.IDR_Is_Hardship_Resolution_Letter_Sent__c</field>
+        <operation>notEqual</operation>
+        <value></value>
     </exitCriteriaFilterItems>
     <isVersionDefault>true</isVersionDefault>
     <milestones>
@@ -62,19 +88,19 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
         <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Escalate_The_Case</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>EscalationtoAmber</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-2</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Escalate_The_Case</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
             <actions>
@@ -327,8 +353,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
-
-<milestones>
+    <milestones>
         <businessHours>Default</businessHours>
         <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
@@ -513,7 +538,44 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6)</criteriaBooleanFilter>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IsClosed</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Type</field>
+            <operation>equals</operation>
+            <value>4</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_Is_Hardship_Resolution_Letter_Sent__c</field>
+            <operation>equals</operation>
+            <value></value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Queue__c</field>
+            <operation>equals</operation>
+            <value>Hardship IDR Letter</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>21 Day Hardship Letter Milestone</milestoneName>
+        <minutesToComplete>30240</minutesToComplete>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
     <name>complaints</name>
     <versionMaster>5522O000000CGgO</versionMaster>
-    <versionNumber>4</versionNumber>
+    <versionNumber>1</versionNumber>
 </EntitlementProcess>
