@@ -290,41 +290,55 @@ private class QualityAssessmentActionsTest {
   }
   @IsTest
   static void testSetAssessmentOutcomeStatusValid() {
-  String qaRecordId = Lib_FakeIdGenerator.getMockId(
-    Quality_Assessment__c.SObjectType
-  );
-      Quality_Assessment__c qaRecord = new Quality_Assessment__c(
+    String qaRecordId = Lib_FakeIdGenerator.getMockId(
+      Quality_Assessment__c.SObjectType
+    );
+    Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       Id = qaRecordId,
       Status__c = 'Pending',
       Team_Manager_Response__c = '',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
-      Quality_Assessment__c qaRecordV1 = new Quality_Assessment__c(
+    Quality_Assessment__c qaRecordV1 = new Quality_Assessment__c(
       Id = qaRecordId,
       Status__c = 'Pending',
-      Team_Manager_Response__c = 'Rejected by TM',   
+      Team_Manager_Response__c = 'Rejected by TM',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
-      IDRQualityAssessmentActions.setAssessmentOutcomeStatus(new List<Quality_Assessment__c>{qaRecordV1},new Map<Id, Quality_Assessment__c>{qaRecord.Id => qaRecord});
-      System.AssertEquals('Disputed',qaRecordV1.Assessment_Outcome_Status__c,'Assessment Outcome Status updated correctly');
+    IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
+      new List<Quality_Assessment__c>{ qaRecordV1 },
+      new Map<Id, Quality_Assessment__c>{ qaRecord.Id => qaRecord }
+    );
+    System.AssertEquals(
+      'Disputed',
+      qaRecordV1.Assessment_Outcome_Status__c,
+      'Assessment Outcome Status updated correctly'
+    );
   }
-    
+
   @IsTest
   static void testSetAssessmentOutcomeStatusInvalid() {
-  String qaRecordId = Lib_FakeIdGenerator.getMockId(
-    Quality_Assessment__c.SObjectType
-  );
-      Quality_Assessment__c qaRecord = new Quality_Assessment__c(
+    String qaRecordId = Lib_FakeIdGenerator.getMockId(
+      Quality_Assessment__c.SObjectType
+    );
+    Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       Id = qaRecordId,
       Status__c = 'Pending',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
-      Quality_Assessment__c qaRecordV1 = new Quality_Assessment__c(
+    Quality_Assessment__c qaRecordV1 = new Quality_Assessment__c(
       Id = qaRecordId,
       Status__c = 'Complete',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
-      IDRQualityAssessmentActions.setAssessmentOutcomeStatus(new List<Quality_Assessment__c>{qaRecordV1},new Map<Id, Quality_Assessment__c>{qaRecord.Id => qaRecord});
-      System.AssertNotEquals('Accepted',qaRecordV1.Assessment_Outcome_Status__c,'Assessment Outcome Status should not be updated when Outcome fields are not changed');
+    IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
+      new List<Quality_Assessment__c>{ qaRecordV1 },
+      new Map<Id, Quality_Assessment__c>{ qaRecord.Id => qaRecord }
+    );
+    System.AssertNotEquals(
+      'Accepted',
+      qaRecordV1.Assessment_Outcome_Status__c,
+      'Assessment Outcome Status should not be updated when Outcome fields are not changed'
+    );
   }
 }
