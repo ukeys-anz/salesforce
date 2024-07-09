@@ -1,0 +1,18 @@
+{
+  "code": 13,
+  "message": "Internal error.",
+  "details": [
+    {
+      "@type": "type.googleapis.com/anz.type.DebugInfo",
+      "timestamp": "2024-06-07T00:28:54.736470880Z",
+      "traceId": "5937c797504979512ff52dce064bb752",
+      "requestId": ""
+    },
+    {
+      "@type": "type.googleapis.com/anz.type.ErrorInfo",
+      "errorCode": "400_205",
+      "reason": "Failed to find Collateral Assessment.",
+      "metadata": {}
+    }
+  ]
+}

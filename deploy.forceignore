@@ -204,6 +204,3 @@ force-app/main/default/aura/QuickActionAuraContainer
 
 #ANZX-155504 ignore for manual delete
 force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml
-
-#AR-135392 Modifying the current TSP
-force-app/main/default/transactionSecurityPolicies

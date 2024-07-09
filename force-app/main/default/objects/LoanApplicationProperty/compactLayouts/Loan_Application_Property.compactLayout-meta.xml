@@ -3,7 +3,6 @@
     <fullName>Loan_Application_Property</fullName>
     <fields>Name</fields>
     <fields>Property_Type__c</fields>
-    <fields>RequestedLoanAmount</fields>
     <fields>PropertyValue</fields>
     <fields>Maximum_Allowable_LVR__c</fields>
     <label>Loan Application Property</label>

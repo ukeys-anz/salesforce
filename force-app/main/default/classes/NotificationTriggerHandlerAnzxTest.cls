@@ -87,7 +87,8 @@ public class NotificationTriggerHandlerAnzxTest {
         RecordTypeId,
         IDR_SwicthOff_3rd_Party_Notification__c,
         IDR_SwitchOff_Customer_Notification__c,
-        IDR_3rdParty_Relationship_To_Complainant__c
+        IDR_3rdParty_Relationship_To_Complainant__c,
+        Origin
       FROM Case
       LIMIT 1
     ];
@@ -139,6 +140,28 @@ public class NotificationTriggerHandlerAnzxTest {
       c.Account.PersonMobilePhone,
       evt.ComplainantMobile__c,
       'Event Complainant Mobile Number should be as expected.'
+    );
+  }
+
+  @isTest
+  static void testassignCustomerNotificationTemplate() {
+    String template = NotificationTriggerHandler.assignCustomerNotificationTemplate(
+      IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED
+    );
+
+    String template1 = NotificationTriggerHandler.assignCustomerNotificationTemplate(
+      'Email'
+    );
+
+    System.assertEquals(
+      template,
+      IDRConstants.CUSTOMER_EDR_NOTIFICATION_TEMPLATE,
+      'It is returning EDR Template'
+    );
+    System.assertEquals(
+      template1,
+      IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID,
+      'It is returning EDR Template'
     );
   }
 }

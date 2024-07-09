@@ -33,9 +33,9 @@
                 <label>In favour of ANZ</label>
             </value>
             <value>
-                <fullName>No Response from Customer</fullName>
+                <fullName>No response from Customer</fullName>
                 <default>false</default>
-                <label>No Response from Customer</label>
+                <label>No response from Customer</label>
             </value>
             <value>
                 <fullName>Outside of Rules</fullName>
@@ -106,7 +106,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>11</controllingFieldValue>
-            <valueName>No Response from Customer</valueName>
+            <valueName>No response from Customer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>11</controllingFieldValue>

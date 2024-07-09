@@ -50,7 +50,7 @@
                 <field>Offset__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Property_Valuation_Id__c</field>
             </layoutItems>
         </layoutColumns>
@@ -89,7 +89,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h8r000002ROg6</masterLabel>
+        <masterLabel>00h5m000000MoUq</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

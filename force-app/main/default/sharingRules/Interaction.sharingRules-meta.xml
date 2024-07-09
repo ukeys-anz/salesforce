@@ -311,18 +311,6 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>MLCRM_BusinessAdmin_RO_Sharing</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Sharing rule to open up access from ML Team to Business Admin Role users.</description>
-        <label>MLCRM Business Admin RO Sharing</label>
-        <sharedTo>
-            <role>Business_Admin</role>
-        </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Team</roleAndSubordinates>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
         <fullName>MLCRM_Sharing_Interaction_ToSupport</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Sharing rule to open up access from ML Team to ANZ Support Team with ML Group.</description>

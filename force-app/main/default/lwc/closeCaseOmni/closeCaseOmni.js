@@ -14,6 +14,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
 ) {
   loading = false;
   @track missingFields = [];
+  @track numberOnlyFields = [];
   @track modalMsg;
   @track showModal = false;
   @track modalHeader = "Error";
@@ -24,6 +25,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
 
   callCloseCaseIP() {
     this.missingFields = [];
+    this.numberOnlyFields = [];
     this.modalMsg = "";
     let shouldBreak = this.validateIssueTypeFieldValues();
     if (shouldBreak) {
@@ -35,6 +37,15 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         "Real Form ID Validation",
         undefined,
         "Please Validate Real Form ID."
+      );
+      return;
+    }
+    if (this.omniJsonData.Case.ComplaintStatus_OLD === "On Hold") {
+      handleErrorShowToast(
+        this,
+        "Invalid stage in complaint process",
+        undefined,
+        "This is not a valid stage in the complaint process."
       );
       return;
     }
@@ -54,6 +65,15 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       this.loading = false;
       return;
     }
+
+    this.allNumeric();
+    if (this.numberOnlyFields.length > 0) {
+      this.modalMsg =
+        "Please Enter Valid Numbers for: " + this.numberOnlyFields.join(", ");
+      this.showModal = true;
+      return;
+    }
+
     this.validateFields();
     if (this.missingFields.length > 0) {
       this.modalMsg =
@@ -482,6 +502,70 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.omniJsonData.RiskFormIDValid
       )
     ) {
+      return true;
+    }
+    return false;
+  }
+
+  allNumeric() {
+    if (this.checkIsNumber(this.omniJsonData.Case.DurationofRemedy1Offered)) {
+      this.numberOnlyFields.push("Duration Of Remedy 1 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.DurationofRemedy2Offered)) {
+      this.numberOnlyFields.push("Duration Of Remedy 2 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.DurationofRemedy3Offered)) {
+      this.numberOnlyFields.push("Duration Of Remedy 3 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy1)) {
+      this.numberOnlyFields.push("Duration Of Remedy 1");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy2)) {
+      this.numberOnlyFields.push("Duration Of Remedy 2");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy3)) {
+      this.numberOnlyFields.push("Duration Of Remedy 3");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy1Accepted)) {
+      this.numberOnlyFields.push("Duration Of Remedy 1");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy2Accepted)) {
+      this.numberOnlyFields.push("Duration Of Remedy 2");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy3Accepted)) {
+      this.numberOnlyFields.push("Duration Of Remedy 3");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.RewardPoints1)) {
+      this.numberOnlyFields.push("Reward Point 1");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints2)) {
+      this.numberOnlyFields.push("Reward Point 2");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints3)) {
+      this.numberOnlyFields.push("Reward Point 3");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints1Accepted)) {
+      this.numberOnlyFields.push("Reward Point 1");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints2Accepted)) {
+      this.numberOnlyFields.push("Reward Point 2");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints3Accepted)) {
+      this.numberOnlyFields.push("Reward Point 3");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.RewardPoints1Offered)) {
+      this.numberOnlyFields.push("Reward Point 1 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.RewardPoints2Offered)) {
+      this.numberOnlyFields.push("Reward Point 2 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.RewardPoints3Offered)) {
+      this.numberOnlyFields.push("Reward Point 3 Offered");
+    }
+  }
+  checkIsNumber(detail) {
+    var numbers = /^[-+]?[0-9]+$/;
+    if (detail !== undefined && detail !== null && !detail.match(numbers)) {
       return true;
     }
     return false;
