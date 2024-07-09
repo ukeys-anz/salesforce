@@ -43,8 +43,6 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     List<String> savingsAccount,
     List<String> customerOCVIds
   ) {
-    PackageClosureModel result;
-
     //Added in order to create a wrapper object to be sent to Mulesoft
     AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
     closureCaseRecord.packageId = caseRecord.Package_Id__c;
@@ -61,17 +59,11 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       closureCaseRecord
     );
 
-    if (response.successful) {
-      try {
-        result = PackageClosureModel.parse(response.body);
-      } catch (Exception e) {
-        handleErrors(response, e, StravinskyService.class);
-      }
-    } else {
-      handleErrors(response, null, StravinskyService.class);
+    if (response.successful == false) {
+      throw CommonUtil.logException(response);
     }
 
-    return result;
+    return PackageClosureModel.parse(response.body);
   }
 
   /**
@@ -101,15 +93,16 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     }
 
     //Attempt to parse excpected Error response
-    COBRASErrorModel parsedResponse;
-    try {
-      parsedResponse = COBRASErrorModel.parse(response.error.getMessage());
-    } catch (Exception e) {
-      handleErrors(response, e, StravinskyService.class);
+    String responseErrMsg = response.error.getMessage();
+
+    if (String.isBlank(responseErrMsg)) {
+      throw CommonUtil.logException(response);
     }
 
+    COBRASErrorModel parsedResponse = COBRASErrorModel.parse(responseErrMsg);
+
     if (parsedResponse.code != FAILED_PRECONDITION_CODE) {
-      handleErrors(response, null, StravinskyService.class);
+      throw CommonUtil.logException(response);
     }
 
     for (COBRASErrorModel.Details errDetail : parsedResponse.details) {
@@ -117,15 +110,11 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       if (EXPECTED_STAGES_SET.contains(errorStage)) {
         cobStage.cxOnboardingStage = errorStage;
         cobStage.retryReason = errDetail.debug?.retryReason;
-        break;
+        return cobStage;
       }
     }
 
-    if (String.isBlank(cobStage.cxOnboardingStage)) {
-      handleErrors(response, null, StravinskyService.class);
-    }
-
-    return cobStage;
+    throw CommonUtil.logException(response);
   }
 
   /**
@@ -145,7 +134,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     );
 
     if (response.successful == false) {
-      handleErrors(response, null, StravinskyService.class);
+      throw CommonUtil.logException(response);
     }
 
     return COBPrimaryIDDocumentModel.parse(response.body);
@@ -168,7 +157,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     );
 
     if (response.successful == false) {
-      handleErrors(response, null, StravinskyService.class);
+      throw CommonUtil.logException(response);
     }
 
     return COBPrimaryIDDocumentModel.parse(response.body);
@@ -183,11 +172,10 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     COBTaxResidency__c taxResidency
   ) {
     Service s = ServiceProvider.getService(StravinskyService.class);
-
     HttpCalloutResponse response = s.detokenizeCOBTaxResidency(taxResidency);
 
     if (response.successful == false || throwException == true) {
-      handleErrors(response, mockException(), StravinskyService.class);
+      throw CommonUtil.logException(mockException());
     }
 
     return COBTaxResidencyModel.parse(response.body);

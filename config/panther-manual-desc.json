@@ -398,7 +398,8 @@
         "Victim_Record_ID__c",
         "Date_Victim_Merged__c"
       ],
-      "IA-2486234": ["Sync_Status__c"]
+      "IA-2486234": ["Sync_Status__c"],
+      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -857,6 +858,7 @@
         "IDR_Progressed_Status__c",
         "IDR_Teleconference_Call_TCC__c",
         "IDR_Datetime_PSI_Ticked__c",
+        "IDR_Date_Case_on_Hold_From__c",
         "IDR_Express_CMOS_Complaint__c",
         "IDR_Knowledge_Keyword_1__c",
         "IDR_Knowledge_Keyword_2__c",
@@ -1070,6 +1072,7 @@
         "Reason_for_Recall_trace__c",
         "Reason_for_an_Urgent_Dishonour_Request__c",
         "Receipt__c",
+        "RecipientFundsType__c",
         "Regular_Payment_Cancellation_Date__c",
         "Relationship_Managed_Complaint__c",
         "Show_Resolution_Launcher__c",
@@ -3687,6 +3690,7 @@
         "Review_Period_Year__c",
         "REaL_form_categories__c",
         "REAL_form_Comments__c",
+        "IsUserSeniorManager__c",
         "REaL_form_receipt_no__c",
         "Relevant_internal_information_obtained__c",
         "Risk_and_Compliance_Category__c",

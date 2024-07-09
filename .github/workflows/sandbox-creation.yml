@@ -9,7 +9,7 @@ on:
 
 jobs:
   Sandbox-Creation:
-    runs-on: [self-hosted, salesforce-prod]
+    runs-on: anzx-default
     steps:
       - name: Install node
         uses: actions/setup-node@v2.1.5

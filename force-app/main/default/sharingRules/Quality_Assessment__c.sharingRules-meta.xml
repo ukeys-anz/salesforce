@@ -50,6 +50,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>CQ_Managers_View_Access_to_Call_Letter_Review</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This rule provides read Only Access to CQ Managers for Call/Letter Review Assessments</description>
+        <label>CQ Managers View Access to Call/Letter Review</label>
+        <sharedTo>
+            <group>C_Q_Managers</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Call/Letter Review Assessment</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>IDR_CRLT</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Grant Read write access to Call / Letter Review Quality Assessment records for Team Managers</description>

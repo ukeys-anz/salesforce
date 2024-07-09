@@ -143,6 +143,10 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       output.put(TFMConstants.OUTPUT, TFMConstants.RESET_PIN_HISTORY_CHECK);
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
+    } catch (TFMAUFAPIRepository.DuplicateMobileNumberException e) {
+      output.put(TFMConstants.DUPLICATE_MOBILE_NUMBER, true);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
     } catch (Exception e) {
       output.put(TFMConstants.SHOWSUCCESSTOAST, false);
       Logger.error(e.getMessage(), e);

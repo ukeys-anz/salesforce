@@ -127,6 +127,12 @@ public with sharing class CommonUtil {
     }
     private set;
   }
+
+  /**
+   * @description Cached map of value > label for picklist fields, grouped by field
+   */
+  private static Map<SObjectField, Map<String, String>> mapPicklistValueToLabel = new Map<SObjectField, Map<String, String>>();
+
   /**
    * @description Get a picklist labels by values (API names).
    * @param field The picklist field, for example Case.Type
@@ -136,13 +142,18 @@ public with sharing class CommonUtil {
   public static Map<String, String> getPicklistLabelsByValues(
     Schema.SobjectField field
   ) {
+    if (mapPicklistValueToLabel.containsKey(field)) {
+      return mapPicklistValueToLabel.get(field);
+    }
     Map<String, String> labelsByValues = new Map<String, String>();
     Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
     for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
       labelsByValues.put(f.getValue(), f.getLabel());
     }
+    mapPicklistValueToLabel.put(field, labelsByValues);
     return labelsByValues;
   }
+
   /**
    * @description getAvailableRecordTypeNamesForSObject(input) method is used to get available record types for a certain sobject.
    * This method will only return the record types that are available to the current user
@@ -180,13 +191,35 @@ public with sharing class CommonUtil {
     Schema.SobjectField field,
     String picklistValue
   ) {
-    Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
-    for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
-      if (f.getValue() == picklistValue) {
-        return f.getLabel();
+    Map<String, String> mapValueToLabel = getPicklistLabelsByValues(field);
+
+    if (mapValueToLabel.containsKey(picklistValue)) {
+      return mapValueToLabel.get(picklistValue);
+    }
+
+    return picklistValue;
+  }
+
+  /**
+   * @description Returns the label(s) of the selected value(s) in a multi-select picklist field.
+   * @param field The multi-select picklist field.
+   * @param value The selected value(s) in the field, separated by semicolons.
+   * @return The label(s) of the selected value(s), joined by semicolons.
+   */
+  public static String getMultiPicklistLabel(SObjectField field, String value) {
+    Map<String, String> mapValueToLabel = getPicklistLabelsByValues(field);
+    List<String> labels = new List<String>();
+
+    for (String v : value.split(';')) {
+      v = v.trim();
+      if (mapValueToLabel.containsKey(v)) {
+        labels.add(mapValueToLabel.get(v));
+      } else {
+        labels.add(v);
       }
     }
-    return '';
+
+    return String.join(labels, ';');
   }
 
   /**
@@ -1072,5 +1105,29 @@ public with sharing class CommonUtil {
       return 'RSA-SHA512';
     }
     return '';
+  }
+
+  /**
+   * @description capture field API names from a fieldset
+   * @param fieldset the fieldSet to capture
+   * @return Set<String> set of field API names
+   */
+  public static Set<String> getFieldSet(Schema.FieldSet fieldset) {
+    Set<String> fields = new Set<String>();
+    for (Schema.FieldSetMember field : fieldset.getFields()) {
+      fields.add(field.fieldpath);
+    }
+    return fields;
+  }
+
+  /**
+   * @description Add error on the record and log message
+   * @param record record to add error
+   * @param errorMsg error message to use in the addError
+   */
+  public static void addErrorToRecordAndLog(SObject record, String errorMsg) {
+    Logger.error(errorMsg);
+    Logger.saveLog();
+    record.addError(errorMsg);
   }
 }
