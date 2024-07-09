@@ -236,33 +236,13 @@ public with sharing class IDRQualityAssessmentActions {
   public static void setAssessmentOutcomeStatus(List<Quality_Assessment__c> records, 
   Map<Id, Quality_Assessment__c> oldMap) 
   {
-    Id cqRecordTypeId = IDRConstants.idrtCQQualityAssessment;
-
+    Id cqRecordTypeId = IDRConstants.idrtCQQualityAssessment;  
     for (Quality_Assessment__c qaRecord : records) {
-      if(qaRecord.RecordTypeId != cqRecordTypeId || qaRecord.Status__c == 'Complete'){
+      SObjectField changedfieldAPIName = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(qaRecord,oldMap.get(qaRecord.Id),IDRConstants.QA_OUTCOME_FIELDS);
+      if(qaRecord.RecordTypeId != cqRecordTypeId || qaRecord.Status__c == 'Complete' || changedfieldAPIName == null){
         continue;
       }
-    Quality_Assessment__c oldQARecord = oldMap.get(qaRecord.Id);
-    if (RecordComparisonUtil.fieldWasChangedAndNotEqualNull(qaRecord,oldQARecord,IDRConstants.TEAM_MANAGER_RESPONSE))
-    {
-      qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, IDRConstants.TEAM_MANAGER_RESPONSE);
-        continue;
-    }
-    if (RecordComparisonUtil.fieldWasChangedAndNotEqualNull(qaRecord,oldQARecord,IDRConstants.TM_RESPONSE))
-    {     
-      qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, IDRConstants.TM_RESPONSE);
-        continue;
-    }
-    if (RecordComparisonUtil.fieldWasChangedAndNotEqualNull(qaRecord,oldQARecord,IDRConstants.CQ_MANAGER_RESPONSE))
-    {
-      qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, IDRConstants.CQ_MANAGER_RESPONSE);
-        continue;
-    }
-    if (RecordComparisonUtil.fieldWasChangedAndNotEqualNull(qaRecord,oldQARecord,IDRConstants.CQ_LEAD_RESPONSE))
-    {
-        qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, IDRConstants.CQ_LEAD_RESPONSE);
-        continue;
-    }
+      qaRecord.Assessment_Outcome_Status__c = getStatus(qaRecord, changedfieldAPIName);
   }
 }
 /**
@@ -271,7 +251,7 @@ public with sharing class IDRQualityAssessmentActions {
    * @param fieldAPIName api name of the field changed
    * @return String value of the assessment outcome field
    */
- private static String getStatus(Quality_Assessment__c qaRecord, SObjectField fieldAPIName){  
+ private static String getStatus(Quality_Assessment__c qaRecord, SObjectField fieldAPIName){
      return IDRConstants.qaAssessmentStatusMapping.get(String.valueOf(qaRecord.get(fieldAPIName)));
  }
 }

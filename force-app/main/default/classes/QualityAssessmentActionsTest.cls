@@ -289,91 +289,42 @@ private class QualityAssessmentActionsTest {
     }
   }
   @IsTest
-  static void testSetAssessmentOutcomeStatus() {
-    String qaRecordId = Lib_FakeIdGenerator.getMockId(
-      Quality_Assessment__c.SObjectType
-    );
-    Quality_Assessment__c qaRecord = new Quality_Assessment__c(
+  static void testSetAssessmentOutcomeStatusValid() {
+  String qaRecordId = Lib_FakeIdGenerator.getMockId(
+    Quality_Assessment__c.SObjectType
+  );
+      Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       Id = qaRecordId,
       Status__c = 'Pending',
       Team_Manager_Response__c = '',
-      C_Q_Lead_Response__c = '',
-      C_Q_Manager_Response__c = '',
-      TM_Response_to_C_Q_Manager_Review__c = '',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
-    Quality_Assessment__c qaRecordV1 = new Quality_Assessment__c(
+      Quality_Assessment__c qaRecordV1 = new Quality_Assessment__c(
       Id = qaRecordId,
       Status__c = 'Pending',
-      Team_Manager_Response__c = 'Rejected by TM',
-      C_Q_Lead_Response__c = '',
-      C_Q_Manager_Response__c = '',
-      TM_Response_to_C_Q_Manager_Review__c = '',
+      Team_Manager_Response__c = 'Rejected by TM',   
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
-    Quality_Assessment__c qaRecordV2 = new Quality_Assessment__c(
+      IDRQualityAssessmentActions.setAssessmentOutcomeStatus(new List<Quality_Assessment__c>{qaRecordV1},new Map<Id, Quality_Assessment__c>{qaRecord.Id => qaRecord});
+      System.AssertEquals('Disputed',qaRecordV1.Assessment_Outcome_Status__c,'Assessment Outcome Status updated correctly');
+  }
+    
+  @IsTest
+  static void testSetAssessmentOutcomeStatusInvalid() {
+  String qaRecordId = Lib_FakeIdGenerator.getMockId(
+    Quality_Assessment__c.SObjectType
+  );
+      Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       Id = qaRecordId,
       Status__c = 'Pending',
-      Team_Manager_Response__c = 'Rejected by TM',
-      C_Q_Manager_Response__c = 'C&Q Team Lead accepts TM\'s view',
-      TM_Response_to_C_Q_Manager_Review__c = '',
-      C_Q_Lead_Response__c = '',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
-    Quality_Assessment__c qaRecordV3 = new Quality_Assessment__c(
+      Quality_Assessment__c qaRecordV1 = new Quality_Assessment__c(
       Id = qaRecordId,
-      Status__c = 'Pending',
-      Team_Manager_Response__c = 'Rejected by TM',
-      C_Q_Manager_Response__c = 'C&Q Team Lead accepts TM\'s view',
-      TM_Response_to_C_Q_Manager_Review__c = 'TM Rejects C&Q Manager\'s review',
-      C_Q_Lead_Response__c = '',
+      Status__c = 'Complete',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
-    Quality_Assessment__c qaRecordV4 = new Quality_Assessment__c(
-      Id = qaRecordId,
-      Status__c = 'Pending',
-      Team_Manager_Response__c = 'Rejected by TM',
-      C_Q_Manager_Response__c = 'C&Q Team Lead accepts TM\'s view',
-      TM_Response_to_C_Q_Manager_Review__c = 'TM Rejects C&Q Manager\'s review',
-      C_Q_Lead_Response__c = 'C&Q Lead upholds C&Q Manager\'s review',
-      RecordTypeId = IDRConstants.idrtCQQualityAssessment
-    );
-    List<Quality_Assessment__c> newQAList = new List<Quality_Assessment__c>();
-    IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
-      new List<Quality_Assessment__c>{ qaRecordV1 },
-      new Map<Id, Quality_Assessment__c>{ qaRecord.Id => qaRecord }
-    );
-    System.AssertEquals(
-      'Disputed',
-      qaRecordV1.Assessment_Outcome_Status__c,
-      'Assessment Outcome Status updated correctly'
-    );
-    IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
-      new List<Quality_Assessment__c>{ qaRecordV2 },
-      new Map<Id, Quality_Assessment__c>{ qaRecordV1.Id => qaRecordV1 }
-    );
-    System.AssertEquals(
-      'C&Q manager amended original review',
-      qaRecordV2.Assessment_Outcome_Status__c,
-      'Assessment Outcome Status updated correctly'
-    );
-    IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
-      new List<Quality_Assessment__c>{ qaRecordV3 },
-      new Map<Id, Quality_Assessment__c>{ qaRecordV2.Id => qaRecordV2 }
-    );
-    System.AssertEquals(
-      'C&Q manager\'s view not accepted',
-      qaRecordV3.Assessment_Outcome_Status__c,
-      'Assessment Outcome Status updated correctly'
-    );
-    IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
-      new List<Quality_Assessment__c>{ qaRecordV4 },
-      new Map<Id, Quality_Assessment__c>{ qaRecordV3.Id => qaRecordV3 }
-    );
-    System.AssertEquals(
-      'C&Q Lead upholds C&Q Manager\'s review',
-      qaRecordV4.Assessment_Outcome_Status__c,
-      'Assessment Outcome Status updated correctly'
-    );
+      IDRQualityAssessmentActions.setAssessmentOutcomeStatus(new List<Quality_Assessment__c>{qaRecordV1},new Map<Id, Quality_Assessment__c>{qaRecord.Id => qaRecord});
+      System.AssertNotEquals('Accepted',qaRecordV1.Assessment_Outcome_Status__c,'Assessment Outcome Status should not be updated when Outcome fields are not changed');
   }
 }

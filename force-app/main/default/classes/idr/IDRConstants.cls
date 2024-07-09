@@ -241,7 +241,12 @@ public with sharing class IDRConstants {
   public static final SObjectField TM_RESPONSE = Quality_Assessment__c.TM_Response_to_C_Q_Manager_Review__c.getDescribe().getSObjectField();
   public static final SObjectField CQ_MANAGER_RESPONSE = Quality_Assessment__c.C_Q_Manager_Response__c.getDescribe().getSObjectField();
   public static final SObjectField CQ_LEAD_RESPONSE = Quality_Assessment__c.C_Q_Lead_Response__c.getDescribe().getSObjectField();
-
+  public static final Set<SObjectField> QA_OUTCOME_FIELDS = new Set<SObjectField>{
+        TEAM_MANAGER_RESPONSE,
+        TM_RESPONSE,
+        CQ_MANAGER_RESPONSE,
+        CQ_LEAD_RESPONSE
+    };
   //Quality Assessment Fieldset Name
   public static final String CQ_EDITABLE_RESPONSE_FIELDS = 'CQAssessment_Editable_Response_Fields';
 
