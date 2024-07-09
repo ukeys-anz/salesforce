@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>C_Q_Corrective_Actions_Required</fullName>
+    <active>true</active>
+    <description>Has a REaL form been raised , REaL form receipt no and REaL form categories are required for completing the Quality Assessment</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false, INCLUDES(What_corrective_actions_are_required__c,&quot;Raise REaL form (action for C&amp;Q team to take)&quot;) ,
+ ISPICKVAL(Status__c  , &quot;Complete&quot;) ,
+ RecordType.DeveloperName =&apos;C_Q_Assessment&apos; ,
+OR(
+ ISPICKVAL(Has_a_REaL_form_been_raised__c , &apos;&apos;) ,
+  REaL_form_receipt_no__c =&apos;&apos;  ,
+  ISBLANK(REaL_form_categories__c)
+
+)
+)</errorConditionFormula>
+    <errorMessage>Has a REaL form been raised , REaL form receipt no and REaL form categories are required for completing the Quality Assessment</errorMessage>
+</ValidationRule>
