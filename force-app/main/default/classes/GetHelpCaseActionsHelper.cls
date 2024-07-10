@@ -163,37 +163,35 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     List<Case> anzPlusCases = new List<Case>();
     List<Id> relatedAccountIDs = new List<Id>();
-    Case oOldCase;
-    for (Case record : records) {
+    for (Case newCase : records) {
       if (
-        CheckCaseRecordType.isANZPlusCaseType(record) &&
-        record.AccountId != null &&
+        CheckCaseRecordType.isANZPlusCaseType(newCase) &&
+        newCase.AccountId != null &&
         (mpOldCasesByIds == null ||
-        (oOldCase = mpOldCasesByIds.get(record.Id)) == null ||
-        oOldCase.AccountId != record.AccountId)
+        RecordComparisonUtil.fieldWasChanged(
+          newCase,
+          mpOldCasesByIds.get(newCase.Id),
+          Case.AccountId
+        ))
       ) {
-        anzPlusCases.add(record);
-        relatedAccountIDs.add(record.AccountId);
+        anzPlusCases.add(newCase);
+        relatedAccountIDs.add(newCase.AccountId);
       }
     }
 
-    if (relatedAccountIDs.size() == 0) {
+    if (relatedAccountIDs.isEmpty()) {
       return;
     }
 
-    Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
-      [
-        SELECT Id, IsPersonAccount, PersonContactId
-        FROM Account
-        WHERE Id IN :relatedAccountIDs
-      ]
+    Map<Id, Account> relatedAccountsMap = queryAccountDetailsSystemMode(
+      relatedAccountIDs
     );
 
-    for (Case record : anzPlusCases) {
+    for (Case newCaseRecord : anzPlusCases) {
       // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
-      record.ContactId = relatedAccountsMap.get(record.AccountId)
+      newCaseRecord.ContactId = relatedAccountsMap.get(newCaseRecord.AccountId)
           .IsPersonAccount
-        ? relatedAccountsMap.get(record.AccountId).PersonContactId
+        ? relatedAccountsMap.get(newCaseRecord.AccountId).PersonContactId
         : null;
     }
   }
@@ -1022,5 +1020,32 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       record.addError(UNCHECK_IS_PAYTO_DISPUTE_ERROR);
     }
+  }
+
+  /**
+   * @description retrieve the account details in system mode
+   * @param relatedAccountIDs Id associated with the newly created cases
+   * @return map of account id and account details
+   */
+  private static Map<Id, Account> queryAccountDetailsSystemMode(
+    List<Id> relatedAccountIDs
+  ) {
+    SystemModeActions systemAction = new SystemModeActions(
+      'GetHelpCaseActionsHelper',
+      'populateContactLookupForANZPlus'
+    );
+    String relatedAccountIDAsString =
+      '\'' +
+      String.join(relatedAccountIDs, '\',\'') +
+      '\'';
+
+    Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
+      (List<Account>) systemAction.query(
+        'SELECT Id, IsPersonAccount, PersonContactId FROM Account WHERE Id IN (' +
+          relatedAccountIDAsString +
+          ')'
+      )
+    );
+    return relatedAccountsMap;
   }
 }
