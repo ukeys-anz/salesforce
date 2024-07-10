@@ -511,6 +511,6 @@ public with sharing class IDRConstants {
         };
       return qaAssessmentStatusMapping;
     }
-    set;
+    private set;
   }
 }
