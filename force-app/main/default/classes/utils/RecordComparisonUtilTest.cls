@@ -221,4 +221,40 @@ private class RecordComparisonUtilTest {
       'The Received_Amount__c field should have been detected as changed and not equal to null.'
     );
   }
+    
+  @IsTest
+  static void testDetectWhichFieldWasChangedAndNotEqualNullPositive() {
+    Case oldCase = TestDataFactory.createATMDisputeCase();
+    Case newCase = TestDataFactory.createATMDisputeCase();
+    newCase.Received_Amount__c = oldCase.Received_Amount__c + 10;
+      
+    SObjectField result = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
+      newCase,
+      oldCase,
+      new Set<SObjectField>{Case.Received_Amount__c.getDescribe().getSObjectField()}
+    );
+    System.assertEquals(
+      'Received_Amount__c',
+      String.ValueOf(result),
+      'The Received_Amount__c field is changed on above record'
+    );
+  }
+    
+  @IsTest
+  static void testDetectWhichFieldWasChangedAndNotEqualNullNegative() {
+    Case oldCase = TestDataFactory.createATMDisputeCase();
+    Case newCase = TestDataFactory.createATMDisputeCase();
+    newCase.Description = 'Test on New Record';
+      
+    SObjectField result = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
+      newCase,
+      oldCase,
+      new Set<SObjectField>{Case.Received_Amount__c.getDescribe().getSObjectField()}
+    );
+    System.assertNotEquals(
+      'Description',
+      String.ValueOf(result),
+      'No field from the provided set has been updated'
+    );
+  }
 }
