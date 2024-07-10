@@ -17,6 +17,18 @@ public with sharing class CustomerDisputeManagementServiceTest {
   private static final Id FAKER_CDM_ID = Lib_FakeIdGenerator.getMockId(
     Customer_Dispute_Management__c.getSObjectType()
   );
+
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider cdmRepoMock;
+
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    cdmRepoMock = Lib_MockProvider.forType(
+      CustomerDisputeManagementRepository.class
+      )
+      .mock('queryCustomer', createMockPersonAccountWithoutCDM());
+  }
+
   @TestSetup
   static void setup() {
     // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
@@ -72,6 +84,14 @@ public with sharing class CustomerDisputeManagementServiceTest {
 
   @isTest
   private static void testHandleCustomerDisputeManagementActionsPositive() {
+    registerMocks();
+    dmlRepoMock.mock(
+      'upsertRecords',
+      new List<Database.UpsertResult>{
+        TestUtil.getMockUpsertResult('{"success":true,"created":true,"id":"'+FAKER_CDM_ID+'"}')
+      }
+    );
+    
     User integrationUser = TestUtil.getUserByFirstName('IntegrationTest');
     List<Case> oldNppCases = createMockDisputeCases('false', 'App');
     List<Case> newNppCases = createMockDisputeCases('true', 'App');
@@ -88,6 +108,24 @@ public with sharing class CustomerDisputeManagementServiceTest {
       );
     }
     Test.stopTest();
+    List<Customer_Dispute_Management__c> cdms = (List<Customer_Dispute_Management__c>) dmlRepoMock.getHistory('upsertRecords')
+      .getParam('records');
+      
+    System.assertEquals(
+      false,
+      cdms[0].Temporary_Block__c,
+      'The temporary block value should be false because number of open cases is less than 5'
+    );
+      
+	List<Account> accs = (List<Account>) dmlRepoMock.getHistory('updateRecords')
+      .getParam('records');
+    
+    System.assertEquals(
+          FAKER_CDM_ID,
+          accs[0].Customer_Dispute_Management__c,
+          'CDM Record will be linked to the Account'
+    );
+
   }
 
   @isTest
@@ -385,6 +423,18 @@ public with sharing class CustomerDisputeManagementServiceTest {
       '[{"attributes":{"type":"Account","url":"/services/data/v60.0/sobjects/Account/'+FAKER_ACCOUNT_ID+'"},"Id":"'+FAKER_ACCOUNT_ID+'","Customer_Dispute_Management__c":"'+FAKER_CDM_ID+'","Cases":{"totalSize":1,"done":true,"records":[{"attributes":{"type":"Case","url":"/services/data/v60.0/sobjects/Case/'+FAKER_CASE_ID+'"},"AccountId":"'+FAKER_ACCOUNT_ID+'","Id":"'+FAKER_CASE_ID+'","IsClosed":false,"Origin":"App","RecordTypeId":"' +
       NPP_DISPUTE_RT_ID +
       '"}]},"Customer_Dispute_Management__r":{"attributes":{"type":"Customer_Dispute_Management__c","url":"/services/data/v60.0/sobjects/Customer_Dispute_Management__c/'+FAKER_CDM_ID+'"},"Id":"'+FAKER_CDM_ID+'","Temporary_Block__c":true,"Temporary_Block_Overridden__c":false,"Permanent_Block__c":true}}]';
+    List<Account> personAccountList = (List<Account>) JSON.deserialize(
+      strPersonAccount,
+      List<Account>.class
+    );
+    return personAccountList;
+  }
+    
+   private static List<Account> createMockPersonAccountWithoutCDM() {
+    String strPersonAccount =
+      '[{"attributes":{"type":"Account","url":"/services/data/v60.0/sobjects/Account/'+FAKER_ACCOUNT_ID+'"},"Id":"'+FAKER_ACCOUNT_ID+'","Cases":{"totalSize":1,"done":true,"records":[{"attributes":{"type":"Case","url":"/services/data/v60.0/sobjects/Case/'+FAKER_CASE_ID+'"},"AccountId":"'+FAKER_ACCOUNT_ID+'","Id":"'+FAKER_CASE_ID+'","IsClosed":false,"Origin":"App","RecordTypeId":"' +
+      NPP_DISPUTE_RT_ID +
+      '"}]}}]';
     List<Account> personAccountList = (List<Account>) JSON.deserialize(
       strPersonAccount,
       List<Account>.class
