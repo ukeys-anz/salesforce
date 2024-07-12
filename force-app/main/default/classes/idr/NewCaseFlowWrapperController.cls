@@ -83,13 +83,13 @@ public with sharing class NewCaseFlowWrapperController {
       caseDetails.put(
         'Description',
         'Web Submitted Enquiry\n\nIssue:\n  ' +
-        CommonUtil.getSinglePicklistLabel(Case.Type, caseRecord.Type) +
-        '\n\n' +
-        caseRecord.Description +
-        '\n\nCustomer Desired Outcome:\n  ' +
-        caseRecord.IDR_Complainant_Desired_Outcome__c +
-        '\n\nPriority:\n  ' +
-        CommonUtil.getSinglePicklistLabel(Case.Priority, caseRecord.Priority)
+          CommonUtil.getSinglePicklistLabel(Case.Type, caseRecord.Type) +
+          '\n\n' +
+          caseRecord.Description +
+          '\n\nCustomer Desired Outcome:\n  ' +
+          caseRecord.IDR_Complainant_Desired_Outcome__c +
+          '\n\nPriority:\n  ' +
+          CommonUtil.getSinglePicklistLabel(Case.Priority, caseRecord.Priority)
       );
     } else if (
       (newRecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID ||
@@ -245,7 +245,7 @@ public with sharing class NewCaseFlowWrapperController {
     List<Id> acceptedRecordTypeForAEMCases = new List<Id>{
       GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
       GetHelpConstants.GENERAL_INQUIRY_RT_ID,
-      GetHelpConstants.COMPLAINT_RT_ID
+      GetHelpConstants.CUSTOMER_COMPLAINT_RT_ID
     };
 
     try {
@@ -288,9 +288,7 @@ public with sharing class NewCaseFlowWrapperController {
 
     if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
       recordTypesToExcl.add(IDRConstants.CUSTOMER_COMPLAINT_RT_NAME);
-      if (profileName != 'ANZx Standard User') {
-        recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);
-      }
+      recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);
     }
 
     try {
@@ -319,7 +317,12 @@ public with sharing class NewCaseFlowWrapperController {
               'IDR_Level_3',
               'IDR_CRP_Team_Leaders',
               'IDR_CRP_LT',
-              'IDR_SI_Business_Contact'
+              'IDR_SI_Business_Contact',
+              'Coach',
+              'FraudX_Agent',
+              'Card_Dispute_Agent',
+              'BOH_Coach',
+              'Support_Coach'
             }
           )
         ) {

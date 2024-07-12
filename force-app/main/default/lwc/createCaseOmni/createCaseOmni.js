@@ -1,6 +1,5 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
-import { handleErrorShowToast } from "c/utils";
 
 const SUB_REMS = ["16", "20", "Repayment arrangement"];
 const SERVICE_QUALITY = "9";
@@ -40,13 +39,26 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       return;
     }
     this.valCustomerFields();
+    if (
+      this.missingFields.length > 0 &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      this.omniJsonData.isEligibleProfileForLookUp &&
+      this.missingFields.includes("Customer Number")
+    ) {
+      this.missingFields.splice(
+        this.missingFields.indexOf("Customer Number"),
+        1
+      );
+    }
     if (this.missingFields.length > 0) {
       this.modalMsg =
         "Please complete all required fields: " + this.missingFields.join(", ");
       if (
         this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
         !this.omniJsonData.Case.CustomerDetails.Customer &&
-        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID"
+        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier !==
+          "CACHE ID" &&
+        !this.omniJsonData.isEligibleProfileForLookUp
       )
         this.modalMsg +=
           "<br><br>Customer number must be numbers and atleast 10 digits long.";
@@ -94,38 +106,42 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else {
       this.showModal = false;
       this.loading = true;
-
-      const inputs = {
-        Case: this.omniJsonData.Case,
-        Response:
-          this.omniJsonData.Response != null
-            ? { profile: this.omniJsonData.Response.profile }
-            : this.omniJsonData.Response
-      };
-
-      const options = {
-        chainable: true
-      };
-
-      // Invoking Integration procedure(IP) to create a case
-      const params = {
-        input: JSON.stringify(inputs),
-        sClassName: "omnistudio.IntegrationProcedureService",
-        sMethodName: "Case_CreateCase",
-        options: JSON.stringify(options)
-      };
-
-      // Navigate to the case record that is closed
-      this.omniRemoteCall(params, true).then((res) => {
-        let result = res.result.IPResult;
-        this.loading = false;
-        if (result.CaseId) {
-          let url = window.location.origin + "/" + result.CaseId;
-          window.open(url, "_self");
-        }
-      });
+      this.invokeCreateCaseIP();
     }
   }
+
+  invokeCreateCaseIP() {
+    const inputs = {
+      Case: this.omniJsonData.Case,
+      Response:
+        this.omniJsonData.Response != null
+          ? { profile: this.omniJsonData.Response.profile }
+          : this.omniJsonData.Response
+    };
+
+    const options = {
+      chainable: true
+    };
+
+    // Invoking Integration procedure(IP) to create a case
+    const params = {
+      input: JSON.stringify(inputs),
+      sClassName: "omnistudio.IntegrationProcedureService",
+      sMethodName: "Case_CreateCase",
+      options: JSON.stringify(options)
+    };
+
+    // Navigate to the case record that is closed
+    this.omniRemoteCall(params, true).then((res) => {
+      let result = res.result.IPResult;
+      this.loading = false;
+      if (result.CaseId) {
+        let url = window.location.origin + "/" + result.CaseId;
+        window.open(url, "_self");
+      }
+    });
+  }
+
   validateRealFormID() {
     if (
       this.omniJsonData.Case.ResolutionInformation.ComplaintStatus ===
@@ -153,7 +169,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     )
       this.missingFields.push("Customer Decision");
     let details = this.omniJsonData.Case.CustomerDetails;
-    if (this.omniJsonData.Case.isThisCustomerComplaint === "Yes") {
+    if (details && this.omniJsonData.Case.isThisCustomerComplaint === "Yes") {
       if (
         this.omniJsonData.Case.CustomerDetails.CustomerIdentifier ===
           "CACHE ID" &&
