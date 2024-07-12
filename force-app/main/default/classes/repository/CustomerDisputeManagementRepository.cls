@@ -11,26 +11,38 @@ public with sharing class CustomerDisputeManagementRepository {
      * @return List<Account> list of customer with all the related details
      */
     public List<Account> queryCustomer(Set<Id> customerIds, Integer disputeLimit) {
+
+        List<Account> customersWithCdmAndCaseDetails = new List<Account>();
+        if (
+            PermissionUtils.canQuery('Case') &&
+            PermissionUtils.canQuery('Customer_Dispute_Management__c') &&
+            PermissionUtils.canQuery('Account') &&
+            !customerIds.isEmpty()
+          )
+        {
         //Query Customer to find number of active cases and CDM record exist
-        return [
-        SELECT
-            Id,
-            Customer_Dispute_Management__c,
-            Customer_Dispute_Management__r.Id,
-            Customer_Dispute_Management__r.Temporary_Block__c,
-            Customer_Dispute_Management__r.Permanent_Block__c,
-            Customer_Dispute_Management__r.Temporary_Block_Overridden__c,
-            (
-            SELECT Id
-            FROM Cases
-            WHERE
-                IsClosed = FALSE
-                AND Origin IN :GetHelpConstants.SELF_SERVICE_ORIGIN
-                AND RecordTypeId IN :CheckCaseRecordType.DISPUTE_RT_IDS
-            LIMIT :disputeLimit
-            )
-        FROM Account
-        WHERE Id IN :customerIds
-        ];
+        customersWithCdmAndCaseDetails = [
+            SELECT
+                Id,
+                Customer_Dispute_Management__c,
+                Customer_Dispute_Management__r.Id,
+                Customer_Dispute_Management__r.Temporary_Block__c,
+                Customer_Dispute_Management__r.Permanent_Block__c,
+                Customer_Dispute_Management__r.Temporary_Block_Overridden__c,
+                (
+                SELECT Id
+                FROM Cases
+                WHERE
+                    IsClosed = FALSE
+                    AND Origin IN :GetHelpConstants.SELF_SERVICE_ORIGIN
+                    AND RecordTypeId IN :CheckCaseRecordType.DISPUTE_RT_IDS
+                LIMIT :disputeLimit
+                )
+            FROM Account
+            WHERE Id IN :customerIds
+            ];
+        }
+        return customersWithCdmAndCaseDetails;
+        
     }
 }
