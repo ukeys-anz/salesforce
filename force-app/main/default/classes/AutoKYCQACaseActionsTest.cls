@@ -2,6 +2,10 @@
 @IsTest
 public with sharing class AutoKYCQACaseActionsTest {
   private static final Faker FAKER = new Faker('AU');
+  private static final String RECTIFY_DEFECT_STATUS = 'Rectify Defect';
+  private static final String UNDER_REVIEW_STATUS = 'Under Review';
+  private static final String PENDING_DOCUMENTS_STATUS = 'Pending Documents';
+
   static Lib_MockProvider autoKYCQACaseRepoMock;
   static Lib_MockProvider profileStagingHandlerMock;
 
@@ -819,11 +823,11 @@ public with sharing class AutoKYCQACaseActionsTest {
     AutoKYCQACaseActions.validateDuplicateKYCQACasePerAccount(new List<Case>());
     Test.stopTest();
 
-    Assert.isTrue(
-      autoKYCQACaseRepoMock.getHistories('queryKYCQACasesByAccountIds')
-        .isEmpty(),
-      'queryKYCQACasesByAccountIds shouldn\'t have been called.'
-    );
+    Set<Id> accountIds = (Set<Id>) autoKYCQACaseRepoMock.getHistory(
+        'queryKYCQACasesByAccountIds'
+      )
+      .getParam('accountIds');
+    Assert.isTrue(accountIds.isEmpty(), 'Query param should be empty');
   }
 
   @isTest
@@ -869,28 +873,28 @@ public with sharing class AutoKYCQACaseActionsTest {
     AutoKYCQACaseActions.validateDuplicateKYCQACasePerCOBApp(new List<Case>());
     Test.stopTest();
 
-    Assert.isTrue(
-      autoKYCQACaseRepoMock.getHistories('queryKYCQACasesByCOBAppIds')
-        .isEmpty(),
-      'queryKYCQACasesByCOBAppIds shouldn\'t have been called.'
-    );
+    Set<Id> cobAppIds = (Set<Id>) autoKYCQACaseRepoMock.getHistory(
+        'queryKYCQACasesByCOBAppIds'
+      )
+      .getParam('cobAppIds');
+    Assert.isTrue(cobAppIds.isEmpty(), 'Query param should be empty');
   }
 
   @isTest
-  private static void testAreTestFieldsNotEmpty() {
+  private static void testHasKycCheckCompleted() {
     Case theCase = null;
-    Boolean areTestFieldsNotEmpty = AutoKYCQACaseActions.areTestFieldsNotEmpty(
+    Boolean hasKycCheckCompleted = AutoKYCQACaseActions.hasKycCheckCompleted(
       theCase
     );
-    Assert.isFalse(areTestFieldsNotEmpty, 'The Case is null');
+    Assert.isFalse(hasKycCheckCompleted, 'The Case is null');
 
     theCase = constuctCaseWithTestFields(null);
-    areTestFieldsNotEmpty = AutoKYCQACaseActions.areTestFieldsNotEmpty(theCase);
-    Assert.isFalse(areTestFieldsNotEmpty, 'Some fields are empty');
+    hasKycCheckCompleted = AutoKYCQACaseActions.hasKycCheckCompleted(theCase);
+    Assert.isFalse(hasKycCheckCompleted, 'Some fields are empty');
 
     theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
-    areTestFieldsNotEmpty = AutoKYCQACaseActions.areTestFieldsNotEmpty(theCase);
-    Assert.isTrue(areTestFieldsNotEmpty, 'All fields are not empty');
+    hasKycCheckCompleted = AutoKYCQACaseActions.hasKycCheckCompleted(theCase);
+    Assert.isTrue(hasKycCheckCompleted, 'All fields are not empty');
   }
 
   @isTest
@@ -927,53 +931,19 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testGetAccounts() {
-    registerMocks();
-    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>{ acc });
-
-    Test.startTest();
-    AutoKYCQACaseActions.getAccounts(new List<Case>{ caseWithAccount });
-    Test.stopTest();
-
-    Assert.isFalse(
-      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
-      'queryAccounts should have been called.'
-    );
-
-    Set<Id> accountIds = (Set<Id>) autoKYCQACaseRepoMock.getHistory(
-        'queryAccounts'
-      )
-      .getParam('accountIds');
-    Assert.isFalse(
-      accountIds.isEmpty(),
-      'queryAccounts method should have received accountIds.'
-    );
-  }
-
-  @isTest
-  private static void testGetAccountsEmptyCases() {
-    registerMocks();
-    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
-
-    Test.startTest();
-    AutoKYCQACaseActions.getAccounts(new List<Case>());
-    Test.stopTest();
-
-    Assert.isTrue(
-      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
-      'queryAccounts shouldn\'t have been called.'
-    );
-  }
-
-  @isTest
   private static void testDowngradeWithNoRecords() {
     registerMocks();
     autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
+
+    Test.startTest();
     AutoKYCQACaseActions.downgrade(new List<Case>(), new Map<Id, Case>());
-    Assert.isTrue(
-      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
-      'queryAccounts shouldn\'t have been called.'
-    );
+    Test.stopTest();
+
+    List<Account> records = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+    Assert.isTrue(records.isEmpty(), 'No records should have been processed');
   }
 
   @isTest
@@ -986,7 +956,7 @@ public with sharing class AutoKYCQACaseActionsTest {
 
     oldCase.Status = GetHelpConstants.OPEN_STATUS;
     Case theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
-    theCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    theCase.Status = RECTIFY_DEFECT_STATUS;
 
     AutoKYCQACaseActions.downgrade(
       new List<Case>{ theCase },
@@ -1023,20 +993,22 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testDoesKYCQAHaveADefect() {
+  private static void testHasKycCheckCompletedWithDefect() {
     Case theCase = constuctCaseWithTestFields(null);
-    Boolean hasDefect = AutoKYCQACaseActions.doesKYCQAHaveADefect(theCase);
+    Boolean hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(
+      theCase
+    );
     Assert.isFalse(hasDefect, 'One of the test fields is empty');
 
     theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
-    hasDefect = AutoKYCQACaseActions.doesKYCQAHaveADefect(theCase);
+    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
     Assert.isTrue(
       hasDefect,
       'All test fields are not empty and one of them is NO'
     );
 
     theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
-    hasDefect = AutoKYCQACaseActions.doesKYCQAHaveADefect(theCase);
+    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
     Assert.isFalse(
       hasDefect,
       'All test fields are not empty and all of them are YES'
@@ -1044,9 +1016,9 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testCheckIfDowngrade() {
+  private static void testFilterDowngradeCases() {
     Case theCase = constuctCaseWithTestFields(null);
-    List<Case> downgradeCases = AutoKYCQACaseActions.checkIfDowngrade(
+    List<Case> downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
       new List<Case>{ theCase },
       new Map<Id, Case>()
     );
@@ -1056,7 +1028,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     );
 
     theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
-    downgradeCases = AutoKYCQACaseActions.checkIfDowngrade(
+    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
       new List<Case>{ theCase },
       new Map<Id, Case>()
     );
@@ -1070,9 +1042,9 @@ public with sharing class AutoKYCQACaseActionsTest {
 
     oldCase.Status = DOCUMENTS_UPLOADED_STATUS;
     theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
-    theCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    theCase.Status = RECTIFY_DEFECT_STATUS;
 
-    downgradeCases = AutoKYCQACaseActions.checkIfDowngrade(
+    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
       new List<Case>{ theCase },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
@@ -1083,9 +1055,9 @@ public with sharing class AutoKYCQACaseActionsTest {
 
     oldCase.Status = GetHelpConstants.OPEN_STATUS;
     theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
-    theCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    theCase.Status = RECTIFY_DEFECT_STATUS;
 
-    downgradeCases = AutoKYCQACaseActions.checkIfDowngrade(
+    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
       new List<Case>{ theCase },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
@@ -1101,7 +1073,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     oldCase.Status = DOCUMENTS_UPLOADED_STATUS;
 
     Case theCase = new Case();
-    theCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    theCase.Status = RECTIFY_DEFECT_STATUS;
     Boolean isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
       theCase,
       oldCase
@@ -1112,7 +1084,7 @@ public with sharing class AutoKYCQACaseActionsTest {
       'The case destinatoin staus is Rectify Defect but the case source status is not Open Or Under Review'
     );
 
-    theCase.Status = AutoKYCQACaseActions.PENDING_DOCUMENTS_STATUS;
+    theCase.Status = PENDING_DOCUMENTS_STATUS;
     isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
       theCase,
       oldCase
@@ -1124,7 +1096,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     );
 
     oldCase.Status = GetHelpConstants.OPEN_STATUS;
-    theCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    theCase.Status = RECTIFY_DEFECT_STATUS;
     isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
       theCase,
       oldCase
@@ -1136,7 +1108,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     );
 
     oldCase.Status = GetHelpConstants.OPEN_STATUS;
-    theCase.Status = AutoKYCQACaseActions.PENDING_DOCUMENTS_STATUS;
+    theCase.Status = PENDING_DOCUMENTS_STATUS;
     isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
       theCase,
       oldCase
@@ -1147,8 +1119,8 @@ public with sharing class AutoKYCQACaseActionsTest {
       'The case destinatoin staus is Pending Document and the case source status is Open'
     );
 
-    oldCase.Status = AutoKYCQACaseActions.UNDER_REVIEW_STATUS;
-    theCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    oldCase.Status = UNDER_REVIEW_STATUS;
+    theCase.Status = RECTIFY_DEFECT_STATUS;
     isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
       theCase,
       oldCase
@@ -1159,8 +1131,8 @@ public with sharing class AutoKYCQACaseActionsTest {
       'The case destinatoin staus is Rectify Defect and the case source status is Under Review'
     );
 
-    oldCase.Status = AutoKYCQACaseActions.UNDER_REVIEW_STATUS;
-    theCase.Status = AutoKYCQACaseActions.PENDING_DOCUMENTS_STATUS;
+    oldCase.Status = UNDER_REVIEW_STATUS;
+    theCase.Status = PENDING_DOCUMENTS_STATUS;
     isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
       theCase,
       oldCase
@@ -1173,17 +1145,22 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testSetDowngradeAccountValue() {
-    AutoKYCQACaseActions.setDowngradeAccountValue(new List<Account>{ acc });
+  private static void testBuildDowngradedAccounts() {
+    Test.startTest();
+    List<Account> accounts = AutoKYCQACaseActions.buildDowngradedAccounts(
+      new List<Account>{ acc }
+    );
+    Test.stopTest();
+
     Assert.areEqual(
       AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS,
-      acc.FinServ__KYCStatus__c,
+      accounts[0].FinServ__KYCStatus__c,
       'KYC Statius should be set to: ' +
       AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS
     );
     Assert.areEqual(
       AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL,
-      acc.KYC_Verification_Level__c,
+      accounts[0].KYC_Verification_Level__c,
       'KYC Verification Level should be set to: ' +
       AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL
     );
@@ -1193,17 +1170,22 @@ public with sharing class AutoKYCQACaseActionsTest {
   private static void testUpgradeWithNoInitialRecords() {
     registerMocks();
     autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
+
+    Test.startTest();
     AutoKYCQACaseActions.upgrade(new List<Case>(), new Map<Id, Case>());
-    Assert.isTrue(
-      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
-      'queryAccounts shouldn\'t have been called.'
-    );
+    Test.stopTest();
+
+    List<Account> records = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+    Assert.isTrue(records.isEmpty(), 'No records should have been processed');
   }
 
   @isTest
   private static void testUpgradeWitNoFinalRecordsStatusClosedNotChanged() {
     registerMocks();
-    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>{ acc });
+    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
 
     Case oldCase = new Case();
     oldCase.Id = caseId;
@@ -1213,14 +1195,23 @@ public with sharing class AutoKYCQACaseActionsTest {
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
     acc.CustomerExitFlag__c = false;
 
+    Test.startTest();
     AutoKYCQACaseActions.upgrade(
       new List<Case>{ caseWithAccount },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
-    Assert.isTrue(
-      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
-      'queryAccounts shouldn\'t have been called.'
-    );
+    Test.stopTest();
+
+    Set<Id> accountIds = (Set<Id>) autoKYCQACaseRepoMock.getHistory(
+        'queryAccounts'
+      )
+      .getParam('accountIds');
+    Assert.isTrue(accountIds.isEmpty(), 'No accounts should have been queried');
+    List<Account> records = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+    Assert.isTrue(records.isEmpty(), 'No records should have been processed');
   }
 
   @isTest
@@ -1231,23 +1222,22 @@ public with sharing class AutoKYCQACaseActionsTest {
     Case oldCase = new Case();
     oldCase.Id = caseId;
 
-    oldCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    oldCase.Status = RECTIFY_DEFECT_STATUS;
     caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
 
+    Test.startTest();
     AutoKYCQACaseActions.upgrade(
       new List<Case>{ caseWithAccount },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
-    Assert.isFalse(
-      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
-      'queryAccounts should have been called.'
-    );
+    Test.stopTest();
 
-    Assert.isTrue(
-      profileStagingHandlerMock.getHistories('process').isEmpty(),
-      'processCases shouldn\'t have been called.'
-    );
+    List<Account> records = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+    Assert.isTrue(records.isEmpty(), 'No records should have been processed');
   }
 
   @isTest
@@ -1258,7 +1248,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     Case oldCase = new Case();
     oldCase.Id = caseId;
 
-    oldCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    oldCase.Status = RECTIFY_DEFECT_STATUS;
     caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
     acc.CustomerExitFlag__c = false;
@@ -1296,15 +1286,15 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testCheckIfUpgradeInitial() {
+  private static void testFilterUpgradeCases() {
     Case oldCase = new Case();
     oldCase.Id = caseId;
 
-    oldCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    oldCase.Status = RECTIFY_DEFECT_STATUS;
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
     caseWithAccount.Fraud_Defects_Rectified__c = 'Not Applicable';
 
-    List<Case> upgradeCases = AutoKYCQACaseActions.checkIfUpgradeInitial(
+    List<Case> upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
       new List<Case>{ caseWithAccount },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
@@ -1317,7 +1307,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
     caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
 
-    upgradeCases = AutoKYCQACaseActions.checkIfUpgradeInitial(
+    upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
       new List<Case>{ caseWithAccount },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
@@ -1326,10 +1316,10 @@ public with sharing class AutoKYCQACaseActionsTest {
       'The status is Closed but wasn\'t changed'
     );
 
-    oldCase.Status = AutoKYCQACaseActions.RECTIFY_DEFECT_STATUS;
+    oldCase.Status = RECTIFY_DEFECT_STATUS;
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
     caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
-    upgradeCases = AutoKYCQACaseActions.checkIfUpgradeInitial(
+    upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
       new List<Case>{ caseWithAccount },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
@@ -1340,8 +1330,8 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testCheckAccountExitFlag() {
-    List<Account> oldAccounts = AutoKYCQACaseActions.checkAccountExitFlag(
+  private static void testFilterAccountsNotExited() {
+    List<Account> oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
       new List<Account>{ acc }
     );
     Assert.isTrue(
@@ -1350,7 +1340,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     );
 
     acc.CustomerExitFlag__c = false;
-    oldAccounts = AutoKYCQACaseActions.checkAccountExitFlag(
+    oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
       new List<Account>{ acc }
     );
     Assert.isFalse(
@@ -1360,30 +1350,96 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testSetUpgradeAccountValue() {
-    AutoKYCQACaseActions.setUpgradeAccountValue(new List<Account>{ acc });
+  private static void testBuildUpgradedAccounts() {
+    Test.startTest();
+    List<Account> accounts = AutoKYCQACaseActions.buildUpgradedAccounts(
+      new List<Account>{ acc }
+    );
+    Test.stopTest();
+
     Assert.areEqual(
       AutoKYCQACaseActions.UPGRADE_KYC_STATUS,
-      acc.FinServ__KYCStatus__c,
+      accounts[0].FinServ__KYCStatus__c,
       'KYC Statius should be set to: ' + AutoKYCQACaseActions.UPGRADE_KYC_STATUS
     );
     Assert.areEqual(
       AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL,
-      acc.KYC_Verification_Level__c,
+      accounts[0].KYC_Verification_Level__c,
       'KYC Verification Level should be set to: ' +
       AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL
     );
   }
 
-  @isTest
-  private static void testBuildMapAccountIdToCase() {
-    Map<Id, Case> accountIdToCaseMap = AutoKYCQACaseActions.buildMapAccountIdToCase(
-      new List<Case>{ caseWithAccount }
+  @IsTest
+  static void testPopulateClosedNoDefectDefaults() {
+    Case newCase = new Case(
+      Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
     );
+    List<Case> records = new List<Case>{ newCase };
+
+    Test.startTest();
+    AutoKYCQACaseActions.populateClosedNoDefectDefaults(records, null);
+    Test.stopTest();
+
     Assert.areEqual(
-      caseWithAccount,
-      accountIdToCaseMap.get(caseWithAccount.AccountId),
-      'The case should be in the map'
+      'Not Applicable',
+      newCase.Fraud_Defects_Rectified__c,
+      'Have All Defects Been Rectified should be set to "Not Applicable"'
     );
+  }
+
+  @IsTest
+  static void testCheckClosedAsNoDefectStatusOnNew() {
+    Case record = new Case(
+      Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
+    );
+
+    Test.startTest();
+    Boolean result = AutoKYCQACaseActions.checkClosedAsNoDefect(record, null);
+    Test.stopTest();
+
+    Assert.isTrue(result, 'Should be true');
+  }
+
+  @IsTest
+  static void testCheckClosedAsNoDefectStatusOnUpdate() {
+    Case oldrecord = new Case();
+    Case record = new Case(
+      Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
+    );
+
+    Test.startTest();
+    Boolean result = AutoKYCQACaseActions.checkClosedAsNoDefect(
+      record,
+      oldrecord
+    );
+    Test.stopTest();
+
+    Assert.isTrue(result, 'Should be true');
+  }
+
+  @IsTest
+  static void testCheckClosedAsNoDefectStatusWasNotDowngraded() {
+    Case record = constuctCaseWithTestFields(null);
+    record.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
+
+    Test.startTest();
+    Boolean result = AutoKYCQACaseActions.checkClosedAsNoDefect(record, null);
+    Test.stopTest();
+
+    Assert.isTrue(result, 'Should be true');
+  }
+
+  @IsTest
+  static void testCheckClosedAsNoDefectStatusWasDowngraded() {
+    Case record = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
+    record.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
+    record.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
+
+    Test.startTest();
+    Boolean result = AutoKYCQACaseActions.checkClosedAsNoDefect(record, null);
+    Test.stopTest();
+
+    Assert.isFalse(result, 'Should be false if case was downgraded');
   }
 }
