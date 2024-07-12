@@ -13,5 +13,5 @@
     <securityClassification>Public</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
-    <unique>false</unique>
+    <unique>true</unique>
 </CustomField>
