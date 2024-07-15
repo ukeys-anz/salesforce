@@ -12,16 +12,17 @@ public with sharing class CustomerDisputeManagementRepository {
      */
     public List<Account> queryCustomer(Set<Id> customerIds, Integer disputeLimit) {
 
-        List<Account> customersWithCdmAndCaseDetails = new List<Account>();
         if (
-            PermissionUtils.canQuery('Case') &&
-            PermissionUtils.canQuery('Customer_Dispute_Management__c') &&
-            PermissionUtils.canQuery('Account') &&
-            !customerIds.isEmpty()
+            customerIds.isEmpty() ||
+            SObjectType.Case.isQueryable() == false ||
+            SObjectType.Customer_Dispute_Management__c.isQueryable() == false ||
+            SObjectType.Account.isQueryable() == false
           )
         {
+            return  new List< Account >();
+        }
         //Query Customer to find number of active cases and CDM record exist
-        customersWithCdmAndCaseDetails = [
+        return [
             SELECT
                 Id,
                 Customer_Dispute_Management__c,
@@ -41,8 +42,7 @@ public with sharing class CustomerDisputeManagementRepository {
             FROM Account
             WHERE Id IN :customerIds
             ];
-        }
-        return customersWithCdmAndCaseDetails;
+        
         
     }
 }
