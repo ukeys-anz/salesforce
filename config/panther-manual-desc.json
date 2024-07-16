@@ -320,7 +320,6 @@
       "IA-2468715": [
         "AccountNumber",
         "PPID__c",
-        "RecordTypeId",
         "Temporary_External_Id__c",
         "CreatedById",
         "CreatedDate",
@@ -407,7 +406,8 @@
         "AccountSource",
         "Victim_External_ID__c",
         "Survivor_Party_ID__c",
-        "External_Id__c"
+        "External_Id__c",
+        "RecordTypeId"
       ]
     },
     "Access_Request__c": {
@@ -1629,8 +1629,7 @@
         "Last_Modified_Date__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Previous_Related_Account__c",
-        "RecordTypeId"
+        "Previous_Related_Account__c"
       ],
       "IA-2415790": ["Persona_Type__c"],
       "IA-2415984": [
@@ -1650,7 +1649,7 @@
       "IA-2415831": ["Global_Address_Key__c", "Delivery_Identifier__c"],
       "IA-2415840": ["QAS_Valid_Address__c"],
       "IA-2594111": ["ParentId"],
-      "IA-2453350": ["RecordType"]
+      "IA-2453350": ["RecordTypeId"]
     },
     "ContactPointEmail": {
       "IA-2530753": [
