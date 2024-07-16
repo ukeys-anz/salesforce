@@ -52,7 +52,7 @@
                     <name>adminFilters</name>
                     <valueList>
                         <valueListItems>
-                            <value>Purpose__c|CONTAINS|[&quot;LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE&quot;]</value>
+                            <value>Purpose__c|EQUALS|[&quot;LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -127,7 +127,7 @@
                     <name>adminFilters</name>
                     <valueList>
                         <valueListItems>
-                            <value>Purpose__c|CONTAINS|[&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_NEW&quot;,&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_USED&quot;,&quot;LENDING_PURPOSE_PERSONAL_BOAT_CARAVAN_TRAILER&quot;,&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_OTHER&quot;,&quot;LENDING_PURPOSE_PERSONAL_MOTOR_CYCLE&quot;]</value>
+                            <value>Purpose__c|EQUALS|[&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_NEW&quot;,&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_USED&quot;,&quot;LENDING_PURPOSE_PERSONAL_BOAT_CARAVAN_TRAILER&quot;,&quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_OTHER&quot;,&quot;LENDING_PURPOSE_PERSONAL_MOTOR_CYCLE&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -202,7 +202,7 @@
                     <name>adminFilters</name>
                     <valueList>
                         <valueListItems>
-                            <value>Purpose__c|CONTAINS|[&quot;LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT&quot;,&quot;LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_WEDDING&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_LEGAL&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION&quot;]</value>
+                            <value>Purpose__c|EQUALS|[&quot;LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT&quot;,&quot;LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_WEDDING&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_LEGAL&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION&quot;,&quot;LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES&quot;]</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
