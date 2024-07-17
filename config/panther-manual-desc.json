@@ -2034,7 +2034,7 @@
         "LastModifiedDate",
         "Id"
       ],
-      "IA-2415860": ["Status"],
+      "IA-2415860": ["Status", "Attachment_Notes__c"],
       "IA-2415997": ["Incoming"]
     },
     "Entitlement": {
