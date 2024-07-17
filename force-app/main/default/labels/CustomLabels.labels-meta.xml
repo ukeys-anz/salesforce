@@ -15,6 +15,13 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
     </labels>
     <labels>
+        <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_ResidentialLoanApplication_event_ce_type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.retailplusapplication.</value>
+    </labels>
+    <labels>
         <fullName>Broker_Staff_Issue_with_Valid_Owner_Id</fullName>
         <language>en_US</language>
         <protected>false</protected>

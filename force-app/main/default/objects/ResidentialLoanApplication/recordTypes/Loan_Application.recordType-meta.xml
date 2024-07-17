@@ -315,6 +315,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Sync_Status__c</picklist>
+        <values>
+            <fullName>Blocked</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broker Org</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>TitleType</picklist>
         <values>
             <fullName>Joint Tenancy with Right of Survivorship</fullName>
