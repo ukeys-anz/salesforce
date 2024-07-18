@@ -66,10 +66,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         undefined,
         "Please Validate Real Form ID."
       );
-    } else if (this.validateComplianceChecks()) {
-      this.modalMsg =
-        "The Status must be set to 'Escalated' if either Compliance Checks are selected as 'YES'";
-      this.showModal = true;
     } else if (
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.Case.ResolutionInformation.realFormMAXId &&
@@ -130,27 +126,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         this.omniJsonData.apiSuccess &&
         this.omniJsonData.RiskFormIDValid
       )
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  validateComplianceChecks() {
-    let issueTypeCheck = [
-      this.omniJsonData.Case.ComplaintDetails.IssueType,
-      this.omniJsonData.Case.ComplaintDetails.IssueType2,
-      this.omniJsonData.Case.ComplaintDetails.IssueType3
-    ];
-    let complianceChecks = [
-      this.omniJsonData.Case.ResolutionInformation.custWrittenResponse,
-      this.omniJsonData.Case.ResolutionInformation.complaintRelatedHardship
-    ];
-    if (
-      !issueTypeCheck.includes("4") &&
-      complianceChecks.includes("Yes") &&
-      this.omniJsonData.Case.ResolutionInformation.complaintStatus1 !==
-        "Escalated"
     ) {
       return true;
     }
@@ -227,7 +202,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       subtype = details.SubsequentIssueType3;
     }
     details = this.omniJsonData.Case.ResolutionInformation;
-    if (this.checkIssueType()) {
+    if (this.omniJsonData.Case.CustomerDecision !== "Disagrees") {
       this.checkFields(details, this.omniJsonData.resInfoMap);
     }
     if (details.ComplaintStatus === "Closed") {
@@ -340,19 +315,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     }
     if (details.ComplaintStatus === "Escalated")
       this.checkFields(details, this.omniJsonData.escMap);
-  }
-
-  checkIssueType() {
-    let details = this.omniJsonData.Case;
-    if (
-      details.CustomerDecision !== "Disagrees" &&
-      details.ComplaintDetails.IssueType !== "4" &&
-      details.ComplaintDetails.IssueType2 !== "4" &&
-      details.ComplaintDetails.IssueType3 !== "4"
-    ) {
-      return true;
-    }
-    return false;
   }
 
   checkFields(detail, reMap) {
