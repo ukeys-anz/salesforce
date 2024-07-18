@@ -320,7 +320,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Controlling_Post__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1210,7 +1210,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Lead.Lead_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -4273,6 +4273,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Opp_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Product2.ANZ_Product_Code_Num__c</field>
         <readable>true</readable>
     </fieldPermissions>
