@@ -1129,12 +1129,6 @@
         "Customer_Account_Name__c",
         "Customer_Account_Number__c",
         "Customer_Reference_Number__c",
-        "Daon_Auth_Request_Id__c",
-        "Daon_Challenge_Type__c",
-        "Daon_Check_Id__c",
-        "Daon_Document_Id__c",
-        "Daon_Reg_Challenge_Id__c",
-        "Daon_User_Id__c",
         "Date_Posted__c",
         "Debit_User_Name__c",
         "Debit_or_Credit__c",
@@ -1155,8 +1149,7 @@
         "Transaction_Amount__c",
         "Transaction_Authorised_Date__c",
         "Transaction_Currency__c",
-        "Transaction_Description__c",
-        "Verified_By__c"
+        "Transaction_Description__c"
       ],
       "IA-2415869": [
         "Card_Expiry_Date__c",
@@ -1273,12 +1266,7 @@
         "Status_Update_Error__c",
         "System_Action__c",
         "Aegis_Workflow_Id__c",
-        "Person_Digital_Identity__c",
-        "Pin_History_Check_Failed__c",
-        "IAL_Status__c",
-        "Context_Id__c",
-        "Context_Type__c",
-        "Verified_Date__c"
+        "Person_Digital_Identity__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",

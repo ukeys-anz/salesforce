@@ -123,26 +123,6 @@
                 <identifier>RecordSubmittedAt_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.idxExtractedFaceId__c</fieldItem>
-                <identifier>RecordidxExtractedFaceId_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Failed_Message__c</fieldItem>
-                <identifier>RecordFailed_Message_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-6efd8394-d701-4981-893f-daf471b5f052</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -175,46 +155,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.DaonLocationUri__c</fieldItem>
                 <identifier>RecordDaonLocationUri_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Verified_By__c</fieldItem>
-                <identifier>RecordVerified_By_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Verification_Date_Time__c</fieldItem>
-                <identifier>RecordVerification_Date_Time_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Verification_Status__c</fieldItem>
-                <identifier>RecordVerification_Status_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Verification_Failed_Reason__c</fieldItem>
-                <identifier>RecordVerification_Failed_Reason_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-b54a2b46-c2e5-48a4-a6c6-887909552cb7</name>

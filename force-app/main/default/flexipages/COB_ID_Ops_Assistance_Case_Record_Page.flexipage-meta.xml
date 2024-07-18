@@ -144,26 +144,6 @@
                 <identifier>RecordPersonID_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Person_Digital_Identity__c</fieldItem>
-                <identifier>RecordPerson_Digital_Identity_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Aegis_Workflow_Id__c</fieldItem>
-                <identifier>RecordAegis_Workflow_Id__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>

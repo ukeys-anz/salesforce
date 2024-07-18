@@ -21,10 +21,6 @@ public with sharing class TFMSearchCustomerDataSourceService {
     DataSource.QueryContext context
   ) {
     String searchText = (String) context.tableSelection.filter.columnValue;
-    if(String.isBlank(searchText)) {
-      List<DataSource.Filter> subfiltersList = context.tableSelection.filter.subfilters;
-      searchText = (String) subfiltersList[0].columnValue;
-    }
     searchText = getMobileInFormat(searchText);
     Service.IdType refId = getRefName(searchText);
     if (refId != null) {

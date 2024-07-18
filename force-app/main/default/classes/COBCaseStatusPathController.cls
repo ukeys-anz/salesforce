@@ -15,10 +15,6 @@ public with sharing class COBCaseStatusPathController {
   @TestVisible
   private static final String CONFIRMED_FRAUD_REASON = 'Confirmed Fraud';
 
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
-    DmlRepository.class
-  );
-
   // Statuses with Callout API
   private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
     GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
@@ -166,13 +162,10 @@ public with sharing class COBCaseStatusPathController {
    */
   @TestVisible
   private static Boolean handleCaseUpdate(Case cobCase) {
-    List<Database.SaveResult> updateResult = DML_REPOSITORY.updateRecords(
-      new List<Case>{ cobCase },
-      false,
-      DMLUtil.USER_MODE
-    );
-    if (updateResult[0].isSuccess() == false) {
-      throwException(updateResult[0].getErrors()[0].getMessage());
+    Database.SaveResult updateResult = Database.update(cobCase, false); //cobCase may have call out error in Status_Update_Error__c field if the callout has failed
+
+    if (updateResult.isSuccess() == false) {
+      throwException(updateResult.getErrors()[0].getMessage());
     }
 
     return true;

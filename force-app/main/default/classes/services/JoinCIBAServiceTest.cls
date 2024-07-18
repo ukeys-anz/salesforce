@@ -85,7 +85,7 @@ private class JoinCIBAServiceTest {
   private static void storeSampleforgeJWTToken(String ocvId) {
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + AuthTokenCacheUtil.getHashedKey('forgeJWTToken' + ocvId + 'ForgeV2'),
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
   }

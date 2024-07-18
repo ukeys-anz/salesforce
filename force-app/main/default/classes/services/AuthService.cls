@@ -114,8 +114,7 @@ public with sharing class AuthService extends Service {
       idType.substring(1, idType.length() - 1) +
       '&rqf_id_value=' +
       EncodingUtil.urlEncode(staffModelWrapper.idValue, 'UTF-8') +
-      '&scope=' +
-      forgeAuth.RequestedScopes__c +
+      '&scope=aegis-introspect' +
       '&subject_token_type=' +
       EncodingUtil.urlEncode(forgeAuth.Forgev2_subject_token_type__c, 'UTF-8') +
       '&subject_token=' +

@@ -15,14 +15,6 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
     </labels>
     <labels>
-        <fullName>MS_SOP_Debt</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_SOP_Debt</shortDescription>
-        <value>/credit-assessment/v1/debts</value>
-    </labels>
-    <labels>
         <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -401,6 +393,14 @@
         <protected>false</protected>
         <shortDescription>MS_Income</shortDescription>
         <value>callout:SF_MS_CH2/credit-assessment/v1/incomes</value>
+    </labels>
+    <labels>
+        <fullName>MS_SOP_Debt</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_SOP_Debt</shortDescription>
+        <value>/credit-assessment/v1/debts</value>
     </labels>
     <labels>
         <fullName>MS_Create_Party</fullName>
@@ -2420,48 +2420,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>ValidateOwnerChange</shortDescription>
         <value>Unable to change Owner of this Record not owned by yourself.</value>
-    </labels>
-    <labels>
-        <fullName>MS_OnboardingUpload_API</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_OnboardingUpload_API</shortDescription>
-        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/digital-onboarding-services/upload-document</value>
-    </labels>
-    <labels>
-        <fullName>DAONMaxPollingCount</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>DAONMaxPollingCount</shortDescription>
-        <value>3</value>
-    </labels>
-    <labels>
-        <fullName>Onboarding_APIError_Message</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Onboarding_APIError_Message</shortDescription>
-        <value>An error occurred while performing API callout. Please retry after some time.</value>
-    </labels>
-    <labels>
-        <fullName>Onboarding_InsufficientAccess_Message</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Onboarding_InsufficientAccess_Message</shortDescription>
-        <value>You don't have required permission to perform this action.</value>
-    </labels>
-    <labels>
-        <fullName>Onboarding_ServerError_Message</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Onboarding_ServerError_Message</shortDescription>
-        <value>The server encountered an unexpected error. Please retry after some time.</value>
-    </labels>
-    <labels>
-        <fullName>MS_OnboardingUpdateStatus_API</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_OnboardingUpdateStatus_API</shortDescription>
-        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/digital-onboarding-services/action-fallout</value>
     </labels>
     <labels>
         <fullName>S2AccountEnabled</fullName>

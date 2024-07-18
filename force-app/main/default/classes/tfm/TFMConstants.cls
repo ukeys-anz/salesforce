@@ -194,34 +194,14 @@ public with sharing class TFMConstants {
   public static final String ARCHIVE = 'Archive';
   public static final String ARCHIVED = 'archived';
   public static final String DEVICERESOURCEID = 'deviceResourceId';
-  public static final String RESET_PIN_KEY= 'pin';
+  public static final String RESET_PIN_KEY = 'pin';
   public static final String RESET_API_LINK = '/reset-pin?generateTokenAction=reset_link&generateTokenType=pin&verifyTokenType=pin';
   public static final String TOTAL_ACTIVE_CONSENTS = 'totalActiveConsents';
   public static final String SUCCESSFULLY_ARCHIVED_CONSENTS = 'successfullyArchivedConsents';
   public static final String ACCESS_AEGIS_FEATURES = 'accessAegisFeatures';
-  public static final String RESET_PIN_HISTORY_CHECK ='pinReused';
-  public static final String RESET_PIN_HISTORY_CHECK_PASSED ='pinNotReused';
-  public static final Id DAON_FILE_RT_ID = Schema.SObjectType.ContentVersion.getRecordTypeInfosByDeveloperName()
-  .get('DAON_File')
-  .getRecordTypeId();
+  public static final String RESET_PIN_HISTORY_CHECK = 'pinReused';
+  public static final String RESET_PIN_HISTORY_CHECK_PASSED = 'pinNotReused';
   public static final STRING INSUFFICIENT_ACCESS_ERROR = 'Insufficient Access';
   public static final STRING DUPLICATE_MOBILE_NUMBER = 'duplicateMobileNumber';
-  public static final STRING KEY_USERS = 'users';
-  public static final STRING KEY_IDCHECKS = 'idchecks';
-  public static final STRING KEY_DOCUMENTS = 'documents';
-  public static final STRING IMAGE_URL = '/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=';
-  public static final STRING NO_ACCESS_AEGIS_FEATURES = 'NoAccessAegisFeatures';
   public static final STRING ERROR_OCCURRED = 'ErrorOccurred';
-  public static final STRING ASSISTED_SELFIE = 'Assisted Selfie';
-  public static final STRING FAILED_DOC = 'FAILED_DOC';
-  public static final STRING SUCCESS_RESPONSE = 'Success';
-  public static final STRING PIN_RECORD_TYPE = 'pinRecoveryWorkflow';
-  public static final STRING SELFIE_RECORD_TYPE = 'selfieRecoveryWorkflow';
-  public static final STRING SELFIE_RECOVERY_CHALLENGE_TYPE = 'SELFIE_RECOVERY_CHALLENGE_TYPE_REG_CHALLENGE';
-  public static final STRING SELFIE_RECOVERY_AUTH_REQUEST = 'SELFIE_RECOVERY_CHALLENGE_TYPE_AUTH_REQUEST';
-  public static final STRING PIN_RECOVERY_API_NAME= 'PIN_Recovery';
-  public static final String RESPONSE_MESSAGE = 'responseMessage';
-  public static final String SUCCESS = 'Success';
-  public static final String WARNING = 'Warning';
-  public static final String ERRORSTATUS = 'Error';
 }

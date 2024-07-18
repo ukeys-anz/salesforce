@@ -19,7 +19,7 @@
         <label>Open</label>
         <closed>false</closed>
     </standardValue>
-<standardValue>
+    <standardValue>
         <fullName>To Be Worked</fullName>
         <default>false</default>
         <label>To Be Worked</label>
@@ -200,12 +200,6 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
-        <fullName>ID Check Failed</fullName>
-        <default>false</default>
-        <label>ID Check Failed</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
         <fullName>ID Check OK</fullName>
         <default>false</default>
         <label>ID Check OK</label>
@@ -215,6 +209,24 @@
         <fullName>Failed</fullName>
         <default>false</default>
         <label>Failed</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Potential Fraud</fullName>
+        <default>false</default>
+        <label>Potential Fraud</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirmed Fraud</fullName>
+        <default>false</default>
+        <label>Confirmed Fraud</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Approved</fullName>
+        <default>false</default>
+        <label>Closed - Approved</label>
         <closed>true</closed>
     </standardValue>
     <standardValue>
@@ -228,48 +240,6 @@
         <default>false</default>
         <label>Documents Uploaded</label>
         <closed>false</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Recovery Failed</fullName>
-        <default>false</default>
-        <label>Recovery Failed</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>PIN History Check Failed</fullName>
-        <default>false</default>
-        <label>PIN History Check Failed</label>
-        <closed>true</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Selfie Not Matched</fullName>
-        <default>false</default>
-        <label>Selfie Not Matched</label>
-        <closed>true</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Potential Fraud</fullName>
-        <default>false</default>
-        <label>Potential Fraud</label>
-        <closed>false</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Closed - Approved</fullName>
-        <default>false</default>
-        <label>Closed - Approved</label>
-        <closed>true</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Confirmed Fraud</fullName>
-        <default>false</default>
-        <label>Confirmed Fraud</label>
-        <closed>true</closed>
-    </standardValue>
-    <standardValue>
-        <fullName>Closed - Approved &amp; Re-enrolled</fullName>
-        <default>false</default>
-        <label>Closed - Approved &amp; Re-enrolled</label>
-        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Customer Update Pending</fullName>

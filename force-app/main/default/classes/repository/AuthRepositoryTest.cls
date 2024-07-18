@@ -42,7 +42,7 @@ public inherited sharing class AuthRepositoryTest {
    */
   @isTest
   public static void testGetForgeStaffTokenv2() {
-    Forgerock_Auth__mdt forgeAuth = Forgerock_Auth__mdt.getInstance('ForgeV2');
+    //TestHelper.addAzureTokenToCache();
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
@@ -57,10 +57,7 @@ public inherited sharing class AuthRepositoryTest {
     String idToken = 'xxxxxxxx';
     Test.startTest();
     AuthRepository authRepo = new AuthRepository();
-    IdentityModel respModel = authRepo.getForgeStaffToken(
-      staffModelWrapper,
-      forgeAuth
-    );
+    IdentityModel respModel = authRepo.getForgeStaffToken(staffModelWrapper);
     String accessToken = respModel.accessToken;
     Test.stopTest();
     Assert.areEqual(

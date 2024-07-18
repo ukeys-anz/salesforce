@@ -292,14 +292,9 @@ public class AuthTokenCacheUtilTest {
     StaffTokenRequestModel staffModelWrapper = new StaffTokenRequestModel();
     staffModelWrapper.idType = Service.IdType.OCVID;
     staffModelWrapper.idValue = '1111';
-    String hashedKey = AuthTokenCacheUtil.getHashedKey(
-      'forgeJWTToken' +
-        staffModelWrapper.idValue +
-        staffModelWrapper.apiScopesRequested
-    );
     String idToken = 'xxxxxxxx';
     Cache.Session.put(
-      'local.ForgeToken.' + hashedKey,
+      'local.ForgeToken.forgeJWTToken' + staffModelWrapper.idValue,
       AuthServiceTest.IDTESTVALUEFORGE2,
       300,
       Cache.Visibility.NAMESPACE,
@@ -310,8 +305,8 @@ public class AuthTokenCacheUtilTest {
     System.runAs(anzxTestUser) {
       String accessToken = AuthTokenCacheUtil.getStaffToken(staffModelWrapper);
       Assert.areEqual(
-        AuthServiceTest.IDTESTVALUEFORGE2,
         accessToken,
+        AuthServiceTest.IDTESTVALUEFORGE2,
         'The accessToken should be as expected.'
       );
     }

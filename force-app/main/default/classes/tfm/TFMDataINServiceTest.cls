@@ -105,7 +105,7 @@ public with sharing class TFMDataINServiceTest {
     staffModel.idValue = '1122r5421';
     staffModel.anzTokenType = 'staffRqfCustomer';
     Cache.Session.put(
-      'local.ForgeToken.' + AuthTokenCacheUtil.getHashedKey('forgeJWTToken' + staffModel.idValue + staffModel.apiScopesRequested),
+      'local.ForgeToken.forgeJWTToken' + staffModel.idValue,
       AuthServiceTest.IDTESTVALUEFORGE2,
       300,
       Cache.Visibility.NAMESPACE,

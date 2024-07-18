@@ -31,7 +31,7 @@ public inherited sharing class ConnectIDServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + AuthTokenCacheUtil.getHashedKey('forgeJWTToken' + ocvId + 'ForgeV2'),
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -63,7 +63,7 @@ public inherited sharing class ConnectIDServiceTest {
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + AuthTokenCacheUtil.getHashedKey('forgeJWTToken' + ocvId + 'ForgeV2'),
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
 
