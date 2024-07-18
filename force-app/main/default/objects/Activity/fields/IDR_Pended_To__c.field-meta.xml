@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Pended_To__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>exact party name a task is pending with</description>
     <externalId>false</externalId>
-    <label>Pended To (Party)</label>
+    <label>External Party</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
@@ -84,16 +84,27 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>Customer or Nominated 3rd Party representative of Customer</fullName>
+                <default>false</default>
+                <label>Customer or Nominated 3rd Party representative of Customer</label>
+            </value>
+            <value>
+                <fullName>External Solicitor</fullName>
+                <default>false</default>
+                <label>External Solicitor</label>
+            </value>
+            <value>
+                <fullName>Product Manufacturer</fullName>
+                <default>false</default>
+                <label>Product Manufacturer</label>
+            </value>
+            <value>
+                <fullName>Other EDR Scheme</fullName>
+                <default>false</default>
+                <label>Other EDR Scheme</label>
+            </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
-            <valueName>Internal Business Unit</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Other</valueName>
-        </valueSettings>
         <valueSettings>
             <controllingFieldValue>External</controllingFieldValue>
             <valueName>AFCA</valueName>
@@ -108,39 +119,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Office of the Australian Information Commissioner (OAIC)</valueName>
+            <valueName>External Solicitor</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Small Business Ombudsman</valueName>
+            <valueName>Product Manufacturer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>External</controllingFieldValue>
-            <valueName>State Tribunal</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Wealth Product Manufacturer: Allianz</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Wealth Product Manufacturer: IOOF</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Wealth Product Manufacturer: Netwealth</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Wealth Product Manufacturer: QBE</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Wealth Product Manufacturer: Zurich</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Wealth Product Manufacturer: Other</valueName>
+            <valueName>Other EDR Scheme</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

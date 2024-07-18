@@ -225,7 +225,7 @@ private with sharing class IDRTaskActionsTest {
       Description = 'test Description',
       IDR_Key_Contact_Name__c = 'John Doe',
       IDR_Internal_or_External_Party__c = 'External',
-      IDR_Pended_To__c = 'Other',
+      IDR_Pended_To__c = 'Other EDR Scheme',
       IDR_Pend_Reason__c = 'Awaiting information to be provided'
       //IDR_Portfolio_or_Business_Unit__c = 'Wealth (AR&C)'
     );
