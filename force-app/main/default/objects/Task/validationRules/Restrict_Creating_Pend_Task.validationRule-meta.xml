@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Creating_Pend_Task</fullName>
+    <active>false</active>
+    <description>Restrict Creating Pend Task when the Date Case on Hold from is null</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;IDR_Task&apos;,
+ISPICKVAL(Type,&apos;Pend Case&apos;),
+ISBLANK(Date_Case_on_Hold_From__c)
+)</errorConditionFormula>
+    <errorMessage>You cannot create a Task when the On Hold Date is null, Please create a task from Case screen.</errorMessage>
+</ValidationRule>

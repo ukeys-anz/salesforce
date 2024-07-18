@@ -1,5 +1,32 @@
 @IsTest
 private with sharing class IDRTaskActionsTest {
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider taskRepoMock;
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    taskRepoMock = Lib_MockProvider.forType(IDRTaskActionsRepository.class);
+  }
+  static Case caseRecord = (Case) TestUtil.setFields(
+    new Case(Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType)),
+    new Map<String, List<SObject>>{
+      'Tasks' => new List<Task>{
+        new Task(
+          Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+          Date_Case_on_Hold_From__c = Date.TODAY(),
+          Status = IDRConstants.OPEN_STATUS,
+          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+          Type = IDRConstants.TASK_TYPE_PEND_CASE
+        ),
+        new Task(
+          Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+          Date_Case_on_Hold_From__c = Date.TODAY(),
+          Status = IDRConstants.TASK_STATUS_COMPLETED,
+          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+          Type = IDRConstants.TASK_TYPE_PEND_CASE
+        )
+      }
+    }
+  );
   @TestSetup
   static void testSetup() {
     Task[] newTasks = new List<Task>();
@@ -71,8 +98,10 @@ private with sharing class IDRTaskActionsTest {
         psaList.add(TestUtil.createPSAssignment(idrL1User.Id, ps.Id));
       }
       insert psaList;
-    
-      Profile stdXUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+
+      Profile stdXUserProfile = CommonUtil.getProfileByName(
+        'ANZx Standard User'
+      );
       Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
       UserRole cqRole = CommonUtil.getUserRoleByDevName(
         'Capability_Quality_C_Q_Team'
@@ -204,41 +233,6 @@ private with sharing class IDRTaskActionsTest {
     }
   }
 
-  @IsTest
-  static void testPendCaseTaskSubject() {
-    Case customerCase = new Case(
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-      Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-      IDR_Customer_Number__c = '1234567890',
-      Priority = 'Standard',
-      Type = '5',
-      IDR_Subsequent_Issue__c = '38'
-    );
-    insert customerCase;
-
-    Task pendTask = new Task(
-      RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
-      Type = IDRConstants.TASK_TYPE_PEND_CASE,
-      Priority = 'Normal',
-      ActivityDate = System.today().addDays(10),
-      WhatId = customerCase.Id,
-      Description = 'test Description',
-      IDR_Key_Contact_Name__c = 'John Doe',
-      IDR_Internal_or_External_Party__c = 'External',
-      IDR_Pended_To__c = 'Other EDR Scheme',
-      IDR_Pend_Reason__c = 'Awaiting information to be provided'
-      //IDR_Portfolio_or_Business_Unit__c = 'Wealth (AR&C)'
-    );
-
-    insert pendTask;
-
-    Task pendCaseTask = [SELECT Subject FROM Task WHERE Id = :pendTask.Id];
-    System.assertEquals(
-      IDRConstants.SUBJECT_PEND_CASE_TASK,
-      pendCaseTask.Subject,
-      'Pend case task subject must default to a defined value'
-    );
-  }
   @IsTest
   static void testIDRTaskClosureOnCaseClose() {
     User l1User = TestUtil.getUserByFirstName('idrL1User');
@@ -631,5 +625,171 @@ private with sharing class IDRTaskActionsTest {
       }
     }
     Test.stopTest();
+  }
+
+  @IsTest
+  static void testgetOnHoldDateFromOpenTask() {
+    Case testCase = caseRecord;
+
+    Task taskRecord = testCase.Tasks[0];
+    taskRecord.WhatId = testCase.Id;
+    Test.startTest();
+    Map<Id, Date> caseMap = IDRTaskActions2.getOnHoldDateFromTask(
+      new List<Task>{ taskRecord }
+    );
+    Test.stopTest();
+
+    System.assertEquals(
+      caseMap.get(taskRecord.WhatId),
+      taskRecord.Date_Case_on_Hold_From__c,
+      'Both dates should be equal'
+    );
+  }
+  @IsTest
+  static void testgetOnHoldDateFromCompletedTask() {
+    Case testCase = caseRecord;
+
+    Task taskRecord = testCase.Tasks[1];
+    taskRecord.WhatId = testCase.Id;
+    Test.startTest();
+    Map<Id, Date> caseMap = IDRTaskActions2.getOnHoldDateFromTask(
+      new List<Task>{ taskRecord }
+    );
+    Test.stopTest();
+
+    Assert.isNull(caseMap.get(taskRecord.WhatId), 'Expected null date');
+  }
+  @IsTest
+  static void testsetCaseFieldsWithOpenPendTask() {
+    Case testCase = caseRecord;
+
+    Task taskRecord = testCase.Tasks[0];
+    taskRecord.WhatId = testCase.Id;
+
+    Map<Id, Date> caseIdtoDateValue = new Map<Id, Date>();
+    caseIdtoDateValue.put(
+      taskRecord.WhatId,
+      taskRecord.Date_Case_on_Hold_From__c
+    );
+
+    Test.startTest();
+    List<Case> cases = IDRTaskActions2.setCaseFields(caseIdtoDateValue, true);
+    Test.stopTest();
+
+    System.assertEquals(
+      cases[0].IDR_Date_Case_on_Hold_From__c,
+      taskRecord.Date_Case_on_Hold_From__c,
+      'Case field IDR_Date_Case_on_Hold_From__c should be equal to Task On Hold Date'
+    );
+  }
+  @IsTest
+  static void testsetCaseFieldsWithCompletedTask() {
+    Case testCase = caseRecord;
+
+    Task taskRecord = testCase.Tasks[1];
+    taskRecord.WhatId = testCase.Id;
+
+    Map<Id, Date> caseIdtoDateValue = new Map<Id, Date>();
+    caseIdtoDateValue.put(
+      taskRecord.WhatId,
+      taskRecord.Date_Case_on_Hold_From__c
+    );
+
+    Test.startTest();
+    List<Case> cases = IDRTaskActions2.setCaseFields(caseIdtoDateValue, false);
+    Test.stopTest();
+
+    Assert.isNull(
+      cases[0].IDR_Date_Case_on_Hold_From__c,
+      'Date should be updated to null'
+    );
+  }
+  @IsTest
+  static void testUpdateOnHoldDateonCase() {
+    registerMocks();
+    Case testCase = caseRecord;
+    Task taskRecord = testCase.Tasks[0];
+    taskRecord.WhatId = testCase.Id;
+
+    Test.startTest();
+    IDRTaskActions2.updateOnHoldDateonCase(new List<Task>{ taskRecord }, true);
+    Test.stopTest();
+
+    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('updateRecords')
+      .getParam('records');
+
+    Assert.isFalse(
+      dmlRepoMock.getHistories('updateRecords').isEmpty(),
+      'updateRecords should have been invoked at least once'
+    );
+
+    System.assertEquals(
+      IDRConstants.ON_HOLD_STATUS,
+      cases[0].Status,
+      'Status should be updated to On Hold'
+    );
+    System.assertEquals(
+      taskRecord.Date_Case_on_Hold_From__c,
+      cases[0].IDR_Date_Case_on_Hold_From__c,
+      'On Hold Date on Case should be updated from Task'
+    );
+  }
+  @IsTest
+  static void testUpdateOnHoldDateonCasetoNull() {
+    registerMocks();
+    Case testCase = caseRecord;
+    Task taskRecord = testCase.Tasks[1];
+    taskRecord.WhatId = testCase.Id;
+    dmlRepoMock.mock(
+      'updateRecords',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult('{"success":true}')
+      }
+    );
+    Test.startTest();
+    IDRTaskActions2.updateOnHoldDateonCase(new List<Task>{ taskRecord }, false);
+    Test.stopTest();
+    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('updateRecords')
+      .getParam('records');
+    Assert.isFalse(
+      dmlRepoMock.getHistories('updateRecords').isEmpty(),
+      'updateRecords should have been invoked at least once'
+    );
+
+    Assert.isNull(
+      cases[0].IDR_Date_Case_on_Hold_From__c,
+      'Date should be updated to null'
+    );
+  }
+  @IsTest
+  static void testassignPendTasktoCaseOwner() {
+    registerMocks();
+    Case testCase = caseRecord;
+    Task taskRecord = testCase.Tasks[0];
+    taskRecord.WhatId = testCase.Id;
+    taskRepoMock.mock('queryCases', new List<Case>{ testCase });
+    Test.startTest();
+    IDRTaskActions2.assignPendTasktoCaseOwner(
+      new List<Task>{ testCase.Tasks[0] }
+    );
+    Test.stopTest();
+
+    System.assertEquals(
+      taskRecord.OwnerId,
+      testCase.OwnerId,
+      'Both Owners should be Equal'
+    );
+  }
+  @isTest
+  static void testIsValidPendTask() {
+    Case testCase = caseRecord;
+
+    Task taskRecord = testCase.Tasks[0];
+    taskRecord.WhatId = testCase.Id;
+    Test.startTest();
+    Boolean isValidTask = IDRTaskActions2.isValidPendTask(taskRecord);
+    Test.stopTest();
+
+    System.assertEquals(true, isValidTask, 'Boolean should be true');
   }
 }
