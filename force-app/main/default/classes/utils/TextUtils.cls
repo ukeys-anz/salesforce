@@ -282,7 +282,7 @@ public with sharing class TextUtils {
       if (dataTypeNames.contains(dataTypeField)) {
         String originalText = (String) sObj.get(fieldName);
         if (String.isNotBlank(originalText)) {
-          sObj.put(fieldName, maskDataANZExtended(originalText));
+          sObj.put(fieldName, maskDataANZx(originalText));
         }
       }
     }
@@ -306,69 +306,6 @@ public with sharing class TextUtils {
     }
 
     return '';
-  }
-
-  /**
-   * @description CC-4053 Redacting sensitive customer information
-   * @param originalText input text
-   * @return `String` redacted string
-   */
-  private static String maskDataANZExtended(String originalText) {
-    String redactedText = maskStringANZExtended(
-      originalText,
-      extendRedactCCPattern,
-      4
-    );
-
-    if (containsKeyword(redactedText) == false) {
-      return redactedText;
-    }
-    redactedText = maskStringANZExtended(
-      redactedText,
-      extendRedactPassportPattern,
-      0
-    );
-
-    redactedText = maskStringANZExtended(
-      redactedText,
-      extendRedactEightPlusExPhonePattern,
-      0
-    );
-
-    return redactedText;
-  }
-
-  /**
-   * @description CC-4053 Redacting sensitive customer information
-   * @param inputText string to redact
-   * @param matchPattern pattern
-   * @param unmaskLength unmaskLength
-   * @return `String` redacted string
-   */
-  private static String maskStringANZExtended(
-    String inputText,
-    Pattern matchPattern,
-    Integer unmaskLength
-  ) {
-    Matcher matcher = matchPattern.matcher(inputText);
-    while (matcher.find()) {
-      String origMatchedText = matcher.group();
-      String matchedText = origMatchedText.remove('-').remove(' ');
-
-      // leave the last X character of the match string unmasked, where X = unmaskedLength
-      String redactedText =
-        '*'
-          .repeat(
-            matchedText.substring(0, matchedText.length() - unmaskLength)
-              .length()
-          ) + matchedText.right(unmaskLength);
-      //replace first occurrence of standalone pattern
-      inputText = inputText.replaceFirst(
-        '(?<![A-Za-z\\d+])' + origMatchedText + '(?![A-Za-z\\d])',
-        redactedText
-      );
-    }
-    return inputText;
   }
 
   /**

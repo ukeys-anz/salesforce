@@ -20,18 +20,18 @@ private class EmailTriggerHandlerTest {
     email.FromAddress = 'test@abc.org';
     email.Incoming = true;
     email.ToAddress = 'test@xyz.org';
-    email.Subject = 'Test email PP is PA1234567';
-    email.HtmlBody = 'Test email PP is PA1234567';
+    email.Subject = 'Test email PP is PP12345678';
+    email.HtmlBody = 'Test email PP is PP12345678';
     email.ParentId = c.Id;
     insert email;
 
-    email.TextBody = 'Test email PP is PA1234567';
+    email.TextBody = 'Test email PP is PP12345678';
     update email;
 
     System.assertEquals(
       [SELECT Id, TextBody, HtmlBody FROM EmailMessage WHERE Id = :email.Id][0]
       .HtmlBody,
-      'Test email PP is *********',
+      'Test email PP is PP****5678',
       'Expected email to be masked'
     );
     Test.stopTest();
