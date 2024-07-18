@@ -1,5 +1,49 @@
 @IsTest
 private class QualityAssessmentActionsTest {
+  private static final Faker FAKER = new Faker('AU');
+  static Lib_MockProvider qualityAssessmentRepositoryMock;
+  static Lib_MockProvider dmlRepoMock;
+
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    qualityAssessmentRepositoryMock = Lib_MockProvider.forType(
+      IDRQualityAssessmentRepository.class
+    );
+  }
+
+  static Case idrCase = (Case) TestUtil.setFields(
+    new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      IDR_Completed_Evaluations__c = 'Call Review Assessment: 0 | Letter Review Assessment: 0 | C&Q Assessment: 0'
+    ),
+    new Map<String, List<SObject>>{
+      'Quality_Assessments__r' => new List<Quality_Assessment__c>{
+        new Quality_Assessment__c(
+          Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
+          Evaluation_Type__c = IDRConstants.CQ_EVAL,
+          RecordTypeId = IDRConstants.idrtCQQualityAssessment,
+          Status__c = IDRConstants.STATUS_COMPLETE,
+          Related_Case__r = new Case(
+            IDR_Completed_Evaluations__c = 'Call Review Assessment: 0 | Letter Review Assessment: 0 | C&Q Assessment: 0'
+          )
+        ),
+        new Quality_Assessment__c(
+          Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
+          Evaluation_Type__c = IDRConstants.LETTER_EVAL,
+          RecordTypeId = IDRConstants.idrtCallLetterReviewQualityAssessment,
+          Status__c = IDRConstants.STATUS_COMPLETE
+        ),
+        new Quality_Assessment__c(
+          Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
+          Evaluation_Type__c = IDRConstants.CALL_REVIEW_EVAL,
+          RecordTypeId = IDRConstants.idrtCallLetterReviewQualityAssessment,
+          Status__c = IDRConstants.STATUS_COMPLETE
+        )
+      }
+    }
+  );
+
   //method to test negative case (return false) when calling isDisputeCaseType mehtod
   @IsTest
   private static void testIsDisputeCaseTypeNegative() {
@@ -295,13 +339,13 @@ private class QualityAssessmentActionsTest {
     );
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       Id = qaRecordId,
-      Status__c = 'Pending',
+      Status__c = IDRConstants.STATUS_COMPLETE,
       Team_Manager_Response__c = '',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
     Quality_Assessment__c qaRecordV1 = new Quality_Assessment__c(
       Id = qaRecordId,
-      Status__c = 'Pending',
+      Status__c = IDRConstants.STATUS_COMPLETE,
       Team_Manager_Response__c = 'Rejected by TM',
       RecordTypeId = IDRConstants.idrtCQQualityAssessment
     );
@@ -339,6 +383,118 @@ private class QualityAssessmentActionsTest {
       'Accepted',
       qaRecordV1.Assessment_Outcome_Status__c,
       'Assessment Outcome Status should not be updated when Outcome fields are not changed'
+    );
+  }
+  @isTest
+  private static void testupdateCompletedEvaluations() {
+    Case testCase = idrCase;
+    List<Quality_Assessment__c> qaList = testCase.Quality_Assessments__r;
+
+    Test.startTest();
+    String newEvaluationString = IDRQualityAssessmentActions.updateCompletedEvaluations(
+      testCase,
+      qaList
+    );
+    Test.stopTest();
+
+    System.assertNotEquals(
+      idrCase.IDR_Completed_Evaluations__c,
+      newEvaluationString,
+      'Evaluation String should have been updated'
+    );
+  }
+
+  @isTest
+  public static void testUpdateCaseToQualityAssessmentMap() {
+    Case testCase = idrCase;
+    List<Quality_Assessment__c> qaList = testCase.Quality_Assessments__r;
+    Map<Id, List<Quality_Assessment__c>> mapQualityAssessments = new Map<Id, List<Quality_Assessment__c>>();
+    mapQualityAssessments.put(testCase.Id, qaList);
+    mapQualityAssessments = IDRQualityAssessmentActions.updateCaseToQualityAssessmentMap(
+      qaList,
+      mapQualityAssessments
+    );
+    System.assertEquals(
+      3,
+      mapQualityAssessments.get(testCase.Id).size(),
+      'Case must contain 3 Quality Assessment Record'
+    );
+  }
+
+  @isTest
+  public static void testGetEvaluationsCountMap() {
+    Map<String, Integer> evaluationsCountMap = IDRQualityAssessmentActions.getEvaluationsCountMap(
+      'Call Review Assessment: 2 | Letter Review Assessment: 1 | C&Q Assessment: 3'
+    );
+    System.assertEquals(
+      3,
+      evaluationsCountMap.get('C&Q Assessment'),
+      'Three C&Q Assessment should be completed'
+    );
+    System.assertEquals(
+      2,
+      evaluationsCountMap.get('Call Review Assessment'),
+      'Two Call Review Assessment should be completed'
+    );
+    System.assertEquals(
+      1,
+      evaluationsCountMap.get('Letter Review Assessment'),
+      'One Letter Review Assessment should be complete'
+    );
+  }
+  @isTest
+  public static void testGetUpdatedEvaluationsString() {
+    Map<String, Integer> evaluationsCountMap = new Map<String, Integer>();
+    evaluationsCountMap.put('Call Review Assessment', 1);
+    evaluationsCountMap.put('Letter Review Assessment', 2);
+    System.assertEquals(
+      'Call Review Assessment: 1 | Letter Review Assessment: 2 | C&Q Assessment: 0',
+      IDRQualityAssessmentActions.getUpdatedEvaluationsString(
+        evaluationsCountMap
+      ),
+      'Evaluation String should update'
+    );
+  }
+
+  @isTest
+  public static void testcountRecords() {
+    registerMocks();
+    Case testCase = idrCase;
+    List<Quality_Assessment__c> qaList = testCase.Quality_Assessments__r;
+    qaList[0].Related_Case__c = testCase.Id;
+    qaList[1].Related_Case__c = testCase.Id;
+    Map<Id, Quality_Assessment__c> oldMap = new Map<Id, Quality_Assessment__c>();
+    Quality_Assessment__c oldqa1 = new Quality_Assessment__c(
+      Id = qaList[0].Id,
+      Status__c = IDRConstants.STATUS_PENDING
+    );
+    Quality_Assessment__c oldqa2 = new Quality_Assessment__c(
+      Id = qaList[1].Id,
+      Status__c = IDRConstants.STATUS_PENDING
+    );
+    oldMap.put(qaList[0].Id, oldqa1);
+    oldMap.put(qaList[1].Id, oldqa2);
+
+    qualityAssessmentRepositoryMock.mock(
+      'getCases',
+      new List<Case>{ testCase }
+    );
+    qualityAssessmentRepositoryMock.mock(
+      'getQualityAssessments',
+      new List<Quality_Assessment__c>{ qaList[0] }
+    );
+    Test.startTest();
+    IDRQualityAssessmentActions.countRecords(
+      new List<Quality_Assessment__c>{ qaList[1] },
+      oldMap
+    );
+    Test.stopTest();
+    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('updateRecords')
+      .getParam('records');
+    System.assertEquals(
+      'Call Review Assessment: 0 | Letter Review Assessment: 1 | C&Q Assessment: 0',
+      cases[0].IDR_Completed_Evaluations__c,
+      'Case Should have Completed Evaluations'
     );
   }
 }
