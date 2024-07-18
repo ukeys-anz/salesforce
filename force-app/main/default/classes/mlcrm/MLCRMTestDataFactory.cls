@@ -579,7 +579,7 @@ public with sharing class MLCRMTestDataFactory {
     String staticNumber = Datetime.now().format('MMddHHmmss');
     ccrmBatchUser = (User) FakerFactory.make(new FakerUserFactory());
     ccrmBatchUser.FirstName = 'CRM' + staticNumber;
-    ccrmBatchUser.LastName = 'Batch User Test';
+    ccrmBatchUser.LastName = 'Batch User';
     ccrmBatchUser.UserRoleId = arcRoleId;
     ccrmBatchUser.ProfileId = batchUserProfileId;
     insert ccrmBatchUser;
