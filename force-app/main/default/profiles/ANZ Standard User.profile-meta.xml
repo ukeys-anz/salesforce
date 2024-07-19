@@ -2433,6 +2433,11 @@
         <recordType>Product2.ANZ_Product_or_Service</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Task.Callback_Request</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <tabVisibilities>
         <tab>FinServ__Alert__c</tab>
         <visibility>DefaultOff</visibility>

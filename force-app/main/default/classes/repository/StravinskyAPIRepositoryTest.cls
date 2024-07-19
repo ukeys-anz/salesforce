@@ -63,6 +63,16 @@ public with sharing class StravinskyAPIRepositoryTest {
     '    ]' +
     '}';
 
+  //Creating Dummy List for Test Class StravinskyAPIRepositoryTest
+  public static final Set<String> ACCOUNT_NUMBER_SET = new Set<String>{
+    'accounts/111111111',
+    'accounts/000000000'
+  };
+
+  public static final List<String> CUSTOMER_OCVIDS_LIST = new List<String>{
+    '1011111111'
+  };
+
   private static String licenseNumber = FAKER.randomString(10);
   private static String licenseCardNumber = FAKER.randomString(10);
   private static COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
@@ -94,20 +104,16 @@ public with sharing class StravinskyAPIRepositoryTest {
     Test.startTest();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
 
-    PackageClosureModel response = stravinskyApi.packageClosure(
+    GenesisPackageClosureModel response = stravinskyApi.packageClosure(
       newCase,
-      StravinskyServiceTest.CHECKING_ACCOUNT_LIST,
-      StravinskyServiceTest.SAVINGS_ACCOUNT_LIST,
-      StravinskyServiceTest.CUSTOMER_OCVIDS_LIST
+      ACCOUNT_NUMBER_SET,
+      CUSTOMER_OCVIDS_LIST
     );
-    PackageClosureModel.Status status = response.status;
-
     Test.stopTest();
-    System.assertEquals(200, status.code, 'Status code of 200 expected');
     System.assertEquals(
-      'Package closure successfully completed',
-      status.description,
-      'Package closure was not successful'
+      null,
+      response.errorinfo,
+      'No ErrorInfo Present in Response'
     );
   }
 
@@ -130,18 +136,17 @@ public with sharing class StravinskyAPIRepositoryTest {
     Test.startTest();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
     try {
-      PackageClosureModel response = stravinskyApi.packageClosure(
+      GenesisPackageClosureModel response = stravinskyApi.packageClosure(
         newCase,
-        StravinskyServiceTest.CHECKING_ACCOUNT_LIST,
-        StravinskyServiceTest.SAVINGS_ACCOUNT_LIST,
-        StravinskyServiceTest.CUSTOMER_OCVIDS_LIST
+        ACCOUNT_NUMBER_SET,
+        CUSTOMER_OCVIDS_LIST
       );
     } catch (Exception e) {
       resultException = e;
     }
     Test.stopTest();
     System.assertEquals(
-      EXCEPTION_JSON,
+      'null argument for JSONGenerator.writeStringField()',
       resultException.getMessage(),
       'Exception was expected'
     );

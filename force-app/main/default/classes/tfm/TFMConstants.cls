@@ -204,4 +204,7 @@ public with sharing class TFMConstants {
   public static final STRING INSUFFICIENT_ACCESS_ERROR = 'Insufficient Access';
   public static final STRING DUPLICATE_MOBILE_NUMBER = 'duplicateMobileNumber';
   public static final STRING ERROR_OCCURRED = 'ErrorOccurred';
+  public static final STRING INSUFFICIENT_ACCESS_ERROR = 'Insufficient Access';
+  public static final STRING DUPLICATE_MOBILE_NUMBER = 'duplicateMobileNumber';
+  public static final STRING ERROR_OCCURRED = 'ErrorOccurred';
 }

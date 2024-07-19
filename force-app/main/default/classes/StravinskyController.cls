@@ -12,17 +12,15 @@ public with sharing class StravinskyController {
 
   /**
    * @param recordId Case/Record Id (required)
-   * @return PackageClosureModel
+   * @return GenesisPackageClosureModel
    * @description stravinsky package closure api
    */
   @AuraEnabled(cacheable=false)
-  public static PackageClosureModel getPackageClosureAura(Id recordId) {
+  public static GenesisPackageClosureModel getPackageClosureAura(Id recordId) {
     List<String> customerOcvIdsList = new List<String>();
     List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
     //Converting this into List of Account Numbers
-    List<String> checkingAccountNumbers = new List<String>();
-    List<String> savingsAccountNumbers = new List<String>();
-
+    Set<String> setOfAccountNumberToBeClosed = new Set<String>();
     if (
       !PermissionUtils.canQuery('Case') ||
       !PermissionUtils.canQuery('FinServ__FinancialAccount__c') ||
@@ -36,12 +34,21 @@ public with sharing class StravinskyController {
     }
 
     Case caseRecord = [
-      SELECT Id, AccountId, Account_Type__c, Account.OCV_Id__c, Package_Id__c
+      SELECT
+        Id,
+        AccountId,
+        Account_Type__c,
+        Account_Product__c,
+        Account.OCV_Id__c,
+        Package_Id__c
       FROM Case
       WHERE Id = :recordId
     ];
 
-    if (String.isBlank(caseRecord.Package_Id__c)) {
+    if (
+      !StravinskyAPIRepository.isS2ProductOnCase(caseRecord) &&
+      String.isBlank(caseRecord.Package_Id__c)
+    ) {
       Logger.error('Error closing package - ' + MISSING_PACKAGE_ID, recordId);
       Logger.saveLog();
       AuraHandledException e = new AuraHandledException(MISSING_PACKAGE_ID);
@@ -71,38 +78,19 @@ public with sharing class StravinskyController {
       ) {
         customerOcvIdsList.add(finAccount.OCV_ID__c);
       }
-      if (
-        finAccount.RecordType.DeveloperName ==
-        GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME &&
-        !savingsAccountNumbers.contains(
-          finAccount.FinServ__FinancialAccountNumber__c
-        )
-      ) {
-        savingsAccountNumbers.add(
-          finAccount.FinServ__FinancialAccountNumber__c
-        );
-      } else if (
-        finAccount.RecordType.DeveloperName ==
-        GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME &&
-        !checkingAccountNumbers.contains(
-          finAccount.FinServ__FinancialAccountNumber__c
-        )
-      ) {
-        checkingAccountNumbers.add(
-          finAccount.FinServ__FinancialAccountNumber__c
-        );
-      }
+      setOfAccountNumberToBeClosed.add(
+        'accounts/' + finAccount.FinServ__FinancialAccountNumber__c
+      );
     }
 
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
-    PackageClosureModel response;
+    GenesisPackageClosureModel response;
 
     try {
       //Adding list of OCV Ids to be sent to Mule
       response = stravinskyApi.packageClosure(
         caseRecord,
-        checkingAccountNumbers,
-        savingsAccountNumbers,
+        setOfAccountNumberToBeClosed,
         customerOcvIdsList
       );
     } catch (Exception e) {
@@ -112,7 +100,6 @@ public with sharing class StravinskyController {
       ex.setMessage(FAILED_CLOSURE);
       throw e;
     }
-
     return response;
   }
 
@@ -164,18 +151,23 @@ public with sharing class StravinskyController {
   private static List<FinServ__FinancialAccount__c> getListOfIndividualFinancialAccounts(
     Case caseRecord
   ) {
-    return [
-      SELECT
-        Id,
-        FinServ__FinancialAccountNumber__c,
-        Ownership__c,
-        OCV_ID__c,
-        RecordType.DeveloperName
-      FROM FinServ__FinancialAccount__c
-      WHERE
-        FinServ__PrimaryOwner__c = :caseRecord.AccountId
-        AND Ownership__c = :GetHelpConstants.SINGLE
-    ];
+    String primaryOwner = caseRecord.AccountId;
+    String ownershipType = GetHelpConstants.SINGLE;
+    String savings02 = GetHelpConstants.S2_ACCOUNT_MARKETING_CODE;
+
+    String financialAccountQuery =
+      'SELECT Id, FinServ__FinancialAccountNumber__c, Ownership__c, OCV_ID__c, Marketing_Code__c, RecordType.DeveloperName' +
+      ' FROM FinServ__FinancialAccount__c ' +
+      ' WHERE FinServ__PrimaryOwner__c =:primaryOwner' +
+      ' AND Ownership__c =:ownershipType';
+
+    if (StravinskyAPIRepository.isS2ProductOnCase(caseRecord)) {
+      financialAccountQuery += ' AND Marketing_Code__c =: savings02';
+    } else {
+      financialAccountQuery += ' AND Marketing_Code__c !=: savings02';
+    }
+
+    return Database.query(financialAccountQuery);
   }
 
   private static List<FinServ__FinancialAccountRole__c> getListOfJointFinancialAccountRoles(
