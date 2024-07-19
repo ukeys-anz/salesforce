@@ -68,7 +68,7 @@ public class CCRMLeadExpiryHandlerTest {
     for (User objUser : [
       SELECT Id, LastName, FirstName
       FROM User
-      WHERE LastName IN :lstOfMLUser
+      WHERE LastName IN :lstOfMLUser AND IsActive = TRUE
     ]) {
       if (
         objUser.LastName == 'Batch User' && objUser.FirstName.contains('CRM')
