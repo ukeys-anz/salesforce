@@ -254,12 +254,6 @@ public with sharing class IDRConstants {
   //Quality Assessment Fieldset Name
   public static final String CQ_EDITABLE_RESPONSE_FIELDS = 'CQAssessment_Editable_Response_Fields';
 
-  //QA Evaluation type Contants
-  public static final String CQ_EVAL = 'C & Q Assessment';
-  public static final String LETTER_EVAL = 'Letter Review Assessment';
-  public static final String CALL_REVIEW_EVAL = 'Call Review Assessment';
-  public static final String CQ_EVALCOUNT = 'C&Q Assessment';
-
   //QA Status Constants
   public static final String STATUS_COMPLETE = 'Complete';
   public static final String STATUS_PENDING = 'Pending';

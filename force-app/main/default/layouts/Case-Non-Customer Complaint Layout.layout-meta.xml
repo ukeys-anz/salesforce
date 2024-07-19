@@ -195,10 +195,6 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Avoidable_Escalation__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IDR_Completed_Evaluations__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
