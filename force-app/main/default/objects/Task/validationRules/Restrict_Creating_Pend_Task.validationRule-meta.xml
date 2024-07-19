@@ -6,12 +6,13 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;IDR_Task&apos;,
-ISNEW(),
 ISPICKVAL(Type,&apos;Pend Case&apos;),
-OR(NOT(ISPICKVAL(Case__r.Status,&apos;Escalated&apos;)),
-NOT(ISPICKVAL(Case__r.Status,&apos;Re-Opened&apos;)),
+OR(
+NOT(ISPICKVAL(Case__r.Status,&apos;Escalated&apos;)),
 ISBLANK(Date_Case_on_Hold_From__c),
-Date_Case_on_Hold_From__c &gt; TODAY())
+Date_Case_on_Hold_From__c &gt; TODAY()
+),
+NOT(ISPICKVAL(Case__r.Status,&apos;Re-Opened&apos;))
 )</errorConditionFormula>
     <errorMessage>Please ensure the On Hold Date field is filled and not set to a future date, or ensure the Case Status is either &quot;Escalated&quot; or &quot;Reopen&quot; to create a Pend Task.</errorMessage>
 </ValidationRule>
