@@ -91,6 +91,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Complaint_Remedy__c</fieldItem>
                 <identifier>RecordIDR_Complaint_Remedy_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Complaint_Remedy__c</fieldItem>
+                <identifier>RecordIDR_Complaint_Remedy_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -101,6 +125,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.IDR_Complaint_Sub_Remedy__c</fieldItem>
                 <identifier>RecordIDR_Complaint_Sub_Remedy_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Complaint_Sub_Remedy__c</fieldItem>
+                <identifier>RecordIDR_Complaint_Sub_Remedy_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -112,7 +160,7 @@
                 <fieldItem>Record.IDR_Duration_of_Remedy__c</fieldItem>
                 <identifier>RecordIDR_Duration_of_Remedy_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -128,6 +176,44 @@
                         <operator>EQUAL</operator>
                         <rightValue>Repayment arrangement</rightValue>
                     </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Duration_of_Remedy__c</fieldItem>
+                <identifier>RecordIDR_Duration_of_Remedy_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>16</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>20</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Repayment arrangement</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
@@ -140,10 +226,39 @@
                 <fieldItem>Record.IDR_Other_Remedy_Provided__c</fieldItem>
                 <identifier>RecordIDR_Other_Remedy_Provided_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>99</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Other_Remedy_Provided__c</fieldItem>
+                <identifier>RecordIDR_Other_Remedy_Provided_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>99</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -157,10 +272,39 @@
                 <fieldItem>Record.IDR_Financial_Remedy_Points__c</fieldItem>
                 <identifier>RecordIDR_Financial_Remedy_Points_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Reward Points</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Financial_Remedy_Points__c</fieldItem>
+                <identifier>RecordIDR_Financial_Remedy_Points_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Reward Points</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -174,10 +318,39 @@
                 <fieldItem>Record.IDR_Provided_details_to_Manufacturer__c</fieldItem>
                 <identifier>RecordIDR_Provided_details_to_Manufacturer_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.IDR_Complaint_Remedy__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>3</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Provided_details_to_Manufacturer__c</fieldItem>
+                <identifier>RecordIDR_Provided_details_to_Manufacturer_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>3</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -191,7 +364,7 @@
                 <fieldItem>Record.IDR_Financial_Compensation__c</fieldItem>
                 <identifier>RecordIDR_Financial_Compensation_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.IDR_Complaint_Remedy__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -200,12 +373,50 @@
                     <criteria>
                         <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
                         <operator>EQUAL</operator>
+                        <rightValue>10</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
                         <rightValue>18</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Financial_Compensation__c</fieldItem>
+                <identifier>RecordIDR_Financial_Compensation_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2 OR 3)AND 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>1</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>10</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>18</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -214,6 +425,364 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Complaint_Remedy_Offered__c</fieldItem>
+                <identifier>RecordComplaint_Remedy_Offered_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Complaint_Remedy_Offered__c</fieldItem>
+                <identifier>RecordIDR_Complaint_Remedy_Offered_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Complaint_Sub_Remedy_Offered__c</fieldItem>
+                <identifier>RecordComplaint_Sub_Remedy_Offered_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Complaint_Sub_Remedy_Offered__c</fieldItem>
+                <identifier>RecordIDR_Complaint_Sub_Remedy_Offered_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Duration_of_Remedy_months_Offered__c</fieldItem>
+                <identifier>RecordDuration_of_Remedy_months_Offered_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2 OR 3 ) AND 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>16</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>20</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Repayment arrangement</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Duration_of_Remedy_months_Offered__c</fieldItem>
+                <identifier>RecordIDR_Duration_of_Remedy_months_Offered_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2 OR 3 )AND 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>16</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>20</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Repayment arrangement</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Other_Remedy_Offered__c</fieldItem>
+                <identifier>RecordOther_Remedy_Offered_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>99</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Other_Remedy_Offered__c</fieldItem>
+                <identifier>RecordIDR_Other_Remedy_Offered_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>99</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Payment_Amount_Offered__c</fieldItem>
+                <identifier>RecordPayment_Amount_Offered_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>1</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>10</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>18</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Payment_Amount_Offered__c</fieldItem>
+                <identifier>RecordIDR_Payment_Amount_Offered_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2 OR 3 )AND 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>1</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>10</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>18</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Rewards_Points_Offered__c</fieldItem>
+                <identifier>RecordRewards_Points_Offered_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Reward Points</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Rewards_Points_Offered__c</fieldItem>
+                <identifier>RecordIDR_Rewards_Points_Offered_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Sub_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Reward Points</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_customer_accept_resolution_offered__c</fieldItem>
+                <identifier>RecordIDR_customer_accept_resolution_offered_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.IDR_Was_the_offer_enhanced_and_accepted__c</fieldItem>
+                <identifier>RecordIDR_Was_the_offer_enhanced_and_accepted_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Offered_details_to_Product_Manufacturer__c</fieldItem>
+                <identifier>RecordOffered_details_to_Product_Manufacturer_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>3</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Offered_details_to_Product_Manufacturer__c</fieldItem>
+                <identifier>RecordOffered_details_to_Product_Manufacturer_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint_Remedy_Offered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>3</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_Complaint__r.Status}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Closed</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-db4aa4f3-5718-4a7b-abb4-645ee2d5926f</name>
         <type>Facet</type>
     </flexiPageRegions>

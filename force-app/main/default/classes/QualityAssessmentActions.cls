@@ -18,11 +18,11 @@ public with sharing class QualityAssessmentActions {
   public static final String EV_TYPE_INTERACTION = 'Interaction QI';
   public static final String EVALUATION_TYPE_MAPPING_ERROR = 'Please note that the selected evaluation type does not align to the select case or record type. Please review your selection.';
   public static final Map<String, String> CASE_RECORDTYPE_TO_QA_EVALUATION_TYPE = new Map<String, String>{
-    'Scam' => 'Fraud & Dispute',
-    'Fraud' => 'Fraud & Dispute',
-    'Recipient_Mule' => 'Fraud & Dispute',
-    'Card_Dispute' => 'Fraud & Dispute',
-    'ATM_Dispute' => 'Fraud & Dispute',
+    'Scam' => 'Fraud',
+    'Fraud' => 'Fraud',
+    'Recipient_Mule' => 'Fraud',
+    'Card_Dispute' => 'Dispute',
+    'ATM_Dispute' => 'Dispute',
     'Identity' => 'Identity & KYC',
     'KYC_QA' => 'Identity & KYC'
   };

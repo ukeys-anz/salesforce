@@ -5,41 +5,36 @@
  * @runTests DisputeExternalCaseStatusActionsTest
  */
 public with sharing class DisputeExternalCaseStatusActions {
+  private static final DisputeExternalCaseStatusRepository DECS_REPOSITORY = (DisputeExternalCaseStatusRepository) Lib_InstanceProvider.forType(
+    DisputeExternalCaseStatusRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+
   private static Map<String, PegaExternalCaseStatuses__mdt> statusMappings {
     private get {
       if (statusMappings != null) {
         return statusMappings;
       }
       statusMappings = new Map<String, PegaExternalCaseStatuses__mdt>();
-      if (!Schema.SObjectType.PegaExternalCaseStatuses__mdt.isQueryable()) {
-        return statusMappings;
-      }
-      for (PegaExternalCaseStatuses__mdt mapping : [
-        SELECT
-          MasterLabel,
-          DisputeReason__c,
-          DisputeStatus__c,
-          ExternalStatus__c,
-          QueueName__c,
-          RecordType__c,
-          SLADaysInStatus__c,
-          SLAQueueName__c
-        FROM PegaExternalCaseStatuses__mdt
-      ]) {
+      for (
+        PegaExternalCaseStatuses__mdt mapping : DECS_REPOSITORY.queryMappings()
+      ) {
         if (String.isBlank(mapping.DisputeReason__c)) {
           statusMappings.put(
             mapping.RecordType__c + mapping.ExternalStatus__c,
             mapping
           );
-        } else {
-          for (String disputeReason : mapping.DisputeReason__c.split(';')) {
-            statusMappings.put(
-              mapping.RecordType__c +
-                mapping.ExternalStatus__c +
-                disputeReason.trim(),
-              mapping
-            );
-          }
+          continue;
+        }
+        for (String disputeReason : mapping.DisputeReason__c.split(';')) {
+          statusMappings.put(
+            mapping.RecordType__c +
+              mapping.ExternalStatus__c +
+              disputeReason.trim(),
+            mapping
+          );
         }
       }
       return statusMappings;
@@ -54,31 +49,14 @@ public with sharing class DisputeExternalCaseStatusActions {
   public static void updateRelatedCasesStatusAndOwner(
     List<External_Case_Status__c> caseStatuses
   ) {
-    List<Case> casesToUpdate = new List<Case>();
-    for (Case caseWithStatuses : queryRelatedCases(caseStatuses)) {
-      Case updatedCase = setCaseStatusAndOwner(caseWithStatuses);
-      if (updatedCase != null) {
-        casesToUpdate.add(updatedCase);
-      }
-    }
-    if (!casesToUpdate.isEmpty()) {
-      DMLUtil.updateRecords(
-        casesToUpdate,
-        !DMLUtil.ALL_OR_NOTHING,
-        DMLUtil.USER_MODE
-      );
-    }
-  }
-
-  /**
-   * @description Retrieves the related cases with their associated external case statuses.
-   * @param caseStatuses The list of external case statuses.
-   * @return The list of cases with their associated external case statuses.
-   */
-  private static List<Case> queryRelatedCases(
-    List<External_Case_Status__c> caseStatuses
-  ) {
-    return queryCasesWithLatestStatus(getParentCaseIds(caseStatuses));
+    Set<Id> parentIds = getParentCaseIds(caseStatuses);
+    List<Case> cases = DECS_REPOSITORY.queryCasesWithLatestStatus(parentIds);
+    cases = setCaseStatusAndOwner(cases);
+    DML_REPOSITORY.updateRecords(
+      cases,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.USER_MODE
+    );
   }
 
   /**
@@ -100,55 +78,36 @@ public with sharing class DisputeExternalCaseStatusActions {
   }
 
   /**
-   * @description Retrieves a list of Case records with their latest External Case Statuses.
-   * @param caseIds A set of Case record IDs to query.
-   * @return A list of Case records with their latest External Case Statuses.
-   */
-  public static List<Case> queryCasesWithLatestStatus(Set<Id> caseIds) {
-    return [
-      SELECT
-        Id,
-        Dispute_Reason__c,
-        OwnerId,
-        Status,
-        RecordType.DeveloperName,
-        (
-          SELECT External_Status__c, Status_TimeStamp__c
-          FROM External_Case_Statuses__r
-          ORDER BY Status_TimeStamp__c DESC
-          LIMIT 1
-        )
-      FROM Case
-      WHERE Id IN :caseIds
-      WITH USER_MODE
-    ];
-  }
-
-  /**
    * @description Sets the status and owner of the given case based on the provided case status.
-   * @param theCase The case for which to set the status and owner.
-   * @return new instance of the case record to be updated
+   * @param cases The cases for which to set the status and owner.
+   * @return list of cases to be updated
    */
-  public static Case setCaseStatusAndOwner(Case theCase) {
-    PegaExternalCaseStatuses__mdt mapping = getMapping(theCase);
-    if (mapping == null) {
-      return null;
+  public static List<Case> setCaseStatusAndOwner(List<Case> cases) {
+    List<Case> casesToUpdate = new List<Case>();
+    for (Case theCase : cases) {
+      PegaExternalCaseStatuses__mdt mapping = getMapping(theCase);
+      if (mapping == null) {
+        continue;
+      }
+      Group queue = CommonUtil.getQueueByName(mapping.QueueName__c);
+      if (queue == null) {
+        continue;
+      }
+      if (
+        theCase.Status == mapping.DisputeStatus__c &&
+        theCase.OwnerId == queue.Id
+      ) {
+        continue;
+      }
+      casesToUpdate.add(
+        new Case(
+          Id = theCase.Id,
+          Status = mapping.DisputeStatus__c,
+          OwnerId = queue.Id
+        )
+      );
     }
-    Group queue = CommonUtil.getQueueByName(mapping.QueueName__c);
-    if (queue == null) {
-      return null;
-    }
-    if (
-      theCase.Status == mapping.DisputeStatus__c &&
-      theCase.OwnerId == queue.Id
-    ) {
-      return null;
-    }
-    return new Case(
-      Id = theCase.Id,
-      Status = mapping.DisputeStatus__c,
-      OwnerId = queue.Id
-    );
+    return casesToUpdate;
   }
 
   /**
@@ -192,22 +151,24 @@ public with sharing class DisputeExternalCaseStatusActions {
         slaDays.add((Integer) mapping.SLADaysInStatus__c * 2);
       }
     }
-    if (statusesToCheckSla.isEmpty()) {
-      return new List<External_Case_Status__c>();
-    }
-    List<External_Case_Status__c> caseStatuses = Database.query(
+    String query =
       'SELECT Case__c ' +
-        'FROM External_Case_Status__c ' +
-        'WHERE External_Status__c IN :statusesToCheckSla ' +
-        ' AND Case__r.Status IN :caseStatusesToCheckSla' +
-        ' AND Case__r.RecordType.DeveloperName IN :recordTypesToCheckSla' +
-        ' AND Status_TimeStamp__c IN (N_DAYS_AGO:' +
-        String.join(new List<Integer>(slaDays), ',N_DAYS_AGO:') +
-        ') LIMIT 1000',
-      AccessLevel.USER_MODE
-    );
+      'FROM External_Case_Status__c ' +
+      'WHERE External_Status__c IN :statusesToCheckSla ' +
+      ' AND Case__r.Status IN :caseStatusesToCheckSla' +
+      ' AND Case__r.RecordType.DeveloperName IN :recordTypesToCheckSla' +
+      ' AND Status_TimeStamp__c IN (N_DAYS_AGO:' +
+      String.join(new List<Integer>(slaDays), ',N_DAYS_AGO:') +
+      ') LIMIT 1000';
 
-    return caseStatuses;
+    return DECS_REPOSITORY.queryCaseStatuses(
+      query,
+      new Map<String, Object>{
+        'statusesToCheckSla' => statusesToCheckSla,
+        'caseStatusesToCheckSla' => caseStatusesToCheckSla,
+        'recordTypesToCheckSla' => recordTypesToCheckSla
+      }
+    );
   }
 
   /**
@@ -216,8 +177,24 @@ public with sharing class DisputeExternalCaseStatusActions {
    */
   @future
   public static void assignCaseToSlaQueueAsync(Set<Id> caseIds) {
+    List<Case> cases = DECS_REPOSITORY.queryCasesWithLatestStatus(caseIds);
+    cases = assignCaseToSlaQueue(cases);
+    DML_REPOSITORY.updateRecords(
+      cases,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.USER_MODE
+    );
+  }
+
+  /**
+   * @description Assigns cases to the SLA queue based on certain conditions.
+   * @param cases The list of cases to be processed.
+   * @return `List<Case>` The list of cases that were updated with the new owner.
+   */
+  @TestVisible
+  private static List<Case> assignCaseToSlaQueue(List<Case> cases) {
     List<Case> casesToUpdate = new List<Case>();
-    for (Case theCase : queryCasesWithLatestStatus(caseIds)) {
+    for (Case theCase : cases) {
       PegaExternalCaseStatuses__mdt mapping = getMapping(theCase);
       if (
         mapping == null ||
@@ -239,12 +216,6 @@ public with sharing class DisputeExternalCaseStatusActions {
         casesToUpdate.add(new Case(Id = theCase.Id, OwnerId = slaQueue.Id));
       }
     }
-    if (!casesToUpdate.isEmpty()) {
-      DMLUtil.updateRecords(
-        casesToUpdate,
-        !DMLUtil.ALL_OR_NOTHING,
-        DMLUtil.USER_MODE
-      );
-    }
+    return casesToUpdate;
   }
 }

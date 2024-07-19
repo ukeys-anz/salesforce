@@ -548,10 +548,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Referred to Fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Yes</fullName>
             <default>false</default>
         </values>
@@ -7198,6 +7194,10 @@
         <picklist>OnboardingVerificationFailedReason__c</picklist>
         <values>
             <fullName>Confirmed Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmed Fraud - Selfie Watchlist</fullName>
             <default>false</default>
         </values>
         <values>

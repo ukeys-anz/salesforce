@@ -22,7 +22,7 @@ public class FinancialAccountModelV1Test {
 
     System.assertEquals(
       '000000000',
-      obj.account_list[0].account_number,
+      obj.account_list[1].account_number,
       'Account number should be as expected.'
     );
   }

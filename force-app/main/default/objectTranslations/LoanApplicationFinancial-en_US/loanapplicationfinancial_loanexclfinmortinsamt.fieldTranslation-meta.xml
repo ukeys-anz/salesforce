@@ -3,7 +3,7 @@
     <name>loanapplicationfinancial_loanexclfinmortinsamt</name>
     <caseValues>
         <plural>false</plural>
-        <value>Loan Amount</value>
+        <value>Requested Loan Amount</value>
     </caseValues>
     <startsWith>Consonant</startsWith>
 </CustomFieldTranslation>

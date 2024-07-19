@@ -5,6 +5,13 @@
  */
 @isTest
 private class CCRMLeadActionsTest {
+  static Lib_MockProvider leadRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
+    leadRepoMock = Lib_MockProvider.forType(CCRMLeadRepository.class);
+  }
+
   @testSetup
   static void setup() {
     CCRMTestDataFactory.createAdobeIntegrationUser();
@@ -1159,6 +1166,7 @@ private class CCRMLeadActionsTest {
       );
     }
   }
+
   @isTest
   static void testUpdateNewToBankFlagWithProspectCust() {
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
@@ -1290,5 +1298,69 @@ private class CCRMLeadActionsTest {
         'Lead updated successfully'
       );
     }
+  }
+
+  @isTest
+  static void testsetCustomerOnA2ZReview() {
+    User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
+    System.runAs(ccrmBaseUser) {
+      Account testAccount = CCRMTestDataFactory.createProspectBusinessAccount(
+        ccrmBaseUser.Id
+      );
+      Lead testLead = CCRMTestDataFactory.createLeadRecords(
+        1,
+        ccrmBaseUser,
+        true
+      )[0];
+      A_Z_Review__c testA2ZReview = new A_Z_Review__c(
+        Name = 'A-Z Review Record',
+        Status__c = 'In Progress',
+        RecordTypeId = CCRMConstants.AZ_REVIEW_RT_ID,
+        OwnerId = ccrmBaseUser.Id,
+        Lead__c = testLead.Id
+      );
+      insert testA2ZReview;
+
+      Lead testLeadNew = testLead;
+      testLeadNew.FinServ__RelatedAccount__c = testAccount.Id;
+
+      Test.startTest();
+      update testLeadNew;
+      Test.stopTest();
+
+      A_Z_Review__c updatedReview = [
+        SELECT Id, Name, Lead__c, Opportunity__c, Customer__c
+        FROM A_Z_Review__c
+        WHERE Id = :testA2ZReview.Id
+      ];
+
+      System.assertEquals(
+        testAccount.Id,
+        updatedReview.Customer__c,
+        'Customer__c should be set to the Account'
+      );
+    }
+  }
+
+  @isTest
+  static void testpreventDeletionForCCRM() {
+    Lib_MockProvider.forType(CCRMLeadRepository.class)
+      .mock(
+        'getUserProfileId',
+        CommonUtil.getProfileByName(CCRMConstants.CCRM_PROFILE_NAME).Id
+      );
+    String mockLeadID = (String) Lib_FakeIdGenerator.getMockId(
+      Lead.getSObjectType()
+    );
+    List<lead> listOfleads = new List<Lead>{
+      new Lead(Id = mockLeadID, RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID)
+    };
+    Test.startTest();
+    CCRMLeadActions.preventDeletionForCCRM(listOfleads);
+    Test.stopTest();
+    Assert.isTrue(
+      listOfleads[0].hasErrors(),
+      'Lead record should have an error to prevent deletion.'
+    );
   }
 }

@@ -1,17 +1,20 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
+import { handleErrorShowToast } from "c/utils";
 const SUB_REMS = ["16", "20", "Repayment arrangement"];
 const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
 const REFERRED_TO_PRODUCT = "3";
 const OTHER = "99";
-const REMS = ["1", "10", "18"];
+const REMS = ["1"];
+const SUBREMS = ["10", "18"];
 
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
   loading = false;
   @track missingFields = [];
+  @track numberOnlyFields = [];
   @track modalMsg;
   @track showModal = false;
   @track modalHeader = "Error";
@@ -22,18 +25,59 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
 
   callCloseCaseIP() {
     this.missingFields = [];
+    this.numberOnlyFields = [];
     this.modalMsg = "";
     let shouldBreak = this.validateIssueTypeFieldValues();
     if (shouldBreak) {
       return;
     }
+    if (this.validateRealFormID()) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Please Validate Real Form ID."
+      );
+      return;
+    }
+    if (this.omniJsonData.Case.ComplaintStatus_OLD === "On Hold") {
+      handleErrorShowToast(
+        this,
+        "Invalid stage in complaint process",
+        undefined,
+        "This is not a valid stage in the complaint process."
+      );
+      return;
+    }
+    if (
+      this.omniJsonData.Case.realFormRequired === "Yes" &&
+      this.omniJsonData.Case.REALFormMAXID !==
+        this.omniJsonData.Case.REALFormMAXID_OLD &&
+      this.omniJsonData.validatedEventNumber !==
+        this.omniJsonData.Case.REALFormMAXID
+    ) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Revalidate Risk Event ID"
+      );
+      this.loading = false;
+      return;
+    }
+
+    this.allNumeric();
+    if (this.numberOnlyFields.length > 0) {
+      this.modalMsg =
+        "Please Enter Valid Numbers for: " + this.numberOnlyFields.join(", ");
+      this.showModal = true;
+      return;
+    }
+
     this.validateFields();
     if (this.missingFields.length > 0) {
-      if (this.missingFields.length > 0) {
-        this.modalMsg =
-          "Please complete all required fields: " +
-          this.missingFields.join(", ");
-      }
+      this.modalMsg =
+        "Please complete all required fields: " + this.missingFields.join(", ");
       this.showModal = true;
     } else {
       this.showModal = false;
@@ -107,7 +151,18 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
   // validate that all the required fields data has been provided
   validateFields() {
     let details = this.omniJsonData.Case;
-    this.checkFields(details, this.omniJsonData.closeReqMap);
+    if (
+      this.omniJsonData.Case.ComplaintStatus === "Closed" &&
+      this.omniJsonData.Case.CustomerAcceptTheResolution === "No"
+    )
+      this.checkFields(details, this.omniJsonData.closeReqMap);
+    if (
+      this.omniJsonData.Case.ComplaintStatus === "Closed" &&
+      this.omniJsonData.Case.CustomerAcceptTheResolution === "Yes"
+    )
+      this.checkFields(details, this.omniJsonData.closeReqMapAccepted);
+    if (this.omniJsonData.Case.ComplaintStatus === "Provisionally Closed")
+      this.checkFields(details, this.omniJsonData.closeReqMapOffered);
     if (
       details.Type === undefined ||
       details.Type === null ||
@@ -121,30 +176,90 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
     )
       this.missingFields.push("Subsequent Issue Type");
     if (
-      details.ComplaintRemedy1 === REFERRED_TO_PRODUCT &&
+      (details.ComplaintRemedy1 === REFERRED_TO_PRODUCT ||
+        details.ComplaintRemedy1Accepted === REFERRED_TO_PRODUCT) &&
       !details.detailsOfComplaint1
     )
       this.missingFields.push(
         "The details of this complaint have been provided to the product manufacturer"
       );
     if (
+      details.ComplaintRemedy1Offered === REFERRED_TO_PRODUCT &&
+      !details.OfferedDetails1 &&
+      details.ComplaintStatus === "Provisionally Closed"
+    )
+      this.missingFields.push(
+        "Offered to provide details of this complaint to the product manufacturer 1"
+      );
+    if (
       SUB_REMS.includes(details.ComplaintSubRemedy1) &&
       !details.durationOfRemedy1
     )
       this.missingFields.push("Duration Of Remedy (months) 1");
+    if (
+      SUB_REMS.includes(details.ComplaintSubRemedy1Offered) &&
+      !details.DurationofRemedy1Offered
+    )
+      this.missingFields.push("Duration Of Remedy (months) 1 Offered");
+    if (
+      SUB_REMS.includes(details.ComplaintSubRemedy1Accepted) &&
+      !details.durationOfRemedy1Accepted
+    )
+      this.missingFields.push("Duration Of Remedy (months) 1");
+
     if (details.ComplaintSubRemedy1 === OTHER && !details.otherRemedy1)
       this.missingFields.push("Other Remedy 1");
     if (
+      details.ComplaintSubRemedy1Offered === OTHER &&
+      !details.OtherRemedy1Offered
+    )
+      this.missingFields.push("Other Remedy 1 offered");
+
+    if (
+      details.ComplaintSubRemedy1Accepted === OTHER &&
+      !details.otherRemedy1Accepted
+    )
+      this.missingFields.push("Other Remedy 1");
+    if (
       details.ComplaintSubRemedy1 === "Reward Points" &&
-      !details.rewardPoints1
+      !details.RewardPoints1
     )
       this.missingFields.push("Reward Points 1");
     if (
-      REMS.includes(details.ComplaintRemedy1) &&
+      details.ComplaintSubRemedy1Offered === "Reward Points" &&
+      !details.RewardPoints1Offered
+    )
+      this.missingFields.push("Reward Points 1 Offered");
+    if (
+      details.ComplaintSubRemedy1Accepted === "Reward Points" &&
+      !details.rewardPoints1Accepted
+    )
+      this.missingFields.push("Reward Points 1");
+    if (
+      (REMS.includes(details.ComplaintRemedy1) ||
+        SUBREMS.includes(details.ComplaintSubRemedy1)) &&
       !details.PaymentAmountProvided1
     )
       this.missingFields.push("Payment Amount Provided 1");
-    if (details.SecondComplaintCheckbox === "Yes") {
+    if (
+      (REMS.includes(details.ComplaintRemedy1Offered) ||
+        SUBREMS.includes(details.ComplaintSubRemedy1Offered)) &&
+      !details.PaymentAmount1Offered
+    )
+      this.missingFields.push("Payment Amount 1 Offered");
+
+    if (
+      (REMS.includes(details.ComplaintRemedy1Accepted) ||
+        SUBREMS.includes(details.ComplaintSubRemedy1Accepted)) &&
+      !details.PaymentAmountProvided1Accepted
+    )
+      this.missingFields.push("Payment Amount Provided 1");
+
+    if (
+      details.SecondComplaintCheckbox === "Yes" &&
+      details.ComplaintStatus === "Closed" &&
+      details.CustomerAcceptTheResolution === "No"
+    ) {
       this.checkFields(details, this.omniJsonData.secCmpMap);
       if (
         details.ComplaintRemedy2 === REFERRED_TO_PRODUCT &&
@@ -166,12 +281,54 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       )
         this.missingFields.push("Reward Points 2");
       if (
-        REMS.includes(details.ComplaintRemedy2) &&
+        (REMS.includes(details.ComplaintRemedy2) ||
+          SUBREMS.includes(details.ComplaintSubRemedy2)) &&
         !details.PaymentAmountProvided2
       )
         this.missingFields.push("Payment Amount Provided 2");
     }
-    if (details.ThirdComplaintCheckbox === "Yes") {
+    if (
+      details.SecondComplaintCheckbox === "Yes" &&
+      details.ComplaintStatus === "Closed" &&
+      details.CustomerAcceptTheResolution === "Yes"
+    ) {
+      this.checkFields(details, this.omniJsonData.SeccloseReqMapAccepted);
+      if (
+        details.ComplaintRemedy2Accepted === REFERRED_TO_PRODUCT &&
+        !details.detailsOfComplaint2
+      )
+        this.missingFields.push(
+          "The details of this complaint have been provided to the product manufacturer 2"
+        );
+
+      if (
+        SUB_REMS.includes(details.ComplaintSubRemedy2Accepted) &&
+        !details.durationOfRemedy2Accepted
+      )
+        this.missingFields.push("Duration Of Remedy (months) 2");
+
+      if (
+        details.ComplaintSubRemedy2Accepted === OTHER &&
+        !details.otherRemedy2Accepted
+      )
+        this.missingFields.push("Other Remedy 2");
+      if (
+        details.ComplaintSubRemedy2Accepted === "Reward Points" &&
+        !details.rewardPoints2Accepted
+      )
+        this.missingFields.push("Reward Points 2");
+      if (
+        (REMS.includes(details.ComplaintRemedy2Accepted) ||
+          SUBREMS.includes(details.ComplaintSubRemedy2Accepted)) &&
+        !details.PaymentAmountProvided2Accepted
+      )
+        this.missingFields.push("Payment Amount Provided 2");
+    }
+    if (
+      details.ThirdComplaintCheckbox === "Yes" &&
+      details.ComplaintStatus === "Closed" &&
+      details.CustomerAcceptTheResolution === "No"
+    ) {
       this.checkFields(details, this.omniJsonData.thirdCmpMap);
       if (
         details.ComplaintRemedy3 === REFERRED_TO_PRODUCT &&
@@ -193,11 +350,120 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       )
         this.missingFields.push("Reward Points 3");
       if (
-        REMS.includes(details.ComplaintRemedy3) &&
+        (REMS.includes(details.ComplaintRemedy3) ||
+          SUBREMS.includes(details.ComplaintSubRemedy3)) &&
         !details.PaymentAmountProvided3
       )
         this.missingFields.push("Payment Amount Provided 3");
     }
+    if (
+      details.ThirdComplaintCheckbox === "Yes" &&
+      details.ComplaintStatus === "Closed" &&
+      details.CustomerAcceptTheResolution === "Yes"
+    ) {
+      this.checkFields(details, this.omniJsonData.thirdCmpMapAccepted);
+      if (
+        details.ComplaintRemedy3Accepted === REFERRED_TO_PRODUCT &&
+        !details.detailsOfComplaint3
+      )
+        this.missingFields.push(
+          "The details of this complaint have been provided to the product manufacturer 3"
+        );
+      if (
+        SUB_REMS.includes(details.ComplaintSubRemedy3Accepted) &&
+        !details.durationOfRemedy3Accepted
+      )
+        this.missingFields.push("Duration Of Remedy (months) 3");
+      if (
+        details.ComplaintSubRemedy3Accepted === OTHER &&
+        !details.otherRemedy3Accepted
+      )
+        this.missingFields.push("Other Remedy 3");
+      if (
+        details.ComplaintSubRemedy3Accepted === "Reward Points" &&
+        !details.rewardPoints3Accepted
+      )
+        this.missingFields.push("Reward Points 3");
+      if (
+        (REMS.includes(details.ComplaintRemedy3Accepted) ||
+          SUBREMS.includes(details.ComplaintSubRemedy3Accepted)) &&
+        !details.PaymentAmountProvided3Accepted
+      )
+        this.missingFields.push("Payment Amount Provided 3");
+    }
+
+    if (
+      details.ComplaintStatus === "Provisionally Closed" &&
+      details.SecondComplaintRemedyOffered === "Yes"
+    ) {
+      this.checkFields(details, this.omniJsonData.SeccloseReqMapOffered);
+      if (
+        details.ComplaintRemedy2Offered === REFERRED_TO_PRODUCT &&
+        !details.OfferedDetails2
+      )
+        this.missingFields.push(
+          "Offered to provide details of this complaint to the product manufacturer 2"
+        );
+
+      if (
+        SUB_REMS.includes(details.ComplaintSubRemedy2Offered) &&
+        !details.DurationofRemedy2Offered
+      )
+        this.missingFields.push("Duration Of Remedy (months) 2 Offered");
+
+      if (
+        details.ComplaintSubRemedy2Offered === OTHER &&
+        !details.OtherRemedy2Offered
+      )
+        this.missingFields.push("Other Remedy 2 Offered");
+      if (
+        details.ComplaintSubRemedy2Offered === "Reward Points" &&
+        !details.RewardPoints2Offered
+      )
+        this.missingFields.push("Reward Points 2 Offered");
+      if (
+        (REMS.includes(details.ComplaintRemedy2Offered) ||
+          SUBREMS.includes(details.ComplaintSubRemedy2Offered)) &&
+        !details.PaymentAmount2Offered
+      )
+        this.missingFields.push("Payment Amount Offered 2");
+    }
+
+    if (
+      details.ComplaintStatus === "Provisionally Closed" &&
+      details.ThirdComplaintRemedyOffered === "Yes"
+    ) {
+      this.checkFields(details, this.omniJsonData.thirdCmpMapOffered);
+      if (
+        details.ComplaintRemedy3Offered === REFERRED_TO_PRODUCT &&
+        !details.OfferedDetails3
+      )
+        this.missingFields.push(
+          "Offered to provide details of this complaint to the product manufacturer 3"
+        );
+      if (
+        SUB_REMS.includes(details.ComplaintSubRemedy3Offered) &&
+        !details.DurationofRemedy3Offered
+      )
+        this.missingFields.push("Duration Of Remedy (months) 3 offered");
+      if (
+        details.ComplaintSubRemedy3Offered === OTHER &&
+        !details.OtherRemedy3Offered
+      )
+        this.missingFields.push("Other Remedy 3 Offered");
+      if (
+        details.ComplaintSubRemedy3Offered === "Reward Points" &&
+        !details.RewardPoints3Offered
+      )
+        this.missingFields.push("Reward Points 3 Offered");
+      if (
+        (REMS.includes(details.ComplaintRemedy3Offered) ||
+          SUBREMS.includes(details.ComplaintSubRemedy3Offered)) &&
+        !details.PaymentAmount3Offered
+      )
+        this.missingFields.push("Payment Amount 3 Offered");
+    }
+
     if (details.realFormRequired === "Yes")
       this.checkFields(details, this.omniJsonData.realFormMap);
     if (details.isSystemicIssue === "Yes")
@@ -220,6 +486,89 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       !details.avoidableEscalationReason
     )
       this.missingFields.push("Avoidable Escalation Reason");
+  }
+
+  validateRealFormID() {
+    if (
+      this.omniJsonData.Case.ComplaintStatus === "Closed" &&
+      this.omniJsonData.Case.realFormRequired === "Yes" &&
+      (this.omniJsonData.Case.REALFormMAXID !== undefined ||
+        this.omniJsonData.Case.REALFormMAXID !== null) &&
+      this.omniJsonData.Case.REALFormMAXID !==
+        this.omniJsonData.Case.REALFormMAXID_OLD &&
+      !(
+        this.omniJsonData.apiRun &&
+        this.omniJsonData.apiSuccess &&
+        this.omniJsonData.RiskFormIDValid
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  allNumeric() {
+    if (this.checkIsNumber(this.omniJsonData.Case.DurationofRemedy1Offered)) {
+      this.numberOnlyFields.push("Duration Of Remedy 1 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.DurationofRemedy2Offered)) {
+      this.numberOnlyFields.push("Duration Of Remedy 2 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.DurationofRemedy3Offered)) {
+      this.numberOnlyFields.push("Duration Of Remedy 3 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy1)) {
+      this.numberOnlyFields.push("Duration Of Remedy 1");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy2)) {
+      this.numberOnlyFields.push("Duration Of Remedy 2");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy3)) {
+      this.numberOnlyFields.push("Duration Of Remedy 3");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy1Accepted)) {
+      this.numberOnlyFields.push("Duration Of Remedy 1");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy2Accepted)) {
+      this.numberOnlyFields.push("Duration Of Remedy 2");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.durationOfRemedy3Accepted)) {
+      this.numberOnlyFields.push("Duration Of Remedy 3");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.RewardPoints1)) {
+      this.numberOnlyFields.push("Reward Point 1");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints2)) {
+      this.numberOnlyFields.push("Reward Point 2");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints3)) {
+      this.numberOnlyFields.push("Reward Point 3");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints1Accepted)) {
+      this.numberOnlyFields.push("Reward Point 1");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints2Accepted)) {
+      this.numberOnlyFields.push("Reward Point 2");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.rewardPoints3Accepted)) {
+      this.numberOnlyFields.push("Reward Point 3");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.RewardPoints1Offered)) {
+      this.numberOnlyFields.push("Reward Point 1 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.RewardPoints2Offered)) {
+      this.numberOnlyFields.push("Reward Point 2 Offered");
+    }
+    if (this.checkIsNumber(this.omniJsonData.Case.RewardPoints3Offered)) {
+      this.numberOnlyFields.push("Reward Point 3 Offered");
+    }
+  }
+  checkIsNumber(detail) {
+    var numbers = /^[-+]?[0-9]+$/;
+    if (detail !== undefined && detail !== null && !detail.match(numbers)) {
+      return true;
+    }
+    return false;
   }
 
   checkFields(detail, reMap) {

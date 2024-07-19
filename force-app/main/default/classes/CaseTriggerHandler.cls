@@ -44,12 +44,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.populateOCVOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
     GetHelpCaseActions.setOwnerToIDOpsQueue(records);
-    AutoKYCQACaseActions kycCaseActions = new AutoKYCQACaseActions(
-      (List<Case>) records,
-      new Map<Id, Case>()
-    );
-    kycCaseActions.onBeforeInsert();
-    GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
       (List<Case>) records,
       null
@@ -82,7 +76,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
-    GetHelpCaseActions.onlyAllowOneOpenProfileUpdateCase(records);
     IDR_CaseReportingCalculations.calculateCaseOpenTime(
       (List<Case>) records,
       (new Map<ID, Case>())
@@ -151,17 +144,12 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
 
-    GetHelpCaseActions.checkCustomerUpdatePendingStatus(
+    //Update the IDOps Case's Onboarding Verification Failed Reason
+    GetHelpCaseActions.updateIDOpsWatchlistOnboardingReason(
       records,
       (Map<Id, Case>) oldMap
     );
 
-    AutoKYCQACaseActions autoKYCQACaseActions = new AutoKYCQACaseActions(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
-
-    autoKYCQACaseActions.onBeforeUpdate();
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }

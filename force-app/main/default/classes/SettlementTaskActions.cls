@@ -33,7 +33,7 @@ public with sharing class SettlementTaskActions {
           Task.Description
         )
       ) {
-        record.Description = TextUtils.maskData(record.Description);
+        record.Description = TextUtils.maskDataAnzx(record.Description);
       }
     }
   }

@@ -38,6 +38,7 @@ SingleSignOn.settings
 force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 force-app/main/default/authproviders/ANZ_Single_Sign_On.authprovider-meta.xml
 force-app/main/default/authproviders/Salesforce_API_Access.authprovider-meta.xml
+force-app/main/default/authproviders/ServiceNow_Connect.authprovider-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
@@ -81,9 +82,6 @@ force-app/main/default/datacategorygroups
 #Ignoring deleted platform event for Nov 10 develop merge - CMOS
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e
 
-#Ignoring the deploy user's pset, likely to break scratch org creation
-force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
-
 #Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
 #as metadata API does not support deleting record type, to avoid destructive change error
 force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml
@@ -108,6 +106,12 @@ force-app/main/default/matchingRules/
 # Now that entitlementProcesses are versioned we no longer need to ignore them.
 #force-app/main/default/entitlementProcesses/
 force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
+# Temporary add old version of EPs to deploy.forceignore
+force-app/main/default/entitlementProcesses/complaints_v2.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints_v7.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints_v10.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints_v11.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
 
 #to prevent issues when deploying looking for depracated process name
 force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
@@ -136,6 +140,7 @@ force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
+force-app/main/default/objects/Case/listViews/Deceased_Estate_Cases.listView-meta.xml
 
 #ignore to allow linting
 force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
@@ -196,6 +201,11 @@ force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-
 #ANZX-110254-delete unused resource file
 force-app/main/default/staticresources/mock_sopListAssets.resource-meta.xml
 
-
 #CC-6285 ignore for manual delete
 force-app/main/default/flows/CCRM_Hide_Expired_Contacts_Schedule.flow-meta.xml
+
+#ANZX-157800 AUF Transformer squad
+force-app/main/default/aura/QuickActionAuraContainer
+
+#ANZX-155504 ignore for manual delete
+force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml

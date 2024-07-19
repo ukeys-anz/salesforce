@@ -6,7 +6,7 @@
     <fields>Mobile__c</fields>
     <fields>PersonEmail</fields>
     <fields>PersonOtherAddress</fields>
-    <fields>OCV_ID__c</fields>
-    <fields>Source_System_ID__c</fields>
+    <fields>OCV_ID_CAP_ID__c</fields>
+    <fields>CPID_Link__c</fields>
     <label>Person Account Tabbed Compact Layout</label>
 </CompactLayout>

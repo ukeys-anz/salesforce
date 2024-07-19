@@ -152,11 +152,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    * @name onBeforeDelete
    */
   public override void onBeforeDelete() {
-    for (Lead record : (List<Lead>) records) {
-      if (CCRMLeadUtil.isCCRMLeadType(record)) {
-        record.addError(DELETE_ERROR);
-      }
-    }
+    CCRMLeadActions.preventDeletionForCCRM(records);
   }
 
   /**
@@ -203,5 +199,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Lead');
     CCRMLeadActions.notifyLeadOwners((Map<Id, Lead>) oldMap, records);
     BOHLeadActions.convertBohLeads((Map<Id, Lead>) oldMap, records);
+    CCRMLeadActions.setCustomerOnA2ZReview((Map<Id, Lead>) oldMap, records);
   }
 }

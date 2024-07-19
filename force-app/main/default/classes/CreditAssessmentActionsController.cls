@@ -29,7 +29,8 @@ public with sharing class CreditAssessmentActionsController {
         Property_Valuation_Id__c,
         Assessment_Outcome__c,
         Loan_Application__r.Credit_Reassess_Required__c,
-        Account.OCV_Id__c
+        Account.OCV_Id__c,
+        Title_Reference_Number__c
       FROM Case
       WHERE Id = :recordId
     ];
@@ -47,12 +48,14 @@ public with sharing class CreditAssessmentActionsController {
 
     try {
       CreditAssessmentAPIRepository creditApi = new CreditAssessmentAPIRepository();
-      creditApi.submitReassessment(
-        c.Credit_Id__c,
-        recordId,
-        c.Property_Valuation_Id__c,
-        c.Account.OCV_ID__c
-      );
+      Map<String, String> payload = new Map<String, String>();
+      payload.put('creditId', c.Credit_Id__c);
+      payload.put('recordId', recordId);
+      payload.put('collateralAssessmentId', c.Property_Valuation_Id__c);
+      payload.put('ocvId', c.Account.OCV_ID__c);
+      payload.put('titleReferenceNumber', c.Title_Reference_Number__c);
+
+      creditApi.submitReassessment(payload);
       c.Assessment_Outcome__c = 'Processing';
       DMLUtil.updateRecords(new List<Case>{ c }, false, false);
       ResidentialLoanApplication rla = [

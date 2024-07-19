@@ -61,8 +61,8 @@ public with sharing class CCRMGuaranteeFeeDetailQuery extends CCRMFinancialAccou
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        fee.compositeGuaranteesFeeId
+          '/' +
+          fee.compositeGuaranteesFeeId
       );
       List<String> values = fee.compositeGuaranteesFeeId != null
         ? fee.compositeGuaranteesFeeId.split('-')

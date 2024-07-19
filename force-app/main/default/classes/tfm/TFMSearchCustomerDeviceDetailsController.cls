@@ -55,7 +55,12 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
         .contains(TFMConstants.USE_MOCK)
       ? returnMockPersonDigitalIdentity()
       : [
-          SELECT Id, credentialsResId__c, Internal_User_ID__c, OCV_ID__c
+          SELECT
+            Id,
+            credentialsResId__c,
+            Internal_User_ID__c,
+            OCV_ID__c,
+            Status__c
           FROM PersonDigitalIdentity__x
           WHERE Id = :recordId
         ];
@@ -123,6 +128,20 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
         responseMap,
         dRName
       );
+      Boolean hasAccessToAegisFeatures = FeatureManagement.checkPermission(
+          'AccessAegisFeatures'
+        ) &&
+        digitalIdentityRecord.Status__c.toLowerCase() != TFMConstants.ARCHIVED
+        ? true
+        : false;
+      transformedDeviceDetails.put(
+        TFMConstants.RECORDID,
+        digitalIdentityRecord.Id
+      );
+      transformedDeviceDetails.put(
+        TFMConstants.ACCESS_AEGIS_FEATURES,
+        String.valueOf(hasAccessToAegisFeatures)
+      );
       transformedDeviceDetailsList.add(transformedDeviceDetails);
     }
     return transformedDeviceDetailsList;
@@ -152,6 +171,7 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
     Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
       response.body
     );
+    responseMap.put(TFMConstants.DEVICERESOURCEID, deviceResourceId);
     return responseMap;
   }
 
@@ -188,7 +208,7 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
     Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
       response.body
     );
-    responseMap.put('deviceResourceId', deviceResourceId);
+    responseMap.put(TFMConstants.DEVICERESOURCEID, deviceResourceId);
     responseMap.put(
       'biometricConstants',
       (Object) biometricAttestationIdConstantsList
@@ -237,7 +257,11 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
     PersonDigitalIdentity__x digitalIdentityRecord = new PersonDigitalIdentity__x(
       credentialsResId__c = TFMConstants.CREDENTIALSRESID,
       Internal_User_ID__c = TFMConstants.INTERNAL_USER_ID,
-      OCV_ID__c = TFMConstants.OCV_ID_VALUE
+      OCV_ID__c = TFMConstants.OCV_ID_VALUE,
+      Id = Lib_FakeIdGenerator.getMockId(
+        PersonDigitalIdentity__x.getSObjectType()
+      ),
+      Status__c = TFMConstants.ACTIVE
     );
     return digitalIdentityRecord;
   }

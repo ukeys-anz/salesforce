@@ -19,6 +19,10 @@ permissions:
   contents: write
   id-token: write
 
+concurrency:
+  group: "${{ github.run_id }}"
+  cancel-in-progress: false
+
 jobs:
   validation-run:
     if: ${{ github.event.action != 'closed' }}
@@ -26,26 +30,23 @@ jobs:
 
   validation:
     if: ${{ always() }}
-    runs-on: [self-hosted, salesforce-prod]
+    runs-on: anzx-default
     needs: [validation-run]
     steps:
-      - if: ${{ needs.validation-run.result == 'success' }}
+      - if: ${{ (needs.validation-run.result == 'success') || (github.event.pull_request.merged == true) }}
         run: echo "Validation Run Succeed"
 
-      - if: ${{ needs.validation-run.result != 'success' }}
+      - if: ${{ (needs.validation-run.result != 'success') && (github.event.pull_request.merged != true)}}
         run: |
           echo "Validation Run Failed"
           exit 1
 
-  validation-intpnv-sandbox:
+  validation-deployment-different-sandboxes:
     if: ${{ (github.base_ref == 'master') && (github.event.pull_request.merged == true) }}
-    uses: ./.github/workflows/_validation.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        secret-name: ["sf-platform-np-intpnv", "sf-platform-np-blm"]
+    uses: ./.github/workflows/_validation-quick-deployment.yml
     with:
-      sfdx_name: "sf-platform-np-intpnv"
-
-  quick-deploy-intpnv-sandbox:
-    if: ${{ github.event.pull_request.merged == true }}
-    needs: [validation-intpnv-sandbox]
-    uses: ./.github/workflows/_quick-deployment.yml
-    with:
-      sfdx_name: "sf-platform-np-intpnv"
+      sfdx_name: ${{ matrix.secret-name }}

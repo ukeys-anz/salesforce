@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Complaint_Outcome_Offered__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Free text explaining the outcome offered of the complaint</description>
+    <externalId>false</externalId>
+    <label>Complaint Outcome Offered</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Origin</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>In favour of customer in full</label>
+            </value>
+            <value>
+                <fullName>2</fullName>
+                <default>false</default>
+                <label>In favour of customer in part</label>
+            </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <label>In favour of ANZ</label>
+            </value>
+            <value>
+                <fullName>No response from Customer</fullName>
+                <default>false</default>
+                <label>No response from Customer</label>
+            </value>
+            <value>
+                <fullName>Outside of Rules</fullName>
+                <default>false</default>
+                <label>Outside of Rules</label>
+            </value>
+            <value>
+                <fullName>Merits Assessments</fullName>
+                <default>false</default>
+                <label>Merits Assessments</label>
+            </value>
+            <value>
+                <fullName>Merged</fullName>
+                <default>false</default>
+                <label>Merged</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Web</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus App</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Phone</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>1</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Web</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus App</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Phone</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>2</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Web</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus App</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Phone</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>8</controllingFieldValue>
+            <valueName>3</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>No response from Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>Outside of Rules</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>Merits Assessments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>Merged</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

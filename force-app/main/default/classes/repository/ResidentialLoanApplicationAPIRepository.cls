@@ -133,7 +133,7 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
   /**
    * @param sopId sop id to retrieve customer information
    * @param ocvId ocv id of the customer account
-   * @param deleIncomeModel the name and tag of income to be deleted
+   * @param deleModel the name and tag of income to be deleted
    * @param loanId of the working loan application
    * @return `Boolean` indicate deletion result
    * @description delete a income from sop
@@ -141,15 +141,71 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
   public Boolean deleteIncome(
     String sopId,
     String ocvId,
-    String deleIncomeModel,
+    String deleModel,
     String loanId
   ) {
     Service s = ServiceProvider.getService(BOHService.class);
-    HttpCalloutResponse response = s.deleteIncome(
-      sopId,
+    HttpCalloutResponse response = s.deleteIncome(sopId, ocvId, deleModel);
+    if (!response.successful) {
+      throw response.error;
+    }
+    try {
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (Exception e) {
+      handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
+    }
+    return false;
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param debtBody post data of debt information
+   * @param loanId of the working loan application
+   * @description fetches a list of assets from flex for a sop, deserialized to a model
+   */
+  public void createDebt(String ocvId, String debtBody, String loanId) {
+    Service s = ServiceProvider.getService(BOHService.class);
+    UUIDLog uuidLog = new UUIDLog(debtBody);
+    HttpCalloutResponse response = s.createDebt(
       ocvId,
-      deleIncomeModel
+      uuidLog.attachUUID(debtBody)
     );
+    if (response.successful == false) {
+      uuidLog.insertUUID(loanId, 'BOH - SOP - Create Debt');
+      throw response.error;
+    }
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param debtBody post data of debt information
+   * @param loanId of the working loan application
+   * @description fetches a list of assets from flex for a sop, deserialized to a model
+   */
+  public void editDebt(String ocvId, String debtBody, String loanId) {
+    Service s = ServiceProvider.getService(BOHService.class);
+    UUIDLog uuidLog = new UUIDLog(debtBody);
+    HttpCalloutResponse response = s.editDebt(ocvId, debtBody);
+    if (response.successful == false) {
+      uuidLog.insertUUID(loanId, 'BOH - SOP - Update Debt');
+      throw response.error;
+    }
+  }
+
+  /**
+   * @param sopId sop id to retrieve customer information
+   * @param ocvId ocv id of the customer account
+   * @param deleModel the name and tag of debt to be deleted
+   * @return `Boolean` indicate deletion result
+   * @description delete a debt from sop
+   */
+  public Boolean deleteDebt(String sopId, String ocvId, String deleModel) {
+    Service s = ServiceProvider.getService(BOHService.class);
+    HttpCalloutResponse response = s.deleteDebt(sopId, ocvId, deleModel);
     if (!response.successful) {
       throw response.error;
     }

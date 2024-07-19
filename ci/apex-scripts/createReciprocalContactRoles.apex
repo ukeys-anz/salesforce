@@ -1,4 +1,6 @@
-List<FinServ__ReciprocalRole__c> newRoles = new List<FinServ__ReciprocalRole__c>{
+// List of new Roles instances
+
+List<FinServ__ReciprocalRole__c> newRolesList = new List<FinServ__ReciprocalRole__c>{
   new FinServ__ReciprocalRole__c(
     Name = 'Managing Director',
     OCV_Role__c = 'Managing Director',
@@ -166,15 +168,238 @@ List<FinServ__ReciprocalRole__c> newRoles = new List<FinServ__ReciprocalRole__c>
     Role_Description__c = 'CAP Rel Code - SEC',
     FinServ__CreateInverseRole__c = false,
     RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Signatory',
+    OCV_Role__c = 'KYC-Signatory',
+    FinServ__InverseRole__c = 'KYC-Signatory',
+    Role_Description__c = 'Siebel Relation Role - Signatory',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Senior Managing Official',
+    OCV_Role__c = 'KYC-Senior Managing Official',
+    FinServ__InverseRole__c = 'KYC-Senior Managing Official',
+    Role_Description__c = 'Siebel Relation Role - Senior Managing Official',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Intermediate BO',
+    OCV_Role__c = 'KYC-Intermediate BO',
+    FinServ__InverseRole__c = 'KYC-Intermediate BO',
+    Role_Description__c = 'Siebel Relation Role - Intermediate BO',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Partner',
+    OCV_Role__c = 'KYC-Partner',
+    FinServ__InverseRole__c = 'KYC-Partner',
+    Role_Description__c = 'Siebel Relation Role - Partner',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Local Representative',
+    OCV_Role__c = 'KYC-Local Representative',
+    FinServ__InverseRole__c = 'KYC-Local Representative',
+    Role_Description__c = 'Siebel Relation Role - Local Representative',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Beneficiary',
+    OCV_Role__c = 'KYC-Beneficiary',
+    FinServ__InverseRole__c = 'KYC-Beneficiary',
+    Role_Description__c = 'Siebel Relation Role - Beneficiary',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Third Party Signatory',
+    OCV_Role__c = 'KYC-Third Party Signatory',
+    FinServ__InverseRole__c = 'KYC-Third Party Signatory',
+    Role_Description__c = 'Siebel Relation Role - Third Party Signatory',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Power of Attorney',
+    OCV_Role__c = 'KYC-Power of Attorney',
+    FinServ__InverseRole__c = 'KYC-Power of Attorney',
+    Role_Description__c = 'Siebel Relation Role - Power of Attorney',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Controlling Person - Other',
+    OCV_Role__c = 'KYC-Controlling Person - Other',
+    FinServ__InverseRole__c = 'KYC-Controlling Person - Other',
+    Role_Description__c = 'Siebel Relation Role - Controlling Person - Other',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Settlor',
+    OCV_Role__c = 'KYC-Settlor',
+    FinServ__InverseRole__c = 'KYC-Settlor',
+    Role_Description__c = 'Siebel Relation Role - Settlor',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Trading Name',
+    OCV_Role__c = 'KYC-Trading Name',
+    FinServ__InverseRole__c = 'KYC-Trading Name',
+    Role_Description__c = ' Siebel Relation Role - Trading Name',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Trustee',
+    OCV_Role__c = 'KYC-Trustee',
+    FinServ__InverseRole__c = 'KYC-Trustee',
+    Role_Description__c = 'Siebel Relation Role - Trustee',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-President or Equivalent',
+    OCV_Role__c = 'KYC-President or Equivalent',
+    FinServ__InverseRole__c = 'KYC-President or Equivalent',
+    Role_Description__c = 'Siebel Relation Role - President or Equivalent',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Treasurer or Equivalent',
+    OCV_Role__c = 'KYC-Treasurer or Equivalent',
+    FinServ__InverseRole__c = 'KYC-Treasurer or Equivalent',
+    Role_Description__c = 'Siebel Relation Role - Treasurer or Equivalent',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Director',
+    OCV_Role__c = 'KYC-Director',
+    FinServ__InverseRole__c = 'KYC-Director',
+    Role_Description__c = 'Siebel Relation Role - Director',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Chairman or Equivalent',
+    OCV_Role__c = 'KYC-Chairman or Equivalent',
+    FinServ__InverseRole__c = 'KYC-Chairman or Equivalent',
+    Role_Description__c = 'Siebel Relation Role - Chairman or Equivalent',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Fund Manager',
+    OCV_Role__c = 'KYC-Fund Manager',
+    FinServ__InverseRole__c = 'KYC-Fund Manager',
+    Role_Description__c = 'Siebel Relation Role - Fund Manager',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Verifying Officer',
+    OCV_Role__c = 'KYC-Verifying Officer',
+    FinServ__InverseRole__c = 'KYC-Verifying Officer',
+    Role_Description__c = 'Siebel Relation Role - Verifying Officer',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Beneficial Owner',
+    OCV_Role__c = 'KYC-Beneficial Owner',
+    FinServ__InverseRole__c = 'KYC-Beneficial Owner',
+    Role_Description__c = 'Siebel Relation Role - Beneficial Owner',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Secretary or Equivalent',
+    OCV_Role__c = 'KYC-Secretary or Equivalent',
+    FinServ__InverseRole__c = 'KYC-Secretary or Equivalent',
+    Role_Description__c = 'Siebel Relation Role - Secretary or Equivalent',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Member - Account Holder',
+    OCV_Role__c = 'KYC-Member - Account Holder',
+    FinServ__InverseRole__c = 'KYC-Member - Account Holder',
+    Role_Description__c = 'Siebel Relation Role - Member - Account Holder',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-VO Signatory',
+    OCV_Role__c = 'KYC-VO Signatory',
+    FinServ__InverseRole__c = 'KYC-VO Signatory',
+    Role_Description__c = 'Siebel Relation Role - VO Signatory',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+  ),
+  new FinServ__ReciprocalRole__c(
+    Name = 'KYC-Managing Agent',
+    OCV_Role__c = 'KYC-Managing Agent',
+    FinServ__InverseRole__c = 'KYC-Managing Agent',
+    Role_Description__c = 'Siebel Relation Role - Managing Agent',
+    FinServ__CreateInverseRole__c = false,
+    RecordTypeId = CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
   )
 };
-insert newRoles;
+
+// Set of New Role Names
+Set<String> newRolesNameSet = new Set<String>();
+for (FinServ__ReciprocalRole__c newRole : newRolesList) {
+  newRolesNameSet.add(newRole.Name);
+}
+
+// Get Existing Roles From Or
+List<FinServ__ReciprocalRole__c> Existingrecords = [
+  SELECT
+    Name,
+    OCV_Role__c,
+    FinServ__InverseRole__c,
+    Role_Description__c,
+    FinServ__CreateInverseRole__c,
+    RecordTypeId
+  FROM FinServ__ReciprocalRole__c
+  WHERE
+    name IN :newRolesNameSet
+    AND RecordTypeId = :CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
+];
+
+// Set of Existing Role Names
+Set<String> exstRoleNameSet = new Set<String>();
+for (FinServ__ReciprocalRole__c currRole : Existingrecords) {
+  exstRoleNameSet.add(currRole.name);
+}
+
+// Ignore Existing Roles and Create List of New Roles to Be Inserted
+List<FinServ__ReciprocalRole__c> lstOfRolesToBeInserted = new List<FinServ__ReciprocalRole__c>();
+for (FinServ__ReciprocalRole__c newRole : newRolesList) {
+  if (!exstRoleNameSet.contains(newRole.name)) {
+    lstOfRolesToBeInserted.add(newRole);
+  }
+}
+
+// Insert New Roles
+insert lstOfRolesToBeInserted;
 
 //update auto-generated inverse role
 List<FinServ__ReciprocalRole__c> records = [
   SELECT Name
   FROM FinServ__ReciprocalRole__c
-  WHERE FinServ__InverseRelationship__c IN :newRoles
+  WHERE
+    FinServ__InverseRelationship__c IN :lstOfRolesToBeInserted
+    AND RecordTypeId = :CCRMConstants.RECIPROCAL_CONTACT_ROLE_RT_ID
 ];
 for (FinServ__ReciprocalRole__c record : records) {
   record.OCV_Role__c = record.Name;

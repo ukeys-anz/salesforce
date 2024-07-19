@@ -2,12 +2,14 @@ import { LightningElement, wire, api } from "lwc";
 import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { handleErrors, showToast } from "c/utils";
+import { RefreshEvent } from "lightning/refresh";
 import PERSONA_ID_FIELD from "@salesforce/schema/Case.PersonaId__c";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import ONBOARDING_VERIFICATION_FAILED_REASON_FIELD from "@salesforce/schema/Case.OnboardingVerificationFailedReason__c";
 import STATUS_UPDATE_ERROR from "@salesforce/schema/Case.Status_Update_Error__c";
 import RECORD_TYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 import PARENT_ID_FIELD from "@salesforce/schema/Case.ParentId";
+import SUBJECT_FIELD from "@salesforce/schema/Case.Subject";
 import updateStatus from "@salesforce/apex/COBCaseStatusPathController.updateStatus";
 import hasStatusEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Case_Status";
 
@@ -20,6 +22,8 @@ const SAME_CASE_STATUS_WARNING =
   "Case can't be updated with the same status. Please select a different status";
 const NOT_MATCHING_VERIFICATION_FAILED_REASON_WARNING =
   "This case was previously completed, it is now updated with the correct data, you can close this tab now.";
+const VR_EQIFAX_FALLOUT_OR_ID_CHECK_OK_TO_ID_OPS_DAON_OK =
+  "Invalid Status change from (Equifax Fallout or ID Check OK) to (ID Ops: Daon OK or Fraud Check: Daon OK)";
 
 export default class CobCaseStatusPath extends LightningElement {
   @api recordId;
@@ -40,6 +44,7 @@ export default class CobCaseStatusPath extends LightningElement {
   error;
   statusUpdateError;
   parentId;
+  subject;
 
   confirmedFraudMessage =
     "By confirming, you are marking this onboarding case as Fraud. Done to continue, Cancel to go back.";
@@ -56,7 +61,8 @@ export default class CobCaseStatusPath extends LightningElement {
       STATUS_FIELD,
       ONBOARDING_VERIFICATION_FAILED_REASON_FIELD,
       STATUS_UPDATE_ERROR,
-      PARENT_ID_FIELD
+      PARENT_ID_FIELD,
+      SUBJECT_FIELD
     ]
   })
   wiredCaseFields({ data }) {
@@ -72,6 +78,7 @@ export default class CobCaseStatusPath extends LightningElement {
       this._newFailedReason = this.currentFailedReason;
       this.statusUpdateError = data.fields.Status_Update_Error__c.value;
       this.parentId = data.fields.ParentId.value;
+      this.subject = data.fields.Subject.value;
     }
   }
 
@@ -170,7 +177,8 @@ export default class CobCaseStatusPath extends LightningElement {
             Status_Update_Error__c: this.statusUpdateError,
             OnboardingVerificationFailedReason__c:
               this._newStatus !== FAILED_OK ? undefined : this._newFailedReason,
-            ParentId: this.parentId
+            ParentId: this.parentId,
+            Subject: this.subject
           };
           let cobCaseUpdateStatus = await updateStatus({
             currentStatus: this.currentStatus,
@@ -217,10 +225,20 @@ export default class CobCaseStatusPath extends LightningElement {
           this.handleHideModal();
           getRecordNotifyChange([{ recordId: this.recordId }]);
         } catch (error) {
-          this.error = error;
           this.isModalLoading = false;
           this.isModalButtonDisable = false;
-          showToast(this, "Error!", handleErrors(error), "", "error", "");
+          let errorMessage = handleErrors(error);
+          if (
+            errorMessage.includes(
+              VR_EQIFAX_FALLOUT_OR_ID_CHECK_OK_TO_ID_OPS_DAON_OK
+            )
+          ) {
+            this.dispatchEvent(new RefreshEvent());
+          } else {
+            this.error = error;
+            showToast(this, "Error!", errorMessage, "", "error", "");
+          }
+          this.handleHideModal();
         }
       }
     }

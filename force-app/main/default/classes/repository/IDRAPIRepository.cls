@@ -65,4 +65,50 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
     }
     return result;
   }
+  /**
+   * @param riskEventId customer id to be searched
+   * @return SNOWIntegrationModel
+   * @description called from close complaint lwc page during Risk Event Id verification
+   */
+  @AuraEnabled(cacheable=false)
+  public static SNOWIntegrationModel getSNOWEventInfoLWC(String riskEventId) {
+    IDRAPIRepository cmosapi = new IDRAPIRepository();
+    try {
+      return cmosapi.getSNOWEventInfo(riskEventId);
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+  /**
+   * @param riskEventId risk event id to be searched
+   * @return SNOWIntegrationModel result
+   * @description calls the service class methods for integration/callout
+   */
+  public SNOWIntegrationModel getSNOWEventInfo(String riskEventId) {
+    SNOWIntegrationService service = (SNOWIntegrationService) ServiceProvider.getService(
+      SNOWIntegrationService.class
+    );
+
+    try {
+      HttpCalloutResponse response = service.getSNOWRiskEventInformation(
+        riskEventId
+      );
+      if (response.successful == true) {
+        return SNOWIntegrationModel.parse(response.body);
+      }
+      if (response.statusCode >= 500) {
+        Logger.error(
+          'ServiceNow Error - Status Code - ' + response.statusCode,
+          response.error,
+          Logger.Severity.HIGH
+        );
+        Logger.saveLog();
+      }
+      handleErrors(null, response.error, IDRAPIRepository.class);
+      throw response.error;
+    } catch (Exception e) {
+      handleErrors(null, e, IDRAPIRepository.class);
+      throw e;
+    }
+  }
 }

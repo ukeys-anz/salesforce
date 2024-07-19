@@ -24,6 +24,36 @@
                 <default>false</default>
                 <label>FBAA</label>
             </value>
+            <value>
+                <fullName>CPA</fullName>
+                <default>false</default>
+                <label>CPA</label>
+            </value>
+            <value>
+                <fullName>ICAA</fullName>
+                <default>false</default>
+                <label>ICAA</label>
+            </value>
+            <value>
+                <fullName>NIA</fullName>
+                <default>false</default>
+                <label>NIA</label>
+            </value>
+            <value>
+                <fullName>FPAA</fullName>
+                <default>false</default>
+                <label>FPAA</label>
+            </value>
+            <value>
+                <fullName>FINSIA</fullName>
+                <default>false</default>
+                <label>FINSIA</label>
+            </value>
+            <value>
+                <fullName>CAFBA</fullName>
+                <default>false</default>
+                <label>CAFBA</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

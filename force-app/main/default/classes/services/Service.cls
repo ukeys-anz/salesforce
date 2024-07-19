@@ -24,14 +24,14 @@ public with sharing virtual class Service {
   /**
    * @param sopId customer sop id
    * @param ocvId customer ocv id
-   * @param deleteIncomeModel model to delete income from sop
+   * @param deleModel model to delete income from sop
    * @return `HttpCalloutResponse` api response
    * @description virtual chat channels callout
    */
   public virtual HttpCalloutResponse deleteIncome(
     String sopId,
     String ocvId,
-    String deleteIncomeModel
+    String deleModel
   ) {
     return null;
   }
@@ -802,6 +802,16 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param ocvId ocv id of the customer account
+   * @param debtBody post data of debt information
+   * @return `HttpCalloutResponse` the api response
+   * @description create debt
+   */
+  public virtual HttpCalloutResponse createDebt(String ocvId, String debtBody) {
+    return null;
+  }
+
+  /**
    * @param state
    * @param postcode
    * @param suburb
@@ -809,28 +819,53 @@ public with sharing virtual class Service {
    * @description validate manual address details
    */
   public virtual HttpCalloutResponse getValidateAddressV3(
-    String state,Integer postcode,String suburb
+    String state,
+    Integer postcode,
+    String suburb
   ) {
     return null;
   }
-    
+
   /**
    * @param postcode
    * @return HttpCalloutResponse api response
    * @description validate manual address details
    */
-  public virtual HttpCalloutResponse getPostcodeLookupV3 (
-    Integer postcode
-  ) {
+  public virtual HttpCalloutResponse getPostcodeLookupV3(Integer postcode) {
     return null;
   }
-  
+
   /**
    * @param ocvId ocv Id
    * @return `HttpCalloutResponse` the api response
    * @description fetches ListConsentHistory from Lighthouse through mule
    */
   public virtual HttpCalloutResponse getConsentHistoryList(String ocvId) {
+    return null;
+  }
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param debtBody post data of debt information
+   * @return `HttpCalloutResponse` the api response
+   * @description edit debt
+   */
+  public virtual HttpCalloutResponse editDebt(String ocvId, String debtBody) {
+    return null;
+  }
+
+  /**
+   * @param sopId customer sop id
+   * @param ocvId customer ocv id
+   * @param deleteModel model to delete debt from sop
+   * @return `HttpCalloutResponse` api response
+   * @description virtual chat channels callout
+   */
+  public virtual HttpCalloutResponse deleteDebt(
+    String sopId,
+    String ocvId,
+    String deleteModel
+  ) {
     return null;
   }
 

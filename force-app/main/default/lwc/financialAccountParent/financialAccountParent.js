@@ -1,6 +1,6 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import { handleErrorShowToast } from "c/utils";
+import { handleErrorShowToast, isS2Account } from "c/utils";
 import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
@@ -101,6 +101,7 @@ export default class FinancialAccountParent extends LightningElement {
   accountOwnershipType;
   wiredMethodCalled = false;
   accountOwners = [];
+  showSavingsGoals = false;
 
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
@@ -152,6 +153,7 @@ export default class FinancialAccountParent extends LightningElement {
         if (this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME) {
           this.isSavings = true;
           this.accountType = "savings";
+          this.showSavingsGoals = true;
         } else if (this.accRecordTypeApiName === CHECKING_ACCOUNT_RT_APINAME) {
           this.isSavings = false;
           this.accountType = "checking";
@@ -443,9 +445,11 @@ export default class FinancialAccountParent extends LightningElement {
 
       // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
       finAccount.showSavingsJar =
-        finAccount.FinServ__Status__c !== "Closed" && this.isSoleAccount;
+        finAccount.FinServ__Status__c !== "Closed" &&
+        this.isSoleAccount &&
+        !isS2Account(finAccount.Marketing_Code__c);
 
-      // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
+      // Only show showMultipartyBadge badge when the ownership is multi-party
       if (finAccount.FinServ__Ownership__c) {
         finAccount = this.handleShowMultiPartyBadge(
           finAccount,
@@ -453,6 +457,10 @@ export default class FinancialAccountParent extends LightningElement {
         );
       } else if (finAccount.Ownership__c) {
         finAccount = this.handleShowMultiPartyBadge(finAccount, "Ownership__c");
+      }
+      if (isS2Account(finAccount.Marketing_Code__c)) {
+        this.accountType = "savingss2";
+        this.showSavingsGoals = false;
       }
     });
 

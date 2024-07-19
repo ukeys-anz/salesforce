@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
     <description>Reference to the collateral assessment for this loan</description>
     <externalId>false</externalId>
-    <label>Property Valuation Id</label>
+    <label>Collateral Assessment Id</label>
     <length>50</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

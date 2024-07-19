@@ -1640,4 +1640,59 @@ public with sharing class CCRMTestDataFactory {
     }
     return finAccountRole;
   }
+  /**
+   * @description creates and/or returns list of CCRMA2ZReview records for testing purpose
+   * note that the lookup on these records are not populated
+   * @param count
+   * @param ownerUser
+   * @return List<A_Z_Review__c> list of reviews without lookup
+   **/
+  public static List<A_Z_Review__c> createCCRMA2ZReviews(
+    Integer count,
+    User ownerUser
+  ) {
+    count = count == null || count == 0 ? 1 : count;
+
+    List<A_Z_Review__c> listOfReviews = new List<A_Z_Review__c>();
+    for (Integer i = 1; i <= count; i++) {
+      A_Z_Review__c review = new A_Z_Review__c(
+        Name = 'Test' + i,
+        Status__c = 'In Progress',
+        RecordTypeId = CCRMConstants.AZ_REVIEW_RT_ID,
+        Business_Details__c = 'Test 1234123412341234',
+        Personal_Banking__c = 'Test 1234123412341234',
+        Transaction_Banking__c = 'Test 1234123412341234',
+        Borrowing_OFI_Relationship__c = 'Test 1234123412341234'
+      );
+      if (ownerUser != null) {
+        review.OwnerId = ownerUser.Id;
+      }
+      listOfReviews.add(review);
+    }
+    return listOfReviews;
+  }
+
+  /**
+   * @description create Email Message record Instance
+   * @param emId email message Id
+   * @return EmailMessage Email message instance
+   */
+  public static EmailMessage createEmailMessageInstance(Id emId) {
+    EmailMessage emRecord = new EmailMessage(
+      Id = emId,
+      status = '3',
+      fromAddress = 'idruser@anz.com',
+      fromName = 'Test ANZ',
+      toAddress = 'idruser2@anz.com',
+      ccAddress = 'idruser@anz.com; testuser2@anz2.com',
+      Subject = 'Hello',
+      HtmlBody = 'Hello World',
+      Incoming = false,
+      Attachment_Notes__c = 'This email has no attachments',
+      CreatedBy = new User(
+        Profile = new Profile(Name = 'ANZ CCRM Standard User')
+      )
+    );
+    return emRecord;
+  }
 }

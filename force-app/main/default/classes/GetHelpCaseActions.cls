@@ -72,7 +72,7 @@ public with sharing class GetHelpCaseActions {
    * @param records from the trigger
    */
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
-    List<Id> caseIds = new List<Id>();
+    Set<Id> caseIds = new Set<Id>();
     List<Case> validateCaseList = new List<Case>();
     Set<Id> milestoneCaseIds = new Set<Id>();
 
@@ -105,17 +105,6 @@ public with sharing class GetHelpCaseActions {
 
         //Checks if card token number needs to be deleted
         GetHelpCaseActionsHelper.handleCardTokenNumber(record);
-      } else if (record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
-        if (
-          ((oldRecord != null &&
-          oldRecord.Sub_Status__c !=
-          GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT) || oldRecord == null) &&
-          record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
-        ) {
-          GetHelpCaseActionsHelper.populateKYCQACaseClosedNoDefectDefaults(
-            record
-          );
-        }
       } else if (
         CheckCaseRecordType.isAccountClosure(record, null) &&
         record.Status == GetHelpConstants.ESCALATED_STATUS &&
@@ -504,23 +493,8 @@ public with sharing class GetHelpCaseActions {
    * @param record the record we are updating
    */
   public static void maskTaxNumbers(Case record) {
-    record.Description = TextUtils.maskDataAnzx(record.Description);
-    record.Comments = TextUtils.maskDataAnzx(record.Comments);
-    if (
-      TextUtils.reactiveLogging(record.Description) ||
-      TextUtils.reactiveLogging(record.Comments)
-    ) {
-      Logger.info(
-        'CaseNumber: ' +
-          record.CaseNumber +
-          '; Description: ' +
-          record.Description +
-          '; Notes: ' +
-          record.Comments +
-          '; Reason for logging: User entered long digits without needing to mask'
-      );
-      Logger.saveLog();
-    }
+    TextUtils.maskAndLog(record, 'Description');
+    TextUtils.maskAndLog(record, 'Comments');
   }
 
   /**
@@ -802,25 +776,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description populate default fields on KYC QA cases if the status is Closed and Sub Status is No Defect
-   * @param records List of cases
-   */
-  public static void populateKYCQACasesClosedNoDefectDefaults(
-    List<Case> records
-  ) {
-    for (Case record : records) {
-      if (
-        record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
-        record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
-      ) {
-        GetHelpCaseActionsHelper.populateKYCQACaseClosedNoDefectDefaults(
-          record
-        );
-      }
-    }
-  }
-
-  /**
    * @description  This method populates Account Closure Case subject based on Case record type
    * @param caseList Case records from trigger
    * @param accountList List of accounts for cases
@@ -916,6 +871,37 @@ public with sharing class GetHelpCaseActions {
     );
 
     DMLUtil.updateRecords(idOpsCases, false, true);
+  }
+
+  /**
+   * @description Update an ID Ops Assistance case's OnboardingVerificationFailedReason__c that's in Watchlist
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   */
+  public static void updateIDOpsWatchlistOnboardingReason(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    //filter only the ID Ops cases with Watchlist Hit and status that's update to Confirmed_Fraud
+    List<Case> idOpsCases = GetHelpCaseActionsHelper.getIDOpsWatchlistRecords(
+      records,
+      oldMap
+    );
+
+    if (idOpsCases.isEmpty()) {
+      return;
+    }
+
+    //get Ids of those that have child records
+    Set<Id> caseIdsWithChildren = GetHelpCaseActionsHelper.getParentCaseIds(
+      new Map<Id, Case>(idOpsCases).keySet()
+    );
+
+    //update OnboardingVerificationFailedReason__c accordingly
+    GetHelpCaseActionsHelper.setIDOpsWatchlistCaseReason(
+      idOpsCases,
+      caseIdsWithChildren
+    );
   }
 
   /**
@@ -1101,49 +1087,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description CaseTriggerHandler module
-   * @param lstNewCases List of inserted Cases from Trigger
-   */
-  public static void onlyAllowOneOpenProfileUpdateCase(List<Case> lstNewCases) {
-    Set<Id> stAccountIds = new Set<Id>();
-    Set<Id> stCaseIds = new Set<Id>();
-    for (Case oCase : lstNewCases) {
-      if (
-        oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate &&
-        oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA &&
-        oCase.Status == GetHelpConstants.OPEN_STATUS
-      ) {
-        stAccountIds.add(oCase.AccountId);
-        stCaseIds.add(oCase.Id);
-      }
-    }
-    if (
-      !stCaseIds.isEmpty() &&
-      PermissionUtils.canQuery('Case') &&
-      PermissionUtils.canUpdate('Case')
-    ) {
-      List<Case> lstUpdates = new List<Case>();
-      for (Case oCase : [
-        SELECT Id, Status, Sub_Status__c
-        FROM Case
-        WHERE
-          RecordTypeId = :GetHelpConstants.idrtProfileUpdate
-          AND Type = :GetHelpConstants.RESIDENTIAL_ADDRESS_QA
-          AND Status != :GetHelpConstants.CLOSED_STATUS
-          AND AccountId IN :stAccountIds
-          AND (NOT Id IN :stCaseIds)
-      ]) {
-        oCase.Status = GetHelpConstants.CLOSED_STATUS;
-        oCase.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_LONGER_REQUIRED;
-        lstUpdates.add(oCase);
-      }
-      if (!lstUpdates.isEmpty()) {
-        DMLUtil.updateRecords(lstUpdates, false, false);
-      }
-    }
-  }
-
-  /**
    * @description Assign newly created Profile Update Cases to ID Ops Queue
    * @param lstNewCases Case records being inserted by trigger
    */
@@ -1154,31 +1097,6 @@ public with sharing class GetHelpCaseActions {
         oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA
       ) {
         oCase.OwnerId = idOpsQueue.Id;
-      }
-    }
-  }
-
-  /**
-   * @description Capture the Date/time when case status is first changed to Customer Update Pending
-   * @param lstNewCases Case records being updated by trigger
-   * @param mpOldCases Map of prior state of Case records
-   */
-  public static void checkCustomerUpdatePendingStatus(
-    List<Case> lstNewCases,
-    Map<Id, Case> mpOldCases
-  ) {
-    Case oOldCase;
-    for (Case oCase : lstNewCases) {
-      if (
-        oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate &&
-        oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA &&
-        oCase.Status == GetHelpConstants.CUSTOMER_UPDATE_PENDING &&
-        oCase.Customer_First_Contacted__c == null &&
-        mpOldCases != null &&
-        (oOldCase = mpOldCases.get(oCase.Id)) != null &&
-        oCase.Status != oOldCase.Status
-      ) {
-        oCase.Customer_First_Contacted__c = Datetime.now();
       }
     }
   }

@@ -83,15 +83,16 @@ public with sharing class CCRMConstants {
   public static final String DORMANT_STATUS = 'Dormant';
   public static final String OTHER = 'Other';
   public static final String NEW_LINE_CHAR = '\n';
-public static final String CUSTOMER_NEEDS_ERROR = 'Secondary Customer Needs should not be the same as Customer Needs.';
+  public static final String CUSTOMER_NEEDS_ERROR = 'Secondary Customer Needs should not be the same as Customer Needs.';
   public static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed opportunity';
 
   public static final String NO_AVAILABLE_BALANCE = 'No available balance';
-public static final String ACC_ORG = 'FinServ__CustomerType__c';
+  public static final String ACC_ORG = 'FinServ__CustomerType__c';
   public static final String ACC_ORG_LABEL = 'Organisation Type';
   public static final String ERROR_RESPONSE = 'Unexpected error';
   public static final String SUCCESS_RESPONSE = 'Success';
-
+  public static final String CCRM_PROFILE_NAME = 'ANZ CCRM Standard User';
+  public static final String DELETE_ERROR = 'You cannot delete leads';
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
     'Business_Account'
   };
@@ -204,6 +205,11 @@ public static final String ACC_ORG = 'FinServ__CustomerType__c';
   //Financial Account Role record type Ids
   public static final Id FAR_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
     .get('AccountRole')
+    .getRecordTypeId();
+
+  //A-Z Review - Commerical A-Z Review Record TypeId
+  public static final Id AZ_REVIEW_RT_ID = Schema.SObjectType.A_Z_Review__c.getRecordTypeInfosByDeveloperName()
+    .get('Commercial_A_Z_Review')
     .getRecordTypeId();
 
   /**

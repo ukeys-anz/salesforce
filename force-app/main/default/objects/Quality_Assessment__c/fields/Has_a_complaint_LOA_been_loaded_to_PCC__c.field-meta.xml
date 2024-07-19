@@ -32,6 +32,24 @@
                 <default>false</default>
                 <label>N/A - No LOA</label>
             </value>
+            <value>
+                <fullName>N/A - No POA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>N/A - No POA</label>
+            </value>
+            <value>
+                <fullName>No - POA not loaded</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>No - POA not loaded</label>
+            </value>
+            <value>
+                <fullName>Yes - POA loaded</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Yes - POA loaded</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

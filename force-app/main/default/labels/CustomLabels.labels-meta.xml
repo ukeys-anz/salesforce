@@ -15,6 +15,13 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
     </labels>
     <labels>
+        <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_ResidentialLoanApplication_event_ce_type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.retailplusapplication.</value>
+    </labels>
+    <labels>
         <fullName>Broker_Staff_Issue_with_Valid_Owner_Id</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -326,6 +333,13 @@
         <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
     </labels>
     <labels>
+        <fullName>DowngradeUpgradeEnabled</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DowngradeUpgradeEnabled</shortDescription>
+        <value>False</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -381,6 +395,14 @@
         <value>callout:SF_MS_CH2/credit-assessment/v1/incomes</value>
     </labels>
     <labels>
+        <fullName>MS_SOP_Debt</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_SOP_Debt</shortDescription>
+        <value>/credit-assessment/v1/debts</value>
+    </labels>
+    <labels>
         <fullName>MS_Create_Party</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -418,7 +440,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Abr_Abn</shortDescription>
-        <value>callout:SF_MS_CCRM/abr/v1/abn/</value>
+        <value>callout:SF_MS_CH2/abr/v1/abn/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Abr_Acn</fullName>
@@ -426,7 +448,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Abr_Acn</shortDescription>
-        <value>callout:SF_MS_CCRM/abr/v1/acn/</value>
+        <value>callout:SF_MS_CH2/abr/v1/acn/</value>
     </labels>
     <labels>
         <fullName>MS_Forge_Token</fullName>
@@ -818,6 +840,14 @@
         <protected>false</protected>
         <shortDescription>MS_Initiate_Chat</shortDescription>
         <value>callout:SF_MS_CH2/contact-centre-staff/create-outbound-chat</value>
+    </labels>
+    <labels>
+        <fullName>MS_Reassess_Collateral</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Reassess_Collateral</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/reassess/</value>
     </labels>
     <labels>
         <fullName>MS_Reinitiate_Chat</fullName>
@@ -2107,6 +2137,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>2</value>
     </labels>
     <labels>
+        <fullName>CCRM_Outlook_Attachment_Delete_Delay</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM Outlook Attachment Delete Delay in minutes</shortDescription>
+        <value>1</value>
+    </labels>
+    <labels>
+        <fullName>DCRM_ProfileAllowToDeleteOutlookAttachments</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DCRM ProfileAllowToDeleteOutlookAttachments</shortDescription>
+        <value>ANZ ML Standard User;ANZ CCRM Standard User</value>
+    </labels>
+    <labels>
         <fullName>AdobeIntegrationUserName</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -2156,6 +2200,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Grant_Type</shortDescription>
         <value>urn:openid:params:grant-type:ciba</value>
+    </labels>
+    <labels>
+        <fullName>MS_AUF_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_AUF_API</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/</value>
     </labels>
     <labels>
         <fullName>MS_ForgeV2_Token</fullName>
@@ -2263,6 +2314,27 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
     </labels>
     <labels>
+        <fullName>ANZX_Customer_Comm_Tableau_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Customer_Comm_Tableau_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Interest_Rates_FA_Tableau_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Interest_Rates_FA_Tableau_Url</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/AccountInterestRates/AccountInterestRates</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Tableau_Site_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_Tableau_Site_Id</shortDescription>
+        <value>e7929cf2-f028-4351-9967-8f20b2d2b663</value>
+    </labels>
+    <labels>
         <fullName>MS_Postcode_Lookup_V3</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2334,11 +2406,26 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/lighthouse/v1/consents/list</value>
     </labels>
     <labels>
+        <fullName>SNOW_Risk_Event_End_Point</fullName>
+        <categories>End Point</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SNOW Risk Event End Point</shortDescription>
+        <value>api/now/table/sn_risk_advanced_event?number=</value>
+    </labels>
+    <labels>
         <fullName>ValidateOwnerChange</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ValidateOwnerChange</shortDescription>
         <value>Unable to change Owner of this Record not owned by yourself.</value>
+    </labels>
+    <labels>
+        <fullName>S2AccountEnabled</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>S2AccountEnabled created for releasing S2 Deliverable in Dormant</shortDescription>
+        <value>true</value>
     </labels>
 </CustomLabels>

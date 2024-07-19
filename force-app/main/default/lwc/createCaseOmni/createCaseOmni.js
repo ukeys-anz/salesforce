@@ -1,5 +1,6 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
+import { handleErrorShowToast } from "c/utils";
 
 const SUB_REMS = ["16", "20", "Repayment arrangement"];
 const SERVICE_QUALITY = "9";
@@ -23,8 +24,21 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   }
 
   callCreateCaseIP() {
+    var compare = /^[0-9]{10}$/;
     this.missingFields = [];
     this.modalMsg = "";
+    if (
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      this.omniJsonData.Case.CustomerDetails.Customer &&
+      (this.omniJsonData.Case.CustomerDetails.Customer !==
+        this.omniJsonData.Case.CustomerDetails.Customer.trim() ||
+        !this.omniJsonData.Case.CustomerDetails.Customer.match(compare))
+    ) {
+      this.modalMsg =
+        "Customer number must be numbers and at least 10 digits long";
+      this.showModal = true;
+      return;
+    }
     this.valCustomerFields();
     if (this.missingFields.length > 0) {
       this.modalMsg =
@@ -58,6 +72,25 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
       this.showModal = true;
+    } else if (this.validateRealFormID()) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Please Validate Real Form ID."
+      );
+    } else if (
+      this.omniJsonData.validatedEventNumber !==
+        this.omniJsonData.Case.ResolutionInformation.realFormMAXId &&
+      this.omniJsonData.Case.ResolutionInformation.realFormRequired === "Yes"
+    ) {
+      handleErrorShowToast(
+        this,
+        "Real Form ID Validation",
+        undefined,
+        "Revalidate Risk Event ID"
+      );
+      this.loading = false;
     } else {
       this.showModal = false;
       this.loading = true;
@@ -92,6 +125,24 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         }
       });
     }
+  }
+  validateRealFormID() {
+    if (
+      this.omniJsonData.Case.ResolutionInformation.ComplaintStatus ===
+        "Closed" &&
+      this.omniJsonData.Case.ResolutionInformation.realFormRequired === "Yes" &&
+      (this.omniJsonData.Case.ResolutionInformation.realFormMAXId !==
+        undefined ||
+        this.omniJsonData.Case.ResolutionInformation.realFormMAXId !== null) &&
+      !(
+        this.omniJsonData.apiRun &&
+        this.omniJsonData.apiSuccess &&
+        this.omniJsonData.RiskFormIDValid
+      )
+    ) {
+      return true;
+    }
+    return false;
   }
 
   // validate that all the required fields data has been provided

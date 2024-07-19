@@ -4715,15 +4715,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Goods %26 Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Law Enforcement</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>OFI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OFI – from FRX</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4786,6 +4786,73 @@
         </values>
         <values>
             <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RecipientFundsType__c</picklist>
+        <values>
+            <fullName>Fraud - BEC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - IdTakeOver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - Malware</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - Phishing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - Porting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Attempts to gain your personal information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Buying or selling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Dating %26 romance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Investment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Jobs %26 employment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Remote access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Threats %26 extortion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Unexpected Money</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Unexpected winnings</fullName>
             <default>false</default>
         </values>
     </picklistValues>

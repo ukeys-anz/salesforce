@@ -26,20 +26,15 @@ public class IDRCFMSCaseCommentsMaskingBatch implements Database.Batchable<sObje
     List<CaseComment> caseComments
   ) {
     for (CaseComment cc : caseComments) {
-      TextUtils.maskAndLog(
-        (String) cc.get('CommentBody'),
-        'CommentBody',
-        cc,
-        false
-      );
+      TextUtils.maskDataCmos(cc, 'CommentBody');
     }
     try {
       update caseComments;
     } catch (Exception e) {
       Logger.error(
         'Problem in masking cfms case comment record from batch job : ' +
-        bc.getJobId() +
-        e.getMessage(),
+          bc.getJobId() +
+          e.getMessage(),
         e
       );
       Logger.saveLog();

@@ -23316,6 +23316,10 @@
         <flow>Send_Notification_to_New_User</flow>
     </flowAccesses>
     <layoutAssignments>
+        <layout>A_Z_Review__c-Commercial A-Z Review Page Layout</layout>
+        <recordType>A_Z_Review__c.Commercial_A_Z_Review</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Access_Request__c-Access Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -23750,7 +23754,7 @@
         <layout>DuplicateRecordSet-Duplicate Record Set Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>EmailMessage-Email Message Layout</layout>
+        <layout>EmailMessage-CCRM Email Message Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>EngagementChannelType-Engagement Channel Type Layout</layout>

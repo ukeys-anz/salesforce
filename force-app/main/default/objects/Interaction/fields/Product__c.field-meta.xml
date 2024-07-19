@@ -22,6 +22,26 @@
                 <label>ANZ Plus</label>
             </value>
             <value>
+                <fullName>ANZ Save</fullName>
+                <default>false</default>
+                <label>ANZ Save</label>
+            </value>
+            <value>
+                <fullName>ANZ Plus Flex Saver</fullName>
+                <default>false</default>
+                <label>ANZ Plus Flex Saver</label>
+            </value>
+            <value>
+                <fullName>Joint ANZ Plus</fullName>
+                <default>false</default>
+                <label>Joint ANZ Plus</label>
+            </value>
+            <value>
+                <fullName>Joint ANZ Save</fullName>
+                <default>false</default>
+                <label>Joint ANZ Save</label>
+            </value>
+            <value>
                 <fullName>ANZ Plus Home Loan - Fixed</fullName>
                 <default>false</default>
                 <label>ANZ Plus Home Loan - Fixed</label>
@@ -35,21 +55,6 @@
                 <fullName>ANZ Product</fullName>
                 <default>false</default>
                 <label>ANZ Product</label>
-            </value>
-            <value>
-                <fullName>ANZ Save</fullName>
-                <default>false</default>
-                <label>ANZ Save</label>
-            </value>
-            <value>
-                <fullName>Joint ANZ Plus</fullName>
-                <default>false</default>
-                <label>Joint ANZ Plus</label>
-            </value>
-            <value>
-                <fullName>Joint ANZ Save</fullName>
-                <default>false</default>
-                <label>Joint ANZ Save</label>
             </value>
             <value>
                 <fullName>Non Product Related</fullName>

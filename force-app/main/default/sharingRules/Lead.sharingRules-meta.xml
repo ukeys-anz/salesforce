@@ -82,15 +82,39 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>MLCRM_BusinessAdmin_RW_Sharing_Leads</fullName>
+        <fullName>MLCRM_Support_Team_Lead_Sharing</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Sharing rule to open up access from ML Team to Business Admin Role users.</description>
-        <label>MLCRM Business Admin RW Sharing Leads</label>
+        <description>Sharing rule to open up access from ML Support Team to ML Team.</description>
+        <label>MLCRM Support Team Lead Sharing</label>
         <sharedTo>
-            <role>Business_Admin</role>
+            <role>ANZ_Mobile_Lending_Team</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Team</roleAndSubordinates>
+            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_ANZ_Mobile_Lending_Team_Self_Lead_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rule to open up access from ML Team to peer users with role ANZ Mobile Lending Team assigned</description>
+        <label>MLCRM ANZ Mobile Lending Team Self Lead Sharing</label>
+        <sharedTo>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ANZ_Mobile_Lending_Team</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>MLCRM_Support_Team_Lead_Self_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rule to open up access from ML Team to peer users with role ANZ Mobile Lending Support Team assigned</description>
+        <label>MLCRM Support Team Lead Self Sharing</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

@@ -1,0 +1,30 @@
+<template>
+  <div if:true={loading}>
+    <lightning-spinner size="medium" variant="brand"></lightning-spinner>
+  </div>
+  <div class="slds-grid slds-grid_vertical" if:true={showButton}>
+    <div class="slds-col">
+      <label
+        class="slds-form-element__label slds-show--inline"
+        for="unique-button-id"
+      >
+      </label>
+    </div>
+    <div class="slds-col slds-p-top_x-small">
+      <lightning-icon
+        icon-name={iconName}
+        size="xx-small"
+        if:true={apiRun}
+      ></lightning-icon>
+      <lightning-button
+        class="slds-p-left_xx-small"
+        id="unique-button-id"
+        variant="brand"
+        label="Validate Event ID"
+        title="Validate Event ID"
+        onclick={startValidation}
+      >
+      </lightning-button>
+    </div>
+  </div>
+</template>

@@ -20,9 +20,10 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     columns.add(DataSource.Column.text(TFMConstants.EMAIL, 100));
     columns.add(DataSource.Column.text(TFMConstants.CREATED_ON, 100));
     columns.add(DataSource.Column.text(TFMConstants.OCV_ID, 100));
-    columns.add(DataSource.Column.text(TFMConstants.IAL, 100));
+    columns.add(DataSource.Column.number(TFMConstants.IAL, 100, 0));
     columns.add(DataSource.Column.text(TFMConstants.STATUS, 100));
     columns.add(DataSource.Column.text(TFMConstants.PIN_STATUS, 100));
+    columns.add(DataSource.Column.text(TFMConstants.PIN_REF_ID, 100));
     columns.add(DataSource.Column.text(TFMConstants.PERSONA_ID, 100));
     columns.add(DataSource.Column.text(TFMConstants.INTERNALUSERID, 100));
     columns.add(DataSource.Column.text(TFMConstants.PERSONA_TYPE, 100));
@@ -105,17 +106,23 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
       Map<String, Object> curRow = new Map<String, Object>();
       curRow.put(TFMConstants.UUID, res.id);
       curRow.put(TFMConstants.PREFERRED_NAME, res.preferredName);
-      curRow.put(TFMConstants.MOBILE_NUMBER, res.securityMobile);
       curRow.put(TFMConstants.EMAIL, res.securityEmail);
       curRow.put(
         TFMConstants.CREATED_ON,
         dateFormat(String.valueOf(res.createDateTime))
       );
       curRow.put(TFMConstants.OCV_ID, res.ocvId);
-      curRow.put(TFMConstants.IAL, res.identityAssuranceLevel);
+      curRow.put(TFMConstants.IAL, Integer.valueOf(res.identityAssuranceLevel));
       curRow.put(TFMConstants.STATUS, nameFormat(String.valueOf(res.status)));
       curRow.put(TFMConstants.INTERNALUSERID, res.idxInternalUserId);
-
+      if (res.securityMobile != null) {
+        curRow.put(TFMConstants.MOBILE_NUMBER, res.securityMobile);
+      } else {
+        curRow.put(
+          TFMConstants.MOBILE_NUMBER,
+          String.valueOf(res.archivedIdentifiers[0])
+        );
+      }
       List<TFMPersonDigitalIdentityModel.Persona> persona = (List<TFMPersonDigitalIdentityModel.Persona>) res.persona;
       List<TFMPersonDigitalIdentityModel.Credential> credential = (List<TFMPersonDigitalIdentityModel.Credential>) res.credential;
       curRow.putAll(addPersonaId(persona));
@@ -165,6 +172,7 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
           TFMConstants.PIN_STATUS,
           nameFormat(String.valueOf(cred.status))
         );
+        curRow.put(TFMConstants.PIN_REF_ID, String.valueOf(cred.refResourceId));
       }
     }
     return curRow;
@@ -181,18 +189,15 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     for (TFMPersonDigitalIdentityModel.Credential cred : credential) {
       if (cred.type != TFMConstants.DEVICE_REG) {
         continue;
-      } else if (String.valueOf(cred.appCorrelationId) != null) {
+      }
+      String appCorrelationId = String.valueOf(cred.appCorrelationId);
+      String refResourceId = String.valueOf(cred.refResourceId);
+      if (String.isNotBlank(appCorrelationId)) {
         resourceIdList.add(
-          TFMConstants.CID +
-            String.valueOf(cred.appCorrelationId) +
-            '(' +
-            String.valueOf(cred.refResourceId) +
-            ')'
+          TFMConstants.CID + appCorrelationId + '(' + refResourceId + ')'
         );
       } else {
-        resourceIdList.add(
-          TFMConstants.DID + String.valueOf(cred.refResourceId)
-        );
+        resourceIdList.add(TFMConstants.DID + refResourceId);
       }
     }
     return String.join(resourceIdList, ',');

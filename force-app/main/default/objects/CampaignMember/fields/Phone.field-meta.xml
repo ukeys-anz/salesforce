@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phone</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The phone number of the lead or contact.</description>
+    <securityClassification>Confidential</securityClassification>
+</CustomField>

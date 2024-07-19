@@ -89,7 +89,8 @@ public with sharing class COBCaseStatusValidator {
       cobCase.RecordTypeId
     );
     if (
-      invalidTransitionMap?.get(currentStatus)?.contains(cobCase.Status) == true
+      invalidTransitionMap?.get(currentStatus)?.contains(cobCase.Status) ==
+      true && !isInWatchList(cobCase)
     ) {
       return String.format(
         errorTemplate,
@@ -115,8 +116,7 @@ public with sharing class COBCaseStatusValidator {
       );
     }
 
-    Case idOpsCaseWithOpenChildren = getParentCaseWithOpenChildren(cobCase.id);
-    if (idOpsCaseWithOpenChildren?.Cases?.isEmpty() == false) {
+    if (getParentCaseWithOpenChildren(cobCase.id) > 0) {
       return BLOCKED_STATUS_UPDATE_ERROR;
     }
 
@@ -124,21 +124,19 @@ public with sharing class COBCaseStatusValidator {
   }
 
   /**
-   * @description Get parent case with open child cases
+   * @description Get the case's child records count
    * @param parentCaseId Parent case ids
-   * @return Case Parent case with child cases
+   * @return Numbers of child cases
    */
   @TestVisible
-  private static Case getParentCaseWithOpenChildren(Id parentCaseId) {
-    if (PermissionUtils.canQuery('Case') == false) {
-      return null;
-    }
-
-    return [
-      SELECT Id, (SELECT Id FROM Cases WHERE IsClosed = FALSE)
-      FROM Case
-      WHERE Id = :parentCaseId
-    ];
+  private static Integer getParentCaseWithOpenChildren(Id parentCaseId) {
+    return (PermissionUtils.canQuery('Case'))
+      ? [
+          SELECT COUNT()
+          FROM Case
+          WHERE ParentId = :parentCaseId AND IsClosed = FALSE
+        ]
+      : 0;
   }
 
   /**
@@ -157,21 +155,28 @@ public with sharing class COBCaseStatusValidator {
    * @return Boolean True if case's (with cobCaseId) Customer Onboarding Application has an Equifax DVS Result == PASS, false otherwise
    */
   private static Boolean isCobEquifaxDVSPass(Id cobCaseId) {
-    if (
-      PermissionUtils.canQuery('CustomerOnboardingApplication__c') == false ||
-      PermissionUtils.canQuery('Case') == false
-    ) {
-      return false;
-    }
+    return (PermissionUtils.canQuery('CustomerOnboardingApplication__c') &&
+      PermissionUtils.canQuery('Case'))
+      ? ([
+          SELECT COUNT()
+          FROM Case
+          WHERE
+            Id = :cobCaseId
+            AND CustomerOnboardingApplication__r.EquifaxDVSResult__c = :EQUIFAX_DVS_PASS
+        ] > 0)
+      : false;
+  }
 
-    List<Case> cases = [
-      SELECT Id, CustomerOnboardingApplication__r.EquifaxDVSResult__c
-      FROM Case
-      WHERE
-        Id = :cobCaseId
-        AND CustomerOnboardingApplication__r.EquifaxDVSResult__c = :EQUIFAX_DVS_PASS
-    ];
-
-    return cases.size() > 0;
+  /**
+   * @description Checks whether the case is 'Daon Fallout' that contains 'Watchlist' Subject
+   * @param cobCase Case record
+   * @return Boolean True if case is in Watchlist and has status being updated from 'Daon Fallout' to 'Confirmed Fraud'
+   */
+  public static Boolean isInWatchList(Case cobCase) {
+    return String.IsNotBlank(cobCase.Subject) &&
+      cobCase.Subject.contains(
+        GetHelpConstants.COB_DAON_FAILED_SUBJECT_WATCHLIST_HIT
+      ) &&
+      cobCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS;
   }
 }

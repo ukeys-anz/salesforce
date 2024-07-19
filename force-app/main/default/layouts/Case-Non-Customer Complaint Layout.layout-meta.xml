@@ -319,6 +319,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>IDR_Complaint_Outcome_Offered__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>IDR_Complaint_Remedy__c</field>
             </layoutItems>
             <layoutItems>
@@ -372,6 +376,10 @@
         <editHeading>false</editHeading>
         <label>Description of Outcome</label>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Description_of_Outcome_Offered__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>IDR_Description_of_Outcome__c</field>
@@ -469,6 +477,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>IDR_Date_Case_on_Hold_From__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>IsStopped</field>
             </layoutItems>
         </layoutColumns>
@@ -499,7 +511,7 @@
                 <field>IDR_Possible_Systemic_Issues__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Real_Form_Req__c</field>
             </layoutItems>
             <layoutItems>
@@ -525,7 +537,7 @@
                 <field>IDR_Datetime_PSI_Ticked__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Real_Form_Ref_No__c</field>
             </layoutItems>
             <layoutItems>
@@ -707,7 +719,7 @@
                 <field>ClosedDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>IDR_Date_Received__c</field>
             </layoutItems>
             <layoutItems>
@@ -764,9 +776,14 @@
             <sortOrder>5</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Case.Send_Notification</actionName>
+            <actionName>Case.Case_on_Hold</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>6</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Case.Send_Notification</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>7</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>

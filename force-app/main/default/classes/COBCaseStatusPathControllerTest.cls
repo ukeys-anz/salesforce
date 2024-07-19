@@ -34,7 +34,8 @@ public with sharing class COBCaseStatusPathControllerTest {
         OnboardingVerificationFailedReason__c,
         Status_Update_Error__c,
         RecordTypeId,
-        PersonaId__c
+        PersonaId__c,
+        Subject
       FROM Case
       WHERE RecordTypeId = :recordtype
     ];
@@ -199,6 +200,40 @@ public with sharing class COBCaseStatusPathControllerTest {
       );
     }
     Test.stopTest();
+  }
+
+  @IsTest
+  static void testMakeTemporalCalloutError() {
+    Lib_MockProvider mockRepo = Lib_MockProvider.forType(
+        StravinskyAPIRepository.class
+      )
+      .mockException(
+        'triggerTemporalCaseWorkflow',
+        new CalloutException('Error calling out')
+      );
+
+    Case cobCase = getCOBCase(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
+    cobCase.Status = GetHelpConstants.COB_FAILED_OK_STATUS;
+
+    Test.startTest();
+    Boolean isCalloutSucccesful = COBCaseStatusPathController.makeTemporalCallout(
+      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      cobCase,
+      true
+    );
+    Test.stopTest();
+
+    Assert.isFalse(isCalloutSucccesful, 'Callout should have failed.');
+    Assert.areEqual(
+      2,
+      mockRepo.getHistories('triggerTemporalCaseWorkflow').size(),
+      'Workflow should be triggered twice, once for the initial call and once for the retry.'
+    );
+    Assert.areEqual(
+      'Error calling out',
+      cobCase.Status_Update_Error__c,
+      'Case.Status_Update_Error__c should be updated with callout error'
+    );
   }
 
   @isTest

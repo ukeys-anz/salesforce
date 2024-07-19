@@ -45,19 +45,4 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>MLCRM_BusinessAdmin_RW_Sharing</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>This sharing rule is used to share territory records (Read/Write access) with Business Admin Role users</description>
-        <label>MLCRM Business Admin RW Sharing</label>
-        <sharedTo>
-            <role>Business_Admin</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>CreatedById</field>
-            <operation>notEqual</operation>
-            <value/>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
 </SharingRules>

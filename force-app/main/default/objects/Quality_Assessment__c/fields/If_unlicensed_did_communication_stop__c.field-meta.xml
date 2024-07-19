@@ -32,6 +32,12 @@
                 <default>false</default>
                 <label>N/A – no DMF, or DMF licenced</label>
             </value>
+            <value>
+                <fullName>N/A - no LOA, or LOA licensed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>N/A - no LOA, or LOA licensed</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

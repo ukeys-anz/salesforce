@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Field Level Security (FLS) for RBM</description>
+    <description>Permissions for Residential Broker Manager</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.OCV_Event_Version__c</field>
@@ -294,11 +294,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Feature__c.Account_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Feature__c.Closed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1238,6 +1233,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Originated_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Owner_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1596,7 +1596,7 @@
         <name>CreateCustomizeFilters</name>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <name>EditPublicFilters</name>
     </userPermissions>
 </PermissionSet>

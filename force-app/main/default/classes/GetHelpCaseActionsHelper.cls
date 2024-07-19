@@ -106,15 +106,33 @@ public with sharing class GetHelpCaseActionsHelper {
 
   /**
    * @description validateParentCase method is called before updating the case record to check and throw error if the record is having child cases
-   * @param caseIds list of case ids from the trigger
+   * @param caseIds set of case ids from the trigger
    * @param validateCaseList list of case records from the trigger
    */
   public static void validateParentCase(
-    List<Id> caseIds,
+    Set<Id> caseIds,
     List<Case> validateCaseList
   ) {
-    Set<Id> parentCaseIds = new Set<Id>();
-    //to store list of cases where the current record is parent case for other case records
+    Set<Id> parentCaseIds = getParentCaseIds(caseIds);
+
+    for (Case record : validateCaseList) {
+      if (parentCaseIds.contains(record.id)) {
+        record.addError(PARENT_CASE_ERROR);
+      }
+    }
+  }
+
+  @TestVisible
+  private static Set<Id> getChildCaseListMock;
+  /**
+   * @description Get child records
+   * @param caseIds Case Ids of the records from trigger
+   * @return Set<Id> parent Ids with child records
+   */
+  public static Set<Id> getParentCaseIds(Set<Id> caseIds) {
+    if (getChildCaseListMock != null) {
+      return getChildCaseListMock;
+    }
     List<Case> childCaseList = new List<Case>();
 
     if (Schema.sObjectType.Case.isQueryable()) {
@@ -125,15 +143,12 @@ public with sharing class GetHelpCaseActionsHelper {
       ];
     }
 
+    Set<Id> parentCaseIds = new Set<Id>();
     for (Case childCase : childCaseList) {
       parentCaseIds.add(childCase.ParentId);
     }
 
-    for (Case record : validateCaseList) {
-      if (parentCaseIds.contains(record.id)) {
-        record.addError(PARENT_CASE_ERROR);
-      }
-    }
+    return parentCaseIds;
   }
 
   /**
@@ -148,37 +163,35 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     List<Case> anzPlusCases = new List<Case>();
     List<Id> relatedAccountIDs = new List<Id>();
-    Case oOldCase;
-    for (Case record : records) {
+    for (Case newCase : records) {
       if (
-        CheckCaseRecordType.isANZPlusCaseType(record) &&
-        record.AccountId != null &&
+        CheckCaseRecordType.isANZPlusCaseType(newCase) &&
+        newCase.AccountId != null &&
         (mpOldCasesByIds == null ||
-        (oOldCase = mpOldCasesByIds.get(record.Id)) == null ||
-        oOldCase.AccountId != record.AccountId)
+        RecordComparisonUtil.fieldWasChanged(
+          newCase,
+          mpOldCasesByIds.get(newCase.Id),
+          Case.AccountId
+        ))
       ) {
-        anzPlusCases.add(record);
-        relatedAccountIDs.add(record.AccountId);
+        anzPlusCases.add(newCase);
+        relatedAccountIDs.add(newCase.AccountId);
       }
     }
 
-    if (relatedAccountIDs.size() == 0) {
+    if (relatedAccountIDs.isEmpty()) {
       return;
     }
 
-    Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
-      [
-        SELECT Id, IsPersonAccount, PersonContactId
-        FROM Account
-        WHERE Id IN :relatedAccountIDs
-      ]
+    Map<Id, Account> relatedAccountsMap = queryAccountDetailsSystemMode(
+      relatedAccountIDs
     );
 
-    for (Case record : anzPlusCases) {
+    for (Case newCaseRecord : anzPlusCases) {
       // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
-      record.ContactId = relatedAccountsMap.get(record.AccountId)
+      newCaseRecord.ContactId = relatedAccountsMap.get(newCaseRecord.AccountId)
           .IsPersonAccount
-        ? relatedAccountsMap.get(record.AccountId).PersonContactId
+        ? relatedAccountsMap.get(newCaseRecord.AccountId).PersonContactId
         : null;
     }
   }
@@ -593,26 +606,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description populate default fields on KYC QA cases
-   * @param record record
-   */
-  public static void populateKYCQACaseClosedNoDefectDefaults(Case record) {
-    record.Fraud_Customer_Details__c = YES;
-    record.Fraud_Middle_Name__c = YES;
-    record.Fraud_Middle_Initial__c = YES;
-    record.Fraud_MiddleNameCheck__c = YES;
-    record.Fraud_Selfie_Comparison_Match__c = YES;
-    record.Fraud_PO_Box__c = YES;
-    record.Fraud_Address_Valid__c = YES;
-    record.Fraud_ID_Legible__c = YES;
-    record.Fraud_ID_Not_Picture__c = YES;
-    record.Fraud_Customer_Photo_Modified__c = YES;
-    record.Fraud_Security_Features__c = YES;
-    record.Fraud_Restraint_Status__c = 'N/A';
-    record.Fraud_Defects_Rectified__c = 'Not Applicable';
-  }
-
-  /**
    * @description This method will check if a case is converted from AEM to General Inquiry/ANZX Complaint/Non-Cusotmer Complaint
    * @param oldRecord case: old values of a record to process
    * @param newRecord case: new record instances to process
@@ -733,6 +726,52 @@ public with sharing class GetHelpCaseActionsHelper {
     }
 
     return idOpsCases;
+  }
+
+  /**
+   * @description Check the records and filter those that are ID Ops with Watchlist hit
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   * @return List<Case> List of IDOps cases that are in Watchlist Hit
+   */
+  public static List<Case> getIDOpsWatchlistRecords(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> idOpsCases = new List<Case>();
+
+    //filter records for update
+    for (Case newCaseRecord : records) {
+      Case oldCaseRecord = oldMap.get(newCaseRecord.Id);
+
+      if (
+        CheckCaseRecordType.isIDOpsAssistance(newCaseRecord) &&
+        COBCaseStatusValidator.isInWatchList(newCaseRecord) &&
+        GetHelpCaseActionsHelper.isStatusChanged(newCaseRecord, oldCaseRecord)
+      ) {
+        idOpsCases.add(newCaseRecord);
+      }
+    }
+
+    return idOpsCases;
+  }
+
+  /**
+   * @description Set ID Ops cases Onboarding Verification Reason
+   * @param records Filtered ID Ops Cases for update
+   * @param caseIdsWithChildren ID Ops CaseIds with child records
+   */
+  @TestVisible
+  public static void setIDOpsWatchlistCaseReason(
+    List<Case> records,
+    Set<Id> caseIdsWithChildren
+  ) {
+    //if the case has no child erecord, status change is triggered from the record itself
+    for (Case c : records) {
+      if (!caseIdsWithChildren.contains(c.Id)) {
+        c.OnboardingVerificationFailedReason__c = GetHelpConstants.ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST;
+      }
+    }
   }
 
   /**
@@ -961,5 +1000,32 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       record.addError(UNCHECK_IS_PAYTO_DISPUTE_ERROR);
     }
+  }
+
+  /**
+   * @description retrieve the account details in system mode
+   * @param relatedAccountIDs Id associated with the newly created cases
+   * @return map of account id and account details
+   */
+  private static Map<Id, Account> queryAccountDetailsSystemMode(
+    List<Id> relatedAccountIDs
+  ) {
+    SystemModeActions systemAction = new SystemModeActions(
+      'GetHelpCaseActionsHelper',
+      'populateContactLookupForANZPlus'
+    );
+    String relatedAccountIDAsString =
+      '\'' +
+      String.join(relatedAccountIDs, '\',\'') +
+      '\'';
+
+    Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
+      (List<Account>) systemAction.query(
+        'SELECT Id, IsPersonAccount, PersonContactId FROM Account WHERE Id IN (' +
+          relatedAccountIDAsString +
+          ')'
+      )
+    );
+    return relatedAccountsMap;
   }
 }

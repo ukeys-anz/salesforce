@@ -1215,6 +1215,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Referred to Classic</fullName>
             <default>false</default>
         </values>

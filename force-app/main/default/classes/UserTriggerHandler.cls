@@ -63,6 +63,9 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
+    UserProvisioningAfterActions.logManualUserProvisioning(
+      (List<User>) this.records
+    );
     ML_UserActions.createTerritoryForMLUser(this.records, null);
     CCRMRegionSharingUtil.addUsersToRegion(this.records);
   }

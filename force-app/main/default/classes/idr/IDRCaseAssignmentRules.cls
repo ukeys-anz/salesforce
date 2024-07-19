@@ -11,7 +11,6 @@ public with sharing class IDRCaseAssignmentRules {
   @TestVisible
   private static final Map<String, Id> QUEUE_MAP = getWorkbaskets();
   private static Map<Id, Product2> productsMap = new Map<Id, Product2>();
-
   /**
    * @description method to call the Case assignment rules
    * @param cases Records in the current context

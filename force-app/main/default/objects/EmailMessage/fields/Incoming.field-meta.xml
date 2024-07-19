@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Incoming</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Highly_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Indicating that this an incoming email.</description>
+    <securityClassification>Restricted</securityClassification>
+</CustomField>

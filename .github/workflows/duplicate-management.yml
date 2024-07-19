@@ -6,7 +6,7 @@ on:
 
 jobs:
   export_config:
-    runs-on: [self-hosted, salesforce-prod]
+    runs-on: anzx-default
 
     steps:
       - name: Set BRANCH_NAME

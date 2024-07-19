@@ -1,0 +1,121 @@
+name: Salesforce Manual Steps Workflow | Production
+on:
+  workflow_dispatch:
+    inputs:
+      manual_step_name:
+        required: true
+        description: "Pre/Post deploy step?"
+        type: choice
+        options:
+          - pre-deploy
+          - post-deploy
+
+      release_folder_name:
+        required: true
+        description: "Which release manual steps folder?"
+        type: string
+
+      exclude_epic_folders:
+        required: false
+        description: "Manual steps folder to be excluded?"
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  production-manual-steps:
+    name: ${{inputs.manual_step_name}} steps | Production.
+    container:
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
+      options: --user root
+      volumes:
+        - ${{ github.workspace }}/release:/opt/harness-delegate/release
+
+    runs-on: anzx-default
+    concurrency:
+      group: "salesforce-manual-steps-prod-release"
+      cancel-in-progress: true
+
+    strategy:
+      max-parallel: 1
+      fail-fast: true
+      matrix:
+        config:
+          - DEPLOYMENT_ENVIRONMENT: "prod-validation"
+            DEPLOYMENT_TITLE: "Approval Step"
+
+          - DEPLOYMENT_ENVIRONMENT: "production-manual-steps-deployment"
+            DEPLOYMENT_TITLE: "Deployment Step: Prod ${{inputs.manual_step_name}} steps"
+
+    environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
+    env:
+      PROD_CONSUMER_KEY_SECRET_NAME: "h-salesforce-prod-ca-consumerkey"
+      PROD_CERT_SECRET_NAME: "h-salesforce-prod-cert"
+      APPROVAL_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-validation' }}
+      NOT_APPROVAL_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'production-manual-steps-deployment' }}
+      STAGE_NAME: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
+      REPO_NAME: ${{ github.event.repository.name }}
+      PROD_DEPLOY_USERNAME: "tech.gcb@anzx.com"
+      PROD_URL: "https://anz.my.salesforce.com"
+      BASE_REF: "master"
+      RELEASE_FOLDER_NAME: ${{ inputs.exclude_epic_folders}}
+      WHICH_MANUAl_STEP: ${{ inputs.manual_step_name}}
+      EXCLUDE_EPIC_FOLDERS: ${{ inputs.exclude_epic_folders}}
+
+    steps:
+      - name: Link SGD plugin
+        if: env.NOT_APPROVAL_STEP == 'true'
+        run: |
+          cd /opt/harness-delegate/.local/share/sf
+          sf plugins:link node_modules/sfdx-git-delta/bin
+
+      - name: Checkout
+        if: env.NOT_APPROVAL_STEP == 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ env.BASE_REF }}
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        if: env.NOT_APPROVAL_STEP == 'true'
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
+
+      - name: Retrieve GSM Credentials
+        if: env.NOT_APPROVAL_STEP == 'true'
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            prod-consumer-key:projects/810679854929/secrets/${{ env.PROD_CONSUMER_KEY_SECRET_NAME }}/versions/latest
+            prod-cert:projects/810679854929/secrets/${{ env.PROD_CERT_SECRET_NAME }}/versions/latest
+            proxypass:projects/anz-x-bootstrap-prod-3b7a6d/secrets/h-salesforce-prod-proxy-password/versions/1
+
+      - name: "Setup HTTP Proxy (sf-harness-delegate-prod)"
+        if: env.NOT_APPROVAL_STEP == 'true'
+        id: "proxy-harness-delegate"
+        uses: "anzx/github-reusable-actions/setup-http-proxy@ephemeral"
+        with:
+          production: true
+          proxy-username: "sf-harness-delegate-prod"
+          proxy-password: "${{ steps.secrets.outputs.proxypass }}"
+
+      - name: ENV vars
+        if: env.NOT_APPROVAL_STEP == 'true'
+        run: |
+          echo WHICH_JOB="manualSteps" >> $GITHUB_ENV
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
+
+      - name: Run ${{inputs.manual_step_name}} steps
+        if: env.NOT_APPROVAL_STEP == 'true'
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/manual-steps-prod.mjs "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}"
+          echo WHICH_JOB="clean" >> $GITHUB_ENV
+
+      - name: Report & Cleaning | ${{inputs.manual_step_name}} steps
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/manual-steps-prod.mjs

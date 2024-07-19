@@ -15,12 +15,16 @@ public with sharing class IDRConstants {
   public static final String CLOSED_STATUS = 'Closed';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String RESOLVED_STATUS = 'Resolved';
+  public static final String ON_HOLD_STATUS = 'On Hold';
 
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
 
   //Customer Notification Template
   public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'AgCaseRegister';
+
+  //EDR Notification Template
+  public static final String CUSTOMER_EDR_NOTIFICATION_TEMPLATE = 'AgCaseReferAck';
 
   //Banker and Manager Notification Template
   public static final String BANKER_EMAIL_NOTIFICATION_TEMPLATE = 'AgCaseAutoEsclate';
@@ -377,9 +381,7 @@ public with sharing class IDRConstants {
 
   public static final List<String> IDR_PRIORITY_VALUES = new List<String>{
     'Standard',
-    'Financial Hardship',
-    'Vulnerable Customer',
-    'Customer in Collections'
+    'Vulnerable Customer'
   };
 
   public static final List<String> IDR_ORIGIN_VALUES = new List<String>{
@@ -422,7 +424,8 @@ public with sharing class IDRConstants {
     '20',
     '21',
     'Chat',
-    'ANZ Plus App'
+    'ANZ Plus App',
+    'Know Your Customer'
   };
 
   public static final List<String> IDR_ESCALATION_VALUES = new List<String>{
