@@ -6,9 +6,12 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;IDR_Task&apos;,
+ISNEW(),
 ISPICKVAL(Type,&apos;Pend Case&apos;),
-OR(ISBLANK(Date_Case_on_Hold_From__c),
+OR(NOT(ISPICKVAL(Case__r.Status,&apos;Escalated&apos;)),
+NOT(ISPICKVAL(Case__r.Status,&apos;Re-Opened&apos;)),
+ISBLANK(Date_Case_on_Hold_From__c),
 Date_Case_on_Hold_From__c &gt; TODAY())
 )</errorConditionFormula>
-    <errorMessage>You cannot create a Task when the On Hold Date is null or with a Future Date, Please create a task from Case screen with Today&apos;s Date.</errorMessage>
+    <errorMessage>Please ensure the On Hold Date field is filled and not set to a future date, or ensure the Case Status is either &quot;Escalated&quot; or &quot;Reopen&quot; to create a Pend Task.</errorMessage>
 </ValidationRule>
