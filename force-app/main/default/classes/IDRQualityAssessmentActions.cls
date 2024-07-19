@@ -271,5 +271,4 @@ public with sharing class IDRQualityAssessmentActions {
       String.valueOf(qaRecord.get(fieldAPIName))
     );
   }
-
 }

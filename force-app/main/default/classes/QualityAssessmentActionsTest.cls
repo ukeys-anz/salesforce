@@ -1,6 +1,5 @@
 @IsTest
 private class QualityAssessmentActionsTest {
- 
   //method to test negative case (return false) when calling isDisputeCaseType mehtod
   @IsTest
   private static void testIsDisputeCaseTypeNegative() {
@@ -342,5 +341,4 @@ private class QualityAssessmentActionsTest {
       'Assessment Outcome Status should not be updated when Outcome fields are not changed'
     );
   }
-  
 }
