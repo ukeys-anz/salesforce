@@ -38,6 +38,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
     QualityAssessmentTaskActions.createComplianceTasks(records, null);
     IDRQualityAssessmentTaskActions.createQAShareRecord(records, null);
     IDRQualityAssessmentTaskActions.createComplianceTasks(records, null);
+    IDRQualityAssessmentActions.countRecords(
+      records,
+      (new Map<Id, Quality_Assessment__c>())
+    );
   }
 
   /**
@@ -78,6 +82,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       (Map<Id, Quality_Assessment__c>) oldMap
     );
     IDRQualityAssessmentTaskActions.createQAShareRecord(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    IDRQualityAssessmentActions.countRecords(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );

@@ -363,6 +363,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Completed_Evaluations__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Correspondence_Reviewed_Formula__c</field>
         <readable>true</readable>
