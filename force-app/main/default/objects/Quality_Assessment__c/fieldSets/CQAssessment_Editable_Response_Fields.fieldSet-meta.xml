@@ -42,5 +42,10 @@
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
+    <displayedFields>
+        <field>Assessment_Outcome_Status__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
     <label>CQAssessment_Editable_Response_Fields</label>
 </FieldSet>

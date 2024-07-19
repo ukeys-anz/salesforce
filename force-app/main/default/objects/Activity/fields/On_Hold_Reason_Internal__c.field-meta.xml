@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>IDR_Pend_Reason__c</fullName>
+    <fullName>On_Hold_Reason_Internal__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
-    <description>Reason why a case is pending</description>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>On Hold Reason to be used when case is on hold with Internal (ANZ) Party</description>
     <externalId>false</externalId>
-    <label>On Hold Reason - External</label>
+    <label>On Hold Reason - Internal</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
     <valueSet>
-        <controllingField>IDR_Pended_To__c</controllingField>
+        <controllingField>IDR_Internal_or_External_Party__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -35,9 +35,9 @@
                 <label>Awaiting recommendation or preliminary view</label>
             </value>
             <value>
-                <fullName>Other (please provide detail in Comments)</fullName>
+                <fullName>Other (please provide detail in comments)</fullName>
                 <default>false</default>
-                <label>Other (please provide detail in Comments)</label>
+                <label>Other (please provide detail in comments)</label>
             </value>
             <value>
                 <fullName>Awaiting response on an offer made to customer</fullName>
@@ -56,34 +56,16 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>External Solicitor</controllingFieldValue>
-            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
-            <controllingFieldValue>Other EDR Scheme</controllingFieldValue>
-            <controllingFieldValue>AFCA</controllingFieldValue>
-            <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Nominated 3rd Party Representative of Customer</controllingFieldValue>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
             <valueName>Awaiting information to be provided</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>AFCA</controllingFieldValue>
-            <valueName>Awaiting allocation to ACFA case manager</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Awaiting approval for proposed resolution</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>AFCA</controllingFieldValue>
-            <valueName>Awaiting determination</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>AFCA</controllingFieldValue>
-            <valueName>Awaiting recommendation or preliminary view</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>AFCA</controllingFieldValue>
-            <valueName>Other (please provide detail in Comments)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Nominated 3rd Party Representative of Customer</controllingFieldValue>
-            <valueName>Awaiting response on an offer made to customer</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Awaiting implementation of agreed outcome</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

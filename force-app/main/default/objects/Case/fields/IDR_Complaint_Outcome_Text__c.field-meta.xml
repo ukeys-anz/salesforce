@@ -5,7 +5,8 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>This is the formula field which will convert Case Object Complaint Outcome field value(API name) to respective label.</description>
     <externalId>false</externalId>
-    <formula>CASE(IDR_Complaint_Outcome__c, &apos;1&apos;,&apos;In favour of customer in full&apos;,&apos;2&apos;, &apos;In favour of customer in part&apos;,&apos;3&apos;,&apos;In favour of ANZ&apos;,&apos;&apos;)</formula>
+    <formula>CASE(IDR_Complaint_Outcome__c, &apos;1&apos;,&apos;In favour of customer in full&apos;,&apos;2&apos;, &apos;In favour of customer in part&apos;,&apos;3&apos;,&apos;In favour of ANZ&apos;,&apos;No response from Customer&apos; ,&apos;No response from Customer&apos; ,&apos;Outside of Rules&apos; ,&apos;Outside of Rules&apos;,
+&apos;Merits Assessments&apos; ,&apos;Merits Assessments&apos; ,&apos;Merged&apos; ,&apos;Merged&apos; ,&apos;&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Complaint Outcome Text</label>
     <required>false</required>

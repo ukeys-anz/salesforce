@@ -46,6 +46,41 @@
                 <default>false</default>
                 <label>Disputed - C&amp;Q review final</label>
             </value>
+            <value>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+                <label>Submitted</label>
+            </value>
+            <value>
+                <fullName>C&amp;Q Manager amended original review</fullName>
+                <default>false</default>
+                <label>C&amp;Q Manager amended original review</label>
+            </value>
+            <value>
+                <fullName>C&amp;Q Manager upheld original review</fullName>
+                <default>false</default>
+                <label>C&amp;Q Manager upheld original review</label>
+            </value>
+            <value>
+                <fullName>C&amp;Q Manager&apos;s view not accepted</fullName>
+                <default>false</default>
+                <label>C&amp;Q Manager&apos;s view not accepted</label>
+            </value>
+            <value>
+                <fullName>C&amp;Q Manager&apos;s view accepted</fullName>
+                <default>false</default>
+                <label>C&amp;Q Manager&apos;s view accepted</label>
+            </value>
+            <value>
+                <fullName>C&amp;Q Lead upholds C&amp;Q Manager&apos;s review</fullName>
+                <default>false</default>
+                <label>C&amp;Q Lead upholds C&amp;Q Manager&apos;s review</label>
+            </value>
+            <value>
+                <fullName>C&amp;Q Lead disagrees with C&amp;Q Manager&apos;s review</fullName>
+                <default>false</default>
+                <label>C&amp;Q Lead disagrees with C&amp;Q Manager&apos;s review</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
