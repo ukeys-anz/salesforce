@@ -3553,15 +3553,11 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Escalated&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;ComplaintStatus&quot;
-      }, {
-        &quot;field&quot; : &quot;complaintStatus1&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Escalated&quot;
       } ]
     }
   },
@@ -3710,7 +3706,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;label&quot; : &quot;Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?&quot;,
   &quot;controlWidth&quot; : 6,
   &quot;show&quot; : {
@@ -3720,23 +3716,6 @@
         &quot;data&quot; : &quot;Disagrees&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;field&quot; : &quot;CustomerDecision&quot;
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;AND&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;IssueType&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType2&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType3&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          } ]
-        }
       } ]
     }
   }
@@ -3983,141 +3962,17 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;AND&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;custWrittenResponse&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;No&quot;
-          }, {
-            &quot;field&quot; : &quot;complaintRelatedHardship&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;No&quot;
-          } ]
-        }
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;IssueType&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType2&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType3&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          } ]
-        }
-      } ]
-    }
-  }
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>4.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>complaintStatus1</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;disOnTplt&quot; : false,
-  &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;element&quot; : &quot;&quot;
-  },
-  &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Known_Issues__c.IDR_Status__c&quot;,
-    &quot;type&quot; : &quot;&quot;
-  },
-  &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;Open&quot;,
-    &quot;value&quot; : &quot;Open&quot;,
-    &quot;autoAdv&quot; : null
-  }, {
-    &quot;value&quot; : &quot;Under Investigation&quot;,
-    &quot;name&quot; : &quot;Under Investigation&quot;
-  }, {
-    &quot;name&quot; : &quot;Escalated&quot;,
-    &quot;value&quot; : &quot;Escalated&quot;,
-    &quot;autoAdv&quot; : null
-  }, {
-    &quot;value&quot; : &quot;Closed&quot;,
-    &quot;name&quot; : &quot;Closed&quot;
-  } ],
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
-  &quot;defaultValue&quot; : &quot;Escalated&quot;,
-  &quot;readOnly&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Complaint Status&quot;,
-  &quot;controlWidth&quot; : 3,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;custWrittenResponse&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;Yes&quot;
-          }, {
-            &quot;field&quot; : &quot;complaintRelatedHardship&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;Yes&quot;
-          } ]
-        }
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;AND&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;IssueType&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType2&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType3&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          } ]
-        }
-      } ]
-    }
-  }
-}</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
-                <type>Select</type>
-            </childElements>
-            <childElements>
+                <name>ComplaintSubRemedy1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>ComplaintSubRemedy1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 5,
@@ -4275,26 +4130,9 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;AND&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;IssueType&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType2&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType3&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          } ]
-        }
-      }, {
-        &quot;field&quot; : &quot;CustomerDecision&quot;,
+        &quot;data&quot; : &quot;Disagrees&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;Disagrees&quot;
+        &quot;field&quot; : &quot;CustomerDecision&quot;
       } ]
     }
   }
@@ -4312,7 +4150,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
   &quot;label&quot; : &quot;Has the customer requested a written response? (Do not ask the customer, only record yes if customer has specifically requested a response in writing)&quot;,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -4352,23 +4190,6 @@
         &quot;data&quot; : &quot;Disagrees&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;field&quot; : &quot;CustomerDecision&quot;
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;AND&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;IssueType&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType2&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          }, {
-            &quot;field&quot; : &quot;IssueType3&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;4&quot;
-          } ]
-        }
       } ]
     }
   }
@@ -5769,16 +5590,12 @@
   },
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;ComplaintStatus&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Escalated&quot;
-      }, {
-        &quot;field&quot; : &quot;complaintStatus1&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Escalated&quot;
-      } ]
+      } ],
+      &quot;operator&quot; : &quot;AND&quot;
     }
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
