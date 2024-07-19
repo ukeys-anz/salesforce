@@ -20,6 +20,8 @@ ISCHANGED( Subject ),
 ISCHANGED(Description),
 ISCHANGED(Priority),
 ISCHANGED( Status ),
+ISCHANGED(IDR_Review_Outcome__c),
+ISCHANGED(TaskSubtype),
 AND(ISCHANGED( Type ), ISPICKVAL(PRIORVALUE(Type),&apos;Pend Case&apos;)))
 ))))</errorConditionFormula>
     <errorMessage>This case is already On Hold. If you have made an error or are trying to create a new On Hold task, please update the case status back to Escalated/Re-Opened, re-enter the correct details in these fields and place the case On Hold again.</errorMessage>
