@@ -483,6 +483,7 @@
         "Authentication_Method__c",
         "Coach_Action__c",
         "Completed_Date__c",
+        "Date_Case_on_Hold_From__c",
         "Due_in_Days__c",
         "IDR_Collection_Number__c",
         "IDR_COR_ID__c",
@@ -497,6 +498,9 @@
         "IDR_Tribe__c",
         "Is_Case_Owned_By_CR_Team__c",
         "Last_Assigned_Owner__c",
+        "On_Hold_Reason__c",
+        "On_Hold_Reason_Internal__c",
+        "Product_Manufacturer__c",
         "PSI_or_DSI__c",
         "Queue__c",
         "SI_Other_Tribe_BU__c",
@@ -1099,7 +1103,8 @@
         "My_extended_team_s_cases__c",
         "AFCA_Stage__c",
         "Date_time_Registration_Response_Provided__c",
-        "IDR_Complaint_Outcome_Offered__c"
+        "IDR_Complaint_Outcome_Offered__c",
+        "IDR_Completed_Evaluations__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",

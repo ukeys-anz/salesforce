@@ -4,5 +4,6 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Date the activity took place; or due date of an open task</description>
+    <inlineHelpText>Select the date that you believe you will receive the information by/the activity you&apos;re waiting on will be completed.</inlineHelpText>
     <securityClassification>Internal</securityClassification>
 </CustomField>

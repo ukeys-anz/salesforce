@@ -74,6 +74,7 @@ public without sharing class IDRTaskActions {
     checkIDRMaximumTimeTasks(records);
     assignToCollectionsQueue(records);
     stampQueueName(records, null);
+    IDRTaskActions2.assignPendTasktoCaseOwner(records);
   }
 
   /**
@@ -90,13 +91,8 @@ public without sharing class IDRTaskActions {
       record.Completed_Date__c = Date.today();
     }
     if (
-      record.Type == IDRConstants.TASK_TYPE_PEND_CASE &&
-      record.Subject != IDRConstants.SUBJECT_PEND_CASE_TASK
-    ) {
-      record.Subject = IDRConstants.SUBJECT_PEND_CASE_TASK;
-    }
-    if (
       record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
+      record.Type != IDRConstants.TASK_TYPE_PEND_CASE &&
       record.ActivityDate == null
     ) {
       record.ActivityDate = Date.today().addDays(1);
@@ -190,6 +186,7 @@ public without sharing class IDRTaskActions {
   public static void afterInsertActions(List<Task> records) {
     closeOldIDRMaximumTimeTasks(records);
     IDRTaskActions2.checkForUrgentCaseAllocationTask(records);
+    IDRTaskActions2.updateOnHoldDateonCase(records,true);
   }
   /**
    * @description beforeUpdateActions is called onBeforeUpdate
@@ -235,6 +232,7 @@ public without sharing class IDRTaskActions {
   public static void afterUpdateActions(List<Task> records) {
     closeMilestonesOfClosedTask(records);
     IDRTaskActionHelper.updateCases(records);
+    IDRTaskActions2.updateOnHoldDateonCase(records,false);
   }
   /**
    * @description closeOldIDRMaximumTimeTasks will close out old IDR Task reminders against case when a new Task is created.

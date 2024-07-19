@@ -133,6 +133,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Escalation_Reason__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Completed_Evaluations__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -732,6 +736,7 @@
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Case.Send_Notification</actionName>
+            <actionName>On_Hold_Task</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
         </platformActionListItems>
