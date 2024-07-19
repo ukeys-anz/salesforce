@@ -14,5 +14,5 @@ Date_Case_on_Hold_From__c &gt; TODAY()
 ),
 NOT(ISPICKVAL(Case__r.Status,&apos;Re-Opened&apos;))
 )</errorConditionFormula>
-    <errorMessage>Please ensure the On Hold Date field is filled and not set to a future date, or ensure the Case Status is either &quot;Escalated&quot; or &quot;Reopen&quot; to create a Pend Task.</errorMessage>
+    <errorMessage>Please ensure the On Hold Date field is filled and not set to a future date, or ensure the Case Status is either &quot;Escalated&quot; or &quot;Re-opened&quot; to create a Pend Task.</errorMessage>
 </ValidationRule>
