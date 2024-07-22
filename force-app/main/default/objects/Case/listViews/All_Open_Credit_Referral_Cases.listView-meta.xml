@@ -32,5 +32,7 @@
         <role>Quality_Analyst</role>
         <role>Quality_Capability_Lead</role>
         <role>Support_Coach</role>
+        <role>Settlement_Officer</role>
+        <role>Settlement_Officer_Lead</role>
     </sharedTo>
 </ListView>

@@ -87,11 +87,11 @@ private class RetailBrokerGCPActionsTest {
   static void testGenerateBrokerCEModel() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
     Test.startTest();
-    BrokerDataCloudEventModel addModel = RetailBrokerGCPActions.generateBrokerCEModel(
+    BrokerCloudEventModel addModel = RetailBrokerGCPActions.generateBrokerCEModel(
       newContact,
       RetailBrokerGCPActions.GCP_EVENT_ADD
     );
-    BrokerDataCloudEventModel updateModel = RetailBrokerGCPActions.generateBrokerCEModel(
+    BrokerCloudEventModel updateModel = RetailBrokerGCPActions.generateBrokerCEModel(
       newContact,
       RetailBrokerGCPActions.GCP_EVENT_UPDATE
     );
@@ -141,11 +141,11 @@ private class RetailBrokerGCPActionsTest {
   static void testBuildAddContract() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
     Test.startTest();
-    List<BrokerDataCloudEventModel.MasterNode> results = RetailBrokerGCPActions.buildAddContract(
+    List<BrokerCloudEventModel.MasterNode> results = RetailBrokerGCPActions.buildAddContact(
       newContact
     );
     Test.stopTest();
-    BrokerDataCloudEventModel.MasterNode contactNode = results[1];
+    BrokerCloudEventModel.MasterNode contactNode = results[1];
     Assert.areEqual(
       6,
       results.size(),
@@ -162,11 +162,11 @@ private class RetailBrokerGCPActionsTest {
   static void testBuildUpdateContract() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
     Test.startTest();
-    List<BrokerDataCloudEventModel.MasterNode> results = RetailBrokerGCPActions.buildUpdateContract(
+    List<BrokerCloudEventModel.MasterNode> results = RetailBrokerGCPActions.buildUpdateContact(
       newContact
     );
     Test.stopTest();
-    BrokerDataCloudEventModel.MasterNode contactNode = results[4];
+    BrokerCloudEventModel.MasterNode contactNode = results[4];
     Assert.areEqual(
       6,
       results.size(),

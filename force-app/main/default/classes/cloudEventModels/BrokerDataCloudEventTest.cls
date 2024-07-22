@@ -12,7 +12,7 @@ private class BrokerDataCloudEventTest {
     return (Contact) JSON.deserialize(CONTACT_JSON, Contact.class);
   }
 
-  static List<BrokerDataCloudEventModel.MasterNode> createTestMasterNodes() {
+  static List<BrokerCloudEventModel.MasterNode> createTestMasterNodes() {
     Map<String, String> dataContractMap = new Map<String, String>{
       'sourceObjectName' => 'Broker_Customer_Profile__c',
       'sourceObjectParentExtId' => 'Broker_Name_External_Id__c',
@@ -24,25 +24,25 @@ private class BrokerDataCloudEventTest {
       'targetObjects_parent_referenceField' => 'Broker__c',
       'targetObjects_parent_extID' => 'Broker_Name_External_Id__c'
     };
-    BrokerDataCloudEventModel.MasterNode masterNode = BrokerDataCloudEventModel.buildMasterNode(
+    BrokerCloudEventModel.MasterNode masterNode = BrokerCloudEventModel.buildMasterNode(
       dataContractMap
     );
-    List<BrokerDataCloudEventModel.MasterNode> masterNodes = new List<BrokerDataCloudEventModel.MasterNode>();
+    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
     masterNodes.add(masterNode);
     return masterNodes;
   }
 
   @IsTest
-  static void testBrokerDataCloudEventModel() {
+  static void testBrokerCloudEventModel() {
     Contact testContact = createTestContact();
-    List<BrokerDataCloudEventModel.MasterNode> masterNodes = createTestMasterNodes();
+    List<BrokerCloudEventModel.MasterNode> masterNodes = createTestMasterNodes();
     Test.startTest();
     BrokerDataCloudEventModel model = new BrokerDataCloudEventModel(
       testContact,
       masterNodes,
       'TEST_EVENT'
     );
-    BrokerDataCloudEventModel.BrokerCloudEventDataModel cloudEventData = (BrokerDataCloudEventModel.BrokerCloudEventDataModel) model.ce_data;
+    BrokerCloudEventModel.BrokerCloudEventDataModel cloudEventData = (BrokerCloudEventModel.BrokerCloudEventDataModel) model.ce_data;
     Test.stopTest();
     Assert.areEqual(
       'Contact/TEST_NAME',
@@ -64,8 +64,8 @@ private class BrokerDataCloudEventTest {
   @IsTest
   static void testBuildMasterNode() {
     Test.startTest();
-    List<BrokerDataCloudEventModel.MasterNode> masterNodes = createTestMasterNodes();
-    BrokerDataCloudEventModel.MasterNode masterNode = masterNodes[0];
+    List<BrokerCloudEventModel.MasterNode> masterNodes = createTestMasterNodes();
+    BrokerCloudEventModel.MasterNode masterNode = masterNodes[0];
     Test.stopTest();
     Assert.isNotNull(masterNode, 'Master Node should be created successfully');
     Assert.isNotNull(
@@ -87,7 +87,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildContactNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerDataCloudEventModel.MasterNode contactNode = BrokerDataContactCEBuilder.buildContactNode(
+    BrokerCloudEventModel.MasterNode contactNode = BrokerDataContactCEBuilder.buildContactNode(
       testContact
     );
     Test.stopTest();
@@ -102,7 +102,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildAccountNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerDataCloudEventModel.MasterNode accountNode = BrokerDataContactCEBuilder.buildAccountNode(
+    BrokerCloudEventModel.MasterNode accountNode = BrokerDataContactCEBuilder.buildAccountNode(
       testContact
     );
     Test.stopTest();
@@ -117,7 +117,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildBrokerCodeNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerDataCloudEventModel.MasterNode brokerCodeNode = BrokerDataContactCEBuilder.buildBrokerCodeNode(
+    BrokerCloudEventModel.MasterNode brokerCodeNode = BrokerDataContactCEBuilder.buildBrokerCodeNode(
       testContact
     );
     Test.stopTest();
@@ -132,7 +132,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildContactPointPhoneNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerDataCloudEventModel.MasterNode contactPointPhoneNode = BrokerDataContactCEBuilder.buildContactInfoNode(
+    BrokerCloudEventModel.MasterNode contactPointPhoneNode = BrokerDataContactCEBuilder.buildContactInfoNode(
       testContact,
       'ContactPointPhone'
     );
@@ -148,7 +148,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildContactPointAddressNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerDataCloudEventModel.MasterNode contactPointAddressNode = BrokerDataContactCEBuilder.buildContactInfoNode(
+    BrokerCloudEventModel.MasterNode contactPointAddressNode = BrokerDataContactCEBuilder.buildContactInfoNode(
       testContact,
       'ContactPointAddress'
     );
@@ -164,7 +164,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildContactPointEmailNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerDataCloudEventModel.MasterNode contactPointEmailNode = BrokerDataContactCEBuilder.buildContactInfoNode(
+    BrokerCloudEventModel.MasterNode contactPointEmailNode = BrokerDataContactCEBuilder.buildContactInfoNode(
       testContact,
       'ContactPointEmail'
     );

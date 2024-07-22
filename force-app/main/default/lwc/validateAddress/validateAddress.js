@@ -237,10 +237,10 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
             this.strLongitude = "";
           }
         }
-        if (this.strLatitude) {
+        if (this.strLatitude || this.strLatitude === "") {
           this.fields.Latitude = this.strLatitude;
         }
-        if (this.strLongitude) {
+        if (this.strLongitude || this.strLongitude === "") {
           this.fields.Longitude = this.strLongitude;
         }
         this.template

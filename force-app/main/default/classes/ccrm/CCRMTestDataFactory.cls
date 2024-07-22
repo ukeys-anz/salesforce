@@ -1671,4 +1671,28 @@ public with sharing class CCRMTestDataFactory {
     }
     return listOfReviews;
   }
+
+  /**
+   * @description create Email Message record Instance
+   * @param emId email message Id
+   * @return EmailMessage Email message instance
+   */
+  public static EmailMessage createEmailMessageInstance(Id emId) {
+    EmailMessage emRecord = new EmailMessage(
+      Id = emId,
+      status = '3',
+      fromAddress = 'idruser@anz.com',
+      fromName = 'Test ANZ',
+      toAddress = 'idruser2@anz.com',
+      ccAddress = 'idruser@anz.com; testuser2@anz2.com',
+      Subject = 'Hello',
+      HtmlBody = 'Hello World',
+      Incoming = false,
+      Attachment_Notes__c = 'This email has no attachments',
+      CreatedBy = new User(
+        Profile = new Profile(Name = 'ANZ CCRM Standard User')
+      )
+    );
+    return emRecord;
+  }
 }

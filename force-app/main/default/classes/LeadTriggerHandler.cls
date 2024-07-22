@@ -152,11 +152,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    * @name onBeforeDelete
    */
   public override void onBeforeDelete() {
-    for (Lead record : (List<Lead>) records) {
-      if (CCRMLeadUtil.isCCRMLeadType(record)) {
-        record.addError(DELETE_ERROR);
-      }
-    }
+    CCRMLeadActions.preventDeletionForCCRM(records);
   }
 
   /**
