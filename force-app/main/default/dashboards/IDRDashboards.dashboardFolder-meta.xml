@@ -41,9 +41,4 @@
         <sharedTo>Commercial_Banking</sharedTo>
         <sharedToType>RoleAndSubordinates</sharedToType>
     </folderShares>
-    <folderShares>
-        <accessLevel>View</accessLevel>
-        <sharedTo>ANZ_Plus_Operations_Read_Only</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </folderShares>
 </DashboardFolder>
