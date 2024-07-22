@@ -2956,6 +2956,7 @@
         "Bathrooms__c",
         "Bedrooms__c",
         "Carparks__c",
+        "External_ID__c",
         "Floor_Area__c",
         "Image_Link__c",
         "Land_Area__c",

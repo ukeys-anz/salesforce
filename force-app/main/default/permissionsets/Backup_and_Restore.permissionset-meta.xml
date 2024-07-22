@@ -6044,6 +6044,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>LoanApplicationProperty.External_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>LoanApplicationProperty.Floor_Area__c</field>
         <readable>true</readable>
     </fieldPermissions>
