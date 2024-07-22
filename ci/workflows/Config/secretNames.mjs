@@ -53,8 +53,7 @@ const salesforceSecretNames = {
   "epic/ccrmintact": "sf-platform-np-ccrmintact",
   "epic/profileupdate": "sf-platform-np-profileupd",
   "epic/marvelepic": "sf-platform-np-marvelepic",
-  "epic/kycqa-auto-grading": "sf-platform-np-kycqagrade",
-  "epic/main-single-app-overview": "sf-platform-np-main-single-app-overview"
+  "epic/kycqa-auto-grading": "sf-platform-np-kycqagrade"
 };
 
 const brokerSecretNames = {

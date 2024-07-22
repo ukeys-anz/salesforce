@@ -20,11 +20,6 @@
                 <default>false</default>
                 <label>Broker Org</label>
             </value>
-            <value>
-                <fullName>Blocked</fullName>
-                <default>false</default>
-                <label>Blocked</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>
