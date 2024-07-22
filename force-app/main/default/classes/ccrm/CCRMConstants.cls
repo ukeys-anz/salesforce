@@ -91,7 +91,8 @@ public with sharing class CCRMConstants {
   public static final String ACC_ORG_LABEL = 'Organisation Type';
   public static final String ERROR_RESPONSE = 'Unexpected error';
   public static final String SUCCESS_RESPONSE = 'Success';
-
+  public static final String CCRM_PROFILE_NAME = 'ANZ CCRM Standard User';
+  public static final String DELETE_ERROR = 'You cannot delete leads';
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
     'Business_Account'
   };

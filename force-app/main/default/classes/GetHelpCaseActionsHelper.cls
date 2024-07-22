@@ -163,37 +163,35 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     List<Case> anzPlusCases = new List<Case>();
     List<Id> relatedAccountIDs = new List<Id>();
-    Case oOldCase;
-    for (Case record : records) {
+    for (Case newCase : records) {
       if (
-        CheckCaseRecordType.isANZPlusCaseType(record) &&
-        record.AccountId != null &&
+        CheckCaseRecordType.isANZPlusCaseType(newCase) &&
+        newCase.AccountId != null &&
         (mpOldCasesByIds == null ||
-        (oOldCase = mpOldCasesByIds.get(record.Id)) == null ||
-        oOldCase.AccountId != record.AccountId)
+        RecordComparisonUtil.fieldWasChanged(
+          newCase,
+          mpOldCasesByIds.get(newCase.Id),
+          Case.AccountId
+        ))
       ) {
-        anzPlusCases.add(record);
-        relatedAccountIDs.add(record.AccountId);
+        anzPlusCases.add(newCase);
+        relatedAccountIDs.add(newCase.AccountId);
       }
     }
 
-    if (relatedAccountIDs.size() == 0) {
+    if (relatedAccountIDs.isEmpty()) {
       return;
     }
 
-    Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
-      [
-        SELECT Id, IsPersonAccount, PersonContactId
-        FROM Account
-        WHERE Id IN :relatedAccountIDs
-      ]
+    Map<Id, Account> relatedAccountsMap = queryAccountDetailsSystemMode(
+      relatedAccountIDs
     );
 
-    for (Case record : anzPlusCases) {
+    for (Case newCaseRecord : anzPlusCases) {
       // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
-      record.ContactId = relatedAccountsMap.get(record.AccountId)
+      newCaseRecord.ContactId = relatedAccountsMap.get(newCaseRecord.AccountId)
           .IsPersonAccount
-        ? relatedAccountsMap.get(record.AccountId).PersonContactId
+        ? relatedAccountsMap.get(newCaseRecord.AccountId).PersonContactId
         : null;
     }
   }
@@ -608,26 +606,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description populate default fields on KYC QA cases
-   * @param record record
-   */
-  public static void populateKYCQACaseClosedNoDefectDefaults(Case record) {
-    record.Fraud_Customer_Details__c = YES;
-    record.Fraud_Middle_Name__c = YES;
-    record.Fraud_Middle_Initial__c = YES;
-    record.Fraud_MiddleNameCheck__c = YES;
-    record.Fraud_Selfie_Comparison_Match__c = YES;
-    record.Fraud_PO_Box__c = YES;
-    record.Fraud_Address_Valid__c = YES;
-    record.Fraud_ID_Legible__c = YES;
-    record.Fraud_ID_Not_Picture__c = YES;
-    record.Fraud_Customer_Photo_Modified__c = YES;
-    record.Fraud_Security_Features__c = YES;
-    record.Fraud_Restraint_Status__c = 'N/A';
-    record.Fraud_Defects_Rectified__c = 'Not Applicable';
-  }
-
-  /**
    * @description This method will check if a case is converted from AEM to General Inquiry/ANZX Complaint/Non-Cusotmer Complaint
    * @param oldRecord case: old values of a record to process
    * @param newRecord case: new record instances to process
@@ -1022,5 +1000,32 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       record.addError(UNCHECK_IS_PAYTO_DISPUTE_ERROR);
     }
+  }
+
+  /**
+   * @description retrieve the account details in system mode
+   * @param relatedAccountIDs Id associated with the newly created cases
+   * @return map of account id and account details
+   */
+  private static Map<Id, Account> queryAccountDetailsSystemMode(
+    List<Id> relatedAccountIDs
+  ) {
+    SystemModeActions systemAction = new SystemModeActions(
+      'GetHelpCaseActionsHelper',
+      'populateContactLookupForANZPlus'
+    );
+    String relatedAccountIDAsString =
+      '\'' +
+      String.join(relatedAccountIDs, '\',\'') +
+      '\'';
+
+    Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
+      (List<Account>) systemAction.query(
+        'SELECT Id, IsPersonAccount, PersonContactId FROM Account WHERE Id IN (' +
+          relatedAccountIDAsString +
+          ')'
+      )
+    );
+    return relatedAccountsMap;
   }
 }

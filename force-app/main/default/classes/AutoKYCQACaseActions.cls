@@ -7,7 +7,7 @@
 public with sharing class AutoKYCQACaseActions {
   public static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
 
-  private static final AutoKYCQACaseRepository AUTO_KYCQA_CASE_REPOSITORY = (AutoKYCQACaseRepository) Lib_InstanceProvider.forType(
+  private static final AutoKYCQACaseRepository REPOSITORY = (AutoKYCQACaseRepository) Lib_InstanceProvider.forType(
     AutoKYCQACaseRepository.class
   );
 
@@ -33,15 +33,30 @@ public with sharing class AutoKYCQACaseActions {
   private static final String VERIFICATION_TYPE_ASSISTED = 'ASSISTED';
   @TestVisible
   private static final String VERIFICATION_TYPE_STP = 'STP';
-  @TestVisible
-  private static final String RECTIFY_DEFECT_STATUS = 'Rectify Defect';
-  @TestVisible
-  private static final String PENDING_DOCUMENTS_STATUS = 'Pending Documents';
-  @TestVisible
-  private static final String UNDER_REVIEW_STATUS = 'Under Review';
-  @TestVisible
-  private static final String TRIGGERED_FROM_PREFIX = 'Case.KYC_QA';
   private static final String CURRENT = 'Current';
+
+  private static final Set<String> DOWNGRADE_OLD_STATUSES = new Set<String>{
+    'Open',
+    'Under Review'
+  };
+
+  private static final Set<String> DOWNGRADE_NEW_STATUSES = new Set<String>{
+    'Rectify Defect',
+    'Pending Documents',
+    'Refer to Fraud'
+  };
+
+  private static final Set<SObjectField> TEST_FIELDS = new Set<SObjectField>{
+    Case.Fraud_Customer_Details__c,
+    Case.Fraud_MiddleNameCheck__c,
+    Case.Fraud_Selfie_Comparison_Match__c,
+    Case.Fraud_PO_Box__c,
+    Case.Fraud_Address_Valid__c,
+    Case.Fraud_ID_Legible__c,
+    Case.Fraud_ID_Not_Picture__c,
+    Case.Fraud_Customer_Photo_Modified__c,
+    Case.Fraud_Security_Features__c
+  };
 
   @TestVisible
   private static final Map<String, String> VERIFICATION_TYPE_PRIORITY_MAP = new Map<String, String>{
@@ -199,20 +214,13 @@ public with sharing class AutoKYCQACaseActions {
   private static Map<String, CustomerOnboardingApplication__c> getCOBAppsByPersonaIds(
     Set<String> personaIds
   ) {
-    if (personaIds.isEmpty() == true) {
-      return new Map<String, CustomerOnboardingApplication__c>();
-    }
-
-    Map<String, CustomerOnboardingApplication__c> personaIDToCOBAppMap = new Map<String, CustomerOnboardingApplication__c>();
-    for (
-      CustomerOnboardingApplication__c cobApp : AUTO_KYCQA_CASE_REPOSITORY.queryCOBByPersonaId(
-        personaIds
-      )
-    ) {
-      personaIDToCOBAppMap.put(cobApp.PersonaId__c, cobApp);
-    }
-
-    return personaIDToCOBAppMap;
+    List<CustomerOnboardingApplication__c> cobApps = REPOSITORY.queryCOBByPersonaId(
+      personaIds
+    );
+    return (Map<String, CustomerOnboardingApplication__c>) CommonUtil.buildStringMap(
+      cobApps,
+      CustomerOnboardingApplication__c.PersonaId__c
+    );
   }
 
   /**
@@ -224,14 +232,10 @@ public with sharing class AutoKYCQACaseActions {
   private static Map<String, COBPrimaryIDDocument__c> getCOBPIDsByPersonaIds(
     Set<String> personaIds
   ) {
-    if (personaIds.isEmpty() == true) {
-      return new Map<String, COBPrimaryIDDocument__c>();
-    }
-
     Map<String, COBPrimaryIDDocument__c> personaIDToPrimaryDocumentMap = new Map<String, COBPrimaryIDDocument__c>();
     //get latest COB PID record by max createdDate for each PersonaId
     for (
-      CustomerOnboardingApplication__c cobApp : AUTO_KYCQA_CASE_REPOSITORY.queryCOBWithPIDByPersonaId(
+      CustomerOnboardingApplication__c cobApp : REPOSITORY.queryCOBWithPIDByPersonaId(
         personaIds
       )
     ) {
@@ -257,14 +261,10 @@ public with sharing class AutoKYCQACaseActions {
     Set<String> personaIds,
     String addressType
   ) {
-    if (personaIds.isEmpty() == true) {
-      return new Map<String, COBAddress__c>();
-    }
-
     Map<String, COBAddress__c> personaIDToCOBAddressMap = new Map<String, COBAddress__c>();
     //get latest COB Address record by max createdDate for each PersonaId and certain Address Type
     for (
-      CustomerOnboardingApplication__c cobApp : AUTO_KYCQA_CASE_REPOSITORY.queryCOBWithCOBAddressByAddresTypeAndPersonaId(
+      CustomerOnboardingApplication__c cobApp : REPOSITORY.queryCOBWithCOBAddressByAddresTypeAndPersonaId(
         personaIds,
         addressType
       )
@@ -444,17 +444,12 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    */
   public static void validateDuplicateKYCQACasePerAccount(List<Case> cases) {
-    Map<Id, Case> accountIdAndCaseMap = new Map<Id, Case>();
-    for (Case kycCase : cases) {
-      if (kycCase.AccountId != null) {
-        accountIdAndCaseMap.put(kycCase.AccountId, kycCase);
-      }
-    }
-    if (accountIdAndCaseMap.isEmpty() == true) {
-      return;
-    }
+    Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) CommonUtil.buildIdMap(
+      cases,
+      Case.AccountId
+    );
 
-    List<Case> existingKYCCases = AUTO_KYCQA_CASE_REPOSITORY.queryKYCQACasesByAccountIds(
+    List<Case> existingKYCCases = REPOSITORY.queryKYCQACasesByAccountIds(
       accountIdAndCaseMap.keySet()
     );
     for (Case existingKYCCase : existingKYCCases) {
@@ -471,20 +466,12 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    */
   public static void validateDuplicateKYCQACasePerCOBApp(List<Case> cases) {
-    Map<Id, Case> cobAppIdAndCaseMap = new Map<Id, Case>();
-    for (Case kycCase : cases) {
-      if (kycCase.CustomerOnboardingApplication__c != null) {
-        cobAppIdAndCaseMap.put(
-          kycCase.CustomerOnboardingApplication__c,
-          kycCase
-        );
-      }
-    }
-    if (cobAppIdAndCaseMap.isEmpty() == true) {
-      return;
-    }
+    Map<Id, Case> cobAppIdAndCaseMap = (Map<Id, Case>) CommonUtil.buildIdMap(
+      cases,
+      Case.CustomerOnboardingApplication__c
+    );
 
-    List<Case> existingKYCCases = AUTO_KYCQA_CASE_REPOSITORY.queryKYCQACasesByCOBAppIds(
+    List<Case> existingKYCCases = REPOSITORY.queryKYCQACasesByCOBAppIds(
       cobAppIdAndCaseMap.keySet()
     );
     for (Case existingKYCCase : existingKYCCases) {
@@ -518,7 +505,7 @@ public with sharing class AutoKYCQACaseActions {
   @TestVisible
   private static Boolean canPopulateTestedDate(Case oCase) {
     return oCase?.TestedDate__c == null &&
-      areTestFieldsNotEmpty(oCase) &&
+      hasKycCheckCompleted(oCase) &&
       String.isNotEmpty(oCase?.Fraud_Restraint_Status__c);
   }
 
@@ -528,16 +515,14 @@ public with sharing class AutoKYCQACaseActions {
    * @return True if all Test fields are not empty, false otherwise
    */
   @TestVisible
-  private static boolean areTestFieldsNotEmpty(Case oCase) {
-    return String.isNotEmpty(oCase?.Fraud_Customer_Details__c) &&
-      String.isNotEmpty(oCase?.Fraud_MiddleNameCheck__c) &&
-      String.isNotEmpty(oCase?.Fraud_Selfie_Comparison_Match__c) &&
-      String.isNotEmpty(oCase?.Fraud_PO_Box__c) &&
-      String.isNotEmpty(oCase?.Fraud_Address_Valid__c) &&
-      String.isNotEmpty(oCase?.Fraud_ID_Legible__c) &&
-      String.isNotEmpty(oCase?.Fraud_Customer_Photo_Modified__c) &&
-      String.isNotEmpty(oCase?.Fraud_ID_Not_Picture__c) &&
-      String.isNotEmpty(oCase?.Fraud_Security_Features__c);
+  private static boolean hasKycCheckCompleted(Case oCase) {
+    for (SObjectField field : TEST_FIELDS) {
+      String value = String.valueOf(oCase?.get(field));
+      if (String.isBlank(value)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -546,15 +531,10 @@ public with sharing class AutoKYCQACaseActions {
    * @param oldMap Old Map of Cases
    */
   public static void downgrade(List<Case> cases, Map<Id, Case> oldMap) {
-    List<Case> casesToDowngrade = checkIfDowngrade(cases, oldMap);
-    if (casesToDowngrade.isEmpty() == true) {
-      return;
-    }
-
-    List<Account> oldAccounts = getAccounts(casesToDowngrade);
-    List<Account> newAccounts = oldAccounts?.deepClone(true, true, true);
-
-    setDowngradeAccountValue(newAccounts);
+    List<Case> casesToDowngrade = filterDowngradeCases(cases, oldMap);
+    Set<Id> accountIds = CommonUtil.getIds(casesToDowngrade, Case.AccountId);
+    List<Account> oldAccounts = REPOSITORY.queryAccounts(accountIds);
+    List<Account> newAccounts = buildDowngradedAccounts(oldAccounts);
 
     processCases(casesToDowngrade, newAccounts, oldAccounts);
   }
@@ -566,7 +546,7 @@ public with sharing class AutoKYCQACaseActions {
    * @return List of Downgrade Cases
    */
   @TestVisible
-  private static List<Case> checkIfDowngrade(
+  private static List<Case> filterDowngradeCases(
     List<Case> cases,
     Map<Id, Case> oldMap
   ) {
@@ -574,7 +554,7 @@ public with sharing class AutoKYCQACaseActions {
     for (Case kycQaCase : cases) {
       Case oldCase = oldMap.get(kycQaCase.Id);
       if (
-        doesKYCQAHaveADefect(kycQaCase) == true &&
+        hasKycCheckCompletedWithDefect(kycQaCase) == true &&
         checkValidStatusForDowngrade(kycQaCase, oldCase)
       ) {
         casesToDowngrade.add(kycQaCase);
@@ -594,10 +574,8 @@ public with sharing class AutoKYCQACaseActions {
     Case kycQaCase,
     Case oldCase
   ) {
-    return (oldCase.Status == GetHelpConstants.OPEN_STATUS ||
-      oldCase.Status == UNDER_REVIEW_STATUS) &&
-      (kycQaCase.Status == RECTIFY_DEFECT_STATUS ||
-      kycQaCase.Status == PENDING_DOCUMENTS_STATUS);
+    return DOWNGRADE_OLD_STATUSES.contains(oldCase.Status) &&
+      DOWNGRADE_NEW_STATUSES.contains(kycQaCase.Status);
   }
 
   /**
@@ -606,46 +584,31 @@ public with sharing class AutoKYCQACaseActions {
    * @return True if the KYC QA Case has a defect, false otherwise
    */
   @TestVisible
-  private static Boolean doesKYCQAHaveADefect(Case oCase) {
-    return areTestFieldsNotEmpty(oCase) &&
-      (oCase?.Fraud_Customer_Details__c == NO ||
-      oCase?.Fraud_MiddleNameCheck__c == NO ||
-      oCase?.Fraud_Selfie_Comparison_Match__c == NO ||
-      oCase?.Fraud_PO_Box__c == NO ||
-      oCase?.Fraud_Address_Valid__c == NO ||
-      oCase?.Fraud_ID_Legible__c == NO ||
-      oCase?.Fraud_Customer_Photo_Modified__c == NO ||
-      oCase?.Fraud_ID_Not_Picture__c == NO ||
-      oCase?.Fraud_Security_Features__c == NO);
+  private static Boolean hasKycCheckCompletedWithDefect(Case oCase) {
+    if (!hasKycCheckCompleted(oCase)) {
+      return false;
+    }
+    for (SObjectField field : TEST_FIELDS) {
+      if (oCase.get(field) == NO) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
    * @description Set Downgrade Account Value
-   * @param newAccounts List of New Accounts
+   * @param accounts List of Accounts
+   * @return `List<Account>` new instance of accounts with KYC downgrade values
    */
   @TestVisible
-  private static void setDowngradeAccountValue(List<Account> newAccounts) {
+  private static List<Account> buildDowngradedAccounts(List<Account> accounts) {
+    List<Account> newAccounts = accounts.deepClone(true, true, true);
     for (Account acc : newAccounts) {
       acc.FinServ__KYCStatus__c = DOWNGRADE_KYC_STATUS;
       acc.KYC_Verification_Level__c = DOWNGRADE_KYC_VERIFICATION_LEVEL;
     }
-  }
-
-  /**
-   * @description Get Account Ids from Cases
-   * @param cases List of Cases
-   * @return List of Accounts
-   */
-  @TestVisible
-  private static List<Account> getAccounts(List<Case> cases) {
-    if (cases.isEmpty() == true) {
-      return new List<Account>();
-    }
-    Set<Id> accountIds = new Set<Id>();
-    for (Case oCase : cases) {
-      accountIds.add(oCase.AccountId);
-    }
-    return AUTO_KYCQA_CASE_REPOSITORY.queryAccounts(accountIds);
+    return newAccounts;
   }
 
   /**
@@ -654,21 +617,11 @@ public with sharing class AutoKYCQACaseActions {
    * @param oldMap Old Map of Cases
    */
   public static void upgrade(List<Case> cases, Map<Id, Case> oldMap) {
-    List<Case> casesToUpgrade = checkIfUpgradeInitial(cases, oldMap);
-    if (casesToUpgrade.isEmpty() == true) {
-      return;
-    }
-
-    List<Account> initialListOfOldAccounts = getAccounts(casesToUpgrade);
-
-    List<Account> oldAccounts = checkAccountExitFlag(initialListOfOldAccounts);
-    if (oldAccounts.isEmpty() == true) {
-      return;
-    }
-
-    List<Account> newAccounts = oldAccounts?.deepClone(true, true, true);
-
-    setUpgradeAccountValue(newAccounts);
+    List<Case> casesToUpgrade = filterUpgradeCases(cases, oldMap);
+    Set<Id> accountIds = CommonUtil.getIds(casesToUpgrade, Case.AccountId);
+    List<Account> accounts = REPOSITORY.queryAccounts(accountIds);
+    List<Account> oldAccounts = filterAccountsNotExited(accounts);
+    List<Account> newAccounts = buildUpgradedAccounts(oldAccounts);
 
     processCases(casesToUpgrade, newAccounts, oldAccounts);
   }
@@ -680,7 +633,7 @@ public with sharing class AutoKYCQACaseActions {
    * @return List of Upgrade Cases - initial list
    */
   @TestVisible
-  private static List<Case> checkIfUpgradeInitial(
+  private static List<Case> filterUpgradeCases(
     List<Case> cases,
     Map<Id, Case> oldMap
   ) {
@@ -704,7 +657,7 @@ public with sharing class AutoKYCQACaseActions {
    * @return List of Accounts to Upgrade
    */
   @TestVisible
-  private static List<Account> checkAccountExitFlag(
+  private static List<Account> filterAccountsNotExited(
     List<Account> initialListOfOldAccounts
   ) {
     List<Account> oldAccounts = new List<Account>();
@@ -719,14 +672,17 @@ public with sharing class AutoKYCQACaseActions {
 
   /**
    * @description Set Upgrade Account Value
-   * @param newAccounts List of New Accounts
+   * @param accounts List of Accounts
+   * @return `List<Account>` new instance of accounts with KYC upgrade values
    */
   @TestVisible
-  private static void setUpgradeAccountValue(List<Account> newAccounts) {
+  private static List<Account> buildUpgradedAccounts(List<Account> accounts) {
+    List<Account> newAccounts = accounts.deepClone(true, true, true);
     for (Account acc : newAccounts) {
       acc.FinServ__KYCStatus__c = UPGRADE_KYC_STATUS;
       acc.KYC_Verification_Level__c = UPGRADE_KYC_VERIFICATION_LEVEL;
     }
+    return newAccounts;
   }
 
   /**
@@ -741,7 +697,10 @@ public with sharing class AutoKYCQACaseActions {
     List<Account> newAccounts,
     List<Account> oldAccounts
   ) {
-    Map<Id, Case> mapAccountIdToCase = buildMapAccountIdToCase(casesToProcess);
+    Map<Id, Case> mapAccountIdToCase = (Map<Id, Case>) CommonUtil.buildIdMap(
+      casesToProcess,
+      Case.AccountId
+    );
 
     AutoKYCQAProfileStagingConfig config = new AutoKYCQAProfileStagingConfig(
       mapAccountIdToCase
@@ -752,18 +711,42 @@ public with sharing class AutoKYCQACaseActions {
   }
 
   /**
-   * @description Build Map of Account Id to Case
-   * @param cases List of Cases
-   * @return Map of Account Id to Case
+   * @description populate default fields on KYC QA cases if the status is Closed and Sub Status is No Defect
+   * @param records The list of Case records to populate with default values.
+   * @param oldMap The map of old Case records, used to compare with the new records.
+   */
+  public static void populateClosedNoDefectDefaults(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    for (Case record : records) {
+      if (!checkClosedAsNoDefect(record, oldMap?.get(record.Id))) {
+        continue;
+      }
+      for (SObjectField field : TEST_FIELDS) {
+        record.put(field, YES);
+      }
+      record.Fraud_Middle_Name__c = YES;
+      record.Fraud_Middle_Initial__c = YES;
+      record.Fraud_Restraint_Status__c = 'N/A';
+      record.Fraud_Defects_Rectified__c = 'Not Applicable';
+    }
+  }
+
+  /**
+   * @description Checks if the case is closed as "No Defect" and not downgraded.
+   * @param record The new Case record.
+   * @param oldRecord The old Case record.
+   * @return `Boolean` Returns true if the case is closed as "No Defect" and not downgraded, false otherwise.
    */
   @TestVisible
-  private static Map<Id, Case> buildMapAccountIdToCase(List<Case> cases) {
-    Map<Id, Case> mapAccountIdToCase = new Map<Id, Case>();
-
-    for (Case oCase : cases) {
-      mapAccountIdToCase.put(oCase.AccountId, oCase);
-    }
-
-    return mapAccountIdToCase;
+  private static Boolean checkClosedAsNoDefect(Case record, Case oldRecord) {
+    Boolean closedAsNoDefect =
+      record.Sub_Status__c != oldRecord?.Sub_Status__c &&
+      record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
+    Boolean wasDowngraded =
+      hasKycCheckCompletedWithDefect(record) &&
+      record.Fraud_Defects_Rectified__c == YES;
+    return closedAsNoDefect && !wasDowngraded;
   }
 }

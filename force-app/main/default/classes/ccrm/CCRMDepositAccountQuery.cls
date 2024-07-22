@@ -121,7 +121,7 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
       row.put('AccountName', fa.accountName);
       row.put('AccountNumber', formatAccountNumber(fa.accountNumber));
       row.put('AccountStatus', fa.status);
-      row.put('ANZSICCode ', fa.anzsicCode);
+      row.put('ANZSICCode', fa.anzsicCode);
       row.put('accountRestrictions', fa.accountRestrictions);
       row.put('ANZPlusIdentifier', fa.anzPlusIdentifier);
       row.put('BSB', fa.bsb);

@@ -17,12 +17,12 @@ Many downstream systems such as Reporting, Risk, CAP and Credit utilize this fie
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>REFINANCING_REASON_UNSPECIFIED</fullName>
+                <fullName>LENDING_PURPOSE_UNSPECIFIED</fullName>
                 <default>false</default>
                 <label>Unspecified</label>
             </value>
             <value>
-                <fullName>REFINANCING_REASON_PAY_LESS	</fullName>
+                <fullName>REFINANCING_REASON_PAY_LESS</fullName>
                 <default>false</default>
                 <label>Pay Less</label>
             </value>
@@ -42,9 +42,89 @@ Many downstream systems such as Reporting, Risk, CAP and Credit utilize this fie
                 <label>Top Up</label>
             </value>
             <value>
-                <fullName>REFINANCING_REASON_REFI_CURRENT_BALANCE</fullName>
+                <fullName>LENDING_PURPOSE_REFINANCE</fullName>
                 <default>false</default>
                 <label>Refinance</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING</fullName>
+                <default>false</default>
+                <label>Non-structural alterations or additions</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_NEW</fullName>
+                <default>false</default>
+                <label>New car</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_USED</fullName>
+                <default>false</default>
+                <label>Used car</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_OTHER</fullName>
+                <default>false</default>
+                <label>Other vehicle type</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_MOTOR_CYCLE</fullName>
+                <default>false</default>
+                <label>Motorcycle and scooters</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_BOAT_CARAVAN_TRAILER</fullName>
+                <default>false</default>
+                <label>Boats, caravans and trailers</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS</fullName>
+                <default>false</default>
+                <label>Household and personal goods</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL</fullName>
+                <default>false</default>
+                <label>Travel and holidays</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT</fullName>
+                <default>false</default>
+                <label>Personal investments, shares, bonds</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION</fullName>
+                <default>false</default>
+                <label>Education expenses</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_OTHER_WEDDING</fullName>
+                <default>false</default>
+                <label>Wedding</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_OTHER_LEGAL</fullName>
+                <default>false</default>
+                <label>Legal expenses</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL</fullName>
+                <default>false</default>
+                <label>Medical expenses</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES</fullName>
+                <default>false</default>
+                <label>Motor vehicle expenses</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE</fullName>
+                <default>false</default>
+                <label>Maintenance, repairs and pools</label>
+            </value>
+            <value>
+                <fullName>LENDING_PURPOSE_PERSONAL_OTHER</fullName>
+                <default>false</default>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

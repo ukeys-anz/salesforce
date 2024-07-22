@@ -13,7 +13,8 @@ public with sharing class AutoKYCQACaseRepository {
     Set<String> personaIds
   ) {
     if (
-      Schema.SObjectType.CustomerOnboardingApplication__c.isQueryable() == false
+      personaIds.isEmpty() ||
+      SObjectType.CustomerOnboardingApplication__c.isQueryable() == false
     ) {
       return new List<CustomerOnboardingApplication__c>();
     }
@@ -33,9 +34,9 @@ public with sharing class AutoKYCQACaseRepository {
     Set<String> personaIds
   ) {
     if (
-      Schema.SObjectType.CustomerOnboardingApplication__c.isQueryable() ==
-      false ||
-      Schema.SObjectType.COBPrimaryIDDocument__c.isQueryable() == false
+      personaIds.isEmpty() ||
+      SObjectType.CustomerOnboardingApplication__c.isQueryable() == false ||
+      SObjectType.COBPrimaryIDDocument__c.isQueryable() == false
     ) {
       return new List<CustomerOnboardingApplication__c>();
     }
@@ -81,9 +82,9 @@ public with sharing class AutoKYCQACaseRepository {
     String addressType
   ) {
     if (
-      Schema.SObjectType.CustomerOnboardingApplication__c.isQueryable() ==
-      false ||
-      Schema.SObjectType.COBAddress__c.isQueryable() == false
+      personaIds.isEmpty() ||
+      SObjectType.CustomerOnboardingApplication__c.isQueryable() == false ||
+      SObjectType.COBAddress__c.isQueryable() == false
     ) {
       return new List<CustomerOnboardingApplication__c>();
     }
@@ -108,7 +109,7 @@ public with sharing class AutoKYCQACaseRepository {
    * @return List<Case> list of KYC QA cases
    */
   public List<Case> queryKYCQACasesByAccountIds(Set<Id> accountIds) {
-    if (!Schema.SObjectType.Case.isQueryable()) {
+    if (accountIds.isEmpty() || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }
     return [
@@ -127,7 +128,7 @@ public with sharing class AutoKYCQACaseRepository {
    * @return List<Case> list of KYC QA cases
    */
   public List<Case> queryKYCQACasesByCOBAppIds(Set<Id> cobAppIds) {
-    if (Schema.SObjectType.Case.isQueryable() == false) {
+    if (cobAppIds.isEmpty() || SObjectType.Case.isQueryable() == false) {
       return new List<Case>();
     }
     return [
@@ -146,7 +147,7 @@ public with sharing class AutoKYCQACaseRepository {
    * @return List<Account> list of Accounts
    */
   public List<Account> queryAccounts(Set<Id> accountIds) {
-    if (Schema.SObjectType.Account.isQueryable() == false) {
+    if (accountIds.isEmpty() || SObjectType.Account.isQueryable() == false) {
       return new List<Account>();
     }
     return [
