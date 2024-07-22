@@ -57,11 +57,11 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     if (response.successful) {
       try {
         result = GenesisPackageClosureModel.parse(response.body);
-      } catch (Exception e) {
-        handleErrors(response, e, StravinskyService.class);
+      } catch (Exception objException) {
+        throw CommonUtil.logException(objException);
       }
     } else {
-      handleErrors(response, null, StravinskyService.class);
+      throw CommonUtil.logException(response);
     }
 
     return result;
