@@ -634,6 +634,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicationFinancial.Borrow_Additional_Funds__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicationFinancial.Current_Loan_Balance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LoanApplicationFinancial.E_Tag__c</field>
         <readable>true</readable>
     </fieldPermissions>

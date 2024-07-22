@@ -44,7 +44,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.populateOCVOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
     GetHelpCaseActions.setOwnerToIDOpsQueue(records);
-    GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
       (List<Case>) records,
       null

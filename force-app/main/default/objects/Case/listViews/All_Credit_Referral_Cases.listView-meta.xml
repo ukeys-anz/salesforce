@@ -28,5 +28,7 @@
         <role>Quality_Capability_Lead</role>
         <role>Residential_Broker_Manager</role>
         <role>Support_Coach</role>
+        <role>Settlement_Officer</role>
+        <role>Settlement_Officer_Lead</role>
     </sharedTo>
 </ListView>

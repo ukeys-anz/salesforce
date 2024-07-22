@@ -541,6 +541,11 @@
         "Record_Id__c"
       ]
     },
+    "Additional_Fund__c": {
+      "IA-2415840": [],
+      "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
+      "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
+    },
     "Appointment_Commitment__c": {
       "IA-2453595": [
         "Appointment_Channel__c",
@@ -2030,7 +2035,7 @@
         "LastModifiedDate",
         "Id"
       ],
-      "IA-2415860": ["Status"],
+      "IA-2415860": ["Status", "Attachment_Notes__c"],
       "IA-2415997": ["Incoming"]
     },
     "Entitlement": {
@@ -2912,7 +2917,9 @@
         "Loan_Term__c",
         "Loan_Repayment_Type__c",
         "Loan_Margin__c",
-        "Loan_Repayment_Frequency__c"
+        "Loan_Repayment_Frequency__c",
+        "Borrow_Additional_Funds__c",
+        "Current_Loan_Balance__c"
       ],
       "IA-2415840": ["Property_Valuation_Id__c", "E_Tag__c"],
       "IA-2415987": ["Product_Name__c"],
@@ -2957,6 +2964,7 @@
         "Bathrooms__c",
         "Bedrooms__c",
         "Carparks__c",
+        "External_ID__c",
         "Floor_Area__c",
         "Image_Link__c",
         "Land_Area__c",

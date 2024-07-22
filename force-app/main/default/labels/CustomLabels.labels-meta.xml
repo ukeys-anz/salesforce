@@ -15,6 +15,13 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
     </labels>
     <labels>
+        <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_ResidentialLoanApplication_event_ce_type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.retailplusapplication.</value>
+    </labels>
+    <labels>
         <fullName>Broker_Staff_Issue_with_Valid_Owner_Id</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2128,6 +2135,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>ML Outlook Attachment Delete Delay in minutes</shortDescription>
         <value>2</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Outlook_Attachment_Delete_Delay</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM Outlook Attachment Delete Delay in minutes</shortDescription>
+        <value>1</value>
+    </labels>
+    <labels>
+        <fullName>DCRM_ProfileAllowToDeleteOutlookAttachments</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DCRM ProfileAllowToDeleteOutlookAttachments</shortDescription>
+        <value>ANZ ML Standard User;ANZ CCRM Standard User</value>
     </labels>
     <labels>
         <fullName>AdobeIntegrationUserName</fullName>

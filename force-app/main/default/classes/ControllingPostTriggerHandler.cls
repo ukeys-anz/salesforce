@@ -19,6 +19,10 @@ public with sharing class ControllingPostTriggerHandler extends Lib_TriggerHandl
    */
   public override void onBeforeInsert() {
     CCRMControllingPostActions.setResponsibleEmployee(records, null);
+    CCRMControllingPostActions.setCPIDUser(
+      records,
+      new Map<Id, Controlling_Post__c>()
+    );
   }
 
   /**
@@ -28,6 +32,10 @@ public with sharing class ControllingPostTriggerHandler extends Lib_TriggerHandl
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     CCRMControllingPostActions.setResponsibleEmployee(
+      records,
+      (Map<Id, Controlling_Post__c>) oldMap
+    );
+    CCRMControllingPostActions.setCPIDUser(
       records,
       (Map<Id, Controlling_Post__c>) oldMap
     );

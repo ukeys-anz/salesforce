@@ -606,26 +606,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description populate default fields on KYC QA cases
-   * @param record record
-   */
-  public static void populateKYCQACaseClosedNoDefectDefaults(Case record) {
-    record.Fraud_Customer_Details__c = YES;
-    record.Fraud_Middle_Name__c = YES;
-    record.Fraud_Middle_Initial__c = YES;
-    record.Fraud_MiddleNameCheck__c = YES;
-    record.Fraud_Selfie_Comparison_Match__c = YES;
-    record.Fraud_PO_Box__c = YES;
-    record.Fraud_Address_Valid__c = YES;
-    record.Fraud_ID_Legible__c = YES;
-    record.Fraud_ID_Not_Picture__c = YES;
-    record.Fraud_Customer_Photo_Modified__c = YES;
-    record.Fraud_Security_Features__c = YES;
-    record.Fraud_Restraint_Status__c = 'N/A';
-    record.Fraud_Defects_Rectified__c = 'Not Applicable';
-  }
-
-  /**
    * @description This method will check if a case is converted from AEM to General Inquiry/ANZX Complaint/Non-Cusotmer Complaint
    * @param oldRecord case: old values of a record to process
    * @param newRecord case: new record instances to process

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Evaluation_Type__c</fullName>
-    <businessStatus>Active</businessStatus>
+    <businessStatus>Hidden</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The evaluation type of the QA record.</description>
     <externalId>false</externalId>
@@ -18,6 +18,16 @@
                 <fullName>Fraud &amp; Dispute</fullName>
                 <default>false</default>
                 <label>Fraud &amp; Dispute</label>
+            </value>
+            <value>
+                <fullName>Fraud</fullName>
+                <default>false</default>
+                <label>Fraud</label>
+            </value>
+            <value>
+                <fullName>Dispute</fullName>
+                <default>false</default>
+                <label>Dispute</label>
             </value>
             <value>
                 <fullName>Identity &amp; KYC</fullName>

@@ -31,6 +31,7 @@
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>Funds_Purpose_Read_Only</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
     <permissionSets>Interaction_Tag_Read_Only</permissionSets>
     <permissionSets>InteractionOmniClasses</permissionSets>

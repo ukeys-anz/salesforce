@@ -64,7 +64,9 @@ public with sharing class MLCRMCommonUtils {
     Map<Id, sObject> oldMapSobject,
     List<sObject> lstOfSobject
   ) {
-    Boolean hasSkipPermission = FeatureManagement.checkPermission('CCRM_Skip_Validation');
+    Boolean hasSkipPermission = FeatureManagement.checkPermission(
+      'CCRM_Skip_Validation'
+    );
     for (sObject objSobject : lstOfSobject) {
       if (validateSobjectRecord(objSobject)) {
         getProfileId(lstOfSobject);
@@ -952,28 +954,5 @@ public with sharing class MLCRMCommonUtils {
     }
     // single address only condition
     return addressToCheck.equalsIgnoreCase(fromAddress);
-  }
-
-  /**
-   * @description return EmailMessage Map using profileName and List of Ids
-   * @param emailMessageIds List of EmailMessage Ids
-   * @param profileName profileName of EmailMessage Creator
-   * @return Map<Id, EmailMessage>
-   * @US CC-1893
-   */
-  public static Map<Id, EmailMessage> getEmailMessageUsingProfileName(
-    List<Id> emailMessageIds,
-    String profileName
-  ) {
-    if (emailMessageIds.isEmpty()) {
-      return new Map<Id, EmailMessage>();
-    }
-    return new Map<Id, EmailMessage>(
-      [
-        SELECT Id, FromAddress, CcAddress, ToAddress, Incoming
-        FROM EmailMessage
-        WHERE Createdby.profile.name = :profileName AND Id IN :emailMessageIds
-      ]
-    );
   }
 }

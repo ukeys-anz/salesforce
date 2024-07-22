@@ -10,6 +10,7 @@
     "ActionPlanTemplateItem",
     "ActionPlanTemplateItemValue",
     "ActionPlanTemplateVersion",
+    "Additional_Fund__c",
     "Appointment_Commitment__c",
     "Assessment_Response__c",
     "Activity",

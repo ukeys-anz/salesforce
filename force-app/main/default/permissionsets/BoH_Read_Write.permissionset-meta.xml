@@ -193,6 +193,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>LoanApplicationFinancial.Borrow_Additional_Funds__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LoanApplicationFinancial.Current_Loan_Balance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>LoanApplicationFinancial.E_Tag__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -354,6 +364,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LoanApplicationProperty.Collateral_Assessment_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LoanApplicationProperty.External_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

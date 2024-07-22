@@ -2,6 +2,7 @@ import { LightningElement, wire, api } from "lwc";
 import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { handleErrors, showToast } from "c/utils";
+import { RefreshEvent } from "lightning/refresh";
 import PERSONA_ID_FIELD from "@salesforce/schema/Case.PersonaId__c";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import ONBOARDING_VERIFICATION_FAILED_REASON_FIELD from "@salesforce/schema/Case.OnboardingVerificationFailedReason__c";
@@ -21,6 +22,8 @@ const SAME_CASE_STATUS_WARNING =
   "Case can't be updated with the same status. Please select a different status";
 const NOT_MATCHING_VERIFICATION_FAILED_REASON_WARNING =
   "This case was previously completed, it is now updated with the correct data, you can close this tab now.";
+const VR_EQIFAX_FALLOUT_OR_ID_CHECK_OK_TO_ID_OPS_DAON_OK =
+  "Invalid Status change from (Equifax Fallout or ID Check OK) to (ID Ops: Daon OK or Fraud Check: Daon OK)";
 
 export default class CobCaseStatusPath extends LightningElement {
   @api recordId;
@@ -222,10 +225,20 @@ export default class CobCaseStatusPath extends LightningElement {
           this.handleHideModal();
           getRecordNotifyChange([{ recordId: this.recordId }]);
         } catch (error) {
-          this.error = error;
           this.isModalLoading = false;
           this.isModalButtonDisable = false;
-          showToast(this, "Error!", handleErrors(error), "", "error", "");
+          let errorMessage = handleErrors(error);
+          if (
+            errorMessage.includes(
+              VR_EQIFAX_FALLOUT_OR_ID_CHECK_OK_TO_ID_OPS_DAON_OK
+            )
+          ) {
+            this.dispatchEvent(new RefreshEvent());
+          } else {
+            this.error = error;
+            showToast(this, "Error!", errorMessage, "", "error", "");
+          }
+          this.handleHideModal();
         }
       }
     }
