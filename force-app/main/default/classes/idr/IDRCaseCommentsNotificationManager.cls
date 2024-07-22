@@ -49,7 +49,11 @@ public with sharing class IDRCaseCommentsNotificationManager {
     }
 
     if (!caseUpdatedlist.isEmpty()) {
-      update caseUpdatedList;
+      DMLUtil.updateRecords(
+        caseUpdatedList,
+        DMLUtil.ALL_OR_NOTHING,
+        DMLUtil.SYSTEM_MODE
+      );
     }
     manageNotificationTask(records);
   }
@@ -156,9 +160,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
       record,
       new List<Id>{ record.OwnerId },
       record.CaseNumber,
-      customerName +
-      'New Case Comment added by ' +
-      UserInfo.getName(),
+      customerName + 'New Case Comment added by ' + UserInfo.getName(),
       record
     );
 

@@ -92,12 +92,10 @@ public with sharing class IDRCaseAssignmentRules {
         Case.SObjectType.getDescribe().isUpdateable() &&
         Schema.SObjectType.Case.fields.OwnerId.isUpdateable()
       ) {
-        update lstUpdates;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRCaseAssignmentRules',
-          'assignUnescalatedCases',
-          'Not enough permissions to update Case.'
+        DMLUtil.updateRecords(
+          lstUpdates,
+          DMLUtil.ALL_OR_NOTHING,
+          DMLUtil.USER_MODE
         );
       }
     }
