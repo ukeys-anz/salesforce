@@ -111,6 +111,7 @@ public with sharing class HomeLoanController {
       WHERE
         FinServ__FinancialAccount__c = :financialAccountId
         AND FinServ__Active__c = TRUE
+        AND FinServ__Role__c IN :GetHelpConstants.FINSERV_ROLE_TYPES
     ];
 
     return financialAccountRoles;
