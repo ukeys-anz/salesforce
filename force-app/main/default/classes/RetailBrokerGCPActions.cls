@@ -25,10 +25,10 @@ public with sharing class RetailBrokerGCPActions {
     List<Contact> brokers = getBrokerContactsByIds(
       brokerIdToEventTypeMap.keySet()
     );
-    List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
+    List<BrokerDataCloudEventModel> cloudEventModels = new List<BrokerDataCloudEventModel>();
     for (Contact broker : brokers) {
       String eventType = brokerIdToEventTypeMap.get(broker.Id);
-      BrokerCloudEventModel eventModel = generateBrokerCEModel(
+      BrokerDataCloudEventModel eventModel = generateBrokerCEModel(
         broker,
         eventType
       );
@@ -68,17 +68,17 @@ public with sharing class RetailBrokerGCPActions {
    * @description Generate Broker related Cloud Event Model
    * @param broker Contact record
    * @param eventType GCP event type
-   * @return BrokerCloudEventModel
+   * @return BrokerDataCloudEventModel
    */
   @TestVisible
-  private static BrokerCloudEventModel generateBrokerCEModel(
+  private static BrokerDataCloudEventModel generateBrokerCEModel(
     Contact broker,
     String eventType
   ) {
-    List<BrokerCloudEventModel.MasterNode> masterNodes = eventType ==
+    List<BrokerDataCloudEventModel.MasterNode> masterNodes = eventType ==
       GCP_EVENT_ADD
-      ? buildAddContact(broker)
-      : buildUpdateContact(broker);
+      ? buildAddContract(broker)
+      : buildUpdateContract(broker);
     return new BrokerDataCloudEventModel(broker, masterNodes, eventType);
   }
 
@@ -88,10 +88,10 @@ public with sharing class RetailBrokerGCPActions {
    * @return list of master objects
    */
   @TestVisible
-  private static List<BrokerCloudEventModel.MasterNode> buildAddContact(
+  private static List<BrokerDataCloudEventModel.MasterNode> buildAddContract(
     Contact record
   ) {
-    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
+    List<BrokerDataCloudEventModel.MasterNode> masterNodes = new List<BrokerDataCloudEventModel.MasterNode>();
     masterNodes.add(BrokerDataContactCEBuilder.buildAccountNode(record));
     masterNodes.add(BrokerDataContactCEBuilder.buildContactNode(record));
     masterNodes.add(
@@ -122,10 +122,10 @@ public with sharing class RetailBrokerGCPActions {
    * @return list of master objects
    */
   @TestVisible
-  private static List<BrokerCloudEventModel.MasterNode> buildUpdateContact(
+  private static List<BrokerDataCloudEventModel.MasterNode> buildUpdateContract(
     Contact record
   ) {
-    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
+    List<BrokerDataCloudEventModel.MasterNode> masterNodes = new List<BrokerDataCloudEventModel.MasterNode>();
     masterNodes.add(
       BrokerDataContactCEBuilder.buildContactInfoNode(
         record,
