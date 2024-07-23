@@ -63,7 +63,6 @@
         <field>User$Country</field>
     </columns>
     <format>Tabular</format>
-    <name>CMOS All Users Query Report</name>
     <params>
         <name>co</name>
         <value>1</value>
