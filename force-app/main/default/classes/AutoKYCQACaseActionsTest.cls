@@ -2,64 +2,29 @@
 @IsTest
 public with sharing class AutoKYCQACaseActionsTest {
   private static final Faker FAKER = new Faker('AU');
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static final String MOBILE1 = '61412121212';
-  private static final String MOBILE2 = '61413131313';
-  private static final String MOBILE3 = '61415151515';
+  private static final String RECTIFY_DEFECT_STATUS = 'Rectify Defect';
+  private static final String UNDER_REVIEW_STATUS = 'Under Review';
+  private static final String PENDING_DOCUMENTS_STATUS = 'Pending Documents';
 
-  private static final List<String> COB_MATCHING_MOBILE_NUMBERS = new List<String>{
-    MOBILE1,
-    MOBILE2,
-    MOBILE3
-  };
+  static Lib_MockProvider autoKYCQACaseRepoMock;
+  static Lib_MockProvider profileStagingHandlerMock;
 
-  private static final List<String> CUSTOMER_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '+' + MOBILE1,
-    '+' + MOBILE2,
-    '+' + MOBILE3
-  };
-
-  private static final List<String> COB_NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '61499999999',
-    '61488888888'
-  };
-
-  private static final List<String> CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '+61422222222',
-    '+61433333333'
-  };
-  //---------------------------------------------------
-
-  private static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(
-    'Pending_KYC_QA'
-  );
+  static void registerMocks() {
+    autoKYCQACaseRepoMock = Lib_MockProvider.forType(
+      AutoKYCQACaseRepository.class
+    );
+    profileStagingHandlerMock = Lib_MockProvider.forType(
+      ProfileStagingHandler.class
+    );
+  }
 
   private static final String PERSONA_ID1 = '0123456789';
   private static final String PERSONA_ID2 = '9876543210';
-  private static final String PERSONA_ID3 = '9876543211';
-  private static final String PERSONA_ID4 = '9876543212';
 
-  private static final Set<String> PERSONA_IDS = new Set<String>{
-    PERSONA_ID1,
-    PERSONA_ID2,
-    PERSONA_ID3,
-    PERSONA_ID4
-  };
-  private static final Integer PERSONA_IDS_COUNT = PERSONA_IDS.size();
-
-  private static final String LICENCE_TYPE = 'Licence';
   private static final String PASSPORT_TYPE = 'Passport';
-
-  private static final List<String> ID_DOC_TYPE = new List<String>{
-    LICENCE_TYPE,
-    PASSPORT_TYPE
-  };
-
   private static final Map<String, String> PERSONA_ID_VERIFICATION_TYPES = new Map<String, String>{
-    PERSONA_ID1 => 'MANUAL',
-    PERSONA_ID2 => 'UNSPECIFIED',
-    PERSONA_ID3 => 'ASSISTED',
-    PERSONA_ID4 => 'STP'
+    PERSONA_ID1 => 'STP',
+    PERSONA_ID2 => 'ASSISTED'
   };
 
   private static final String FIRST_NAME = 'First Double';
@@ -68,225 +33,8 @@ public with sharing class AutoKYCQACaseActionsTest {
   private static final String DUMMY = 'DUMMY';
   private static final String EMPTY_STR = '';
 
-  @TestSetup
-  static void setup() {
-    List<CustomerOnboardingApplication__c> cobAppsList = new List<CustomerOnboardingApplication__c>();
-    List<COBPrimaryIDDocument__c> cobPidsList = new List<COBPrimaryIDDocument__c>();
-    List<COBAddress__c> cobAddressesList = new List<COBAddress__c>();
-
-    for (String personaId : PERSONA_IDS) {
-      cobAppsList.add(createCOBAppDetails(personaId));
-    }
-
-    insert cobAppsList;
-
-    for (CustomerOnboardingApplication__c cobApp : cobAppsList) {
-      for (String idDocType : ID_DOC_TYPE) {
-        cobPidsList.add(createCOBPidDetails(cobApp.id, idDocType));
-      }
-      cobAddressesList.add(
-        new COBAddress__c(
-          CustomerOnboardingApplication__c = cobApp.id,
-          AddressQASId__c = FAKER.randomString(15),
-          AddressType__c = COBApplicationActions.CURRENT
-        )
-      );
-    }
-
-    insert cobPidsList;
-    insert cobAddressesList;
-
-    makeData(); // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static void makeData() {
-    // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
-    User thisUser = new User(Id = UserInfo.getUserId());
-    System.runAs(thisUser) {
-      List<CustomerOnboardingApplication__c> cobAppsList = new List<CustomerOnboardingApplication__c>();
-
-      List<Account> personAccsWithMobile = new List<Account>();
-      for (String mobileNumber : COB_MATCHING_MOBILE_NUMBERS) {
-        cobAppsList.add(createCOBApp(mobileNumber));
-      }
-
-      for (String mobileNumber : CUSTOMER_MATCHING_MOBILE_NUMBERS) {
-        personAccsWithMobile.add(createPersonAccount(mobileNumber));
-      }
-
-      //Add COB apps with not matching mobile Numbers
-      for (String mobileNumber : COB_NOT_MATCHING_MOBILE_NUMBERS) {
-        cobAppsList.add(createCOBApp(mobileNumber));
-      }
-
-      insert cobAppsList;
-      insert personAccsWithMobile;
-
-      List<Entitlement> entitlements = CommonUtil.addPersonAccountEntitlements(
-        personAccsWithMobile,
-        GetHelpConstants.ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME,
-        GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
-      );
-      insert entitlements;
-
-      TestDataFactory.createANZxUser('FraudX_Agent');
-    }
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static CustomerOnboardingApplication__c createCOBApp(
-    String mobileNumber
-  ) {
-    CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
-      SecurityMobile__c = mobileNumber
-    );
-
-    return cobApp;
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static List<CustomerOnboardingApplication__c> getCOBApps() {
-    return [SELECT Id, SecurityMobile__c FROM CustomerOnboardingApplication__c];
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static Case createKYCQACase(Id cobAppId, Id caseOwnerId) {
-    Case c = new Case(
-      Status = GetHelpConstants.OPEN_STATUS,
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      CustomerOnboardingApplication__c = cobAppid,
-      OwnerId = caseOwnerId
-    );
-
-    return c;
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static List<Case> getKYCQACases() {
-    return [
-      SELECT Id, AccountId, ContactId, ContactMobile, EntitlementId
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
-    ];
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static List<Case> getCasesLinkedWithAccount() {
-    return [
-      SELECT Id, AccountId, ContactId, ContactMobile, EntitlementId
-      FROM Case
-      WHERE AccountId != NULL AND ContactId != NULL AND EntitlementId != NULL
-    ];
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static List<Case> getCasesWithNoAccount() {
-    return [SELECT Id, OwnerId FROM Case WHERE AccountId = NULL];
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static Account createPersonAccount(String mobileNumber) {
-    Account acc = new Account(
-      FirstName = FAKER.person.firstName(),
-      LastName = FAKER.person.lastName(),
-      OCV_ID__c = FAKER.randomString(10),
-      PersonMobilePhone = mobileNumber,
-      ANZx_Customer__c = true,
-      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
-    );
-
-    return acc;
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static List<Account> getPersonAccountByMobile(
-    List<String> mobilePhones
-  ) {
-    return [SELECT Id FROM Account WHERE PersonMobilePhone IN :mobilePhones];
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static List<Case> createKYCQACases(Id caseOwnerId) {
-    List<CustomerOnboardingApplication__c> cobAppsList = getCOBApps();
-
-    List<Case> kycCases = new List<Case>();
-    for (CustomerOnboardingApplication__c cobApp : cobAppsList) {
-      kycCases.add(createKYCQACase(cobApp.Id, caseOwnerId));
-    }
-
-    insert kycCases;
-    return kycCases;
-  }
-
-  // TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
-  private static List<Case> createKYCQACasesWithAccountAndCOB(Id caseOwnerId) {
-    List<Account> accs = getPersonAccountByMobile(
-      CUSTOMER_MATCHING_MOBILE_NUMBERS
-    );
-
-    List<CustomerOnboardingApplication__c> cobAppsList = getCOBApps();
-
-    List<Case> kycCases = new List<Case>();
-    for (Integer i = 0; i < accs.size(); i++) {
-      Case c = createKYCQACase(cobAppsList[i].id, caseOwnerId);
-      c.AccountId = accs[i].Id;
-      kycCases.add(c);
-    }
-
-    insert kycCases;
-    return kycCases;
-  }
-
-  private static CustomerOnboardingApplication__c createCOBAppDetails(
-    String personaId
-  ) {
-    return new CustomerOnboardingApplication__c(
-      PersonaId__c = personaId,
-      VerificationType__c = PERSONA_ID_VERIFICATION_TYPES.get(personaId)
-    );
-  }
-
-  private static List<CustomerOnboardingApplication__c> getCOBAppsDetatils() {
-    return [
-      SELECT Id, OCVId__c, PersonaId__c, VerificationType__c
-      FROM CustomerOnboardingApplication__c
-    ];
-  }
-
-  private static COBPrimaryIDDocument__c createCOBPidDetails(
-    Id cobAppId,
-    String idDocType
-  ) {
-    return new COBPrimaryIDDocument__c(
-      CustomerOnboardingApplication__c = cobAppId,
-      IdDocumentType__c = idDocType
-    );
-  }
-
-  private static List<COBPrimaryIDDocument__c> getCOBPIdsDetails(
-    String idDocType
-  ) {
-    return [
-      SELECT Id, CustomerOnboardingApplication__c, IdDocumentType__c
-      FROM COBPrimaryIDDocument__c
-      WHERE IdDocumentType__c = :idDocType
-    ];
-  }
-
-  private static Case createKYCQACaseDetails(Id cobAppId, String personaId) {
-    Case c = new Case(
-      Status = GetHelpConstants.OPEN_STATUS,
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      CustomerOnboardingApplication__c = cobAppid,
-      OwnerId = PENDING_KYC_QA_QUEUE.Id,
-      OCV_ID__c = FAKER.randomString(10),
-      PersonaAttemptCount__c = personaId,
-      PersonaID__c = personaId
-    );
-
-    return c;
-  }
+  private static final String CURRENT = 'Current';
+  private static final String DOCUMENTS_UPLOADED_STATUS = 'Documents Uploaded';
 
   private static void constructCOBPidFullName(
     COBPrimaryIDDocument__c cobPid,
@@ -339,53 +87,272 @@ public with sharing class AutoKYCQACaseActionsTest {
     cobPid.PassportNumberOCRMatch__c = doesMatch;
   }
 
-  private static CustomerOnboardingApplication__c getSharedCOBApp(User usr) {
-    List<CustomerOnboardingApplication__c> cobApps = getCOBAppsDetatils();
+  static CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
+    PersonaId__c = PERSONA_ID1,
+    VerificationType__c = PERSONA_ID_VERIFICATION_TYPES.get(PERSONA_ID1)
+  );
 
-    // Manually share the COB application with FraudX Agent since criteria based sharing rules are not applied in test context
-    CustomerOnboardingApplication__Share cobAppShare = new CustomerOnboardingApplication__Share(
-      AccessLevel = 'Read',
-      ParentID = cobApps[0].Id,
-      UserOrGroupId = usr.Id
+  static Id cobId = Lib_FakeIdGenerator.getMockId(
+    CustomerOnboardingApplication__c.SObjectType
+  );
+  static CustomerOnboardingApplication__c cobWithPIDPassport = (CustomerOnboardingApplication__c) TestUtil.setFields(
+    new CustomerOnboardingApplication__c(
+      Id = cobId,
+      PersonaId__c = PERSONA_ID1,
+      VerificationType__c = PERSONA_ID_VERIFICATION_TYPES.get(PERSONA_ID1)
+    ),
+    new Map<String, Object>{
+      'COBPrimaryIDDocuments__r' => new List<COBPrimaryIDDocument__c>{
+        new COBPrimaryIDDocument__c(IdDocumentType__c = PASSPORT_TYPE)
+      }
+    }
+  );
+
+  static COBPrimaryIDDocument__c pidPassport = new COBPrimaryIDDocument__c(
+    IdDocumentType__c = PASSPORT_TYPE
+  );
+
+  static COBAddress__c addressQAS = new COBAddress__c();
+
+  static CustomerOnboardingApplication__c cobWithAddressCurrent = (CustomerOnboardingApplication__c) TestUtil.setFields(
+    new CustomerOnboardingApplication__c(
+      Id = cobId,
+      PersonaId__c = PERSONA_ID2,
+      VerificationType__c = PERSONA_ID_VERIFICATION_TYPES.get(PERSONA_ID2)
+    ),
+    new Map<String, Object>{
+      'COBAddresses__r' => new List<COBAddress__c>{
+        new COBAddress__c(AddressType__c = 'Current')
+      }
+    }
+  );
+
+  static Case caseWithNoCob = new Case(CustomerOnboardingApplication__c = null);
+
+  static Account acc = new Account(
+    Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+    Name = 'Sample Name',
+    FinServ__KYCStatus__c = null,
+    KYC_Verification_Level__c = null,
+    CustomerExitFlag__c = true
+  );
+
+  static Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+  static Case caseWithAccount = new Case(Id = caseId, AccountId = acc.Id);
+
+  static Case caseWithCob = new Case(
+    Id = caseId,
+    CustomerOnboardingApplication__c = cobId,
+    PersonaId__c = PERSONA_ID1
+  );
+
+  private static Case constuctCaseWithTestFields(String value) {
+    return new Case(
+      Id = caseId,
+      Fraud_Customer_Details__c = value,
+      Fraud_MiddleNameCheck__c = AutoKYCQACaseActions.YES,
+      Fraud_Selfie_Comparison_Match__c = AutoKYCQACaseActions.YES,
+      Fraud_PO_Box__c = AutoKYCQACaseActions.YES,
+      Fraud_Address_Valid__c = AutoKYCQACaseActions.YES,
+      Fraud_ID_Legible__c = AutoKYCQACaseActions.YES,
+      Fraud_Customer_Photo_Modified__c = AutoKYCQACaseActions.YES,
+      Fraud_ID_Not_Picture__c = AutoKYCQACaseActions.YES,
+      Fraud_Security_Features__c = AutoKYCQACaseActions.YES
     );
-    insert cobAppShare;
-    return cobApps[0];
   }
 
   @isTest
   private static void testSetKYCQAFieldsWithNoCOB() {
-    Case kycCase = createKYCQACaseDetails(null, null);
-
     Test.startTest();
-    try {
-      insert kycCase;
-      Assert.fail(
-        'Exception should be thrown: ' +
-        AutoKYCQACaseActions.KYC_QA_CASE_MUST_BE_LINKED_TO_COB
-      );
-    } catch (Exception e) {
-      Assert.isTrue(
-        e.getMessage()
-          .contains(AutoKYCQACaseActions.KYC_QA_CASE_MUST_BE_LINKED_TO_COB),
-        'Error message should be: ' +
-        AutoKYCQACaseActions.KYC_QA_CASE_MUST_BE_LINKED_TO_COB
-      );
-    }
+    AutoKYCQACaseActions.setKYCQAFields(new List<Case>{ caseWithNoCob });
     Test.stopTest();
+
+    Assert.isTrue(
+      caseWithNoCob.hasErrors(),
+      'Error should have been set: ' +
+      AutoKYCQACaseActions.KYC_QA_CASE_MUST_BE_LINKED_TO_COB
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.KYC_QA_CASE_MUST_BE_LINKED_TO_COB,
+      caseWithNoCob.getErrors()[0].getMessage(),
+      'Error message should be: ' +
+      AutoKYCQACaseActions.KYC_QA_CASE_MUST_BE_LINKED_TO_COB
+    );
   }
 
   @isTest
-  private static void testGetCOBAppsByPersonaIds() {
+  private static void testSetKYCQAFieldsCOBApp() {
+    Map<String, Case> personaIDToKYCCasesMap = new Map<String, Case>{
+      PERSONA_ID1 => caseWithCob
+    };
+    Map<String, CustomerOnboardingApplication__c> personaIDToCOBAppsMap = new Map<String, CustomerOnboardingApplication__c>{
+      PERSONA_ID1 => cob
+    };
     Test.startTest();
-    Map<String, CustomerOnboardingApplication__c> cobAppsMap = AutoKYCQACaseActions.getCOBAppsByPersonaIds(
-      PERSONA_IDS
+    AutoKYCQACaseActions.setKYCQAFieldsCOBApp(
+      personaIDToKYCCasesMap,
+      personaIDToCOBAppsMap
     );
     Test.stopTest();
 
     Assert.areEqual(
-      PERSONA_IDS_COUNT,
-      cobAppsMap.size(),
-      'There should be a matching number of COB Apps as PersonaId count'
+      AutoKYCQACaseActions.VERIFICATION_TYPE_PRIORITY_MAP.get(
+        PERSONA_ID_VERIFICATION_TYPES.get(PERSONA_ID1)
+      ),
+      caseWithCob.Priority,
+      'Priority should have been set to: ' +
+      AutoKYCQACaseActions.VERIFICATION_TYPE_PRIORITY_MAP.get(
+        PERSONA_ID_VERIFICATION_TYPES.get(PERSONA_ID1)
+      )
+    );
+  }
+
+  @isTest
+  private static void testSetKYCQAFieldsCOBAppWitNoCOB() {
+    Map<String, Case> personaIDToKYCCasesMap = new Map<String, Case>{
+      PERSONA_ID1 => caseWithCob
+    };
+    Map<String, CustomerOnboardingApplication__c> personaIDToCOBAppsMap = new Map<String, CustomerOnboardingApplication__c>{};
+    Test.startTest();
+    AutoKYCQACaseActions.setKYCQAFieldsCOBApp(
+      personaIDToKYCCasesMap,
+      personaIDToCOBAppsMap
+    );
+    Test.stopTest();
+
+    Assert.isNull(
+      caseWithCob.Priority,
+      'Priority should have been set to Null'
+    );
+  }
+
+  @isTest
+  private static void testSetKYCQAFieldsCOBPID() {
+    Map<String, Case> personaIDToKYCCasesMap = new Map<String, Case>{
+      PERSONA_ID1 => caseWithCob
+    };
+    Map<String, CustomerOnboardingApplication__c> personaIDToCOBAppsMap = new Map<String, CustomerOnboardingApplication__c>{
+      PERSONA_ID1 => cob
+    };
+    constructCOBPidFullNameOCRServer(pidPassport, true, true);
+    pidPassport.PassportNumberOCRMatch__c = true;
+    Map<String, COBPrimaryIDDocument__c> personaIDToPrimaryDocumentMap = new Map<String, COBPrimaryIDDocument__c>{
+      PERSONA_ID1 => pidPassport
+    };
+
+    Test.startTest();
+    AutoKYCQACaseActions.setKYCQAFieldsCOBPID(
+      personaIDToKYCCasesMap,
+      personaIDToCOBAppsMap,
+      personaIDToPrimaryDocumentMap
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.NONE,
+      caseWithCob.Fraud_MiddleNameCheck__c,
+      'The First and Last Name OCR Server are blank - Middle Name Check should be \'None\''
+    );
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      caseWithCob.Fraud_Customer_Details__c,
+      'The Verification Type is STP and Passport match, the KYC Information & ID Document Type Check should be \'YES\''
+    );
+  }
+
+  @isTest
+  private static void testSetKYCQAFieldsCOBAddress() {
+    Map<String, Case> personaIDToKYCCasesMap = new Map<String, Case>{
+      PERSONA_ID1 => caseWithCob
+    };
+    Map<String, COBAddress__c> personaIDToCOBAddresMap = new Map<String, COBAddress__c>{
+      PERSONA_ID1 => addressQAS
+    };
+
+    Test.startTest();
+    AutoKYCQACaseActions.setKYCQAFieldsCOBAddress(
+      personaIDToKYCCasesMap,
+      personaIDToCOBAddresMap
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.NONE,
+      caseWithCob.Fraud_PO_Box__c,
+      'Residential Address - PO Box Check should have been set to: ' +
+      AutoKYCQACaseActions.NONE
+    );
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.NONE,
+      caseWithCob.Fraud_Address_Valid__c,
+      'Residential Address - Validity Check should have been set to: ' +
+      AutoKYCQACaseActions.NONE
+    );
+  }
+
+  @isTest
+  private static void testSetKYCQAFieldsCOBAddressWithNoAddress() {
+    Map<String, Case> personaIDToKYCCasesMap = new Map<String, Case>{
+      PERSONA_ID1 => caseWithCob
+    };
+    Map<String, COBAddress__c> personaIDToCOBAddresMap = new Map<String, COBAddress__c>{};
+
+    Test.startTest();
+    AutoKYCQACaseActions.setKYCQAFieldsCOBAddress(
+      personaIDToKYCCasesMap,
+      personaIDToCOBAddresMap
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.NONE,
+      caseWithCob.Fraud_PO_Box__c,
+      'Residential Address - PO Box Check should have been set to: ' +
+      AutoKYCQACaseActions.NONE
+    );
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.NONE,
+      caseWithCob.Fraud_Address_Valid__c,
+      'Residential Address - Validity Check should have been set to: ' +
+      AutoKYCQACaseActions.NONE
+    );
+  }
+
+  @isTest
+  private static void testGetCOBAppsByPersonaIds() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock(
+      'queryCOBByPersonaId',
+      new List<CustomerOnboardingApplication__c>{ cob }
+    );
+
+    Test.startTest();
+    Map<String, CustomerOnboardingApplication__c> cobAppsMap = AutoKYCQACaseActions.getCOBAppsByPersonaIds(
+      new Set<String>{ PERSONA_ID1, PERSONA_ID2 }
+    );
+    Test.stopTest();
+
+    Assert.isFalse(
+      autoKYCQACaseRepoMock.getHistories('queryCOBByPersonaId').isEmpty(),
+      'queryCOBByPersonaId should have been called.'
+    );
+
+    Set<String> personaIds = (Set<String>) autoKYCQACaseRepoMock.getHistory(
+        'queryCOBByPersonaId'
+      )
+      .getParam('personaIds');
+    Assert.isFalse(
+      personaIds.isEmpty(),
+      'queryCOBByPersonaId method should have received personaIds.'
+    );
+
+    Assert.areEqual(
+      PERSONA_ID1,
+      cobAppsMap.get(PERSONA_ID1).PersonaId__c,
+      'Expected COB with PersonaId: ' + PERSONA_ID1
     );
   }
 
@@ -403,34 +370,38 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testGetCOBPIDsByPersonaIds() {
-    DateTime testCreatedDate = DateTime.now().addDays(-1);
-
-    List<COBPrimaryIDDocument__c> licenceCOBPidsList = getCOBPIdsDetails(
-      LICENCE_TYPE
+    registerMocks();
+    autoKYCQACaseRepoMock.mock(
+      'queryCOBWithPIDByPersonaId',
+      new List<CustomerOnboardingApplication__c>{ cobWithPIDPassport }
     );
-    for (COBPrimaryIDDocument__c cobPid : licenceCOBPidsList) {
-      Test.setCreatedDate(cobPid.Id, testCreatedDate);
-    }
 
     Test.startTest();
     Map<String, COBPrimaryIDDocument__c> latestCOBPidsMap = AutoKYCQACaseActions.getCOBPIDsByPersonaIds(
-      PERSONA_IDS
+      new Set<String>{ PERSONA_ID1, PERSONA_ID2 }
     );
     Test.stopTest();
 
-    Assert.areEqual(
-      PERSONA_IDS_COUNT,
-      latestCOBPidsMap.size(),
-      'There should be only one (latest) COB Primary ID Document per COB App'
+    Assert.isFalse(
+      autoKYCQACaseRepoMock.getHistories('queryCOBWithPIDByPersonaId')
+        .isEmpty(),
+      'queryCOBWithPIDByPersonaId should have been called.'
     );
 
-    for (COBPrimaryIDDocument__c cobPid : latestCOBPidsMap.values()) {
-      Assert.areEqual(
-        PASSPORT_TYPE,
-        cobPid.IdDocumentType__c,
-        'ID Document Type should be ' + PASSPORT_TYPE
-      );
-    }
+    Set<String> personaIds = (Set<String>) autoKYCQACaseRepoMock.getHistory(
+        'queryCOBWithPIDByPersonaId'
+      )
+      .getParam('personaIds');
+    Assert.isFalse(
+      personaIds.isEmpty(),
+      'queryCOBWithPIDByPersonaId method should have received personaIds.'
+    );
+
+    Assert.areEqual(
+      PASSPORT_TYPE,
+      latestCOBPidsMap.get(PERSONA_ID1).IdDocumentType__c,
+      'ID Document Type should be ' + PASSPORT_TYPE
+    );
   }
 
   @isTest
@@ -447,17 +418,41 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testGetCOBAddressByPersonaIdsAddressType() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock(
+      'queryCOBWithCOBAddressByAddresTypeAndPersonaId',
+      new List<CustomerOnboardingApplication__c>{ cobWithAddressCurrent }
+    );
+
     Test.startTest();
     Map<String, COBAddress__c> latestCOBAddressesMap = AutoKYCQACaseActions.getCOBAddressByPersonaIdsAndAddressType(
-      PERSONA_IDS,
-      AutoKYCQACaseActions.CURRENT
+      new Set<String>{ PERSONA_ID1, PERSONA_ID2 },
+      CURRENT
     );
     Test.stopTest();
 
+    Assert.isFalse(
+      autoKYCQACaseRepoMock.getHistories(
+          'queryCOBWithCOBAddressByAddresTypeAndPersonaId'
+        )
+        .isEmpty(),
+      'queryCOBWithCOBAddressByAddresTypeAndPersonaId should have been called.'
+    );
+
+    String addressType = (String) autoKYCQACaseRepoMock.getHistory(
+        'queryCOBWithCOBAddressByAddresTypeAndPersonaId'
+      )
+      .getParam('addressType');
+
+    Assert.isFalse(
+      String.IsBlank(addressType),
+      'queryCOBWithCOBAddressByAddresTypeAndPersonaId method should have received addressType.'
+    );
+
     Assert.areEqual(
-      PERSONA_IDS_COUNT,
-      latestCOBAddressesMap.size(),
-      'There should be only one (latest) COB Address per COB App'
+      CURRENT,
+      latestCOBAddressesMap.get(PERSONA_ID2).AddressType__c,
+      'Address Type should be ' + CURRENT
     );
   }
 
@@ -476,10 +471,18 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testPopulateFraudCustomerDetails() {
-    CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
+    CustomerOnboardingApplication__c cobApp = null;
+    COBPrimaryIDDocument__c cobPID = null;
+    Assert.areEqual(
+      AutoKYCQACaseActions.NONE,
+      AutoKYCQACaseActions.populateFraudCustomerDetails(cobApp, cobPID),
+      'None when the COB Application and COB Primary ID Document are null.'
+    );
+
+    cobApp = new CustomerOnboardingApplication__c(
       VerificationType__c = AutoKYCQACaseActions.VERIFICATION_TYPE_ASSISTED
     );
-    COBPrimaryIDDocument__c cobPID = new COBPrimaryIDDocument__c(
+    cobPID = new COBPrimaryIDDocument__c(
       IdDocumentType__c = AutoKYCQACaseActions.LICENCE,
       LicenceNumberOCRMatch__c = true
     );
@@ -547,10 +550,18 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testAreFirstAndLastNamesOCRServerBlank() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
-
-    constructCOBPidFullNameOCRServer(cobPid, true, true);
+    COBPrimaryIDDocument__c cobPid = null;
     Boolean areFirstAndLastNamesOCRServerBlank = AutoKYCQACaseActions.areFirstAndLastNamesOCRServerBlank(
+      cobPid
+    );
+    Assert.isTrue(
+      areFirstAndLastNamesOCRServerBlank,
+      'Blank when the COB Primary ID Document is null'
+    );
+
+    cobPid = new COBPrimaryIDDocument__c();
+    constructCOBPidFullNameOCRServer(cobPid, true, true);
+    areFirstAndLastNamesOCRServerBlank = AutoKYCQACaseActions.areFirstAndLastNamesOCRServerBlank(
       cobPid
     );
 
@@ -592,12 +603,18 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testDoMiddleNamesMatch() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
-
-    constructCOBPidMiddleNames(cobPid, true, false);
+    COBPrimaryIDDocument__c cobPid = null;
     Boolean doMiddleNamesMatch = AutoKYCQACaseActions.doMiddleNamesMatch(
       cobPid
     );
+    Assert.isFalse(
+      doMiddleNamesMatch,
+      'The Middle Names shouldn\'t match - COB Primary ID Document is null'
+    );
+
+    cobPid = new COBPrimaryIDDocument__c();
+    constructCOBPidMiddleNames(cobPid, true, false);
+    doMiddleNamesMatch = AutoKYCQACaseActions.doMiddleNamesMatch(cobPid);
 
     Assert.isTrue(
       doMiddleNamesMatch,
@@ -631,11 +648,17 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testDoesFullNameMatch() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
+    COBPrimaryIDDocument__c cobPid = null;
+    Boolean doesFullNameMatch = AutoKYCQACaseActions.doesFullNameMatch(cobPid);
+    Assert.isTrue(
+      doesFullNameMatch,
+      'The Full Name shouldn match - COB Primary ID Document is null'
+    );
 
+    cobPid = new COBPrimaryIDDocument__c();
     constructCOBPidFullName(cobPid, true);
     constructCOBPidFullNameOCRServer(cobPid, false, false);
-    Boolean doesFullNameMatch = AutoKYCQACaseActions.doesFullNameMatch(cobPid);
+    doesFullNameMatch = AutoKYCQACaseActions.doesFullNameMatch(cobPid);
 
     Assert.isTrue(doesFullNameMatch, 'The Full Name should match');
 
@@ -648,10 +671,16 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testDoesLicenceMatch() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
-
-    constructCOBPidLicence(cobPid, true);
+    COBPrimaryIDDocument__c cobPid = null;
     Boolean doesLicenceMatch = AutoKYCQACaseActions.doesLicenceMatch(cobPid);
+    Assert.isFalse(
+      doesLicenceMatch,
+      'The Licence shouldn\'t match - COB Primary ID Document is null'
+    );
+
+    cobPid = new COBPrimaryIDDocument__c();
+    constructCOBPidLicence(cobPid, true);
+    doesLicenceMatch = AutoKYCQACaseActions.doesLicenceMatch(cobPid);
 
     Assert.isTrue(doesLicenceMatch, 'The Licence should match');
 
@@ -663,10 +692,16 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testDoesPassportMatch() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
-
-    constructCOBPidPassport(cobPid, true);
+    COBPrimaryIDDocument__c cobPid = null;
     Boolean doesPassportMatch = AutoKYCQACaseActions.doesPassportMatch(cobPid);
+    Assert.isFalse(
+      doesPassportMatch,
+      'The Passport shouldn\'t match - COB Primary ID Document is null'
+    );
+
+    cobPid = new COBPrimaryIDDocument__c();
+    constructCOBPidPassport(cobPid, true);
+    doesPassportMatch = AutoKYCQACaseActions.doesPassportMatch(cobPid);
 
     Assert.isTrue(doesPassportMatch, 'The Licence should match');
 
@@ -678,12 +713,20 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testPopulateMiddleNameCheck() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
-
-    constructCOBPidFullNameOCRServer(cobPid, true, true);
+    COBPrimaryIDDocument__c cobPid = null;
     String middleNameCheck = AutoKYCQACaseActions.populateMiddleNameCheck(
       cobPid
     );
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.NONE,
+      middleNameCheck,
+      'Middle Name Check should be \'None\''
+    );
+
+    cobPid = new COBPrimaryIDDocument__c();
+    constructCOBPidFullNameOCRServer(cobPid, true, true);
+    middleNameCheck = AutoKYCQACaseActions.populateMiddleNameCheck(cobPid);
 
     Assert.areEqual(
       AutoKYCQACaseActions.NONE,
@@ -739,100 +782,664 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   @isTest
   private static void testValidateDuplicateKYCQACasePerAccount() {
-    // GIVEN KYC QA Case linked to the account
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-    Account customerAccount1 = accounts[0];
+    registerMocks();
+    autoKYCQACaseRepoMock.mock(
+      'queryKYCQACasesByAccountIds',
+      new List<Case>{ caseWithAccount }
+    );
 
-    User usr = TestDataFactory.getANZxUser('FraudX_Agent');
+    Test.startTest();
+    AutoKYCQACaseActions.validateDuplicateKYCQACasePerAccount(
+      new List<Case>{ caseWithAccount }
+    );
+    Test.stopTest();
 
-    // Manually share the account with FraudX Agent since criteria based sharing rules are not applied in test context
-    AccountShare accShare = new AccountShare();
-    accShare.AccountId = customerAccount1.id;
-    accShare.UserOrGroupId = usr.Id;
-    accShare.AccountAccessLevel = 'Read';
-    accShare.OpportunityAccessLevel = 'Read';
-    insert accShare;
+    Assert.isFalse(
+      autoKYCQACaseRepoMock.getHistories('queryKYCQACasesByAccountIds')
+        .isEmpty(),
+      'queryKYCQACasesByAccountIds should have been called.'
+    );
 
-    CustomerOnboardingApplication__c cobApp = getSharedCOBApp(usr);
+    Assert.isTrue(
+      caseWithAccount.hasErrors(),
+      'Error should have been set: ' +
+      AutoKYCQACaseActions.DUPLICATE_KYCQA_ERROR
+    );
 
-    System.runAs(usr) {
-      Case kycqa1 = new Case(
-        AccountId = customerAccount1.Id,
-        CustomerOnboardingApplication__c = cobApp.id,
-        RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-        Status = GetHelpConstants.OPEN_STATUS,
-        Origin = 'Origination',
-        Priority = 'Medium'
-      );
-      insert kycqa1;
-
-      // WHEN Try to insert more KYC QA Cases will be linked to the Account
-      Case kycqa2 = new Case(
-        AccountId = customerAccount1.Id,
-        CustomerOnboardingApplication__c = cobApp.id,
-        RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-        Status = GetHelpConstants.OPEN_STATUS,
-        Origin = 'Origination',
-        Priority = 'Medium'
-      );
-
-      Test.startTest();
-      try {
-        insert kycqa2;
-        Assert.fail('Failed to detect existing KYC QA case');
-      } catch (DmlException e) {
-        // THEN the KYC QA is inserted unsuccessful, the exception thrown
-        Assert.isTrue(
-          e.getMessage().contains(AutoKYCQACaseActions.DUPLICATE_KYCQA_ERROR),
-          'Exception thrown, error message does not reflect duplicate KYC QA error'
-        );
-      }
-      Test.stopTest();
-    }
+    Assert.isTrue(
+      caseWithAccount.getErrors()[0]
+        .getMessage()
+        .contains(AutoKYCQACaseActions.DUPLICATE_KYCQA_ERROR),
+      'Error message should be: ' + AutoKYCQACaseActions.DUPLICATE_KYCQA_ERROR
+    );
   }
 
-  // Test Prevent Duplicate KYC QA Against an COB Application
+  @isTest
+  private static void testValidateDuplicateKYCQACasePerAccountEmpty() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock('queryKYCQACasesByAccountIds', new List<Case>());
+
+    Test.startTest();
+    AutoKYCQACaseActions.validateDuplicateKYCQACasePerAccount(new List<Case>());
+    Test.stopTest();
+
+    Set<Id> accountIds = (Set<Id>) autoKYCQACaseRepoMock.getHistory(
+        'queryKYCQACasesByAccountIds'
+      )
+      .getParam('accountIds');
+    Assert.isTrue(accountIds.isEmpty(), 'Query param should be empty');
+  }
+
   @isTest
   private static void testValidateDuplicateKYCQACasePerCOBApp() {
-    User usr = TestDataFactory.getANZxUser('FraudX_Agent');
-    // GIVEN KYC QA Case linked to the COB application
-    CustomerOnboardingApplication__c cobApp = getSharedCOBApp(usr);
+    registerMocks();
+    autoKYCQACaseRepoMock.mock(
+      'queryKYCQACasesByCOBAppIds',
+      new List<Case>{ caseWithCob }
+    );
 
-    System.runAs(usr) {
-      Case kycqa1 = new Case(
-        CustomerOnboardingApplication__c = cobApp.Id,
-        RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-        Status = GetHelpConstants.OPEN_STATUS,
-        Origin = 'Origination',
-        Priority = 'Medium'
-      );
-      insert kycqa1;
+    Test.startTest();
+    AutoKYCQACaseActions.validateDuplicateKYCQACasePerCOBApp(
+      new List<Case>{ caseWithCob }
+    );
+    Test.stopTest();
 
-      // WHEN Try to insert more KYC QA Cases will be linked to the COB application
-      Case kycqa2 = new Case(
-        CustomerOnboardingApplication__c = cobApp.Id,
-        RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-        Status = GetHelpConstants.OPEN_STATUS,
-        Origin = 'Origination',
-        Priority = 'Medium'
-      );
+    Assert.isFalse(
+      autoKYCQACaseRepoMock.getHistories('queryKYCQACasesByCOBAppIds')
+        .isEmpty(),
+      'queryKYCQACasesByCOBAppIds should have been called.'
+    );
 
-      Test.startTest();
-      try {
-        insert kycqa2;
-        Assert.fail('Failed to detect existing KYC QA case');
-      } catch (DmlException e) {
-        // THEN the KYC QA is inserted unsuccessful, the exception thrown
-        Assert.isTrue(
-          e.getMessage().contains(AutoKYCQACaseActions.DUPLICATE_KYCQA_ERROR),
-          'Exception thrown, error message does not reflect duplicate KYC QA error'
-        );
-      }
-      Test.stopTest();
-    }
+    Assert.isTrue(
+      caseWithCob.hasErrors(),
+      'Error should have been set: ' +
+      AutoKYCQACaseActions.DUPLICATE_KYCQA_ERROR
+    );
+
+    Assert.isTrue(
+      caseWithCob.getErrors()[0]
+        .getMessage()
+        .contains(AutoKYCQACaseActions.DUPLICATE_KYCQA_ERROR),
+      'Error message should be: ' + AutoKYCQACaseActions.DUPLICATE_KYCQA_ERROR
+    );
+  }
+
+  @isTest
+  private static void testValidateDuplicateKYCQACasePerCOBAppEmpty() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock('queryKYCQACasesByCOBAppIds', new List<Case>());
+
+    Test.startTest();
+    AutoKYCQACaseActions.validateDuplicateKYCQACasePerCOBApp(new List<Case>());
+    Test.stopTest();
+
+    Set<Id> cobAppIds = (Set<Id>) autoKYCQACaseRepoMock.getHistory(
+        'queryKYCQACasesByCOBAppIds'
+      )
+      .getParam('cobAppIds');
+    Assert.isTrue(cobAppIds.isEmpty(), 'Query param should be empty');
+  }
+
+  @isTest
+  private static void testHasKycCheckCompleted() {
+    Case theCase = null;
+    Boolean hasKycCheckCompleted = AutoKYCQACaseActions.hasKycCheckCompleted(
+      theCase
+    );
+    Assert.isFalse(hasKycCheckCompleted, 'The Case is null');
+
+    theCase = constuctCaseWithTestFields(null);
+    hasKycCheckCompleted = AutoKYCQACaseActions.hasKycCheckCompleted(theCase);
+    Assert.isFalse(hasKycCheckCompleted, 'Some fields are empty');
+
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
+    hasKycCheckCompleted = AutoKYCQACaseActions.hasKycCheckCompleted(theCase);
+    Assert.isTrue(hasKycCheckCompleted, 'All fields are not empty');
+  }
+
+  @isTest
+  private static void testCanPopulateTestedDate() {
+    Case theCase = null;
+    Boolean canPopulateTestedDate = AutoKYCQACaseActions.canPopulateTestedDate(
+      theCase
+    );
+    Assert.isFalse(canPopulateTestedDate, 'The Case is null');
+
+    theCase = constuctCaseWithTestFields(null);
+    canPopulateTestedDate = AutoKYCQACaseActions.canPopulateTestedDate(theCase);
+    Assert.isFalse(canPopulateTestedDate, 'Some fields are empty');
+
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
+    theCase.Fraud_Restraint_Status__c = 'N/A';
+    canPopulateTestedDate = AutoKYCQACaseActions.canPopulateTestedDate(theCase);
+    Assert.isTrue(canPopulateTestedDate, 'All fields are not empty');
+  }
+
+  @isTest
+  private static void testUpdateTestedDate() {
+    Case theCase = constuctCaseWithTestFields(null);
+    AutoKYCQACaseActions.updateTestedDate(new List<Case>{ theCase });
+    Assert.isNull(theCase.TestedDate__c, 'The Tasted Date should be null');
+
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
+    theCase.Fraud_Restraint_Status__c = 'N/A';
+    AutoKYCQACaseActions.updateTestedDate(new List<Case>{ theCase });
+    Assert.isNotNull(
+      theCase.TestedDate__c,
+      'The Tasted Date should not be null'
+    );
+  }
+
+  @isTest
+  private static void testDowngradeWithNoRecords() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
+
+    Test.startTest();
+    AutoKYCQACaseActions.downgrade(new List<Case>(), new Map<Id, Case>());
+    Test.stopTest();
+
+    List<Account> records = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+    Assert.isTrue(records.isEmpty(), 'No records should have been processed');
+  }
+
+  @isTest
+  private static void testDowngrade() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>{ acc });
+
+    Case oldCase = new Case();
+    oldCase.Id = caseId;
+
+    oldCase.Status = GetHelpConstants.OPEN_STATUS;
+    Case theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
+    theCase.Status = RECTIFY_DEFECT_STATUS;
+
+    AutoKYCQACaseActions.downgrade(
+      new List<Case>{ theCase },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+
+    Assert.isFalse(
+      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
+      'queryAccounts should have been called.'
+    );
+
+    Assert.isFalse(
+      profileStagingHandlerMock.getHistories('process').isEmpty(),
+      'processCases should have been called.'
+    );
+
+    List<Account> newAccList = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS,
+      newAccList[0].FinServ__KYCStatus__c,
+      'KYC Statius should be set to: ' +
+      AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL,
+      newAccList[0].KYC_Verification_Level__c,
+      'KYC Verification Level should be set to: ' +
+      AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL
+    );
+  }
+
+  @isTest
+  private static void testHasKycCheckCompletedWithDefect() {
+    Case theCase = constuctCaseWithTestFields(null);
+    Boolean hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(
+      theCase
+    );
+    Assert.isFalse(hasDefect, 'One of the test fields is empty');
+
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
+    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
+    Assert.isTrue(
+      hasDefect,
+      'All test fields are not empty and one of them is NO'
+    );
+
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
+    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
+    Assert.isFalse(
+      hasDefect,
+      'All test fields are not empty and all of them are YES'
+    );
+  }
+
+  @isTest
+  private static void testFilterDowngradeCases() {
+    Case theCase = constuctCaseWithTestFields(null);
+    List<Case> downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
+      new List<Case>{ theCase },
+      new Map<Id, Case>()
+    );
+    Assert.isTrue(
+      downgradeCases.isEmpty(),
+      'No defects - One of the test fields is empty'
+    );
+
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
+    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
+      new List<Case>{ theCase },
+      new Map<Id, Case>()
+    );
+    Assert.isTrue(
+      downgradeCases.isEmpty(),
+      'No defects - All test fields are YES'
+    );
+
+    Case oldCase = new Case();
+    oldCase.Id = caseId;
+
+    oldCase.Status = DOCUMENTS_UPLOADED_STATUS;
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
+    theCase.Status = RECTIFY_DEFECT_STATUS;
+
+    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
+      new List<Case>{ theCase },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+    Assert.isTrue(
+      downgradeCases.isEmpty(),
+      'There are defects - One of the test fields is NO, the case destinatoin staus is Rectify Defect but the case source status is not Open Or Under Review'
+    );
+
+    oldCase.Status = GetHelpConstants.OPEN_STATUS;
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
+    theCase.Status = RECTIFY_DEFECT_STATUS;
+
+    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
+      new List<Case>{ theCase },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+    Assert.isFalse(
+      downgradeCases.isEmpty(),
+      'There are defects - One of the test fields is NO, the case destinatoin staus is Rectify Defect and the case source status is Open'
+    );
+  }
+
+  @isTest
+  private static void testCheckValidStatusForDowngrade() {
+    Case oldCase = new Case();
+    oldCase.Status = DOCUMENTS_UPLOADED_STATUS;
+
+    Case theCase = new Case();
+    theCase.Status = RECTIFY_DEFECT_STATUS;
+    Boolean isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
+      theCase,
+      oldCase
+    );
+
+    Assert.isFalse(
+      isValidStatusForDowngrade,
+      'The case destinatoin staus is Rectify Defect but the case source status is not Open Or Under Review'
+    );
+
+    theCase.Status = PENDING_DOCUMENTS_STATUS;
+    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
+      theCase,
+      oldCase
+    );
+
+    Assert.isFalse(
+      isValidStatusForDowngrade,
+      'The case destinatoin staus is Pending Document but the case source status is not Open Or Under Review'
+    );
+
+    oldCase.Status = GetHelpConstants.OPEN_STATUS;
+    theCase.Status = RECTIFY_DEFECT_STATUS;
+    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
+      theCase,
+      oldCase
+    );
+
+    Assert.isTrue(
+      isValidStatusForDowngrade,
+      'The case destinatoin staus is Rectify Defect and the case source status is Open'
+    );
+
+    oldCase.Status = GetHelpConstants.OPEN_STATUS;
+    theCase.Status = PENDING_DOCUMENTS_STATUS;
+    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
+      theCase,
+      oldCase
+    );
+
+    Assert.isTrue(
+      isValidStatusForDowngrade,
+      'The case destinatoin staus is Pending Document and the case source status is Open'
+    );
+
+    oldCase.Status = UNDER_REVIEW_STATUS;
+    theCase.Status = RECTIFY_DEFECT_STATUS;
+    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
+      theCase,
+      oldCase
+    );
+
+    Assert.isTrue(
+      isValidStatusForDowngrade,
+      'The case destinatoin staus is Rectify Defect and the case source status is Under Review'
+    );
+
+    oldCase.Status = UNDER_REVIEW_STATUS;
+    theCase.Status = PENDING_DOCUMENTS_STATUS;
+    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
+      theCase,
+      oldCase
+    );
+
+    Assert.isTrue(
+      isValidStatusForDowngrade,
+      'The case destinatoin staus is Pending Document and the case source status is Under Review'
+    );
+  }
+
+  @isTest
+  private static void testBuildDowngradedAccounts() {
+    Test.startTest();
+    List<Account> accounts = AutoKYCQACaseActions.buildDowngradedAccounts(
+      new List<Account>{ acc }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS,
+      accounts[0].FinServ__KYCStatus__c,
+      'KYC Statius should be set to: ' +
+      AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL,
+      accounts[0].KYC_Verification_Level__c,
+      'KYC Verification Level should be set to: ' +
+      AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL
+    );
+  }
+
+  @isTest
+  private static void testUpgradeWithNoInitialRecords() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
+
+    Test.startTest();
+    AutoKYCQACaseActions.upgrade(new List<Case>(), new Map<Id, Case>());
+    Test.stopTest();
+
+    List<Account> records = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+    Assert.isTrue(records.isEmpty(), 'No records should have been processed');
+  }
+
+  @isTest
+  private static void testUpgradeWitNoFinalRecordsStatusClosedNotChanged() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
+
+    Case oldCase = new Case();
+    oldCase.Id = caseId;
+
+    oldCase.Status = GetHelpConstants.CLOSED_STATUS;
+    caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
+    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
+    acc.CustomerExitFlag__c = false;
+
+    Test.startTest();
+    AutoKYCQACaseActions.upgrade(
+      new List<Case>{ caseWithAccount },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+    Test.stopTest();
+
+    Set<Id> accountIds = (Set<Id>) autoKYCQACaseRepoMock.getHistory(
+        'queryAccounts'
+      )
+      .getParam('accountIds');
+    Assert.isTrue(accountIds.isEmpty(), 'No accounts should have been queried');
+    List<Account> records = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+    Assert.isTrue(records.isEmpty(), 'No records should have been processed');
+  }
+
+  @isTest
+  private static void testUpgradeWitNoFinalRecordsExitFlagTrue() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>{ acc });
+
+    Case oldCase = new Case();
+    oldCase.Id = caseId;
+
+    oldCase.Status = RECTIFY_DEFECT_STATUS;
+    caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
+    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
+
+    Test.startTest();
+    AutoKYCQACaseActions.upgrade(
+      new List<Case>{ caseWithAccount },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+    Test.stopTest();
+
+    List<Account> records = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+    Assert.isTrue(records.isEmpty(), 'No records should have been processed');
+  }
+
+  @isTest
+  private static void testUpgrade() {
+    registerMocks();
+    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>{ acc });
+
+    Case oldCase = new Case();
+    oldCase.Id = caseId;
+
+    oldCase.Status = RECTIFY_DEFECT_STATUS;
+    caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
+    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
+    acc.CustomerExitFlag__c = false;
+
+    AutoKYCQACaseActions.upgrade(
+      new List<Case>{ caseWithAccount },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+    Assert.isFalse(
+      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
+      'queryAccounts should have been called.'
+    );
+
+    Assert.isFalse(
+      profileStagingHandlerMock.getHistories('process').isEmpty(),
+      'processCases should have been called.'
+    );
+
+    List<Account> newAccList = (List<Account>) profileStagingHandlerMock.getHistory(
+        'process'
+      )
+      .getParam('records');
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.UPGRADE_KYC_STATUS,
+      newAccList[0].FinServ__KYCStatus__c,
+      'KYC Statius should be set to: ' + AutoKYCQACaseActions.UPGRADE_KYC_STATUS
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL,
+      newAccList[0].KYC_Verification_Level__c,
+      'KYC Verification Level should be set to: ' +
+      AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL
+    );
+  }
+
+  @isTest
+  private static void testFilterUpgradeCases() {
+    Case oldCase = new Case();
+    oldCase.Id = caseId;
+
+    oldCase.Status = RECTIFY_DEFECT_STATUS;
+    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
+    caseWithAccount.Fraud_Defects_Rectified__c = 'Not Applicable';
+
+    List<Case> upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
+      new List<Case>{ caseWithAccount },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+    Assert.isTrue(
+      upgradeCases.isEmpty(),
+      'The \'Have All Defects Been Rectified\' is Not Applicable'
+    );
+
+    oldCase.Status = GetHelpConstants.CLOSED_STATUS;
+    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
+    caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
+
+    upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
+      new List<Case>{ caseWithAccount },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+    Assert.isTrue(
+      upgradeCases.isEmpty(),
+      'The status is Closed but wasn\'t changed'
+    );
+
+    oldCase.Status = RECTIFY_DEFECT_STATUS;
+    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
+    caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
+    upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
+      new List<Case>{ caseWithAccount },
+      new Map<Id, Case>{ oldCase.Id => oldCase }
+    );
+    Assert.isFalse(
+      upgradeCases.isEmpty(),
+      'The \'Have All Defects Been Rectified\' is YES and the case is closed.'
+    );
+  }
+
+  @isTest
+  private static void testFilterAccountsNotExited() {
+    List<Account> oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
+      new List<Account>{ acc }
+    );
+    Assert.isTrue(
+      oldAccounts.isEmpty(),
+      'Accounts should be empty list, Customer Exit Flag is true'
+    );
+
+    acc.CustomerExitFlag__c = false;
+    oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
+      new List<Account>{ acc }
+    );
+    Assert.isFalse(
+      oldAccounts.isEmpty(),
+      'Accounts should not be empty list, Customer Exit Flag is false'
+    );
+  }
+
+  @isTest
+  private static void testBuildUpgradedAccounts() {
+    Test.startTest();
+    List<Account> accounts = AutoKYCQACaseActions.buildUpgradedAccounts(
+      new List<Account>{ acc }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.UPGRADE_KYC_STATUS,
+      accounts[0].FinServ__KYCStatus__c,
+      'KYC Statius should be set to: ' + AutoKYCQACaseActions.UPGRADE_KYC_STATUS
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL,
+      accounts[0].KYC_Verification_Level__c,
+      'KYC Verification Level should be set to: ' +
+      AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL
+    );
+  }
+
+  @IsTest
+  static void testPopulateClosedNoDefectDefaults() {
+    Case newCase = new Case(
+      Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
+    );
+    List<Case> records = new List<Case>{ newCase };
+
+    Test.startTest();
+    AutoKYCQACaseActions.populateClosedNoDefectDefaults(records, null);
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Not Applicable',
+      newCase.Fraud_Defects_Rectified__c,
+      'Have All Defects Been Rectified should be set to "Not Applicable"'
+    );
+  }
+
+  @IsTest
+  static void testCheckClosedAsNoDefectStatusOnNew() {
+    Case record = new Case(
+      Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
+    );
+
+    Test.startTest();
+    Boolean result = AutoKYCQACaseActions.checkClosedAsNoDefect(record, null);
+    Test.stopTest();
+
+    Assert.isTrue(result, 'Should be true');
+  }
+
+  @IsTest
+  static void testCheckClosedAsNoDefectStatusOnUpdate() {
+    Case oldrecord = new Case();
+    Case record = new Case(
+      Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
+    );
+
+    Test.startTest();
+    Boolean result = AutoKYCQACaseActions.checkClosedAsNoDefect(
+      record,
+      oldrecord
+    );
+    Test.stopTest();
+
+    Assert.isTrue(result, 'Should be true');
+  }
+
+  @IsTest
+  static void testCheckClosedAsNoDefectStatusWasNotDowngraded() {
+    Case record = constuctCaseWithTestFields(null);
+    record.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
+
+    Test.startTest();
+    Boolean result = AutoKYCQACaseActions.checkClosedAsNoDefect(record, null);
+    Test.stopTest();
+
+    Assert.isTrue(result, 'Should be true');
+  }
+
+  @IsTest
+  static void testCheckClosedAsNoDefectStatusWasDowngraded() {
+    Case record = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
+    record.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
+    record.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
+
+    Test.startTest();
+    Boolean result = AutoKYCQACaseActions.checkClosedAsNoDefect(record, null);
+    Test.stopTest();
+
+    Assert.isFalse(result, 'Should be false if case was downgraded');
   }
 }

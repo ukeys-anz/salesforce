@@ -114,7 +114,9 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
       TimeZone tz = TimeZone.getTimeZone('Australia/Sydney');
       //getOffset returns the value in ms, we need it in seconds.
       DateTime utcTime = localTime.addSeconds(
-        -1 * tz.getOffset(localTime) / 1000
+        -1 *
+        tz.getOffset(localTime) /
+        1000
       );
       return utcTime;
     }
@@ -130,7 +132,7 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
     if (dateTimeParam == null) {
       return null;
     }
-    return dateTimeParam.format('dd/MM/yyyy hh:mm a');
+    return dateTimeParam.format('dd/MM/yyyy hh:mm a', 'GMT');
   }
 
   /**
@@ -142,6 +144,6 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
     if (dateTimeParam == null) {
       return null;
     }
-    return dateTimeParam.format('dd/MM/yyyy');
+    return dateTimeParam.format('dd/MM/yyyy', 'GMT');
   }
 }

@@ -6,7 +6,7 @@
     <description>Field representing collateral assessment task required to support a loan application.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Property Valuation Id</label>
+    <label>Collateral Assessment Id</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

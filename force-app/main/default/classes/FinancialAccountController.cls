@@ -149,9 +149,7 @@ public with sharing class FinancialAccountController {
 
       return financialAccounts;
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
-
+      // Not logging anything here, as all exceptions are caught in their respective methods.
       throw new AuraHandledException(
         'Failed to retrieve latest account information. Please refresh and try again. If issue persists please contact your System Administrator'
       );

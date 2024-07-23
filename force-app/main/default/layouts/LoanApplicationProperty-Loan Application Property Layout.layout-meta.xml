@@ -99,10 +99,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>RequestedLoanAmount</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Maximum_Allowable_LVR__c</field>
             </layoutItems>
             <layoutItems>
@@ -136,7 +132,7 @@
                 <field>Collateral_Assessment_Expiry_Time__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Collateral_Assessment_ID__c</field>
             </layoutItems>
         </layoutColumns>
@@ -185,11 +181,10 @@
     </quickActionList>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Ineligibility_Reason_Type__c</fields>
-        <fields>Ineligibility_Reason_Subtype__c</fields>
-        <fields>Ineligibility_Reason_Type_Code__c</fields>
-        <fields>Ineligibility_Reason_Subtype_Code__c</fields>
-        <relatedList>Assessment_Response__c.Loan_Application_Property__c</relatedList>
+        <fields>Property_Owner__c</fields>
+        <fields>Title_Reference__c</fields>
+        <fields>Estate_Type__c</fields>
+        <relatedList>Title_Detail__c.Loan_Application_Property__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>

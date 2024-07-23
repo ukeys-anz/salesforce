@@ -58,6 +58,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.CustomerExitDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.CustomerExitFlag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.IsSnapshotError__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2318,6 +2328,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.RecipientFundsType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Refund_Request_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2879,6 +2894,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Controlling_Post__c.State_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>EmailMessage.Attachment_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>CMOS SI User Query Report</name>
     <columns>
         <field>PermissionSetAssignment$Id</field>
     </columns>
@@ -80,7 +81,6 @@
         <language>en_US</language>
     </filter>
     <format>Tabular</format>
-    <name>CMOS SI User Query Report</name>
     <params>
         <name>co</name>
         <value>1</value>

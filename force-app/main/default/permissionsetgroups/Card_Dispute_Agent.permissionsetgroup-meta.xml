@@ -27,6 +27,7 @@
     <permissionSets>Customer_Dispute_Management_Read_Write</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Onboarding_Read_Only</permissionSets>
+    <permissionSets>Customer_Profile_Update_Read_Write</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>Einstein_Discovery_User</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>

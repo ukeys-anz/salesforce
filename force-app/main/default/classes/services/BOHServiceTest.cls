@@ -13,9 +13,7 @@ public inherited sharing class BOHServiceTest {
     Test.setMock(HttpCalloutMock.class, new MockGearboxCalloutSuccess());
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -63,9 +61,7 @@ public inherited sharing class BOHServiceTest {
     Test.setMock(HttpCalloutMock.class, new MockGearboxCalloutSuccess());
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART +
-      'forgeJWTToken' +
-      ocvId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
       AuthServiceTest.IDTESTVALUE
     );
 

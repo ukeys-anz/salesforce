@@ -86,7 +86,7 @@
                 <field>Loan_Purpose__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>Property_Valuation_Id__c</field>
             </layoutItems>
         </layoutColumns>
@@ -210,7 +210,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h92000002tJDo</masterLabel>
+        <masterLabel>00hOa000000cqvK</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

@@ -30,7 +30,7 @@ jobs:
 
   validation:
     if: ${{ always() }}
-    runs-on: [self-hosted, salesforce-prod]
+    runs-on: anzx-default
     needs: [validation-run]
     steps:
       - if: ${{ (needs.validation-run.result == 'success') || (github.event.pull_request.merged == true) }}

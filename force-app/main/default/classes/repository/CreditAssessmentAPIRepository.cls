@@ -48,6 +48,7 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
       );
       creditEnqAssessment.titleReferenceNumbers = titleRef;
     }
+
     creditEnqAssessment.type = 'ASSESSMENT_TYPE_PROVISIONAL';
     reassessBody.creditEnquiryAssessment = creditEnqAssessment;
     reassessBody.creditEnquiryId = payload.get('creditId');

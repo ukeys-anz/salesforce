@@ -92,7 +92,7 @@
         <values>
             <fullName>Credit Cards %26 Personal Lending</fullName>
             <default>false</default>
-        </values>   
+        </values>
         <values>
             <fullName>Customer Cash Solutions</fullName>
             <default>false</default>
@@ -220,7 +220,7 @@
         <values>
             <fullName>SME Banking</fullName>
             <default>false</default>
-        </values>    
+        </values>
         <values>
             <fullName>Specialist Industries</fullName>
             <default>false</default>
