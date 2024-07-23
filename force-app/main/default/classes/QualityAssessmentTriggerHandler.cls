@@ -38,6 +38,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
     QualityAssessmentTaskActions.createComplianceTasks(records, null);
     IDRQualityAssessmentTaskActions.createQAShareRecord(records, null);
     IDRQualityAssessmentTaskActions.createComplianceTasks(records, null);
+    IDRQualityAssessmentActions.countRecords(
+      records,
+      (new Map<Id, Quality_Assessment__c>())
+    );
   }
 
   /**
@@ -81,6 +85,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
+    IDRQualityAssessmentActions.countRecords(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
   }
 
   /**
@@ -88,6 +96,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    IDRQualityAssessmentActions.setAssessmentOutcomeStatus(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
     QualityAssessmentActions.populateFieldsBeforeTrigger(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap

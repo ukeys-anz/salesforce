@@ -3102,6 +3102,35 @@
                 <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
                 <identifier>RecordC_Q_Manager_Response_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Manager_Response__c</fieldItem>
+                <identifier>RecordC_Q_Manager_Response_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -3136,6 +3165,35 @@
                 <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
                 <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.TM_Response_to_C_Q_Manager_Review__c</fieldItem>
+                <identifier>RecordTM_Response_to_C_Q_Manager_Review_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -3170,6 +3228,35 @@
                 <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
                 <identifier>RecordC_Q_Lead_Response_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>C_Q_Assessment</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.C_Q_Lead_Response__c</fieldItem>
+                <identifier>RecordC_Q_Lead_Response_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Assessment_Outcome_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Accepted</rightValue>
+                    </criteria>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -3305,7 +3392,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Assessment_Outcome_Status__c</fieldItem>
                 <identifier>RecordAssessment_Outcome_Status_cField</identifier>
