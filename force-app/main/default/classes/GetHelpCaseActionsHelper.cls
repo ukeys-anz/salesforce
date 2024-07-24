@@ -163,9 +163,9 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     List<Case> anzPlusCases = new List<Case>();
     List<Id> relatedAccountIDs = new List<Id>();
-    for (Case newCase : records) {
+    List<Case> anzCases = filterANZCases(records);
+    for (Case newCase : anzCases) {
       if (
-        CheckCaseRecordType.isANZPlusCaseType(newCase) &&
         newCase.AccountId != null &&
         (mpOldCasesByIds == null ||
         RecordComparisonUtil.fieldWasChanged(
@@ -179,20 +179,16 @@ public with sharing class GetHelpCaseActionsHelper {
       }
     }
 
-    if (relatedAccountIDs.isEmpty()) {
-      return;
-    }
-
     Map<Id, Account> relatedAccountsMap = queryAccountDetailsSystemMode(
       relatedAccountIDs
     );
 
     for (Case newCaseRecord : anzPlusCases) {
       // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
-      newCaseRecord.ContactId = relatedAccountsMap.get(newCaseRecord.AccountId)
-          .IsPersonAccount
-        ? relatedAccountsMap.get(newCaseRecord.AccountId).PersonContactId
-        : null;
+      newCaseRecord.ContactId = fetchContactIdFromAccount(
+        relatedAccountsMap,
+        newCaseRecord
+      );
     }
   }
 
@@ -1003,6 +999,23 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Check if the cae is a ANZXCase
+   * @param record List of case records which are updated or inserted
+   * @return filtered cases based on record type
+   */
+  private static List<Case> filterANZCases(List<Case> record) {
+    List<Case> caseRecordList = new List<Case>();
+
+    for (Case caseRecord : record) {
+      if (CheckCaseRecordType.isANZPlusCaseType(caseRecord)) {
+        caseRecordList.add(caseRecord);
+      }
+    }
+
+    return caseRecordList;
+  }
+
+  /**
    * @description retrieve the account details in system mode
    * @param relatedAccountIDs Id associated with the newly created cases
    * @return map of account id and account details
@@ -1027,5 +1040,30 @@ public with sharing class GetHelpCaseActionsHelper {
       )
     );
     return relatedAccountsMap;
+  }
+
+  /**
+   * @description  This method determines the contact id to be populated on the case
+   * @param relatedAccountsMap Map of Id and Account related to the case
+   * @param newCaseRecord Case Record for which contact need to be populated
+   * @return  Id of the person contact to be populated on the case
+   */
+  private static Id fetchContactIdFromAccount(
+    Map<Id, Account> relatedAccountsMap,
+    Case newCaseRecord
+  ) {
+    if (
+      relatedAccountsMap.isEmpty() ||
+      !(relatedAccountsMap.containsKey(newCaseRecord.AccountId))
+    ) {
+      return null;
+    }
+
+    Account relatedAccount = relatedAccountsMap.get(newCaseRecord.AccountId);
+    if (!relatedAccount.isPersonAccount) {
+      return null;
+    }
+
+    return relatedAccount.PersonContactId;
   }
 }

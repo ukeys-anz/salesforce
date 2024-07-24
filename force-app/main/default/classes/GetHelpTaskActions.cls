@@ -14,12 +14,18 @@ public with sharing class GetHelpTaskActions {
     .get('Coach_Nudge')
     .getRecordTypeId();
 
+  private static final CoachNudgeRepository COACH_NUDGE_REPOSITORY = (CoachNudgeRepository) Lib_InstanceProvider.forType(
+    CoachNudgeRepository.class
+  );
+
   @TestVisible
   public static final String TASK_SUBTYPE_CALL = 'Task';
   public static final String CALL_SID_IDENTIFIER = 'Call Sid: CA';
   public static final Integer CALL_SID_PREFIX_LENGTH = 10; // 'Call Sid: '
   public static final Integer CALL_SID_LENGTH = 34;
   public static final String TASK_STATUS_EXPIRED = 'Expired';
+  public static final String TASK_SUB_STATUS_AUTO_CANCELLED = 'Auto cancelled';
+  public static final String TASK_SUB_STATUS_CUSTOMER_CANCELLED = 'Customer cancelled';
   public static final String TASK_STATUS_NEW = 'New';
   public static final String TASK_STATUS_NOT_STARTED = 'Not Started';
   public static final String TASK_STATUS_EXPIRED_ERROR_MESSAGE = 'Status Cannot be changed to \'Expired\' manually.';
@@ -199,17 +205,55 @@ public with sharing class GetHelpTaskActions {
     List<Task> records,
     Map<Id, Task> oldMap
   ) {
+    Set<Id> taskRelatedRlaIds = fetchtaskRelatedRlaIds(records);
+    Set<Id> setOfRlaIdsSkipValidationError = COACH_NUDGE_REPOSITORY.queryRLAIdsWithCancelledStatus(
+      taskRelatedRlaIds
+    );
+    Set<Id> checkRecordTypeId = taskRecordTypeIds();
+
     for (Task tsk : records) {
       Task oldTask = oldMap.get(tsk.Id);
       if (
-        (tsk.RecordTypeId == GetHelpConstants.COACH_NUDGE_RT_ID ||
-        tsk.RecordTypeId == GetHelpConstants.CALLBACK_REQUEST_RT_ID) &&
+        (checkRecordTypeId.contains(tsk.RecordTypeId)) &&
+        RecordComparisonUtil.fieldWasChanged(tsk, oldTask, Task.Status) &&
         tsk.Status == TASK_STATUS_EXPIRED &&
-        tsk.Status != oldTask.Status
+        !setOfRlaIdsSkipValidationError.contains(tsk.WhatId)
       ) {
         tsk.addError(TASK_STATUS_EXPIRED_ERROR_MESSAGE);
       }
     }
+  }
+
+  /**
+   * @description To fetch the RLA record is associated to the task record
+   * @param records task record list.
+   * @return Set<Id> residential loan application record ids associated to the task
+   */
+  private static Set<Id> fetchtaskRelatedRlaIds(List<Task> records) {
+    Set<Id> rlaIds = new Set<Id>();
+    for (Task taskRecord : records) {
+      if (taskRecord.WhatId == null) {
+        continue;
+      }
+      if (
+        taskRecord.WhatId.getSobjectType().getDescribe().getName() ==
+        GetHelpConstants.SOBJECT_RLA
+      ) {
+        rlaIds.add(taskRecord.WhatId);
+      }
+    }
+    return rlaIds;
+  }
+
+  /**
+   * @description This method return the record type of the task records for which validation should run
+   * @return Set<Id> set of record type Ids for which an error message needs to be displayed
+   */
+  private static Set<Id> taskRecordTypeIds() {
+    Set<Id> recordtypes = new Set<Id>();
+    recordtypes.add(GetHelpConstants.COACH_NUDGE_RT_ID);
+    recordtypes.add(GetHelpConstants.CALLBACK_REQUEST_RT_ID);
+    return recordtypes;
   }
 
   /**

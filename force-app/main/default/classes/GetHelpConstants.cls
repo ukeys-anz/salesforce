@@ -230,6 +230,12 @@ public with sharing class GetHelpConstants {
     .get('Loan_Application')
     .getRecordTypeId();
 
+  //Residential Loan App Status : Cancelled
+  public static final String RLA_STATUS_CANCELLED = 'STATE_CANCELLED';
+
+  //Residential Loan Application sobject name
+  public static final String SOBJECT_RLA = 'ResidentialLoanApplication';
+
   // Contact Relationship (FinServ__ContactContactRelation__c )
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
