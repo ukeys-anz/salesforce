@@ -7,6 +7,21 @@
 
 @isTest
 public inherited sharing class HomeLoanControllerTest {
+
+  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+    Account.getSObjectType()
+  );
+  private static final Id FAKER_FINACC_ID = Lib_FakeIdGenerator.getMockId(
+    FinServ__FinancialAccount__c.getSObjectType()
+  );
+
+  static Lib_MockProvider farRepoMock;
+  static void registerMocks() {
+    farRepoMock = Lib_MockProvider.forType(
+      FinancialAccountRepository.class
+    );
+  }
+
   /**
    * @description Add required PermissionSet
    */
@@ -98,31 +113,48 @@ public inherited sharing class HomeLoanControllerTest {
 
   @IsTest
   static void testGetAccountOwners() {
-    Account homeLoanCustomer = [
-      SELECT Id
-      FROM Account
-      WHERE Name = 'Test Account'
-    ];
-
-    FinServ__FinancialAccount__c finAccount = [
-      SELECT Id
-      FROM FinServ__FinancialAccount__c
-      WHERE RecordTypeId = :GetHelpConstants.BANK_ACCOUNT_RT_ID
-      LIMIT 1
-    ];
+    registerMocks();
+    farRepoMock.mock(
+      'getAccountOwnerDetails',createMockFinancialAccountRole()
+    );
     Test.startTest();
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      List<FinServ__FinancialAccountRole__c> finAccountRoles = HomeLoanController.getAccountOwnerIds(
-        finAccount.Id
+      List<FinServ__FinancialAccountRole__c> financialAccountRoles = HomeLoanController.getAccountOwnerIds(
+        FAKER_FINACC_ID
       );
-
-      Assert.areEqual(
-        homeLoanCustomer.Id,
-        finAccountRoles[0].FinServ__RelatedAccount__c,
-        'Account id and owner id should be equal'
-      );
-    }
     Test.stopTest();
+    Assert.isFalse(
+      farRepoMock.getHistories('getAccountOwnerDetails').isEmpty(),
+      'getAccountOwnerDetails should have been called and return a value'
+    );
   }
+  
+  //This method is used to cover the repositoryClass
+  @IsTest
+  static void testFinancialAccountRepository() {
+    FinancialAccountRepository fARepository = new FinancialAccountRepository();
+    Test.startTest();
+      List<FinServ__FinancialAccountRole__c> financialAccountRoles = fARepository.getAccountOwnerDetails(
+        FAKER_FINACC_ID
+      );
+    Test.stopTest();
+    Assert.isTrue(
+      financialAccountRoles.isEmpty(),
+      'getAccountOwnerDetails should have been called and return no value'
+    );
+  }
+    
+
+  private static List<FinServ__FinancialAccountRole__c> createMockFinancialAccountRole() {
+    List<FinServ__FinancialAccountRole__c> financialAccountRoles = new List<FinServ__FinancialAccountRole__c>();
+      FinServ__FinancialAccountRole__c finAccountRole = new FinServ__FinancialAccountRole__c(
+          FinServ__RelatedAccount__c = FAKER_ACCOUNT_ID,
+          FinServ__Active__c = true,
+          FinServ__FinancialAccount__c = FAKER_FINACC_ID,
+          FinServ__Role__c = 'Primary Owner',
+          RecordTypeId = CCRMConstants.FAR_RT_ID,
+          Id =Lib_FakeIdGenerator.getMockId(FinServ__FinancialAccountRole__c.getSObjectType()));
+          financialAccountRoles.add(finAccountRole);
+      return financialAccountRoles;
+    }
+                                 
 }

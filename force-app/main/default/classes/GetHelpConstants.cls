@@ -107,12 +107,6 @@ public with sharing class GetHelpConstants {
   //API response of Transaction incoming
   public static final String TRANSFER_INCOMING = 'TRANSFER_INCOMING';
 
-  //Role Types To Include for showing owner names on financial account page
-  public static final Set<String> FINSERV_ROLE_TYPES = new Set<String>{
-    'Additional Owner',
-    'Primary Owner'
-  };
-
   //Financial Account Record types
 
   public static final String CHECKING_ACCOUNT_RT_APINAME = 'CheckingAccount';
