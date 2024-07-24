@@ -7,7 +7,6 @@
 
 @isTest
 public inherited sharing class HomeLoanControllerTest {
-
   private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
     Account.getSObjectType()
   );
@@ -17,9 +16,7 @@ public inherited sharing class HomeLoanControllerTest {
 
   static Lib_MockProvider farRepoMock;
   static void registerMocks() {
-    farRepoMock = Lib_MockProvider.forType(
-      FinancialAccountRepository.class
-    );
+    farRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
   }
 
   /**
@@ -115,46 +112,48 @@ public inherited sharing class HomeLoanControllerTest {
   static void testGetAccountOwners() {
     registerMocks();
     farRepoMock.mock(
-      'getAccountOwnerDetails',createMockFinancialAccountRole()
+      'getAccountOwnerDetails',
+      createMockFinancialAccountRole()
     );
     Test.startTest();
-      List<FinServ__FinancialAccountRole__c> financialAccountRoles = HomeLoanController.getAccountOwnerIds(
-        FAKER_FINACC_ID
-      );
+    List<FinServ__FinancialAccountRole__c> financialAccountRoles = HomeLoanController.getAccountOwnerIds(
+      FAKER_FINACC_ID
+    );
     Test.stopTest();
     Assert.isFalse(
       farRepoMock.getHistories('getAccountOwnerDetails').isEmpty(),
       'getAccountOwnerDetails should have been called and return a value'
     );
   }
-  
+
   //This method is used to cover the repositoryClass
   @IsTest
   static void testFinancialAccountRepository() {
     FinancialAccountRepository fARepository = new FinancialAccountRepository();
     Test.startTest();
-      List<FinServ__FinancialAccountRole__c> financialAccountRoles = fARepository.getAccountOwnerDetails(
-        FAKER_FINACC_ID
-      );
+    List<FinServ__FinancialAccountRole__c> financialAccountRoles = fARepository.getAccountOwnerDetails(
+      FAKER_FINACC_ID
+    );
     Test.stopTest();
     Assert.isTrue(
       financialAccountRoles.isEmpty(),
       'getAccountOwnerDetails should have been called and return no value'
     );
   }
-    
 
   private static List<FinServ__FinancialAccountRole__c> createMockFinancialAccountRole() {
     List<FinServ__FinancialAccountRole__c> financialAccountRoles = new List<FinServ__FinancialAccountRole__c>();
-      FinServ__FinancialAccountRole__c finAccountRole = new FinServ__FinancialAccountRole__c(
-          FinServ__RelatedAccount__c = FAKER_ACCOUNT_ID,
-          FinServ__Active__c = true,
-          FinServ__FinancialAccount__c = FAKER_FINACC_ID,
-          FinServ__Role__c = 'Primary Owner',
-          RecordTypeId = CCRMConstants.FAR_RT_ID,
-          Id =Lib_FakeIdGenerator.getMockId(FinServ__FinancialAccountRole__c.getSObjectType()));
-          financialAccountRoles.add(finAccountRole);
-      return financialAccountRoles;
-    }
-                                 
+    FinServ__FinancialAccountRole__c finAccountRole = new FinServ__FinancialAccountRole__c(
+      FinServ__RelatedAccount__c = FAKER_ACCOUNT_ID,
+      FinServ__Active__c = true,
+      FinServ__FinancialAccount__c = FAKER_FINACC_ID,
+      FinServ__Role__c = 'Primary Owner',
+      RecordTypeId = CCRMConstants.FAR_RT_ID,
+      Id = Lib_FakeIdGenerator.getMockId(
+        FinServ__FinancialAccountRole__c.getSObjectType()
+      )
+    );
+    financialAccountRoles.add(finAccountRole);
+    return financialAccountRoles;
+  }
 }

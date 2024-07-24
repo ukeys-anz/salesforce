@@ -6,11 +6,10 @@
  */
 
 public with sharing class HomeLoanController {
-
   private static final FinancialAccountRepository FAR_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
     FinancialAccountRepository.class
-    );
-  
+  );
+
   /**
    * @description The Person Account Home Loan component uses this to fetch the records to display.
    * This makes the callout to mule to fetch home loan data
